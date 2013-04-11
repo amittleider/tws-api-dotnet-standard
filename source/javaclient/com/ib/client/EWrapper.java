@@ -1,7 +1,6 @@
-/*
- * EWrapper.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 public interface EWrapper extends AnyWrapper {
@@ -55,7 +54,7 @@ public interface EWrapper extends AnyWrapper {
     void marketDataType(int reqId, int marketDataType);
     void commissionReport(CommissionReport commissionReport);
     void position(String account, Contract contract, int pos);
-    void positionEnd();	
+    void positionEnd();
     void accountSummary(int reqId, String account, String tag, String value, String currency);
     void accountSummaryEnd(int reqId);
 }

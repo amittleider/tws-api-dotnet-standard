@@ -1,7 +1,6 @@
-/*
- * Order.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 import java.util.Vector;
@@ -54,7 +53,7 @@ public class Order {
     public double   m_trailStopPrice;   // for TRAILLIMIT orders only
     public double   m_trailingPercent;  // specify the percentage, e.g. 3, not .03
 
-    // Financial advisors only 
+    // Financial advisors only
     public String   m_faGroup;
     public String   m_faProfile;
     public String   m_faMethod;
@@ -105,7 +104,7 @@ public class Order {
     // COMBO ORDERS ONLY
     public double   m_basisPoints;      // EFP orders only, download only
     public int      m_basisPointsType;  // EFP orders only, download only
-    
+
     // SCALE ORDERS ONLY
     public int      m_scaleInitLevelSize;
     public int      m_scaleSubsLevelSize;
@@ -127,7 +126,7 @@ public class Order {
     public String   m_settlingFirm;
     public String   m_clearingAccount; // True beneficiary of the order
     public String   m_clearingIntent; // "" (Default), "IB", "Away", "PTA" (PostTrade)
-    
+
     // ALGO ORDERS ONLY
     public String m_algoStrategy;
     public Vector<TagValue> m_algoParams;
@@ -140,10 +139,10 @@ public class Order {
 
     // Smart combo routing params
     public Vector<TagValue> m_smartComboRoutingParams;
-    
+
     // order combo legs
     public Vector<OrderComboLeg> m_orderComboLegs = new Vector<OrderComboLeg>();
-    
+
     public Order() {
         m_lmtPrice = Double.MAX_VALUE;
         m_auxPrice = Double.MAX_VALUE;
@@ -308,7 +307,7 @@ public class Order {
         if (!Util.VectorEqualsUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
         	return false;
         }
-        
+
         return true;
     }
 }

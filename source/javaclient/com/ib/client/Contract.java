@@ -1,7 +1,6 @@
-/*
- * Contract.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 import java.util.Vector;
@@ -21,14 +20,14 @@ public class Contract implements Cloneable {
     public String m_localSymbol;
     public String m_primaryExch;      // pick a non-aggregate (ie not the SMART exchange) exchange that the contract trades on.  DO NOT SET TO SMART.
     public boolean m_includeExpired;  // can not be set to true for orders.
-    
+
     public String m_secIdType;        // CUSIP;SEDOL;ISIN;RIC
     public String m_secId;
-    
+
     // COMBOS
     public String m_comboLegsDescrip; // received in open order version 14 and up for all combos
     public Vector<ComboLeg> m_comboLegs = new Vector<ComboLeg>();
-    
+
     // delta neutral
     public UnderComp m_underComp;
 
@@ -47,7 +46,7 @@ public class Contract implements Cloneable {
     public Contract(int p_conId, String p_symbol, String p_secType, String p_expiry,
                     double p_strike, String p_right, String p_multiplier,
                     String p_exchange, String p_currency, String p_localSymbol,
-                    Vector<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired, 
+                    Vector<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired,
                     String p_secIdType, String p_secId) {
     	m_conId = p_conId;
         m_symbol = p_symbol;
@@ -77,7 +76,7 @@ public class Contract implements Cloneable {
     	}
 
         Contract l_theOther = (Contract)p_other;
-        
+
         if (m_conId != l_theOther.m_conId) {
         	return false;
         }
@@ -110,7 +109,7 @@ public class Contract implements Cloneable {
         if (Util.StringCompare(m_secIdType, l_theOther.m_secIdType) != 0) {
         	return false;
         }
-        
+
         if (Util.StringCompare(m_secId, l_theOther.m_secId) != 0) {
         	return false;
         }
@@ -119,7 +118,7 @@ public class Contract implements Cloneable {
         if (!Util.VectorEqualsUnordered(m_comboLegs, l_theOther.m_comboLegs)) {
         	return false;
         }
-        
+
         if (m_underComp != l_theOther.m_underComp) {
         	if (m_underComp == null || l_theOther.m_underComp == null) {
         		return false;
