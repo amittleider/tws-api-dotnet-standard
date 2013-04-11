@@ -1,8 +1,6 @@
-/*
- *
- * SmartComboRoutingParamsDlg.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package TestJavaClient;
 
 import java.awt.BorderLayout;
@@ -49,15 +47,15 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 
     public SmartComboRoutingParamsDlg( Order order, JDialog owner) {
         super( owner, true);
-        
+
         m_order = order;
-        
+
         setTitle( "Smart Combo Routing Parameters");
-        
+
         // create smart combo routing params panel
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
         pParamList.setBorder( BorderFactory.createTitledBorder( "Smart Combo Routing Parameters") );
-        
+
         Vector smartComboRoutingParams = m_order.m_smartComboRoutingParams;
         if (smartComboRoutingParams != null) {
         	m_paramModel.smartComboRoutingParams().addAll(smartComboRoutingParams);

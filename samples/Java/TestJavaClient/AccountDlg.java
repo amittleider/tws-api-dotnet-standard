@@ -1,7 +1,6 @@
-/*
- * AccountDlg.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package TestJavaClient;
 
 import java.awt.BorderLayout;
@@ -32,7 +31,7 @@ public class AccountDlg extends JDialog {
     private PortfolioTable 	m_portfolioModel = new PortfolioTable();
     private AcctValueModel 	m_acctValueModel = new AcctValueModel();
     private boolean 		m_rc;
-    
+
     private String m_accountName;
     private boolean m_complete;
 
@@ -97,31 +96,31 @@ public class AccountDlg extends JDialog {
     void updateAccountTime(String timeStamp) {
         m_updateTime.setText(timeStamp);
     }
-    
+
     void accountDownloadBegin(String accountName) {
     	m_accountName = accountName;
     	m_complete = false;
-    	
+
     	updateTitle();
     }
-    
+
 
 
 	void accountDownloadEnd(String accountName) {
-    	
+
     	if ( !Util.StringIsEmpty( m_accountName) &&
     		 !m_accountName.equals( accountName)) {
     		return;
     	}
-    	
+
     	m_complete = true;
        	updateTitle();
     }
-	
+
     private void updateTitle() {
-    	
+
     	String title = new String();
-    	
+
     	if (!Util.StringIsEmpty( m_accountName)) {
     		title += m_accountName;
     	}

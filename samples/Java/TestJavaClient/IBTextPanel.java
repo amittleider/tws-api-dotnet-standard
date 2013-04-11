@@ -1,7 +1,6 @@
-/*
- * IBTextPanel.java
- *
- */
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package TestJavaClient;
 
 import java.awt.BorderLayout;
@@ -81,21 +80,21 @@ class IBTextPanel extends JPanel {
     public void moveCursorToEnd() {
         m_textArea.setCaretPosition(m_textArea.getText().length());
     }
-    
+
     public void moveCursorToBeginning() {
         m_textArea.setCaretPosition(0);
     }
-    
+
     public void add(Collection lines) {
         for (Iterator iter = lines.iterator(); iter.hasNext(); ) {
             add((String)iter.next());
         }
     }
-    
+
     public void addText(String text) {
         add(tokenizedIntoArrayList(detabbed(text), LF));
     }
-    
+
     public static ArrayList tokenizedIntoArrayList(String source, String delimiter) {
         ArrayList list = new ArrayList();
         StringTokenizer st = new StringTokenizer(source, delimiter);
@@ -105,7 +104,7 @@ class IBTextPanel extends JPanel {
         }
         return list;
     }
-    
+
     private String detabbed(String text) {
         return text.replaceAll(TAB, EIGHT_SPACES);
     }
