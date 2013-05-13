@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-import apidemo.util.ConcurrentHashSet;
-
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;

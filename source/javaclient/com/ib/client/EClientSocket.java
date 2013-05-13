@@ -187,12 +187,12 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
 
-    private AnyWrapper 			m_anyWrapper;	// msg handler
-    private DataOutputStream 	m_dos;      // the socket output stream
-    private boolean 			m_connected;// true if we are connected
-    private EReader 			m_reader;   // thread which reads msgs from socket
-    private int 			    m_serverVersion = 0;
-    private String              m_TwsTime;
+    private AnyWrapper m_anyWrapper;		// msg handler
+    protected DataOutputStream 	m_dos;      // the socket output stream
+    private boolean m_connected;			// true if we are connected
+    private EReader m_reader;   			// thread which reads msgs from socket
+    private int m_serverVersion = 0;
+    private String m_TwsTime;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -2132,7 +2132,7 @@ public class EClientSocket {
         return !is( str);
     }
 
-    private void error(int id, EClientErrors.CodeMsgPair pair, String tail) {
+    protected void error(int id, EClientErrors.CodeMsgPair pair, String tail) {
         error(id, pair.code(), pair.msg() + tail);
     }
 
