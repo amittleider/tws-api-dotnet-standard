@@ -5,13 +5,14 @@ package com.ib.client;
 
 
 public class EClientErrors {
-    static final int NO_VALID_ID = -1;
+	public static final int NO_VALID_ID = -1;
 
     static final CodeMsgPair ALREADY_CONNECTED = new CodeMsgPair(501, "Already connected.");
     static final CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, "Couldn't connect to TWS.  Confirm that \"Enable ActiveX and Socket Clients\" is enabled on the TWS \"Configure->API\" menu.");
-    static final CodeMsgPair UPDATE_TWS = new CodeMsgPair(503, "The TWS is out of date and must be upgraded.");
-    static final CodeMsgPair NOT_CONNECTED = new CodeMsgPair(504, "Not connected");
+    public static final CodeMsgPair UPDATE_TWS = new CodeMsgPair(503, "The TWS is out of date and must be upgraded.");
+    public static final CodeMsgPair NOT_CONNECTED = new CodeMsgPair(504, "Not connected");
     static final CodeMsgPair UNKNOWN_ID = new CodeMsgPair(505,	"Fatal Error: Unknown message id.");
+    static final CodeMsgPair FAIL_SEND = new CodeMsgPair(509, "Failed to send message - "); // generic message; all future messages should use this
     static final CodeMsgPair FAIL_SEND_REQMKT = new CodeMsgPair(510, "Request Market Data Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANMKT = new CodeMsgPair(511, "Cancel Market Data Sending Error - ");
     static final CodeMsgPair FAIL_SEND_ORDER = new CodeMsgPair(512,	"Order Sending Error - ");
