@@ -87,8 +87,10 @@ public class EClientSocket {
 	// 59 = can receive evRule, evMultiplier in contractDescription/bondContractDescription/executionDetails
 	//      can receive multiplier in executionDetails
 	// 60 = can receive deltaNeutralOpenClose, deltaNeutralShortSale, deltaNeutralShortSaleSlot and deltaNeutralDesignatedLocation in openOrder
+	// 61 = can receive multiplier in openOrder
+	//      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
 
-    private static final int CLIENT_VERSION = 60;
+    private static final int CLIENT_VERSION = 61;
     private static final int SERVER_VERSION = 38;
     private static final byte[] EOL = {0};
     private static final String BAG_SEC_TYPE = "BAG";
@@ -186,6 +188,7 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_TRAILING_PERCENT = 62;
     private static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
+    private static final int MIN_SERVER_VER_TRADING_CLASS = 68;
 
     private AnyWrapper 			m_anyWrapper;	// msg handler
     private DataOutputStream 	m_dos;      // the socket output stream
@@ -451,7 +454,15 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 9;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass)) {
+                error(tickerId, EClientErrors.UPDATE_TWS,
+                    "  It does not support tradingClass parameter in reqMarketData.");
+                return;
+            }
+        }
+
+        final int VERSION = 10;
 
         try {
             // send req mkt data msg
@@ -478,6 +489,9 @@ public class EClientSocket {
             send(contract.m_currency);
             if(m_serverVersion >= 2) {
                 send( contract.m_localSymbol);
+            }
+            if(m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send( contract.m_tradingClass);
             }
             if(m_serverVersion >= 8 && BAG_SEC_TYPE.equalsIgnoreCase(contract.m_secType)) {
                 if ( contract.m_comboLegs == null ) {
@@ -595,7 +609,7 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 4;
+        final int VERSION = 5;
 
         try {
           if (m_serverVersion < 16) {
@@ -604,11 +618,22 @@ public class EClientSocket {
             return;
           }
 
+          if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+              if (!IsEmpty(contract.m_tradingClass) || (contract.m_conId > 0)) {
+                  error(tickerId, EClientErrors.UPDATE_TWS,
+                      "  It does not support conId and tradingClass parameters in reqHistroricalData.");
+                  return;
+              }
+          }
+
           send(REQ_HISTORICAL_DATA);
           send(VERSION);
           send(tickerId);
 
           // send contract fields
+          if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+              send(contract.m_conId);
+          }
           send(contract.m_symbol);
           send(contract.m_secType);
           send(contract.m_expiry);
@@ -619,6 +644,9 @@ public class EClientSocket {
           send(contract.m_primaryExch);
           send(contract.m_currency);
           send(contract.m_localSymbol);
+          if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+              send(contract.m_tradingClass);
+          }
           if (m_serverVersion >= 31) {
         	  send(contract.m_includeExpired ? 1 : 0);
           }
@@ -667,8 +695,15 @@ public class EClientSocket {
                   "  It does not support real time bars.");
             return;
         }
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass) || (contract.m_conId > 0)) {
+                  error(tickerId, EClientErrors.UPDATE_TWS,
+                      "  It does not support conId and tradingClass parameters in reqRealTimeBars.");
+                  return;
+            }
+        }
 
-        final int VERSION = 1;
+        final int VERSION = 2;
 
         try {
             // send req mkt data msg
@@ -677,6 +712,9 @@ public class EClientSocket {
             send(tickerId);
 
             // send contract fields
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_conId);
+            }
             send(contract.m_symbol);
             send(contract.m_secType);
             send(contract.m_expiry);
@@ -687,6 +725,9 @@ public class EClientSocket {
             send(contract.m_primaryExch);
             send(contract.m_currency);
             send(contract.m_localSymbol);
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
+            }
             send(barSize);  // this parameter is not currently used
             send(whatToShow);
             send(useRTH);
@@ -722,7 +763,15 @@ public class EClientSocket {
         	}
         }
 
-        final int VERSION = 6;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass)) {
+                  error(reqId, EClientErrors.UPDATE_TWS,
+                      "  It does not support tradingClass parameter in reqContractDetails.");
+                  return;
+            }
+        }
+
+        final int VERSION = 7;
 
         try {
             // send req mkt data msg
@@ -748,6 +797,9 @@ public class EClientSocket {
             send( contract.m_exchange);
             send( contract.m_currency);
             send( contract.m_localSymbol);
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
+            }
             if (m_serverVersion >= 31) {
                 send(contract.m_includeExpired);
             }
@@ -778,7 +830,15 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 3;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass) || (contract.m_conId > 0)) {
+                  error(tickerId, EClientErrors.UPDATE_TWS,
+                      "  It does not support conId and tradingClass parameters in reqMktDepth.");
+                  return;
+            }
+        }
+
+        final int VERSION = 4;
 
         try {
             // send req mkt data msg
@@ -787,6 +847,9 @@ public class EClientSocket {
             send( tickerId);
 
             // send contract fields
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_conId);
+            }
             send( contract.m_symbol);
             send( contract.m_secType);
             send( contract.m_expiry);
@@ -798,6 +861,9 @@ public class EClientSocket {
             send( contract.m_exchange);
             send( contract.m_currency);
             send( contract.m_localSymbol);
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
+            }
             if (m_serverVersion >= 19) {
                 send( numRows);
             }
@@ -866,7 +932,7 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 1;
+        final int VERSION = 2;
 
         try {
           if (m_serverVersion < 21) {
@@ -875,11 +941,22 @@ public class EClientSocket {
             return;
           }
 
+          if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+              if (!IsEmpty(contract.m_tradingClass) || (contract.m_conId > 0)) {
+                    error(tickerId, EClientErrors.UPDATE_TWS,
+                        "  It does not support conId and tradingClass parameters in exerciseOptions.");
+                    return;
+              }
+          }
+
           send(EXERCISE_OPTIONS);
           send(VERSION);
           send(tickerId);
 
           // send contract fields
+          if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+              send(contract.m_conId);
+          }
           send(contract.m_symbol);
           send(contract.m_secType);
           send(contract.m_expiry);
@@ -889,6 +966,9 @@ public class EClientSocket {
           send(contract.m_exchange);
           send(contract.m_currency);
           send(contract.m_localSymbol);
+          if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+              send(contract.m_tradingClass);
+          }
           send(exerciseAction);
           send(exerciseQuantity);
           send(account);
@@ -1088,7 +1168,15 @@ public class EClientSocket {
         	}
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 39;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass)) {
+                  error(id, EClientErrors.UPDATE_TWS,
+                      "  It does not support tradingClass parameters in placeOrder.");
+                  return;
+            }
+        }
+
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 40;
 
         // send place order msg
         try {
@@ -1115,6 +1203,9 @@ public class EClientSocket {
             send( contract.m_currency);
             if( m_serverVersion >= 2) {
                 send (contract.m_localSymbol);
+            }
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
             }
             if( m_serverVersion >= MIN_SERVER_VER_SEC_ID_TYPE){
             	send( contract.m_secIdType);
@@ -1752,7 +1843,15 @@ public class EClientSocket {
         	return;
         }
 
-        final int VERSION = 1;
+        if( m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if( contract.m_conId > 0) {
+                  error(reqId, EClientErrors.UPDATE_TWS,
+                      "  It does not support conId parameter in reqFundamentalData.");
+                  return;
+            }
+        }
+
+        final int VERSION = 2;
 
         try {
             // send req fund data msg
@@ -1761,6 +1860,9 @@ public class EClientSocket {
             send( reqId);
 
             // send contract fields
+            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_conId);
+            }
             send( contract.m_symbol);
             send( contract.m_secType);
             send( contract.m_exchange);
@@ -1816,7 +1918,15 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 1;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass)) {
+                  error(reqId, EClientErrors.UPDATE_TWS,
+                      "  It does not support tradingClass parameter in calculateImpliedVolatility.");
+                  return;
+            }
+        }
+
+        final int VERSION = 2;
 
         try {
             // send calculate implied volatility msg
@@ -1836,6 +1946,9 @@ public class EClientSocket {
             send( contract.m_primaryExch);
             send( contract.m_currency);
             send( contract.m_localSymbol);
+            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
+            }
 
             send( optionPrice);
             send( underPrice);
@@ -1887,7 +2000,15 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 1;
+        if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
+            if (!IsEmpty(contract.m_tradingClass)) {
+                  error(reqId, EClientErrors.UPDATE_TWS,
+                      "  It does not support tradingClass parameter in calculateOptionPrice.");
+                  return;
+            }
+        }
+
+        final int VERSION = 2;
 
         try {
             // send calculate option price msg
@@ -1907,6 +2028,9 @@ public class EClientSocket {
             send( contract.m_primaryExch);
             send( contract.m_currency);
             send( contract.m_localSymbol);
+            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                send(contract.m_tradingClass);
+            }
 
             send( volatility);
             send( underPrice);
