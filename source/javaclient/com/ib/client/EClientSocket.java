@@ -190,25 +190,22 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
     private static final int MIN_SERVER_VER_TRADING_CLASS = 68;
 
-    private AnyWrapper 			m_anyWrapper;	// msg handler
-    private DataOutputStream 	m_dos;      // the socket output stream
-    private boolean 			m_connected;// true if we are connected
-    private EReader 			m_reader;   // thread which reads msgs from socket
-    private int 			    m_serverVersion = 0;
-    private String              m_TwsTime;
+    private AnyWrapper m_anyWrapper;    // msg handler
+    protected DataOutputStream m_dos;   // the socket output stream
+    private boolean m_connected;        // true if we are connected
+    private EReader m_reader;           // thread which reads msgs from socket
+    private int m_serverVersion;
+    private String m_TwsTime;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
     public AnyWrapper wrapper() 		{ return m_anyWrapper; }
     public EReader reader()             { return m_reader; }
+    public boolean isConnected() 		{ return m_connected; }
 
 
     public EClientSocket( AnyWrapper anyWrapper) {
         m_anyWrapper = anyWrapper;
-    }
-
-    public boolean isConnected() {
-        return m_connected;
     }
 
     public synchronized void eConnect( String host, int port, int clientId) {
@@ -323,7 +320,7 @@ public class EClientSocket {
     public synchronized void cancelScannerSubscription( int tickerId) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -349,8 +346,8 @@ public class EClientSocket {
 
     public synchronized void reqScannerParameters() {
         // not connected?
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -373,11 +370,10 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqScannerSubscription( int tickerId,
-        ScannerSubscription subscription) {
+    public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription) {
         // not connected?
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -547,7 +543,7 @@ public class EClientSocket {
     public synchronized void cancelHistoricalData( int tickerId ) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -574,7 +570,7 @@ public class EClientSocket {
     public void cancelRealTimeBars(int tickerId) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -605,7 +601,7 @@ public class EClientSocket {
                                                 int useRTH, int formatDate) {
         // not connected?
         if( !m_connected) {
-            error( tickerId, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -686,10 +682,11 @@ public class EClientSocket {
 
     public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH) {
         // not connected?
-        if (!m_connected ) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        if( !m_connected) {
+            notConnected();
             return;
         }
+
         if (m_serverVersion < MIN_SERVER_VER_REAL_TIME_BARS) {
             error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
                   "  It does not support real time bars.");
@@ -737,14 +734,12 @@ public class EClientSocket {
             error( tickerId, EClientErrors.FAIL_SEND_REQRTBARS, "" + e);
             close();
         }
-
     }
 
-    public synchronized void reqContractDetails(int reqId, Contract contract)
-    {
+    public synchronized void reqContractDetails(int reqId, Contract contract) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -815,11 +810,10 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows)
-    {
+    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -877,7 +871,7 @@ public class EClientSocket {
     public synchronized void cancelMktData( int tickerId) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -898,7 +892,7 @@ public class EClientSocket {
     public synchronized void cancelMktDepth( int tickerId) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -928,7 +922,7 @@ public class EClientSocket {
                                               String account, int override) {
         // not connected?
         if( !m_connected) {
-            error( tickerId, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -983,7 +977,7 @@ public class EClientSocket {
     public synchronized void placeOrder( int id, Contract contract, Order order) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1505,7 +1499,7 @@ public class EClientSocket {
     public synchronized void reqAccountUpdates(boolean subscribe, String acctCode) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1531,7 +1525,7 @@ public class EClientSocket {
     public synchronized void reqExecutions(int reqId, ExecutionFilter filter) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1568,7 +1562,7 @@ public class EClientSocket {
     public synchronized void cancelOrder( int id) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1589,7 +1583,7 @@ public class EClientSocket {
     public synchronized void reqOpenOrders() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1609,7 +1603,7 @@ public class EClientSocket {
     public synchronized void reqIds( int numIds) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1629,7 +1623,7 @@ public class EClientSocket {
     public synchronized void reqNewsBulletins( boolean allMsgs) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1649,7 +1643,7 @@ public class EClientSocket {
     public synchronized void cancelNewsBulletins() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1669,7 +1663,7 @@ public class EClientSocket {
     public synchronized void setServerLogLevel(int logLevel) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1687,11 +1681,10 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqAutoOpenOrders(boolean bAutoBind)
-    {
+    public synchronized void reqAutoOpenOrders(boolean bAutoBind) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1712,7 +1705,7 @@ public class EClientSocket {
     public synchronized void reqAllOpenOrders() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1732,7 +1725,7 @@ public class EClientSocket {
     public synchronized void reqManagedAccts() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1752,7 +1745,7 @@ public class EClientSocket {
     public synchronized void requestFA( int faDataType ) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1779,7 +1772,7 @@ public class EClientSocket {
     public synchronized void replaceFA( int faDataType, String xml ) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1807,7 +1800,7 @@ public class EClientSocket {
     public synchronized void reqCurrentTime() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1830,10 +1823,10 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqFundamentalData(int reqId, Contract contract,
-    		String reportType) {
+    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType) {
+        // not connected?
         if( !m_connected) {
-            error( reqId, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1879,8 +1872,9 @@ public class EClientSocket {
     }
 
     public synchronized void cancelFundamentalData(int reqId) {
+        // not connected?
         if( !m_connected) {
-            error( reqId, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -1907,8 +1901,9 @@ public class EClientSocket {
     public synchronized void calculateImpliedVolatility(int reqId, Contract contract,
             double optionPrice, double underPrice) {
 
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -1961,8 +1956,9 @@ public class EClientSocket {
 
     public synchronized void cancelCalculateImpliedVolatility(int reqId) {
 
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -1989,8 +1985,9 @@ public class EClientSocket {
     public synchronized void calculateOptionPrice(int reqId, Contract contract,
             double volatility, double underPrice) {
 
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2043,8 +2040,9 @@ public class EClientSocket {
 
     public synchronized void cancelCalculateOptionPrice(int reqId) {
 
-        if (!m_connected) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2071,7 +2069,7 @@ public class EClientSocket {
     public synchronized void reqGlobalCancel() {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -2097,7 +2095,7 @@ public class EClientSocket {
     public synchronized void reqMarketDataType(int marketDataType) {
         // not connected?
         if( !m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+            notConnected();
             return;
         }
 
@@ -2122,8 +2120,9 @@ public class EClientSocket {
     }
 
     public synchronized void reqPositions() {
-        if (!m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2149,8 +2148,9 @@ public class EClientSocket {
     }
 
     public synchronized void cancelPositions() {
-        if (!m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2175,8 +2175,9 @@ public class EClientSocket {
     }
 
     public synchronized void reqAccountSummary( int reqId, String group, String tags) {
-        if (!m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2204,8 +2205,9 @@ public class EClientSocket {
     }
 
 	public synchronized void cancelAccountSummary( int reqId) {
-        if (!m_connected) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+        // not connected?
+        if( !m_connected) {
+            notConnected();
             return;
         }
 
@@ -2254,7 +2256,7 @@ public class EClientSocket {
         return !is( str);
     }
 
-    private void error(int id, EClientErrors.CodeMsgPair pair, String tail) {
+    protected void error(int id, EClientErrors.CodeMsgPair pair, String tail) {
         error(id, pair.code(), pair.msg() + tail);
     }
 
@@ -2314,4 +2316,7 @@ public class EClientSocket {
     	return Util.StringIsEmpty(str);
     }
 
+    protected void notConnected() {
+        error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
+    }
 }
