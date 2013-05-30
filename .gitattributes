@@ -1,2 +1,3 @@
 * text
 * eol=lf
+*.xls -text -eol
