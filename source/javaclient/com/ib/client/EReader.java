@@ -156,8 +156,12 @@ public class EReader extends Thread {
                 }
 
                 int pos = readInt();
+                double avgCost = 0;
+                if (version >= 3) {
+                	avgCost = readDouble();
+                }
 
-                eWrapper().position( account, contract, pos);
+                eWrapper().position( account, contract, pos, avgCost);
                 break;
             }
 

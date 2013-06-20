@@ -143,7 +143,7 @@ public class Test implements EWrapper {
 	@Override public void commissionReport(CommissionReport commissionReport) {
 	}
 
-	@Override public void position(String account, Contract contract, int pos) {
+	@Override public void position(String account, Contract contract, int pos, double avgCost) {
 	}
 
 	@Override public void positionEnd() {

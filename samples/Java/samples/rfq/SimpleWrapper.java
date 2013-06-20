@@ -230,7 +230,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	
-	public void position(String account, Contract contract, int pos) {
+	public void position(String account, Contract contract, int pos, double avgCost) {
 		logIn("position");
 	}
 	

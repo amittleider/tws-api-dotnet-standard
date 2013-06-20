@@ -89,8 +89,9 @@ public class EClientSocket {
 	// 60 = can receive deltaNeutralOpenClose, deltaNeutralShortSale, deltaNeutralShortSaleSlot and deltaNeutralDesignatedLocation in openOrder
 	// 61 = can receive multiplier in openOrder
 	//      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
+	// 62 = can receive avgCost in position message
 
-    private static final int CLIENT_VERSION = 61;
+    private static final int CLIENT_VERSION = 62;
     private static final int SERVER_VERSION = 38;
     private static final byte[] EOL = {0};
     private static final String BAG_SEC_TYPE = "BAG";

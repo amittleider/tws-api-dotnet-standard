@@ -1132,8 +1132,8 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.m_clearingIntent = srcOrder.m_clearingIntent;
     }
 
-    public void position(String account, Contract contract, int pos) {
-        String msg = EWrapperMsgGenerator.position(account, contract, pos);
+    public void position(String account, Contract contract, int pos, double avgCost) {
+        String msg = EWrapperMsgGenerator.position(account, contract, pos, avgCost);
         m_TWS.add(msg);
     }
 
