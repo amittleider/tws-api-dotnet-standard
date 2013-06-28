@@ -18,6 +18,7 @@ import apidemo.util.HtmlButton;
 import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 
+import com.ib.controller.Formats;
 import com.ib.controller.NewContract;
 import com.ib.controller.ApiController.IPositionHandler;
 
@@ -74,7 +75,7 @@ public class PositionsPanel extends NewTabPanel {
 		HashMap<PositionKey,PositionRow> m_map = new HashMap<PositionKey,PositionRow>();
 		ArrayList<PositionRow> m_list = new ArrayList<PositionRow>();
 
-		@Override public void position(String account, NewContract contract, int position) {
+		@Override public void position(String account, NewContract contract, int position, double avgCost) {
 			PositionKey key = new PositionKey( account, contract.conid() );
 			PositionRow row = m_map.get( key);
 			if (row == null) {
@@ -82,7 +83,7 @@ public class PositionsPanel extends NewTabPanel {
 				m_map.put( key, row);
 				m_list.add( row);
 			}
-			row.update( account, contract, position);
+			row.update( account, contract, position, avgCost);
 			
 			if (m_complete) {
 				m_model.fireTableDataChanged();
@@ -105,7 +106,7 @@ public class PositionsPanel extends NewTabPanel {
 		}
 
 		@Override public int getColumnCount() {
-			return 3;
+			return 4;
 		}
 		
 		@Override public String getColumnName(int col) {
@@ -113,6 +114,7 @@ public class PositionsPanel extends NewTabPanel {
 				case 0: return "Account";
 				case 1: return "Contract";
 				case 2: return "Position";
+				case 3: return "Avg Cost";
 				default: return null;
 			}
 		}
@@ -124,6 +126,7 @@ public class PositionsPanel extends NewTabPanel {
 				case 0: return row.m_account;
 				case 1: return row.m_contract.description();
 				case 2: return row.m_position;
+				case 3: return Formats.fmt( row.m_avgCost);
 				default: return null;
 			}
 		}
@@ -152,11 +155,13 @@ public class PositionsPanel extends NewTabPanel {
 		String m_account;
 		NewContract m_contract;
 		int m_position;
+		double m_avgCost;
 
-		void update(String account, NewContract contract, int position) {
+		void update(String account, NewContract contract, int position, double avgCost) {
 			m_account = account;
 			m_contract = contract;
 			m_position = position;
+			m_avgCost = avgCost;
 		}
 	}
 }

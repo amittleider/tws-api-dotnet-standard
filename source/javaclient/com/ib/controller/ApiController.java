@@ -271,7 +271,7 @@ public class ApiController implements EWrapper {
 
 	// ---------------------------------------- Position handling ----------------------------------------
 	public interface IPositionHandler {
-		void position( String account, NewContract contract, int position);
+		void position( String account, NewContract contract, int position, double avgCost);
 		void positionEnd();
 	}
 
@@ -287,10 +287,10 @@ public class ApiController implements EWrapper {
 		sendEOM();
 	}
 
-	@Override public void position(String account, Contract contractIn, int pos) {
+	@Override public void position(String account, Contract contractIn, int pos, double avgCost) {
 		NewContract contract = new NewContract( contractIn);
 		for (IPositionHandler handler : m_positionHandlers) {
-			handler.position( account, contract, pos);
+			handler.position( account, contract, pos, avgCost);
 		}
 		recEOM();
 	}

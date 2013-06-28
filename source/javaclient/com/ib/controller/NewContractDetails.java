@@ -13,7 +13,6 @@ import com.ib.client.TagValue;
 public class NewContractDetails {
 	private NewContract m_contract;
 	private String m_marketName;
-	private String m_tradingClass;
 	private double m_minTick;
 	private int m_priceMagnifier;
 	private String m_orderTypes;
@@ -51,7 +50,6 @@ public class NewContractDetails {
 	public int conid() 					{ return m_contract.conid(); }
 	public NewContract contract() 		{ return m_contract; }
 	public String marketName() 			{ return m_marketName; }
-	public String tradingClass() 		{ return m_tradingClass; }
 	public double minTick() 			{ return m_minTick; }
 	public int PripeMagnifier() 		{ return m_priceMagnifier; }
 	public String orderTypes() 			{ return m_orderTypes; }
@@ -87,7 +85,6 @@ public class NewContractDetails {
 	public NewContractDetails( ContractDetails other) {
 		m_contract = new NewContract( other.m_summary);
 		m_marketName = other.m_marketName;
-		m_tradingClass = other.m_tradingClass;
 		m_minTick = other.m_minTick;
 		m_priceMagnifier = other.m_priceMagnifier;
 		m_orderTypes = other.m_orderTypes;
@@ -125,7 +122,6 @@ public class NewContractDetails {
 	    StringBuilder sb = new StringBuilder( m_contract.toString() );
 
 	    add( sb, "marketName", m_marketName);
-	    add( sb, "tradingClass", m_tradingClass);
 	    add( sb, "minTick", m_minTick);
 	    add( sb, "priceMagnifier", m_priceMagnifier);
 	    add( sb, "orderTypes", m_orderTypes);
