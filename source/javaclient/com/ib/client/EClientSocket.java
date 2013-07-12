@@ -190,6 +190,7 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
     private static final int MIN_SERVER_VER_TRADING_CLASS = 68;
+    private static final int MIN_SERVER_VER_SCALE_TABLE = 69;
 
     private AnyWrapper m_anyWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -1171,7 +1172,7 @@ public class EClientSocket {
             }
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 40;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 41;
 
         // send place order msg
         try {
@@ -1436,6 +1437,12 @@ public class EClientSocket {
                sendMax (order.m_scaleInitPosition);
                sendMax (order.m_scaleInitFillQty);
                send (order.m_scaleRandomPercent);
+           }
+
+           if (m_serverVersion >= MIN_SERVER_VER_SCALE_TABLE) {
+               send ("");
+               send ("");
+               send ("");
            }
 
            if (m_serverVersion >= MIN_SERVER_VER_HEDGE_ORDERS) {
