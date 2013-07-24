@@ -1064,6 +1064,8 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private void copyExtendedOrderDetails( Order destOrder, Order srcOrder) {
         destOrder.m_tif = srcOrder.m_tif;
+        destOrder.m_activeStartTime = srcOrder.m_activeStartTime;
+        destOrder.m_activeStopTime = srcOrder.m_activeStopTime;
         destOrder.m_ocaGroup = srcOrder.m_ocaGroup;
         destOrder.m_ocaType = srcOrder.m_ocaType;
         destOrder.m_openClose = srcOrder.m_openClose;
@@ -1124,6 +1126,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.m_scaleInitPosition = srcOrder.m_scaleInitPosition;
         destOrder.m_scaleInitFillQty = srcOrder.m_scaleInitFillQty;
         destOrder.m_scaleRandomPercent = srcOrder.m_scaleRandomPercent;
+        destOrder.m_scaleTable = srcOrder.m_scaleTable;
         destOrder.m_hedgeType = srcOrder.m_hedgeType;
         destOrder.m_hedgeParam = srcOrder.m_hedgeParam;
         destOrder.m_account = srcOrder.m_account;
