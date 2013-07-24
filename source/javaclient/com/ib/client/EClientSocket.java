@@ -1172,6 +1172,14 @@ public class EClientSocket {
             }
         }
 
+        if (m_serverVersion < MIN_SERVER_VER_SCALE_TABLE) {
+            if (!IsEmpty(order.m_scaleTable) || !IsEmpty(order.m_activeStartTime) || !IsEmpty(order.m_activeStopTime)) {
+                  error(id, EClientErrors.UPDATE_TWS,
+                      "  It does not support scaleTable, activeStartTime and activeStopTime parameters.");
+                  return;
+            }
+        }
+
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 41;
 
         // send place order msg
@@ -1440,9 +1448,9 @@ public class EClientSocket {
            }
 
            if (m_serverVersion >= MIN_SERVER_VER_SCALE_TABLE) {
-               send ("");
-               send ("");
-               send ("");
+               send (order.m_scaleTable);
+               send (order.m_activeStartTime);
+               send (order.m_activeStopTime);
            }
 
            if (m_serverVersion >= MIN_SERVER_VER_HEDGE_ORDERS) {
