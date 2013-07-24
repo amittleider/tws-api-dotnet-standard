@@ -190,13 +190,13 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
     private static final int MIN_SERVER_VER_TRADING_CLASS = 68;
-    private static final int MIN_SERVER_VER_SCALE_TABLE = 69;
+    protected static final int MIN_SERVER_VER_SCALE_TABLE = 69;
 
     private AnyWrapper m_anyWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
     private boolean m_connected;        // true if we are connected
     private EReader m_reader;           // thread which reads msgs from socket
-    private int m_serverVersion;
+    protected int m_serverVersion;
     private String m_TwsTime;
 
     public int serverVersion()          { return m_serverVersion;   }

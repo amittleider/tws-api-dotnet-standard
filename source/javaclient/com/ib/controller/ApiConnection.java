@@ -194,9 +194,9 @@ public class ApiConnection extends EClientSocket {
 			b.send( order.referencePriceType() );
 			b.send( order.trailStopPrice() );
 			b.send( order.trailingPercent() );
-			b.send (order.scaleInitLevelSize() );
-			b.send (order.scaleSubsLevelSize() );
-			b.send (order.scalePriceIncrement() );
+			b.send( order.scaleInitLevelSize() );
+			b.send( order.scaleSubsLevelSize() );
+			b.send( order.scalePriceIncrement() );
 
 			if (order.scalePriceIncrement() != 0 && order.scalePriceIncrement() != Double.MAX_VALUE) {
 				b.send( order.scalePriceAdjustValue() );
@@ -208,7 +208,13 @@ public class ApiConnection extends EClientSocket {
 				b.send( order.scaleRandomPercent() );
 			}
 
-			b.send( order.hedgeType() );
+			if (m_serverVersion >= MIN_SERVER_VER_SCALE_TABLE) {
+				send( ""); // manual scale table
+				send( ""); // active start time
+				send( ""); // active stop time
+			}
+
+	        b.send( order.hedgeType() );
 			if (order.hedgeType() != HedgeType.None) {
 				b.send( order.hedgeParam() );
 			}
