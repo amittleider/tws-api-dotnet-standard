@@ -1,0 +1,7 @@
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\bin\Debug\IBSamples.exe
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\bin\Debug\IBSamples.pdb
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\bin\Debug\CSharpAPI.dll
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\bin\Debug\CSharpAPI.pdb
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\obj\x86\Debug\IBSamples.exe
+C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\IBSamples\obj\x86\Debug\IBSamples.pdb
