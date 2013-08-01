@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.ib.client.AnyWrapperMsgGenerator;
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -922,19 +923,19 @@ class SampleFrame extends JFrame implements EWrapper {
     public void error(Exception ex) {
         // do not report exceptions if we initiated disconnect
         if (!m_disconnectInProgress) {
-            String msg = EWrapperMsgGenerator.error(ex);
+            String msg = AnyWrapperMsgGenerator.error(ex);
             Main.inform( this, msg);
         }
     }
 
     public void error( String str) {
-    	String msg = EWrapperMsgGenerator.error(str);
+    	String msg = AnyWrapperMsgGenerator.error(str);
         m_errors.add( msg);
     }
 
     public void error( int id, int errorCode, String errorMsg) {
         // received error
-    	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg);
+    	String msg = AnyWrapperMsgGenerator.error(id, errorCode, errorMsg);
         m_errors.add( msg);
         for (int ctr=0; ctr < faErrorCodes.length; ctr++) {
             faError |= (errorCode == faErrorCodes[ctr]);
@@ -951,7 +952,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void connectionClosed() {
-        String msg = EWrapperMsgGenerator.connectionClosed();
+        String msg = AnyWrapperMsgGenerator.connectionClosed();
         Main.inform( this, msg);
     }
 
@@ -1062,7 +1063,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_TWS.add(msg);
     }
 
-    private void copyExtendedOrderDetails( Order destOrder, Order srcOrder) {
+    private static void copyExtendedOrderDetails( Order destOrder, Order srcOrder) {
         destOrder.m_tif = srcOrder.m_tif;
         destOrder.m_activeStartTime = srcOrder.m_activeStartTime;
         destOrder.m_activeStopTime = srcOrder.m_activeStopTime;

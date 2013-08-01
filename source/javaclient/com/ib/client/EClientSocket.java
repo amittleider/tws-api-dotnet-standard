@@ -500,7 +500,7 @@ public class EClientSocket {
 
                     ComboLeg comboLeg;
                     for (int i=0; i < contract.m_comboLegs.size(); i ++) {
-                        comboLeg = (ComboLeg)contract.m_comboLegs.get(i);
+                        comboLeg = contract.m_comboLegs.get(i);
                         send( comboLeg.m_conId);
                         send( comboLeg.m_ratio);
                         send( comboLeg.m_action);
@@ -667,7 +667,7 @@ public class EClientSocket {
 
                   ComboLeg comboLeg;
                   for (int i = 0; i < contract.m_comboLegs.size(); i++) {
-                      comboLeg = (ComboLeg) contract.m_comboLegs.get(i);
+                      comboLeg = contract.m_comboLegs.get(i);
                       send(comboLeg.m_conId);
                       send(comboLeg.m_ratio);
                       send(comboLeg.m_action);
@@ -996,7 +996,7 @@ public class EClientSocket {
         	if (!contract.m_comboLegs.isEmpty()) {
                 ComboLeg comboLeg;
                 for (int i = 0; i < contract.m_comboLegs.size(); ++i) {
-                    comboLeg = (ComboLeg)contract.m_comboLegs.get(i);
+                    comboLeg = contract.m_comboLegs.get(i);
                     if (comboLeg.m_shortSaleSlot != 0 ||
                     	!IsEmpty(comboLeg.m_designatedLocation)) {
                 		error(id, EClientErrors.UPDATE_TWS,
@@ -1075,7 +1075,7 @@ public class EClientSocket {
         	if (!contract.m_comboLegs.isEmpty()) {
                 ComboLeg comboLeg;
                 for (int i = 0; i < contract.m_comboLegs.size(); ++i) {
-                    comboLeg = (ComboLeg)contract.m_comboLegs.get(i);
+                    comboLeg = contract.m_comboLegs.get(i);
                     if (comboLeg.m_exemptCode != -1) {
                 		error(id, EClientErrors.UPDATE_TWS,
                 			"  It does not support exemptCode parameter.");
@@ -1146,7 +1146,7 @@ public class EClientSocket {
         	if (!order.m_orderComboLegs.isEmpty()) {
         		OrderComboLeg orderComboLeg;
         		for (int i = 0; i < order.m_orderComboLegs.size(); ++i) {
-        			orderComboLeg = (OrderComboLeg)order.m_orderComboLegs.get(i);
+        			orderComboLeg = order.m_orderComboLegs.get(i);
         			if (orderComboLeg.m_price != Double.MAX_VALUE) {
         			error(id, EClientErrors.UPDATE_TWS,
         				"  It does not support per-leg prices for order combo legs.");
@@ -1273,7 +1273,7 @@ public class EClientSocket {
 
                     ComboLeg comboLeg;
                     for (int i=0; i < contract.m_comboLegs.size(); i ++) {
-                        comboLeg = (ComboLeg)contract.m_comboLegs.get(i);
+                        comboLeg = contract.m_comboLegs.get(i);
                         send( comboLeg.m_conId);
                         send( comboLeg.m_ratio);
                         send( comboLeg.m_action);
@@ -1300,7 +1300,7 @@ public class EClientSocket {
                     send( order.m_orderComboLegs.size());
 
                     for (int i = 0; i < order.m_orderComboLegs.size(); i++) {
-                        OrderComboLeg orderComboLeg = (OrderComboLeg)order.m_orderComboLegs.get(i);
+                        OrderComboLeg orderComboLeg = order.m_orderComboLegs.get(i);
                         sendMax( orderComboLeg.m_price);
                     }
                 }

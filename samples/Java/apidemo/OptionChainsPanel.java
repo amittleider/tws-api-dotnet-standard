@@ -276,10 +276,6 @@ public class OptionChainsPanel extends JPanel {
 					m_c = contract;
 				}
 		
-				public double price() {
-					return (m_bid + m_ask) / 2;
-				}
-		
 				@Override public void tickPrice(NewTickType tickType, double price, int canAutoExecute) {
 					switch( tickType) {
 						case BID:

@@ -162,7 +162,7 @@ public class NewContract implements Cloneable {
 		return sb.toString();
 	}
 
-	private void app(StringBuilder buf, Object obj) {
+	private static void app(StringBuilder buf, Object obj) {
 		if (obj != null) {
 			buf.append( " ");
 			buf.append( obj);

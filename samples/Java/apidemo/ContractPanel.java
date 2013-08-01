@@ -6,18 +6,11 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.TitledBorder;
-
 
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
-import apidemo.util.VerticalPanel.HorzPanel;
 
 import com.ib.controller.NewContract;
 import com.ib.controller.Types.Right;

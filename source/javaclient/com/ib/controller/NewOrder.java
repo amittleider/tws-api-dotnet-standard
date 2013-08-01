@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ib.client.Order;
-import com.ib.client.OrderComboLeg;
 import com.ib.client.TagValue;
 import com.ib.controller.Types.Action;
 import com.ib.controller.Types.AlgoStrategy;

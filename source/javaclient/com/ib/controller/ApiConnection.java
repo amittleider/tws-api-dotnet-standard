@@ -44,14 +44,16 @@ public class ApiConnection extends EClientSocket {
 		super.eConnect(socket, clientId);
 
 		// replace the output stream with one that logs all data to m_outLogger
-		try {
-			Field realOsField = FilterOutputStream.class.getDeclaredField( "out");
-			realOsField.setAccessible( true);
-			OutputStream realOs = (OutputStream)realOsField.get( m_dos);
-			realOsField.set( m_dos, new MyOS( realOs) );
-		}
-		catch( Exception e) {
-			e.printStackTrace();
+		if (isConnected()) {
+			try {
+				Field realOsField = FilterOutputStream.class.getDeclaredField( "out");
+				realOsField.setAccessible( true);
+				OutputStream realOs = (OutputStream)realOsField.get( m_dos);
+				realOsField.set( m_dos, new MyOS( realOs) );
+			}
+			catch( Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

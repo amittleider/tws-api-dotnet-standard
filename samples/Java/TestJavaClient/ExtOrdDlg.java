@@ -366,44 +366,36 @@ public class ExtOrdDlg extends JDialog {
         setVisible( false);
     }
 
-    private int parseMaxInt(JTextField textField) {
+    private static int parseMaxInt(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return Integer.MAX_VALUE;
-            }
-        else {
-            return Integer.parseInt(text);
         }
+        return Integer.parseInt(text);
     }
 
-    private double parseMaxDouble(JTextField textField) {
+    private static double parseMaxDouble(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return Double.MAX_VALUE;
-            }
-        else {
-            return Double.parseDouble(text);
         }
+        return Double.parseDouble(text);
     }
 
-    private int parseInt(JTextField textField) {
+    private static int parseInt(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return 0;
-            }
-        else {
-            return Integer.parseInt(text);
         }
+        return Integer.parseInt(text);
     }
 
-    private double parseDouble(JTextField textField) {
+    private static double parseDouble(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return 0;
-            }
-        else {
-            return Double.parseDouble(text);
         }
+        return Double.parseDouble(text);
     }
 
     void onCancel() {

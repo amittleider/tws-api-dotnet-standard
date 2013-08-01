@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.JCheckBox;
@@ -19,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-
 
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
@@ -31,11 +29,11 @@ import apidemo.util.VerticalPanel.HorzPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
 import com.ib.client.TagValue;
+import com.ib.controller.ApiController.IOrderHandler;
 import com.ib.controller.NewContract;
 import com.ib.controller.NewOrder;
 import com.ib.controller.NewOrderState;
 import com.ib.controller.OrderType;
-import com.ib.controller.ApiController.IOrderHandler;
 import com.ib.controller.Types.Action;
 import com.ib.controller.Types.AlgoParam;
 import com.ib.controller.Types.AlgoStrategy;
