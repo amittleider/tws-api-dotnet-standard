@@ -1,5 +1,0 @@
-C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\CSharpAPI\bin\Debug\CSharpAPI.dll
-C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\CSharpAPI\bin\Debug\CSharpAPI.pdb
-C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\CSharpAPI\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\CSharpAPI\obj\x86\Debug\CSharpAPI.dll
-C:\Dev\IBAPI_Github\twsapi1\samples\CSharp\CSharpAPI\obj\x86\Debug\CSharpAPI.pdb
