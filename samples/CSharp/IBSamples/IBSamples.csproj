@@ -49,9 +49,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Samples.Sample</StartupObject>
+    <StartupObject>Samples.RequestContractDetails</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSharpAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\source\csharpclient\bin\Debug\CSharpAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,17 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequestContractDetails.cs" />
     <Compile Include="ContractSamples.cs" />
     <Compile Include="EWrapperImpl.cs" />
     <Compile Include="OrderSamples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpAPI\CSharpAPI.csproj">
-      <Project>{8EDE0744-96C2-40B0-A8DC-37DF79370203}</Project>
-      <Name>CSharpAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

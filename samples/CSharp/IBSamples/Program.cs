@@ -31,7 +31,6 @@ namespace Samples
             //Contract contract = ContractSamples.getOption();
 
             //wrapper.ClientSocket.reqMktData(1, ContractSamples.getOption(), "", false);
-            //wrapper.ClientSocket.reqMktData(2, ContractSamples.getOptionToExercide(), "", false);
             //wrapper.ClientSocket.reqMktData(3, ContractSamples.getEuropeanStock(), "", false);
             //wrapper.ClientSocket.reqGlobalCancel();
             //wrapper.ClientSocket.reqCurrentTime();
@@ -59,7 +58,7 @@ namespace Samples
             //wrapper.ClientSocket.reqPositions();
             //wrapper.ClientSocket.reqRealTimeBars(1, ContractSamples.getForex(), -1, "MIDPOINT", true);
             //wrapper.ClientSocket.reqScannerParameters();
-            //wrapper.ClientSocket.exerciseOptions(1, ContractSamples.getOptionToExercide(), 1, 20, null, 1);
+            //wrapper.ClientSocket.exerciseOptions(1, ContractSamples.getOption(), 1, 20, null, 1);
             //wrapper.ClientSocket.reqScannerSubscription(1, GetScannerSubscription());
             //wrapper.ClientSocket.requestFA(Constants.FaProfiles);            
 

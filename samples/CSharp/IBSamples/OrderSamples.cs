@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IBApi;
 
-namespace IBApi
+namespace Samples
 {
     public class OrderSamples
     {

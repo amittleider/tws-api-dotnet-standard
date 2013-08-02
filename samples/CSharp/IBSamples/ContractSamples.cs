@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IBApi;
 
-namespace IBApi
+namespace Samples
 {
     public class ContractSamples
     {
@@ -21,17 +22,13 @@ namespace IBApi
             return contract;
         }
 
-        public static Contract getOptionToExercide()
+        public static Contract getOptionForQuery()
         {
             Contract contract = new Contract();
-            contract.Symbol = "AAPL";
+            contract.Symbol = "IBM";
             contract.SecType = "OPT";
-            contract.Exchange = "CBOE2";//Boston Options Exchange
+            contract.Exchange = "SMART";
             contract.Currency = "USD";
-            contract.Expiry = "20130816";//Expiration time
-            contract.Strike = 430;
-            contract.Right = "CALL";
-            contract.Multiplier = "100";
             return contract;
         }
 
