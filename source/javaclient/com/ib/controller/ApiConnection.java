@@ -211,9 +211,9 @@ public class ApiConnection extends EClientSocket {
 			}
 
 			if (m_serverVersion >= MIN_SERVER_VER_SCALE_TABLE) {
-				send( ""); // manual scale table
-				send( ""); // active start time
-				send( ""); // active stop time
+				b.send( order.scaleTable() );
+				b.send( ""); // active start time
+				b.send( ""); // active stop time
 			}
 
 	        b.send( order.hedgeType() );
