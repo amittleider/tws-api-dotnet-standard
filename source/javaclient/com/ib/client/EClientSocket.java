@@ -116,7 +116,7 @@ public class EClientSocket {
     // outgoing msg id's
     private static final int REQ_MKT_DATA = 1;
     private static final int CANCEL_MKT_DATA = 2;
-    private static final int PLACE_ORDER = 3;
+    protected static final int PLACE_ORDER = 3;
     private static final int CANCEL_ORDER = 4;
     private static final int REQ_OPEN_ORDERS = 5;
     private static final int REQ_ACCOUNT_DATA = 6;
@@ -187,9 +187,9 @@ public class EClientSocket {
     private static final int MIN_SERVER_VER_SCALE_ORDERS3 = 60;
     private static final int MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE = 61;
     private static final int MIN_SERVER_VER_TRAILING_PERCENT = 62;
-    private static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
+    protected static final int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
     private static final int MIN_SERVER_VER_ACCT_SUMMARY = 67;
-    private static final int MIN_SERVER_VER_TRADING_CLASS = 68;
+    protected static final int MIN_SERVER_VER_TRADING_CLASS = 68;
     protected static final int MIN_SERVER_VER_SCALE_TABLE = 69;
 
     private AnyWrapper m_anyWrapper;    // msg handler

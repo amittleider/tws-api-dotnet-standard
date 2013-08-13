@@ -23,6 +23,8 @@ import com.ib.controller.Types.AlgoStrategy;
 import com.ib.controller.Types.HedgeType;
 import com.ib.controller.Types.SecType;
 
+// NOTE: TWS 936 SERVER_VERSION is 67.
+
 public class ApiConnection extends EClientSocket {
 	public interface ILogger {
 		void log(String valueOf);
@@ -86,11 +88,11 @@ public class ApiConnection extends EClientSocket {
 
 		Builder b = new Builder();
 
-		int VERSION = 38;
+		int VERSION = 41;
 
 		// send place order msg
 		try {
-			b.send( 3);
+			b.send( PLACE_ORDER);
 			b.send( VERSION);
 			b.send( order.orderId() );
 			b.send( contract.conid() );
@@ -104,6 +106,9 @@ public class ApiConnection extends EClientSocket {
 			b.send( contract.primaryExch() );
 			b.send( contract.currency() );
 			b.send( contract.localSymbol() );
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                b.send(contract.tradingClass() );
+            }
 			b.send( contract.secIdType() );
 			b.send( contract.secId() );
 			b.send( order.action() );
@@ -190,8 +195,12 @@ public class ApiConnection extends EClientSocket {
 				b.send( ""); //deltaNeutralSettlingFirm
 				b.send( ""); //deltaNeutralClearingAccount
 				b.send( ""); //deltaNeutralClearingIntent
+				b.send( ""); //deltaNeutralOpenClose
+                b.send( ""); //deltaNeutralShortSale
+                b.send( ""); //deltaNeutralShortSaleSlot
+                b.send( ""); //deltaNeutralDesignatedLocation
 			}
-
+			
 			b.send( order.continuousUpdate() );
 			b.send( order.referencePriceType() );
 			b.send( order.trailStopPrice() );
