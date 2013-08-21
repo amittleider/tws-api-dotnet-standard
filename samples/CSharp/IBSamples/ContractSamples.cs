@@ -61,5 +61,32 @@ namespace Samples
             contract.Exchange = "LSE";
             return contract;
         }
+
+        public static Contract getComboContract()
+        {
+            Contract contract = new Contract();
+            contract.Symbol = "MCD";
+            contract.SecType = "BAG";
+            contract.Currency = "USD";
+            contract.Exchange = "SMART";
+
+            ComboLeg leg1 = new ComboLeg();
+            leg1.ConId = 128440094;
+            leg1.Ratio = 1;
+            leg1.Action = "BUY";
+            leg1.Exchange = "SMART";
+
+            ComboLeg leg2 = new ComboLeg();
+            leg2.ConId = 126317126;
+            leg2.Ratio = 1;
+            leg2.Action = "SELL";
+            leg2.Exchange = "SMART";
+
+            contract.ComboLegs = new List<ComboLeg>();
+            contract.ComboLegs.Add(leg1);
+            contract.ComboLegs.Add(leg2);
+
+            return contract;
+        }
     }
 }

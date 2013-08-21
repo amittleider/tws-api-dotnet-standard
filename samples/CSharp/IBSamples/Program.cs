@@ -13,7 +13,7 @@ namespace Samples
         public static int Main(string[] args)
         {
             EWrapperImpl testImpl = new EWrapperImpl();
-            testImpl.ClientSocket.eConnect("127.0.0.1", 7496, 0);
+            testImpl.ClientSocket.eConnect("127.0.0.1", 7496, 222);
             while (testImpl.NextOrderId <= 0) { }
             //for (int i = 0; i < 2; i++)
             {
@@ -43,11 +43,14 @@ namespace Samples
             //wrapper.ClientSocket.reqAutoOpenOrders(true);
             //wrapper.ClientSocket.reqOpenOrders();
             //wrapper.ClientSocket.placeOrder(wrapper.NextOrderId, ContractSamples.getForex(), order);
+
+            wrapper.ClientSocket.placeOrder(wrapper.NextOrderId, ContractSamples.getComboContract(), OrderSamples.LimitOrderForComboWithLegPrice());
+
             //wrapper.ClientSocket.reqContractDetails(1, ContractSamples.getForex());
             //wrapper.ClientSocket.reqExecutions(1, new ExecutionFilter());
             //wrapper.ClientSocket.reqMktData(2, ContractSamples.getForex(), "", false);
             //wrapper.ClientSocket.reqFundamentalData(1, ContractSamples.getEuropeanStock(), "snapshot");
-            //wrapper.ClientSocket.reqHistoricalData(1, ContractSamples.getForex(), "20130722 23:59:59", "2 D", "1 min", "MIDPOINT", 1, 1);
+            //wrapper.ClientSocket.reqHistoricalData(1, ContractSamples.getEurUsdForex(), "20130722 23:59:59", "1 D", "1 hour", "MIDPOINT", 1, 1);
             //wrapper.ClientSocket.cancelHistoricalData(1);
             //wrapper.ClientSocket.reqFundamentalData(2, ContractSamples.getEuropeanStock(), "snapshot");
             //wrapper.ClientSocket.reqIds(-1);
