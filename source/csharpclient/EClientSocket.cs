@@ -172,8 +172,8 @@ namespace IBApi
                     throw;
                 }
             }
+            wrapper.connectionClosed();
 
-           
         }
 
 

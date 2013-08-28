@@ -1146,8 +1146,8 @@ namespace IBApi
         {
             int msgVersion = ReadInt();
             int requestId = ReadInt();
-            string startDateStr;
-            string endDateStr;
+            string startDateStr = "";
+            string endDateStr = "";
             string completedIndicator = "finished";
             if (msgVersion >= 2)
             {
@@ -1175,7 +1175,9 @@ namespace IBApi
                                         close, volume, barCount, WAP,
                                         Boolean.Parse(hasGaps));
             }
-            // send end of dataset marker
+            
+            // send end of dataset marker. WARN: verify why this was never implemented before
+            parent.Wrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
         }
 
         private void MarketDataTypeEvent()
