@@ -8,7 +8,7 @@ import java.io.DataOutputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Vector;
+import java.util.List;
 
 public class EClientSocket {
 
@@ -433,7 +433,7 @@ public class EClientSocket {
     }
 
     public synchronized void reqMktData(int tickerId, Contract contract,
-    		String genericTickList, boolean snapshot, Vector<TagValue> mktDataOptions) {
+    		String genericTickList, boolean snapshot, List<TagValue> mktDataOptions) {
         if (!m_connected) {
             error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
             return;
@@ -626,7 +626,7 @@ public class EClientSocket {
     public synchronized void reqHistoricalData( int tickerId, Contract contract,
                                                 String endDateTime, String durationStr,
                                                 String barSizeSetting, String whatToShow,
-                                                int useRTH, int formatDate, Vector<TagValue> chartOptions) {
+                                                int useRTH, int formatDate, List<TagValue> chartOptions) {
         // not connected?
         if( !m_connected) {
             notConnected();
