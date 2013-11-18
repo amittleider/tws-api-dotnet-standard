@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +26,9 @@ import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.Order;
+import com.ib.client.OrderComboLeg;
 import com.ib.client.OrderState;
+import com.ib.client.TagValue;
 import com.ib.client.UnderComp;
 import com.ib.client.Util;
 
@@ -44,7 +47,12 @@ class SampleFrame extends JFrame implements EWrapper {
     private HashMap<Integer, MktDepthDlg> m_mapRequestToMktDepthDlg = new HashMap<Integer, MktDepthDlg>();
     private NewsBulletinDlg m_newsBulletinDlg = new NewsBulletinDlg(this);
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
+	private GroupsDlg       m_groupsDlg;
 
+    private Vector<TagValue> m_mktDataOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_chartOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
+    
     String faGroupXML ;
     String faProfilesXML ;
     String faAliasesXML ;
@@ -66,6 +74,8 @@ class SampleFrame extends JFrame implements EWrapper {
         setSize( 600, 700);
         setTitle( "Sample");
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        
+    	m_groupsDlg = new GroupsDlg(this, m_client);
     }
 
     private JPanel createButtonPanel() {
@@ -293,6 +303,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onCancelAccountSummary();
             }
         });
+        JButton butGroups = new JButton( "Groups");
+        butGroups.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onGroups();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -352,6 +368,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelPositions ) ;
         buttonPanel.add( butRequestAccountSummary ) ;
         buttonPanel.add( butCancelAccountSummary ) ;
+        buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -387,15 +404,23 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onReqMktData() {
-        // run m_orderDlg
+
+    	// run m_orderDlg
+    	m_orderDlg.setOptionsDlgTitle("Market Data Options");
+    	m_orderDlg.setOptions(m_mktDataOptions);
+    	m_orderDlg.setOptionsBtnName("Mkt Data Options");
+    	
         m_orderDlg.show();
+        
         if( !m_orderDlg.m_rc ) {
             return;
         }
-
+        
+        m_mktDataOptions = m_orderDlg.getOptions();
+        
         // req mkt data
         m_client.reqMktData( m_orderDlg.m_id, m_orderDlg.m_contract,
-        		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData);
+        		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData, m_mktDataOptions);
     }
 
     void onReqRealTimeBars() {
@@ -438,12 +463,19 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
     void onHistoricalData() {
+    	
         // run m_orderDlg
+    	m_orderDlg.setOptionsDlgTitle("Chart Options");
+    	m_orderDlg.setOptions(m_chartOptions);
+    	m_orderDlg.setOptionsBtnName("Chart Options");
+    	
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
 
+        m_chartOptions = m_orderDlg.getOptions();
+        
         if( Util.StringCompare( m_orderDlg.m_whatToShow, "estimates" ) == 0 ||
         	Util.StringCompare( m_orderDlg.m_whatToShow, "finstat"   ) == 0 ||
         	Util.StringCompare( m_orderDlg.m_whatToShow, "snapshot"  ) == 0 ) {
@@ -457,7 +489,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqHistoricalData( m_orderDlg.m_id, m_orderDlg.m_contract,
                                     m_orderDlg.m_backfillEndTime, m_orderDlg.m_backfillDuration,
                                     m_orderDlg.m_barSizeSetting, m_orderDlg.m_whatToShow,
-                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate );
+                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate, m_chartOptions );
     }
 
     void onCancelHistoricalData() {
@@ -553,13 +585,21 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void placeOrder(boolean whatIf) {
+    	
         // run m_orderDlg
+    	m_orderDlg.setOptionsDlgTitle("Order Misc Options");
+    	m_orderDlg.setOptions(m_orderMiscOptions);
+    	m_orderDlg.setOptionsBtnName("Order Misc Options");
+    	
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
 
+        m_orderMiscOptions = m_orderDlg.getOptions();
+    	
         Order order = m_orderDlg.m_order;
+        order.m_orderMiscOptions = m_orderMiscOptions;
 
         // save old and set new value of whatIf attribute
         boolean savedWhatIf = order.m_whatIf;
@@ -780,6 +820,14 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
+    void onGroups() {
+
+        m_groupsDlg.setVisible(true);
+//        if ( dlg.m_rc ) {
+
+//        }
+    }
+    
     public void tickPrice( int tickerId, int field, double price, int canAutoExecute) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);
@@ -1155,4 +1203,21 @@ class SampleFrame extends JFrame implements EWrapper {
         String msg = EWrapperMsgGenerator.accountSummaryEnd(reqId);
         m_TWS.add(msg);
     }
+    
+    public void verifyMessageAPI( String apiData) {
+    	
+    }
+    
+    public void verifyCompleted( boolean isSuccessful, String errorText) {
+    	
+    }
+    
+    public void displayGroupList( int reqId, String groups) {
+        m_groupsDlg.displayGroupList(reqId, groups);
+    }
+
+    public void displayGroupUpdated( int reqId, String contractInfo) {
+        m_groupsDlg.displayGroupUpdated(reqId, contractInfo);
+    }
+    
 }

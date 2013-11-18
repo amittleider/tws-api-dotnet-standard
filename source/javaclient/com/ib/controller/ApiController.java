@@ -6,6 +6,7 @@ package com.ib.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Vector;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
@@ -18,6 +19,7 @@ import com.ib.client.ExecutionFilter;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.ScannerSubscription;
+import com.ib.client.TagValue;
 import com.ib.client.UnderComp;
 import com.ib.controller.ApiConnection.ILogger;
 import com.ib.controller.Types.BarSize;
@@ -398,7 +400,8 @@ public class ApiController implements EWrapper {
     public void reqTopMktData(NewContract contract, String genericTickList, boolean snapshot, ITopMktDataHandler handler) {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot);
+    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
 		sendEOM();
     }
 
@@ -406,7 +409,8 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_optionCompMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot);
+    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
 		sendEOM();
     }
 
@@ -414,7 +418,8 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_efpMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot);
+    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
 		sendEOM();
     }
 
@@ -821,7 +826,8 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_historicalDataMap.put( reqId, handler);
     	String durationStr = duration + " " + durationUnit.toString().charAt( 0);
-    	m_client.reqHistoricalData(reqId, contract.getContract(), endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2);
+    	Vector<TagValue> chartOptions = new Vector<TagValue>();
+    	m_client.reqHistoricalData(reqId, contract.getContract(), endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2, chartOptions);
 		sendEOM();
     }
 
@@ -946,6 +952,10 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
+	@Override public void verifyMessageAPI( String apiData) {}
+	@Override public void verifyCompleted( boolean isSuccessful, String errorText) {}
+	@Override public void displayGroupList(int reqId, String groups) {}
+	@Override public void displayGroupUpdated(int reqId, String contractInfo) {}
 
 	// ---------------------------------------- other methods ----------------------------------------
 	/** Not supported in ApiController. */

@@ -245,6 +245,22 @@ public class SimpleWrapper implements EWrapper {
 	public void accountSummaryEnd( int reqId) {
 		logIn("accountSummaryEnd");
 	}
+
+	public void verifyMessageAPI( String apiData) {
+		logIn("verifyMessageAPI");
+	}
+
+	public void verifyCompleted( boolean isSuccessful, String errorText){
+		logIn("verifyCompleted");
+	}
+
+	public void displayGroupList( int reqId, String groups){
+		logIn("displayGroupList");
+	}
+
+	public void displayGroupUpdated( int reqId, String contractInfo){
+		logIn("displayGroupUpdated");
+	}
 	
 	/* ***************************************************************
 	 * Helpers

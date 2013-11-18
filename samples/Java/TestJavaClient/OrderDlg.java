@@ -5,12 +5,14 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -26,6 +28,7 @@ import javax.swing.JTextField;
 import com.ib.client.Contract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
+import com.ib.client.TagValue;
 import com.ib.client.UnderComp;
 
 public class OrderDlg extends JDialog {
@@ -53,6 +56,8 @@ public class OrderDlg extends JDialog {
     public int          m_exerciseQuantity;
     public int          m_override;
     public int          m_marketDataType;
+    private String      m_optionsDlgTitle;
+    private Vector<TagValue> m_options = new Vector<TagValue>();
 
     private JTextField	m_Id = new JTextField( "0");
     private JTextField	m_BackfillEndTime = new JTextField(22);
@@ -96,6 +101,7 @@ public class OrderDlg extends JDialog {
     private JButton 	m_btnUnderComp = new JButton( "Delta Neutral");
     private JButton 	m_btnAlgoParams = new JButton( "Algo Params");
     private JButton 	m_btnSmartComboRoutingParams = new JButton( "Smart Combo Routing Params");
+    private JButton 	m_btnOptions = new JButton( "Options");
 
     private JButton 	m_ok = new JButton( "OK");
     private JButton 	m_cancel = new JButton( "Cancel");
@@ -270,6 +276,7 @@ public class OrderDlg extends JDialog {
         pOrderButtonPanel.add( m_btnUnderComp);
         pOrderButtonPanel.add( m_btnAlgoParams);
         pOrderButtonPanel.add( m_btnSmartComboRoutingParams);
+        pOrderButtonPanel.add( m_btnOptions);
 
         pMidPanel.add( pOrderButtonPanel, BorderLayout.CENTER);
 
@@ -305,6 +312,11 @@ public class OrderDlg extends JDialog {
                 onBtnSmartComboRoutingParams();
             }
         });
+        m_btnOptions.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onBtnOptions();
+            }
+        });
         m_ok.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onOk();
@@ -328,7 +340,7 @@ public class OrderDlg extends JDialog {
 
         JScrollPane scroller = new JScrollPane(topPanel);
         this.add( scroller, BorderLayout.CENTER);
-
+        
         pack();
     }
 
@@ -380,12 +392,22 @@ public class OrderDlg extends JDialog {
 
     void onBtnSmartComboRoutingParams() {
 
-        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg(m_order, this);
+        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Smart Combo Routing Params", m_order.m_smartComboRoutingParams, this);
 
         // show smart combo routing params dialog
         smartComboRoutingParamsDlg.setVisible( true);
     }
 
+    void onBtnOptions() {
+
+    	SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg(m_optionsDlgTitle, m_options, this);
+
+        // show smart combo routing params dialog
+        smartComboRoutingParamsDlg.setVisible( true);
+        
+        m_options = smartComboRoutingParamsDlg.smartComboRoutingParams();
+    }
+    
     void onOk() {
         m_rc = false;
 
@@ -504,4 +526,21 @@ public class OrderDlg extends JDialog {
         }
         return Double.parseDouble(value);
     }
+    
+    void setOptionsDlgTitle(String title){
+    	m_optionsDlgTitle = title;
+    }
+    
+    void setOptions(Vector<TagValue> options) {
+    	m_options = options;
+    }
+    
+    void setOptionsBtnName(String name){
+    	m_btnOptions.setText(name);
+    }
+    
+    Vector<TagValue> getOptions() {
+    	return m_options;
+    }
+    
 }

@@ -25,7 +25,6 @@ import com.ib.client.Order;
 import com.ib.client.TagValue;
 
 public class SmartComboRoutingParamsDlg extends JDialog {
-    private Order m_order;
 
     private JTextField 		m_tag = new JTextField( "");
     private JTextField 		m_value = new JTextField( "");
@@ -37,21 +36,21 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     private SmartComboRoutingParamModel 	m_paramModel = new SmartComboRoutingParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
     private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
-
+    Vector<TagValue> m_smartComboRoutingParams = new Vector<TagValue>();
+    
     public SmartComboRoutingParamModel paramModel() { return m_paramModel; }
+    public Vector<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
 
-    public SmartComboRoutingParamsDlg( Order order, JDialog owner) {
-        super( owner, true);
+    public SmartComboRoutingParamsDlg(String dlgTitle, Vector<TagValue> smartComboRoutingParams, JDialog owner) {
+        super( owner, dlgTitle, true);
 
-        m_order = order;
-
-        setTitle( "Smart Combo Routing Parameters");
+        setTitle( dlgTitle);
 
         // create smart combo routing params panel
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
         pParamList.setBorder( BorderFactory.createTitledBorder( "Smart Combo Routing Parameters") );
 
-        Vector<TagValue> smartComboRoutingParams = m_order.m_smartComboRoutingParams;
+        m_smartComboRoutingParams = smartComboRoutingParams;
         if (smartComboRoutingParams != null) {
         	m_paramModel.smartComboRoutingParams().addAll(smartComboRoutingParams);
         }
@@ -138,7 +137,8 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 
     void onOk() {
     	Vector<TagValue> smartComboRoutingParams = m_paramModel.smartComboRoutingParams();
-    	m_order.m_smartComboRoutingParams = smartComboRoutingParams.isEmpty() ? null : smartComboRoutingParams;
+    	
+    	m_smartComboRoutingParams = smartComboRoutingParams.isEmpty() ? null : smartComboRoutingParams;
 
         setVisible( false);
     }
