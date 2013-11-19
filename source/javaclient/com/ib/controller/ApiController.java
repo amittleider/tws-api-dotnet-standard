@@ -4,9 +4,9 @@
 package com.ib.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Vector;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
@@ -400,8 +400,7 @@ public class ApiController implements EWrapper {
     public void reqTopMktData(NewContract contract, String genericTickList, boolean snapshot, ITopMktDataHandler handler) {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
-    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
@@ -409,8 +408,7 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_optionCompMap.put( reqId, handler);
-    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
@@ -418,8 +416,7 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_efpMap.put( reqId, handler);
-    	Vector<TagValue> mktDataOptions = new Vector<TagValue>();
-    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, mktDataOptions);
+    	m_client.reqMktData( reqId, contract.getContract(), genericTickList, snapshot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
@@ -830,8 +827,7 @@ public class ApiController implements EWrapper {
     	int reqId = m_reqId++;
     	m_historicalDataMap.put( reqId, handler);
     	String durationStr = duration + " " + durationUnit.toString().charAt( 0);
-    	Vector<TagValue> chartOptions = new Vector<TagValue>();
-    	m_client.reqHistoricalData(reqId, contract.getContract(), endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2, chartOptions);
+    	m_client.reqHistoricalData(reqId, contract.getContract(), endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
