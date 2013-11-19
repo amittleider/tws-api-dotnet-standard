@@ -9,6 +9,7 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
+import java.util.Vector;
 
 public class EClientSocket {
 

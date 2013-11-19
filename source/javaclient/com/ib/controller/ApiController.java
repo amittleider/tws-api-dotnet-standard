@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
