@@ -381,7 +381,7 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription) {
+    public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription, Vector<TagValue> scannerSubscriptionOptions) {
         // not connected?
         if( !m_connected) {
             notConnected();
@@ -394,7 +394,7 @@ public class EClientSocket {
           return;
         }
 
-        final int VERSION = 3;
+        final int VERSION = 4;
 
         try {
             send(REQ_SCANNER_SUBSCRIPTION);
@@ -425,6 +425,23 @@ public class EClientSocket {
             if (m_serverVersion >= 27) {
                 send(subscription.stockTypeFilter());
             }
+            
+            // send scannerSubscriptionOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder scannerSubscriptionOptionsStr = new StringBuilder();
+                int scannerSubscriptionOptionsCount = scannerSubscriptionOptions == null ? 0 : scannerSubscriptionOptions.size();
+                if( scannerSubscriptionOptionsCount > 0) {
+                    for( int i = 0; i < scannerSubscriptionOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)scannerSubscriptionOptions.get(i);
+                        scannerSubscriptionOptionsStr.append( tagValue.m_tag);
+                        scannerSubscriptionOptionsStr.append( "=");
+                        scannerSubscriptionOptionsStr.append( tagValue.m_value);
+                        scannerSubscriptionOptionsStr.append( ";");
+                    }
+                }
+                send( scannerSubscriptionOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( tickerId, EClientErrors.FAIL_SEND_REQSCANNER, "" + e);
@@ -855,7 +872,7 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows) {
+    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows, Vector<TagValue> mktDepthOptions) {
         // not connected?
         if( !m_connected) {
             notConnected();
@@ -877,7 +894,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 4;
+        final int VERSION = 5;
 
         try {
             // send req mkt data msg
@@ -906,6 +923,23 @@ public class EClientSocket {
             if (m_serverVersion >= 19) {
                 send( numRows);
             }
+            
+            // send mktDepthOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder mktDepthOptionsStr = new StringBuilder();
+                int mktDepthOptionsCount = mktDepthOptions == null ? 0 : mktDepthOptions.size();
+                if( mktDepthOptionsCount > 0) {
+                    for( int i = 0; i < mktDepthOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)mktDepthOptions.get(i);
+                        mktDepthOptionsStr.append( tagValue.m_tag);
+                        mktDepthOptionsStr.append( "=");
+                        mktDepthOptionsStr.append( tagValue.m_value);
+                        mktDepthOptionsStr.append( ";");
+                    }
+                }
+                send( mktDepthOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( tickerId, EClientErrors.FAIL_SEND_REQMKTDEPTH, "" + e);
@@ -1901,7 +1935,7 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType) {
+    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType, Vector<TagValue> fundamentalDataOptions) {
         // not connected?
         if( !m_connected) {
             notConnected();
@@ -1922,7 +1956,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 2;
+        final int VERSION = 3;
 
         try {
             // send req fund data msg
@@ -1942,6 +1976,23 @@ public class EClientSocket {
             send( contract.m_localSymbol);
 
             send( reportType);
+            
+            // send fundamentalDataOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder fundamentalDataOptionsStr = new StringBuilder();
+                int fundamentalDataOptionsCount = fundamentalDataOptions == null ? 0 : fundamentalDataOptions.size();
+                if( fundamentalDataOptionsCount > 0) {
+                    for( int i = 0; i < fundamentalDataOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)fundamentalDataOptions.get(i);
+                        fundamentalDataOptionsStr.append( tagValue.m_tag);
+                        fundamentalDataOptionsStr.append( "=");
+                        fundamentalDataOptionsStr.append( tagValue.m_value);
+                        fundamentalDataOptionsStr.append( ";");
+                    }
+                }
+                send( fundamentalDataOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQFUNDDATA, "" + e);
@@ -1977,7 +2028,7 @@ public class EClientSocket {
     }
 
     public synchronized void calculateImpliedVolatility(int reqId, Contract contract,
-            double optionPrice, double underPrice) {
+            double optionPrice, double underPrice, Vector<TagValue> impliedVolatilityOptions) {
 
         // not connected?
         if( !m_connected) {
@@ -1999,7 +2050,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 2;
+        final int VERSION = 3;
 
         try {
             // send calculate implied volatility msg
@@ -2025,6 +2076,23 @@ public class EClientSocket {
 
             send( optionPrice);
             send( underPrice);
+            
+            // send impliedVolatilityOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder impliedVolatilityOptionsStr = new StringBuilder();
+                int impliedVolatilityOptionsCount = impliedVolatilityOptions == null ? 0 : impliedVolatilityOptions.size();
+                if( impliedVolatilityOptionsCount > 0) {
+                    for( int i = 0; i < impliedVolatilityOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)impliedVolatilityOptions.get(i);
+                        impliedVolatilityOptionsStr.append( tagValue.m_tag);
+                        impliedVolatilityOptionsStr.append( "=");
+                        impliedVolatilityOptionsStr.append( tagValue.m_value);
+                        impliedVolatilityOptionsStr.append( ";");
+                    }
+                }
+                send( impliedVolatilityOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT, "" + e);
@@ -2061,7 +2129,7 @@ public class EClientSocket {
     }
 
     public synchronized void calculateOptionPrice(int reqId, Contract contract,
-            double volatility, double underPrice) {
+            double volatility, double underPrice, Vector<TagValue> optionPriceOptions) {
 
         // not connected?
         if( !m_connected) {
@@ -2083,7 +2151,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 2;
+        final int VERSION = 3;
 
         try {
             // send calculate option price msg
@@ -2109,6 +2177,23 @@ public class EClientSocket {
 
             send( volatility);
             send( underPrice);
+            
+            // send optionPriceOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder optionPriceOptionsStr = new StringBuilder();
+                int optionPriceOptionsCount = optionPriceOptions == null ? 0 : optionPriceOptions.size();
+                if( optionPriceOptionsCount > 0) {
+                    for( int i = 0; i < optionPriceOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)optionPriceOptions.get(i);
+                        optionPriceOptionsStr.append( tagValue.m_tag);
+                        optionPriceOptionsStr.append( "=");
+                        optionPriceOptionsStr.append( tagValue.m_value);
+                        optionPriceOptionsStr.append( ";");
+                    }
+                }
+                send( optionPriceOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE, "" + e);

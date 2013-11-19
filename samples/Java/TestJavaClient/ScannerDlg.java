@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ib.client.ScannerSubscription;
+import com.ib.client.TagValue;
 
 public class ScannerDlg extends JDialog {
     public static final int NO_SELECTION = 0;
@@ -28,6 +30,7 @@ public class ScannerDlg extends JDialog {
     public int          m_userSelection = NO_SELECTION;
     public int 			m_id;
     public ScannerSubscription m_subscription = new ScannerSubscription();
+    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
 
     private JTextField m_Id = new JTextField( "0");
     private JTextField m_numberOfRows = new JTextField("10");
@@ -55,6 +58,7 @@ public class ScannerDlg extends JDialog {
     private JButton 	m_requestParameters = new JButton( "Request Parameters");
     private JButton 	m_subscribe = new JButton( "Subscribe");
     private JButton 	m_cancel = new JButton( "Cancel Subscription");
+    private JButton 	m_options = new JButton( "Options");
 
     private static final int COL1_WIDTH = 30;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH;
@@ -137,6 +141,7 @@ public class ScannerDlg extends JDialog {
         buttonPanel.add( m_requestParameters);
         buttonPanel.add( m_subscribe);
         buttonPanel.add( m_cancel);
+        buttonPanel.add( m_options);
 
         m_requestParameters.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -151,6 +156,11 @@ public class ScannerDlg extends JDialog {
         m_cancel.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onCancelSubscription();
+            }
+        });
+        m_options.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onOptions();
             }
         });
 
@@ -236,8 +246,24 @@ public class ScannerDlg extends JDialog {
         setVisible( false);
     }
 
+    void onOptions() {
+        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Scanner Subscription Options", m_scannerSubscriptionOptions, this);
+
+        // show smart combo routing params dialog
+        smartComboRoutingParamsDlg.setVisible( true);
+        
+        m_scannerSubscriptionOptions = smartComboRoutingParamsDlg.smartComboRoutingParams();
+    }
+    
     public void show() {
         m_userSelection = NO_SELECTION;
         super.show();
+    }
+    void setScannerSubscriptionOptions(Vector<TagValue> scannerSubscriptionOptions) {
+    	m_scannerSubscriptionOptions = scannerSubscriptionOptions;
+    }
+    
+    Vector<TagValue> getScannerSubscriptionOptions() {
+    	return m_scannerSubscriptionOptions;
     }
 }

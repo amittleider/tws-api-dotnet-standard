@@ -514,7 +514,8 @@ public class ApiController implements EWrapper {
     public void reqDeepMktData( NewContract contract, int numRows, IDeepMktDataHandler handler) {
     	int reqId = m_reqId++;
     	m_deepMktDataMap.put( reqId, handler);
-    	m_client.reqMktDepth( reqId, contract.getContract(), numRows);
+    	Vector<TagValue> mktDepthOptions = new Vector<TagValue>();
+    	m_client.reqMktDepth( reqId, contract.getContract(), numRows, mktDepthOptions);
 		sendEOM();
     }
 
@@ -546,14 +547,16 @@ public class ApiController implements EWrapper {
 	public void reqOptionVolatility(NewContract c, double optPrice, double underPrice, IOptHandler handler) {
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		m_client.calculateImpliedVolatility( reqId, c.getContract(), optPrice, underPrice);
+		Vector<TagValue> impliedVolatilityOptions = new Vector<TagValue>();
+		m_client.calculateImpliedVolatility( reqId, c.getContract(), optPrice, underPrice, impliedVolatilityOptions);
 		sendEOM();
 	}
 
 	public void reqOptionComputation( NewContract c, double vol, double underPrice, IOptHandler handler) {
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		m_client.calculateOptionPrice(reqId, c.getContract(), vol, underPrice);
+		Vector<TagValue> optionPriceOptions = new Vector<TagValue>();
+		m_client.calculateOptionPrice(reqId, c.getContract(), vol, underPrice, optionPriceOptions);
 		sendEOM();
 	}
 
@@ -780,7 +783,8 @@ public class ApiController implements EWrapper {
 	public void reqScannerSubscription( ScannerSubscription sub, IScannerHandler handler) {
 		int reqId = m_reqId++;
 		m_scannerMap.put( reqId, handler);
-		m_client.reqScannerSubscription( reqId, sub);
+		Vector<TagValue> scannerSubscriptionOptions = new Vector<TagValue>();
+		m_client.reqScannerSubscription( reqId, sub, scannerSubscriptionOptions);
 		sendEOM();
 	}
 
@@ -902,7 +906,8 @@ public class ApiController implements EWrapper {
     public void reqFundamentals( NewContract contract, FundamentalType reportType, IFundamentalsHandler handler) {
     	int reqId = m_reqId++;
     	m_fundMap.put( reqId, handler);
-    	m_client.reqFundamentalData( reqId, contract.getContract(), reportType.getApiString() );
+    	Vector<TagValue> fundamentalDataOptions = new Vector<TagValue>();
+    	m_client.reqFundamentalData( reqId, contract.getContract(), reportType.getApiString(), fundamentalDataOptions);
 		sendEOM();
     }
 

@@ -52,6 +52,11 @@ class SampleFrame extends JFrame implements EWrapper {
     private Vector<TagValue> m_mktDataOptions = new Vector<TagValue>();
     private Vector<TagValue> m_chartOptions = new Vector<TagValue>();
     private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_mktDepthOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_impliedVolatilityOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_optionPriceOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_fundamentalDataOptions = new Vector<TagValue>();
     
     String faGroupXML ;
     String faProfilesXML ;
@@ -126,6 +131,18 @@ class SampleFrame extends JFrame implements EWrapper {
         butCancelHistoricalData.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onCancelHistoricalData();
+            }
+        });
+        JButton butFundamentalData = new JButton( "Fundamental Data");
+        butFundamentalData.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onFundamentalData();
+            }
+        });
+        JButton butCancelFundamentalData = new JButton( "Cancel Fund. Data");
+        butCancelFundamentalData.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onCancelFundamentalData();
             }
         });
         JButton butRealTimeBars = new JButton( "Req Real Time Bars");
@@ -335,6 +352,8 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelMktDepth);
         buttonPanel.add( butHistoricalData);
         buttonPanel.add( butCancelHistoricalData);
+        buttonPanel.add( butFundamentalData);
+        buttonPanel.add( butCancelFundamentalData);
         buttonPanel.add( butRealTimeBars);
         buttonPanel.add( butCancelRealTimeBars);
         buttonPanel.add( butScanner);
@@ -406,10 +425,11 @@ class SampleFrame extends JFrame implements EWrapper {
     void onReqMktData() {
 
     	// run m_orderDlg
-    	m_orderDlg.setOptionsDlgTitle("Market Data Options");
-    	m_orderDlg.setOptions(m_mktDataOptions);
-    	m_orderDlg.setOptionsBtnName("Mkt Data Options");
-    	
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Market Data Options");
+        m_orderDlg.setOptions(m_mktDataOptions);
+        m_orderDlg.setOptionsBtnName("Mkt Data Options");
+
         m_orderDlg.show();
         
         if( !m_orderDlg.m_rc ) {
@@ -425,6 +445,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqRealTimeBars() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -436,6 +457,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onCancelRealTimeBars() {
+    	m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -445,13 +467,16 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onScanner() {
+        m_scannerDlg.setScannerSubscriptionOptions(m_scannerSubscriptionOptions);
         m_scannerDlg.show();
+        m_scannerSubscriptionOptions = m_scannerDlg.getScannerSubscriptionOptions();
+        
         if (m_scannerDlg.m_userSelection == ScannerDlg.CANCEL_SELECTION) {
             m_client.cancelScannerSubscription(m_scannerDlg.m_id);
         }
         else if (m_scannerDlg.m_userSelection == ScannerDlg.SUBSCRIBE_SELECTION) {
             m_client.reqScannerSubscription(m_scannerDlg.m_id,
-                                            m_scannerDlg.m_subscription);
+                                            m_scannerDlg.m_subscription, m_scannerSubscriptionOptions);
         }
         else if (m_scannerDlg.m_userSelection == ScannerDlg.REQUEST_PARAMETERS_SELECTION) {
             m_client.reqScannerParameters();
@@ -465,10 +490,11 @@ class SampleFrame extends JFrame implements EWrapper {
     void onHistoricalData() {
     	
         // run m_orderDlg
-    	m_orderDlg.setOptionsDlgTitle("Chart Options");
-    	m_orderDlg.setOptions(m_chartOptions);
-    	m_orderDlg.setOptionsBtnName("Chart Options");
-    	
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Chart Options");
+        m_orderDlg.setOptions(m_chartOptions);
+        m_orderDlg.setOptionsBtnName("Chart Options");
+
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -476,15 +502,6 @@ class SampleFrame extends JFrame implements EWrapper {
 
         m_chartOptions = m_orderDlg.getOptions();
         
-        if( Util.StringCompare( m_orderDlg.m_whatToShow, "estimates" ) == 0 ||
-        	Util.StringCompare( m_orderDlg.m_whatToShow, "finstat"   ) == 0 ||
-        	Util.StringCompare( m_orderDlg.m_whatToShow, "snapshot"  ) == 0 ) {
-
-        	m_client.reqFundamentalData(m_orderDlg.m_id, m_orderDlg.m_contract,
-        			/* reportType */ m_orderDlg.m_whatToShow);
-        	return;
-        }
-
         // req historical data
         m_client.reqHistoricalData( m_orderDlg.m_id, m_orderDlg.m_contract,
                                     m_orderDlg.m_backfillEndTime, m_orderDlg.m_backfillDuration,
@@ -494,25 +511,49 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelHistoricalData() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
-        }
-
-        if( Util.StringCompare( m_orderDlg.m_whatToShow, "estimates" ) == 0 ||
-           	Util.StringCompare( m_orderDlg.m_whatToShow, "finstat"   ) == 0 ||
-           	Util.StringCompare( m_orderDlg.m_whatToShow, "snapshot"  ) == 0 ) {
-
-           	m_client.cancelFundamentalData(m_orderDlg.m_id);
-           	return;
         }
 
         // cancel historical data
         m_client.cancelHistoricalData( m_orderDlg.m_id );
     }
 
+    void onFundamentalData() {
+    	
+        // run m_orderDlg
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Fundamental Data Options");
+        m_orderDlg.setOptions(m_fundamentalDataOptions);
+        m_orderDlg.setOptionsBtnName("Fund Data Options");
+
+        m_orderDlg.show();
+        if( !m_orderDlg.m_rc ) {
+            return;
+        }
+
+        m_fundamentalDataOptions = m_orderDlg.getOptions();
+        
+       	m_client.reqFundamentalData(m_orderDlg.m_id, m_orderDlg.m_contract,
+        			/* reportType */ m_orderDlg.m_whatToShow, m_fundamentalDataOptions);
+    }
+    
+    void onCancelFundamentalData() {
+        // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
+        m_orderDlg.show();
+        if( !m_orderDlg.m_rc ) {
+            return;
+        }
+
+        m_client.cancelFundamentalData(m_orderDlg.m_id);
+    }
+    
     void onReqContractData() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -524,10 +565,16 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqMktDepth() {
         // run m_orderDlg
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Market Depth Options");
+        m_orderDlg.setOptions(m_mktDepthOptions);
+        m_orderDlg.setOptionsBtnName("Mkt Depth Options");
+
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
+        m_mktDepthOptions = m_orderDlg.getOptions();
 
         final Integer dialogId = m_orderDlg.m_id;
         MktDepthDlg depthDialog = m_mapRequestToMktDepthDlg.get(dialogId);
@@ -546,12 +593,13 @@ class SampleFrame extends JFrame implements EWrapper {
         depthDialog.setParams( m_client, dialogId);
 
         // req mkt data
-        m_client.reqMktDepth( dialogId, m_orderDlg.m_contract, m_orderDlg.m_marketDepthRows );
+        m_client.reqMktDepth( dialogId, m_orderDlg.m_contract, m_orderDlg.m_marketDepthRows, m_mktDepthOptions );
         depthDialog.setVisible(true);
     }
 
     void onCancelMktData() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -563,6 +611,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelMktDepth() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -587,10 +636,11 @@ class SampleFrame extends JFrame implements EWrapper {
     void placeOrder(boolean whatIf) {
     	
         // run m_orderDlg
-    	m_orderDlg.setOptionsDlgTitle("Order Misc Options");
-    	m_orderDlg.setOptions(m_orderMiscOptions);
-    	m_orderDlg.setOptionsBtnName("Order Misc Options");
-    	
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Order Misc Options");
+        m_orderDlg.setOptions(m_orderMiscOptions);
+        m_orderDlg.setOptionsBtnName("Order Misc Options");
+
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -613,6 +663,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onExerciseOptions() {
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -626,6 +677,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelOrder() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -737,17 +789,24 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateImpliedVolatility() {
         // run m_orderDlg
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Implied Volatility Options");
+        m_orderDlg.setOptions(m_impliedVolatilityOptions);
+        m_orderDlg.setOptionsBtnName("Impl Vol Options");
+        
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
+        m_impliedVolatilityOptions = m_orderDlg.getOptions();
 
         m_client.calculateImpliedVolatility( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
+                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice, m_impliedVolatilityOptions);
     }
 
     void onCancelCalculateImpliedVolatility() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -758,17 +817,24 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateOptionPrice() {
         // run m_orderDlg
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Option Price Options");
+        m_orderDlg.setOptions(m_optionPriceOptions);
+        m_orderDlg.setOptionsBtnName("Opt Price Options");
+        
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
+        m_optionPriceOptions = m_orderDlg.getOptions();
 
         m_client.calculateOptionPrice( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
+                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice, m_optionPriceOptions);
     }
 
     void onCancelCalculateOptionPrice() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -783,6 +849,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqMarketDataType() {
         // run m_orderDlg
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;

@@ -542,5 +542,12 @@ public class OrderDlg extends JDialog {
     Vector<TagValue> getOptions() {
     	return m_options;
     }
+    void disableBtnOptions(){
+        m_btnOptions.setText("Options");
+        m_btnOptions.setEnabled(false);
+    }
+    void enableBtnOptions(){
+    	m_btnOptions.setEnabled(true);
+    }
     
 }
