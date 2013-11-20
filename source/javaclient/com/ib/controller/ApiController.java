@@ -545,16 +545,14 @@ public class ApiController implements EWrapper {
 	public void reqOptionVolatility(NewContract c, double optPrice, double underPrice, IOptHandler handler) {
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		Vector<TagValue> impliedVolatilityOptions = new Vector<TagValue>();
-		m_client.calculateImpliedVolatility( reqId, c.getContract(), optPrice, underPrice, impliedVolatilityOptions);
+		m_client.calculateImpliedVolatility( reqId, c.getContract(), optPrice, underPrice);
 		sendEOM();
 	}
 
 	public void reqOptionComputation( NewContract c, double vol, double underPrice, IOptHandler handler) {
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		Vector<TagValue> optionPriceOptions = new Vector<TagValue>();
-		m_client.calculateOptionPrice(reqId, c.getContract(), vol, underPrice, optionPriceOptions);
+		m_client.calculateOptionPrice(reqId, c.getContract(), vol, underPrice);
 		sendEOM();
 	}
 
@@ -903,8 +901,7 @@ public class ApiController implements EWrapper {
     public void reqFundamentals( NewContract contract, FundamentalType reportType, IFundamentalsHandler handler) {
     	int reqId = m_reqId++;
     	m_fundMap.put( reqId, handler);
-    	Vector<TagValue> fundamentalDataOptions = new Vector<TagValue>();
-    	m_client.reqFundamentalData( reqId, contract.getContract(), reportType.getApiString(), fundamentalDataOptions);
+    	m_client.reqFundamentalData( reqId, contract.getContract(), reportType.getApiString());
 		sendEOM();
     }
 

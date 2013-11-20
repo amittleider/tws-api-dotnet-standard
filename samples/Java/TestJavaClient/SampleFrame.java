@@ -54,9 +54,6 @@ class SampleFrame extends JFrame implements EWrapper {
     private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
     private Vector<TagValue> m_mktDepthOptions = new Vector<TagValue>();
     private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_impliedVolatilityOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_optionPriceOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_fundamentalDataOptions = new Vector<TagValue>();
     
     String faGroupXML ;
     String faProfilesXML ;
@@ -522,22 +519,14 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onFundamentalData() {
-    	
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Fundamental Data Options");
-        m_orderDlg.setOptions(m_fundamentalDataOptions);
-        m_orderDlg.setOptionsBtnName("Fund Data Options");
-
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
-
-        m_fundamentalDataOptions = m_orderDlg.getOptions();
-        
        	m_client.reqFundamentalData(m_orderDlg.m_id, m_orderDlg.m_contract,
-        			/* reportType */ m_orderDlg.m_whatToShow, m_fundamentalDataOptions);
+        			/* reportType */ m_orderDlg.m_whatToShow);
     }
     
     void onCancelFundamentalData() {
@@ -789,19 +778,13 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateImpliedVolatility() {
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Implied Volatility Options");
-        m_orderDlg.setOptions(m_impliedVolatilityOptions);
-        m_orderDlg.setOptionsBtnName("Impl Vol Options");
-        
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_impliedVolatilityOptions = m_orderDlg.getOptions();
-
         m_client.calculateImpliedVolatility( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice, m_impliedVolatilityOptions);
+                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
     }
 
     void onCancelCalculateImpliedVolatility() {
@@ -817,19 +800,13 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateOptionPrice() {
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Option Price Options");
-        m_orderDlg.setOptions(m_optionPriceOptions);
-        m_orderDlg.setOptionsBtnName("Opt Price Options");
-        
+        m_orderDlg.disableBtnOptions();
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_optionPriceOptions = m_orderDlg.getOptions();
-
         m_client.calculateOptionPrice( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice, m_optionPriceOptions);
+                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
     }
 
     void onCancelCalculateOptionPrice() {

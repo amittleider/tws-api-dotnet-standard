@@ -1936,7 +1936,7 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType, Vector<TagValue> fundamentalDataOptions) {
+    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType) {
         // not connected?
         if( !m_connected) {
             notConnected();
@@ -1957,7 +1957,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 3;
+        final int VERSION = 2;
 
         try {
             // send req fund data msg
@@ -1977,23 +1977,6 @@ public class EClientSocket {
             send( contract.m_localSymbol);
 
             send( reportType);
-            
-            // send fundamentalDataOptions parameter
-            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder fundamentalDataOptionsStr = new StringBuilder();
-                int fundamentalDataOptionsCount = fundamentalDataOptions == null ? 0 : fundamentalDataOptions.size();
-                if( fundamentalDataOptionsCount > 0) {
-                    for( int i = 0; i < fundamentalDataOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)fundamentalDataOptions.get(i);
-                        fundamentalDataOptionsStr.append( tagValue.m_tag);
-                        fundamentalDataOptionsStr.append( "=");
-                        fundamentalDataOptionsStr.append( tagValue.m_value);
-                        fundamentalDataOptionsStr.append( ";");
-                    }
-                }
-                send( fundamentalDataOptionsStr.toString());
-            }
-            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQFUNDDATA, "" + e);
@@ -2029,7 +2012,7 @@ public class EClientSocket {
     }
 
     public synchronized void calculateImpliedVolatility(int reqId, Contract contract,
-            double optionPrice, double underPrice, Vector<TagValue> impliedVolatilityOptions) {
+            double optionPrice, double underPrice) {
 
         // not connected?
         if( !m_connected) {
@@ -2051,7 +2034,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 3;
+        final int VERSION = 2;
 
         try {
             // send calculate implied volatility msg
@@ -2077,23 +2060,6 @@ public class EClientSocket {
 
             send( optionPrice);
             send( underPrice);
-            
-            // send impliedVolatilityOptions parameter
-            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder impliedVolatilityOptionsStr = new StringBuilder();
-                int impliedVolatilityOptionsCount = impliedVolatilityOptions == null ? 0 : impliedVolatilityOptions.size();
-                if( impliedVolatilityOptionsCount > 0) {
-                    for( int i = 0; i < impliedVolatilityOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)impliedVolatilityOptions.get(i);
-                        impliedVolatilityOptionsStr.append( tagValue.m_tag);
-                        impliedVolatilityOptionsStr.append( "=");
-                        impliedVolatilityOptionsStr.append( tagValue.m_value);
-                        impliedVolatilityOptionsStr.append( ";");
-                    }
-                }
-                send( impliedVolatilityOptionsStr.toString());
-            }
-            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT, "" + e);
@@ -2130,7 +2096,7 @@ public class EClientSocket {
     }
 
     public synchronized void calculateOptionPrice(int reqId, Contract contract,
-            double volatility, double underPrice, Vector<TagValue> optionPriceOptions) {
+            double volatility, double underPrice) {
 
         // not connected?
         if( !m_connected) {
@@ -2152,7 +2118,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 3;
+        final int VERSION = 2;
 
         try {
             // send calculate option price msg
@@ -2178,23 +2144,6 @@ public class EClientSocket {
 
             send( volatility);
             send( underPrice);
-            
-            // send optionPriceOptions parameter
-            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder optionPriceOptionsStr = new StringBuilder();
-                int optionPriceOptionsCount = optionPriceOptions == null ? 0 : optionPriceOptions.size();
-                if( optionPriceOptionsCount > 0) {
-                    for( int i = 0; i < optionPriceOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)optionPriceOptions.get(i);
-                        optionPriceOptionsStr.append( tagValue.m_tag);
-                        optionPriceOptionsStr.append( "=");
-                        optionPriceOptionsStr.append( tagValue.m_value);
-                        optionPriceOptionsStr.append( ";");
-                    }
-                }
-                send( optionPriceOptionsStr.toString());
-            }
-            
         }
         catch( Exception e) {
             error( reqId, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE, "" + e);
