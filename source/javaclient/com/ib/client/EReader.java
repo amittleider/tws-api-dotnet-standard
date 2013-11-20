@@ -1134,6 +1134,11 @@ public class EReader extends Thread {
                 boolean isSuccessful = "true".equals(isSuccessfulStr);
                 String errorText = readStr();
 
+
+                if (isSuccessful) {
+                    m_parent.startAPI();
+                }
+
                 eWrapper().verifyCompleted(isSuccessful, errorText);
                 break;
             }

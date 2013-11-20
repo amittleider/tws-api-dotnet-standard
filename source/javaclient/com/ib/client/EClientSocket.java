@@ -163,6 +163,7 @@ public class EClientSocket {
     private static final int SUBSCRIBE_TO_GROUP_EVENTS = 68;
     private static final int UPDATE_DISPLAY_GROUP = 69;
     private static final int UNSUBSCRIBE_FROM_GROUP_EVENTS = 70;
+    private static final int START_API = 71;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -208,6 +209,8 @@ public class EClientSocket {
     private EReader m_reader;           // thread which reads msgs from socket
     protected int m_serverVersion;
     private String m_TwsTime;
+    private int m_clientId;
+    private boolean m_extraAuth;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -215,20 +218,35 @@ public class EClientSocket {
     public EReader reader()             { return m_reader; }
     public boolean isConnected() 		{ return m_connected; }
 
+    protected synchronized void setExtraAuth(boolean extraAuth){
+        m_extraAuth = extraAuth;
+    }
 
     public EClientSocket( AnyWrapper anyWrapper) {
         m_anyWrapper = anyWrapper;
+        m_clientId = -1;
+        m_extraAuth = false;
+        m_connected = false;
+        m_serverVersion = 0;
     }
-
+    
     public synchronized void eConnect( String host, int port, int clientId) {
+        eConnect(host, port, clientId, false);
+    }
+    
+    public synchronized void eConnect( String host, int port, int clientId, boolean extraAuth) {
         // already connected?
         host = checkConnected(host);
+
+        m_clientId = clientId;
+        m_extraAuth = extraAuth;
+
         if(host == null){
             return;
         }
         try{
             Socket socket = new Socket( host, port);
-            eConnect(socket, clientId);
+            eConnect(socket);
         }
         catch( Exception e) {
         	eDisconnect();
@@ -259,6 +277,11 @@ public class EClientSocket {
     }
 
     public synchronized void eConnect(Socket socket, int clientId) throws IOException {
+        m_clientId = clientId;
+        eConnect(socket);
+    }
+    
+    public synchronized void eConnect(Socket socket) throws IOException {
 
         // create io streams
         m_dos = new DataOutputStream( socket.getOutputStream() );
@@ -283,15 +306,21 @@ public class EClientSocket {
             return;
         }
 
+        // set connected flag
+        m_connected = true;
+
         // Send the client id
         if ( m_serverVersion >= 3 ){
-            send( clientId);
+            if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
+                send( m_clientId);
+            }
+            else if (!m_extraAuth){
+                startAPI();
+             }
         }
 
         m_reader.start();
 
-        // set connected flag
-        m_connected = true;
     }
 
     public synchronized void eDisconnect() {
@@ -301,6 +330,8 @@ public class EClientSocket {
         }
 
         m_connected = false;
+        m_extraAuth = false;
+        m_clientId = -1;
         m_serverVersion = 0;
         m_TwsTime = "";
 
@@ -326,6 +357,27 @@ public class EClientSocket {
             }
         }
         catch( Exception e) {
+        }
+    }
+
+    protected synchronized void startAPI() {
+        // not connected?
+        if( !m_connected) {
+            notConnected();
+            return;
+        }
+
+        final int VERSION = 1;
+
+        try {
+            send(START_API);
+            send(VERSION);
+            send(m_clientId);
+        }
+        catch( Exception e) {
+            error( EClientErrors.NO_VALID_ID,
+                   EClientErrors.FAIL_SEND_STARTAPI, "" + e);
+            close();
         }
     }
 
@@ -2385,6 +2437,13 @@ public class EClientSocket {
             error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
             "  It does not support verification message sending.");
             return;
+        }
+
+        if (!m_extraAuth) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE,
+            "  Intent to authenticate needs to be expressed during initial connect request.");
+            return;
+        	
         }
 
         final int VERSION = 1;
