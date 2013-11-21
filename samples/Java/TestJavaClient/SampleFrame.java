@@ -54,6 +54,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
     private Vector<TagValue> m_mktDepthOptions = new Vector<TagValue>();
     private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
+    private Vector<TagValue> m_realTimeBarsOptions = new Vector<TagValue>();
     
     String faGroupXML ;
     String faProfilesXML ;
@@ -442,15 +443,21 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqRealTimeBars() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.enableBtnOptions();
+        m_orderDlg.setOptionsDlgTitle("Real Time Bars Options");
+        m_orderDlg.setOptions(m_realTimeBarsOptions);
+        m_orderDlg.setOptionsBtnName("RTB Options");
+
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        // req mkt data
+        m_realTimeBarsOptions = m_orderDlg.getOptions();
+
+        // req real time bars
         m_client.reqRealTimeBars( m_orderDlg.m_id, m_orderDlg.m_contract,
         		5 /* TODO: parse and use m_orderDlg.m_barSizeSetting */,
-        		m_orderDlg.m_whatToShow, m_orderDlg.m_useRTH > 0);
+        		m_orderDlg.m_whatToShow, m_orderDlg.m_useRTH > 0, m_realTimeBarsOptions);
     }
 
     void onCancelRealTimeBars() {

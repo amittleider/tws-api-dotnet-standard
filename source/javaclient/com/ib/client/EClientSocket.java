@@ -795,7 +795,7 @@ public class EClientSocket {
         }
     }
 
-    public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH) {
+    public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, Vector<TagValue> realTimeBarsOptions) {
         // not connected?
         if( !m_connected) {
             notConnected();
@@ -815,7 +815,7 @@ public class EClientSocket {
             }
         }
 
-        final int VERSION = 2;
+        final int VERSION = 3;
 
         try {
             // send req mkt data msg
@@ -844,6 +844,22 @@ public class EClientSocket {
             send(whatToShow);
             send(useRTH);
 
+            // send realTimeBarsOptions parameter
+            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                StringBuilder realTimeBarsOptionsStr = new StringBuilder();
+                int realTimeBarsOptionsCount = realTimeBarsOptions == null ? 0 : realTimeBarsOptions.size();
+                if( realTimeBarsOptionsCount > 0) {
+                    for( int i = 0; i < realTimeBarsOptionsCount; ++i) {
+                        TagValue tagValue = (TagValue)realTimeBarsOptions.get(i);
+                        realTimeBarsOptionsStr.append( tagValue.m_tag);
+                        realTimeBarsOptionsStr.append( "=");
+                        realTimeBarsOptionsStr.append( tagValue.m_value);
+                        realTimeBarsOptionsStr.append( ";");
+                    }
+                }
+                send( realTimeBarsOptionsStr.toString());
+            }
+            
         }
         catch( Exception e) {
             error( tickerId, EClientErrors.FAIL_SEND_REQRTBARS, "" + e);

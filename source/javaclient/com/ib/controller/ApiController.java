@@ -871,7 +871,8 @@ public class ApiController implements EWrapper {
     public void reqRealTimeBars(NewContract contract, WhatToShow whatToShow, boolean rthOnly, IRealTimeBarHandler handler) {
     	int reqId = m_reqId++;
     	m_realTimeBarMap.put( reqId, handler);
-    	m_client.reqRealTimeBars(reqId, contract.getContract(), 0, whatToShow.toString(), rthOnly);
+    	Vector<TagValue> realTimeBarsOptions = new Vector<TagValue>();
+    	m_client.reqRealTimeBars(reqId, contract.getContract(), 0, whatToShow.toString(), rthOnly, realTimeBarsOptions);
 		sendEOM();
     }
 
