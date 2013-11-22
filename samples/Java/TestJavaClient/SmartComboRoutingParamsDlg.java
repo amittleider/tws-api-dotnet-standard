@@ -48,7 +48,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 
         // create smart combo routing params panel
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
-        pParamList.setBorder( BorderFactory.createTitledBorder( "Smart Combo Routing Parameters") );
+        pParamList.setBorder( BorderFactory.createTitledBorder( "Parameters") );
 
         m_smartComboRoutingParams = smartComboRoutingParams;
         if (smartComboRoutingParams != null) {
