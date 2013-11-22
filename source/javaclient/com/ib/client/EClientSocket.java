@@ -2425,6 +2425,13 @@ public class EClientSocket {
             return;
         }
 
+        if (!m_extraAuth) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE,
+            "  Intent to authenticate needs to be expressed during initial connect request.");
+            return;
+        	
+        }
+
         final int VERSION = 1;
 
         Builder b = new Builder();
@@ -2452,13 +2459,6 @@ public class EClientSocket {
             error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
             "  It does not support verification message sending.");
             return;
-        }
-
-        if (!m_extraAuth) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE,
-            "  Intent to authenticate needs to be expressed during initial connect request.");
-            return;
-        	
         }
 
         final int VERSION = 1;
