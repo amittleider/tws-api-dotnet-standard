@@ -1657,7 +1657,6 @@ public class EClientSocket {
                StringBuilder orderMiscOptionsStr = new StringBuilder();
                java.util.Vector orderMiscOptions = order.m_orderMiscOptions;
                int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
-               send( orderMiscOptionsCount);
                if( orderMiscOptionsCount > 0) {
                    for( int i = 0; i < orderMiscOptionsCount; ++i) {
                        TagValue tagValue = (TagValue)orderMiscOptions.get(i);
