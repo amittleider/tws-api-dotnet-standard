@@ -51,9 +51,9 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private Vector<TagValue> m_mktDataOptions = new Vector<TagValue>();
     private Vector<TagValue> m_chartOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
+//    private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
     private Vector<TagValue> m_mktDepthOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
+//    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
     private Vector<TagValue> m_realTimeBarsOptions = new Vector<TagValue>();
     
     String faGroupXML ;
@@ -423,10 +423,7 @@ class SampleFrame extends JFrame implements EWrapper {
     void onReqMktData() {
 
     	// run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Market Data Options");
-        m_orderDlg.setOptions(m_mktDataOptions);
-        m_orderDlg.setOptionsBtnName("Mkt Data Options");
+        m_orderDlg.init("Mkt Data Options", true, "Market Data Options", m_mktDataOptions);
 
         m_orderDlg.show();
         
@@ -443,10 +440,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqRealTimeBars() {
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Real Time Bars Options");
-        m_orderDlg.setOptions(m_realTimeBarsOptions);
-        m_orderDlg.setOptionsBtnName("RTB Options");
+        m_orderDlg.init("RTB Options", true, "Real Time Bars Options", m_realTimeBarsOptions);
 
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -461,7 +455,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onCancelRealTimeBars() {
-    	m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -471,16 +465,14 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onScanner() {
-        m_scannerDlg.setScannerSubscriptionOptions(m_scannerSubscriptionOptions);
         m_scannerDlg.show();
-        m_scannerSubscriptionOptions = m_scannerDlg.getScannerSubscriptionOptions();
         
         if (m_scannerDlg.m_userSelection == ScannerDlg.CANCEL_SELECTION) {
             m_client.cancelScannerSubscription(m_scannerDlg.m_id);
         }
         else if (m_scannerDlg.m_userSelection == ScannerDlg.SUBSCRIBE_SELECTION) {
             m_client.reqScannerSubscription(m_scannerDlg.m_id,
-                                            m_scannerDlg.m_subscription, m_scannerSubscriptionOptions);
+                                            m_scannerDlg.m_subscription, m_scannerDlg.scannerSubscriptionOptions());
         }
         else if (m_scannerDlg.m_userSelection == ScannerDlg.REQUEST_PARAMETERS_SELECTION) {
             m_client.reqScannerParameters();
@@ -494,10 +486,7 @@ class SampleFrame extends JFrame implements EWrapper {
     void onHistoricalData() {
     	
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Chart Options");
-        m_orderDlg.setOptions(m_chartOptions);
-        m_orderDlg.setOptionsBtnName("Chart Options");
+        m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
 
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -515,7 +504,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelHistoricalData() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -527,7 +516,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onFundamentalData() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -538,7 +527,7 @@ class SampleFrame extends JFrame implements EWrapper {
     
     void onCancelFundamentalData() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -549,7 +538,7 @@ class SampleFrame extends JFrame implements EWrapper {
     
     void onReqContractData() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -561,10 +550,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqMktDepth() {
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Market Depth Options");
-        m_orderDlg.setOptions(m_mktDepthOptions);
-        m_orderDlg.setOptionsBtnName("Mkt Depth Options");
+        m_orderDlg.init("Mkt Depth Options", true, "Market Depth Options", m_mktDepthOptions);
 
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -595,7 +581,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelMktData() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -607,7 +593,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelMktDepth() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -632,20 +618,15 @@ class SampleFrame extends JFrame implements EWrapper {
     void placeOrder(boolean whatIf) {
     	
         // run m_orderDlg
-        m_orderDlg.enableBtnOptions();
-        m_orderDlg.setOptionsDlgTitle("Order Misc Options");
-        m_orderDlg.setOptions(m_orderMiscOptions);
-        m_orderDlg.setOptionsBtnName("Order Misc Options");
+        m_orderDlg.init("Order Misc Options", true, "Order Misc Options",  m_orderDlg.m_order.m_orderMiscOptions);
 
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
         }
 
-        m_orderMiscOptions = m_orderDlg.getOptions();
-    	
         Order order = m_orderDlg.m_order;
-        order.m_orderMiscOptions = m_orderMiscOptions;
+        order.m_orderMiscOptions = m_orderDlg.getOptions();
 
         // save old and set new value of whatIf attribute
         boolean savedWhatIf = order.m_whatIf;
@@ -659,7 +640,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void onExerciseOptions() {
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -673,7 +654,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelOrder() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -785,7 +766,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateImpliedVolatility() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -796,7 +777,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelCalculateImpliedVolatility() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -807,7 +788,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCalculateOptionPrice() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -818,7 +799,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onCancelCalculateOptionPrice() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;
@@ -833,7 +814,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     void onReqMarketDataType() {
         // run m_orderDlg
-        m_orderDlg.disableBtnOptions();
+        m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
             return;

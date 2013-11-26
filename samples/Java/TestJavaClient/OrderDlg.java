@@ -527,27 +527,36 @@ public class OrderDlg extends JDialog {
         return Double.parseDouble(value);
     }
     
-    void setOptionsDlgTitle(String title){
-    	m_optionsDlgTitle = title;
-    }
-    
-    void setOptions(Vector<TagValue> options) {
+//    void setOptionsDlgTitle(String title){
+//    	m_optionsDlgTitle = title;
+//    }
+  
+    void init(String btnText, boolean btnEnabled, String dlgTitle, Vector<TagValue> options) {
+    	init(btnText, btnEnabled);
     	m_options = options;
+    	m_optionsDlgTitle = dlgTitle;
     }
+    void init(String btnText, boolean btnEnabled) {
+    	m_btnOptions.setText(btnText);
+    	m_btnOptions.setEnabled(btnEnabled);
+    }
+//    void setOptions(Vector<TagValue> options) {
+//    	m_options = options;
+//    }
     
-    void setOptionsBtnName(String name){
-    	m_btnOptions.setText(name);
-    }
+//    void setOptionsBtnName(String name){
+//    	m_btnOptions.setText(name);
+//    }
     
     Vector<TagValue> getOptions() {
     	return m_options;
     }
-    void disableBtnOptions(){
-        m_btnOptions.setText("Options");
-        m_btnOptions.setEnabled(false);
-    }
-    void enableBtnOptions(){
-    	m_btnOptions.setEnabled(true);
-    }
+//    void disableBtnOptions(){
+  //      m_btnOptions.setText("Options");
+//        m_btnOptions.setEnabled(false);
+  //  }
+//    void enableBtnOptions(){
+  //  	m_btnOptions.setEnabled(true);
+//    }
     
 }

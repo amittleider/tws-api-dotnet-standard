@@ -63,6 +63,10 @@ public class ScannerDlg extends JDialog {
     private static final int COL1_WIDTH = 30;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH;
 
+    Vector<TagValue> scannerSubscriptionOptions() {
+    	return m_scannerSubscriptionOptions;
+    }
+    
     private static void addGBComponent(IBGridBagPanel panel, Component comp,
                                        GridBagConstraints gbc, int weightx, int gridwidth)
     {
@@ -258,12 +262,5 @@ public class ScannerDlg extends JDialog {
     public void show() {
         m_userSelection = NO_SELECTION;
         super.show();
-    }
-    void setScannerSubscriptionOptions(Vector<TagValue> scannerSubscriptionOptions) {
-    	m_scannerSubscriptionOptions = scannerSubscriptionOptions;
-    }
-    
-    Vector<TagValue> getScannerSubscriptionOptions() {
-    	return m_scannerSubscriptionOptions;
     }
 }
