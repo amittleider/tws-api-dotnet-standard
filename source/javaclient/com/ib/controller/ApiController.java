@@ -664,8 +664,11 @@ public class ApiController implements EWrapper {
 	}
 
 	// ---------------------------------------- Trading and Option Exercise ----------------------------------------
+	/** This interface is for receiving events for a specific order placed from the API.
+	 *  Compare to ILiveOrderHandler. */
 	public interface IOrderHandler {
 		void orderState(NewOrderState orderState);
+		void orderStatus(OrderStatus status, int filled, int remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld);
 		void handle(int errorCode, String errorMsg);
 	}
 
@@ -703,6 +706,8 @@ public class ApiController implements EWrapper {
 
 
 	// ---------------------------------------- Live order handling ----------------------------------------
+	/** This interface is for downloading and receiving events for all live orders.
+	 *  Compare to IOrderHandler. */
 	public interface ILiveOrderHandler {
 		void openOrder(NewContract contract, NewOrder order, NewOrderState orderState);
 		void openOrderEnd();
@@ -756,8 +761,13 @@ public class ApiController implements EWrapper {
 	}
 
 	@Override public void orderStatus(int orderId, String status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
-		for (ILiveOrderHandler handler : m_liveOrderHandlers) {
-			handler.orderStatus(orderId, OrderStatus.valueOf( status), filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+		IOrderHandler handler = m_orderHandlers.get( orderId);
+		if (handler != null) {
+			handler.orderStatus( OrderStatus.valueOf( status), filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+		}
+
+		for (ILiveOrderHandler liveOrderHandler : m_liveOrderHandlers) {
+			liveOrderHandler.orderStatus(orderId, OrderStatus.valueOf( status), filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
 		}
 		recEOM();
 	}
