@@ -285,7 +285,7 @@ public class ApiController implements EWrapper {
 	}
 
 	public void cancelPositions( IPositionHandler handler) {
-		m_positionHandlers.add( handler);
+		m_positionHandlers.remove( handler);
 		m_client.cancelPositions();
 		sendEOM();
 	}
