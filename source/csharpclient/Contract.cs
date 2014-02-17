@@ -1,6 +1,9 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -10,15 +13,16 @@ namespace IBApi
      * @brief class describing an instrument's definition
      * @sa ContractDetails
      */
-    public class Contract
+    [ComVisible(true)]
+    public class Contract : TWSLib.IContract
     {
-		private int conId;
+        private int conId;
         private string symbol;
         private string secType;
         private string expiry;
         private double strike;
         private string right;
-        private string multiplier;        
+        private string multiplier;
         private string exchange;
         private string currency;
         private string localSymbol;
@@ -26,9 +30,9 @@ namespace IBApi
         private string tradingClass;
         private bool includeExpired;
         private string secIdType;
-        private string secId;       
-        private string comboLegsDescription;        
-        private List<ComboLeg> comboLegs;        
+        private string secId;
+        private string comboLegsDescription;
+        private List<ComboLeg> comboLegs;
         private UnderComp underComp;
 
 
@@ -39,10 +43,10 @@ namespace IBApi
         {
             get { return conId; }
             set { conId = value; }
-        }    
+        }
 
-           
-		/**
+
+        /**
          * @brief The underlying's asset symbol
          */
         public string Symbol
@@ -51,7 +55,7 @@ namespace IBApi
             set { symbol = value; }
         }
 
-		/**
+        /**
          * @brief The security's type:
          *      STK - stock
          *      OPT - option
@@ -67,17 +71,17 @@ namespace IBApi
             get { return secType; }
             set { secType = value; }
         }
-        
-		 /**
-         * @brief The contract's expiration date (i.e. Options and Futures)
-         */
+
+        /**
+        * @brief The contract's expiration date (i.e. Options and Futures)
+        */
         public string Expiry
         {
             get { return expiry; }
             set { expiry = value; }
         }
 
-		/**
+        /**
          * @brief The option's strike price
          */
         public double Strike
@@ -85,8 +89,8 @@ namespace IBApi
             get { return strike; }
             set { strike = value; }
         }
-        
-		/**
+
+        /**
          * @brief Either Put or Call (i.e. Options)
          */
         public string Right
@@ -94,8 +98,8 @@ namespace IBApi
             get { return right; }
             set { right = value; }
         }
-        
-		/**
+
+        /**
          * @brief The instrument's multiplier (i.e. options, futures).
          */
         public string Multiplier
@@ -103,8 +107,8 @@ namespace IBApi
             get { return multiplier; }
             set { multiplier = value; }
         }
-        
-		/**
+
+        /**
          * @brief The destination exchange.
          */
         public string Exchange
@@ -158,8 +162,8 @@ namespace IBApi
             get { return includeExpired; }
             set { includeExpired = value; }
         }
-        
-		/**
+
+        /**
          * @brief Security's identifier when querying contract's details or placing orders
          *      SIN - Example: Apple: US0378331005
          *      CUSIP - Example: Apple: 037833100
@@ -171,20 +175,20 @@ namespace IBApi
             get { return secIdType; }
             set { secIdType = value; }
         }
-        
-		 /**
-         * @brief Identifier of the security type
-         * @sa secIdType
-         */
+
+        /**
+        * @brief Identifier of the security type
+        * @sa secIdType
+        */
         public string SecId
         {
             get { return secId; }
             set { secId = value; }
         }
 
-         /**
-         * @brief Description of the combo legs (?)
-         */
+        /**
+        * @brief Description of the combo legs (?)
+        */
         public string ComboLegsDescription
         {
             get { return comboLegsDescription; }
@@ -210,5 +214,48 @@ namespace IBApi
             get { return underComp; }
             set { underComp = value; }
         }
+
+        int TWSLib.IContract.conId { get { return conId; } set { conId = value; } }
+
+        string TWSLib.IContract.symbol { get { return symbol; } set { symbol = value; } }
+
+        string TWSLib.IContract.secType { get { return secType; } set { secType = value; } }
+
+        string TWSLib.IContract.expiry { get { return expiry; } set { expiry = value; } }
+
+        double TWSLib.IContract.strike { get { return strike; } set { strike = value; } }
+
+        string TWSLib.IContract.right { get { return right; } set { right = value; } }
+
+        string TWSLib.IContract.multiplier { get { return multiplier; } set { multiplier = value; } }
+
+        string TWSLib.IContract.exchange { get { return exchange; } set { exchange = value; } }
+
+        string TWSLib.IContract.primaryExchange { get { return primaryExch; } set { primaryExch = value; } }
+
+        string TWSLib.IContract.currency { get { return currency; } set { currency = value; } }
+
+        string TWSLib.IContract.localSymbol { get { return localSymbol; } set { localSymbol = value; } }
+
+        string TWSLib.IContract.tradingClass { get { return tradingClass; } set { tradingClass = value; } }
+
+        bool TWSLib.IContract.includeExpired { get { return includeExpired; } set { includeExpired = value; } }
+
+        object TWSLib.IContract.comboLegs
+        {
+            [return: MarshalAs(UnmanagedType.IDispatch)]
+            get { return new TWSLib.ComboLegList(comboLegs); }
+
+            [param: MarshalAs(UnmanagedType.IDispatch)]
+            set { comboLegs = value is TWSLib.ComboLegList ? (value as TWSLib.ComboLegList).Ocl : null; }
+        }
+
+        object TWSLib.IContract.underComp { [return: MarshalAs(UnmanagedType.IDispatch)] get { return underComp; } [param: MarshalAs(UnmanagedType.IDispatch)] set { underComp = (UnderComp)value; } }
+
+        string TWSLib.IContract.comboLegsDescrip { get { return comboLegsDescription; } }
+
+        string TWSLib.IContract.secIdType { get { return secIdType; } set { secIdType = value; } }
+
+        string TWSLib.IContract.secId { get { return secId; } set { secId = value; } }
     }
 }

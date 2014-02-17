@@ -1,4 +1,6 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -908,7 +910,7 @@ namespace IBApi
                 return;
 
             List<byte> paramsList = new List<byte>();
-            paramsList.Add(OutgoingMessages.ReplaceFA);
+            paramsList.AddParameter(OutgoingMessages.ReplaceFA);
             paramsList.AddParameter(1);
             paramsList.AddParameter(faDataType);
             paramsList.AddParameter(xml);

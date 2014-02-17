@@ -1,6 +1,9 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -10,7 +13,8 @@ namespace IBApi
      * @brief Class describing an order's execution.
      * @sa ExecutionFilter, CommissionReport
      */
-    public class Execution
+    [ComVisible(true)]
+    public class Execution : TWSLib.IExecution
     {
         private int orderId;
         private int clientId;
@@ -232,6 +236,86 @@ namespace IBApi
                 l_bRetVal = String.Compare(ExecId, l_theOther.ExecId, true) == 0;
             }
             return l_bRetVal;
+        }
+
+        string TWSLib.IExecution.execId
+        {
+            get { return execId; }
+        }
+
+        int TWSLib.IExecution.orderId
+        {
+            get { return orderId; }
+        }
+
+        int TWSLib.IExecution.clientId
+        {
+            get { return clientId; }
+        }
+
+        int TWSLib.IExecution.permId
+        {
+            get { return permId; }
+        }
+
+        string TWSLib.IExecution.time
+        {
+            get { return time; }
+        }
+
+        string TWSLib.IExecution.acctNumber
+        {
+            get { return acctNumber; }
+        }
+
+        string TWSLib.IExecution.exchange
+        {
+            get { return exchange; }
+        }
+
+        string TWSLib.IExecution.side
+        {
+            get { return side; }
+        }
+
+        int TWSLib.IExecution.shares
+        {
+            get { return shares; }
+        }
+
+        double TWSLib.IExecution.price
+        {
+            get { return price; }
+        }
+
+        int TWSLib.IExecution.liquidation
+        {
+            get { return liquidation; }
+        }
+
+        int TWSLib.IExecution.cumQty
+        {
+            get { return cumQty; }
+        }
+
+        double TWSLib.IExecution.avgPrice
+        {
+            get { return avgPrice; }
+        }
+
+        string TWSLib.IExecution.orderRef
+        {
+            get { return orderRef; }
+        }
+
+        string TWSLib.IExecution.evRule
+        {
+            get { return evRule; }
+        }
+
+        double TWSLib.IExecution.evMultiplier
+        {
+            get { return evMultiplier; }
         }
     }
 }

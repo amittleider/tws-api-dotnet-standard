@@ -1,6 +1,9 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -10,7 +13,8 @@ namespace IBApi
      * @brief Class representing a leg within combo orders.
      * @sa Order
      */
-    public class ComboLeg
+    [ComVisible(true)]
+    public class ComboLeg : IBApi.TWSApi.IComboLeg
     {
         public static int SAME = 0;
         public static int 	OPEN = 1;
@@ -119,5 +123,21 @@ namespace IBApi
             DesignatedLocation = designatedLocation;
             ExemptCode = exemptCode;
         }
+
+        int TWSApi.IComboLeg.conId { get { return conId; } set { conId = value; } }
+
+        int TWSApi.IComboLeg.ratio { get { return ratio; } set { ratio = value; } }
+
+        string TWSApi.IComboLeg.action { get { return action; } set { action = value; } }
+
+        string TWSApi.IComboLeg.exchange { get { return exchange; } set { exchange = value; } }
+
+        int TWSApi.IComboLeg.openClose { get { return openClose; } set { openClose = value; } }
+
+        int TWSApi.IComboLeg.shortSaleSlot { get { return shortSaleSlot; } set { shortSaleSlot = value; } }
+
+        string TWSApi.IComboLeg.designatedLocation { get { return designatedLocation; } set { designatedLocation = value; } }
+
+        int TWSApi.IComboLeg.exemptCode { get { return exemptCode; } set { exemptCode = value; } }
     }
 }

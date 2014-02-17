@@ -1,4 +1,6 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,7 +57,7 @@ namespace IBApi
             }
             if(parent.IsConnected())
             {
-                tcpReader.Close();
+                //tcpReader.Close();
                 parent.Close();
             }
           
@@ -1332,13 +1334,13 @@ namespace IBApi
             {
                 return 0;
             }
-            else return Double.Parse(doubleAsstring);
+            else return Double.Parse(doubleAsstring, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         protected double ReadDoubleMax() 
         {
             string str = ReadString();
-            return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse( str);
+            return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public long ReadLong()

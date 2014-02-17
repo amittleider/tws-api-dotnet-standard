@@ -1,6 +1,9 @@
-﻿using System;
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -10,7 +13,8 @@ namespace IBApi
      * @brief Provides an active order's current state
      * @sa Order
      */
-    public class OrderState
+    [ComVisible(true)]
+    public class OrderState : TWSLib.IOrderState
     {
         private string status;
         private string initMargin;
@@ -160,6 +164,51 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        string TWSLib.IOrderState.status
+        {
+            get { return status; }
+        }
+
+        string TWSLib.IOrderState.initMargin
+        {
+            get { return initMargin; }
+        }
+
+        string TWSLib.IOrderState.maintMargin
+        {
+            get { return maintMargin; }
+        }
+
+        string TWSLib.IOrderState.equityWithLoan
+        {
+            get { return equityWithLoan; }
+        }
+
+        double TWSLib.IOrderState.commission
+        {
+            get { return commission; }
+        }
+
+        double TWSLib.IOrderState.minCommission
+        {
+            get { return minCommission; }
+        }
+
+        double TWSLib.IOrderState.maxCommission
+        {
+            get { return maxCommission; }
+        }
+
+        string TWSLib.IOrderState.commissionCurrency
+        {
+            get { return commissionCurrency; }
+        }
+
+        string TWSLib.IOrderState.warningText
+        {
+            get { return warningText; }
         }
     }
 }
