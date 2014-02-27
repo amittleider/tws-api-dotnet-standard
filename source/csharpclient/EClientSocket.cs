@@ -132,7 +132,7 @@ namespace IBApi
            
         }
 
-        public void VerifyRequest(string apiName, string apiVersion)
+        public void verifyRequest(string apiName, string apiVersion)
         {
             if (!isConnected)
             {
@@ -143,6 +143,12 @@ namespace IBApi
             if (serverVersion < MinServerVer.MIN_VERSION)
             {
                 wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support verification request.");
+                return;
+            }
+
+            if (!extraAuth)
+            {
+                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " Intent to authenticate needs to be expressed during initial connect request.");
                 return;
             }
 
@@ -2145,7 +2151,7 @@ namespace IBApi
             return String.Compare(a, b, true) == 0;
         }
 
-        public void VerifyMessage(string apiData)
+        public void verifyMessage(string apiData)
         {
             if (!isConnected)
             {
@@ -2168,7 +2174,7 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
-        internal void QueryDisplayGroups(int reqId)
+        public void queryDisplayGroups(int reqId)
         {
             if (!isConnected)
             {
@@ -2191,7 +2197,7 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
-        internal void SubscribeToGroupEvents(int reqId, int groupId)
+        public void subscribeToGroupEvents(int reqId, int groupId)
         {
             if (!isConnected)
             {
@@ -2215,7 +2221,7 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
-        internal void UpdateDisplayGroup(int reqId, string contractInfo)
+        public void updateDisplayGroup(int reqId, string contractInfo)
         {
             if (!isConnected)
             {
@@ -2239,7 +2245,7 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
-        internal void UnsubscribeFromGroupEvents(int reqId)
+        public void unsubscribeFromGroupEvents(int reqId)
         {
             if (!isConnected)
             {

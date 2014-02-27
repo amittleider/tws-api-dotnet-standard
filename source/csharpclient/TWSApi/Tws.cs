@@ -1636,32 +1636,32 @@ namespace TWSLib
 
         public void verifyRequest(string apiName, string apiVersion)
         {
-            socket.VerifyRequest(apiName, apiVersion);
+            socket.verifyRequest(apiName, apiVersion);
         }
 
         public void verifyMessage(string apiData)
         {
-            socket.VerifyMessage(apiData);
+            socket.verifyMessage(apiData);
         }
 
         public void queryDisplayGroups(int reqId)
         {
-            socket.QueryDisplayGroups(reqId);
+            socket.queryDisplayGroups(reqId);
         }
 
         public void subscribeToGroupEvents(int reqId, int groupId)
         {
-            socket.SubscribeToGroupEvents(reqId, groupId);
+            socket.subscribeToGroupEvents(reqId, groupId);
         }
 
         public void updateDisplayGroup(int reqId, string contractInfo)
         {
-            socket.UpdateDisplayGroup(reqId, contractInfo);
+            socket.updateDisplayGroup(reqId, contractInfo);
         }
 
         public void unsubscribeFromGroupEvents(int reqId)
         {
-            socket.UnsubscribeFromGroupEvents(reqId);
+            socket.unsubscribeFromGroupEvents(reqId);
         }
     }
 }
