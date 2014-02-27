@@ -8,7 +8,7 @@ using System.Text;
 
 namespace IBApi
 {
-    public class MinServerVer
+    class MinServerVer
     {
         
         public const int MIN_VERSION = 38;
@@ -52,5 +52,6 @@ namespace IBApi
         public const int DELTA_NEUTRAL_OPEN_CLOSE = 66;
         public const int ACCT_SUMMARY = 67;
         public const int TRADING_CLASS = 68;
+        public const int VER_LINKING = 70;
     }
 }

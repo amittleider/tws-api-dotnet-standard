@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace IBApi
 {
@@ -129,7 +130,7 @@ namespace IBApi
             {
                 wrapper.error(e);
             }
-           
+
         }
 
         public void verifyRequest(string apiName, string apiVersion)
@@ -176,8 +177,8 @@ namespace IBApi
          * @brief Closes the socket connection and terminates its thread.
          */
         public void eDisconnect()
-        {   
-            if(tcpWriter == null)
+        {
+            if (tcpWriter == null)
             {
                 return;
             }
@@ -202,7 +203,7 @@ namespace IBApi
                     reader.Interrupt();
                     reader = null;
                 }
-                catch (Exception) 
+                catch (Exception)
                 {
                     throw;
                 }
@@ -241,7 +242,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            if(!CheckServerVersion(MinServerVer.REQ_CALC_IMPLIED_VOLAT, " It does not support calculate implied volatility."))
+            if (!CheckServerVersion(MinServerVer.REQ_CALC_IMPLIED_VOLAT, " It does not support calculate implied volatility."))
                 return;
             if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(MinServerVer.TRADING_CLASS, ""))
                 return;
@@ -261,11 +262,11 @@ namespace IBApi
             paramsList.AddParameter(contract.PrimaryExch);
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
-            if(serverVersion >= MinServerVer.TRADING_CLASS)
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
                 paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(optionPrice);
             paramsList.AddParameter(underPrice);
-            
+
             Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
         }
 
@@ -282,7 +283,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            if(!CheckServerVersion(MinServerVer.REQ_CALC_OPTION_PRICE, 
+            if (!CheckServerVersion(MinServerVer.REQ_CALC_OPTION_PRICE,
                 " It does not support calculation price requests."))
                 return;
             if (!Util.StringIsEmpty(contract.TradingClass) &&
@@ -309,7 +310,7 @@ namespace IBApi
                 paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(volatility);
             paramsList.AddParameter(underPrice);
-           
+
             Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
         }
 
@@ -374,7 +375,7 @@ namespace IBApi
             SendCancelRequest(OutgoingMessages.CancelFundamentalData, 1, reqId, EClientErrors.FAIL_SEND_CANFUNDDATA);
         }
 
-       
+
 
         /**
          * @brief Cancels a RT Market Data request
@@ -398,8 +399,8 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
-            SendCancelRequest(OutgoingMessages.CancelMarketDepth, 1, tickerId, 
+
+            SendCancelRequest(OutgoingMessages.CancelMarketDepth, 1, tickerId,
                 EClientErrors.FAIL_SEND_CANMKTDEPTH);
         }
 
@@ -487,7 +488,7 @@ namespace IBApi
                 return;
             if (!CheckServerVersion(21, " It does not support options exercise from the API."))
                 return;
-            if ( (!Util.StringIsEmpty(contract.TradingClass) || contract.ConId > 0 ) &&
+            if ((!Util.StringIsEmpty(contract.TradingClass) || contract.ConId > 0) &&
                 !CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support conId not tradingClass parameter when exercising options."))
                 return;
 
@@ -497,8 +498,9 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.ExerciseOptions);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
-          
-            if (serverVersion >= MinServerVer.TRADING_CLASS) {
+
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
+            {
                 paramsList.AddParameter(contract.ConId);
             }
             paramsList.AddParameter(contract.Symbol);
@@ -510,7 +512,8 @@ namespace IBApi
             paramsList.AddParameter(contract.Exchange);
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
-            if (serverVersion >= MinServerVer.TRADING_CLASS) {
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
+            {
                 paramsList.AddParameter(contract.TradingClass);
             }
             paramsList.AddParameter(exerciseAction);
@@ -538,13 +541,13 @@ namespace IBApi
             if (!VerifyOrderContract(contract, id))
                 return;
 
-            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD ) ? 27 : 40;
+            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 40;
             List<byte> paramsList = new List<byte>();
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
             paramsList.AddParameter(MsgVersion);
             paramsList.AddParameter(id);
-            
+
             if (serverVersion >= MinServerVer.PLACE_ORDER_CONID)
             {
                 paramsList.AddParameter(contract.ConId);
@@ -1092,10 +1095,10 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
-            if(!IsEmpty(contract.SecIdType) || !IsEmpty(contract.SecId))
+
+            if (!IsEmpty(contract.SecIdType) || !IsEmpty(contract.SecId))
             {
-                if(!CheckServerVersion(MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
+                if (!CheckServerVersion(MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
                     return;
             }
 
@@ -1179,10 +1182,10 @@ namespace IBApi
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestExecutions);
             paramsList.AddParameter(VERSION);//version
-            
+
             if (serverVersion >= MinServerVer.EXECUTION_DATA_CHAIN)
             {
-            	paramsList.AddParameter( reqId);
+                paramsList.AddParameter(reqId);
             }
 
             //Send the execution rpt filter data
@@ -1251,14 +1254,14 @@ namespace IBApi
          */
         public void reqGlobalCancel()
         {
-            if(!CheckConnection())
+            if (!CheckConnection())
                 return;
 
             if (!CheckServerVersion(MinServerVer.REQ_GLOBAL_CANCEL, "It does not support global cancel requests."))
                 return;
 
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestGlobalCancel);
             paramsList.AddParameter(VERSION);
@@ -1305,7 +1308,7 @@ namespace IBApi
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
          * @sa EWrapper::historicalData
          */
-        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime, 
+        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime,
             string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate)
         {
             if (!CheckConnection())
@@ -1314,7 +1317,7 @@ namespace IBApi
             if (!CheckServerVersion(16))
                 return;
 
-            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0 )
+            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
                 if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support conId nor trading class parameters when requesting historical data."))
                     return;
@@ -1389,12 +1392,12 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestIds);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(numIds);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);            
+            Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1419,7 +1422,7 @@ namespace IBApi
          * @param contract the Contract for which the data is being requested
          * @param genericTickList comma separated ids of the available generic ticks:
          *      - 100 	Option Volume (currently for stocks)
-	     *      - 101 	Option Open Interest (currently for stocks) 
+         *      - 101 	Option Open Interest (currently for stocks) 
          *      - 104 	Historical Volatility (currently for stocks)
          *      - 106 	Option Implied Volatility (currently for stocks)
          *      - 162 	Index Future Premium 
@@ -1435,7 +1438,7 @@ namespace IBApi
          * @param snapshot when set to true, it will provide a single snapshot of the available data. Set to false if you want to receive continuous updates.
          * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOption, EWrapper::tickSnapshotEnd
          */
-        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot)
+        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, KeyValuePair<string, string>[] mktDataOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1519,6 +1522,15 @@ namespace IBApi
             {
                 paramsList.AddParameter(snapshot);
             }
+
+            if (serverVersion >= MinServerVer.VER_LINKING)
+            {
+                if (mktDataOptions.Length > 0)
+                {
+                    paramsList.AddParameter(string.Concat(mktDataOptions.Select(x => x.Key + "=" + x.Value + ";")));
+                }
+            }
+
             Send(tickerId, paramsList, EClientErrors.FAIL_SEND_REQMKT);
         }
 
@@ -1555,7 +1567,7 @@ namespace IBApi
 
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
-                if(!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
+                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
                     return;
             }
 
@@ -1602,7 +1614,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
+
             const int VERSION = 1;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestNewsBulletins);
@@ -1775,7 +1787,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.ChangeServerLog);
             paramsList.AddParameter(VERSION);
@@ -1837,13 +1849,13 @@ namespace IBApi
                 wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.NOT_CONNECTED.Message);
                 return false;
             }
-           
+
             return true;
         }
 
         protected void ReportError(int reqId, CodeMsgPair error, string tail)
         {
-            ReportError(reqId, error.Code, error.Message+tail);
+            ReportError(reqId, error.Code, error.Message + tail);
         }
 
         protected void ReportUpdateTWS(int reqId, string tail)
@@ -1854,7 +1866,7 @@ namespace IBApi
         protected void ReportUpdateTWS(string tail)
         {
             ReportError(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + tail);
-        } 
+        }
 
         protected void ReportError(int reqId, int code, string message)
         {
@@ -2000,7 +2012,7 @@ namespace IBApi
                     return false;
                 }
             }
-            
+
             if (serverVersion < MinServerVer.SCALE_ORDERS2)
             {
                 if (order.ScaleSubsLevelSize != Int32.MaxValue)
@@ -2030,7 +2042,7 @@ namespace IBApi
                     return false;
                 }
             }
-            
+
             if (serverVersion < MinServerVer.SSHORTX)
             {
                 if (order.ExemptCode != -1)
@@ -2041,7 +2053,7 @@ namespace IBApi
                 }
             }
 
-            
+
 
             if (serverVersion < MinServerVer.HEDGE_ORDERS)
             {
