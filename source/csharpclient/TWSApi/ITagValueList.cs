@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Linq;
 
 namespace TWSLib
 {
@@ -28,6 +29,11 @@ namespace TWSLib
     [ComVisible(true)]
     public class TagValueList : ITagValueList
     {
+        public static implicit operator KeyValuePair<string, string>[](TagValueList list)
+        {
+            return list.Tvl.Select(x => new KeyValuePair<string, string>(x.tag, x.value)).ToArray();
+        }
+
         public List<IBApi.TagValue> Tvl { get; private set; }
 
         public TagValueList() : this(new List<IBApi.TagValue>()) { Tvl = new List<IBApi.TagValue>(); }

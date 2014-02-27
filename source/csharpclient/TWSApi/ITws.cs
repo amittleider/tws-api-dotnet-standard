@@ -145,7 +145,7 @@ namespace TWSLib
         [DispId(60)]
         void reqMktData(int id, string symbol, string secType, string expiry, double strike,
                   string right, string multiplier, string exchange, string primaryExchange,
-                  string currency, string genericTicks, bool snapshot);
+                  string currency, string genericTicks, bool snapshot, ITagValueList options);
 
         [DispId(61)]
         void reqOpenOrders();
@@ -162,7 +162,7 @@ namespace TWSLib
         [DispId(65)]
         void reqMktData2(int id, string localSymbol, string secType, string exchange,
                   string primaryExchange, string currency, string genericTicks,
-                  bool snapshot);
+                  bool snapshot, ITagValueList options);
 
         [DispId(66)]
         void placeOrder2(int id, string action, int quantity, string localSymbol,
@@ -177,9 +177,9 @@ namespace TWSLib
         void reqContractDetails2(string localSymbol, string secType, string exchange, string curency, int includeExpired);
         [DispId(69)]
         void reqMktDepth(int id, string symbol, string secType, string expiry, double strike,
-                  string right, string multiplier, string exchange, string curency, int numRows);
+                  string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options);
         [DispId(70)]
-        void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows);
+        void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options);
         [DispId(71)]
         void cancelMktDepth(int id);
         [DispId(72)]
@@ -206,7 +206,7 @@ namespace TWSLib
         void reqHistoricalData(int id, string symbol, string secType, string expiry, double strike,
                   string right, string multiplier, string exchange, string curency, int isExpired,
                   string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
-                  int useRTH, int formatDate);
+                  int useRTH, int formatDate, ITagValueList options);
         [DispId(83)]
         void exerciseOptions(int id, string symbol, string secType, string expiry, double strike,
                   string right, string multiplier, string exchange, string curency,
@@ -220,7 +220,7 @@ namespace TWSLib
            string moodyRatingBelow, string spRatingAbove, string spRatingBelow,
            string maturityDateAbove, string maturityDateBelow, double couponRateAbove,
            double couponRateBelow, int excludeConvertible, int averageOptionVolumeAbove,
-           string scannerSettingPairs, string stockTypeFilter);
+           string scannerSettingPairs, string stockTypeFilter, ITagValueList options);
         [DispId(86)]
         void cancelHistoricalData(int tickerId);
         [DispId(87)]
@@ -230,7 +230,7 @@ namespace TWSLib
         [DispId(89)]
         void reqRealTimeBars(int tickerId, string symbol, string secType, string expiry, double strike,
            string right, string multiplier, string exchange, string primaryExchange, string currency,
-           int isExpired, int barSize, string whatToShow, int useRTH);
+           int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options);
         [DispId(90)]
         void cancelRealTimeBars(int tickerId);
         [DispId(91)]
@@ -255,9 +255,9 @@ namespace TWSLib
         [DispId(100)]
         void reqContractDetailsEx(int reqId, IContract contract);
         [DispId(101)]
-        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot);
+        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options);
         [DispId(102)]
-        void reqMktDepthEx(int tickerId, IContract contract, int numRows);
+        void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options);
         [DispId(103)]
         void placeOrderEx(int orderId, IContract contract, IOrder order);
         [DispId(104)]
@@ -267,11 +267,11 @@ namespace TWSLib
            int exerciseQuantity, string account, int @override);
         [DispId(106)]
         void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
-           string duration, string barSize, string whatToShow, bool useRTH, int formatDate);
+           string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options);
         [DispId(107)]
-        void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH);
+        void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options);
         [DispId(108)]
-        void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription);
+        void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options);
         [DispId(109)]
         void addOrderComboLeg(double price);
         [DispId(110)]

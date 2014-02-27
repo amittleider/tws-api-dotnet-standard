@@ -271,7 +271,7 @@ namespace TWSLib
         [DispId(60)]
         public void reqMktData(int id, string symbol, string secType, string expiry, double strike,
                    string right, string multiplier, string exchange, string primaryExchange,
-                   string currency, string genericTicks, bool snapshot)
+                   string currency, string genericTicks, bool snapshot, ITagValueList options)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -290,7 +290,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot);
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, (options as TagValueList));
         }
 
         [DispId(61)]
@@ -330,7 +330,7 @@ namespace TWSLib
         [DispId(65)]
         public void reqMktData2(int id, string localSymbol, string secType, string exchange,
                    string primaryExchange, string currency, string genericTicks,
-                   bool snapshot)
+                   bool snapshot, ITagValueList options)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -345,7 +345,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot);
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, (options as TagValueList));
         }
 
         [DispId(66)]
@@ -428,7 +428,7 @@ namespace TWSLib
 
         [DispId(69)]
         public void reqMktDepth(int id, string symbol, string secType, string expiry, double strike,
-                   string right, string multiplier, string exchange, string curency, int numRows)
+                   string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -443,11 +443,11 @@ namespace TWSLib
             contract.Currency = curency;
 
             // request market depth
-            this.socket.reqMarketDepth(id, contract, numRows);
+            this.socket.reqMarketDepth(id, contract, numRows, (options as TagValueList));
         }
 
         [DispId(70)]
-        public void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows)
+        public void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options)
         {
 
             Contract contract = new Contract();
@@ -458,7 +458,7 @@ namespace TWSLib
             contract.Currency = curency;
 
             // request market depth
-            this.socket.reqMarketDepth(id, contract, numRows);
+            this.socket.reqMarketDepth(id, contract, numRows, (options as TagValueList));
         }
 
         [DispId(71)]
@@ -542,7 +542,7 @@ namespace TWSLib
         public void reqHistoricalData(int id, string symbol, string secType, string expiry, double strike,
                    string right, string multiplier, string exchange, string curency, int isExpired,
                    string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
-                   int useRTH, int formatDate)
+                   int useRTH, int formatDate, ITagValueList options)
         {
             Contract contract = new Contract();
 
@@ -560,7 +560,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request historical data
-            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate);
+            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, (options as TagValueList));
         }
 
         [DispId(83)]
@@ -595,7 +595,7 @@ namespace TWSLib
             string moodyRatingBelow, string spRatingAbove, string spRatingBelow,
             string maturityDateAbove, string maturityDateBelow, double couponRateAbove,
             double couponRateBelow, int excludeConvertible, int averageOptionVolumeAbove,
-            string scannerSettingPairs, string stockTypeFilter)
+            string scannerSettingPairs, string stockTypeFilter, ITagValueList options)
         {
             ScannerSubscription subscription = new ScannerSubscription();
 
@@ -621,7 +621,7 @@ namespace TWSLib
             subscription.ScannerSettingPairs = scannerSettingPairs;
             subscription.StockTypeFilter = stockTypeFilter;
 
-            this.socket.reqScannerSubscription(tickerId, subscription);
+            this.socket.reqScannerSubscription(tickerId, subscription, (options as TagValueList));
         }
 
         [DispId(86)]
@@ -698,7 +698,7 @@ namespace TWSLib
         [DispId(89)]
         public void reqRealTimeBars(int tickerId, string symbol, string secType, string expiry, double strike,
             string right, string multiplier, string exchange, string primaryExchange, string currency,
-            int isExpired, int barSize, string whatToShow, int useRTH)
+            int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options)
         {
             Contract contract = new Contract();
 
@@ -714,7 +714,7 @@ namespace TWSLib
             contract.IncludeExpired = (isExpired != 0);
 
             // request real time bars
-            this.socket.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH != 0);
+            this.socket.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH != 0, (options as TagValueList));
         }
 
         [DispId(90)]
@@ -787,15 +787,15 @@ namespace TWSLib
         }
 
         [DispId(101)]
-        public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot)
+        public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options)
         {
-            this.socket.reqMktData(tickerId, (Contract)contract, genericTicks, snapshot);
+            this.socket.reqMktData(tickerId, (Contract)contract, genericTicks, snapshot, (options as TagValueList));
         }
 
         [DispId(102)]
-        public void reqMktDepthEx(int tickerId, IContract contract, int numRows)
+        public void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options)
         {
-            this.socket.reqMarketDepth(tickerId, (Contract)contract, numRows);
+            this.socket.reqMarketDepth(tickerId, (Contract)contract, numRows, (options as TagValueList));
         }
 
         [DispId(103)]
@@ -819,21 +819,21 @@ namespace TWSLib
 
         [DispId(106)]
         public void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
-            string duration, string barSize, string whatToShow, bool useRTH, int formatDate)
+            string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options)
         {
-            this.socket.reqHistoricalData(tickerId, (Contract)contract, endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate);
+            this.socket.reqHistoricalData(tickerId, (Contract)contract, endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, (options as TagValueList));
         }
 
         [DispId(107)]
-        public void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH)
+        public void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options)
         {
-            this.socket.reqRealTimeBars(tickerId, (Contract)contract, barSize, whatToShow, useRTH);
+            this.socket.reqRealTimeBars(tickerId, (Contract)contract, barSize, whatToShow, useRTH, (options as TagValueList));
         }
 
         [DispId(108)]
-        public void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription)
+        public void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options)
         {
-            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)subscription);
+            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)subscription, (options as TagValueList));
         }
 
         [DispId(109)]

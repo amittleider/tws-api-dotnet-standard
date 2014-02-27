@@ -1309,7 +1309,7 @@ namespace IBApi
          * @sa EWrapper::historicalData
          */
         public void reqHistoricalData(int tickerId, Contract contract, string endDateTime,
-            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate)
+            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, KeyValuePair<string, string>[] chartOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1379,6 +1379,7 @@ namespace IBApi
                 }
             }
 
+            AddOptions(paramsList, chartOptions);
             Send(paramsList, EClientErrors.FAIL_SEND_REQHISTDATA);
         }
 
@@ -1523,13 +1524,7 @@ namespace IBApi
                 paramsList.AddParameter(snapshot);
             }
 
-            if (serverVersion >= MinServerVer.VER_LINKING)
-            {
-                if (mktDataOptions.Length > 0)
-                {
-                    paramsList.AddParameter(string.Concat(mktDataOptions.Select(x => x.Key + "=" + x.Value + ";")));
-                }
-            }
+            AddOptions(paramsList, mktDataOptions);
 
             Send(tickerId, paramsList, EClientErrors.FAIL_SEND_REQMKT);
         }
@@ -1560,7 +1555,7 @@ namespace IBApi
          * @param numRows the number of rows on each side of the order book
          * @sa cancelMktDepth, EWrapper::updateMktDepth, EWrapper::updateMktDepthL2
          */
-        public void reqMarketDepth(int tickerId, Contract contract, int numRows)
+        public void reqMarketDepth(int tickerId, Contract contract, int numRows, KeyValuePair<string, string>[] mktDepthOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1602,7 +1597,21 @@ namespace IBApi
             {
                 paramsList.AddParameter(numRows);
             }
+
+            AddOptions(paramsList, mktDepthOptions);
+
             Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
+        }
+
+        private void AddOptions(List<byte> paramsList, KeyValuePair<string, string>[] mktDepthOptions)
+        {
+            if (serverVersion >= MinServerVer.VER_LINKING)
+            {
+                if (mktDepthOptions.Length > 0)
+                {
+                    paramsList.AddParameter(string.Concat(mktDepthOptions.Select(x => x.Key + "=" + x.Value + ";")));
+                }
+            }
         }
 
         /**
@@ -1669,7 +1678,7 @@ namespace IBApi
          * @param useRTH set to 0 to obtain the data which was also generated ourside of the Regular Trading Hours, set to 1 to obtain only the RTH data
          * @sa cancelRealTimeBars, EWrapper::realTimeBar
          */
-        public void reqRealTimeBars(int tickerId, Contract contract, int barSize, string whatToShow, bool useRTH)
+        public void reqRealTimeBars(int tickerId, Contract contract, int barSize, string whatToShow, bool useRTH, KeyValuePair<string, string>[] realTimeBarsOptons)
         {
             if (!CheckConnection())
                 return;
@@ -1710,6 +1719,8 @@ namespace IBApi
             paramsList.AddParameter(barSize);  // this parameter is not currently used
             paramsList.AddParameter(whatToShow);
             paramsList.AddParameter(useRTH);
+
+            AddOptions(paramsList, realTimeBarsOptons);
             Send(paramsList, EClientErrors.FAIL_SEND_REQRTBARS);
         }
 
@@ -1734,7 +1745,7 @@ namespace IBApi
          * @param subscription summary of the scanner subscription including its filters.
          * @sa reqScannerParameters, ScannerSubscription, EWrapper::scannerData
          */
-        public void reqScannerSubscription(int reqId, ScannerSubscription subscription)
+        public void reqScannerSubscription(int reqId, ScannerSubscription subscription, KeyValuePair<string, string>[] scannerSubscriptonOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1770,6 +1781,8 @@ namespace IBApi
             {
                 paramsList.AddParameter(subscription.StockTypeFilter);
             }
+
+            AddOptions(paramsList, scannerSubscriptonOptions);
             Send(paramsList, EClientErrors.FAIL_SEND_REQSCANNER);
         }
 
