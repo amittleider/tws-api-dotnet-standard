@@ -262,9 +262,9 @@ namespace TWSLib
         }
 
         [DispId(59)]
-        public void connect(string host, int port, int clientId)
+        public void connect(string host, int port, int clientId, bool extraAuth)
         {
-            this.socket.eConnect(host, port, clientId);
+            this.socket.eConnect(host, port, clientId, extraAuth);
         }
 
         [DispId(60)]
@@ -1630,6 +1630,37 @@ namespace TWSLib
         void IDisposable.Dispose()
         {
             this.socket.Close();
+        }
+
+
+        public void verifyRequest(string apiName, string apiVersion)
+        {
+            socket.VerifyRequest(apiName, apiVersion);
+        }
+
+        public void verifyMessage(string apiData)
+        {
+            socket.VerifyMessage(apiData);
+        }
+
+        public void queryDisplayGroups(int reqId)
+        {
+            socket.QueryDisplayGroups(reqId);
+        }
+
+        public void subscribeToGroupEvents(int reqId, int groupId)
+        {
+            socket.SubscribeToGroupEvents(reqId, groupId);
+        }
+
+        public void updateDisplayGroup(int reqId, string contractInfo)
+        {
+            socket.UpdateDisplayGroup(reqId, contractInfo);
+        }
+
+        public void unsubscribeFromGroupEvents(int reqId)
+        {
+            socket.UnsubscribeFromGroupEvents(reqId);
         }
     }
 }

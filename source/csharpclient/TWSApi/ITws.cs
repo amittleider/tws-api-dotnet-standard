@@ -139,7 +139,7 @@ namespace TWSLib
         void disconnect();
 
         [DispId(59)]
-        void connect(string host, int port, int clientId);
+        void connect(string host, int port, int clientId, bool extraAuth);
 
         [DispId(60)]
         void reqMktData(int id, string symbol, string secType, string expiry, double strike,
@@ -283,6 +283,18 @@ namespace TWSLib
         void reqAccountSummary(int reqId, string groupName, string tags);
         [DispId(114)]
         void cancelAccountSummary(int reqId);
+        [DispId(115)]
+        void verifyRequest(string apiName, string apiVersion);
+        [DispId(116)]
+        void verifyMessage(string apiData);
+        [DispId(117)]
+        void queryDisplayGroups(int reqId);
+        [DispId(118)]
+        void subscribeToGroupEvents(int reqId, int groupId);
+        [DispId(119)]
+        void updateDisplayGroup(int reqId, string contractInfo);
+        [DispId(120)]
+        void unsubscribeFromGroupEvents(int reqId);
         [DispId(200)]
         IContract createContract();
         [DispId(201)]
