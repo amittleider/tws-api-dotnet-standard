@@ -31,7 +31,7 @@ namespace TWSLib
     {
         public static implicit operator KeyValuePair<string, string>[](TagValueList list)
         {
-            return list.Tvl.Select(x => new KeyValuePair<string, string>(x.tag, x.value)).ToArray();
+            return list == null ? null : list.Tvl.Select(x => new KeyValuePair<string, string>(x.tag, x.value)).ToArray();
         }
 
         public List<IBApi.TagValue> Tvl { get; private set; }
