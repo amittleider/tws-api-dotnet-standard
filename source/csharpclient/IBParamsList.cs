@@ -12,7 +12,7 @@ namespace IBApi
     {
         public static void AddParameter(this List<byte> source, OutgoingMessages value) 
         {
-            AddParameter(source, value.ToString());
+            AddParameter(source, (int)value);
         }
 
         public static void AddParameter(this List<byte> source, int value)
@@ -37,7 +37,7 @@ namespace IBApi
         public static void AddParameter(this List<byte> source, string value)
         {
             if (value != null)
-                source.AddRange(UTF8Encoding.UTF8.GetBytes(value));
+                source.AddRange(Encoding.UTF8.GetBytes(value));
             source.Add(Constants.EOL);
         }
 
