@@ -1611,6 +1611,8 @@ namespace IBApi
                 {
                     paramsList.AddParameter(string.Concat(mktDepthOptions.Select(x => x.Key + "=" + x.Value + ";")));
                 }
+                else
+                    paramsList.AddParameter(string.Empty);
             }
         }
 
