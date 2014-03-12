@@ -161,6 +161,7 @@ namespace IBApi
         // order combo legs
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
         private string settlingFirm;
+        private List<TagValue> orderMiscOptions = new List<TagValue>();
 
         /**
          * @brief The API client's order id.
@@ -1251,9 +1252,9 @@ namespace IBApi
 
         string TWSLib.IOrder.timeInForce { get { return tif; } set { tif = value; } }
 
-        //string TWSLib.IOrder.activeStartTime { get; set; }
+        string TWSLib.IOrder.activeStartTime { get; set; }
 
-        //string TWSLib.IOrder.activeStopTime { get; set; }
+        string TWSLib.IOrder.activeStopTime { get; set; }
 
         string TWSLib.IOrder.ocaGroup { get { return ocaGroup; } set { ocaGroup = value; } }
 
@@ -1412,5 +1413,7 @@ namespace IBApi
         object TWSLib.IOrder.smartComboRoutingParams { get { return new TWSLib.TagValueList(smartComboRoutingParams); } set { smartComboRoutingParams = (value as TWSLib.TagValueList).Tvl; } }
 
         object TWSLib.IOrder.orderComboLegs { get { return new TWSLib.OrderComboLegList(orderComboLegs); } set { orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl; } }
+
+        object TWSLib.IOrder.orderMiscOptions { get { return new TWSLib.TagValueList(orderMiscOptions); } set { orderMiscOptions = (value as TWSLib.TagValueList).Tvl; } }
     }
 }

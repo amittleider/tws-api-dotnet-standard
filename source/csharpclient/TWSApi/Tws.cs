@@ -988,13 +988,21 @@ namespace TWSLib
 
         public delegate void commissionReportDelegate(ICommissionReport commissionReport);
 
-        public delegate void positionDelegate(string account, IContract contract, int position);
+        public delegate void positionDelegate(string account, IContract contract, int position, double avgCost);
 
         public delegate void positionEndDelegate();
 
         public delegate void accountSummaryDelegate(int reqId, string account, string tag, string value, string curency);
 
         public delegate void accountSummaryEndDelegate(int reqId);
+
+        public delegate void verifyMessageAPIDelegate(string apiData);
+
+        public delegate void verifyCompletedDelegate(bool isSuccessful, string errorText);
+
+        public delegate void displayGroupListDelegate(int reqId, string groups);
+
+        public delegate void displayGroupUpdatedDelegate(int reqId, string contractInfo);
 
         public event tickPriceDelegate tickPrice;
 
@@ -1096,6 +1104,14 @@ namespace TWSLib
 
         public event accountSummaryEndDelegate accountSummaryEnd;
 
+        public event verifyMessageAPIDelegate verifyMessageAPI;
+
+        public event verifyCompletedDelegate verifyCompleted;
+
+        public event displayGroupListDelegate displayGroupList;
+
+        public event displayGroupUpdatedDelegate displayGroupUpdated;
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1133,7 +1149,7 @@ namespace TWSLib
             var t_errMsg = this.errMsg;
             if (t_errMsg != null)
                 InvokeIfRequired(t_errMsg, id, errorCode, errorMsg);
-                //t_errMsg(id, errorCode, errorMsg);
+            //t_errMsg(id, errorCode, errorMsg);
         }
 
         void EWrapper.currentTime(long time)
@@ -1204,7 +1220,7 @@ namespace TWSLib
             var t_nextValidId = this.nextValidId;
             if (t_nextValidId != null)
                 InvokeIfRequired(t_nextValidId, orderId);
-                //t_nextValidId( orderId);
+            //t_nextValidId( orderId);
         }
 
         void EWrapper.managedAccounts(string accountsList)
@@ -1212,7 +1228,7 @@ namespace TWSLib
             var t_managedAccounts = this.managedAccounts;
             if (t_managedAccounts != null)
                 InvokeIfRequired(t_managedAccounts, accountsList);
-                //t_managedAccounts( accountsList);
+            //t_managedAccounts( accountsList);
         }
 
         void EWrapper.connectionClosed()
@@ -1575,11 +1591,11 @@ namespace TWSLib
                 InvokeIfRequired(t_updateNewsBulletin, (short)msgId, (short)msgType, message, origExchange);
         }
 
-        void EWrapper.position(string account, Contract contract, int pos)
+        void EWrapper.position(string account, Contract contract, int pos, double avgCost)
         {
             var t_position = this.position;
             if (t_position != null)
-                InvokeIfRequired(t_position, account, contract, pos);
+                InvokeIfRequired(t_position, account, contract, pos, avgCost);
         }
 
         void EWrapper.positionEnd()
@@ -1642,6 +1658,34 @@ namespace TWSLib
             var t_receiveFA = this.receiveFA;
             if (t_receiveFA != null)
                 InvokeIfRequired(t_receiveFA, faDataType, faXmlData);
+        }
+
+        void EWrapper.verifyMessageAPI(string apiData)
+        {
+            var t_verifyMessageAPI = this.verifyMessageAPI;
+            if (t_verifyMessageAPI != null)
+                InvokeIfRequired(t_verifyMessageAPI, apiData);
+        }
+
+        void EWrapper.verifyCompleted(bool isSuccessful, string errorText)
+        {
+            var t_verifyCompleted = this.verifyCompleted;
+            if (t_verifyCompleted != null)
+                InvokeIfRequired(t_verifyCompleted, isSuccessful, errorText);
+        }
+
+        void EWrapper.displayGroupList(int reqId, string groups)
+        {
+            var t_displayGroupList = this.displayGroupList;
+            if (t_displayGroupList != null)
+                InvokeIfRequired(t_displayGroupList, reqId, groups);
+        }
+
+        void EWrapper.displayGroupUpdated(int reqId, string contractInfo)
+        {
+            var t_displayGroupUpdated = this.displayGroupUpdated;
+            if (t_displayGroupUpdated != null)
+                InvokeIfRequired(t_displayGroupUpdated, reqId, contractInfo);
         }
 
         void IDisposable.Dispose()

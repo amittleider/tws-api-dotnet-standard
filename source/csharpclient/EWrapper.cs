@@ -155,6 +155,12 @@ namespace IBApi
          */
         void accountSummaryEnd(int reqId);
 
+
+        void verifyMessageAPI(string apiData);
+        void verifyCompleted(bool isSuccessful, string errorText);
+        void displayGroupList(int reqId, string groups);
+        void displayGroupUpdated(int reqId, string contractInfo);
+
         /**
          * @brief Receives the subscribed account's information.
          * Only one account can be subscribed at a time.
@@ -359,7 +365,7 @@ namespace IBApi
          * @param pos the number of positions held.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, int pos);
+        void position(string account, Contract contract, int pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.

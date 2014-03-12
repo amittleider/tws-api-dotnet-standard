@@ -18,7 +18,7 @@ namespace IBApi
 
         private ManualResetEvent stopEvent;
         private Thread runner;
-        
+
         public EReader(EClientSocket parent, BinaryReader reader)
         {
             this.parent = parent;
@@ -37,12 +37,12 @@ namespace IBApi
             this.runner.Abort();
         }
 
-       
+
         public void ReadAndProcessMessages()
         {
             try
             {
-                while(!stopEvent.WaitOne(0))
+                while (!stopEvent.WaitOne(0))
                 {
                     int incomingMessage = ReadInt();
                     ProcessIncomingMessage(incomingMessage);
@@ -56,12 +56,12 @@ namespace IBApi
                     parent.Wrapper.error(e);
                 }
             }
-            if(parent.IsConnected())
+            if (parent.IsConnected())
             {
                 //tcpReader.Close();
                 parent.Close();
             }
-          
+
         }
 
 
@@ -264,6 +264,27 @@ namespace IBApi
                         ReceiveFAEvent();
                         break;
                     }
+                case IncomingMessage.VerifyMessageApi:
+                    {
+                        VerifyMessageApiEvent();
+                        break;
+                    }
+                case IncomingMessage.VerifyCompleted:
+                    {
+                        VerifyCompletedEvent();
+                        break;
+                    }
+                case IncomingMessage.DisplayGroupList:
+                    {
+                        DisplayGroupListEvent();
+                        break;
+                    }
+                case IncomingMessage.DisplayGroupUpdated:
+                    {
+                        DisplayGroupUpdatedEvent();
+                        break;
+                    }
+
                 default:
                     {
                         parent.Wrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -272,6 +293,44 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void DisplayGroupUpdatedEvent()
+        {
+            int msgVersion = ReadInt();
+            int reqId = ReadInt();
+            string contractInfo = ReadString();
+
+            parent.Wrapper.displayGroupUpdated(reqId, contractInfo);
+        }
+
+        private void DisplayGroupListEvent()
+        {
+            int msgVersion = ReadInt();
+            int reqId = ReadInt();
+            string groups = ReadString();
+
+            parent.Wrapper.displayGroupList(reqId, groups);
+        }
+
+        private void VerifyCompletedEvent()
+        {
+            int msgVersion = ReadInt();
+            bool isSuccessful = String.Compare(ReadString(), "true", true) == 0;
+            string errorText = ReadString();
+
+            if (isSuccessful)
+                parent.startApi();
+
+            parent.Wrapper.verifyCompleted(isSuccessful, errorText);
+        }
+
+        private void VerifyMessageApiEvent()
+        {
+            int msgVersion = ReadInt();
+            string apiData = ReadString();
+
+            parent.Wrapper.verifyMessageAPI(apiData);
         }
 
         private void TickPriceEvent()
@@ -1178,7 +1237,7 @@ namespace IBApi
                                         close, volume, barCount, WAP,
                                         Boolean.Parse(hasGaps));
             }
-            
+
             // send end of dataset marker. WARN: verify why this was never implemented before
             parent.Wrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
         }
@@ -1247,7 +1306,14 @@ namespace IBApi
             }
 
             int pos = ReadInt();
-            parent.Wrapper.position(account, contract, pos);
+            double avgCost = 0;
+
+            /*if (msgVersion >= 3)
+            {
+                avgCost = ReadDouble();
+            }*/
+
+            parent.Wrapper.position(account, contract, pos, avgCost);
         }
 
         private void PositionEndEvent()
@@ -1338,7 +1404,7 @@ namespace IBApi
             else return Double.Parse(doubleAsstring, System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        protected double ReadDoubleMax() 
+        protected double ReadDoubleMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.CultureInfo.InvariantCulture);
@@ -1366,13 +1432,14 @@ namespace IBApi
             else return Int32.Parse(intAsstring);
         }
 
-        protected int ReadIntMax() 
+        protected int ReadIntMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
         }
 
-        protected bool ReadBoolFromInt() {
+        protected bool ReadBoolFromInt()
+        {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
         }
@@ -1390,7 +1457,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = tcpReader.ReadByte();                    
+                    b = tcpReader.ReadByte();
                     if (b == 0)
                     {
                         break;

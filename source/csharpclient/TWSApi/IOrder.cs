@@ -31,10 +31,10 @@ namespace TWSLib
         // extended order fields
         [DispId(20)]
         string timeInForce { get; set; }
-        //[DispId(140)]//!!!
-        //string activeStartTime { get; set; }
-        //[DispId(141)]//!!!
-        //string activeStopTime { get; set; }
+        [DispId(140)]//!!!
+        string activeStartTime { get; set; }
+        [DispId(141)]//!!!
+        string activeStopTime { get; set; }
         [DispId(21)]
         string ocaGroup { get; set; }
         [DispId(22)]
@@ -221,5 +221,8 @@ namespace TWSLib
         // order combo legs
         [DispId(134)]
         object orderComboLegs { [return: MarshalAs(UnmanagedType.IDispatch)] get; [param: MarshalAs(UnmanagedType.IDispatch)] set; }
+
+        [DispId(142)]
+        object orderMiscOptions { [return: MarshalAs(UnmanagedType.IDispatch)] get; [param: MarshalAs(UnmanagedType.IDispatch)] set; }
     }
 }

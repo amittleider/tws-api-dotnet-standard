@@ -117,6 +117,7 @@ namespace IBApi
                 while (!reader.IsAlive()) ;
                 isConnected = true;
                 this.extraAuth = extraAuth;
+                this._clientId = clientId;
             }
             catch (ArgumentNullException ane)
             {
@@ -131,6 +132,19 @@ namespace IBApi
                 wrapper.error(e);
             }
 
+        }
+
+        int _clientId;
+
+        public void startApi()
+        {
+            var paramsList = new List<byte>();
+            const int version = 1;
+
+            paramsList.AddParameter(OutgoingMessages.StartApi);
+            paramsList.AddParameter(version);
+            paramsList.AddParameter(_clientId);
+            Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
         public void verifyRequest(string apiName, string apiVersion)
