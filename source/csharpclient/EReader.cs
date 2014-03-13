@@ -1308,6 +1308,7 @@ namespace IBApi
             int pos = ReadInt();
             double avgCost = 0;
 
+#warning !!!
             /*if (msgVersion >= 3)
             {
                 avgCost = ReadDouble();

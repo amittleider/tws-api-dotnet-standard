@@ -1617,13 +1617,13 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
         }
 
-        private void AddOptions(List<byte> paramsList, KeyValuePair<string, string>[] mktDepthOptions)
+        private void AddOptions(List<byte> paramsList, KeyValuePair<string, string>[] options)
         {
             if (serverVersion >= MinServerVer.VER_LINKING)
             {
-                if (mktDepthOptions.Length > 0)
+                if (options != null && options.Length > 0)
                 {
-                    paramsList.AddParameter(string.Concat(mktDepthOptions.Select(x => x.Key + "=" + x.Value + ";")));
+                    paramsList.AddParameter(string.Concat(options.Select(x => x.Key + "=" + x.Value + ";")));
                 }
                 else
                     paramsList.AddParameter(string.Empty);
@@ -2303,7 +2303,7 @@ namespace IBApi
             var paramsList = new List<byte>();
             const int version = 1;
 
-            paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
+            paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
             paramsList.AddParameter(version);
             paramsList.AddParameter(reqId);
             Send(paramsList, EClientErrors.FAIL_GENERIC);
