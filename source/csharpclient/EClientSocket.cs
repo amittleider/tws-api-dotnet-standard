@@ -555,7 +555,7 @@ namespace IBApi
             if (!VerifyOrderContract(contract, id))
                 return;
 
-            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 40;
+            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 42;
             List<byte> paramsList = new List<byte>();
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
@@ -873,6 +873,14 @@ namespace IBApi
                 paramsList.AddParameter(order.ScaleRandomPercent);
             }
 
+            if (serverVersion >= MinServerVer.SCALE_TABLE)
+            {
+                paramsList.AddParameter(order.scaleTable);
+                paramsList.AddParameter(order.activeStartTime);
+                paramsList.AddParameter(order.activeStopTime);
+            }
+
+
             if (serverVersion >= MinServerVer.HEDGE_ORDERS)
             {
                 paramsList.AddParameter(order.HedgeType);
@@ -938,6 +946,8 @@ namespace IBApi
             {
                 paramsList.AddParameter(order.WhatIf);
             }
+
+            AddOptions(paramsList, order.OrderMiscOptions);
 
             Send(id, paramsList, EClientErrors.FAIL_SEND_ORDER);
         }
@@ -1621,6 +1631,11 @@ namespace IBApi
             AddOptions(paramsList, mktDepthOptions);
 
             Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
+        }
+
+        private void AddOptions(List<byte> paramsList, List<TagValue> options)
+        {
+            AddOptions(paramsList, options.Select(x => new KeyValuePair<string, string>(x.tag, x.value)).ToArray());
         }
 
         private void AddOptions(List<byte> paramsList, KeyValuePair<string, string>[] options)
