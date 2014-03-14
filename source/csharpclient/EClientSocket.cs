@@ -1475,7 +1475,7 @@ namespace IBApi
                 " It does not support trading class parameter in reqMktData."))
                 return;
 
-            int version = 9;
+            int version = 11;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestMarketData);
             paramsList.AddParameter(version);
@@ -1495,6 +1495,12 @@ namespace IBApi
             paramsList.AddParameter(contract.Currency);
             if (serverVersion >= 2)
                 paramsList.AddParameter(contract.LocalSymbol);
+
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
+            {
+                paramsList.AddParameter(contract.TradingClass);
+            }
+
             if (serverVersion >= 8 && Constants.BagSecType.Equals(contract.SecType))
             {
                 if (contract.ComboLegs == null)
