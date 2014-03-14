@@ -1408,13 +1408,13 @@ namespace IBApi
 
         string TWSLib.IOrder.algoStrategy { get { return algoStrategy; } set { algoStrategy = value; } }
 
-        object TWSLib.IOrder.algoParams { get { return new TWSLib.TagValueList(algoParams); } set { algoParams = (value as TWSLib.TagValueList).Tvl; } }
+        object TWSLib.IOrder.algoParams { get { return new TWSLib.TagValueList(algoParams); } set { algoParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
 
-        object TWSLib.IOrder.smartComboRoutingParams { get { return new TWSLib.TagValueList(smartComboRoutingParams); } set { smartComboRoutingParams = (value as TWSLib.TagValueList).Tvl; } }
+        object TWSLib.IOrder.smartComboRoutingParams { get { return new TWSLib.TagValueList(smartComboRoutingParams); } set { smartComboRoutingParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
 
         object TWSLib.IOrder.orderComboLegs { get { return new TWSLib.OrderComboLegList(orderComboLegs); } set { orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl; } }
 
-        object TWSLib.IOrder.orderMiscOptions { get { return new TWSLib.TagValueList(orderMiscOptions); } set { orderMiscOptions = (value as TWSLib.TagValueList).Tvl; } }
+        object TWSLib.IOrder.orderMiscOptions { get { return new TWSLib.TagValueList(orderMiscOptions); } set { orderMiscOptions = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
         public List<TagValue> OrderMiscOptions { get { return orderMiscOptions; } set { orderMiscOptions = value; } }
     }
 }
