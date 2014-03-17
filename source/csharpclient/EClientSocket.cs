@@ -1347,7 +1347,7 @@ namespace IBApi
                     return;
             }
 
-            const int VERSION = 5;
+            const int VERSION = 6;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestHistoricalData);
             paramsList.AddParameter(VERSION);
@@ -1596,7 +1596,7 @@ namespace IBApi
                     return;
             }
 
-            const int VERSION = 4;
+            const int VERSION = 5;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestMarketDepth);
             paramsList.AddParameter(VERSION);
@@ -1728,7 +1728,7 @@ namespace IBApi
                     return;
             }
 
-            const int VERSION = 2;
+            const int VERSION = 3;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestRealTimeBars);
             paramsList.AddParameter(VERSION);
@@ -1786,7 +1786,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            const int VERSION = 3;
+            const int VERSION = 4;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestScannerSubscription);
             paramsList.AddParameter(VERSION);
