@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,15 +10,20 @@ namespace IBApi
 {
     public static class IBParamsList
     {
+        public static void AddParameter(this List<byte> source, OutgoingMessages value) 
+        {
+            AddParameter(source, (int)value);
+        }
+
       public static void AddParameter(this List<byte> source, int value)
       {
          AddParameter(source, value.ToString());
       }
 
-      public static void AddParameter(this List<byte> source, double value)
-      {
-          AddParameter(source, value.ToString());
-      }
+        public static void AddParameter(this List<byte> source, double value)
+        {
+            AddParameter(source, value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        }
 
       public static void AddParameter(this List<byte> source, bool value)
       {

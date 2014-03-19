@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,5 +52,7 @@ namespace IBApi
         public const int DELTA_NEUTRAL_OPEN_CLOSE = 66;
         public const int ACCT_SUMMARY = 67;
         public const int TRADING_CLASS = 68;
+        public const int SCALE_TABLE = 69;
+        public const int VER_LINKING = 70;
     }
 }

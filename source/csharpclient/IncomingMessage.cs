@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,5 +50,9 @@ namespace IBApi
         public const int PositionEnd = 62;
         public const int AccountSummary = 63;
         public const int AccountSummaryEnd = 64;
+        public const int VerifyMessageApi = 65;
+        public const int VerifyCompleted = 66;
+        public const int DisplayGroupList = 67;
+        public const int DisplayGroupUpdated = 68;
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -151,6 +154,12 @@ namespace IBApi
          * @sa accountSummary, EClientSocket::reqAccountSummary
          */
         void accountSummaryEnd(int reqId);
+
+
+        void verifyMessageAPI(string apiData);
+        void verifyCompleted(bool isSuccessful, string errorText);
+        void displayGroupList(int reqId, string groups);
+        void displayGroupUpdated(int reqId, string contractInfo);
 
         /**
          * @brief Receives the subscribed account's information.
@@ -356,7 +365,7 @@ namespace IBApi
          * @param pos the number of positions held.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, int pos);
+        void position(string account, Contract contract, int pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.
