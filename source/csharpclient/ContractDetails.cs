@@ -1,9 +1,6 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -13,8 +10,7 @@ namespace IBApi
      * @brief extended contract details.
      * @sa Contract
      */
-    [ComVisible(true)]
-    public class ContractDetails : TWSLib.IContractDetails
+    public class ContractDetails
     {
         private Contract summary;
         private string marketName;
@@ -401,170 +397,5 @@ namespace IBApi
             EvMultiplier = evMultiplier;
         }
 
-        
-        string TWSLib.IContractDetails.marketName
-        {
-            get { return marketName; }
-        }
-
-        double TWSLib.IContractDetails.minTick
-        {
-            get { return minTick; }
-        }
-
-        int TWSLib.IContractDetails.priceMagnifier
-        {
-            get { return priceMagnifier; }
-        }
-
-        string TWSLib.IContractDetails.orderTypes
-        {
-            get { return orderTypes; }
-        }
-
-        string TWSLib.IContractDetails.validExchanges
-        {
-            get { return validExchanges; }
-        }
-
-        int TWSLib.IContractDetails.underConId
-        {
-            get { return underConId; }
-        }
-
-        string TWSLib.IContractDetails.longName
-        {
-            get { return longName; }
-        }
-
-        string TWSLib.IContractDetails.contractMonth
-        {
-            get { return contractMonth; }
-        }
-
-        string TWSLib.IContractDetails.industry
-        {
-            get { return industry; }
-        }
-
-        string TWSLib.IContractDetails.category
-        {
-            get { return category; }
-        }
-
-        string TWSLib.IContractDetails.subcategory
-        {
-            get { return subcategory; }
-        }
-
-        string TWSLib.IContractDetails.timeZoneId
-        {
-            get { return timeZoneId; }
-        }
-
-        string TWSLib.IContractDetails.tradingHours
-        {
-            get { return tradingHours; }
-        }
-
-        string TWSLib.IContractDetails.liquidHours
-        {
-            get { return liquidHours; }
-        }
-
-        object TWSLib.IContractDetails.summary
-        {
-            get { return summary; }
-        }
-
-        object TWSLib.IContractDetails.secIdList
-        {
-            get { return secIdList; }
-        }
-
-        string TWSLib.IContractDetails.cusip
-        {
-            get { return cusip; }
-        }
-
-        string TWSLib.IContractDetails.ratings
-        {
-            get { return ratings; }
-        }
-
-        string TWSLib.IContractDetails.descAppend
-        {
-            get { return descAppend; }
-        }
-
-        string TWSLib.IContractDetails.bondType
-        {
-            get { return bondType; }
-        }
-
-        string TWSLib.IContractDetails.couponType
-        {
-            get { return couponType; }
-        }
-
-        bool TWSLib.IContractDetails.callable
-        {
-            get { return callable; }
-        }
-
-        bool TWSLib.IContractDetails.putable
-        {
-            get { return putable; }
-        }
-
-        double TWSLib.IContractDetails.coupon
-        {
-            get { return coupon; }
-        }
-
-        bool TWSLib.IContractDetails.convertible
-        {
-            get { return convertible; }
-        }
-
-        string TWSLib.IContractDetails.maturity
-        {
-            get { return maturity; }
-        }
-
-        string TWSLib.IContractDetails.issueDate
-        {
-            get { return issueDate; }
-        }
-
-        string TWSLib.IContractDetails.nextOptionDate
-        {
-            get { return nextOptionDate; }
-        }
-
-        string TWSLib.IContractDetails.nextOptionType
-        {
-            get { return nextOptionType; }
-        }
-
-        bool TWSLib.IContractDetails.nextOptionPartial
-        {
-            get { return nextOptionPartial; }
-        }
-
-        string TWSLib.IContractDetails.notes
-        {
-            get { return notes; }
-        }
-
-        string TWSLib.IContractDetails.evRule
-        {
-            get { return evRule; }
-        }
-
-        double TWSLib.IContractDetails.evMultiplier
-        {
-            get { return evMultiplier; }
-        }
     }
 }

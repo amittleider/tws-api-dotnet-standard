@@ -1,6 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -18,7 +16,6 @@ namespace IBApi
     {
         private int serverVersion;
         private EReader reader;
-        private bool extraAuth;
 
         private TcpClient tcpClient;
         NetworkStream tcpClientStream;
@@ -68,7 +65,7 @@ namespace IBApi
          * @param clientId Every API client program requires a unique id which can be any integer. Note that up to eight clients can be connected simultaneously to a single Host.
          * @sa EWrapper, EWrapper::nextValidId, EWrapper::currentTime
          */
-        public void eConnect(string host, int port, int clientId, bool extraAuth)
+        public void eConnect(string host, int port, int clientId)
         {
             if (isConnected)
             {
@@ -114,7 +111,7 @@ namespace IBApi
                 reader.Start();
                 while (!reader.IsAlive()) ;
                 isConnected = true;
-                this.extraAuth = extraAuth;
+
             }
             catch (ArgumentNullException ane)
             {
@@ -129,30 +126,6 @@ namespace IBApi
                 wrapper.error(e);
             }
            
-        }
-
-        public void VerifyRequest(string apiName, string apiVersion)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support verification request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.VerifyMessage);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(apiName);
-            paramsList.AddParameter(apiVersion);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -177,7 +150,6 @@ namespace IBApi
 
             isConnected = false;
             serverVersion = 0;
-            extraAuth = false;
 
 
             if (tcpWriter != null)
@@ -936,7 +908,7 @@ namespace IBApi
                 return;
 
             List<byte> paramsList = new List<byte>();
-            paramsList.AddParameter(OutgoingMessages.ReplaceFA);
+            paramsList.Add(OutgoingMessages.ReplaceFA);
             paramsList.AddParameter(1);
             paramsList.AddParameter(faDataType);
             paramsList.AddParameter(xml);
@@ -1854,7 +1826,7 @@ namespace IBApi
             wrapper.error(reqId, code, message);
         }
 
-        protected void SendCancelRequest(OutgoingMessages msgType, int version, int reqId, CodeMsgPair errorMessage)
+        protected void SendCancelRequest(int msgType, int version, int reqId, CodeMsgPair errorMessage)
         {
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(msgType);
@@ -1874,7 +1846,7 @@ namespace IBApi
             }
         }
 
-        protected void SendCancelRequest(OutgoingMessages msgType, int version, CodeMsgPair errorMessage)
+        protected void SendCancelRequest(int msgType, int version, CodeMsgPair errorMessage)
         {
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(msgType);
@@ -2142,123 +2114,6 @@ namespace IBApi
         private bool StringsAreEqual(string a, string b)
         {
             return String.Compare(a, b, true) == 0;
-        }
-
-        public void VerifyMessage(string apiData)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support verification message sending.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.VerifyMessage);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(apiData);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        internal void QueryDisplayGroups(int reqId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support queryDisplayGroups request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        internal void SubscribeToGroupEvents(int reqId, int groupId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support subscribeToGroupEvents request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.SubscripbeToGroupEvents);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            paramsList.AddParameter(groupId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        internal void UpdateDisplayGroup(int reqId, string contractInfo)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support updateDisplayGroup request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            paramsList.AddParameter(contractInfo);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        internal void UnsubscribeFromGroupEvents(int reqId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support unsubscribeFromGroupEvents request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
     }
 }

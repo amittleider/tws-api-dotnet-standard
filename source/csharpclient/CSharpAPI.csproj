@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IBApi</RootNamespace>
-    <AssemblyName>TWSLib</AssemblyName>
+    <AssemblyName>CSharpAPI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -23,8 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>true</RegisterForComInterop>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,8 +32,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -43,7 +39,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,26 +70,6 @@
     <Compile Include="ScannerSubscription.cs" />
     <Compile Include="TagValue.cs" />
     <Compile Include="TickType.cs" />
-    <Compile Include="TWSApi\IComboLeg.cs" />
-    <Compile Include="TWSApi\IComboLegList.cs" />
-    <Compile Include="TWSApi\ICommissionReport.cs" />
-    <Compile Include="TWSApi\IContract.cs" />
-    <Compile Include="TWSApi\IContractDetails.cs" />
-    <Compile Include="TWSApi\IExecution.cs" />
-    <Compile Include="TWSApi\IExecutionFilter.cs" />
-    <Compile Include="TWSApi\IOrder.cs" />
-    <Compile Include="TWSApi\IOrderComboLeg.cs" />
-    <Compile Include="TWSApi\IOrderComboLegList.cs" />
-    <Compile Include="TWSApi\IOrderState.cs" />
-    <Compile Include="TWSApi\IScannerSubscription.cs" />
-    <Compile Include="TWSApi\ITagValue.cs" />
-    <Compile Include="TWSApi\ITagValueList.cs" />
-    <Compile Include="TWSApi\ITws.cs" />
-    <Compile Include="TWSApi\ITwsEvents.cs" />
-    <Compile Include="TWSApi\IUnderComp.cs" />
-    <Compile Include="TWSApi\Tws.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="UnderComp.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

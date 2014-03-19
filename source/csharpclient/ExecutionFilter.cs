@@ -1,9 +1,6 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -13,8 +10,7 @@ namespace IBApi
      * @brief when requesting executions, a filter can be specified to receive only a subset of them
      * @sa Contract, Execution, CommissionReport
      */
-    [ComVisible(true)]
-    public class ExecutionFilter : TWSLib.IExecutionFilter
+    public class ExecutionFilter
     {
         
         private int clientId;
@@ -131,19 +127,5 @@ namespace IBApi
             }
             return l_bRetVal;
         }
-
-        int TWSLib.IExecutionFilter.clientId { get { return clientId; } set { clientId = value; } }
-
-        string TWSLib.IExecutionFilter.acctCode { get { return acctCode; } set { acctCode = value; } }
-
-        string TWSLib.IExecutionFilter.time { get { return time; } set { time = value; } }
-
-        string TWSLib.IExecutionFilter.symbol { get { return symbol; } set { symbol = value; } }
-
-        string TWSLib.IExecutionFilter.secType { get { return secType; } set { secType = value; } }
-
-        string TWSLib.IExecutionFilter.exchange { get { return exchange; } set { exchange = value; } }
-
-        string TWSLib.IExecutionFilter.side { get { return side; } set { side = value; } }
     }
 }

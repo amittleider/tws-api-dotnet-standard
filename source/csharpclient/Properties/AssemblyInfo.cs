@@ -1,6 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CSharpAPI")]
-[assembly: AssemblyDescription("CSharpAPI")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Timber Hill (Europe) AG")]
 [assembly: AssemblyProduct("CSharpAPI")]
@@ -22,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0A77CCF5-052C-11D6-B0EC-00B0D074179C")]
+[assembly: Guid("bd1baaf6-fe54-4939-816e-0b6b4c2b6af5")]
 
 // Version information for an assembly consists of the following four values:
 //

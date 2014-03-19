@@ -1,9 +1,6 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -12,8 +9,7 @@ namespace IBApi
      * @class ScannerSubscription
      * @brief Defines a market scanner request
      */
-    [ComVisible(true)]
-    public class ScannerSubscription : TWSLib.IScannerSubscription
+    public class ScannerSubscription
     {
         /**
          * @var int numberOfRows
@@ -151,79 +147,79 @@ namespace IBApi
             get { return numberOfRows; }
             set { numberOfRows = value; }
         }
-
+       
         public string Instrument
         {
             get { return instrument; }
             set { instrument = value; }
         }
-
+       
         public string LocationCode
         {
             get { return locationCode; }
             set { locationCode = value; }
         }
-
+        
         public string ScanCode
         {
             get { return scanCode; }
             set { scanCode = value; }
         }
-
+        
         public double AbovePrice
         {
             get { return abovePrice; }
             set { abovePrice = value; }
         }
-
+      
         public double BelowPrice
         {
             get { return belowPrice; }
             set { belowPrice = value; }
         }
-
+        
         public int AboveVolume
         {
             get { return aboveVolume; }
             set { aboveVolume = value; }
         }
-
+        
         public int AverageOptionVolumeAbove
         {
             get { return averageOptionVolumeAbove; }
             set { averageOptionVolumeAbove = value; }
         }
-
+       
         public double MarketCapAbove
         {
             get { return marketCapAbove; }
             set { marketCapAbove = value; }
-        }
+        }       
 
         public double MarketCapBelow
         {
             get { return marketCapBelow; }
             set { marketCapBelow = value; }
-        }
+        }        
 
         public string MoodyRatingAbove
         {
             get { return moodyRatingAbove; }
             set { moodyRatingAbove = value; }
         }
-
+        
         public string MoodyRatingBelow
         {
             get { return moodyRatingBelow; }
             set { moodyRatingBelow = value; }
-        }
+        }       
 
         public string SpRatingAbove
         {
             get { return spRatingAbove; }
             set { spRatingAbove = value; }
         }
-
+       
         public string SpRatingBelow
         {
             get { return spRatingBelow; }
@@ -235,13 +231,13 @@ namespace IBApi
             get { return maturityDateAbove; }
             set { maturityDateAbove = value; }
         }
-
+        
         public string MaturityDateBelow
         {
             get { return maturityDateBelow; }
             set { maturityDateBelow = value; }
         }
-
+        
         public double CouponRateAbove
         {
             get { return couponRateAbove; }
@@ -259,63 +255,17 @@ namespace IBApi
             get { return excludeConvertible; }
             set { excludeConvertible = value; }
         }
-
+               
         public string ScannerSettingPairs
         {
             get { return scannerSettingPairs; }
             set { scannerSettingPairs = value; }
         }
-
+                
         public string StockTypeFilter
         {
             get { return stockTypeFilter; }
             set { stockTypeFilter = value; }
         }
-
-        string TWSLib.IScannerSubscription.instrument { get { return instrument; } set { instrument = value; } }
-
-        string TWSLib.IScannerSubscription.locations { get { return locationCode; } set { locationCode = value; } }
-
-        string TWSLib.IScannerSubscription.scanCode { get { return scanCode; } set { scanCode = value; } }
-
-        int TWSLib.IScannerSubscription.numberOfRows { get { return numberOfRows; } set { numberOfRows = value; } }
-
-        double TWSLib.IScannerSubscription.priceAbove { get { return abovePrice; } set { abovePrice = value; } }
-
-        double TWSLib.IScannerSubscription.priceBelow { get { return belowPrice; } set { belowPrice = value; } }
-
-        int TWSLib.IScannerSubscription.volumeAbove { get { return aboveVolume; } set { aboveVolume = value; } }
-
-        int TWSLib.IScannerSubscription.averageOptionVolumeAbove { get { return averageOptionVolumeAbove; } set { averageOptionVolumeAbove = value; } }
-
-        double TWSLib.IScannerSubscription.marketCapAbove { get { return marketCapAbove; } set { marketCapAbove = value; } }
-
-        double TWSLib.IScannerSubscription.marketCapBelow { get { return marketCapBelow; } set { marketCapBelow = value; } }
-
-        string TWSLib.IScannerSubscription.moodyRatingAbove { get { return moodyRatingAbove; } set { moodyRatingAbove = value; } }
-
-        string TWSLib.IScannerSubscription.moodyRatingBelow { get { return moodyRatingBelow; } set { moodyRatingBelow = value; } }
-
-        string TWSLib.IScannerSubscription.spRatingAbove { get { return spRatingAbove; } set { spRatingAbove = value; } }
-
-        string TWSLib.IScannerSubscription.spRatingBelow { get { return spRatingBelow; } set { spRatingBelow = value; } }
-
-        string TWSLib.IScannerSubscription.maturityDateAbove { get { return maturityDateAbove; } set { maturityDateAbove = value; } }
-
-        string TWSLib.IScannerSubscription.maturityDateBelow { get { return maturityDateBelow; } set { maturityDateBelow = value; } }
-
-        double TWSLib.IScannerSubscription.couponRateAbove { get { return couponRateAbove; } set { couponRateAbove = value; } }
-
-        double TWSLib.IScannerSubscription.couponRateBelow { get { return couponRateBelow; } set { couponRateBelow = value; } }
-
-        int TWSLib.IScannerSubscription.excludeConvertible
-        {
-            get { return string.IsNullOrEmpty(excludeConvertible) ? 0 : int.Parse(excludeConvertible); }
-            set { excludeConvertible = value.ToString(); }
-        }
-
-        string TWSLib.IScannerSubscription.scannerSettingPairs { get { return scannerSettingPairs; } set { scannerSettingPairs = value; } }
-
-        string TWSLib.IScannerSubscription.stockTypeFilter { get { return stockTypeFilter; } set { stockTypeFilter = value; } }
     }
 }
