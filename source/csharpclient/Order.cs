@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -13,7 +14,8 @@ namespace IBApi
      * @brief The order's description.
      * @sa Contract, OrderComboLeg, OrderState
      */
-    public class Order
+    [ComVisible(true)]
+    public class Order : TWSLib.IOrder
     {
         public static int CUSTOMER = 0;
         public static int FIRM = 1;
@@ -1231,9 +1233,190 @@ namespace IBApi
 
             return true;
         }
+
+ 
+        int TWSLib.IOrder.orderId { get { return orderId; } set { orderId = value; } }
+
+        int TWSLib.IOrder.clientId { get { return clientId; } set { clientId = value; } }
+
+        int TWSLib.IOrder.permId { get { return permId; } set { permId = value; } }
+
+        string TWSLib.IOrder.action { get { return action; } set { action = value; } }
+
+        int TWSLib.IOrder.totalQuantity { get { return totalQuantity; } set { totalQuantity = value; } }
+
+        string TWSLib.IOrder.orderType { get { return orderType; } set { orderType = value; } }
+
+        double TWSLib.IOrder.lmtPrice { get { return lmtPrice; } set { lmtPrice = value; } }
+
+        double TWSLib.IOrder.auxPrice { get { return auxPrice; } set { auxPrice = value; } }
+
+        string TWSLib.IOrder.timeInForce { get { return tif; } set { tif = value; } }
+
         public string activeStartTime { get; set; }
+
         public string activeStopTime { get; set; }
+
+        string TWSLib.IOrder.ocaGroup { get { return ocaGroup; } set { ocaGroup = value; } }
+
+        int TWSLib.IOrder.ocaType { get { return ocaType; } set { ocaType = value; } }
+
+        string TWSLib.IOrder.orderRef { get { return orderRef; } set { orderRef = value; } }
+
+        bool TWSLib.IOrder.transmit { get { return transmit; } set { transmit = value; } }
+
+        int TWSLib.IOrder.parentId { get { return parentId; } set { parentId = value; } }
+
+        bool TWSLib.IOrder.blockOrder { get { return blockOrder; } set { blockOrder = value; } }
+
+        bool TWSLib.IOrder.sweepToFill { get { return sweepToFill; } set { sweepToFill = value; } }
+
+        int TWSLib.IOrder.displaySize { get { return displaySize; } set { displaySize = value; } }
+
+        int TWSLib.IOrder.triggerMethod { get { return triggerMethod; } set { triggerMethod = value; } }
+
+        bool TWSLib.IOrder.outsideRth { get { return outsideRth; } set { outsideRth = value; } }
+
+        bool TWSLib.IOrder.hidden { get { return hidden; } set { hidden = value; } }
+
+        string TWSLib.IOrder.goodAfterTime { get { return goodAfterTime; } set { goodAfterTime = value; } }
+
+        string TWSLib.IOrder.goodTillDate { get { return goodTillDate; } set { goodTillDate = value; } }
+
+        bool TWSLib.IOrder.overridePercentageConstraints { get { return overridePercentageConstraints; } set { overridePercentageConstraints = value; } }
+
+        string TWSLib.IOrder.rule80A { get { return rule80A; } set { rule80A = value; } }
+
+        bool TWSLib.IOrder.allOrNone { get { return allOrNone; } set { allOrNone = value; } }
+
+        int TWSLib.IOrder.minQty { get { return minQty; } set { minQty = value; } }
+
+        double TWSLib.IOrder.percentOffset { get { return percentOffset; } set { percentOffset = value; } }
+
+        double TWSLib.IOrder.trailStopPrice { get { return trailStopPrice; } set { trailStopPrice = value; } }
+
+        double TWSLib.IOrder.trailingPercent { get { return trailingPercent; } set { trailingPercent = value; } }
+
+        bool TWSLib.IOrder.whatIf { get { return WhatIf; } set { WhatIf = value; } }
+
+
+        bool TWSLib.IOrder.notHeld { get { return notHeld; } set { notHeld = value; } }
+
+        string TWSLib.IOrder.faGroup { get { return faGroup; } set { faGroup = value; } }
+
+        string TWSLib.IOrder.faProfile { get { return faProfile; } set { faProfile = value; } }
+
+        string TWSLib.IOrder.faMethod { get { return faMethod; } set { faMethod = value; } }
+
+        string TWSLib.IOrder.faPercentage { get { return faPercentage; } set { faPercentage = value; } }
+
+        string TWSLib.IOrder.openClose { get { return openClose; } set { openClose = value; } }
+
+        int TWSLib.IOrder.origin { get { return origin; } set { origin = value; } }
+
+        int TWSLib.IOrder.shortSaleSlot { get { return shortSaleSlot; } set { shortSaleSlot = value; } }
+
+        string TWSLib.IOrder.designatedLocation { get { return designatedLocation; } set { designatedLocation = value; } }
+
+        int TWSLib.IOrder.exemptCode { get { return exemptCode; } set { exemptCode = value; } }
+
+        double TWSLib.IOrder.discretionaryAmt { get { return discretionaryAmt; } set { discretionaryAmt = value; } }
+
+        bool TWSLib.IOrder.eTradeOnly { get { return eTradeOnly; } set { eTradeOnly = value; } }
+
+        bool TWSLib.IOrder.firmQuoteOnly { get { return firmQuoteOnly; } set { firmQuoteOnly = value; } }
+
+        double TWSLib.IOrder.nbboPriceCap { get { return nbboPriceCap; } set { nbboPriceCap = value; } }
+
+        bool TWSLib.IOrder.optOutSmartRouting { get { return optOutSmartRouting; } set { optOutSmartRouting = value; } }
+
+        int TWSLib.IOrder.auctionStrategy { get { return auctionStrategy; } set { auctionStrategy = value; } }
+
+        double TWSLib.IOrder.startingPrice { get { return startingPrice; } set { startingPrice = value; } }
+
+        double TWSLib.IOrder.stockRefPrice { get { return stockRefPrice; } set { stockRefPrice = value; } }
+
+        double TWSLib.IOrder.delta { get { return delta; } set { delta = value; } }
+
+        double TWSLib.IOrder.stockRangeLower { get { return stockRangeLower; } set { stockRangeLower = value; } }
+
+        double TWSLib.IOrder.stockRangeUpper { get { return stockRangeUpper; } set { stockRangeUpper = value; } }
+
+        double TWSLib.IOrder.volatility { get { return volatility; } set { volatility = value; } }
+
+        int TWSLib.IOrder.volatilityType { get { return volatilityType; } set { volatilityType = value; } }
+
+        bool TWSLib.IOrder.continuousUpdate { get { return continuousUpdate != 0; } set { continuousUpdate = value ? 1 : 0; } }
+
+        int TWSLib.IOrder.referencePriceType { get { return referencePriceType; } set { referencePriceType = value; } }
+
+        string TWSLib.IOrder.deltaNeutralOrderType { get { return deltaNeutralOrderType; } set { deltaNeutralOrderType = value; } }
+
+        double TWSLib.IOrder.deltaNeutralAuxPrice { get { return deltaNeutralAuxPrice; } set { deltaNeutralAuxPrice = value; } }
+
+        int TWSLib.IOrder.deltaNeutralConId { get { return deltaNeutralConId; } set { deltaNeutralConId = value; } }
+
+        string TWSLib.IOrder.deltaNeutralSettlingFirm { get { return deltaNeutralSettlingFirm; } set { deltaNeutralSettlingFirm = value; } }
+
+        string TWSLib.IOrder.deltaNeutralClearingAccount { get { return deltaNeutralClearingAccount; } set { deltaNeutralClearingAccount = value; } }
+
+        string TWSLib.IOrder.deltaNeutralClearingIntent { get { return deltaNeutralClearingIntent; } set { deltaNeutralClearingIntent = value; } }
+
+        string TWSLib.IOrder.deltaNeutralOpenClose { get { return deltaNeutralOpenClose; } set { deltaNeutralOpenClose = value; } }
+
+        bool TWSLib.IOrder.deltaNeutralShortSale { get { return deltaNeutralShortSale; } set { deltaNeutralShortSale = value; } }
+
+        int TWSLib.IOrder.deltaNeutralShortSaleSlot { get { return deltaNeutralShortSaleSlot; } set { deltaNeutralShortSaleSlot = value; } }
+
+        string TWSLib.IOrder.deltaNeutralDesignatedLocation { get { return deltaNeutralDesignatedLocation; } set { deltaNeutralDesignatedLocation = value; } }
+
+        double TWSLib.IOrder.basisPoints { get { return basisPoints; } set { basisPoints = value; } }
+
+        int TWSLib.IOrder.basisPointsType { get { return basisPointsType; } set { basisPointsType = value; } }
+
+        int TWSLib.IOrder.scaleInitLevelSize { get { return scaleInitLevelSize; } set { scaleInitLevelSize = value; } }
+
+        int TWSLib.IOrder.scaleSubsLevelSize { get { return scaleSubsLevelSize; } set { scaleSubsLevelSize = value; } }
+
+        double TWSLib.IOrder.scalePriceIncrement { get { return scalePriceIncrement; } set { scalePriceIncrement = value; } }
+
+        double TWSLib.IOrder.scalePriceAdjustValue { get { return scalePriceAdjustValue; } set { scalePriceAdjustValue = value; } }
+
+        int TWSLib.IOrder.scalePriceAdjustInterval { get { return scalePriceAdjustInterval; } set { scalePriceAdjustInterval = value; } }
+
+        double TWSLib.IOrder.scaleProfitOffset { get { return scaleProfitOffset; } set { scaleProfitOffset = value; } }
+
+        bool TWSLib.IOrder.scaleAutoReset { get { return scaleAutoReset; } set { scaleAutoReset = value; } }
+
+        int TWSLib.IOrder.scaleInitPosition { get { return scaleInitPosition; } set { scaleInitPosition = value; } }
+
+        int TWSLib.IOrder.scaleInitFillQty { get { return scaleInitFillQty; } set { scaleInitFillQty = value; } }
+
+        bool TWSLib.IOrder.scaleRandomPercent { get { return scaleRandomPercent; } set { scaleRandomPercent = value; } }
+
         public string scaleTable { get; set; }
+
+        string TWSLib.IOrder.hedgeType { get { return hedgeType; } set { hedgeType = value; } }
+
+        string TWSLib.IOrder.hedgeParam { get { return hedgeParam; } set { hedgeParam = value; } }
+
+        string TWSLib.IOrder.account { get { return account; } set { account = value; } }
+
+        string TWSLib.IOrder.settlingFirm { get { return settlingFirm; } set { settlingFirm = value; } }
+
+        string TWSLib.IOrder.clearingAccount { get { return clearingAccount; } set { clearingAccount = value; } }
+
+        string TWSLib.IOrder.clearingIntent { get { return clearingIntent; } set { clearingIntent = value; } }
+
+        string TWSLib.IOrder.algoStrategy { get { return algoStrategy; } set { algoStrategy = value; } }
+
+        object TWSLib.IOrder.algoParams { get { return new TWSLib.TagValueList(algoParams); } set { algoParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
+
+        object TWSLib.IOrder.smartComboRoutingParams { get { return new TWSLib.TagValueList(smartComboRoutingParams); } set { smartComboRoutingParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
+
+        object TWSLib.IOrder.orderComboLegs { get { return new TWSLib.OrderComboLegList(orderComboLegs); } set { orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl; } }
+
+        object TWSLib.IOrder.orderMiscOptions { get { return new TWSLib.TagValueList(orderMiscOptions); } set { orderMiscOptions = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
         public List<TagValue> OrderMiscOptions { get { return orderMiscOptions; } set { orderMiscOptions = value; } }
     }
 }

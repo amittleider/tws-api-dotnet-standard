@@ -1,9 +1,10 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace IBApi
@@ -13,7 +14,8 @@ namespace IBApi
      * @brief Allows to specify a price on an order's leg
      * @sa Order, ComboLeg
      */
-    public class OrderComboLeg
+    [ComVisible(true)]
+    public class OrderComboLeg : IBApi.TWSApi.IOrderComboLeg
     {
         
         public double price;
@@ -57,5 +59,7 @@ namespace IBApi
 
             return true;
         }
+
+        double TWSApi.IOrderComboLeg.price { get { return this.Price; } set { this.Price = value; } }
     }
 }
