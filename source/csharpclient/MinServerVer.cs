@@ -8,7 +8,7 @@ using System.Text;
 
 namespace IBApi
 {
-    public class MinServerVer
+    class MinServerVer
     {
         
         public const int MIN_VERSION = 38;

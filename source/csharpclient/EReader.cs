@@ -42,7 +42,7 @@ namespace IBApi
         {
             try
             {
-                while(!stopEvent.WaitOne(0))
+                while (!stopEvent.WaitOne(0))
                 {
                     int incomingMessage = ReadInt();
                     ProcessIncomingMessage(incomingMessage);
@@ -56,7 +56,7 @@ namespace IBApi
                     parent.Wrapper.error(e);
                 }
             }
-            if(parent.IsConnected())
+            if (parent.IsConnected())
             {
                 tcpReader.Close();
                 parent.Close();
@@ -1439,7 +1439,8 @@ namespace IBApi
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
         }
 
-        protected bool ReadBoolFromInt() {
+        protected bool ReadBoolFromInt()
+        {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
         }

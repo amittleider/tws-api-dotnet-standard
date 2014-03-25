@@ -192,7 +192,7 @@ namespace IBApi
          */
         public void eDisconnect()
         {   
-            if(tcpWriter == null)
+            if (tcpWriter == null)
             {
                 return;
             }
@@ -256,7 +256,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            if(!CheckServerVersion(MinServerVer.REQ_CALC_IMPLIED_VOLAT, " It does not support calculate implied volatility."))
+            if (!CheckServerVersion(MinServerVer.REQ_CALC_IMPLIED_VOLAT, " It does not support calculate implied volatility."))
                 return;
             if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(MinServerVer.TRADING_CLASS, ""))
                 return;
@@ -276,7 +276,7 @@ namespace IBApi
             paramsList.AddParameter(contract.PrimaryExch);
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
-            if(serverVersion >= MinServerVer.TRADING_CLASS)
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
                 paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(optionPrice);
             paramsList.AddParameter(underPrice);
@@ -297,7 +297,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            if(!CheckServerVersion(MinServerVer.REQ_CALC_OPTION_PRICE, 
+            if (!CheckServerVersion(MinServerVer.REQ_CALC_OPTION_PRICE,
                 " It does not support calculation price requests."))
                 return;
             if (!Util.StringIsEmpty(contract.TradingClass) &&
@@ -502,7 +502,7 @@ namespace IBApi
                 return;
             if (!CheckServerVersion(21, " It does not support options exercise from the API."))
                 return;
-            if ( (!Util.StringIsEmpty(contract.TradingClass) || contract.ConId > 0 ) &&
+            if ((!Util.StringIsEmpty(contract.TradingClass) || contract.ConId > 0) &&
                 !CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support conId not tradingClass parameter when exercising options."))
                 return;
 
@@ -513,7 +513,8 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
           
-            if (serverVersion >= MinServerVer.TRADING_CLASS) {
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
+            {
                 paramsList.AddParameter(contract.ConId);
             }
             paramsList.AddParameter(contract.Symbol);
@@ -525,7 +526,8 @@ namespace IBApi
             paramsList.AddParameter(contract.Exchange);
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
-            if (serverVersion >= MinServerVer.TRADING_CLASS) {
+            if (serverVersion >= MinServerVer.TRADING_CLASS)
+            {
                 paramsList.AddParameter(contract.TradingClass);
             }
             paramsList.AddParameter(exerciseAction);
@@ -1118,9 +1120,9 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             
-            if(!IsEmpty(contract.SecIdType) || !IsEmpty(contract.SecId))
+            if (!IsEmpty(contract.SecIdType) || !IsEmpty(contract.SecId))
             {
-                if(!CheckServerVersion(MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
+                if (!CheckServerVersion(MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
                     return;
             }
 
@@ -1207,7 +1209,7 @@ namespace IBApi
             
             if (serverVersion >= MinServerVer.EXECUTION_DATA_CHAIN)
             {
-            	paramsList.AddParameter( reqId);
+                paramsList.AddParameter(reqId);
             }
 
             //Send the execution rpt filter data
@@ -1276,7 +1278,7 @@ namespace IBApi
          */
         public void reqGlobalCancel()
         {
-            if(!CheckConnection())
+            if (!CheckConnection())
                 return;
 
             if (!CheckServerVersion(MinServerVer.REQ_GLOBAL_CANCEL, "It does not support global cancel requests."))
@@ -1330,7 +1332,7 @@ namespace IBApi
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
          * @sa EWrapper::historicalData
          */
-        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime,
+        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime, 
             string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, KeyValuePair<string, string>[] chartOptions)
         {
             if (!CheckConnection())
@@ -1339,7 +1341,7 @@ namespace IBApi
             if (!CheckServerVersion(16))
                 return;
 
-            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0 )
+            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
                 if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support conId nor trading class parameters when requesting historical data."))
                     return;
@@ -1590,7 +1592,7 @@ namespace IBApi
 
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
-                if(!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
+                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
                     return;
             }
 
@@ -1903,7 +1905,7 @@ namespace IBApi
 
         protected void ReportError(int reqId, CodeMsgPair error, string tail)
         {
-            ReportError(reqId, error.Code, error.Message+tail);
+            ReportError(reqId, error.Code, error.Message + tail);
         }
 
         protected void ReportUpdateTWS(int reqId, string tail)
