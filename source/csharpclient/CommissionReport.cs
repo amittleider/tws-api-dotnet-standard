@@ -69,7 +69,7 @@ namespace IBApi
         }
 
         /**
-         * @brief date expressed in yyyymmdd format (?)
+         * @brief date expressed in yyyymmdd format.
          */
         public int YieldRedemptionDate
         {

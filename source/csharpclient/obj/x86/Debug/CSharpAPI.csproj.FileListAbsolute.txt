@@ -1,0 +1,4 @@
+C:\dev\github\master\tws-api\source\csharpclient\bin\Debug\TWSLib.dll
+C:\dev\github\master\tws-api\source\csharpclient\bin\Debug\TWSLib.pdb
+C:\dev\github\master\tws-api\source\csharpclient\obj\x86\Debug\TWSLib.dll
+C:\dev\github\master\tws-api\source\csharpclient\obj\x86\Debug\TWSLib.pdb

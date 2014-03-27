@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ namespace IBSampleApp.ui
 {
     public class RealTimeBarsManager : HistoricalDataManager
     {
+        public const int RT_BARS_ID_BASE = 40000000;
 
         public RealTimeBarsManager(IBClient ibClient, Chart rtBarsChart, DataGridView rtBarsGrid) : base(ibClient, rtBarsChart, rtBarsGrid)
         {
@@ -20,16 +23,16 @@ namespace IBSampleApp.ui
         {
             Clear();
             //ibClient.ClientSocket.reqHistoricalData(currentTicker, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1);
-            ibClient.ClientSocket.reqRealTimeBars(currentTicker, contract, 5, whatToShow, useRTH);
+            ibClient.ClientSocket.reqRealTimeBars(currentTicker + RT_BARS_ID_BASE, contract, 5, whatToShow, useRTH, null);
         }
 
         public override void Clear()
         {
-            ibClient.ClientSocket.cancelRealTimeBars(currentTicker);
+            ibClient.ClientSocket.cancelRealTimeBars(currentTicker + RT_BARS_ID_BASE);
             base.Clear();
         }
 
-        protected override void Populate(IBMessage message)
+        public override void UpdateUI(IBMessage message)
         {
             barCounter++;
             Chart rtBarsChart = (Chart)uiControl;
@@ -47,7 +50,7 @@ namespace IBSampleApp.ui
             rtBarsChart.Series[0].Points[barCounter].YValues[2] = rtBar.Open;
             // adding close
             rtBarsChart.Series[0].Points[barCounter].YValues[3] = rtBar.Close;
-            UpdateGrid(message);
+            PopulateGrid(message);
         }
     }
 }

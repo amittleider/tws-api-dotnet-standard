@@ -145,7 +145,8 @@ namespace IBApi
         }
 
         /**
-         * @brief The ttrading class name for this contract (?)
+         * @brief The trading class name for this contract.
+         * Available in TWS contract description window as well. For example, GBL Dec '13 future's trading class is "FGBL"
          */
         public string TradingClass
         {
@@ -186,9 +187,9 @@ namespace IBApi
             set { secId = value; }
         }
 
-        /**
-        * @brief Description of the combo legs (?)
-        */
+         /**
+         * @brief Description of the combo legs.
+         */
         public string ComboLegsDescription
         {
             get { return comboLegsDescription; }
@@ -206,7 +207,8 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief Delta and underlying price for Delta-Neutral combo orders.
+         * Underlying (STK or FUT), delta and underlying price goes into this attribute.
          * @sa UnderComp
          */
         public UnderComp UnderComp

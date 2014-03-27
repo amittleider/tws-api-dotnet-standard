@@ -57,7 +57,7 @@ namespace IBApi
             }
             if(parent.IsConnected())
             {
-                //tcpReader.Close();
+                tcpReader.Close();
                 parent.Close();
             }
           
@@ -261,6 +261,31 @@ namespace IBApi
                 case IncomingMessage.ReceiveFA:
                     {
                         ReceiveFAEvent();
+                        break;
+                    }
+                case IncomingMessage.BondContractData:
+                    {
+                        BondContractDetailsEvent();
+                        break;
+                    }
+                case IncomingMessage.VerifyMessageApi:
+                    {
+                        VerifyMessageApiEvent();
+                        break;
+                    }
+                case IncomingMessage.VerifyCompleted:
+                    {
+                        VerifyCompletedEvent();
+                        break;
+                    }
+                case IncomingMessage.DisplayGroupList:
+                    {
+                        DisplayGroupListEvent();
+                        break;
+                    }
+                case IncomingMessage.DisplayGroupUpdated:
+                    {
+                        DisplayGroupUpdatedEvent();
                         break;
                     }
                 default:
@@ -493,6 +518,72 @@ namespace IBApi
             if (msgVersion >= 2)
                 accountName = ReadString();
             parent.Wrapper.updateAccountValue(key, value, currency, accountName);
+        }
+
+        private void BondContractDetailsEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = -1;
+            if (msgVersion >= 3)
+            {
+                requestId = ReadInt();
+            }
+
+            ContractDetails contract = new ContractDetails();
+
+            contract.Summary.Symbol = ReadString();
+            contract.Summary.SecType = ReadString();
+            contract.Cusip = ReadString();
+            contract.Coupon = ReadDouble();
+            contract.Maturity = ReadString();
+            contract.IssueDate = ReadString();
+            contract.Ratings = ReadString();
+            contract.BondType = ReadString();
+            contract.CouponType = ReadString();
+            contract.Convertible = ReadBoolFromInt();
+            contract.Callable = ReadBoolFromInt();
+            contract.Putable = ReadBoolFromInt();
+            contract.DescAppend = ReadString();
+            contract.Summary.Exchange = ReadString();
+            contract.Summary.Currency = ReadString();
+            contract.MarketName = ReadString();
+            contract.Summary.TradingClass = ReadString();
+            contract.Summary.ConId = ReadInt();
+            contract.MinTick = ReadDouble();
+            contract.OrderTypes = ReadString();
+            contract.ValidExchanges = ReadString();
+            if (msgVersion >= 2)
+            {
+                contract.NextOptionDate = ReadString();
+                contract.NextOptionType = ReadString();
+                contract.NextOptionPartial = ReadBoolFromInt();
+                contract.Notes = ReadString();
+            }
+            if (msgVersion >= 4)
+            {
+                contract.LongName = ReadString();
+            }
+            if (msgVersion >= 6)
+            {
+                contract.EvRule = ReadString();
+                contract.EvMultiplier = ReadDouble();
+            }
+            if (msgVersion >= 5)
+            {
+                int secIdListCount = ReadInt();
+                if (secIdListCount > 0)
+                {
+                    contract.SecIdList = new List<TagValue>();
+                    for (int i = 0; i < secIdListCount; ++i)
+                    {
+                        TagValue tagValue = new TagValue();
+                        tagValue.Tag = ReadString();
+                        tagValue.Value = ReadString();
+                        contract.SecIdList.Add(tagValue);
+                    }
+                }
+            }
+            parent.Wrapper.bondContractDetails(requestId, contract);
         }
 
         private void PortfolioValueEvent()
@@ -857,8 +948,8 @@ namespace IBApi
                     for (int i = 0; i < smartComboRoutingParamsCount; ++i)
                     {
                         TagValue tagValue = new TagValue();
-                        tagValue.tag = ReadString();
-                        tagValue.value = ReadString();
+                        tagValue.Tag = ReadString();
+                        tagValue.Value = ReadString();
                         order.SmartComboRoutingParams.Add(tagValue);
                     }
                 }
@@ -940,8 +1031,8 @@ namespace IBApi
                         for (int i = 0; i < algoParamsCount; ++i)
                         {
                             TagValue tagValue = new TagValue();
-                            tagValue.tag = ReadString();
-                            tagValue.value = ReadString();
+                            tagValue.Tag = ReadString();
+                            tagValue.Value = ReadString();
                             order.AlgoParams.Add(tagValue);
                         }
                     }
@@ -1031,8 +1122,8 @@ namespace IBApi
                     for (int i = 0; i < secIdListCount; ++i)
                     {
                         TagValue tagValue = new TagValue();
-                        tagValue.tag = ReadString();
-                        tagValue.value = ReadString();
+                        tagValue.Tag = ReadString();
+                        tagValue.Value = ReadString();
                         contract.SecIdList.Add(tagValue);
                     }
                 }
@@ -1040,6 +1131,7 @@ namespace IBApi
 
             parent.Wrapper.contractDetails(requestId, contract);
         }
+
 
         private void ContractDataEndEvent()
         {
@@ -1112,7 +1204,6 @@ namespace IBApi
                 exec.EvRule = ReadString();
                 exec.EvMultiplier = ReadDouble();
             }
-            //Console.WriteLine(ReadString());
             parent.Wrapper.execDetails(requestId, contract, exec);
         }
 
@@ -1178,7 +1269,7 @@ namespace IBApi
                                         Boolean.Parse(hasGaps));
             }
             
-            // send end of dataset marker. WARN: verify why this was never implemented before
+            // send end of dataset marker.
             parent.Wrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
         }
 
@@ -1246,7 +1337,10 @@ namespace IBApi
             }
 
             int pos = ReadInt();
-            parent.Wrapper.position(account, contract, pos);
+            double avgCost = 0;
+            if (msgVersion >= 3)
+                avgCost = ReadDouble();
+            parent.Wrapper.position(account, contract, pos, avgCost);
         }
 
         private void PositionEndEvent()
@@ -1320,6 +1414,38 @@ namespace IBApi
             parent.Wrapper.receiveFA(faDataType, faData);
         }
 
+        public void VerifyMessageApiEvent()
+        {
+            int msgVersion = ReadInt();
+            string apiData = ReadString();
+            parent.Wrapper.verifyMessageAPI(apiData);
+        }
+                
+        public void VerifyCompletedEvent()
+        {
+            int msgVersion = ReadInt();
+            string isSuccessfulStr = ReadString();
+            bool isSuccessful = isSuccessfulStr.Equals("true");
+            string errorText = ReadString();
+            parent.Wrapper.verifyCompleted(isSuccessful, errorText);
+        }
+                     
+        public void DisplayGroupListEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            string groups = ReadString();
+            parent.Wrapper.displayGroupList(requestId, groups);
+        }
+                   
+        public void DisplayGroupUpdatedEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            string contractInfo = ReadString();
+            parent.Wrapper.displayGroupUpdated(requestId, contractInfo);
+        }
+
         public Boolean IsAlive()
         {
             return runner.IsAlive;
@@ -1334,13 +1460,13 @@ namespace IBApi
             {
                 return 0;
             }
-            else return Double.Parse(doubleAsstring, System.Globalization.CultureInfo.InvariantCulture);
+            else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
         protected double ReadDoubleMax() 
         {
             string str = ReadString();
-            return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.CultureInfo.InvariantCulture);
+            return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
         public long ReadLong()
@@ -1403,6 +1529,5 @@ namespace IBApi
                 return strBuilder.ToString();
             }
         }
-
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,8 +32,8 @@ namespace Samples
 
         public virtual void error(Exception e)
         {
-            Console.WriteLine("Error: "+e);
-            throw e;//remove after testing!
+            Console.WriteLine("Exception thrown: "+e);
+            throw e;
         }
         
         public virtual void error(string str)
@@ -147,6 +149,9 @@ namespace Samples
         public virtual void openOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
             Console.WriteLine("OpenOrder. ID: "+orderId+", "+contract.Symbol+", "+contract.SecType+" @ "+contract.Exchange+": "+order.Action+", "+order.OrderType+" "+order.TotalQuantity+", "+orderState.Status+"\n");
+            //clientSocket.reqMktData(2, contract, "", false);
+            contract.ConId = 0;
+            clientSocket.placeOrder(nextOrderId, contract, order);
         }
 
         public virtual void openOrderEnd()
@@ -191,8 +196,6 @@ namespace Samples
 
         public virtual void marketDataType(int reqId, int marketDataType)
         {
-            //WARN: when we request this, we never send a requestId
-            //This is also not returning anything when invoked
             Console.WriteLine("MarketDataType. "+reqId+", Type: "+marketDataType+"\n");
         }
 
@@ -201,21 +204,20 @@ namespace Samples
             Console.WriteLine("UpdateMarketDepth. " + tickerId + " - Position: " + position + ", Operation: " + operation + ", Side: " + side + ", Price: " + price + ", Size" + size+"\n");
         }
 
-        //WARN: Could not test!
         public virtual void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size)
         {
             Console.WriteLine("UpdateMarketDepthL2. " + tickerId + " - Position: " + position + ", Operation: " + operation + ", Side: " + side + ", Price: " + price + ", Size" + size+"\n");
         }
 
-        //WARN: Could not test!
+        
         public virtual void updateNewsBulletin(int msgId, int msgType, String message, String origExchange)
         {
             Console.WriteLine("News Bulletins. "+msgId+" - Type: "+msgType+", Message: "+message+", Exchange of Origin: "+origExchange+"\n");
         }
 
-        public virtual void position(string account, Contract contract, int pos)
+        public virtual void position(string account, Contract contract, int pos, double avgCost)
         {
-            Console.WriteLine("Position. "+account+" - Symbol: "+contract.Symbol+", SecType: "+contract.SecType+", Currency: "+contract.Currency+", Position: "+pos+"\n");
+            Console.WriteLine("Position. "+account+" - Symbol: "+contract.Symbol+", SecType: "+contract.SecType+", Currency: "+contract.Currency+", Position: "+pos+", Avg cost: "+avgCost+"\n");
         }
 
         public virtual void positionEnd()
@@ -247,6 +249,33 @@ namespace Samples
         public virtual void receiveFA(int faDataType, string faXmlData)
         {
             Console.WriteLine("Receing FA: "+faDataType+" - "+faXmlData+"\n");
+        }
+
+        public virtual void bondContractDetails(int requestId, ContractDetails contractDetails)
+        {
+            Console.WriteLine("Bond. Symbol "+contractDetails.Summary.Symbol+", "+contractDetails.Summary);
+        }
+
+        public virtual void historicalDataEnd(int reqId, string startDate, string endDate)
+        {
+            Console.WriteLine("Historical data end - "+reqId+" from "+startDate+" to "+endDate);
+        }
+
+        public virtual void verifyMessageAPI(string apiData)
+        {
+            Console.WriteLine("verifyMessageAPI: " + apiData);
+        }
+        public virtual void verifyCompleted(bool isSuccessful, string errorText)
+        {
+            Console.WriteLine("verifyCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
+        }
+        public virtual void displayGroupList(int reqId, string groups)
+        {
+            Console.WriteLine("DisplayGroupList. Request: " + reqId + ", Groups" + groups);
+        }
+        public virtual void displayGroupUpdated(int reqId, string contractInfo)
+        {
+            Console.WriteLine("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
         }
     }
 }
