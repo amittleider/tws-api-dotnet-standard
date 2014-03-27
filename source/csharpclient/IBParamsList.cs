@@ -12,7 +12,7 @@ namespace IBApi
     {
         public static void AddParameter(this List<byte> source, OutgoingMessages msgId)
         {
-            AddParameter(source, msgId.ToString());
+            AddParameter(source, (int)msgId);
         }
 
       public static void AddParameter(this List<byte> source, int value)
