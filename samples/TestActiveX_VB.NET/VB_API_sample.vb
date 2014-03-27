@@ -1518,7 +1518,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Notification that the TWS-API connection has been broken.
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_connectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Tws1.connectionClosed
+    Private Sub Tws1_connectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Tws1.OnConnectionClosed
         Call m_utils.addListItem(Utils.List_Types.ERRORS, "Connection to Tws has been closed")
 
         ' move into view
@@ -1528,7 +1528,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data price tick event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickPrice(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickPriceEvent) Handles Tws1.tickPrice
+    Private Sub Tws1_tickPrice(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickPriceEvent) Handles Tws1.OnTickPrice
         Dim mktDataStr As String
 
         mktDataStr = "id=" & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & "=" & eventArgs.price
@@ -1546,7 +1546,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data size tick event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickSize(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickSizeEvent) Handles Tws1.tickSize
+    Private Sub Tws1_tickSize(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickSizeEvent) Handles Tws1.OnTickSize
         Dim mktDataStr As String
 
         mktDataStr = "id=" & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & "=" & eventArgs.size
@@ -1559,7 +1559,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data generic tick event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickGeneric(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickGenericEvent) Handles Tws1.tickGeneric
+    Private Sub Tws1_tickGeneric(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickGenericEvent) Handles Tws1.OnTickGeneric
         Dim mktDataStr As String
 
         mktDataStr = "id=" & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & "=" & eventArgs.value
@@ -1572,7 +1572,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data string tick event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickString(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickStringEvent) Handles Tws1.tickString
+    Private Sub Tws1_tickString(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickStringEvent) Handles Tws1.OnTickString
         Dim mktDataStr As String
 
         mktDataStr = "id=" & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & "=" & eventArgs.value
@@ -1585,7 +1585,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data EFP computation event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickEFP(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickEFPEvent) Handles Tws1.tickEFP
+    Private Sub Tws1_tickEFP(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickEFPEvent) Handles Tws1.OnTickEFP
         Dim mktDataStr As String
         mktDataStr = "id=" & eventArgs.tickerId & " " & m_utils.getField(eventArgs.field) & ":" & _
              eventArgs.basisPoints & " / " & eventArgs.formattedBasisPoints & _
@@ -1606,10 +1606,10 @@ Friend Class dlgMainWnd
         Dim mktDataStr As String, volStr As String, deltaStr As String, gammaStr As String, vegaStr As String, _
             thetaStr As String, optPriceStr As String, pvDividendStr As String, undPriceStr As String
 
-        If eventArgs.impliedVol = Double.MaxValue Or eventArgs.impliedVol < 0 Then
+        If eventArgs.impliedVolatility = Double.MaxValue Or eventArgs.impliedVolatility < 0 Then
             volStr = "N/A"
         Else
-            volStr = eventArgs.impliedVol
+            volStr = eventArgs.impliedVolatility
         End If
         If eventArgs.delta = Double.MaxValue Or Math.Abs(eventArgs.delta) > 1 Then
             deltaStr = "N/A"
@@ -1646,7 +1646,7 @@ Friend Class dlgMainWnd
         Else
             undPriceStr = eventArgs.undPrice
         End If
-        mktDataStr = "id = " & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & " vol = " & volStr & " delta = " & deltaStr & _
+        mktDataStr = "id = " & eventArgs.tickerId & " " & m_utils.getField(eventArgs.tickType) & " vol = " & volStr & " delta = " & deltaStr & _
             " gamma = " & gammaStr & " vega = " & vegaStr & " theta = " & thetaStr & _
             " optPrice = " & optPriceStr & " pvDividend = " & pvDividendStr & " undPrice = " & undPriceStr
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
@@ -1655,15 +1655,15 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market depth book entry - triggered by the reqMktDepthEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updateMktDepth(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthEvent) Handles Tws1.updateMktDepth
-        m_dlgMktDepth.updateMktDepth(eventArgs.id, eventArgs.position, " ", eventArgs.operation, eventArgs.side, eventArgs.price, eventArgs.size)
+    Private Sub Tws1_updateMktDepth(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthEvent) Handles Tws1.OnUpdateMktDepth
+        m_dlgMktDepth.updateMktDepth(eventArgs.tickerId, eventArgs.position, " ", eventArgs.operation, eventArgs.side, eventArgs.price, eventArgs.size)
     End Sub
 
     '--------------------------------------------------------------------------------
     ' Market depth Level II book entry - triggered by the reqMktDepthEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updateMktDepthL2(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthL2Event) Handles Tws1.updateMktDepthL2
-        m_dlgMktDepth.updateMktDepth(eventArgs.id, eventArgs.position, eventArgs.marketMaker, eventArgs.operation, eventArgs.side, eventArgs.price, eventArgs.size)
+    Private Sub Tws1_updateMktDepthL2(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthL2Event) Handles Tws1.OnUpdateMktDepthL2
+        m_dlgMktDepth.updateMktDepth(eventArgs.tickerId, eventArgs.position, eventArgs.marketMaker, eventArgs.operation, eventArgs.side, eventArgs.price, eventArgs.size)
     End Sub
 
     '--------------------------------------------------------------------------------
