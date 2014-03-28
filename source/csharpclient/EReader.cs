@@ -1453,40 +1453,6 @@ namespace IBApi
             parent.Wrapper.receiveFA(faDataType, faData);
         }
 
-        public void VerifyMessageApiEvent()
-        {
-            int msgVersion = ReadInt();
-            string apiData = ReadString();
-            parent.Wrapper.verifyMessageAPI(apiData);
-        }
-                
-        public void VerifyCompletedEvent()
-        {
-            int msgVersion = ReadInt();
-            string isSuccessfulStr = ReadString();
-            bool isSuccessful = isSuccessfulStr.Equals("true");
-            string errorText = ReadString();
-            if (isSuccessful)
-                parent.startApi();
-            parent.Wrapper.verifyCompleted(isSuccessful, errorText);
-        }
-                     
-        public void DisplayGroupListEvent()
-        {
-            int msgVersion = ReadInt();
-            int requestId = ReadInt();
-            string groups = ReadString();
-            parent.Wrapper.displayGroupList(requestId, groups);
-        }
-                   
-        public void DisplayGroupUpdatedEvent()
-        {
-            int msgVersion = ReadInt();
-            int requestId = ReadInt();
-            string contractInfo = ReadString();
-            parent.Wrapper.displayGroupUpdated(requestId, contractInfo);
-        }
-
         public Boolean IsAlive()
         {
             return runner.IsAlive;

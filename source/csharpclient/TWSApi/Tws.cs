@@ -290,7 +290,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot, (options as TagValueList));
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
         }
 
         [DispId(61)]
@@ -345,7 +345,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot, (options as TagValueList));
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
         }
 
         [DispId(66)]
@@ -443,7 +443,7 @@ namespace TWSLib
             contract.Currency = curency;
 
             // request market depth
-            this.socket.reqMarketDepth(id, contract, numRows, (options as TagValueList));
+            this.socket.reqMarketDepth(id, contract, numRows, ITagValueListToListTagValue(options));
         }
 
         [DispId(70)]
@@ -458,7 +458,7 @@ namespace TWSLib
             contract.Currency = curency;
 
             // request market depth
-            this.socket.reqMarketDepth(id, contract, numRows, (options as TagValueList));
+            this.socket.reqMarketDepth(id, contract, numRows, ITagValueListToListTagValue(options));
         }
 
         [DispId(71)]
@@ -560,7 +560,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request historical data
-            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, (options as TagValueList));
+            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, ITagValueListToListTagValue(options));
         }
 
         [DispId(83)]
@@ -621,7 +621,7 @@ namespace TWSLib
             subscription.ScannerSettingPairs = scannerSettingPairs;
             subscription.StockTypeFilter = stockTypeFilter;
 
-            this.socket.reqScannerSubscription(tickerId, subscription, (options as TagValueList));
+            this.socket.reqScannerSubscription(tickerId, subscription, ITagValueListToListTagValue(options));
         }
 
         [DispId(86)]
@@ -714,7 +714,7 @@ namespace TWSLib
             contract.IncludeExpired = (isExpired != 0);
 
             // request real time bars
-            this.socket.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH != 0, (options as TagValueList));
+            this.socket.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH != 0, ITagValueListToListTagValue(options));
         }
 
         [DispId(90)]
@@ -791,13 +791,21 @@ namespace TWSLib
         [DispId(101)]
         public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options)
         {
-            this.socket.reqMktData(tickerId, (Contract)contract, genericTicks, snapshot, (options as TagValueList));
+            this.socket.reqMktData(tickerId, (Contract)contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
+        }
+
+        private static List<TagValue> ITagValueListToListTagValue(ITagValueList v)
+        {
+            if (v == null)
+                return null;
+
+            return (v as TagValueList).Tvl;
         }
 
         [DispId(102)]
         public void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options)
         {
-            this.socket.reqMarketDepth(tickerId, (Contract)contract, numRows, (options as TagValueList));
+            this.socket.reqMarketDepth(tickerId, (Contract)contract, numRows, ITagValueListToListTagValue(options));
         }
 
         [DispId(103)]
@@ -823,19 +831,19 @@ namespace TWSLib
         public void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
             string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options)
         {
-            this.socket.reqHistoricalData(tickerId, (Contract)contract, endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, (options as TagValueList));
+            this.socket.reqHistoricalData(tickerId, (Contract)contract, endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, ITagValueListToListTagValue(options));
         }
 
         [DispId(107)]
         public void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options)
         {
-            this.socket.reqRealTimeBars(tickerId, (Contract)contract, barSize, whatToShow, useRTH, (options as TagValueList));
+            this.socket.reqRealTimeBars(tickerId, (Contract)contract, barSize, whatToShow, useRTH, ITagValueListToListTagValue(options));
         }
 
         [DispId(108)]
         public void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options)
         {
-            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)subscription, (options as TagValueList));
+            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)subscription, ITagValueListToListTagValue(options));
         }
 
         [DispId(109)]
@@ -1699,35 +1707,6 @@ namespace TWSLib
             var t_displayGroupUpdated = this.displayGroupUpdated;
             if (t_displayGroupUpdated != null)
                 InvokeIfRequired(t_displayGroupUpdated, reqId, contractInfo);
-        }
-
-		//X - ADDED
-        void EWrapper.displayGroupUpdated(int reqId, string contractInfo)
-        {
-            var t_displayGroupUpdated = this.displayGroupUpdate;
-            if (t_displayGroupUpdated != null)
-                Invoke(t_displayGroupUpdated, reqId, contractInfo);
-        }
-
-        void EWrapper.displayGroupList(int reqId, string groups)
-        {
-            var t_displayGroupList = this.displayGroupList;
-            if (t_displayGroupList != null)
-                Invoke(t_displayGroupList, reqId, groups);
-        }
-
-        void EWrapper.verifyCompleted(bool isSuccessful, string errorText)
-        {
-            var t_verifyCompleted = this.verifyCompleted;
-            if(t_verifyCompleted != null)
-                Invoke(t_verifyCompleted, isSuccessful, errorText);
-        }
-
-        void EWrapper.verifyMessageAPI(string apiData)
-        {
-            var t_verifyMessageApi = this.verifyMessageApi;
-            if (t_verifyMessageApi != null)
-                Invoke(t_verifyMessageApi, apiData);
         }
 
         void IDisposable.Dispose()

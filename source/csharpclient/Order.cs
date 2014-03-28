@@ -1304,10 +1304,6 @@ namespace IBApi
 
         string TWSLib.IOrder.timeInForce { get { return tif; } set { tif = value; } }
 
-        public string activeStartTime { get; set; }
-
-        public string activeStopTime { get; set; }
-
         string TWSLib.IOrder.ocaGroup { get { return ocaGroup; } set { ocaGroup = value; } }
 
         int TWSLib.IOrder.ocaType { get { return ocaType; } set { ocaType = value; } }
@@ -1446,8 +1442,6 @@ namespace IBApi
 
         bool TWSLib.IOrder.scaleRandomPercent { get { return scaleRandomPercent; } set { scaleRandomPercent = value; } }
 
-        public string scaleTable { get; set; }
-
         string TWSLib.IOrder.hedgeType { get { return hedgeType; } set { hedgeType = value; } }
 
         string TWSLib.IOrder.hedgeParam { get { return hedgeParam; } set { hedgeParam = value; } }
@@ -1469,6 +1463,42 @@ namespace IBApi
         object TWSLib.IOrder.orderComboLegs { get { return new TWSLib.OrderComboLegList(orderComboLegs); } set { orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl; } }
 
         object TWSLib.IOrder.orderMiscOptions { get { return new TWSLib.TagValueList(orderMiscOptions); } set { orderMiscOptions = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); } }
-        public List<TagValue> OrderMiscOptions { get { return orderMiscOptions; } set { orderMiscOptions = value; } }
+
+
+        string TWSLib.IOrder.activeStartTime
+        {
+            get
+            {
+                return ActiveStartTime;
+            }
+            set
+            {
+                ActiveStartTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.activeStopTime
+        {
+            get
+            {
+                return ActiveStopTime;
+            }
+            set
+            {
+                ActiveStopTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.scaleTable
+        {
+            get
+            {
+                return ScaleTable;
+            }
+            set
+            {
+                ScaleTable = value;
+            }
+        }
     }
 }
