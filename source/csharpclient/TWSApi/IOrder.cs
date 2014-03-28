@@ -220,5 +220,7 @@ namespace TWSLib
         // order combo legs
         [DispId(134)]
         object orderComboLegs { [return: MarshalAs(UnmanagedType.IDispatch)] get; [param: MarshalAs(UnmanagedType.IDispatch)] set; }
+        [DispId(143)]
+        string algoId { get; set; }
     }
 }

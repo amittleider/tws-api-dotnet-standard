@@ -157,6 +157,8 @@ namespace IBApi
         private List<TagValue> algoParams;
         // What-if
         private bool whatIf;
+        //algoId
+        private string algoId;
         // Not Held
         private bool notHeld;
         private string settlingFirm;
@@ -1035,6 +1037,8 @@ namespace IBApi
             set { whatIf = value; }
         }
 
+        public string AlgoId { get { return algoId; } set { algoId = value; } }
+
         /**
         * @brief Orders routed to IBDARK are tagged as “post only” and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
          * For IBDARK orders only.
@@ -1342,6 +1346,8 @@ namespace IBApi
         double TWSLib.IOrder.trailingPercent { get { return trailingPercent; } set { trailingPercent = value; } }
 
         bool TWSLib.IOrder.whatIf { get { return WhatIf; } set { WhatIf = value; } }
+
+        string TWSLib.IOrder.algoId { get { return AlgoId; } set { AlgoId = value; } }
 
         bool TWSLib.IOrder.notHeld { get { return notHeld; } set { notHeld = value; } }
 
