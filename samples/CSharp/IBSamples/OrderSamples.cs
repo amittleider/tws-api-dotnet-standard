@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +17,7 @@ namespace Samples
             order.OrderType = "LMT";
             order.TotalQuantity = 100;
             order.Account = "DU74649";
-            order.LmtPrice = 33.884;
+            order.LmtPrice = 0.8;
             return order;
         }
 
@@ -49,5 +51,6 @@ namespace Samples
 
             return order;
         }
+
     }
 }

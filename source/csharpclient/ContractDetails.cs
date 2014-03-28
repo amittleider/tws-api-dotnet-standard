@@ -330,8 +330,8 @@ namespace IBApi
         }
 
         /**
-        * @brief Only if bond has embedded options. (?)
-         * For Bonds only.
+        * @brief Only if bond has embedded options. 
+         * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
         */
         public string NextOptionDate
         {
@@ -340,9 +340,9 @@ namespace IBApi
         }
 
         /**
-       * @brief Only if bond has embedded options. (?)
-        * For Bonds only.
-       */
+        * @brief Type of embedded option.
+        * Only if bond has embedded options.
+        */
         public string NextOptionType
         {
             get { return nextOptionType; }
@@ -350,22 +350,22 @@ namespace IBApi
         }
 
         /**
-       * @brief Only if bond has embedded options. (?)
+       * @brief Only if bond has embedded options.
         * For Bonds only.
        */
-        public bool NextOptionPartial1
+        public bool NextOptionPartial
         {
             get { return nextOptionPartial; }
             set { nextOptionPartial = value; }
         }
 
         /**
-        * @brief If populated for the bond in IB's database (?)
+        * @brief If populated for the bond in IB's database.
          * For Bonds only.
         */
         public string Notes
         {
-            get { return Notes; }
+            get { return notes; }
             set { notes = value; }
         }
 

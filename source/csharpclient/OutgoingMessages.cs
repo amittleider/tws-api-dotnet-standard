@@ -52,7 +52,7 @@ namespace IBApi
         VerifyRequest = 65,
         VerifyMessage = 66,
         QueryDisplayGroups = 67,
-        SubscripbeToGroupEvents = 68,
+        SubscribeToGroupEvents = 68,
         UpdateDisplayGroup = 69,
         UnsubscribeFromGroupEvents = 70,
         StartApi = 71

@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +14,15 @@ namespace IBSampleApp.ui
 {
     public class HistoricalDataManager : DataManager
     {
+        public const int HISTORICAL_ID_BASE = 30000000;
+
         private string fullDatePattern = "yyyyMMdd  HH:mm:ss";
         private string yearMonthDayPattern = "yyyyMMdd";
 
         protected int barCounter = -1;
         protected DataGridView gridView;
+
+        private List<HistoricalDataMessage> historicalData;
 
         public HistoricalDataManager(IBClient ibClient, Chart chart, DataGridView gridView) : base(ibClient, chart) 
         {
@@ -29,7 +35,7 @@ namespace IBSampleApp.ui
         public void AddRequest(Contract contract, string endDateTime, string durationString, string barSizeSetting, string whatToShow, int useRTH, int dateFormat)
         {
             Clear();
-            ibClient.ClientSocket.reqHistoricalData(currentTicker, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1);
+            ibClient.ClientSocket.reqHistoricalData(currentTicker + HISTORICAL_ID_BASE, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1, new List<TagValue>());
         }
 
         public override void Clear()
@@ -38,62 +44,62 @@ namespace IBSampleApp.ui
             Chart historicalChart = (Chart)uiControl;
             historicalChart.Series[0].Points.Clear();
             gridView.Rows.Clear();
+            historicalData = new List<HistoricalDataMessage>();
         }
 
         public override void NotifyError(int requestId)
         {
         }
 
-        protected override void Populate(IBMessage message)
+        public override void UpdateUI(IBMessage message)
         {
-            barCounter++;
-            Chart historicalChart = (Chart)uiControl;
-            HistoricalDataMessage historicalBar = (HistoricalDataMessage)message;
+            switch (message.Type)
+            {
+                case MessageType.HistoricalData:
+                    historicalData.Add((HistoricalDataMessage)message);
+                    break;
+                case MessageType.HistoricalDataEnd:
+                    PaintChart();
+                    break;
+            }
+        }
+
+        private void PaintChart()
+        {
             DateTime dt;
-
-            if (historicalBar.Date.Length == fullDatePattern.Length)
-                DateTime.TryParseExact(historicalBar.Date, fullDatePattern, null, DateTimeStyles.None, out dt);
-            else if (historicalBar.Date.Length == yearMonthDayPattern.Length)
-                DateTime.TryParseExact(historicalBar.Date, yearMonthDayPattern, null, DateTimeStyles.None, out dt);
-            else
-                return;//Ignore it...
-
-            // adding date and high
-            historicalChart.Series[0].Points.AddXY(dt, historicalBar.High);
-            // adding low
-            historicalChart.Series[0].Points[barCounter].YValues[1] = historicalBar.Low;
-            //adding open
-            historicalChart.Series[0].Points[barCounter].YValues[2] = historicalBar.Open;
-            // adding close
-            historicalChart.Series[0].Points[barCounter].YValues[3] = historicalBar.Close;
-            UpdateGrid(message);
-        }
-
-        protected void UpdateGrid(IBMessage message)
-        {
-            if (gridView.InvokeRequired)
+            Chart historicalChart = (Chart)uiControl;
+            for (int i = 0; i < historicalData.Count; i++)
             {
-                UpdateUICallback callback = new UpdateUICallback(UpdateGrid);
-                gridView.Invoke(callback, new object[] { message });
-            }
-            else
-            {
-                PopulateGrid(message);
+                if (historicalData[i].Date.Length == fullDatePattern.Length)
+                    DateTime.TryParseExact(historicalData[i].Date, fullDatePattern, null, DateTimeStyles.None, out dt);
+                else if (historicalData[i].Date.Length == yearMonthDayPattern.Length)
+                    DateTime.TryParseExact(historicalData[i].Date, yearMonthDayPattern, null, DateTimeStyles.None, out dt);
+                else
+                    continue;
+
+                // adding date and high
+                historicalChart.Series[0].Points.AddXY(dt, historicalData[i].High);
+                // adding low
+                historicalChart.Series[0].Points[i].YValues[1] = historicalData[i].Low;
+                //adding open
+                historicalChart.Series[0].Points[i].YValues[2] = historicalData[i].Open;
+                // adding close
+                historicalChart.Series[0].Points[i].YValues[3] = historicalData[i].Close;
+                PopulateGrid(historicalData[i]);
             }
         }
-
 
         protected void PopulateGrid(IBMessage message)
         {
             HistoricalDataMessage bar = (HistoricalDataMessage)message;
             gridView.Rows.Add(1);
-            gridView[0, barCounter].Value = bar.Date;
-            gridView[1, barCounter].Value = bar.Open;
-            gridView[2, barCounter].Value = bar.High;
-            gridView[3, barCounter].Value = bar.Low;
-            gridView[4, barCounter].Value = bar.Close;
-            gridView[5, barCounter].Value = bar.Volume;
-            gridView[6, barCounter].Value = bar.Wap;
+            gridView[0, gridView.Rows.Count -1].Value = bar.Date;
+            gridView[1, gridView.Rows.Count - 1].Value = bar.Open;
+            gridView[2, gridView.Rows.Count - 1].Value = bar.High;
+            gridView[3, gridView.Rows.Count - 1].Value = bar.Low;
+            gridView[4, gridView.Rows.Count - 1].Value = bar.Close;
+            gridView[5, gridView.Rows.Count - 1].Value = bar.Volume;
+            gridView[6, gridView.Rows.Count - 1].Value = bar.Wap;
         }
     }
 }
