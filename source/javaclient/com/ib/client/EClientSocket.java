@@ -202,6 +202,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_TRADING_CLASS = 68;
     protected static final int MIN_SERVER_VER_SCALE_TABLE = 69;
     protected static final int MIN_SERVER_VER_LINKING = 70;
+    protected static final int MIN_SERVER_VER_ALGO_ID = 71;
 
     private AnyWrapper m_anyWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -1317,6 +1318,10 @@ public class EClientSocket {
                   return;
             }
         }
+        
+        if (m_serverVersion < MIN_SERVER_VER_ALGO_ID && !IsEmpty(order.m_algoId) ) {
+        		  error(id, EClientErrors.UPDATE_TWS, " It does not support algoId parameter");
+        	}
 
         if (m_serverVersion < MIN_SERVER_VER_SCALE_TABLE) {
             if (!IsEmpty(order.m_scaleTable) || !IsEmpty(order.m_activeStartTime) || !IsEmpty(order.m_activeStopTime)) {
@@ -1326,7 +1331,7 @@ public class EClientSocket {
             }
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 42;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 43;
 
         // send place order msg
         try {
@@ -1646,6 +1651,10 @@ public class EClientSocket {
         			   }
         		   }
         	   }
+           }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_ALGO_ID) {
+        	   send(order.m_algoId);
            }
 
            if (m_serverVersion >= MIN_SERVER_VER_WHAT_IF_ORDERS) {

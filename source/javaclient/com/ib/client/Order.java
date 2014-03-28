@@ -149,6 +149,9 @@ public class Order {
     // order misc options
     public Vector<TagValue> m_orderMiscOptions;
     
+    //order algo id
+    public String m_algoId;
+    
     public Order() {
         m_lmtPrice = Double.MAX_VALUE;
         m_auxPrice = Double.MAX_VALUE;
