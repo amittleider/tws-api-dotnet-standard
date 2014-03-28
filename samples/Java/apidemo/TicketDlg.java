@@ -313,6 +313,7 @@ public class TicketDlg extends JDialog {
 		final UpperField m_trailingPercent = new UpperField();
 		final UpperField m_discretionaryAmt = new UpperField();
 		final UpperField m_nbboPriceCap = new UpperField();
+		final UpperField m_algoId = new UpperField();
 
 		final TCombo<OcaType> m_ocaType = new TCombo<OcaType>( OcaType.values() );
 		final TCombo<Rule80A> m_rule80A = new TCombo<Rule80A>( Rule80A.values() );
@@ -348,13 +349,9 @@ public class TicketDlg extends JDialog {
 			top.add( "Trailing percent", m_trailingPercent);
 			top.add("Discretionary amount", m_discretionaryAmt);
 			top.add("NBBO price cap", m_nbboPriceCap);
-
+			top.add( "Algo Id", m_algoId);
 			top.add( "OCA group and type", m_ocaGroup, m_ocaType);
-			//add( "OCA type", m_ocaType);
-			
 			top.add( "Hedge type and param" , m_hedgeType, m_hedgeParam);
-			//add( "Hedge param", m_hedgeParam);
-			
 			
 			VerticalPanel left = new VerticalPanel();
 			left.add( "Not held", m_notHeld);
@@ -406,6 +403,7 @@ public class TicketDlg extends JDialog {
 			m_firmQuoteOnly.setSelected( m_order.firmQuoteOnly() );
 			m_nbboPriceCap.setText( m_order.nbboPriceCap() );
 			m_optOutSmartRouting.setSelected( m_order.optOutSmartRouting() );
+			m_algoId.setText( m_order.algoId() );
 			m_transmit.setSelected( true);
 		}
 		
@@ -434,6 +432,7 @@ public class TicketDlg extends JDialog {
 			m_order.firmQuoteOnly( m_firmQuoteOnly.isSelected() );
 			m_order.nbboPriceCap( m_nbboPriceCap.getDouble() );
 			m_order.optOutSmartRouting( m_optOutSmartRouting.isSelected() );
+			m_order.algoId( m_algoId.getText() );
 			m_order.transmit( m_transmit.isSelected() );
 		}
 	}
