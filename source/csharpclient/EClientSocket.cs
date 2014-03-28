@@ -1,13 +1,11 @@
-ï»¿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace IBApi
 {
@@ -20,15 +18,16 @@ namespace IBApi
     {
         private int serverVersion;
         private EReader reader;
-        private bool extraAuth;
 
         private TcpClient tcpClient;
         NetworkStream tcpClientStream;
         private BinaryWriter tcpWriter;
 
-        private bool isConnected;
-
         private EWrapper wrapper;
+
+        private bool isConnected;
+        private int clientId;
+        private bool extraAuth;
 
         /**
          * @brief Constructor
@@ -38,6 +37,9 @@ namespace IBApi
         public EClientSocket(EWrapper wrapper)
         {
             this.wrapper = wrapper;
+            this.clientId = -1;
+            this.extraAuth = false;
+            this.isConnected = false;
         }
 
         public EWrapper Wrapper
@@ -62,8 +64,13 @@ namespace IBApi
             return isConnected;
         }
 
+        public void eConnect(string host, int port, int clientId)
+        {
+            eConnect(host, port, clientId, false);
+        }
+
         /**
-         * @brief Establishes a connection to the designated THost.
+         * @brief Establishes a connection to the designated Host.
          * After establishing a connection succesfully, the Host will provide the next valid order id, server's current time, managed accounts and open orders among others depending on the Host version.
          * @param host the Host's IP address. Leave blank for localhost.
          * @param port the Host's port. 7496 by default for the TWS, 4001 by default on the Gateway.
@@ -84,7 +91,8 @@ namespace IBApi
                 tcpWriter = new BinaryWriter(tcpClientStream);
 
                 reader = new EReader(this, new BinaryReader(tcpClientStream));
-
+                this.clientId = clientId;
+                this.extraAuth = extraAuth;
                 try
                 {
                     tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
@@ -108,16 +116,22 @@ namespace IBApi
                     string twsTime = reader.ReadString();
                     Console.WriteLine("TWS time: " + twsTime);
                 }
+                isConnected = true;
                 if (serverVersion >= 3)
                 {
-                    tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
-                    tcpWriter.Write(Constants.EOL);
+                    if (serverVersion < MinServerVer.LINKING)
+                    {
+                        tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
+                        tcpWriter.Write(Constants.EOL);
+                    }
+                    else if (!extraAuth)
+                    {
+                        startApi();
+                    }
                 }
                 reader.Start();
                 while (!reader.IsAlive()) ;
-                isConnected = true;
-                this.extraAuth = extraAuth;
-                this._clientId = clientId;
+
             }
             catch (ArgumentNullException ane)
             {
@@ -131,50 +145,20 @@ namespace IBApi
             {
                 wrapper.error(e);
             }
-           
-        }
 
-        int _clientId;
+        }
 
         public void startApi()
         {
-            var paramsList = new List<byte>();
-            const int version = 1;
+            if (!CheckConnection())
+                return;
 
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.StartApi);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(_clientId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        public void verifyRequest(string apiName, string apiVersion)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support verification request.");
-                return;
-            }
-
-            if (!extraAuth)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " Intent to authenticate needs to be expressed during initial connect request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.VerifyMessage);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(apiName);
-            paramsList.AddParameter(apiVersion);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(clientId);
+            Send(paramsList);
         }
 
         /**
@@ -191,7 +175,7 @@ namespace IBApi
          * @brief Closes the socket connection and terminates its thread.
          */
         public void eDisconnect()
-        {   
+        {
             if (tcpWriter == null)
             {
                 return;
@@ -199,8 +183,8 @@ namespace IBApi
 
             isConnected = false;
             serverVersion = 0;
-            extraAuth = false;
-
+            this.clientId = -1;
+            this.extraAuth = false;
 
             if (tcpWriter != null)
             {
@@ -217,7 +201,7 @@ namespace IBApi
                     reader.Interrupt();
                     reader = null;
                 }
-                catch (Exception) 
+                catch (Exception)
                 {
                     throw;
                 }
@@ -252,7 +236,7 @@ namespace IBApi
          * @param underPrice hypothetical option's underlying price.
          * @sa EWrapper::tickOptionComputation, cancelCalculateImpliedVolatility, Contract
          */
-        public void calculateImpliedVolatility(int reqId, Contract contract, double optionPrice, double underPrice)
+        public void calculateImpliedVolatility(int reqId, Contract contract, double optionPrice, double underPrice, List<TagValue> impliedVolatilityOptions)
         {
             if (!CheckConnection())
                 return;
@@ -260,7 +244,7 @@ namespace IBApi
                 return;
             if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(MinServerVer.TRADING_CLASS, ""))
                 return;
-            const int version = 2;
+            const int version = 3;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.ReqCalcImpliedVolat);
             paramsList.AddParameter(version);
@@ -280,7 +264,14 @@ namespace IBApi
                 paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(optionPrice);
             paramsList.AddParameter(underPrice);
-            
+
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                int tagValuesCount = impliedVolatilityOptions == null ? 0 : impliedVolatilityOptions.Count;
+                paramsList.AddParameter(tagValuesCount);
+                paramsList.AddParameter(TagValueListToString(impliedVolatilityOptions));
+            }
+
             Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
         }
 
@@ -293,7 +284,7 @@ namespace IBApi
          * @param underPrice hypothetical underlying's price.
          * @sa EWrapper::tickOptionComputation, cancelCalculateOptionPrice, Contract
          */
-        public void calculateOptionPrice(int reqId, Contract contract, double volatility, double underPrice)
+        public void calculateOptionPrice(int reqId, Contract contract, double volatility, double underPrice, List<TagValue> optionPriceOptions)
         {
             if (!CheckConnection())
                 return;
@@ -304,7 +295,7 @@ namespace IBApi
                 !CheckServerVersion(MinServerVer.REQ_CALC_OPTION_PRICE, " It does not support tradingClass parameter in calculateOptionPrice."))
                 return;
 
-            const int version = 2;
+            const int version = 3;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.ReqCalcOptionPrice);
             paramsList.AddParameter(version);
@@ -324,7 +315,14 @@ namespace IBApi
                 paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(volatility);
             paramsList.AddParameter(underPrice);
-           
+
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                int tagValuesCount = optionPriceOptions == null ? 0 : optionPriceOptions.Count;
+                paramsList.AddParameter(tagValuesCount);
+                paramsList.AddParameter(TagValueListToString(optionPriceOptions));
+            }
+
             Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
         }
 
@@ -389,7 +387,7 @@ namespace IBApi
             SendCancelRequest(OutgoingMessages.CancelFundamentalData, 1, reqId, EClientErrors.FAIL_SEND_CANFUNDDATA);
         }
 
-       
+
 
         /**
          * @brief Cancels a RT Market Data request
@@ -413,8 +411,8 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
-            SendCancelRequest(OutgoingMessages.CancelMarketDepth, 1, tickerId, 
+
+            SendCancelRequest(OutgoingMessages.CancelMarketDepth, 1, tickerId,
                 EClientErrors.FAIL_SEND_CANMKTDEPTH);
         }
 
@@ -426,7 +424,6 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            //Check this. the same request id as cthe one used to cancel orders?
             SendCancelRequest(OutgoingMessages.CancelNewsBulletin, 1,
                 EClientErrors.FAIL_SEND_CORDER);
         }
@@ -512,7 +509,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.ExerciseOptions);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
-          
+
             if (serverVersion >= MinServerVer.TRADING_CLASS)
             {
                 paramsList.AddParameter(contract.ConId);
@@ -555,13 +552,13 @@ namespace IBApi
             if (!VerifyOrderContract(contract, id))
                 return;
 
-            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 42;
+            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 43;
             List<byte> paramsList = new List<byte>();
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
             paramsList.AddParameter(MsgVersion);
             paramsList.AddParameter(id);
-            
+
             if (serverVersion >= MinServerVer.PLACE_ORDER_CONID)
             {
                 paramsList.AddParameter(contract.ConId);
@@ -715,8 +712,8 @@ namespace IBApi
                     for (int i = 0; i < smartComboRoutingParamsCount; ++i)
                     {
                         TagValue tagValue = smartComboRoutingParams[i];
-                        paramsList.AddParameter(tagValue.tag);
-                        paramsList.AddParameter(tagValue.value);
+                        paramsList.AddParameter(tagValue.Tag);
+                        paramsList.AddParameter(tagValue.Value);
                     }
                 }
             }
@@ -875,11 +872,10 @@ namespace IBApi
 
             if (serverVersion >= MinServerVer.SCALE_TABLE)
             {
-                paramsList.AddParameter(order.scaleTable);
-                paramsList.AddParameter(order.activeStartTime);
-                paramsList.AddParameter(order.activeStopTime);
+                paramsList.AddParameter(order.ScaleTable);
+                paramsList.AddParameter(order.ActiveStartTime);
+                paramsList.AddParameter(order.ActiveStopTime);
             }
-
 
             if (serverVersion >= MinServerVer.HEDGE_ORDERS)
             {
@@ -935,11 +931,16 @@ namespace IBApi
                         for (int i = 0; i < algoParamsCount; ++i)
                         {
                             TagValue tagValue = (TagValue)algoParams[i];
-                            paramsList.AddParameter(tagValue.tag);
-                            paramsList.AddParameter(tagValue.value);
+                            paramsList.AddParameter(tagValue.Tag);
+                            paramsList.AddParameter(tagValue.Value);
                         }
                     }
                 }
+            }
+
+            if (serverVersion >= MinServerVer.ALGO_ID)
+            {
+                paramsList.AddParameter(order.AlgoId);
             }
 
             if (serverVersion >= MinServerVer.WHAT_IF_ORDERS)
@@ -947,7 +948,12 @@ namespace IBApi
                 paramsList.AddParameter(order.WhatIf);
             }
 
-            AddOptions(paramsList, order.OrderMiscOptions);
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                //int orderOptionsCount = order.OrderMiscOptions == null ? 0 : order.OrderMiscOptions.Count;
+                //paramsList.AddParameter(orderOptionsCount);
+                paramsList.AddParameter(TagValueListToString(order.OrderMiscOptions));
+            }
 
             Send(id, paramsList, EClientErrors.FAIL_SEND_ORDER);
         }
@@ -1007,49 +1013,48 @@ namespace IBApi
          * @params tags a comma separated list with the desired tags:
          *      - AccountType
          *      - NetLiquidation,
-         *      - TotalCashValue â€” Total cash including futures pnl
-         *      - SettledCash â€” For cash accounts, this is the same as TotalCashValue
-         *      - AccruedCash â€” Net accrued interest
-         *      - BuyingPower â€” The maximum amount of marginable US stocks the account can buy
-         *      - EquityWithLoanValue â€” Cash + stocks + bonds + mutual funds
+         *      - TotalCashValue — Total cash including futures pnl
+         *      - SettledCash — For cash accounts, this is the same as TotalCashValue
+         *      - AccruedCash — Net accrued interest
+         *      - BuyingPower — The maximum amount of marginable US stocks the account can buy
+         *      - EquityWithLoanValue — Cash + stocks + bonds + mutual funds
          *      - PreviousEquityWithLoanValue,
-         *      - GrossPositionValue â€” The sum of the absolute value of all stock and equity option positions
+         *      - GrossPositionValue — The sum of the absolute value of all stock and equity option positions
          *      - RegTEquity,
          *      - RegTMargin,
-         *      - SMA â€” Special Memorandum Account
+         *      - SMA — Special Memorandum Account
          *      - InitMarginReq,
          *      - MaintMarginReq,
          *      - AvailableFunds,
          *      - ExcessLiquidity,
-         *      - Cushion â€” Excess liquidity as a percentage of net liquidation value
+         *      - Cushion — Excess liquidity as a percentage of net liquidation value
          *      - FullInitMarginReq,
          *      - FullMaintMarginReq,
          *      - FullAvailableFunds,
          *      - FullExcessLiquidity,
-         *      - LookAheadNextChange â€” Time when look-ahead values take effect
+         *      - LookAheadNextChange — Time when look-ahead values take effect
          *      - LookAheadInitMarginReq,
          *      - LookAheadMaintMarginReq,
          *      - LookAheadAvailableFunds,
          *      - LookAheadExcessLiquidity,
-         *      - HighestSeverity â€” A measure of how close the account is to liquidation
-         *      - DayTradesRemaining â€” The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
-         *      - Leverage â€” GrossPositionValue / NetLiquidation
+         *      - HighestSeverity — A measure of how close the account is to liquidation
+         *      - DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
+         *      - Leverage — GrossPositionValue / NetLiquidation
          * @sa cancelAccountSummary, EWrapper::accountSummary, EWrapper::accountSummaryEnd
          */
         public void reqAccountSummary(int reqId, string group, string tags)
         {
-            //TODO: make constants out of the available tags
-
+            int VERSION = 1;
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(MinServerVer.ACCT_SUMMARY,
+            if (!CheckServerVersion(reqId, MinServerVer.ACCT_SUMMARY,
                 " It does not support account summary requests."))
                 return;
 
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestAccountSummary);
-            paramsList.AddParameter(1);
+            paramsList.AddParameter(VERSION);
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(group);
             paramsList.AddParameter(tags);
@@ -1066,11 +1071,12 @@ namespace IBApi
          */
         public void reqAccountUpdates(bool subscribe, string acctCode)
         {
+            int VERSION = 2;
             if (!CheckConnection())
                 return;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestAccountData);
-            paramsList.AddParameter(2);
+            paramsList.AddParameter(VERSION);
             paramsList.AddParameter(subscribe);
             if (serverVersion >= 9)
                 paramsList.AddParameter(acctCode);
@@ -1083,11 +1089,12 @@ namespace IBApi
          */
         public void reqAllOpenOrders()
         {
+            int VERSION = 1;
             if (!CheckConnection())
                 return;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestAllOpenOrders);
-            paramsList.AddParameter(1);
+            paramsList.AddParameter(VERSION);
             Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
         }
 
@@ -1099,11 +1106,12 @@ namespace IBApi
          */
         public void reqAutoOpenOrders(bool autoBind)
         {
+            int VERSION = 1;
             if (!CheckConnection())
                 return;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestAutoOpenOrders);
-            paramsList.AddParameter(1);
+            paramsList.AddParameter(VERSION);
             paramsList.AddParameter(autoBind);
             Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
         }
@@ -1119,10 +1127,10 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
+
             if (!IsEmpty(contract.SecIdType) || !IsEmpty(contract.SecId))
             {
-                if (!CheckServerVersion(MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
+                if (!CheckServerVersion(reqId, MinServerVer.SEC_ID_TYPE, " It does not support secIdType not secId attributes"))
                     return;
             }
 
@@ -1132,9 +1140,11 @@ namespace IBApi
                     return;
             }
 
+            int VERSION = 7;
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestContractData);
-            paramsList.AddParameter(7);//version
+            paramsList.AddParameter(VERSION);//version
             if (serverVersion >= MinServerVer.CONTRACT_DATA_CHAIN)
             {
                 paramsList.AddParameter(reqId);
@@ -1177,6 +1187,7 @@ namespace IBApi
          */
         public void reqCurrentTime()
         {
+            int VERSION = 1;
             if (!CheckConnection())
                 return;
 
@@ -1185,7 +1196,7 @@ namespace IBApi
 
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestCurrentTime);
-            paramsList.AddParameter(1);//version
+            paramsList.AddParameter(VERSION);//version
             Send(paramsList, EClientErrors.FAIL_SEND_REQCURRTIME);
         }
 
@@ -1206,7 +1217,7 @@ namespace IBApi
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestExecutions);
             paramsList.AddParameter(VERSION);//version
-            
+
             if (serverVersion >= MinServerVer.EXECUTION_DATA_CHAIN)
             {
                 paramsList.AddParameter(reqId);
@@ -1234,24 +1245,27 @@ namespace IBApi
          * @param reqId the request's unique identifier.
          * @param contract the contract's description for which the data will be returned.
          * @param reportType there are three available report types: 
-         *      - Estimates: estimates
-         *      - Financial Statements: finstat
-         *      - Summary: snapshot
+         *      - ReportSnapshot: Company overview
+         *      - ReportsFinSummary: Financial summary
+                - ReportRatios:	Financial ratios
+                - ReportsFinStatements:	Financial statements
+                - RESC: Analyst estimates
+                - CalendarReport: Company calendar
          * @sa EWrapper::fundamentalData
          */
-        public void reqFundamentalData(int reqId, Contract contract, String reportType)
+        public void reqFundamentalData(int reqId, Contract contract, String reportType, List<TagValue> fundamentalDataOptions)
         {
             if (!CheckConnection())
                 return;
-            if (!CheckServerVersion(MinServerVer.FUNDAMENTAL_DATA, " It does not support Fundamental Data requests."))
+            if (!CheckServerVersion(reqId, MinServerVer.FUNDAMENTAL_DATA, " It does not support Fundamental Data requests."))
                 return;
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0 || !IsEmpty(contract.Multiplier))
             {
-                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, ""))
+                if (!CheckServerVersion(reqId, MinServerVer.TRADING_CLASS, ""))
                     return;
             }
 
-            const int VERSION = 2;
+            const int VERSION = 3;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestFundamentalData);
             paramsList.AddParameter(VERSION);
@@ -1268,6 +1282,14 @@ namespace IBApi
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
             paramsList.AddParameter(reportType);
+
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                int tagValuesCount = fundamentalDataOptions == null ? 0 : fundamentalDataOptions.Count;
+                paramsList.AddParameter(tagValuesCount);
+                paramsList.AddParameter(TagValueListToString(fundamentalDataOptions));
+            }
+
             Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQFUNDDATA);
         }
 
@@ -1285,7 +1307,7 @@ namespace IBApi
                 return;
 
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestGlobalCancel);
             paramsList.AddParameter(VERSION);
@@ -1332,18 +1354,18 @@ namespace IBApi
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
          * @sa EWrapper::historicalData
          */
-        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime, 
-            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, KeyValuePair<string, string>[] chartOptions)
+        public void reqHistoricalData(int tickerId, Contract contract, string endDateTime,
+            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, List<TagValue> chartOptions)
         {
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(16))
+            if (!CheckServerVersion(tickerId, 16))
                 return;
 
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
-                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support conId nor trading class parameters when requesting historical data."))
+                if (!CheckServerVersion(tickerId, MinServerVer.TRADING_CLASS, " It does not support conId nor trading class parameters when requesting historical data."))
                     return;
             }
 
@@ -1403,7 +1425,11 @@ namespace IBApi
                 }
             }
 
-            AddOptions(paramsList, chartOptions);
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                paramsList.AddParameter(TagValueListToString(chartOptions));
+            }
+
             Send(paramsList, EClientErrors.FAIL_SEND_REQHISTDATA);
         }
 
@@ -1417,12 +1443,12 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestIds);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(numIds);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);            
+            Send(paramsList, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1447,7 +1473,7 @@ namespace IBApi
          * @param contract the Contract for which the data is being requested
          * @param genericTickList comma separated ids of the available generic ticks:
          *      - 100 	Option Volume (currently for stocks)
-	     *      - 101 	Option Open Interest (currently for stocks) 
+         *      - 101 	Option Open Interest (currently for stocks) 
          *      - 104 	Historical Volatility (currently for stocks)
          *      - 106 	Option Implied Volatility (currently for stocks)
          *      - 162 	Index Future Premium 
@@ -1463,25 +1489,25 @@ namespace IBApi
          * @param snapshot when set to true, it will provide a single snapshot of the available data. Set to false if you want to receive continuous updates.
          * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOption, EWrapper::tickSnapshotEnd
          */
-        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, KeyValuePair<string, string>[] mktDataOptions)
+        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, List<TagValue> mktDataOptions)
         {
             if (!CheckConnection())
                 return;
 
-            if (snapshot && !CheckServerVersion(MinServerVer.SNAPSHOT_MKT_DATA,
+            if (snapshot && !CheckServerVersion(tickerId, MinServerVer.SNAPSHOT_MKT_DATA,
                 "It does not support snapshot market data requests."))
                 return;
 
-            if (contract.UnderComp != null && !CheckServerVersion(MinServerVer.UNDER_COMP,
+            if (contract.UnderComp != null && !CheckServerVersion(tickerId, MinServerVer.UNDER_COMP,
                 " It does not support delta-neutral orders"))
                 return;
 
 
-            if (contract.ConId > 0 && !CheckServerVersion(MinServerVer.CONTRACT_CONID,
+            if (contract.ConId > 0 && !CheckServerVersion(tickerId, MinServerVer.CONTRACT_CONID,
                 " It does not support ConId parameter"))
                 return;
 
-            if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(MinServerVer.TRADING_CLASS,
+            if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(tickerId, MinServerVer.TRADING_CLASS,
                 " It does not support trading class parameter in reqMktData."))
                 return;
 
@@ -1505,12 +1531,8 @@ namespace IBApi
             paramsList.AddParameter(contract.Currency);
             if (serverVersion >= 2)
                 paramsList.AddParameter(contract.LocalSymbol);
-
             if (serverVersion >= MinServerVer.TRADING_CLASS)
-            {
                 paramsList.AddParameter(contract.TradingClass);
-            }
-
             if (serverVersion >= 8 && Constants.BagSecType.Equals(contract.SecType))
             {
                 if (contract.ComboLegs == null)
@@ -1553,9 +1575,10 @@ namespace IBApi
             {
                 paramsList.AddParameter(snapshot);
             }
-
-            AddOptions(paramsList, mktDataOptions);
-
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                paramsList.AddParameter(TagValueListToString(mktDataOptions));
+            }
             Send(tickerId, paramsList, EClientErrors.FAIL_SEND_REQMKT);
         }
 
@@ -1585,14 +1608,14 @@ namespace IBApi
          * @param numRows the number of rows on each side of the order book
          * @sa cancelMktDepth, EWrapper::updateMktDepth, EWrapper::updateMktDepthL2
          */
-        public void reqMarketDepth(int tickerId, Contract contract, int numRows, KeyValuePair<string, string>[] mktDepthOptions)
+        public void reqMarketDepth(int tickerId, Contract contract, int numRows, List<TagValue> mktDepthOptions)
         {
             if (!CheckConnection())
                 return;
 
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
-                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
+                if (!CheckServerVersion(tickerId, MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqMktDepth."))
                     return;
             }
 
@@ -1627,28 +1650,13 @@ namespace IBApi
             {
                 paramsList.AddParameter(numRows);
             }
-
-            AddOptions(paramsList, mktDepthOptions);
-
-            Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
-        }
-
-        private void AddOptions(List<byte> paramsList, List<TagValue> options)
-        {
-            AddOptions(paramsList, options.Select(x => new KeyValuePair<string, string>(x.tag, x.value)).ToArray());
-        }
-
-        private void AddOptions(List<byte> paramsList, KeyValuePair<string, string>[] options)
-        {
-            if (serverVersion >= MinServerVer.VER_LINKING)
+            if (serverVersion >= MinServerVer.LINKING)
             {
-                if (options != null && options.Length > 0)
-                {
-                    paramsList.AddParameter(string.Concat(options.Select(x => x.Key + "=" + x.Value + ";")));
-                }
-                else
-                    paramsList.AddParameter(string.Empty);
+                //int tagValuesCount = mktDepthOptions == null ? 0 : mktDepthOptions.Count;
+                //paramsList.AddParameter(tagValuesCount);
+                paramsList.AddParameter(TagValueListToString(mktDepthOptions));
             }
+            Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
         }
 
         /**
@@ -1660,7 +1668,7 @@ namespace IBApi
         {
             if (!CheckConnection())
                 return;
-            
+
             const int VERSION = 1;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestNewsBulletins);
@@ -1675,11 +1683,12 @@ namespace IBApi
          */
         public void reqOpenOrders()
         {
+            int VERSION = 1;
             if (!CheckConnection())
                 return;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.RequestOpenOrders);
-            paramsList.AddParameter(1);
+            paramsList.AddParameter(VERSION);
             Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
         }
 
@@ -1703,7 +1712,7 @@ namespace IBApi
 
         /**
          * @brief Requests real time bars
-         * Currently, only 5 seconds bars are provided
+         * Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds
          * @param tickerId the request's unique identifier.
          * @param contract the Contract for which the depth is being requested
          * @param barSize currently being ignored
@@ -1715,16 +1724,16 @@ namespace IBApi
          * @param useRTH set to 0 to obtain the data which was also generated ourside of the Regular Trading Hours, set to 1 to obtain only the RTH data
          * @sa cancelRealTimeBars, EWrapper::realTimeBar
          */
-        public void reqRealTimeBars(int tickerId, Contract contract, int barSize, string whatToShow, bool useRTH, KeyValuePair<string, string>[] realTimeBarsOptons)
+        public void reqRealTimeBars(int tickerId, Contract contract, int barSize, string whatToShow, bool useRTH, List<TagValue> realTimeBarsOptions)
         {
             if (!CheckConnection())
                 return;
-            if (!CheckServerVersion(MinServerVer.REAL_TIME_BARS, " It does not support real time bars."))
+            if (!CheckServerVersion(tickerId, MinServerVer.REAL_TIME_BARS, " It does not support real time bars."))
                 return;
 
             if (!IsEmpty(contract.TradingClass) || contract.ConId > 0)
             {
-                if (!CheckServerVersion(MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqRealTimeBars."))
+                if (!CheckServerVersion(tickerId, MinServerVer.TRADING_CLASS, " It does not support ConId nor TradingClass parameters in reqRealTimeBars."))
                     return;
             }
 
@@ -1756,8 +1765,10 @@ namespace IBApi
             paramsList.AddParameter(barSize);  // this parameter is not currently used
             paramsList.AddParameter(whatToShow);
             paramsList.AddParameter(useRTH);
-
-            AddOptions(paramsList, realTimeBarsOptons);
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                paramsList.AddParameter(TagValueListToString(realTimeBarsOptions));
+            }
             Send(paramsList, EClientErrors.FAIL_SEND_REQRTBARS);
         }
 
@@ -1782,7 +1793,7 @@ namespace IBApi
          * @param subscription summary of the scanner subscription including its filters.
          * @sa reqScannerParameters, ScannerSubscription, EWrapper::scannerData
          */
-        public void reqScannerSubscription(int reqId, ScannerSubscription subscription, KeyValuePair<string, string>[] scannerSubscriptonOptions)
+        public void reqScannerSubscription(int reqId, ScannerSubscription subscription, List<TagValue> scannerSubscriptionOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1819,12 +1830,18 @@ namespace IBApi
                 paramsList.AddParameter(subscription.StockTypeFilter);
             }
 
-            AddOptions(paramsList, scannerSubscriptonOptions);
+            if (serverVersion >= MinServerVer.LINKING)
+            {
+                //int tagValuesCount = scannerSubscriptionOptions == null ? 0 : scannerSubscriptionOptions.Count;
+                //paramsList.AddParameter(tagValuesCount);
+                paramsList.AddParameter(TagValueListToString(scannerSubscriptionOptions));
+            }
+
             Send(paramsList, EClientErrors.FAIL_SEND_REQSCANNER);
         }
 
         /**
-         * @brief Changes the TWS/GW log level (?) This does not seem to have any effect.
+         * @brief Changes the TWS/GW log level.
          * Valid values are:\n
          * 1 = SYSTEM\n
          * 2 = ERROR\n
@@ -1837,7 +1854,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            
+
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.ChangeServerLog);
             paramsList.AddParameter(VERSION);
@@ -1846,9 +1863,107 @@ namespace IBApi
             Send(paramsList, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
         }
 
+        public void verifyRequest(string apiName, string apiVersion)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support verification request."))
+                return;
+            if (!extraAuth)
+            {
+                ReportError(IncomingMessage.NotValid, EClientErrors.FAIL_SEND_VERIFYMESSAGE, " Intent to authenticate needs to be expressed during initial connect request.");
+                return;
+            }
+
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.VerifyRequest);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(apiName);
+            paramsList.AddParameter(apiVersion);
+            Send(paramsList, EClientErrors.FAIL_SEND_VERIFYREQUEST);
+        }
+
+        public void verifyMessage(string apiData)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support verification message sending."))
+                return;
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.VerifyMessage);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(apiData);
+            Send(paramsList, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
+        }
+
+        public void queryDisplayGroups(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support queryDisplayGroups request."))
+                return;
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            Send(paramsList, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
+        }
+
+        public void subscribeToGroupEvents(int requestId, int groupId)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support subscribeToGroupEvents request."))
+                return;
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.SubscribeToGroupEvents);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(groupId);
+            Send(paramsList, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
+        }
+
+        public void updateDisplayGroup(int requestId, string contractInfo)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support updateDisplayGroup request."))
+                return;
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(contractInfo);
+            Send(paramsList, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
+        }
+
+        public void unsubscribeFromGroupEvents(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING, " It does not support unsubscribeFromGroupEvents request."))
+                return;
+            const int VERSION = 1;
+            List<byte> paramsList = new List<byte>();
+            paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            Send(paramsList, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");
+        }
+
+        protected bool CheckServerVersion(int requestId, int requiredVersion)
+        {
+            return CheckServerVersion(requestId, requiredVersion, "");
         }
 
         protected bool CheckServerVersion(int requiredVersion, string updatetail)
@@ -1899,7 +2014,7 @@ namespace IBApi
                 wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.NOT_CONNECTED.Message);
                 return false;
             }
-           
+
             return true;
         }
 
@@ -1916,7 +2031,7 @@ namespace IBApi
         protected void ReportUpdateTWS(string tail)
         {
             ReportError(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + tail);
-        } 
+        }
 
         protected void ReportError(int reqId, int code, string message)
         {
@@ -2062,7 +2177,7 @@ namespace IBApi
                     return false;
                 }
             }
-            
+
             if (serverVersion < MinServerVer.SCALE_ORDERS2)
             {
                 if (order.ScaleSubsLevelSize != Int32.MaxValue)
@@ -2092,7 +2207,7 @@ namespace IBApi
                     return false;
                 }
             }
-            
+
             if (serverVersion < MinServerVer.SSHORTX)
             {
                 if (order.ExemptCode != -1)
@@ -2103,7 +2218,7 @@ namespace IBApi
                 }
             }
 
-            
+
 
             if (serverVersion < MinServerVer.HEDGE_ORDERS)
             {
@@ -2195,7 +2310,24 @@ namespace IBApi
                 if (order.TrailingPercent != Double.MaxValue)
                 {
                     ReportError(id, EClientErrors.UPDATE_TWS,
-                        "  It does not support trailing percent parameter");
+                        "  It does not support trailing percent parameter.");
+                    return false;
+                }
+            }
+
+            if (serverVersion < MinServerVer.ALGO_ID && !IsEmpty(order.AlgoId))
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support algoId parameter");
+
+                return false;
+            }
+
+            if (serverVersion < MinServerVer.SCALE_TABLE)
+            {
+                if (!IsEmpty(order.ScaleTable) || !IsEmpty(order.ActiveStartTime) || !IsEmpty(order.ActiveStopTime))
+                {
+                    ReportError(id, EClientErrors.UPDATE_TWS,
+                        "  It does not support scaleTable, activeStartTime nor activeStopTime parameters.");
                     return false;
                 }
             }
@@ -2213,121 +2345,17 @@ namespace IBApi
             return String.Compare(a, b, true) == 0;
         }
 
-        public void verifyMessage(string apiData)
+        private string TagValueListToString(List<TagValue> tagValues)
         {
-            if (!isConnected)
+            StringBuilder tagValuesStr = new StringBuilder();
+            int tagValuesCount = tagValues == null ? 0 : tagValues.Count;
+
+            for (int i = 0; i < tagValuesCount; i++)
             {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
+                TagValue tagValue = tagValues[i];
+                tagValuesStr.Append(tagValue.Tag).Append("=").Append(tagValue.Value).Append(";");
             }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support verification message sending.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.VerifyMessage);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(apiData);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        public void queryDisplayGroups(int reqId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support queryDisplayGroups request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        public void subscribeToGroupEvents(int reqId, int groupId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support subscribeToGroupEvents request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.SubscripbeToGroupEvents);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            paramsList.AddParameter(groupId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        public void updateDisplayGroup(int reqId, string contractInfo)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support updateDisplayGroup request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            paramsList.AddParameter(contractInfo);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
-        }
-
-        public void unsubscribeFromGroupEvents(int reqId)
-        {
-            if (!isConnected)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.NOT_CONNECTED.Code, EClientErrors.AlreadyConnected.Message);
-                return;
-            }
-
-            if (serverVersion < MinServerVer.MIN_VERSION)
-            {
-                wrapper.error(IncomingMessage.NotValid, EClientErrors.UPDATE_TWS.Code, EClientErrors.UPDATE_TWS.Message + " It does not support unsubscribeFromGroupEvents request.");
-                return;
-            }
-
-            var paramsList = new List<byte>();
-            const int version = 1;
-
-            paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
-            paramsList.AddParameter(version);
-            paramsList.AddParameter(reqId);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            return tagValuesStr.ToString();
         }
     }
 }

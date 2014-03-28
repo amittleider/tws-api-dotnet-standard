@@ -107,7 +107,7 @@ namespace IBApi
             Side = side;
         }
 
-        public bool Equals(Object other)
+        public override bool Equals(Object other)
         {
             bool l_bRetVal = false;
 

@@ -149,6 +149,9 @@ public class Order {
     // order misc options
     public Vector<TagValue> m_orderMiscOptions;
     
+    //order algo id
+    public String m_algoId;
+    
     public Order() {
         m_lmtPrice = Double.MAX_VALUE;
         m_auxPrice = Double.MAX_VALUE;
@@ -199,6 +202,7 @@ public class Order {
         m_scaleTable = EMPTY_STR;
         m_whatIf = false;
         m_notHeld = false;
+        m_algoId = EMPTY_STR;
     }
 
     public boolean equals(Object p_other) {
@@ -303,6 +307,7 @@ public class Order {
         	Util.StringCompare(m_clearingAccount, l_theOther.m_clearingAccount) != 0 ||
         	Util.StringCompare(m_clearingIntent, l_theOther.m_clearingIntent) != 0 ||
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
+        	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
         	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0) {
         	return false;
         }

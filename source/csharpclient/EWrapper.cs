@@ -84,7 +84,7 @@ namespace IBApi
         void tickGeneric(int tickerId, int field, double value);
 
         /**
-         * @brief (?)
+         * @brief Exchange for Physicals.
          * @param tickerId The request's identifier.
          * @param tickType The type of tick being received.
          * @param basisPoints Annualized basis points, which is representative of the financing rate that can be directly compared to broker rates.
@@ -98,9 +98,12 @@ namespace IBApi
         void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays,  string futureExpiry, double dividendImpact, double dividendsToExpiry);
 
         /**
-         * @brief (?)
+         * @brief -
+         * Upon accepting a Delta-Neutral DN RFQ(request for quote), the server sends a deltaNeutralValidation() message with the 
+         * UnderComp structure. If the delta and price fields are empty in the original request, the confirmation will contain the current
+         * values from the server. These values are locked when RFQ is processed and remain locked unitl the RFQ is cancelled.
          * @param reqId the request's identifier.
-         * @param underComp (?)
+         * @param underComp Underlying Component
          */
         void deltaNeutralValidation(int reqId, UnderComp underComp);
 
@@ -155,11 +158,13 @@ namespace IBApi
          */
         void accountSummaryEnd(int reqId);
 
-
-        void verifyMessageAPI(string apiData);
-        void verifyCompleted(bool isSuccessful, string errorText);
-        void displayGroupList(int reqId, string groups);
-        void displayGroupUpdated(int reqId, string contractInfo);
+        /*
+         * @brief Delivers the Bond contract data after this has been requested via reqContractDetails
+         * @param reqId the request's identifier
+         * @param contract the bond contract's information.
+         * @sa reqContractDetails
+         */
+        void bondContractDetails(int reqId, ContractDetails contract);
 
         /**
          * @brief Receives the subscribed account's information.
@@ -363,6 +368,7 @@ namespace IBApi
          * @param account the account holding the position.
          * @param contract the position's Contract
          * @param pos the number of positions held.
+         * @Param avgCost the average cost of the position.
          * @sa positionEnd, EClientSocket::reqPositions
          */
         void position(string account, Contract contract, int pos, double avgCost);
@@ -398,7 +404,7 @@ namespace IBApi
         /**
          * @brief provides the data resulting from the market scanner request.
          * @param reqid the request's identifier.
-         * @param rank the ranking within the response of this bar (?)
+         * @param rank the ranking within the response of this bar.
          * @param contractDetails the data's ContractDetails
          * @param distance according to query.
          * @param benchmark according to query.
@@ -425,5 +431,12 @@ namespace IBApi
          * @sa EClientSocket::requestFA, EClientSocket::replaceFA
          */
         void receiveFA(int faDataType, string faXmlData);
+
+
+        void verifyMessageAPI(string apiData);
+        void verifyCompleted(bool isSuccessful, string errorText);
+        void displayGroupList(int reqId, string groups);
+        void displayGroupUpdated(int reqId, string contractInfo);
+
     }
 }

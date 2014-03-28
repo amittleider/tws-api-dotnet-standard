@@ -734,8 +734,8 @@ namespace TWSLib
         {
             if (!(contract is Contract))
                 throw new ArgumentException("Invalid argument type", "contract");
-
-            this.socket.reqFundamentalData(reqId, contract as Contract, reportType);
+            //X - CHANGED
+            this.socket.reqFundamentalData(reqId, contract as Contract, reportType, null);
         }
 
         [DispId(93)]
@@ -747,13 +747,15 @@ namespace TWSLib
         [DispId(94)]
         public void calculateImpliedVolatility(int reqId, IContract contract, double optionPrice, double underPrice)
         {
-            this.socket.calculateImpliedVolatility(reqId, (Contract)contract, optionPrice, underPrice);
+            //X - CHANGED
+            this.socket.calculateImpliedVolatility(reqId, (Contract)contract, optionPrice, underPrice, null);
         }
 
         [DispId(95)]
         public void calculateOptionPrice(int reqId, IContract contract, double volatility, double underPrice)
         {
-            this.socket.calculateOptionPrice(reqId, (Contract)contract, volatility, underPrice);
+            //X - CHANGED
+            this.socket.calculateOptionPrice(reqId, (Contract)contract, volatility, underPrice, null);
         }
 
         [DispId(96)]
@@ -977,6 +979,9 @@ namespace TWSLib
 
         public delegate void contractDetailsExDelegate(int reqId, IContractDetails contractDetails);
 
+		//X - ADDED
+        public delegate void bondContractDetailsExDelegate(int reqId, IContractDetails contractDetails);
+
         public delegate void openOrderExDelegate(int orderId, IContract contract, IOrder order, IOrderState orderState);
 
         public delegate void execDetailsExDelegate(int reqId, IContract contract, IExecution execution);
@@ -1085,6 +1090,9 @@ namespace TWSLib
         public event marketDataTypeDelegate marketDataType;
 
         public event contractDetailsExDelegate contractDetailsEx;
+
+		//X - ADDED
+        public event bondContractDetailsExDelegate bondContractDetailsEx;
 
         public event openOrderExDelegate openOrderEx;
 
@@ -1490,6 +1498,14 @@ namespace TWSLib
                 InvokeIfRequired(t_contractDetailsEx, reqId, contractDetails);
         }
 
+		//X - ADDED
+        void EWrapper.bondContractDetails(int reqId, ContractDetails contractDetails)
+        {
+            var t_bondContractDetailsEx = this.bondContractDetailsEx;
+            if (t_bondContractDetailsEx != null)
+                Invoke(t_bondContractDetailsEx, reqId, contractDetails);
+        }
+
         void EWrapper.contractDetailsEnd(int reqId)
         {
             var t_contractDetailsEnd = this.contractDetailsEnd;
@@ -1683,6 +1699,35 @@ namespace TWSLib
             var t_displayGroupUpdated = this.displayGroupUpdated;
             if (t_displayGroupUpdated != null)
                 InvokeIfRequired(t_displayGroupUpdated, reqId, contractInfo);
+        }
+
+		//X - ADDED
+        void EWrapper.displayGroupUpdated(int reqId, string contractInfo)
+        {
+            var t_displayGroupUpdated = this.displayGroupUpdate;
+            if (t_displayGroupUpdated != null)
+                Invoke(t_displayGroupUpdated, reqId, contractInfo);
+        }
+
+        void EWrapper.displayGroupList(int reqId, string groups)
+        {
+            var t_displayGroupList = this.displayGroupList;
+            if (t_displayGroupList != null)
+                Invoke(t_displayGroupList, reqId, groups);
+        }
+
+        void EWrapper.verifyCompleted(bool isSuccessful, string errorText)
+        {
+            var t_verifyCompleted = this.verifyCompleted;
+            if(t_verifyCompleted != null)
+                Invoke(t_verifyCompleted, isSuccessful, errorText);
+        }
+
+        void EWrapper.verifyMessageAPI(string apiData)
+        {
+            var t_verifyMessageApi = this.verifyMessageApi;
+            if (t_verifyMessageApi != null)
+                Invoke(t_verifyMessageApi, apiData);
         }
 
         void IDisposable.Dispose()

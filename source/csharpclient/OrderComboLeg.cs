@@ -39,7 +39,7 @@ namespace IBApi
             price = p_price;
         }
 
-        public bool Equals(Object other)
+        public override bool Equals(Object other)
         {
             if (this == other)
             {

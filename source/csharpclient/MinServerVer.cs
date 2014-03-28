@@ -53,6 +53,7 @@ namespace IBApi
         public const int ACCT_SUMMARY = 67;
         public const int TRADING_CLASS = 68;
         public const int SCALE_TABLE = 69;
-        public const int VER_LINKING = 70;
+        public const int LINKING = 70;
+        public const int ALGO_ID = 71;
     }
 }

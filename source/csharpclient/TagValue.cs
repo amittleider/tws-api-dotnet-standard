@@ -12,8 +12,21 @@ namespace IBApi
     [ComVisible(true)]
     public class TagValue : TWSApi.ITagValue
     {
-        public string tag;
-        public string value;
+        private string tag;
+        private string value;
+
+        public string Tag
+        {
+            get { return tag; }
+            set { tag = value; }
+        }
+        
+
+        public string Value
+        {
+            get { return this.value; }
+            set { this.value = value; }
+        }
 
         public TagValue()
         {
@@ -25,7 +38,7 @@ namespace IBApi
             value = p_value;
         }
 
-        public bool Equals(Object other)
+        public override bool Equals(Object other)
         {
 
             if (this == other)
@@ -36,8 +49,8 @@ namespace IBApi
 
             TagValue l_theOther = (TagValue)other;
 
-            if (Util.StringCompare(tag, l_theOther.tag) != 0 ||
-                Util.StringCompare(value, l_theOther.value) != 0)
+            if (Util.StringCompare(Tag, l_theOther.Tag) != 0 ||
+                Util.StringCompare(Value, l_theOther.Value) != 0)
             {
                 return false;
             }

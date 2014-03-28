@@ -52,7 +52,7 @@ namespace IBApi
 
         /**
          * @brief The side (buy or sell) of the leg:\n
-         *      - // BUY/SELL/SSHORT/SSHORTX (?)
+         *      - For individual accounts, only BUY and SELL are available. SSHORT is for institutions.
          */
         public string Action
         {
@@ -69,7 +69,8 @@ namespace IBApi
         }
 
         /**
-        * @brief Specifies whether an order is an open or closing order: (?)
+        * @brief Specifies whether an order is an open or closing order.
+        * For instituational customers to determine if this order is to open or close a position.
         *      0 - Same as the parent security. This is the only option for retail customers.\n
         *      1 - Open. This value is only valid for institutional customers.\n
         *      2 - Close. This value is only valid for institutional customers.\n
@@ -82,7 +83,7 @@ namespace IBApi
         }
 
         /**
-         * @brief For stock legs when doing short selling. (?)
+         * @brief For stock legs when doing short selling.
          * Set to 1 = clearing broker, 2 = third party
          */
         public int ShortSaleSlot
@@ -101,7 +102,7 @@ namespace IBApi
         }
 
         /**
-         * @brief NEEDS TO BE DOCUMENTED!! (?)
+         * @brief -
          */
         public int ExemptCode
         {

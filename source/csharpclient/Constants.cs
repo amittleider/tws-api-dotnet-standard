@@ -10,7 +10,7 @@ namespace IBApi
 {
     public static class Constants
     {
-        public const int ClientVersion = 61;//API v 9.69
+        public const int ClientVersion = 63;//API v. 9.71
         public const byte EOL = 0;
         public const string BagSecType = "BAG";
 

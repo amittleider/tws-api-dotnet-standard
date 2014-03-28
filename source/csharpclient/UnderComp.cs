@@ -10,7 +10,7 @@ using System.Text;
 namespace IBApi
 {
     /**
-     * @brief (?)
+     * @brief Delta-Neutral Underlying Component.
      */
     [ComVisible(true)]
     public class UnderComp : TWSLib.IUnderComp

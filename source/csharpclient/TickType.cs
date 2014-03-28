@@ -68,6 +68,7 @@ namespace IBApi
         public const int TRADE_RATE = 55;
         public const int VOLUME_RATE = 56;
         public const int LAST_RTH_TRADE = 57;
+        public const int REGULATORY_IMBALANCE = 61;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -128,7 +129,8 @@ namespace IBApi
                 case TRADE_COUNT:                 return "trades";
                 case TRADE_RATE:                  return "trades/min";
                 case VOLUME_RATE:                 return "volume/min";             
-                case LAST_RTH_TRADE:              return "lastRTHTrade";             
+                case LAST_RTH_TRADE:              return "lastRTHTrade";
+                case REGULATORY_IMBALANCE:        return "regulatoryImbalance";
                 default:                          return "unknown";
             }
         }

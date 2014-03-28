@@ -24,19 +24,19 @@ namespace IBApi
 
         /**
          * @var string instrument
-         * @brief The instrument's type for the scan (?)
+         * @brief The instrument's type for the scan. I.e. STK, FUT.HK, etc.
          */
         private string instrument;
 
         /**
          * @var string locationCode
-         * @brief The request's location (?)
+         * @brief The request's location (STK.US, STK.US.MAJOR, etc). 
          */
         private string locationCode;
 
         /**
          * @var string scanCode
-         * @brief (?)
+         * @brief Same as TWS Market Scanner's "parameters" field, for example: TOP_PERC_GAIN
          */
         private string scanCode;
 
@@ -60,7 +60,7 @@ namespace IBApi
 
         /**
          * @var int averageOptionVolumeAbove
-         * @brief Filters out Contracts which option volume is above this value.(?)
+         * @brief Filters out Contracts which option volume is above this value.
          */
         private int averageOptionVolumeAbove = Int32.MaxValue;
 
@@ -138,7 +138,7 @@ namespace IBApi
 
         /**
          * @var string stockTypeFilter
-         * @brief (?)
+         * @brief -
          *      CORP = Corporation
          *      ADR = American Depositary Receipt
          *      ETF = Exchange Traded Fund
@@ -152,7 +152,7 @@ namespace IBApi
             get { return numberOfRows; }
             set { numberOfRows = value; }
         }
-
+       
         public string Instrument
         {
             get { return instrument; }

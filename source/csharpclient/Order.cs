@@ -43,6 +43,9 @@ namespace IBApi
         // extended order fields
         // "Time in Force" - DAY, GTC, etc.
         private string tif;
+        //GTC orders
+        private string activeStartTime;
+        private string activeStopTime;
         // one cancels all group name
         private string ocaGroup;
         // 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK
@@ -138,6 +141,7 @@ namespace IBApi
         private int scaleInitPosition;
         private int scaleInitFillQty;
         private bool scaleRandomPercent;
+        private string scaleTable;
         // HEDGE ORDERS ONLY
         // 'D' - delta, 'B' - beta, 'F' - FX, 'P' - pair
         private string hedgeType;
@@ -154,13 +158,15 @@ namespace IBApi
         private List<TagValue> algoParams;
         // What-if
         private bool whatIf;
+        //algoId
+        private string algoId;
         // Not Held
         private bool notHeld;
+        private string settlingFirm;
         // Smart combo routing params
         private List<TagValue> smartComboRoutingParams;
         // order combo legs
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
-        private string settlingFirm;
         private List<TagValue> orderMiscOptions = new List<TagValue>();
 
         /**
@@ -230,7 +236,7 @@ namespace IBApi
         }
 
         /**
-         * @brief This is the STOP price for stop-limit orders, and the offset amount for relative orders. In all other cases, specify zero. (?) - FIND OUT WHICH OTHER CASES ARE COVERED BY THIS PRICE.
+         * @brief Generic field to contain the stop price for STP LMT orders, trailing amount, etc.
          */
         public double AuxPrice
         {
@@ -240,7 +246,7 @@ namespace IBApi
 
         /**
           * @brief The time in force.
-         * Valid values are: (?) ARE ALL THESE AVAILABLE FROM THE API? \n
+         * Valid values are: \n
          *      DAY - Valid for the day only.\n
          *      GTC - Good until canceled. The order will continue to work within the system and in the marketplace until it executes or is canceled. GTC orders will be automatically be cancelled under the following conditions:
          *          \t\t If a corporate action on a security results in a stock split (forward or reverse), exchange for shares, or distribution of shares.
@@ -407,7 +413,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * Individual = 'I'\n
          * Agency = 'A'\n
          * AgentOtherMember = 'W'\n
@@ -434,7 +440,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Identifies a minimum quantity order type (?)
+         * @brief Identifies a minimum quantity order type.
          */
         public int MinQty
         {
@@ -515,8 +521,8 @@ namespace IBApi
 
 
         /**
-         * @brief For institutional customers only. (?)
-         * Valid values are O, C.
+         * @brief For institutional customers only.
+         * Available for institutional clients to determine if this order is to open or close a position. Valid values are O (open), C (close).
          */
         public string OpenClose
         {
@@ -526,8 +532,8 @@ namespace IBApi
 
 
         /**
-         * @brief The order's origin. (?)
-         * For institutional customers only. Valid values are 0 = customer, 1 = firm
+         * @brief The order's origin. 
+         * Same as TWS "Origin" column. Identifies the type of customer from which the order originated. Valid values are 0 (customer), 1 (firm).
          */
         public int Origin
         {
@@ -536,8 +542,8 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
-         * Valid values are 1 or 2
+         * @brief -
+         * For institutions only. Valid values are: 1 (broker holds shares) or 2 (shares come from elsewhere).
          */
         public int ShortSaleSlot
         {
@@ -546,7 +552,9 @@ namespace IBApi
         }
 
         /**
-         * @brief Used only when shortSaleSlot = 2 (?)
+         * @brief Used only when shortSaleSlot is 2.
+         * For institutions only. Indicates the location where the shares to short come from. Used only when short 
+         * sale slot is set to 2 (which means that the shares to short are held elsewhere and not with IB).
          */
         public string DesignatedLocation
         {
@@ -555,7 +563,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          */
         public int ExemptCode
         {
@@ -573,7 +581,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Trade with electronic quotes (?)
+         * @brief Trade with electronic quotes.
          */
         public bool ETradeOnly
         {
@@ -582,7 +590,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Trade with firm quotes (?)
+         * @brief Trade with firm quotes.
          */
         public bool FirmQuoteOnly
         {
@@ -610,7 +618,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief - 
          * For BOX orders only. Values include:
          *      1 - match \n
          *      2 - improvement \n
@@ -643,7 +651,7 @@ namespace IBApi
         }
 
         /**
-         * @brief The stock's Delta. (?)
+         * @brief The stock's Delta.
          * For orders on BOX only.
          */
         public double Delta
@@ -738,7 +746,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief - 
          */
         public int DeltaNeutralConId
         {
@@ -747,7 +755,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          */
         public string DeltaNeutralSettlingFirm
         {
@@ -756,7 +764,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          */
         public string DeltaNeutralClearingAccount
         {
@@ -765,7 +773,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          */
         public string DeltaNeutralClearingIntent
         {
@@ -792,7 +800,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * Has a value of 1 (the clearing broker holds shares) or 2 (delivered from a third party). If you use 2, then you must specify a deltaNeutralDesignatedLocation.
          */
         public int DeltaNeutralShortSaleSlot
@@ -802,7 +810,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * Used only when deltaNeutralShortSaleSlot = 2.
          */
         public string DeltaNeutralDesignatedLocation
@@ -812,7 +820,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For EFP orders only.
          */
         public double BasisPoints
@@ -822,7 +830,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For EFP orders only.
          */
         public int BasisPointsType
@@ -862,7 +870,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended Scale orders.
          */
         public double ScalePriceAdjustValue
@@ -872,7 +880,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended Scale orders.
          */
         public int ScalePriceAdjustInterval
@@ -882,7 +890,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended scale orders.
          */
         public double ScaleProfitOffset
@@ -892,7 +900,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended scale orders.
          */
         public bool ScaleAutoReset
@@ -902,7 +910,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended scale orders.
          */
         public int ScaleInitPosition
@@ -912,7 +920,7 @@ namespace IBApi
         }
 
         /**
-          * @brief (?)
+          * @brief -
           * For extended scale orders.
           */
         public int ScaleInitFillQty
@@ -922,7 +930,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * For extended scale orders.
          */
         public bool ScaleRandomPercent
@@ -932,7 +940,7 @@ namespace IBApi
         }
 
         /**
-         * @brief For hedge orders (?)
+         * @brief For hedge orders.
          * Possible values include:\n
          *      D - delta \n
          *      B - beta \n
@@ -946,7 +954,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
          * Beta = x for Beta hedge orders, ratio = y for Pair hedge order
          */
         public string HedgeParam
@@ -965,7 +973,8 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief -
+         * Institutions only. Indicates the firm which will settle the trade.
          */
         public string SettlingFirm
         {
@@ -984,8 +993,8 @@ namespace IBApi
         }
 
         /**
-        * @brief (?)
-         * For IBExecution customers. Valid values are: IB, Away, and PTA (post trade allocation).
+        * @brief For exeuction-only clients to know where do they want their shares to be cleared at.
+         * Valid values are: IB, Away, and PTA (post trade allocation).
         */
         public string ClearingIntent
         {
@@ -999,8 +1008,8 @@ namespace IBApi
          *      ArrivalPx - Arrival Price \n
          *      DarkIce - Dark Ice \n
          *      PctVol - Percentage of Volume \n
-         *      Twap - TWAP (?) \n
-         *      Vwap - VWAP (?) \n
+         *      Twap - TWAP (Time Weighted Average Price) \n
+         *      Vwap - VWAP (Volume Weighted Average Price) \n
          * For more information about IB's API algorithms, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/ibalgo_parameters.htm
         */
         public string AlgoStrategy
@@ -1028,6 +1037,8 @@ namespace IBApi
             get { return whatIf; }
             set { whatIf = value; }
         }
+
+        public string AlgoId { get { return algoId; } set { algoId = value; } }
 
         /**
         * @brief Orders routed to IBDARK are tagged as “post only” and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
@@ -1058,10 +1069,45 @@ namespace IBApi
             set { orderComboLegs = value; }
         }
 
+        public List<TagValue> OrderMiscOptions
+        {
+            get { return orderMiscOptions; }
+            set { orderMiscOptions = value; }
+        }
+
+        /*
+         * @brief for GTC orders.
+         */
+        public string ActiveStartTime
+        {
+            get { return activeStartTime; }
+            set { activeStartTime = value; }
+        }
+
+        /*
+        * @brief for GTC orders.
+        */
+        public string ActiveStopTime
+        {
+            get { return activeStopTime; }
+            set { activeStopTime = value; }
+        }
+
+        /*
+         * @brief Used for scale orders.
+         */
+        public string ScaleTable
+        {
+            get { return scaleTable; }
+            set { scaleTable = value; }
+        }
+
         public Order()
         {
             lmtPrice = Double.MaxValue;
             auxPrice = Double.MaxValue;
+            activeStartTime = EMPTY_STR;
+            activeStopTime = EMPTY_STR;
             outsideRth = false;
             openClose = "O";
             origin = CUSTOMER;
@@ -1104,6 +1150,7 @@ namespace IBApi
             scaleInitPosition = Int32.MaxValue;
             scaleInitFillQty = Int32.MaxValue;
             scaleRandomPercent = false;
+            scaleTable = EMPTY_STR;
             whatIf = false;
             notHeld = false;
         }
@@ -1187,6 +1234,8 @@ namespace IBApi
             if (Util.StringCompare(Action, l_theOther.Action) != 0 ||
                 Util.StringCompare(OrderType, l_theOther.OrderType) != 0 ||
                 Util.StringCompare(Tif, l_theOther.Tif) != 0 ||
+                Util.StringCompare(ActiveStartTime, l_theOther.ActiveStartTime) != 0 ||
+                Util.StringCompare(ActiveStopTime, l_theOther.ActiveStopTime) != 0 ||
                 Util.StringCompare(OcaGroup, l_theOther.OcaGroup) != 0 ||
                 Util.StringCompare(OrderRef, l_theOther.OrderRef) != 0 ||
                 Util.StringCompare(GoodAfterTime, l_theOther.GoodAfterTime) != 0 ||
@@ -1210,7 +1259,9 @@ namespace IBApi
                 Util.StringCompare(SettlingFirm, l_theOther.SettlingFirm) != 0 ||
                 Util.StringCompare(ClearingAccount, l_theOther.ClearingAccount) != 0 ||
                 Util.StringCompare(ClearingIntent, l_theOther.ClearingIntent) != 0 ||
-                Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0)
+                Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
+                Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
+                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0)
             {
                 return false;
             }
@@ -1299,6 +1350,7 @@ namespace IBApi
 
         bool TWSLib.IOrder.whatIf { get { return WhatIf; } set { WhatIf = value; } }
 
+        string TWSLib.IOrder.algoId { get { return AlgoId; } set { AlgoId = value; } }
 
         bool TWSLib.IOrder.notHeld { get { return notHeld; } set { notHeld = value; } }
 

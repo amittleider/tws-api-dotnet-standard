@@ -224,5 +224,7 @@ namespace TWSLib
 
         [DispId(142)]
         object orderMiscOptions { [return: MarshalAs(UnmanagedType.IDispatch)] get; [param: MarshalAs(UnmanagedType.IDispatch)] set; }
+        [DispId(143)]
+        string algoId { get; set; }
     }
 }

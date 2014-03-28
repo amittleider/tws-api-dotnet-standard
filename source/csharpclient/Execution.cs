@@ -62,7 +62,7 @@ namespace IBApi
         }
 
         /**
-         * @brief The execution's time. (?) - Is this exchange's time?
+         * @brief The execution's server time.
          */
         public string Time
         {
@@ -155,7 +155,7 @@ namespace IBApi
         }
 
         /**
-         * @brief (?)
+         * @brief Allows API client to add a reference to an order.
          */
         public string OrderRef
         {
