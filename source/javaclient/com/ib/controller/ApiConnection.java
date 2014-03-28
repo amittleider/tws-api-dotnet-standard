@@ -88,7 +88,7 @@ public class ApiConnection extends EClientSocket {
 
 		Builder b = new Builder();
 
-		int VERSION = 41;
+		int VERSION = 43;
 
 		// send place order msg
 		try {
@@ -250,6 +250,10 @@ public class ApiConnection extends EClientSocket {
 					b.send( tagValue.m_value);
 				}
 			}
+
+	        if (m_serverVersion >= MIN_SERVER_VER_ALGO_ID) {
+	        	b.send( order.algoId() );
+	        }
 
 			b.send( order.whatIf() );
 
