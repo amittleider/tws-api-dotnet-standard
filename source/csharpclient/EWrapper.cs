@@ -83,7 +83,7 @@ namespace IBApi
         void tickGeneric(int tickerId, int field, double value);
 
         /**
-         * @brief (?)
+         * @brief Exchange for Physicals.
          * @param tickerId The request's identifier.
          * @param tickType The type of tick being received.
          * @param basisPoints Annualized basis points, which is representative of the financing rate that can be directly compared to broker rates.
@@ -97,15 +97,18 @@ namespace IBApi
         void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays,  string futureExpiry, double dividendImpact, double dividendsToExpiry);
 
         /**
-         * @brief (?)
+         * @brief -
+         * Upon accepting a Delta-Neutral DN RFQ(request for quote), the server sends a deltaNeutralValidation() message with the 
+         * UnderComp structure. If the delta and price fields are empty in the original request, the confirmation will contain the current
+         * values from the server. These values are locked when RFQ is processed and remain locked unitl the RFQ is cancelled.
          * @param reqId the request's identifier.
-         * @param underComp (?)
+         * @param underComp Underlying Component
          */
         void deltaNeutralValidation(int reqId, UnderComp underComp);
 
         /**
          * @brief Receive's option specific market data.
-         * This method is called when the market in an option or its underlier moves. TWSâ€™s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received.
+         * This method is called when the market in an option or its underlier moves. TWS’s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received.
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickString, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
@@ -153,6 +156,14 @@ namespace IBApi
          * @sa accountSummary, EClientSocket::reqAccountSummary
          */
         void accountSummaryEnd(int reqId);
+
+        /*
+         * @brief Delivers the Bond contract data after this has been requested via reqContractDetails
+         * @param reqId the request's identifier
+         * @param contract the bond contract's information.
+         * @sa reqContractDetails
+         */
+        void bondContractDetails(int reqId, ContractDetails contract);
 
         /**
          * @brief Receives the subscribed account's information.
@@ -313,8 +324,8 @@ namespace IBApi
          * @param tickerId the request's identifier
          * @param position the order book's row being updated
          * @param operation how to refresh the row:
-         *      0 = insert (insert this new order into the row identified by 'position')Â·
-         *      1 = update (update the existing order in the row identified by 'position')Â·
+         *      0 = insert (insert this new order into the row identified by 'position')·
+         *      1 = update (update the existing order in the row identified by 'position')·
          *      2 = delete (delete the existing order at the row identified by 'position').
          * @param side 0 for ask, 1 for bid
          * @param price the order's price
@@ -329,8 +340,8 @@ namespace IBApi
          * @param position the order book's row being updated
          * @param marketMaker the exchange holding the order
          * @param operation how to refresh the row:
-         *      0 - insert (insert this new order into the row identified by 'position')Â·
-         *      1 - update (update the existing order in the row identified by 'position')Â·
+         *      0 - insert (insert this new order into the row identified by 'position')·
+         *      1 - update (update the existing order in the row identified by 'position')·
          *      2 - delete (delete the existing order at the row identified by 'position').
          * @param side 0 for ask, 1 for bid
          * @param price the order's price
@@ -356,9 +367,10 @@ namespace IBApi
          * @param account the account holding the position.
          * @param contract the position's Contract
          * @param pos the number of positions held.
+         * @Param avgCost the average cost of the position.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, int pos);
+        void position(string account, Contract contract, int pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.
@@ -391,7 +403,7 @@ namespace IBApi
         /**
          * @brief provides the data resulting from the market scanner request.
          * @param reqid the request's identifier.
-         * @param rank the ranking within the response of this bar (?)
+         * @param rank the ranking within the response of this bar.
          * @param contractDetails the data's ContractDetails
          * @param distance according to query.
          * @param benchmark according to query.
@@ -418,5 +430,12 @@ namespace IBApi
          * @sa EClientSocket::requestFA, EClientSocket::replaceFA
          */
         void receiveFA(int faDataType, string faXmlData);
+
+
+        void verifyMessageAPI(string apiData);
+        void verifyCompleted(bool isSuccessful, string errorText);
+        void displayGroupList(int reqId, string groups);
+        void displayGroupUpdated(int reqId, string contractInfo);
+
     }
 }

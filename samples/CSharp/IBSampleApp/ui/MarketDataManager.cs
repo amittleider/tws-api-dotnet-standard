@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,12 +19,12 @@ namespace IBSampleApp.ui
 
         private const int BID_PRICE_INDEX   = 2;
         private const int ASK_PRICE_INDEX   = 3;
-        private const int CLOSE_PRICE_INDEX = 8;
+        private const int CLOSE_PRICE_INDEX = 7;
 
         private const int BID_SIZE_INDEX = 1;
         private const int ASK_SIZE_INDEX = 4;
         private const int LAST_SIZE_INDEX = 5;
-        private const int VOLUME_SIZE_INDEX = 7;       
+        private const int VOLUME_SIZE_INDEX = 6;       
        
         private List<Contract> activeRequests = new List<Contract>();
         
@@ -30,10 +32,10 @@ namespace IBSampleApp.ui
         {
         }
 
-        public void AddRequest(Contract contract)
+        public void AddRequest(Contract contract, string genericTickList)
         {
             activeRequests.Add(contract);
-            ibClient.ClientSocket.reqMktData(TICK_ID_BASE+(currentTicker++), contract, "", false);
+            ibClient.ClientSocket.reqMktData(TICK_ID_BASE+(currentTicker++), contract, genericTickList, false, new List<TagValue>());
 
             if(!uiControl.Visible)
                 uiControl.Visible = true;
@@ -48,17 +50,19 @@ namespace IBSampleApp.ui
         public override void Clear()
         {
             ((DataGridView)uiControl).Rows.Clear();
+            activeRequests.Clear();
             uiControl.Visible = false;
             currentTicker = 1;
         }
 
-        public void StopActiveRequests()
+        public void StopActiveRequests(bool clearTable)
         {
             for (int i = 1; i < currentTicker; i++)
             {
                 ibClient.ClientSocket.cancelMktData(i+TICK_ID_BASE);
             }
-            Clear();
+            if(clearTable)
+                Clear();
         }
 
         private void checkToAddRow(int requestId)
@@ -76,7 +80,7 @@ namespace IBSampleApp.ui
             return requestId - TICK_ID_BASE - 1;
         }
 
-        protected override void Populate(IBMessage message)
+        public override void UpdateUI(IBMessage message)
         {
             MarketDataMessage dataMessage = (MarketDataMessage)message;
             checkToAddRow(dataMessage.RequestId);
