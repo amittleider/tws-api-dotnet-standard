@@ -100,6 +100,7 @@ public class NewOrder {
 	// algo orders
 	private AlgoStrategy m_algoStrategy = AlgoStrategy.None;
 	private final ArrayList<TagValue> m_algoParams = new ArrayList<TagValue>();
+	private String m_algoId;
 
 	// combo orders
 	private final ArrayList<TagValue> m_smartComboRoutingParams = new ArrayList<TagValue>();
@@ -183,6 +184,7 @@ public class NewOrder {
 	public Rule80A rule80A() { return m_rule80A; }
 	public String account() { return m_account; }
 	public AlgoStrategy algoStrategy() { return m_algoStrategy; }
+	public String algoId() { return m_algoId; }
 	public String faGroup() { return m_faGroup; }
 	public String faPercentage() { return m_faPercentage; }
 	public String faProfile() { return m_faProfile; }
@@ -204,6 +206,7 @@ public class NewOrder {
 	public void account(String v) { m_account = v; }
 	public void action(Action v) { m_action = v; }
 	public void algoStrategy(AlgoStrategy v) { m_algoStrategy = v; }
+	public void algoId(String v) { m_algoId = v; }
 	public void allOrNone(boolean v) { m_allOrNone = v; }
 	public void auxPrice(double v) { m_auxPrice = v; }
 	public void blockOrder(boolean v) { m_blockOrder = v; }
