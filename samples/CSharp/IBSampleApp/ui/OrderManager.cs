@@ -41,8 +41,6 @@ namespace IBSampleApp.ui
 
         public void PlaceOrder(Contract contract, Order order)
         {
-            order.AlgoId = "xxx";
-
             if (order.OrderId != 0)
             {
                 ibClient.ClientSocket.placeOrder(order.OrderId, contract, order);
