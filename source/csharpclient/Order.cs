@@ -1259,6 +1259,7 @@ namespace IBApi
                 Util.StringCompare(ClearingAccount, l_theOther.ClearingAccount) != 0 ||
                 Util.StringCompare(ClearingIntent, l_theOther.ClearingIntent) != 0 ||
                 Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
+                Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
                 Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0)
             {
                 return false;
