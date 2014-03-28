@@ -256,6 +256,11 @@ public class ApiConnection extends EClientSocket {
 	        }
 
 			b.send( order.whatIf() );
+			
+			// send orderMiscOptions stub
+	        if(m_serverVersion >= MIN_SERVER_VER_LINKING) {	     
+	            send( "" );
+	        }
 
 			m_dos.write( b.getBytes() );
 		}
