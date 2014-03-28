@@ -1427,6 +1427,8 @@ namespace IBApi
             string isSuccessfulStr = ReadString();
             bool isSuccessful = isSuccessfulStr.Equals("true");
             string errorText = ReadString();
+            if (isSuccessful)
+                parent.startApi();
             parent.Wrapper.verifyCompleted(isSuccessful, errorText);
         }
                      

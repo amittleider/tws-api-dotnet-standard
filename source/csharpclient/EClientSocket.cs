@@ -148,7 +148,7 @@ namespace IBApi
            
         }
 
-        private void startApi()
+        public void startApi()
         {
             if (!CheckConnection())
                 return;
