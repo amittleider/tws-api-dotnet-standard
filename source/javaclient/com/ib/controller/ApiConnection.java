@@ -259,7 +259,7 @@ public class ApiConnection extends EClientSocket {
 			
 			// send orderMiscOptions stub
 	        if(m_serverVersion >= MIN_SERVER_VER_LINKING) {	     
-	            send( "" );
+	            b.send( "" );
 	        }
 
 			m_dos.write( b.getBytes() );
