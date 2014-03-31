@@ -3,85 +3,88 @@
 
 Option Strict Off
 Option Explicit On
+
+Imports System.Collections.Generic
+
 Friend Class dlgScanner
-	Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-	Public Sub New()
-		MyBase.New()
-		If m_vb6FormDefInstance Is Nothing Then
-			If m_InitializingDefInstance Then
-				m_vb6FormDefInstance = Me
-			Else
-				Try 
-					'For the start-up form, the first instance created is the default instance.
-					If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
-						m_vb6FormDefInstance = Me
-					End If
-				Catch
-				End Try
-			End If
-		End If
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdCancelSubscription As System.Windows.Forms.Button
-	Public WithEvents cmdSubscribe As System.Windows.Forms.Button
-	Public WithEvents cmdRequestParameters As System.Windows.Forms.Button
-	Public WithEvents txtReqId As System.Windows.Forms.TextBox
-	Public WithEvents txtNumberOfRows As System.Windows.Forms.TextBox
-	Public WithEvents txtInstrument As System.Windows.Forms.TextBox
-	Public WithEvents txtLocationCode As System.Windows.Forms.TextBox
-	Public WithEvents txtScanCode As System.Windows.Forms.TextBox
-	Public WithEvents txtAboveVolume As System.Windows.Forms.TextBox
-	Public WithEvents txtMarketCapBelow As System.Windows.Forms.TextBox
-	Public WithEvents txtMoodyRatingAbove As System.Windows.Forms.TextBox
-	Public WithEvents txtAbovePrice As System.Windows.Forms.TextBox
-	Public WithEvents TxtMarketCapAbove As System.Windows.Forms.TextBox
-	Public WithEvents txtBelowPrice As System.Windows.Forms.TextBox
-	Public WithEvents txtMoodyRatingBelow As System.Windows.Forms.TextBox
-	Public WithEvents txtSpRatingAbove As System.Windows.Forms.TextBox
-	Public WithEvents txtMaturityDateBelow As System.Windows.Forms.TextBox
-	Public WithEvents txtCouponRateBelow As System.Windows.Forms.TextBox
-	Public WithEvents txtExcludeConvertibles As System.Windows.Forms.TextBox
-	Public WithEvents txtSpRatingBelow As System.Windows.Forms.TextBox
-	Public WithEvents txtCouponRateAbove As System.Windows.Forms.TextBox
-	Public WithEvents txtMaturityDateAbove As System.Windows.Forms.TextBox
-	Public WithEvents Label2 As System.Windows.Forms.Label
-	Public WithEvents Label19 As System.Windows.Forms.Label
-	Public WithEvents Label16 As System.Windows.Forms.Label
-	Public WithEvents Label15 As System.Windows.Forms.Label
-	Public WithEvents Label14 As System.Windows.Forms.Label
-	Public WithEvents Label13 As System.Windows.Forms.Label
-	Public WithEvents Label12 As System.Windows.Forms.Label
-	Public WithEvents Label11 As System.Windows.Forms.Label
-	Public WithEvents Label10 As System.Windows.Forms.Label
-	Public WithEvents Label3 As System.Windows.Forms.Label
-	Public WithEvents Label4 As System.Windows.Forms.Label
-	Public WithEvents Label5 As System.Windows.Forms.Label
-	Public WithEvents Label6 As System.Windows.Forms.Label
-	Public WithEvents Label7 As System.Windows.Forms.Label
-	Public WithEvents Label8 As System.Windows.Forms.Label
-	Public WithEvents Label9 As System.Windows.Forms.Label
-	Public WithEvents Label17 As System.Windows.Forms.Label
-	Public WithEvents Label18 As System.Windows.Forms.Label
-	Public WithEvents frameTickerDesc As System.Windows.Forms.GroupBox
-	Public WithEvents Label1 As System.Windows.Forms.Label
-	Public WithEvents Frame1 As System.Windows.Forms.GroupBox
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.
-	'Do not modify it using the code editor.
+    Public Sub New()
+        MyBase.New()
+        If m_vb6FormDefInstance Is Nothing Then
+            If m_InitializingDefInstance Then
+                m_vb6FormDefInstance = Me
+            Else
+                Try
+                    'For the start-up form, the first instance created is the default instance.
+                    If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
+                        m_vb6FormDefInstance = Me
+                    End If
+                Catch
+                End Try
+            End If
+        End If
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdCancelSubscription As System.Windows.Forms.Button
+    Public WithEvents cmdSubscribe As System.Windows.Forms.Button
+    Public WithEvents cmdRequestParameters As System.Windows.Forms.Button
+    Public WithEvents txtReqId As System.Windows.Forms.TextBox
+    Public WithEvents txtNumberOfRows As System.Windows.Forms.TextBox
+    Public WithEvents txtInstrument As System.Windows.Forms.TextBox
+    Public WithEvents txtLocationCode As System.Windows.Forms.TextBox
+    Public WithEvents txtScanCode As System.Windows.Forms.TextBox
+    Public WithEvents txtAboveVolume As System.Windows.Forms.TextBox
+    Public WithEvents txtMarketCapBelow As System.Windows.Forms.TextBox
+    Public WithEvents txtMoodyRatingAbove As System.Windows.Forms.TextBox
+    Public WithEvents txtAbovePrice As System.Windows.Forms.TextBox
+    Public WithEvents TxtMarketCapAbove As System.Windows.Forms.TextBox
+    Public WithEvents txtBelowPrice As System.Windows.Forms.TextBox
+    Public WithEvents txtMoodyRatingBelow As System.Windows.Forms.TextBox
+    Public WithEvents txtSpRatingAbove As System.Windows.Forms.TextBox
+    Public WithEvents txtMaturityDateBelow As System.Windows.Forms.TextBox
+    Public WithEvents txtCouponRateBelow As System.Windows.Forms.TextBox
+    Public WithEvents txtExcludeConvertibles As System.Windows.Forms.TextBox
+    Public WithEvents txtSpRatingBelow As System.Windows.Forms.TextBox
+    Public WithEvents txtCouponRateAbove As System.Windows.Forms.TextBox
+    Public WithEvents txtMaturityDateAbove As System.Windows.Forms.TextBox
+    Public WithEvents Label2 As System.Windows.Forms.Label
+    Public WithEvents Label19 As System.Windows.Forms.Label
+    Public WithEvents Label16 As System.Windows.Forms.Label
+    Public WithEvents Label15 As System.Windows.Forms.Label
+    Public WithEvents Label14 As System.Windows.Forms.Label
+    Public WithEvents Label13 As System.Windows.Forms.Label
+    Public WithEvents Label12 As System.Windows.Forms.Label
+    Public WithEvents Label11 As System.Windows.Forms.Label
+    Public WithEvents Label10 As System.Windows.Forms.Label
+    Public WithEvents Label3 As System.Windows.Forms.Label
+    Public WithEvents Label4 As System.Windows.Forms.Label
+    Public WithEvents Label5 As System.Windows.Forms.Label
+    Public WithEvents Label6 As System.Windows.Forms.Label
+    Public WithEvents Label7 As System.Windows.Forms.Label
+    Public WithEvents Label8 As System.Windows.Forms.Label
+    Public WithEvents Label9 As System.Windows.Forms.Label
+    Public WithEvents Label17 As System.Windows.Forms.Label
+    Public WithEvents Label18 As System.Windows.Forms.Label
+    Public WithEvents frameTickerDesc As System.Windows.Forms.GroupBox
+    Public WithEvents Label1 As System.Windows.Forms.Label
+    Public WithEvents Frame1 As System.Windows.Forms.GroupBox
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.
+    'Do not modify it using the code editor.
     Public WithEvents Label20 As System.Windows.Forms.Label
     Public WithEvents txtScannerSettingPairs As System.Windows.Forms.TextBox
     Public WithEvents txtAverageOptionVolumeAbove As System.Windows.Forms.TextBox
@@ -896,64 +899,64 @@ Friend Class dlgScanner
         Me.PerformLayout()
 
     End Sub
-#End Region 
+#End Region
 #Region "Upgrade Support "
-	Private Shared m_vb6FormDefInstance As dlgScanner
-	Private Shared m_InitializingDefInstance As Boolean
-	Public Shared Property DefInstance() As dlgScanner
-		Get
-			If m_vb6FormDefInstance Is Nothing OrElse m_vb6FormDefInstance.IsDisposed Then
-				m_InitializingDefInstance = True
-				m_vb6FormDefInstance = New dlgScanner()
-				m_InitializingDefInstance = False
-			End If
-			DefInstance = m_vb6FormDefInstance
-		End Get
-		Set
-			m_vb6FormDefInstance = Value
-		End Set
-	End Property
-#End Region 
-    Private m_subscription As TWSLib.IScannerSubscription
+    Private Shared m_vb6FormDefInstance As dlgScanner
+    Private Shared m_InitializingDefInstance As Boolean
+    Public Shared Property DefInstance() As dlgScanner
+        Get
+            If m_vb6FormDefInstance Is Nothing OrElse m_vb6FormDefInstance.IsDisposed Then
+                m_InitializingDefInstance = True
+                m_vb6FormDefInstance = New dlgScanner()
+                m_InitializingDefInstance = False
+            End If
+            DefInstance = m_vb6FormDefInstance
+        End Get
+        Set(value As dlgScanner)
+            m_vb6FormDefInstance = value
+        End Set
+    End Property
+#End Region
+    Private m_subscription As IBApi.ScannerSubscription
     Private m_mainWnd As dlgMainWnd
 
     Private m_id As Integer
     Private m_ok As Boolean
-    Private m_scannerSubscriptionOptions As TWSLib.ITagValueList
+    Private m_scannerSubscriptionOptions As List(Of IBApi.TagValue)
 
     ' ========================================================
-	' Public Methods
-	' ========================================================
+    ' Public Methods
+    ' ========================================================
     Public Sub init(ByRef mainWin As System.Windows.Forms.Form)
         m_ok = False
         m_mainWnd = mainWin
-        m_subscription = m_mainWnd.Tws1.createScannerSubscription()
+        m_subscription = New IBApi.ScannerSubscription
     End Sub
 
-	' ========================================================
-	' Private Methods
-	' ========================================================
-	Private Sub cmdCancel_Click()
+    ' ========================================================
+    ' Private Methods
+    ' ========================================================
+    Private Sub cmdCancel_Click()
         m_ok = False
-		Hide()
-	End Sub
-	
-	Private Sub cmdRequestParameters_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRequestParameters.Click
-		Call m_mainWnd.requestScannerParameters()
-		Hide()
-	End Sub
-	
-	Private Sub cmdCancelSubscription_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancelSubscription.Click
-		Call populateSubscription()
-		Call m_mainWnd.cancelScannerSubscription(m_id)
-		Hide()
-	End Sub
-	
-	Private Sub cmdSubscribe_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSubscribe.Click
-		Call populateSubscription()
+        Hide()
+    End Sub
+
+    Private Sub cmdRequestParameters_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRequestParameters.Click
+        Call m_mainWnd.requestScannerParameters()
+        Hide()
+    End Sub
+
+    Private Sub cmdCancelSubscription_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancelSubscription.Click
+        Call populateSubscription()
+        Call m_mainWnd.cancelScannerSubscription(m_id)
+        Hide()
+    End Sub
+
+    Private Sub cmdSubscribe_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSubscribe.Click
+        Call populateSubscription()
         Call m_mainWnd.scannerSubscription(m_id, m_subscription, m_scannerSubscriptionOptions)
-		Hide()
-	End Sub
+        Hide()
+    End Sub
 
     Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
         Dim dlg As New dlgSmartComboRoutingParams
@@ -965,38 +968,38 @@ Friend Class dlgScanner
         End If
     End Sub
 
-	Private Sub populateSubscription()
+    Private Sub populateSubscription()
         m_id = CInt(txtReqId.Text)
-		With m_subscription
-            .numberOfRows = numFromText(txtNumberOfRows.Text)
-			.instrument = txtInstrument.Text
-            .locations = txtLocationCode.Text
-			.scanCode = txtScanCode.Text
-            .priceAbove = numFromText(txtAbovePrice.Text)
-            .priceBelow = numFromText(txtBelowPrice.Text)
-            .volumeAbove = numFromText(txtAboveVolume.Text)
-            .averageOptionVolumeAbove = numFromText(txtAverageOptionVolumeAbove.Text)
-            .marketCapAbove = numFromText(TxtMarketCapAbove.Text)
-            .marketCapBelow = numFromText(txtMarketCapBelow.Text)
-			.moodyRatingAbove = txtMoodyRatingAbove.Text
-			.moodyRatingBelow = txtMoodyRatingBelow.Text
-			.spRatingAbove = txtSpRatingAbove.Text
-			.spRatingBelow = txtSpRatingBelow.Text
-			.maturityDateAbove = txtMaturityDateAbove.Text
-			.maturityDateBelow = txtMaturityDateBelow.Text
-            .couponRateAbove = numFromText(txtCouponRateAbove.Text)
-            .couponRateBelow = numFromText(txtCouponRateBelow.Text)
-            .excludeConvertible = numFromText(txtExcludeConvertibles.Text)
-            .scannerSettingPairs = txtScannerSettingPairs.Text
-            .stockTypeFilter = txtStockTypeFilter.Text
-		End With
-	End Sub
-	
-	Private Function numFromText(ByRef textStr As String) As Double
-		If textStr = "" Then
-			numFromText = -1
-		Else
-			numFromText = CDbl(textStr)
-		End If
-	End Function
+        With m_subscription
+            .NumberOfRows = numFromText(txtNumberOfRows.Text)
+            .Instrument = txtInstrument.Text
+            .LocationCode = txtLocationCode.Text
+            .ScanCode = txtScanCode.Text
+            .AbovePrice = numFromText(txtAbovePrice.Text)
+            .BelowPrice = numFromText(txtBelowPrice.Text)
+            .AboveVolume = numFromText(txtAboveVolume.Text)
+            .AverageOptionVolumeAbove = numFromText(txtAverageOptionVolumeAbove.Text)
+            .MarketCapAbove = numFromText(TxtMarketCapAbove.Text)
+            .MarketCapBelow = numFromText(txtMarketCapBelow.Text)
+            .MoodyRatingAbove = txtMoodyRatingAbove.Text
+            .MoodyRatingBelow = txtMoodyRatingBelow.Text
+            .SpRatingAbove = txtSpRatingAbove.Text
+            .SpRatingBelow = txtSpRatingBelow.Text
+            .MaturityDateAbove = txtMaturityDateAbove.Text
+            .MaturityDateBelow = txtMaturityDateBelow.Text
+            .CouponRateAbove = numFromText(txtCouponRateAbove.Text)
+            .CouponRateBelow = numFromText(txtCouponRateBelow.Text)
+            .ExcludeConvertible = numFromText(txtExcludeConvertibles.Text)
+            .ScannerSettingPairs = txtScannerSettingPairs.Text
+            .StockTypeFilter = txtStockTypeFilter.Text
+        End With
+    End Sub
+
+    Private Function numFromText(ByRef textStr As String) As Double
+        If textStr = "" Then
+            numFromText = -1
+        Else
+            numFromText = CDbl(textStr)
+        End If
+    End Function
 End Class

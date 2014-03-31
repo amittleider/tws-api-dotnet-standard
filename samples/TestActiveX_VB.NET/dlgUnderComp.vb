@@ -8,12 +8,12 @@ Public Class dlgUnderComp
     ' ========================================================
     ' Member variables
     ' ========================================================
-    Private m_underComp As TWSLib.IUnderComp
+    Private m_underComp As IBApi.UnderComp
 
     ' ===============================================================================
     ' Public Methods
     ' ===============================================================================
-    Public Sub init(ByVal underComp As TWSLib.IUnderComp)
+    Public Sub init(ByVal underComp As IBApi.UnderComp)
 
         m_underComp = underComp
 

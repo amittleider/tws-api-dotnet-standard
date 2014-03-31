@@ -2291,7 +2291,7 @@ Public Class dlgOrderAttribs
     ' ========================================================
     ' Member variables
     ' ========================================================
-    Private m_orderInfo As TWSLib.IOrder
+    Private m_orderInfo As IBApi.Order
     Private m_mainWnd As dlgMainWnd
 
     Private m_ok As Boolean
@@ -2299,14 +2299,14 @@ Public Class dlgOrderAttribs
     ' ========================================================
     ' Public Methods
     ' ========================================================
-    Public Sub init(ByRef mainWin As Form, ByVal orderInfo As TWSLib.IOrder)
+    Public Sub init(ByRef mainWin As Form, ByVal orderInfo As IBApi.Order)
 
         m_mainWnd = dlgMainWnd
         m_orderInfo = orderInfo
 
         m_ok = False
 
-        txtTIF.Text = m_orderInfo.timeInForce
+        txtTIF.Text = m_orderInfo.Tif
         txtActiveStartTime.Text = m_orderInfo.activeStartTime
         txtActiveStopTime.Text = m_orderInfo.activeStopTime
         txtOCA.Text = m_orderInfo.ocaGroup
@@ -2443,7 +2443,7 @@ Public Class dlgOrderAttribs
     ' ========================================================
     Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
 
-        m_orderInfo.timeInForce = txtTIF.Text
+        m_orderInfo.Tif = txtTIF.Text
         m_orderInfo.activeStartTime = txtActiveStartTime.Text
         m_orderInfo.activeStopTime = txtActiveStopTime.Text
         m_orderInfo.ocaGroup = txtOCA.Text

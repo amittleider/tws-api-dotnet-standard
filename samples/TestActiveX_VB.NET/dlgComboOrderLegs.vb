@@ -3,55 +3,58 @@
 
 Option Strict Off
 Option Explicit On
+
+Imports System.Collections.Generic
+
 Friend Class dlgComboOrderLegs
-	Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-	Public Sub New()
-		MyBase.New()
-		If m_vb6FormDefInstance Is Nothing Then
-			If m_InitializingDefInstance Then
-				m_vb6FormDefInstance = Me
-			Else
-				Try 
-					'For the start-up form, the first instance created is the default instance.
-					If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
-						m_vb6FormDefInstance = Me
-					End If
-				Catch
-				End Try
-			End If
-		End If
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdOk As System.Windows.Forms.Button
-	Public WithEvents cmdCancel As System.Windows.Forms.Button
-	Public WithEvents cmdRemoveLeg As System.Windows.Forms.Button
-	Public WithEvents cmdAddLeg As System.Windows.Forms.Button
-	Public WithEvents txtOpenClose As System.Windows.Forms.TextBox
-	Public WithEvents txtExchange As System.Windows.Forms.TextBox
-	Public WithEvents txtAction As System.Windows.Forms.TextBox
-	Public WithEvents txtRatio As System.Windows.Forms.TextBox
-	Public WithEvents txtConid As System.Windows.Forms.TextBox
-	Public WithEvents Label5 As System.Windows.Forms.Label
-	Public WithEvents Label4 As System.Windows.Forms.Label
-	Public WithEvents Label3 As System.Windows.Forms.Label
-	Public WithEvents Label2 As System.Windows.Forms.Label
-	Public WithEvents Label1 As System.Windows.Forms.Label
-	Public WithEvents frmLegDetails As System.Windows.Forms.GroupBox
-    Public WithEvents grdComboLegs As AxMSFlexGridLib.AxMSFlexGrid
+    Public Sub New()
+        MyBase.New()
+        If m_vb6FormDefInstance Is Nothing Then
+            If m_InitializingDefInstance Then
+                m_vb6FormDefInstance = Me
+            Else
+                Try
+                    'For the start-up form, the first instance created is the default instance.
+                    If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
+                        m_vb6FormDefInstance = Me
+                    End If
+                Catch
+                End Try
+            End If
+        End If
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdOk As System.Windows.Forms.Button
+    Public WithEvents cmdCancel As System.Windows.Forms.Button
+    Public WithEvents cmdRemoveLeg As System.Windows.Forms.Button
+    Public WithEvents cmdAddLeg As System.Windows.Forms.Button
+    Public WithEvents txtOpenClose As System.Windows.Forms.TextBox
+    Public WithEvents txtExchange As System.Windows.Forms.TextBox
+    Public WithEvents txtAction As System.Windows.Forms.TextBox
+    Public WithEvents txtRatio As System.Windows.Forms.TextBox
+    Public WithEvents txtConid As System.Windows.Forms.TextBox
+    Public WithEvents Label5 As System.Windows.Forms.Label
+    Public WithEvents Label4 As System.Windows.Forms.Label
+    Public WithEvents Label3 As System.Windows.Forms.Label
+    Public WithEvents Label2 As System.Windows.Forms.Label
+    Public WithEvents Label1 As System.Windows.Forms.Label
+    Public WithEvents frmLegDetails As System.Windows.Forms.GroupBox
+    Public WithEvents grdComboLegs As MSFlexGridLib.MSFlexGrid
     Public WithEvents Label7 As System.Windows.Forms.Label
     Public WithEvents Label6 As System.Windows.Forms.Label
     Public WithEvents txtDesignatedLocation As System.Windows.Forms.TextBox
@@ -92,7 +95,7 @@ Friend Class dlgComboOrderLegs
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.Frame1 = New System.Windows.Forms.GroupBox
-        Me.grdComboLegs = New AxMSFlexGridLib.AxMSFlexGrid
+        Me.grdComboLegs = New MSFlexGridLib.MSFlexGrid
         Me.frmLegDetails.SuspendLayout()
         Me.Frame1.SuspendLayout()
         CType(Me.grdComboLegs, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -478,56 +481,56 @@ Friend Class dlgComboOrderLegs
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 #Region "Upgrade Support "
-	Private Shared m_vb6FormDefInstance As dlgComboOrderLegs
-	Private Shared m_InitializingDefInstance As Boolean
-	Public Shared Property DefInstance() As dlgComboOrderLegs
-		Get
+    Private Shared m_vb6FormDefInstance As dlgComboOrderLegs
+    Private Shared m_InitializingDefInstance As Boolean
+    Public Shared Property DefInstance() As dlgComboOrderLegs
+        Get
             If m_vb6FormDefInstance Is Nothing OrElse m_vb6FormDefInstance.IsDisposed Then
                 m_InitializingDefInstance = True
                 m_vb6FormDefInstance = New dlgComboOrderLegs()
                 m_InitializingDefInstance = False
             End If
-			DefInstance = m_vb6FormDefInstance
-		End Get
-		Set
-			m_vb6FormDefInstance = Value
-		End Set
-	End Property
-#End Region 
-	
-    Private m_comboLegs As TWSLib.IComboLegList
-    Private m_orderComboLegs As TWSLib.IOrderComboLegList
-    Private m_tws As AxTWSLib.AxTws
+            DefInstance = m_vb6FormDefInstance
+        End Get
+        Set(value As dlgComboOrderLegs)
+            m_vb6FormDefInstance = value
+        End Set
+    End Property
+#End Region
+
+    Private m_comboLegs As List(Of IBApi.ComboLeg)
+    Private m_orderComboLegs As List(Of IBApi.OrderComboLeg)
+    Private m_tws As Tws
 
     Private m_ok As Boolean
-	
-	' ===============================================================================
-	' Get/Set Properties
-	' ===============================================================================
-	Public ReadOnly Property ok() As Boolean
-		Get
-			ok = m_ok
-		End Get
-	End Property
-	
-    Public ReadOnly Property comboLegs() As TWSLib.IComboLegList
+
+    ' ===============================================================================
+    ' Get/Set Properties
+    ' ===============================================================================
+    Public ReadOnly Property ok() As Boolean
+        Get
+            ok = m_ok
+        End Get
+    End Property
+
+    Public ReadOnly Property comboLegs() As List(Of IBApi.ComboLeg)
         Get
             comboLegs = m_comboLegs
         End Get
     End Property
 
-    Public ReadOnly Property orderComboLegs() As TWSLib.IOrderComboLegList
+    Public ReadOnly Property orderComboLegs() As List(Of IBApi.OrderComboLeg)
         Get
             orderComboLegs = m_orderComboLegs
         End Get
     End Property
 
-	' ===============================================================================
-	' Public Methods
-	' ===============================================================================
-    Public Sub Init(ByVal comboLegs As TWSLib.IComboLegList, ByVal orderComboLegs As TWSLib.IOrderComboLegList, ByVal tws As AxTWSLib.AxTws)
+    ' ===============================================================================
+    ' Public Methods
+    ' ===============================================================================
+    Public Sub Init(ByVal comboLegs As List(Of IBApi.ComboLeg), ByVal orderComboLegs As List(Of IBApi.OrderComboLeg), ByVal tws As Tws)
 
         m_tws = tws
 
@@ -543,9 +546,9 @@ Friend Class dlgComboOrderLegs
 
                 insertPos = grdComboLegs.Rows
 
-                Dim cmbLeg As TWSLib.IComboLeg
+                Dim cmbLeg As IBApi.ComboLeg
                 cmbLeg = comboLegs.Item(iLoop)
-                Dim orderCmbLeg As TWSLib.IOrderComboLeg
+                Dim orderCmbLeg As IBApi.OrderComboLeg
                 orderCmbLeg = orderComboLegs.Item(iLoop)
 
                 Dim row As String
@@ -569,10 +572,10 @@ Friend Class dlgComboOrderLegs
             Next
         End If
     End Sub
-	
-	' ===============================================================================
-	' Form Events
-	' ===============================================================================
+
+    ' ===============================================================================
+    ' Form Events
+    ' ===============================================================================
     Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
 
         Dim iLoop As Long
@@ -582,15 +585,15 @@ Friend Class dlgComboOrderLegs
 
         If (Count > 1) Then
 
-            m_comboLegs = m_tws.createComboLegList()
-            m_orderComboLegs = m_tws.createOrderComboLegList()
+            m_comboLegs = New List(Of IBApi.ComboLeg)
+            m_orderComboLegs = New List(Of IBApi.OrderComboLeg)
 
             For iLoop = 1 To Count - 1 Step 1
 
-                Dim cmbLeg As TWSLib.IComboLeg
-                cmbLeg = m_comboLegs.Add()
-                Dim orderCmbLeg As TWSLib.IOrderComboLeg
-                orderCmbLeg = m_orderComboLegs.Add()
+                Dim cmbLeg As IBApi.ComboLeg = New IBApi.ComboLeg
+                m_comboLegs.Add(cmbLeg)
+                Dim orderCmbLeg As IBApi.OrderComboLeg = New IBApi.OrderComboLeg
+                m_orderComboLegs.Add(orderCmbLeg)
 
                 grdComboLegs.Row = iLoop
 
@@ -636,36 +639,36 @@ Friend Class dlgComboOrderLegs
         Hide()
 
     End Sub
-	
-	'--------------------------------------------------------------------------------
-	' Cancel
-	'--------------------------------------------------------------------------------
-	Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
-		
-		m_ok = False
-		Hide()
-	End Sub
-	
-	'--------------------------------------------------------------------------------
-	' Adds a combo leg to the list
-	'--------------------------------------------------------------------------------
-	Private Sub cmdAddLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddLeg.Click
-		Dim insertPos As Short
-		Dim row As String
-		insertPos = grdComboLegs.Rows
-		row = txtConid.Text & vbTab & txtRatio.Text & vbTab & txtAction.Text & vbTab & txtExchange.Text & vbTab & txtOpenClose.Text & vbTab & txtShortSaleSlot.Text & vbTab & txtDesignatedLocation.Text & vbTab & txtExemptCode.Text & vbTab & txtPrice.Text
-		
-		grdComboLegs.AddItem(row, insertPos)
-	End Sub
-	
-	'--------------------------------------------------------------------------------
-	' Removes a combo leg from the list
-	'--------------------------------------------------------------------------------
-	Private Sub cmdRemoveLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRemoveLeg.Click
-		Dim selRowEnd, selRowStart, temp As Object
-		Dim iLoop As Short
-		
-		' get the current rows selection if any
+
+    '--------------------------------------------------------------------------------
+    ' Cancel
+    '--------------------------------------------------------------------------------
+    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+
+        m_ok = False
+        Hide()
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Adds a combo leg to the list
+    '--------------------------------------------------------------------------------
+    Private Sub cmdAddLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddLeg.Click
+        Dim insertPos As Short
+        Dim row As String
+        insertPos = grdComboLegs.Rows
+        row = txtConid.Text & vbTab & txtRatio.Text & vbTab & txtAction.Text & vbTab & txtExchange.Text & vbTab & txtOpenClose.Text & vbTab & txtShortSaleSlot.Text & vbTab & txtDesignatedLocation.Text & vbTab & txtExemptCode.Text & vbTab & txtPrice.Text
+
+        grdComboLegs.AddItem(row, insertPos)
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Removes a combo leg from the list
+    '--------------------------------------------------------------------------------
+    Private Sub cmdRemoveLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRemoveLeg.Click
+        Dim selRowEnd, selRowStart, temp As Object
+        Dim iLoop As Short
+
+        ' get the current rows selection if any
         selRowStart = grdComboLegs.Row
         selRowEnd = grdComboLegs.RowSel
         If selRowStart > selRowEnd Then
@@ -679,15 +682,15 @@ Friend Class dlgComboOrderLegs
                 grdComboLegs.RemoveItem(iLoop)
             End If
         Next iLoop
-		
-	End Sub
-	
-	'--------------------------------------------------------------------------------
-	' Call when the form is first loaded and the combo leg header row is added
-	'--------------------------------------------------------------------------------
-	Private Sub dlgComboOrderLegs_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		Dim title As String
-		title = "Combination Order Legs"
-		Call grdComboLegs.AddItem("ConId" & vbTab & "Ratio" & vbTab & "Side" & vbTab & "Exchange" & vbTab & "Open/Close" & vbTab & "Short Sale Slot" & vbTab & "Location" & vbTab & "Exempt Code" & vbTab & "Price", 0)
-	End Sub
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Call when the form is first loaded and the combo leg header row is added
+    '--------------------------------------------------------------------------------
+    Private Sub dlgComboOrderLegs_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        Dim title As String
+        title = "Combination Order Legs"
+        Call grdComboLegs.AddItem("ConId" & vbTab & "Ratio" & vbTab & "Side" & vbTab & "Exchange" & vbTab & "Open/Close" & vbTab & "Short Sale Slot" & vbTab & "Location" & vbTab & "Exempt Code" & vbTab & "Price", 0)
+    End Sub
 End Class

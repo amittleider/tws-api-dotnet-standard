@@ -1602,7 +1602,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market data option computation tick event - triggered by the reqMktDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_tickOptionComputation(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickOptionComputationEvent) Handles Tws1.tickOptionComputation
+    Private Sub Tws1_tickOptionComputation(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickOptionComputationEvent) Handles Tws1.OnTickOptionComputation
         Dim mktDataStr As String, volStr As String, deltaStr As String, gammaStr As String, vegaStr As String, _
             thetaStr As String, optPriceStr As String, pvDividendStr As String, undPriceStr As String
 
@@ -1669,11 +1669,11 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Historical data tick event - triggered by the reqHistoricalDataEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_historicalData(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_historicalDataEvent) Handles Tws1.historicalData
+    Private Sub Tws1_historicalData(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_historicalDataEvent) Handles Tws1.OnHistoricalData
         Dim mktDataStr As String
         mktDataStr = "id=" & eventArgs.reqId & " date=" & eventArgs.date & " open=" & eventArgs.open & " high=" & eventArgs.high & _
                      " low=" & eventArgs.low & " close=" & eventArgs.close & " volume=" & eventArgs.volume & _
-                     " barCount=" & eventArgs.barCount & " WAP=" & eventArgs.wAP
+                     " barCount=" & eventArgs.count & " WAP=" & eventArgs.WAP
         If (eventArgs.hasGaps <> 0) Then
             mktDataStr = mktDataStr & " has gaps"
         Else
@@ -1688,11 +1688,11 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Real Time Bar event - triggered by the reqRealTimeBarEx() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_realtimeBar(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_realtimeBarEvent) Handles Tws1.realtimeBar
+    Private Sub Tws1_realtimeBar(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_realtimeBarEvent) Handles Tws1.OnrealtimeBar
 
         Dim mktDataStr As String
-        mktDataStr = "id=" & eventArgs.tickerId & " time=" & eventArgs.time & " open=" & eventArgs.open & " high=" & eventArgs.high & _
-                     " low=" & eventArgs.low & " close=" & eventArgs.close & " volume=" & eventArgs.volume & " WAP=" & eventArgs.wAP & " count=" & eventArgs.count
+        mktDataStr = "id=" & eventArgs.reqId & " time=" & eventArgs.time & " open=" & eventArgs.open & " high=" & eventArgs.high & _
+                     " low=" & eventArgs.low & " close=" & eventArgs.close & " volume=" & eventArgs.volume & " WAP=" & eventArgs.WAP & " count=" & eventArgs.count
 
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
 
@@ -1703,11 +1703,11 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Fundamental Data event - triggered by the reqFundamentalData() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_fundamentalData(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_fundamentalDataEvent) Handles Tws1.fundamentalData
+    Private Sub Tws1_fundamentalData(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_fundamentalDataEvent) Handles Tws1.OnfundamentalData
 
         With eventArgs
-            Call m_utils.addListItem(Utils.List_Types.MKT_DATA, "fund reqId=" & .reqId & " len=" & Len(.Data))
-            Call m_utils.displayMultiline(Utils.List_Types.MKT_DATA, .Data)
+            Call m_utils.addListItem(Utils.List_Types.MKT_DATA, "fund reqId=" & .reqId & " len=" & Len(.data))
+            Call m_utils.displayMultiline(Utils.List_Types.MKT_DATA, .data)
         End With
 
     End Sub
@@ -1715,7 +1715,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Current Time event - triggered by the reqCurrentTime() methods
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_currentTime(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_currentTimeEvent) Handles Tws1.currentTime
+    Private Sub Tws1_currentTime(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_currentTimeEvent) Handles Tws1.OncurrentTime
 
         Dim displayString As String
         displayString = "current time = " & eventArgs.time
@@ -1729,7 +1729,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market Scanner related events
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_scannerParameters(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerParametersEvent) Handles Tws1.scannerParameters
+    Private Sub Tws1_scannerParameters(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerParametersEvent) Handles Tws1.OnscannerParameters
         Dim xmlDoc As XmlDocument
         xmlDoc = ProduceXMLDoc()
         Call xmlDoc.LoadXml(eventArgs.xml)
@@ -1745,13 +1745,13 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "InstrumentList starts with (" & name1 & "," & theType1 & ") " & "followed by (" & name2 & "," & theType2 & ")")
         Call m_utils.displayMultiline(Utils.List_Types.SERVER_RESPONSES, (eventArgs.xml))
     End Sub
-    Private Sub Tws1_scannerDataEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerDataExEvent) Handles Tws1.scannerDataEx
+    Private Sub Tws1_scannerDataEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerDataExEvent) Handles Tws1.OnscannerDataEx
         Dim mktDataStr As String
 
-        Dim contractDetails As TWSLib.IContractDetails
+        Dim contractDetails As IBApi.ContractDetails
         contractDetails = eventArgs.contractDetails
 
-        Dim contract As TWSLib.IContract
+        Dim contract As IBApi.Contract
         contract = contractDetails.summary
 
         mktDataStr = "id=" & eventArgs.reqId & " rank=" & eventArgs.rank & " conId=" & contract.conId & _
@@ -1765,7 +1765,7 @@ Friend Class dlgMainWnd
         ' move into view
         lstMktData.TopIndex = lstMktData.Items.Count - 1
     End Sub
-    Private Sub Tws1_scannerDataEnd(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerDataEndEvent) Handles Tws1.scannerDataEnd
+    Private Sub Tws1_scannerDataEnd(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_scannerDataEndEvent) Handles Tws1.OnscannerDataEnd
         Dim str As String
 
         str = "id=" & eventArgs.reqId & " =============== end ==============="
@@ -1778,10 +1778,10 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Notification of an updates order status - triggered by an order state change.
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_orderStatus(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_orderStatusEvent) Handles Tws1.orderStatus
+    Private Sub Tws1_orderStatus(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_orderStatusEvent) Handles Tws1.OnorderStatus
         Dim msg As String
 
-        msg = "order status: orderId=" & eventArgs.id & " client id=" & eventArgs.clientId & " permId=" & eventArgs.permId & _
+        msg = "order status: orderId=" & eventArgs.orderId & " client id=" & eventArgs.clientId & " permId=" & eventArgs.permId & _
               " status=" & eventArgs.status & " filled=" & eventArgs.filled & " remaining=" & eventArgs.remaining & _
               " avgFillPrice=" & eventArgs.avgFillPrice & " lastFillPrice=" & eventArgs.lastFillPrice & _
               " parentId=" & eventArgs.parentId & " whyHeld=" & eventArgs.whyHeld
@@ -1795,15 +1795,15 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' The details for a requested contract - triggered by the reqContractDetailsEx method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_contractDetailsEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_contractDetailsExEvent) Handles Tws1.contractDetailsEx
+    Private Sub Tws1_contractDetailsEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_contractDetailsExEvent) Handles Tws1.OncontractDetailsEx
 
         Dim reqId As Long
         reqId = eventArgs.reqId
 
-        Dim contractDetails As TWSLib.IContractDetails
+        Dim contractDetails As IBApi.ContractDetails
         contractDetails = eventArgs.contractDetails
 
-        Dim contract As TWSLib.IContract
+        Dim contract As IBApi.Contract
         contract = contractDetails.summary
 
         Dim offset As Long
@@ -1821,7 +1821,7 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right = " & contract.right)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier = " & contract.multiplier)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & contract.exchange)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange = " & contract.primaryExchange)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange = " & contract.PrimaryExch)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency = " & contract.currency)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol = " & contract.localSymbol)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass = " & contract.tradingClass)
@@ -1863,7 +1863,7 @@ Friend Class dlgMainWnd
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  issueDate = " & contractDetails.issueDate)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionDate = " & contractDetails.nextOptionDate)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionType = " & contractDetails.nextOptionType)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionPartial = " & contractDetails.nextOptionPartial)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionPartial = " & contractDetails.NextOptionPartial1)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notes = " & contractDetails.notes)
 
 
@@ -1871,14 +1871,14 @@ Friend Class dlgMainWnd
 
         ' CUSIP/ISIN/etc.
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secIdList={")
-        Dim secIdList As TWSLib.ITagValueList
+        Dim secIdList As List(Of IBApi.TagValue)
         secIdList = contractDetails.secIdList
         If (Not secIdList Is Nothing) Then
             Dim secIdListCount As Long
             secIdListCount = secIdList.Count
             Dim iLoop As Long
             For iLoop = 0 To secIdListCount - 1
-                Dim param As TWSLib.ITagValue
+                Dim param As IBApi.TagValue
                 param = secIdList.Item(iLoop)
                 Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
             Next iLoop
@@ -1890,7 +1890,7 @@ Friend Class dlgMainWnd
         ' move into view
         lstServerResponses.TopIndex = offset
     End Sub
-    Private Sub Tws1_contractDetailsEnd(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_contractDetailsEndEvent) Handles Tws1.contractDetailsEnd
+    Private Sub Tws1_contractDetailsEnd(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_contractDetailsEndEvent) Handles Tws1.OncontractDetailsEnd
 
         Dim reqId As Long
         reqId = eventArgs.reqId
@@ -1907,13 +1907,13 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     Private Sub Tws1_openOrderEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_openOrderExEvent) Handles Tws1.openOrderEx
 
-        Dim contract As TWSLib.IContract
+        Dim contract As IBApi.Contract
         contract = eventArgs.contract
 
-        Dim order As TWSLib.IOrder
+        Dim order As IBApi.Order
         order = eventArgs.order
 
-        Dim orderState As TWSLib.IOrderState
+        Dim orderState As IBApi.OrderState
         orderState = eventArgs.orderState
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "OpenOrderEx called, orderId=" & eventArgs.orderId)
@@ -1937,11 +1937,11 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & contract.right)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & contract.multiplier)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & contract.exchange)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & contract.primaryExchange)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & contract.PrimaryExch)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & contract.Currency)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & contract.localSymbol)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & contract.tradingClass)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comboLegsDescrip=" & contract.comboLegsDescrip)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comboLegsDescrip=" & contract.ComboLegsDescription)
 
         ' combo legs
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comboLegs={")
@@ -1958,13 +1958,13 @@ Friend Class dlgMainWnd
 
             Dim iLoop As Long
             For iLoop = 0 To comboLegsCount - 1
-                Dim comboLeg As TWSLib.IComboLeg
+                Dim comboLeg As IBApi.ComboLeg
                 comboLeg = contract.comboLegs.Item(iLoop)
                 Dim orderComboLegPriceStr As String
                 orderComboLegPriceStr = ""
 
                 If comboLegsCount = orderComboLegsCount Then
-                    Dim orderComboLeg As TWSLib.IOrderComboLeg
+                    Dim orderComboLeg As IBApi.OrderComboLeg
                     orderComboLeg = order.orderComboLegs.Item(iLoop)
                     orderComboLegPriceStr = " price=" & DblMaxStr(orderComboLeg.price)
                 End If
@@ -1978,7 +1978,7 @@ Friend Class dlgMainWnd
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
 
-        Dim underComp As TWSLib.IUnderComp
+        Dim underComp As IBApi.UnderComp
         underComp = contract.underComp
 
         If (Not underComp Is Nothing) Then
@@ -1991,7 +1991,7 @@ Friend Class dlgMainWnd
 
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Order (extended):")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  timeInForce=" & order.timeInForce)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  timeInForce=" & order.Tif)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaGroup=" & order.ocaGroup)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaType=" & order.ocaType)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderRef=" & order.orderRef)
@@ -2095,14 +2095,14 @@ Friend Class dlgMainWnd
         If (algoStrategy <> "") Then
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  algoStrategy=" & algoStrategy)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  algoParams={")
-            Dim algoParams As TWSLib.ITagValueList
+            Dim algoParams As List(Of IBApi.TagValue)
             algoParams = order.algoParams
             If (Not algoParams Is Nothing) Then
                 Dim algoParamsCount As Long
                 algoParamsCount = algoParams.Count
                 Dim iLoop As Long
                 For iLoop = 0 To algoParamsCount - 1
-                    Dim param As TWSLib.ITagValue
+                    Dim param As IBApi.TagValue
                     param = algoParams.Item(iLoop)
                     Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
                 Next iLoop
@@ -2112,14 +2112,14 @@ Friend Class dlgMainWnd
 
         ' Smart combo routing params
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  smartComboRoutingParams={")
-        Dim smartComboRoutingParams As TWSLib.ITagValueList
+        Dim smartComboRoutingParams As List(Of IBApi.TagValue)
         smartComboRoutingParams = order.smartComboRoutingParams
         If (Not smartComboRoutingParams Is Nothing) Then
             Dim smartComboRoutingParamsCount As Long
             smartComboRoutingParamsCount = smartComboRoutingParams.Count
             Dim iLoop As Long
             For iLoop = 0 To smartComboRoutingParamsCount - 1
-                Dim param As TWSLib.ITagValue
+                Dim param As IBApi.TagValue
                 param = smartComboRoutingParams.Item(iLoop)
                 Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
             Next iLoop
@@ -2140,7 +2140,7 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "===============================")
 
     End Sub
-    Private Sub Tws1_openOrderEnd(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tws1.openOrderEnd
+    Private Sub Tws1_openOrderEnd(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tws1.OnopenOrderEnd
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "============= end =============")
 
@@ -2149,11 +2149,11 @@ Friend Class dlgMainWnd
 
     End Sub
 
-    Private Sub Tws1_deltaNeutralValidation(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_deltaNeutralValidationEvent) Handles Tws1.deltaNeutralValidation
+    Private Sub Tws1_deltaNeutralValidation(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_deltaNeutralValidationEvent) Handles Tws1.OndeltaNeutralValidation
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "deltaNeutralValidation called, reqId=" & eventArgs.reqId)
 
-        Dim underComp As TWSLib.IUnderComp
+        Dim underComp As IBApi.UnderComp
         underComp = eventArgs.underComp
 
         If (Not underComp Is Nothing) Then
@@ -2166,10 +2166,10 @@ Friend Class dlgMainWnd
 
     End Sub
 
-    Private Sub Tws1_tickSnapshotEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickSnapshotEndEvent) Handles Tws1.tickSnapshotEnd
+    Private Sub Tws1_tickSnapshotEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickSnapshotEndEvent) Handles Tws1.OntickSnapshotEnd
 
         Dim reqId As Long
-        reqId = eventArgs.reqId
+        reqId = eventArgs.tickerId
 
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, "id=" & reqId & " =============== end ===============")
 
@@ -2181,27 +2181,27 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Notification of an updated/new portfolio position - triggered by the reqAcctUpdates() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updatePortfolioEx(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updatePortfolioExEvent) Handles Tws1.updatePortfolioEx
+    Private Sub Tws1_updatePortfolioEx(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updatePortfolioExEvent) Handles Tws1.OnupdatePortfolioEx
         m_dlgAcctData.updatePortfolio(eventArgs.contract, eventArgs.position, eventArgs.marketPrice, eventArgs.marketValue, eventArgs.averageCost, eventArgs.unrealizedPNL, eventArgs.realizedPNL, eventArgs.accountName)
     End Sub
 
     '--------------------------------------------------------------------------------
     ' Notification of a server time update - triggered by the reqAcctUpdates() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updateAccountTime(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateAccountTimeEvent) Handles Tws1.updateAccountTime
-        m_dlgAcctData.updateAccountTime(eventArgs.timeStamp)
+    Private Sub Tws1_updateAccountTime(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateAccountTimeEvent) Handles Tws1.OnupdateAccountTime
+        m_dlgAcctData.updateAccountTime(eventArgs.timestamp)
     End Sub
 
     '--------------------------------------------------------------------------------
     ' Notification of an account proprty update - triggered by the reqAcctUpdates() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updateAccountValue(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateAccountValueEvent) Handles Tws1.updateAccountValue
-        m_dlgAcctData.updateAccountValue(eventArgs.key, eventArgs.value, eventArgs.curency, eventArgs.accountName)
+    Private Sub Tws1_updateAccountValue(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateAccountValueEvent) Handles Tws1.OnupdateAccountValue
+        m_dlgAcctData.updateAccountValue(eventArgs.key, eventArgs.value, eventArgs.currency, eventArgs.accountName)
     End Sub
 
-    Private Sub Tws1_accountDownloadEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_accountDownloadEndEvent) Handles Tws1.accountDownloadEnd
+    Private Sub Tws1_accountDownloadEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_accountDownloadEndEvent) Handles Tws1.OnaccountDownloadEnd
         Dim accountName As String
-        accountName = eventArgs.accountName
+        accountName = eventArgs.account
         m_dlgAcctData.accountDownloadEnd(accountName)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Account Download End:" & accountName)
     End Sub
@@ -2210,12 +2210,12 @@ Friend Class dlgMainWnd
     ' An order execution report. This event is triggered by the explicit request for
     ' execution reports reqExecutionDetials(), and also by order state changes method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_execDetailsEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_execDetailsExEvent) Handles Tws1.execDetailsEx
+    Private Sub Tws1_execDetailsEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_execDetailsExEvent) Handles Tws1.OnexecDetailsEx
 
-        Dim contract As TWSLib.IContract
+        Dim contract As IBApi.Contract
         contract = eventArgs.contract
 
-        Dim execution As TWSLib.IExecution
+        Dim execution As IBApi.Execution
         execution = eventArgs.execution
 
         Dim offset As Long
@@ -2236,7 +2236,7 @@ Friend Class dlgMainWnd
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .right)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .multiplier)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .exchange)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .primaryExchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .PrimaryExch)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .currency)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .localSymbol)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .tradingClass)
@@ -2271,7 +2271,7 @@ Friend Class dlgMainWnd
         lstServerResponses.TopIndex = offset
 
     End Sub
-    Private Sub Tws1_execDetailsEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_execDetailsEndEvent) Handles Tws1.execDetailsEnd
+    Private Sub Tws1_execDetailsEnd(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_execDetailsEndEvent) Handles Tws1.OnexecDetailsEnd
 
         Dim reqId As Long
         reqId = eventArgs.reqId
@@ -2286,7 +2286,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Notification of a new IB news bulletin
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_updateNewsBulletin(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateNewsBulletinEvent) Handles Tws1.updateNewsBulletin
+    Private Sub Tws1_updateNewsBulletin(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateNewsBulletinEvent) Handles Tws1.OnupdateNewsBulletin
         Dim msg As String
         Dim dlg As New dlgServerResponse
         msg = " MsgId=" & eventArgs.msgId & " :: MsgType=" & eventArgs.msgType & " :: Origin=" & eventArgs.origExchange & " :: Message=" & eventArgs.message
@@ -2299,7 +2299,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Notification of the FA managed accounts (comma delimited list of account codes)
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_managedAccounts(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_managedAccountsEvent) Handles Tws1.managedAccounts
+    Private Sub Tws1_managedAccounts(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_managedAccountsEvent) Handles Tws1.OnmanagedAccounts
         Dim msg As String
 
         msg = "Connected : The list of managed accounts are : [" & eventArgs.accountsList & "]"
@@ -2309,18 +2309,18 @@ Friend Class dlgMainWnd
         m_faAcctsList = eventArgs.accountsList
 
     End Sub
-    Private Sub Tws1_receiveFA(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_receiveFAEvent) Handles Tws1.receiveFA
+    Private Sub Tws1_receiveFA(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_receiveFAEvent) Handles Tws1.OnreceiveFA
         Dim fname As String
 
         fname = m_utils.faMsgTypeName(eventArgs.faDataType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "FA: " & fname & "=" & eventArgs.cxml)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "FA: " & fname & "=" & eventArgs.faXmlData)
         Select Case eventArgs.faDataType
             Case Utils.FA_Message_Type.GROUPS
-                faGroupXML = eventArgs.cxml
+                faGroupXML = eventArgs.faXmlData
             Case Utils.FA_Message_Type.PROFILES
-                faProfilesXML = eventArgs.cxml
+                faProfilesXML = eventArgs.faXmlData
             Case Utils.FA_Message_Type.ALIASES
-                faAliasesXML = eventArgs.cxml
+                faAliasesXML = eventArgs.faXmlData
         End Select
 
         If faError = False And faGroupXML <> "" And faProfilesXML <> "" And faAliasesXML <> "" Then
@@ -2340,7 +2340,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Market Data Type
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_marketDataType(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_marketDataTypeEvent) Handles Tws1.marketDataType
+    Private Sub Tws1_marketDataType(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_marketDataTypeEvent) Handles Tws1.OnmarketDataType
         Dim msg As String
 
         Select Case e.marketDataType
@@ -2357,8 +2357,8 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Commission Report
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_commissionReport(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_commissionReportEvent) Handles Tws1.commissionReport
-        Dim commissionReport As TWSLib.ICommissionReport
+    Private Sub Tws1_commissionReport(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_commissionReportEvent) Handles Tws1.OncommissionReport
+        Dim commissionReport As IBApi.CommissionReport
         commissionReport = e.commissionReport
 
         Dim offset As Long
@@ -2386,8 +2386,8 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Position
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_position(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_positionEvent) Handles Tws1.position
-        Dim contract As TWSLib.IContract
+    Private Sub Tws1_position(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_positionEvent) Handles Tws1.Onposition
+        Dim contract As IBApi.Contract
         contract = e.contract
 
         Dim offset As Long
@@ -2406,13 +2406,13 @@ Friend Class dlgMainWnd
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .right)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .multiplier)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .exchange)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .primaryExchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .PrimaryExch)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .currency)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .localSymbol)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .tradingClass)
         End With
 
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "position=" & IntMaxStr(e.position))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "position=" & IntMaxStr(e.pos))
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "avgCost=" & DblMaxStr(e.avgCost))
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Position End ----")
 
@@ -2424,7 +2424,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Position End
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_positionEnd(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tws1.positionEnd
+    Private Sub Tws1_positionEnd(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tws1.OnpositionEnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Position End ==== ")
 
         ' move into view
@@ -2434,7 +2434,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Account Summary
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_accountSummary(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountSummaryEvent) Handles Tws1.accountSummary
+    Private Sub Tws1_accountSummary(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountSummaryEvent) Handles Tws1.OnaccountSummary
 
         Dim offset As Long
         offset = lstServerResponses.Items.Count
@@ -2444,7 +2444,7 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "account=" & e.account)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "tag=" & e.tag)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "value=" & e.value)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "currency=" & e.curency)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "currency=" & e.currency)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Account Summary End ----")
 
         ' move into view
@@ -2454,7 +2454,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Account Summary End
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_accountSummaryEnd(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountSummaryEndEvent) Handles Tws1.accountSummaryEnd
+    Private Sub Tws1_accountSummaryEnd(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountSummaryEndEvent) Handles Tws1.OnaccountSummaryEnd
         Dim reqId As Long
         reqId = e.reqId
 
@@ -2468,12 +2468,12 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Display Group List
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_displayGroupList(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_displayGroupListEvent) Handles Tws1.displayGroupList
+    Private Sub Tws1_displayGroupList(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_displayGroupListEvent) Handles Tws1.OndisplayGroupList
         m_dlgGroups.displayGroupList(e.reqId, e.groups)
     End Sub
 
-    Private Sub Tws1_displayGroupUpdated(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_displayGroupUpdatedEvent) Handles Tws1.displayGroupUpdated
-        m_dlgGroups.displayGroupupdated(e.reqId, e.contractInfo)
+    Private Sub Tws1_displayGroupUpdated(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_displayGroupUpdatedEvent) Handles Tws1.OndisplayGroupUpdated
+        m_dlgGroups.displayGroupUpdated(e.reqId, e.contractInfo)
     End Sub
 
 
@@ -2493,10 +2493,10 @@ Friend Class dlgMainWnd
         faErrorCodes(4) = 1100
         faErrorCodes(5) = 321
 
-        m_contractInfo = Tws1.createContract()
-        m_orderInfo = Tws1.createOrder()
-        m_execFilter = Tws1.createExecutionFilter()
-        m_underComp = Tws1.createUnderComp()
+        m_contractInfo = New IBApi.Contract
+        m_orderInfo = New IBApi.Order
+        m_execFilter = New IBApi.ExecutionFilter
+        m_underComp = New IBApi.UnderComp
 
     End Sub
 

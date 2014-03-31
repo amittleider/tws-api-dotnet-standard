@@ -1,6 +1,6 @@
 ﻿
 Namespace AxTWSLib
-    Class _DTwsEvents_tickOptionComputationEvent
+    Public Class _DTwsEvents_tickOptionComputationEvent
 
         Property tickType As Integer
 

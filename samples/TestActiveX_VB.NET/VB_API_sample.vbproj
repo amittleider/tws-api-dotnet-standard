@@ -124,7 +124,9 @@
     <Compile Include="_DTwsEvents_execDetailsEndEvent.vb" />
     <Compile Include="_DTwsEvents_execDetailsEvent.vb" />
     <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
+    <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
     <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
+    <Compile Include="_DTwsEvents_historicalDataEvent1.vb" />
     <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
     <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
     <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
@@ -334,6 +336,35 @@
       <Project>{8ede0744-96c2-40b0-a8dc-37df79370203}</Project>
       <Name>CSharpAPI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Vbe.Interop.Forms">
+      <Guid>{0D452EE1-E08F-101A-852E-02608C4D0BB4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MSFlexGridLib">
+      <Guid>{302B0676-F707-4036-A5A1-B58C1D13A164}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

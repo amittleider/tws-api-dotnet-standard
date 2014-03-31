@@ -1,6 +1,6 @@
 ﻿
 Namespace AxTWSLib
-    Class _DTwsEvents_tickSizeEvent
+    Friend Class _DTwsEvents_tickSizeEvent
 
         Property id As Integer
 

@@ -2,12 +2,13 @@
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 Imports System.Windows.Forms
+Imports System.Collections.Generic
 
-Public Class dlgSmartComboRoutingParams
+Friend Class dlgSmartComboRoutingParams
 
     Private m_smartComboRoutingStrategy As String
-    Private m_smartComboRoutingParams As TWSLib.ITagValueList
-    Private m_tws As AxTWSLib.AxTws
+    Private m_smartComboRoutingParams As List(Of IBApi.TagValue)
+    Private m_tws As Tws
 
     ' ===============================================================================
     ' Get/Set Properties
@@ -18,7 +19,7 @@ Public Class dlgSmartComboRoutingParams
         End Get
     End Property
 
-    Public ReadOnly Property smartComboRoutingParams() As TWSLib.ITagValueList
+    Public ReadOnly Property smartComboRoutingParams() As List(Of IBApi.TagValue)
         Get
             smartComboRoutingParams = m_smartComboRoutingParams
         End Get
@@ -27,7 +28,7 @@ Public Class dlgSmartComboRoutingParams
     ' ===============================================================================
     ' Public Methods
     ' ===============================================================================
-    Public Sub init(ByVal smartComboRoutingParams As TWSLib.ITagValueList, ByRef tws As AxTWSLib.AxTws, ByVal dlgTitle As String)
+    Public Sub init(ByVal smartComboRoutingParams As List(Of IBApi.TagValue), ByRef tws As Tws, ByVal dlgTitle As String)
 
         Me.Text = dlgTitle
         If (grdParams.Rows = 0) Then
@@ -52,7 +53,7 @@ Public Class dlgSmartComboRoutingParams
 
                 insertPos = grdParams.Rows
 
-                Dim param As TWSLib.ITagValue
+                Dim param As IBApi.TagValue
                 param = smartComboRoutingParams.Item(iLoop)
 
                 Dim row As String
@@ -79,7 +80,7 @@ Public Class dlgSmartComboRoutingParams
 
         If (Count > 1) Then
 
-            m_smartComboRoutingParams = m_tws.createTagValueList()
+            m_smartComboRoutingParams = New List(Of IBApi.TagValue)
 
             For iLoop = 1 To Count - 1 Step 1
 
@@ -94,8 +95,8 @@ Public Class dlgSmartComboRoutingParams
                 grdParams.Col = 1
                 value = grdParams.Text
 
-                Dim param As TWSLib.ITagValue
-                param = m_smartComboRoutingParams.Add(tag, value)
+                Dim param As IBApi.TagValue
+                m_smartComboRoutingParams.Add(param)
 
             Next iLoop
 

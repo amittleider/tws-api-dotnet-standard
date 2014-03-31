@@ -383,7 +383,7 @@ Friend Class dlgExecFilter
 	' ========================================================
 	' Member variables
 	' ========================================================
-    Private m_execFilter As TWSLib.IExecutionFilter
+    Private m_execFilter As IBApi.ExecutionFilter
 
     Private m_reqId As Integer
 	Private m_ok As Boolean
@@ -397,7 +397,7 @@ Friend Class dlgExecFilter
             reqId = m_reqId
         End Get
     End Property
-    Public ReadOnly Property execFilter() As TWSLib.IExecutionFilter
+    Public ReadOnly Property execFilter() As IBApi.ExecutionFilter
         Get
             execFilter = m_execFilter
         End Get
@@ -411,19 +411,19 @@ Friend Class dlgExecFilter
     ' ===============================================================================
     ' Public Methods
     ' ===============================================================================
-    Public Sub init(ByVal execFilter As TWSLib.IExecutionFilter)
+    Public Sub init(ByVal execFilter As IBApi.ExecutionFilter)
 
         m_execFilter = execFilter
 
         With execFilter
 
-            txtClientId.text = .clientId
-            txtAcctCode.text = .acctCode
-            txtTime.text = .time
-            txtSymbol.text = .symbol
-            txtSecType.text = .secType
-            txtExchange.text = .exchange
-            txtAction.text = .side
+            txtClientId.Text = .clientId
+            txtAcctCode.Text = .acctCode
+            txtTime.Text = .time
+            txtSymbol.Text = .symbol
+            txtSecType.Text = .secType
+            txtExchange.Text = .exchange
+            txtAction.Text = .side
 
         End With
     End Sub

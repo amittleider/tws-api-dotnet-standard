@@ -3,42 +3,45 @@
 
 Option Strict Off
 Option Explicit On
+
+Imports System.Collections.Generic
+
 Friend Class dlgOrder
-	Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-	Public Sub New()
-		MyBase.New()
-		If m_vb6FormDefInstance Is Nothing Then
-			If m_InitializingDefInstance Then
-				m_vb6FormDefInstance = Me
-			Else
-				Try 
-					'For the start-up form, the first instance created is the default instance.
-					If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
-						m_vb6FormDefInstance = Me
-					End If
-				Catch
-				End Try
-			End If
-		End If
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-		Form_Initialize_renamed()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
+    Public Sub New()
+        MyBase.New()
+        If m_vb6FormDefInstance Is Nothing Then
+            If m_InitializingDefInstance Then
+                m_vb6FormDefInstance = Me
+            Else
+                Try
+                    'For the start-up form, the first instance created is the default instance.
+                    If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
+                        m_vb6FormDefInstance = Me
+                    End If
+                Catch
+                End Try
+            End If
+        End If
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+        Form_Initialize_Renamed()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
     Public WithEvents txtFormatDate As System.Windows.Forms.TextBox
-	Public WithEvents txtUseRTH As System.Windows.Forms.TextBox
-	Public WithEvents txtWhatToShow As System.Windows.Forms.TextBox
+    Public WithEvents txtUseRTH As System.Windows.Forms.TextBox
+    Public WithEvents txtWhatToShow As System.Windows.Forms.TextBox
     Public WithEvents Frame1 As System.Windows.Forms.GroupBox
     Public WithEvents cmdCancel As System.Windows.Forms.Button
     Public WithEvents cmdOk As System.Windows.Forms.Button
@@ -1564,9 +1567,9 @@ Friend Class dlgOrder
 
     Private m_orderId As Integer
 
-    Private m_contractInfo As TWSLib.IContract
-    Private m_orderInfo As TWSLib.IOrder
-    Private m_underComp As TWSLib.IUnderComp
+    Private m_contractInfo As IBApi.Contract
+    Private m_orderInfo As IBApi.Order
+    Private m_underComp As IBApi.UnderComp
 
     Private m_faMethod, m_faGroup, m_faPercentage As Object
     Private m_faProfile As String
@@ -1589,14 +1592,14 @@ Friend Class dlgOrder
 
     Private m_marketDataType As Integer
     Private m_optionsDlgTitle As String
-    Private m_options As TWSLib.ITagValueList
+    Private m_options As List(Of IBApi.TagValue)
 
     Private m_ok As Boolean
 
     ' ========================================================
     ' Get/Set Methods
     ' ========================================================
-    Public ReadOnly Property options() As TWSLib.ITagValueList
+    Public ReadOnly Property options() As List(Of IBApi.TagValue)
         Get
             options = m_options
         End Get
@@ -1733,27 +1736,27 @@ Friend Class dlgOrder
     Private Sub cmdAddCmboLegs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddCmboLegs.Click
         Dim dlgComboLegs As New dlgComboOrderLegs
 
-        dlgComboLegs.Init(m_contractInfo.comboLegs, m_orderInfo.orderComboLegs, m_mainWnd.Tws1)
+        dlgComboLegs.Init(m_contractInfo.ComboLegs, m_orderInfo.OrderComboLegs, m_mainWnd.Tws1)
         dlgComboLegs.ShowDialog()
         If dlgComboLegs.ok Then
-            Dim comboLegs As TWSLib.IComboLegList
+            Dim comboLegs As List(Of IBApi.ComboLeg)
             comboLegs = dlgComboLegs.comboLegs
-            m_contractInfo.comboLegs = comboLegs
-            Dim orderComboLegs As TWSLib.IOrderComboLegList
+            m_contractInfo.ComboLegs = comboLegs
+            Dim orderComboLegs As List(Of IBApi.OrderComboLeg)
             orderComboLegs = dlgComboLegs.orderComboLegs
-            m_orderInfo.orderComboLegs = orderComboLegs
+            m_orderInfo.OrderComboLegs = orderComboLegs
         End If
     End Sub
 
     Private Sub cmdAlgoParams_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdAlgoParams.Click
         Dim dlg As New dlgAlgoParams
 
-        dlg.init(m_orderInfo.algoStrategy, m_orderInfo.algoParams, m_mainWnd.Tws1)
+        dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
         Dim res As DialogResult
         res = dlg.ShowDialog()
         If res = Windows.Forms.DialogResult.OK Then
-            m_orderInfo.algoStrategy = dlg.algoStrategy
-            m_orderInfo.algoParams = dlg.algoParams
+            m_orderInfo.AlgoStrategy = dlg.algoStrategy
+            m_orderInfo.AlgoParams = dlg.algoParams
         End If
     End Sub
 
@@ -1780,8 +1783,8 @@ Friend Class dlgOrder
             Dim res As DialogResult
             res = .ShowDialog()
             Select Case res
-                Case Windows.Forms.DialogResult.OK : m_contractInfo.underComp = m_underComp
-                Case Windows.Forms.DialogResult.Abort : m_contractInfo.underComp = Nothing
+                Case Windows.Forms.DialogResult.OK : m_contractInfo.UnderComp = m_underComp
+                Case Windows.Forms.DialogResult.Abort : m_contractInfo.UnderComp = Nothing
             End Select
         End With
     End Sub
@@ -1790,35 +1793,35 @@ Friend Class dlgOrder
         ' Move UI data into member fields
         m_orderId = CInt(txtReqId.Text)
 
-        m_contractInfo.conId = CInt(txtConId.Text)
-        m_contractInfo.symbol = txtSymbol.Text
-        m_contractInfo.secType = txtSecType.Text
-        m_contractInfo.expiry = txtExpiry.Text
-        m_contractInfo.strike = CDbl(txtStrike.Text)
-        m_contractInfo.right = txtRight.Text
-        m_contractInfo.multiplier = TextMultiplier.Text
-        m_contractInfo.exchange = txtExchange.Text
-        m_contractInfo.primaryExchange = TxtPrimaryExchange.Text
-        m_contractInfo.currency = txtCurrency.Text
-        m_contractInfo.localSymbol = txtLocalSymbol.Text
-        m_contractInfo.tradingClass = txtTradingClass.Text
-        m_contractInfo.includeExpired = CBool(txtIncludeExpired.Text)
-        m_contractInfo.secIdType = txtSecIdType.Text
-        m_contractInfo.secId = txtSecId.Text
+        m_contractInfo.ConId = CInt(txtConId.Text)
+        m_contractInfo.Symbol = txtSymbol.Text
+        m_contractInfo.SecType = txtSecType.Text
+        m_contractInfo.Expiry = txtExpiry.Text
+        m_contractInfo.Strike = CDbl(txtStrike.Text)
+        m_contractInfo.Right = txtRight.Text
+        m_contractInfo.Multiplier = TextMultiplier.Text
+        m_contractInfo.Exchange = txtExchange.Text
+        m_contractInfo.PrimaryExch = TxtPrimaryExchange.Text
+        m_contractInfo.Currency = txtCurrency.Text
+        m_contractInfo.LocalSymbol = txtLocalSymbol.Text
+        m_contractInfo.TradingClass = txtTradingClass.Text
+        m_contractInfo.IncludeExpired = CBool(txtIncludeExpired.Text)
+        m_contractInfo.SecIdType = txtSecIdType.Text
+        m_contractInfo.SecId = txtSecId.Text
 
-        m_orderInfo.action = txtAction.Text
-        m_orderInfo.totalQuantity = CInt(txtQuantity.Text)
-        m_orderInfo.orderType = txtOrderType.Text
-        m_orderInfo.lmtPrice = dval(txtLmtPrice.Text)
-        m_orderInfo.auxPrice = dval(txtAuxPrice.Text)
+        m_orderInfo.Action = txtAction.Text
+        m_orderInfo.TotalQuantity = CInt(txtQuantity.Text)
+        m_orderInfo.OrderType = txtOrderType.Text
+        m_orderInfo.LmtPrice = dval(txtLmtPrice.Text)
+        m_orderInfo.AuxPrice = dval(txtAuxPrice.Text)
 
-        m_orderInfo.goodAfterTime = tGAT.Text
-        m_orderInfo.goodTillDate = tGTD.Text
+        m_orderInfo.GoodAfterTime = tGAT.Text
+        m_orderInfo.GoodTillDate = tGTD.Text
 
-        m_orderInfo.faGroup = m_faGroup
-        m_orderInfo.faMethod = m_faMethod
-        m_orderInfo.faPercentage = m_faPercentage
-        m_orderInfo.faProfile = m_faProfile
+        m_orderInfo.FaGroup = m_faGroup
+        m_orderInfo.FaMethod = m_faMethod
+        m_orderInfo.FaPercentage = m_faPercentage
+        m_orderInfo.FaProfile = m_faProfile
 
         m_genericTickTags = txtGenericTickTags.Text
         m_snapshotMktData = chkSnapshotMktData.CheckState
@@ -1856,9 +1859,9 @@ Friend Class dlgOrder
     '--------------------------------------------------------------------------------
     ' Sets the dialog field and button states based on the dialog type
     '--------------------------------------------------------------------------------
-    Public Sub init(ByRef dlgType As Dlg_Type, ByVal contractInfo As TWSLib.IContract, _
-        ByVal orderInfo As TWSLib.IOrder, ByVal underComp As TWSLib.IUnderComp, _
-        ByVal options As TWSLib.ITagValueList, _
+    Public Sub init(ByRef dlgType As Dlg_Type, ByVal contractInfo As IBApi.Contract, _
+        ByVal orderInfo As IBApi.Order, ByVal underComp As IBApi.UnderComp, _
+        ByVal options As List(Of IBApi.TagValue), _
         ByVal mainWin As System.Windows.Forms.Form)
         m_ok = False
 
@@ -2065,11 +2068,11 @@ Friend Class dlgOrder
     Private Sub cmdSmartComboRoutingParams_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSmartComboRoutingParams.Click
         Dim dlg As New dlgSmartComboRoutingParams
 
-        dlg.init(m_orderInfo.smartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
+        dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
         Dim res As DialogResult
         res = dlg.ShowDialog()
         If res = Windows.Forms.DialogResult.OK Then
-            m_orderInfo.smartComboRoutingParams = dlg.smartComboRoutingParams
+            m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
         End If
 
     End Sub

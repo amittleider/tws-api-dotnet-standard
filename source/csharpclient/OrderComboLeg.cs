@@ -18,7 +18,7 @@ namespace IBApi
     public class OrderComboLeg : IBApi.TWSApi.IOrderComboLeg
     {
         
-        public double price;
+        double price;
 
         /**
          * @brief The order's leg's price

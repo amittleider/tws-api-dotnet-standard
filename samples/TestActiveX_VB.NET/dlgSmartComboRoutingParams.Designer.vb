@@ -35,7 +35,7 @@ Partial Class dlgSmartComboRoutingParams
         Me.lblParam = New System.Windows.Forms.Label
         Me.lblValue = New System.Windows.Forms.Label
         Me.txtParam = New System.Windows.Forms.TextBox
-        Me.grdParams = New AxMSFlexGridLib.AxMSFlexGrid
+        Me.grdParams = New MSFlexGridLib.MSFlexGrid
         Me.TableLayoutPanel1.SuspendLayout()
         Me.frmParameters.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -214,7 +214,7 @@ Partial Class dlgSmartComboRoutingParams
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents frmParameters As System.Windows.Forms.GroupBox
-    Friend WithEvents grdParams As AxMSFlexGridLib.AxMSFlexGrid
+    Friend WithEvents grdParams As MSFlexGridLib.MSFlexGrid
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents txtValue As System.Windows.Forms.TextBox
     Friend WithEvents lblParam As System.Windows.Forms.Label

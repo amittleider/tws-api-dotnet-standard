@@ -1,6 +1,6 @@
 ﻿
 Namespace AxTWSLib
-    Class _DTwsEvents_errMsgEvent
+    Public Class _DTwsEvents_errMsgEvent
 
         Property id As Integer
 

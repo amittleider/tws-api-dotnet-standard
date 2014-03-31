@@ -36,9 +36,9 @@ Friend Class dlgMktDepth
 	'Required by the Windows Form Designer
 	Private components As System.ComponentModel.IContainer
 	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents grdBidBookEntries As AxMSFlexGridLib.AxMSFlexGrid
+    Public WithEvents grdBidBookEntries As MSFlexGridLib.MSFlexGrid
 	Public WithEvents btnClose As System.Windows.Forms.Button
-	Public WithEvents grdAskBookEntries As AxMSFlexGridLib.AxMSFlexGrid
+    Public WithEvents grdAskBookEntries As MSFlexGridLib.MSFlexGrid
 	Public WithEvents Label2 As System.Windows.Forms.Label
 	Public WithEvents Label1 As System.Windows.Forms.Label
 	'NOTE: The following procedure is required by the Windows Form Designer
@@ -48,9 +48,9 @@ Friend Class dlgMktDepth
         Me.components = New System.ComponentModel.Container
         Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(dlgMktDepth))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.grdBidBookEntries = New AxMSFlexGridLib.AxMSFlexGrid
+        Me.grdBidBookEntries = New MSFlexGridLib.MSFlexGrid
         Me.btnClose = New System.Windows.Forms.Button
-        Me.grdAskBookEntries = New AxMSFlexGridLib.AxMSFlexGrid
+        Me.grdAskBookEntries = New MSFlexGridLib.MSFlexGrid
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         CType(Me.grdBidBookEntries, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -192,7 +192,7 @@ Friend Class dlgMktDepth
     ' Adds the market depth row to the book
     '--------------------------------------------------------------------------------
     Public Sub updateMktDepth(ByVal tickerId As Short, ByVal rowId As Integer, ByVal marketMaker As String, ByVal operation As Integer, ByVal iside As Integer, ByVal price As Double, ByVal size_Renamed As Integer)
-        Dim lstBookEntries As AxMSFlexGridLib.AxMSFlexGrid
+        Dim lstBookEntries As MSFlexGridLib.MSFlexGrid
         Dim bookentry As String, oldVal As String
         Dim theRow As Integer
         If iside = side.BID Then
@@ -243,7 +243,7 @@ Friend Class dlgMktDepth
             End If
         End If
     End Sub
-    Private Sub subClear(ByVal lstBookEntries As AxMSFlexGridLib.AxMSFlexGrid)
+    Private Sub subClear(ByVal lstBookEntries As MSFlexGridLib.MSFlexGrid)
         Dim iLoop As Long
         For iLoop = lstBookEntries.Rows - 1 To 1 Step -1
             lstBookEntries.RemoveItem(iLoop)
@@ -253,7 +253,7 @@ Friend Class dlgMktDepth
         Call subClear(grdAskBookEntries)
         Call subClear(grdBidBookEntries)
     End Sub
-    Private Sub UpdateList(ByRef lstBookEntries As AxMSFlexGridLib.AxMSFlexGrid, ByVal baseRow As Integer)
+    Private Sub UpdateList(ByRef lstBookEntries As MSFlexGridLib.MSFlexGrid, ByVal baseRow As Integer)
         Dim size_Renamed, cumSize As Short
         Dim price, totalPrice As Double
         Dim iLoop As Short

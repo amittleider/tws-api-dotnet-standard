@@ -1,6 +1,6 @@
 ﻿
 Namespace AxTWSLib
-    Class _DTwsEvents_tickEFPEvent
+    Friend Class _DTwsEvents_tickEFPEvent
 
         Property tickerId As Integer
 

@@ -4,11 +4,11 @@
 Imports System.Windows.Forms
 Imports System.Collections.Generic
 
-Public Class dlgAlgoParams
+Friend Class dlgAlgoParams
 
     Private m_algoStrategy As String
     Private m_algoParams As List(Of IBApi.TagValue)
-    ' Private m_tws As AxTWSLib.AxTws
+    Private m_tws As Tws
 
     ' ===============================================================================
     ' Get/Set Properties
@@ -19,7 +19,7 @@ Public Class dlgAlgoParams
         End Get
     End Property
 
-    Public ReadOnly Property algoParams() As TWSLib.ITagValueList
+    Public ReadOnly Property algoParams() As List(Of IBApi.TagValue)
         Get
             algoParams = m_algoParams
         End Get
@@ -28,7 +28,7 @@ Public Class dlgAlgoParams
     ' ===============================================================================
     ' Public Methods
     ' ===============================================================================
-    Public Sub init(ByVal algoStrategy As String, ByVal algoParams As TWSLib.ITagValueList, ByRef tws As AxTWSLib.AxTws)
+    Public Sub init(ByVal algoStrategy As String, ByVal algoParams As List(Of IBApi.TagValue), ByRef tws As Tws)
 
         If (grdParams.Rows = 0) Then
             Call grdParams.AddItem("Param" & vbTab & "Value")
@@ -54,7 +54,7 @@ Public Class dlgAlgoParams
 
                 insertPos = grdParams.Rows
 
-                Dim param As TWSLib.ITagValue
+                Dim param As IBApi.TagValue
                 param = algoParams.Item(iLoop)
 
                 Dim row As String
@@ -85,7 +85,7 @@ Public Class dlgAlgoParams
 
             If (Count > 1) Then
 
-                m_algoParams = m_tws.createTagValueList()
+                m_algoParams = New List(Of IBApi.TagValue)
 
                 For iLoop = 1 To Count - 1 Step 1
 
@@ -100,8 +100,8 @@ Public Class dlgAlgoParams
                     grdParams.Col = 1
                     value = grdParams.Text
 
-                    Dim param As TWSLib.ITagValue
-                    param = m_algoParams.Add(tag, value)
+                    Dim param As IBApi.TagValue = New IBApi.TagValue With {.tag = tag, .value = value}
+                    m_algoParams.Add(param)
 
                 Next iLoop
 

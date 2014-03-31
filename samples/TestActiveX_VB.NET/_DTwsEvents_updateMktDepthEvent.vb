@@ -1,6 +1,6 @@
 ﻿
 Namespace AxTWSLib
-    Class _DTwsEvents_updateMktDepthEvent
+    Public Class _DTwsEvents_updateMktDepthEvent
 
         Property tickerId As Integer
 

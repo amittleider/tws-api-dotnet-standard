@@ -1,69 +1,13 @@
-﻿Class Tws
+﻿Imports System.Linq
+Imports System.Collections.Generic
+
+Friend Class Tws
     Implements IBApi.EWrapper
+
+    Dim socket As IBApi.EClientSocket = New IBApi.EClientSocket(Me)
 
 #Region "IBApi.EWrapper"
 
-    Event OnUpdateMktDepthL2(tws As Tws, p2 As Object)
-
-    Event OnaccountDownloadEnd(tws As Tws, p2 As Object)
-
-    Event OnaccountSummary(tws As Tws, p2 As Object)
-
-    Event OnaccountSummaryEnd(tws As Tws, p2 As Object)
-
-    Event OncommissionReport(tws As Tws, p2 As Object)
-
-    Event OncontractDetails(tws As Tws, p2 As Object)
-
-    Event OncontractDetailsEnd(tws As Tws, p2 As Object)
-
-    Event OncurrentTime(tws As Tws, p2 As Object)
-
-    Event OndeltaNeutralValidation(tws As Tws, p2 As Object)
-
-    Event OndisplayGroupList(tws As Tws, p2 As Object)
-
-    Event OndisplayGroupUpdated(tws As Tws, p2 As Object)
-
-    Event OnexecDetails(tws As Tws, p2 As Object)
-
-    Event OnexecDetailsEnd(tws As Tws, p2 As Object)
-
-    Event OnfundamentalData(tws As Tws, p2 As Object)
-
-    Event OnmanagedAccounts(tws As Tws, p2 As Object)
-
-    Event OnmarketDataType(tws As Tws, p2 As Object)
-
-    Event OnopenOrder(tws As Tws, p2 As Object)
-
-    Event OnorderStatus(tws As Tws, p2 As Object)
-
-    Event Onposition(tws As Tws, p2 As Object)
-
-    Event OnrealtimeBar(tws As Tws, p2 As Object)
-
-    Event OnreceiveFA(tws As Tws, p2 As Object)
-
-    Event OnscannerData(tws As Tws, p2 As Object)
-
-    Event OnscannerDataEnd(tws As Tws, p2 As Object)
-
-    Event OnscannerParameters(tws As Tws, p2 As Object)
-
-    Event OntickSnapshotEnd(tws As Tws, p2 As Object)
-
-    Event OnupdateAccountTime(tws As Tws, p2 As Object)
-
-    Event OnupdateAccountValue(tws As Tws, p2 As Object)
-
-    Event OnupdateNewsBulletin(tws As Tws, p2 As Object)
-
-    Event OnupdatePortfolio(tws As Tws, p2 As Object)
-
-    Event OnverifyCompleted(tws As Tws, p2 As Object)
-
-    Event OnverifyMessageAPI(tws As Tws, p2 As Object)
 
     Public Sub accountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
         RaiseEvent OnaccountDownloadEnd(Me, New AxTWSLib._DTwsEvents_accountDownloadEndEvent With {
@@ -171,11 +115,26 @@
     End Sub
 
     Public Sub historicalData(reqId As Integer, [date] As String, open As Double, high As Double, low As Double, close As Double, volume As Integer, count As Integer, WAP As Double, hasGaps As Boolean) Implements IBApi.EWrapper.historicalData
-
+        RaiseEvent OnHistoricalData(Me, New AxTWSLib._DTwsEvents_historicalDataEvent With {
+                                    .reqId = reqId,
+                                    .[date] = [date],
+                                    .open = open,
+                                    .high = high,
+                                    .low = low,
+                                    .close = close,
+                                    .volume = volume,
+                                    .count = count,
+                                    .WAP = WAP,
+                                    .hasGaps = hasGaps
+                                })
     End Sub
 
     Public Sub historicalDataEnd(reqId As Integer, start As String, [end] As String) Implements IBApi.EWrapper.historicalDataEnd
-
+        RaiseEvent OnHistoricalDataEnd(Me, New AxTWSLib._DTwsEvents_historicalDataEnd With {
+                                       .reqId = reqId,
+                                       .start = start,
+                                       .[end] = [end]
+                                       })
     End Sub
 
     Public Sub managedAccounts(accountsList As String) Implements IBApi.EWrapper.managedAccounts
@@ -205,7 +164,7 @@
     End Sub
 
     Public Sub openOrderEnd() Implements IBApi.EWrapper.openOrderEnd
-
+        RaiseEvent OnopenOrderEnd(Me, EventArgs.Empty)
     End Sub
 
     Public Sub orderStatus(orderId As Integer, status As String, filled As Integer, remaining As Integer, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
@@ -233,7 +192,7 @@
     End Sub
 
     Public Sub positionEnd() Implements IBApi.EWrapper.positionEnd
-
+        RaiseEvent OnpositionEnd(Me, EventArgs.Empty)
     End Sub
 
     Public Sub realtimeBar(reqId As Integer, time As Long, open As Double, high As Double, low As Double, close As Double, volume As Long, WAP As Double, count As Integer) Implements IBApi.EWrapper.realtimeBar
@@ -405,8 +364,9 @@
         })
     End Sub
 #End Region
+
     Sub reqScannerParameters()
-        Throw New NotImplementedException
+        socket.reqScannerParameters()
     End Sub
 
     Sub cancelScannerSubscription(id As Short)
@@ -446,135 +406,155 @@
     End Sub
 
     Sub cancelMktDepth(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelMktDepth(p1)
     End Sub
 
     Sub reqHistoricalDataEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As String, p4 As String, p5 As String, p6 As String, p7 As Integer, p8 As Integer, m_chartOptions As Generic.List(Of IBApi.TagValue))
-        Throw New NotImplementedException
+        socket.reqHistoricalData(p1, m_contractInfo, p3, p4, p5, p6, p7, p8, m_chartOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)).ToArray())
     End Sub
 
     Sub cancelHistoricalData(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelHistoricalData(p1)
     End Sub
 
     Sub reqFundamentalData(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As String)
-        Throw New NotImplementedException
+        socket.reqFundamentalData(p1, m_contractInfo, p3)
     End Sub
 
     Sub cancelFundamentalData(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelFundamentalData(p1)
     End Sub
 
     Sub reqRealTimeBarsEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, p4 As String, p5 As Integer, m_realTimeBarsOptions As Generic.List(Of IBApi.TagValue))
-        Throw New NotImplementedException
+        socket.reqRealTimeBars(p1, m_contractInfo, p3, p4, p5, m_realTimeBarsOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)).ToArray())
     End Sub
 
     Sub cancelRealTimeBars(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelRealTimeBars(p1)
     End Sub
 
     Sub reqCurrentTime()
-        Throw New NotImplementedException
+        socket.reqCurrentTime()
     End Sub
 
     Sub placeOrderEx(p1 As Integer, m_contractInfo As IBApi.Contract, m_orderInfo As IBApi.Order)
-        Throw New NotImplementedException
+        socket.placeOrder(p1, m_contractInfo, m_orderInfo)
     End Sub
 
     Sub cancelOrder(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelOrder(p1)
     End Sub
 
     Sub exerciseOptionsEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, p4 As Integer, p5 As String, p6 As Integer)
-        Throw New NotImplementedException
+        socket.exerciseOptions(p1, m_contractInfo, p3, p4, p5, p6)
     End Sub
 
     Sub reqContractDetailsEx(p1 As Integer, m_contractInfo As IBApi.Contract)
-        Throw New NotImplementedException
+        socket.reqContractDetails(p1, m_contractInfo)
     End Sub
 
     Sub reqOpenOrders()
-        Throw New NotImplementedException
+        socket.reqOpenOrders()
     End Sub
 
     Sub reqAllOpenOrders()
-        Throw New NotImplementedException
+        socket.reqAllOpenOrders()
     End Sub
 
     Sub reqAutoOpenOrders(p1 As Boolean)
-        Throw New NotImplementedException
+        socket.reqAutoOpenOrders(p1)
     End Sub
 
     Sub reqAccountUpdates(p1 As Boolean, p2 As String)
-        Throw New NotImplementedException
+        socket.reqAccountUpdates(p1, p2)
     End Sub
 
     Sub reqExecutionsEx(p1 As Integer, m_execFilter As IBApi.ExecutionFilter)
-        Throw New NotImplementedException
+        socket.reqExecutions(p1, m_execFilter)
     End Sub
 
     Sub reqIds(p1 As Integer)
-        Throw New NotImplementedException
+        socket.reqIds(p1)
     End Sub
 
     Sub reqNewsBulletins(p1 As Boolean)
-        Throw New NotImplementedException
+        socket.reqNewsBulletins(p1)
     End Sub
 
     Sub cancelNewsBulletins()
-        Throw New NotImplementedException
+        socket.cancelNewsBulletin()
     End Sub
 
     Sub setServerLogLevel(p1 As Short)
-        Throw New NotImplementedException
+        socket.setServerLogLevel(p1)
     End Sub
 
     Sub reqManagedAccts()
-        Throw New NotImplementedException
+        socket.reqManagedAccts()
     End Sub
 
     Sub requestFA(fA_Message_Type As Utils.FA_Message_Type)
-        Throw New NotImplementedException
+        socket.reqFundamentalData(fA_Message_Type)
     End Sub
 
     Sub calculateImpliedVolatility(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Double, p4 As Double)
-        Throw New NotImplementedException
+        socket.calculateImpliedVolatility(p1, m_contractInfo, p3, p4)
     End Sub
 
     Sub calculateOptionPrice(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Double, p4 As Double)
-        Throw New NotImplementedException
+        socket.calculateOptionPrice(p1, m_contractInfo, p3, p4)
     End Sub
 
     Sub cancelCalculateImpliedVolatility(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelCalculateImpliedVolatility(p1)
     End Sub
 
     Sub cancelCalculateOptionPrice(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelCalculateOptionPrice(p1)
     End Sub
 
     Sub reqGlobalCancel()
-        Throw New NotImplementedException
+        socket.reqGlobalCancel()
     End Sub
 
     Sub reqMarketDataType(p1 As Integer)
-        Throw New NotImplementedException
+        socket.reqMarketDataType(p1)
     End Sub
 
     Sub reqPositions()
-        Throw New NotImplementedException
+        socket.reqPositions()
     End Sub
 
     Sub cancelPositions()
-        Throw New NotImplementedException
+        socket.cancelPositions()
     End Sub
 
     Sub reqAccountSummary(p1 As Integer, p2 As String, p3 As String)
-        Throw New NotImplementedException
+        socket.reqAccountSummary(p1, p2, p3)
     End Sub
 
     Sub cancelAccountSummary(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelAccountSummary(p1)
+    End Sub
+
+    Sub updateDisplayGroup(reqId As Integer, contractInfo As String)
+        socket.updateDisplayGroup(reqId, contractInfo)
+    End Sub
+
+    Sub unsubscribeFromGroupEvents(reqId As Integer)
+        socket.unsubscribeFromGroupEvents(reqId)
+    End Sub
+
+    Sub subscribeToGroupEvents(reqId As Integer, groupId As Integer)
+        socket.subscribeToGroupEvents(reqId, groupId)
+    End Sub
+
+    Sub queryDisplayGroups(reqId As Integer)
+        socket.queryDisplayGroups(reqId)
+    End Sub
+
+    Sub replaceFA(fA_Message_Type As Utils.FA_Message_Type, aliasesXML As Object)
+        socket.replaceFA(fA_Message_Type, aliasesXML)
     End Sub
 
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
@@ -587,4 +567,74 @@
     Event OnTickEFP(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickEFPEvent)
     Event OnTickOptionComputation(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickOptionComputationEvent)
     Event OnUpdateMktDepth(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthEvent)
+    Event OnUpdateMktDepthL2(tws As Tws, p2 As Object)
+
+    Event OnaccountDownloadEnd(tws As Tws, p2 As Object)
+
+    Event OnaccountSummary(tws As Tws, p2 As Object)
+
+    Event OnaccountSummaryEnd(tws As Tws, p2 As Object)
+
+    Event OncommissionReport(tws As Tws, p2 As Object)
+
+    Event OncontractDetails(tws As Tws, p2 As Object)
+
+    Event OncontractDetailsEnd(tws As Tws, p2 As Object)
+
+    Event OncurrentTime(tws As Tws, p2 As Object)
+
+    Event OndeltaNeutralValidation(tws As Tws, p2 As Object)
+
+    Event OndisplayGroupList(tws As Tws, p2 As Object)
+
+    Event OndisplayGroupUpdated(tws As Tws, p2 As Object)
+
+    Event OnexecDetails(tws As Tws, p2 As Object)
+
+    Event OnexecDetailsEnd(tws As Tws, p2 As Object)
+
+    Event OnfundamentalData(tws As Tws, p2 As Object)
+
+    Event OnmanagedAccounts(tws As Tws, p2 As Object)
+
+    Event OnmarketDataType(tws As Tws, p2 As Object)
+
+    Event OnopenOrder(tws As Tws, p2 As Object)
+
+    Event OnorderStatus(tws As Tws, p2 As Object)
+
+    Event Onposition(tws As Tws, p2 As Object)
+
+    Event OnrealtimeBar(tws As Tws, p2 As Object)
+
+    Event OnreceiveFA(tws As Tws, p2 As Object)
+
+    Event OnscannerData(tws As Tws, p2 As Object)
+
+    Event OnscannerDataEnd(tws As Tws, p2 As Object)
+
+    Event OnscannerParameters(tws As Tws, p2 As Object)
+
+    Event OntickSnapshotEnd(tws As Tws, p2 As Object)
+
+    Event OnupdateAccountTime(tws As Tws, p2 As Object)
+
+    Event OnupdateAccountValue(tws As Tws, p2 As Object)
+
+    Event OnupdateNewsBulletin(tws As Tws, p2 As Object)
+
+    Event OnupdatePortfolio(tws As Tws, p2 As Object)
+
+    Event OnverifyCompleted(tws As Tws, p2 As Object)
+
+    Event OnverifyMessageAPI(tws As Tws, p2 As Object)
+
+    Event OnHistoricalData(tws As Tws, p2 As Object)
+
+    Event OnHistoricalDataEnd(tws As Tws, p2 As Object)
+
+    Event OnopenOrderEnd(tws As Tws, Empty As EventArgs)
+
+    Event OnpositionEnd(tws As Tws, Empty As EventArgs)
+
 End Class
