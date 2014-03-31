@@ -1456,7 +1456,8 @@ namespace IBApi
 
         string TWSLib.IOrder.algoStrategy { get { return algoStrategy; } set { algoStrategy = value; } }
 
-        object TWSLib.IOrder.algoParams { 
+        object TWSLib.IOrder.algoParams 
+        { 
             get 
             { 
                 return new TWSLib.TagValueList(algoParams); 
