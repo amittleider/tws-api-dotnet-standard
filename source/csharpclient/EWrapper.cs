@@ -1,4 +1,4 @@
-ï»¿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -109,7 +109,7 @@ namespace IBApi
 
         /**
          * @brief Receive's option specific market data.
-         * This method is called when the market in an option or its underlier moves. TWSâ€™s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received.
+         * This method is called when the market in an option or its underlier moves. TWS’s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received.
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickString, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
@@ -325,8 +325,8 @@ namespace IBApi
          * @param tickerId the request's identifier
          * @param position the order book's row being updated
          * @param operation how to refresh the row:
-         *      0 = insert (insert this new order into the row identified by 'position')Â·
-         *      1 = update (update the existing order in the row identified by 'position')Â·
+         *      0 = insert (insert this new order into the row identified by 'position')·
+         *      1 = update (update the existing order in the row identified by 'position')·
          *      2 = delete (delete the existing order at the row identified by 'position').
          * @param side 0 for ask, 1 for bid
          * @param price the order's price
@@ -341,8 +341,8 @@ namespace IBApi
          * @param position the order book's row being updated
          * @param marketMaker the exchange holding the order
          * @param operation how to refresh the row:
-         *      0 - insert (insert this new order into the row identified by 'position')Â·
-         *      1 - update (update the existing order in the row identified by 'position')Â·
+         *      0 - insert (insert this new order into the row identified by 'position')·
+         *      1 - update (update the existing order in the row identified by 'position')·
          *      2 - delete (delete the existing order at the row identified by 'position').
          * @param side 0 for ask, 1 for bid
          * @param price the order's price
