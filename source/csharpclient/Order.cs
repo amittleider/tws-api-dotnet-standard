@@ -1,5 +1,6 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,7 +168,7 @@ namespace IBApi
         // order combo legs
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
         private List<TagValue> orderMiscOptions = new List<TagValue>();
-        
+
         /**
          * @brief The API client's order id.
          */
@@ -1284,6 +1285,7 @@ namespace IBApi
             return true;
         }
 
+ 
         int TWSLib.IOrder.orderId { get { return orderId; } set { orderId = value; } }
 
         int TWSLib.IOrder.clientId { get { return clientId; } set { clientId = value; } }
@@ -1301,10 +1303,6 @@ namespace IBApi
         double TWSLib.IOrder.auxPrice { get { return auxPrice; } set { auxPrice = value; } }
 
         string TWSLib.IOrder.timeInForce { get { return tif; } set { tif = value; } }
-
-        //string TWSLib.IOrder.activeStartTime { get; set; }
-
-        //string TWSLib.IOrder.activeStopTime { get; set; }
 
         string TWSLib.IOrder.ocaGroup { get { return ocaGroup; } set { ocaGroup = value; } }
 
@@ -1444,8 +1442,6 @@ namespace IBApi
 
         bool TWSLib.IOrder.scaleRandomPercent { get { return scaleRandomPercent; } set { scaleRandomPercent = value; } }
 
-        string TWSLib.IOrder.scaleTable { get; set; }
-
         string TWSLib.IOrder.hedgeType { get { return hedgeType; } set { hedgeType = value; } }
 
         string TWSLib.IOrder.hedgeParam { get { return hedgeParam; } set { hedgeParam = value; } }
@@ -1460,10 +1456,93 @@ namespace IBApi
 
         string TWSLib.IOrder.algoStrategy { get { return algoStrategy; } set { algoStrategy = value; } }
 
-        object TWSLib.IOrder.algoParams { get { return new TWSLib.TagValueList(algoParams); } set { algoParams = (value as TWSLib.TagValueList).Tvl; } }
+        object TWSLib.IOrder.algoParams 
+        { 
+            get 
+            { 
+                return new TWSLib.TagValueList(algoParams); 
+            }
+ 
+            set 
+            { 
+                algoParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>(); 
+            } 
+        }
 
-        object TWSLib.IOrder.smartComboRoutingParams { get { return new TWSLib.TagValueList(smartComboRoutingParams); } set { smartComboRoutingParams = (value as TWSLib.TagValueList).Tvl; } }
+        object TWSLib.IOrder.smartComboRoutingParams
+        {
+            get
+            {
+                return new TWSLib.TagValueList(smartComboRoutingParams);
+            }
 
-        object TWSLib.IOrder.orderComboLegs { get { return new TWSLib.OrderComboLegList(orderComboLegs); } set { orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl; } }
+            set
+            {
+                smartComboRoutingParams = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>();
+            }
+        }
+
+        object TWSLib.IOrder.orderComboLegs
+        {
+            get
+            {
+                return new TWSLib.OrderComboLegList(orderComboLegs);
+            }
+
+            set
+            {
+                orderComboLegs = (value as TWSLib.OrderComboLegList).Ocl;
+            }
+        }
+
+        object TWSLib.IOrder.orderMiscOptions
+        {
+            get
+            {
+                return new TWSLib.TagValueList(orderMiscOptions);
+            }
+
+            set
+            {
+                orderMiscOptions = value != null ? (value as TWSLib.TagValueList).Tvl : new List<TagValue>();
+            }
+        }
+
+
+        string TWSLib.IOrder.activeStartTime
+        {
+            get
+            {
+                return ActiveStartTime;
+            }
+            set
+            {
+                ActiveStartTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.activeStopTime
+        {
+            get
+            {
+                return ActiveStopTime;
+            }
+            set
+            {
+                ActiveStopTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.scaleTable
+        {
+            get
+            {
+                return ScaleTable;
+            }
+            set
+            {
+                ScaleTable = value;
+            }
+        }
     }
 }

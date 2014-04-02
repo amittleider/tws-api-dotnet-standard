@@ -1,5 +1,6 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace IBApi
         {
             try
             {
-                while(!stopEvent.WaitOne(0))
+                while (!stopEvent.WaitOne(0))
                 {
                     int incomingMessage = ReadInt();
                     ProcessIncomingMessage(incomingMessage);
@@ -55,7 +56,7 @@ namespace IBApi
                     parent.Wrapper.error(e);
                 }
             }
-            if(parent.IsConnected())
+            if (parent.IsConnected())
             {
                 tcpReader.Close();
                 parent.Close();
@@ -296,6 +297,44 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void DisplayGroupUpdatedEvent()
+        {
+            int msgVersion = ReadInt();
+            int reqId = ReadInt();
+            string contractInfo = ReadString();
+
+            parent.Wrapper.displayGroupUpdated(reqId, contractInfo);
+        }
+
+        private void DisplayGroupListEvent()
+        {
+            int msgVersion = ReadInt();
+            int reqId = ReadInt();
+            string groups = ReadString();
+
+            parent.Wrapper.displayGroupList(reqId, groups);
+        }
+
+        private void VerifyCompletedEvent()
+        {
+            int msgVersion = ReadInt();
+            bool isSuccessful = String.Compare(ReadString(), "true", true) == 0;
+            string errorText = ReadString();
+
+            if (isSuccessful)
+                parent.startApi();
+
+            parent.Wrapper.verifyCompleted(isSuccessful, errorText);
+        }
+
+        private void VerifyMessageApiEvent()
+        {
+            int msgVersion = ReadInt();
+            string apiData = ReadString();
+
+            parent.Wrapper.verifyMessageAPI(apiData);
         }
 
         private void TickPriceEvent()
@@ -1414,40 +1453,6 @@ namespace IBApi
             parent.Wrapper.receiveFA(faDataType, faData);
         }
 
-        public void VerifyMessageApiEvent()
-        {
-            int msgVersion = ReadInt();
-            string apiData = ReadString();
-            parent.Wrapper.verifyMessageAPI(apiData);
-        }
-                
-        public void VerifyCompletedEvent()
-        {
-            int msgVersion = ReadInt();
-            string isSuccessfulStr = ReadString();
-            bool isSuccessful = isSuccessfulStr.Equals("true");
-            string errorText = ReadString();
-            if (isSuccessful)
-                parent.startApi();
-            parent.Wrapper.verifyCompleted(isSuccessful, errorText);
-        }
-                     
-        public void DisplayGroupListEvent()
-        {
-            int msgVersion = ReadInt();
-            int requestId = ReadInt();
-            string groups = ReadString();
-            parent.Wrapper.displayGroupList(requestId, groups);
-        }
-                   
-        public void DisplayGroupUpdatedEvent()
-        {
-            int msgVersion = ReadInt();
-            int requestId = ReadInt();
-            string contractInfo = ReadString();
-            parent.Wrapper.displayGroupUpdated(requestId, contractInfo);
-        }
-
         public Boolean IsAlive()
         {
             return runner.IsAlive;
@@ -1499,7 +1504,8 @@ namespace IBApi
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
         }
 
-        protected bool ReadBoolFromInt() {
+        protected bool ReadBoolFromInt()
+        {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
         }

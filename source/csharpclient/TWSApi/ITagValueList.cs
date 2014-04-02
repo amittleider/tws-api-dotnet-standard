@@ -1,9 +1,11 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Linq;
 
 namespace TWSLib
 {
@@ -27,6 +29,11 @@ namespace TWSLib
     [ComVisible(true)]
     public class TagValueList : ITagValueList
     {
+        public static implicit operator KeyValuePair<string, string>[](TagValueList list)
+        {
+            return list == null ? null : list.Tvl.Select(x => new KeyValuePair<string, string>(x.Tag, x.Value)).ToArray();
+        }
+
         public List<IBApi.TagValue> Tvl { get; private set; }
 
         public TagValueList() : this(new List<IBApi.TagValue>()) { Tvl = new List<IBApi.TagValue>(); }

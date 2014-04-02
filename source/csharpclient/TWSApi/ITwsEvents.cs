@@ -1,5 +1,6 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -109,12 +110,20 @@ namespace TWSLib
         [DispId(105)]
         void commissionReport(ICommissionReport commissionReport);
         [DispId(106)]
-        void position(string account, IContract contract, int position);
+        void position(string account, IContract contract, int position, double avgCost);
         [DispId(107)]
         void positionEnd();
         [DispId(108)]
         void accountSummary(int reqId, string account, string tag, string value, string curency);
         [DispId(109)]
         void accountSummaryEnd(int reqId);
+        [DispId(110)]
+        void verifyMessageAPI(string apiData);
+        [DispId(111)]
+        void verifyCompleted(bool isSuccessful, string errorText);
+        [DispId(112)]
+        void displayGroupList(int reqId, string groups);
+        [DispId(113)]
+        void displayGroupUpdated(int reqId, string contractInfo);
     }
 }
