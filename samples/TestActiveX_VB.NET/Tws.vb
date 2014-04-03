@@ -5,363 +5,470 @@ Friend Class Tws
     Implements IBApi.EWrapper
 
     Dim socket As IBApi.EClientSocket = New IBApi.EClientSocket(Me)
+    Dim form As Form
+
+    Sub New(form As Form)
+        Me.form = form
+    End Sub
+
+    Sub InvokeIfRequired(del As [Delegate])
+        If form.InvokeRequired Then
+            form.Invoke(del)
+        Else
+            del.DynamicInvoke()
+        End If
+    End Sub
 
 #Region "IBApi.EWrapper"
 
 
     Public Sub accountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
-        RaiseEvent OnaccountDownloadEnd(Me, New AxTWSLib._DTwsEvents_accountDownloadEndEvent With {
-        .account = account
-                })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountDownloadEnd(Me, New AxTWSLib._DTwsEvents_accountDownloadEndEvent With {
+                             .account = account
+                                     })
+                         End Sub)
     End Sub
 
     Public Sub accountSummary(reqId As Integer, account As String, tag As String, value As String, currency As String) Implements IBApi.EWrapper.accountSummary
-        RaiseEvent OnaccountSummary(Me, New AxTWSLib._DTwsEvents_accountSummaryEvent With {
-         .reqId = reqId,
-         .account = account,
-         .tag = tag,
-         .value = value,
-         .currency = currency
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountSummary(Me, New AxTWSLib._DTwsEvents_accountSummaryEvent With {
+                                                                  .reqId = reqId,
+                                                                  .account = account,
+                                                                  .tag = tag,
+                                                                  .value = value,
+                                                                  .currency = currency
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub accountSummaryEnd(reqId As Integer) Implements IBApi.EWrapper.accountSummaryEnd
-        RaiseEvent OnaccountSummaryEnd(Me, New AxTWSLib._DTwsEvents_accountSummaryEndEvent With {
-        .reqId = reqId
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountSummaryEnd(Me, New AxTWSLib._DTwsEvents_accountSummaryEndEvent With {
+                                                                 .reqId = reqId
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub commissionReport(commissionReport As IBApi.CommissionReport) Implements IBApi.EWrapper.commissionReport
-        RaiseEvent OncommissionReport(Me, New AxTWSLib._DTwsEvents_commissionReportEvent With {
-        .commissionReport = commissionReport
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OncommissionReport(Me, New AxTWSLib._DTwsEvents_commissionReportEvent With {
+                                                                 .commissionReport = commissionReport
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub connectionClosed() Implements IBApi.EWrapper.connectionClosed
-        RaiseEvent OnConnectionClosed(Me, EventArgs.Empty)
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnConnectionClosed(Me, EventArgs.Empty)
+                         End Sub)
     End Sub
 
     Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
-        RaiseEvent OncontractDetails(Me, New AxTWSLib._DTwsEvents_contractDetailsEvent With {
-        .reqId = reqId,
-         .contractDetails = contractDetails
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OncontractDetailsEx(Me, New AxTWSLib._DTwsEvents_contractDetailsExEvent With {
+                                                                 .reqId = reqId,
+                                                                  .contractDetails = contractDetails
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub contractDetailsEnd(reqId As Integer) Implements IBApi.EWrapper.contractDetailsEnd
-        RaiseEvent OncontractDetailsEnd(Me, New AxTWSLib._DTwsEvents_contractDetailsEndEvent With {
-        .reqId = reqId
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OncontractDetailsEnd(Me, New AxTWSLib._DTwsEvents_contractDetailsEndEvent With {
+                                                                 .reqId = reqId
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub currentTime(time As Long) Implements IBApi.EWrapper.currentTime
-        RaiseEvent OncurrentTime(Me, New AxTWSLib._DTwsEvents_currentTimeEvent With {
-        .time = time
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OncurrentTime(Me, New AxTWSLib._DTwsEvents_currentTimeEvent With {
+                                                                 .time = time
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub deltaNeutralValidation(reqId As Integer, underComp As IBApi.UnderComp) Implements IBApi.EWrapper.deltaNeutralValidation
-        RaiseEvent OndeltaNeutralValidation(Me, New AxTWSLib._DTwsEvents_deltaNeutralValidationEvent With {
-         .reqId = reqId,
-         .underComp = underComp
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OndeltaNeutralValidation(Me, New AxTWSLib._DTwsEvents_deltaNeutralValidationEvent With {
+                                                                  .reqId = reqId,
+                                                                  .underComp = underComp
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub displayGroupList(reqId As Integer, groups As String) Implements IBApi.EWrapper.displayGroupList
-        RaiseEvent OndisplayGroupList(Me, New AxTWSLib._DTwsEvents_displayGroupListEvent With {
-         .reqId = reqId,
-         .groups = groups
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OndisplayGroupList(Me, New AxTWSLib._DTwsEvents_displayGroupListEvent With {
+                                                                  .reqId = reqId,
+                                                                  .groups = groups
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub displayGroupUpdated(reqId As Integer, contractInfo As String) Implements IBApi.EWrapper.displayGroupUpdated
-        RaiseEvent OndisplayGroupUpdated(Me, New AxTWSLib._DTwsEvents_displayGroupUpdatedEvent With {
-         .reqId = reqId,
-         .contractInfo = contractInfo
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OndisplayGroupUpdated(Me, New AxTWSLib._DTwsEvents_displayGroupUpdatedEvent With {
+                                                                  .reqId = reqId,
+                                                                  .contractInfo = contractInfo
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub [error](id As Integer, errorCode As Integer, errorMsg As String) Implements IBApi.EWrapper.error
-        RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = id, .errorCode = errorCode, .errorMsg = errorMsg})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = id, .errorCode = errorCode, .errorMsg = errorMsg})
+                         End Sub)
     End Sub
 
     Public Sub [error](str As String) Implements IBApi.EWrapper.error
-        RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = -1, .errorCode = -1, .errorMsg = str})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = -1, .errorCode = -1, .errorMsg = str})
+                         End Sub)
     End Sub
 
     Public Sub [error](e As Exception) Implements IBApi.EWrapper.error
-        RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = -1, .errorCode = -1, .errorMsg = e.Message})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnErrMsg(Me, New AxTWSLib._DTwsEvents_errMsgEvent With {.id = -1, .errorCode = -1, .errorMsg = e.Message})
+                         End Sub)
     End Sub
 
     Public Sub execDetails(reqId As Integer, contract As IBApi.Contract, execution As IBApi.Execution) Implements IBApi.EWrapper.execDetails
-        RaiseEvent OnexecDetails(Me, New AxTWSLib._DTwsEvents_execDetailsEvent With {
-        .reqId = reqId,
-         .contract = contract,
-         .execution = execution
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnexecDetailsEx(Me, New AxTWSLib._DTwsEvents_execDetailsExEvent With {
+                                                                 .reqId = reqId,
+                                                                  .contract = contract,
+                                                                  .execution = execution
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub execDetailsEnd(reqId As Integer) Implements IBApi.EWrapper.execDetailsEnd
-        RaiseEvent OnexecDetailsEnd(Me, New AxTWSLib._DTwsEvents_execDetailsEndEvent With {
-        .reqId = reqId
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnexecDetailsEnd(Me, New AxTWSLib._DTwsEvents_execDetailsEndEvent With {
+                                                                 .reqId = reqId
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub fundamentalData(reqId As Integer, data As String) Implements IBApi.EWrapper.fundamentalData
-        RaiseEvent OnfundamentalData(Me, New AxTWSLib._DTwsEvents_fundamentalDataEvent With {
-        .reqId = reqId,
-         .data = data
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnfundamentalData(Me, New AxTWSLib._DTwsEvents_fundamentalDataEvent With {
+                                                                 .reqId = reqId,
+                                                                  .data = data
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub historicalData(reqId As Integer, [date] As String, open As Double, high As Double, low As Double, close As Double, volume As Integer, count As Integer, WAP As Double, hasGaps As Boolean) Implements IBApi.EWrapper.historicalData
-        RaiseEvent OnHistoricalData(Me, New AxTWSLib._DTwsEvents_historicalDataEvent With {
-                                    .reqId = reqId,
-                                    .[date] = [date],
-                                    .open = open,
-                                    .high = high,
-                                    .low = low,
-                                    .close = close,
-                                    .volume = volume,
-                                    .count = count,
-                                    .WAP = WAP,
-                                    .hasGaps = hasGaps
-                                })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnHistoricalData(Me, New AxTWSLib._DTwsEvents_historicalDataEvent With {
+                                                                                             .reqId = reqId,
+                                                                                             .[date] = [date],
+                                                                                             .open = open,
+                                                                                             .high = high,
+                                                                                             .low = low,
+                                                                                             .close = close,
+                                                                                             .volume = volume,
+                                                                                             .count = count,
+                                                                                             .WAP = WAP,
+                                                                                             .hasGaps = hasGaps
+                                                                                         })
+                         End Sub)
     End Sub
 
     Public Sub historicalDataEnd(reqId As Integer, start As String, [end] As String) Implements IBApi.EWrapper.historicalDataEnd
-        RaiseEvent OnHistoricalDataEnd(Me, New AxTWSLib._DTwsEvents_historicalDataEnd With {
-                                       .reqId = reqId,
-                                       .start = start,
-                                       .[end] = [end]
-                                       })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnHistoricalDataEnd(Me, New AxTWSLib._DTwsEvents_historicalDataEnd With {
+                                                                                                .reqId = reqId,
+                                                                                                .start = start,
+                                                                                                .[end] = [end]
+                                                                                                })
+                         End Sub)
     End Sub
 
     Public Sub managedAccounts(accountsList As String) Implements IBApi.EWrapper.managedAccounts
-        RaiseEvent OnmanagedAccounts(Me, New AxTWSLib._DTwsEvents_managedAccountsEvent With {
-        .accountsList = accountsList
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnmanagedAccounts(Me, New AxTWSLib._DTwsEvents_managedAccountsEvent With {
+                                                                 .accountsList = accountsList
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub marketDataType(reqId As Integer, marketDataType As Integer) Implements IBApi.EWrapper.marketDataType
-        RaiseEvent OnmarketDataType(Me, New AxTWSLib._DTwsEvents_marketDataTypeEvent With {
-        .reqId = reqId,
-         .marketDataType = marketDataType
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnmarketDataType(Me, New AxTWSLib._DTwsEvents_marketDataTypeEvent With {
+                                                                 .reqId = reqId,
+                                                                  .marketDataType = marketDataType
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub nextValidId(orderId As Integer) Implements IBApi.EWrapper.nextValidId
-        RaiseEvent OnNextValidId(Me, New AxTWSLib._DTwsEvents_nextValidIdEvent With {.Id = orderId})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnNextValidId(Me, New AxTWSLib._DTwsEvents_nextValidIdEvent With {.Id = orderId})
+                         End Sub)
     End Sub
 
     Public Sub openOrder(orderId As Integer, contract As IBApi.Contract, order As IBApi.Order, orderState As IBApi.OrderState) Implements IBApi.EWrapper.openOrder
-        RaiseEvent OnopenOrder(Me, New AxTWSLib._DTwsEvents_openOrderEvent With {
-        .orderId = orderId,
-         .contract = contract,
-         .order = order,
-         .orderState = orderState
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnopenOrderEx(Me, New AxTWSLib._DTwsEvents_openOrderExEvent With {
+                                                                 .orderId = orderId,
+                                                                  .contract = contract,
+                                                                  .order = order,
+                                                                  .orderState = orderState
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub openOrderEnd() Implements IBApi.EWrapper.openOrderEnd
-        RaiseEvent OnopenOrderEnd(Me, EventArgs.Empty)
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnopenOrderEnd(Me, EventArgs.Empty)
+                         End Sub)
     End Sub
 
     Public Sub orderStatus(orderId As Integer, status As String, filled As Integer, remaining As Integer, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
-        RaiseEvent OnorderStatus(Me, New AxTWSLib._DTwsEvents_orderStatusEvent With {
-        .orderId = orderId,
-         .status = status,
-         .filled = filled,
-         .remaining = remaining,
-         .avgFillPrice = avgFillPrice,
-         .permId = permId,
-         .parentId = parentId,
-         .lastFillPrice = lastFillPrice,
-         .clientId = clientId,
-         .whyHeld = whyHeld
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnorderStatus(Me, New AxTWSLib._DTwsEvents_orderStatusEvent With {
+                                                                 .orderId = orderId,
+                                                                  .status = status,
+                                                                  .filled = filled,
+                                                                  .remaining = remaining,
+                                                                  .avgFillPrice = avgFillPrice,
+                                                                  .permId = permId,
+                                                                  .parentId = parentId,
+                                                                  .lastFillPrice = lastFillPrice,
+                                                                  .clientId = clientId,
+                                                                  .whyHeld = whyHeld
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub position(account As String, contract As IBApi.Contract, pos As Integer, avgCost As Double) Implements IBApi.EWrapper.position
-        RaiseEvent Onposition(Me, New AxTWSLib._DTwsEvents_positionEvent With {
-        .account = account,
-         .contract = contract,
-         .pos = pos,
-         .avgCost = avgCost
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent Onposition(Me, New AxTWSLib._DTwsEvents_positionEvent With {
+                                                                 .account = account,
+                                                                  .contract = contract,
+                                                                  .pos = pos,
+                                                                  .avgCost = avgCost
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub positionEnd() Implements IBApi.EWrapper.positionEnd
-        RaiseEvent OnpositionEnd(Me, EventArgs.Empty)
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnpositionEnd(Me, EventArgs.Empty)
+                         End Sub)
     End Sub
 
     Public Sub realtimeBar(reqId As Integer, time As Long, open As Double, high As Double, low As Double, close As Double, volume As Long, WAP As Double, count As Integer) Implements IBApi.EWrapper.realtimeBar
-        RaiseEvent OnrealtimeBar(Me, New AxTWSLib._DTwsEvents_realtimeBarEvent With {
-        .reqId = reqId,
-         .time = time,
-         .open = open,
-         .high = high,
-         .low = low,
-         .close = close,
-         .volume = volume,
-         .WAP = WAP,
-         .count = count
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnrealtimeBar(Me, New AxTWSLib._DTwsEvents_realtimeBarEvent With {
+                                                                 .reqId = reqId,
+                                                                  .time = time,
+                                                                  .open = open,
+                                                                  .high = high,
+                                                                  .low = low,
+                                                                  .close = close,
+                                                                  .volume = volume,
+                                                                  .WAP = WAP,
+                                                                  .count = count
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub receiveFA(faDataType As Integer, faXmlData As String) Implements IBApi.EWrapper.receiveFA
-        RaiseEvent OnreceiveFA(Me, New AxTWSLib._DTwsEvents_receiveFAEvent With {
-        .faDataType = faDataType,
-         .faXmlData = faXmlData
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnreceiveFA(Me, New AxTWSLib._DTwsEvents_receiveFAEvent With {
+                                                                 .faDataType = faDataType,
+                                                                  .faXmlData = faXmlData
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub scannerData(reqId As Integer, rank As Integer, contractDetails As IBApi.ContractDetails, distance As String, benchmark As String, projection As String, legsStr As String) Implements IBApi.EWrapper.scannerData
-        RaiseEvent OnscannerData(Me, New AxTWSLib._DTwsEvents_scannerDataEvent With {
-        .reqId = reqId,
-         .rank = rank,
-         .contractDetails = contractDetails,
-         .distance = distance,
-         .benchmark = benchmark,
-         .projection = projection,
-         .legsStr = legsStr
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnscannerDataEx(Me, New AxTWSLib._DTwsEvents_scannerDataExEvent With {
+                                                                 .reqId = reqId,
+                                                                  .rank = rank,
+                                                                  .contractDetails = contractDetails,
+                                                                  .distance = distance,
+                                                                  .benchmark = benchmark,
+                                                                  .projection = projection,
+                                                                  .legsStr = legsStr
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub scannerDataEnd(reqId As Integer) Implements IBApi.EWrapper.scannerDataEnd
-        RaiseEvent OnscannerDataEnd(Me, New AxTWSLib._DTwsEvents_scannerDataEndEvent With {
-        .reqId = reqId
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnscannerDataEnd(Me, New AxTWSLib._DTwsEvents_scannerDataEndEvent With {
+                                                                 .reqId = reqId
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub scannerParameters(xml As String) Implements IBApi.EWrapper.scannerParameters
-        RaiseEvent OnscannerParameters(Me, New AxTWSLib._DTwsEvents_scannerParametersEvent With {
-        .xml = xml
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnscannerParameters(Me, New AxTWSLib._DTwsEvents_scannerParametersEvent With {
+                                                                 .xml = xml
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub tickEFP(tickerId As Integer, tickType As Integer, basisPoints As Double, formattedBasisPoints As String, impliedFuture As Double, holdDays As Integer, futureExpiry As String, dividendImpact As Double, dividendsToExpiry As Double) Implements IBApi.EWrapper.tickEFP
-        RaiseEvent OnTickEFP(Me, New AxTWSLib._DTwsEvents_tickEFPEvent With {
-                             .tickerId = tickerId,
-                             .field = tickType,
-                             .basisPoints = basisPoints,
-                             .formattedBasisPoints = formattedBasisPoints,
-                             .impliedFuture = impliedFuture,
-                             .holdDays = holdDays,
-                             .futureExpiry = futureExpiry,
-                             .dividendImpact = dividendImpact,
-                             .dividendsToExpiry = dividendsToExpiry
-                         })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickEFP(Me, New AxTWSLib._DTwsEvents_tickEFPEvent With {
+                                                                                      .tickerId = tickerId,
+                                                                                      .field = tickType,
+                                                                                      .basisPoints = basisPoints,
+                                                                                      .formattedBasisPoints = formattedBasisPoints,
+                                                                                      .impliedFuture = impliedFuture,
+                                                                                      .holdDays = holdDays,
+                                                                                      .futureExpiry = futureExpiry,
+                                                                                      .dividendImpact = dividendImpact,
+                                                                                      .dividendsToExpiry = dividendsToExpiry
+                                                                                  })
+                         End Sub)
     End Sub
 
     Public Sub tickGeneric(tickerId As Integer, field As Integer, value As Double) Implements IBApi.EWrapper.tickGeneric
-        RaiseEvent OnTickGeneric(Me, New AxTWSLib._DTwsEvents_tickGenericEvent With {.id = tickerId, .tickType = field, .value = value})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickGeneric(Me, New AxTWSLib._DTwsEvents_tickGenericEvent With {.id = tickerId, .tickType = field, .value = value})
+                         End Sub)
     End Sub
 
     Public Sub tickOptionComputation(tickerId As Integer, field As Integer, impliedVolatility As Double, delta As Double, optPrice As Double, pvDividend As Double, gamma As Double, vega As Double, theta As Double, undPrice As Double) Implements IBApi.EWrapper.tickOptionComputation
-        RaiseEvent OnTickOptionComputation(Me, New AxTWSLib._DTwsEvents_tickOptionComputationEvent With {
-                                           .tickerId = tickerId,
-                                           .tickType = field,
-                                           .impliedVolatility = impliedVolatility,
-                                           .delta = delta,
-                                           .optPrice = optPrice,
-                                           .pvDividend = pvDividend,
-                                           .gamma = gamma,
-                                           .vega = vega,
-                                           .theta = theta,
-                                           .undPrice = undPrice
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickOptionComputation(Me, New AxTWSLib._DTwsEvents_tickOptionComputationEvent With {
+                                                                                                    .tickerId = tickerId,
+                                                                                                    .tickType = field,
+                                                                                                    .impliedVolatility = impliedVolatility,
+                                                                                                    .delta = delta,
+                                                                                                    .optPrice = optPrice,
+                                                                                                    .pvDividend = pvDividend,
+                                                                                                    .gamma = gamma,
+                                                                                                    .vega = vega,
+                                                                                                    .theta = theta,
+                                                                                                    .undPrice = undPrice
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub tickPrice(tickerId As Integer, field As Integer, price As Double, canAutoExecute As Integer) Implements IBApi.EWrapper.tickPrice
-        RaiseEvent OnTickPrice(Me, New AxTWSLib._DTwsEvents_tickPriceEvent With {.id = tickerId, .price = price, .tickType = field, .canAutoExecute = canAutoExecute})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickPrice(Me, New AxTWSLib._DTwsEvents_tickPriceEvent With {.id = tickerId, .price = price, .tickType = field, .canAutoExecute = canAutoExecute})
+                         End Sub)
     End Sub
 
     Public Sub tickSize(tickerId As Integer, field As Integer, size As Integer) Implements IBApi.EWrapper.tickSize
-        RaiseEvent OnTickSize(Me, New AxTWSLib._DTwsEvents_tickSizeEvent With {.id = tickerId, .size = size, .tickType = field})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickSize(Me, New AxTWSLib._DTwsEvents_tickSizeEvent With {.id = tickerId, .size = size, .tickType = field})
+                         End Sub)
     End Sub
 
     Public Sub tickSnapshotEnd(tickerId As Integer) Implements IBApi.EWrapper.tickSnapshotEnd
-        RaiseEvent OntickSnapshotEnd(Me, New AxTWSLib._DTwsEvents_tickSnapshotEndEvent With {
-        .tickerId = tickerId
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OntickSnapshotEnd(Me, New AxTWSLib._DTwsEvents_tickSnapshotEndEvent With {
+                                                                 .tickerId = tickerId
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub tickString(tickerId As Integer, field As Integer, value As String) Implements IBApi.EWrapper.tickString
-        RaiseEvent OnTickString(Me, New AxTWSLib._DTwsEvents_tickStringEvent With {.id = tickerId, .tickType = field, .value = value})
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnTickString(Me, New AxTWSLib._DTwsEvents_tickStringEvent With {.id = tickerId, .tickType = field, .value = value})
+                         End Sub)
     End Sub
 
     Public Sub updateAccountTime(timestamp As String) Implements IBApi.EWrapper.updateAccountTime
-        RaiseEvent OnupdateAccountTime(Me, New AxTWSLib._DTwsEvents_updateAccountTimeEvent With {
-        .timestamp = timestamp
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnupdateAccountTime(Me, New AxTWSLib._DTwsEvents_updateAccountTimeEvent With {
+                                                                 .timestamp = timestamp
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub updateAccountValue(key As String, value As String, currency As String, accountName As String) Implements IBApi.EWrapper.updateAccountValue
-        RaiseEvent OnupdateAccountValue(Me, New AxTWSLib._DTwsEvents_updateAccountValueEvent With {
-        .key = key,
-         .value = value,
-         .currency = currency,
-         .accountName = accountName
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnupdateAccountValue(Me, New AxTWSLib._DTwsEvents_updateAccountValueEvent With {
+                                                                 .key = key,
+                                                                  .value = value,
+                                                                  .currency = currency,
+                                                                  .accountName = accountName
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub updateMktDepth(tickerId As Integer, position As Integer, operation As Integer, side As Integer, price As Double, size As Integer) Implements IBApi.EWrapper.updateMktDepth
-        RaiseEvent OnUpdateMktDepth(Me, New AxTWSLib._DTwsEvents_updateMktDepthEvent With {
-                                    .tickerId = tickerId,
-                                    .position = position,
-                                    .operation = operation,
-                                    .side = side,
-                                    .price = price,
-                                    .size = size
-                                })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnUpdateMktDepth(Me, New AxTWSLib._DTwsEvents_updateMktDepthEvent With {
+                                                                                             .tickerId = tickerId,
+                                                                                             .position = position,
+                                                                                             .operation = operation,
+                                                                                             .side = side,
+                                                                                             .price = price,
+                                                                                             .size = size
+                                                                                         })
+                         End Sub)
     End Sub
 
     Public Sub updateMktDepthL2(tickerId As Integer, position As Integer, marketMaker As String, operation As Integer, side As Integer, price As Double, size As Integer) Implements IBApi.EWrapper.updateMktDepthL2
-        RaiseEvent OnUpdateMktDepthL2(Me, New AxTWSLib._DTwsEvents_updateMktDepthL2Event With {
-                                      .tickerId = tickerId,
-                                      .position = position,
-                                      .marketMaker = marketMaker,
-                                      .operation = operation,
-                                      .side = side,
-                                      .price = price,
-                                      .size = size
-                                  })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnUpdateMktDepthL2(Me, New AxTWSLib._DTwsEvents_updateMktDepthL2Event With {
+                                                                                               .tickerId = tickerId,
+                                                                                               .position = position,
+                                                                                               .marketMaker = marketMaker,
+                                                                                               .operation = operation,
+                                                                                               .side = side,
+                                                                                               .price = price,
+                                                                                               .size = size
+                                                                                           })
+                         End Sub)
     End Sub
 
     Public Sub updateNewsBulletin(msgId As Integer, msgType As Integer, message As String, origExchange As String) Implements IBApi.EWrapper.updateNewsBulletin
-        RaiseEvent OnupdateNewsBulletin(Me, New AxTWSLib._DTwsEvents_updateNewsBulletinEvent With {
-        .msgId = msgId,
-         .msgType = msgType,
-         .message = message,
-         .origExchange = origExchange
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnupdateNewsBulletin(Me, New AxTWSLib._DTwsEvents_updateNewsBulletinEvent With {
+                                                                 .msgId = msgId,
+                                                                  .msgType = msgType,
+                                                                  .message = message,
+                                                                  .origExchange = origExchange
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub updatePortfolio(contract As IBApi.Contract, position As Integer, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
-        RaiseEvent OnupdatePortfolio(Me, New AxTWSLib._DTwsEvents_updatePortfolioEvent With {
-        .contract = contract,
-         .position = position,
-         .marketPrice = marketPrice,
-         .marketValue = marketValue,
-         .averageCost = averageCost,
-         .unrealisedPNL = unrealisedPNL,
-         .realisedPNL = realisedPNL,
-         .accountName = accountName
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnupdatePortfolioEx(Me, New AxTWSLib._DTwsEvents_updatePortfolioExEvent With {
+                                                                 .contract = contract,
+                                                                  .position = position,
+                                                                  .marketPrice = marketPrice,
+                                                                  .marketValue = marketValue,
+                                                                  .averageCost = averageCost,
+                                                                  .unrealisedPNL = unrealisedPNL,
+                                                                  .realisedPNL = realisedPNL,
+                                                                  .accountName = accountName
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub verifyCompleted(isSuccessful As Boolean, errorText As String) Implements IBApi.EWrapper.verifyCompleted
-        RaiseEvent OnverifyCompleted(Me, New AxTWSLib._DTwsEvents_verifyCompletedEvent With {
-        .isSuccessful = isSuccessful,
-         .errorText = errorText
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnverifyCompleted(Me, New AxTWSLib._DTwsEvents_verifyCompletedEvent With {
+                                                                 .isSuccessful = isSuccessful,
+                                                                  .errorText = errorText
+                                                                 })
+                         End Sub)
     End Sub
 
     Public Sub verifyMessageAPI(apiData As String) Implements IBApi.EWrapper.verifyMessageAPI
-        RaiseEvent OnverifyMessageAPI(Me, New AxTWSLib._DTwsEvents_verifyMessageAPIEvent With {
-        .apiData = apiData
-        })
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnverifyMessageAPI(Me, New AxTWSLib._DTwsEvents_verifyMessageAPIEvent With {
+                                                                 .apiData = apiData
+                                                                 })
+                         End Sub)
     End Sub
 #End Region
 
@@ -370,39 +477,39 @@ Friend Class Tws
     End Sub
 
     Sub cancelScannerSubscription(id As Short)
-        Throw New NotImplementedException
+        socket.cancelScannerSubscription(id)
     End Sub
 
     Sub reqScannerSubscriptionEx(id As Integer, subscription As IBApi.ScannerSubscription, scannerSubscriptionOptions As Generic.List(Of IBApi.TagValue))
-        Throw New NotImplementedException
+        socket.reqScannerSubscription(id, subscription, scannerSubscriptionOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)))
     End Sub
 
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean)
-        Throw New NotImplementedException
+        socket.eConnect(p1, p2, p3, p4)
     End Sub
 
     Function serverVersion() As Integer
-        Throw New NotImplementedException
+        serverVersion = socket.ServerVersion()
     End Function
 
     Function TwsConnectionTime() As String
-        Throw New NotImplementedException
+        TwsConnectionTime = 0 'socket.C
     End Function
 
     Sub disconnect()
-        Throw New NotImplementedException
+        socket.eDisconnect()
     End Sub
 
     Sub reqMktDataEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As String, p4 As Boolean, m_mktDataOptions As Generic.List(Of IBApi.TagValue))
-        Throw New NotImplementedException
+        socket.reqMktData(p1, m_contractInfo, p3, p4, m_mktDataOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)))
     End Sub
 
     Sub cancelMktData(p1 As Integer)
-        Throw New NotImplementedException
+        socket.cancelMktData(p1)
     End Sub
 
     Sub reqMktDepthEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, m_mktDepthOptions As Generic.List(Of IBApi.TagValue))
-        Throw New NotImplementedException
+        socket.reqMktData(p1, m_contractInfo, p3, False, m_mktDepthOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)))
     End Sub
 
     Sub cancelMktDepth(p1 As Integer)
@@ -494,7 +601,7 @@ Friend Class Tws
     End Sub
 
     Sub requestFA(fA_Message_Type As Utils.FA_Message_Type)
-        socket.reqFundamentalData(fA_Message_Type)
+        socket.requestFA(fA_Message_Type)
     End Sub
 
     Sub calculateImpliedVolatility(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Double, p4 As Double)
@@ -577,7 +684,7 @@ Friend Class Tws
 
     Event OncommissionReport(tws As Tws, p2 As Object)
 
-    Event OncontractDetails(tws As Tws, p2 As Object)
+    Event OncontractDetailsEx(tws As Tws, p2 As Object)
 
     Event OncontractDetailsEnd(tws As Tws, p2 As Object)
 
@@ -589,7 +696,7 @@ Friend Class Tws
 
     Event OndisplayGroupUpdated(tws As Tws, p2 As Object)
 
-    Event OnexecDetails(tws As Tws, p2 As Object)
+    Event OnexecDetailsEx(tws As Tws, p2 As Object)
 
     Event OnexecDetailsEnd(tws As Tws, p2 As Object)
 
@@ -599,7 +706,7 @@ Friend Class Tws
 
     Event OnmarketDataType(tws As Tws, p2 As Object)
 
-    Event OnopenOrder(tws As Tws, p2 As Object)
+    Event OnopenOrderEx(tws As Tws, p2 As Object)
 
     Event OnorderStatus(tws As Tws, p2 As Object)
 
@@ -609,7 +716,7 @@ Friend Class Tws
 
     Event OnreceiveFA(tws As Tws, p2 As Object)
 
-    Event OnscannerData(tws As Tws, p2 As Object)
+    Event OnscannerDataEx(tws As Tws, p2 As Object)
 
     Event OnscannerDataEnd(tws As Tws, p2 As Object)
 
@@ -623,7 +730,7 @@ Friend Class Tws
 
     Event OnupdateNewsBulletin(tws As Tws, p2 As Object)
 
-    Event OnupdatePortfolio(tws As Tws, p2 As Object)
+    Event OnupdatePortfolioEx(tws As Tws, p2 As Object)
 
     Event OnverifyCompleted(tws As Tws, p2 As Object)
 

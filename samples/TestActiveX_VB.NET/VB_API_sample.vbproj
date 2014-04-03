@@ -115,14 +115,14 @@
     <Compile Include="_DTwsEvents_accountSummaryEvent.vb" />
     <Compile Include="_DTwsEvents_commissionReportEvent.vb" />
     <Compile Include="_DTwsEvents_contractDetailsEndEvent.vb" />
-    <Compile Include="_DTwsEvents_contractDetailsEvent.vb" />
+    <Compile Include="_DTwsEvents_contractDetailsExEvent.vb" />
     <Compile Include="_DTwsEvents_currentTimeEvent.vb" />
     <Compile Include="_DTwsEvents_deltaNeutralValidationEvent.vb" />
     <Compile Include="_DTwsEvents_displayGroupListEvent.vb" />
     <Compile Include="_DTwsEvents_displayGroupUpdatedEvent.vb" />
     <Compile Include="_DTwsEvents_errMsgEvent.vb" />
     <Compile Include="_DTwsEvents_execDetailsEndEvent.vb" />
-    <Compile Include="_DTwsEvents_execDetailsEvent.vb" />
+    <Compile Include="_DTwsEvents_execDetailsExEvent.vb" />
     <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
     <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
     <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
@@ -130,14 +130,14 @@
     <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
     <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
     <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
-    <Compile Include="_DTwsEvents_openOrderEvent.vb" />
+    <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
     <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
     <Compile Include="_DTwsEvents_positionEvent.vb" />
     <Compile Include="_DTwsEvents_positionEvent1.vb" />
     <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
     <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
     <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
-    <Compile Include="_DTwsEvents_scannerDataEvent.vb" />
+    <Compile Include="_DTwsEvents_scannerDataExEvent.vb" />
     <Compile Include="_DTwsEvents_scannerParametersEvent.vb" />
     <Compile Include="_DTwsEvents_tickEFPEvent.vb" />
     <Compile Include="_DTwsEvents_tickGenericEvent.vb" />
@@ -151,7 +151,7 @@
     <Compile Include="_DTwsEvents_updateMktDepthEvent.vb" />
     <Compile Include="_DTwsEvents_updateMktDepthL2Event.vb" />
     <Compile Include="_DTwsEvents_updateNewsBulletinEvent.vb" />
-    <Compile Include="_DTwsEvents_updatePortfolioEvent.vb" />
+    <Compile Include="_DTwsEvents_updatePortfolioExEvent.vb" />
     <Compile Include="_DTwsEvents_verifyCompletedEvent.vb" />
     <Compile Include="_DTwsEvents_verifyMessageAPIEvent.vb" />
     <None Include="app.config" />
@@ -170,22 +170,10 @@
     <Compile Include="dlgGroups.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="dlgSmartComboRoutingParams.Designer.vb">
-      <DependentUpon>dlgSmartComboRoutingParams.vb</DependentUpon>
-    </Compile>
-    <Compile Include="dlgSmartComboRoutingParams.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="dlgAcctData.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="dlgAcctUpdates.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="dlgAlgoParams.Designer.vb">
-      <DependentUpon>dlgAlgoParams.vb</DependentUpon>
-    </Compile>
-    <Compile Include="dlgAlgoParams.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="dlgComboOrderLegs.vb">
@@ -245,10 +233,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>dlgGroups.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="dlgSmartComboRoutingParams.resX">
-      <DependentUpon>dlgSmartComboRoutingParams.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="dlgAcctData.resX">
       <DependentUpon>dlgAcctData.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -256,10 +240,6 @@
     <EmbeddedResource Include="dlgAcctUpdates.resX">
       <DependentUpon>dlgAcctUpdates.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dlgAlgoParams.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>dlgAlgoParams.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgComboOrderLegs.resX">
       <DependentUpon>dlgComboOrderLegs.vb</DependentUpon>
@@ -336,35 +316,6 @@
       <Project>{8ede0744-96c2-40b0-a8dc-37df79370203}</Project>
       <Name>CSharpAPI</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="Microsoft.Vbe.Interop.Forms">
-      <Guid>{0D452EE1-E08F-101A-852E-02608C4D0BB4}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="MSFlexGridLib">
-      <Guid>{302B0676-F707-4036-A5A1-B58C1D13A164}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="stdole">
-      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

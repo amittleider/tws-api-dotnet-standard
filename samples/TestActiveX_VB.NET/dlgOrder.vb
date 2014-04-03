@@ -1749,15 +1749,15 @@ Friend Class dlgOrder
     End Sub
 
     Private Sub cmdAlgoParams_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdAlgoParams.Click
-        Dim dlg As New dlgAlgoParams
+        'Dim dlg As New dlgAlgoParams
 
-        dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
-            m_orderInfo.AlgoStrategy = dlg.algoStrategy
-            m_orderInfo.AlgoParams = dlg.algoParams
-        End If
+        'dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
+        'Dim res As DialogResult
+        'res = dlg.ShowDialog()
+        'If res = Windows.Forms.DialogResult.OK Then
+        '    m_orderInfo.AlgoStrategy = dlg.algoStrategy
+        '    m_orderInfo.AlgoParams = dlg.algoParams
+        'End If
     End Sub
 
     Private Sub cmdSetShareAllocation_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSetShareAllocation.Click
@@ -2066,26 +2066,26 @@ Friend Class dlgOrder
     End Sub
 
     Private Sub cmdSmartComboRoutingParams_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSmartComboRoutingParams.Click
-        Dim dlg As New dlgSmartComboRoutingParams
+        'Dim dlg As New dlgSmartComboRoutingParams
 
-        dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
-            m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
-        End If
+        'dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
+        'Dim res As DialogResult
+        'res = dlg.ShowDialog()
+        'If res = Windows.Forms.DialogResult.OK Then
+        '    m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
+        'End If
 
     End Sub
 
     Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
-        Dim dlg As New dlgSmartComboRoutingParams
+        'Dim dlg As New dlgSmartComboRoutingParams
 
-        dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
-            m_options = dlg.smartComboRoutingParams
-        End If
+        'dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
+        'Dim res As DialogResult
+        'res = dlg.ShowDialog()
+        'If res = Windows.Forms.DialogResult.OK Then
+        '    m_options = dlg.smartComboRoutingParams
+        'End If
 
     End Sub
 

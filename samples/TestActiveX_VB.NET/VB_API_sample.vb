@@ -94,7 +94,7 @@ Friend Class dlgMainWnd
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dlgMainWnd))
-        Me.Tws1 = New Tws
+        Me.Tws1 = New Tws(Me)
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button
         Me.cmdFinancialAdvisor = New System.Windows.Forms.Button
         Me.cmdReqAccts = New System.Windows.Forms.Button
@@ -144,7 +144,7 @@ Friend Class dlgMainWnd
         Me.cmdGroups = New System.Windows.Forms.Button
         Me.cmdReqFundamentalData = New System.Windows.Forms.Button
         Me.cmdCancelFundamentalData = New System.Windows.Forms.Button
-        CType(Me.Tws1, System.ComponentModel.ISupportInitialize).BeginInit()
+        'CType(Me.Tws1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Tws1
@@ -840,7 +840,7 @@ Friend Class dlgMainWnd
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "VB.NET Sample using TWS ActiveX Control"
-        CType(Me.Tws1, System.ComponentModel.ISupportInitialize).EndInit()
+        ' CType(Me.Tws1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1510,7 +1510,7 @@ Friend Class dlgMainWnd
         Next ctr
 
         If eventArgs.errorCode = MKT_DEPTH_DATA_RESET Then
-            m_dlgMktDepth.clear()
+            'm_dlgMktDepth.clear()
         End If
 
     End Sub
@@ -1905,7 +1905,7 @@ Friend Class dlgMainWnd
     '--------------------------------------------------------------------------------
     ' Returns the details for an open order - triggered by the reqOpenOrders() method
     '--------------------------------------------------------------------------------
-    Private Sub Tws1_openOrderEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_openOrderExEvent) Handles Tws1.openOrderEx
+    Private Sub Tws1_openOrderEx(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_openOrderExEvent) Handles Tws1.OnopenOrderEx
 
         Dim contract As IBApi.Contract
         contract = eventArgs.contract
@@ -1919,184 +1919,184 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "OpenOrderEx called, orderId=" & eventArgs.orderId)
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Order:")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderId=" & order.orderId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clientId=" & order.clientId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  permId=" & order.permId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderId=" & order.OrderId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clientId=" & order.ClientId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  permId=" & order.PermId)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  action=" & order.Action)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  quantity=" & order.totalQuantity)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderType=" & order.orderType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lmtPrice=" & DblMaxStr(order.lmtPrice))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  auxPrice=" & DblMaxStr(order.auxPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  quantity=" & order.TotalQuantity)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderType=" & order.OrderType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lmtPrice=" & DblMaxStr(order.LmtPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  auxPrice=" & DblMaxStr(order.AuxPrice))
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & contract.conId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & contract.symbol)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & contract.secType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & contract.expiry)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & contract.strike)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & contract.right)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & contract.multiplier)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & contract.exchange)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & contract.ConId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & contract.Symbol)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & contract.SecType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & contract.Expiry)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & contract.Strike)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & contract.Right)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & contract.Multiplier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & contract.Exchange)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & contract.PrimaryExch)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & contract.Currency)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & contract.localSymbol)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & contract.tradingClass)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & contract.LocalSymbol)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & contract.TradingClass)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comboLegsDescrip=" & contract.ComboLegsDescription)
 
         ' combo legs
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comboLegs={")
 
-        If Not contract.comboLegs Is Nothing Then
+        If Not contract.ComboLegs Is Nothing Then
             Dim comboLegsCount As Long
             Dim orderComboLegsCount As Long
-            comboLegsCount = contract.comboLegs.Count
+            comboLegsCount = contract.ComboLegs.Count
             orderComboLegsCount = 0
 
-            If Not order.orderComboLegs Is Nothing Then
-                orderComboLegsCount = order.orderComboLegs.Count()
+            If Not order.OrderComboLegs Is Nothing Then
+                orderComboLegsCount = order.OrderComboLegs.Count()
             End If
 
             Dim iLoop As Long
             For iLoop = 0 To comboLegsCount - 1
                 Dim comboLeg As IBApi.ComboLeg
-                comboLeg = contract.comboLegs.Item(iLoop)
+                comboLeg = contract.ComboLegs.Item(iLoop)
                 Dim orderComboLegPriceStr As String
                 orderComboLegPriceStr = ""
 
                 If comboLegsCount = orderComboLegsCount Then
                     Dim orderComboLeg As IBApi.OrderComboLeg
-                    orderComboLeg = order.orderComboLegs.Item(iLoop)
-                    orderComboLegPriceStr = " price=" & DblMaxStr(orderComboLeg.price)
+                    orderComboLeg = order.OrderComboLegs.Item(iLoop)
+                    orderComboLegPriceStr = " price=" & DblMaxStr(orderComboLeg.Price)
                 End If
 
                 Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    leg " & (iLoop + 1) & _
-                ": conId=" & comboLeg.conId & " ratio=" & comboLeg.ratio & " action=" & comboLeg.action & _
-                " exchange = " & comboLeg.exchange & " openClose=" & comboLeg.openClose & _
-                " shortSaleSlot=" & comboLeg.shortSaleSlot & " designatedLocation=" & comboLeg.designatedLocation & _
-                " exemptCode=" & comboLeg.exemptCode & orderComboLegPriceStr)
+                ": conId=" & comboLeg.ConId & " ratio=" & comboLeg.Ratio & " action=" & comboLeg.Action & _
+                " exchange = " & comboLeg.Exchange & " openClose=" & comboLeg.OpenClose & _
+                " shortSaleSlot=" & comboLeg.ShortSaleSlot & " designatedLocation=" & comboLeg.DesignatedLocation & _
+                " exemptCode=" & comboLeg.ExemptCode & orderComboLegPriceStr)
             Next iLoop
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
 
         Dim underComp As IBApi.UnderComp
-        underComp = contract.underComp
+        underComp = contract.UnderComp
 
         If (Not underComp Is Nothing) Then
             With underComp
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.conId=" & .conId)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .delta)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .price)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.conId=" & .ConId)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .Delta)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .Price)
             End With
         End If
 
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Order (extended):")
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  timeInForce=" & order.Tif)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaGroup=" & order.ocaGroup)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaType=" & order.ocaType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderRef=" & order.orderRef)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  transmit=" & order.transmit)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  parentId=" & order.parentId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  blockOrder=" & order.blockOrder)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  sweepToFill=" & order.sweepToFill)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  displaySize=" & order.displaySize)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  triggerMethod=" & order.triggerMethod)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  outsideRth=" & order.outsideRth)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hidden=" & order.hidden)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  goodAfterTime=" & order.goodAfterTime)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  goodTillDate=" & order.goodTillDate)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  overridePercentageConstraints=" & order.overridePercentageConstraints)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  rule80A=" & order.rule80A)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  allOrNone=" & order.allOrNone)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minQty=" & IntMaxStr(order.minQty))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  percentOffset=" & DblMaxStr(order.percentOffset))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  trailStopPrice=" & DblMaxStr(order.trailStopPrice))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  trailingPercent=" & DblMaxStr(order.trailingPercent))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  whatIf=" & order.whatIf)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notHeld=" & order.notHeld)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaGroup=" & order.OcaGroup)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ocaType=" & order.OcaType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderRef=" & order.OrderRef)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  transmit=" & order.Transmit)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  parentId=" & order.ParentId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  blockOrder=" & order.BlockOrder)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  sweepToFill=" & order.SweepToFill)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  displaySize=" & order.DisplaySize)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  triggerMethod=" & order.TriggerMethod)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  outsideRth=" & order.OutsideRth)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hidden=" & order.Hidden)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  goodAfterTime=" & order.GoodAfterTime)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  goodTillDate=" & order.GoodTillDate)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  overridePercentageConstraints=" & order.OverridePercentageConstraints)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  rule80A=" & order.Rule80A)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  allOrNone=" & order.AllOrNone)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minQty=" & IntMaxStr(order.MinQty))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  percentOffset=" & DblMaxStr(order.PercentOffset))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  trailStopPrice=" & DblMaxStr(order.TrailStopPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  trailingPercent=" & DblMaxStr(order.TrailingPercent))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  whatIf=" & order.WhatIf)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notHeld=" & order.NotHeld)
 
         ' Financial advisors only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faGroup=" & order.faGroup)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faProfile=" & order.faProfile)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faMethod=" & order.faMethod)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faPercentage=" & order.faPercentage)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faGroup=" & order.FaGroup)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faProfile=" & order.FaProfile)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faMethod=" & order.FaMethod)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  faPercentage=" & order.FaPercentage)
 
         ' Clearing info
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  account=" & order.account)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  settlingFirm=" & order.settlingFirm)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingAccount=" & order.clearingAccount)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingIntent=" & order.clearingIntent)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  account=" & order.Account)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  settlingFirm=" & order.SettlingFirm)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingAccount=" & order.ClearingAccount)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingIntent=" & order.ClearingIntent)
 
         ' Institutional orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  openClose=" & order.openClose)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  origin=" & order.origin)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  shortSaleSlot=" & order.shortSaleSlot)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  designatedLocation=" & order.designatedLocation)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exemptCode=" & order.exemptCode)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  openClose=" & order.OpenClose)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  origin=" & order.Origin)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  shortSaleSlot=" & order.ShortSaleSlot)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  designatedLocation=" & order.DesignatedLocation)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exemptCode=" & order.ExemptCode)
 
         ' SMART routing only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  discretionaryAmt=" & order.discretionaryAmt)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  eTradeOnly=" & order.eTradeOnly)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  firmQuoteOnly=" & order.firmQuoteOnly)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nbboPriceCap=" & DblMaxStr(order.nbboPriceCap))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  optOutSmartRouting=" & order.optOutSmartRouting)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  discretionaryAmt=" & order.DiscretionaryAmt)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  eTradeOnly=" & order.ETradeOnly)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  firmQuoteOnly=" & order.FirmQuoteOnly)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nbboPriceCap=" & DblMaxStr(order.NbboPriceCap))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  optOutSmartRouting=" & order.OptOutSmartRouting)
 
         ' BOX or VOL orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  auctionStrategy=" & order.auctionStrategy)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  auctionStrategy=" & order.AuctionStrategy)
 
         ' BOX order only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  startingPrice=" & DblMaxStr(order.startingPrice))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRefPrice=" & DblMaxStr(order.stockRefPrice))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  delta=" & DblMaxStr(order.delta))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  startingPrice=" & DblMaxStr(order.StartingPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRefPrice=" & DblMaxStr(order.StockRefPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  delta=" & DblMaxStr(order.Delta))
 
         ' pegged to stock or VOL orders
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRangeLower=" & DblMaxStr(order.stockRangeLower))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRangeUpper=" & DblMaxStr(order.stockRangeUpper))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRangeLower=" & DblMaxStr(order.StockRangeLower))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  stockRangeUpper=" & DblMaxStr(order.StockRangeUpper))
 
         ' VOLATILITY orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  volatility=" & DblMaxStr(order.volatility))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  volatilityType=" & order.volatilityType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  continuousUpdate=" & order.continuousUpdate)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  referencePriceType=" & order.referencePriceType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralOrderType=" & order.deltaNeutralOrderType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralAuxPrice=" & DblMaxStr(order.deltaNeutralAuxPrice))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralConId=" & order.deltaNeutralConId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralSettlingFirm=" & order.deltaNeutralSettlingFirm)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralClearingAccount=" & order.deltaNeutralClearingAccount)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralClearingIntent=" & order.deltaNeutralClearingIntent)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralOpenClose=" & order.deltaNeutralOpenClose)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralShortSale=" & order.deltaNeutralShortSale)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralShortSaleSlot=" & order.deltaNeutralShortSaleSlot)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralDesignatedlocation=" & order.deltaNeutralDesignatedLocation)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  volatility=" & DblMaxStr(order.Volatility))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  volatilityType=" & order.VolatilityType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  continuousUpdate=" & order.ContinuousUpdate)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  referencePriceType=" & order.ReferencePriceType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralOrderType=" & order.DeltaNeutralOrderType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralAuxPrice=" & DblMaxStr(order.DeltaNeutralAuxPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralConId=" & order.DeltaNeutralConId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralSettlingFirm=" & order.DeltaNeutralSettlingFirm)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralClearingAccount=" & order.DeltaNeutralClearingAccount)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralClearingIntent=" & order.DeltaNeutralClearingIntent)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralOpenClose=" & order.DeltaNeutralOpenClose)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralShortSale=" & order.DeltaNeutralShortSale)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralShortSaleSlot=" & order.DeltaNeutralShortSaleSlot)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  deltaNeutralDesignatedlocation=" & order.DeltaNeutralDesignatedLocation)
 
         ' COMBO orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  basisPoints=" & DblMaxStr(order.basisPoints))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  basisPointsType=" & IntMaxStr(order.basisPointsType))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  basisPoints=" & DblMaxStr(order.BasisPoints))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  basisPointsType=" & IntMaxStr(order.BasisPointsType))
 
         ' SCALE orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitLevelSize=" & IntMaxStr(order.scaleInitLevelSize))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleSubsLevelSize=" & IntMaxStr(order.scaleSubsLevelSize))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceIncrement=" & DblMaxStr(order.scalePriceIncrement))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceAdjustValue=" & DblMaxStr(order.scalePriceAdjustValue))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceAdjustInterval=" & IntMaxStr(order.scalePriceAdjustInterval))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleProfitOffset=" & DblMaxStr(order.scaleProfitOffset))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleAutoReset=" & order.scaleAutoReset)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitPosition=" & IntMaxStr(order.scaleInitPosition))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitFillQty=" & IntMaxStr(order.scaleInitFillQty))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleRandomPercent=" & IntMaxStr(order.scaleRandomPercent))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitLevelSize=" & IntMaxStr(order.ScaleInitLevelSize))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleSubsLevelSize=" & IntMaxStr(order.ScaleSubsLevelSize))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceIncrement=" & DblMaxStr(order.ScalePriceIncrement))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceAdjustValue=" & DblMaxStr(order.ScalePriceAdjustValue))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scalePriceAdjustInterval=" & IntMaxStr(order.ScalePriceAdjustInterval))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleProfitOffset=" & DblMaxStr(order.ScaleProfitOffset))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleAutoReset=" & order.ScaleAutoReset)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitPosition=" & IntMaxStr(order.ScaleInitPosition))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleInitFillQty=" & IntMaxStr(order.ScaleInitFillQty))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  scaleRandomPercent=" & IntMaxStr(order.ScaleRandomPercent))
 
         ' HEDGE orders only
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeType=" & order.hedgeType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeParam=" & order.hedgeParam)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeType=" & order.HedgeType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeParam=" & order.HedgeParam)
 
         ' ALGO orders only
         Dim algoStrategy As String
-        algoStrategy = order.algoStrategy
+        algoStrategy = order.AlgoStrategy
         If (algoStrategy <> "") Then
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  algoStrategy=" & algoStrategy)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  algoParams={")
             Dim algoParams As List(Of IBApi.TagValue)
-            algoParams = order.algoParams
+            algoParams = order.AlgoParams
             If (Not algoParams Is Nothing) Then
                 Dim algoParamsCount As Long
                 algoParamsCount = algoParams.Count
@@ -2113,7 +2113,7 @@ Friend Class dlgMainWnd
         ' Smart combo routing params
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  smartComboRoutingParams={")
         Dim smartComboRoutingParams As List(Of IBApi.TagValue)
-        smartComboRoutingParams = order.smartComboRoutingParams
+        smartComboRoutingParams = order.SmartComboRoutingParams
         If (Not smartComboRoutingParams Is Nothing) Then
             Dim smartComboRoutingParamsCount As Long
             smartComboRoutingParamsCount = smartComboRoutingParams.Count
@@ -2127,15 +2127,15 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "OrderState:")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  status=" & orderState.status)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  initMargin=" & orderState.initMargin)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maintMargin=" & orderState.maintMargin)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  equityWithLoan=" & orderState.equityWithLoan)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  commission=" & DblMaxStr(orderState.commission))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minCommission=" & DblMaxStr(orderState.minCommission))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maxCommission=" & DblMaxStr(orderState.maxCommission))
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comissionCurrency=" & orderState.commissionCurrency)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  warningText=" & orderState.warningText)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  status=" & orderState.Status)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  initMargin=" & orderState.InitMargin)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maintMargin=" & orderState.MaintMargin)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  equityWithLoan=" & orderState.EquityWithLoan)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  commission=" & DblMaxStr(orderState.Commission))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minCommission=" & DblMaxStr(orderState.MinCommission))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maxCommission=" & DblMaxStr(orderState.MaxCommission))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  comissionCurrency=" & orderState.CommissionCurrency)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  warningText=" & orderState.WarningText)
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "===============================")
 
@@ -2182,7 +2182,7 @@ Friend Class dlgMainWnd
     ' Notification of an updated/new portfolio position - triggered by the reqAcctUpdates() method
     '--------------------------------------------------------------------------------
     Private Sub Tws1_updatePortfolioEx(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updatePortfolioExEvent) Handles Tws1.OnupdatePortfolioEx
-        m_dlgAcctData.updatePortfolio(eventArgs.contract, eventArgs.position, eventArgs.marketPrice, eventArgs.marketValue, eventArgs.averageCost, eventArgs.unrealizedPNL, eventArgs.realizedPNL, eventArgs.accountName)
+        m_dlgAcctData.updatePortfolio(eventArgs.contract, eventArgs.position, eventArgs.marketPrice, eventArgs.marketValue, eventArgs.averageCost, eventArgs.unrealisedPNL, eventArgs.realisedPNL, eventArgs.accountName)
     End Sub
 
     '--------------------------------------------------------------------------------
