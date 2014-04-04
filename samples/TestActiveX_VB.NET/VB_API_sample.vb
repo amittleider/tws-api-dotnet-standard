@@ -10,7 +10,10 @@ Friend Class dlgMainWnd
 	Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
 	Public Sub New()
-		MyBase.New()
+        MyBase.New()
+
+        Tws1 = New Tws(Me)
+
 		If m_vb6FormDefInstance Is Nothing Then
 			If m_InitializingDefInstance Then
 				m_vb6FormDefInstance = Me
@@ -93,68 +96,56 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdCancelFundamentalData As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dlgMainWnd))
-        Me.Tws1 = New Tws(Me)
-        Me.cmdReqHistoricalData = New System.Windows.Forms.Button
-        Me.cmdFinancialAdvisor = New System.Windows.Forms.Button
-        Me.cmdReqAccts = New System.Windows.Forms.Button
-        Me.cmdReqAllOpenOrders = New System.Windows.Forms.Button
-        Me.cmdReqAutoOpenOrders = New System.Windows.Forms.Button
-        Me.cmdServerLogLevel = New System.Windows.Forms.Button
-        Me.cmdReqNews = New System.Windows.Forms.Button
-        Me.cmdReqAcctData = New System.Windows.Forms.Button
-        Me.cmdReqExecutions = New System.Windows.Forms.Button
-        Me.cmdReqIds = New System.Windows.Forms.Button
-        Me.cmdClearForm = New System.Windows.Forms.Button
-        Me.cmdClose = New System.Windows.Forms.Button
-        Me.cmdDisconnect = New System.Windows.Forms.Button
-        Me.cmdReqMktData = New System.Windows.Forms.Button
-        Me.cmdReqMktDepth = New System.Windows.Forms.Button
-        Me.cmdCancelMktDepth = New System.Windows.Forms.Button
-        Me.cmdPlaceOrder = New System.Windows.Forms.Button
-        Me.cmdCancelOrder = New System.Windows.Forms.Button
-        Me.cmdExtendedOrderAtribs = New System.Windows.Forms.Button
-        Me.cmdReqContractData = New System.Windows.Forms.Button
-        Me.cmdReqOpenOrders = New System.Windows.Forms.Button
-        Me.cmdConnect = New System.Windows.Forms.Button
-        Me.lstErrors = New System.Windows.Forms.ListBox
-        Me.lstServerResponses = New System.Windows.Forms.ListBox
-        Me.lstMktData = New System.Windows.Forms.ListBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cmdExerciseOptions = New System.Windows.Forms.Button
-        Me.cmdCancelHistData = New System.Windows.Forms.Button
-        Me.cmdScanner = New System.Windows.Forms.Button
-        Me.cmdReqRealTimeBars = New System.Windows.Forms.Button
-        Me.cmdCancelRealTimeBars = New System.Windows.Forms.Button
-        Me.cmdReqCurrentTime = New System.Windows.Forms.Button
-        Me.cmdWhatIf = New System.Windows.Forms.Button
-        Me.cmdCalcImpliedVolatility = New System.Windows.Forms.Button
-        Me.cmdCalcOptionPrice = New System.Windows.Forms.Button
-        Me.cmdCancelCalcImpliedVolatility = New System.Windows.Forms.Button
-        Me.cmdCancelCalcOptionPrice = New System.Windows.Forms.Button
-        Me.cmdReqGlobalCancel = New System.Windows.Forms.Button
-        Me.cmdReqMarketDataType = New System.Windows.Forms.Button
-        Me.cmdCancelMktData = New System.Windows.Forms.Button
-        Me.cmdReqPositions = New System.Windows.Forms.Button
-        Me.cmdReqAccountSummary = New System.Windows.Forms.Button
-        Me.cmdCancelAccountSummary = New System.Windows.Forms.Button
-        Me.cmdCancelPositions = New System.Windows.Forms.Button
-        Me.cmdGroups = New System.Windows.Forms.Button
-        Me.cmdReqFundamentalData = New System.Windows.Forms.Button
-        Me.cmdCancelFundamentalData = New System.Windows.Forms.Button
-        'CType(Me.Tws1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
+        Me.cmdFinancialAdvisor = New System.Windows.Forms.Button()
+        Me.cmdReqAccts = New System.Windows.Forms.Button()
+        Me.cmdReqAllOpenOrders = New System.Windows.Forms.Button()
+        Me.cmdReqAutoOpenOrders = New System.Windows.Forms.Button()
+        Me.cmdServerLogLevel = New System.Windows.Forms.Button()
+        Me.cmdReqNews = New System.Windows.Forms.Button()
+        Me.cmdReqAcctData = New System.Windows.Forms.Button()
+        Me.cmdReqExecutions = New System.Windows.Forms.Button()
+        Me.cmdReqIds = New System.Windows.Forms.Button()
+        Me.cmdClearForm = New System.Windows.Forms.Button()
+        Me.cmdClose = New System.Windows.Forms.Button()
+        Me.cmdDisconnect = New System.Windows.Forms.Button()
+        Me.cmdReqMktData = New System.Windows.Forms.Button()
+        Me.cmdReqMktDepth = New System.Windows.Forms.Button()
+        Me.cmdCancelMktDepth = New System.Windows.Forms.Button()
+        Me.cmdPlaceOrder = New System.Windows.Forms.Button()
+        Me.cmdCancelOrder = New System.Windows.Forms.Button()
+        Me.cmdExtendedOrderAtribs = New System.Windows.Forms.Button()
+        Me.cmdReqContractData = New System.Windows.Forms.Button()
+        Me.cmdReqOpenOrders = New System.Windows.Forms.Button()
+        Me.cmdConnect = New System.Windows.Forms.Button()
+        Me.lstErrors = New System.Windows.Forms.ListBox()
+        Me.lstServerResponses = New System.Windows.Forms.ListBox()
+        Me.lstMktData = New System.Windows.Forms.ListBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmdExerciseOptions = New System.Windows.Forms.Button()
+        Me.cmdCancelHistData = New System.Windows.Forms.Button()
+        Me.cmdScanner = New System.Windows.Forms.Button()
+        Me.cmdReqRealTimeBars = New System.Windows.Forms.Button()
+        Me.cmdCancelRealTimeBars = New System.Windows.Forms.Button()
+        Me.cmdReqCurrentTime = New System.Windows.Forms.Button()
+        Me.cmdWhatIf = New System.Windows.Forms.Button()
+        Me.cmdCalcImpliedVolatility = New System.Windows.Forms.Button()
+        Me.cmdCalcOptionPrice = New System.Windows.Forms.Button()
+        Me.cmdCancelCalcImpliedVolatility = New System.Windows.Forms.Button()
+        Me.cmdCancelCalcOptionPrice = New System.Windows.Forms.Button()
+        Me.cmdReqGlobalCancel = New System.Windows.Forms.Button()
+        Me.cmdReqMarketDataType = New System.Windows.Forms.Button()
+        Me.cmdCancelMktData = New System.Windows.Forms.Button()
+        Me.cmdReqPositions = New System.Windows.Forms.Button()
+        Me.cmdReqAccountSummary = New System.Windows.Forms.Button()
+        Me.cmdCancelAccountSummary = New System.Windows.Forms.Button()
+        Me.cmdCancelPositions = New System.Windows.Forms.Button()
+        Me.cmdGroups = New System.Windows.Forms.Button()
+        Me.cmdReqFundamentalData = New System.Windows.Forms.Button()
+        Me.cmdCancelFundamentalData = New System.Windows.Forms.Button()
         Me.SuspendLayout()
-        '
-        'Tws1
-        '
-        'Me.Tws1.Enabled = True
-        'Me.Tws1.Location = New System.Drawing.Point(19, 589)
-        'Me.Tws1.Name = "Tws1"
-        'Me.Tws1.OcxState = CType(resources.GetObject("Tws1.OcxState"), System.Windows.Forms.AxHost.State)
-        'Me.Tws1.Size = New System.Drawing.Size(145, 25)
-        'Me.Tws1.TabIndex = 49
         '
         'cmdReqHistoricalData
         '
@@ -799,7 +790,6 @@ Friend Class dlgMainWnd
         Me.Controls.Add(Me.cmdCancelHistData)
         Me.Controls.Add(Me.cmdScanner)
         Me.Controls.Add(Me.cmdExerciseOptions)
-        'Me.Controls.Add(Me.Tws1)
         Me.Controls.Add(Me.cmdReqHistoricalData)
         Me.Controls.Add(Me.cmdFinancialAdvisor)
         Me.Controls.Add(Me.cmdReqAccts)
@@ -840,7 +830,6 @@ Friend Class dlgMainWnd
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "VB.NET Sample using TWS ActiveX Control"
-        ' CType(Me.Tws1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2474,6 +2463,10 @@ Friend Class dlgMainWnd
 
     Private Sub Tws1_displayGroupUpdated(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_displayGroupUpdatedEvent) Handles Tws1.OndisplayGroupUpdated
         m_dlgGroups.displayGroupUpdated(e.reqId, e.contractInfo)
+    End Sub
+
+    Private Sub dlgMainWnd_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        Tws1.disconnect()
     End Sub
 
 
