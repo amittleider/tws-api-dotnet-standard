@@ -697,7 +697,7 @@ namespace IBApi
                     for (int i = 0; i < order.OrderComboLegs.Count; i++)
                     {
                         OrderComboLeg orderComboLeg = order.OrderComboLegs[i];
-                        paramsList.AddParameterMax(orderComboLeg.price);
+                        paramsList.AddParameterMax(orderComboLeg.Price);
                     }
                 }
             }
@@ -2295,7 +2295,7 @@ namespace IBApi
                     for (int i = 0; i < order.OrderComboLegs.Count; ++i)
                     {
                         orderComboLeg = (OrderComboLeg)order.OrderComboLegs[i];
-                        if (orderComboLeg.price != Double.MaxValue)
+                        if (orderComboLeg.Price != Double.MaxValue)
                         {
                             ReportError(id, EClientErrors.UPDATE_TWS,
                                 "  It does not support per-leg prices for order combo legs.");

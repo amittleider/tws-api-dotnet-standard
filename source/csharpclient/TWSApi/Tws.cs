@@ -849,7 +849,7 @@ namespace TWSLib
         [DispId(109)]
         public void addOrderComboLeg(double price)
         {
-            this.orderComboLegs.Add(new OrderComboLeg() { price = price });
+            this.orderComboLegs.Add(new OrderComboLeg() { Price = price });
         }
 
         [DispId(110)]

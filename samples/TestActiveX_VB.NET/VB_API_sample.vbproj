@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8725B2B6-906C-49CE-A1E3-61060F4549E3}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>TWSAPI_VBSample</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>TWSAPI_VBSample</RootNamespace>
+    <StartupObject>TWSAPI_VBSample.dlgMainWnd</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>TWSAPI_VBSample.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>Win32 = True</DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>TWSAPI_VBSample.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>Win32 = True</DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="_DTwsEvents_accountDownloadEndEvent.vb" />
+    <Compile Include="_DTwsEvents_accountSummaryEndEvent.vb" />
+    <Compile Include="_DTwsEvents_accountSummaryEvent.vb" />
+    <Compile Include="_DTwsEvents_commissionReportEvent.vb" />
+    <Compile Include="_DTwsEvents_contractDetailsEndEvent.vb" />
+    <Compile Include="_DTwsEvents_contractDetailsExEvent.vb" />
+    <Compile Include="_DTwsEvents_currentTimeEvent.vb" />
+    <Compile Include="_DTwsEvents_deltaNeutralValidationEvent.vb" />
+    <Compile Include="_DTwsEvents_displayGroupListEvent.vb" />
+    <Compile Include="_DTwsEvents_displayGroupUpdatedEvent.vb" />
+    <Compile Include="_DTwsEvents_errMsgEvent.vb" />
+    <Compile Include="_DTwsEvents_execDetailsEndEvent.vb" />
+    <Compile Include="_DTwsEvents_execDetailsExEvent.vb" />
+    <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
+    <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
+    <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
+    <Compile Include="_DTwsEvents_historicalDataEvent1.vb" />
+    <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
+    <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
+    <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
+    <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
+    <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
+    <Compile Include="_DTwsEvents_positionEvent.vb" />
+    <Compile Include="_DTwsEvents_positionEvent1.vb" />
+    <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
+    <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
+    <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
+    <Compile Include="_DTwsEvents_scannerDataExEvent.vb" />
+    <Compile Include="_DTwsEvents_scannerParametersEvent.vb" />
+    <Compile Include="_DTwsEvents_tickEFPEvent.vb" />
+    <Compile Include="_DTwsEvents_tickGenericEvent.vb" />
+    <Compile Include="_DTwsEvents_tickOptionComputationEvent.vb" />
+    <Compile Include="_DTwsEvents_tickPriceEvent.vb" />
+    <Compile Include="_DTwsEvents_tickSizeEvent.vb" />
+    <Compile Include="_DTwsEvents_tickSnapshotEndEvent.vb" />
+    <Compile Include="_DTwsEvents_tickStringEvent.vb" />
+    <Compile Include="_DTwsEvents_updateAccountTimeEvent.vb" />
+    <Compile Include="_DTwsEvents_updateAccountValueEvent.vb" />
+    <Compile Include="_DTwsEvents_updateMktDepthEvent.vb" />
+    <Compile Include="_DTwsEvents_updateMktDepthL2Event.vb" />
+    <Compile Include="_DTwsEvents_updateNewsBulletinEvent.vb" />
+    <Compile Include="_DTwsEvents_updatePortfolioExEvent.vb" />
+    <Compile Include="_DTwsEvents_verifyCompletedEvent.vb" />
+    <Compile Include="_DTwsEvents_verifyMessageAPIEvent.vb" />
+    <None Include="app.config" />
+    <None Include="_UpgradeReport.htm">
+      <SubType>Preview</SubType>
+    </None>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="dlgAccountSummary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgGroups.Designer.vb">
+      <DependentUpon>dlgGroups.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgGroups.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgAcctData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgAcctUpdates.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgComboOrderLegs.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgConnect.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgExecFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgFinancialAdvisor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgLogConfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgMktDepth.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgNewsBulletins.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgOrder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgOrderAttribs.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgServerResponse.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgSharesAlloc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgUnderComp.Designer.vb">
+      <DependentUpon>dlgUnderComp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgUnderComp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tws.vb" />
+    <Compile Include="Utils.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VB_API_sample.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="dlgAccountSummary.resX">
+      <DependentUpon>dlgAccountSummary.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgGroups.resX">
+      <SubType>Designer</SubType>
+      <DependentUpon>dlgGroups.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgAcctData.resX">
+      <DependentUpon>dlgAcctData.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgAcctUpdates.resX">
+      <DependentUpon>dlgAcctUpdates.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgComboOrderLegs.resX">
+      <DependentUpon>dlgComboOrderLegs.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgConnect.resX">
+      <DependentUpon>dlgConnect.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgExecFilter.resX">
+      <DependentUpon>dlgExecFilter.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgFinancialAdvisor.resX">
+      <DependentUpon>dlgFinancialAdvisor.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgLogConfig.resX">
+      <DependentUpon>dlgLogConfig.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgMktDepth.resX">
+      <DependentUpon>dlgMktDepth.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgNewsBulletins.resX">
+      <DependentUpon>dlgNewsBulletins.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgOrder.resX">
+      <DependentUpon>dlgOrder.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgOrderAttribs.resX">
+      <DependentUpon>dlgOrderAttribs.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgScanner.resX">
+      <DependentUpon>dlgScanner.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgServerResponse.resX">
+      <DependentUpon>dlgServerResponse.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgSharesAlloc.resX">
+      <DependentUpon>dlgSharesAlloc.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgUnderComp.resX">
+      <SubType>Designer</SubType>
+      <DependentUpon>dlgUnderComp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VB_API_sample.resX">
+      <DependentUpon>VB_API_sample.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\csharpclient\CSharpAPI.csproj">
+      <Project>{8ede0744-96c2-40b0-a8dc-37df79370203}</Project>
+      <Name>CSharpAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
