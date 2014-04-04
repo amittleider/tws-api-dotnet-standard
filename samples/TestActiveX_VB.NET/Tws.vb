@@ -481,7 +481,7 @@ Friend Class Tws
     End Sub
 
     Sub reqScannerSubscriptionEx(id As Integer, subscription As IBApi.ScannerSubscription, scannerSubscriptionOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqScannerSubscription(id, subscription, If(scannerSubscriptionOptions Is Nothing, Nothing, scannerSubscriptionOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value))))
+        socket.reqScannerSubscription(id, subscription, If(scannerSubscriptionOptions Is Nothing, Nothing, scannerSubscriptionOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
     End Sub
 
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean)
@@ -501,7 +501,7 @@ Friend Class Tws
     End Sub
 
     Sub reqMktDataEx(tickerId As Integer, m_contractInfo As IBApi.Contract, genericTicks As String, snapshot As Boolean, m_mktDataOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqMktData(tickerId, m_contractInfo, genericTicks, snapshot, If(m_mktDataOptions Is Nothing, Nothing, m_mktDataOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value))))
+        socket.reqMktData(tickerId, m_contractInfo, genericTicks, snapshot, If(m_mktDataOptions Is Nothing, Nothing, m_mktDataOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
     End Sub
 
     Sub cancelMktData(p1 As Integer)
@@ -509,7 +509,7 @@ Friend Class Tws
     End Sub
 
     Sub reqMktDepthEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, m_mktDepthOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqMktData(p1, m_contractInfo, p3, False, If(m_mktDepthOptions Is Nothing, Nothing, m_mktDepthOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value))))
+        socket.reqMktData(p1, m_contractInfo, p3, False, If(m_mktDepthOptions Is Nothing, Nothing, m_mktDepthOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
     End Sub
 
     Sub cancelMktDepth(p1 As Integer)
@@ -517,7 +517,7 @@ Friend Class Tws
     End Sub
 
     Sub reqHistoricalDataEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As String, p4 As String, p5 As String, p6 As String, p7 As Integer, p8 As Integer, m_chartOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqHistoricalData(p1, m_contractInfo, p3, p4, p5, p6, p7, p8, If(m_chartOptions Is Nothing, Nothing, m_chartOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)).ToArray()))
+        socket.reqHistoricalData(p1, m_contractInfo, p3, p4, p5, p6, p7, p8, m_chartOptions)
     End Sub
 
     Sub cancelHistoricalData(p1 As Integer)
@@ -525,7 +525,7 @@ Friend Class Tws
     End Sub
 
     Sub reqFundamentalData(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As String)
-        socket.reqFundamentalData(p1, m_contractInfo, p3)
+        socket.reqFundamentalData(p1, m_contractInfo, p3, Nothing)
     End Sub
 
     Sub cancelFundamentalData(p1 As Integer)
@@ -533,7 +533,7 @@ Friend Class Tws
     End Sub
 
     Sub reqRealTimeBarsEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, p4 As String, p5 As Integer, m_realTimeBarsOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqRealTimeBars(p1, m_contractInfo, p3, p4, p5, If(m_realTimeBarsOptions Is Nothing, Nothing, m_realTimeBarsOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.tag, x.value)).ToArray()))
+        socket.reqRealTimeBars(p1, m_contractInfo, p3, p4, p5, m_realTimeBarsOptions)
     End Sub
 
     Sub cancelRealTimeBars(p1 As Integer)
@@ -605,11 +605,11 @@ Friend Class Tws
     End Sub
 
     Sub calculateImpliedVolatility(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Double, p4 As Double)
-        socket.calculateImpliedVolatility(p1, m_contractInfo, p3, p4)
+        socket.calculateImpliedVolatility(p1, m_contractInfo, p3, p4, Nothing)
     End Sub
 
     Sub calculateOptionPrice(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Double, p4 As Double)
-        socket.calculateOptionPrice(p1, m_contractInfo, p3, p4)
+        socket.calculateOptionPrice(p1, m_contractInfo, p3, p4, Nothing)
     End Sub
 
     Sub cancelCalculateImpliedVolatility(p1 As Integer)
@@ -744,4 +744,7 @@ Friend Class Tws
 
     Event OnpositionEnd(tws As Tws, Empty As EventArgs)
 
+    Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
+
+    End Sub
 End Class
