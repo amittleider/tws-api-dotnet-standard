@@ -1,4 +1,4 @@
-﻿
+
 Namespace AxTWSLib
     Class _DTwsEvents_tickSnapshotEndEvent
 

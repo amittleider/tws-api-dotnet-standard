@@ -1,4 +1,4 @@
-﻿
+
 Namespace AxTWSLib
     Friend Class _DTwsEvents_tickSizeEvent
 
