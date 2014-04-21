@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Timber Hill (Europe) AG")]
 [assembly: AssemblyProduct("IBSamples")]
-[assembly: AssemblyCopyright("Copyright © Timber Hill (Europe) AG 2013")]
+[assembly: AssemblyCopyright("Copyright � Timber Hill (Europe) AG 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
