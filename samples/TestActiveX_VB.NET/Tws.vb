@@ -504,7 +504,7 @@ Friend Class Tws
     End Sub
 
     Sub reqMktDataEx(tickerId As Integer, m_contractInfo As IBApi.Contract, genericTicks As String, snapshot As Boolean, m_mktDataOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqMktData(tickerId, m_contractInfo, genericTicks, snapshot, If(m_mktDataOptions Is Nothing, Nothing, m_mktDataOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
+        socket.reqMktData(tickerId, m_contractInfo, genericTicks, snapshot, m_mktDataOptions)
     End Sub
 
     Sub cancelMktData(p1 As Integer)
@@ -512,7 +512,7 @@ Friend Class Tws
     End Sub
 
     Sub reqMktDepthEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, m_mktDepthOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqMktData(p1, m_contractInfo, p3, False, If(m_mktDepthOptions Is Nothing, Nothing, m_mktDepthOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
+        socket.reqMktData(p1, m_contractInfo, p3, False, m_mktDepthOptions)
     End Sub
 
     Sub cancelMktDepth(p1 As Integer)

@@ -5,6 +5,7 @@ Option Strict Off
 Option Explicit On
 
 Imports System.Collections.Generic
+Imports System.Linq
 
 Friend Class dlgComboOrderLegs
     Inherits System.Windows.Forms.Form
@@ -54,7 +55,7 @@ Friend Class dlgComboOrderLegs
     Public WithEvents Label2 As System.Windows.Forms.Label
     Public WithEvents Label1 As System.Windows.Forms.Label
     Public WithEvents frmLegDetails As System.Windows.Forms.GroupBox
-    'Public WithEvents grdComboLegs As AxMSFlexGridLib.AxMSFlexGrid
+    Public WithEvents grdComboLegs As ListView
     Public WithEvents Label7 As System.Windows.Forms.Label
     Public WithEvents Label6 As System.Windows.Forms.Label
     Public WithEvents txtDesignatedLocation As System.Windows.Forms.TextBox
@@ -68,37 +69,35 @@ Friend Class dlgComboOrderLegs
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dlgComboOrderLegs))
+        Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.cmdOk = New System.Windows.Forms.Button
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdRemoveLeg = New System.Windows.Forms.Button
-        Me.frmLegDetails = New System.Windows.Forms.GroupBox
-        Me.txtPrice = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtExemptCode = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtDesignatedLocation = New System.Windows.Forms.TextBox
-        Me.txtShortSaleSlot = New System.Windows.Forms.TextBox
-        Me.cmdAddLeg = New System.Windows.Forms.Button
-        Me.txtOpenClose = New System.Windows.Forms.TextBox
-        Me.txtExchange = New System.Windows.Forms.TextBox
-        Me.txtAction = New System.Windows.Forms.TextBox
-        Me.txtRatio = New System.Windows.Forms.TextBox
-        Me.txtConid = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Frame1 = New System.Windows.Forms.GroupBox
-        'Me.grdComboLegs = New AxMSFlexGridLib.AxMSFlexGrid
+        Me.cmdOk = New System.Windows.Forms.Button()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdRemoveLeg = New System.Windows.Forms.Button()
+        Me.frmLegDetails = New System.Windows.Forms.GroupBox()
+        Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtExemptCode = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtDesignatedLocation = New System.Windows.Forms.TextBox()
+        Me.txtShortSaleSlot = New System.Windows.Forms.TextBox()
+        Me.cmdAddLeg = New System.Windows.Forms.Button()
+        Me.txtOpenClose = New System.Windows.Forms.TextBox()
+        Me.txtExchange = New System.Windows.Forms.TextBox()
+        Me.txtAction = New System.Windows.Forms.TextBox()
+        Me.txtRatio = New System.Windows.Forms.TextBox()
+        Me.txtConid = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Frame1 = New System.Windows.Forms.GroupBox()
+        Me.grdComboLegs = New System.Windows.Forms.ListView()
         Me.frmLegDetails.SuspendLayout()
         Me.Frame1.SuspendLayout()
-        'CType(Me.grdComboLegs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -434,7 +433,7 @@ Friend Class dlgComboOrderLegs
         'Frame1
         '
         Me.Frame1.BackColor = System.Drawing.SystemColors.Control
-        ' Me.Frame1.Controls.Add(Me.grdComboLegs)
+        Me.Frame1.Controls.Add(Me.grdComboLegs)
         Me.Frame1.Controls.Add(Me.cmdRemoveLeg)
         Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
@@ -448,11 +447,13 @@ Friend Class dlgComboOrderLegs
         '
         'grdComboLegs
         '
-        'Me.grdComboLegs.Location = New System.Drawing.Point(8, 24)
-        'Me.grdComboLegs.Name = "grdComboLegs"
-        'Me.grdComboLegs.OcxState = CType(resources.GetObject("grdComboLegs.OcxState"), System.Windows.Forms.AxHost.State)
-        'Me.grdComboLegs.Size = New System.Drawing.Size(486, 198)
-        'Me.grdComboLegs.TabIndex = 0
+        Me.grdComboLegs.FullRowSelect = True
+        Me.grdComboLegs.Location = New System.Drawing.Point(8, 24)
+        Me.grdComboLegs.Name = "grdComboLegs"
+        Me.grdComboLegs.Size = New System.Drawing.Size(486, 198)
+        Me.grdComboLegs.TabIndex = 0
+        Me.grdComboLegs.UseCompatibleStateImageBehavior = False
+        Me.grdComboLegs.View = System.Windows.Forms.View.Details
         '
         'dlgComboOrderLegs
         '
@@ -477,7 +478,6 @@ Friend Class dlgComboOrderLegs
         Me.frmLegDetails.ResumeLayout(False)
         Me.frmLegDetails.PerformLayout()
         Me.Frame1.ResumeLayout(False)
-        'CType(Me.grdComboLegs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -538,36 +538,29 @@ Friend Class dlgComboOrderLegs
 
             Dim Count As Long
             Dim iLoop As Long
-            Dim insertPos As Long
 
             Count = comboLegs.Count
 
             For iLoop = 0 To Count - 1 Step 1
-
-                'insertPos = grdComboLegs.Rows
 
                 Dim cmbLeg As IBApi.ComboLeg
                 cmbLeg = comboLegs.Item(iLoop)
                 Dim orderCmbLeg As IBApi.OrderComboLeg
                 orderCmbLeg = orderComboLegs.Item(iLoop)
 
-                Dim row As String
+                Dim row As List(Of String) = New List(Of String)
 
                 With cmbLeg
-                    row = .conId & vbTab & .ratio & vbTab & .action & vbTab _
-                        & .exchange & vbTab & .openClose & vbTab _
-                        & .shortSaleSlot & vbTab & .designatedLocation & vbTab & .exemptCode
+                    row.AddRange(New String() {.ConId, .Ratio, .Action,
+                        .Exchange, .OpenClose,
+                        .ShortSaleSlot, .DesignatedLocation, .ExemptCode})
                 End With
 
                 With orderCmbLeg
-                    If .price = Double.MaxValue Then
-                        row = row & vbTab
-                    Else
-                        row = row & vbTab & .price
-                    End If
+                    row.Add(If(.Price = Double.MaxValue, "", .Price))
                 End With
 
-                'grdComboLegs.AddItem(row, insertPos)
+                grdComboLegs.Items.Add(New ListViewItem(row.ToArray()))
 
             Next
         End If
@@ -578,62 +571,53 @@ Friend Class dlgComboOrderLegs
     ' ===============================================================================
     Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
 
-        Dim iLoop As Long
+        Dim iLoop As Integer
         Dim Count As Long
 
-        'Count = grdComboLegs.Rows
+        Count = grdComboLegs.Items.Count
 
-        'If (Count > 1) Then
+        If (Count > 0) Then
 
-        '    m_comboLegs = New List(Of IBApi.ComboLeg)
-        '    m_orderComboLegs = New List(Of IBApi.OrderComboLeg)
+            m_comboLegs = New List(Of IBApi.ComboLeg)
+            m_orderComboLegs = New List(Of IBApi.OrderComboLeg)
 
-        '    For iLoop = 1 To Count - 1 Step 1
+            For iLoop = 0 To Count - 1 Step 1
 
-        '        Dim cmbLeg As IBApi.ComboLeg = New IBApi.ComboLeg
-        '        m_comboLegs.Add(cmbLeg)
-        '        Dim orderCmbLeg As IBApi.OrderComboLeg = New IBApi.OrderComboLeg
-        '        m_orderComboLegs.Add(orderCmbLeg)
+                Dim cmbLeg As IBApi.ComboLeg = New IBApi.ComboLeg
+                m_comboLegs.Add(cmbLeg)
+                Dim orderCmbLeg As IBApi.OrderComboLeg = New IBApi.OrderComboLeg
+                m_orderComboLegs.Add(orderCmbLeg)
 
-        '        grdComboLegs.Row = iLoop
+                Dim Row As ListViewItem = grdComboLegs.Items(iLoop)
 
-        '        grdComboLegs.Col = 0
-        '        cmbLeg.conId = CInt(grdComboLegs.Text)
+                cmbLeg.ConId = CInt(Row.SubItems(0).Text)
 
-        '        grdComboLegs.Col = 1
-        '        cmbLeg.ratio = CInt(grdComboLegs.Text)
+                cmbLeg.Ratio = CInt(Row.SubItems(1).Text)
 
-        '        grdComboLegs.Col = 2
-        '        cmbLeg.action = grdComboLegs.Text
+                cmbLeg.Action = Row.SubItems(2).Text
 
-        '        grdComboLegs.Col = 3
-        '        cmbLeg.exchange = grdComboLegs.Text
+                cmbLeg.Exchange = Row.SubItems(3).Text
 
-        '        grdComboLegs.Col = 4
-        '        cmbLeg.openClose = CShort(grdComboLegs.Text)
+                cmbLeg.OpenClose = CShort(Row.SubItems(4).Text)
 
-        '        grdComboLegs.Col = 5
-        '        cmbLeg.shortSaleSlot = CInt(grdComboLegs.Text)
+                cmbLeg.ShortSaleSlot = CInt(Row.SubItems(5).Text)
 
-        '        grdComboLegs.Col = 6
-        '        cmbLeg.designatedLocation = grdComboLegs.Text
+                cmbLeg.DesignatedLocation = Row.SubItems(6).Text
 
-        '        grdComboLegs.Col = 7
-        '        If Not String.IsNullOrEmpty(grdComboLegs.Text) Then
-        '            cmbLeg.exemptCode = CInt(grdComboLegs.Text)
-        '        Else
-        '            cmbLeg.exemptCode = CInt("-1")
-        '        End If
+                If Not String.IsNullOrEmpty(Row.SubItems(7).Text) Then
+                    cmbLeg.ExemptCode = CInt(Row.SubItems(7).Text)
+                Else
+                    cmbLeg.ExemptCode = CInt("-1")
+                End If
 
-        '        grdComboLegs.Col = 8
-        '        If Len(grdComboLegs.Text) = 0 Then
-        '            orderCmbLeg.price = Double.MaxValue
-        '        Else
-        '            orderCmbLeg.price = CDbl(grdComboLegs.Text)
-        '        End If
-        '    Next
+                If Len(Row.SubItems(8).Text) = 0 Then
+                    orderCmbLeg.Price = Double.MaxValue
+                Else
+                    orderCmbLeg.Price = CDbl(grdComboLegs.Text)
+                End If
+            Next
 
-        'End If
+        End If
 
         m_ok = True
         Hide()
@@ -653,35 +637,17 @@ Friend Class dlgComboOrderLegs
     ' Adds a combo leg to the list
     '--------------------------------------------------------------------------------
     Private Sub cmdAddLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddLeg.Click
-        Dim insertPos As Short
-        Dim row As String
-        'insertPos = grdComboLegs.Rows
-        row = txtConid.Text & vbTab & txtRatio.Text & vbTab & txtAction.Text & vbTab & txtExchange.Text & vbTab & txtOpenClose.Text & vbTab & txtShortSaleSlot.Text & vbTab & txtDesignatedLocation.Text & vbTab & txtExemptCode.Text & vbTab & txtPrice.Text
+        Dim row As String() = {txtConid.Text, txtRatio.Text, txtAction.Text, txtExchange.Text, txtOpenClose.Text, txtShortSaleSlot.Text, txtDesignatedLocation.Text, txtExemptCode.Text, txtPrice.Text}
 
-        'grdComboLegs.AddItem(row, insertPos)
+        grdComboLegs.Items.Add(New ListViewItem(row))
     End Sub
 
     '--------------------------------------------------------------------------------
     ' Removes a combo leg from the list
     '--------------------------------------------------------------------------------
     Private Sub cmdRemoveLeg_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRemoveLeg.Click
-        Dim selRowEnd, selRowStart, temp As Object
-        Dim iLoop As Short
 
-        ' get the current rows selection if any
-        'selRowStart = grdComboLegs.Row
-        'selRowEnd = grdComboLegs.RowSel
-        If selRowStart > selRowEnd Then
-            temp = selRowStart
-            selRowStart = selRowEnd
-            selRowEnd = temp
-        End If
-
-        For iLoop = selRowEnd To selRowStart Step -1
-            If Not iLoop = 0 Then
-                'grdComboLegs.RemoveItem(iLoop)
-            End If
-        Next iLoop
+        grdComboLegs.SelectedItems.OfType(Of ListViewItem).ToList().ForEach(Sub(x) grdComboLegs.Items.Remove(x))
 
     End Sub
 
@@ -691,6 +657,9 @@ Friend Class dlgComboOrderLegs
     Private Sub dlgComboOrderLegs_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         Dim title As String
         title = "Combination Order Legs"
-        'Call grdComboLegs.AddItem("ConId" & vbTab & "Ratio" & vbTab & "Side" & vbTab & "Exchange" & vbTab & "Open/Close" & vbTab & "Short Sale Slot" & vbTab & "Location" & vbTab & "Exempt Code" & vbTab & "Price", 0)
+        Call grdComboLegs.Columns.AddRange(
+            New String() {
+            "ConId", "Ratio", "Side", "Exchange", "Open/Close", "Short Sale Slot", "Location", "Exempt Code", "Price"
+                         }.Select(Function(x) New ColumnHeader() With {.Text = x}).ToArray())
     End Sub
 End Class
