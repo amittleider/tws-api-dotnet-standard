@@ -9,8 +9,7 @@ using System.Text;
 
 namespace IBApi
 {
-    [ComVisible(true)]
-    public class TagValue : TWSApi.ITagValue
+    public class TagValue
     {
         private string tag;
         private string value;
@@ -56,30 +55,6 @@ namespace IBApi
             }
 
             return true;
-        }
-
-        string TWSApi.ITagValue.tag
-        {
-            get
-            {
-                return this.tag;
-            }
-            set
-            {
-                this.tag = value;
-            }
-        }
-
-        string TWSApi.ITagValue.value
-        {
-            get
-            {
-                return this.value;
-            }
-            set
-            {
-                this.value = value;
-            }
         }
     }
 }

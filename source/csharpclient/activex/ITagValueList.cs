@@ -27,17 +27,17 @@ namespace TWSLib
     }
 
     [ComVisible(true)]
-    public class TagValueList : ITagValueList
+    public class ComTagValueList : ITagValueList
     {
-        public static implicit operator KeyValuePair<string, string>[](TagValueList list)
+        public static implicit operator KeyValuePair<string, string>[](ComTagValueList list)
         {
             return list == null ? null : list.Tvl.Select(x => new KeyValuePair<string, string>(x.Tag, x.Value)).ToArray();
         }
 
         public List<IBApi.TagValue> Tvl { get; private set; }
 
-        public TagValueList() : this(new List<IBApi.TagValue>()) { Tvl = new List<IBApi.TagValue>(); }
-        public TagValueList(List<IBApi.TagValue> tvl)
+        public ComTagValueList() : this(new List<IBApi.TagValue>()) { Tvl = new List<IBApi.TagValue>(); }
+        public ComTagValueList(List<IBApi.TagValue> tvl)
         {
             this.Tvl = tvl == null ? new List<IBApi.TagValue>() : tvl;
         }

@@ -14,51 +14,18 @@ namespace IBApi
      * @brief extended contract details.
      * @sa Contract
      */
-    public class ContractDetails
+    [ComVisible(true)]
+    public class ComContractDetails : TWSLib.IContractDetails
     {
-        private Contract summary;
-        private string marketName;
-        private double minTick;
-        private int priceMagnifier;
-        private string orderTypes;
-        private string validExchanges;
-        private int underConId;
-        private string longName;
-        private string contractMonth;
-        private string industry;
-        private string category;
-        private string subcategory;
-        private string timeZoneId;
-        private string tradingHours;
-        private string liquidHours;
-        private string evRule;
-        private double evMultiplier;       
-        private List<TagValue> secIdList;
-       
-        // BOND values
-        private string cusip;
-        private string ratings;
-        private string descAppend;
-        private string bondType;
-        private string couponType;
-        private bool callable = false;
-        private bool putable = false;
-        private double coupon = 0;
-        private bool convertible = false;
-        private string maturity;
-        private string issueDate;
-        private string nextOptionDate;
-        private string nextOptionType;
-        private bool nextOptionPartial = false;
-        private string notes;
+        ContractDetails data = new ContractDetails();
 
         /**
          * @brief A Contract object summarising this product.
          */
         public Contract Summary
         {
-            get { return summary; }
-            set { summary = value; }
+            get { return data.Summary; }
+            set { data.Summary = value; }
         }
 
         /**
@@ -66,8 +33,8 @@ namespace IBApi
         */
         public string MarketName
         {
-            get { return marketName; }
-            set { marketName = value; }
+            get { return data.MarketName; }
+            set { data.MarketName = value; }
         }
 
         /**
@@ -76,8 +43,8 @@ namespace IBApi
         */
         public double MinTick
         {
-            get { return minTick; }
-            set { minTick = value; }
+            get { return data.MinTick; }
+            set { data.MinTick = value; }
         }
 
         /**
@@ -85,8 +52,8 @@ namespace IBApi
         */
         public int PriceMagnifier
         {
-            get { return priceMagnifier; }
-            set { priceMagnifier = value; }
+            get { return data.PriceMagnifier; }
+            set { data.PriceMagnifier = value; }
         }
 
         /**
@@ -94,8 +61,8 @@ namespace IBApi
         */
         public string OrderTypes
         {
-            get { return orderTypes; }
-            set { orderTypes = value; }
+            get { return data.OrderTypes; }
+            set { data.OrderTypes = value; }
         }
 
         /**
@@ -103,8 +70,8 @@ namespace IBApi
         */
         public string ValidExchanges
         {
-            get { return validExchanges; }
-            set { validExchanges = value; }
+            get { return data.ValidExchanges; }
+            set { data.ValidExchanges = value; }
         }
 
         /**
@@ -112,8 +79,8 @@ namespace IBApi
         */
         public int UnderConId
         {
-            get { return underConId; }
-            set { underConId = value; }
+            get { return data.UnderConId; }
+            set { data.UnderConId = value; }
         }
 
         /**
@@ -121,8 +88,8 @@ namespace IBApi
         */
         public string LongName
         {
-            get { return longName; }
-            set { longName = value; }
+            get { return data.LongName; }
+            set { data.LongName = value; }
         }
 
         /**
@@ -130,8 +97,8 @@ namespace IBApi
         */
         public string ContractMonth
         {
-            get { return contractMonth; }
-            set { contractMonth = value; }
+            get { return data.ContractMonth; }
+            set { data.ContractMonth = value; }
         }
 
         /**
@@ -139,8 +106,8 @@ namespace IBApi
         */
         public string Industry
         {
-            get { return industry; }
-            set { industry = value; }
+            get { return data.Industry; }
+            set { data.Industry = value; }
         }
 
         /**
@@ -148,8 +115,8 @@ namespace IBApi
         */
         public string Category
         {
-            get { return category; }
-            set { category = value; }
+            get { return data.Category; }
+            set { data.Category = value; }
         }
 
         /**
@@ -157,8 +124,8 @@ namespace IBApi
         */
         public string Subcategory
         {
-            get { return subcategory; }
-            set { subcategory = value; }
+            get { return data.Subcategory; }
+            set { data.Subcategory = value; }
         }
 
         /**
@@ -166,8 +133,8 @@ namespace IBApi
         */
         public string TimeZoneId
         {
-            get { return timeZoneId; }
-            set { timeZoneId = value; }
+            get { return data.TimeZoneId; }
+            set { data.TimeZoneId = value; }
         }
 
         /**
@@ -176,8 +143,8 @@ namespace IBApi
         */
         public string TradingHours
         {
-            get { return tradingHours; }
-            set { tradingHours = value; }
+            get { return data.TradingHours; }
+            set { data.TradingHours = value; }
         }
 
         /**
@@ -186,8 +153,8 @@ namespace IBApi
         */
         public string LiquidHours
         {
-            get { return liquidHours; }
-            set { liquidHours = value; }
+            get { return data.LiquidHours; }
+            set { data.LiquidHours = value; }
         }
 
         /**
@@ -196,8 +163,8 @@ namespace IBApi
         */
         public string EvRule
         {
-            get { return evRule; }
-            set { evRule = value; }
+            get { return data.EvRule; }
+            set { data.EvRule = value; }
         }
 
         /**
@@ -206,8 +173,8 @@ namespace IBApi
         */
         public double EvMultiplier
         {
-            get { return evMultiplier; }
-            set { evMultiplier = value; }
+            get { return data.EvMultiplier; }
+            set { data.EvMultiplier = value; }
         }
 
         /**
@@ -216,8 +183,8 @@ namespace IBApi
         */
         public List<TagValue> SecIdList
         {
-            get { return secIdList; }
-            set { secIdList = value; }
+            get { return data.SecIdList; }
+            set { data.SecIdList = value; }
         }
 
         /**
@@ -226,8 +193,8 @@ namespace IBApi
         */
         public string Cusip
         {
-            get { return cusip; }
-            set { cusip = value; }
+            get { return data.Cusip; }
+            set { data.Cusip = value; }
         }
 
         /**
@@ -236,8 +203,8 @@ namespace IBApi
         */
         public string Ratings
         {
-            get { return ratings; }
-            set { ratings = value; }
+            get { return data.Ratings; }
+            set { data.Ratings = value; }
         }
 
         /**
@@ -246,8 +213,8 @@ namespace IBApi
         */
         public string DescAppend
         {
-            get { return descAppend; }
-            set { descAppend = value; }
+            get { return data.DescAppend; }
+            set { data.DescAppend = value; }
         }
 
         /**
@@ -255,8 +222,8 @@ namespace IBApi
         */
         public string BondType
         {
-            get { return bondType; }
-            set { bondType = value; }
+            get { return data.BondType; }
+            set { data.BondType = value; }
         }
 
         /**
@@ -265,8 +232,8 @@ namespace IBApi
         */
         public string CouponType
         {
-            get { return couponType; }
-            set { couponType = value; }
+            get { return data.CouponType; }
+            set { data.CouponType = value; }
         }
 
         /**
@@ -275,8 +242,8 @@ namespace IBApi
         */
         public bool Callable
         {
-            get { return callable; }
-            set { callable = value; }
+            get { return data.Callable; }
+            set { data.Callable = value; }
         }
 
         /**
@@ -285,8 +252,8 @@ namespace IBApi
         */
         public bool Putable
         {
-            get { return putable; }
-            set { putable = value; }
+            get { return data.Putable; }
+            set { data.Putable = value; }
         }
 
         /**
@@ -295,8 +262,8 @@ namespace IBApi
         */
         public double Coupon
         {
-            get { return coupon; }
-            set { coupon = value; }
+            get { return data.Coupon; }
+            set { data.Coupon = value; }
         }
 
         /**
@@ -305,8 +272,8 @@ namespace IBApi
         */
         public bool Convertible
         {
-            get { return convertible; }
-            set { convertible = value; }
+            get { return data.Convertible; }
+            set { data.Convertible = value; }
         }
 
         /**
@@ -315,8 +282,8 @@ namespace IBApi
         */
         public string Maturity
         {
-            get { return maturity; }
-            set { maturity = value; }
+            get { return data.Maturity; }
+            set { data.Maturity = value; }
         }
 
         /** 
@@ -325,8 +292,8 @@ namespace IBApi
         */
         public string IssueDate
         {
-            get { return issueDate; }
-            set { issueDate = value; }
+            get { return data.IssueDate; }
+            set { data.IssueDate = value; }
         }
 
         /**
@@ -335,8 +302,8 @@ namespace IBApi
         */
         public string NextOptionDate
         {
-            get { return nextOptionDate; }
-            set { nextOptionDate = value; }
+            get { return data.NextOptionDate; }
+            set { data.NextOptionDate = value; }
         }
 
         /**
@@ -345,8 +312,8 @@ namespace IBApi
         */
         public string NextOptionType
         {
-            get { return nextOptionType; }
-            set { nextOptionType = value; }
+            get { return data.NextOptionType; }
+            set { data.NextOptionType = value; }
         }
 
         /**
@@ -355,8 +322,8 @@ namespace IBApi
        */
         public bool NextOptionPartial
         {
-            get { return nextOptionPartial; }
-            set { nextOptionPartial = value; }
+            get { return data.NextOptionPartial; }
+            set { data.NextOptionPartial = value; }
         }
 
         /**
@@ -365,40 +332,183 @@ namespace IBApi
         */
         public string Notes
         {
-            get { return notes; }
-            set { notes = value; }
+            get { return data.Notes; }
+            set { data.Notes = value; }
+        }
+        
+        string TWSLib.IContractDetails.marketName
+        {
+            get { return MarketName; }
         }
 
-        public ContractDetails()
+        double TWSLib.IContractDetails.minTick
         {
-            summary = new Contract();
-            minTick = 0;
-            underConId = 0;
-            evMultiplier = 0;
+            get { return MinTick; }
         }
 
-        public ContractDetails(Contract summary, String marketName,
-                double minTick, String orderTypes, String validExchanges, int underConId, String longName,
-                String contractMonth, String industry, String category, String subcategory,
-                String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, double evMultiplier)
+        int TWSLib.IContractDetails.priceMagnifier
         {
-            Summary = summary;
-            MarketName = marketName;
-            MinTick = minTick;
-            OrderTypes = orderTypes;
-            ValidExchanges = validExchanges;
-            UnderConId = underConId;
-            LongName = longName;
-            ContractMonth = contractMonth;
-            Industry = industry;
-            Category = category;
-            Subcategory = subcategory;
-            TimeZoneId = timeZoneId;
-            TradingHours = tradingHours;
-            LiquidHours = liquidHours;
-            EvRule = evRule;
-            EvMultiplier = evMultiplier;
+            get { return PriceMagnifier; }
+        }
+
+        string TWSLib.IContractDetails.orderTypes
+        {
+            get { return OrderTypes; }
+        }
+
+        string TWSLib.IContractDetails.validExchanges
+        {
+            get { return ValidExchanges; }
+        }
+
+        int TWSLib.IContractDetails.underConId
+        {
+            get { return UnderConId; }
+        }
+
+        string TWSLib.IContractDetails.longName
+        {
+            get { return LongName; }
+        }
+
+        string TWSLib.IContractDetails.contractMonth
+        {
+            get { return ContractMonth; }
+        }
+
+        string TWSLib.IContractDetails.industry
+        {
+            get { return Industry; }
+        }
+
+        string TWSLib.IContractDetails.category
+        {
+            get { return Category; }
+        }
+
+        string TWSLib.IContractDetails.subcategory
+        {
+            get { return Subcategory; }
+        }
+
+        string TWSLib.IContractDetails.timeZoneId
+        {
+            get { return TimeZoneId; }
+        }
+
+        string TWSLib.IContractDetails.tradingHours
+        {
+            get { return TradingHours; }
+        }
+
+        string TWSLib.IContractDetails.liquidHours
+        {
+            get { return LiquidHours; }
+        }
+
+        object TWSLib.IContractDetails.summary
+        {
+            get { return Summary; }
+        }
+
+        object TWSLib.IContractDetails.secIdList
+        {
+            get { return SecIdList; }
+        }
+
+        string TWSLib.IContractDetails.cusip
+        {
+            get { return Cusip; }
+        }
+
+        string TWSLib.IContractDetails.ratings
+        {
+            get { return Ratings; }
+        }
+
+        string TWSLib.IContractDetails.descAppend
+        {
+            get { return DescAppend; }
+        }
+
+        string TWSLib.IContractDetails.bondType
+        {
+            get { return BondType; }
+        }
+
+        string TWSLib.IContractDetails.couponType
+        {
+            get { return CouponType; }
+        }
+
+        bool TWSLib.IContractDetails.callable
+        {
+            get { return Callable; }
+        }
+
+        bool TWSLib.IContractDetails.putable
+        {
+            get { return Putable; }
+        }
+
+        double TWSLib.IContractDetails.coupon
+        {
+            get { return Coupon; }
+        }
+
+        bool TWSLib.IContractDetails.convertible
+        {
+            get { return Convertible; }
+        }
+
+        string TWSLib.IContractDetails.maturity
+        {
+            get { return Maturity; }
+        }
+
+        string TWSLib.IContractDetails.issueDate
+        {
+            get { return IssueDate; }
+        }
+
+        string TWSLib.IContractDetails.nextOptionDate
+        {
+            get { return NextOptionDate; }
+        }
+
+        string TWSLib.IContractDetails.nextOptionType
+        {
+            get { return NextOptionType; }
+        }
+
+        bool TWSLib.IContractDetails.nextOptionPartial
+        {
+            get { return NextOptionPartial; }
+        }
+
+        string TWSLib.IContractDetails.notes
+        {
+            get { return Notes; }
+        }
+
+        string TWSLib.IContractDetails.evRule
+        {
+            get { return EvRule; }
+        }
+
+        double TWSLib.IContractDetails.evMultiplier
+        {
+            get { return EvMultiplier; }
+        }
+
+        public static explicit operator ComContractDetails(ContractDetails cd)
+        {
+            return new ComContractDetails() { data = cd };
+        }
+
+        public static explicit operator ContractDetails(ComContractDetails ccd)
+        {
+            return ccd.data;
         }
     }
 }

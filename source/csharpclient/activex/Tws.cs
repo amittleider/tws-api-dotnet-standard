@@ -748,14 +748,14 @@ namespace TWSLib
         public void calculateImpliedVolatility(int reqId, IContract contract, double optionPrice, double underPrice)
         {
             //X - CHANGED
-            this.socket.calculateImpliedVolatility(reqId, (Contract)contract, optionPrice, underPrice, null);
+            this.socket.calculateImpliedVolatility(reqId, (Contract)(contract as ComContract), optionPrice, underPrice, null);
         }
 
         [DispId(95)]
         public void calculateOptionPrice(int reqId, IContract contract, double volatility, double underPrice)
         {
             //X - CHANGED
-            this.socket.calculateOptionPrice(reqId, (Contract)contract, volatility, underPrice, null);
+            this.socket.calculateOptionPrice(reqId, (Contract)(contract as ComContract), volatility, underPrice, null);
         }
 
         [DispId(96)]
@@ -785,13 +785,13 @@ namespace TWSLib
         [DispId(100)]
         public void reqContractDetailsEx(int reqId, IContract contract)
         {
-            this.socket.reqContractDetails(reqId, (Contract)contract);
+            this.socket.reqContractDetails(reqId, (Contract)(contract as ComContract));
         }
 
         [DispId(101)]
         public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options)
         {
-            this.socket.reqMktData(tickerId, (Contract)contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
+            this.socket.reqMktData(tickerId, (Contract)(contract as ComContract), genericTicks, snapshot, ITagValueListToListTagValue(options));
         }
 
         private static List<TagValue> ITagValueListToListTagValue(ITagValueList v)
@@ -799,51 +799,51 @@ namespace TWSLib
             if (v == null)
                 return null;
 
-            return (v as TagValueList).Tvl;
+            return (v as ComTagValueList).Tvl;
         }
 
         [DispId(102)]
         public void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options)
         {
-            this.socket.reqMarketDepth(tickerId, (Contract)contract, numRows, ITagValueListToListTagValue(options));
+            this.socket.reqMarketDepth(tickerId, (Contract)(contract as ComContract), numRows, ITagValueListToListTagValue(options));
         }
 
         [DispId(103)]
         public void placeOrderEx(int orderId, IContract contract, IOrder order)
         {
-            this.socket.placeOrder(orderId, (Contract)contract, (Order)order);
+            this.socket.placeOrder(orderId, (Contract)(contract as ComContract), (Order)(order as ComOrder));
         }
 
         [DispId(104)]
         public void reqExecutionsEx(int reqId, IExecutionFilter filter)
         {
-            this.socket.reqExecutions(reqId, (ExecutionFilter)filter);
+            this.socket.reqExecutions(reqId, (ExecutionFilter)(filter as ComExecutionFilter));
         }
 
         [DispId(105)]
         public void exerciseOptionsEx(int tickerId, IContract contract, int exerciseAction,
             int exerciseQuantity, string account, int @override)
         {
-            this.socket.exerciseOptions(tickerId, (Contract)contract, exerciseAction, exerciseQuantity, account, @override);
+            this.socket.exerciseOptions(tickerId, (Contract)(contract as ComContract), exerciseAction, exerciseQuantity, account, @override);
         }
 
         [DispId(106)]
         public void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
             string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options)
         {
-            this.socket.reqHistoricalData(tickerId, (Contract)contract, endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, ITagValueListToListTagValue(options));
+            this.socket.reqHistoricalData(tickerId, (Contract)(contract as ComContract), endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, ITagValueListToListTagValue(options));
         }
 
         [DispId(107)]
         public void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options)
         {
-            this.socket.reqRealTimeBars(tickerId, (Contract)contract, barSize, whatToShow, useRTH, ITagValueListToListTagValue(options));
+            this.socket.reqRealTimeBars(tickerId, (Contract)(contract as ComContract), barSize, whatToShow, useRTH, ITagValueListToListTagValue(options));
         }
 
         [DispId(108)]
         public void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options)
         {
-            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)subscription, ITagValueListToListTagValue(options));
+            this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)(subscription as ComScannerSubscription), ITagValueListToListTagValue(options));
         }
 
         [DispId(109)]
@@ -883,21 +883,21 @@ namespace TWSLib
         }
 
         [DispId(200)]
-        public IContract createContract() { return new Contract(); }
+        public IContract createContract() { return new ComContract(); }
         [DispId(201)]
-        public IComboLegList createComboLegList() { return new ComboLegList(); }
+        public IComboLegList createComboLegList() { return new ComComboLegList(); }
         [DispId(202)]
-        public IOrder createOrder() { return new Order(); }
+        public IOrder createOrder() { return new ComOrder(); }
         [DispId(203)]
-        public IExecutionFilter createExecutionFilter() { return new ExecutionFilter(); }
+        public IExecutionFilter createExecutionFilter() { return new ComExecutionFilter(); }
         [DispId(204)]
-        public IScannerSubscription createScannerSubscription() { return new ScannerSubscription(); }
+        public IScannerSubscription createScannerSubscription() { return new ComScannerSubscription(); }
         [DispId(205)]
-        public IUnderComp createUnderComp() { return new UnderComp(); }
+        public IUnderComp createUnderComp() { return new ComUnderComp(); }
         [DispId(206)]
-        public ITagValueList createTagValueList() { return new TagValueList(); }
+        public ITagValueList createTagValueList() { return new ComTagValueList(); }
         [DispId(207)]
-        public IOrderComboLegList createOrderComboLegList() { return new OrderComboLegList(); }
+        public IOrderComboLegList createOrderComboLegList() { return new ComOrderComboLegList(); }
         #endregion
 
         #region events
@@ -1213,7 +1213,7 @@ namespace TWSLib
         {
             var t_deltaNeutralValidation = this.deltaNeutralValidation;
             if (t_deltaNeutralValidation != null)
-                InvokeIfRequired(t_deltaNeutralValidation, reqId, underComp);
+                InvokeIfRequired(t_deltaNeutralValidation, reqId, (ComUnderComp)underComp);
         }
 
         void EWrapper.tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
@@ -1469,7 +1469,7 @@ namespace TWSLib
 
             var t_openOrderEx = this.openOrderEx;
             if (t_openOrderEx != null)
-                InvokeIfRequired(t_openOrderEx, orderId, contract, order, orderState);
+                InvokeIfRequired(t_openOrderEx, orderId, (ComContract)contract, (ComOrder)order, (ComOrderState)orderState);
         }
 
         void EWrapper.openOrderEnd()
@@ -1503,7 +1503,7 @@ namespace TWSLib
 
             var t_contractDetailsEx = this.contractDetailsEx;
             if (t_contractDetailsEx != null)
-                InvokeIfRequired(t_contractDetailsEx, reqId, contractDetails);
+                InvokeIfRequired(t_contractDetailsEx, reqId, (ComContractDetails)contractDetails);
         }
 
 		//X - ADDED
@@ -1511,7 +1511,7 @@ namespace TWSLib
         {
             var t_bondContractDetailsEx = this.bondContractDetailsEx;
             if (t_bondContractDetailsEx != null)
-                Invoke(t_bondContractDetailsEx, reqId, contractDetails);
+                Invoke(t_bondContractDetailsEx, reqId, (ComContractDetails)contractDetails);
         }
 
         void EWrapper.contractDetailsEnd(int reqId)
@@ -1548,7 +1548,7 @@ namespace TWSLib
 
             var t_execDetailsEx = this.execDetailsEx;
             if (t_execDetailsEx != null)
-                InvokeIfRequired(t_execDetailsEx, reqId, contract, execution);
+                InvokeIfRequired(t_execDetailsEx, reqId, (ComContract)contract, (ComExecution)execution);
         }
 
         void EWrapper.execDetailsEnd(int reqId)
@@ -1562,7 +1562,7 @@ namespace TWSLib
         {
             var t_commissionReport = this.commissionReport;
             if (t_commissionReport != null)
-                InvokeIfRequired(t_commissionReport, commissionReport);
+                InvokeIfRequired(t_commissionReport, (ComCommissionReport)commissionReport);
         }
 
         void EWrapper.fundamentalData(int reqId, string data)
@@ -1664,7 +1664,7 @@ namespace TWSLib
 
             var t_scannerDataEx = this.scannerDataEx;
             if (t_scannerDataEx != null)
-                InvokeIfRequired(t_scannerDataEx, reqId, rank, contractDetails, distance, benchmark, projection, legsStr);
+                InvokeIfRequired(t_scannerDataEx, reqId, rank, (ComContractDetails)contractDetails, distance, benchmark, projection, legsStr);
         }
 
         void EWrapper.scannerDataEnd(int reqId)
@@ -1713,7 +1713,6 @@ namespace TWSLib
         {
             this.socket.Close();
         }
-
 
         public void verifyRequest(string apiName, string apiVersion)
         {

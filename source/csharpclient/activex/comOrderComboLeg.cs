@@ -14,28 +14,19 @@ namespace IBApi
      * @brief Allows to specify a price on an order's leg
      * @sa Order, ComboLeg
      */
-    public class OrderComboLeg
+    [ComVisible(true)]
+    public class ComOrderComboLeg : IBApi.TWSApi.IOrderComboLeg
     {
-        
-        double price;
+
+        OrderComboLeg data = new OrderComboLeg();
 
         /**
          * @brief The order's leg's price
          */
         public double Price
         {
-            get { return price; }
-            set { price = value; }
-        }
-
-        public OrderComboLeg()
-        {
-            price = Double.MaxValue;
-        }
-
-        public OrderComboLeg(double p_price)
-        {
-            price = p_price;
+            get { return data.Price; }
+            set { data.Price = value; }
         }
 
         public override bool Equals(Object other)
@@ -51,12 +42,24 @@ namespace IBApi
 
             OrderComboLeg theOther = (OrderComboLeg)other;
 
-            if (price != theOther.Price)
+            if (Price != theOther.Price)
             {
                 return false;
             }
 
             return true;
+        }
+
+        double TWSApi.IOrderComboLeg.price { get { return this.Price; } set { this.Price = value; } }
+
+        public static explicit operator OrderComboLeg(ComOrderComboLeg coc)
+        {
+            return coc.data;
+        }
+
+        public static explicit operator ComOrderComboLeg(OrderComboLeg ocl)
+        {
+            return new ComOrderComboLeg() { data = ocl };
         }
     }
 }

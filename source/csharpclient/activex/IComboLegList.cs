@@ -23,13 +23,13 @@ namespace TWSLib
     }
 
     [ComVisible(true)]
-    public class ComboLegList : IComboLegList
+    public class ComComboLegList : IComboLegList
     {
         public List<IBApi.ComboLeg> Ocl { get; private set; }
 
-        public ComboLegList() : this(new List<IBApi.ComboLeg>()) { this.Ocl = new List<IBApi.ComboLeg>(); }
+        public ComComboLegList() : this(new List<IBApi.ComboLeg>()) { this.Ocl = new List<IBApi.ComboLeg>(); }
 
-        public ComboLegList(List<IBApi.ComboLeg> cbl) 
+        public ComComboLegList(List<IBApi.ComboLeg> cbl) 
         { 
             this.Ocl = cbl == null ? new List<IBApi.ComboLeg>() : cbl;
         }

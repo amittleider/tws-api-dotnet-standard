@@ -14,8 +14,7 @@ namespace IBApi
      * @brief class describing an instrument's definition
      * @sa ContractDetails
      */
-    [ComVisible(true)]
-    public class Contract : TWSLib.IContract
+    public class Contract
     {
         private int conId;
         private string symbol;
@@ -217,48 +216,5 @@ namespace IBApi
             get { return underComp; }
             set { underComp = value; }
         }
-
-        int TWSLib.IContract.conId { get { return conId; } set { conId = value; } }
-
-        string TWSLib.IContract.symbol { get { return symbol; } set { symbol = value; } }
-
-        string TWSLib.IContract.secType { get { return secType; } set { secType = value; } }
-
-        string TWSLib.IContract.expiry { get { return expiry; } set { expiry = value; } }
-
-        double TWSLib.IContract.strike { get { return strike; } set { strike = value; } }
-
-        string TWSLib.IContract.right { get { return right; } set { right = value; } }
-
-        string TWSLib.IContract.multiplier { get { return multiplier; } set { multiplier = value; } }
-
-        string TWSLib.IContract.exchange { get { return exchange; } set { exchange = value; } }
-
-        string TWSLib.IContract.primaryExchange { get { return primaryExch; } set { primaryExch = value; } }
-
-        string TWSLib.IContract.currency { get { return currency; } set { currency = value; } }
-
-        string TWSLib.IContract.localSymbol { get { return localSymbol; } set { localSymbol = value; } }
-
-        string TWSLib.IContract.tradingClass { get { return tradingClass; } set { tradingClass = value; } }
-
-        bool TWSLib.IContract.includeExpired { get { return includeExpired; } set { includeExpired = value; } }
-
-        object TWSLib.IContract.comboLegs
-        {
-            [return: MarshalAs(UnmanagedType.IDispatch)]
-            get { return new TWSLib.ComboLegList(comboLegs); }
-
-            [param: MarshalAs(UnmanagedType.IDispatch)]
-            set { comboLegs = value is TWSLib.ComboLegList ? (value as TWSLib.ComboLegList).Ocl : null; }
-        }
-
-        object TWSLib.IContract.underComp { [return: MarshalAs(UnmanagedType.IDispatch)] get { return underComp; } [param: MarshalAs(UnmanagedType.IDispatch)] set { underComp = (UnderComp)value; } }
-
-        string TWSLib.IContract.comboLegsDescrip { get { return comboLegsDescription; } }
-
-        string TWSLib.IContract.secIdType { get { return secIdType; } set { secIdType = value; } }
-
-        string TWSLib.IContract.secId { get { return secId; } set { secId = value; } }
     }
 }

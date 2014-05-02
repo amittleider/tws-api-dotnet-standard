@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CSharpAPI")]
+[assembly: AssemblyTitle("ActiveXAPI")]
 [assembly: AssemblyDescription("CSharpAPI")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Timber Hill (Europe) AG")]
@@ -20,10 +20,10 @@ using System.Runtime.InteropServices;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("074D7616-B13E-4351-A35F-0B673E3213BD")]
+[assembly: Guid("0A77CCF5-052C-11D6-B0EC-00B0D074179C")]
 
 // Version information for an assembly consists of the following four values:
 //

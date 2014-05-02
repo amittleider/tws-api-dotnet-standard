@@ -23,13 +23,13 @@ namespace TWSLib
     }
 
     [ComVisible(true)]
-    public class OrderComboLegList : IOrderComboLegList
+    public class ComOrderComboLegList : IOrderComboLegList
     {
         public List<IBApi.OrderComboLeg> Ocl { get; private set; }
 
-        public OrderComboLegList() : this(new List<IBApi.OrderComboLeg>()) { Ocl = new List<IBApi.OrderComboLeg>(); }
+        public ComOrderComboLegList() : this(new List<IBApi.OrderComboLeg>()) { Ocl = new List<IBApi.OrderComboLeg>(); }
 
-        public OrderComboLegList(List<IBApi.OrderComboLeg> ocl)
+        public ComOrderComboLegList(List<IBApi.OrderComboLeg> ocl)
         {
             this.Ocl = ocl == null ? new List<IBApi.OrderComboLeg>() : ocl;
         }

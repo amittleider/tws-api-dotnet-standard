@@ -14,30 +14,18 @@ namespace IBApi
      * @brief Class representing a leg within combo orders.
      * @sa Order
      */
-    public class ComboLeg
+    [ComVisible(true)]
+    public class ComComboLeg : IBApi.TWSApi.IComboLeg
     {
-        public static int SAME = 0;
-        public static int 	OPEN = 1;
-        public static int 	CLOSE = 2;
-        public static int 	UNKNOWN = 3;
-
-        
-        private int conId;
-        private int ratio;
-        private string action;
-        private string exchange;
-        private int openClose;
-        private int shortSaleSlot;
-        private string designatedLocation;
-        private int exemptCode;
+        ComboLeg data = new ComboLeg();
 
         /**
          * @brief The Contract's IB's unique id
          */
         public int ConId
         {
-            get {return conId; }
-            set { conId = value; }
+            get { return data.ConId; }
+            set { data.ConId = value; }
         }
 
         /**
@@ -45,8 +33,8 @@ namespace IBApi
           */
         public int Ratio
         {
-            get { return ratio; }
-            set { ratio = value; }
+            get { return data.Ratio; }
+            set { data.Ratio = value; }
         }
 
         /**
@@ -55,16 +43,16 @@ namespace IBApi
          */
         public string Action
         {
-            get { return action; }
-            set { action = value; }
+            get { return data.Action; }
+            set { data.Action = value; }
         }
         /**
          * @brief The destination exchange to which the order will be routed.
          */
         public string Exchange
         {
-            get { return exchange; }
-            set { exchange = value; }
+            get { return data.Exchange; }
+            set { data.Exchange = value; }
         }
 
         /**
@@ -77,8 +65,8 @@ namespace IBApi
         */
         public int OpenClose
         {
-            get { return openClose; }
-            set { openClose = value; }
+            get { return data.OpenClose; }
+            set { data.OpenClose = value; }
         }
 
         /**
@@ -87,8 +75,8 @@ namespace IBApi
          */
         public int ShortSaleSlot
         {
-            get { return shortSaleSlot; }
-            set { shortSaleSlot = value; }
+            get { return data.ShortSaleSlot; }
+            set { data.ShortSaleSlot = value; }
         }
 
         /**
@@ -96,8 +84,8 @@ namespace IBApi
          */
         public string DesignatedLocation
         {
-            get { return designatedLocation; }
-            set { designatedLocation = value; }
+            get { return data.DesignatedLocation; }
+            set { data.DesignatedLocation = value; }
         }
 
         /**
@@ -105,24 +93,34 @@ namespace IBApi
          */
         public int ExemptCode
         {
-            get { return exemptCode; }
-            set { exemptCode = value; }
+            get { return data.ExemptCode; }
+            set { data.ExemptCode = value; }
+        }    
+
+        int TWSApi.IComboLeg.conId { get { return ConId; } set { ConId = value; } }
+
+        int TWSApi.IComboLeg.ratio { get { return Ratio; } set { Ratio = value; } }
+
+        string TWSApi.IComboLeg.action { get { return Action; } set { Action = value; } }
+
+        string TWSApi.IComboLeg.exchange { get { return Exchange; } set { Exchange = value; } }
+
+        int TWSApi.IComboLeg.openClose { get { return OpenClose; } set { OpenClose = value; } }
+
+        int TWSApi.IComboLeg.shortSaleSlot { get { return ShortSaleSlot; } set { ShortSaleSlot = value; } }
+
+        string TWSApi.IComboLeg.designatedLocation { get { return DesignatedLocation; } set { DesignatedLocation = value; } }
+
+        int TWSApi.IComboLeg.exemptCode { get { return ExemptCode; } set { ExemptCode = value; } }
+
+        public static explicit operator ComComboLeg(ComboLeg cl)
+        {
+            return new ComComboLeg() { data = cl };
         }
 
-        public ComboLeg()
+        public static explicit operator ComboLeg(ComComboLeg ccl)
         {
-        }
-
-        public ComboLeg(int conId, int ratio, string action, string exchange, int openClose, int shortSaleSlot, string designatedLocation, int exemptCode)
-        {
-            ConId = conId;
-            Ratio = ratio;
-            Action = action;
-            Exchange = exchange;
-            OpenClose = openClose;
-            ShortSaleSlot = shortSaleSlot;
-            DesignatedLocation = designatedLocation;
-            ExemptCode = exemptCode;
+            return ccl.data;
         }
     }
 }

@@ -12,8 +12,7 @@ namespace IBApi
     /**
      * @brief Delta-Neutral Underlying Component.
      */
-    [ComVisible(true)]
-    public class UnderComp : TWSLib.IUnderComp
+    public class UnderComp
     {
         private int conId;
         private double delta;
@@ -44,42 +43,6 @@ namespace IBApi
         {
             get { return price; }
             set { price = value; }
-        }
-
-        int TWSLib.IUnderComp.conId
-        {
-            get
-            {
-                return conId;
-            }
-            set
-            {
-                conId = value;
-            }
-        }
-
-        double TWSLib.IUnderComp.delta
-        {
-            get
-            {
-                return delta;
-            }
-            set
-            {
-                delta = value;
-            }
-        }
-
-        double TWSLib.IUnderComp.price
-        {
-            get
-            {
-                return price;
-            }
-            set
-            {
-                price = value;
-            }
         }
     }
 }

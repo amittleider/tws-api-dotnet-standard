@@ -14,167 +14,18 @@ namespace IBApi
      * @brief The order's description.
      * @sa Contract, OrderComboLeg, OrderState
      */
-    public class Order
+    [ComVisible(true)]
+    public class ComOrder : TWSLib.IOrder
     {
-        public static int CUSTOMER = 0;
-        public static int FIRM = 1;
-        public static char OPT_UNKNOWN = '?';
-        public static char OPT_BROKER_DEALER = 'b';
-        public static char OPT_CUSTOMER = 'c';
-        public static char OPT_FIRM = 'f';
-        public static char OPT_ISEMM = 'm';
-        public static char OPT_FARMM = 'n';
-        public static char OPT_SPECIALIST = 'y';
-        public static int AUCTION_MATCH = 1;
-        public static int AUCTION_IMPROVEMENT = 2;
-        public static int AUCTION_TRANSPARENT = 3;
-        public static string EMPTY_STR = "";
-
-        // main order fields
-        private int orderId;
-        private int clientId;
-        private int permId;
-        private string action;
-        private int totalQuantity;
-        private string orderType;
-        private double lmtPrice;
-        private double auxPrice;
-        // extended order fields
-        // "Time in Force" - DAY, GTC, etc.
-        private string tif;
-        //GTC orders
-        private string activeStartTime;
-        private string activeStopTime;
-        // one cancels all group name
-        private string ocaGroup;
-        // 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK
-        private int ocaType;
-        private string orderRef;
-        // if false, order will be created but not transmited
-        private bool transmit;
-        // Parent order Id, to associate Auto STP or TRAIL orders with the original order.
-        private int parentId;
-        private bool blockOrder;
-        private bool sweepToFill;
-        private int displaySize;
-        // 0=Default, 1=Double_Bid_Ask, 2=Last, 3=Double_Last, 4=Bid_Ask, 7=Last_or_Bid_Ask, 8=Mid-point
-        private int triggerMethod;
-        private bool outsideRth;
-        private bool hidden;
-        // FORMAT: 20060505 08:00:00 {time zone}
-        private string goodAfterTime;
-        // FORMAT: 20060505 08:00:00 {time zone}
-        private string goodTillDate;
-        private bool overridePercentageConstraints;
-        // Individual = 'I', Agency = 'A', AgentOtherMember = 'W', IndividualPTIA = 'J', AgencyPTIA = 'U', AgentOtherMemberPTIA = 'M', IndividualPT = 'K', AgencyPT = 'Y', AgentOtherMemberPT = 'N'
-        private string rule80A;
-        private bool allOrNone;
-        private int minQty;
-        // REL orders only
-        private double percentOffset;
-        // for TRAILLIMIT orders only
-        private double trailStopPrice;
-        private double trailingPercent;
-        // Financial advisors only 
-        private string faGroup;
-        private string faProfile;
-        private string faMethod;
-        private string faPercentage;
-        // Institutional orders only
-        // O=Open, C=Close
-        private string openClose;
-        // 0=Customer, 1=Firm
-        private int origin;
-        // 1 if you hold the shares, 2 if they will be delivered from elsewhere.  Only for Action="SSHORT
-        private int shortSaleSlot;
-        // set when slot=2 only.
-        private string designatedLocation;
-        private int exemptCode;
-        // SMART routing only
-        private double discretionaryAmt;
-        private bool eTradeOnly;
-        private bool firmQuoteOnly;
-        private double nbboPriceCap;
-        private bool optOutSmartRouting;
-        // BOX or VOL ORDERS ONLY
-        // 1=AUCTION_MATCH, 2=AUCTION_IMPROVEMENT, 3=AUCTION_TRANSPARENT
-        private int auctionStrategy;
-        // BOX ORDERS ONLY
-        private double startingPrice;
-        private double stockRefPrice;
-        private double delta;
-        // pegged to stock or VOL orders
-        private double stockRangeLower;
-        private double stockRangeUpper;
-        // VOLATILITY ORDERS ONLY
-        private double volatility;
-        // 1=daily, 2=annual
-        private int volatilityType;
-        private int continuousUpdate;
-        // 1=Average, 2 = BidOrAsk
-        private int referencePriceType;
-        private string deltaNeutralOrderType;
-        private double deltaNeutralAuxPrice;
-        private int deltaNeutralConId;
-        private string deltaNeutralSettlingFirm;
-
-        private string deltaNeutralClearingAccount;
-        private string deltaNeutralClearingIntent;
-        private string deltaNeutralOpenClose;
-        private bool deltaNeutralShortSale;
-        private int deltaNeutralShortSaleSlot;
-        private string deltaNeutralDesignatedLocation;
-        // COMBO ORDERS ONLY
-        // EFP orders only
-        private double basisPoints;
-        // EFP orders only
-        private int basisPointsType;
-        // SCALE ORDERS ONLY
-        private int scaleInitLevelSize;
-        private int scaleSubsLevelSize;
-        private double scalePriceIncrement;
-        private double scalePriceAdjustValue;
-        private int scalePriceAdjustInterval;
-        private double scaleProfitOffset;
-        private bool scaleAutoReset;
-        private int scaleInitPosition;
-        private int scaleInitFillQty;
-        private bool scaleRandomPercent;
-        private string scaleTable;
-        // HEDGE ORDERS ONLY
-        // 'D' - delta, 'B' - beta, 'F' - FX, 'P' - pair
-        private string hedgeType;
-        // beta value for beta hedge, ratio for pair hedge
-        private string hedgeParam;
-        // Clearing info
-        private string account; // IB account
-        // True beneficiary of the order
-        private string clearingAccount;
-        // "" (Default), "IB", "Away", "PTA" (PostTrade)
-        private string clearingIntent;
-        // ALGO ORDERS ONLY
-        private string algoStrategy;
-        private List<TagValue> algoParams;
-        // What-if
-        private bool whatIf;
-        //algoId
-        private string algoId;
-        // Not Held
-        private bool notHeld;
-        private string settlingFirm;
-        // Smart combo routing params
-        private List<TagValue> smartComboRoutingParams;
-        // order combo legs
-        private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
-        private List<TagValue> orderMiscOptions = new List<TagValue>();
+        Order data = new Order();
 
         /**
          * @brief The API client's order id.
          */
         public int OrderId
         {
-            get { return orderId; }
-            set { orderId = value; }
+            get { return data.OrderId; }
+            set { data.OrderId = value; }
         }
 
         /**
@@ -182,8 +33,8 @@ namespace IBApi
          */
         public int ClientId
         {
-            get { return clientId; }
-            set { clientId = value; }
+            get { return data.ClientId; }
+            set { data.ClientId = value; }
         }
 
         /**
@@ -191,8 +42,8 @@ namespace IBApi
          */
         public int PermId
         {
-            get { return permId; }
-            set { permId = value; }
+            get { return data.PermId; }
+            set { data.PermId = value; }
         }
 
         /**
@@ -201,8 +52,8 @@ namespace IBApi
          */
         public string Action
         {
-            get { return action; }
-            set { action = value; }
+            get { return data.Action; }
+            set { data.Action = value; }
         }
 
         /**
@@ -210,8 +61,8 @@ namespace IBApi
          */
         public int TotalQuantity
         {
-            get { return totalQuantity; }
-            set { totalQuantity = value; }
+            get { return data.TotalQuantity; }
+            set { data.TotalQuantity = value; }
         }
 
         /**
@@ -220,8 +71,8 @@ namespace IBApi
          */
         public string OrderType
         {
-            get { return orderType; }
-            set { orderType = value; }
+            get { return data.OrderType; }
+            set { data.OrderType = value; }
         }
 
         /**
@@ -230,8 +81,8 @@ namespace IBApi
          */
         public double LmtPrice
         {
-            get { return lmtPrice; }
-            set { lmtPrice = value; }
+            get { return data.LmtPrice; }
+            set { data.LmtPrice = value; }
         }
 
         /**
@@ -239,8 +90,8 @@ namespace IBApi
          */
         public double AuxPrice
         {
-            get { return auxPrice; }
-            set { auxPrice = value; }
+            get { return data.AuxPrice; }
+            set { data.AuxPrice = value; }
         }
 
         /**
@@ -261,8 +112,8 @@ namespace IBApi
           */
         public string Tif
         {
-            get { return tif; }
-            set { tif = value; }
+            get { return data.Tif; }
+            set { data.Tif = value; }
         }
 
 
@@ -271,8 +122,8 @@ namespace IBApi
          */
         public string OcaGroup
         {
-            get { return ocaGroup; }
-            set { ocaGroup = value; }
+            get { return data.OcaGroup; }
+            set { data.OcaGroup = value; }
         }
 
         /**
@@ -285,8 +136,8 @@ namespace IBApi
          */
         public int OcaType
         {
-            get { return ocaType; }
-            set { ocaType = value; }
+            get { return data.OcaType; }
+            set { data.OcaType = value; }
         }
 
         /**
@@ -295,8 +146,8 @@ namespace IBApi
          */
         public string OrderRef
         {
-            get { return orderRef; }
-            set { orderRef = value; }
+            get { return data.OrderRef; }
+            set { data.OrderRef = value; }
         }
 
         /**
@@ -304,8 +155,8 @@ namespace IBApi
          */
         public bool Transmit
         {
-            get { return transmit; }
-            set { transmit = value; }
+            get { return data.Transmit; }
+            set { data.Transmit = value; }
         }
 
         /**
@@ -313,8 +164,8 @@ namespace IBApi
          */
         public int ParentId
         {
-            get { return parentId; }
-            set { parentId = value; }
+            get { return data.ParentId; }
+            set { data.ParentId = value; }
         }
 
         /**
@@ -322,8 +173,8 @@ namespace IBApi
          */
         public bool BlockOrder
         {
-            get { return blockOrder; }
-            set { blockOrder = value; }
+            get { return data.BlockOrder; }
+            set { data.BlockOrder = value; }
         }
 
         /**
@@ -331,8 +182,8 @@ namespace IBApi
          */
         public bool SweepToFill
         {
-            get { return sweepToFill; }
-            set { sweepToFill = value; }
+            get { return data.SweepToFill; }
+            set { data.SweepToFill = value; }
         }
 
         /**
@@ -340,8 +191,8 @@ namespace IBApi
          */
         public int DisplaySize
         {
-            get { return displaySize; }
-            set { displaySize = value; }
+            get { return data.DisplaySize; }
+            set { data.DisplaySize = value; }
         }
 
         /**
@@ -357,8 +208,8 @@ namespace IBApi
          */
         public int TriggerMethod
         {
-            get { return triggerMethod; }
-            set { triggerMethod = value; }
+            get { return data.TriggerMethod; }
+            set { data.TriggerMethod = value; }
         }
 
         /**
@@ -366,8 +217,8 @@ namespace IBApi
          */
         public bool OutsideRth
         {
-            get { return outsideRth; }
-            set { outsideRth = value; }
+            get { return data.OutsideRth; }
+            set { data.OutsideRth = value; }
         }
 
         /**
@@ -376,8 +227,8 @@ namespace IBApi
          */
         public bool Hidden
         {
-            get { return hidden; }
-            set { hidden = value; }
+            get { return data.Hidden; }
+            set { data.Hidden = value; }
         }
 
         /**
@@ -386,8 +237,8 @@ namespace IBApi
          */
         public string GoodAfterTime
         {
-            get { return goodAfterTime; }
-            set { goodAfterTime = value; }
+            get { return data.GoodAfterTime; }
+            set { data.GoodAfterTime = value; }
         }
 
         /**
@@ -396,8 +247,8 @@ namespace IBApi
          */
         public string GoodTillDate
         {
-            get { return goodTillDate; }
-            set { goodTillDate = value; }
+            get { return data.GoodTillDate; }
+            set { data.GoodTillDate = value; }
         }
 
         /**
@@ -407,8 +258,8 @@ namespace IBApi
          */
         public bool OverridePercentageConstraints
         {
-            get { return overridePercentageConstraints; }
-            set { overridePercentageConstraints = value; }
+            get { return data.OverridePercentageConstraints; }
+            set { data.OverridePercentageConstraints = value; }
         }
 
         /**
@@ -425,8 +276,8 @@ namespace IBApi
          */
         public string Rule80A
         {
-            get { return rule80A; }
-            set { rule80A = value; }
+            get { return data.Rule80A; }
+            set { data.Rule80A = value; }
         }
 
         /**
@@ -434,8 +285,8 @@ namespace IBApi
          */
         public bool AllOrNone
         {
-            get { return allOrNone; }
-            set { allOrNone = value; }
+            get { return data.AllOrNone; }
+            set { data.AllOrNone = value; }
         }
 
         /**
@@ -443,8 +294,8 @@ namespace IBApi
          */
         public int MinQty
         {
-            get { return minQty; }
-            set { minQty = value; }
+            get { return data.MinQty; }
+            set { data.MinQty = value; }
         }
 
         /**
@@ -452,8 +303,8 @@ namespace IBApi
          */
         public double PercentOffset
         {
-            get { return percentOffset; }
-            set { percentOffset = value; }
+            get { return data.PercentOffset; }
+            set { data.PercentOffset = value; }
         }
 
         /**
@@ -461,8 +312,8 @@ namespace IBApi
          */
         public double TrailStopPrice
         {
-            get { return trailStopPrice; }
-            set { trailStopPrice = value; }
+            get { return data.TrailStopPrice; }
+            set { data.TrailStopPrice = value; }
         }
 
         /**
@@ -474,8 +325,8 @@ namespace IBApi
          */
         public double TrailingPercent
         {
-            get { return trailingPercent; }
-            set { trailingPercent = value; }
+            get { return data.TrailingPercent; }
+            set { data.TrailingPercent = value; }
         }
 
         /**
@@ -484,8 +335,8 @@ namespace IBApi
          */
         public string FaGroup
         {
-            get { return faGroup; }
-            set { faGroup = value; }
+            get { return data.FaGroup; }
+            set { data.FaGroup = value; }
         }
 
         /**
@@ -494,8 +345,8 @@ namespace IBApi
          */
         public string FaProfile
         {
-            get { return faProfile; }
-            set { faProfile = value; }
+            get { return data.FaProfile; }
+            set { data.FaProfile = value; }
         }
 
         /**
@@ -504,8 +355,8 @@ namespace IBApi
          */
         public string FaMethod
         {
-            get { return faMethod; }
-            set { faMethod = value; }
+            get { return data.FaMethod; }
+            set { data.FaMethod = value; }
         }
 
         /**
@@ -514,8 +365,8 @@ namespace IBApi
          */
         public string FaPercentage
         {
-            get { return faPercentage; }
-            set { faPercentage = value; }
+            get { return data.FaPercentage; }
+            set { data.FaPercentage = value; }
         }
 
 
@@ -525,8 +376,8 @@ namespace IBApi
          */
         public string OpenClose
         {
-            get { return openClose; }
-            set { openClose = value; }
+            get { return data.OpenClose; }
+            set { data.OpenClose = value; }
         }
 
 
@@ -536,8 +387,8 @@ namespace IBApi
          */
         public int Origin
         {
-            get { return origin; }
-            set { origin = value; }
+            get { return data.Origin; }
+            set { data.Origin = value; }
         }
 
         /**
@@ -546,8 +397,8 @@ namespace IBApi
          */
         public int ShortSaleSlot
         {
-            get { return shortSaleSlot; }
-            set { shortSaleSlot = value; }
+            get { return data.ShortSaleSlot; }
+            set { data.ShortSaleSlot = value; }
         }
 
         /**
@@ -557,8 +408,8 @@ namespace IBApi
          */
         public string DesignatedLocation
         {
-            get { return designatedLocation; }
-            set { designatedLocation = value; }
+            get { return data.DesignatedLocation; }
+            set { data.DesignatedLocation = value; }
         }
 
         /**
@@ -566,8 +417,8 @@ namespace IBApi
          */
         public int ExemptCode
         {
-            get { return exemptCode; }
-            set { exemptCode = value; }
+            get { return data.ExemptCode; }
+            set { data.ExemptCode = value; }
         }
 
         /**
@@ -575,8 +426,8 @@ namespace IBApi
           */
         public double DiscretionaryAmt
         {
-            get { return discretionaryAmt; }
-            set { discretionaryAmt = value; }
+            get { return data.DiscretionaryAmt; }
+            set { data.DiscretionaryAmt = value; }
         }
 
         /**
@@ -584,8 +435,8 @@ namespace IBApi
          */
         public bool ETradeOnly
         {
-            get { return eTradeOnly; }
-            set { eTradeOnly = value; }
+            get { return data.ETradeOnly; }
+            set { data.ETradeOnly = value; }
         }
 
         /**
@@ -593,8 +444,8 @@ namespace IBApi
          */
         public bool FirmQuoteOnly
         {
-            get { return firmQuoteOnly; }
-            set { firmQuoteOnly = value; }
+            get { return data.FirmQuoteOnly; }
+            set { data.FirmQuoteOnly = value; }
         }
 
         /**
@@ -602,8 +453,8 @@ namespace IBApi
          */
         public double NbboPriceCap
         {
-            get { return nbboPriceCap; }
-            set { nbboPriceCap = value; }
+            get { return data.NbboPriceCap; }
+            set { data.NbboPriceCap = value; }
         }
 
         /**
@@ -612,8 +463,8 @@ namespace IBApi
          */
         public bool OptOutSmartRouting
         {
-            get { return optOutSmartRouting; }
-            set { optOutSmartRouting = value; }
+            get { return data.OptOutSmartRouting; }
+            set { data.OptOutSmartRouting = value; }
         }
 
         /**
@@ -625,8 +476,8 @@ namespace IBApi
          */
         public int AuctionStrategy
         {
-            get { return auctionStrategy; }
-            set { auctionStrategy = value; }
+            get { return data.AuctionStrategy; }
+            set { data.AuctionStrategy = value; }
         }
 
         /**
@@ -635,8 +486,8 @@ namespace IBApi
          */
         public double StartingPrice
         {
-            get { return startingPrice; }
-            set { startingPrice = value; }
+            get { return data.StartingPrice; }
+            set { data.StartingPrice = value; }
         }
 
         /**
@@ -645,8 +496,8 @@ namespace IBApi
          */
         public double StockRefPrice
         {
-            get { return stockRefPrice; }
-            set { stockRefPrice = value; }
+            get { return data.StockRefPrice; }
+            set { data.StockRefPrice = value; }
         }
 
         /**
@@ -655,8 +506,8 @@ namespace IBApi
          */
         public double Delta
         {
-            get { return delta; }
-            set { delta = value; }
+            get { return data.Delta; }
+            set { data.Delta = value; }
         }
 
         /**
@@ -665,8 +516,8 @@ namespace IBApi
           */
         public double StockRangeLower
         {
-            get { return stockRangeLower; }
-            set { stockRangeLower = value; }
+            get { return data.StockRangeLower; }
+            set { data.StockRangeLower = value; }
         }
 
         /**
@@ -675,8 +526,8 @@ namespace IBApi
          */
         public double StockRangeUpper
         {
-            get { return stockRangeUpper; }
-            set { stockRangeUpper = value; }
+            get { return data.StockRangeUpper; }
+            set { data.StockRangeUpper = value; }
         }
 
 
@@ -686,8 +537,8 @@ namespace IBApi
          */
         public double Volatility
         {
-            get { return volatility; }
-            set { volatility = value; }
+            get { return data.Volatility; }
+            set { data.Volatility = value; }
         }
 
         /**
@@ -698,8 +549,8 @@ namespace IBApi
          */
         public int VolatilityType
         {
-            get { return volatilityType; }
-            set { volatilityType = value; }
+            get { return data.VolatilityType; }
+            set { data.VolatilityType = value; }
         }
 
         /**
@@ -708,8 +559,8 @@ namespace IBApi
          */
         public int ContinuousUpdate
         {
-            get { return continuousUpdate; }
-            set { continuousUpdate = value; }
+            get { return data.ContinuousUpdate; }
+            set { data.ContinuousUpdate = value; }
         }
 
         /**
@@ -720,8 +571,8 @@ namespace IBApi
          */
         public int ReferencePriceType
         {
-            get { return referencePriceType; }
-            set { referencePriceType = value; }
+            get { return data.ReferencePriceType; }
+            set { data.ReferencePriceType = value; }
         }
 
         /**
@@ -730,8 +581,8 @@ namespace IBApi
          */
         public string DeltaNeutralOrderType
         {
-            get { return deltaNeutralOrderType; }
-            set { deltaNeutralOrderType = value; }
+            get { return data.DeltaNeutralOrderType; }
+            set { data.DeltaNeutralOrderType = value; }
         }
 
         /**
@@ -740,8 +591,8 @@ namespace IBApi
          */
         public double DeltaNeutralAuxPrice
         {
-            get { return deltaNeutralAuxPrice; }
-            set { deltaNeutralAuxPrice = value; }
+            get { return data.DeltaNeutralAuxPrice; }
+            set { data.DeltaNeutralAuxPrice = value; }
         }
 
         /**
@@ -749,8 +600,8 @@ namespace IBApi
          */
         public int DeltaNeutralConId
         {
-            get { return deltaNeutralConId; }
-            set { deltaNeutralConId = value; }
+            get { return data.DeltaNeutralConId; }
+            set { data.DeltaNeutralConId = value; }
         }
 
         /**
@@ -758,8 +609,8 @@ namespace IBApi
          */
         public string DeltaNeutralSettlingFirm
         {
-            get { return deltaNeutralSettlingFirm; }
-            set { deltaNeutralSettlingFirm = value; }
+            get { return data.DeltaNeutralSettlingFirm; }
+            set { data.DeltaNeutralSettlingFirm = value; }
         }
 
         /**
@@ -767,8 +618,8 @@ namespace IBApi
          */
         public string DeltaNeutralClearingAccount
         {
-            get { return deltaNeutralClearingAccount; }
-            set { deltaNeutralClearingAccount = value; }
+            get { return data.DeltaNeutralClearingAccount; }
+            set { data.DeltaNeutralClearingAccount = value; }
         }
 
         /**
@@ -776,8 +627,8 @@ namespace IBApi
          */
         public string DeltaNeutralClearingIntent
         {
-            get { return deltaNeutralClearingIntent; }
-            set { deltaNeutralClearingIntent = value; }
+            get { return data.DeltaNeutralClearingIntent; }
+            set { data.DeltaNeutralClearingIntent = value; }
         }
 
         /**
@@ -785,8 +636,8 @@ namespace IBApi
          */
         public string DeltaNeutralOpenClose
         {
-            get { return deltaNeutralOpenClose; }
-            set { deltaNeutralOpenClose = value; }
+            get { return data.DeltaNeutralOpenClose; }
+            set { data.DeltaNeutralOpenClose = value; }
         }
 
         /**
@@ -794,8 +645,8 @@ namespace IBApi
          */
         public bool DeltaNeutralShortSale
         {
-            get { return deltaNeutralShortSale; }
-            set { deltaNeutralShortSale = value; }
+            get { return data.DeltaNeutralShortSale; }
+            set { data.DeltaNeutralShortSale = value; }
         }
 
         /**
@@ -804,8 +655,8 @@ namespace IBApi
          */
         public int DeltaNeutralShortSaleSlot
         {
-            get { return deltaNeutralShortSaleSlot; }
-            set { deltaNeutralShortSaleSlot = value; }
+            get { return data.DeltaNeutralShortSaleSlot; }
+            set { data.DeltaNeutralShortSaleSlot = value; }
         }
 
         /**
@@ -814,8 +665,8 @@ namespace IBApi
          */
         public string DeltaNeutralDesignatedLocation
         {
-            get { return deltaNeutralDesignatedLocation; }
-            set { deltaNeutralDesignatedLocation = value; }
+            get { return data.DeltaNeutralDesignatedLocation; }
+            set { data.DeltaNeutralDesignatedLocation = value; }
         }
 
         /**
@@ -824,8 +675,8 @@ namespace IBApi
          */
         public double BasisPoints
         {
-            get { return basisPoints; }
-            set { basisPoints = value; }
+            get { return data.BasisPoints; }
+            set { data.BasisPoints = value; }
         }
 
         /**
@@ -834,8 +685,8 @@ namespace IBApi
          */
         public int BasisPointsType
         {
-            get { return basisPointsType; }
-            set { basisPointsType = value; }
+            get { return data.BasisPointsType; }
+            set { data.BasisPointsType = value; }
         }
 
         /**
@@ -844,8 +695,8 @@ namespace IBApi
          */
         public int ScaleInitLevelSize
         {
-            get { return scaleInitLevelSize; }
-            set { scaleInitLevelSize = value; }
+            get { return data.ScaleInitLevelSize; }
+            set { data.ScaleInitLevelSize = value; }
         }
 
         /**
@@ -854,8 +705,8 @@ namespace IBApi
          */
         public int ScaleSubsLevelSize
         {
-            get { return scaleSubsLevelSize; }
-            set { scaleSubsLevelSize = value; }
+            get { return data.ScaleSubsLevelSize; }
+            set { data.ScaleSubsLevelSize = value; }
         }
 
         /**
@@ -864,8 +715,8 @@ namespace IBApi
          */
         public double ScalePriceIncrement
         {
-            get { return scalePriceIncrement; }
-            set { scalePriceIncrement = value; }
+            get { return data.ScalePriceIncrement; }
+            set { data.ScalePriceIncrement = value; }
         }
 
         /**
@@ -874,8 +725,8 @@ namespace IBApi
          */
         public double ScalePriceAdjustValue
         {
-            get { return scalePriceAdjustValue; }
-            set { scalePriceAdjustValue = value; }
+            get { return data.ScalePriceAdjustValue; }
+            set { data.ScalePriceAdjustValue = value; }
         }
 
         /**
@@ -884,8 +735,8 @@ namespace IBApi
          */
         public int ScalePriceAdjustInterval
         {
-            get { return scalePriceAdjustInterval; }
-            set { scalePriceAdjustInterval = value; }
+            get { return data.ScalePriceAdjustInterval; }
+            set { data.ScalePriceAdjustInterval = value; }
         }
 
         /**
@@ -894,8 +745,8 @@ namespace IBApi
          */
         public double ScaleProfitOffset
         {
-            get { return scaleProfitOffset; }
-            set { scaleProfitOffset = value; }
+            get { return data.ScaleProfitOffset; }
+            set { data.ScaleProfitOffset = value; }
         }
 
         /**
@@ -904,8 +755,8 @@ namespace IBApi
          */
         public bool ScaleAutoReset
         {
-            get { return scaleAutoReset; }
-            set { scaleAutoReset = value; }
+            get { return data.ScaleAutoReset; }
+            set { data.ScaleAutoReset = value; }
         }
 
         /**
@@ -914,8 +765,8 @@ namespace IBApi
          */
         public int ScaleInitPosition
         {
-            get { return scaleInitPosition; }
-            set { scaleInitPosition = value; }
+            get { return data.ScaleInitPosition; }
+            set { data.ScaleInitPosition = value; }
         }
 
         /**
@@ -924,8 +775,8 @@ namespace IBApi
           */
         public int ScaleInitFillQty
         {
-            get { return scaleInitFillQty; }
-            set { scaleInitFillQty = value; }
+            get { return data.ScaleInitFillQty; }
+            set { data.ScaleInitFillQty = value; }
         }
 
         /**
@@ -934,8 +785,8 @@ namespace IBApi
          */
         public bool ScaleRandomPercent
         {
-            get { return scaleRandomPercent; }
-            set { scaleRandomPercent = value; }
+            get { return data.ScaleRandomPercent; }
+            set { data.ScaleRandomPercent = value; }
         }
 
         /**
@@ -948,8 +799,8 @@ namespace IBApi
          */
         public string HedgeType
         {
-            get { return hedgeType; }
-            set { hedgeType = value; }
+            get { return data.HedgeType; }
+            set { data.HedgeType = value; }
         }
 
         /**
@@ -958,8 +809,8 @@ namespace IBApi
          */
         public string HedgeParam
         {
-            get { return hedgeParam; }
-            set { hedgeParam = value; }
+            get { return data.HedgeParam; }
+            set { data.HedgeParam = value; }
         }
 
         /**
@@ -967,8 +818,8 @@ namespace IBApi
          */
         public string Account
         {
-            get { return account; }
-            set { account = value; }
+            get { return data.Account; }
+            set { data.Account = value; }
         }
 
         /**
@@ -977,8 +828,8 @@ namespace IBApi
          */
         public string SettlingFirm
         {
-            get { return settlingFirm; }
-            set { settlingFirm = value; }
+            get { return data.SettlingFirm; }
+            set { data.SettlingFirm = value; }
         }
 
         /**
@@ -987,8 +838,8 @@ namespace IBApi
          */
         public string ClearingAccount
         {
-            get { return clearingAccount; }
-            set { clearingAccount = value; }
+            get { return data.ClearingAccount; }
+            set { data.ClearingAccount = value; }
         }
 
         /**
@@ -997,8 +848,8 @@ namespace IBApi
         */
         public string ClearingIntent
         {
-            get { return clearingIntent; }
-            set { clearingIntent = value; }
+            get { return data.ClearingIntent; }
+            set { data.ClearingIntent = value; }
         }
 
         /**
@@ -1013,8 +864,8 @@ namespace IBApi
         */
         public string AlgoStrategy
         {
-            get { return algoStrategy; }
-            set { algoStrategy = value; }
+            get { return data.AlgoStrategy; }
+            set { data.AlgoStrategy = value; }
         }
 
         /**
@@ -1023,8 +874,8 @@ namespace IBApi
         */
         public List<TagValue> AlgoParams
         {
-            get { return algoParams; }
-            set { algoParams = value; }
+            get { return data.AlgoParams; }
+            set { data.AlgoParams = value; }
         }
 
         /**
@@ -1033,11 +884,11 @@ namespace IBApi
         */
         public bool WhatIf
         {
-            get { return whatIf; }
-            set { whatIf = value; }
+            get { return data.WhatIf; }
+            set { data.WhatIf = value; }
         }
 
-        public string AlgoId { get { return algoId; } set { algoId = value; } }
+        public string AlgoId { get { return data.AlgoId; } set { data.AlgoId = value; } }
 
         /**
         * @brief Orders routed to IBDARK are tagged as “post only” and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
@@ -1045,8 +896,8 @@ namespace IBApi
         */
         public bool NotHeld
         {
-            get { return notHeld; }
-            set { notHeld = value; }
+            get { return data.NotHeld; }
+            set { data.NotHeld = value; }
         }
 
         /**
@@ -1055,8 +906,8 @@ namespace IBApi
          */
         public List<TagValue> SmartComboRoutingParams
         {
-            get { return smartComboRoutingParams; }
-            set { smartComboRoutingParams = value; }
+            get { return data.SmartComboRoutingParams; }
+            set { data.SmartComboRoutingParams = value; }
         }
 
         /**
@@ -1064,14 +915,14 @@ namespace IBApi
         */
         public List<OrderComboLeg> OrderComboLegs
         {
-            get { return orderComboLegs; }
-            set { orderComboLegs = value; }
+            get { return data.OrderComboLegs; }
+            set { data.OrderComboLegs = value; }
         }
 
         public List<TagValue> OrderMiscOptions
         {
-            get { return orderMiscOptions; }
-            set { orderMiscOptions = value; }
+            get { return data.OrderMiscOptions; }
+            set { data.OrderMiscOptions = value; }
         }
 
         /*
@@ -1079,8 +930,8 @@ namespace IBApi
          */
         public string ActiveStartTime
         {
-            get { return activeStartTime; }
-            set { activeStartTime = value; }
+            get { return data.ActiveStartTime; }
+            set { data.ActiveStartTime = value; }
         }
 
         /*
@@ -1088,8 +939,8 @@ namespace IBApi
         */
         public string ActiveStopTime
         {
-            get { return activeStopTime; }
-            set { activeStopTime = value; }
+            get { return data.ActiveStopTime; }
+            set { data.ActiveStopTime = value; }
         }
 
         /*
@@ -1097,61 +948,8 @@ namespace IBApi
          */
         public string ScaleTable
         {
-            get { return scaleTable; }
-            set { scaleTable = value; }
-        }
-
-        public Order()
-        {
-            lmtPrice = Double.MaxValue;
-            auxPrice = Double.MaxValue;
-            activeStartTime = EMPTY_STR;
-            activeStopTime = EMPTY_STR;
-            outsideRth = false;
-            openClose = "O";
-            origin = CUSTOMER;
-            transmit = true;
-            designatedLocation = EMPTY_STR;
-            exemptCode = -1;
-            minQty = Int32.MaxValue;
-            percentOffset = Double.MaxValue;
-            nbboPriceCap = Double.MaxValue;
-            optOutSmartRouting = false;
-            startingPrice = Double.MaxValue;
-            stockRefPrice = Double.MaxValue;
-            delta = Double.MaxValue;
-            stockRangeLower = Double.MaxValue;
-            stockRangeUpper = Double.MaxValue;
-            volatility = Double.MaxValue;
-            volatilityType = Int32.MaxValue;
-            deltaNeutralOrderType = EMPTY_STR;
-            deltaNeutralAuxPrice = Double.MaxValue;
-            deltaNeutralConId = 0;
-            deltaNeutralSettlingFirm = EMPTY_STR;
-            deltaNeutralClearingAccount = EMPTY_STR;
-            deltaNeutralClearingIntent = EMPTY_STR;
-            deltaNeutralOpenClose = EMPTY_STR;
-            deltaNeutralShortSale = false;
-            deltaNeutralShortSaleSlot = 0;
-            deltaNeutralDesignatedLocation = EMPTY_STR;
-            referencePriceType = Int32.MaxValue;
-            trailStopPrice = Double.MaxValue;
-            trailingPercent = Double.MaxValue;
-            basisPoints = Double.MaxValue;
-            basisPointsType = Int32.MaxValue;
-            scaleInitLevelSize = Int32.MaxValue;
-            scaleSubsLevelSize = Int32.MaxValue;
-            scalePriceIncrement = Double.MaxValue;
-            scalePriceAdjustValue = Double.MaxValue;
-            scalePriceAdjustInterval = Int32.MaxValue;
-            scaleProfitOffset = Double.MaxValue;
-            scaleAutoReset = false;
-            scaleInitPosition = Int32.MaxValue;
-            scaleInitFillQty = Int32.MaxValue;
-            scaleRandomPercent = false;
-            scaleTable = EMPTY_STR;
-            whatIf = false;
-            notHeld = false;
+            get { return data.ScaleTable; }
+            set { data.ScaleTable = value; }
         }
 
         public override bool Equals(Object p_other)
@@ -1282,6 +1080,276 @@ namespace IBApi
             }
 
             return true;
+        }
+
+
+        int TWSLib.IOrder.orderId { get { return OrderId; } set { OrderId = value; } }
+
+        int TWSLib.IOrder.clientId { get { return ClientId; } set { ClientId = value; } }
+
+        int TWSLib.IOrder.permId { get { return PermId; } set { PermId = value; } }
+
+        string TWSLib.IOrder.action { get { return Action; } set { Action = value; } }
+
+        int TWSLib.IOrder.totalQuantity { get { return TotalQuantity; } set { TotalQuantity = value; } }
+
+        string TWSLib.IOrder.orderType { get { return OrderType; } set { OrderType = value; } }
+
+        double TWSLib.IOrder.lmtPrice { get { return LmtPrice; } set { LmtPrice = value; } }
+
+        double TWSLib.IOrder.auxPrice { get { return AuxPrice; } set { AuxPrice = value; } }
+
+        string TWSLib.IOrder.timeInForce { get { return Tif; } set { Tif = value; } }
+
+        string TWSLib.IOrder.ocaGroup { get { return OcaGroup; } set { OcaGroup = value; } }
+
+        int TWSLib.IOrder.ocaType { get { return OcaType; } set { OcaType = value; } }
+
+        string TWSLib.IOrder.orderRef { get { return OrderRef; } set { OrderRef = value; } }
+
+        bool TWSLib.IOrder.transmit { get { return Transmit; } set { Transmit = value; } }
+
+        int TWSLib.IOrder.parentId { get { return ParentId; } set { ParentId = value; } }
+
+        bool TWSLib.IOrder.blockOrder { get { return BlockOrder; } set { BlockOrder = value; } }
+
+        bool TWSLib.IOrder.sweepToFill { get { return SweepToFill; } set { SweepToFill = value; } }
+
+        int TWSLib.IOrder.displaySize { get { return DisplaySize; } set { DisplaySize = value; } }
+
+        int TWSLib.IOrder.triggerMethod { get { return TriggerMethod; } set { TriggerMethod = value; } }
+
+        bool TWSLib.IOrder.outsideRth { get { return OutsideRth; } set { OutsideRth = value; } }
+
+        bool TWSLib.IOrder.hidden { get { return Hidden; } set { Hidden = value; } }
+
+        string TWSLib.IOrder.goodAfterTime { get { return GoodAfterTime; } set { GoodAfterTime = value; } }
+
+        string TWSLib.IOrder.goodTillDate { get { return GoodTillDate; } set { GoodTillDate = value; } }
+
+        bool TWSLib.IOrder.overridePercentageConstraints { get { return OverridePercentageConstraints; } set { OverridePercentageConstraints = value; } }
+
+        string TWSLib.IOrder.rule80A { get { return Rule80A; } set { Rule80A = value; } }
+
+        bool TWSLib.IOrder.allOrNone { get { return AllOrNone; } set { AllOrNone = value; } }
+
+        int TWSLib.IOrder.minQty { get { return MinQty; } set { MinQty = value; } }
+
+        double TWSLib.IOrder.percentOffset { get { return PercentOffset; } set { PercentOffset = value; } }
+
+        double TWSLib.IOrder.trailStopPrice { get { return TrailStopPrice; } set { TrailStopPrice = value; } }
+
+        double TWSLib.IOrder.trailingPercent { get { return TrailingPercent; } set { TrailingPercent = value; } }
+
+        bool TWSLib.IOrder.whatIf { get { return WhatIf; } set { WhatIf = value; } }
+
+        string TWSLib.IOrder.algoId { get { return AlgoId; } set { AlgoId = value; } }
+
+        bool TWSLib.IOrder.notHeld { get { return NotHeld; } set { NotHeld = value; } }
+
+        string TWSLib.IOrder.faGroup { get { return FaGroup; } set { FaGroup = value; } }
+
+        string TWSLib.IOrder.faProfile { get { return FaProfile; } set { FaProfile = value; } }
+
+        string TWSLib.IOrder.faMethod { get { return FaMethod; } set { FaMethod = value; } }
+
+        string TWSLib.IOrder.faPercentage { get { return FaPercentage; } set { FaPercentage = value; } }
+
+        string TWSLib.IOrder.openClose { get { return OpenClose; } set { OpenClose = value; } }
+
+        int TWSLib.IOrder.origin { get { return Origin; } set { Origin = value; } }
+
+        int TWSLib.IOrder.shortSaleSlot { get { return ShortSaleSlot; } set { ShortSaleSlot = value; } }
+
+        string TWSLib.IOrder.designatedLocation { get { return DesignatedLocation; } set { DesignatedLocation = value; } }
+
+        int TWSLib.IOrder.exemptCode { get { return ExemptCode; } set { ExemptCode = value; } }
+
+        double TWSLib.IOrder.discretionaryAmt { get { return DiscretionaryAmt; } set { DiscretionaryAmt = value; } }
+
+        bool TWSLib.IOrder.eTradeOnly { get { return ETradeOnly; } set { ETradeOnly = value; } }
+
+        bool TWSLib.IOrder.firmQuoteOnly { get { return FirmQuoteOnly; } set { FirmQuoteOnly = value; } }
+
+        double TWSLib.IOrder.nbboPriceCap { get { return NbboPriceCap; } set { NbboPriceCap = value; } }
+
+        bool TWSLib.IOrder.optOutSmartRouting { get { return OptOutSmartRouting; } set { OptOutSmartRouting = value; } }
+
+        int TWSLib.IOrder.auctionStrategy { get { return AuctionStrategy; } set { AuctionStrategy = value; } }
+
+        double TWSLib.IOrder.startingPrice { get { return StartingPrice; } set { StartingPrice = value; } }
+
+        double TWSLib.IOrder.stockRefPrice { get { return StockRefPrice; } set { StockRefPrice = value; } }
+
+        double TWSLib.IOrder.delta { get { return Delta; } set { Delta = value; } }
+
+        double TWSLib.IOrder.stockRangeLower { get { return StockRangeLower; } set { StockRangeLower = value; } }
+
+        double TWSLib.IOrder.stockRangeUpper { get { return StockRangeUpper; } set { StockRangeUpper = value; } }
+
+        double TWSLib.IOrder.volatility { get { return Volatility; } set { Volatility = value; } }
+
+        int TWSLib.IOrder.volatilityType { get { return VolatilityType; } set { VolatilityType = value; } }
+
+        bool TWSLib.IOrder.continuousUpdate { get { return ContinuousUpdate != 0; } set { ContinuousUpdate = value ? 1 : 0; } }
+
+        int TWSLib.IOrder.referencePriceType { get { return ReferencePriceType; } set { ReferencePriceType = value; } }
+
+        string TWSLib.IOrder.deltaNeutralOrderType { get { return DeltaNeutralOrderType; } set { DeltaNeutralOrderType = value; } }
+
+        double TWSLib.IOrder.deltaNeutralAuxPrice { get { return DeltaNeutralAuxPrice; } set { DeltaNeutralAuxPrice = value; } }
+
+        int TWSLib.IOrder.deltaNeutralConId { get { return DeltaNeutralConId; } set { DeltaNeutralConId = value; } }
+
+        string TWSLib.IOrder.deltaNeutralSettlingFirm { get { return DeltaNeutralSettlingFirm; } set { DeltaNeutralSettlingFirm = value; } }
+
+        string TWSLib.IOrder.deltaNeutralClearingAccount { get { return DeltaNeutralClearingAccount; } set { DeltaNeutralClearingAccount = value; } }
+
+        string TWSLib.IOrder.deltaNeutralClearingIntent { get { return DeltaNeutralClearingIntent; } set { DeltaNeutralClearingIntent = value; } }
+
+        string TWSLib.IOrder.deltaNeutralOpenClose { get { return DeltaNeutralOpenClose; } set { DeltaNeutralOpenClose = value; } }
+
+        bool TWSLib.IOrder.deltaNeutralShortSale { get { return DeltaNeutralShortSale; } set { DeltaNeutralShortSale = value; } }
+
+        int TWSLib.IOrder.deltaNeutralShortSaleSlot { get { return DeltaNeutralShortSaleSlot; } set { DeltaNeutralShortSaleSlot = value; } }
+
+        string TWSLib.IOrder.deltaNeutralDesignatedLocation { get { return DeltaNeutralDesignatedLocation; } set { DeltaNeutralDesignatedLocation = value; } }
+
+        double TWSLib.IOrder.basisPoints { get { return BasisPoints; } set { BasisPoints = value; } }
+
+        int TWSLib.IOrder.basisPointsType { get { return BasisPointsType; } set { BasisPointsType = value; } }
+
+        int TWSLib.IOrder.scaleInitLevelSize { get { return ScaleInitLevelSize; } set { ScaleInitLevelSize = value; } }
+
+        int TWSLib.IOrder.scaleSubsLevelSize { get { return ScaleSubsLevelSize; } set { ScaleSubsLevelSize = value; } }
+
+        double TWSLib.IOrder.scalePriceIncrement { get { return ScalePriceIncrement; } set { ScalePriceIncrement = value; } }
+
+        double TWSLib.IOrder.scalePriceAdjustValue { get { return ScalePriceAdjustValue; } set { ScalePriceAdjustValue = value; } }
+
+        int TWSLib.IOrder.scalePriceAdjustInterval { get { return ScalePriceAdjustInterval; } set { ScalePriceAdjustInterval = value; } }
+
+        double TWSLib.IOrder.scaleProfitOffset { get { return ScaleProfitOffset; } set { ScaleProfitOffset = value; } }
+
+        bool TWSLib.IOrder.scaleAutoReset { get { return ScaleAutoReset; } set { ScaleAutoReset = value; } }
+
+        int TWSLib.IOrder.scaleInitPosition { get { return ScaleInitPosition; } set { ScaleInitPosition = value; } }
+        
+        int TWSLib.IOrder.scaleInitFillQty { get { return ScaleInitFillQty; } set { ScaleInitFillQty = value; } }
+
+        bool TWSLib.IOrder.scaleRandomPercent { get { return ScaleRandomPercent; } set { ScaleRandomPercent = value; } }
+
+        string TWSLib.IOrder.hedgeType { get { return HedgeType; } set { HedgeType = value; } }
+
+        string TWSLib.IOrder.hedgeParam { get { return HedgeParam; } set { HedgeParam = value; } }
+
+        string TWSLib.IOrder.account { get { return Account; } set { Account = value; } }
+
+        string TWSLib.IOrder.settlingFirm { get { return SettlingFirm; } set { SettlingFirm = value; } }
+
+        string TWSLib.IOrder.clearingAccount { get { return ClearingAccount; } set { ClearingAccount = value; } }
+
+        string TWSLib.IOrder.clearingIntent { get { return ClearingIntent; } set { ClearingIntent = value; } }
+
+        string TWSLib.IOrder.algoStrategy { get { return AlgoStrategy; } set { AlgoStrategy = value; } }
+
+        object TWSLib.IOrder.algoParams 
+        { 
+            get 
+            { 
+                return new TWSLib.ComTagValueList(AlgoParams); 
+            }
+ 
+            set 
+            { 
+                AlgoParams = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>(); 
+            } 
+        }
+
+        object TWSLib.IOrder.smartComboRoutingParams
+        {
+            get
+            {
+                return new TWSLib.ComTagValueList(SmartComboRoutingParams);
+            }
+
+            set
+            {
+                SmartComboRoutingParams = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>();
+            }
+        }
+
+        object TWSLib.IOrder.orderComboLegs
+        {
+            get
+            {
+                return new TWSLib.ComOrderComboLegList(OrderComboLegs);
+            }
+
+            set
+            {
+                OrderComboLegs = (value as TWSLib.ComOrderComboLegList).Ocl;
+            }
+        }
+
+        object TWSLib.IOrder.orderMiscOptions
+        {
+            get
+            {
+                return new TWSLib.ComTagValueList(OrderMiscOptions);
+            }
+
+            set
+            {
+                OrderMiscOptions = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>();
+            }
+        }
+
+
+        string TWSLib.IOrder.activeStartTime
+        {
+            get
+            {
+                return ActiveStartTime;
+            }
+            set
+            {
+                ActiveStartTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.activeStopTime
+        {
+            get
+            {
+                return ActiveStopTime;
+            }
+            set
+            {
+                ActiveStopTime = value;
+            }
+        }
+
+        string TWSLib.IOrder.scaleTable
+        {
+            get
+            {
+                return ScaleTable;
+            }
+            set
+            {
+                ScaleTable = value;
+            }
+        }
+
+        public static explicit operator ComOrder(Order o)
+        {
+            return new ComOrder() { data = o };
+        }
+
+        public static explicit operator Order(ComOrder co)
+        {
+            return co.data;
         }
     }
 }

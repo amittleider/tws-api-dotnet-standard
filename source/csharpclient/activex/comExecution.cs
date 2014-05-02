@@ -14,32 +14,18 @@ namespace IBApi
      * @brief Class describing an order's execution.
      * @sa ExecutionFilter, CommissionReport
      */
-    public class Execution
+    [ComVisible(true)]
+    public class ComExecution : TWSLib.IExecution
     {
-        private int orderId;
-        private int clientId;
-        private string execId;
-        private string time;
-        private string acctNumber;
-        private string exchange;
-        private string side;
-        private int shares;
-        private double price;
-        private int permId;
-        private int liquidation;
-        private int cumQty;
-        private double avgPrice;
-        private string orderRef;
-        private string evRule;
-        private double evMultiplier;
+        Execution data = new Execution();
 
         /**
          * @brief The API client's order Id.
          */
         public int OrderId
         {
-            get { return orderId; }
-            set { orderId = value; }
+            get { return data.OrderId; }
+            set { data.OrderId = value; }
         }
 
         /**
@@ -47,8 +33,8 @@ namespace IBApi
          */
         public int ClientId
         {
-            get { return clientId; }
-            set { clientId = value; }
+            get { return data.ClientId; }
+            set { data.ClientId = value; }
         }
 
         /**
@@ -56,8 +42,8 @@ namespace IBApi
          */
         public string ExecId
         {
-            get { return execId; }
-            set { execId = value; }
+            get { return data.ExecId; }
+            set { data.ExecId = value; }
         }
 
         /**
@@ -65,8 +51,8 @@ namespace IBApi
          */
         public string Time
         {
-            get { return time; }
-            set { time = value; }
+            get { return data.Time; }
+            set { data.Time = value; }
         }
 
         /**
@@ -74,8 +60,8 @@ namespace IBApi
          */
         public string AcctNumber
         {
-            get { return acctNumber; }
-            set { acctNumber = value; }
+            get { return data.AcctNumber; }
+            set { data.AcctNumber = value; }
         }
 
         /**
@@ -83,8 +69,8 @@ namespace IBApi
          */
         public string Exchange
         {
-            get { return exchange; }
-            set { exchange = value; }
+            get { return data.Exchange; }
+            set { data.Exchange = value; }
         }
 
         /**
@@ -93,8 +79,8 @@ namespace IBApi
          */
         public string Side
         {
-            get { return side; }
-            set { side = value; }
+            get { return data.Side; }
+            set { data.Side = value; }
         }
 
         /**
@@ -102,8 +88,8 @@ namespace IBApi
          */
         public int Shares
         {
-            get { return shares; }
-            set { shares = value; }
+            get { return data.Shares; }
+            set { data.Shares = value; }
         }
 
         /**
@@ -111,8 +97,8 @@ namespace IBApi
          */
         public double Price
         {
-            get { return price; }
-            set { price = value; }
+            get { return data.Price; }
+            set { data.Price = value; }
         }
 
         /**
@@ -120,8 +106,8 @@ namespace IBApi
          */
         public int PermId
         {
-            get { return permId; }
-            set { permId = value; }
+            get { return data.PermId; }
+            set { data.PermId = value; }
         }
 
         /**
@@ -129,8 +115,8 @@ namespace IBApi
          */
         public int Liquidation
         {
-            get { return liquidation; }
-            set { liquidation = value; }
+            get { return data.Liquidation; }
+            set { data.Liquidation = value; }
         }
 
         /**
@@ -139,8 +125,8 @@ namespace IBApi
          */
         public int CumQty
         {
-            get { return cumQty; }
-            set { cumQty = value; }
+            get { return data.CumQty; }
+            set { data.CumQty = value; }
         }
 
         /**
@@ -149,8 +135,8 @@ namespace IBApi
          */
         public double AvgPrice
         {
-            get { return avgPrice; }
-            set { avgPrice = value; }
+            get { return data.AvgPrice; }
+            set { data.AvgPrice = value; }
         }
 
         /**
@@ -158,8 +144,8 @@ namespace IBApi
          */
         public string OrderRef
         {
-            get { return orderRef; }
-            set { orderRef = value; }
+            get { return data.OrderRef; }
+            set { data.OrderRef = value; }
         }
 
         /**
@@ -168,8 +154,8 @@ namespace IBApi
          */
         public string EvRule
         {
-            get { return evRule; }
-            set { evRule = value; }
+            get { return data.EvRule; }
+            set { data.EvRule = value; }
         }
 
         /**
@@ -178,44 +164,8 @@ namespace IBApi
          */
         public double EvMultiplier
         {
-            get { return evMultiplier; }
-            set { evMultiplier = value; }
-        }
-
-        public Execution()
-        {
-            orderId = 0;
-            clientId = 0;
-            shares = 0;
-            price = 0;
-            permId = 0;
-            liquidation = 0;
-            cumQty = 0;
-            avgPrice = 0;
-            evMultiplier = 0;
-        }
-
-        public Execution(int orderId, int clientId, String execId, String time,
-                          String acctNumber, String exchange, String side, int shares,
-                          double price, int permId, int liquidation, int cumQty,
-                          double avgPrice, String orderRef, String evRule, double evMultiplier)
-        {
-            OrderId = orderId;
-            ClientId = clientId;
-            ExecId = execId;
-            Time = time;
-            AcctNumber = acctNumber;
-            Exchange = exchange;
-            Side = side;
-            Shares = shares;
-            Price = price;
-            PermId = permId;
-            Liquidation = liquidation;
-            CumQty = cumQty;
-            AvgPrice = avgPrice;
-            OrderRef = orderRef;
-            EvRule = evRule;
-            EvMultiplier = evMultiplier;
+            get { return data.EvMultiplier; }
+            set { data.EvMultiplier = value; }
         }
 
         public override bool Equals(Object p_other)
@@ -236,6 +186,96 @@ namespace IBApi
                 l_bRetVal = String.Compare(ExecId, l_theOther.ExecId, true) == 0;
             }
             return l_bRetVal;
+        }
+
+        string TWSLib.IExecution.execId
+        {
+            get { return ExecId; }
+        }
+
+        int TWSLib.IExecution.orderId
+        {
+            get { return OrderId; }
+        }
+
+        int TWSLib.IExecution.clientId
+        {
+            get { return ClientId; }
+        }
+
+        int TWSLib.IExecution.permId
+        {
+            get { return PermId; }
+        }
+
+        string TWSLib.IExecution.time
+        {
+            get { return Time; }
+        }
+
+        string TWSLib.IExecution.acctNumber
+        {
+            get { return AcctNumber; }
+        }
+
+        string TWSLib.IExecution.exchange
+        {
+            get { return Exchange; }
+        }
+
+        string TWSLib.IExecution.side
+        {
+            get { return Side; }
+        }
+
+        int TWSLib.IExecution.shares
+        {
+            get { return Shares; }
+        }
+
+        double TWSLib.IExecution.price
+        {
+            get { return Price; }
+        }
+
+        int TWSLib.IExecution.liquidation
+        {
+            get { return Liquidation; }
+        }
+
+        int TWSLib.IExecution.cumQty
+        {
+            get { return CumQty; }
+        }
+
+        double TWSLib.IExecution.avgPrice
+        {
+            get { return AvgPrice; }
+        }
+
+        string TWSLib.IExecution.orderRef
+        {
+            get { return OrderRef; }
+        }
+
+        string TWSLib.IExecution.evRule
+        {
+            get { return EvRule; }
+        }
+
+        double TWSLib.IExecution.evMultiplier
+        {
+            get { return EvMultiplier; }
+        }
+
+        public static explicit operator Execution(ComExecution ce)
+        {
+            return ce.data;
+        }
+
+        public static explicit operator ComExecution(Execution e)
+        {
+            return new ComExecution() { data = e };
         }
     }
 }

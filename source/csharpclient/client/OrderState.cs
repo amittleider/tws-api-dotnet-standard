@@ -14,8 +14,7 @@ namespace IBApi
      * @brief Provides an active order's current state
      * @sa Order
      */
-    [ComVisible(true)]
-    public class OrderState : TWSLib.IOrderState
+    public class OrderState
     {
         private string status;
         private string initMargin;
@@ -165,51 +164,6 @@ namespace IBApi
             }
 
             return true;
-        }
-
-        string TWSLib.IOrderState.status
-        {
-            get { return status; }
-        }
-
-        string TWSLib.IOrderState.initMargin
-        {
-            get { return initMargin; }
-        }
-
-        string TWSLib.IOrderState.maintMargin
-        {
-            get { return maintMargin; }
-        }
-
-        string TWSLib.IOrderState.equityWithLoan
-        {
-            get { return equityWithLoan; }
-        }
-
-        double TWSLib.IOrderState.commission
-        {
-            get { return commission; }
-        }
-
-        double TWSLib.IOrderState.minCommission
-        {
-            get { return minCommission; }
-        }
-
-        double TWSLib.IOrderState.maxCommission
-        {
-            get { return maxCommission; }
-        }
-
-        string TWSLib.IOrderState.commissionCurrency
-        {
-            get { return commissionCurrency; }
-        }
-
-        string TWSLib.IOrderState.warningText
-        {
-            get { return warningText; }
         }
     }
 }
