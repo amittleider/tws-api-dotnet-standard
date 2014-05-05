@@ -7,8 +7,8 @@
     <ProjectGuid>{44541143-0CA2-43A9-92A6-ACC174CE7061}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TWSActiveX</RootNamespace>
-    <AssemblyName>TWSActiveX</AssemblyName>
+    <RootNamespace>TWSLib</RootNamespace>
+    <AssemblyName>TWSLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSharpAPI">
-      <HintPath>..\client\bin\Debug\CSharpAPI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -44,6 +41,81 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\client\AccountSummaryTags.cs">
+      <Link>CSharpAPI\AccountSummaryTags.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ComboLeg.cs">
+      <Link>CSharpAPI\ComboLeg.cs</Link>
+    </Compile>
+    <Compile Include="..\client\CommissionReport.cs">
+      <Link>CSharpAPI\CommissionReport.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Constants.cs">
+      <Link>CSharpAPI\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Contract.cs">
+      <Link>CSharpAPI\Contract.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ContractDetails.cs">
+      <Link>CSharpAPI\ContractDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientErrors.cs">
+      <Link>CSharpAPI\EClientErrors.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientSocket.cs">
+      <Link>CSharpAPI\EClientSocket.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReader.cs">
+      <Link>CSharpAPI\EReader.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EWrapper.cs">
+      <Link>CSharpAPI\EWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Execution.cs">
+      <Link>CSharpAPI\Execution.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ExecutionFilter.cs">
+      <Link>CSharpAPI\ExecutionFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\client\IBParamsList.cs">
+      <Link>CSharpAPI\IBParamsList.cs</Link>
+    </Compile>
+    <Compile Include="..\client\IncomingMessage.cs">
+      <Link>CSharpAPI\IncomingMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MessageValidator.cs">
+      <Link>CSharpAPI\MessageValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MinServerVer.cs">
+      <Link>CSharpAPI\MinServerVer.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Order.cs">
+      <Link>CSharpAPI\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OrderComboLeg.cs">
+      <Link>CSharpAPI\OrderComboLeg.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OrderState.cs">
+      <Link>CSharpAPI\OrderState.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OutgoingMessages.cs">
+      <Link>CSharpAPI\OutgoingMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ScannerSubscription.cs">
+      <Link>CSharpAPI\ScannerSubscription.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TagValue.cs">
+      <Link>CSharpAPI\TagValue.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TickType.cs">
+      <Link>CSharpAPI\TickType.cs</Link>
+    </Compile>
+    <Compile Include="..\client\UnderComp.cs">
+      <Link>CSharpAPI\UnderComp.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Util.cs">
+      <Link>CSharpAPI\Util.cs</Link>
+    </Compile>
     <Compile Include="comComboLeg.cs" />
     <Compile Include="comCommissionReport.cs" />
     <Compile Include="comContract.cs" />
