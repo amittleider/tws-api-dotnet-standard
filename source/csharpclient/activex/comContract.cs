@@ -1,13 +1,14 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
+using IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IBApi
+namespace TWSLib
 {
     /**
      * @class Contract
@@ -15,7 +16,7 @@ namespace IBApi
      * @sa ContractDetails
      */
     [ComVisible(true)]
-    public class ComContract : TWSLib.IContract
+    public class ComContract : IContract
     {
         Contract data = new Contract();
 
@@ -170,9 +171,9 @@ namespace IBApi
             set { data.SecId = value; }
         }
 
-         /**
-         * @brief Description of the combo legs.
-         */
+        /**
+        * @brief Description of the combo legs.
+        */
         public string ComboLegsDescription
         {
             get { return data.ComboLegsDescription; }
@@ -229,16 +230,18 @@ namespace IBApi
         object TWSLib.IContract.comboLegs
         {
             [return: MarshalAs(UnmanagedType.IDispatch)]
-            get { return new TWSLib.ComComboLegList(ComboLegs); }
+            get { return ComboLegs != null ? new ComComboLegList(ComboLegs.Select(x => (ComComboLeg)x).ToList()) : null; }
 
             [param: MarshalAs(UnmanagedType.IDispatch)]
-            set { ComboLegs = value is TWSLib.ComComboLegList ? (value as TWSLib.ComComboLegList).Ocl : null; }
+            set { ComboLegs = value is ComComboLegList ? (value as ComComboLegList).Ocl.Select( x => (ComboLeg)x).ToList() : null; }
         }
 
-        object TWSLib.IContract.underComp 
-        { 
-            [return: MarshalAs(UnmanagedType.IDispatch)] get { return UnderComp; } 
-            [param: MarshalAs(UnmanagedType.IDispatch)] set { UnderComp = (UnderComp)value; } 
+        object TWSLib.IContract.underComp
+        {
+            [return: MarshalAs(UnmanagedType.IDispatch)]
+            get { return UnderComp; }
+            [param: MarshalAs(UnmanagedType.IDispatch)]
+            set { UnderComp = (UnderComp)value; }
         }
 
         string TWSLib.IContract.comboLegsDescrip { get { return ComboLegsDescription; } }

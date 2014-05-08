@@ -1,13 +1,14 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
+using IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IBApi
+namespace TWSLib
 {
     /**
      * @class ComboLeg
@@ -15,7 +16,7 @@ namespace IBApi
      * @sa Order
      */
     [ComVisible(true)]
-    public class ComComboLeg : IBApi.TWSApi.IComboLeg
+    public class ComComboLeg : IComboLeg
     {
         ComboLeg data = new ComboLeg();
 
@@ -97,21 +98,21 @@ namespace IBApi
             set { data.ExemptCode = value; }
         }    
 
-        int TWSApi.IComboLeg.conId { get { return ConId; } set { ConId = value; } }
+        int IComboLeg.conId { get { return ConId; } set { ConId = value; } }
 
-        int TWSApi.IComboLeg.ratio { get { return Ratio; } set { Ratio = value; } }
+        int IComboLeg.ratio { get { return Ratio; } set { Ratio = value; } }
 
-        string TWSApi.IComboLeg.action { get { return Action; } set { Action = value; } }
+        string IComboLeg.action { get { return Action; } set { Action = value; } }
 
-        string TWSApi.IComboLeg.exchange { get { return Exchange; } set { Exchange = value; } }
+        string IComboLeg.exchange { get { return Exchange; } set { Exchange = value; } }
 
-        int TWSApi.IComboLeg.openClose { get { return OpenClose; } set { OpenClose = value; } }
+        int IComboLeg.openClose { get { return OpenClose; } set { OpenClose = value; } }
 
-        int TWSApi.IComboLeg.shortSaleSlot { get { return ShortSaleSlot; } set { ShortSaleSlot = value; } }
+        int IComboLeg.shortSaleSlot { get { return ShortSaleSlot; } set { ShortSaleSlot = value; } }
 
-        string TWSApi.IComboLeg.designatedLocation { get { return DesignatedLocation; } set { DesignatedLocation = value; } }
+        string IComboLeg.designatedLocation { get { return DesignatedLocation; } set { DesignatedLocation = value; } }
 
-        int TWSApi.IComboLeg.exemptCode { get { return ExemptCode; } set { ExemptCode = value; } }
+        int IComboLeg.exemptCode { get { return ExemptCode; } set { ExemptCode = value; } }
 
         public static explicit operator ComComboLeg(ComboLeg cl)
         {

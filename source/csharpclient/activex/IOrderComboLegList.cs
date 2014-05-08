@@ -25,13 +25,13 @@ namespace TWSLib
     [ComVisible(true)]
     public class ComOrderComboLegList : IOrderComboLegList
     {
-        public List<IBApi.OrderComboLeg> Ocl { get; private set; }
+        public List<ComOrderComboLeg> Ocl { get; private set; }
 
-        public ComOrderComboLegList() : this(new List<IBApi.OrderComboLeg>()) { Ocl = new List<IBApi.OrderComboLeg>(); }
+        public ComOrderComboLegList() : this(new List<ComOrderComboLeg>()) { Ocl = new List<ComOrderComboLeg>(); }
 
-        public ComOrderComboLegList(List<IBApi.OrderComboLeg> ocl)
+        public ComOrderComboLegList(List<ComOrderComboLeg> ocl)
         {
-            this.Ocl = ocl == null ? new List<IBApi.OrderComboLeg>() : ocl;
+            this.Ocl = ocl == null ? new List<ComOrderComboLeg>() : ocl;
         }
 
         public object _NewEnum
@@ -51,7 +51,7 @@ namespace TWSLib
 
         public object Add()
         {
-            var rval = new IBApi.OrderComboLeg();
+            var rval = new ComOrderComboLeg();
 
             Ocl.Add(rval);
 

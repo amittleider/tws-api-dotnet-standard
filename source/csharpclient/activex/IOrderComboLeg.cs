@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IBApi.TWSApi
+namespace TWSLib
 {
     [Guid("639C4479-D0B6-49a3-B524-AEA6A9574945"), ComVisible(true)]
     public interface IOrderComboLeg

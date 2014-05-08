@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using IBApi;
+using System.Collections;
 
-namespace IBApi
+namespace TWSLib
 {
     /**
      * @class Order
@@ -17,7 +19,7 @@ namespace IBApi
     [ComVisible(true)]
     public class ComOrder : TWSLib.IOrder
     {
-        Order data = new Order();
+        IBApi.Order data = new IBApi.Order();
 
         /**
          * @brief The API client's order id.
@@ -872,10 +874,10 @@ namespace IBApi
         * @brief The list of parameters for the IB algorithm.
          * For more information about IB's API algorithms, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/ibalgo_parameters.htm
         */
-        public List<TagValue> AlgoParams
+        public List<ComTagValue> AlgoParams
         {
-            get { return data.AlgoParams; }
-            set { data.AlgoParams = value; }
+            get { return data.AlgoParams != null ? data.AlgoParams.Select(x => (ComTagValue)x).ToList() : null; }
+            set { data.AlgoParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /**
@@ -904,25 +906,25 @@ namespace IBApi
          * @brief Parameters for combo routing.
          * For more information, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/smart_combo_routing.htm   
          */
-        public List<TagValue> SmartComboRoutingParams
+        public List<ComTagValue> SmartComboRoutingParams
         {
-            get { return data.SmartComboRoutingParams; }
-            set { data.SmartComboRoutingParams = value; }
+            get { return data.SmartComboRoutingParams != null ? data.SmartComboRoutingParams.Select(x => (ComTagValue)x).ToList() : null; }
+            set { data.SmartComboRoutingParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /**
         * @brief The attributes for all legs within a combo order.
         */
-        public List<OrderComboLeg> OrderComboLegs
+        public List<ComOrderComboLeg> OrderComboLegs
         {
-            get { return data.OrderComboLegs; }
-            set { data.OrderComboLegs = value; }
+            get { return data.OrderComboLegs != null ? data.OrderComboLegs.Select(x => (ComOrderComboLeg)x).ToList() : null; }
+            set { data.OrderComboLegs = value != null ? value.Select(x => (OrderComboLeg)x).ToList() : null; }
         }
 
-        public List<TagValue> OrderMiscOptions
+        public List<ComTagValue> OrderMiscOptions
         {
-            get { return data.OrderMiscOptions; }
-            set { data.OrderMiscOptions = value; }
+            get { return data.OrderMiscOptions != null ? data.OrderMiscOptions.Select(x => (ComTagValue)x).ToList() : null; }
+            set { data.OrderMiscOptions = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /*
@@ -954,132 +956,10 @@ namespace IBApi
 
         public override bool Equals(Object p_other)
         {
-
-            if (this == p_other)
-                return true;
-
-            if (p_other == null)
+            if (!(p_other is ComOrder))
                 return false;
 
-            Order l_theOther = (Order)p_other;
-
-            if (PermId == l_theOther.PermId)
-            {
-                return true;
-            }
-
-            if (OrderId != l_theOther.OrderId ||
-                ClientId != l_theOther.ClientId ||
-                TotalQuantity != l_theOther.TotalQuantity ||
-                LmtPrice != l_theOther.LmtPrice ||
-                AuxPrice != l_theOther.AuxPrice ||
-                OcaType != l_theOther.OcaType ||
-                Transmit != l_theOther.Transmit ||
-                ParentId != l_theOther.ParentId ||
-                BlockOrder != l_theOther.BlockOrder ||
-                SweepToFill != l_theOther.SweepToFill ||
-                DisplaySize != l_theOther.DisplaySize ||
-                TriggerMethod != l_theOther.TriggerMethod ||
-                OutsideRth != l_theOther.OutsideRth ||
-                Hidden != l_theOther.Hidden ||
-                OverridePercentageConstraints != l_theOther.OverridePercentageConstraints ||
-                AllOrNone != l_theOther.AllOrNone ||
-                MinQty != l_theOther.MinQty ||
-                PercentOffset != l_theOther.PercentOffset ||
-                TrailStopPrice != l_theOther.TrailStopPrice ||
-                TrailingPercent != l_theOther.TrailingPercent ||
-                Origin != l_theOther.Origin ||
-                ShortSaleSlot != l_theOther.ShortSaleSlot ||
-                DiscretionaryAmt != l_theOther.DiscretionaryAmt ||
-                ETradeOnly != l_theOther.ETradeOnly ||
-                FirmQuoteOnly != l_theOther.FirmQuoteOnly ||
-                NbboPriceCap != l_theOther.NbboPriceCap ||
-                OptOutSmartRouting != l_theOther.OptOutSmartRouting ||
-                AuctionStrategy != l_theOther.AuctionStrategy ||
-                StartingPrice != l_theOther.StartingPrice ||
-                StockRefPrice != l_theOther.StockRefPrice ||
-                Delta != l_theOther.Delta ||
-                StockRangeLower != l_theOther.StockRangeLower ||
-                StockRangeUpper != l_theOther.StockRangeUpper ||
-                Volatility != l_theOther.Volatility ||
-                VolatilityType != l_theOther.VolatilityType ||
-                ContinuousUpdate != l_theOther.ContinuousUpdate ||
-                ReferencePriceType != l_theOther.ReferencePriceType ||
-                DeltaNeutralAuxPrice != l_theOther.DeltaNeutralAuxPrice ||
-                DeltaNeutralConId != l_theOther.DeltaNeutralConId ||
-                DeltaNeutralShortSale != l_theOther.DeltaNeutralShortSale ||
-                DeltaNeutralShortSaleSlot != l_theOther.DeltaNeutralShortSaleSlot ||
-                BasisPoints != l_theOther.BasisPoints ||
-                BasisPointsType != l_theOther.BasisPointsType ||
-                ScaleInitLevelSize != l_theOther.ScaleInitLevelSize ||
-                ScaleSubsLevelSize != l_theOther.ScaleSubsLevelSize ||
-                ScalePriceIncrement != l_theOther.ScalePriceIncrement ||
-                ScalePriceAdjustValue != l_theOther.ScalePriceAdjustValue ||
-                ScalePriceAdjustInterval != l_theOther.ScalePriceAdjustInterval ||
-                ScaleProfitOffset != l_theOther.ScaleProfitOffset ||
-                ScaleAutoReset != l_theOther.ScaleAutoReset ||
-                ScaleInitPosition != l_theOther.ScaleInitPosition ||
-                ScaleInitFillQty != l_theOther.ScaleInitFillQty ||
-                ScaleRandomPercent != l_theOther.ScaleRandomPercent ||
-                WhatIf != l_theOther.WhatIf ||
-                NotHeld != l_theOther.NotHeld ||
-                ExemptCode != l_theOther.ExemptCode)
-            {
-                return false;
-            }
-
-            if (Util.StringCompare(Action, l_theOther.Action) != 0 ||
-                Util.StringCompare(OrderType, l_theOther.OrderType) != 0 ||
-                Util.StringCompare(Tif, l_theOther.Tif) != 0 ||
-                Util.StringCompare(ActiveStartTime, l_theOther.ActiveStartTime) != 0 ||
-                Util.StringCompare(ActiveStopTime, l_theOther.ActiveStopTime) != 0 ||
-                Util.StringCompare(OcaGroup, l_theOther.OcaGroup) != 0 ||
-                Util.StringCompare(OrderRef, l_theOther.OrderRef) != 0 ||
-                Util.StringCompare(GoodAfterTime, l_theOther.GoodAfterTime) != 0 ||
-                Util.StringCompare(GoodTillDate, l_theOther.GoodTillDate) != 0 ||
-                Util.StringCompare(Rule80A, l_theOther.Rule80A) != 0 ||
-                Util.StringCompare(FaGroup, l_theOther.FaGroup) != 0 ||
-                Util.StringCompare(FaProfile, l_theOther.FaProfile) != 0 ||
-                Util.StringCompare(FaMethod, l_theOther.FaMethod) != 0 ||
-                Util.StringCompare(FaPercentage, l_theOther.FaPercentage) != 0 ||
-                Util.StringCompare(OpenClose, l_theOther.OpenClose) != 0 ||
-                Util.StringCompare(DesignatedLocation, l_theOther.DesignatedLocation) != 0 ||
-                Util.StringCompare(DeltaNeutralOrderType, l_theOther.DeltaNeutralOrderType) != 0 ||
-                Util.StringCompare(DeltaNeutralSettlingFirm, l_theOther.DeltaNeutralSettlingFirm) != 0 ||
-                Util.StringCompare(DeltaNeutralClearingAccount, l_theOther.DeltaNeutralClearingAccount) != 0 ||
-                Util.StringCompare(DeltaNeutralClearingIntent, l_theOther.DeltaNeutralClearingIntent) != 0 ||
-                Util.StringCompare(DeltaNeutralOpenClose, l_theOther.DeltaNeutralOpenClose) != 0 ||
-                Util.StringCompare(DeltaNeutralDesignatedLocation, l_theOther.DeltaNeutralDesignatedLocation) != 0 ||
-                Util.StringCompare(HedgeType, l_theOther.HedgeType) != 0 ||
-                Util.StringCompare(HedgeParam, l_theOther.HedgeParam) != 0 ||
-                Util.StringCompare(Account, l_theOther.Account) != 0 ||
-                Util.StringCompare(SettlingFirm, l_theOther.SettlingFirm) != 0 ||
-                Util.StringCompare(ClearingAccount, l_theOther.ClearingAccount) != 0 ||
-                Util.StringCompare(ClearingIntent, l_theOther.ClearingIntent) != 0 ||
-                Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
-                Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
-                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0)
-            {
-                return false;
-            }
-
-            if (!Util.VectorEqualsUnordered(AlgoParams, l_theOther.AlgoParams))
-            {
-                return false;
-            }
-
-            if (!Util.VectorEqualsUnordered(SmartComboRoutingParams, l_theOther.SmartComboRoutingParams))
-            {
-                return false;
-            }
-
-            // compare order combo legs
-            if (!Util.VectorEqualsUnordered(OrderComboLegs, l_theOther.OrderComboLegs))
-            {
-                return false;
-            }
-
-            return true;
+            return data.Equals((p_other as ComOrder).data);
         }
 
 
@@ -1234,7 +1114,7 @@ namespace IBApi
         bool TWSLib.IOrder.scaleAutoReset { get { return ScaleAutoReset; } set { ScaleAutoReset = value; } }
 
         int TWSLib.IOrder.scaleInitPosition { get { return ScaleInitPosition; } set { ScaleInitPosition = value; } }
-        
+
         int TWSLib.IOrder.scaleInitFillQty { get { return ScaleInitFillQty; } set { ScaleInitFillQty = value; } }
 
         bool TWSLib.IOrder.scaleRandomPercent { get { return ScaleRandomPercent; } set { ScaleRandomPercent = value; } }
@@ -1253,29 +1133,29 @@ namespace IBApi
 
         string TWSLib.IOrder.algoStrategy { get { return AlgoStrategy; } set { AlgoStrategy = value; } }
 
-        object TWSLib.IOrder.algoParams 
-        { 
-            get 
-            { 
-                return new TWSLib.ComTagValueList(AlgoParams); 
+        object TWSLib.IOrder.algoParams
+        {
+            get
+            {
+                return new TWSLib.ComTagValueList(AlgoParams);
             }
- 
-            set 
-            { 
-                AlgoParams = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>(); 
-            } 
+
+            set
+            {
+                AlgoParams = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
+            }
         }
 
         object TWSLib.IOrder.smartComboRoutingParams
         {
             get
             {
-                return new TWSLib.ComTagValueList(SmartComboRoutingParams);
+                return SmartComboRoutingParams != null ? new TWSLib.ComTagValueList(SmartComboRoutingParams) : null;
             }
 
             set
             {
-                SmartComboRoutingParams = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>();
+                SmartComboRoutingParams = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
             }
         }
 
@@ -1283,12 +1163,12 @@ namespace IBApi
         {
             get
             {
-                return new TWSLib.ComOrderComboLegList(OrderComboLegs);
+                return OrderComboLegs != null ? new TWSLib.ComOrderComboLegList(OrderComboLegs) : null;
             }
 
             set
             {
-                OrderComboLegs = (value as TWSLib.ComOrderComboLegList).Ocl;
+                OrderComboLegs = value != null ? (value as TWSLib.ComOrderComboLegList).Ocl : null;
             }
         }
 
@@ -1296,12 +1176,12 @@ namespace IBApi
         {
             get
             {
-                return new TWSLib.ComTagValueList(OrderMiscOptions);
+                return OrderMiscOptions != null ? new TWSLib.ComTagValueList(OrderMiscOptions) : null;
             }
 
             set
             {
-                OrderMiscOptions = value != null ? (value as TWSLib.ComTagValueList).Tvl : new List<TagValue>();
+                OrderMiscOptions = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
             }
         }
 
@@ -1342,12 +1222,12 @@ namespace IBApi
             }
         }
 
-        public static explicit operator ComOrder(Order o)
+        public static explicit operator ComOrder(IBApi.Order o)
         {
             return new ComOrder() { data = o };
         }
 
-        public static explicit operator Order(ComOrder co)
+        public static explicit operator IBApi.Order(ComOrder co)
         {
             return co.data;
         }

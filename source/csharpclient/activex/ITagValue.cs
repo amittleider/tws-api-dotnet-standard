@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IBApi.TWSApi
+namespace TWSLib
 {
     [ComVisible(true)]
     [Guid("06FF1D3F-F12F-47D1-9443-A74D3CD58723")]

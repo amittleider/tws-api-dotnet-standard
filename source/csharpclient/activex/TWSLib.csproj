@@ -126,6 +126,7 @@
     <Compile Include="comOrderComboLeg.cs" />
     <Compile Include="comOrderState.cs" />
     <Compile Include="comScannerSubscription.cs" />
+    <Compile Include="ComTagValue.cs" />
     <Compile Include="comUnderComp.cs" />
     <Compile Include="IComboLeg.cs" />
     <Compile Include="IComboLegList.cs" />

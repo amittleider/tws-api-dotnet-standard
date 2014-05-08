@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace TWSLib
 {
@@ -735,7 +736,7 @@ namespace TWSLib
             if (!(contract is Contract))
                 throw new ArgumentException("Invalid argument type", "contract");
             //X - CHANGED
-            this.socket.reqFundamentalData(reqId, contract as Contract, reportType, null);
+            this.socket.reqFundamentalData(reqId, (Contract)(contract as ComContract), reportType, null);
         }
 
         [DispId(93)]
@@ -799,7 +800,7 @@ namespace TWSLib
             if (v == null)
                 return null;
 
-            return (v as ComTagValueList).Tvl;
+            return (v as ComTagValueList).Tvl.Select(x => (TagValue)x).ToList();
         }
 
         [DispId(102)]

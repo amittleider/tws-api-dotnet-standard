@@ -1,13 +1,14 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
+using IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IBApi
+namespace TWSLib
 {
     /**
      * @class OrderComboLeg
@@ -15,7 +16,7 @@ namespace IBApi
      * @sa Order, ComboLeg
      */
     [ComVisible(true)]
-    public class ComOrderComboLeg : IBApi.TWSApi.IOrderComboLeg
+    public class ComOrderComboLeg : IOrderComboLeg
     {
 
         OrderComboLeg data = new OrderComboLeg();
@@ -50,7 +51,7 @@ namespace IBApi
             return true;
         }
 
-        double TWSApi.IOrderComboLeg.price { get { return this.Price; } set { this.Price = value; } }
+        double IOrderComboLeg.price { get { return this.Price; } set { this.Price = value; } }
 
         public static explicit operator OrderComboLeg(ComOrderComboLeg coc)
         {
