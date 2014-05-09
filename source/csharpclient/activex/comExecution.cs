@@ -25,8 +25,8 @@ namespace TWSLib
          */
         public int OrderId
         {
-            get { return data.OrderId; }
-            set { data.OrderId = value; }
+            get { return data != null ? data.OrderId : default(int); }
+            set { if (data != null) data.OrderId = value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
          */
         public int ClientId
         {
-            get { return data.ClientId; }
-            set { data.ClientId = value; }
+            get { return data != null ? data.ClientId : default(int); }
+            set { if (data != null) data.ClientId = value; }
         }
 
         /**
@@ -43,8 +43,8 @@ namespace TWSLib
          */
         public string ExecId
         {
-            get { return data.ExecId; }
-            set { data.ExecId = value; }
+            get { return data != null ? data.ExecId : default(string); }
+            set { if (data != null) data.ExecId = value; }
         }
 
         /**
@@ -52,8 +52,8 @@ namespace TWSLib
          */
         public string Time
         {
-            get { return data.Time; }
-            set { data.Time = value; }
+            get { return data != null ? data.Time : default(string); }
+            set { if (data != null) data.Time = value; }
         }
 
         /**
@@ -61,8 +61,8 @@ namespace TWSLib
          */
         public string AcctNumber
         {
-            get { return data.AcctNumber; }
-            set { data.AcctNumber = value; }
+            get { return data != null ? data.AcctNumber : default(string); }
+            set { if (data != null) data.AcctNumber = value; }
         }
 
         /**
@@ -70,8 +70,8 @@ namespace TWSLib
          */
         public string Exchange
         {
-            get { return data.Exchange; }
-            set { data.Exchange = value; }
+            get { return data != null ? data.Exchange : default(string); }
+            set { if (data != null) data.Exchange = value; }
         }
 
         /**
@@ -80,8 +80,8 @@ namespace TWSLib
          */
         public string Side
         {
-            get { return data.Side; }
-            set { data.Side = value; }
+            get { return data != null ? data.Side : default(string); }
+            set { if (data != null) data.Side = value; }
         }
 
         /**
@@ -89,8 +89,8 @@ namespace TWSLib
          */
         public int Shares
         {
-            get { return data.Shares; }
-            set { data.Shares = value; }
+            get { return data != null ? data.Shares : default(int); }
+            set { if (data != null) data.Shares = value; }
         }
 
         /**
@@ -98,8 +98,8 @@ namespace TWSLib
          */
         public double Price
         {
-            get { return data.Price; }
-            set { data.Price = value; }
+            get { return data != null ? data.Price : default(double); }
+            set { if (data != null) data.Price = value; }
         }
 
         /**
@@ -107,8 +107,8 @@ namespace TWSLib
          */
         public int PermId
         {
-            get { return data.PermId; }
-            set { data.PermId = value; }
+            get { return data != null ? data.PermId : default(int); }
+            set { if (data != null) data.PermId = value; }
         }
 
         /**
@@ -116,8 +116,8 @@ namespace TWSLib
          */
         public int Liquidation
         {
-            get { return data.Liquidation; }
-            set { data.Liquidation = value; }
+            get { return data != null ? data.Liquidation : default(int); }
+            set { if (data != null) data.Liquidation = value; }
         }
 
         /**
@@ -126,8 +126,8 @@ namespace TWSLib
          */
         public int CumQty
         {
-            get { return data.CumQty; }
-            set { data.CumQty = value; }
+            get { return data != null ? data.CumQty : default(int); }
+            set { if (data != null) data.CumQty = value; }
         }
 
         /**
@@ -136,8 +136,8 @@ namespace TWSLib
          */
         public double AvgPrice
         {
-            get { return data.AvgPrice; }
-            set { data.AvgPrice = value; }
+            get { return data != null ? data.AvgPrice : default(double); }
+            set { if (data != null) data.AvgPrice = value; }
         }
 
         /**
@@ -145,8 +145,8 @@ namespace TWSLib
          */
         public string OrderRef
         {
-            get { return data.OrderRef; }
-            set { data.OrderRef = value; }
+            get { return data != null ? data.OrderRef : default(string); }
+            set { if (data != null) data.OrderRef = value; }
         }
 
         /**
@@ -155,8 +155,8 @@ namespace TWSLib
          */
         public string EvRule
         {
-            get { return data.EvRule; }
-            set { data.EvRule = value; }
+            get { return data != null ? data.EvRule : default(string); }
+            set { if (data != null) data.EvRule = value; }
         }
 
         /**
@@ -165,8 +165,8 @@ namespace TWSLib
          */
         public double EvMultiplier
         {
-            get { return data.EvMultiplier; }
-            set { data.EvMultiplier = value; }
+            get { return data != null ? data.EvMultiplier : default(double); }
+            set { if (data != null) data.EvMultiplier = value; }
         }
 
         public override bool Equals(Object p_other)

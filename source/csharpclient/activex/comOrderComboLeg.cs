@@ -26,8 +26,8 @@ namespace TWSLib
          */
         public double Price
         {
-            get { return data.Price; }
-            set { data.Price = value; }
+            get { return data != null ? data.Price : default(double); }
+            set { if (data != null) data.Price = value; }
         }
 
         public override bool Equals(Object other)

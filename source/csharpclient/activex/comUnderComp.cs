@@ -23,8 +23,8 @@ namespace TWSLib
          */
         public int ConId
         {
-            get { return data.ConId; }
-            set { data.ConId = value; }
+            get { return data != null ? data.ConId : default(int); }
+            set { if (data != null) data.ConId = value; }
         }
 
         /**
@@ -32,8 +32,8 @@ namespace TWSLib
         */
         public double Delta
         {
-            get { return data.Delta; }
-            set { data.Delta = value; }
+            get { return data !=null ? data.Delta : default(double); }
+            set { if (data != null) data.Delta = value; }
         }
 
         /**
@@ -41,8 +41,8 @@ namespace TWSLib
         */
         public double Price
         {
-            get { return data.Price; }
-            set { data.Price = value; }
+            get { return data !=null ? data.Price : default(double); }
+            set { if (data != null) data.Price = value; }
         }
 
         int TWSLib.IUnderComp.conId

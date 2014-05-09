@@ -733,7 +733,7 @@ namespace TWSLib
         [DispId(92)]
         public void reqFundamentalData(int reqId, IContract contract, string reportType)
         {
-            if (!(contract is Contract))
+            if (!(contract is ComContract))
                 throw new ArgumentException("Invalid argument type", "contract");
             //X - CHANGED
             this.socket.reqFundamentalData(reqId, (Contract)(contract as ComContract), reportType, null);
@@ -1299,7 +1299,7 @@ namespace TWSLib
 
             var t_updatePortfolioEx = this.updatePortfolioEx;
             if (t_updatePortfolioEx != null)
-                InvokeIfRequired(t_updatePortfolioEx, contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName);
+                InvokeIfRequired(t_updatePortfolioEx, (ComContract)contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName);
         }
 
         void EWrapper.updateAccountTime(string timestamp)
@@ -1617,7 +1617,7 @@ namespace TWSLib
         {
             var t_position = this.position;
             if (t_position != null)
-                InvokeIfRequired(t_position, account, contract, pos, avgCost);
+                InvokeIfRequired(t_position, account, (ComContract)contract, pos, avgCost);
         }
 
         void EWrapper.positionEnd()

@@ -26,8 +26,8 @@ namespace TWSLib
          */
         public int OrderId
         {
-            get { return data.OrderId; }
-            set { data.OrderId = value; }
+            get { return data != null ? data.OrderId : default(int); }
+            set { if (data != null) data.OrderId = value; }
         }
 
         /**
@@ -35,8 +35,8 @@ namespace TWSLib
          */
         public int ClientId
         {
-            get { return data.ClientId; }
-            set { data.ClientId = value; }
+            get { return data != null ? data.ClientId : default(int); }
+            set { if (data != null) data.ClientId = value; }
         }
 
         /**
@@ -44,8 +44,8 @@ namespace TWSLib
          */
         public int PermId
         {
-            get { return data.PermId; }
-            set { data.PermId = value; }
+            get { return data != null ? data.PermId : default(int); }
+            set { if (data != null) data.PermId = value; }
         }
 
         /**
@@ -54,8 +54,8 @@ namespace TWSLib
          */
         public string Action
         {
-            get { return data.Action; }
-            set { data.Action = value; }
+            get { return data != null ? data.Action : default(string); }
+            set { if (data != null) data.Action = value; }
         }
 
         /**
@@ -63,8 +63,8 @@ namespace TWSLib
          */
         public int TotalQuantity
         {
-            get { return data.TotalQuantity; }
-            set { data.TotalQuantity = value; }
+            get { return data != null ? data.TotalQuantity : default(int); }
+            set { if (data != null) data.TotalQuantity = value; }
         }
 
         /**
@@ -73,8 +73,8 @@ namespace TWSLib
          */
         public string OrderType
         {
-            get { return data.OrderType; }
-            set { data.OrderType = value; }
+            get { return data != null ? data.OrderType : default(string); }
+            set { if (data != null) data.OrderType = value; }
         }
 
         /**
@@ -83,8 +83,8 @@ namespace TWSLib
          */
         public double LmtPrice
         {
-            get { return data.LmtPrice; }
-            set { data.LmtPrice = value; }
+            get { return data != null ? data.LmtPrice : default(double); }
+            set { if (data != null) data.LmtPrice = value; }
         }
 
         /**
@@ -92,8 +92,8 @@ namespace TWSLib
          */
         public double AuxPrice
         {
-            get { return data.AuxPrice; }
-            set { data.AuxPrice = value; }
+            get { return data != null ? data.AuxPrice : default(double); }
+            set { if (data != null) data.AuxPrice = value; }
         }
 
         /**
@@ -114,8 +114,8 @@ namespace TWSLib
           */
         public string Tif
         {
-            get { return data.Tif; }
-            set { data.Tif = value; }
+            get { return data != null ? data.Tif : default(string); }
+            set { if (data != null) data.Tif = value; }
         }
 
 
@@ -124,8 +124,8 @@ namespace TWSLib
          */
         public string OcaGroup
         {
-            get { return data.OcaGroup; }
-            set { data.OcaGroup = value; }
+            get { return data != null ? data.OcaGroup : default(string); }
+            set { if (data != null) data.OcaGroup = value; }
         }
 
         /**
@@ -138,8 +138,8 @@ namespace TWSLib
          */
         public int OcaType
         {
-            get { return data.OcaType; }
-            set { data.OcaType = value; }
+            get { return data != null ? data.OcaType : default(int); }
+            set { if (data != null) data.OcaType = value; }
         }
 
         /**
@@ -148,8 +148,8 @@ namespace TWSLib
          */
         public string OrderRef
         {
-            get { return data.OrderRef; }
-            set { data.OrderRef = value; }
+            get { return data != null ? data.OrderRef : default(string); }
+            set { if (data != null) data.OrderRef = value; }
         }
 
         /**
@@ -157,8 +157,8 @@ namespace TWSLib
          */
         public bool Transmit
         {
-            get { return data.Transmit; }
-            set { data.Transmit = value; }
+            get { return data != null ? data.Transmit : default(bool); }
+            set { if (data != null) data.Transmit = value; }
         }
 
         /**
@@ -166,8 +166,8 @@ namespace TWSLib
          */
         public int ParentId
         {
-            get { return data.ParentId; }
-            set { data.ParentId = value; }
+            get { return data != null ? data.ParentId : default(int); }
+            set { if (data != null) data.ParentId = value; }
         }
 
         /**
@@ -175,8 +175,8 @@ namespace TWSLib
          */
         public bool BlockOrder
         {
-            get { return data.BlockOrder; }
-            set { data.BlockOrder = value; }
+            get { return data != null ? data.BlockOrder : default(bool); }
+            set { if (data != null) data.BlockOrder = value; }
         }
 
         /**
@@ -184,8 +184,8 @@ namespace TWSLib
          */
         public bool SweepToFill
         {
-            get { return data.SweepToFill; }
-            set { data.SweepToFill = value; }
+            get { return data != null ? data.SweepToFill : default(bool); }
+            set { if (data != null) data.SweepToFill = value; }
         }
 
         /**
@@ -193,8 +193,8 @@ namespace TWSLib
          */
         public int DisplaySize
         {
-            get { return data.DisplaySize; }
-            set { data.DisplaySize = value; }
+            get { return data != null ? data.DisplaySize : default(int); }
+            set { if (data != null) data.DisplaySize = value; }
         }
 
         /**
@@ -210,8 +210,8 @@ namespace TWSLib
          */
         public int TriggerMethod
         {
-            get { return data.TriggerMethod; }
-            set { data.TriggerMethod = value; }
+            get { return data != null ? data.TriggerMethod : default(int); }
+            set { if (data != null) data.TriggerMethod = value; }
         }
 
         /**
@@ -219,8 +219,8 @@ namespace TWSLib
          */
         public bool OutsideRth
         {
-            get { return data.OutsideRth; }
-            set { data.OutsideRth = value; }
+            get { return data != null ? data.OutsideRth : default(bool); }
+            set { if (data != null) data.OutsideRth = value; }
         }
 
         /**
@@ -229,8 +229,8 @@ namespace TWSLib
          */
         public bool Hidden
         {
-            get { return data.Hidden; }
-            set { data.Hidden = value; }
+            get { return data != null ? data.Hidden : default(bool); }
+            set { if (data != null) data.Hidden = value; }
         }
 
         /**
@@ -239,8 +239,8 @@ namespace TWSLib
          */
         public string GoodAfterTime
         {
-            get { return data.GoodAfterTime; }
-            set { data.GoodAfterTime = value; }
+            get { return data != null ? data.GoodAfterTime : default(string); }
+            set { if (data != null) data.GoodAfterTime = value; }
         }
 
         /**
@@ -249,8 +249,8 @@ namespace TWSLib
          */
         public string GoodTillDate
         {
-            get { return data.GoodTillDate; }
-            set { data.GoodTillDate = value; }
+            get { return data != null ? data.GoodTillDate : default(string); }
+            set { if (data != null) data.GoodTillDate = value; }
         }
 
         /**
@@ -260,8 +260,8 @@ namespace TWSLib
          */
         public bool OverridePercentageConstraints
         {
-            get { return data.OverridePercentageConstraints; }
-            set { data.OverridePercentageConstraints = value; }
+            get { return data != null ? data.OverridePercentageConstraints : default(bool); }
+            set { if (data != null) data.OverridePercentageConstraints = value; }
         }
 
         /**
@@ -278,8 +278,8 @@ namespace TWSLib
          */
         public string Rule80A
         {
-            get { return data.Rule80A; }
-            set { data.Rule80A = value; }
+            get { return data != null ? data.Rule80A : default(string); }
+            set { if (data != null) data.Rule80A = value; }
         }
 
         /**
@@ -287,8 +287,8 @@ namespace TWSLib
          */
         public bool AllOrNone
         {
-            get { return data.AllOrNone; }
-            set { data.AllOrNone = value; }
+            get { return data != null ? data.AllOrNone : default(bool); }
+            set { if (data != null) data.AllOrNone = value; }
         }
 
         /**
@@ -296,8 +296,8 @@ namespace TWSLib
          */
         public int MinQty
         {
-            get { return data.MinQty; }
-            set { data.MinQty = value; }
+            get { return data != null ? data.MinQty : default(int); }
+            set { if (data != null) data.MinQty = value; }
         }
 
         /**
@@ -305,8 +305,8 @@ namespace TWSLib
          */
         public double PercentOffset
         {
-            get { return data.PercentOffset; }
-            set { data.PercentOffset = value; }
+            get { return data != null ? data.PercentOffset : default(double); }
+            set { if (data != null) data.PercentOffset = value; }
         }
 
         /**
@@ -314,8 +314,8 @@ namespace TWSLib
          */
         public double TrailStopPrice
         {
-            get { return data.TrailStopPrice; }
-            set { data.TrailStopPrice = value; }
+            get { return data != null ? data.TrailStopPrice : default(double); }
+            set { if (data != null) data.TrailStopPrice = value; }
         }
 
         /**
@@ -327,8 +327,8 @@ namespace TWSLib
          */
         public double TrailingPercent
         {
-            get { return data.TrailingPercent; }
-            set { data.TrailingPercent = value; }
+            get { return data != null ? data.TrailingPercent : default(double); }
+            set { if (data != null) data.TrailingPercent = value; }
         }
 
         /**
@@ -337,8 +337,8 @@ namespace TWSLib
          */
         public string FaGroup
         {
-            get { return data.FaGroup; }
-            set { data.FaGroup = value; }
+            get { return data != null ? data.FaGroup : default(string); }
+            set { if (data != null) data.FaGroup = value; }
         }
 
         /**
@@ -347,8 +347,8 @@ namespace TWSLib
          */
         public string FaProfile
         {
-            get { return data.FaProfile; }
-            set { data.FaProfile = value; }
+            get { return data != null ? data.FaProfile : default(string); }
+            set { if (data != null) data.FaProfile = value; }
         }
 
         /**
@@ -357,8 +357,8 @@ namespace TWSLib
          */
         public string FaMethod
         {
-            get { return data.FaMethod; }
-            set { data.FaMethod = value; }
+            get { return data != null ? data.FaMethod : default(string); }
+            set { if (data != null) data.FaMethod = value; }
         }
 
         /**
@@ -367,8 +367,8 @@ namespace TWSLib
          */
         public string FaPercentage
         {
-            get { return data.FaPercentage; }
-            set { data.FaPercentage = value; }
+            get { return data != null ? data.FaPercentage : default(string); }
+            set { if (data != null) data.FaPercentage = value; }
         }
 
 
@@ -378,8 +378,8 @@ namespace TWSLib
          */
         public string OpenClose
         {
-            get { return data.OpenClose; }
-            set { data.OpenClose = value; }
+            get { return data != null ? data.OpenClose : default(string); }
+            set { if (data != null) data.OpenClose = value; }
         }
 
 
@@ -389,8 +389,8 @@ namespace TWSLib
          */
         public int Origin
         {
-            get { return data.Origin; }
-            set { data.Origin = value; }
+            get { return data != null ? data.Origin : default(int); }
+            set { if (data != null) data.Origin = value; }
         }
 
         /**
@@ -399,8 +399,8 @@ namespace TWSLib
          */
         public int ShortSaleSlot
         {
-            get { return data.ShortSaleSlot; }
-            set { data.ShortSaleSlot = value; }
+            get { return data != null ? data.ShortSaleSlot : default(int); }
+            set { if (data != null) data.ShortSaleSlot = value; }
         }
 
         /**
@@ -410,8 +410,8 @@ namespace TWSLib
          */
         public string DesignatedLocation
         {
-            get { return data.DesignatedLocation; }
-            set { data.DesignatedLocation = value; }
+            get { return data != null ? data.DesignatedLocation : default(string); }
+            set { if (data != null) data.DesignatedLocation = value; }
         }
 
         /**
@@ -419,8 +419,8 @@ namespace TWSLib
          */
         public int ExemptCode
         {
-            get { return data.ExemptCode; }
-            set { data.ExemptCode = value; }
+            get { return data != null ? data.ExemptCode : default(int); }
+            set { if (data != null) data.ExemptCode = value; }
         }
 
         /**
@@ -428,8 +428,8 @@ namespace TWSLib
           */
         public double DiscretionaryAmt
         {
-            get { return data.DiscretionaryAmt; }
-            set { data.DiscretionaryAmt = value; }
+            get { return data != null ? data.DiscretionaryAmt : default(double); }
+            set { if (data != null) data.DiscretionaryAmt = value; }
         }
 
         /**
@@ -437,8 +437,8 @@ namespace TWSLib
          */
         public bool ETradeOnly
         {
-            get { return data.ETradeOnly; }
-            set { data.ETradeOnly = value; }
+            get { return data != null ? data.ETradeOnly : default(bool); }
+            set { if (data != null) data.ETradeOnly = value; }
         }
 
         /**
@@ -446,8 +446,8 @@ namespace TWSLib
          */
         public bool FirmQuoteOnly
         {
-            get { return data.FirmQuoteOnly; }
-            set { data.FirmQuoteOnly = value; }
+            get { return data != null ? data.FirmQuoteOnly : default(bool); }
+            set { if (data != null) data.FirmQuoteOnly = value; }
         }
 
         /**
@@ -455,8 +455,8 @@ namespace TWSLib
          */
         public double NbboPriceCap
         {
-            get { return data.NbboPriceCap; }
-            set { data.NbboPriceCap = value; }
+            get { return data != null ? data.NbboPriceCap : default(double); }
+            set { if (data != null) data.NbboPriceCap = value; }
         }
 
         /**
@@ -465,8 +465,8 @@ namespace TWSLib
          */
         public bool OptOutSmartRouting
         {
-            get { return data.OptOutSmartRouting; }
-            set { data.OptOutSmartRouting = value; }
+            get { return data != null ? data.OptOutSmartRouting : default(bool); }
+            set { if (data != null) data.OptOutSmartRouting = value; }
         }
 
         /**
@@ -478,8 +478,8 @@ namespace TWSLib
          */
         public int AuctionStrategy
         {
-            get { return data.AuctionStrategy; }
-            set { data.AuctionStrategy = value; }
+            get { return data != null ? data.AuctionStrategy : default(int); }
+            set { if (data != null) data.AuctionStrategy = value; }
         }
 
         /**
@@ -488,8 +488,8 @@ namespace TWSLib
          */
         public double StartingPrice
         {
-            get { return data.StartingPrice; }
-            set { data.StartingPrice = value; }
+            get { return data != null ? data.StartingPrice : default(double); }
+            set { if (data != null) data.StartingPrice = value; }
         }
 
         /**
@@ -498,8 +498,8 @@ namespace TWSLib
          */
         public double StockRefPrice
         {
-            get { return data.StockRefPrice; }
-            set { data.StockRefPrice = value; }
+            get { return data != null ? data.StockRefPrice : default(double); }
+            set { if (data != null) data.StockRefPrice = value; }
         }
 
         /**
@@ -508,8 +508,8 @@ namespace TWSLib
          */
         public double Delta
         {
-            get { return data.Delta; }
-            set { data.Delta = value; }
+            get { return data != null ? data.Delta : default(double); }
+            set { if (data != null) data.Delta = value; }
         }
 
         /**
@@ -518,8 +518,8 @@ namespace TWSLib
           */
         public double StockRangeLower
         {
-            get { return data.StockRangeLower; }
-            set { data.StockRangeLower = value; }
+            get { return data != null ? data.StockRangeLower : default(double); }
+            set { if (data != null) data.StockRangeLower = value; }
         }
 
         /**
@@ -528,8 +528,8 @@ namespace TWSLib
          */
         public double StockRangeUpper
         {
-            get { return data.StockRangeUpper; }
-            set { data.StockRangeUpper = value; }
+            get { return data != null ? data.StockRangeUpper : default(double); }
+            set { if (data != null) data.StockRangeUpper = value; }
         }
 
 
@@ -539,8 +539,8 @@ namespace TWSLib
          */
         public double Volatility
         {
-            get { return data.Volatility; }
-            set { data.Volatility = value; }
+            get { return data != null ? data.Volatility : default(double); }
+            set { if (data != null) data.Volatility = value; }
         }
 
         /**
@@ -551,8 +551,8 @@ namespace TWSLib
          */
         public int VolatilityType
         {
-            get { return data.VolatilityType; }
-            set { data.VolatilityType = value; }
+            get { return data != null ? data.VolatilityType : default(int); }
+            set { if (data != null) data.VolatilityType = value; }
         }
 
         /**
@@ -561,8 +561,8 @@ namespace TWSLib
          */
         public int ContinuousUpdate
         {
-            get { return data.ContinuousUpdate; }
-            set { data.ContinuousUpdate = value; }
+            get { return data != null ? data.ContinuousUpdate : default(int); }
+            set { if (data != null) data.ContinuousUpdate = value; }
         }
 
         /**
@@ -573,8 +573,8 @@ namespace TWSLib
          */
         public int ReferencePriceType
         {
-            get { return data.ReferencePriceType; }
-            set { data.ReferencePriceType = value; }
+            get { return data != null ? data.ReferencePriceType : default(int); }
+            set { if (data != null) data.ReferencePriceType = value; }
         }
 
         /**
@@ -583,8 +583,8 @@ namespace TWSLib
          */
         public string DeltaNeutralOrderType
         {
-            get { return data.DeltaNeutralOrderType; }
-            set { data.DeltaNeutralOrderType = value; }
+            get { return data != null ? data.DeltaNeutralOrderType : default(string); }
+            set { if (data != null) data.DeltaNeutralOrderType = value; }
         }
 
         /**
@@ -593,8 +593,8 @@ namespace TWSLib
          */
         public double DeltaNeutralAuxPrice
         {
-            get { return data.DeltaNeutralAuxPrice; }
-            set { data.DeltaNeutralAuxPrice = value; }
+            get { return data != null ? data.DeltaNeutralAuxPrice : default(double); }
+            set { if (data != null) data.DeltaNeutralAuxPrice = value; }
         }
 
         /**
@@ -602,8 +602,8 @@ namespace TWSLib
          */
         public int DeltaNeutralConId
         {
-            get { return data.DeltaNeutralConId; }
-            set { data.DeltaNeutralConId = value; }
+            get { return data != null ? data.DeltaNeutralConId : default(int); }
+            set { if (data != null) data.DeltaNeutralConId = value; }
         }
 
         /**
@@ -611,8 +611,8 @@ namespace TWSLib
          */
         public string DeltaNeutralSettlingFirm
         {
-            get { return data.DeltaNeutralSettlingFirm; }
-            set { data.DeltaNeutralSettlingFirm = value; }
+            get { return data != null ? data.DeltaNeutralSettlingFirm : default(string); }
+            set { if (data != null) data.DeltaNeutralSettlingFirm = value; }
         }
 
         /**
@@ -620,8 +620,8 @@ namespace TWSLib
          */
         public string DeltaNeutralClearingAccount
         {
-            get { return data.DeltaNeutralClearingAccount; }
-            set { data.DeltaNeutralClearingAccount = value; }
+            get { return data != null ? data.DeltaNeutralClearingAccount : default(string); }
+            set { if (data != null) data.DeltaNeutralClearingAccount = value; }
         }
 
         /**
@@ -629,8 +629,8 @@ namespace TWSLib
          */
         public string DeltaNeutralClearingIntent
         {
-            get { return data.DeltaNeutralClearingIntent; }
-            set { data.DeltaNeutralClearingIntent = value; }
+            get { return data != null ? data.DeltaNeutralClearingIntent : default(string); }
+            set { if (data != null) data.DeltaNeutralClearingIntent = value; }
         }
 
         /**
@@ -638,8 +638,8 @@ namespace TWSLib
          */
         public string DeltaNeutralOpenClose
         {
-            get { return data.DeltaNeutralOpenClose; }
-            set { data.DeltaNeutralOpenClose = value; }
+            get { return data != null ? data.DeltaNeutralOpenClose : default(string); }
+            set { if (data != null) data.DeltaNeutralOpenClose = value; }
         }
 
         /**
@@ -647,8 +647,8 @@ namespace TWSLib
          */
         public bool DeltaNeutralShortSale
         {
-            get { return data.DeltaNeutralShortSale; }
-            set { data.DeltaNeutralShortSale = value; }
+            get { return data != null ? data.DeltaNeutralShortSale : default(bool); }
+            set { if (data != null) data.DeltaNeutralShortSale = value; }
         }
 
         /**
@@ -657,8 +657,8 @@ namespace TWSLib
          */
         public int DeltaNeutralShortSaleSlot
         {
-            get { return data.DeltaNeutralShortSaleSlot; }
-            set { data.DeltaNeutralShortSaleSlot = value; }
+            get { return data != null ? data.DeltaNeutralShortSaleSlot : default(int); }
+            set { if (data != null) data.DeltaNeutralShortSaleSlot = value; }
         }
 
         /**
@@ -667,8 +667,8 @@ namespace TWSLib
          */
         public string DeltaNeutralDesignatedLocation
         {
-            get { return data.DeltaNeutralDesignatedLocation; }
-            set { data.DeltaNeutralDesignatedLocation = value; }
+            get { return data != null ? data.DeltaNeutralDesignatedLocation : default(string); }
+            set { if (data != null) data.DeltaNeutralDesignatedLocation = value; }
         }
 
         /**
@@ -677,8 +677,8 @@ namespace TWSLib
          */
         public double BasisPoints
         {
-            get { return data.BasisPoints; }
-            set { data.BasisPoints = value; }
+            get { return data != null ? data.BasisPoints : default(double); }
+            set { if (data != null) data.BasisPoints = value; }
         }
 
         /**
@@ -687,8 +687,8 @@ namespace TWSLib
          */
         public int BasisPointsType
         {
-            get { return data.BasisPointsType; }
-            set { data.BasisPointsType = value; }
+            get { return data != null ? data.BasisPointsType : default(int); }
+            set { if (data != null) data.BasisPointsType = value; }
         }
 
         /**
@@ -697,8 +697,8 @@ namespace TWSLib
          */
         public int ScaleInitLevelSize
         {
-            get { return data.ScaleInitLevelSize; }
-            set { data.ScaleInitLevelSize = value; }
+            get { return data != null ? data.ScaleInitLevelSize : default(int); }
+            set { if (data != null) data.ScaleInitLevelSize = value; }
         }
 
         /**
@@ -707,8 +707,8 @@ namespace TWSLib
          */
         public int ScaleSubsLevelSize
         {
-            get { return data.ScaleSubsLevelSize; }
-            set { data.ScaleSubsLevelSize = value; }
+            get { return data != null ? data.ScaleSubsLevelSize : default(int); }
+            set { if (data != null) data.ScaleSubsLevelSize = value; }
         }
 
         /**
@@ -717,8 +717,8 @@ namespace TWSLib
          */
         public double ScalePriceIncrement
         {
-            get { return data.ScalePriceIncrement; }
-            set { data.ScalePriceIncrement = value; }
+            get { return data != null ? data.ScalePriceIncrement : default(double); }
+            set { if (data != null) data.ScalePriceIncrement = value; }
         }
 
         /**
@@ -727,8 +727,8 @@ namespace TWSLib
          */
         public double ScalePriceAdjustValue
         {
-            get { return data.ScalePriceAdjustValue; }
-            set { data.ScalePriceAdjustValue = value; }
+            get { return data != null ? data.ScalePriceAdjustValue : default(double); }
+            set { if (data != null) data.ScalePriceAdjustValue = value; }
         }
 
         /**
@@ -737,8 +737,8 @@ namespace TWSLib
          */
         public int ScalePriceAdjustInterval
         {
-            get { return data.ScalePriceAdjustInterval; }
-            set { data.ScalePriceAdjustInterval = value; }
+            get { return data != null ? data.ScalePriceAdjustInterval : default(int); }
+            set { if (data != null) data.ScalePriceAdjustInterval = value; }
         }
 
         /**
@@ -747,8 +747,8 @@ namespace TWSLib
          */
         public double ScaleProfitOffset
         {
-            get { return data.ScaleProfitOffset; }
-            set { data.ScaleProfitOffset = value; }
+            get { return data != null ? data.ScaleProfitOffset : default(double); }
+            set { if (data != null) data.ScaleProfitOffset = value; }
         }
 
         /**
@@ -757,8 +757,8 @@ namespace TWSLib
          */
         public bool ScaleAutoReset
         {
-            get { return data.ScaleAutoReset; }
-            set { data.ScaleAutoReset = value; }
+            get { return data != null ? data.ScaleAutoReset : default(bool); }
+            set { if (data != null) data.ScaleAutoReset = value; }
         }
 
         /**
@@ -767,8 +767,8 @@ namespace TWSLib
          */
         public int ScaleInitPosition
         {
-            get { return data.ScaleInitPosition; }
-            set { data.ScaleInitPosition = value; }
+            get { return data != null ? data.ScaleInitPosition : default(int); }
+            set { if (data != null) data.ScaleInitPosition = value; }
         }
 
         /**
@@ -777,8 +777,8 @@ namespace TWSLib
           */
         public int ScaleInitFillQty
         {
-            get { return data.ScaleInitFillQty; }
-            set { data.ScaleInitFillQty = value; }
+            get { return data != null ? data.ScaleInitFillQty : default(int); }
+            set { if (data != null) data.ScaleInitFillQty = value; }
         }
 
         /**
@@ -787,8 +787,8 @@ namespace TWSLib
          */
         public bool ScaleRandomPercent
         {
-            get { return data.ScaleRandomPercent; }
-            set { data.ScaleRandomPercent = value; }
+            get { return data != null ? data.ScaleRandomPercent : default(bool); }
+            set { if (data != null) data.ScaleRandomPercent = value; }
         }
 
         /**
@@ -801,8 +801,8 @@ namespace TWSLib
          */
         public string HedgeType
         {
-            get { return data.HedgeType; }
-            set { data.HedgeType = value; }
+            get { return data != null ? data.HedgeType : default(string); }
+            set { if (data != null) data.HedgeType = value; }
         }
 
         /**
@@ -811,8 +811,8 @@ namespace TWSLib
          */
         public string HedgeParam
         {
-            get { return data.HedgeParam; }
-            set { data.HedgeParam = value; }
+            get { return data != null ? data.HedgeParam : default(string); }
+            set { if (data != null) data.HedgeParam = value; }
         }
 
         /**
@@ -820,8 +820,8 @@ namespace TWSLib
          */
         public string Account
         {
-            get { return data.Account; }
-            set { data.Account = value; }
+            get { return data != null ? data.Account : default(string); }
+            set { if (data != null) data.Account = value; }
         }
 
         /**
@@ -830,8 +830,8 @@ namespace TWSLib
          */
         public string SettlingFirm
         {
-            get { return data.SettlingFirm; }
-            set { data.SettlingFirm = value; }
+            get { return data != null ? data.SettlingFirm : default(string); }
+            set { if (data != null) data.SettlingFirm = value; }
         }
 
         /**
@@ -840,8 +840,8 @@ namespace TWSLib
          */
         public string ClearingAccount
         {
-            get { return data.ClearingAccount; }
-            set { data.ClearingAccount = value; }
+            get { return data != null ? data.ClearingAccount : default(string); }
+            set { if (data != null) data.ClearingAccount = value; }
         }
 
         /**
@@ -850,8 +850,8 @@ namespace TWSLib
         */
         public string ClearingIntent
         {
-            get { return data.ClearingIntent; }
-            set { data.ClearingIntent = value; }
+            get { return data != null ? data.ClearingIntent : default(string); }
+            set { if (data != null) data.ClearingIntent = value; }
         }
 
         /**
@@ -866,8 +866,8 @@ namespace TWSLib
         */
         public string AlgoStrategy
         {
-            get { return data.AlgoStrategy; }
-            set { data.AlgoStrategy = value; }
+            get { return data != null ? data.AlgoStrategy : default(string); }
+            set { if (data != null) data.AlgoStrategy = value; }
         }
 
         /**
@@ -876,8 +876,8 @@ namespace TWSLib
         */
         public List<ComTagValue> AlgoParams
         {
-            get { return data.AlgoParams != null ? data.AlgoParams.Select(x => (ComTagValue)x).ToList() : null; }
-            set { data.AlgoParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.AlgoParams != null ? data.AlgoParams.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
+            set { if (data != null) data.AlgoParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /**
@@ -886,11 +886,11 @@ namespace TWSLib
         */
         public bool WhatIf
         {
-            get { return data.WhatIf; }
-            set { data.WhatIf = value; }
+            get { return data != null ? data.WhatIf : default(bool); }
+            set { if (data != null) data.WhatIf = value; }
         }
 
-        public string AlgoId { get { return data.AlgoId; } set { data.AlgoId = value; } }
+        public string AlgoId { get { return data.AlgoId; } set { if (data != null) data.AlgoId = value; } }
 
         /**
         * @brief Orders routed to IBDARK are tagged as “post only” and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
@@ -898,8 +898,8 @@ namespace TWSLib
         */
         public bool NotHeld
         {
-            get { return data.NotHeld; }
-            set { data.NotHeld = value; }
+            get { return data != null ? data.NotHeld : default(bool); }
+            set { if (data != null) data.NotHeld = value; }
         }
 
         /**
@@ -908,8 +908,8 @@ namespace TWSLib
          */
         public List<ComTagValue> SmartComboRoutingParams
         {
-            get { return data.SmartComboRoutingParams != null ? data.SmartComboRoutingParams.Select(x => (ComTagValue)x).ToList() : null; }
-            set { data.SmartComboRoutingParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.SmartComboRoutingParams != null ? data.SmartComboRoutingParams.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
+            set { if (data != null) data.SmartComboRoutingParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /**
@@ -917,14 +917,14 @@ namespace TWSLib
         */
         public List<ComOrderComboLeg> OrderComboLegs
         {
-            get { return data.OrderComboLegs != null ? data.OrderComboLegs.Select(x => (ComOrderComboLeg)x).ToList() : null; }
-            set { data.OrderComboLegs = value != null ? value.Select(x => (OrderComboLeg)x).ToList() : null; }
+            get { return data != null ? data.OrderComboLegs != null ? data.OrderComboLegs.Select(x => (ComOrderComboLeg)x).ToList() : null : default(List<ComOrderComboLeg>); }
+            set { if (data != null) data.OrderComboLegs = value != null ? value.Select(x => (OrderComboLeg)x).ToList() : null; }
         }
 
         public List<ComTagValue> OrderMiscOptions
         {
-            get { return data.OrderMiscOptions != null ? data.OrderMiscOptions.Select(x => (ComTagValue)x).ToList() : null; }
-            set { data.OrderMiscOptions = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.OrderMiscOptions != null ? data.OrderMiscOptions.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
+            set { if (data != null) data.OrderMiscOptions = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /*
@@ -932,8 +932,8 @@ namespace TWSLib
          */
         public string ActiveStartTime
         {
-            get { return data.ActiveStartTime; }
-            set { data.ActiveStartTime = value; }
+            get { return data != null ? data.ActiveStartTime : default(string); }
+            set { if (data != null) data.ActiveStartTime = value; }
         }
 
         /*
@@ -941,8 +941,8 @@ namespace TWSLib
         */
         public string ActiveStopTime
         {
-            get { return data.ActiveStopTime; }
-            set { data.ActiveStopTime = value; }
+            get { return data != null ? data.ActiveStopTime : default(string); }
+            set { if (data != null) data.ActiveStopTime = value; }
         }
 
         /*
@@ -950,8 +950,8 @@ namespace TWSLib
          */
         public string ScaleTable
         {
-            get { return data.ScaleTable; }
-            set { data.ScaleTable = value; }
+            get { return data != null ? data.ScaleTable : default(string); }
+            set { if (data != null) data.ScaleTable = value; }
         }
 
         public override bool Equals(Object p_other)

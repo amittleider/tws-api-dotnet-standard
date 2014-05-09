@@ -25,8 +25,8 @@ namespace TWSLib
          */
         public string Status
         {
-            get { return data.Status; }
-            set { data.Status = value; }
+            get { return data !=null ? data.Status : default(string); }
+            set { if (data != null) data.Status = value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
          */
         public string InitMargin
         {
-            get { return data.InitMargin; }
-            set { data.InitMargin = value; }
+            get { return data !=null ? data.InitMargin : default(string); }
+            set { if (data != null) data.InitMargin = value; }
         }
 
         /**
@@ -43,8 +43,8 @@ namespace TWSLib
         */
         public string MaintMargin
         {
-            get { return data.MaintMargin; }
-            set { data.MaintMargin = value; }
+            get { return data !=null ? data.MaintMargin : default(string); }
+            set { if (data != null) data.MaintMargin = value; }
         }
 
         /**
@@ -52,8 +52,8 @@ namespace TWSLib
         */
         public string EquityWithLoan
         {
-            get { return data.EquityWithLoan; }
-            set { data.EquityWithLoan = value; }
+            get { return data !=null ? data.EquityWithLoan : default(string); }
+            set { if (data != null) data.EquityWithLoan = value; }
         }
 
         /**
@@ -61,8 +61,8 @@ namespace TWSLib
           */
         public double Commission
         {
-            get { return data.Commission; }
-            set { data.Commission = value; }
+            get { return data !=null ? data.Commission : default(double); }
+            set { if (data != null) data.Commission = value; }
         }
 
         /**
@@ -70,8 +70,8 @@ namespace TWSLib
         */
         public double MinCommission
         {
-            get { return data.MinCommission; }
-            set { data.MinCommission = value; }
+            get { return data !=null ? data.MinCommission : default(double); }
+            set { if (data != null) data.MinCommission = value; }
         }
 
         /**
@@ -79,8 +79,8 @@ namespace TWSLib
         */
         public double MaxCommission
         {
-            get { return data.MaxCommission; }
-            set { data.MaxCommission = value; }
+            get { return data !=null ? data.MaxCommission : default(double); }
+            set { if (data != null) data.MaxCommission = value; }
         }
 
         /**
@@ -89,8 +89,8 @@ namespace TWSLib
          */
         public string CommissionCurrency
         {
-            get { return data.CommissionCurrency; }
-            set { data.CommissionCurrency = value; }
+            get { return data !=null ? data.CommissionCurrency : default(string); }
+            set { if (data != null) data.CommissionCurrency = value; }
         }
 
         /**
@@ -98,8 +98,8 @@ namespace TWSLib
          */
         public string WarningText
         {
-            get { return data.WarningText; }
-            set { data.WarningText = value; }
+            get { return data !=null ? data.WarningText : default(string); }
+            set { if (data != null) data.WarningText = value; }
         }
 
         public override bool Equals(Object other)

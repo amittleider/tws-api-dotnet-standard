@@ -23,10 +23,10 @@ namespace TWSLib
         /**
          * @brief A Contract object summarising this product.
          */
-        public Contract Summary
+        public ComContract Summary
         {
-            get { return data.Summary; }
-            set { data.Summary = value; }
+            get { return (ComContract)data.Summary; }
+            set { if (data != null) data.Summary = (Contract)value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
         */
         public string MarketName
         {
-            get { return data.MarketName; }
-            set { data.MarketName = value; }
+            get { return data != null ? data.MarketName : default(string); }
+            set { if (data != null) data.MarketName = value; }
         }
 
         /**
@@ -44,8 +44,8 @@ namespace TWSLib
         */
         public double MinTick
         {
-            get { return data.MinTick; }
-            set { data.MinTick = value; }
+            get { return data != null ? data.MinTick : default(double); }
+            set { if (data != null) data.MinTick = value; }
         }
 
         /**
@@ -53,8 +53,8 @@ namespace TWSLib
         */
         public int PriceMagnifier
         {
-            get { return data.PriceMagnifier; }
-            set { data.PriceMagnifier = value; }
+            get { return data != null ? data.PriceMagnifier : default(int); }
+            set { if (data != null) data.PriceMagnifier = value; }
         }
 
         /**
@@ -62,8 +62,8 @@ namespace TWSLib
         */
         public string OrderTypes
         {
-            get { return data.OrderTypes; }
-            set { data.OrderTypes = value; }
+            get { return data != null ? data.OrderTypes : default(string); }
+            set { if (data != null) data.OrderTypes = value; }
         }
 
         /**
@@ -71,8 +71,8 @@ namespace TWSLib
         */
         public string ValidExchanges
         {
-            get { return data.ValidExchanges; }
-            set { data.ValidExchanges = value; }
+            get { return data != null ? data.ValidExchanges : default(string); }
+            set { if (data != null) data.ValidExchanges = value; }
         }
 
         /**
@@ -80,8 +80,8 @@ namespace TWSLib
         */
         public int UnderConId
         {
-            get { return data.UnderConId; }
-            set { data.UnderConId = value; }
+            get { return data != null ? data.UnderConId : default(int); }
+            set { if (data != null) data.UnderConId = value; }
         }
 
         /**
@@ -89,8 +89,8 @@ namespace TWSLib
         */
         public string LongName
         {
-            get { return data.LongName; }
-            set { data.LongName = value; }
+            get { return data != null ? data.LongName : default(string); }
+            set { if (data != null) data.LongName = value; }
         }
 
         /**
@@ -98,8 +98,8 @@ namespace TWSLib
         */
         public string ContractMonth
         {
-            get { return data.ContractMonth; }
-            set { data.ContractMonth = value; }
+            get { return data != null ? data.ContractMonth : default(string); }
+            set { if (data != null) data.ContractMonth = value; }
         }
 
         /**
@@ -107,8 +107,8 @@ namespace TWSLib
         */
         public string Industry
         {
-            get { return data.Industry; }
-            set { data.Industry = value; }
+            get { return data != null ? data.Industry : default(string); }
+            set { if (data != null) data.Industry = value; }
         }
 
         /**
@@ -116,8 +116,8 @@ namespace TWSLib
         */
         public string Category
         {
-            get { return data.Category; }
-            set { data.Category = value; }
+            get { return data != null ? data.Category : default(string); }
+            set { if (data != null) data.Category = value; }
         }
 
         /**
@@ -125,8 +125,8 @@ namespace TWSLib
         */
         public string Subcategory
         {
-            get { return data.Subcategory; }
-            set { data.Subcategory = value; }
+            get { return data != null ? data.Subcategory : default(string); }
+            set { if (data != null) data.Subcategory = value; }
         }
 
         /**
@@ -134,8 +134,8 @@ namespace TWSLib
         */
         public string TimeZoneId
         {
-            get { return data.TimeZoneId; }
-            set { data.TimeZoneId = value; }
+            get { return data != null ? data.TimeZoneId : default(string); }
+            set { if (data != null) data.TimeZoneId = value; }
         }
 
         /**
@@ -144,8 +144,8 @@ namespace TWSLib
         */
         public string TradingHours
         {
-            get { return data.TradingHours; }
-            set { data.TradingHours = value; }
+            get { return data != null ? data.TradingHours : default(string); }
+            set { if (data != null) data.TradingHours = value; }
         }
 
         /**
@@ -154,8 +154,8 @@ namespace TWSLib
         */
         public string LiquidHours
         {
-            get { return data.LiquidHours; }
-            set { data.LiquidHours = value; }
+            get { return data != null ? data.LiquidHours : default(string); }
+            set { if (data != null) data.LiquidHours = value; }
         }
 
         /**
@@ -164,8 +164,8 @@ namespace TWSLib
         */
         public string EvRule
         {
-            get { return data.EvRule; }
-            set { data.EvRule = value; }
+            get { return data != null ? data.EvRule : default(string); }
+            set { if (data != null) data.EvRule = value; }
         }
 
         /**
@@ -174,18 +174,18 @@ namespace TWSLib
         */
         public double EvMultiplier
         {
-            get { return data.EvMultiplier; }
-            set { data.EvMultiplier = value; }
+            get { return data != null ? data.EvMultiplier : default(double); }
+            set { if (data != null) data.EvMultiplier = value; }
         }
 
         /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
-        public List<TagValue> SecIdList
+        public List<ComTagValue> SecIdList
         {
-            get { return data.SecIdList; }
-            set { data.SecIdList = value; }
+            get { return data != null ? data.SecIdList != null ? data.SecIdList.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
+            set { if (data != null) data.SecIdList = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
         }
 
         /**
@@ -194,8 +194,8 @@ namespace TWSLib
         */
         public string Cusip
         {
-            get { return data.Cusip; }
-            set { data.Cusip = value; }
+            get { return data != null ? data.Cusip : default(string); }
+            set { if (data != null) data.Cusip = value; }
         }
 
         /**
@@ -204,8 +204,8 @@ namespace TWSLib
         */
         public string Ratings
         {
-            get { return data.Ratings; }
-            set { data.Ratings = value; }
+            get { return data != null ? data.Ratings : default(string); }
+            set { if (data != null) data.Ratings = value; }
         }
 
         /**
@@ -214,8 +214,8 @@ namespace TWSLib
         */
         public string DescAppend
         {
-            get { return data.DescAppend; }
-            set { data.DescAppend = value; }
+            get { return data != null ? data.DescAppend : default(string); }
+            set { if (data != null) data.DescAppend = value; }
         }
 
         /**
@@ -223,8 +223,8 @@ namespace TWSLib
         */
         public string BondType
         {
-            get { return data.BondType; }
-            set { data.BondType = value; }
+            get { return data != null ? data.BondType : default(string); }
+            set { if (data != null) data.BondType = value; }
         }
 
         /**
@@ -233,8 +233,8 @@ namespace TWSLib
         */
         public string CouponType
         {
-            get { return data.CouponType; }
-            set { data.CouponType = value; }
+            get { return data != null ? data.CouponType : default(string); }
+            set { if (data != null) data.CouponType = value; }
         }
 
         /**
@@ -243,8 +243,8 @@ namespace TWSLib
         */
         public bool Callable
         {
-            get { return data.Callable; }
-            set { data.Callable = value; }
+            get { return data != null ? data.Callable : default(bool); }
+            set { if (data != null) data.Callable = value; }
         }
 
         /**
@@ -253,8 +253,8 @@ namespace TWSLib
         */
         public bool Putable
         {
-            get { return data.Putable; }
-            set { data.Putable = value; }
+            get { return data != null ? data.Putable : default(bool); }
+            set { if (data != null) data.Putable = value; }
         }
 
         /**
@@ -263,8 +263,8 @@ namespace TWSLib
         */
         public double Coupon
         {
-            get { return data.Coupon; }
-            set { data.Coupon = value; }
+            get { return data != null ? data.Coupon : default(double); }
+            set { if (data != null) data.Coupon = value; }
         }
 
         /**
@@ -273,8 +273,8 @@ namespace TWSLib
         */
         public bool Convertible
         {
-            get { return data.Convertible; }
-            set { data.Convertible = value; }
+            get { return data != null ? data.Convertible : default(bool); }
+            set { if (data != null) data.Convertible = value; }
         }
 
         /**
@@ -283,8 +283,8 @@ namespace TWSLib
         */
         public string Maturity
         {
-            get { return data.Maturity; }
-            set { data.Maturity = value; }
+            get { return data != null ? data.Maturity : default(string); }
+            set { if (data != null) data.Maturity = value; }
         }
 
         /** 
@@ -293,8 +293,8 @@ namespace TWSLib
         */
         public string IssueDate
         {
-            get { return data.IssueDate; }
-            set { data.IssueDate = value; }
+            get { return data != null ? data.IssueDate : default(string); }
+            set { if (data != null) data.IssueDate = value; }
         }
 
         /**
@@ -303,8 +303,8 @@ namespace TWSLib
         */
         public string NextOptionDate
         {
-            get { return data.NextOptionDate; }
-            set { data.NextOptionDate = value; }
+            get { return data != null ? data.NextOptionDate : default(string); }
+            set { if (data != null) data.NextOptionDate = value; }
         }
 
         /**
@@ -313,8 +313,8 @@ namespace TWSLib
         */
         public string NextOptionType
         {
-            get { return data.NextOptionType; }
-            set { data.NextOptionType = value; }
+            get { return data != null ? data.NextOptionType : default(string); }
+            set { if (data != null) data.NextOptionType = value; }
         }
 
         /**
@@ -323,8 +323,8 @@ namespace TWSLib
        */
         public bool NextOptionPartial
         {
-            get { return data.NextOptionPartial; }
-            set { data.NextOptionPartial = value; }
+            get { return data != null ? data.NextOptionPartial : default(bool); }
+            set { if (data != null) data.NextOptionPartial = value; }
         }
 
         /**
@@ -333,8 +333,8 @@ namespace TWSLib
         */
         public string Notes
         {
-            get { return data.Notes; }
-            set { data.Notes = value; }
+            get { return data != null ? data.Notes : default(string); }
+            set { if (data != null) data.Notes = value; }
         }
         
         string TWSLib.IContractDetails.marketName

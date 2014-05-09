@@ -25,8 +25,8 @@ namespace TWSLib
         */
         public int ConId
         {
-            get { return data.ConId; }
-            set { data.ConId = value; }
+            get { return data != null ? data.ConId : default(int); }
+            set { if (data != null) data.ConId = value; }
         }
 
 
@@ -35,8 +35,8 @@ namespace TWSLib
          */
         public string Symbol
         {
-            get { return data.Symbol; }
-            set { data.Symbol = value; }
+            get { return data != null ? data.Symbol : default(string); }
+            set { if (data != null) data.Symbol = value; }
         }
 
         /**
@@ -52,8 +52,8 @@ namespace TWSLib
          */
         public string SecType
         {
-            get { return data.SecType; }
-            set { data.SecType = value; }
+            get { return data != null ? data.SecType : default(string); }
+            set { if (data != null) data.SecType = value; }
         }
 
         /**
@@ -61,8 +61,8 @@ namespace TWSLib
         */
         public string Expiry
         {
-            get { return data.Expiry; }
-            set { data.Expiry = value; }
+            get { return data != null ? data.Expiry : default(string); }
+            set { if (data != null) data.Expiry = value; }
         }
 
         /**
@@ -70,8 +70,8 @@ namespace TWSLib
          */
         public double Strike
         {
-            get { return data.Strike; }
-            set { data.Strike = value; }
+            get { return data != null ? data.Strike : default(double); }
+            set { if (data != null) data.Strike = value; }
         }
 
         /**
@@ -79,8 +79,8 @@ namespace TWSLib
          */
         public string Right
         {
-            get { return data.Right; }
-            set { data.Right = value; }
+            get { return data != null ? data.Right : default(string); }
+            set { if (data != null) data.Right = value; }
         }
 
         /**
@@ -88,8 +88,8 @@ namespace TWSLib
          */
         public string Multiplier
         {
-            get { return data.Multiplier; }
-            set { data.Multiplier = value; }
+            get { return data != null ? data.Multiplier : default(string); }
+            set { if (data != null) data.Multiplier = value; }
         }
 
         /**
@@ -97,8 +97,8 @@ namespace TWSLib
          */
         public string Exchange
         {
-            get { return data.Exchange; }
-            set { data.Exchange = value; }
+            get { return data != null ? data.Exchange : default(string); }
+            set { if (data != null) data.Exchange = value; }
         }
 
         /**
@@ -106,8 +106,8 @@ namespace TWSLib
          */
         public string Currency
         {
-            get { return data.Currency; }
-            set { data.Currency = value; }
+            get { return data != null ? data.Currency : default(string); }
+            set { if (data != null) data.Currency = value; }
         }
 
         /**
@@ -115,8 +115,8 @@ namespace TWSLib
          */
         public string LocalSymbol
         {
-            get { return data.LocalSymbol; }
-            set { data.LocalSymbol = value; }
+            get { return data != null ? data.LocalSymbol : default(string); }
+            set { if (data != null) data.LocalSymbol = value; }
         }
 
         /**
@@ -124,8 +124,8 @@ namespace TWSLib
          */
         public string PrimaryExch
         {
-            get { return data.PrimaryExch; }
-            set { data.PrimaryExch = value; }
+            get { return data != null ? data.PrimaryExch : default(string); }
+            set { if (data != null) data.PrimaryExch = value; }
         }
 
         /**
@@ -134,8 +134,8 @@ namespace TWSLib
          */
         public string TradingClass
         {
-            get { return data.TradingClass; }
-            set { data.TradingClass = value; }
+            get { return data != null ? data.TradingClass : default(string); }
+            set { if (data != null) data.TradingClass = value; }
         }
 
         /**
@@ -144,8 +144,8 @@ namespace TWSLib
         */
         public bool IncludeExpired
         {
-            get { return data.IncludeExpired; }
-            set { data.IncludeExpired = value; }
+            get { return data != null ? data.IncludeExpired : default(bool); }
+            set { if (data != null) data.IncludeExpired = value; }
         }
 
         /**
@@ -157,8 +157,8 @@ namespace TWSLib
          */
         public string SecIdType
         {
-            get { return data.SecIdType; }
-            set { data.SecIdType = value; }
+            get { return data != null ? data.SecIdType : default(string); }
+            set { if (data != null) data.SecIdType = value; }
         }
 
         /**
@@ -167,8 +167,8 @@ namespace TWSLib
         */
         public string SecId
         {
-            get { return data.SecId; }
-            set { data.SecId = value; }
+            get { return data != null ? data.SecId : default(string); }
+            set { if (data != null) data.SecId = value; }
         }
 
         /**
@@ -176,18 +176,18 @@ namespace TWSLib
         */
         public string ComboLegsDescription
         {
-            get { return data.ComboLegsDescription; }
-            set { data.ComboLegsDescription = value; }
+            get { return data != null ? data.ComboLegsDescription : default(string); }
+            set { if (data != null) data.ComboLegsDescription = value; }
         }
 
         /**
          * @brief The legs of a combined contract definition
          * @sa ComboLeg
          */
-        public List<ComboLeg> ComboLegs
+        public List<ComComboLeg> ComboLegs
         {
-            get { return data.ComboLegs; }
-            set { data.ComboLegs = value; }
+            get { return data != null ? data.ComboLegs != null ? data.ComboLegs.Select(x => (ComComboLeg)x).ToList() : null : default(List<ComComboLeg>); }
+            set { if (data != null) data.ComboLegs = value != null ? value.Select(x => (ComboLeg)x).ToList() : null; }
         }
 
         /**
@@ -195,10 +195,10 @@ namespace TWSLib
          * Underlying (STK or FUT), delta and underlying price goes into this attribute.
          * @sa UnderComp
          */
-        public UnderComp UnderComp
+        public ComUnderComp UnderComp
         {
-            get { return data.UnderComp; }
-            set { data.UnderComp = value; }
+            get { return (ComUnderComp)data.UnderComp; }
+            set { if (data != null) data.UnderComp = (UnderComp)value; }
         }
 
         int TWSLib.IContract.conId { get { return ConId; } set { ConId = value; } }
@@ -230,10 +230,10 @@ namespace TWSLib
         object TWSLib.IContract.comboLegs
         {
             [return: MarshalAs(UnmanagedType.IDispatch)]
-            get { return ComboLegs != null ? new ComComboLegList(ComboLegs.Select(x => (ComComboLeg)x).ToList()) : null; }
+            get { return ComboLegs != null ? new ComComboLegList(ComboLegs) : null; }
 
             [param: MarshalAs(UnmanagedType.IDispatch)]
-            set { ComboLegs = value is ComComboLegList ? (value as ComComboLegList).Ocl.Select( x => (ComboLeg)x).ToList() : null; }
+            set { ComboLegs = value is ComComboLegList ? (value as ComComboLegList).Ocl : null; }
         }
 
         object TWSLib.IContract.underComp
@@ -241,7 +241,7 @@ namespace TWSLib
             [return: MarshalAs(UnmanagedType.IDispatch)]
             get { return UnderComp; }
             [param: MarshalAs(UnmanagedType.IDispatch)]
-            set { UnderComp = (UnderComp)value; }
+            set { UnderComp = value as ComUnderComp; }
         }
 
         string TWSLib.IContract.comboLegsDescrip { get { return ComboLegsDescription; } }

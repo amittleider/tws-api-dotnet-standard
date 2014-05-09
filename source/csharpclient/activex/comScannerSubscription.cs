@@ -21,128 +21,128 @@ namespace TWSLib
 
         public int NumberOfRows
         {
-            get { return data.NumberOfRows; }
-            set { data.NumberOfRows = value; }
+            get { return data != null ? data.NumberOfRows : default(int); }
+            set { if (data != null) data.NumberOfRows = value; }
         }
        
         public string Instrument
         {
-            get { return data.Instrument; }
-            set { data.Instrument = value; }
+            get { return data != null ? data.Instrument : default(string); }
+            set { if (data != null) data.Instrument = value; }
         }
 
         public string LocationCode
         {
-            get { return data.LocationCode; }
-            set { data.LocationCode = value; }
+            get { return data != null ? data.LocationCode : default(string); }
+            set { if (data != null) data.LocationCode = value; }
         }
 
         public string ScanCode
         {
-            get { return data.ScanCode; }
-            set { data.ScanCode = value; }
+            get { return data != null ? data.ScanCode : default(string); }
+            set { if (data != null) data.ScanCode = value; }
         }
 
         public double AbovePrice
         {
-            get { return data.AbovePrice; }
-            set { data.AbovePrice = value; }
+            get { return data != null ? data.AbovePrice : default(double); }
+            set { if (data != null) data.AbovePrice = value; }
         }
 
         public double BelowPrice
         {
-            get { return data.BelowPrice; }
-            set { data.BelowPrice = value; }
+            get { return data != null ? data.BelowPrice : default(double); }
+            set { if (data != null) data.BelowPrice = value; }
         }
 
         public int AboveVolume
         {
-            get { return data.AboveVolume; }
-            set { data.AboveVolume = value; }
+            get { return data != null ? data.AboveVolume : default(int); }
+            set { if (data != null) data.AboveVolume = value; }
         }
 
         public int AverageOptionVolumeAbove
         {
-            get { return data.AverageOptionVolumeAbove; }
-            set { data.AverageOptionVolumeAbove = value; }
+            get { return data != null ? data.AverageOptionVolumeAbove : default(int); }
+            set { if (data != null) data.AverageOptionVolumeAbove = value; }
         }
 
         public double MarketCapAbove
         {
-            get { return data.MarketCapAbove; }
-            set { data.MarketCapAbove = value; }
+            get { return data != null ? data.MarketCapAbove : default(double); }
+            set { if (data != null) data.MarketCapAbove = value; }
         }
 
         public double MarketCapBelow
         {
-            get { return data.MarketCapBelow; }
-            set { data.MarketCapBelow = value; }
+            get { return data != null ? data.MarketCapBelow : default(double); }
+            set { if (data != null) data.MarketCapBelow = value; }
         }
 
         public string MoodyRatingAbove
         {
-            get { return data.MoodyRatingAbove; }
-            set { data.MoodyRatingAbove = value; }
+            get { return data != null ? data.MoodyRatingAbove : default(string); }
+            set { if (data != null) data.MoodyRatingAbove = value; }
         }
 
         public string MoodyRatingBelow
         {
-            get { return data.MoodyRatingBelow; }
-            set { data.MoodyRatingBelow = value; }
+            get { return data != null ? data.MoodyRatingBelow : default(string); }
+            set { if (data != null) data.MoodyRatingBelow = value; }
         }
 
         public string SpRatingAbove
         {
-            get { return data.SpRatingAbove; }
-            set { data.SpRatingAbove = value; }
+            get { return data != null ? data.SpRatingAbove : default(string); }
+            set { if (data != null) data.SpRatingAbove = value; }
         }
 
         public string SpRatingBelow
         {
-            get { return data.SpRatingBelow; }
-            set { data.SpRatingBelow = value; }
+            get { return data != null ? data.SpRatingBelow : default(string); }
+            set { if (data != null) data.SpRatingBelow = value; }
         }
 
         public string MaturityDateAbove
         {
-            get { return data.MaturityDateAbove; }
-            set { data.MaturityDateAbove = value; }
+            get { return data != null ? data.MaturityDateAbove : default(string); }
+            set { if (data != null) data.MaturityDateAbove = value; }
         }
 
         public string MaturityDateBelow
         {
-            get { return data.MaturityDateBelow; }
-            set { data.MaturityDateBelow = value; }
+            get { return data != null ? data.MaturityDateBelow : default(string); }
+            set { if (data != null) data.MaturityDateBelow = value; }
         }
 
         public double CouponRateAbove
         {
-            get { return data.CouponRateAbove; }
-            set { data.CouponRateAbove = value; }
+            get { return data != null ? data.CouponRateAbove : default(double); }
+            set { if (data != null) data.CouponRateAbove = value; }
         }
 
         public double CouponRateBelow
         {
-            get { return data.CouponRateBelow; }
-            set { data.CouponRateBelow = value; }
+            get { return data != null ? data.CouponRateBelow : default(double); }
+            set { if (data != null) data.CouponRateBelow = value; }
         }
 
         public string ExcludeConvertible
         {
-            get { return data.ExcludeConvertible; }
-            set { data.ExcludeConvertible = value; }
+            get { return data != null ? data.ExcludeConvertible : default(string); }
+            set { if (data != null) data.ExcludeConvertible = value; }
         }
 
         public string ScannerSettingPairs
         {
-            get { return data.ScannerSettingPairs; }
-            set { data.ScannerSettingPairs = value; }
+            get { return data != null ? data.ScannerSettingPairs : default(string); }
+            set { if (data != null) data.ScannerSettingPairs = value; }
         }
 
         public string StockTypeFilter
         {
-            get { return data.StockTypeFilter; }
-            set { data.StockTypeFilter = value; }
+            get { return data != null ? data.StockTypeFilter : default(string); }
+            set { if (data != null) data.StockTypeFilter = value; }
         }
 
         string TWSLib.IScannerSubscription.instrument { get { return Instrument; } set { Instrument = value; } }

@@ -25,8 +25,8 @@ namespace TWSLib
          */
         public int ConId
         {
-            get { return data.ConId; }
-            set { data.ConId = value; }
+            get { return data !=null ? data.ConId : default(int); }
+            set { if (data != null) data.ConId = value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
           */
         public int Ratio
         {
-            get { return data.Ratio; }
-            set { data.Ratio = value; }
+            get { return data !=null ? data.Ratio : default(int); }
+            set { if (data != null) data.Ratio = value; }
         }
 
         /**
@@ -44,16 +44,16 @@ namespace TWSLib
          */
         public string Action
         {
-            get { return data.Action; }
-            set { data.Action = value; }
+            get { return data !=null ? data.Action : default(string); }
+            set { if (data != null) data.Action = value; }
         }
         /**
          * @brief The destination exchange to which the order will be routed.
          */
         public string Exchange
         {
-            get { return data.Exchange; }
-            set { data.Exchange = value; }
+            get { return data !=null ? data.Exchange : default(string); }
+            set { if (data != null) data.Exchange = value; }
         }
 
         /**
@@ -66,8 +66,8 @@ namespace TWSLib
         */
         public int OpenClose
         {
-            get { return data.OpenClose; }
-            set { data.OpenClose = value; }
+            get { return data !=null ? data.OpenClose : default(int); }
+            set { if (data != null) data.OpenClose = value; }
         }
 
         /**
@@ -76,8 +76,8 @@ namespace TWSLib
          */
         public int ShortSaleSlot
         {
-            get { return data.ShortSaleSlot; }
-            set { data.ShortSaleSlot = value; }
+            get { return data !=null ? data.ShortSaleSlot : default(int); }
+            set { if (data != null) data.ShortSaleSlot = value; }
         }
 
         /**
@@ -85,8 +85,8 @@ namespace TWSLib
          */
         public string DesignatedLocation
         {
-            get { return data.DesignatedLocation; }
-            set { data.DesignatedLocation = value; }
+            get { return data !=null ? data.DesignatedLocation : default(string); }
+            set { if (data != null) data.DesignatedLocation = value; }
         }
 
         /**
@@ -94,8 +94,8 @@ namespace TWSLib
          */
         public int ExemptCode
         {
-            get { return data.ExemptCode; }
-            set { data.ExemptCode = value; }
+            get { return data !=null ? data.ExemptCode : default(int); }
+            set { if (data != null) data.ExemptCode = value; }
         }    
 
         int IComboLeg.conId { get { return ConId; } set { ConId = value; } }

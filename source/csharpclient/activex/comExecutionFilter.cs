@@ -25,8 +25,8 @@ namespace TWSLib
          */
         public int ClientId
         {
-            get { return data.ClientId; }
-            set { data.ClientId = value; }
+            get { return data != null ? data.ClientId : default(int); }
+            set { if (data != null) data.ClientId = value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
         */
         public string AcctCode
         {
-            get { return data.AcctCode; }
-            set { data.AcctCode = value; }
+            get { return data != null ? data.AcctCode : default(string); }
+            set { if (data != null) data.AcctCode = value; }
         }
 
         /**
@@ -44,8 +44,8 @@ namespace TWSLib
          */
         public string Time
         {
-            get { return data.Time; }
-            set { data.Time = value; }
+            get { return data != null ? data.Time : default(string); }
+            set { if (data != null) data.Time = value; }
         }
 
         /**
@@ -53,8 +53,8 @@ namespace TWSLib
         */
         public string Symbol
         {
-            get { return data.Symbol; }
-            set { data.Symbol = value; }
+            get { return data != null ? data.Symbol : default(string); }
+            set { if (data != null) data.Symbol = value; }
         }
 
         /**
@@ -62,8 +62,8 @@ namespace TWSLib
          */
         public string SecType
         {
-            get { return data.SecType; }
-            set { data.SecType = value; }
+            get { return data != null ? data.SecType : default(string); }
+            set { if (data != null) data.SecType = value; }
         }
 
         /**
@@ -71,8 +71,8 @@ namespace TWSLib
          */
         public string Exchange
         {
-            get { return data.Exchange; }
-            set { data.Exchange = value; }
+            get { return data != null ? data.Exchange : default(string); }
+            set { if (data != null) data.Exchange = value; }
         }
 
         /**
@@ -80,8 +80,8 @@ namespace TWSLib
         */
         public string Side
         {
-            get { return data.Side; }
-            set { data.Side = value; }
+            get { return data != null ? data.Side : default(string); }
+            set { if (data != null) data.Side = value; }
         }
 
         public override bool Equals(Object other)

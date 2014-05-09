@@ -25,8 +25,8 @@ namespace TWSLib
         */
         public string ExecId
         {
-            get { return data.ExecId; }
-            set { data.ExecId = value; }
+            get { return data != null ? data.ExecId : default(string); }
+            set { if (data != null) data.ExecId = value; }
         }
 
         /**
@@ -34,8 +34,8 @@ namespace TWSLib
          */
         public double Commission
         {
-            get { return data.Commission; }
-            set { data.Commission = value; }
+            get { return data != null ? data.Commission : default(double); }
+            set { if (data != null) data.Commission = value; }
         }
 
         /**
@@ -43,8 +43,8 @@ namespace TWSLib
         */
         public string Currency
         {
-            get { return data.Currency; }
-            set { data.Currency = value; }
+            get { return data != null ? data.Currency : default(string); }
+            set { if (data != null) data.Currency = value; }
         }
 
         /**
@@ -52,8 +52,8 @@ namespace TWSLib
         */
         public double RealizedPNL
         {
-            get { return data.RealizedPNL; }
-            set { data.RealizedPNL = value; }
+            get { return data != null ? data.RealizedPNL : default(double); }
+            set { if (data != null) data.RealizedPNL = value; }
         }
 
         /**
@@ -61,8 +61,8 @@ namespace TWSLib
          */
         public double Yield
         {
-            get { return data.Yield; }
-            set { data.Yield = value; }
+            get { return data != null ? data.Yield : default(double); }
+            set { if (data != null) data.Yield = value; }
         }
 
         /**
@@ -70,8 +70,8 @@ namespace TWSLib
          */
         public int YieldRedemptionDate
         {
-            get { return data.YieldRedemptionDate; }
-            set { data.YieldRedemptionDate = value; }
+            get { return data != null ? data.YieldRedemptionDate : default(int); }
+            set { if (data != null) data.YieldRedemptionDate = value; }
         }
 
         public override bool Equals(Object p_other)
