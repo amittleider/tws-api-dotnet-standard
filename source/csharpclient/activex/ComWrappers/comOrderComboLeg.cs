@@ -16,11 +16,8 @@ namespace TWSLib
      * @sa Order, ComboLeg
      */
     [ComVisible(true)]
-    public class ComOrderComboLeg : IOrderComboLeg
+    public class ComOrderComboLeg : ComWrapper<OrderComboLeg>, IOrderComboLeg
     {
-
-        OrderComboLeg data = new OrderComboLeg();
-
         /**
          * @brief The order's leg's price
          */
@@ -55,12 +52,12 @@ namespace TWSLib
 
         public static explicit operator OrderComboLeg(ComOrderComboLeg coc)
         {
-            return coc.data;
+            return coc.ConvertTo();
         }
 
         public static explicit operator ComOrderComboLeg(OrderComboLeg ocl)
         {
-            return new ComOrderComboLeg() { data = ocl };
+            return new ComOrderComboLeg().ConvertFrom(ocl) as ComOrderComboLeg;
         }
     }
 }

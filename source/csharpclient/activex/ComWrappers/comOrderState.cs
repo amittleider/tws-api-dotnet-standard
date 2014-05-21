@@ -16,10 +16,8 @@ namespace TWSLib
      * @sa Order
      */
     [ComVisible(true)]
-    public class ComOrderState : IOrderState
+    public class ComOrderState : ComWrapper<OrderState>, IOrderState
     {
-        OrderState data = new OrderState();
-
         /**
          * @brief The order's current status
          */
@@ -179,12 +177,12 @@ namespace TWSLib
 
         public static explicit operator OrderState(ComOrderState cos)
         {
-            return cos.data;
+            return cos.ConvertTo();
         }
 
         public static explicit operator ComOrderState(OrderState os)
         {
-            return new ComOrderState() { data = os };
+            return new ComOrderState().ConvertFrom(os) as ComOrderState;
         }
     }
 }

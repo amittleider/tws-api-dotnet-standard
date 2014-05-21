@@ -34,12 +34,12 @@ namespace TWSLib
             return list == null ? null : list.Tvl.Select(x => new KeyValuePair<string, string>(x.Tag, x.Value)).ToArray();
         }
 
-        public List<ComTagValue> Tvl { get; private set; }
+        public ComList<ComTagValue, IBApi.TagValue> Tvl { get; private set; }
 
-        public ComTagValueList() : this(new List<ComTagValue>()) { Tvl = new List<ComTagValue>(); }
-        public ComTagValueList(List<ComTagValue> tvl)
+        public ComTagValueList() : this(null) { }
+        public ComTagValueList(ComList<ComTagValue, IBApi.TagValue> tvl)
         {
-            this.Tvl = tvl == null ? new List<ComTagValue>() : tvl;
+            this.Tvl = tvl == null ? new ComList<ComTagValue, IBApi.TagValue>(new List<IBApi.TagValue>()) : tvl;
         }
 
         public object _NewEnum

@@ -15,10 +15,8 @@ namespace TWSLib
      * @brief Defines a market scanner request
      */
     [ComVisible(true)]
-    public class ComScannerSubscription : IScannerSubscription
+    public class ComScannerSubscription : ComWrapper<ScannerSubscription>, IScannerSubscription
     {
-        ScannerSubscription data = new ScannerSubscription();
-
         public int NumberOfRows
         {
             get { return data != null ? data.NumberOfRows : default(int); }
@@ -193,12 +191,12 @@ namespace TWSLib
 
         public static explicit operator ComScannerSubscription(ScannerSubscription ss)
         {
-            return new ComScannerSubscription() { data = ss };
+            return new ComScannerSubscription().ConvertFrom(ss) as ComScannerSubscription;
         }
 
         public static explicit operator ScannerSubscription(ComScannerSubscription css)
         {
-            return css.data;
+            return css.ConvertTo();
         }
     }
 }

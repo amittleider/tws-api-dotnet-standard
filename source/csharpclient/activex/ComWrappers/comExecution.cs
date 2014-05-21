@@ -16,10 +16,8 @@ namespace TWSLib
      * @sa ExecutionFilter, CommissionReport
      */
     [ComVisible(true)]
-    public class ComExecution : IExecution
+    public class ComExecution : ComWrapper<Execution>, IExecution
     {
-        Execution data = new Execution();
-
         /**
          * @brief The API client's order Id.
          */
@@ -271,12 +269,12 @@ namespace TWSLib
 
         public static explicit operator Execution(ComExecution ce)
         {
-            return ce.data;
+            return ce.ConvertTo();
         }
 
         public static explicit operator ComExecution(Execution e)
         {
-            return new ComExecution() { data = e };
+            return new ComExecution().ConvertFrom(e) as ComExecution;
         }
     }
 }

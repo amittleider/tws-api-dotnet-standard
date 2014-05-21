@@ -16,10 +16,8 @@ namespace TWSLib
      * @sa Order
      */
     [ComVisible(true)]
-    public class ComComboLeg : IComboLeg
+    public class ComComboLeg : ComWrapper<ComboLeg>, IComboLeg
     {
-        ComboLeg data = new ComboLeg();
-
         /**
          * @brief The Contract's IB's unique id
          */
@@ -116,12 +114,12 @@ namespace TWSLib
 
         public static explicit operator ComComboLeg(ComboLeg cl)
         {
-            return new ComComboLeg() { data = cl };
+            return new ComComboLeg().ConvertFrom(cl) as ComComboLeg;
         }
 
         public static explicit operator ComboLeg(ComComboLeg ccl)
         {
-            return ccl.data;
+            return ccl.ConvertTo();
         }
     }
 }

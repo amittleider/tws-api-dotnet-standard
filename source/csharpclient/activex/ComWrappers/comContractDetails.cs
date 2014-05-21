@@ -16,7 +16,7 @@ namespace TWSLib
      * @sa Contract
      */
     [ComVisible(true)]
-    public class ComContractDetails : IContractDetails
+    public class ComContractDetails : ComWrapper<ContractDetails>, IContractDetails
     {
         ContractDetails data = new ContractDetails();
 
@@ -182,10 +182,10 @@ namespace TWSLib
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
-        public List<ComTagValue> SecIdList
+        public ComList<ComTagValue, TagValue> SecIdList
         {
-            get { return data != null ? data.SecIdList != null ? data.SecIdList.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
-            set { if (data != null) data.SecIdList = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.SecIdList != null ? new ComList<ComTagValue, TagValue>(data.SecIdList) : null : null; }
+            set { if (data != null) data.SecIdList = value != null ? value.ConvertTo() : null; }
         }
 
         /**
@@ -504,12 +504,12 @@ namespace TWSLib
 
         public static explicit operator ComContractDetails(ContractDetails cd)
         {
-            return new ComContractDetails() { data = cd };
+            return new ComContractDetails().ConvertFrom(cd) as ComContractDetails;
         }
 
         public static explicit operator ContractDetails(ComContractDetails ccd)
         {
-            return ccd.data;
+            return ccd.ConvertTo();
         }
     }
 }

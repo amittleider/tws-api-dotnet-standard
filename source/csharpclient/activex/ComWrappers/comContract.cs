@@ -16,10 +16,8 @@ namespace TWSLib
      * @sa ContractDetails
      */
     [ComVisible(true)]
-    public class ComContract : IContract
+    public class ComContract : ComWrapper<Contract>, IContract
     {
-        Contract data = new Contract();
-
         /**
         * @brief The unique contract's identifier
         */
@@ -184,10 +182,10 @@ namespace TWSLib
          * @brief The legs of a combined contract definition
          * @sa ComboLeg
          */
-        public List<ComComboLeg> ComboLegs
+        public ComList<ComComboLeg, ComboLeg> ComboLegs
         {
-            get { return data != null ? data.ComboLegs != null ? data.ComboLegs.Select(x => (ComComboLeg)x).ToList() : null : default(List<ComComboLeg>); }
-            set { if (data != null) data.ComboLegs = value != null ? value.Select(x => (ComboLeg)x).ToList() : null; }
+            get { return data != null ? data.ComboLegs != null ? new ComList<ComComboLeg, ComboLeg>(data.ComboLegs) : null : null; }
+            set { if (data != null) data.ComboLegs = value != null ? value.ConvertTo() : null; }
         }
 
         /**
@@ -252,12 +250,12 @@ namespace TWSLib
 
         public static explicit operator ComContract(Contract c)
         {
-            return new ComContract() { data = c };
+            return new ComContract().ConvertFrom(c) as ComContract;
         }
 
         public static explicit operator Contract(ComContract cc)
         {
-            return cc.data;
+            return cc.ConvertTo();
         }
     }
 }

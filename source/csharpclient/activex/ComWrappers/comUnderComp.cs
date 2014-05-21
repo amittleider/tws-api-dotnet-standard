@@ -14,10 +14,8 @@ namespace TWSLib
      * @brief Delta-Neutral Underlying Component.
      */
     [ComVisible(true)]
-    public class ComUnderComp : IUnderComp
+    public class ComUnderComp : ComWrapper<UnderComp>, IUnderComp
     {
-        UnderComp data = new UnderComp();
-
         /**
          * @brief
          */
@@ -83,12 +81,12 @@ namespace TWSLib
 
         public static explicit operator ComUnderComp(UnderComp uc)
         {
-            return new ComUnderComp() { data = uc };
+            return new ComUnderComp().ConvertFrom(uc) as ComUnderComp;
         }
 
         public static explicit operator UnderComp(ComUnderComp cuc)
         {
-            return cuc.data;
+            return cuc.ConvertTo();
         }
     }
 }

@@ -16,10 +16,8 @@ namespace TWSLib
      * @sa Execution
      */
     [ComVisible(true)]
-    public class ComCommissionReport : ICommissionReport
+    public class ComCommissionReport : ComWrapper<CommissionReport>, ICommissionReport
     {
-        CommissionReport data = new CommissionReport();
-
         /**
         * @brief the execution's id this commission belongs to.
         */
@@ -126,12 +124,12 @@ namespace TWSLib
 
         public static explicit operator ComCommissionReport(CommissionReport cr)
         {
-            return new ComCommissionReport() { data = cr };
+            return new ComCommissionReport().ConvertFrom(cr) as ComCommissionReport;
         }
 
         public static explicit operator CommissionReport(ComCommissionReport ccr)
         {
-            return ccr.data;
+            return ccr.ConvertTo();
         }
     }
 }

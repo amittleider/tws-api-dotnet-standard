@@ -17,10 +17,8 @@ namespace TWSLib
      * @sa Contract, OrderComboLeg, OrderState
      */
     [ComVisible(true)]
-    public class ComOrder : TWSLib.IOrder
+    public class ComOrder : ComWrapper<Order>, TWSLib.IOrder
     {
-        IBApi.Order data = new IBApi.Order();
-
         /**
          * @brief The API client's order id.
          */
@@ -874,10 +872,10 @@ namespace TWSLib
         * @brief The list of parameters for the IB algorithm.
          * For more information about IB's API algorithms, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/ibalgo_parameters.htm
         */
-        public List<ComTagValue> AlgoParams
+        public ComList<ComTagValue, TagValue> AlgoParams
         {
-            get { return data != null ? data.AlgoParams != null ? data.AlgoParams.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
-            set { if (data != null) data.AlgoParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.AlgoParams != null ? new ComList<ComTagValue, TagValue>(data.AlgoParams) : null : null; }
+            set { if (data != null) data.AlgoParams = value != null ? value.ConvertTo() : null; }
         }
 
         /**
@@ -906,25 +904,25 @@ namespace TWSLib
          * @brief Parameters for combo routing.
          * For more information, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/smart_combo_routing.htm   
          */
-        public List<ComTagValue> SmartComboRoutingParams
+        public ComList<ComTagValue, TagValue> SmartComboRoutingParams
         {
-            get { return data != null ? data.SmartComboRoutingParams != null ? data.SmartComboRoutingParams.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
-            set { if (data != null) data.SmartComboRoutingParams = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.SmartComboRoutingParams != null ? new ComList<ComTagValue, TagValue>(data.SmartComboRoutingParams) : null : null; }
+            set { if (data != null) data.SmartComboRoutingParams = value != null ? value.ConvertTo() : null; }
         }
 
         /**
         * @brief The attributes for all legs within a combo order.
         */
-        public List<ComOrderComboLeg> OrderComboLegs
+        public ComList<ComOrderComboLeg, OrderComboLeg> OrderComboLegs
         {
-            get { return data != null ? data.OrderComboLegs != null ? data.OrderComboLegs.Select(x => (ComOrderComboLeg)x).ToList() : null : default(List<ComOrderComboLeg>); }
-            set { if (data != null) data.OrderComboLegs = value != null ? value.Select(x => (OrderComboLeg)x).ToList() : null; }
+            get { return data != null ? data.OrderComboLegs != null ? new ComList<ComOrderComboLeg, OrderComboLeg>(data.OrderComboLegs) : null : null; }
+            set { if (data != null) data.OrderComboLegs = value != null ? value.ConvertTo() : null; }
         }
 
-        public List<ComTagValue> OrderMiscOptions
+        public ComList<ComTagValue, TagValue> OrderMiscOptions
         {
-            get { return data != null ? data.OrderMiscOptions != null ? data.OrderMiscOptions.Select(x => (ComTagValue)x).ToList() : null : default(List<ComTagValue>); }
-            set { if (data != null) data.OrderMiscOptions = value != null ? value.Select(x => (TagValue)x).ToList() : null; }
+            get { return data != null ? data.OrderMiscOptions != null ? new ComList<ComTagValue, TagValue>(data.OrderMiscOptions) : null : null; }
+            set { if (data != null) data.OrderMiscOptions = value != null ? value.ConvertTo() : null; }
         }
 
         /*
@@ -1142,7 +1140,7 @@ namespace TWSLib
 
             set
             {
-                AlgoParams = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
+                AlgoParams = value != null ? (value as ComTagValueList).Tvl : new ComList<ComTagValue, TagValue>(new List<TagValue>());
             }
         }
 
@@ -1155,7 +1153,7 @@ namespace TWSLib
 
             set
             {
-                SmartComboRoutingParams = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
+                SmartComboRoutingParams = value != null ? (value as ComTagValueList).Tvl : new ComList<ComTagValue, TagValue>(new List<TagValue>());
             }
         }
 
@@ -1181,7 +1179,7 @@ namespace TWSLib
 
             set
             {
-                OrderMiscOptions = value != null ? (value as ComTagValueList).Tvl : new List<ComTagValue>();
+                OrderMiscOptions = value != null ? (value as ComTagValueList).Tvl : new ComList<ComTagValue, TagValue>(new List<TagValue>());
             }
         }
 
@@ -1224,12 +1222,12 @@ namespace TWSLib
 
         public static explicit operator ComOrder(IBApi.Order o)
         {
-            return new ComOrder() { data = o };
+            return new ComOrder().ConvertFrom(o) as ComOrder;
         }
 
         public static explicit operator IBApi.Order(ComOrder co)
         {
-            return co.data;
+            return co.ConvertTo();
         }
     }
 }
