@@ -18,8 +18,6 @@ namespace TWSLib
     [ComVisible(true)]
     public class ComContractDetails : ComWrapper<ContractDetails>, IContractDetails
     {
-        ContractDetails data = new ContractDetails();
-
         /**
          * @brief A Contract object summarising this product.
          */
