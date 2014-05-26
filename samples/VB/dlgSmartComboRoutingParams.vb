@@ -73,10 +73,9 @@ Class dlgSmartComboRoutingParams
         Dim Count As Long
 
         Count = grdParams.Items.Count
+        m_smartComboRoutingParams = New List(Of IBApi.TagValue)
 
         If (Count > 0) Then
-
-            m_smartComboRoutingParams = New List(Of IBApi.TagValue)
 
             For iLoop = 0 To Count - 1 Step 1
 
