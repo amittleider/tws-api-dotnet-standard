@@ -613,7 +613,7 @@ Friend Class dlgComboOrderLegs
                 If Len(Row.SubItems(8).Text) = 0 Then
                     orderCmbLeg.Price = Double.MaxValue
                 Else
-                    orderCmbLeg.Price = CDbl(grdComboLegs.Text)
+                    orderCmbLeg.Price = CDbl(Row.SubItems(8).Text)
                 End If
             Next
 
