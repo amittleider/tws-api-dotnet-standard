@@ -484,7 +484,7 @@ Friend Class Tws
     End Sub
 
     Sub reqScannerSubscriptionEx(id As Integer, subscription As IBApi.ScannerSubscription, scannerSubscriptionOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqScannerSubscription(id, subscription, If(scannerSubscriptionOptions Is Nothing, Nothing, scannerSubscriptionOptions.Select(Function(x) New KeyValuePair(Of String, String)(x.Tag, x.Value))))
+        socket.reqScannerSubscription(id, subscription, scannerSubscriptionOptions)
     End Sub
 
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean)
