@@ -203,7 +203,7 @@ Friend Class dlgMktDepth
         Else
             lstBookEntries = grdAskBookEntries
         End If
-        theRow = rowId + 1
+        theRow = rowId
         If operation = Operation_Type.OPERATION_INSERT Then
             bookentry = New ListViewItem(New String() {marketMaker, price, size_Renamed, "0.0", "0"})
             lstBookEntries.Items.Insert(theRow, bookentry)

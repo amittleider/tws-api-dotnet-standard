@@ -512,7 +512,7 @@ Friend Class Tws
     End Sub
 
     Sub reqMktDepthEx(p1 As Integer, m_contractInfo As IBApi.Contract, p3 As Integer, m_mktDepthOptions As Generic.List(Of IBApi.TagValue))
-        socket.reqMktData(p1, m_contractInfo, p3, False, m_mktDepthOptions)
+        socket.reqMarketDepth(p1, m_contractInfo, p3, m_mktDepthOptions)
     End Sub
 
     Sub cancelMktDepth(p1 As Integer)
