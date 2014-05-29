@@ -827,7 +827,6 @@ Friend Class dlgMainWnd
         Me.MinimizeBox = False
         Me.Name = "dlgMainWnd"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "VB.NET Sample using TWS ActiveX Control"
         Me.ResumeLayout(False)

@@ -959,13 +959,13 @@ Friend Class dlgScanner
     End Sub
 
     Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
-        'Dim dlg As New dlgSmartComboRoutingParams
-        'dlg.init(m_scannerSubscriptionOptions, m_mainWnd.Tws1, "Scanner Subscription Options")
-        'Dim res As DialogResult
-        'res = dlg.ShowDialog()
-        'If res = Windows.Forms.DialogResult.OK Then
-        '    m_scannerSubscriptionOptions = dlg.smartComboRoutingParams
-        'End If
+        Dim dlg As New dlgSmartComboRoutingParams
+        dlg.init(m_scannerSubscriptionOptions, m_mainWnd.Tws1, "Scanner Subscription Options")
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = Windows.Forms.DialogResult.OK Then
+            m_scannerSubscriptionOptions = dlg.smartComboRoutingParams
+        End If
     End Sub
 
     Private Sub populateSubscription()

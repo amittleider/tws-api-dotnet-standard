@@ -1734,30 +1734,31 @@ Friend Class dlgOrder
     ' Button Events
     ' ========================================================
     Private Sub cmdAddCmboLegs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddCmboLegs.Click
+
         Dim dlgComboLegs As New dlgComboOrderLegs
 
         dlgComboLegs.Init(m_contractInfo.ComboLegs, m_orderInfo.OrderComboLegs, m_mainWnd.Tws1)
         dlgComboLegs.ShowDialog()
+
         If dlgComboLegs.ok Then
-            Dim comboLegs As List(Of IBApi.ComboLeg)
-            comboLegs = dlgComboLegs.comboLegs
-            m_contractInfo.ComboLegs = comboLegs
-            Dim orderComboLegs As List(Of IBApi.OrderComboLeg)
-            orderComboLegs = dlgComboLegs.orderComboLegs
-            m_orderInfo.OrderComboLegs = orderComboLegs
+
+            m_contractInfo.ComboLegs = dlgComboLegs.comboLegs
+            m_orderInfo.OrderComboLegs = dlgComboLegs.orderComboLegs
+
         End If
+
     End Sub
 
     Private Sub cmdAlgoParams_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdAlgoParams.Click
-        'Dim dlg As New dlgAlgoParams
+        Dim dlg As New dlgAlgoParams
 
-        'dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
-        'Dim res As DialogResult
-        'res = dlg.ShowDialog()
-        'If res = Windows.Forms.DialogResult.OK Then
-        '    m_orderInfo.AlgoStrategy = dlg.algoStrategy
-        '    m_orderInfo.AlgoParams = dlg.algoParams
-        'End If
+        dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = Windows.Forms.DialogResult.OK Then
+            m_orderInfo.AlgoStrategy = dlg.algoStrategy
+            m_orderInfo.AlgoParams = dlg.algoParams
+        End If
     End Sub
 
     Private Sub cmdSetShareAllocation_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSetShareAllocation.Click
@@ -2066,26 +2067,26 @@ Friend Class dlgOrder
     End Sub
 
     Private Sub cmdSmartComboRoutingParams_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSmartComboRoutingParams.Click
-        'Dim dlg As New dlgSmartComboRoutingParams
+        Dim dlg As New dlgSmartComboRoutingParams
 
-        'dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
-        'Dim res As DialogResult
-        'res = dlg.ShowDialog()
-        'If res = Windows.Forms.DialogResult.OK Then
-        '    m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
-        'End If
+        dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = Windows.Forms.DialogResult.OK Then
+            m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
+        End If
 
     End Sub
 
     Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
-        'Dim dlg As New dlgSmartComboRoutingParams
+        Dim dlg As New dlgSmartComboRoutingParams
 
-        'dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
-        'Dim res As DialogResult
-        'res = dlg.ShowDialog()
-        'If res = Windows.Forms.DialogResult.OK Then
-        '    m_options = dlg.smartComboRoutingParams
-        'End If
+        dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = Windows.Forms.DialogResult.OK Then
+            m_options = dlg.smartComboRoutingParams
+        End If
 
     End Sub
 
