@@ -208,17 +208,17 @@ Friend Class dlgMktDepth
             bookentry = New ListViewItem(New String() {marketMaker, price, size_Renamed, "0.0", "0"})
             lstBookEntries.Items.Insert(theRow, bookentry)
         ElseIf operation = Operation_Type.OPERATION_UPDATE Then
-            oldVal = lstBookEntries.Items(0).SubItems(theRow).Text
+            oldVal = lstBookEntries.Items(theRow).SubItems(0).Text
             If marketMaker <> oldVal Then
-                lstBookEntries.Items(0).SubItems(theRow).Text = marketMaker
+                lstBookEntries.Items(theRow).SubItems(0).Text = marketMaker
             End If
-            oldVal = lstBookEntries.Items(1).SubItems(theRow).Text
+            oldVal = lstBookEntries.Items(theRow).SubItems(1).Text
             If price <> oldVal Then
-                lstBookEntries.Items(1).SubItems(theRow).Text = price
+                lstBookEntries.Items(theRow).SubItems(1).Text = price
             End If
-            oldVal = lstBookEntries.Items(2).SubItems(theRow).Text
+            oldVal = lstBookEntries.Items(theRow).SubItems(2).Text
             If size_Renamed <> oldVal Then
-                lstBookEntries.Items(2).SubItems(theRow).Text = size_Renamed
+                lstBookEntries.Items(theRow).SubItems(2).Text = size_Renamed
             End If
         ElseIf operation = Operation_Type.OPERATION_DELETE Then
             lstBookEntries.Items.RemoveAt(theRow)
@@ -238,10 +238,10 @@ Friend Class dlgMktDepth
         If grdAskBookEntries.Items.Count = 0 Or grdBidBookEntries.Items.Count = 0 Then
             Dim bookentry As ColumnHeader()
             bookentry = New String() {"MM", "Price", "Size", "cumSize", "avgPrice"}.Select(Function(x) New ColumnHeader() With {.Text = x}).ToArray()
-            If grdAskBookEntries.Items.Count = 0 Then
+            If grdAskBookEntries.Columns.Count = 0 Then
                 grdAskBookEntries.Columns.AddRange(bookentry)
             End If
-            If grdBidBookEntries.Items.Count = 0 Then
+            If grdBidBookEntries.Columns.Count = 0 Then
                 grdBidBookEntries.Columns.AddRange(bookentry.Select(Function(x) CType(x.Clone(), ColumnHeader)).ToArray())
             End If
         End If
@@ -254,24 +254,24 @@ Friend Class dlgMktDepth
         Call subClear(grdBidBookEntries)
     End Sub
     Private Sub UpdateList(ByRef lstBookEntries As ListView, ByVal baseRow As Integer)
-        Dim size_Renamed, cumSize As Short
+        Dim size_Renamed, cumSize As Integer
         Dim price, totalPrice As Double
-        Dim iLoop As Short
+        Dim iLoop As Integer
 
         totalPrice = 0
         cumSize = 0
         If baseRow > 0 And baseRow <= lstBookEntries.Items.Count - 1 Then
-            cumSize = lstBookEntries.Items(3).SubItems(baseRow - 1).Text
-            totalPrice = lstBookEntries.Items(1).SubItems(baseRow - 1).Text * cumSize
+            cumSize = lstBookEntries.Items(baseRow - 1).SubItems(3).Text
+            totalPrice = lstBookEntries.Items(baseRow - 1).SubItems(1).Text * cumSize
         End If
 
         For iLoop = baseRow To lstBookEntries.Items.Count - 1
-            price = lstBookEntries.Items(1).SubItems(iLoop).Text
-            size_Renamed = lstBookEntries.Items(2).SubItems(iLoop).Text
+            price = lstBookEntries.Items(iLoop).SubItems(1).Text
+            size_Renamed = lstBookEntries.Items(iLoop).SubItems(2).Text
             cumSize = cumSize + size_Renamed
             totalPrice = totalPrice + (price * size_Renamed)
-            lstBookEntries.Items(3).SubItems(iLoop).Text = cumSize
-            lstBookEntries.Items(4).SubItems(iLoop).Text = System.Math.Round(totalPrice / cumSize, 6)
+            lstBookEntries.Items(iLoop).SubItems(3).Text = cumSize
+            lstBookEntries.Items(iLoop).SubItems(4).Text = System.Math.Round(totalPrice / cumSize, 6)
         Next iLoop
     End Sub
 End Class
