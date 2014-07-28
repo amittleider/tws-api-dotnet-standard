@@ -85,12 +85,12 @@
       <AdditionalIncludeDirectories>h:\tws-api\interop\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\lib\TwsSocketClient.dll</OutputFile>
+      <OutputFile>.\Release/TwsSocketClient.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ModuleDefinitionFile>.\TwsSocketClient.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>.\Release/TwsSocketClient.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>.\Release/TwsSocketClient.lib</ImportLibrary>
+      <ImportLibrary>..\lib\TwsSocketClient.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
