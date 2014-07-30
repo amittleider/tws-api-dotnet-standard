@@ -405,7 +405,7 @@ bool EClientSocketBase::DecodeFieldMax(int& intValue, const char*& ptr, const ch
 	std::string stringValue;
 	if( !DecodeField(stringValue, ptr, endPtr))
 		return false;
-	intValue = (stringValue.size() == 0) ? UNSET_INTEGER : atoi(stringValue.c_str());
+	intValue = stringValue.empty() ? UNSET_INTEGER : atoi(stringValue.c_str());
 	return true;
 }
 
@@ -423,7 +423,7 @@ bool EClientSocketBase::DecodeFieldMax(double& doubleValue, const char*& ptr, co
 	std::string stringValue;
 	if( !DecodeField(stringValue, ptr, endPtr))
 		return false;
-	doubleValue = (stringValue.size() == 0) ? UNSET_DOUBLE : atof(stringValue.c_str());
+	doubleValue = stringValue.empty() ? UNSET_DOUBLE : atof(stringValue.c_str());
 	return true;
 }
 
@@ -535,7 +535,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( contract.tradingClass.size() != 0) {
+		if( !contract.tradingClass.empty() ) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in reqMktData.");
 			return;
@@ -661,7 +661,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( contract.tradingClass.size() != 0 || (contract.conId > 0)) {
+		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId and tradingClass parameters in reqMktDepth.");
 			return;
@@ -761,7 +761,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &co
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( contract.tradingClass.size() != 0 || (contract.conId > 0)) {
+		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId and tradingClass parameters in reqHistoricalData.");
 			return;

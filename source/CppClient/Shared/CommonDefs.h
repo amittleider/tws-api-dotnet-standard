@@ -13,14 +13,11 @@ inline const char* faDataTypeStr ( faDataType pFaDataType )
 {
 	switch (pFaDataType) {
 		case GROUPS:
-			return "GROUPS" ;
-			break ;
+			return "GROUPS";
 		case PROFILES:
-			return "PROFILES" ;
-			break ;
+			return "PROFILES";
 		case ALIASES:
-			return "ALIASES" ;
-			break ;
+			return "ALIASES";
 	}
 	return 0 ;
 }
