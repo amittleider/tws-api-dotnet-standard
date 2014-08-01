@@ -55,5 +55,6 @@ namespace IBApi
         public const int SCALE_TABLE = 69;
         public const int LINKING = 70;
         public const int ALGO_ID = 71;
+        public const int OPTIONAL_CAPABILITIES = 72;
     }
 }

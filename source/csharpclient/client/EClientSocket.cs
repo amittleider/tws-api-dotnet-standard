@@ -153,13 +153,19 @@ namespace IBApi
             if (!CheckConnection())
                 return;
 
-            const int VERSION = 1;
+            const int VERSION = 2;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.StartApi);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(clientId);
+
+            if (serverVersion >= MinServerVer.OPTIONAL_CAPABILITIES)
+                paramsList.AddParameter(OptionalCapabilities);
+            
             Send(paramsList);
         }
+
+        public string OptionalCapabilities { get; set; }
 
         /**
          * @brief Terminates the connection and notifies the EWrapper implementing class.
@@ -185,6 +191,7 @@ namespace IBApi
             serverVersion = 0;
             this.clientId = -1;
             this.extraAuth = false;
+            this.OptionalCapabilities = "";
 
             if (tcpWriter != null)
             {
