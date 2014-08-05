@@ -920,7 +920,8 @@ Friend Class dlgMainWnd
             With m_dlgConnect
                 Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, _
                      "Connecting to Tws using clientId " & .clientId & " ...")
-                Call Tws1.connect(.hostIP, .port, .clientId, False)
+
+                Call Tws1.connect(.hostIP, .port, .clientId, False, m_dlgConnect.optCaps)
                 If (Tws1.serverVersion() > 0) Then
                     Dim msg As String
                     msg = "Connected to Tws server version " & Tws1.serverVersion() & _
