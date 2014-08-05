@@ -40,6 +40,7 @@ namespace IBApi
             this.clientId = -1;
             this.extraAuth = false;
             this.isConnected = false;
+            this.OptionalCapabilities = "";
         }
 
         public EWrapper Wrapper
