@@ -488,7 +488,7 @@ Friend Class Tws
     End Sub
 
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean, optcapts As String)
-        socket.OptionalCapabilities = optcapts
+        socket.optionalCapabilities = optcapts
 
         socket.eConnect(p1, p2, p3, p4)
     End Sub
