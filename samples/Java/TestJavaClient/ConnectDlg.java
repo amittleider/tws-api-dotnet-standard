@@ -21,9 +21,11 @@ public class ConnectDlg extends JDialog {
     JTextField 	m_ipAddress = new JTextField();
     JTextField 	m_port = new JTextField( "7496");
     JTextField 	m_clientId = new JTextField();
+    JTextField  m_optCapts = new JTextField();
     JButton 	m_ok = new JButton( "OK");
     JButton 	m_cancel = new JButton( "Cancel");
     String 	m_retIpAddress;
+    String  m_retOptCapts;
     int 	m_retPort;
     int 	m_retClientId;
     boolean 	m_rc;
@@ -58,6 +60,8 @@ public class ConnectDlg extends JDialog {
         midPanel.add( new JLabel( "Client ID") );
         midPanel.add( m_clientId);
         m_clientId.setText( Integer.toString(LAST_CLIENT_ID) );
+        midPanel.add( new JLabel( "Optional capabilities") );
+        midPanel.add( m_optCapts );
 
         // create dlg box
         getContentPane().add( midPanel, BorderLayout.CENTER);
@@ -74,6 +78,7 @@ public class ConnectDlg extends JDialog {
             m_retIpAddress = m_ipAddress.getText();
             m_retPort = Integer.parseInt( m_port.getText() );
             m_retClientId = Integer.parseInt( m_clientId.getText() );
+            m_retOptCapts = m_optCapts.getText();
             LAST_CLIENT_ID = m_retClientId;
         }
         catch( Exception e) {

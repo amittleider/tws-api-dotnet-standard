@@ -178,7 +178,11 @@ private:
 	bool m_extraAuth;
 	int m_serverVersion;
 	std::string m_TwsTime;
+    std::string m_optionalCapabilities;
 
+public:
+    void optionalCapabilities(LPCSTR optCapts);
+    std::string optionalCapabilities();
 };
 
 template<> void EClientSocketBase::EncodeField<bool>(std::ostream& os, bool);

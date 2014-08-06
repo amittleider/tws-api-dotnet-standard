@@ -406,6 +406,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // connect to TWS
         m_disconnectInProgress = false;
 
+        m_client.OptionalCapabilities(dlg.m_retOptCapts);
         m_client.eConnect( dlg.m_retIpAddress, dlg.m_retPort, dlg.m_retClientId);
         if (m_client.isConnected()) {
             m_TWS.add("Connected to Tws server version " +

@@ -198,7 +198,9 @@ const int MIN_SERVER_VER_POSITIONS              = 67;
 const int MIN_SERVER_VER_ACCOUNT_SUMMARY        = 67;
 const int MIN_SERVER_VER_TRADING_CLASS          = 68;
 const int MIN_SERVER_VER_SCALE_TABLE            = 69;
-const int MIN_SERVER_VER_LINKING            = 70;
+const int MIN_SERVER_VER_LINKING                = 70;
+const int MIN_SERVER_VER_ALGO_ID                = 71;
+const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;
@@ -490,6 +492,7 @@ void EClientSocketBase::eDisconnectBase()
 	m_clientId = -1;
 	m_outBuffer.clear();
 	m_inBuffer.clear();
+    m_optionalCapabilities.clear();
 }
 
 int EClientSocketBase::serverVersion()
@@ -500,6 +503,14 @@ int EClientSocketBase::serverVersion()
 std::string EClientSocketBase::TwsConnectionTime()
 {
 	return m_TwsTime;
+}
+
+void EClientSocketBase::optionalCapabilities(LPCSTR optCapts) {
+    m_optionalCapabilities = optCapts;
+}
+    
+std::string EClientSocketBase::optionalCapabilities() {
+    return m_optionalCapabilities;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
@@ -1613,9 +1624,17 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_ALGO_ID) {
+		if( !IsEmpty(order.algoId)) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+					"  It does not support algoId parameter");
+			return;
+		}
+	}
+
 	std::ostringstream msg;
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 42;
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 43;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);
@@ -1923,6 +1942,11 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 				}
 			}
 		}
+
+	}
+
+	if( m_serverVersion >= MIN_SERVER_VER_ALGO_ID) {
+		ENCODE_FIELD( order.algoId);
 	}
 
 	ENCODE_FIELD( order.whatIf); // srv v36 and above
@@ -2634,11 +2658,14 @@ void EClientSocketBase::startApi()
 
 	std::ostringstream msg;
 
-	const int VERSION = 1;
+	const int VERSION = 2;
 
 	ENCODE_FIELD( START_API);
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( m_clientId);
+
+    if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+       	ENCODE_FIELD(m_optionalCapabilities);
 
 	bufferedSend( msg.str());
 }

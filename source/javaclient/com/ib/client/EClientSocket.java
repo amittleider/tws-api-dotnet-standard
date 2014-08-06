@@ -203,6 +203,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_SCALE_TABLE = 69;
     protected static final int MIN_SERVER_VER_LINKING = 70;
     protected static final int MIN_SERVER_VER_ALGO_ID = 71;
+    protected static final int MIN_SERVER_VER_OPTIONAL_CAPABILITIES = 72;
 
     private AnyWrapper m_anyWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -212,6 +213,7 @@ public class EClientSocket {
     private String m_TwsTime;
     private int m_clientId;
     private boolean m_extraAuth;
+    private String m_optionalCapabilities;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -222,11 +224,20 @@ public class EClientSocket {
     protected synchronized void setExtraAuth(boolean extraAuth){
         m_extraAuth = extraAuth;
     }
+    
+    public void OptionalCapabilities(String val) {
+        m_optionalCapabilities = val;
+    }
+    
+    public String OptionalCapabilities() {
+        return m_optionalCapabilities;
+    }
 
     public EClientSocket( AnyWrapper anyWrapper) {
         m_anyWrapper = anyWrapper;
         m_clientId = -1;
         m_extraAuth = false;
+        m_optionalCapabilities = "";
         m_connected = false;
         m_serverVersion = 0;
     }
@@ -368,12 +379,16 @@ public class EClientSocket {
             return;
         }
 
-        final int VERSION = 1;
+        final int VERSION = 2;
 
         try {
             send(START_API);
             send(VERSION);
             send(m_clientId);
+            
+            if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES) {
+                send(m_optionalCapabilities);
+            }
         }
         catch( Exception e) {
             error( EClientErrors.NO_VALID_ID,

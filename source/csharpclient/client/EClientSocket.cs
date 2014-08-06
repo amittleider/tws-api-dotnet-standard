@@ -40,6 +40,7 @@ namespace IBApi
             this.clientId = -1;
             this.extraAuth = false;
             this.isConnected = false;
+            this.optionalCapabilities = "";
         }
 
         public EWrapper Wrapper
@@ -153,13 +154,19 @@ namespace IBApi
             if (!CheckConnection())
                 return;
 
-            const int VERSION = 1;
+            const int VERSION = 2;
             List<byte> paramsList = new List<byte>();
             paramsList.AddParameter(OutgoingMessages.StartApi);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(clientId);
+
+            if (serverVersion >= MinServerVer.OPTIONAL_CAPABILITIES)
+                paramsList.AddParameter(optionalCapabilities);
+            
             Send(paramsList);
         }
+
+        public string optionalCapabilities { get; set; }
 
         /**
          * @brief Terminates the connection and notifies the EWrapper implementing class.
@@ -185,6 +192,7 @@ namespace IBApi
             serverVersion = 0;
             this.clientId = -1;
             this.extraAuth = false;
+            this.optionalCapabilities = "";
 
             if (tcpWriter != null)
             {

@@ -487,7 +487,9 @@ Friend Class Tws
         socket.reqScannerSubscription(id, subscription, scannerSubscriptionOptions)
     End Sub
 
-    Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean)
+    Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean, optcapts As String)
+        socket.optionalCapabilities = optcapts
+
         socket.eConnect(p1, p2, p3, p4)
     End Sub
 

@@ -250,6 +250,8 @@ struct Order
 	TagValueListSPtr algoParams;
 	TagValueListSPtr smartComboRoutingParams;
 
+	std::string algoId;
+
 	// What-if
 	bool     whatIf;
 
