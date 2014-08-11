@@ -560,7 +560,7 @@ namespace IBApi
             if (!VerifyOrderContract(contract, id))
                 return;
 
-            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 43;
+            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 44;
             List<byte> paramsList = new List<byte>();
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
@@ -961,6 +961,11 @@ namespace IBApi
                 //int orderOptionsCount = order.OrderMiscOptions == null ? 0 : order.OrderMiscOptions.Count;
                 //paramsList.AddParameter(orderOptionsCount);
                 paramsList.AddParameter(TagValueListToString(order.OrderMiscOptions));
+            }
+
+            if (serverVersion >= MinServerVer.ORDER_SOLICITED)
+            {
+                paramsList.AddParameter(order.OrderSolicited);
             }
 
             Send(id, paramsList, EClientErrors.FAIL_SEND_ORDER);
