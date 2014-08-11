@@ -1232,7 +1232,8 @@ namespace IBApi
                 ScaleRandomPercent != l_theOther.ScaleRandomPercent ||
                 WhatIf != l_theOther.WhatIf ||
                 NotHeld != l_theOther.NotHeld ||
-                ExemptCode != l_theOther.ExemptCode)
+                ExemptCode != l_theOther.ExemptCode ||
+                OrderSolicited != l_theOther.OrderSolicited)
             {
                 return false;
             }
