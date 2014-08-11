@@ -128,95 +128,97 @@ Friend Class dlgOrder
     Public WithEvents txtTradingClass As System.Windows.Forms.TextBox
     Public WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents cmdOptions As System.Windows.Forms.Button
+    Friend WithEvents cbSolicited As System.Windows.Forms.CheckBox
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.Frame1 = New System.Windows.Forms.GroupBox
-        Me.txtEndDateTime = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.txtBarSizeSetting = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.txtFormatDate = New System.Windows.Forms.TextBox
-        Me.txtUseRTH = New System.Windows.Forms.TextBox
-        Me.txtWhatToShow = New System.Windows.Forms.TextBox
-        Me.txtDuration = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOk = New System.Windows.Forms.Button
-        Me.frameTickerDesc = New System.Windows.Forms.GroupBox
-        Me.txtTradingClass = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtSecId = New System.Windows.Forms.TextBox
-        Me.txtSecIdType = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtConId = New System.Windows.Forms.TextBox
-        Me.txtIncludeExpired = New System.Windows.Forms.TextBox
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.TextMultiplier = New System.Windows.Forms.TextBox
-        Me.TxtPrimaryExchange = New System.Windows.Forms.TextBox
-        Me.txtRight = New System.Windows.Forms.TextBox
-        Me.txtLocalSymbol = New System.Windows.Forms.TextBox
-        Me.txtCurrency = New System.Windows.Forms.TextBox
-        Me.txtExchange = New System.Windows.Forms.TextBox
-        Me.txtStrike = New System.Windows.Forms.TextBox
-        Me.txtExpiry = New System.Windows.Forms.TextBox
-        Me.txtSecType = New System.Windows.Forms.TextBox
-        Me.txtSymbol = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.txtReqId = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.chkSnapshotMktData = New System.Windows.Forms.CheckBox
-        Me.txtGenericTickTags = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.txtExerciseOverride = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtExerciseQuantity = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.txtExerciseAction = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.txtNumRows = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.cmdSetShareAllocation = New System.Windows.Forms.Button
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtAction = New System.Windows.Forms.TextBox
-        Me.txtQuantity = New System.Windows.Forms.TextBox
-        Me.txtOrderType = New System.Windows.Forms.TextBox
-        Me.txtLmtPrice = New System.Windows.Forms.TextBox
-        Me.txtAuxPrice = New System.Windows.Forms.TextBox
-        Me.cmdAddCmboLegs = New System.Windows.Forms.Button
-        Me.tGTD = New System.Windows.Forms.TextBox
-        Me.tGAT = New System.Windows.Forms.TextBox
-        Me.cmdUnderComp = New System.Windows.Forms.Button
-        Me.cmdAlgoParams = New System.Windows.Forms.Button
-        Me.frameOrderDesc = New System.Windows.Forms.GroupBox
-        Me.cmdOptions = New System.Windows.Forms.Button
-        Me.cmdSmartComboRoutingParams = New System.Windows.Forms.Button
-        Me.labelMarketDataType = New System.Windows.Forms.Label
-        Me.frameMarketDataType = New System.Windows.Forms.GroupBox
-        Me.cmbMarketDataType = New System.Windows.Forms.ComboBox
+        Me.Frame1 = New System.Windows.Forms.GroupBox()
+        Me.txtEndDateTime = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtBarSizeSetting = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtFormatDate = New System.Windows.Forms.TextBox()
+        Me.txtUseRTH = New System.Windows.Forms.TextBox()
+        Me.txtWhatToShow = New System.Windows.Forms.TextBox()
+        Me.txtDuration = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdOk = New System.Windows.Forms.Button()
+        Me.frameTickerDesc = New System.Windows.Forms.GroupBox()
+        Me.txtTradingClass = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtSecId = New System.Windows.Forms.TextBox()
+        Me.txtSecIdType = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtConId = New System.Windows.Forms.TextBox()
+        Me.txtIncludeExpired = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TextMultiplier = New System.Windows.Forms.TextBox()
+        Me.TxtPrimaryExchange = New System.Windows.Forms.TextBox()
+        Me.txtRight = New System.Windows.Forms.TextBox()
+        Me.txtLocalSymbol = New System.Windows.Forms.TextBox()
+        Me.txtCurrency = New System.Windows.Forms.TextBox()
+        Me.txtExchange = New System.Windows.Forms.TextBox()
+        Me.txtStrike = New System.Windows.Forms.TextBox()
+        Me.txtExpiry = New System.Windows.Forms.TextBox()
+        Me.txtSecType = New System.Windows.Forms.TextBox()
+        Me.txtSymbol = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.txtReqId = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkSnapshotMktData = New System.Windows.Forms.CheckBox()
+        Me.txtGenericTickTags = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtExerciseOverride = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtExerciseQuantity = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtExerciseAction = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.txtNumRows = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.cmdSetShareAllocation = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtAction = New System.Windows.Forms.TextBox()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.txtOrderType = New System.Windows.Forms.TextBox()
+        Me.txtLmtPrice = New System.Windows.Forms.TextBox()
+        Me.txtAuxPrice = New System.Windows.Forms.TextBox()
+        Me.cmdAddCmboLegs = New System.Windows.Forms.Button()
+        Me.tGTD = New System.Windows.Forms.TextBox()
+        Me.tGAT = New System.Windows.Forms.TextBox()
+        Me.cmdUnderComp = New System.Windows.Forms.Button()
+        Me.cmdAlgoParams = New System.Windows.Forms.Button()
+        Me.frameOrderDesc = New System.Windows.Forms.GroupBox()
+        Me.cmdOptions = New System.Windows.Forms.Button()
+        Me.cmdSmartComboRoutingParams = New System.Windows.Forms.Button()
+        Me.labelMarketDataType = New System.Windows.Forms.Label()
+        Me.frameMarketDataType = New System.Windows.Forms.GroupBox()
+        Me.cmbMarketDataType = New System.Windows.Forms.ComboBox()
+        Me.cbSolicited = New System.Windows.Forms.CheckBox()
         Me.Frame1.SuspendLayout()
         Me.frameTickerDesc.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -546,7 +548,7 @@ Friend Class dlgOrder
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(7, 397)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(64, 14)
+        Me.Label6.Size = New System.Drawing.Size(63, 14)
         Me.Label6.TabIndex = 26
         Me.Label6.Text = "Sec Id Type"
         '
@@ -1143,7 +1145,7 @@ Friend Class dlgOrder
         Me.cmdSetShareAllocation.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdSetShareAllocation.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSetShareAllocation.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdSetShareAllocation.Location = New System.Drawing.Point(17, 228)
+        Me.cmdSetShareAllocation.Location = New System.Drawing.Point(16, 254)
         Me.cmdSetShareAllocation.Name = "cmdSetShareAllocation"
         Me.cmdSetShareAllocation.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdSetShareAllocation.Size = New System.Drawing.Size(99, 25)
@@ -1310,7 +1312,7 @@ Friend Class dlgOrder
         Me.cmdAddCmboLegs.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdAddCmboLegs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdAddCmboLegs.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdAddCmboLegs.Location = New System.Drawing.Point(122, 228)
+        Me.cmdAddCmboLegs.Location = New System.Drawing.Point(121, 254)
         Me.cmdAddCmboLegs.Name = "cmdAddCmboLegs"
         Me.cmdAddCmboLegs.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdAddCmboLegs.Size = New System.Drawing.Size(99, 25)
@@ -1352,7 +1354,7 @@ Friend Class dlgOrder
         Me.cmdUnderComp.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdUnderComp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdUnderComp.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdUnderComp.Location = New System.Drawing.Point(17, 264)
+        Me.cmdUnderComp.Location = New System.Drawing.Point(16, 290)
         Me.cmdUnderComp.Name = "cmdUnderComp"
         Me.cmdUnderComp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdUnderComp.Size = New System.Drawing.Size(99, 25)
@@ -1366,7 +1368,7 @@ Friend Class dlgOrder
         Me.cmdAlgoParams.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdAlgoParams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdAlgoParams.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdAlgoParams.Location = New System.Drawing.Point(122, 264)
+        Me.cmdAlgoParams.Location = New System.Drawing.Point(121, 290)
         Me.cmdAlgoParams.Name = "cmdAlgoParams"
         Me.cmdAlgoParams.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdAlgoParams.Size = New System.Drawing.Size(99, 25)
@@ -1377,6 +1379,7 @@ Friend Class dlgOrder
         'frameOrderDesc
         '
         Me.frameOrderDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameOrderDesc.Controls.Add(Me.cbSolicited)
         Me.frameOrderDesc.Controls.Add(Me.cmdOptions)
         Me.frameOrderDesc.Controls.Add(Me.cmdSmartComboRoutingParams)
         Me.frameOrderDesc.Controls.Add(Me.cmdAlgoParams)
@@ -1410,7 +1413,7 @@ Friend Class dlgOrder
         'cmdOptions
         '
         Me.cmdOptions.Enabled = False
-        Me.cmdOptions.Location = New System.Drawing.Point(122, 301)
+        Me.cmdOptions.Location = New System.Drawing.Point(121, 327)
         Me.cmdOptions.Name = "cmdOptions"
         Me.cmdOptions.Size = New System.Drawing.Size(99, 25)
         Me.cmdOptions.TabIndex = 19
@@ -1423,7 +1426,7 @@ Friend Class dlgOrder
         Me.cmdSmartComboRoutingParams.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdSmartComboRoutingParams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSmartComboRoutingParams.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdSmartComboRoutingParams.Location = New System.Drawing.Point(17, 301)
+        Me.cmdSmartComboRoutingParams.Location = New System.Drawing.Point(16, 327)
         Me.cmdSmartComboRoutingParams.Name = "cmdSmartComboRoutingParams"
         Me.cmdSmartComboRoutingParams.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdSmartComboRoutingParams.Size = New System.Drawing.Size(99, 25)
@@ -1467,6 +1470,16 @@ Friend Class dlgOrder
         Me.cmbMarketDataType.Name = "cmbMarketDataType"
         Me.cmbMarketDataType.Size = New System.Drawing.Size(120, 22)
         Me.cmbMarketDataType.TabIndex = 1
+        '
+        'cbSolicited
+        '
+        Me.cbSolicited.AutoSize = True
+        Me.cbSolicited.Location = New System.Drawing.Point(154, 224)
+        Me.cbSolicited.Name = "cbSolicited"
+        Me.cbSolicited.Size = New System.Drawing.Size(66, 18)
+        Me.cbSolicited.TabIndex = 20
+        Me.cbSolicited.Text = "Solicited"
+        Me.cbSolicited.UseVisualStyleBackColor = True
         '
         'dlgOrder
         '
@@ -1823,6 +1836,7 @@ Friend Class dlgOrder
         m_orderInfo.FaMethod = m_faMethod
         m_orderInfo.FaPercentage = m_faPercentage
         m_orderInfo.FaProfile = m_faProfile
+        m_orderInfo.OrderSolicited = cbSolicited.Checked
 
         m_genericTickTags = txtGenericTickTags.Text
         m_snapshotMktData = chkSnapshotMktData.CheckState
