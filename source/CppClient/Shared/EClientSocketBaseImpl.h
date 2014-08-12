@@ -306,7 +306,7 @@ void EClientSocketBase::EncodeField<double>(std::ostream& os, double doubleValue
 {
 	char str[128];
 
-	sprintf_s(str, sizeof(str), "%.10g", doubleValue);
+	snprintf(str, sizeof(str), "%.10g", doubleValue);
 
 	EncodeField<const char*>(os, str);
 }
