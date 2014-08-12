@@ -688,6 +688,10 @@ public class EReader extends Thread {
                 		}
                 	}
                 }
+                
+                if (version >= 33) {
+                	order.m_orderSolicited = readBoolFromInt();
+                }
 
                 OrderState orderState = new OrderState();
 

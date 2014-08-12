@@ -3,6 +3,7 @@
 	<name>javatest</name>
 	<comment></comment>
 	<projects>
+		<project>javaclient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
