@@ -492,7 +492,6 @@ void EClientSocketBase::eDisconnectBase()
 	m_clientId = -1;
 	m_outBuffer.clear();
 	m_inBuffer.clear();
-    m_optionalCapabilities.clear();
 }
 
 int EClientSocketBase::serverVersion()
@@ -505,12 +504,9 @@ std::string EClientSocketBase::TwsConnectionTime()
 	return m_TwsTime;
 }
 
-void EClientSocketBase::optionalCapabilities(LPCSTR optCapts) {
+void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
+{
     m_optionalCapabilities = optCapts;
-}
-    
-std::string EClientSocketBase::optionalCapabilities() {
-    return m_optionalCapabilities;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
@@ -2664,8 +2660,8 @@ void EClientSocketBase::startApi()
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( m_clientId);
 
-    if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
-       	ENCODE_FIELD(m_optionalCapabilities);
+	if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+		ENCODE_FIELD(m_optionalCapabilities);
 
 	bufferedSend( msg.str());
 }
