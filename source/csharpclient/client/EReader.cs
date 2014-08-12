@@ -1078,6 +1078,11 @@ namespace IBApi
                 }
             }
 
+            if (msgVersion >= 33)
+            {
+                order.OrderSolicited = ReadBoolFromInt();
+            }
+
             OrderState orderState = new OrderState();
             if (msgVersion >= 16)
             {
