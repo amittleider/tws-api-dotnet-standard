@@ -1352,6 +1352,7 @@ public class EClientSocket {
         	if (order.m_orderSolicited) {
         		error(id, EClientErrors.UPDATE_TWS,
                         "  It does not support orderSolicited parameter.");
+                return;
         	}
         }
 
