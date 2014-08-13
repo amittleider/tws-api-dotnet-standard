@@ -23,6 +23,10 @@
 #include <string.h>
 #include <assert.h>
 
+#ifdef _WIN32
+#define snprintf _snprintf
+#endif
+
 /////////////////////////////////////////////////////////////////////////////////
 // SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incomming
 //                                    server responses change
