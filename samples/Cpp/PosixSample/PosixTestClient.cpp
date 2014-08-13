@@ -204,10 +204,8 @@ void PosixTestClient::orderStatus( OrderId orderId, const std::string& status, i
 		if( m_state == ST_PLACEORDER_ACK && (status == "PreSubmitted" || status == "Submitted"))
 			m_state = ST_CANCELORDER;
 
-		if( m_state == ST_CANCELORDER_ACK && status == "Cancelled") {
-                   static int count = 0;
-			m_state = ++count < 100 ? ST_PLACEORDER : ST_PING;
-                }
+		if( m_state == ST_CANCELORDER_ACK && status == "Cancelled")
+			m_state = ST_CANCELORDER;
 
 		printf( "Order: id=%ld, status=%s\n", orderId, status.c_str());
 	}
