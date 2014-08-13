@@ -108,6 +108,7 @@
 //      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
 // 62 = can receive avgCost in position message
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
+// 64 = can receive orderSolicited attrib in openOrder message
 
 const int CLIENT_VERSION    = 64;
 const int SERVER_VERSION    = 38;
