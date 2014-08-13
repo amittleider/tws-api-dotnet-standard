@@ -580,7 +580,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	// Send combo legs for BAG requests (srv v8 and above)
-	if( contract.secType.compare("BAG") == 0)
+	if( contract.secType == "BAG")
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
