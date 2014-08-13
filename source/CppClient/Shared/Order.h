@@ -30,7 +30,7 @@ struct OrderComboLeg
 
 	double price;
 
-	bool operator==( const OrderComboLeg &other) const
+	bool operator==( const OrderComboLeg& other) const
 	{
 		return (price == other.price);
 	}

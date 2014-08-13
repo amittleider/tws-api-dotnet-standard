@@ -6,6 +6,7 @@
 
 #include "shared_ptr.h"
 
+#include <string>
 #include <vector>
 
 struct TagValue
