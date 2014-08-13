@@ -1940,6 +1940,7 @@ Friend Class dlgOrder
                                      dlgType = Dlg_Type.REQ_CONTRACT_DETAILS_DLG)
 
         cmbMarketDataType.Enabled = (dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE)
+        cbSolicited.Enabled = (dlgType = Dlg_Type.PLACE_ORDER_DLG)
 
         ' enable or disable contract fields
         If dlgType = Dlg_Type.CANCEL_MKT_DATA_DLG Or _
