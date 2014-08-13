@@ -113,7 +113,6 @@ public class OrderDlg extends JDialog {
     private String      m_faPercentage;
 	public  String      m_genericTicks;
 	public  boolean     m_snapshotMktData;
-	private JCheckBox 	m_orderSolicited = new JCheckBox();
 
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
@@ -201,8 +200,6 @@ public class OrderDlg extends JDialog {
         addGBComponent(pOrderDetails, m_goodAfterTime, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Good Till Date"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_goodTillDate, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
-        addGBComponent(pOrderDetails, new JLabel( "Solicited"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
-		addGBComponent(pOrderDetails, m_orderSolicited, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
 
         // create marketDepth panel
         IBGridBagPanel pMarketDepth = new IBGridBagPanel();
@@ -454,8 +451,6 @@ public class OrderDlg extends JDialog {
             m_order.m_faProfile = m_faProfile;
             m_order.m_faMethod = m_faMethod;
             m_order.m_faPercentage = m_faPercentage;
-            
-            m_order.m_orderSolicited = m_orderSolicited.isSelected();
 
             // set historical data fields
             m_backfillEndTime = m_BackfillEndTime.getText();
