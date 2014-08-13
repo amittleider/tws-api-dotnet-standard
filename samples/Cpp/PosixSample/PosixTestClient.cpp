@@ -205,7 +205,7 @@ void PosixTestClient::orderStatus( OrderId orderId, const std::string& status, i
 			m_state = ST_CANCELORDER;
 
 		if( m_state == ST_CANCELORDER_ACK && status == "Cancelled")
-			m_state = ST_CANCELORDER;
+			m_state = ST_PING;
 
 		printf( "Order: id=%ld, status=%s\n", orderId, status.c_str());
 	}
