@@ -652,7 +652,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract, int numRows, const TagValueListSPtr& mktDepthOptions)
+void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
 {
 	// not connected?
 	if( !m_connected) {
@@ -750,9 +750,9 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &contract,
-									   const std::string &endDateTime, const std::string &durationStr,
-									   const std::string & barSizeSetting, const std::string &whatToShow,
+void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
+									   const std::string& endDateTime, const std::string& durationStr,
+									   const std::string&  barSizeSetting, const std::string& whatToShow,
 									   int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
@@ -873,8 +873,8 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contract,
-									int barSize, const std::string &whatToShow, bool useRTH,
+void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
+									int barSize, const std::string& whatToShow, bool useRTH,
 									const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
@@ -1162,7 +1162,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract &contract, double optionPrice, double underPrice) {
+void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
 
 	// not connected?
 	if( !m_connected) {
@@ -1239,7 +1239,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &contract, double volatility, double underPrice) {
+void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
 
 	// not connected?
 	if( !m_connected) {
@@ -1408,7 +1408,7 @@ void EClientSocketBase::reqCurrentTime()
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const Order &order)
+void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
 {
 	// not connected?
 	if( !m_connected) {
@@ -2266,7 +2266,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 
 
 
-void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &contract,
+void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& contract,
                                      int exerciseAction, int exerciseQuantity,
                                      const std::string& account, int override)
 {
