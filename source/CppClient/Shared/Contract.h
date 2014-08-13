@@ -43,10 +43,10 @@ struct ComboLeg
 			ratio == other.ratio &&
 			openClose == other.openClose &&
 			shortSaleSlot == other.shortSaleSlot &&
+			exemptCode == other.exemptCode &&
 			action == other.action &&
 			exchange == other.exchange &&
-			designatedLocation == other.designatedLocation &&
-			exemptCode == other.exemptCode);
+			designatedLocation == other.designatedLocation);
 	}
 };
 
