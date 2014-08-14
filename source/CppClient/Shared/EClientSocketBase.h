@@ -13,7 +13,7 @@
 
 class EWrapper;
 
-class EClientSocketBase : public EClient
+class DLLEXP EClientSocketBase : public EClient
 {
 public:
 
