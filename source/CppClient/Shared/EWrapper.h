@@ -1,15 +1,15 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+#pragma once
 #ifndef ewrapper_def
 #define ewrapper_def
 
 #include "CommonDefs.h"
-#include <string>
 
 enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				HIGH, LOW, VOLUME, CLOSE,
-				BID_OPTION_COMPUTATION,
-				ASK_OPTION_COMPUTATION,
+				BID_OPTION_COMPUTATION, 
+				ASK_OPTION_COMPUTATION, 
 				LAST_OPTION_COMPUTATION,
 				MODEL_OPTION,
 				OPEN,
@@ -83,12 +83,12 @@ public:
    virtual void tickString(TickerId tickerId, TickType tickType, const std::string& value) = 0;
    virtual void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 	   double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) = 0;
-   virtual void orderStatus( OrderId orderId, const std::string& status, int filled,
+   virtual void orderStatus( OrderId orderId, const std::string &status, int filled,
 	   int remaining, double avgFillPrice, int permId, int parentId,
 	   double lastFillPrice, int clientId, const std::string& whyHeld) = 0;
    virtual void openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&) = 0;
    virtual void openOrderEnd() = 0;
-   virtual void winError( const std::string& str, int lastError) = 0;
+   virtual void winError( const std::string &str, int lastError) = 0;
    virtual void connectionClosed() = 0;
    virtual void updateAccountValue(const std::string& key, const std::string& val,
    const std::string& currency, const std::string& accountName) = 0;
@@ -113,10 +113,10 @@ public:
    virtual void receiveFA(faDataType pFaDataType, const std::string& cxml) = 0;
    virtual void historicalData(TickerId reqId, const std::string& date, double open, double high, 
 	   double low, double close, int volume, int barCount, double WAP, int hasGaps) = 0;
-   virtual void scannerParameters(const std::string& xml) = 0;
-   virtual void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
-	   const std::string& distance, const std::string& benchmark, const std::string& projection,
-	   const std::string& legsStr) = 0;
+   virtual void scannerParameters(const std::string &xml) = 0;
+   virtual void scannerData(int reqId, int rank, const ContractDetails &contractDetails,
+	   const std::string &distance, const std::string &benchmark, const std::string &projection,
+	   const std::string &legsStr) = 0;
    virtual void scannerDataEnd(int reqId) = 0;
    virtual void realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
 	   long volume, double wap, int count) = 0;
@@ -125,7 +125,7 @@ public:
    virtual void deltaNeutralValidation(int reqId, const UnderComp& underComp) = 0;
    virtual void tickSnapshotEnd( int reqId) = 0;
    virtual void marketDataType( TickerId reqId, int marketDataType) = 0;
-   virtual void commissionReport( const CommissionReport& commissionReport) = 0;
+   virtual void commissionReport( const CommissionReport &commissionReport) = 0;
    virtual void position( const std::string& account, const Contract& contract, int position, double avgCost) = 0;
    virtual void positionEnd() = 0;
    virtual void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) = 0;

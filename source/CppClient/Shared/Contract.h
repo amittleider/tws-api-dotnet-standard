@@ -37,16 +37,16 @@ struct ComboLeg
 	std::string	designatedLocation;
 	int			exemptCode;
 
-	bool operator==( const ComboLeg& other) const
+	bool operator==( const ComboLeg &other) const
 	{
 		return (conId == other.conId &&
 			ratio == other.ratio &&
 			openClose == other.openClose &&
 			shortSaleSlot == other.shortSaleSlot &&
-			exemptCode == other.exemptCode &&
-			action == other.action &&
-			exchange == other.exchange &&
-			designatedLocation == other.designatedLocation);
+			(action.compare(other.action) == 0) &&
+			(exchange.compare(other.exchange) == 0) &&
+			(designatedLocation.compare(other.designatedLocation) == 0) &&
+			exemptCode == other.exemptCode);
 	}
 };
 

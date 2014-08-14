@@ -24,8 +24,6 @@ public:
 
 	int clientId() const { return m_clientId; }
 
-	void setOptionalCapabilities(const std::string& optCapts);
-
 protected:
 
 	void eConnectBase();
@@ -51,18 +49,18 @@ public:
 	// override virtual funcs from EClient
 	int serverVersion();
 	std::string TwsConnectionTime();
-	void reqMktData(TickerId id, const Contract& contract,
-		const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions);
+	void reqMktData(TickerId id, const Contract &contract,
+		const std::string &genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions);
 	void cancelMktData(TickerId id);
-	void placeOrder(OrderId id, const Contract& contract, const Order& order);
+	void placeOrder(OrderId id, const Contract &contract, const Order &order);
 	void cancelOrder(OrderId id) ;
 	void reqOpenOrders();
 	void reqAccountUpdates(bool subscribe, const std::string& acctCode);
 	void reqExecutions(int reqId, const ExecutionFilter& filter);
 	void reqIds(int numIds);
 	bool checkMessages();
-	void reqContractDetails(int reqId, const Contract& contract);
-	void reqMktDepth(TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions);
+	void reqContractDetails(int reqId, const Contract &contract);
+	void reqMktDepth(TickerId tickerId, const Contract &contract, int numRows, const TagValueListSPtr& mktDepthOptions);
 	void cancelMktDepth(TickerId tickerId);
 	void reqNewsBulletins(bool allMsgs);
 	void cancelNewsBulletins();
@@ -72,25 +70,25 @@ public:
 	void reqManagedAccts();
 	void requestFA(faDataType pFaDataType);
 	void replaceFA(faDataType pFaDataType, const std::string& cxml);
-	void reqHistoricalData( TickerId id, const Contract& contract,
-		const std::string& endDateTime, const std::string& durationStr,
-		const std::string&  barSizeSetting, const std::string& whatToShow,
+	void reqHistoricalData( TickerId id, const Contract &contract,
+		const std::string &endDateTime, const std::string &durationStr,
+		const std::string & barSizeSetting, const std::string &whatToShow,
 		int useRTH, int formatDate, const TagValueListSPtr& chartOptions);
-	void exerciseOptions(TickerId tickerId, const Contract& contract,
+	void exerciseOptions(TickerId tickerId, const Contract &contract,
 		int exerciseAction, int exerciseQuantity,
-		const std::string& account, int override);
+		const std::string &account, int override);
 	void cancelHistoricalData(TickerId tickerId );
-	void reqRealTimeBars(TickerId id, const Contract& contract, int barSize,
-		const std::string& whatToShow, bool useRTH, const TagValueListSPtr& realTimeBarsOptions);
+	void reqRealTimeBars(TickerId id, const Contract &contract, int barSize,
+		const std::string &whatToShow, bool useRTH, const TagValueListSPtr& realTimeBarsOptions);
 	void cancelRealTimeBars(TickerId tickerId );
 	void cancelScannerSubscription(int tickerId);
 	void reqScannerParameters();
-	void reqScannerSubscription(int tickerId, const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions);
+	void reqScannerSubscription(int tickerId, const ScannerSubscription &subscription, const TagValueListSPtr& scannerSubscriptionOptions);
 	void reqCurrentTime();
 	void reqFundamentalData(TickerId reqId, const Contract&, const std::string& reportType);
 	void cancelFundamentalData(TickerId reqId);
-	void calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice);
-	void calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice);
+	void calculateImpliedVolatility(TickerId reqId, const Contract &contract, double optionPrice, double underPrice);
+	void calculateOptionPrice(TickerId reqId, const Contract &contract, double volatility, double underPrice);
 	void cancelCalculateImpliedVolatility(TickerId reqId);
 	void cancelCalculateOptionPrice(TickerId reqId);
 	void reqGlobalCancel();
@@ -180,9 +178,11 @@ private:
 	bool m_extraAuth;
 	int m_serverVersion;
 	std::string m_TwsTime;
+    std::string m_optionalCapabilities;
 
-	std::string m_optionalCapabilities;
-
+public:
+    void optionalCapabilities(LPCSTR optCapts);
+    std::string optionalCapabilities();
 };
 
 template<> void EClientSocketBase::EncodeField<bool>(std::ostream& os, bool);

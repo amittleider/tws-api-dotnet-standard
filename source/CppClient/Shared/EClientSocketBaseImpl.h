@@ -5,6 +5,7 @@
 #define eclientsocketbaseimpl_h__INCLUDED
 
 #include "EClientSocketBase.h"
+#include <IBString.h>
 #include "EWrapper.h"
 #include "TwsSocketClientErrors.h"
 #include "Contract.h"
@@ -22,10 +23,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
-#ifdef _WIN32
-#define snprintf _snprintf
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////
 // SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incomming
@@ -309,7 +306,7 @@ void EClientSocketBase::EncodeField<double>(std::ostream& os, double doubleValue
 {
 	char str[128];
 
-	snprintf(str, sizeof(str), "%.10g", doubleValue);
+	sprintf_s(str, sizeof(str), "%.10g", doubleValue);
 
 	EncodeField<const char*>(os, str);
 }
@@ -495,6 +492,7 @@ void EClientSocketBase::eDisconnectBase()
 	m_clientId = -1;
 	m_outBuffer.clear();
 	m_inBuffer.clear();
+    m_optionalCapabilities.clear();
 }
 
 int EClientSocketBase::serverVersion()
@@ -507,9 +505,12 @@ std::string EClientSocketBase::TwsConnectionTime()
 	return m_TwsTime;
 }
 
-void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
-{
+void EClientSocketBase::optionalCapabilities(LPCSTR optCapts) {
     m_optionalCapabilities = optCapts;
+}
+    
+std::string EClientSocketBase::optionalCapabilities() {
+    return m_optionalCapabilities;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
@@ -583,7 +584,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	// Send combo legs for BAG requests (srv v8 and above)
-	if( contract.secType == "BAG")
+	if( contract.secType.compare("BAG") == 0)
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -655,7 +656,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
+void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract, int numRows, const TagValueListSPtr& mktDepthOptions)
 {
 	// not connected?
 	if( !m_connected) {
@@ -753,9 +754,9 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
-									   const std::string& endDateTime, const std::string& durationStr,
-									   const std::string&  barSizeSetting, const std::string& whatToShow,
+void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &contract,
+									   const std::string &endDateTime, const std::string &durationStr,
+									   const std::string & barSizeSetting, const std::string &whatToShow,
 									   int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
@@ -814,7 +815,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 	ENCODE_FIELD( formatDate); // srv v16 and above
 
 	// Send combo legs for BAG requests
-	if( contract.secType == "BAG")
+	if( Compare(contract.secType, "BAG") == 0)
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -876,8 +877,8 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
-									int barSize, const std::string& whatToShow, bool useRTH,
+void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contract,
+									int barSize, const std::string &whatToShow, bool useRTH,
 									const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
@@ -894,7 +895,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
+		if( !IsEmpty(contract.tradingClass) || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId and tradingClass parameters in reqRealTimeBars.");
 			return;
@@ -1165,7 +1166,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
+void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract &contract, double optionPrice, double underPrice) {
 
 	// not connected?
 	if( !m_connected) {
@@ -1180,7 +1181,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty()) {
+		if( !IsEmpty(contract.tradingClass)) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in calculateImpliedVolatility.");
 			return;
@@ -1242,7 +1243,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
+void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &contract, double volatility, double underPrice) {
 
 	// not connected?
 	if( !m_connected) {
@@ -1257,7 +1258,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& con
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty()) {
+		if( !IsEmpty(contract.tradingClass)) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in calculateOptionPrice.");
 			return;
@@ -1334,14 +1335,14 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	//	return;
 	//}
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
-		if( !contract.secIdType.empty() || !contract.secId.empty()) {
+		if( !IsEmpty(contract.secIdType) || !IsEmpty(contract.secId)) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support secIdType and secId parameters.");
      		return;
      	}
     }
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty()) {
+		if( !IsEmpty(contract.tradingClass)) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in reqContractDetails.");
 			return;
@@ -1411,7 +1412,7 @@ void EClientSocketBase::reqCurrentTime()
 	bufferedSend( msg.str());
 }
 
-void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
+void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const Order &order)
 {
 	// not connected?
 	if( !m_connected) {
@@ -1475,7 +1476,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 
 	if( m_serverVersion < MIN_SERVER_VER_ALGO_ORDERS) {
 
-		if( !order.algoStrategy.empty()) {
+		if( !IsEmpty(order.algoStrategy)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support algo orders.");
 			return;
@@ -1491,7 +1492,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
-		if( !contract.secIdType.empty() || !contract.secId.empty()) {
+		if( !IsEmpty(contract.secIdType) || !IsEmpty(contract.secId)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support secIdType and secId parameters.");
 			return;
@@ -1529,7 +1530,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if( m_serverVersion < MIN_SERVER_VER_HEDGE_ORDERS) {
-		if( !order.hedgeType.empty()) {
+		if( !IsEmpty(order.hedgeType)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support hedge orders.");
 			return;
@@ -1546,9 +1547,9 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_CONID) {
 		if (order.deltaNeutralConId > 0 
-				|| !order.deltaNeutralSettlingFirm.empty()
-				|| !order.deltaNeutralClearingAccount.empty()
-				|| !order.deltaNeutralClearingIntent.empty()
+				|| !IsEmpty(order.deltaNeutralSettlingFirm)
+				|| !IsEmpty(order.deltaNeutralClearingAccount)
+				|| !IsEmpty(order.deltaNeutralClearingIntent)
 				) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support deltaNeutral parameters: ConId, SettlingFirm, ClearingAccount, ClearingIntent.");
@@ -1557,10 +1558,10 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE) {
-		if (!order.deltaNeutralOpenClose.empty()
+		if (!IsEmpty(order.deltaNeutralOpenClose)
 				|| order.deltaNeutralShortSale
 				|| order.deltaNeutralShortSaleSlot > 0 
-				|| !order.deltaNeutralDesignatedLocation.empty()
+				|| !IsEmpty(order.deltaNeutralDesignatedLocation)
 				) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() + 
 				"  It does not support deltaNeutral parameters: OpenClose, ShortSale, ShortSaleSlot, DesignatedLocation.");
@@ -1585,7 +1586,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 		}
 	}
 
-	if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && contract.secType == "BAG") {
+	if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && Compare(contract.secType, "BAG") == 0) {
 		const Order::OrderComboLegList* const orderComboLegs = order.orderComboLegs.get();
 		const int orderComboLegsCount = orderComboLegs ? orderComboLegs->size() : 0;
 		for( int i = 0; i < orderComboLegsCount; ++i) {
@@ -1608,7 +1609,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty()) {
+		if( !IsEmpty(contract.tradingClass)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in placeOrder.");
 			return;
@@ -1616,7 +1617,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_SCALE_TABLE) {
-		if( !order.scaleTable.empty() || !order.activeStartTime.empty() || !order.activeStopTime.empty()) {
+		if( !IsEmpty(order.scaleTable) || !IsEmpty(order.activeStartTime) || !IsEmpty(order.activeStopTime)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 					"  It does not support scaleTable, activeStartTime and activeStopTime parameters");
 			return;
@@ -1624,7 +1625,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_ALGO_ID) {
-		if( !order.algoId.empty()) {
+		if( !IsEmpty(order.algoId)) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 					"  It does not support algoId parameter");
 			return;
@@ -1706,7 +1707,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	ENCODE_FIELD( order.hidden); // srv v7 and above
 
 	// Send combo legs for BAG requests (srv v8 and above)
-	if( contract.secType == "BAG")
+	if( Compare(contract.secType, "BAG") == 0)
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -1731,7 +1732,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	// Send order combo legs for BAG requests
-	if( m_serverVersion >= MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && contract.secType == "BAG")
+	if( m_serverVersion >= MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && Compare(contract.secType, "BAG") == 0)
 	{
 		const Order::OrderComboLegList* const orderComboLegs = order.orderComboLegs.get();
 		const int orderComboLegsCount = orderComboLegs ? orderComboLegs->size() : 0;
@@ -1745,7 +1746,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 		}
 	}	
 
-	if( m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && contract.secType == "BAG") {
+	if( m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && Compare(contract.secType, "BAG") == 0) {
 		const TagValueList* const smartComboRoutingParams = order.smartComboRoutingParams.get();
 		const int smartComboRoutingParamsCount = smartComboRoutingParams ? smartComboRoutingParams->size() : 0;
 		ENCODE_FIELD( smartComboRoutingParamsCount);
@@ -1831,14 +1832,14 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 		ENCODE_FIELD( order.deltaNeutralOrderType); // srv v28 and above
 		ENCODE_FIELD_MAX( order.deltaNeutralAuxPrice); // srv v28 and above
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !order.deltaNeutralOrderType.empty()){
+		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !IsEmpty(order.deltaNeutralOrderType)){
 			ENCODE_FIELD( order.deltaNeutralConId);
 			ENCODE_FIELD( order.deltaNeutralSettlingFirm);
 			ENCODE_FIELD( order.deltaNeutralClearingAccount);
 			ENCODE_FIELD( order.deltaNeutralClearingIntent);
 		}
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !order.deltaNeutralOrderType.empty()){
+		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !IsEmpty(order.deltaNeutralOrderType)){
 			ENCODE_FIELD( order.deltaNeutralOpenClose);
 			ENCODE_FIELD( order.deltaNeutralShortSale);
 			ENCODE_FIELD( order.deltaNeutralShortSaleSlot);
@@ -1895,7 +1896,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	// HEDGE orders
 	if( m_serverVersion >= MIN_SERVER_VER_HEDGE_ORDERS) {
 		ENCODE_FIELD( order.hedgeType);
-		if ( !order.hedgeType.empty()) {
+		if ( !IsEmpty(order.hedgeType)) {
 			ENCODE_FIELD( order.hedgeParam);
 		}
 	}
@@ -1929,7 +1930,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if( m_serverVersion >= MIN_SERVER_VER_ALGO_ORDERS) {
 		ENCODE_FIELD( order.algoStrategy);
 
-		if( !order.algoStrategy.empty()) {
+		if( !IsEmpty(order.algoStrategy)) {
 			const TagValueList* const algoParams = order.algoParams.get();
 			const int algoParamsCount = algoParams ? algoParams->size() : 0;
 			ENCODE_FIELD( algoParamsCount);
@@ -2257,7 +2258,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 
 
 
-void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& contract,
+void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &contract,
                                      int exerciseAction, int exerciseQuantity,
                                      const std::string& account, int override)
 {
@@ -2274,7 +2275,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
+		if( !IsEmpty(contract.tradingClass) || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId, multiplier and tradingClass parameters in exerciseOptions.");
 			return;
@@ -2663,8 +2664,8 @@ void EClientSocketBase::startApi()
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( m_clientId);
 
-	if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
-		ENCODE_FIELD(m_optionalCapabilities);
+    if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+       	ENCODE_FIELD(m_optionalCapabilities);
 
 	bufferedSend( msg.str());
 }
@@ -3145,14 +3146,14 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 				DECODE_FIELD( order.deltaNeutralOrderType); // ver 11 field (had a hack for ver 11)
 				DECODE_FIELD_MAX( order.deltaNeutralAuxPrice); // ver 12 field
 
-				if (version >= 27 && !order.deltaNeutralOrderType.empty()) {
+				if (version >= 27 && !IsEmpty(order.deltaNeutralOrderType)) {
 					DECODE_FIELD( order.deltaNeutralConId);
 					DECODE_FIELD( order.deltaNeutralSettlingFirm);
 					DECODE_FIELD( order.deltaNeutralClearingAccount);
 					DECODE_FIELD( order.deltaNeutralClearingIntent);
 				}
 
-				if (version >= 31 && !order.deltaNeutralOrderType.empty()) {
+				if (version >= 31 && !IsEmpty(order.deltaNeutralOrderType)) {
 					DECODE_FIELD( order.deltaNeutralOpenClose);
 					DECODE_FIELD( order.deltaNeutralShortSale);
 					DECODE_FIELD( order.deltaNeutralShortSaleSlot);
@@ -3257,7 +3258,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 
 				if( version >= 24) {
 					DECODE_FIELD( order.hedgeType);
-					if( !order.hedgeType.empty()) {
+					if( !IsEmpty(order.hedgeType)) {
 						DECODE_FIELD( order.hedgeParam);
 					}
 				}
@@ -3288,7 +3289,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 
 				if( version >= 21) {
 					DECODE_FIELD( order.algoStrategy);
-					if( !order.algoStrategy.empty()) {
+					if( !IsEmpty(order.algoStrategy)) {
 						int algoParamsCount = 0;
 						DECODE_FIELD( algoParamsCount);
 						if( algoParamsCount > 0) {
@@ -3747,7 +3748,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 					const BarData& bar = bars[ctr];
 					m_pEWrapper->historicalData( reqId, bar.date, bar.open, bar.high, bar.low,
 						bar.close, bar.volume, bar.barCount, bar.average,
-						bar.hasGaps == "true");
+						Compare(bar.hasGaps, "true") == 0);
 				}
 
 				// send end of dataset marker
@@ -4083,7 +4084,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 				DECODE_FIELD( isSuccessful);
 				DECODE_FIELD( errorText);
 
-				bool bRes = isSuccessful == "true";
+				bool bRes = Compare(isSuccessful, "true") == 0;
 
 				if (bRes) {
 					startApi();
