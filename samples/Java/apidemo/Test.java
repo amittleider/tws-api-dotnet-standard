@@ -161,6 +161,12 @@ public class Test implements EWrapper {
 	@Override public void verifyCompleted( boolean isSuccessful, String errorText){
 	}
 
+	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {
+	}
+
+	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText){
+	}
+
 	@Override public void displayGroupList( int reqId, String groups){
 	}
 

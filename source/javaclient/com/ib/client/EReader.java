@@ -60,6 +60,8 @@ public class EReader extends Thread {
     static final int VERIFY_COMPLETED = 66;
     static final int DISPLAY_GROUP_LIST = 67;
     static final int DISPLAY_GROUP_UPDATED = 68;
+    static final int VERIFY_AND_AUTH_MESSAGE_API = 69;
+    static final int VERIFY_AND_AUTH_COMPLETED = 70;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
 
@@ -1199,6 +1201,28 @@ public class EReader extends Thread {
                 String contractInfo = readStr();
 
                 eWrapper().displayGroupUpdated(reqId, contractInfo);
+                break;
+            }
+            case VERIFY_AND_AUTH_MESSAGE_API: {
+                /*int version =*/ readInt();
+                String apiData = readStr();
+                String xyzChallenge = readStr();
+
+                eWrapper().verifyAndAuthMessageAPI(apiData, xyzChallenge);
+                break;
+            }
+            case VERIFY_AND_AUTH_COMPLETED: {
+                /*int version =*/ readInt();
+                String isSuccessfulStr = readStr();
+                boolean isSuccessful = "true".equals(isSuccessfulStr);
+                String errorText = readStr();
+
+
+                if (isSuccessful) {
+                    m_parent.startAPI();
+                }
+
+                eWrapper().verifyAndAuthCompleted(isSuccessful, errorText);
                 break;
             }
 
