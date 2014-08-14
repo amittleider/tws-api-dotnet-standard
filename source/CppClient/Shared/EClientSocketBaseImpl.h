@@ -4,7 +4,9 @@
 #ifndef eclientsocketbaseimpl_h__INCLUDED
 #define eclientsocketbaseimpl_h__INCLUDED
 
+#include "StdAfx.h"
 #include "EClientSocketBase.h"
+
 #include "EWrapper.h"
 #include "TwsSocketClientErrors.h"
 #include "Contract.h"
@@ -22,10 +24,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
-#ifdef _WIN32
-#define snprintf _snprintf
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////
 // SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incomming
