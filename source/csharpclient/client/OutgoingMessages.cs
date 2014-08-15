@@ -56,6 +56,8 @@ namespace IBApi
         SubscribeToGroupEvents = 68,
         UpdateDisplayGroup = 69,
         UnsubscribeFromGroupEvents = 70,
-        StartApi = 71
+        StartApi = 71,
+        VerifyAndAuthRequest = 72,
+        VerifyAndAuthMessage = 73,
     }
 }

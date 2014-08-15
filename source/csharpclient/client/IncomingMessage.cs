@@ -54,5 +54,7 @@ namespace IBApi
         public const int VerifyCompleted = 66;
         public const int DisplayGroupList = 67;
         public const int DisplayGroupUpdated = 68;
+        public const int VerifyAndAuthMessageApi = 69;
+        public const int VerifyAndAuthCompleted = 70;
     }
 }

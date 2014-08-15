@@ -269,6 +269,14 @@ namespace Samples
         {
             Console.WriteLine("verifyCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
         }
+        public virtual void verifyAndAuthMessageAPI(string apiData, string xyzChallenge)
+        {
+            Console.WriteLine("verifyAndAuthMessageAPI: " + apiData + " " + xyzChallenge);
+        }
+        public virtual void verifyAndAuthCompleted(bool isSuccessful, string errorText)
+        {
+            Console.WriteLine("verifyAndAuthCompleted. IsSuccessful: " + isSuccessful + " - Error: " + errorText);
+        }
         public virtual void displayGroupList(int reqId, string groups)
         {
             Console.WriteLine("DisplayGroupList. Request: " + reqId + ", Groups" + groups);

@@ -167,6 +167,8 @@
     <Compile Include="_DTwsEvents_updateMktDepthL2Event.vb" />
     <Compile Include="_DTwsEvents_updateNewsBulletinEvent.vb" />
     <Compile Include="_DTwsEvents_updatePortfolioExEvent.vb" />
+    <Compile Include="_DTwsEvents_verifyAndAuthCompletedEvent.vb" />
+    <Compile Include="_DTwsEvents_verifyAndAuthMessageAPIEvent.vb" />
     <Compile Include="_DTwsEvents_verifyCompletedEvent.vb" />
     <Compile Include="_DTwsEvents_verifyMessageAPIEvent.vb" />
     <None Include="app.config" />

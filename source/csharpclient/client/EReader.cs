@@ -339,6 +339,16 @@ namespace IBApi
                         DisplayGroupUpdatedEvent();
                         break;
                     }
+                case IncomingMessage.VerifyAndAuthMessageApi:
+                    {
+                        VerifyAndAuthMessageApiEvent();
+                        break;
+                    }
+                case IncomingMessage.VerifyAndAuthCompleted:
+                    {
+                        VerifyAndAuthCompletedEvent();
+                        break;
+                    }
                 default:
                     {
                         parent.Wrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -385,6 +395,27 @@ namespace IBApi
             string apiData = ReadString();
 
             parent.Wrapper.verifyMessageAPI(apiData);
+        }
+
+        private void VerifyAndAuthCompletedEvent()
+        {
+            int msgVersion = ReadInt();
+            bool isSuccessful = String.Compare(ReadString(), "true", true) == 0;
+            string errorText = ReadString();
+
+            if (isSuccessful)
+                parent.startApi();
+
+            parent.Wrapper.verifyAndAuthCompleted(isSuccessful, errorText);
+        }
+
+        private void VerifyAndAuthMessageApiEvent()
+        {
+            int msgVersion = ReadInt();
+            string apiData = ReadString();
+            string xyzChallenge = ReadString();
+
+            parent.Wrapper.verifyAndAuthMessageAPI(apiData, xyzChallenge);
         }
 
         private void TickPriceEvent()

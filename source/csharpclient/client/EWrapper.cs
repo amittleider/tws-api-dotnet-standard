@@ -435,6 +435,8 @@ namespace IBApi
 
         void verifyMessageAPI(string apiData);
         void verifyCompleted(bool isSuccessful, string errorText);
+        void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
+        void verifyAndAuthCompleted(bool isSuccessful, string errorText);
         void displayGroupList(int reqId, string groups);
         void displayGroupUpdated(int reqId, string contractInfo);
 

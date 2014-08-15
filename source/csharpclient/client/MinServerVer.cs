@@ -57,5 +57,6 @@ namespace IBApi
         public const int ALGO_ID = 71;
         public const int OPTIONAL_CAPABILITIES = 72;
         public const int ORDER_SOLICITED = 73;
+        public const int LINKING_AUTH = 74;
     }
 }

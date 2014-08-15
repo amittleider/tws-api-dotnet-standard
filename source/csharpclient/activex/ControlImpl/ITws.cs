@@ -296,6 +296,10 @@ namespace TWSLib
         void updateDisplayGroup(int reqId, string contractInfo);
         [DispId(120)]
         void unsubscribeFromGroupEvents(int reqId);
+        [DispId(121)]
+        void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey);
+        [DispId(122)]
+        void verifyAndAuthMessage(string apiData, string xyzResponse);
         [DispId(200)]
         IContract createContract();
         [DispId(201)]
