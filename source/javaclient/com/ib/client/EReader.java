@@ -58,7 +58,7 @@ public class EReader extends Thread {
     private DataInputStream m_dis;
 
     protected EClientSocket parent()    { return m_parent; }
-    private EWrapper eWrapper()         { return (EWrapper)parent().wrapper(); }
+    private EWrapper eWrapper()         { return parent().wrapper(); }
 
     public EReader( EClientSocket parent, DataInputStream dis) {
         this("EReader", parent, dis);
