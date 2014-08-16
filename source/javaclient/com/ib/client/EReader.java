@@ -10,6 +10,7 @@ import java.util.Vector;
 public class EReader extends Thread {
 
     // incoming msg id's
+    static final int END_CONN           = -1;
     static final int TICK_PRICE		= 1;
     static final int TICK_SIZE		= 2;
     static final int ORDER_STATUS	= 3;
@@ -93,9 +94,9 @@ public class EReader extends Thread {
 
     /** Overridden in subclass. */
     protected boolean processMsg(int msgId) throws IOException{
-        if( msgId == -1) return false;
-
         switch( msgId) {
+            case END_CONN:
+                return false;
             case TICK_PRICE: {
                 int version = readInt();
                 int tickerId = readInt();
