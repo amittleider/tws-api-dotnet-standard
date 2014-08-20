@@ -93,8 +93,9 @@ public class EClientSocket {
 	//      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
 	// 62 = can receive avgCost in position message
 	// 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
+	// 64 = orderSolicited property
 
-    private static final int CLIENT_VERSION = 63;
+    private static final int CLIENT_VERSION = 64;
     private static final int SERVER_VERSION = 38;
     private static final byte[] EOL = {0};
     private static final String BAG_SEC_TYPE = "BAG";
@@ -204,6 +205,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_LINKING = 70;
     protected static final int MIN_SERVER_VER_ALGO_ID = 71;
     protected static final int MIN_SERVER_VER_OPTIONAL_CAPABILITIES = 72;
+    protected static final int MIN_SERVER_VER_ORDER_SOLICITED = 73;
 
     private AnyWrapper m_anyWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -1345,8 +1347,16 @@ public class EClientSocket {
                   return;
             }
         }
+        
+        if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
+        	if (order.m_orderSolicited) {
+        		error(id, EClientErrors.UPDATE_TWS,
+                        "  It does not support orderSolicited parameter.");
+                return;
+        	}
+        }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 43;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
 
         // send place order msg
         try {
@@ -1693,6 +1703,9 @@ public class EClientSocket {
                send( orderMiscOptionsStr.toString());
            }
            
+           if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
+        	   send(order.m_orderSolicited);
+           }
         }
         catch( Exception e) {
             error( id, EClientErrors.FAIL_SEND_ORDER, "" + e);

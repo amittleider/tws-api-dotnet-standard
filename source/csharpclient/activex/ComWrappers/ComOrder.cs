@@ -952,6 +952,12 @@ namespace TWSLib
             set { if (data != null) data.ScaleTable = value; }
         }
 
+        public bool OrderSolicited
+        {
+            get { return data.OrderSolicited; }
+            set { data.OrderSolicited = value; }
+        }
+
         public override bool Equals(Object p_other)
         {
             if (!(p_other is ComOrder))
@@ -1217,6 +1223,19 @@ namespace TWSLib
             set
             {
                 ScaleTable = value;
+            }
+        }
+
+        bool TWSLib.IOrder.orderSolicited
+        {
+            get
+            {
+                return OrderSolicited;
+            }
+
+            set
+            {
+                OrderSolicited = value;
             }
         }
 

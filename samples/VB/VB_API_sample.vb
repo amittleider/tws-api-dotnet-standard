@@ -2078,6 +2078,9 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeType=" & order.HedgeType)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeParam=" & order.HedgeParam)
 
+        ' Solicited orders only
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderSolicited=" & order.OrderSolicited)
+
         ' ALGO orders only
         Dim algoStrategy As String
         algoStrategy = order.AlgoStrategy

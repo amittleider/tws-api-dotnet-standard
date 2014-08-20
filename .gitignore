@@ -1,2 +1,7 @@
 *.class
 *.jar
+/source/javaclient/nbproject/private/
+/samples/Java/nbproject/private/
+/source/javaclient/build/
+/samples/Java/build/
+/samples/Java/dist/
