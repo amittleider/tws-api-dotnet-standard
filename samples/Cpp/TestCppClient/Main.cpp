@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "PosixTestClient.h"
+#include "TestCppClient.h"
 
 const unsigned MAX_ATTEMPTS = 50;
 const unsigned SLEEP_TIME = 10;
@@ -22,13 +22,13 @@ int main(int argc, char** argv)
 	int clientId = 0;
 
 	unsigned attempt = 0;
-	printf( "Start of POSIX Socket Client Test %u\n", attempt);
+	printf( "Start of C++ Socket Client Test %u\n", attempt);
 
 	for (;;) {
 		++attempt;
 		printf( "Attempt %u of %u\n", attempt, MAX_ATTEMPTS);
 
-		PosixTestClient client;
+		TestCppClient client;
 
 		client.connect( host, port, clientId);
 
@@ -44,6 +44,6 @@ int main(int argc, char** argv)
 		sleep( SLEEP_TIME);
 	}
 
-	printf ( "End of POSIX Socket Client Test\n");
+	printf ( "End of C++ Socket Client Test\n");
 }
 

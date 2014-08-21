@@ -4,16 +4,16 @@ CXXFLAGS=/D _CRT_SECURE_NO_DEPRECATE /EHsc /wd4355 /wd4800
 ROOT_DIR=../../../source/CppClient
 BASE_SRC_DIR=$(ROOT_DIR)/Posix
 INCLUDES=/I $(ROOT_DIR)/Shared/ /I $(ROOT_DIR)/Posix/
-OUTPUT=PosixSocketClientTest.exe
+OUTPUT=TestCppClient.exe
 
 all:
 	$(CXX) /c $(BASE_SRC_DIR)/EClientSocketBase.cpp $(INCLUDES) $(CXXFLAGS)
 	$(CXX) /c $(BASE_SRC_DIR)/EPosixClientSocket.cpp $(INCLUDES) $(CXXFLAGS)
-	$(CXX) /c PosixTestClient.cpp $(INCLUDES) $(CXXFLAGS)
+	$(CXX) /c TestCppClient.cpp $(INCLUDES) $(CXXFLAGS)
 	$(CXX) /c Main.cpp $(INCLUDES) $(CXXFLAGS)
-	$(LINK) EClientSocketBase.obj EPosixClientSocket.obj PosixTestClient.obj Main.obj /OUT:$(OUTPUT)
+	$(LINK) EClientSocketBase.obj EPosixClientSocket.obj TestCppClient.obj Main.obj /OUT:$(OUTPUT)
 
 clean:
-	del EClientSocketBase.obj EPosixClientSocket.obj PosixTestClient.obj Main.obj $(OUTPUT)
+	del EClientSocketBase.obj EPosixClientSocket.obj TestCppClient.obj Main.obj $(OUTPUT)
 
 

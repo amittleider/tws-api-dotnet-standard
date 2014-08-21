@@ -1,7 +1,7 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-#include "PosixTestClient.h"
+#include "TestCppClient.h"
 
 #include "EPosixClientSocket.h"
 #include "EPosixClientSocketPlatform.h"
@@ -16,7 +16,7 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 
 ///////////////////////////////////////////////////////////
 // member funcs
-PosixTestClient::PosixTestClient()
+TestCppClient::TestCppClient()
 	: m_pClient(new EPosixClientSocket(this))
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
@@ -24,11 +24,11 @@ PosixTestClient::PosixTestClient()
 {
 }
 
-PosixTestClient::~PosixTestClient()
+TestCppClient::~TestCppClient()
 {
 }
 
-bool PosixTestClient::connect(const char *host, unsigned int port, int clientId)
+bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 {
 	// trying to connect
 	printf( "Connecting to %s:%d clientId:%d\n", !( host && *host) ? "127.0.0.1" : host, port, clientId);
@@ -44,19 +44,19 @@ bool PosixTestClient::connect(const char *host, unsigned int port, int clientId)
 	return bRes;
 }
 
-void PosixTestClient::disconnect() const
+void TestCppClient::disconnect() const
 {
 	m_pClient->eDisconnect();
 
 	printf ( "Disconnected\n");
 }
 
-bool PosixTestClient::isConnected() const
+bool TestCppClient::isConnected() const
 {
 	return m_pClient->isConnected();
 }
 
-void PosixTestClient::processMessages()
+void TestCppClient::processMessages()
 {
 	fd_set readSet, writeSet, errorSet;
 
@@ -150,7 +150,7 @@ void PosixTestClient::processMessages()
 
 //////////////////////////////////////////////////////////////////
 // methods
-void PosixTestClient::reqCurrentTime()
+void TestCppClient::reqCurrentTime()
 {
 	printf( "Requesting Current Time\n");
 
@@ -162,7 +162,7 @@ void PosixTestClient::reqCurrentTime()
 	m_pClient->reqCurrentTime();
 }
 
-void PosixTestClient::placeOrder()
+void TestCppClient::placeOrder()
 {
 	Contract contract;
 	Order order;
@@ -184,7 +184,7 @@ void PosixTestClient::placeOrder()
 	m_pClient->placeOrder( m_orderId, contract, order);
 }
 
-void PosixTestClient::cancelOrder()
+void TestCppClient::cancelOrder()
 {
 	printf( "Cancelling Order %ld\n", m_orderId);
 
@@ -195,7 +195,7 @@ void PosixTestClient::cancelOrder()
 
 ///////////////////////////////////////////////////////////////////
 // events
-void PosixTestClient::orderStatus( OrderId orderId, const std::string& status, int filled,
+void TestCppClient::orderStatus( OrderId orderId, const std::string& status, int filled,
 	   int remaining, double avgFillPrice, int permId, int parentId,
 	   double lastFillPrice, int clientId, const std::string& whyHeld)
 
@@ -211,14 +211,14 @@ void PosixTestClient::orderStatus( OrderId orderId, const std::string& status, i
 	}
 }
 
-void PosixTestClient::nextValidId( OrderId orderId)
+void TestCppClient::nextValidId( OrderId orderId)
 {
 	m_orderId = orderId;
 
 	m_state = ST_PLACEORDER;
 }
 
-void PosixTestClient::currentTime( long time)
+void TestCppClient::currentTime( long time)
 {
 	if ( m_state == ST_PING_ACK) {
 		time_t t = ( time_t)time;
@@ -232,7 +232,7 @@ void PosixTestClient::currentTime( long time)
 	}
 }
 
-void PosixTestClient::error(const int id, const int errorCode, const std::string errorString)
+void TestCppClient::error(const int id, const int errorCode, const std::string errorString)
 {
 //	printf( "Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
 
@@ -240,58 +240,58 @@ void PosixTestClient::error(const int id, const int errorCode, const std::string
 		disconnect();
 }
 
-void PosixTestClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {}
-void PosixTestClient::tickSize( TickerId tickerId, TickType field, int size) {}
-void PosixTestClient::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
+void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {}
+void TestCppClient::tickSize( TickerId tickerId, TickType field, int size) {}
+void TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
 											 double optPrice, double pvDividend,
 											 double gamma, double vega, double theta, double undPrice) {}
-void PosixTestClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
-void PosixTestClient::tickString(TickerId tickerId, TickType tickType, const std::string& value) {}
-void PosixTestClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
+void TestCppClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
+void TestCppClient::tickString(TickerId tickerId, TickType tickType, const std::string& value) {}
+void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 							   double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
-void PosixTestClient::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
-void PosixTestClient::openOrderEnd() {}
-void PosixTestClient::winError( const std::string& str, int lastError) {}
-void PosixTestClient::connectionClosed() {}
-void PosixTestClient::updateAccountValue(const std::string& key, const std::string& val,
+void TestCppClient::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
+void TestCppClient::openOrderEnd() {}
+void TestCppClient::winError( const std::string& str, int lastError) {}
+void TestCppClient::connectionClosed() {}
+void TestCppClient::updateAccountValue(const std::string& key, const std::string& val,
 										  const std::string& currency, const std::string& accountName) {}
-void PosixTestClient::updatePortfolio(const Contract& contract, int position,
+void TestCppClient::updatePortfolio(const Contract& contract, int position,
 		double marketPrice, double marketValue, double averageCost,
 		double unrealizedPNL, double realizedPNL, const std::string& accountName){}
-void PosixTestClient::updateAccountTime(const std::string& timeStamp) {}
-void PosixTestClient::accountDownloadEnd(const std::string& accountName) {}
-void PosixTestClient::contractDetails( int reqId, const ContractDetails& contractDetails) {}
-void PosixTestClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {}
-void PosixTestClient::contractDetailsEnd( int reqId) {}
-void PosixTestClient::execDetails( int reqId, const Contract& contract, const Execution& execution) {}
-void PosixTestClient::execDetailsEnd( int reqId) {}
+void TestCppClient::updateAccountTime(const std::string& timeStamp) {}
+void TestCppClient::accountDownloadEnd(const std::string& accountName) {}
+void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {}
+void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {}
+void TestCppClient::contractDetailsEnd( int reqId) {}
+void TestCppClient::execDetails( int reqId, const Contract& contract, const Execution& execution) {}
+void TestCppClient::execDetailsEnd( int reqId) {}
 
-void PosixTestClient::updateMktDepth(TickerId id, int position, int operation, int side,
+void TestCppClient::updateMktDepth(TickerId id, int position, int operation, int side,
 									  double price, int size) {}
-void PosixTestClient::updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
+void TestCppClient::updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
 										int side, double price, int size) {}
-void PosixTestClient::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) {}
-void PosixTestClient::managedAccounts( const std::string& accountsList) {}
-void PosixTestClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {}
-void PosixTestClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
+void TestCppClient::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) {}
+void TestCppClient::managedAccounts( const std::string& accountsList) {}
+void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {}
+void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
 									  double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
-void PosixTestClient::scannerParameters(const std::string& xml) {}
-void PosixTestClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
+void TestCppClient::scannerParameters(const std::string& xml) {}
+void TestCppClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
 	   const std::string& distance, const std::string& benchmark, const std::string& projection,
 	   const std::string& legsStr) {}
-void PosixTestClient::scannerDataEnd(int reqId) {}
-void PosixTestClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
+void TestCppClient::scannerDataEnd(int reqId) {}
+void TestCppClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
 								   long volume, double wap, int count) {}
-void PosixTestClient::fundamentalData(TickerId reqId, const std::string& data) {}
-void PosixTestClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
-void PosixTestClient::tickSnapshotEnd(int reqId) {}
-void PosixTestClient::marketDataType(TickerId reqId, int marketDataType) {}
-void PosixTestClient::commissionReport( const CommissionReport& commissionReport) {}
-void PosixTestClient::position( const std::string& account, const Contract& contract, int position, double avgCost) {}
-void PosixTestClient::positionEnd() {}
-void PosixTestClient::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) {}
-void PosixTestClient::accountSummaryEnd( int reqId) {}
-void PosixTestClient::verifyMessageAPI( const std::string& apiData) {}
-void PosixTestClient::verifyCompleted( bool isSuccessful, const std::string& errorText) {}
-void PosixTestClient::displayGroupList( int reqId, const std::string& groups) {}
-void PosixTestClient::displayGroupUpdated( int reqId, const std::string& contractInfo) {}
+void TestCppClient::fundamentalData(TickerId reqId, const std::string& data) {}
+void TestCppClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
+void TestCppClient::tickSnapshotEnd(int reqId) {}
+void TestCppClient::marketDataType(TickerId reqId, int marketDataType) {}
+void TestCppClient::commissionReport( const CommissionReport& commissionReport) {}
+void TestCppClient::position( const std::string& account, const Contract& contract, int position, double avgCost) {}
+void TestCppClient::positionEnd() {}
+void TestCppClient::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) {}
+void TestCppClient::accountSummaryEnd( int reqId) {}
+void TestCppClient::verifyMessageAPI( const std::string& apiData) {}
+void TestCppClient::verifyCompleted( bool isSuccessful, const std::string& errorText) {}
+void TestCppClient::displayGroupList( int reqId, const std::string& groups) {}
+void TestCppClient::displayGroupUpdated( int reqId, const std::string& contractInfo) {}
