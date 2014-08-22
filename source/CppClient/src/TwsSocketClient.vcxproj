@@ -164,8 +164,22 @@
   <ItemGroup>
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
-    <ClInclude Include="..\shared\TwsSocketClientErrors.h" />
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="..\Shared\CommissionReport.h" />
+    <ClInclude Include="..\Shared\CommonDefs.h" />
+    <ClInclude Include="..\Shared\Contract.h" />
+    <ClInclude Include="..\Shared\EClient.h" />
+    <ClInclude Include="..\Shared\EClientSocketBase.h" />
+    <ClInclude Include="..\Shared\EClientSocketBaseImpl.h" />
+    <ClInclude Include="..\Shared\EWrapper.h" />
+    <ClInclude Include="..\Shared\Execution.h" />
+    <ClInclude Include="..\Shared\Order.h" />
+    <ClInclude Include="..\Shared\OrderState.h" />
+    <ClInclude Include="..\Shared\ScannerSubscription.h" />
+    <ClInclude Include="..\Shared\shared_ptr.h" />
+    <ClInclude Include="..\Shared\StdAfx.h" />
+    <ClInclude Include="..\Shared\TagValue.h" />
+    <ClInclude Include="..\Shared\TwsSocketClientErrors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
