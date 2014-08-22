@@ -74,6 +74,11 @@
   <ItemGroup>
     <ClInclude Include="TestCppClient.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\CppClient\src\TwsSocketClient.vcxproj">
+      <Project>{e9c3126e-cea8-41a8-a714-7644b016db3c}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
