@@ -2,8 +2,8 @@ CXX=cl
 LINK=link
 CXXFLAGS=/D _CRT_SECURE_NO_DEPRECATE /EHsc /wd4355 /wd4800
 ROOT_DIR=../../../source/CppClient
-BASE_SRC_DIR=$(ROOT_DIR)/Posix
-INCLUDES=/I $(ROOT_DIR)/Shared/ /I $(ROOT_DIR)/Posix/
+BASE_SRC_DIR=$(ROOT_DIR)/src
+INCLUDES=/I $(ROOT_DIR)/Shared/ /I $(ROOT_DIR)/src/
 OUTPUT=TestCppClient.exe
 
 all:
