@@ -4,11 +4,11 @@
 
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="jar.dir"     value="."/>
 
     <property name="main-class"  value="apidemo.ApiDemo"/>
 
-    <property name="ApiClient.dir"     value="../../source/javaclient/build/jar"/>
+    <property name="ApiClient.dir"     value="../../source/javaclient"/>
 
     <path id="classpath">
         <fileset dir="${ApiClient.dir}" includes="**/*.jar"/>
@@ -24,12 +24,12 @@
     </target>
 
     <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
         </jar>
+        <delete dir="${build.dir}"/>
     </target>
 
     <target name="run" depends="jar">
