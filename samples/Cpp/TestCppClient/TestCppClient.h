@@ -104,6 +104,8 @@ public:
 	void accountSummaryEnd( int reqId);
 	void verifyMessageAPI( const std::string& apiData);
 	void verifyCompleted( bool isSuccessful, const std::string& errorText);
+	void verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallenge);
+	void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText);
 	void displayGroupList( int reqId, const std::string& groups);
 	void displayGroupUpdated( int reqId, const std::string& contractInfo);
 

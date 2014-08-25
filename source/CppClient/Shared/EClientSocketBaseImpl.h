@@ -109,9 +109,13 @@
 // 62 = can receive avgCost in position message
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 // 64 = can receive orderSolicited attrib in openOrder message
+// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
 
-const int CLIENT_VERSION    = 64;
+const int CLIENT_VERSION    = 65;
 const int SERVER_VERSION    = 38;
+
+/* 100+ messaging */
+// 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
 const int MAX_CLIENT_VER = 100;
@@ -164,6 +168,8 @@ const int SUBSCRIBE_TO_GROUP_EVENTS     = 68;
 const int UPDATE_DISPLAY_GROUP          = 69;
 const int UNSUBSCRIBE_FROM_GROUP_EVENTS = 70;
 const int START_API                     = 71;
+const int VERIFY_AND_AUTH_REQUEST       = 72;
+const int VERIFY_AND_AUTH_MESSAGE       = 73;
 
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
 //const int MIN_SERVER_VER_SCALE_ORDERS         = 35;
@@ -206,6 +212,7 @@ const int MIN_SERVER_VER_LINKING                = 70;
 const int MIN_SERVER_VER_ALGO_ID                = 71;
 const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
 const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
+const int MIN_SERVER_VER_LINKING_AUTH           = 74;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;
@@ -251,6 +258,8 @@ const int VERIFY_MESSAGE_API        = 65;
 const int VERIFY_COMPLETED          = 66;
 const int DISPLAY_GROUP_LIST        = 67;
 const int DISPLAY_GROUP_UPDATED     = 68;
+const int VERIFY_AND_AUTH_MESSAGE_API = 69;
+const int VERIFY_AND_AUTH_COMPLETED   = 70;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -2704,6 +2713,67 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	closeAndSend( msg.str());
 }
 
+void EClientSocketBase::verifyAndAuthRequest(const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_LINKING_AUTH) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support verification request.");
+		return;
+	}
+
+	if( !m_extraAuth) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  Intent to authenticate needs to be expressed during initial connect request.");
+		return;
+	}
+
+	std::ostringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( VERIFY_AND_AUTH_REQUEST);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( apiName);
+	ENCODE_FIELD( apiVersion);
+	ENCODE_FIELD( opaqueIsvKey);
+
+	closeAndSend( msg.str());
+}
+
+void EClientSocketBase::verifyAndAuthMessage(const std::string& apiData, const std::string& xyzResponse)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_LINKING_AUTH) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support verification message sending.");
+		return;
+	}
+
+	std::ostringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( VERIFY_AND_AUTH_MESSAGE);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( apiData);
+	ENCODE_FIELD( xyzResponse);
+
+	closeAndSend( msg.str());
+}
+
 void EClientSocketBase::queryDisplayGroups( int reqId)
 {
 	// not connected?
@@ -4291,6 +4361,40 @@ int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 				DECODE_FIELD( contractInfo);
 
 				m_pEWrapper->displayGroupUpdated( reqId, contractInfo);
+				break;
+			}
+
+			case VERIFY_AND_AUTH_MESSAGE_API:
+			{
+				int version;
+				std::string apiData;
+				std::string xyzChallenge;
+
+				DECODE_FIELD( version);
+				DECODE_FIELD( apiData);
+				DECODE_FIELD( xyzChallenge);
+
+				m_pEWrapper->verifyAndAuthMessageAPI( apiData, xyzChallenge);
+				break;
+			}
+
+			case VERIFY_AND_AUTH_COMPLETED:
+			{
+				int version;
+				std::string isSuccessful;
+				std::string errorText;
+
+				DECODE_FIELD( version);
+				DECODE_FIELD( isSuccessful);
+				DECODE_FIELD( errorText);
+
+				bool bRes = isSuccessful == "true";
+
+				if (bRes) {
+					startApi();
+				}
+
+				m_pEWrapper->verifyAndAuthCompleted( bRes, errorText);
 				break;
 			}
 
