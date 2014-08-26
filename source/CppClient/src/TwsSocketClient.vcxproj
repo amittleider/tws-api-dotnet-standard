@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def" />
+    <None Include="res\TwsSocketClient.rc2" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TwsSocketClient.rc" />
