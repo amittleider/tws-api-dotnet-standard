@@ -167,6 +167,7 @@ namespace IBApi
         // order combo legs
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
         private List<TagValue> orderMiscOptions = new List<TagValue>();
+        private bool orderSolicited;
 
         /**
          * @brief The API client's order id.
@@ -175,6 +176,12 @@ namespace IBApi
         {
             get { return orderId; }
             set { orderId = value; }
+        }
+
+        public bool OrderSolicited
+        {
+            get { return orderSolicited; }
+            set { orderSolicited = value; }
         }
 
         /**
@@ -1225,7 +1232,8 @@ namespace IBApi
                 ScaleRandomPercent != l_theOther.ScaleRandomPercent ||
                 WhatIf != l_theOther.WhatIf ||
                 NotHeld != l_theOther.NotHeld ||
-                ExemptCode != l_theOther.ExemptCode)
+                ExemptCode != l_theOther.ExemptCode ||
+                OrderSolicited != l_theOther.OrderSolicited)
             {
                 return false;
             }

@@ -1215,6 +1215,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.m_settlingFirm = srcOrder.m_settlingFirm;
         destOrder.m_clearingAccount = srcOrder.m_clearingAccount;
         destOrder.m_clearingIntent = srcOrder.m_clearingIntent;
+        destOrder.m_orderSolicited = srcOrder.m_orderSolicited;
     }
 
     public void position(String account, Contract contract, int pos, double avgCost) {

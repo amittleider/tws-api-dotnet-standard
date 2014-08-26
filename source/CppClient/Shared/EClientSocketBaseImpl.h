@@ -109,7 +109,7 @@
 // 62 = can receive avgCost in position message
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 
-const int CLIENT_VERSION    = 63;
+const int CLIENT_VERSION    = 64;
 const int SERVER_VERSION    = 38;
 
 // outgoing msg id's
@@ -201,6 +201,7 @@ const int MIN_SERVER_VER_SCALE_TABLE            = 69;
 const int MIN_SERVER_VER_LINKING                = 70;
 const int MIN_SERVER_VER_ALGO_ID                = 71;
 const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
+const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;
@@ -1632,9 +1633,17 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
+		if (order.orderSolicited) {
+			m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+					"  It does not support orderSolicited parameter.");
+			return;
+		}
+	}
+
 	std::ostringstream msg;
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 43;
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);
@@ -1966,6 +1975,10 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 			}
 		}
 		ENCODE_FIELD( miscOptionsStr);
+	}
+
+	if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
+		ENCODE_FIELD(order.orderSolicited);
 	}
 
 	bufferedSend( msg.str());
@@ -3304,6 +3317,10 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 							order.algoParams = algoParams;
 						}
 					}
+				}
+
+				if (version >= 33) {
+					DECODE_FIELD(order.orderSolicited);
 				}
 
 				OrderState orderState;

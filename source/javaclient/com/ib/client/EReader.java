@@ -7,6 +7,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * This class reads commands from TWS and passes them to the user defined
+ * EWrapper.
+ *
+ * This class is initialized with a DataInputStream that is connected to the
+ * TWS. Messages begin with an ID and any relevant data are passed afterwards.
+ */
 public class EReader extends Thread {
 
     // incoming msg id's
@@ -60,6 +67,11 @@ public class EReader extends Thread {
     protected EClientSocket parent()    { return m_parent; }
     private EWrapper eWrapper()         { return parent().wrapper(); }
 
+    /**
+     * Construct the EReader.
+     * @param parent An EClientSocket connected to TWS.
+     * @param dis A stream that received data from the TWS.
+     */
     public EReader( EClientSocket parent, DataInputStream dis) {
         this("EReader", parent, dis);
     }
@@ -70,6 +82,10 @@ public class EReader extends Thread {
         m_dis = dis;
     }
 
+    
+    /**
+     * Read and process messages until interrupted or TWS closes connection.
+     */
     public void run() {
         try {
             // loop until thread is terminated
@@ -91,7 +107,6 @@ public class EReader extends Thread {
         }
     }
 
-    /** Overridden in subclass. */
     protected boolean processMsg(int msgId) throws IOException{
         if( msgId == -1) return false;
 
@@ -687,6 +702,10 @@ public class EReader extends Thread {
                 			}
                 		}
                 	}
+                }
+                
+                if (version >= 33) {
+                	order.m_orderSolicited = readBoolFromInt();
                 }
 
                 OrderState orderState = new OrderState();

@@ -132,6 +132,7 @@ struct Order
 
 		// Not Held
 		notHeld = false;
+		orderSolicited = false;
 	}
 
 	// order identifier
@@ -257,6 +258,7 @@ struct Order
 
 	// Not Held
 	bool     notHeld;
+	bool     orderSolicited;
 
 	// order combo legs
 	typedef std::vector<OrderComboLegSPtr> OrderComboLegList;
