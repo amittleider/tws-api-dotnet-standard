@@ -507,6 +507,11 @@ std::string EClientSocketBase::TwsConnectionTime()
 	return m_TwsTime;
 }
 
+const std::string& EClientSocketBase::optionalCapabilities() const
+{
+	return m_optionalCapabilities;
+}
+
 void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
 {
     m_optionalCapabilities = optCapts;

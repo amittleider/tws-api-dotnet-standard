@@ -25,6 +25,7 @@ public:
 
 	int clientId() const { return m_clientId; }
 
+	const std::string& optionalCapabilities() const;
 	void setOptionalCapabilities(const std::string& optCapts);
 
 protected:
