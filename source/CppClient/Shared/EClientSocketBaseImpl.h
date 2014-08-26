@@ -514,7 +514,7 @@ const std::string& EClientSocketBase::optionalCapabilities() const
 
 void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
 {
-    m_optionalCapabilities = optCapts;
+	m_optionalCapabilities = optCapts;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
