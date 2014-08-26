@@ -5,8 +5,6 @@
 #ifndef common_defs_h_INCLUDED
 #define common_defs_h_INCLUDED
 
-#include "StdAfx.h"
-
 typedef long TickerId;
 typedef long OrderId;
 
