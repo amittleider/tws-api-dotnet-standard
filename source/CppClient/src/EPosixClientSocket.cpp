@@ -1,7 +1,6 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-#include "stdafx.h"
 #include "EPosixClientSocket.h"
 
 #include "EPosixClientSocketPlatform.h"
@@ -9,9 +8,6 @@
 #include "EWrapper.h"
 
 #include <string.h>
-
-std::map<UINT_PTR, EPosixClientSocket*> EPosixClientSocket::socketMap;
-
 
 ///////////////////////////////////////////////////////////
 // member funcs
@@ -23,78 +19,6 @@ EPosixClientSocket::EPosixClientSocket( EWrapper *ptr) : EClientSocketBase( ptr)
 EPosixClientSocket::~EPosixClientSocket()
 {
 }
-
-VOID CALLBACK EPosixClientSocket::socketTimerProc(  _In_  HWND hwnd,  _In_  UINT uMsg,  _In_  UINT_PTR idEvent,  _In_  DWORD dwTime) {
-	auto evIt = socketMap.find(idEvent);
-
-	if (evIt != socketMap.end())
-		evIt->second->processMessages();
-}
-
-void EPosixClientSocket::processMessages()
-{
-	fd_set readSet, writeSet, errorSet;
-
-	struct timeval tval;
-	tval.tv_usec = 0;
-	tval.tv_sec = 0;
-
-	time_t now = time(NULL);
-
-	if( m_sleepDeadline > 0) {
-		// initialize timeout with m_sleepDeadline - now
-		tval.tv_sec = m_sleepDeadline - now;
-	}
-
-	if( fd() >= 0 ) {
-
-		FD_ZERO( &readSet);
-		errorSet = writeSet = readSet;
-
-		FD_SET( fd(), &readSet);
-
-		if( !isOutBufferEmpty())
-			FD_SET( fd(), &writeSet);
-
-		FD_SET( fd(), &errorSet);
-
-		int ret = select( fd() + 1, &readSet, &writeSet, &errorSet, &tval);
-
-		if( ret == 0) { // timeout
-			return;
-		}
-
-		if( ret < 0) {	// error
-			onError();
-			return;
-		}
-
-		if( fd() < 0)
-			return;
-
-		if( FD_ISSET( fd(), &errorSet)) {
-			// error on socket
-			onError();
-		}
-
-		if( fd() < 0)
-			return;
-
-		if( FD_ISSET( fd(), &writeSet)) {
-			// socket is ready for writing
-			onSend();
-		}
-
-		if( fd() < 0)
-			return;
-
-		if( FD_ISSET( fd(), &readSet)) {
-			// socket is ready for reading
-			onReceive();
-		}
-	}
-}
-
 
 bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clientId, bool extraAuth)
 {
@@ -171,9 +95,6 @@ bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clie
 		return false;
 	}
 
-	socketMap[SetTimer(0, 0, USER_TIMER_MINIMUM, socketTimerProc)] = this;
-
-
 	// successfully connected
 	return true;
 }
@@ -225,10 +146,9 @@ int EPosixClientSocket::receive(char* buf, size_t sz)
 	if( nResult == -1 && !handleSocketError()) {
 		return -1;
 	}
-
-	if (nResult == 0)
+	if( nResult == 0) {
 		onClose();
-
+	}
 	if( nResult <= 0) {
 		return 0;
 	}

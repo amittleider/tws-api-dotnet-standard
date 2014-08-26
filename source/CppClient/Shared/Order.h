@@ -1,5 +1,6 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #pragma once
 #ifndef order_def
 #define order_def
@@ -30,7 +31,7 @@ struct OrderComboLeg
 
 	double price;
 
-	bool operator==( const OrderComboLeg &other) const
+	bool operator==( const OrderComboLeg& other) const
 	{
 		return (price == other.price);
 	}

@@ -1,5 +1,6 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #pragma once
 #ifndef contract_def
 #define contract_def
@@ -37,16 +38,16 @@ struct ComboLeg
 	std::string	designatedLocation;
 	int			exemptCode;
 
-	bool operator==( const ComboLeg &other) const
+	bool operator==( const ComboLeg& other) const
 	{
 		return (conId == other.conId &&
 			ratio == other.ratio &&
 			openClose == other.openClose &&
 			shortSaleSlot == other.shortSaleSlot &&
-			(action.compare(other.action) == 0) &&
-			(exchange.compare(other.exchange) == 0) &&
-			(designatedLocation.compare(other.designatedLocation) == 0) &&
-			exemptCode == other.exemptCode);
+			exemptCode == other.exemptCode &&
+			action == other.action &&
+			exchange == other.exchange &&
+			designatedLocation == other.designatedLocation);
 	}
 };
 
