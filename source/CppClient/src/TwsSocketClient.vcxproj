@@ -162,6 +162,9 @@
     <None Include="TwsSocketClient.def" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="TwsSocketClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="StdAfx.h" />
