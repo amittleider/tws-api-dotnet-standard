@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="..\Shared\CommissionReport.h" />
     <ClInclude Include="..\Shared\CommonDefs.h" />
