@@ -9,7 +9,7 @@
 
 class EWrapper;
 
-class DLLEXP EPosixClientSocket : public EClientSocketBase
+class TWSAPIDLLEXP EPosixClientSocket : public EClientSocketBase
 {
 public:
 

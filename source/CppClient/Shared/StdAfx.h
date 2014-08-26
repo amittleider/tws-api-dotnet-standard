@@ -3,16 +3,18 @@
 
 #ifdef _MSC_VER
 
-#ifndef DLLEXP
-#define DLLEXP __declspec( dllexport )
+#ifdef TWSAPIDLL
+#    define TWSAPIDLLEXP __declspec(dllexport)
+#else
+#    define TWSAPIDLLEXP
 #endif
 
 #define assert ASSERT
 #define snprintf _snprintf
 
-#else
+#endif
 
-#define DLLEXP
-
+#ifndef TWSAPIDLLEXP
+#define TWSAPIDLLEXP
 #endif
 

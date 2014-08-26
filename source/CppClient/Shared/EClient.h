@@ -13,7 +13,7 @@ struct Order;
 struct ExecutionFilter;
 struct ScannerSubscription;
 
-class DLLEXP EClient
+class TWSAPIDLLEXP EClient
 {
 public:
    virtual ~EClient() {}
