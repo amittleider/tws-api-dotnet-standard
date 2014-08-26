@@ -18,7 +18,7 @@
 	#define EWOULDBLOCK WSAEWOULDBLOCK
 	#define ECONNREFUSED WSAECONNREFUSED
 	#else
-	#pragma comment(lib, "Ws2_32.lib")
+	#pragma comment(lib, "ws2_32.lib")
 	#endif
 
 	// helpers
