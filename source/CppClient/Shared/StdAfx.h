@@ -5,8 +5,6 @@
 
 #ifdef TWSAPIDLL
 #    define TWSAPIDLLEXP __declspec(dllexport)
-#else
-#    define TWSAPIDLLEXP
 #endif
 
 #define assert ASSERT
