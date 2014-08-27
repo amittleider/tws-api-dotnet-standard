@@ -4380,7 +4380,7 @@ void EClientSocketBase::onConnectBase()
 		msg.write(API_SIGN, sizeof(API_SIGN));
 		prepareBufferImpl( msg);
 		if( MIN_CLIENT_VER < MAX_CLIENT_VER) {
-			msg << 'v' << MIN_CLIENT_VER << "..v" << MAX_CLIENT_VER << '\0';
+			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER << '\0';
 		}
 		else {
 			msg << 'v' << MIN_CLIENT_VER << '\0';
