@@ -567,6 +567,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 11;
 
@@ -658,6 +659,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -693,6 +695,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 5;
 
@@ -756,6 +759,7 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -793,6 +797,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 6;
 
@@ -880,6 +885,7 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -916,6 +922,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 3;
 
@@ -980,6 +987,7 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1007,6 +1015,7 @@ void EClientSocketBase::reqScannerParameters()
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1034,6 +1043,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 4;
 
@@ -1097,6 +1107,7 @@ void EClientSocketBase::cancelScannerSubscription(int tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1131,6 +1142,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -1169,6 +1181,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1202,6 +1215,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -1246,6 +1260,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1279,6 +1294,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& con
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -1323,6 +1339,7 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1363,6 +1380,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 7;
 
@@ -1415,6 +1433,7 @@ void EClientSocketBase::reqCurrentTime()
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -1654,6 +1673,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
 
@@ -2008,6 +2028,7 @@ void EClientSocketBase::cancelOrder( OrderId id)
 
 	// send cancel order msg
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	ENCODE_FIELD( CANCEL_ORDER);
 	ENCODE_FIELD( VERSION);
@@ -2025,6 +2046,7 @@ void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acc
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -2048,6 +2070,7 @@ void EClientSocketBase::reqOpenOrders()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2067,6 +2090,7 @@ void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2087,6 +2111,7 @@ void EClientSocketBase::reqAllOpenOrders()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2108,6 +2133,7 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 3;
 
@@ -2140,6 +2166,7 @@ void EClientSocketBase::reqIds( int numIds)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2160,6 +2187,7 @@ void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2180,6 +2208,7 @@ void EClientSocketBase::cancelNewsBulletins()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2199,6 +2228,7 @@ void EClientSocketBase::setServerLogLevel(int logLevel)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2219,6 +2249,7 @@ void EClientSocketBase::reqManagedAccts()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2245,6 +2276,7 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2270,6 +2302,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2308,6 +2341,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -2354,6 +2388,7 @@ void EClientSocketBase::reqGlobalCancel()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2379,6 +2414,7 @@ void EClientSocketBase::reqMarketDataType( int marketDataType)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2400,6 +2436,15 @@ int EClientSocketBase::sendBufferedData()
 	}
 	CleanupBuffer( m_outBuffer, nResult);
 	return nResult;
+}
+
+void EClientSocketBase::prepareBuffer(std::ostream& buf) const
+{
+	if( !m_useV100Plus)
+		return;
+
+	char header[sizeof(int)] = { 0 };
+	buf.write(header, sizeof(header));
 }
 
 int EClientSocketBase::bufferedSend(const char* buf, size_t sz)
@@ -2454,6 +2499,7 @@ void EClientSocketBase::reqPositions()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2478,6 +2524,7 @@ void EClientSocketBase::cancelPositions()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2502,6 +2549,7 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2529,6 +2577,7 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2560,6 +2609,7 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2586,6 +2636,7 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2611,6 +2662,7 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2636,6 +2688,7 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2662,6 +2715,7 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 
@@ -2682,6 +2736,7 @@ void EClientSocketBase::startApi()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -2710,6 +2765,7 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer(msg);
 
 	const int VERSION = 1;
 

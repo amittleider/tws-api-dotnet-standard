@@ -10,6 +10,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iosfwd>
 
 class EWrapper;
 
@@ -120,6 +121,8 @@ protected:
 	int sendBufferedData();
 
 private:
+
+	void prepareBuffer(std::ostream&) const;
 
 	int bufferedSend(const char* buf, size_t sz);
 	int bufferedSend(const std::string& msg);
