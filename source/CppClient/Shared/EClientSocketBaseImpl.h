@@ -519,6 +519,10 @@ void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
 
 void EClientSocketBase::useV100Plus()
 {
+	if (isSocketOK()) {
+		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
+		return;
+	}
 	m_useV100Plus = true;
 }
 
