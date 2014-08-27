@@ -519,13 +519,14 @@ void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
 	m_optionalCapabilities = optCapts;
 }
 
-void EClientSocketBase::useV100Plus()
+void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
 {
 	if (isSocketOK()) {
 		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
 		return;
 	}
 	m_useV100Plus = true;
+	m_connectOptions = connectOptions;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,

@@ -29,7 +29,7 @@ public:
 	const std::string& optionalCapabilities() const;
 	void setOptionalCapabilities(const std::string& optCapts);
 
-	void useV100Plus();
+	void setUseV100Plus(const std::string& connectOptions);
 
 protected:
 
@@ -190,7 +190,9 @@ private:
 	std::string m_TwsTime;
 
 	std::string m_optionalCapabilities;
+
 	bool m_useV100Plus;
+	std::string m_connectOptions;
 
 };
 
