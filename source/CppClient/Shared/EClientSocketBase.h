@@ -122,8 +122,14 @@ protected:
 
 private:
 
+	void prepareBufferImpl(std::ostream&) const;
 	void prepareBuffer(std::ostream&) const;
+
+	template<int offset>
+	void encodeMsgLen(std::string& msg) const;
+
 	void closeAndSend(std::string msg);
+	void closeAndSendApiSign(std::string msg);
 
 	int bufferedSend(const char* buf, size_t sz);
 	int bufferedSend(const std::string& msg);

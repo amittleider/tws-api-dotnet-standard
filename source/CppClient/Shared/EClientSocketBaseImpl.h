@@ -113,6 +113,9 @@
 const int CLIENT_VERSION    = 64;
 const int SERVER_VERSION    = 38;
 
+const int MIN_CLIENT_VER = 100;
+const int MAX_CLIENT_VER = 100;
+
 // outgoing msg id's
 const int REQ_MKT_DATA                  = 1;
 const int CANCEL_MKT_DATA               = 2;
@@ -255,6 +258,7 @@ const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exc
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
 const int MaxMsgLen = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
+const char API_SIGN[] = "API";
 
 ///////////////////////////////////////////////////////////
 // helper macroses
@@ -2441,32 +2445,55 @@ int EClientSocketBase::sendBufferedData()
 	return nResult;
 }
 
+void EClientSocketBase::prepareBufferImpl(std::ostream& buf) const
+{
+	assert (m_useV100Plus);
+
+	char header[sizeof(int)] = { 0 };
+	buf.write(header, sizeof(header));
+}
+
 void EClientSocketBase::prepareBuffer(std::ostream& buf) const
 {
 	if( !m_useV100Plus)
 		return;
 
-	char header[sizeof(int)] = { 0 };
-	buf.write(header, sizeof(header));
+	prepareBufferImpl(buf);
+}
+
+template<int offset>
+void EClientSocketBase::encodeMsgLen(std::string& msg) const
+{
+	assert (!msg.empty());
+	assert (m_useV100Plus);
+
+	int len = (int)msg.size() - 4 - offset;
+	if (len <= 0)
+		return;
+	if (len > MaxMsgLen) {
+		m_pEWrapper->error(NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
+		return;
+	}
+
+	msg[offset + 0] = char(0xFF & (len >> 24));
+	msg[offset + 1] = char(0xFF & (len >> 16));
+	msg[offset + 2] = char(0xFF & (len >> 8));
+	msg[offset + 3] = char(0xFF & (len));
 }
 
 void EClientSocketBase::closeAndSend(std::string msg)
 {
 	assert (!msg.empty());
 	if( m_useV100Plus) {
-		int len = (int)msg.size() - 4;
-		if (len <= 0)
-			return;
-		if (len > MaxMsgLen) {
-			m_pEWrapper->error(NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
-			return;
-		}
-
-		msg[0] = char(0xFF & (len >> 24));
-		msg[1] = char(0xFF & (len >> 16));
-		msg[2] = char(0xFF & (len >> 8));
-		msg[3] = char(0xFF & (len));
+		encodeMsgLen<0>(msg);
 	}
+	bufferedSend( msg);
+}
+
+void EClientSocketBase::closeAndSendApiSign(std::string msg)
+{
+	assert (!msg.empty());
+	encodeMsgLen<sizeof(API_SIGN)>(msg);
 	bufferedSend( msg);
 }
 
@@ -4277,6 +4304,19 @@ void EClientSocketBase::onConnectBase()
 {
 	// send client version
 	std::ostringstream msg;
+	if( m_useV100Plus) {
+		msg.write(API_SIGN, sizeof(API_SIGN));
+		prepareBufferImpl( msg);
+		if( MIN_CLIENT_VER < MAX_CLIENT_VER) {
+			msg << 'v' << MIN_CLIENT_VER << "..v" << MAX_CLIENT_VER << '\0';
+		}
+		else {
+			msg << 'v' << MIN_CLIENT_VER << '\0';
+		}
+		ENCODE_FIELD(m_connectOptions);
+		closeAndSendApiSign( msg.str());
+		return;
+	}
 	ENCODE_FIELD( CLIENT_VERSION);
 	bufferedSend( msg.str());
 }
