@@ -28,6 +28,8 @@ public:
 	const std::string& optionalCapabilities() const;
 	void setOptionalCapabilities(const std::string& optCapts);
 
+	void useV100Plus();
+
 protected:
 
 	void eConnectBase();
@@ -184,6 +186,7 @@ private:
 	std::string m_TwsTime;
 
 	std::string m_optionalCapabilities;
+	bool m_useV100Plus;
 
 };
 

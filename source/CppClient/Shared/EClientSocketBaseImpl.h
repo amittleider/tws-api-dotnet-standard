@@ -474,6 +474,7 @@ EClientSocketBase::EClientSocketBase( EWrapper *ptr)
 	, m_connected(false)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
+	, m_useV100Plus(false)
 {
 }
 
@@ -514,6 +515,11 @@ const std::string& EClientSocketBase::optionalCapabilities() const
 void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
 {
 	m_optionalCapabilities = optCapts;
+}
+
+void EClientSocketBase::useV100Plus()
+{
+	m_useV100Plus = true;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
