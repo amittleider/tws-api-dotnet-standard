@@ -30,6 +30,7 @@ static const CodeMsgPair ZERO_BYTE_READ(506, "Unexplained zero bytes read.");
 static const CodeMsgPair NULL_STRING_READ(507, "Null string read when expecting integer");
 static const CodeMsgPair NO_BYTES_READ(508, "Error: no bytes read or no null terminator found");
 static const CodeMsgPair SOCKET_EXCEPTION(509, "Exception caught while reading socket - ");
+static const CodeMsgPair MSG_TOO_LONG(510, "Message is too long");
 static const CodeMsgPair FAIL_CREATE_SOCK(520, "Failed to create socket");
 static const CodeMsgPair FAIL_CONNECT_TWS(521, "Couldn't connect to TWS.");
 static const CodeMsgPair FAIL_SEND_FA_REQUEST(522, "FA Information Request Sending Error - ");

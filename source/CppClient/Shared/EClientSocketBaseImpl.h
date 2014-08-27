@@ -254,6 +254,8 @@ const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
+const int MaxMsgLen = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
+
 ///////////////////////////////////////////////////////////
 // helper macroses
 #define DECODE_FIELD(x) if (!DecodeField(x, ptr, endPtr)) return 0;
@@ -647,7 +649,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 		ENCODE_FIELD( mktDataOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelMktData(TickerId tickerId)
@@ -668,7 +670,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
@@ -739,7 +741,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract
 		ENCODE_FIELD( mktDepthOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -768,7 +770,7 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
@@ -866,7 +868,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 		ENCODE_FIELD( chartOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
@@ -893,7 +895,7 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
@@ -967,7 +969,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 		ENCODE_FIELD( realTimeBarsOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -995,7 +997,7 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -1022,7 +1024,7 @@ void EClientSocketBase::reqScannerParameters()
 	ENCODE_FIELD( REQ_SCANNER_PARAMETERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -1088,7 +1090,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 		ENCODE_FIELD( scannerSubscriptionOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelScannerSubscription(int tickerId)
@@ -1115,7 +1117,7 @@ void EClientSocketBase::cancelScannerSubscription(int tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contract, 
@@ -1163,7 +1165,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 
 	ENCODE_FIELD( reportType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelFundamentalData( TickerId reqId)
@@ -1189,7 +1191,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
@@ -1242,7 +1244,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	ENCODE_FIELD( optionPrice);
 	ENCODE_FIELD( underPrice);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
@@ -1268,7 +1270,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
@@ -1321,7 +1323,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& con
 	ENCODE_FIELD( volatility);
 	ENCODE_FIELD( underPrice);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
@@ -1347,7 +1349,7 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
@@ -1413,7 +1415,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 		ENCODE_FIELD( contract.secId);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqCurrentTime()
@@ -1441,7 +1443,7 @@ void EClientSocketBase::reqCurrentTime()
 	ENCODE_FIELD( REQ_CURRENT_TIME);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
@@ -2013,7 +2015,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 		ENCODE_FIELD(order.orderSolicited);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelOrder( OrderId id)
@@ -2034,7 +2036,7 @@ void EClientSocketBase::cancelOrder( OrderId id)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( id);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acctCode)
@@ -2058,7 +2060,7 @@ void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acc
 	// Send the account code. This will only be used for FA clients
 	ENCODE_FIELD( acctCode); // srv v9 and above
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqOpenOrders()
@@ -2078,7 +2080,7 @@ void EClientSocketBase::reqOpenOrders()
 	ENCODE_FIELD( REQ_OPEN_ORDERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
@@ -2099,7 +2101,7 @@ void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( bAutoBind);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAllOpenOrders()
@@ -2119,7 +2121,7 @@ void EClientSocketBase::reqAllOpenOrders()
 	ENCODE_FIELD( REQ_ALL_OPEN_ORDERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
@@ -2154,7 +2156,7 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	ENCODE_FIELD( filter.m_exchange);
 	ENCODE_FIELD( filter.m_side);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqIds( int numIds)
@@ -2175,7 +2177,7 @@ void EClientSocketBase::reqIds( int numIds)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( numIds);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqNewsBulletins(bool allMsgs)
@@ -2196,7 +2198,7 @@ void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( allMsgs);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelNewsBulletins()
@@ -2216,7 +2218,7 @@ void EClientSocketBase::cancelNewsBulletins()
 	ENCODE_FIELD( CANCEL_NEWS_BULLETINS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::setServerLogLevel(int logLevel)
@@ -2237,7 +2239,7 @@ void EClientSocketBase::setServerLogLevel(int logLevel)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( logLevel);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqManagedAccts()
@@ -2257,7 +2259,7 @@ void EClientSocketBase::reqManagedAccts()
 	ENCODE_FIELD( REQ_MANAGED_ACCTS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -2284,7 +2286,7 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( (int)pFaDataType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxml)
@@ -2311,7 +2313,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 	ENCODE_FIELD( (int)pFaDataType);
 	ENCODE_FIELD( cxml);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -2370,7 +2372,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
 	ENCODE_FIELD( account);
 	ENCODE_FIELD( override);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqGlobalCancel()
@@ -2396,7 +2398,7 @@ void EClientSocketBase::reqGlobalCancel()
 	ENCODE_FIELD( REQ_GLOBAL_CANCEL);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqMarketDataType( int marketDataType)
@@ -2422,7 +2424,7 @@ void EClientSocketBase::reqMarketDataType( int marketDataType)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( marketDataType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 int EClientSocketBase::sendBufferedData()
@@ -2445,6 +2447,26 @@ void EClientSocketBase::prepareBuffer(std::ostream& buf) const
 
 	char header[sizeof(int)] = { 0 };
 	buf.write(header, sizeof(header));
+}
+
+void EClientSocketBase::closeAndSend(std::string msg)
+{
+	assert (!msg.empty());
+	if( m_useV100Plus) {
+		int len = (int)msg.size() - 4;
+		if (len <= 0)
+			return;
+		if (len > MaxMsgLen) {
+			m_pEWrapper->error(NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
+			return;
+		}
+
+		msg[0] = char(0xFF & (len >> 24));
+		msg[1] = char(0xFF & (len >> 16));
+		msg[2] = char(0xFF & (len >> 8));
+		msg[3] = char(0xFF & (len));
+	}
+	bufferedSend( msg);
 }
 
 int EClientSocketBase::bufferedSend(const char* buf, size_t sz)
@@ -2506,7 +2528,7 @@ void EClientSocketBase::reqPositions()
 	ENCODE_FIELD( REQ_POSITIONS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelPositions()
@@ -2531,7 +2553,7 @@ void EClientSocketBase::cancelPositions()
 	ENCODE_FIELD( CANCEL_POSITIONS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags)
@@ -2559,7 +2581,7 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 	ENCODE_FIELD( groupName);
 	ENCODE_FIELD( tags);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelAccountSummary( int reqId)
@@ -2585,7 +2607,7 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::verifyRequest(const std::string& apiName, const std::string& apiVersion)
@@ -2618,7 +2640,7 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 	ENCODE_FIELD( apiName);
 	ENCODE_FIELD( apiVersion);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::verifyMessage(const std::string& apiData)
@@ -2644,7 +2666,7 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( apiData);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::queryDisplayGroups( int reqId)
@@ -2670,7 +2692,7 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
@@ -2697,7 +2719,7 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 	ENCODE_FIELD( reqId);
 	ENCODE_FIELD( groupId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contractInfo)
@@ -2724,7 +2746,7 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 	ENCODE_FIELD( reqId);
 	ENCODE_FIELD( contractInfo);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::startApi()
@@ -2747,7 +2769,7 @@ void EClientSocketBase::startApi()
 	if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
 		ENCODE_FIELD(m_optionalCapabilities);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
@@ -2773,7 +2795,7 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 bool EClientSocketBase::checkMessages()

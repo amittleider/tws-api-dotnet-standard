@@ -123,6 +123,7 @@ protected:
 private:
 
 	void prepareBuffer(std::ostream&) const;
+	void closeAndSend(std::string msg);
 
 	int bufferedSend(const char* buf, size_t sz);
 	int bufferedSend(const std::string& msg);
