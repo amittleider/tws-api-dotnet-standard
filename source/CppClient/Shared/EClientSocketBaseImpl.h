@@ -2855,7 +2855,7 @@ bool EClientSocketBase::checkMessages()
 	return true;
 }
 
-int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endPtr)
+int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
 	// return number of bytes consumed
@@ -2906,7 +2906,7 @@ int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endP
 	return 0;
 }
 
-int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
+int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -4275,6 +4275,78 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 			SOCKET_EXCEPTION.msg() + errMsg(e));
 	}
 	return 0;
+}
+
+int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)
+{
+	if( beginPtr + 4 >= endPtr)
+		return 0;
+
+	const int msgLen =
+		(((int)beginPtr[0] & 0xFF) << 24) |
+		(((int)beginPtr[1] & 0xFF) << 16) |
+		(((int)beginPtr[2] & 0xFF) << 8)  |
+		(((int)beginPtr[3] & 0xFF));
+
+	// shold never happen, but still....
+	if( msgLen == 0) {
+		beginPtr += 4;
+		return 4;
+	}
+
+	// this would mean we've really got some garbage
+	if (msgLen < 0) {
+		m_pEWrapper->error( NO_VALID_ID, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
+		eDisconnect();
+		m_pEWrapper->connectionClosed();
+		return 0;
+	}
+
+	// enforce max msg len limit
+	if (msgLen > MaxMsgLen) {
+		m_pEWrapper->error( NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
+		eDisconnect();
+		m_pEWrapper->connectionClosed();
+		return 0;
+	}
+
+	const char* msgStart = beginPtr + 4;
+	const char* msgEnd = msgStart + msgLen;
+
+	// handle incomplete messages
+	if (msgStart > endPtr) {
+		return 0;
+	}
+
+	int decoded = (this->*handler)(msgStart, msgEnd);
+	if (decoded <= 0) {
+		// this would mean something went real wrong
+		// and message was incomplete from decoder POV
+		m_pEWrapper->error( NO_VALID_ID, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
+		eDisconnect();
+		m_pEWrapper->connectionClosed();
+		return 0;
+	}
+
+	int consumed = msgEnd - beginPtr;
+	beginPtr = msgEnd;
+	return consumed;
+}
+
+int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endPtr)
+{
+	if( !m_useV100Plus) {
+		return processConnectAckImpl(beginPtr, endPtr);
+	}
+	return processOnePrefixedMsg(beginPtr, endPtr, &EClientSocketBase::processConnectAckImpl);
+}
+
+int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
+{
+	if( !m_useV100Plus) {
+		return processMsgImpl(beginPtr, endPtr);
+	}
+	return processOnePrefixedMsg(beginPtr, endPtr, &EClientSocketBase::processMsgImpl);
 }
 
 bool EClientSocketBase::isConnected() const

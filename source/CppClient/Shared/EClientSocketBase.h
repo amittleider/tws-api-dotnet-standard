@@ -138,10 +138,15 @@ private:
 	int bufferedRead();
 
 	// try to process connection request ack
+	int processConnectAckImpl(const char*& ptr, const char* endPtr);
 	int processConnectAck(const char*& ptr, const char* endPtr);
 
 	// try to process single msg
+	int processMsgImpl(const char*& ptr, const char* endPtr);
 	int processMsg(const char*& ptr, const char* endPtr);
+
+	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
+	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
 
 	void startApi();
 
