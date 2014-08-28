@@ -2471,7 +2471,7 @@ void EClientSocketBase::encodeMsgLen(std::string& msg) const
 	if (len <= 0)
 		return;
 	if (len > MaxMsgLen) {
-		m_pEWrapper->error(NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
+		m_pEWrapper->error(NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		return;
 	}
 
@@ -2870,7 +2870,7 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 		if( m_useV100Plus) {
 			if (m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) {
 				eDisconnect();
-				m_pEWrapper->error( NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg());
+				m_pEWrapper->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
 				return -1;
 			}
 		}
@@ -4303,7 +4303,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 
 	// this would mean we've really got some garbage
 	if (msgLen < 0) {
-		m_pEWrapper->error( NO_VALID_ID, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
+		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		eDisconnect();
 		m_pEWrapper->connectionClosed();
 		return 0;
@@ -4311,7 +4311,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 
 	// enforce max msg len limit
 	if (msgLen > MaxMsgLen) {
-		m_pEWrapper->error( NO_VALID_ID, MSG_TOO_LONG.code(), MSG_TOO_LONG.msg());
+		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		eDisconnect();
 		m_pEWrapper->connectionClosed();
 		return 0;
@@ -4329,7 +4329,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	if (decoded <= 0) {
 		// this would mean something went real wrong
 		// and message was incomplete from decoder POV
-		m_pEWrapper->error( NO_VALID_ID, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
+		m_pEWrapper->error( NO_VALID_ID, BAD_MESSAGE.code(), BAD_MESSAGE.msg());
 		eDisconnect();
 		m_pEWrapper->connectionClosed();
 		return 0;
