@@ -2463,8 +2463,7 @@ void EClientSocketBase::prepareBuffer(std::ostream& buf) const
 	prepareBufferImpl( buf);
 }
 
-template<unsigned offset>
-void EClientSocketBase::encodeMsgLen(std::string& msg) const
+void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
 {
 	assert( !msg.empty());
 	assert( m_useV100Plus);
@@ -2487,7 +2486,7 @@ void EClientSocketBase::closeAndSend(std::string msg)
 {
 	assert( !msg.empty());
 	if( m_useV100Plus) {
-		encodeMsgLen<0>( msg);
+		encodeMsgLen( msg, 0);
 	}
 	bufferedSend( msg);
 }
@@ -2495,7 +2494,7 @@ void EClientSocketBase::closeAndSend(std::string msg)
 void EClientSocketBase::closeAndSendApiSign(std::string msg)
 {
 	assert( !msg.empty());
-	encodeMsgLen<sizeof(API_SIGN)>( msg);
+	encodeMsgLen( msg, sizeof(API_SIGN));
 	bufferedSend( msg);
 }
 
