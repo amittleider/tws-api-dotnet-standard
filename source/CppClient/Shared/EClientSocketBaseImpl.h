@@ -257,7 +257,7 @@ const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
-const int MaxMsgLen = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
+const int MAX_MSG_LEN = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
 const char API_SIGN[] = "API";
 
 ///////////////////////////////////////////////////////////
@@ -2469,7 +2469,7 @@ void EClientSocketBase::encodeMsgLen(std::string& msg) const
 
 	assert (msg.size() > offset + 4);
 	unsigned len = msg.size() - 4 - offset;
-	if (len > MaxMsgLen) {
+	if (len > MAX_MSG_LEN) {
 		m_pEWrapper->error(NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		return;
 	}
@@ -4301,7 +4301,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	}
 
 	// enforce max msg len limit
-	if (msgLen > MaxMsgLen) {
+	if (msgLen > MAX_MSG_LEN) {
 		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		eDisconnect();
 		m_pEWrapper->connectionClosed();
