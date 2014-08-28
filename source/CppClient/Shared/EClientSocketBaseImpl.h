@@ -2482,19 +2482,12 @@ void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
 	msg[offset + 3] = char(0xFF & (len));
 }
 
-void EClientSocketBase::closeAndSend(std::string msg)
+void EClientSocketBase::closeAndSend(std::string msg, unsigned offset)
 {
 	assert( !msg.empty());
 	if( m_useV100Plus) {
-		encodeMsgLen( msg, 0);
+		encodeMsgLen( msg, offset);
 	}
-	bufferedSend( msg);
-}
-
-void EClientSocketBase::closeAndSendApiSign(std::string msg)
-{
-	assert( !msg.empty());
-	encodeMsgLen( msg, sizeof(API_SIGN));
 	bufferedSend( msg);
 }
 
@@ -4388,7 +4381,7 @@ void EClientSocketBase::onConnectBase()
 			msg << 'v' << MIN_CLIENT_VER << '\0';
 		}
 		ENCODE_FIELD( m_connectOptions);
-		closeAndSendApiSign( msg.str());
+		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
 	ENCODE_FIELD( CLIENT_VERSION);

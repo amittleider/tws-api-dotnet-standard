@@ -126,9 +126,7 @@ private:
 	void prepareBuffer(std::ostream&) const;
 
 	void encodeMsgLen(std::string& msg, unsigned offset) const;
-
-	void closeAndSend(std::string msg);
-	void closeAndSendApiSign(std::string msg);
+	void closeAndSend(std::string msg, unsigned offset = 0);
 
 	int bufferedSend(const char* buf, size_t sz);
 	int bufferedSend(const std::string& msg);
