@@ -58,6 +58,11 @@ bool TestCppClient::isConnected() const
 	return m_pClient->isConnected();
 }
 
+void TestCppClient::setUseV100Plus(const std::string& connectOptions)
+{
+	m_pClient->setUseV100Plus(connectOptions);
+}
+
 void TestCppClient::processMessages()
 {
 	fd_set readSet, writeSet, errorSet;

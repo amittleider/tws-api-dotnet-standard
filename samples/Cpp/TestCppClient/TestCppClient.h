@@ -30,6 +30,7 @@ public:
 	TestCppClient();
 	~TestCppClient();
 
+	void setUseV100Plus(const std::string&);
 	void processMessages();
 
 public:
