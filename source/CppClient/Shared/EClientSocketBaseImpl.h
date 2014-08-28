@@ -2449,7 +2449,7 @@ void EClientSocketBase::prepareBufferImpl(std::ostream& buf) const
 {
 	assert (m_useV100Plus);
 
-	char header[sizeof(int)] = { 0 };
+	char header[sizeof(unsigned)] = { 0 };
 	buf.write(header, sizeof(header));
 }
 
@@ -2461,15 +2461,14 @@ void EClientSocketBase::prepareBuffer(std::ostream& buf) const
 	prepareBufferImpl(buf);
 }
 
-template<int offset>
+template<unsigned offset>
 void EClientSocketBase::encodeMsgLen(std::string& msg) const
 {
 	assert (!msg.empty());
 	assert (m_useV100Plus);
 
-	int len = (int)msg.size() - 4 - offset;
-	if (len <= 0)
-		return;
+	assert (msg.size() > offset + 4);
+	unsigned len = msg.size() - 4 - offset;
 	if (len > MaxMsgLen) {
 		m_pEWrapper->error(NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		return;
@@ -4289,24 +4288,16 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	if( beginPtr + 4 >= endPtr)
 		return 0;
 
-	const int msgLen =
-		(((int)beginPtr[0] & 0xFF) << 24) |
-		(((int)beginPtr[1] & 0xFF) << 16) |
-		(((int)beginPtr[2] & 0xFF) << 8)  |
-		(((int)beginPtr[3] & 0xFF));
+	const unsigned msgLen =
+		((unsigned)(unsigned char)beginPtr[0] << 24) |
+		((unsigned)(unsigned char)beginPtr[1] << 16) |
+		((unsigned)(unsigned char)beginPtr[2] << 8)  |
+		((unsigned)(unsigned char)beginPtr[3]);
 
 	// shold never happen, but still....
-	if( msgLen == 0) {
+	if (!msgLen) {
 		beginPtr += 4;
 		return 4;
-	}
-
-	// this would mean we've really got some garbage
-	if (msgLen < 0) {
-		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
-		eDisconnect();
-		m_pEWrapper->connectionClosed();
-		return 0;
 	}
 
 	// enforce max msg len limit

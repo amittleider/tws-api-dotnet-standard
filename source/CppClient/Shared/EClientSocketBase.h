@@ -125,7 +125,7 @@ private:
 	void prepareBufferImpl(std::ostream&) const;
 	void prepareBuffer(std::ostream&) const;
 
-	template<int offset>
+	template<unsigned offset>
 	void encodeMsgLen(std::string& msg) const;
 
 	void closeAndSend(std::string msg);
