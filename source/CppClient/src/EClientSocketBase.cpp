@@ -3,5 +3,6 @@
 
 #include "StdAfx.h"
 
+#include "EPosixClientSocketPlatform.h"
 #include "EClientSocketBaseImpl.h"
 

@@ -16,7 +16,6 @@
 #include "ScannerSubscription.h"
 #include "CommissionReport.h"
 
-
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
@@ -2468,7 +2467,7 @@ void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
 	assert( !msg.empty());
 	assert( m_useV100Plus);
 
-	assert( sizeof(unsigned) >= HEADER_LEN);
+	assert( sizeof(unsigned) == HEADER_LEN);
 	assert( msg.size() > offset + HEADER_LEN);
 	unsigned len = msg.size() - HEADER_LEN - offset;
 	if( len > MAX_MSG_LEN) {
@@ -2476,10 +2475,8 @@ void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
 		return;
 	}
 
-	msg[offset + 0] = char(0xFF & (len >> 24));
-	msg[offset + 1] = char(0xFF & (len >> 16));
-	msg[offset + 2] = char(0xFF & (len >> 8));
-	msg[offset + 3] = char(0xFF & (len));
+	unsigned netlen = htonl( len);
+	memcpy( &msg[offset], &netlen, HEADER_LEN);
 }
 
 void EClientSocketBase::closeAndSend(std::string msg, unsigned offset)
@@ -4283,13 +4280,12 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	if( beginPtr + HEADER_LEN >= endPtr)
 		return 0;
 
-	assert( sizeof(unsigned) >= HEADER_LEN);
+	assert( sizeof(unsigned) == HEADER_LEN);
 
-	const unsigned msgLen =
-		((unsigned)(unsigned char)beginPtr[0] << 24) |
-		((unsigned)(unsigned char)beginPtr[1] << 16) |
-		((unsigned)(unsigned char)beginPtr[2] << 8)  |
-		((unsigned)(unsigned char)beginPtr[3]);
+	unsigned netLen = 0;
+	memcpy( &netLen, beginPtr, HEADER_LEN);
+
+	const unsigned msgLen = ntohl(netLen);
 
 	// shold never happen, but still....
 	if( !msgLen) {
