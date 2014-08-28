@@ -258,7 +258,7 @@ const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exc
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
-const char API_SIGN[] = "API";
+const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
 
 ///////////////////////////////////////////////////////////
 // helper macroses
