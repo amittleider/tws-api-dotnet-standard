@@ -2867,6 +2867,13 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 
 		// check server version
 		DECODE_FIELD( m_serverVersion);
+		if( m_useV100Plus) {
+			if (m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) {
+				eDisconnect();
+				m_pEWrapper->error( NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg());
+				return -1;
+			}
+		}
 		if( m_serverVersion >= 20) {
 			DECODE_FIELD( m_TwsTime);
 		}
