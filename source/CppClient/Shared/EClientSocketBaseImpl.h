@@ -257,6 +257,7 @@ const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
+const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
 const char API_SIGN[] = "API";
 
@@ -2448,8 +2449,9 @@ int EClientSocketBase::sendBufferedData()
 void EClientSocketBase::prepareBufferImpl(std::ostream& buf) const
 {
 	assert (m_useV100Plus);
+	assert (sizeof(unsigned) == HEADER_LEN);
 
-	char header[sizeof(unsigned)] = { 0 };
+	char header[HEADER_LEN] = { 0 };
 	buf.write(header, sizeof(header));
 }
 
@@ -2467,8 +2469,9 @@ void EClientSocketBase::encodeMsgLen(std::string& msg) const
 	assert (!msg.empty());
 	assert (m_useV100Plus);
 
-	assert (msg.size() > offset + 4);
-	unsigned len = msg.size() - 4 - offset;
+	assert (sizeof(unsigned) >= HEADER_LEN);
+	assert (msg.size() > offset + HEADER_LEN);
+	unsigned len = msg.size() - HEADER_LEN - offset;
 	if (len > MAX_MSG_LEN) {
 		m_pEWrapper->error(NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
 		return;
@@ -4285,8 +4288,10 @@ int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 
 int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)
 {
-	if( beginPtr + 4 >= endPtr)
+	if( beginPtr + HEADER_LEN >= endPtr)
 		return 0;
+
+	assert (sizeof(unsigned) >= HEADER_LEN);
 
 	const unsigned msgLen =
 		((unsigned)(unsigned char)beginPtr[0] << 24) |
@@ -4296,8 +4301,8 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 
 	// shold never happen, but still....
 	if (!msgLen) {
-		beginPtr += 4;
-		return 4;
+		beginPtr += HEADER_LEN;
+		return HEADER_LEN;
 	}
 
 	// enforce max msg len limit
@@ -4308,7 +4313,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 		return 0;
 	}
 
-	const char* msgStart = beginPtr + 4;
+	const char* msgStart = beginPtr + HEADER_LEN;
 	const char* msgEnd = msgStart + msgLen;
 
 	// handle incomplete messages
