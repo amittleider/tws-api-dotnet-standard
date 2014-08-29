@@ -14,15 +14,22 @@ namespace IBApi
     class EReader
     {
         private EClientSocket parent;
+        private BinaryReader dataReader;
         private BinaryReader tcpReader;
 
         private ManualResetEvent stopEvent;
         private Thread runner;
-        
-        public EReader(EClientSocket parent, BinaryReader reader)
+
+        private bool useV100Plus;
+       
+        public EReader(EClientSocket parent, BinaryReader reader, bool useV100Plus)
         {
             this.parent = parent;
             this.tcpReader = reader;
+            this.useV100Plus = useV100Plus;
+
+            if (!useV100Plus)
+                dataReader = tcpReader;
         }
 
         public void Start()
@@ -44,6 +51,18 @@ namespace IBApi
             {
                 while (!stopEvent.WaitOne(0))
                 {
+                    if (useV100Plus)
+                    {
+                        int size = tcpReader.ReadInt32();
+                        
+                        if (dataReader != null)
+                            dataReader.Close();
+
+                        dataReader = new BinaryReader(new MemoryStream());
+                        
+                        tcpReader.BaseStream.CopyTo(dataReader.BaseStream, size);
+                    }
+
                     int incomingMessage = ReadInt();
                     ProcessIncomingMessage(incomingMessage);
                 }
@@ -58,6 +77,7 @@ namespace IBApi
             }
             if (parent.IsConnected())
             {
+                dataReader.Close();
                 tcpReader.Close();
                 parent.Close();
             }
@@ -1517,7 +1537,7 @@ namespace IBApi
 
         public string ReadString()
         {
-            byte b = tcpReader.ReadByte();
+            byte b = dataReader.ReadByte();
             if (b == 0)
             {
                 return null;
@@ -1528,7 +1548,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = tcpReader.ReadByte();                    
+                    b = dataReader.ReadByte();                    
                     if (b == 0)
                     {
                         break;
