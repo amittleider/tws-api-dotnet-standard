@@ -1537,7 +1537,8 @@ namespace IBApi
 
         public string ReadString()
         {
-            byte b = dataReader.ReadByte();
+            var reader = dataReader == null ? tcpReader : dataReader;
+            byte b = reader.ReadByte();
             if (b == 0)
             {
                 return null;
@@ -1548,7 +1549,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = dataReader.ReadByte();                    
+                    b = reader.ReadByte();                    
                     if (b == 0)
                     {
                         break;

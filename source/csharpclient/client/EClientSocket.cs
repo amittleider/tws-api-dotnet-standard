@@ -107,8 +107,16 @@ namespace IBApi
                 this.extraAuth = extraAuth;
                 try
                 {
-                    tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
-                    tcpWriter.Write(Constants.EOL);
+                    /*tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
+                    tcpWriter.Write(Constants.EOL);*/
+                    var paramsList = new BinaryWriter(new MemoryStream());
+
+                    paramsList.AddParameter("API ");
+
+                    var lengthPos = prepareBuffer(paramsList);
+                    
+                    paramsList.AddParameter("v" + getVersion() + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions));
+                    Send(paramsList, lengthPos);
                 }
                 catch (IOException)
                 {
@@ -158,6 +166,11 @@ namespace IBApi
                 wrapper.error(e);
             }
 
+        }
+
+        private static string getVersion()
+        {
+            return Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
         }
 
         public void startApi()
@@ -1103,10 +1116,12 @@ namespace IBApi
 
         private uint prepareBuffer(BinaryWriter paramsList)
         {
+            var rval = (uint)paramsList.BaseStream.Position;
+
             if (this.useV100Plus)
                 paramsList.Write((int)0);
 
-            return 0;
+            return rval;
         }
 
         /**

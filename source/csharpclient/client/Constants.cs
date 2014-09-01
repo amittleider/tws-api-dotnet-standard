@@ -17,5 +17,7 @@ namespace IBApi
         public const int FaGroups = 1;
         public const int FaProfiles = 2;
         public const int FaAliases = 3;
+        public const int MinVersion = 100;
+        public const int MaxVersion = 100;
     }
 }
