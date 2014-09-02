@@ -111,11 +111,15 @@ namespace IBApi
                     tcpWriter.Write(Constants.EOL);*/
                     var paramsList = new BinaryWriter(new MemoryStream());
 
-                    paramsList.AddParameter("API ");
+                    paramsList.AddParameter("API");
 
                     var lengthPos = prepareBuffer(paramsList);
-                    
-                    paramsList.AddParameter("v" + getVersion() + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions));
+
+                    paramsList.AddParameter("v" + getVersion());
+
+                    if (!IsEmpty(connectOptions))
+                        paramsList.AddParameter(connectOptions);
+
                     Send(paramsList, lengthPos);
                 }
                 catch (IOException)
@@ -180,7 +184,7 @@ namespace IBApi
 
             const int VERSION = 2;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.StartApi);
             paramsList.AddParameter(VERSION);
@@ -188,7 +192,7 @@ namespace IBApi
 
             if (serverVersion >= MinServerVer.OPTIONAL_CAPABILITIES)
                 paramsList.AddParameter(optionalCapabilities);
-            
+
             Send(paramsList, lengthPos);
         }
 
@@ -280,7 +284,7 @@ namespace IBApi
                 return;
             const int version = 3;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.ReqCalcImpliedVolat);
             paramsList.AddParameter(version);
@@ -333,7 +337,7 @@ namespace IBApi
 
             const int version = 3;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.ReqCalcOptionPrice);
             paramsList.AddParameter(version);
@@ -544,7 +548,7 @@ namespace IBApi
             int VERSION = 2;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.ExerciseOptions);
             paramsList.AddParameter(VERSION);
@@ -594,7 +598,7 @@ namespace IBApi
 
             int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 44;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
@@ -1023,7 +1027,7 @@ namespace IBApi
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.ReplaceFA);
             paramsList.AddParameter(1);
@@ -1048,7 +1052,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestFA);
             paramsList.AddParameter(VERSION);
@@ -1104,7 +1108,7 @@ namespace IBApi
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestAccountSummary);
             paramsList.AddParameter(VERSION);
@@ -1138,7 +1142,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestAccountData);
             paramsList.AddParameter(VERSION);
@@ -1158,7 +1162,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestAllOpenOrders);
             paramsList.AddParameter(VERSION);
@@ -1177,7 +1181,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestAutoOpenOrders);
             paramsList.AddParameter(VERSION);
@@ -1212,7 +1216,7 @@ namespace IBApi
             int VERSION = 7;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestContractData);
             paramsList.AddParameter(VERSION);//version
@@ -1266,7 +1270,7 @@ namespace IBApi
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestCurrentTime);
             paramsList.AddParameter(VERSION);//version
@@ -1288,7 +1292,7 @@ namespace IBApi
             int VERSION = 3;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestExecutions);
             paramsList.AddParameter(VERSION);//version
@@ -1342,7 +1346,7 @@ namespace IBApi
 
             const int VERSION = 3;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestFundamentalData);
             paramsList.AddParameter(VERSION);
@@ -1386,7 +1390,7 @@ namespace IBApi
             const int VERSION = 1;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestGlobalCancel);
             paramsList.AddParameter(VERSION);
@@ -1450,7 +1454,7 @@ namespace IBApi
 
             const int VERSION = 6;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestHistoricalData);
             paramsList.AddParameter(VERSION);
@@ -1526,7 +1530,7 @@ namespace IBApi
             const int VERSION = 1;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestIds);
             paramsList.AddParameter(VERSION);
@@ -1544,7 +1548,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestManagedAccounts);
             paramsList.AddParameter(VERSION);
@@ -1598,7 +1602,7 @@ namespace IBApi
 
             int version = 11;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestMarketData);
             paramsList.AddParameter(version);
@@ -1682,7 +1686,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestMarketDataType);
             paramsList.AddParameter(VERSION);
@@ -1710,7 +1714,7 @@ namespace IBApi
 
             const int VERSION = 5;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestMarketDepth);
             paramsList.AddParameter(VERSION);
@@ -1762,7 +1766,7 @@ namespace IBApi
 
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestNewsBulletins);
             paramsList.AddParameter(VERSION);
@@ -1780,7 +1784,7 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestOpenOrders);
             paramsList.AddParameter(VERSION);
@@ -1800,7 +1804,7 @@ namespace IBApi
 
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestPositions);
             paramsList.AddParameter(VERSION);
@@ -1836,7 +1840,7 @@ namespace IBApi
 
             const int VERSION = 3;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestRealTimeBars);
             paramsList.AddParameter(VERSION);
@@ -1881,7 +1885,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestScannerParameters);
             paramsList.AddParameter(VERSION);
@@ -1900,7 +1904,7 @@ namespace IBApi
                 return;
             const int VERSION = 4;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestScannerSubscription);
             paramsList.AddParameter(VERSION);
@@ -1959,7 +1963,7 @@ namespace IBApi
             const int VERSION = 1;
 
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.ChangeServerLog);
             paramsList.AddParameter(VERSION);
@@ -1982,7 +1986,7 @@ namespace IBApi
 
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.VerifyRequest);
             paramsList.AddParameter(VERSION);
@@ -1999,7 +2003,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.VerifyMessage);
             paramsList.AddParameter(VERSION);
@@ -2015,7 +2019,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
             paramsList.AddParameter(VERSION);
@@ -2031,7 +2035,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.SubscribeToGroupEvents);
             paramsList.AddParameter(VERSION);
@@ -2048,7 +2052,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
             paramsList.AddParameter(VERSION);
@@ -2065,7 +2069,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
             paramsList.AddParameter(VERSION);
@@ -2124,7 +2128,7 @@ namespace IBApi
             if (useV100Plus)
             {
                 request.Seek((int)lengthPos, SeekOrigin.Begin);
-                request.Write((uint)(request.BaseStream.Length - lengthPos));
+                request.Write(IPAddress.HostToNetworkOrder((int)(request.BaseStream.Length - lengthPos)));
             }
 
             request.Seek(0, SeekOrigin.Begin);
@@ -2165,7 +2169,7 @@ namespace IBApi
         protected void SendCancelRequest(OutgoingMessages msgType, int version, int reqId, CodeMsgPair errorMessage)
         {
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(msgType);
             paramsList.AddParameter(version);
@@ -2187,7 +2191,7 @@ namespace IBApi
         protected void SendCancelRequest(OutgoingMessages msgType, int version, CodeMsgPair errorMessage)
         {
             var paramsList = new BinaryWriter(new MemoryStream());
-			var lengthPos = prepareBuffer(paramsList);
+            var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(msgType);
             paramsList.AddParameter(version);

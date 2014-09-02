@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
+using System.Net;
 
 namespace IBApi
 {
@@ -53,7 +54,7 @@ namespace IBApi
                 {
                     if (useV100Plus)
                     {
-                        int size = tcpReader.ReadInt32();
+                        int size = IPAddress.NetworkToHostOrder(tcpReader.ReadInt32());
                         
                         if (dataReader != null)
                             dataReader.Close();
