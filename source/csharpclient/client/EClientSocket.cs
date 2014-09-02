@@ -111,16 +111,24 @@ namespace IBApi
                 this.extraAuth = extraAuth;
                 try
                 {
-                    var paramsList = new BinaryWriter(new MemoryStream());
+                    if (useV100Plus)
+                    {
+                        var paramsList = new BinaryWriter(new MemoryStream());
 
-                    paramsList.AddParameter("API");
+                        paramsList.AddParameter("API");
 
-                    var lengthPos = prepareBuffer(paramsList);
+                        var lengthPos = prepareBuffer(paramsList);
 
-                    paramsList.AddParameter("v" + getVersion());
-                    paramsList.AddParameter(connectOptions);
+                        paramsList.AddParameter("v" + getVersion());
+                        paramsList.AddParameter(connectOptions);
 
-                    Send(paramsList, lengthPos);
+                        Send(paramsList, lengthPos);
+                    }
+                    else
+                    {
+                        tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
+                        tcpWriter.Write(Constants.EOL);
+                    }
                 }
                 catch (IOException)
                 {
