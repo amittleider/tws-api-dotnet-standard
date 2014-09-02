@@ -45,6 +45,28 @@ namespace IBApi
             this.runner.Abort();
         }
 
+        public void ReadMessageToInternalBuf()
+        {
+            int size = IPAddress.NetworkToHostOrder(tcpReader.ReadInt32());
+
+            if (dataReader != null)
+                dataReader.Close();
+
+            dataReader = new BinaryReader(new MemoryStream());
+            byte[] buf = new byte[size];
+
+            if (size > 64000 || tcpReader.Read(buf, 0, buf.Length) < size)
+            {
+                var ex = new Exception();
+
+                ex.Data[0] = EClientErrors.BAD_LENGTH;
+
+                throw ex;
+            }
+
+            dataReader.BaseStream.Write(buf, 0, size);
+            dataReader.BaseStream.Seek(0, SeekOrigin.Begin);
+        }
        
         public void ReadAndProcessMessages()
         {
@@ -54,14 +76,7 @@ namespace IBApi
                 {
                     if (useV100Plus)
                     {
-                        int size = IPAddress.NetworkToHostOrder(tcpReader.ReadInt32());
-                        
-                        if (dataReader != null)
-                            dataReader.Close();
-
-                        dataReader = new BinaryReader(new MemoryStream());
-                        
-                        tcpReader.BaseStream.CopyTo(dataReader.BaseStream, size);
+                        ReadMessageToInternalBuf();
                     }
 
                     int incomingMessage = ReadInt();
@@ -73,7 +88,14 @@ namespace IBApi
                 // For when TWS is closed when the trading program open
                 if (parent.IsConnected())
                 {
-                    parent.Wrapper.error(e);
+                    if (e.Data.Contains(0))
+                    {
+                        var cmp = e.Data[0] as CodeMsgPair;
+
+                        parent.Wrapper.error(-1, cmp.Code, cmp.Message);
+                    }
+                    else
+                        parent.Wrapper.error(e);
                 }
             }
             if (parent.IsConnected())
@@ -1538,8 +1560,7 @@ namespace IBApi
 
         public string ReadString()
         {
-            var reader = dataReader == null ? tcpReader : dataReader;
-            byte b = reader.ReadByte();
+            byte b = dataReader.ReadByte();
             if (b == 0)
             {
                 return null;
@@ -1550,7 +1571,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = reader.ReadByte();                    
+                    b = dataReader.ReadByte();                    
                     if (b == 0)
                     {
                         break;

@@ -48,7 +48,11 @@ namespace IBApi
         public void SetUseV100Plus(string connectOptions)
         {
             if (IsConnected())
-                return;//TODO: report error;
+            {
+                wrapper.error(this.clientId, EClientErrors.NOT_CONNECTED.Code, EClientErrors.NOT_CONNECTED.Message);
+
+                return;
+            }
 
             this.useV100Plus = true;
             this.connectOptions = connectOptions;
@@ -116,9 +120,7 @@ namespace IBApi
                     var lengthPos = prepareBuffer(paramsList);
 
                     paramsList.AddParameter("v" + getVersion());
-
-                    if (!IsEmpty(connectOptions))
-                        paramsList.AddParameter(connectOptions);
+                    paramsList.AddParameter(connectOptions);
 
                     Send(paramsList, lengthPos);
                 }
@@ -127,8 +129,13 @@ namespace IBApi
                     wrapper.error("Could not establish connection. Make sure the TWS is enabled to accept socket clients!");
                     throw;
                 }
+
                 // Receive the response from the remote device.
+                if (useV100Plus)
+                    reader.ReadMessageToInternalBuf();
+                
                 serverVersion = reader.ReadInt();
+                
                 if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
                 {
                     ReportUpdateTWS("");
@@ -2128,7 +2135,7 @@ namespace IBApi
             if (useV100Plus)
             {
                 request.Seek((int)lengthPos, SeekOrigin.Begin);
-                request.Write(IPAddress.HostToNetworkOrder((int)(request.BaseStream.Length - lengthPos)));
+                request.Write(IPAddress.HostToNetworkOrder((int)(request.BaseStream.Length - lengthPos - sizeof(int))));
             }
 
             request.Seek(0, SeekOrigin.Begin);
