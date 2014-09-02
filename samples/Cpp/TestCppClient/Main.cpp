@@ -32,6 +32,7 @@ int main(int argc, char** argv)
 
 		TestCppClient client;
 
+		//client.setUseV100Plus("");
 		client.connect( host, port, clientId);
 
 		while( client.isConnected()) {

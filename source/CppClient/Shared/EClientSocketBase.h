@@ -10,6 +10,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iosfwd>
 
 class EWrapper;
 
@@ -27,6 +28,8 @@ public:
 
 	const std::string& optionalCapabilities() const;
 	void setOptionalCapabilities(const std::string& optCapts);
+
+	void setUseV100Plus(const std::string& connectOptions);
 
 protected:
 
@@ -119,6 +122,12 @@ protected:
 
 private:
 
+	void prepareBufferImpl(std::ostream&) const;
+	void prepareBuffer(std::ostream&) const;
+
+	void encodeMsgLen(std::string& msg, unsigned offset) const;
+	void closeAndSend(std::string msg, unsigned offset = 0);
+
 	int bufferedSend(const char* buf, size_t sz);
 	int bufferedSend(const std::string& msg);
 
@@ -126,10 +135,15 @@ private:
 	int bufferedRead();
 
 	// try to process connection request ack
+	int processConnectAckImpl(const char*& ptr, const char* endPtr);
 	int processConnectAck(const char*& ptr, const char* endPtr);
 
 	// try to process single msg
+	int processMsgImpl(const char*& ptr, const char* endPtr);
 	int processMsg(const char*& ptr, const char* endPtr);
+
+	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
+	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
 
 	void startApi();
 
@@ -184,6 +198,9 @@ private:
 	std::string m_TwsTime;
 
 	std::string m_optionalCapabilities;
+
+	bool m_useV100Plus;
+	std::string m_connectOptions;
 
 };
 
