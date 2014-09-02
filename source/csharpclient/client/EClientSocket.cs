@@ -111,8 +111,6 @@ namespace IBApi
                 this.extraAuth = extraAuth;
                 try
                 {
-                    /*tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
-                    tcpWriter.Write(Constants.EOL);*/
                     var paramsList = new BinaryWriter(new MemoryStream());
 
                     paramsList.AddParameter("API");
