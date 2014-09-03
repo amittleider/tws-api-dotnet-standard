@@ -79,8 +79,17 @@ namespace IBApi
                         ReadMessageToInternalBuf();
                     }
 
-                    int incomingMessage = ReadInt();
-                    ProcessIncomingMessage(incomingMessage);
+                    try
+                    {
+                        int incomingMessage = ReadInt();
+                        ProcessIncomingMessage(incomingMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Data[0] = EClientErrors.BAD_MESSAGE;
+
+                        throw ex;
+                    }
                 }
             }
             catch (Exception e)
