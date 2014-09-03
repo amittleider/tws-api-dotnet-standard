@@ -28,6 +28,8 @@ namespace IBApi
         private bool isConnected;
         private int clientId;
         private bool extraAuth;
+        private bool useV100Plus;
+        private string connectOptions;
 
         /**
          * @brief Constructor
@@ -41,6 +43,19 @@ namespace IBApi
             this.extraAuth = false;
             this.isConnected = false;
             this.optionalCapabilities = "";
+        }
+
+        public void SetUseV100Plus(string connectOptions)
+        {
+            if (IsConnected())
+            {
+                wrapper.error(this.clientId, EClientErrors.NOT_CONNECTED.Code, EClientErrors.NOT_CONNECTED.Message);
+
+                return;
+            }
+
+            this.useV100Plus = true;
+            this.connectOptions = connectOptions;
         }
 
         public EWrapper Wrapper
@@ -91,21 +106,42 @@ namespace IBApi
                 tcpClientStream = tcpClient.GetStream();
                 tcpWriter = new BinaryWriter(tcpClientStream);
 
-                reader = new EReader(this, new BinaryReader(tcpClientStream));
+                reader = new EReader(this, new BinaryReader(tcpClientStream), useV100Plus);
                 this.clientId = clientId;
                 this.extraAuth = extraAuth;
                 try
                 {
-                    tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
-                    tcpWriter.Write(Constants.EOL);
+                    if (useV100Plus)
+                    {
+                        var paramsList = new BinaryWriter(new MemoryStream());
+
+                        paramsList.AddParameter("API");
+
+                        var lengthPos = prepareBuffer(paramsList);
+
+                        paramsList.AddParameter("v" + getVersion());
+                        paramsList.AddParameter(connectOptions);
+
+                        Send(paramsList, lengthPos);
+                    }
+                    else
+                    {
+                        tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
+                        tcpWriter.Write(Constants.EOL);
+                    }
                 }
                 catch (IOException)
                 {
                     wrapper.error("Could not establish connection. Make sure the TWS is enabled to accept socket clients!");
                     throw;
                 }
+
                 // Receive the response from the remote device.
+                if (useV100Plus)
+                    reader.ReadMessageToInternalBuf();
+                
                 serverVersion = reader.ReadInt();
+                
                 if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
                 {
                     ReportUpdateTWS("");
@@ -149,21 +185,28 @@ namespace IBApi
 
         }
 
+        private static string getVersion()
+        {
+            return Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
+        }
+
         public void startApi()
         {
             if (!CheckConnection())
                 return;
 
             const int VERSION = 2;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.StartApi);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(clientId);
 
             if (serverVersion >= MinServerVer.OPTIONAL_CAPABILITIES)
                 paramsList.AddParameter(optionalCapabilities);
-            
-            Send(paramsList);
+
+            Send(paramsList, lengthPos);
         }
 
         public string optionalCapabilities { get; set; }
@@ -253,7 +296,9 @@ namespace IBApi
             if (!Util.StringIsEmpty(contract.TradingClass) && !CheckServerVersion(MinServerVer.TRADING_CLASS, ""))
                 return;
             const int version = 3;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.ReqCalcImpliedVolat);
             paramsList.AddParameter(version);
             paramsList.AddParameter(reqId);
@@ -280,7 +325,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(impliedVolatilityOptions));
             }
 
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
         }
 
         /**
@@ -304,7 +349,9 @@ namespace IBApi
                 return;
 
             const int version = 3;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.ReqCalcOptionPrice);
             paramsList.AddParameter(version);
             paramsList.AddParameter(reqId);
@@ -331,7 +378,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(optionPriceOptions));
             }
 
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
         }
 
         /**
@@ -513,7 +560,9 @@ namespace IBApi
 
             int VERSION = 2;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.ExerciseOptions);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
@@ -540,7 +589,7 @@ namespace IBApi
             paramsList.AddParameter(account);
             paramsList.AddParameter(ovrd);
 
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -561,7 +610,9 @@ namespace IBApi
                 return;
 
             int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 44;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
 
             paramsList.AddParameter(OutgoingMessages.PlaceOrder);
             paramsList.AddParameter(MsgVersion);
@@ -968,7 +1019,7 @@ namespace IBApi
                 paramsList.AddParameter(order.OrderSolicited);
             }
 
-            Send(id, paramsList, EClientErrors.FAIL_SEND_ORDER);
+            Send(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
         //WARN: Have not tested this yet!
@@ -988,12 +1039,14 @@ namespace IBApi
             if (!CheckConnection())
                 return;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.ReplaceFA);
             paramsList.AddParameter(1);
             paramsList.AddParameter(faDataType);
             paramsList.AddParameter(xml);
-            Send(paramsList, EClientErrors.FAIL_SEND_FA_REPLACE);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REPLACE);
         }
 
         /**
@@ -1011,11 +1064,13 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestFA);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(faDataType);
-            Send(paramsList, EClientErrors.FAIL_SEND_FA_REQUEST);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REQUEST);
         }
 
         /**
@@ -1065,13 +1120,25 @@ namespace IBApi
                 " It does not support account summary requests."))
                 return;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestAccountSummary);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(group);
             paramsList.AddParameter(tags);
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
+        }
+
+        private uint prepareBuffer(BinaryWriter paramsList)
+        {
+            var rval = (uint)paramsList.BaseStream.Position;
+
+            if (this.useV100Plus)
+                paramsList.Write((int)0);
+
+            return rval;
         }
 
         /**
@@ -1087,13 +1154,15 @@ namespace IBApi
             int VERSION = 2;
             if (!CheckConnection())
                 return;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestAccountData);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(subscribe);
             if (serverVersion >= 9)
                 paramsList.AddParameter(acctCode);
-            Send(paramsList, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
         }
 
         /**
@@ -1105,10 +1174,12 @@ namespace IBApi
             int VERSION = 1;
             if (!CheckConnection())
                 return;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestAllOpenOrders);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1122,11 +1193,13 @@ namespace IBApi
             int VERSION = 1;
             if (!CheckConnection())
                 return;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestAutoOpenOrders);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(autoBind);
-            Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1155,7 +1228,9 @@ namespace IBApi
 
             int VERSION = 7;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestContractData);
             paramsList.AddParameter(VERSION);//version
             if (serverVersion >= MinServerVer.CONTRACT_DATA_CHAIN)
@@ -1191,7 +1266,7 @@ namespace IBApi
                 paramsList.AddParameter(contract.SecIdType);
                 paramsList.AddParameter(contract.SecId);
             }
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQCONTRACT);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCONTRACT);
         }
 
         /**
@@ -1207,10 +1282,12 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.CURRENT_TIME, " It does not support current time requests."))
                 return;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestCurrentTime);
             paramsList.AddParameter(VERSION);//version
-            Send(paramsList, EClientErrors.FAIL_SEND_REQCURRTIME);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCURRTIME);
         }
 
         /**
@@ -1227,7 +1304,9 @@ namespace IBApi
 
             int VERSION = 3;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestExecutions);
             paramsList.AddParameter(VERSION);//version
 
@@ -1249,7 +1328,7 @@ namespace IBApi
                 paramsList.AddParameter(filter.Exchange);
                 paramsList.AddParameter(filter.Side);
             }
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_EXEC);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_EXEC);
         }
 
         /**
@@ -1279,7 +1358,9 @@ namespace IBApi
             }
 
             const int VERSION = 3;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestFundamentalData);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(reqId);
@@ -1303,7 +1384,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(fundamentalDataOptions));
             }
 
-            Send(reqId, paramsList, EClientErrors.FAIL_SEND_REQFUNDDATA);
+            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFUNDDATA);
         }
 
         /**
@@ -1321,10 +1402,12 @@ namespace IBApi
 
             const int VERSION = 1;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestGlobalCancel);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_SEND_REQGLOBALCANCEL);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQGLOBALCANCEL);
         }
 
         /**
@@ -1383,7 +1466,9 @@ namespace IBApi
             }
 
             const int VERSION = 6;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestHistoricalData);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
@@ -1443,7 +1528,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(chartOptions));
             }
 
-            Send(paramsList, EClientErrors.FAIL_SEND_REQHISTDATA);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTDATA);
         }
 
         /**
@@ -1457,11 +1542,13 @@ namespace IBApi
                 return;
             const int VERSION = 1;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestIds);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(numIds);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1473,10 +1560,12 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestManagedAccounts);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1525,7 +1614,9 @@ namespace IBApi
                 return;
 
             int version = 11;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestMarketData);
             paramsList.AddParameter(version);
             paramsList.AddParameter(tickerId);
@@ -1592,7 +1683,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(TagValueListToString(mktDataOptions));
             }
-            Send(tickerId, paramsList, EClientErrors.FAIL_SEND_REQMKT);
+            Send(tickerId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKT);
         }
 
         /**
@@ -1607,11 +1698,13 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.REQ_MARKET_DATA_TYPE, " It does not support market data type requests."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestMarketDataType);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(marketDataType);
-            Send(paramsList, EClientErrors.FAIL_SEND_REQMARKETDATATYPE);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETDATATYPE);
         }
 
         /**
@@ -1633,7 +1726,9 @@ namespace IBApi
             }
 
             const int VERSION = 5;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestMarketDepth);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
@@ -1669,7 +1764,7 @@ namespace IBApi
                 //paramsList.AddParameter(tagValuesCount);
                 paramsList.AddParameter(TagValueListToString(mktDepthOptions));
             }
-            Send(paramsList, EClientErrors.FAIL_SEND_REQMKTDEPTH);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTH);
         }
 
         /**
@@ -1683,11 +1778,13 @@ namespace IBApi
                 return;
 
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestNewsBulletins);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(allMessages);
-            Send(paramsList, EClientErrors.FAIL_GENERIC);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1699,10 +1796,12 @@ namespace IBApi
             int VERSION = 1;
             if (!CheckConnection())
                 return;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestOpenOrders);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_SEND_OORDER);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1717,10 +1816,12 @@ namespace IBApi
                 return;
 
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestPositions);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_SEND_REQPOSITIONS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONS);
         }
 
         /**
@@ -1751,7 +1852,9 @@ namespace IBApi
             }
 
             const int VERSION = 3;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestRealTimeBars);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(tickerId);
@@ -1782,7 +1885,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(TagValueListToString(realTimeBarsOptions));
             }
-            Send(paramsList, EClientErrors.FAIL_SEND_REQRTBARS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQRTBARS);
         }
 
         /**
@@ -1794,10 +1897,12 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestScannerParameters);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS);
         }
 
         /**
@@ -1811,7 +1916,9 @@ namespace IBApi
             if (!CheckConnection())
                 return;
             const int VERSION = 4;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.RequestScannerSubscription);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(reqId);
@@ -1850,7 +1957,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(scannerSubscriptionOptions));
             }
 
-            Send(paramsList, EClientErrors.FAIL_SEND_REQSCANNER);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNER);
         }
 
         /**
@@ -1868,12 +1975,14 @@ namespace IBApi
                 return;
             const int VERSION = 1;
 
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.ChangeServerLog);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(logLevel);
 
-            Send(paramsList, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
         }
 
         public void verifyRequest(string apiName, string apiVersion)
@@ -1889,12 +1998,14 @@ namespace IBApi
             }
 
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.VerifyRequest);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(apiName);
             paramsList.AddParameter(apiVersion);
-            Send(paramsList, EClientErrors.FAIL_SEND_VERIFYREQUEST);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYREQUEST);
         }
 
         public void verifyMessage(string apiData)
@@ -1904,11 +2015,13 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.LINKING, " It does not support verification message sending."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.VerifyMessage);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(apiData);
-            Send(paramsList, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
         }
 
         public void queryDisplayGroups(int requestId)
@@ -1918,11 +2031,13 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.LINKING, " It does not support queryDisplayGroups request."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
-            Send(paramsList, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
         }
 
         public void subscribeToGroupEvents(int requestId, int groupId)
@@ -1932,12 +2047,14 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.LINKING, " It does not support subscribeToGroupEvents request."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.SubscribeToGroupEvents);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             paramsList.AddParameter(groupId);
-            Send(paramsList, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
         }
 
         public void updateDisplayGroup(int requestId, string contractInfo)
@@ -1947,12 +2064,14 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.LINKING, " It does not support updateDisplayGroup request."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.UpdateDisplayGroup);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             paramsList.AddParameter(contractInfo);
-            Send(paramsList, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
         }
 
         public void unsubscribeFromGroupEvents(int requestId)
@@ -1962,11 +2081,13 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.LINKING, " It does not support unsubscribeFromGroupEvents request."))
                 return;
             const int VERSION = 1;
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
-            Send(paramsList, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
         }
 
         protected bool CheckServerVersion(int requiredVersion)
@@ -1994,18 +2115,18 @@ namespace IBApi
             return true;
         }
 
-        protected void Send(List<byte> paramsList, CodeMsgPair error)
+        protected void Send(BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
         {
-            Send(IncomingMessage.NotValid, paramsList, error);
+            Send(IncomingMessage.NotValid, paramsList, lengthPos, error);
         }
 
-        protected void Send(int reqId, List<byte> paramsList, CodeMsgPair error)
+        protected void Send(int reqId, BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
         {
             try
             {
                 lock (this)
                 {
-                    Send(paramsList);
+                    Send(paramsList, lengthPos);
                 }
             }
             catch (Exception)
@@ -2015,9 +2136,16 @@ namespace IBApi
             }
         }
 
-        protected void Send(List<byte> request)
+        protected void Send(BinaryWriter request, uint lengthPos)
         {
-            tcpWriter.Write(request.ToArray());
+            if (useV100Plus)
+            {
+                request.Seek((int)lengthPos, SeekOrigin.Begin);
+                request.Write(IPAddress.HostToNetworkOrder((int)(request.BaseStream.Length - lengthPos - sizeof(int))));
+            }
+
+            request.Seek(0, SeekOrigin.Begin);
+            request.BaseStream.CopyTo(tcpWriter.BaseStream);
         }
 
         protected bool CheckConnection()
@@ -2053,7 +2181,9 @@ namespace IBApi
 
         protected void SendCancelRequest(OutgoingMessages msgType, int version, int reqId, CodeMsgPair errorMessage)
         {
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(msgType);
             paramsList.AddParameter(version);
             paramsList.AddParameter(reqId);
@@ -2061,7 +2191,7 @@ namespace IBApi
             {
                 lock (this)
                 {
-                    Send(paramsList);
+                    Send(paramsList, lengthPos);
                 }
             }
             catch (Exception)
@@ -2073,14 +2203,16 @@ namespace IBApi
 
         protected void SendCancelRequest(OutgoingMessages msgType, int version, CodeMsgPair errorMessage)
         {
-            List<byte> paramsList = new List<byte>();
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
             paramsList.AddParameter(msgType);
             paramsList.AddParameter(version);
             try
             {
                 lock (this)
                 {
-                    Send(paramsList);
+                    Send(paramsList, lengthPos);
                 }
             }
             catch (Exception)
