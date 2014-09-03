@@ -57,7 +57,9 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_UPDATEDISPLAYGROUP = new CodeMsgPair(548, "Update Display Group Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS = new CodeMsgPair(549, "Unsubscribe From Group Events Sending Error - ");
         public static readonly CodeMsgPair BAD_LENGTH = new CodeMsgPair(507, "Bad message length");
-
+        public static readonly CodeMsgPair BAD_MESSAGE = new CodeMsgPair(508, "Bad message");
+        public static readonly CodeMsgPair UNSUPPORTED_VERSION = new CodeMsgPair(506, "Unsupported version");
+    
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     
     }

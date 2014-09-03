@@ -49,7 +49,7 @@ namespace IBApi
         {
             if (IsConnected())
             {
-                wrapper.error(this.clientId, EClientErrors.NOT_CONNECTED.Code, EClientErrors.NOT_CONNECTED.Message);
+                wrapper.error(this.clientId, EClientErrors.AlreadyConnected.Code, EClientErrors.AlreadyConnected.Message);
 
                 return;
             }
@@ -139,14 +139,23 @@ namespace IBApi
                 // Receive the response from the remote device.
                 if (useV100Plus)
                     reader.ReadMessageToInternalBuf();
-                
+
                 serverVersion = reader.ReadInt();
-                
-                if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
+
+                if (!useV100Plus)
                 {
-                    ReportUpdateTWS("");
-                    return;
+                    if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
+                    {
+                        ReportUpdateTWS("");
+                        return;
+                    }
                 }
+                else
+                    if (serverVersion < Constants.MinVersion || serverVersion > Constants.MaxVersion)
+                    {
+                        wrapper.error(clientId, EClientErrors.UNSUPPORTED_VERSION.Code, EClientErrors.UNSUPPORTED_VERSION.Message);
+                        return;
+                    }
 
                 if (serverVersion >= 20)
                 {
@@ -177,6 +186,12 @@ namespace IBApi
             catch (SocketException se)
             {
                 wrapper.error(se);
+            }
+            catch (EClientException e)
+            {
+                var cmp = (e as EClientException).Err;
+
+                wrapper.error(-1, cmp.Code, cmp.Message);
             }
             catch (Exception e)
             {
