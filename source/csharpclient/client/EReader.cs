@@ -22,7 +22,7 @@ namespace IBApi
         private Thread runner;
 
         private bool useV100Plus;
-       
+
         public EReader(EClientSocket parent, BinaryReader reader, bool useV100Plus)
         {
             this.parent = parent;
@@ -57,17 +57,13 @@ namespace IBApi
 
             if (size > 64000 || tcpReader.Read(buf, 0, buf.Length) < size)
             {
-                var ex = new Exception();
-
-                ex.Data[0] = EClientErrors.BAD_LENGTH;
-
-                throw ex;
+                throw new EClientException(EClientErrors.BAD_LENGTH);
             }
 
             dataReader.BaseStream.Write(buf, 0, size);
             dataReader.BaseStream.Seek(0, SeekOrigin.Begin);
         }
-       
+
         public void ReadAndProcessMessages()
         {
             try
@@ -84,12 +80,19 @@ namespace IBApi
                         int incomingMessage = ReadInt();
                         ProcessIncomingMessage(incomingMessage);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        ex.Data[0] = EClientErrors.BAD_MESSAGE;
-
-                        throw ex;
+                        throw new EClientException(EClientErrors.BAD_MESSAGE);
                     }
+                }
+            }
+            catch (EClientException e)
+            {
+                if (parent.IsConnected())
+                {
+                    var cmp = (e as EClientException).Err;
+
+                    parent.Wrapper.error(-1, cmp.Code, cmp.Message);
                 }
             }
             catch (Exception e)
@@ -97,14 +100,8 @@ namespace IBApi
                 // For when TWS is closed when the trading program open
                 if (parent.IsConnected())
                 {
-                    if (e.Data.Contains(0))
-                    {
-                        var cmp = e.Data[0] as CodeMsgPair;
 
-                        parent.Wrapper.error(-1, cmp.Code, cmp.Message);
-                    }
-                    else
-                        parent.Wrapper.error(e);
+                    parent.Wrapper.error(e);
                 }
             }
             if (parent.IsConnected())
@@ -113,7 +110,7 @@ namespace IBApi
                 tcpReader.Close();
                 parent.Close();
             }
-          
+
         }
 
 
@@ -1364,7 +1361,7 @@ namespace IBApi
                                         close, volume, barCount, WAP,
                                         Boolean.Parse(hasGaps));
             }
-            
+
             // send end of dataset marker.
             parent.Wrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
         }
@@ -1527,7 +1524,7 @@ namespace IBApi
             else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected double ReadDoubleMax() 
+        protected double ReadDoubleMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
@@ -1555,7 +1552,7 @@ namespace IBApi
             else return Int32.Parse(intAsstring);
         }
 
-        protected int ReadIntMax() 
+        protected int ReadIntMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
@@ -1580,7 +1577,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = dataReader.ReadByte();                    
+                    b = dataReader.ReadByte();
                     if (b == 0)
                     {
                         break;

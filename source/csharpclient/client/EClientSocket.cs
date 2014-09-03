@@ -187,6 +187,12 @@ namespace IBApi
             {
                 wrapper.error(se);
             }
+            catch (EClientException e)
+            {
+                var cmp = (e as EClientException).Err;
+
+                wrapper.error(-1, cmp.Code, cmp.Message);
+            }
             catch (Exception e)
             {
                 wrapper.error(e);
