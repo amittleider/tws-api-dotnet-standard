@@ -86,7 +86,7 @@ public class ApiConnection extends EClientSocket {
             return;
 		}
 
-		Builder b = new Builder();
+		Builder b = prepareBuffer();
 
 		int VERSION = 43;
 
@@ -262,7 +262,7 @@ public class ApiConnection extends EClientSocket {
 	            b.send( "" );
 	        }
 
-			m_dos.write( b.getBytes() );
+	        closeAndSend( b );
 		}
 		catch( Exception e) {
 			e.printStackTrace();
