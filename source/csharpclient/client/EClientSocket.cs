@@ -119,8 +119,7 @@ namespace IBApi
 
                         var lengthPos = prepareBuffer(paramsList);
 
-                        paramsList.AddParameter("v" + getVersion());
-                        paramsList.AddParameter(connectOptions);
+                        paramsList.Write("v" + encodedVersion + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions));
 
                         Send(paramsList, lengthPos);
                     }
@@ -200,10 +199,7 @@ namespace IBApi
 
         }
 
-        private static string getVersion()
-        {
-            return Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
-        }
+        private static readonly string encodedVersion = Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
 
         public void startApi()
         {
