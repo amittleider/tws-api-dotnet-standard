@@ -55,7 +55,7 @@ namespace IBApi
             dataReader = new BinaryReader(new MemoryStream());
             byte[] buf = new byte[size];
 
-            if (size > 64000 || tcpReader.Read(buf, 0, buf.Length) < size)
+            if (size > Constants.MaxMsgSize || tcpReader.Read(buf, 0, buf.Length) < size)
             {
                 throw new EClientException(EClientErrors.BAD_LENGTH);
             }
