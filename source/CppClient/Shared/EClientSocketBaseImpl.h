@@ -4379,7 +4379,6 @@ void EClientSocketBase::onConnectBase()
 		if( !m_connectOptions.empty()) {
 			msg << ' ' << m_connectOptions;
 		}
-		msg << '\0';
 		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
