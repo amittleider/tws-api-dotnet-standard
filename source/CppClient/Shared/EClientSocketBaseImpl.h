@@ -4371,12 +4371,15 @@ void EClientSocketBase::onConnectBase()
 		msg.write( API_SIGN, sizeof(API_SIGN));
 		prepareBufferImpl( msg);
 		if( MIN_CLIENT_VER < MAX_CLIENT_VER) {
-			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER << '\0';
+			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER;
 		}
 		else {
-			msg << 'v' << MIN_CLIENT_VER << '\0';
+			msg << 'v' << MIN_CLIENT_VER;
 		}
-		ENCODE_FIELD( m_connectOptions);
+		if( !m_connectOptions.empty()) {
+			msg << ' ' << m_connectOptions;
+		}
+		msg << '\0';
 		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
