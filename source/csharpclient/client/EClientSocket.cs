@@ -119,10 +119,9 @@ namespace IBApi
 
                         var lengthPos = prepareBuffer(paramsList);
 
-                        paramsList.AddParameter("v" + getVersion());
-                        paramsList.AddParameter(connectOptions);
+                        paramsList.Write("v" + encodedVersion + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions));
 
-                        Send(paramsList, lengthPos);
+                        CloseAndSend(paramsList, lengthPos);
                     }
                     else
                     {
@@ -200,10 +199,7 @@ namespace IBApi
 
         }
 
-        private static string getVersion()
-        {
-            return Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
-        }
+        private static readonly string encodedVersion = Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
 
         public void startApi()
         {
@@ -221,7 +217,7 @@ namespace IBApi
             if (serverVersion >= MinServerVer.OPTIONAL_CAPABILITIES)
                 paramsList.AddParameter(optionalCapabilities);
 
-            Send(paramsList, lengthPos);
+            CloseAndSend(paramsList, lengthPos);
         }
 
         public string optionalCapabilities { get; set; }
@@ -340,7 +336,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(impliedVolatilityOptions));
             }
 
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT);
         }
 
         /**
@@ -393,7 +389,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(optionPriceOptions));
             }
 
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE);
         }
 
         /**
@@ -604,7 +600,7 @@ namespace IBApi
             paramsList.AddParameter(account);
             paramsList.AddParameter(ovrd);
 
-            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1034,7 +1030,7 @@ namespace IBApi
                 paramsList.AddParameter(order.OrderSolicited);
             }
 
-            Send(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
+            CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
         //WARN: Have not tested this yet!
@@ -1061,7 +1057,7 @@ namespace IBApi
             paramsList.AddParameter(1);
             paramsList.AddParameter(faDataType);
             paramsList.AddParameter(xml);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REPLACE);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REPLACE);
         }
 
         /**
@@ -1085,7 +1081,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.RequestFA);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(faDataType);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REQUEST);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_FA_REQUEST);
         }
 
         /**
@@ -1143,7 +1139,7 @@ namespace IBApi
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(group);
             paramsList.AddParameter(tags);
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
         }
 
         private uint prepareBuffer(BinaryWriter paramsList)
@@ -1177,7 +1173,7 @@ namespace IBApi
             paramsList.AddParameter(subscribe);
             if (serverVersion >= 9)
                 paramsList.AddParameter(acctCode);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTDATA);
         }
 
         /**
@@ -1194,7 +1190,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestAllOpenOrders);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1214,7 +1210,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.RequestAutoOpenOrders);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(autoBind);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1281,7 +1277,7 @@ namespace IBApi
                 paramsList.AddParameter(contract.SecIdType);
                 paramsList.AddParameter(contract.SecId);
             }
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCONTRACT);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCONTRACT);
         }
 
         /**
@@ -1302,7 +1298,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestCurrentTime);
             paramsList.AddParameter(VERSION);//version
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCURRTIME);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQCURRTIME);
         }
 
         /**
@@ -1343,7 +1339,7 @@ namespace IBApi
                 paramsList.AddParameter(filter.Exchange);
                 paramsList.AddParameter(filter.Side);
             }
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_EXEC);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_EXEC);
         }
 
         /**
@@ -1399,7 +1395,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(fundamentalDataOptions));
             }
 
-            Send(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFUNDDATA);
+            CloseAndSend(reqId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFUNDDATA);
         }
 
         /**
@@ -1422,7 +1418,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestGlobalCancel);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQGLOBALCANCEL);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQGLOBALCANCEL);
         }
 
         /**
@@ -1543,7 +1539,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(chartOptions));
             }
 
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTDATA);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTDATA);
         }
 
         /**
@@ -1563,7 +1559,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.RequestIds);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(numIds);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1580,7 +1576,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestManagedAccounts);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1698,7 +1694,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(TagValueListToString(mktDataOptions));
             }
-            Send(tickerId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKT);
+            CloseAndSend(tickerId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKT);
         }
 
         /**
@@ -1719,7 +1715,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.RequestMarketDataType);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(marketDataType);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETDATATYPE);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETDATATYPE);
         }
 
         /**
@@ -1779,7 +1775,7 @@ namespace IBApi
                 //paramsList.AddParameter(tagValuesCount);
                 paramsList.AddParameter(TagValueListToString(mktDepthOptions));
             }
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTH);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTH);
         }
 
         /**
@@ -1799,7 +1795,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.RequestNewsBulletins);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(allMessages);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_GENERIC);
         }
 
         /**
@@ -1816,7 +1812,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestOpenOrders);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_OORDER);
         }
 
         /**
@@ -1836,7 +1832,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestPositions);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONS);
         }
 
         /**
@@ -1900,7 +1896,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(TagValueListToString(realTimeBarsOptions));
             }
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQRTBARS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQRTBARS);
         }
 
         /**
@@ -1917,7 +1913,7 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestScannerParameters);
             paramsList.AddParameter(VERSION);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS);
         }
 
         /**
@@ -1972,7 +1968,7 @@ namespace IBApi
                 paramsList.AddParameter(TagValueListToString(scannerSubscriptionOptions));
             }
 
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNER);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSCANNER);
         }
 
         /**
@@ -1997,7 +1993,7 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(logLevel);
 
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
         }
 
         public void verifyRequest(string apiName, string apiVersion)
@@ -2020,7 +2016,7 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(apiName);
             paramsList.AddParameter(apiVersion);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYREQUEST);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYREQUEST);
         }
 
         public void verifyMessage(string apiData)
@@ -2036,7 +2032,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.VerifyMessage);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(apiData);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
         }
 
         public void queryDisplayGroups(int requestId)
@@ -2052,7 +2048,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.QueryDisplayGroups);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
         }
 
         public void subscribeToGroupEvents(int requestId, int groupId)
@@ -2069,7 +2065,7 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             paramsList.AddParameter(groupId);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
         }
 
         public void updateDisplayGroup(int requestId, string contractInfo)
@@ -2086,7 +2082,7 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             paramsList.AddParameter(contractInfo);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
         }
 
         public void unsubscribeFromGroupEvents(int requestId)
@@ -2102,7 +2098,7 @@ namespace IBApi
             paramsList.AddParameter(OutgoingMessages.UnsubscribeFromGroupEvents);
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
-            Send(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
         }
 
         protected bool CheckServerVersion(int requiredVersion)
@@ -2130,18 +2126,18 @@ namespace IBApi
             return true;
         }
 
-        protected void Send(BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
+        protected void CloseAndSend(BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
         {
-            Send(IncomingMessage.NotValid, paramsList, lengthPos, error);
+            CloseAndSend(IncomingMessage.NotValid, paramsList, lengthPos, error);
         }
 
-        protected void Send(int reqId, BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
+        protected void CloseAndSend(int reqId, BinaryWriter paramsList, uint lengthPos, CodeMsgPair error)
         {
             try
             {
                 lock (this)
                 {
-                    Send(paramsList, lengthPos);
+                    CloseAndSend(paramsList, lengthPos);
                 }
             }
             catch (Exception)
@@ -2151,7 +2147,7 @@ namespace IBApi
             }
         }
 
-        protected void Send(BinaryWriter request, uint lengthPos)
+        protected void CloseAndSend(BinaryWriter request, uint lengthPos)
         {
             if (useV100Plus)
             {
@@ -2206,7 +2202,7 @@ namespace IBApi
             {
                 lock (this)
                 {
-                    Send(paramsList, lengthPos);
+                    CloseAndSend(paramsList, lengthPos);
                 }
             }
             catch (Exception)
@@ -2227,7 +2223,7 @@ namespace IBApi
             {
                 lock (this)
                 {
-                    Send(paramsList, lengthPos);
+                    CloseAndSend(paramsList, lengthPos);
                 }
             }
             catch (Exception)
