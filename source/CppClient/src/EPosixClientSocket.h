@@ -25,6 +25,10 @@ public:
 
 private:
 
+	bool eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt);
+
+private:
+
 	int send( const char* buf, size_t sz);
 	int receive( char* buf, size_t sz);
 

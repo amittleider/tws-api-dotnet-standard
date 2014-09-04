@@ -39,6 +39,7 @@
 	// includes
 
 	#include <arpa/inet.h>
+	#include <netdb.h>
 	#include <errno.h>
 	#include <sys/select.h>
 	#include <sys/fcntl.h>

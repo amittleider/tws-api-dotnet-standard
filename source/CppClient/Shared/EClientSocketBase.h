@@ -38,8 +38,19 @@ protected:
 
 public:
 
+	enum ConnState {
+		CS_DISCONNECTED,
+		CS_CONNECTING,
+		CS_CONNECTED,
+		CS_REDIRECT
+	};
+
 	// connection state
+	ConnState connState() const;
 	bool isConnected() const;
+
+	const std::string& host() const { return m_host; }
+	unsigned port() const { return m_port; }
 
 protected:
 
@@ -47,6 +58,8 @@ protected:
 	EWrapper * getWrapper() const;
 	void setClientId( int clientId);
 	void setExtraAuth( bool extraAuth);
+	void setHost( const std::string& host);
+	void setPort( unsigned port);
 
 public:
 
@@ -173,6 +186,7 @@ private:
 
 protected:
 
+	bool isConnecting() const;
 	void onConnectBase();
 
 private:
@@ -190,9 +204,12 @@ private:
 	BytesVec m_inBuffer;
 	BytesVec m_outBuffer;
 
+	std::string m_host;
+	int m_port;
+
 	int m_clientId;
 
-	bool m_connected;
+	ConnState m_connState;
 	bool m_extraAuth;
 	int m_serverVersion;
 	std::string m_TwsTime;
