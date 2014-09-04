@@ -1744,5 +1744,10 @@ namespace TWSLib
         {
             socket.unsubscribeFromGroupEvents(reqId);
         }
+
+        public void setUseV100Plus(string connectOptions)
+        {
+            socket.SetUseV100Plus(connectOptions);
+        }
     }
 }
