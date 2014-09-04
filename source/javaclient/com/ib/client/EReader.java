@@ -3,6 +3,7 @@
 
 package com.ib.client;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Vector;
@@ -65,7 +66,7 @@ public class EReader extends Thread {
 
     private EClientSocket 	m_parent;
     private DataInputStream m_dis;
-    private int 			m_bytesToRead;
+    private ByteArrayInputStream m_internalBuf;
     private boolean 		m_useV100Plus;
     
     public void setUseV100Plus() { m_useV100Plus = true; }
@@ -117,18 +118,10 @@ public class EReader extends Thread {
         catch (IOException e) {
         }
     }
-
+    
     protected boolean processMsg() throws IOException {
     	if( m_useV100Plus ) {
-        	readMessageLength();
-        	if( m_bytesToRead > MAX_MSG_LENGTH ) {
-        		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
-        				EClientErrors.BAD_LENGTH.msg() + "Message is too long: " + m_bytesToRead);
-        		return false;
-        	}
-    	}
-    	else {
-    	    m_bytesToRead = Integer.MAX_VALUE;
+    	    readMessageToInternalBuf();
     	}
     	
     	int msgId = readInt();
@@ -1208,26 +1201,45 @@ public class EReader extends Thread {
             }
         }
         
-        if( m_useV100Plus && m_bytesToRead >= 4 ) {
-        	System.out.println("Warning: Message " + msgId + " has " + m_bytesToRead + " extra bytes!");
-        	m_dis.skipBytes(m_bytesToRead);
+        if ( m_useV100Plus ) {
+            if ( m_internalBuf != null ) {
+                m_internalBuf = null; // Don't need it anymore
+            }
         }
         return true;
     }
 
-    public void readMessageLength() throws IOException {
-        m_bytesToRead = m_dis.readInt();
+    public boolean readMessageToInternalBuf() throws IOException {
+        int bytesToRead = m_dis.readInt();
+        if( bytesToRead > MAX_MSG_LENGTH ) {
+            eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+                    EClientErrors.BAD_LENGTH.msg() + "Message is too long: " + bytesToRead);
+            return false;
+        }
+        
+        byte[] internalBuffer = new byte[ bytesToRead ];
+        m_dis.readFully( internalBuffer, 0, internalBuffer.length );
+        m_internalBuf = new ByteArrayInputStream( internalBuffer );
+        return true;
     }
     
     protected String readStr() throws IOException, ArrayIndexOutOfBoundsException {
         StringBuffer buf = new StringBuffer();
         while( true) {
-        	if ( m_useV100Plus && m_bytesToRead <= 0 ) {
-        		throw new ArrayIndexOutOfBoundsException("Unexpected end of Message");
+            byte c;
+        	if ( m_useV100Plus ) {
+        	    if ( m_internalBuf == null ) {
+        	        throw new IOException( "No bytes have been read" );
+        	    }
+        	    int by = m_internalBuf.read();
+        	    if ( by < 0 ) {
+        	        throw new ArrayIndexOutOfBoundsException("Unexpected end of Message");
+        	    }
+        	    c = (byte) by;
         	}
-        	
-            byte c = m_dis.readByte();
-            m_bytesToRead--;
+        	else {
+        	    c = m_dis.readByte();
+        	}
             if( c == 0) {
                 break;
             }
