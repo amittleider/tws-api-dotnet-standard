@@ -257,7 +257,7 @@ const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exc
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
-const int MAX_MSG_LEN = 24 * 1024 * 1024 - 1; // 24Mb - 1byte
+const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
 const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
 
 ///////////////////////////////////////////////////////////
@@ -4371,12 +4371,15 @@ void EClientSocketBase::onConnectBase()
 		msg.write( API_SIGN, sizeof(API_SIGN));
 		prepareBufferImpl( msg);
 		if( MIN_CLIENT_VER < MAX_CLIENT_VER) {
-			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER << '\0';
+			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER;
 		}
 		else {
-			msg << 'v' << MIN_CLIENT_VER << '\0';
+			msg << 'v' << MIN_CLIENT_VER;
 		}
-		ENCODE_FIELD( m_connectOptions);
+		if( !m_connectOptions.empty()) {
+			msg << ' ' << m_connectOptions;
+		}
+		msg << '\0';
 		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
