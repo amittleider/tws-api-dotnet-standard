@@ -119,7 +119,7 @@ namespace IBApi
 
                         var lengthPos = prepareBuffer(paramsList);
 
-                        paramsList.Write("v" + encodedVersion + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions));
+                        paramsList.Write(Encoding.ASCII.GetBytes("v" + encodedVersion + (IsEmpty(connectOptions) ? string.Empty : " " + connectOptions)));
 
                         CloseAndSend(paramsList, lengthPos);
                     }
@@ -150,7 +150,20 @@ namespace IBApi
                     }
                 }
                 else
-                    if (serverVersion < Constants.MinVersion || serverVersion > Constants.MaxVersion)
+                    if (serverVersion == -1)
+                    {
+                        var srv = reader.ReadString().Split(':');
+
+                        if (srv.Length > 1)
+                            if (!int.TryParse(srv[1], out port))
+                                throw new EClientException(EClientErrors.BAD_MESSAGE);
+
+                        eDisconnect();
+                        eConnect(srv[0], port, clientId, extraAuth);
+
+                        return;
+                    }
+                    else if (serverVersion < Constants.MinVersion || serverVersion > Constants.MaxVersion)
                     {
                         wrapper.error(clientId, EClientErrors.UNSUPPORTED_VERSION.Code, EClientErrors.UNSUPPORTED_VERSION.Message);
                         return;
