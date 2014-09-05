@@ -42,7 +42,8 @@ namespace IBApi
 
         public void Interrupt()
         {
-            this.runner.Abort();
+            if (runner != null)
+                runner.Abort();
         }
 
         public void ReadMessageToInternalBuf()
