@@ -1262,6 +1262,7 @@ public class EReader extends Thread {
     	public abstract String readStr() throws IOException;
     }
     
+    /** *** provide buffered reading implementation for a complete length prefixed message *** */
     private static class V100MessageReader implements IMessageReader {
     	private final byte[] m_buffer;
     	private int m_currentPos = 0;
@@ -1291,6 +1292,7 @@ public class EReader extends Thread {
         }
     }
     
+    /** *** provide non-buffered reading implementation for old style, non delimited message *** */
     private static class PreV100MessageReader implements IMessageReader {
     	private final DataInputStream m_din;
     	
