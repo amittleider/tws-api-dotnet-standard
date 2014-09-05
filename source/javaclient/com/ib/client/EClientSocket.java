@@ -327,7 +327,9 @@ public class EClientSocket {
         }
         
         // check server version
-    	m_reader.createMessageReader();
+    	if( !m_reader.readMessageToInternalBuf() ) {
+    	    return;
+    	}  
         m_serverVersion = m_reader.readInt();
         System.out.println("Server Version:" + m_serverVersion);
         
