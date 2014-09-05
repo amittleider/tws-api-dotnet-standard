@@ -3,6 +3,7 @@
 
 package com.ib.client;
 
+import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -120,7 +121,7 @@ public class EReader extends Thread {
     }
     
     protected boolean processMsg() throws IOException {
-    	if ( !createMessageReader() ) {
+    	if ( !readMessageToInternalBuf() ) {
     		return false;
     	}
     	
@@ -1201,11 +1202,11 @@ public class EReader extends Thread {
             }
         }
         
-        m_messageReader = null; // Don't need it anymore
+        m_messageReader.close();
         return true;
     }
 
-    public boolean createMessageReader() throws IOException {
+    public boolean readMessageToInternalBuf() throws IOException {
     	if ( m_useV100Plus ) {
 	    	try {
 	    		m_messageReader = new V100MessageReader( m_dis );
@@ -1258,7 +1259,7 @@ public class EReader extends Thread {
         	                                      : Double.parseDouble( str);
     }
     
-    private interface IMessageReader {
+    private interface IMessageReader extends Closeable {
     	public abstract String readStr() throws IOException;
     }
     
@@ -1288,7 +1289,11 @@ public class EReader extends Thread {
                 }
             }
             m_currentPos = m_buffer.length;
-    		throw new EOFException( "Unexpected end of Message" );
+    		throw new EOFException( "attempt to read past the end of buffer" );
+        }
+
+        @Override public void close() {
+            m_currentPos = m_buffer.length;
         }
     }
     
@@ -1313,6 +1318,10 @@ public class EReader extends Thread {
  	        String str = buf.toString();
  	        return str.length() == 0 ? null : str;    
  	    }
+    	
+    	@Override public void close() {
+    	    /** noop in pre-v100 */
+    	}
     }
     
     @SuppressWarnings("serial")
