@@ -38,10 +38,10 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 	bool bRes = m_pClient->eConnect( host, port, clientId, /* extraAuth */ false);
 
 	if (bRes) {
-		printf( "Connected to %s:%d clientId:%d\n", !( host && *host) ? "127.0.0.1" : host, port, clientId);
+		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
 	}
 	else
-		printf( "Cannot connect to %s:%d clientId:%d\n", !( host && *host) ? "127.0.0.1" : host, port, clientId);
+		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
 
 	return bRes;
 }

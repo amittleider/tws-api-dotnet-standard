@@ -477,7 +477,7 @@ static std::string errMsg(std::exception e) {
 EClientSocketBase::EClientSocketBase( EWrapper *ptr)
 	: m_pEWrapper(ptr)
 	, m_clientId(-1)
-	, m_connected(false)
+	, m_connState(CS_DISCONNECTED)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
 	, m_useV100Plus(false)
@@ -488,6 +488,21 @@ EClientSocketBase::~EClientSocketBase()
 {
 }
 
+EClientSocketBase::ConnState EClientSocketBase::connState() const
+{
+	return m_connState;
+}
+
+bool EClientSocketBase::isConnected() const
+{
+	return m_connState == CS_CONNECTED;
+}
+
+bool EClientSocketBase::isConnecting() const
+{
+	return m_connState == CS_CONNECTING;
+}
+
 void EClientSocketBase::eConnectBase()
 {
 }
@@ -496,7 +511,7 @@ void EClientSocketBase::eDisconnectBase()
 {
 	m_TwsTime.clear();
 	m_serverVersion = 0;
-	m_connected = false;
+	m_connState = CS_DISCONNECTED;
 	m_extraAuth = false;
 	m_clientId = -1;
 	m_outBuffer.clear();
@@ -537,7 +552,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 							   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -660,7 +675,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 void EClientSocketBase::cancelMktData(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -681,7 +696,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -753,7 +768,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract
 void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -784,7 +799,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 									   int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -879,7 +894,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -908,7 +923,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 									const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -981,7 +996,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1009,7 +1024,7 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 void EClientSocketBase::reqScannerParameters()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1037,7 +1052,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 	const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1101,7 +1116,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 void EClientSocketBase::cancelScannerSubscription(int tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1129,7 +1144,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 										   const std::string& reportType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1176,7 +1191,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 {
 		// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1202,7 +1217,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1255,7 +1270,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1281,7 +1296,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1334,7 +1349,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& con
 void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1360,7 +1375,7 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1426,7 +1441,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 void EClientSocketBase::reqCurrentTime()
 {
     // not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1454,7 +1469,7 @@ void EClientSocketBase::reqCurrentTime()
 void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( id, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2026,7 +2041,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 void EClientSocketBase::cancelOrder( OrderId id)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( id, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2047,7 +2062,7 @@ void EClientSocketBase::cancelOrder( OrderId id)
 void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acctCode)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2071,7 +2086,7 @@ void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acc
 void EClientSocketBase::reqOpenOrders()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2091,7 +2106,7 @@ void EClientSocketBase::reqOpenOrders()
 void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2112,7 +2127,7 @@ void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 void EClientSocketBase::reqAllOpenOrders()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2134,7 +2149,7 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	//NOTE: Time format must be 'yyyymmdd-hh:mm:ss' E.g. '20030702-14:55'
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2167,7 +2182,7 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 void EClientSocketBase::reqIds( int numIds)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( numIds, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2188,7 +2203,7 @@ void EClientSocketBase::reqIds( int numIds)
 void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2209,7 +2224,7 @@ void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 void EClientSocketBase::cancelNewsBulletins()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2229,7 +2244,7 @@ void EClientSocketBase::cancelNewsBulletins()
 void EClientSocketBase::setServerLogLevel(int logLevel)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2250,7 +2265,7 @@ void EClientSocketBase::setServerLogLevel(int logLevel)
 void EClientSocketBase::reqManagedAccts()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2271,7 +2286,7 @@ void EClientSocketBase::reqManagedAccts()
 void EClientSocketBase::requestFA(faDataType pFaDataType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2297,7 +2312,7 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxml)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2328,7 +2343,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
                                      const std::string& account, int override)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2383,7 +2398,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
 void EClientSocketBase::reqGlobalCancel()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2409,7 +2424,7 @@ void EClientSocketBase::reqGlobalCancel()
 void EClientSocketBase::reqMarketDataType( int marketDataType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2528,7 +2543,7 @@ int EClientSocketBase::bufferedRead()
 void EClientSocketBase::reqPositions()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2553,7 +2568,7 @@ void EClientSocketBase::reqPositions()
 void EClientSocketBase::cancelPositions()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2578,7 +2593,7 @@ void EClientSocketBase::cancelPositions()
 void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2606,7 +2621,7 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 void EClientSocketBase::cancelAccountSummary( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2632,7 +2647,7 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 void EClientSocketBase::verifyRequest(const std::string& apiName, const std::string& apiVersion)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2665,7 +2680,7 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 void EClientSocketBase::verifyMessage(const std::string& apiData)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2691,7 +2706,7 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 void EClientSocketBase::queryDisplayGroups( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2717,7 +2732,7 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2744,7 +2759,7 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contractInfo)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2771,7 +2786,7 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 void EClientSocketBase::startApi()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2794,7 +2809,7 @@ void EClientSocketBase::startApi()
 void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2831,8 +2846,8 @@ bool EClientSocketBase::checkMessages()
 	const char*	endPtr = ptr + m_inBuffer.size();
 
 	try {
-		while( (m_connected ? processMsg( ptr, endPtr)
-			: processConnectAck( ptr, endPtr)) > 0) {
+		while( (isConnected() ? processMsg( ptr, endPtr)
+			: isConnecting() ? processConnectAck( ptr, endPtr) : 0) > 0) {
 			if( (ptr - beginPtr) >= (int)m_inBuffer.size())
 				break;
 		}
@@ -2859,6 +2874,29 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 		// check server version
 		DECODE_FIELD( m_serverVersion);
 		if( m_useV100Plus) {
+
+			// handle redirects
+			if( m_serverVersion < 0) {
+
+				std::string hostport;
+				DECODE_FIELD( hostport);
+
+				std::string::size_type sep = hostport.find( ':');
+				if( sep != std::string::npos) {
+					m_host = hostport.substr(0, sep);
+					m_port = atoi( hostport.c_str() + ++sep);
+				}
+				else {
+					m_host = hostport;
+				}
+
+				m_connState = CS_REDIRECT;
+
+				int processed = ptr - beginPtr;
+				beginPtr = ptr;
+				return processed;
+			}
+
 			if( m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) {
 				eDisconnect();
 				m_pEWrapper->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
@@ -2875,7 +2913,7 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 			return -1;
 		}
 
-		m_connected = true;
+		m_connState = CS_CONNECTED;
 
 		// send the clientId
 		if( m_serverVersion >= 3) {
@@ -4340,11 +4378,6 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 	return processOnePrefixedMsg( beginPtr, endPtr, &EClientSocketBase::processMsgImpl);
 }
 
-bool EClientSocketBase::isConnected() const
-{
-	return m_connected;
-}
-
 EWrapper * EClientSocketBase::getWrapper() const
 {
 	return m_pEWrapper;
@@ -4360,11 +4393,23 @@ void EClientSocketBase::setExtraAuth( bool extraAuth)
 	m_extraAuth = extraAuth;
 }
 
+void EClientSocketBase::setHost( const std::string& host)
+{
+	m_host = host;
+}
+
+void EClientSocketBase::setPort( unsigned port)
+{
+	m_port = port;
+}
+
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 void EClientSocketBase::onConnectBase()
 {
+	m_connState = CS_CONNECTING;
+
 	// send client version
 	std::ostringstream msg;
 	if( m_useV100Plus) {

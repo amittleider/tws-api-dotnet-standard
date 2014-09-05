@@ -20,7 +20,10 @@ const unsigned SLEEP_TIME = 10;
 int main(int argc, char** argv)
 {
 	const char* host = argc > 1 ? argv[1] : "";
-	unsigned int port = 7496;
+	unsigned int port = argc > 2 ? atoi(argv[2]) : 0;
+	if (port <= 0)
+		port = 7496;
+	const char* connectOptions = argc > 3 ? argv[3] : 0;
 	int clientId = 0;
 
 	unsigned attempt = 0;
@@ -32,7 +35,9 @@ int main(int argc, char** argv)
 
 		TestCppClient client;
 
-		//client.setUseV100Plus("");
+		if( connectOptions) {
+			client.setUseV100Plus( connectOptions);
+		}
 		client.connect( host, port, clientId);
 
 		while( client.isConnected()) {
