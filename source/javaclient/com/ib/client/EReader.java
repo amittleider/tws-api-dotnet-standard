@@ -3,8 +3,8 @@
 
 package com.ib.client;
 
-import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -66,7 +66,7 @@ public class EReader extends Thread {
 
     private EClientSocket 	m_parent;
     private DataInputStream m_dis;
-    private ByteArrayInputStream m_internalBuf;
+    private IMessageReader  m_messageReader;
     private boolean 		m_useV100Plus;
     
     public void setUseV100Plus() { m_useV100Plus = true; }
@@ -99,9 +99,9 @@ public class EReader extends Thread {
         }
         catch ( Exception ex ) {
         	if (parent().isConnected()) {
-        		if( ex instanceof ArrayIndexOutOfBoundsException ) {
+        		if( ex instanceof EOFException ) {
             		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
-            				EClientErrors.BAD_LENGTH.msg() + ex.getMessage());
+            				EClientErrors.BAD_LENGTH.msg() + " " + ex.getMessage());
         		}
         		else {
         			eWrapper().error( ex);
@@ -120,8 +120,8 @@ public class EReader extends Thread {
     }
     
     protected boolean processMsg() throws IOException {
-    	if( m_useV100Plus ) {
-    	    readMessageToInternalBuf();
+    	if ( !createMessageReader() ) {
+    		return false;
     	}
     	
     	int msgId = readInt();
@@ -1201,55 +1201,30 @@ public class EReader extends Thread {
             }
         }
         
-        if ( m_useV100Plus ) {
-            if ( m_internalBuf != null ) {
-                m_internalBuf = null; // Don't need it anymore
-            }
-        }
+        m_messageReader = null; // Don't need it anymore
         return true;
     }
 
-    public boolean readMessageToInternalBuf() throws IOException {
-        int bytesToRead = m_dis.readInt();
-        if( bytesToRead > MAX_MSG_LENGTH ) {
-            eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
-                    EClientErrors.BAD_LENGTH.msg() + "Message is too long: " + bytesToRead);
-            return false;
-        }
-        
-        byte[] internalBuffer = new byte[ bytesToRead ];
-        m_dis.readFully( internalBuffer, 0, internalBuffer.length );
-        m_internalBuf = new ByteArrayInputStream( internalBuffer );
-        return true;
+    public boolean createMessageReader() throws IOException {
+    	if ( m_useV100Plus ) {
+	    	try {
+	    		m_messageReader = new V100MessageReader( m_dis );
+	    	}
+	    	catch ( InvalidMessageLengthException ex ) {
+	    		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+	    				EClientErrors.BAD_LENGTH.msg() + " " + ex.getMessage() );
+	    		m_messageReader = null;
+	    	}
+    	}
+    	else {
+    		m_messageReader = new PreV100MessageReader( m_dis );
+    	}
+    	return m_messageReader != null;
     }
     
-    protected String readStr() throws IOException, ArrayIndexOutOfBoundsException {
-        StringBuffer buf = new StringBuffer();
-        while( true) {
-            byte c;
-        	if ( m_useV100Plus ) {
-        	    if ( m_internalBuf == null ) {
-        	        throw new IOException( "No bytes have been read" );
-        	    }
-        	    int by = m_internalBuf.read();
-        	    if ( by < 0 ) {
-        	        throw new ArrayIndexOutOfBoundsException("Unexpected end of Message");
-        	    }
-        	    c = (byte) by;
-        	}
-        	else {
-        	    c = m_dis.readByte();
-        	}
-            if( c == 0) {
-                break;
-            }
-            buf.append( (char)c);
-        }
-
-        String str = buf.toString();
-        return str.length() == 0 ? null : str;
+    protected String readStr() throws IOException {
+    	return m_messageReader.readStr();
     }
-
 
     boolean readBoolFromInt() throws IOException {
         String str = readStr();
@@ -1281,5 +1256,67 @@ public class EReader extends Thread {
         String str = readStr();
         return (str == null || str.length() == 0) ? Double.MAX_VALUE
         	                                      : Double.parseDouble( str);
+    }
+    
+    private interface IMessageReader {
+    	public abstract String readStr() throws IOException;
+    }
+    
+    private static class V100MessageReader implements IMessageReader {
+    	private final byte[] m_buffer;
+    	private int m_currentPos = 0;
+    	
+    	public V100MessageReader( DataInputStream din ) throws IOException {
+    		int length = din.readInt();
+    		if ( length < 0 || length > MAX_MSG_LENGTH ) {
+    			throw new InvalidMessageLengthException( "message is too long: " + (length & 0xffffffffL) );
+    		}
+    		m_buffer = new byte[ length ];
+    		din.readFully( m_buffer );
+    	}
+    	
+    	@Override public String readStr() throws IOException {
+    		int startPos = m_currentPos;
+    		int bufferLength = m_buffer.length;
+            for ( int currentPos = startPos; currentPos < bufferLength; ++currentPos ) {
+                if ( m_buffer[ currentPos ] == 0 ) {
+                	m_currentPos = currentPos + 1;
+                	return currentPos > startPos 
+                			? new String( m_buffer, startPos, currentPos - startPos )
+                			: null;
+                }
+            }
+            m_currentPos = m_buffer.length;
+    		throw new EOFException( "Unexpected end of Message" );
+        }
+    }
+    
+    private static class PreV100MessageReader implements IMessageReader {
+    	private final DataInputStream m_din;
+    	
+    	public PreV100MessageReader( DataInputStream din ) {
+    		m_din = din;
+    	}
+    	
+    	@Override public String readStr() throws IOException {
+    		 StringBuffer buf = new StringBuffer();
+ 	         while( true) {
+ 	            byte c = m_din.readByte();
+ 	            if( c == 0) {
+ 	                break;
+ 	            }
+ 	            buf.append( (char)c);
+ 	        }
+ 	
+ 	        String str = buf.toString();
+ 	        return str.length() == 0 ? null : str;    
+ 	    }
+    }
+    
+    @SuppressWarnings("serial")
+	private static class InvalidMessageLengthException extends IOException {
+		public InvalidMessageLengthException(String message) {
+			super(message);
+		}
     }
 }
