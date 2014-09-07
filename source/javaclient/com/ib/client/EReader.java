@@ -7,6 +7,7 @@ import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
 
 /**
@@ -100,7 +101,10 @@ public class EReader extends Thread {
         }
         catch ( Exception ex ) {
         	if (parent().isConnected()) {
-        		if( ex instanceof EOFException ) {
+        		if ( ex instanceof EOSException ) { // must come before EOFException
+        			System.out.println( "End of stream");
+        		}
+        		else if( ex instanceof EOFException ) {
             		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
             				EClientErrors.BAD_LENGTH.msg() + " " + ex.getMessage());
         		}
@@ -1209,7 +1213,7 @@ public class EReader extends Thread {
     public boolean readMessageToInternalBuf() throws IOException {
     	if ( m_useV100Plus ) {
 	    	try {
-	    		m_messageReader = new V100MessageReader( m_dis );
+	    		m_messageReader = new LengthPrefixedMessageReader( m_dis );
 	    	}
 	    	catch ( InvalidMessageLengthException ex ) {
 	    		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
@@ -1264,18 +1268,42 @@ public class EReader extends Thread {
     }
     
     /** *** provide buffered reading implementation for a complete length prefixed message *** */
-    private static class V100MessageReader implements IMessageReader {
+    private static class LengthPrefixedMessageReader implements IMessageReader {
     	private final byte[] m_buffer;
     	private int m_currentPos = 0;
     	
-    	public V100MessageReader( DataInputStream din ) throws IOException {
-    		int length = din.readInt();
-    		if ( length < 0 || length > MAX_MSG_LENGTH ) {
-    			throw new InvalidMessageLengthException( "message is too long: " + (length & 0xffffffffL) );
+    	public LengthPrefixedMessageReader( InputStream din ) throws IOException {
+    		long length = readUnsignedIntLength( din );
+    		if ( length > MAX_MSG_LENGTH ) {
+    			throw new InvalidMessageLengthException( "message is too long: " + length );
     		}
-    		m_buffer = new byte[ length ];
-    		din.readFully( m_buffer );
+    		m_buffer = readFully( din, (int)length );
     	}
+    	
+        public final long readUnsignedIntLength( InputStream in ) throws IOException {
+            int ch1 = in.read();
+            if ( ch1 < 0 ) {
+            	throw new EOSException( "eos");
+            }
+            int ch2 = in.read();
+            int ch3 = in.read();
+            int ch4 = in.read();
+            if ((ch2 | ch3 | ch4) < 0) {
+                throw new EOFException();
+            }
+            return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)) & 0xffffffffL;
+        }
+        
+        public final byte[] readFully( InputStream in, int len ) throws IOException {
+        	byte[] b = new byte[ len ];
+            for ( int n = 0, count; n < len; n+= count ) {
+                count = in.read( b, n, len - n );
+                if ( count < 0) {
+                    throw new EOFException();
+                }
+            }
+            return b;
+        }
     	
     	@Override public String readStr() throws IOException {
     		int startPos = m_currentPos;
@@ -1308,8 +1336,11 @@ public class EReader extends Thread {
     	@Override public String readStr() throws IOException {
     		 StringBuffer buf = new StringBuffer();
  	         while( true) {
- 	            byte c = m_din.readByte();
- 	            if( c == 0) {
+ 	            int c = m_din.read();
+ 	            if( c <= 0) {
+ 	            	if ( c < 0 ) {
+ 	            		throw new EOFException();
+ 	            	}
  	                break;
  	            }
  	            buf.append( (char)c);
@@ -1329,5 +1360,12 @@ public class EReader extends Thread {
 		public InvalidMessageLengthException(String message) {
 			super(message);
 		}
+    }
+    
+    @SuppressWarnings("serial")
+    private static class EOSException extends EOFException {
+    	public EOSException(String message) {
+    		super(message);
+    	}
     }
 }
