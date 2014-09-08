@@ -87,6 +87,7 @@ public class ApiConnection extends EClientSocket {
 		}
 
 		Builder b = prepareBuffer();
+		b.setUseSendMax(); // Order placement relies on null valued numeric fields
 
 		int VERSION = 43;
 

@@ -15,13 +15,25 @@ public class Builder {
 	private static final byte[] EMPTY_LENGTH_HEADER = new byte[ 4 ]; 
 	        
 	private final ByteBuffer m_sb;
+	private boolean m_useSendMax;
 	
 	public Builder( int size ) {
 	    m_sb = new ByteBuffer( size );
 	}
 	
+	/** If a numeric value is set to the maxvalue (appropriate for the data type),
+	 *  then when it is serialized using send it is automatically replaced by a null field. */
+	public void setUseSendMax() {
+	    m_useSendMax = true;
+	}
+	
 	public void send(int a) {
-		send( String.valueOf(a) );
+	    if ( m_useSendMax ) {
+	        sendMax( a );
+	    }
+	    else {
+	        send( String.valueOf(a) );
+	    }
 	}
 
 	public void sendMax(int a) {
@@ -29,7 +41,12 @@ public class Builder {
 	}
 
 	public void send(double a) {
-		send( String.valueOf( a) );
+	    if ( m_useSendMax ) {
+	        sendMax( a );
+	    }
+	    else {
+	        send( String.valueOf( a) );
+	    }
 	}
 
 	public void sendMax(double a) {
