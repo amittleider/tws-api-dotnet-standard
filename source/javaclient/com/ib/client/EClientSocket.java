@@ -209,7 +209,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_OPTIONAL_CAPABILITIES = 72;
     protected static final int MIN_SERVER_VER_ORDER_SOLICITED = 73;
 
-    private AnyWrapper m_anyWrapper;    // msg handler
+    private EWrapper m_eWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
     private boolean m_connected;        // true if we are connected
     private EReader m_reader;           // thread which reads msgs from socket
@@ -224,7 +224,7 @@ public class EClientSocket {
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
-    public AnyWrapper wrapper() 		{ return m_anyWrapper; }
+    public EWrapper wrapper() 		{ return m_eWrapper; }
     public EReader reader()             { return m_reader; }
     public boolean isConnected() 		{ return m_connected; }
 
@@ -235,8 +235,8 @@ public class EClientSocket {
     // get
     public String OptionalCapabilities() { return m_optionalCapabilities; }
 
-    public EClientSocket( AnyWrapper anyWrapper) {
-        m_anyWrapper = anyWrapper;
+    public EClientSocket( EWrapper eWrapper) {
+        m_eWrapper = eWrapper;
         m_clientId = -1;
         m_extraAuth = false;
         m_optionalCapabilities = "";
@@ -281,14 +281,14 @@ public class EClientSocket {
     }
 
     protected void connectionError() {
-        m_anyWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(),
+        m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(),
                 EClientErrors.CONNECT_FAIL.msg());
         m_reader = null;
     }
 
     protected String checkConnected(String host) {
         if( m_connected) {
-            m_anyWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
+            m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
             return null;
         }
@@ -345,7 +345,7 @@ public class EClientSocket {
    		}
         if( m_serverVersion < SERVER_VERSION) {
         	eDisconnect();
-            m_anyWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
+            m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
             return;
         }
 
@@ -2796,11 +2796,11 @@ public class EClientSocket {
 	
     /** @deprecated, never called. */
     protected synchronized void error( String err) {
-        m_anyWrapper.error( err);
+        m_eWrapper.error( err);
     }
 
     protected synchronized void error( int id, int errorCode, String errorMsg) {
-        m_anyWrapper.error( id, errorCode, errorMsg);
+        m_eWrapper.error( id, errorCode, errorMsg);
     }
 
     protected void close() {
