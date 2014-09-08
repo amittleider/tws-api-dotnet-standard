@@ -247,7 +247,7 @@ public class EClientSocket {
     // iServer rails are used for Connection if connectOptions != null
     public void setUseV100Plus(String connectOptions) { 
     	if( m_connected ) {
-            m_anyWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
+            m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
     		return;
   		}
@@ -340,7 +340,7 @@ public class EClientSocket {
         }
     	if( m_useV100Plus && (m_serverVersion < MIN_VERSION || m_serverVersion > MAX_VERSION) ) {
     		eDisconnect();
-    		m_anyWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.UNSUPPORTED_VERSION.code(), EClientErrors.UNSUPPORTED_VERSION.msg());
+    		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.UNSUPPORTED_VERSION.code(), EClientErrors.UNSUPPORTED_VERSION.msg());
     		return;
    		}
         if( m_serverVersion < SERVER_VERSION) {
