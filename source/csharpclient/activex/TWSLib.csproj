@@ -63,6 +63,9 @@
     <Compile Include="..\client\EClientErrors.cs">
       <Link>CSharpAPI\EClientErrors.cs</Link>
     </Compile>
+    <Compile Include="..\client\EClientException.cs">
+      <Link>CSharpAPI\EClientException.cs</Link>
+    </Compile>
     <Compile Include="..\client\EClientSocket.cs">
       <Link>CSharpAPI\EClientSocket.cs</Link>
     </Compile>

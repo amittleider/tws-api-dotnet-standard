@@ -10,12 +10,15 @@ namespace IBApi
 {
     public static class Constants
     {
-        public const int ClientVersion = 63;//API v. 9.71
+        public const int ClientVersion = 64;//API v. 9.71
         public const byte EOL = 0;
         public const string BagSecType = "BAG";
 
         public const int FaGroups = 1;
         public const int FaProfiles = 2;
         public const int FaAliases = 3;
+        public const int MinVersion = 100;
+        public const int MaxVersion = 100;
+        public const int MaxMsgSize = 0x00FFFFFF;
     }
 }

@@ -828,7 +828,7 @@ Friend Class dlgMainWnd
         Me.Name = "dlgMainWnd"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "VB.NET Sample using TWS ActiveX Control"
+        Me.Text = "VB.NET Sample"
         Me.ResumeLayout(False)
 
     End Sub
@@ -2077,6 +2077,9 @@ Friend Class dlgMainWnd
         ' HEDGE orders only
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeType=" & order.HedgeType)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  hedgeParam=" & order.HedgeParam)
+
+        ' Solicited orders only
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderSolicited=" & order.OrderSolicited)
 
         ' ALGO orders only
         Dim algoStrategy As String

@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
+public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
     public static final String FINANCIAL_ADVISOR = "FA:";
     
@@ -149,7 +149,8 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
         " clearingAccount=" + order.m_clearingAccount +
         " clearingIntent=" + order.m_clearingIntent +
         " notHeld=" + order.m_notHeld +
-        " whatIf=" + order.m_whatIf
+        " whatIf=" + order.m_whatIf +
+        " orderSolicited=" + order.m_orderSolicited;
         ;
 
         if ("BAG".equals(contract.m_secType)) {
@@ -540,4 +541,19 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     	return "id=" + reqId + " =============== end ===============";
     }
 
+    public static String error( Exception ex) { return "Error - " + ex;}
+    public static String error( String str) { return str;}
+
+	public static String error(int id, int errorCode, String errorMsg) {
+		String err = Integer.toString(id);
+        err += " | ";
+        err += Integer.toString(errorCode);
+        err += " | ";
+        err += errorMsg;
+        return err;
+	}
+
+	public static String connectionClosed() {
+		return "Connection Closed";
+	}
 }

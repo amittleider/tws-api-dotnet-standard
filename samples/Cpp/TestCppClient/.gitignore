@@ -1,0 +1,8 @@
+.*
+*~
+*.o
+*.obj
+TestCppClient
+TestCppClient.exe
+Debug
+Release

@@ -58,6 +58,7 @@
     <Compile Include="Contract.cs" />
     <Compile Include="ContractDetails.cs" />
     <Compile Include="EClientErrors.cs" />
+    <Compile Include="EClientException.cs" />
     <Compile Include="EClientSocket.cs" />
     <Compile Include="EReader.cs" />
     <Compile Include="EWrapper.cs" />

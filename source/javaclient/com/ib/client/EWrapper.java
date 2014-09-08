@@ -3,7 +3,7 @@
 
 package com.ib.client;
 
-public interface EWrapper extends AnyWrapper {
+public interface EWrapper {
 
     ///////////////////////////////////////////////////////////////////////
     // Interface methods
@@ -61,5 +61,9 @@ public interface EWrapper extends AnyWrapper {
     void verifyCompleted( boolean isSuccessful, String errorText);
     void displayGroupList( int reqId, String groups);
     void displayGroupUpdated( int reqId, String contractInfo);
+    void error( Exception e);
+    void error( String str);
+    void error(int id, int errorCode, String errorMsg);
+    void connectionClosed();
 }
 

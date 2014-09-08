@@ -8,21 +8,29 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
+using System.Net;
 
 namespace IBApi
 {
     class EReader
     {
         private EClientSocket parent;
+        private BinaryReader dataReader;
         private BinaryReader tcpReader;
 
         private ManualResetEvent stopEvent;
         private Thread runner;
-        
-        public EReader(EClientSocket parent, BinaryReader reader)
+
+        private bool useV100Plus;
+
+        public EReader(EClientSocket parent, BinaryReader reader, bool useV100Plus)
         {
             this.parent = parent;
             this.tcpReader = reader;
+            this.useV100Plus = useV100Plus;
+
+            if (!useV100Plus)
+                dataReader = tcpReader;
         }
 
         public void Start()
@@ -34,18 +42,58 @@ namespace IBApi
 
         public void Interrupt()
         {
-            this.runner.Abort();
+            if (runner != null)
+                runner.Abort();
         }
 
-       
+        public void ReadMessageToInternalBuf()
+        {
+            int size = IPAddress.NetworkToHostOrder(tcpReader.ReadInt32());
+
+            if (dataReader != null)
+                dataReader.Close();
+
+            dataReader = new BinaryReader(new MemoryStream());
+            byte[] buf = new byte[size];
+
+            if (size > Constants.MaxMsgSize || tcpReader.Read(buf, 0, buf.Length) < size)
+            {
+                throw new EClientException(EClientErrors.BAD_LENGTH);
+            }
+
+            dataReader.BaseStream.Write(buf, 0, size);
+            dataReader.BaseStream.Seek(0, SeekOrigin.Begin);
+        }
+
         public void ReadAndProcessMessages()
         {
             try
             {
                 while (!stopEvent.WaitOne(0))
                 {
-                    int incomingMessage = ReadInt();
-                    ProcessIncomingMessage(incomingMessage);
+                    if (useV100Plus)
+                    {
+                        ReadMessageToInternalBuf();
+                    }
+
+                    try
+                    {
+                        int incomingMessage = ReadInt();
+                        ProcessIncomingMessage(incomingMessage);
+                    }
+                    catch (Exception)
+                    {
+                        throw new EClientException(EClientErrors.BAD_MESSAGE);
+                    }
+                }
+            }
+            catch (EClientException e)
+            {
+                if (parent.IsConnected())
+                {
+                    var cmp = (e as EClientException).Err;
+
+                    parent.Wrapper.error(-1, cmp.Code, cmp.Message);
                 }
             }
             catch (Exception e)
@@ -53,15 +101,17 @@ namespace IBApi
                 // For when TWS is closed when the trading program open
                 if (parent.IsConnected())
                 {
+
                     parent.Wrapper.error(e);
                 }
             }
             if (parent.IsConnected())
             {
+                dataReader.Close();
                 tcpReader.Close();
                 parent.Close();
             }
-          
+
         }
 
 
@@ -1078,6 +1128,11 @@ namespace IBApi
                 }
             }
 
+            if (msgVersion >= 33)
+            {
+                order.OrderSolicited = ReadBoolFromInt();
+            }
+
             OrderState orderState = new OrderState();
             if (msgVersion >= 16)
             {
@@ -1307,7 +1362,7 @@ namespace IBApi
                                         close, volume, barCount, WAP,
                                         Boolean.Parse(hasGaps));
             }
-            
+
             // send end of dataset marker.
             parent.Wrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
         }
@@ -1470,7 +1525,7 @@ namespace IBApi
             else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected double ReadDoubleMax() 
+        protected double ReadDoubleMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
@@ -1498,7 +1553,7 @@ namespace IBApi
             else return Int32.Parse(intAsstring);
         }
 
-        protected int ReadIntMax() 
+        protected int ReadIntMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
@@ -1512,7 +1567,7 @@ namespace IBApi
 
         public string ReadString()
         {
-            byte b = tcpReader.ReadByte();
+            byte b = dataReader.ReadByte();
             if (b == 0)
             {
                 return null;
@@ -1523,7 +1578,7 @@ namespace IBApi
                 strBuilder.Append((char)b);
                 while (true)
                 {
-                    b = tcpReader.ReadByte();                    
+                    b = dataReader.ReadByte();
                     if (b == 0)
                     {
                         break;

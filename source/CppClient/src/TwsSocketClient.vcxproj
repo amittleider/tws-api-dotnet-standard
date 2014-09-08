@@ -64,11 +64,11 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>.\Release/TwsSocketClient.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
@@ -115,9 +115,9 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>.\Debug/TwsSocketClient.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
@@ -156,10 +156,7 @@
   <ItemGroup>
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
-    <ClCompile Include="StdAfx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="StdAfx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def" />
@@ -172,8 +169,22 @@
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="..\shared\TwsSocketClientErrors.h" />
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="..\Shared\CommissionReport.h" />
+    <ClInclude Include="..\Shared\CommonDefs.h" />
+    <ClInclude Include="..\Shared\Contract.h" />
+    <ClInclude Include="..\Shared\EClient.h" />
+    <ClInclude Include="..\Shared\EClientSocketBase.h" />
+    <ClInclude Include="..\Shared\EClientSocketBaseImpl.h" />
+    <ClInclude Include="..\Shared\EWrapper.h" />
+    <ClInclude Include="..\Shared\Execution.h" />
+    <ClInclude Include="..\Shared\Order.h" />
+    <ClInclude Include="..\Shared\OrderState.h" />
+    <ClInclude Include="..\Shared\ScannerSubscription.h" />
+    <ClInclude Include="..\Shared\shared_ptr.h" />
+    <ClInclude Include="..\Shared\StdAfx.h" />
+    <ClInclude Include="..\Shared\TagValue.h" />
+    <ClInclude Include="..\Shared\TwsSocketClientErrors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

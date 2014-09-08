@@ -13,7 +13,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
-import com.ib.client.AnyWrapper;
+import com.ib.client.EWrapper;
 import com.ib.client.Builder;
 import com.ib.client.EClientErrors;
 import com.ib.client.EClientSocket;
@@ -36,7 +36,7 @@ public class ApiConnection extends EClientSocket {
 	private final ILogger m_inLogger;
 	private final ILogger m_outLogger;
 
-	public ApiConnection(AnyWrapper wrapper, ILogger inLogger, ILogger outLogger) {
+	public ApiConnection(EWrapper wrapper, ILogger inLogger, ILogger outLogger) {
 		super( wrapper);
 		m_inLogger = inLogger;
 		m_outLogger = outLogger;
@@ -86,7 +86,7 @@ public class ApiConnection extends EClientSocket {
             return;
 		}
 
-		Builder b = new Builder();
+		Builder b = prepareBuffer();
 
 		int VERSION = 43;
 
@@ -262,7 +262,7 @@ public class ApiConnection extends EClientSocket {
 	            b.send( "" );
 	        }
 
-			m_dos.write( b.getBytes() );
+	        closeAndSend( b );
 		}
 		catch( Exception e) {
 			e.printStackTrace();

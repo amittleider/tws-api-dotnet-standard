@@ -7,6 +7,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * This class reads commands from TWS and passes them to the user defined
+ * EWrapper.
+ *
+ * This class is initialized with a DataInputStream that is connected to the
+ * TWS. Messages begin with an ID and any relevant data are passed afterwards.
+ */
 public class EReader extends Thread {
 
     // incoming msg id's
@@ -55,12 +62,23 @@ public class EReader extends Thread {
     static final int DISPLAY_GROUP_LIST = 67;
     static final int DISPLAY_GROUP_UPDATED = 68;
 
+    static final int MAX_MSG_LENGTH = 0xffffff;
+
     private EClientSocket 	m_parent;
     private DataInputStream m_dis;
+    private int 			m_bytesToRead;
+    private boolean 		m_useV100Plus;
+    
+    public void setUseV100Plus() { m_useV100Plus = true; }
 
     protected EClientSocket parent()    { return m_parent; }
-    private EWrapper eWrapper()         { return (EWrapper)parent().wrapper(); }
+    private EWrapper eWrapper()         { return parent().wrapper(); }
 
+    /**
+     * Construct the EReader.
+     * @param parent An EClientSocket connected to TWS.
+     * @param dis A stream that received data from the TWS.
+     */
     public EReader( EClientSocket parent, DataInputStream dis) {
         this("EReader", parent, dis);
     }
@@ -70,15 +88,24 @@ public class EReader extends Thread {
         m_parent = parent;
         m_dis = dis;
     }
-
+    
+    /**
+     * Read and process messages until interrupted or TWS closes connection.
+     */
     public void run() {
         try {
             // loop until thread is terminated
-            while( !isInterrupted() && processMsg(readInt()));
+            while( !isInterrupted() && processMsg() );
         }
         catch ( Exception ex ) {
         	if (parent().isConnected()) {
-        		eWrapper().error( ex);
+        		if( ex instanceof ArrayIndexOutOfBoundsException ) {
+            		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+            				EClientErrors.BAD_LENGTH.msg() + ex.getMessage());
+        		}
+        		else {
+        			eWrapper().error( ex);
+        		}
         	}
         }
         if (parent().isConnected()) {
@@ -87,13 +114,26 @@ public class EReader extends Thread {
         try {
             m_dis.close();
             m_dis = null;
-            }
-            catch (IOException e) {
+        }
+        catch (IOException e) {
         }
     }
 
-    /** Overridden in subclass. */
-    protected boolean processMsg(int msgId) throws IOException{
+    protected boolean processMsg() throws IOException {
+    	if( m_useV100Plus ) {
+        	readMessageLength();
+        	if( m_bytesToRead > MAX_MSG_LENGTH ) {
+        		eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+        				EClientErrors.BAD_LENGTH.msg() + "Message is too long: " + m_bytesToRead);
+        		return false;
+        	}
+    	}
+    	else {
+    	    m_bytesToRead = Integer.MAX_VALUE;
+    	}
+    	
+    	int msgId = readInt();
+
         switch( msgId) {
             case END_CONN:
                 return false;
@@ -689,6 +729,10 @@ public class EReader extends Thread {
                 		}
                 	}
                 }
+                
+                if (version >= 33) {
+                	order.m_orderSolicited = readBoolFromInt();
+                }
 
                 OrderState orderState = new OrderState();
 
@@ -1165,14 +1209,27 @@ public class EReader extends Thread {
                 return false;
             }
         }
+        
+        if( m_useV100Plus && m_bytesToRead >= 4 ) {
+        	System.out.println("Warning: Message " + msgId + " has " + m_bytesToRead + " extra bytes!");
+        	m_dis.skipBytes(m_bytesToRead);
+        }
         return true;
     }
 
-
-    protected String readStr() throws IOException {
+    public void readMessageLength() throws IOException {
+        m_bytesToRead = m_dis.readInt();
+    }
+    
+    protected String readStr() throws IOException, ArrayIndexOutOfBoundsException {
         StringBuffer buf = new StringBuffer();
         while( true) {
+        	if ( m_useV100Plus && m_bytesToRead <= 0 ) {
+        		throw new ArrayIndexOutOfBoundsException("Unexpected end of Message");
+        	}
+        	
             byte c = m_dis.readByte();
+            m_bytesToRead--;
             if( c == 0) {
                 break;
             }

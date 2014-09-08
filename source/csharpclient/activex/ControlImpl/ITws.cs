@@ -312,6 +312,8 @@ namespace TWSLib
         ITagValueList createTagValueList();
         [DispId(207)]
         IOrderComboLegList createOrderComboLegList();
+        [DispId(208)]
+        void setUseV100Plus(string connectOptions);
         #endregion
     }
 }

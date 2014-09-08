@@ -89,7 +89,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSharpAPI">
-      <HintPath>..\..\source\csharpclient\client\bin\Release\CSharpAPI.dll</HintPath>
+      <HintPath>..\..\source\csharpclient\client\bin\$(Configuration)\CSharpAPI.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

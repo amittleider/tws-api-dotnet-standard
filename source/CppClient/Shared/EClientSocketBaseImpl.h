@@ -1,11 +1,12 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #pragma once
 #ifndef eclientsocketbaseimpl_h__INCLUDED
 #define eclientsocketbaseimpl_h__INCLUDED
 
 #include "EClientSocketBase.h"
-#include <IBString.h>
+
 #include "EWrapper.h"
 #include "TwsSocketClientErrors.h"
 #include "Contract.h"
@@ -14,7 +15,6 @@
 #include "Execution.h"
 #include "ScannerSubscription.h"
 #include "CommissionReport.h"
-
 
 #include <sstream>
 #include <iomanip>
@@ -109,8 +109,11 @@
 // 62 = can receive avgCost in position message
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 
-const int CLIENT_VERSION    = 63;
+const int CLIENT_VERSION    = 64;
 const int SERVER_VERSION    = 38;
+
+const int MIN_CLIENT_VER = 100;
+const int MAX_CLIENT_VER = 100;
 
 // outgoing msg id's
 const int REQ_MKT_DATA                  = 1;
@@ -201,6 +204,7 @@ const int MIN_SERVER_VER_SCALE_TABLE            = 69;
 const int MIN_SERVER_VER_LINKING                = 70;
 const int MIN_SERVER_VER_ALGO_ID                = 71;
 const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
+const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;
@@ -251,6 +255,10 @@ const int DISPLAY_GROUP_UPDATED     = 68;
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
+
+const int HEADER_LEN = 4; // 4 bytes for msg length
+const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
+const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
 
 ///////////////////////////////////////////////////////////
 // helper macroses
@@ -306,7 +314,7 @@ void EClientSocketBase::EncodeField<double>(std::ostream& os, double doubleValue
 {
 	char str[128];
 
-	sprintf_s(str, sizeof(str), "%.10g", doubleValue);
+	snprintf(str, sizeof(str), "%.10g", doubleValue);
 
 	EncodeField<const char*>(os, str);
 }
@@ -469,14 +477,30 @@ static std::string errMsg(std::exception e) {
 EClientSocketBase::EClientSocketBase( EWrapper *ptr)
 	: m_pEWrapper(ptr)
 	, m_clientId(-1)
-	, m_connected(false)
+	, m_connState(CS_DISCONNECTED)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
+	, m_useV100Plus(false)
 {
 }
 
 EClientSocketBase::~EClientSocketBase()
 {
+}
+
+EClientSocketBase::ConnState EClientSocketBase::connState() const
+{
+	return m_connState;
+}
+
+bool EClientSocketBase::isConnected() const
+{
+	return m_connState == CS_CONNECTED;
+}
+
+bool EClientSocketBase::isConnecting() const
+{
+	return m_connState == CS_CONNECTING;
 }
 
 void EClientSocketBase::eConnectBase()
@@ -487,12 +511,11 @@ void EClientSocketBase::eDisconnectBase()
 {
 	m_TwsTime.clear();
 	m_serverVersion = 0;
-	m_connected = false;
+	m_connState = CS_DISCONNECTED;
 	m_extraAuth = false;
 	m_clientId = -1;
 	m_outBuffer.clear();
 	m_inBuffer.clear();
-    m_optionalCapabilities.clear();
 }
 
 int EClientSocketBase::serverVersion()
@@ -505,19 +528,31 @@ std::string EClientSocketBase::TwsConnectionTime()
 	return m_TwsTime;
 }
 
-void EClientSocketBase::optionalCapabilities(LPCSTR optCapts) {
-    m_optionalCapabilities = optCapts;
+const std::string& EClientSocketBase::optionalCapabilities() const
+{
+	return m_optionalCapabilities;
 }
-    
-std::string EClientSocketBase::optionalCapabilities() {
-    return m_optionalCapabilities;
+
+void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
+{
+	m_optionalCapabilities = optCapts;
+}
+
+void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
+{
+	if( isSocketOK()) {
+		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
+		return;
+	}
+	m_useV100Plus = true;
+	m_connectOptions = connectOptions;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 							   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -554,6 +589,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 11;
 
@@ -584,7 +620,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 
 	// Send combo legs for BAG requests (srv v8 and above)
-	if( contract.secType.compare("BAG") == 0)
+	if( contract.secType == "BAG")
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -633,18 +669,19 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 		ENCODE_FIELD( mktDataOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelMktData(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -653,13 +690,13 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract, int numRows, const TagValueListSPtr& mktDepthOptions)
+void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -680,6 +717,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 5;
 
@@ -723,14 +761,14 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract &contract
 		ENCODE_FIELD( mktDepthOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
 void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -743,6 +781,7 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -751,16 +790,16 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &contract,
-									   const std::string &endDateTime, const std::string &durationStr,
-									   const std::string & barSizeSetting, const std::string &whatToShow,
+void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
+									   const std::string& endDateTime, const std::string& durationStr,
+									   const std::string&  barSizeSetting, const std::string& whatToShow,
 									   int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -780,6 +819,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &co
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 6;
 
@@ -815,7 +855,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &co
 	ENCODE_FIELD( formatDate); // srv v16 and above
 
 	// Send combo legs for BAG requests
-	if( Compare(contract.secType, "BAG") == 0)
+	if( contract.secType == "BAG")
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -848,13 +888,13 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract &co
 		ENCODE_FIELD( chartOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -867,6 +907,7 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -874,15 +915,15 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contract,
-									int barSize, const std::string &whatToShow, bool useRTH,
+void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
+									int barSize, const std::string& whatToShow, bool useRTH,
 									const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -895,7 +936,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contr
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass) || (contract.conId > 0)) {
+		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId and tradingClass parameters in reqRealTimeBars.");
 			return;
@@ -903,6 +944,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contr
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 3;
 
@@ -947,14 +989,14 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract &contr
 		ENCODE_FIELD( realTimeBarsOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
 void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -967,6 +1009,7 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -974,14 +1017,14 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
 void EClientSocketBase::reqScannerParameters()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -994,13 +1037,14 @@ void EClientSocketBase::reqScannerParameters()
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
 	ENCODE_FIELD( REQ_SCANNER_PARAMETERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
@@ -1008,7 +1052,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 	const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1021,6 +1065,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 4;
 
@@ -1065,13 +1110,13 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 		ENCODE_FIELD( scannerSubscriptionOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelScannerSubscription(int tickerId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1084,6 +1129,7 @@ void EClientSocketBase::cancelScannerSubscription(int tickerId)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -1091,14 +1137,14 @@ void EClientSocketBase::cancelScannerSubscription(int tickerId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( tickerId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contract, 
 										   const std::string& reportType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1118,6 +1164,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -1138,13 +1185,13 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 
 	ENCODE_FIELD( reportType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 {
 		// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1156,6 +1203,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -1163,13 +1211,13 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract &contract, double optionPrice, double underPrice) {
+void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1181,7 +1229,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass)) {
+		if( !contract.tradingClass.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in calculateImpliedVolatility.");
 			return;
@@ -1189,6 +1237,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -1215,13 +1264,13 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	ENCODE_FIELD( optionPrice);
 	ENCODE_FIELD( underPrice);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1233,6 +1282,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -1240,13 +1290,13 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &contract, double volatility, double underPrice) {
+void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1258,7 +1308,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &con
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass)) {
+		if( !contract.tradingClass.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in calculateOptionPrice.");
 			return;
@@ -1266,6 +1316,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &con
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -1292,13 +1343,13 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract &con
 	ENCODE_FIELD( volatility);
 	ENCODE_FIELD( underPrice);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1310,6 +1361,7 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -1317,13 +1369,13 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1335,14 +1387,14 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	//	return;
 	//}
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
-		if( !IsEmpty(contract.secIdType) || !IsEmpty(contract.secId)) {
+		if( !contract.secIdType.empty() || !contract.secId.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support secIdType and secId parameters.");
      		return;
      	}
     }
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass)) {
+		if( !contract.tradingClass.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in reqContractDetails.");
 			return;
@@ -1350,6 +1402,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 7;
 
@@ -1382,13 +1435,13 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 		ENCODE_FIELD( contract.secId);
 	}
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqCurrentTime()
 {
     // not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1402,6 +1455,7 @@ void EClientSocketBase::reqCurrentTime()
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -1409,13 +1463,13 @@ void EClientSocketBase::reqCurrentTime()
 	ENCODE_FIELD( REQ_CURRENT_TIME);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const Order &order)
+void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( id, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1476,7 +1530,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 
 	if( m_serverVersion < MIN_SERVER_VER_ALGO_ORDERS) {
 
-		if( !IsEmpty(order.algoStrategy)) {
+		if( !order.algoStrategy.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support algo orders.");
 			return;
@@ -1492,7 +1546,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
-		if( !IsEmpty(contract.secIdType) || !IsEmpty(contract.secId)) {
+		if( !contract.secIdType.empty() || !contract.secId.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support secIdType and secId parameters.");
 			return;
@@ -1530,7 +1584,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if( m_serverVersion < MIN_SERVER_VER_HEDGE_ORDERS) {
-		if( !IsEmpty(order.hedgeType)) {
+		if( !order.hedgeType.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
      			"  It does not support hedge orders.");
 			return;
@@ -1547,9 +1601,9 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_CONID) {
 		if (order.deltaNeutralConId > 0 
-				|| !IsEmpty(order.deltaNeutralSettlingFirm)
-				|| !IsEmpty(order.deltaNeutralClearingAccount)
-				|| !IsEmpty(order.deltaNeutralClearingIntent)
+				|| !order.deltaNeutralSettlingFirm.empty()
+				|| !order.deltaNeutralClearingAccount.empty()
+				|| !order.deltaNeutralClearingIntent.empty()
 				) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support deltaNeutral parameters: ConId, SettlingFirm, ClearingAccount, ClearingIntent.");
@@ -1558,10 +1612,10 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE) {
-		if (!IsEmpty(order.deltaNeutralOpenClose)
+		if (!order.deltaNeutralOpenClose.empty()
 				|| order.deltaNeutralShortSale
 				|| order.deltaNeutralShortSaleSlot > 0 
-				|| !IsEmpty(order.deltaNeutralDesignatedLocation)
+				|| !order.deltaNeutralDesignatedLocation.empty()
 				) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() + 
 				"  It does not support deltaNeutral parameters: OpenClose, ShortSale, ShortSaleSlot, DesignatedLocation.");
@@ -1586,7 +1640,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		}
 	}
 
-	if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && Compare(contract.secType, "BAG") == 0) {
+	if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && contract.secType == "BAG") {
 		const Order::OrderComboLegList* const orderComboLegs = order.orderComboLegs.get();
 		const int orderComboLegsCount = orderComboLegs ? orderComboLegs->size() : 0;
 		for( int i = 0; i < orderComboLegsCount; ++i) {
@@ -1609,7 +1663,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass)) {
+		if( !contract.tradingClass.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support tradingClass parameter in placeOrder.");
 			return;
@@ -1617,7 +1671,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_SCALE_TABLE) {
-		if( !IsEmpty(order.scaleTable) || !IsEmpty(order.activeStartTime) || !IsEmpty(order.activeStopTime)) {
+		if( !order.scaleTable.empty() || !order.activeStartTime.empty() || !order.activeStopTime.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 					"  It does not support scaleTable, activeStartTime and activeStopTime parameters");
 			return;
@@ -1625,16 +1679,25 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_ALGO_ID) {
-		if( !IsEmpty(order.algoId)) {
+		if( !order.algoId.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 					"  It does not support algoId parameter");
 			return;
 		}
 	}
 
-	std::ostringstream msg;
+	if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
+		if (order.orderSolicited) {
+			m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+					"  It does not support orderSolicited parameter.");
+			return;
+		}
+	}
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 43;
+	std::ostringstream msg;
+	prepareBuffer( msg);
+
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);
@@ -1707,7 +1770,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	ENCODE_FIELD( order.hidden); // srv v7 and above
 
 	// Send combo legs for BAG requests (srv v8 and above)
-	if( Compare(contract.secType, "BAG") == 0)
+	if( contract.secType == "BAG")
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
@@ -1732,7 +1795,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	}
 
 	// Send order combo legs for BAG requests
-	if( m_serverVersion >= MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && Compare(contract.secType, "BAG") == 0)
+	if( m_serverVersion >= MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && contract.secType == "BAG")
 	{
 		const Order::OrderComboLegList* const orderComboLegs = order.orderComboLegs.get();
 		const int orderComboLegsCount = orderComboLegs ? orderComboLegs->size() : 0;
@@ -1746,7 +1809,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		}
 	}	
 
-	if( m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && Compare(contract.secType, "BAG") == 0) {
+	if( m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && contract.secType == "BAG") {
 		const TagValueList* const smartComboRoutingParams = order.smartComboRoutingParams.get();
 		const int smartComboRoutingParamsCount = smartComboRoutingParams ? smartComboRoutingParams->size() : 0;
 		ENCODE_FIELD( smartComboRoutingParamsCount);
@@ -1832,14 +1895,14 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		ENCODE_FIELD( order.deltaNeutralOrderType); // srv v28 and above
 		ENCODE_FIELD_MAX( order.deltaNeutralAuxPrice); // srv v28 and above
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !IsEmpty(order.deltaNeutralOrderType)){
+		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !order.deltaNeutralOrderType.empty()){
 			ENCODE_FIELD( order.deltaNeutralConId);
 			ENCODE_FIELD( order.deltaNeutralSettlingFirm);
 			ENCODE_FIELD( order.deltaNeutralClearingAccount);
 			ENCODE_FIELD( order.deltaNeutralClearingIntent);
 		}
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !IsEmpty(order.deltaNeutralOrderType)){
+		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !order.deltaNeutralOrderType.empty()){
 			ENCODE_FIELD( order.deltaNeutralOpenClose);
 			ENCODE_FIELD( order.deltaNeutralShortSale);
 			ENCODE_FIELD( order.deltaNeutralShortSaleSlot);
@@ -1896,7 +1959,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	// HEDGE orders
 	if( m_serverVersion >= MIN_SERVER_VER_HEDGE_ORDERS) {
 		ENCODE_FIELD( order.hedgeType);
-		if ( !IsEmpty(order.hedgeType)) {
+		if ( !order.hedgeType.empty()) {
 			ENCODE_FIELD( order.hedgeParam);
 		}
 	}
@@ -1930,7 +1993,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 	if( m_serverVersion >= MIN_SERVER_VER_ALGO_ORDERS) {
 		ENCODE_FIELD( order.algoStrategy);
 
-		if( !IsEmpty(order.algoStrategy)) {
+		if( !order.algoStrategy.empty()) {
 			const TagValueList* const algoParams = order.algoParams.get();
 			const int algoParamsCount = algoParams ? algoParams->size() : 0;
 			ENCODE_FIELD( algoParamsCount);
@@ -1968,13 +2031,17 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract &contract, const 
 		ENCODE_FIELD( miscOptionsStr);
 	}
 
-	bufferedSend( msg.str());
+	if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
+		ENCODE_FIELD(order.orderSolicited);
+	}
+
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelOrder( OrderId id)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( id, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -1983,23 +2050,25 @@ void EClientSocketBase::cancelOrder( OrderId id)
 
 	// send cancel order msg
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	ENCODE_FIELD( CANCEL_ORDER);
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( id);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acctCode)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -2011,18 +2080,19 @@ void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acc
 	// Send the account code. This will only be used for FA clients
 	ENCODE_FIELD( acctCode); // srv v9 and above
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqOpenOrders()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2030,18 +2100,19 @@ void EClientSocketBase::reqOpenOrders()
 	ENCODE_FIELD( REQ_OPEN_ORDERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2050,18 +2121,19 @@ void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( bAutoBind);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAllOpenOrders()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2069,7 +2141,7 @@ void EClientSocketBase::reqAllOpenOrders()
 	ENCODE_FIELD( REQ_ALL_OPEN_ORDERS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
@@ -2077,12 +2149,13 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	//NOTE: Time format must be 'yyyymmdd-hh:mm:ss' E.g. '20030702-14:55'
 
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 3;
 
@@ -2103,18 +2176,19 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	ENCODE_FIELD( filter.m_exchange);
 	ENCODE_FIELD( filter.m_side);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqIds( int numIds)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( numIds, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2123,18 +2197,19 @@ void EClientSocketBase::reqIds( int numIds)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( numIds);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2143,18 +2218,19 @@ void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( allMsgs);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelNewsBulletins()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2162,18 +2238,19 @@ void EClientSocketBase::cancelNewsBulletins()
 	ENCODE_FIELD( CANCEL_NEWS_BULLETINS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::setServerLogLevel(int logLevel)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2182,18 +2259,19 @@ void EClientSocketBase::setServerLogLevel(int logLevel)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( logLevel);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqManagedAccts()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2201,14 +2279,14 @@ void EClientSocketBase::reqManagedAccts()
 	ENCODE_FIELD( REQ_MANAGED_ACCTS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
 void EClientSocketBase::requestFA(faDataType pFaDataType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2220,6 +2298,7 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2227,13 +2306,13 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( (int)pFaDataType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxml)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2245,6 +2324,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 	//}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2253,17 +2333,17 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 	ENCODE_FIELD( (int)pFaDataType);
 	ENCODE_FIELD( cxml);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 
 
-void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &contract,
+void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& contract,
                                      int exerciseAction, int exerciseQuantity,
                                      const std::string& account, int override)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2275,7 +2355,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &cont
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !IsEmpty(contract.tradingClass) || (contract.conId > 0)) {
+		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
 			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId, multiplier and tradingClass parameters in exerciseOptions.");
 			return;
@@ -2283,6 +2363,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &cont
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -2311,13 +2392,13 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract &cont
 	ENCODE_FIELD( account);
 	ENCODE_FIELD( override);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqGlobalCancel()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2329,6 +2410,7 @@ void EClientSocketBase::reqGlobalCancel()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2336,13 +2418,13 @@ void EClientSocketBase::reqGlobalCancel()
 	ENCODE_FIELD( REQ_GLOBAL_CANCEL);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqMarketDataType( int marketDataType)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2354,6 +2436,7 @@ void EClientSocketBase::reqMarketDataType( int marketDataType)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2361,7 +2444,7 @@ void EClientSocketBase::reqMarketDataType( int marketDataType)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( marketDataType);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 int EClientSocketBase::sendBufferedData()
@@ -2375,6 +2458,49 @@ int EClientSocketBase::sendBufferedData()
 	}
 	CleanupBuffer( m_outBuffer, nResult);
 	return nResult;
+}
+
+void EClientSocketBase::prepareBufferImpl(std::ostream& buf) const
+{
+	assert( m_useV100Plus);
+	assert( sizeof(unsigned) == HEADER_LEN);
+
+	char header[HEADER_LEN] = { 0 };
+	buf.write( header, sizeof(header));
+}
+
+void EClientSocketBase::prepareBuffer(std::ostream& buf) const
+{
+	if( !m_useV100Plus)
+		return;
+
+	prepareBufferImpl( buf);
+}
+
+void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
+{
+	assert( !msg.empty());
+	assert( m_useV100Plus);
+
+	assert( sizeof(unsigned) == HEADER_LEN);
+	assert( msg.size() > offset + HEADER_LEN);
+	unsigned len = msg.size() - HEADER_LEN - offset;
+	if( len > MAX_MSG_LEN) {
+		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
+		return;
+	}
+
+	unsigned netlen = htonl( len);
+	memcpy( &msg[offset], &netlen, HEADER_LEN);
+}
+
+void EClientSocketBase::closeAndSend(std::string msg, unsigned offset)
+{
+	assert( !msg.empty());
+	if( m_useV100Plus) {
+		encodeMsgLen( msg, offset);
+	}
+	bufferedSend( msg);
 }
 
 int EClientSocketBase::bufferedSend(const char* buf, size_t sz)
@@ -2417,7 +2543,7 @@ int EClientSocketBase::bufferedRead()
 void EClientSocketBase::reqPositions()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2429,19 +2555,20 @@ void EClientSocketBase::reqPositions()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
 	ENCODE_FIELD( REQ_POSITIONS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelPositions()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2453,19 +2580,20 @@ void EClientSocketBase::cancelPositions()
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
 	ENCODE_FIELD( CANCEL_POSITIONS);
 	ENCODE_FIELD( VERSION);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2477,6 +2605,7 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2486,13 +2615,13 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 	ENCODE_FIELD( groupName);
 	ENCODE_FIELD( tags);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::cancelAccountSummary( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2504,6 +2633,7 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2511,13 +2641,13 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::verifyRequest(const std::string& apiName, const std::string& apiVersion)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2535,6 +2665,7 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2543,13 +2674,13 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 	ENCODE_FIELD( apiName);
 	ENCODE_FIELD( apiVersion);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::verifyMessage(const std::string& apiData)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2561,6 +2692,7 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2568,13 +2700,13 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( apiData);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::queryDisplayGroups( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2586,6 +2718,7 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2593,13 +2726,13 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2611,6 +2744,7 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2619,13 +2753,13 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 	ENCODE_FIELD( reqId);
 	ENCODE_FIELD( groupId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contractInfo)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2637,6 +2771,7 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2645,18 +2780,19 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 	ENCODE_FIELD( reqId);
 	ENCODE_FIELD( contractInfo);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::startApi()
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 2;
 
@@ -2664,16 +2800,16 @@ void EClientSocketBase::startApi()
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( m_clientId);
 
-    if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
-       	ENCODE_FIELD(m_optionalCapabilities);
+	if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+		ENCODE_FIELD(m_optionalCapabilities);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 {
 	// not connected?
-	if( !m_connected) {
+	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -2685,6 +2821,7 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	}
 
 	std::ostringstream msg;
+	prepareBuffer( msg);
 
 	const int VERSION = 1;
 
@@ -2692,7 +2829,7 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	ENCODE_FIELD( VERSION);
 	ENCODE_FIELD( reqId);
 
-	bufferedSend( msg.str());
+	closeAndSend( msg.str());
 }
 
 bool EClientSocketBase::checkMessages()
@@ -2709,8 +2846,8 @@ bool EClientSocketBase::checkMessages()
 	const char*	endPtr = ptr + m_inBuffer.size();
 
 	try {
-		while( (m_connected ? processMsg( ptr, endPtr)
-			: processConnectAck( ptr, endPtr)) > 0) {
+		while( (isConnected() ? processMsg( ptr, endPtr)
+			: isConnecting() ? processConnectAck( ptr, endPtr) : 0) > 0) {
 			if( (ptr - beginPtr) >= (int)m_inBuffer.size())
 				break;
 		}
@@ -2724,7 +2861,7 @@ bool EClientSocketBase::checkMessages()
 	return true;
 }
 
-int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endPtr)
+int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
 	// return number of bytes consumed
@@ -2736,6 +2873,36 @@ int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endP
 
 		// check server version
 		DECODE_FIELD( m_serverVersion);
+		if( m_useV100Plus) {
+
+			// handle redirects
+			if( m_serverVersion < 0) {
+
+				std::string hostport;
+				DECODE_FIELD( hostport);
+
+				std::string::size_type sep = hostport.find( ':');
+				if( sep != std::string::npos) {
+					m_host = hostport.substr(0, sep);
+					m_port = atoi( hostport.c_str() + ++sep);
+				}
+				else {
+					m_host = hostport;
+				}
+
+				m_connState = CS_REDIRECT;
+
+				int processed = ptr - beginPtr;
+				beginPtr = ptr;
+				return processed;
+			}
+
+			if( m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) {
+				eDisconnect();
+				m_pEWrapper->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
+				return -1;
+			}
+		}
 		if( m_serverVersion >= 20) {
 			DECODE_FIELD( m_TwsTime);
 		}
@@ -2746,7 +2913,7 @@ int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endP
 			return -1;
 		}
 
-		m_connected = true;
+		m_connState = CS_CONNECTED;
 
 		// send the clientId
 		if( m_serverVersion >= 3) {
@@ -2775,7 +2942,7 @@ int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endP
 	return 0;
 }
 
-int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
+int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -3146,14 +3313,14 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 				DECODE_FIELD( order.deltaNeutralOrderType); // ver 11 field (had a hack for ver 11)
 				DECODE_FIELD_MAX( order.deltaNeutralAuxPrice); // ver 12 field
 
-				if (version >= 27 && !IsEmpty(order.deltaNeutralOrderType)) {
+				if (version >= 27 && !order.deltaNeutralOrderType.empty()) {
 					DECODE_FIELD( order.deltaNeutralConId);
 					DECODE_FIELD( order.deltaNeutralSettlingFirm);
 					DECODE_FIELD( order.deltaNeutralClearingAccount);
 					DECODE_FIELD( order.deltaNeutralClearingIntent);
 				}
 
-				if (version >= 31 && !IsEmpty(order.deltaNeutralOrderType)) {
+				if (version >= 31 && !order.deltaNeutralOrderType.empty()) {
 					DECODE_FIELD( order.deltaNeutralOpenClose);
 					DECODE_FIELD( order.deltaNeutralShortSale);
 					DECODE_FIELD( order.deltaNeutralShortSaleSlot);
@@ -3258,7 +3425,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 
 				if( version >= 24) {
 					DECODE_FIELD( order.hedgeType);
-					if( !IsEmpty(order.hedgeType)) {
+					if( !order.hedgeType.empty()) {
 						DECODE_FIELD( order.hedgeParam);
 					}
 				}
@@ -3289,7 +3456,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 
 				if( version >= 21) {
 					DECODE_FIELD( order.algoStrategy);
-					if( !IsEmpty(order.algoStrategy)) {
+					if( !order.algoStrategy.empty()) {
 						int algoParamsCount = 0;
 						DECODE_FIELD( algoParamsCount);
 						if( algoParamsCount > 0) {
@@ -3304,6 +3471,10 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 							order.algoParams = algoParams;
 						}
 					}
+				}
+
+				if (version >= 33) {
+					DECODE_FIELD(order.orderSolicited);
 				}
 
 				OrderState orderState;
@@ -3748,7 +3919,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 					const BarData& bar = bars[ctr];
 					m_pEWrapper->historicalData( reqId, bar.date, bar.open, bar.high, bar.low,
 						bar.close, bar.volume, bar.barCount, bar.average,
-						Compare(bar.hasGaps, "true") == 0);
+						bar.hasGaps == "true");
 				}
 
 				// send end of dataset marker
@@ -4084,7 +4255,7 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 				DECODE_FIELD( isSuccessful);
 				DECODE_FIELD( errorText);
 
-				bool bRes = Compare(isSuccessful, "true") == 0;
+				bool bRes = isSuccessful == "true";
 
 				if (bRes) {
 					startApi();
@@ -4142,9 +4313,69 @@ int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
 	return 0;
 }
 
-bool EClientSocketBase::isConnected() const
+int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)
 {
-	return m_connected;
+	if( beginPtr + HEADER_LEN >= endPtr)
+		return 0;
+
+	assert( sizeof(unsigned) == HEADER_LEN);
+
+	unsigned netLen = 0;
+	memcpy( &netLen, beginPtr, HEADER_LEN);
+
+	const unsigned msgLen = ntohl(netLen);
+
+	// shold never happen, but still....
+	if( !msgLen) {
+		beginPtr += HEADER_LEN;
+		return HEADER_LEN;
+	}
+
+	// enforce max msg len limit
+	if( msgLen > MAX_MSG_LEN) {
+		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
+		eDisconnect();
+		m_pEWrapper->connectionClosed();
+		return 0;
+	}
+
+	const char* msgStart = beginPtr + HEADER_LEN;
+	const char* msgEnd = msgStart + msgLen;
+
+	// handle incomplete messages
+	if( msgStart > endPtr) {
+		return 0;
+	}
+
+	int decoded = (this->*handler)( msgStart, msgEnd);
+	if( decoded <= 0) {
+		// this would mean something went real wrong
+		// and message was incomplete from decoder POV
+		m_pEWrapper->error( NO_VALID_ID, BAD_MESSAGE.code(), BAD_MESSAGE.msg());
+		eDisconnect();
+		m_pEWrapper->connectionClosed();
+		return 0;
+	}
+
+	int consumed = msgEnd - beginPtr;
+	beginPtr = msgEnd;
+	return consumed;
+}
+
+int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endPtr)
+{
+	if( !m_useV100Plus) {
+		return processConnectAckImpl( beginPtr, endPtr);
+	}
+	return processOnePrefixedMsg( beginPtr, endPtr, &EClientSocketBase::processConnectAckImpl);
+}
+
+int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
+{
+	if( !m_useV100Plus) {
+		return processMsgImpl( beginPtr, endPtr);
+	}
+	return processOnePrefixedMsg( beginPtr, endPtr, &EClientSocketBase::processMsgImpl);
 }
 
 EWrapper * EClientSocketBase::getWrapper() const
@@ -4162,13 +4393,40 @@ void EClientSocketBase::setExtraAuth( bool extraAuth)
 	m_extraAuth = extraAuth;
 }
 
+void EClientSocketBase::setHost( const std::string& host)
+{
+	m_host = host;
+}
+
+void EClientSocketBase::setPort( unsigned port)
+{
+	m_port = port;
+}
+
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 void EClientSocketBase::onConnectBase()
 {
+	m_connState = CS_CONNECTING;
+
 	// send client version
 	std::ostringstream msg;
+	if( m_useV100Plus) {
+		msg.write( API_SIGN, sizeof(API_SIGN));
+		prepareBufferImpl( msg);
+		if( MIN_CLIENT_VER < MAX_CLIENT_VER) {
+			msg << 'v' << MIN_CLIENT_VER << ".." << MAX_CLIENT_VER;
+		}
+		else {
+			msg << 'v' << MIN_CLIENT_VER;
+		}
+		if( !m_connectOptions.empty()) {
+			msg << ' ' << m_connectOptions;
+		}
+		closeAndSend( msg.str(), sizeof(API_SIGN));
+		return;
+	}
 	ENCODE_FIELD( CLIENT_VERSION);
 	bufferedSend( msg.str());
 }
