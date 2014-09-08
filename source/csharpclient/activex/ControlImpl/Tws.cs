@@ -1014,6 +1014,10 @@ namespace TWSLib
 
         public delegate void verifyCompletedDelegate(bool isSuccessful, string errorText);
 
+        public delegate void verifyAndAuthMessageAPIDelegate(string apiData, string xyzChallenge);
+
+        public delegate void verifyAndAuthCompletedDelegate(bool isSuccessful, string errorText);
+
         public delegate void displayGroupListDelegate(int reqId, string groups);
 
         public delegate void displayGroupUpdatedDelegate(int reqId, string contractInfo);
@@ -1124,6 +1128,10 @@ namespace TWSLib
         public event verifyMessageAPIDelegate verifyMessageAPI;
 
         public event verifyCompletedDelegate verifyCompleted;
+
+        public event verifyAndAuthMessageAPIDelegate verifyAndAuthMessageAPI;
+
+        public event verifyAndAuthCompletedDelegate verifyAndAuthCompleted;
 
         public event displayGroupListDelegate displayGroupList;
 
@@ -1696,6 +1704,21 @@ namespace TWSLib
                 InvokeIfRequired(t_verifyCompleted, isSuccessful, errorText);
         }
 
+        void EWrapper.verifyAndAuthMessageAPI(string apiData, string xyzChallenge)
+        {
+            var t_verifyAndAuthMessageAPI = this.verifyAndAuthMessageAPI;
+            if (t_verifyAndAuthMessageAPI != null)
+                InvokeIfRequired(t_verifyAndAuthMessageAPI, apiData, xyzChallenge);
+        }
+
+        void EWrapper.verifyAndAuthCompleted(bool isSuccessful, string errorText)
+        {
+            var t_verifyAndAuthCompleted = this.verifyAndAuthCompleted;
+            if (t_verifyAndAuthCompleted != null)
+                InvokeIfRequired(t_verifyAndAuthCompleted, isSuccessful, errorText);
+        }
+
+
         void EWrapper.displayGroupList(int reqId, string groups)
         {
             var t_displayGroupList = this.displayGroupList;
@@ -1723,6 +1746,16 @@ namespace TWSLib
         public void verifyMessage(string apiData)
         {
             socket.verifyMessage(apiData);
+        }
+
+        public void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
+        {
+            socket.verifyAndAuthRequest(apiName, apiVersion, opaqueIsvKey);
+        }
+
+        public void verifyAndAuthMessage(string apiData, string xyzResponse)
+        {
+            socket.verifyAndAuthMessage(apiData, xyzResponse);
         }
 
         public void queryDisplayGroups(int reqId)

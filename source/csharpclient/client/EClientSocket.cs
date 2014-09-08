@@ -2048,6 +2048,45 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
         }
 
+        public void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING_AUTH, " It does not support verification request."))
+                return;
+            if (!extraAuth)
+            {
+                ReportError(IncomingMessage.NotValid, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE, " Intent to authenticate needs to be expressed during initial connect request.");
+                return;
+            }
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+            paramsList.AddParameter(OutgoingMessages.VerifyAndAuthRequest);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(apiName);
+            paramsList.AddParameter(apiVersion);
+            paramsList.AddParameter(opaqueIsvKey);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST);
+        }
+
+        public void verifyAndAuthMessage(string apiData, string xyzResponse)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.LINKING_AUTH, " It does not support verification message sending."))
+                return;
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+            paramsList.AddParameter(OutgoingMessages.VerifyAndAuthMessage);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(apiData);
+            paramsList.AddParameter(xyzResponse);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE);
+        }
+
         public void queryDisplayGroups(int requestId)
         {
             if (!CheckConnection())

@@ -473,6 +473,25 @@ Friend Class Tws
                                                                  })
                          End Sub)
     End Sub
+
+    Public Sub verifyAndAuthCompleted(isSuccessful As Boolean, errorText As String) Implements IBApi.EWrapper.verifyAndAuthCompleted
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnverifyAndAuthCompleted(Me, New AxTWSLib._DTwsEvents_verifyAndAuthCompletedEvent With {
+                                                                 .isSuccessful = isSuccessful,
+                                                                 .errorText = errorText
+                                                                 })
+                         End Sub)
+    End Sub
+
+    Public Sub verifyAndAuthMessageAPI(apiData As String, xyzChallenge As String) Implements IBApi.EWrapper.verifyAndAuthMessageAPI
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnverifyAndAuthMessageAPI(Me, New AxTWSLib._DTwsEvents_verifyAndAuthMessageAPIEvent With {
+                                                                 .apiData = apiData,
+                                                                 .xyzChallenge = xyzChallenge
+                                                                 })
+                         End Sub)
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
@@ -741,6 +760,10 @@ Friend Class Tws
     Event OnverifyCompleted(tws As Tws, p2 As Object)
 
     Event OnverifyMessageAPI(tws As Tws, p2 As Object)
+
+    Event OnverifyAndAuthCompleted(tws As Tws, p2 As Object)
+
+    Event OnverifyAndAuthMessageAPI(tws As Tws, p2 As Object)
 
     Event OnHistoricalData(tws As Tws, p2 As Object)
 

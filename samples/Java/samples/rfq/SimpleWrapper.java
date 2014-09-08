@@ -254,6 +254,14 @@ public class SimpleWrapper implements EWrapper {
 		logIn("verifyCompleted");
 	}
 
+	public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {
+		logIn("verifyAndAuthMessageAPI");
+	}
+
+	public void verifyAndAuthCompleted( boolean isSuccessful, String errorText){
+		logIn("verifyAndAuthCompleted");
+	}
+
 	public void displayGroupList( int reqId, String groups){
 		logIn("displayGroupList");
 	}

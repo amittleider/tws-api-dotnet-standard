@@ -125,5 +125,9 @@ namespace TWSLib
         void displayGroupList(int reqId, string groups);
         [DispId(113)]
         void displayGroupUpdated(int reqId, string contractInfo);
+        [DispId(114)]
+        void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
+        [DispId(115)]
+        void verifyAndAuthCompleted(bool isSuccessful, string errorText);
     }
 }

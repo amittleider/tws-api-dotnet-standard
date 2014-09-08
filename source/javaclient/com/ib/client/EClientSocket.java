@@ -93,12 +93,13 @@ public class EClientSocket {
 	//      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
 	// 62 = can receive avgCost in position message
 	// 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
-	// 64 = orderSolicited property
+	// 64 = can receive orderSolicited attrib in openOrder message
+	// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = 100; // ditto
-	
-    private static final int CLIENT_VERSION = 64;
+
+    private static final int CLIENT_VERSION = 65;
     private static final int SERVER_VERSION = 38;
     private static final String BAG_SEC_TYPE = "BAG";
 
@@ -167,6 +168,8 @@ public class EClientSocket {
     private static final int UPDATE_DISPLAY_GROUP = 69;
     private static final int UNSUBSCRIBE_FROM_GROUP_EVENTS = 70;
     private static final int START_API = 71;
+    private static final int VERIFY_AND_AUTH_REQUEST = 72;
+    private static final int VERIFY_AND_AUTH_MESSAGE = 73;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -208,6 +211,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_ALGO_ID = 71;
     protected static final int MIN_SERVER_VER_OPTIONAL_CAPABILITIES = 72;
     protected static final int MIN_SERVER_VER_ORDER_SOLICITED = 73;
+    protected static final int MIN_SERVER_VER_LINKING_AUTH = 74;
 
     private EWrapper m_eWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -2629,7 +2633,6 @@ public class EClientSocket {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE,
             "  Intent to authenticate needs to be expressed during initial connect request.");
             return;
-            
         }
 
         final int VERSION = 1;
@@ -2673,6 +2676,71 @@ public class EClientSocket {
         }
         catch (IOException e) {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE, "" + e);
+        }
+    }
+
+    public synchronized void verifyAndAuthRequest( String apiName, String apiVersion, String opaqueIsvKey) {
+        // not connected?
+        if( !m_connected) {
+            notConnected();
+            return;
+        }
+
+        if( m_serverVersion < MIN_SERVER_VER_LINKING_AUTH) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support verification request.");
+            return;
+        }
+
+        if( !m_extraAuth) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST,
+            "  Intent to authenticate needs to be expressed during initial connect request.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+        b.send( VERIFY_AND_AUTH_REQUEST);
+        b.send( VERSION);
+        b.send( apiName);
+        b.send( apiVersion);
+        b.send( opaqueIsvKey);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST, "" + e);
+        }
+    }
+
+    public synchronized void verifyAndAuthMessage( String apiData, String xyzResponse) {
+        // not connected?
+        if( !m_connected) {
+            notConnected();
+            return;
+        }
+
+        if( m_serverVersion < MIN_SERVER_VER_LINKING_AUTH) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support verification message sending.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+        b.send( VERIFY_AND_AUTH_MESSAGE);
+        b.send( VERSION);
+        b.send( apiData);
+        b.send( xyzResponse);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE, "" + e);
         }
     }
 

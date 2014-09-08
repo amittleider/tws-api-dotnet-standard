@@ -1243,6 +1243,14 @@ class SampleFrame extends JFrame implements EWrapper {
     	
     }
     
+    public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {
+
+    }
+
+    public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {
+
+    }
+
     public void displayGroupList( int reqId, String groups) {
         m_groupsDlg.displayGroupList(reqId, groups);
     }

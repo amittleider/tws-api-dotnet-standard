@@ -276,6 +276,14 @@ namespace IBSampleApp
         {
             addTextToBox("verifyCompleted. IsSuccessfule: "+isSuccessful+" - Error: "+errorText);
         }
+        public virtual void verifyAndAuthMessageAPI(string apiData, string xyzChallenge)
+        {
+            addTextToBox("verifyAndAuthMessageAPI: " + apiData + " " + xyzChallenge);
+        }
+        public virtual void verifyAndAuthCompleted(bool isSuccessful, string errorText)
+        {
+            addTextToBox("verifyAndAuthCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
+        }
         public virtual void displayGroupList(int reqId, string groups)
         {
             addTextToBox("DisplayGroupList. Request: "+reqId+", Groups"+groups);

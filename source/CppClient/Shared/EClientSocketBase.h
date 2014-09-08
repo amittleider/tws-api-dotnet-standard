@@ -119,6 +119,8 @@ public:
 	void cancelAccountSummary( int reqId);
 	void verifyRequest( const std::string& apiName, const std::string& apiVersion);
 	void verifyMessage( const std::string& apiData);
+	void verifyAndAuthRequest( const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey);
+	void verifyAndAuthMessage( const std::string& apiData, const std::string& xyzResponse);
 	void queryDisplayGroups( int reqId);
 	void subscribeToGroupEvents( int reqId, int groupId);
 	void updateDisplayGroup( int reqId, const std::string& contractInfo);
