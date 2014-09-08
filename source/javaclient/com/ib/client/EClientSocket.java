@@ -327,9 +327,9 @@ public class EClientSocket {
         }
         
         // check server version
-    	if( m_useV100Plus ) {
-        	m_reader.readMessageLength();
-    	}	
+    	if( !m_reader.readMessageToInternalBuf() ) {
+    	    return;
+    	}
         m_serverVersion = m_reader.readInt();
         System.out.println("Server Version:" + m_serverVersion);
         
@@ -2840,19 +2840,17 @@ public class EClientSocket {
     	Builder bos = new Builder(1024);
     	bos.send("API\0".getBytes());
     
-    	String out = ( MIN_VERSION < MAX_VERSION ) 
-    			? "v" + MIN_VERSION + ".." + MAX_VERSION + " "
-				: "v" + MIN_VERSION + " ";
+    	String out = "v" + (( MIN_VERSION < MAX_VERSION ) 
+    			? MIN_VERSION + ".." + MAX_VERSION
+				: MIN_VERSION);
     	
-    	if ( m_connectOptions != null ) { 
-    		out = out + m_connectOptions;
+    	if ( !IsEmpty( m_connectOptions ) ) { 
+    		out += " " + m_connectOptions;
     	}
 
     	int lengthPos = bos.allocateLengthHeader();
     	bos.send( out.getBytes() );
-    	if( m_useV100Plus ) { 
-    	    bos.updateLength( lengthPos );
-        }
+    	bos.updateLength( lengthPos );
     	bos.writeTo( m_dos );
     }
 
