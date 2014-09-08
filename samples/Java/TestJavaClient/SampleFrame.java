@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -26,11 +25,9 @@ import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.Order;
-import com.ib.client.OrderComboLeg;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
 import com.ib.client.UnderComp;
-import com.ib.client.Util;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
