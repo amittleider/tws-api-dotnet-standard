@@ -58,5 +58,6 @@ namespace IBApi
         public const int OPTIONAL_CAPABILITIES = 72;
         public const int ORDER_SOLICITED = 73;
         public const int LINKING_AUTH = 74;
+        public const int PRIMARYEXCH = 75;
     }
 }

@@ -1250,6 +1250,11 @@ namespace IBApi
                     return;
             }
 
+
+            if (!IsEmpty(contract.PrimaryExch) && !CheckServerVersion(reqId, MinServerVer.PRIMARYEXCH,
+                " It does not support PrimaryExch parameter when requesting contract details."))
+                return;
+
             int VERSION = 7;
 
             var paramsList = new BinaryWriter(new MemoryStream());
@@ -1275,6 +1280,12 @@ namespace IBApi
                 paramsList.AddParameter(contract.Multiplier);
             }
             paramsList.AddParameter(contract.Exchange);
+
+            if (serverVersion >= MinServerVer.PRIMARYEXCH)
+            {
+                paramsList.AddParameter(contract.PrimaryExch);
+            } 
+            
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
             if (serverVersion >= MinServerVer.TRADING_CLASS)
@@ -1654,6 +1665,7 @@ namespace IBApi
             if (serverVersion >= 15)
                 paramsList.AddParameter(contract.Multiplier);
             paramsList.AddParameter(contract.Exchange);
+
             if (serverVersion >= 14)
                 paramsList.AddParameter(contract.PrimaryExch);
             paramsList.AddParameter(contract.Currency);
@@ -1707,6 +1719,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(TagValueListToString(mktDataOptions));
             }
+
             CloseAndSend(tickerId, paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKT);
         }
 

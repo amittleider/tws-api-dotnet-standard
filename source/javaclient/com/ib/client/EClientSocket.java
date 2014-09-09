@@ -212,6 +212,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_OPTIONAL_CAPABILITIES = 72;
     protected static final int MIN_SERVER_VER_ORDER_SOLICITED = 73;
     protected static final int MIN_SERVER_VER_LINKING_AUTH = 74;
+    protected static final int MIN_SERVER_VER_PRIMARYEXCH = 75;
 
     private EWrapper m_eWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -974,7 +975,14 @@ public class EClientSocket {
                   return;
             }
         }
-
+        if (m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
+            if (!IsEmpty(contract.m_primaryExch)) {
+                error(reqId, EClientErrors.UPDATE_TWS,
+    				"  It does not support primaryExchange parameter in reqContractDetails.");
+                return;
+            }
+        }
+        
         final int VERSION = 7;
 
         try {
@@ -1001,6 +1009,9 @@ public class EClientSocket {
                 b.send(contract.m_multiplier);
             }
             b.send( contract.m_exchange);
+            if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH) {
+            	b.send(contract.m_primaryExch);
+            }
             b.send( contract.m_currency);
             b.send( contract.m_localSymbol);
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
