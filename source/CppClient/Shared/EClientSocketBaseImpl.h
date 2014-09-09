@@ -213,6 +213,7 @@ const int MIN_SERVER_VER_ALGO_ID                = 71;
 const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
 const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 const int MIN_SERVER_VER_LINKING_AUTH           = 74;
+const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;
@@ -1410,11 +1411,18 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 			return;
 		}
 	}
+    if (m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
+        if (!contract.primaryExchange.empty()) {
+            m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support primaryExchange parameter in reqContractDetails.");
+            return;
+        }
+    }
 
 	std::ostringstream msg;
 	prepareBuffer( msg);
 
-	const int VERSION = 7;
+	const int VERSION = 8;
 
 	// send req mkt data msg
 	ENCODE_FIELD( REQ_CONTRACT_DATA);
@@ -1433,6 +1441,11 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
 	ENCODE_FIELD( contract.exchange);
+     
+    if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH) {
+        ENCODE_FIELD(contract.primaryExchange);
+    }
+
 	ENCODE_FIELD( contract.currency);
 	ENCODE_FIELD( contract.localSymbol);
 	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
