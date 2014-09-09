@@ -1255,7 +1255,7 @@ namespace IBApi
                 " It does not support PrimaryExch parameter when requesting contract details."))
                 return;
 
-            int VERSION = 7;
+            int VERSION = 8;
 
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);

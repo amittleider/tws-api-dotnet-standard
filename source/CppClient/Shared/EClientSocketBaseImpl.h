@@ -1422,7 +1422,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	std::ostringstream msg;
 	prepareBuffer( msg);
 
-	const int VERSION = 7;
+	const int VERSION = 8;
 
 	// send req mkt data msg
 	ENCODE_FIELD( REQ_CONTRACT_DATA);

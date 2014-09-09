@@ -983,7 +983,7 @@ public class EClientSocket {
             }
         }
         
-        final int VERSION = 7;
+        final int VERSION = 8;
 
         try {
             // send req mkt data msg
