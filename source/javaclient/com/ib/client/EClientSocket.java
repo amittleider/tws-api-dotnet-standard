@@ -98,6 +98,8 @@ public class EClientSocket {
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = 100; // ditto
+    private static final int REDIRECT_MSG_ID = -1;
+    private static final int REDIRECT_COUNT_MAX = 2;
 
     private static final int CLIENT_VERSION = 65;
     private static final int SERVER_VERSION = 38;
@@ -225,7 +227,8 @@ public class EClientSocket {
     private boolean m_useV100Plus;
     private String m_optionalCapabilities;
     private String m_connectOptions; // iServer rails are used for Connection if this is not null
-    private int m_port;
+    private String m_host;           // Actual host, directly set or redirected
+    private int m_redirectCount;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -239,6 +242,7 @@ public class EClientSocket {
 
     // get
     public String OptionalCapabilities() { return m_optionalCapabilities; }
+    public String connectedHost()        { return m_host; } // Host that was connected/redirected
 
     public EClientSocket( EWrapper eWrapper) {
         m_eWrapper = eWrapper;
@@ -247,6 +251,7 @@ public class EClientSocket {
         m_optionalCapabilities = "";
         m_connected = false;
         m_serverVersion = 0;
+        m_redirectCount = 0;
     }
     
     // iServer rails are used for Connection if connectOptions != null
@@ -266,17 +271,17 @@ public class EClientSocket {
     
     public synchronized void eConnect( String host, int port, int clientId, boolean extraAuth) {
         // already connected?
-        host = checkConnected(host);
+        m_host = checkConnected(host);
 
-        m_port = port;
         m_clientId = clientId;
         m_extraAuth = extraAuth;
+        m_redirectCount = 0;
 
-        if(host == null){
+        if(m_host == null){
             return;
         }
         try{
-            Socket socket = new Socket( host, port);
+            Socket socket = new Socket( m_host, port);
             eConnect(socket);
         }
         catch( Exception e) {
@@ -309,10 +314,11 @@ public class EClientSocket {
 
     public synchronized void eConnect(Socket socket, int clientId) throws IOException {
         m_clientId = clientId;
+        m_redirectCount = 0;
         eConnect(socket);
     }
     
-    public synchronized void eConnect(Socket socket) throws IOException {
+    private synchronized void eConnect(Socket socket) throws IOException {
         // create io streams
         m_dos = new DataOutputStream( socket.getOutputStream() );
 
@@ -336,6 +342,22 @@ public class EClientSocket {
     	    return;
     	}
         m_serverVersion = m_reader.readInt();
+        
+        // Handle redirect
+        if( m_useV100Plus && m_serverVersion == REDIRECT_MSG_ID ) {
+            ++m_redirectCount;
+            if ( m_redirectCount > REDIRECT_COUNT_MAX ) {
+                eDisconnect();
+                m_eWrapper.error( "Redirect count exceeded" );
+                return;
+            }
+            String newAddress = m_reader.readStr();
+            int defaultPort = socket.getPort();
+            eDisconnect( false );
+            performRedirect( newAddress, defaultPort );
+        	return;
+        }
+
         System.out.println("Server Version:" + m_serverVersion);
         
         if ( m_serverVersion >= 20 ){
@@ -371,17 +393,41 @@ public class EClientSocket {
 
     }
 
+    private void performRedirect( String address, int defaultPort ) throws IOException {
+        System.out.println("Server Redirect: " + address);
+        
+        // Get host:port from address string and reconnect (note: port is optional)
+        String[] array = address.split(":");
+        m_host = array[0]; // reset connected host
+        int newPort;
+        try {
+            newPort = ( array.length > 1 ) ? Integer.parseInt(array[1]) : defaultPort;
+        }
+        catch ( NumberFormatException e ) {
+            System.out.println( "Warning: redirect port is invalid, using default port");
+            newPort = defaultPort;
+        }
+        eConnect( new Socket( m_host, newPort ) );
+    }
+
     public synchronized void eDisconnect() {
+        eDisconnect( true );
+    }
+    
+    private synchronized void eDisconnect( boolean resetState ) {
         // not connected?
         if( m_dos == null) {
             return;
         }
 
-        m_connected = false;
-        m_extraAuth = false;
-        m_clientId = -1;
-        m_serverVersion = 0;
-        m_TwsTime = "";
+        if ( resetState ) {
+            m_connected = false;
+            m_extraAuth = false;
+            m_clientId = -1;
+            m_serverVersion = 0;
+            m_TwsTime = "";
+            m_redirectCount = 0;
+        }
 
         FilterOutputStream dos = m_dos;
         m_dos = null;
