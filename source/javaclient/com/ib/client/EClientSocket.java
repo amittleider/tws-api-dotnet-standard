@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Vector;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class EClientSocket {
 
     // Client version history
@@ -1021,12 +1023,16 @@ public class EClientSocket {
                   return;
             }
         }
-        if (m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
-            if (!IsEmpty(contract.m_primaryExch)) {
-                error(reqId, EClientErrors.UPDATE_TWS,
-    				"  It does not support primaryExchange parameter in reqContractDetails.");
+        
+        Boolean exchIsSmart = contract.m_exchange.equalsIgnoreCase("smart");
+        Boolean exchIsBest = contract.m_exchange.equalsIgnoreCase("best");
+
+        if (!IsEmpty(contract.m_primaryExch) &&  
+            (!exchIsSmart && !exchIsBest || m_serverVersion < MIN_SERVER_VER_LINKING) &&
+            m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
+        		error(reqId, EClientErrors.UPDATE_TWS,
+                    "  It does not support primaryExchange parameter in reqContractDetails.");
                 return;
-            }
         }
         
         final int VERSION = 8;
@@ -1054,7 +1060,12 @@ public class EClientSocket {
             if (m_serverVersion >= 15) {
                 b.send(contract.m_multiplier);
             }
-            b.send( contract.m_exchange);
+            
+            if ( m_serverVersion >= MIN_SERVER_VER_LINKING && m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH && (exchIsSmart || exchIsBest))
+            	b.send( contract.m_exchange + ":" + contract.m_primaryExch);
+            else
+            	b.send( contract.m_exchange);
+            
             if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH) {
             	b.send(contract.m_primaryExch);
             }
