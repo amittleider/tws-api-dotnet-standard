@@ -1250,8 +1250,12 @@ namespace IBApi
                     return;
             }
 
+            var exchIsSmart = string.Compare(contract.Exchange, "SMART", true) == 0;
+            var exchIsBest = string.Compare(contract.Exchange, "BEST", true) == 0;
 
-            if (!IsEmpty(contract.PrimaryExch) && !CheckServerVersion(reqId, MinServerVer.PRIMARYEXCH,
+            if (!IsEmpty(contract.PrimaryExch) &&  
+                (!exchIsSmart && !exchIsBest || serverVersion < MinServerVer.LINKING) &&
+            !CheckServerVersion(reqId, MinServerVer.PRIMARYEXCH,
                 " It does not support PrimaryExch parameter when requesting contract details."))
                 return;
 
@@ -1279,7 +1283,11 @@ namespace IBApi
             {
                 paramsList.AddParameter(contract.Multiplier);
             }
-            paramsList.AddParameter(contract.Exchange);
+
+            if ( serverVersion >= MinServerVer.LINKING && serverVersion < MinServerVer.PRIMARYEXCH && (exchIsSmart || exchIsBest))
+                paramsList.AddParameter(contract.Exchange + ":" + contract.PrimaryExch);            
+            else
+                paramsList.AddParameter(contract.Exchange);
 
             if (serverVersion >= MinServerVer.PRIMARYEXCH)
             {
