@@ -1427,14 +1427,6 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
             return;
     }
 
-    if (m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
-        if (!contract.primaryExchange.empty()) {
-            m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-				"  It does not support primaryExchange parameter in reqContractDetails.");
-            return;
-        }
-    }
-
 	std::ostringstream msg;
 	prepareBuffer( msg);
 
