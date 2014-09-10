@@ -11,8 +11,6 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Vector;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class EClientSocket {
 
     // Client version history
