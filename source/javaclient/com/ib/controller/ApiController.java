@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import apidemo.util.IVerifyAndAuth;
+
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -71,18 +73,36 @@ public class ApiController implements EWrapper {
 		void error(Exception e);
 		void message(int id, int errorCode, String errorMsg);
 		void show(String string);
+		IVerifyAndAuth verifyAndAuthConfig();
 	}
 
-	public ApiController( IConnectionHandler handler, ILogger inLogger, ILogger outLogger) {
+	public ApiController( IConnectionHandler handler, ILogger inLogger, ILogger outLogger ) {
 		m_connectionHandler = handler;
 		m_client = new ApiConnection( this, inLogger, outLogger);
 		m_inLogger = inLogger;
 		m_outLogger = outLogger;
 	}
 
-	public void connect( String host, int port, int clientId) {
-		m_client.eConnect(host, port, clientId);
-		sendEOM();
+	public void connect( String host, int port, int clientId, String connectionOpts ) {
+		IVerifyAndAuth verifyAndAuthConfig = m_connectionHandler.verifyAndAuthConfig();
+	    boolean extraAuth = verifyAndAuthConfig.getConnectionType().useExtraAuth();
+	    boolean useV100 = verifyAndAuthConfig.getConnectionType().useV100();
+	    String connectionOptions = connectionOpts;
+        if ( connectionOptions != null && connectionOptions.length() > 0 ) {
+            useV100 = true;
+            connectionOptions = connectionOptions.trim();
+            if ( connectionOptions.equals( "*" ) ) { // is user trying to explicitly set v100 mode with no options
+            	connectionOptions = "";
+            }
+        }
+	    if ( useV100 ) {
+	        m_client.setUseV100Plus( connectionOptions );
+	    }
+	    m_client.eConnect(host, port, clientId, extraAuth);
+	    sendEOM();
+	    if ( extraAuth && m_client.isConnected() ) {
+	    	verifyAndAuthConfig.startAuthRequest( m_client );
+	    }
 	}
 
 	public void disconnect() {
@@ -964,8 +984,17 @@ public class ApiController implements EWrapper {
 
 	@Override public void verifyMessageAPI( String apiData) {}
 	@Override public void verifyCompleted( boolean isSuccessful, String errorText) {}
-	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallange) {}
-	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {}
+	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallange) {
+	    m_connectionHandler.verifyAndAuthConfig().verifyNAuthMessageAPI( m_client, apiData, xyzChallange );
+	}
+	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {
+	    if ( isSuccessful ) {
+	        System.out.println( "VerifyAndAuth successful" );
+	    }
+	    else {
+	        System.out.println( "VerifyAndAuth failed, error: " + errorText );
+	    }
+	}
 	@Override public void displayGroupList(int reqId, String groups) {}
 	@Override public void displayGroupUpdated(int reqId, String contractInfo) {}
 

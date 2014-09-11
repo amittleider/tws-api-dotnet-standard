@@ -19,7 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import apidemo.util.DefaultVerifyAndAuthConfig;
 import apidemo.util.HtmlButton;
+import apidemo.util.IVerifyAndAuth;
 import apidemo.util.NewLookAndFeel;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.VerticalPanel;
@@ -36,6 +38,7 @@ public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
 	static ApiDemo INSTANCE = new ApiDemo();
 
+	private final IVerifyAndAuth m_verifyAndAuthConfig;
 	private final JTextArea m_inLog = new JTextArea();
 	private final JTextArea m_outLog = new JTextArea();
 	private final Logger m_inLogger = new Logger( m_inLog);
@@ -44,7 +47,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final ArrayList<String> m_acctList = new ArrayList<String>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
-	private final ConnectionPanel m_connectionPanel = new ConnectionPanel();
+	private final ConnectionPanel m_connectionPanel;
 	private final MarketDataPanel m_mktDataPanel = new MarketDataPanel();
 	private final ContractInfoPanel m_contractInfoPanel = new ContractInfoPanel();
 	private final TradingPanel m_tradingPanel = new TradingPanel();
@@ -59,9 +62,19 @@ public class ApiDemo implements IConnectionHandler {
 	public ArrayList<String> accountList() 	{ return m_acctList; }
 	public ApiController controller() 		{ return m_controller; }
 	public JFrame frame() 					{ return m_frame; }
+	@Override public IVerifyAndAuth verifyAndAuthConfig() { return m_verifyAndAuthConfig; }
 
 	public static void main(String[] args) {
 		INSTANCE.run();
+	}
+	
+	public ApiDemo() {
+		this( new DefaultVerifyAndAuthConfig() );
+	}
+	
+	protected ApiDemo( IVerifyAndAuth verifyAndAuthConfig ) {
+		m_verifyAndAuthConfig = verifyAndAuthConfig;
+		m_connectionPanel = new ConnectionPanel();
 	}
 	
 	private void run() {
@@ -97,8 +110,8 @@ public class ApiDemo implements IConnectionHandler {
         m_frame.setVisible( true);
         m_frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
-        // make initial connection to local host, port 7496, client id 0
-		m_controller.connect( "127.0.0.1", 7496, 0);
+        // make initial connection to local host, port 7496, client id 0, no connection options
+		m_controller.connect( "127.0.0.1", 7496, 0, m_verifyAndAuthConfig.supportsV100() ? " " : null );
     }
 	
 	@Override public void connected() {
@@ -152,8 +165,9 @@ public class ApiDemo implements IConnectionHandler {
 	}
 	
 	private class ConnectionPanel extends JPanel {
-		private final JTextField m_host = new JTextField(7);
-		private final JTextField m_port = new JTextField( "7496", 7);
+		private final JTextField m_host = new JTextField( m_verifyAndAuthConfig.getDefaultHost(), 10);
+		private final JTextField m_port = new JTextField( m_verifyAndAuthConfig.getDefaultPort(), 7);
+		private final JTextField m_connectOptions = new JTextField( m_verifyAndAuthConfig.getDefaultConnectOptions(), 30);
 		private final JTextField m_clientId = new JTextField("0", 7);
 		private final JLabel m_status = new JLabel("Disconnected");
 		
@@ -174,6 +188,9 @@ public class ApiDemo implements IConnectionHandler {
 			p1.add( "Host", m_host);
 			p1.add( "Port", m_port);
 			p1.add( "Client ID", m_clientId);
+			if ( m_verifyAndAuthConfig.supportsV100() ) {
+				p1.add( "Connect options", m_connectOptions);
+			}
 			
 			JPanel p2 = new VerticalPanel();
 			p2.add( connect);
@@ -196,9 +213,19 @@ public class ApiDemo implements IConnectionHandler {
 		protected void onConnect() {
 			int port = Integer.parseInt( m_port.getText() );
 			int clientId = Integer.parseInt( m_clientId.getText() );
-			m_controller.connect( m_host.getText(), port, clientId);
+			String connectOptions = m_verifyAndAuthConfig.supportsV100() ? m_connectOptions.getText() : null;
+			m_controller.connect( m_host.getText(), port, clientId, connectOptions);
 		}
 	}
+	
+    public static void start( final IVerifyAndAuth verifyAndAuth ) {
+        SwingUtilities.invokeLater( new Runnable() {
+            @Override public void run() {
+                INSTANCE = new ApiDemo( verifyAndAuth );
+                INSTANCE.run();
+            }
+        } );
+    }
 	
 	private static class Logger implements ILogger {
 		final private JTextArea m_area;
