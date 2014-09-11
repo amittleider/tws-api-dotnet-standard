@@ -1411,20 +1411,12 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 			return;
 		}
 	}
-
-    std::string tmp(contract.exchange);
-
-    std::transform(contract.exchange.begin(), contract.exchange.end(), tmp.begin(), ::tolower);
-
-    bool exchIsSmart = tmp =="smart";
-    bool exchIsBest = tmp == "best";
-
-    if (!contract.primaryExchange.empty() &&  
-        (!exchIsSmart && !exchIsBest || m_serverVersion < MIN_SERVER_VER_LINKING) &&
-        m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
+    if (m_serverVersion < MIN_SERVER_VER_LINKING) {
+        if (!contract.primaryExchange.empty()) {
             m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
                 "  It does not support primaryExchange parameter in reqContractDetails.");
             return;
+    }
     }
 
 	std::ostringstream msg;
@@ -1449,17 +1441,21 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
 
-    if ( m_serverVersion >= MIN_SERVER_VER_LINKING && m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH && (exchIsSmart || exchIsBest))
+    if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH)
     {
-	    ENCODE_FIELD( contract.exchange + ":" + contract.primaryExchange);
-    }
-    else
-    {
-	    ENCODE_FIELD( contract.exchange);
-    }
-     
-    if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH) {
+        ENCODE_FIELD(contract.exchange);
         ENCODE_FIELD(contract.primaryExchange);
+    }
+    else if (m_serverVersion >= MIN_SERVER_VER_LINKING)
+    {
+        if (!contract.primaryExchange.empty() && (contract.exchange == "BEST" || contract.exchange == "SMART"))
+        {
+            ENCODE_FIELD( contract.exchange + ":" + contract.primaryExchange);
+        }
+        else
+        {
+            ENCODE_FIELD(contract.exchange);
+        }
     }
 
 	ENCODE_FIELD( contract.currency);
