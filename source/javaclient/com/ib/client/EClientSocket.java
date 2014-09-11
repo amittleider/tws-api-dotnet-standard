@@ -1021,12 +1021,12 @@ public class EClientSocket {
                   return;
             }
         }
-        if (m_serverVersion < MIN_SERVER_VER_PRIMARYEXCH) {
+        if (m_serverVersion < MIN_SERVER_VER_LINKING) {
             if (!IsEmpty(contract.m_primaryExch)) {
-                error(reqId, EClientErrors.UPDATE_TWS,
-    				"  It does not support primaryExchange parameter in reqContractDetails.");
+        		error(reqId, EClientErrors.UPDATE_TWS,
+                    "  It does not support primaryExchange parameter in reqContractDetails.");
                 return;
-            }
+        }
         }
         
         final int VERSION = 8;
@@ -1054,10 +1054,24 @@ public class EClientSocket {
             if (m_serverVersion >= 15) {
                 b.send(contract.m_multiplier);
             }
-            b.send( contract.m_exchange);
-            if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH) {
+            
+            if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH)
+            {
+            	b.send(contract.m_exchange);
             	b.send(contract.m_primaryExch);
             }
+            else if (m_serverVersion >= MIN_SERVER_VER_LINKING)
+            {
+                if (!IsEmpty(contract.m_primaryExch) && (contract.m_exchange == "BEST" || contract.m_exchange == "SMART"))
+                {
+                   	b.send(contract.m_exchange + ":" + contract.m_primaryExch);
+                }
+                else
+                {
+                	b.send(contract.m_exchange);
+                }
+            }
+            
             b.send( contract.m_currency);
             b.send( contract.m_localSymbol);
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {

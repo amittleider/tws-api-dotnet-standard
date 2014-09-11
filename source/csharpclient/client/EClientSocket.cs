@@ -1250,10 +1250,10 @@ namespace IBApi
                     return;
             }
 
-
-            if (!IsEmpty(contract.PrimaryExch) && !CheckServerVersion(reqId, MinServerVer.PRIMARYEXCH,
+            if (!IsEmpty(contract.PrimaryExch) && !CheckServerVersion(reqId, MinServerVer.LINKING,
                 " It does not support PrimaryExch parameter when requesting contract details."))
                 return;
+
 
             int VERSION = 8;
 
@@ -1279,12 +1279,23 @@ namespace IBApi
             {
                 paramsList.AddParameter(contract.Multiplier);
             }
-            paramsList.AddParameter(contract.Exchange);
 
             if (serverVersion >= MinServerVer.PRIMARYEXCH)
             {
+                paramsList.AddParameter(contract.Exchange);
                 paramsList.AddParameter(contract.PrimaryExch);
-            } 
+            }
+            else if (serverVersion >= MinServerVer.LINKING)
+            {
+                if (!IsEmpty(contract.PrimaryExch) && (contract.Exchange == "BEST" || contract.Exchange == "SMART"))
+                {
+                    paramsList.AddParameter(contract.Exchange + ":" + contract.PrimaryExch);
+                }
+                else
+                {
+                    paramsList.AddParameter(contract.Exchange);
+                }
+            }
             
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
