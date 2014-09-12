@@ -5,40 +5,32 @@ import com.ib.client.EClientSocket;
 /** Configuration for extended authentication versions, i.e. for mobile API */
 public interface IVerifyAndAuth {
 
-	public enum ConnectionType {
-	    PRE_V100,
-	    V100,
-	    V100_EXTRA_AUTH
-	    ;
-	    
-	    public boolean useV100() {
-	        switch ( this ) {
-	            case PRE_V100:
-	                return false;
-	            case V100:
-	            case V100_EXTRA_AUTH:
-	                return true;
-	        }
-	        return true;
+	public String getDefaultHost();
+	public String getDefaultPort();
+	public String getDefaultConnectOptions();
+	/** return true if extra auth is required */
+	public boolean preConnect( EClientSocket client, String connectionOpts ); 
+	public void postConnect(EClientSocket client);
+	public void verifyNAuthMessageAPI(EClientSocket client, String apiData, String challenge);
+
+	/** Provides compatibility with pre-v100 messaging */
+	public static class DefaultVerifyAndAuthConfig implements IVerifyAndAuth {
+	    @Override public String getDefaultHost() { return ""; }
+	    @Override public String getDefaultPort() { return "7496"; }
+	    @Override public String getDefaultConnectOptions() { return null; }
+
+	    @Override public boolean preConnect( EClientSocket client, String connectionOpts ) {
+	        // NOOP
+	        return false;
 	    }
-	
-	    public boolean useExtraAuth() {
-	        switch ( this ) {
-	            case PRE_V100:
-	            case V100:
-	                return false;
-	            case V100_EXTRA_AUTH:
-	                return true;
-	        }
-	        return true;
+	    
+	    @Override public void postConnect(EClientSocket client) {
+	        // NOOP
+	    }
+
+	    @Override public void verifyNAuthMessageAPI(EClientSocket client, String apiData, String challenge) {
+	        // NOOP
 	    }
 	}
 
-	public abstract boolean supportsV100();	// should v100 mode be enabled at all in GUI
-	public abstract String getDefaultHost();
-	public abstract String getDefaultPort();
-	public abstract String getDefaultConnectOptions();
-	public abstract ConnectionType getConnectionType();
-	public abstract boolean startAuthRequest(EClientSocket client);
-	public abstract void verifyNAuthMessageAPI(EClientSocket client, String apiData, String challenge);
 }

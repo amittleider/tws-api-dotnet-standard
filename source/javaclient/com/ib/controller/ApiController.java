@@ -76,7 +76,7 @@ public class ApiController implements EWrapper {
 		IVerifyAndAuth verifyAndAuthConfig();
 	}
 
-	public ApiController( IConnectionHandler handler, ILogger inLogger, ILogger outLogger ) {
+	public ApiController( IConnectionHandler handler, ILogger inLogger, ILogger outLogger) {
 		m_connectionHandler = handler;
 		m_client = new ApiConnection( this, inLogger, outLogger);
 		m_inLogger = inLogger;
@@ -85,24 +85,10 @@ public class ApiController implements EWrapper {
 
 	public void connect( String host, int port, int clientId, String connectionOpts ) {
 		IVerifyAndAuth verifyAndAuthConfig = m_connectionHandler.verifyAndAuthConfig();
-	    boolean extraAuth = verifyAndAuthConfig.getConnectionType().useExtraAuth();
-	    boolean useV100 = verifyAndAuthConfig.getConnectionType().useV100();
-	    String connectionOptions = connectionOpts;
-        if ( connectionOptions != null && connectionOptions.length() > 0 ) {
-            useV100 = true;
-            connectionOptions = connectionOptions.trim();
-            if ( connectionOptions.equals( "*" ) ) { // is user trying to explicitly set v100 mode with no options
-            	connectionOptions = "";
-            }
-        }
-	    if ( useV100 ) {
-	        m_client.setUseV100Plus( connectionOptions );
-	    }
+		boolean extraAuth = verifyAndAuthConfig.preConnect( m_client, connectionOpts );
 	    m_client.eConnect(host, port, clientId, extraAuth);
 	    sendEOM();
-	    if ( extraAuth && m_client.isConnected() ) {
-	    	verifyAndAuthConfig.startAuthRequest( m_client );
-	    }
+	    verifyAndAuthConfig.postConnect( m_client );
 	}
 
 	public void disconnect() {
