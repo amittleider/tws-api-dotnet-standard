@@ -20,8 +20,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import apidemo.util.HtmlButton;
-import apidemo.util.IVerifyAndAuth;
-import apidemo.util.IVerifyAndAuth.DefaultVerifyAndAuthConfig;
+import apidemo.util.IConnectionConfiguration;
+import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
 import apidemo.util.NewLookAndFeel;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.VerticalPanel;
@@ -38,12 +38,12 @@ public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
 	static ApiDemo INSTANCE;
 
-	private final IVerifyAndAuth m_verifyAndAuthConfig;
+	private final IConnectionConfiguration m_connectionConfiguration;
 	private final JTextArea m_inLog = new JTextArea();
 	private final JTextArea m_outLog = new JTextArea();
 	private final Logger m_inLogger = new Logger( m_inLog);
 	private final Logger m_outLogger = new Logger( m_outLog);
-	private final ApiController m_controller = new ApiController( this, m_inLogger, m_outLogger);
+	private ApiController m_controller;
 	private final ArrayList<String> m_acctList = new ArrayList<String>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
@@ -60,28 +60,31 @@ public class ApiDemo implements IConnectionHandler {
 
 	// getter methods
 	public ArrayList<String> accountList() 	{ return m_acctList; }
-	public ApiController controller() 		{ return m_controller; }
 	public JFrame frame() 					{ return m_frame; }
-	@Override public IVerifyAndAuth verifyAndAuthConfig() { return m_verifyAndAuthConfig; }
-
+	public ILogger getInLogger()            { return m_inLogger; }
+	public ILogger getOutLogger()           { return m_outLogger; }
+	
 	public static void main(String[] args) {
-		start( null );
+		start( new ApiDemo( new DefaultConnectionConfiguration() ) );
 	}
 	
-    public static void start( final IVerifyAndAuth verifyAndAuth ) {
-        INSTANCE = new ApiDemo( verifyAndAuth );
+    public static void start( ApiDemo apiDemo ) {
+        INSTANCE = apiDemo;
         INSTANCE.run();
     }
 
-    public ApiDemo() {
-        this( null );
-    }
-    
-	public ApiDemo( IVerifyAndAuth verifyAndAuthConfig ) {
-		m_verifyAndAuthConfig = verifyAndAuthConfig != null ? verifyAndAuthConfig : new DefaultVerifyAndAuthConfig();
-		m_connectionPanel = new ConnectionPanel(); // must be done after verifyAndAuthConfig is set
+	public ApiDemo( IConnectionConfiguration connectionConfig ) {
+		m_connectionConfiguration = connectionConfig; 
+		m_connectionPanel = new ConnectionPanel(); // must be done after connection config is set
 	}
 	
+    public ApiController controller() {
+        if ( m_controller == null ) {
+            m_controller = new ApiController( this, getInLogger(), getOutLogger() );
+        }
+        return m_controller;
+    }
+
 	private void run() {
 		m_tabbedPanel.addTab( "Connection", m_connectionPanel);
 		m_tabbedPanel.addTab( "Market Data", m_mktDataPanel);
@@ -116,20 +119,20 @@ public class ApiDemo implements IConnectionHandler {
         m_frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
         // make initial connection to local host, port 7496, client id 0, no connection options
-		m_controller.connect( "127.0.0.1", 7496, 0, m_verifyAndAuthConfig.getDefaultConnectOptions() != null ? " " : null );
+		controller().connect( "127.0.0.1", 7496, 0, m_connectionConfiguration.getDefaultConnectOptions() != null ? "" : null );
     }
 	
 	@Override public void connected() {
 		show( "connected");
 		m_connectionPanel.m_status.setText( "connected");
 		
-		m_controller.reqCurrentTime( new ITimeHandler() {
+		controller().reqCurrentTime( new ITimeHandler() {
 			@Override public void currentTime(long time) {
 				show( "Server date/time is " + Formats.fmtDate(time * 1000) );
 			}
 		});
 		
-		m_controller.reqBulletins( true, new IBulletinHandler() {
+		controller().reqBulletins( true, new IBulletinHandler() {
 			@Override public void bulletin(int msgId, NewsType newsType, String message, String exchange) {
 				String str = String.format( "Received bulletin:  type=%s  exchange=%s", newsType, exchange);
 				show( str);
@@ -169,10 +172,10 @@ public class ApiDemo implements IConnectionHandler {
 		show( id + " " + errorCode + " " + errorMsg);
 	}
 	
-	private class ConnectionPanel extends JPanel {
-		private final JTextField m_host = new JTextField( m_verifyAndAuthConfig.getDefaultHost(), 10);
-		private final JTextField m_port = new JTextField( m_verifyAndAuthConfig.getDefaultPort(), 7);
-		private final JTextField m_connectOptionsTF = new JTextField( m_verifyAndAuthConfig.getDefaultConnectOptions(), 30);
+    private class ConnectionPanel extends JPanel {
+		private final JTextField m_host = new JTextField( m_connectionConfiguration.getDefaultHost(), 10);
+		private final JTextField m_port = new JTextField( m_connectionConfiguration.getDefaultPort(), 7);
+		private final JTextField m_connectOptionsTF = new JTextField( m_connectionConfiguration.getDefaultConnectOptions(), 30);
 		private final JTextField m_clientId = new JTextField("0", 7);
 		private final JLabel m_status = new JLabel("Disconnected");
 		
@@ -185,7 +188,7 @@ public class ApiDemo implements IConnectionHandler {
 
 			HtmlButton disconnect = new HtmlButton("Disconnect") {
 				@Override public void actionPerformed() {
-					m_controller.disconnect();
+					controller().disconnect();
 				}
 			};
 			
@@ -193,7 +196,7 @@ public class ApiDemo implements IConnectionHandler {
 			p1.add( "Host", m_host);
 			p1.add( "Port", m_port);
 			p1.add( "Client ID", m_clientId);
-			if ( m_verifyAndAuthConfig.getDefaultConnectOptions() != null ) {
+			if ( m_connectionConfiguration.getDefaultConnectOptions() != null ) {
 				p1.add( "Connect options", m_connectOptionsTF);
 			}
 			
@@ -218,11 +221,11 @@ public class ApiDemo implements IConnectionHandler {
 		protected void onConnect() {
 			int port = Integer.parseInt( m_port.getText() );
 			int clientId = Integer.parseInt( m_clientId.getText() );
-			m_controller.connect( m_host.getText(), port, clientId, m_connectOptionsTF.getText());
+			controller().connect( m_host.getText(), port, clientId, m_connectOptionsTF.getText());
 		}
 	}
-    
-    private static class Logger implements ILogger {
+	
+	private static class Logger implements ILogger {
 		final private JTextArea m_area;
 
 		Logger( JTextArea area) {

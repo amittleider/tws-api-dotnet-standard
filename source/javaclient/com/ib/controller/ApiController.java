@@ -11,8 +11,6 @@ import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import apidemo.util.IVerifyAndAuth;
-
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -65,6 +63,8 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<IAccountHandler> m_accountHandlers = new ConcurrentHashSet<IAccountHandler>();
 	private final ConcurrentHashSet<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<ILiveOrderHandler>();
 
+	public ApiConnection client() { return m_client; }
+
 	// ---------------------------------------- Constructor and Connection handling ----------------------------------------
 	public interface IConnectionHandler {
 		void connected();
@@ -73,7 +73,6 @@ public class ApiController implements EWrapper {
 		void error(Exception e);
 		void message(int id, int errorCode, String errorMsg);
 		void show(String string);
-		IVerifyAndAuth verifyAndAuthConfig();
 	}
 
 	public ApiController( IConnectionHandler handler, ILogger inLogger, ILogger outLogger) {
@@ -84,12 +83,9 @@ public class ApiController implements EWrapper {
 	}
 
 	public void connect( String host, int port, int clientId, String connectionOpts ) {
-		IVerifyAndAuth verifyAndAuthConfig = m_connectionHandler.verifyAndAuthConfig();
-		boolean extraAuth = verifyAndAuthConfig.preConnect( m_client, connectionOpts );
-	    m_client.eConnect(host, port, clientId, extraAuth);
-	    sendEOM();
-	    verifyAndAuthConfig.postConnect( m_client );
-	}
+        m_client.eConnect(host, port, clientId);
+        sendEOM();
+    }
 
 	public void disconnect() {
 		m_client.eDisconnect();
@@ -970,17 +966,8 @@ public class ApiController implements EWrapper {
 
 	@Override public void verifyMessageAPI( String apiData) {}
 	@Override public void verifyCompleted( boolean isSuccessful, String errorText) {}
-	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallange) {
-	    m_connectionHandler.verifyAndAuthConfig().verifyNAuthMessageAPI( m_client, apiData, xyzChallange );
-	}
-	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {
-	    if ( isSuccessful ) {
-	        System.out.println( "VerifyAndAuth successful" );
-	    }
-	    else {
-	        System.out.println( "VerifyAndAuth failed, error: " + errorText );
-	    }
-	}
+	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallange) {}
+	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {}
 	@Override public void displayGroupList(int reqId, String groups) {}
 	@Override public void displayGroupUpdated(int reqId, String contractInfo) {}
 
@@ -991,7 +978,7 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
-	private void sendEOM() {
+	protected void sendEOM() {
 		m_outLogger.log( "\n");
 	}
 
