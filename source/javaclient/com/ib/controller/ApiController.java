@@ -63,6 +63,8 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<IAccountHandler> m_accountHandlers = new ConcurrentHashSet<IAccountHandler>();
 	private final ConcurrentHashSet<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<ILiveOrderHandler>();
 
+	public ApiConnection client() { return m_client; }
+
 	// ---------------------------------------- Constructor and Connection handling ----------------------------------------
 	public interface IConnectionHandler {
 		void connected();
@@ -80,10 +82,10 @@ public class ApiController implements EWrapper {
 		m_outLogger = outLogger;
 	}
 
-	public void connect( String host, int port, int clientId) {
-		m_client.eConnect(host, port, clientId);
-		sendEOM();
-	}
+	public void connect( String host, int port, int clientId, String connectionOpts ) {
+        m_client.eConnect(host, port, clientId);
+        sendEOM();
+    }
 
 	public void disconnect() {
 		m_client.eDisconnect();
@@ -976,7 +978,7 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
-	private void sendEOM() {
+	protected void sendEOM() {
 		m_outLogger.log( "\n");
 	}
 

@@ -20,6 +20,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import apidemo.util.HtmlButton;
+import apidemo.util.IConnectionConfiguration;
+import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
 import apidemo.util.NewLookAndFeel;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.VerticalPanel;
@@ -34,17 +36,18 @@ import com.ib.controller.Types.NewsType;
 
 public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
-	static ApiDemo INSTANCE = new ApiDemo();
+	static ApiDemo INSTANCE;
 
+	private final IConnectionConfiguration m_connectionConfiguration;
 	private final JTextArea m_inLog = new JTextArea();
 	private final JTextArea m_outLog = new JTextArea();
 	private final Logger m_inLogger = new Logger( m_inLog);
 	private final Logger m_outLogger = new Logger( m_outLog);
-	private final ApiController m_controller = new ApiController( this, m_inLogger, m_outLogger);
+	private ApiController m_controller;
 	private final ArrayList<String> m_acctList = new ArrayList<String>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
-	private final ConnectionPanel m_connectionPanel = new ConnectionPanel();
+	private final ConnectionPanel m_connectionPanel;
 	private final MarketDataPanel m_mktDataPanel = new MarketDataPanel();
 	private final ContractInfoPanel m_contractInfoPanel = new ContractInfoPanel();
 	private final TradingPanel m_tradingPanel = new TradingPanel();
@@ -57,13 +60,31 @@ public class ApiDemo implements IConnectionHandler {
 
 	// getter methods
 	public ArrayList<String> accountList() 	{ return m_acctList; }
-	public ApiController controller() 		{ return m_controller; }
 	public JFrame frame() 					{ return m_frame; }
-
+	public ILogger getInLogger()            { return m_inLogger; }
+	public ILogger getOutLogger()           { return m_outLogger; }
+	
 	public static void main(String[] args) {
-		INSTANCE.run();
+		start( new ApiDemo( new DefaultConnectionConfiguration() ) );
 	}
 	
+    public static void start( ApiDemo apiDemo ) {
+        INSTANCE = apiDemo;
+        INSTANCE.run();
+    }
+
+	public ApiDemo( IConnectionConfiguration connectionConfig ) {
+		m_connectionConfiguration = connectionConfig; 
+		m_connectionPanel = new ConnectionPanel(); // must be done after connection config is set
+	}
+	
+    public ApiController controller() {
+        if ( m_controller == null ) {
+            m_controller = new ApiController( this, getInLogger(), getOutLogger() );
+        }
+        return m_controller;
+    }
+
 	private void run() {
 		m_tabbedPanel.addTab( "Connection", m_connectionPanel);
 		m_tabbedPanel.addTab( "Market Data", m_mktDataPanel);
@@ -97,21 +118,21 @@ public class ApiDemo implements IConnectionHandler {
         m_frame.setVisible( true);
         m_frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
-        // make initial connection to local host, port 7496, client id 0
-		m_controller.connect( "127.0.0.1", 7496, 0);
+        // make initial connection to local host, port 7496, client id 0, no connection options
+		controller().connect( "127.0.0.1", 7496, 0, m_connectionConfiguration.getDefaultConnectOptions() != null ? "" : null );
     }
 	
 	@Override public void connected() {
 		show( "connected");
 		m_connectionPanel.m_status.setText( "connected");
 		
-		m_controller.reqCurrentTime( new ITimeHandler() {
+		controller().reqCurrentTime( new ITimeHandler() {
 			@Override public void currentTime(long time) {
 				show( "Server date/time is " + Formats.fmtDate(time * 1000) );
 			}
 		});
 		
-		m_controller.reqBulletins( true, new IBulletinHandler() {
+		controller().reqBulletins( true, new IBulletinHandler() {
 			@Override public void bulletin(int msgId, NewsType newsType, String message, String exchange) {
 				String str = String.format( "Received bulletin:  type=%s  exchange=%s", newsType, exchange);
 				show( str);
@@ -151,9 +172,10 @@ public class ApiDemo implements IConnectionHandler {
 		show( id + " " + errorCode + " " + errorMsg);
 	}
 	
-	private class ConnectionPanel extends JPanel {
-		private final JTextField m_host = new JTextField(7);
-		private final JTextField m_port = new JTextField( "7496", 7);
+    private class ConnectionPanel extends JPanel {
+		private final JTextField m_host = new JTextField( m_connectionConfiguration.getDefaultHost(), 10);
+		private final JTextField m_port = new JTextField( m_connectionConfiguration.getDefaultPort(), 7);
+		private final JTextField m_connectOptionsTF = new JTextField( m_connectionConfiguration.getDefaultConnectOptions(), 30);
 		private final JTextField m_clientId = new JTextField("0", 7);
 		private final JLabel m_status = new JLabel("Disconnected");
 		
@@ -166,7 +188,7 @@ public class ApiDemo implements IConnectionHandler {
 
 			HtmlButton disconnect = new HtmlButton("Disconnect") {
 				@Override public void actionPerformed() {
-					m_controller.disconnect();
+					controller().disconnect();
 				}
 			};
 			
@@ -174,6 +196,9 @@ public class ApiDemo implements IConnectionHandler {
 			p1.add( "Host", m_host);
 			p1.add( "Port", m_port);
 			p1.add( "Client ID", m_clientId);
+			if ( m_connectionConfiguration.getDefaultConnectOptions() != null ) {
+				p1.add( "Connect options", m_connectOptionsTF);
+			}
 			
 			JPanel p2 = new VerticalPanel();
 			p2.add( connect);
@@ -196,7 +221,7 @@ public class ApiDemo implements IConnectionHandler {
 		protected void onConnect() {
 			int port = Integer.parseInt( m_port.getText() );
 			int clientId = Integer.parseInt( m_clientId.getText() );
-			m_controller.connect( m_host.getText(), port, clientId);
+			controller().connect( m_host.getText(), port, clientId, m_connectOptionsTF.getText());
 		}
 	}
 	
