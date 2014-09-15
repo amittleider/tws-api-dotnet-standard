@@ -1722,9 +1722,9 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
-		if (order.orderSolicited) {
+		if (order.solicited) {
 			m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-					"  It does not support orderSolicited parameter.");
+					"  It does not support order solicited parameter.");
 			return;
 		}
 	}
@@ -2067,7 +2067,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	}
 
 	if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
-		ENCODE_FIELD(order.orderSolicited);
+		ENCODE_FIELD(order.solicited);
 	}
 
 	closeAndSend( msg.str());
@@ -3570,7 +3570,7 @@ int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 				}
 
 				if (version >= 33) {
-					DECODE_FIELD(order.orderSolicited);
+					DECODE_FIELD(order.solicited);
 				}
 
 				OrderState orderState;

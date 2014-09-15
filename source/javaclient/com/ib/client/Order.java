@@ -151,7 +151,7 @@ public class Order {
     
     //order algo id
     public String m_algoId;
-	public boolean m_orderSolicited;
+	public boolean m_solicited;
     
     public Order() {
         m_lmtPrice = Double.MAX_VALUE;
@@ -204,7 +204,7 @@ public class Order {
         m_whatIf = false;
         m_notHeld = false;
         m_algoId = EMPTY_STR;
-        m_orderSolicited = false;
+        m_solicited = false;
     }
 
     public boolean equals(Object p_other) {
@@ -277,7 +277,7 @@ public class Order {
         	m_whatIf != l_theOther.m_whatIf ||
         	m_notHeld != l_theOther.m_notHeld ||
         	m_exemptCode != l_theOther.m_exemptCode ||
-        	m_orderSolicited != l_theOther.m_orderSolicited) {
+        	m_solicited != l_theOther.m_solicited) {
         	return false;
         }
 

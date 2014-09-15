@@ -1040,7 +1040,7 @@ namespace IBApi
 
             if (serverVersion >= MinServerVer.ORDER_SOLICITED)
             {
-                paramsList.AddParameter(order.OrderSolicited);
+                paramsList.AddParameter(order.Solicited);
             }
 
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);

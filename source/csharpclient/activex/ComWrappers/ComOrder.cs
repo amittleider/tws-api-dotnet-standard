@@ -952,10 +952,10 @@ namespace TWSLib
             set { if (data != null) data.ScaleTable = value; }
         }
 
-        public bool OrderSolicited
+        public bool Solicited
         {
-            get { return data.OrderSolicited; }
-            set { data.OrderSolicited = value; }
+            get { return data.Solicited; }
+            set { data.Solicited = value; }
         }
 
         public override bool Equals(Object p_other)
@@ -1226,16 +1226,16 @@ namespace TWSLib
             }
         }
 
-        bool TWSLib.IOrder.orderSolicited
+        bool TWSLib.IOrder.solicited
         {
             get
             {
-                return OrderSolicited;
+                return Solicited;
             }
 
             set
             {
-                OrderSolicited = value;
+                Solicited = value;
             }
         }
 
