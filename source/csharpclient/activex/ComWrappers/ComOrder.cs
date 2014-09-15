@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+Ôªø/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -102,7 +102,7 @@ namespace TWSLib
          *          \t\t If a corporate action on a security results in a stock split (forward or reverse), exchange for shares, or distribution of shares.
          *          \t\t If you do not log into your IB account for 90 days.\n
          *          \t\t At the end of the calendar quarter following the current quarter. For example, an order placed during the third quarter of 2011 will be canceled at the end of the first quarter of 2012. If the last day is a non-trading day, the cancellation will occur at the close of the final trading day of that quarter. For example, if the last day of the quarter is Sunday, the orders will be cancelled on the preceding Friday.\n
-         *          \t\t Orders that are modified will be assigned a new ìAuto Expireî date consistent with the end of the calendar quarter following the current quarter.\n
+         *          \t\t Orders that are modified will be assigned a new ‚ÄúAuto Expire‚Äù date consistent with the end of the calendar quarter following the current quarter.\n
          *          \t\t Orders submitted to IB that remain in force for more than one day will not be reduced for dividends. To allow adjustment to your order price on ex-dividend date, consider using a Good-Til-Date/Time (GTD) or Good-after-Time/Date (GAT) order type, or a combination of the two.\n
          *      IOC - Immediate or Cancel. Any portion that is not filled as soon as it becomes available in the market is canceled.\n
          *      GTD. - Good until Date. It will remain working within the system and in the marketplace until it executes or until the close of the market on the date specified\n
@@ -253,7 +253,7 @@ namespace TWSLib
 
         /**
          * @brief Overrides TWS constraints.
-         * Precautionary constraints are defined on the TWS Presets page, and help ensure tha tyour price and size order values are reasonable. Orders sent from the API are also validated against these safety constraints, and may be rejected if any constraint is violated. To override validation, set this parameterís value to True.
+         * Precautionary constraints are defined on the TWS Presets page, and help ensure tha tyour price and size order values are reasonable. Orders sent from the API are also validated against these safety constraints, and may be rejected if any constraint is violated. To override validation, set this parameter‚Äôs value to True.
          * 
          */
         public bool OverridePercentageConstraints
@@ -891,7 +891,7 @@ namespace TWSLib
         public string AlgoId { get { return data.AlgoId; } set { if (data != null) data.AlgoId = value; } }
 
         /**
-        * @brief Orders routed to IBDARK are tagged as ìpost onlyî and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
+        * @brief Orders routed to IBDARK are tagged as ‚Äúpost only‚Äù and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them.
          * For IBDARK orders only.
         */
         public bool NotHeld
