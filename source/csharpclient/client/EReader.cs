@@ -1161,7 +1161,7 @@ namespace IBApi
 
             if (msgVersion >= 33)
             {
-                order.OrderSolicited = ReadBoolFromInt();
+                order.Solicited = ReadBoolFromInt();
             }
 
             OrderState orderState = new OrderState();

@@ -1496,7 +1496,7 @@ public class EClientSocket {
         }
         
         if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
-        	if (order.m_orderSolicited) {
+        	if (order.m_solicited) {
         		error(id, EClientErrors.UPDATE_TWS,
                         "  It does not support orderSolicited parameter.");
                 return;
@@ -1853,7 +1853,7 @@ public class EClientSocket {
            }
            
            if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
-        	   b.send(order.m_orderSolicited);
+        	   b.send(order.m_solicited);
            }
            closeAndSend(b);
         }

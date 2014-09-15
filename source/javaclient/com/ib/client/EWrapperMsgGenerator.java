@@ -150,7 +150,7 @@ public class EWrapperMsgGenerator {
         " clearingIntent=" + order.m_clearingIntent +
         " notHeld=" + order.m_notHeld +
         " whatIf=" + order.m_whatIf +
-        " orderSolicited=" + order.m_orderSolicited;
+        " orderSolicited=" + order.m_solicited;
         ;
 
         if ("BAG".equals(contract.m_secType)) {

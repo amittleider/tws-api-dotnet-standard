@@ -227,6 +227,6 @@ namespace TWSLib
         [DispId(143)]
         string algoId { get; set; }
         [DispId(144)]
-        bool orderSolicited { get; set; }
+        bool solicited { get; set; }
     }
 }

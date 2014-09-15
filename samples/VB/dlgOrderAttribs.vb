@@ -2406,7 +2406,7 @@ Public Class dlgOrderAttribs
         txtClearingAccount.Text = m_orderInfo.clearingAccount
         txtClearingIntent.Text = m_orderInfo.ClearingIntent
 
-        cbSolicited.Checked = m_orderInfo.OrderSolicited
+        cbSolicited.Checked = m_orderInfo.Solicited
 
     End Sub
 
@@ -2548,7 +2548,7 @@ Public Class dlgOrderAttribs
         m_orderInfo.settlingFirm = txtSettlingFirm.Text
         m_orderInfo.clearingAccount = txtClearingAccount.Text
         m_orderInfo.ClearingIntent = txtClearingIntent.Text
-        m_orderInfo.OrderSolicited = cbSolicited.Checked
+        m_orderInfo.Solicited = cbSolicited.Checked
 
         m_ok = True
         Hide()

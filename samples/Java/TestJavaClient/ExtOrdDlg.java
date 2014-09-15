@@ -322,7 +322,7 @@ public class ExtOrdDlg extends JDialog {
             m_order.m_firmQuoteOnly = parseInt(m_firmQuoteOnly) != 0;
             m_order.m_nbboPriceCap = parseMaxDouble(m_nbboPriceCap);
             m_order.m_optOutSmartRouting = m_optOutSmartRoutingCheckBox.isSelected();
-            m_order.m_orderSolicited = m_orderSolicited.isSelected();
+            m_order.m_solicited = m_orderSolicited.isSelected();
             m_order.m_auctionStrategy = parseInt(m_auctionStrategy);
             m_order.m_startingPrice = parseMaxDouble(m_startingPrice);
             m_order.m_stockRefPrice = parseMaxDouble(m_stockRefPrice);

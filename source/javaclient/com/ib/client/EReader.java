@@ -731,7 +731,7 @@ public class EReader extends Thread {
                 }
                 
                 if (version >= 33) {
-                	order.m_orderSolicited = readBoolFromInt();
+                	order.m_solicited = readBoolFromInt();
                 }
 
                 OrderState orderState = new OrderState();
