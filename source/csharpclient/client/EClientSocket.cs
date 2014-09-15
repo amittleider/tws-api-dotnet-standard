@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ï»¿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Net;
@@ -1105,33 +1105,33 @@ namespace IBApi
          * @params tags a comma separated list with the desired tags:
          *      - AccountType
          *      - NetLiquidation,
-         *      - TotalCashValue — Total cash including futures pnl
-         *      - SettledCash — For cash accounts, this is the same as TotalCashValue
-         *      - AccruedCash — Net accrued interest
-         *      - BuyingPower — The maximum amount of marginable US stocks the account can buy
-         *      - EquityWithLoanValue — Cash + stocks + bonds + mutual funds
+         *      - TotalCashValue â€” Total cash including futures pnl
+         *      - SettledCash â€” For cash accounts, this is the same as TotalCashValue
+         *      - AccruedCash â€” Net accrued interest
+         *      - BuyingPower â€” The maximum amount of marginable US stocks the account can buy
+         *      - EquityWithLoanValue â€” Cash + stocks + bonds + mutual funds
          *      - PreviousEquityWithLoanValue,
-         *      - GrossPositionValue — The sum of the absolute value of all stock and equity option positions
+         *      - GrossPositionValue â€” The sum of the absolute value of all stock and equity option positions
          *      - RegTEquity,
          *      - RegTMargin,
-         *      - SMA — Special Memorandum Account
+         *      - SMA â€” Special Memorandum Account
          *      - InitMarginReq,
          *      - MaintMarginReq,
          *      - AvailableFunds,
          *      - ExcessLiquidity,
-         *      - Cushion — Excess liquidity as a percentage of net liquidation value
+         *      - Cushion â€” Excess liquidity as a percentage of net liquidation value
          *      - FullInitMarginReq,
          *      - FullMaintMarginReq,
          *      - FullAvailableFunds,
          *      - FullExcessLiquidity,
-         *      - LookAheadNextChange — Time when look-ahead values take effect
+         *      - LookAheadNextChange â€” Time when look-ahead values take effect
          *      - LookAheadInitMarginReq,
          *      - LookAheadMaintMarginReq,
          *      - LookAheadAvailableFunds,
          *      - LookAheadExcessLiquidity,
-         *      - HighestSeverity — A measure of how close the account is to liquidation
-         *      - DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
-         *      - Leverage — GrossPositionValue / NetLiquidation
+         *      - HighestSeverity â€” A measure of how close the account is to liquidation
+         *      - DayTradesRemaining â€” The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
+         *      - Leverage â€” GrossPositionValue / NetLiquidation
          * @sa cancelAccountSummary, EWrapper::accountSummary, EWrapper::accountSummaryEnd
          */
         public void reqAccountSummary(int reqId, string group, string tags)
