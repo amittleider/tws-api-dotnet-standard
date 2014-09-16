@@ -93,7 +93,7 @@ public class EClientSocket {
 	//      can receive tradingClass in openOrder, updatePortfolio, execDetails and position
 	// 62 = can receive avgCost in position message
 	// 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
-	// 64 = can receive orderSolicited attrib in openOrder message
+	// 64 = can receive solicited attrib in openOrder message
 	// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
@@ -1498,7 +1498,7 @@ public class EClientSocket {
         if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
         	if (order.m_solicited) {
         		error(id, EClientErrors.UPDATE_TWS,
-                        "  It does not support orderSolicited parameter.");
+                        "  It does not support order solicited parameter.");
                 return;
         	}
         }
