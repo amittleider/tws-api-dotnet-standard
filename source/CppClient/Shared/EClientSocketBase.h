@@ -125,6 +125,7 @@ public:
 	void subscribeToGroupEvents( int reqId, int groupId);
 	void updateDisplayGroup( int reqId, const std::string& contractInfo);
 	void unsubscribeFromGroupEvents( int reqId);
+	void startApi();
 
 private:
 
@@ -160,21 +161,19 @@ private:
 	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
 	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
 
-	void startApi();
+	//static bool CheckOffset(const char* ptr, const char* endPtr);
+	//static const char* FindFieldEnd(const char* ptr, const char* endPtr);
 
-	static bool CheckOffset(const char* ptr, const char* endPtr);
-	static const char* FindFieldEnd(const char* ptr, const char* endPtr);
+	//// decoders
+	//static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
+	//static bool DecodeField(int&, const char*& ptr, const char* endPtr);
+	//static bool DecodeField(long&, const char*& ptr, const char* endPtr);
+	//static bool DecodeField(double&, const char*& ptr, const char* endPtr);
+	//static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
 
-	// decoders
-	static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
-	static bool DecodeField(int&, const char*& ptr, const char* endPtr);
-	static bool DecodeField(long&, const char*& ptr, const char* endPtr);
-	static bool DecodeField(double&, const char*& ptr, const char* endPtr);
-	static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
-
-	static bool DecodeFieldMax(int&, const char*& ptr, const char* endPtr);
-	static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
-	static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
+	//static bool DecodeFieldMax(int&, const char*& ptr, const char* endPtr);
+	//static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
+	//static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
 
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);

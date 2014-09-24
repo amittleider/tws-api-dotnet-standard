@@ -154,6 +154,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Shared\EDecoder.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
     <ClCompile Include="StdAfx.cpp" />
@@ -166,6 +167,8 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\DefaultWrapper.h" />
+    <ClInclude Include="..\Shared\EDecoder.h" />
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="Resource.h" />
