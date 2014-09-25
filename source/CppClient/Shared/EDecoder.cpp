@@ -551,9 +551,837 @@ int EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( orderState.warningText); // ver 16 field
 
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
-    
+
     return 0;
 } 
+
+int EDecoder::processAcctValueMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string key;
+    std::string val;
+    std::string cur;
+    std::string accountName;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( key);
+    DECODE_FIELD( val);
+    DECODE_FIELD( cur);
+    DECODE_FIELD( accountName); // ver 2 field
+
+    m_pEWrapper->updateAccountValue( key, val, cur, accountName);
+    return 0;
+}
+
+int EDecoder::processPortfolioValueMsg(const char* ptr, const char* endPtr) {
+    // decode version
+    int version;
+    DECODE_FIELD( version);
+
+    // read contract fields
+    Contract contract;
+    DECODE_FIELD( contract.conId); // ver 6 field
+    DECODE_FIELD( contract.symbol);
+    DECODE_FIELD( contract.secType);
+    DECODE_FIELD( contract.expiry);
+    DECODE_FIELD( contract.strike);
+    DECODE_FIELD( contract.right);
+
+    if( version >= 7) {
+        DECODE_FIELD( contract.multiplier);
+        DECODE_FIELD( contract.primaryExchange);
+    }
+
+    DECODE_FIELD( contract.currency);
+    DECODE_FIELD( contract.localSymbol); // ver 2 field
+    if (version >= 8) {
+        DECODE_FIELD( contract.tradingClass);
+    }
+
+    int     position;
+    double  marketPrice;
+    double  marketValue;
+    double  averageCost;
+    double  unrealizedPNL;
+    double  realizedPNL;
+
+    DECODE_FIELD( position);
+    DECODE_FIELD( marketPrice);
+    DECODE_FIELD( marketValue);
+    DECODE_FIELD( averageCost); // ver 3 field
+    DECODE_FIELD( unrealizedPNL); // ver 3 field
+    DECODE_FIELD( realizedPNL); // ver 3 field
+
+    std::string accountName;
+    DECODE_FIELD( accountName); // ver 4 field
+
+    if( version == 6 && m_serverVersion == 39) {
+        DECODE_FIELD( contract.primaryExchange);
+    }
+
+    m_pEWrapper->updatePortfolio( contract,
+        position, marketPrice, marketValue, averageCost,
+        unrealizedPNL, realizedPNL, accountName);
+
+    return 0;
+}
+
+int EDecoder::processAcctUpdateTimeMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string accountTime;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( accountTime);
+
+    m_pEWrapper->updateAccountTime( accountTime);
+
+    return 0;
+}
+
+int EDecoder::processNextValidIdMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int orderId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( orderId);
+
+    m_pEWrapper->nextValidId(orderId);
+
+    return 0;
+}
+
+int EDecoder::processContractDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    DECODE_FIELD( version);
+
+    int reqId = -1;
+    if( version >= 3) {
+        DECODE_FIELD( reqId);
+    }
+
+    ContractDetails contract;
+    DECODE_FIELD( contract.summary.symbol);
+    DECODE_FIELD( contract.summary.secType);
+    DECODE_FIELD( contract.summary.expiry);
+    DECODE_FIELD( contract.summary.strike);
+    DECODE_FIELD( contract.summary.right);
+    DECODE_FIELD( contract.summary.exchange);
+    DECODE_FIELD( contract.summary.currency);
+    DECODE_FIELD( contract.summary.localSymbol);
+    DECODE_FIELD( contract.marketName);
+    DECODE_FIELD( contract.summary.tradingClass);
+    DECODE_FIELD( contract.summary.conId);
+    DECODE_FIELD( contract.minTick);
+    DECODE_FIELD( contract.summary.multiplier);
+    DECODE_FIELD( contract.orderTypes);
+    DECODE_FIELD( contract.validExchanges);
+    DECODE_FIELD( contract.priceMagnifier); // ver 2 field
+    if( version >= 4) {
+        DECODE_FIELD( contract.underConId);
+    }
+    if( version >= 5) {
+        DECODE_FIELD( contract.longName);
+        DECODE_FIELD( contract.summary.primaryExchange);
+    }
+    if( version >= 6) {
+        DECODE_FIELD( contract.contractMonth);
+        DECODE_FIELD( contract.industry);
+        DECODE_FIELD( contract.category);
+        DECODE_FIELD( contract.subcategory);
+        DECODE_FIELD( contract.timeZoneId);
+        DECODE_FIELD( contract.tradingHours);
+        DECODE_FIELD( contract.liquidHours);
+    }
+    if( version >= 8) {
+        DECODE_FIELD( contract.evRule);
+        DECODE_FIELD( contract.evMultiplier);
+    }
+    if( version >= 7) {
+        int secIdListCount = 0;
+        DECODE_FIELD( secIdListCount);
+        if( secIdListCount > 0) {
+            TagValueListSPtr secIdList( new TagValueList);
+            secIdList->reserve( secIdListCount);
+            for( int i = 0; i < secIdListCount; ++i) {
+                TagValueSPtr tagValue( new TagValue());
+                DECODE_FIELD( tagValue->tag);
+                DECODE_FIELD( tagValue->value);
+                secIdList->push_back( tagValue);
+            }
+            contract.secIdList = secIdList;
+        }
+    }
+
+    m_pEWrapper->contractDetails( reqId, contract);
+
+    return 0;
+}
+
+int EDecoder::processBondContractDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    DECODE_FIELD( version);
+
+    int reqId = -1;
+    if( version >= 3) {
+        DECODE_FIELD( reqId);
+    }
+
+    ContractDetails contract;
+    DECODE_FIELD( contract.summary.symbol);
+    DECODE_FIELD( contract.summary.secType);
+    DECODE_FIELD( contract.cusip);
+    DECODE_FIELD( contract.coupon);
+    DECODE_FIELD( contract.maturity);
+    DECODE_FIELD( contract.issueDate);
+    DECODE_FIELD( contract.ratings);
+    DECODE_FIELD( contract.bondType);
+    DECODE_FIELD( contract.couponType);
+    DECODE_FIELD( contract.convertible);
+    DECODE_FIELD( contract.callable);
+    DECODE_FIELD( contract.putable);
+    DECODE_FIELD( contract.descAppend);
+    DECODE_FIELD( contract.summary.exchange);
+    DECODE_FIELD( contract.summary.currency);
+    DECODE_FIELD( contract.marketName);
+    DECODE_FIELD( contract.summary.tradingClass);
+    DECODE_FIELD( contract.summary.conId);
+    DECODE_FIELD( contract.minTick);
+    DECODE_FIELD( contract.orderTypes);
+    DECODE_FIELD( contract.validExchanges);
+    DECODE_FIELD( contract.nextOptionDate); // ver 2 field
+    DECODE_FIELD( contract.nextOptionType); // ver 2 field
+    DECODE_FIELD( contract.nextOptionPartial); // ver 2 field
+    DECODE_FIELD( contract.notes); // ver 2 field
+    if( version >= 4) {
+        DECODE_FIELD( contract.longName);
+    }
+    if( version >= 6) {
+        DECODE_FIELD( contract.evRule);
+        DECODE_FIELD( contract.evMultiplier);
+    }
+    if( version >= 5) {
+        int secIdListCount = 0;
+        DECODE_FIELD( secIdListCount);
+        if( secIdListCount > 0) {
+            TagValueListSPtr secIdList( new TagValueList);
+            secIdList->reserve( secIdListCount);
+            for( int i = 0; i < secIdListCount; ++i) {
+                TagValueSPtr tagValue( new TagValue());
+                DECODE_FIELD( tagValue->tag);
+                DECODE_FIELD( tagValue->value);
+                secIdList->push_back( tagValue);
+            }
+            contract.secIdList = secIdList;
+        }
+    }
+
+    m_pEWrapper->bondContractDetails( reqId, contract);
+
+    return 0;
+}
+
+int EDecoder::processExecutionDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    DECODE_FIELD( version);
+
+    int reqId = -1;
+    if( version >= 7) {
+        DECODE_FIELD(reqId);
+    }
+
+    int orderId;
+    DECODE_FIELD( orderId);
+
+    // decode contract fields
+    Contract contract;
+    DECODE_FIELD( contract.conId); // ver 5 field
+    DECODE_FIELD( contract.symbol);
+    DECODE_FIELD( contract.secType);
+    DECODE_FIELD( contract.expiry);
+    DECODE_FIELD( contract.strike);
+    DECODE_FIELD( contract.right);
+    if( version >= 9) {
+        DECODE_FIELD( contract.multiplier);
+    }
+    DECODE_FIELD( contract.exchange);
+    DECODE_FIELD( contract.currency);
+    DECODE_FIELD( contract.localSymbol);
+    if (version >= 10) {
+        DECODE_FIELD( contract.tradingClass);
+    }
+
+    // decode execution fields
+    Execution exec;
+    exec.orderId = orderId;
+    DECODE_FIELD( exec.execId);
+    DECODE_FIELD( exec.time);
+    DECODE_FIELD( exec.acctNumber);
+    DECODE_FIELD( exec.exchange);
+    DECODE_FIELD( exec.side);
+    DECODE_FIELD( exec.shares);
+    DECODE_FIELD( exec.price);
+    DECODE_FIELD( exec.permId); // ver 2 field
+    DECODE_FIELD( exec.clientId); // ver 3 field
+    DECODE_FIELD( exec.liquidation); // ver 4 field
+
+    if( version >= 6) {
+        DECODE_FIELD( exec.cumQty);
+        DECODE_FIELD( exec.avgPrice);
+    }
+
+    if( version >= 8) {
+        DECODE_FIELD( exec.orderRef);
+    }
+
+    if( version >= 9) {
+        DECODE_FIELD( exec.evRule);
+        DECODE_FIELD( exec.evMultiplier);
+    }
+
+    m_pEWrapper->execDetails( reqId, contract, exec);
+
+    return 0;
+}
+
+int EDecoder::processMarketDepthMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int id;
+    int position;
+    int operation;
+    int side;
+    double price;
+    int size;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( id);
+    DECODE_FIELD( position);
+    DECODE_FIELD( operation);
+    DECODE_FIELD( side);
+    DECODE_FIELD( price);
+    DECODE_FIELD( size);
+
+    m_pEWrapper->updateMktDepth( id, position, operation, side, price, size);
+
+    return 0;
+}
+
+int EDecoder::processMarketDepthL2Msg(const char* ptr, const char* endPtr) {
+    int version;
+    int id;
+    int position;
+    std::string marketMaker;
+    int operation;
+    int side;
+    double price;
+    int size;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( id);
+    DECODE_FIELD( position);
+    DECODE_FIELD( marketMaker);
+    DECODE_FIELD( operation);
+    DECODE_FIELD( side);
+    DECODE_FIELD( price);
+    DECODE_FIELD( size);
+
+    m_pEWrapper->updateMktDepthL2( id, position, marketMaker, operation, side,
+        price, size);
+
+    return 0;
+}
+
+int EDecoder::processNewsBulletinsMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int msgId;
+    int msgType;
+    std::string newsMessage;
+    std::string originatingExch;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( msgId);
+    DECODE_FIELD( msgType);
+    DECODE_FIELD( newsMessage);
+    DECODE_FIELD( originatingExch);
+
+    m_pEWrapper->updateNewsBulletin( msgId, msgType, newsMessage, originatingExch);
+
+    return 0;
+}
+
+int EDecoder::processManagedAcctsMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string accountsList;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( accountsList);
+
+    m_pEWrapper->managedAccounts( accountsList);
+
+    return 0;
+}
+
+int EDecoder::processReceiveFaMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int faDataTypeInt;
+    std::string cxml;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( faDataTypeInt);
+    DECODE_FIELD( cxml);
+
+    m_pEWrapper->receiveFA( (faDataType)faDataTypeInt, cxml);
+
+    return 0;
+}
+
+int EDecoder::processHistoricalDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string startDateStr;
+    std::string endDateStr;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( startDateStr); // ver 2 field
+    DECODE_FIELD( endDateStr); // ver 2 field
+
+    int itemCount;
+    DECODE_FIELD( itemCount);
+
+    typedef std::vector<BarData> BarDataList;
+    BarDataList bars;
+
+    bars.reserve( itemCount);
+
+    for( int ctr = 0; ctr < itemCount; ++ctr) {
+
+        BarData bar;
+        DECODE_FIELD( bar.date);
+        DECODE_FIELD( bar.open);
+        DECODE_FIELD( bar.high);
+        DECODE_FIELD( bar.low);
+        DECODE_FIELD( bar.close);
+        DECODE_FIELD( bar.volume);
+        DECODE_FIELD( bar.average);
+        DECODE_FIELD( bar.hasGaps);
+        DECODE_FIELD( bar.barCount); // ver 3 field
+
+        bars.push_back(bar);
+    }
+
+    assert( (int)bars.size() == itemCount);
+
+    for( int ctr = 0; ctr < itemCount; ++ctr) {
+
+        const BarData& bar = bars[ctr];
+        m_pEWrapper->historicalData( reqId, bar.date, bar.open, bar.high, bar.low,
+            bar.close, bar.volume, bar.barCount, bar.average,
+            bar.hasGaps == "true");
+    }
+
+    // send end of dataset marker
+    std::string finishedStr = std::string("finished-") + startDateStr + "-" + endDateStr;
+    m_pEWrapper->historicalData( reqId, finishedStr, -1, -1, -1, -1, -1, -1, -1, 0);
+
+    return 0;
+}
+
+int EDecoder::processScannerDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int tickerId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( tickerId);
+
+    int numberOfElements;
+    DECODE_FIELD( numberOfElements);
+
+    typedef std::vector<ScanData> ScanDataList;
+    ScanDataList scannerDataList;
+
+    scannerDataList.reserve( numberOfElements);
+
+    for( int ctr=0; ctr < numberOfElements; ++ctr) {
+
+        ScanData data;
+
+        DECODE_FIELD( data.rank);
+        DECODE_FIELD( data.contract.summary.conId); // ver 3 field
+        DECODE_FIELD( data.contract.summary.symbol);
+        DECODE_FIELD( data.contract.summary.secType);
+        DECODE_FIELD( data.contract.summary.expiry);
+        DECODE_FIELD( data.contract.summary.strike);
+        DECODE_FIELD( data.contract.summary.right);
+        DECODE_FIELD( data.contract.summary.exchange);
+        DECODE_FIELD( data.contract.summary.currency);
+        DECODE_FIELD( data.contract.summary.localSymbol);
+        DECODE_FIELD( data.contract.marketName);
+        DECODE_FIELD( data.contract.summary.tradingClass);
+        DECODE_FIELD( data.distance);
+        DECODE_FIELD( data.benchmark);
+        DECODE_FIELD( data.projection);
+        DECODE_FIELD( data.legsStr);
+
+        scannerDataList.push_back( data);
+    }
+
+    assert( (int)scannerDataList.size() == numberOfElements);
+
+    for( int ctr=0; ctr < numberOfElements; ++ctr) {
+
+        const ScanData& data = scannerDataList[ctr];
+        m_pEWrapper->scannerData( tickerId, data.rank, data.contract,
+            data.distance, data.benchmark, data.projection, data.legsStr);
+    }
+
+    m_pEWrapper->scannerDataEnd( tickerId);
+
+    return 0;
+}
+
+int EDecoder::processScannerParametersMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string xml;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( xml);
+
+    m_pEWrapper->scannerParameters( xml);
+
+    return 0;
+}
+
+int EDecoder::processCurrentTimeMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int time;
+
+    DECODE_FIELD(version);
+    DECODE_FIELD(time);
+
+    m_pEWrapper->currentTime( time);
+
+    return 0;
+}
+
+int EDecoder::processRealTimeBarsMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    int time;
+    double open;
+    double high;
+    double low;
+    double close;
+    int volume;
+    double average;
+    int count;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( time);
+    DECODE_FIELD( open);
+    DECODE_FIELD( high);
+    DECODE_FIELD( low);
+    DECODE_FIELD( close);
+    DECODE_FIELD( volume);
+    DECODE_FIELD( average);
+    DECODE_FIELD( count);
+
+    m_pEWrapper->realtimeBar( reqId, time, open, high, low, close,
+        volume, average, count);
+
+    return 0;
+}
+
+int EDecoder::processFundamentalDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string data;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( data);
+
+    m_pEWrapper->fundamentalData( reqId, data);
+
+    return 0;
+}
+
+int EDecoder::processContractDataEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->contractDetailsEnd( reqId);
+
+    return 0;
+}
+
+int EDecoder::processOpenOrderEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+
+    DECODE_FIELD( version);
+
+    m_pEWrapper->openOrderEnd();
+
+    return 0;
+}
+
+int EDecoder::processAcctDownloadEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string account;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( account);
+
+    m_pEWrapper->accountDownloadEnd( account);
+
+    return 0;
+}
+
+int EDecoder::processExecutionDataEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->execDetailsEnd( reqId);
+
+    return 0;
+}
+
+int EDecoder::processDeltaNeutralValidationMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    UnderComp underComp;
+
+    DECODE_FIELD( underComp.conId);
+    DECODE_FIELD( underComp.delta);
+    DECODE_FIELD( underComp.price);
+
+    m_pEWrapper->deltaNeutralValidation( reqId, underComp);
+
+    return 0;
+}
+
+int EDecoder::processTickSnapshotEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->tickSnapshotEnd( reqId);
+
+    return 0;
+}
+
+int EDecoder::processMarketDataTypeMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    int marketDataType;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( marketDataType);
+
+    m_pEWrapper->marketDataType( reqId, marketDataType);
+
+    return 0;
+}
+
+int EDecoder::processCommissionReportMsg(const char* ptr, const char* endPtr) {
+    int version;
+    DECODE_FIELD( version);
+
+    CommissionReport commissionReport;
+    DECODE_FIELD( commissionReport.execId);
+    DECODE_FIELD( commissionReport.commission);
+    DECODE_FIELD( commissionReport.currency);
+    DECODE_FIELD( commissionReport.realizedPNL);
+    DECODE_FIELD( commissionReport.yield);
+    DECODE_FIELD( commissionReport.yieldRedemptionDate);
+
+    m_pEWrapper->commissionReport( commissionReport);
+
+    return 0;
+}
+
+int EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string account;
+    int position;
+    double avgCost = 0;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( account);
+
+    // decode contract fields
+    Contract contract;
+    DECODE_FIELD( contract.conId);
+    DECODE_FIELD( contract.symbol);
+    DECODE_FIELD( contract.secType);
+    DECODE_FIELD( contract.expiry);
+    DECODE_FIELD( contract.strike);
+    DECODE_FIELD( contract.right);
+    DECODE_FIELD( contract.multiplier);
+    DECODE_FIELD( contract.exchange);
+    DECODE_FIELD( contract.currency);
+    DECODE_FIELD( contract.localSymbol);
+    if (version >= 2) {
+        DECODE_FIELD( contract.tradingClass);
+    }
+
+    DECODE_FIELD( position);
+    if (version >= 3) {
+        DECODE_FIELD( avgCost);
+    }
+
+    m_pEWrapper->position( account, contract, position, avgCost);
+
+    return 0;
+}
+
+int EDecoder::processPositionEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+
+    DECODE_FIELD( version);
+
+    m_pEWrapper->positionEnd();
+
+    return 0;
+}
+
+int EDecoder::processAccountSummaryMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string account;
+    std::string tag;
+    std::string value;
+    std::string curency;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( account);
+    DECODE_FIELD( tag);
+    DECODE_FIELD( value);
+    DECODE_FIELD( curency);
+
+    m_pEWrapper->accountSummary( reqId, account, tag, value, curency);
+
+    return 0;
+}
+
+int EDecoder::processAccountSummaryEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->accountSummaryEnd( reqId);
+
+    return 0;
+}
+
+int EDecoder::processVerifyMessageApiMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string apiData;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( apiData);
+
+    m_pEWrapper->verifyMessageAPI( apiData);
+
+    return 0;
+}
+
+int EDecoder::processVerifyCompletedMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string isSuccessful;
+    std::string errorText;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( isSuccessful);
+    DECODE_FIELD( errorText);
+
+    bool bRes = isSuccessful == "true";
+
+    if (bRes) {
+        m_pEClient->startApi();
+    }
+
+    m_pEWrapper->verifyCompleted( bRes, errorText);
+
+    return 0;
+}
+
+int EDecoder::processDisplayGroupListMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string groups;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( groups);
+
+    m_pEWrapper->displayGroupList( reqId, groups);
+
+    return 0;
+}
+
+int EDecoder::processDisplayGroupUpdatedMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string contractInfo;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( contractInfo);
+
+    m_pEWrapper->displayGroupUpdated( reqId, contractInfo);
+
+    return 0;
+}
+
+int EDecoder::processVerifyAndAuthMessageApiMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string apiData;
+    std::string xyzChallenge;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( apiData);
+    DECODE_FIELD( xyzChallenge);
+
+    m_pEWrapper->verifyAndAuthMessageAPI( apiData, xyzChallenge);
+
+    return 0;
+}
+
+int EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const char* endPtr) {
+    int version;
+    std::string isSuccessful;
+    std::string errorText;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( isSuccessful);
+    DECODE_FIELD( errorText);
+
+    bool bRes = isSuccessful == "true";
+
+    if (bRes) {
+        m_pEClient->startApi();
+    }
+
+    m_pEWrapper->verifyAndAuthCompleted( bRes, errorText);
+    
+    return 0;
+}
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
     // process a single message from the buffer;
@@ -597,836 +1425,112 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
             return processOpenOrderMsg(ptr, endPtr);
 
         case ACCT_VALUE:
-            {
-                int version;
-                std::string key;
-                std::string val;
-                std::string cur;
-                std::string accountName;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( key);
-                DECODE_FIELD( val);
-                DECODE_FIELD( cur);
-                DECODE_FIELD( accountName); // ver 2 field
-
-                m_pEWrapper->updateAccountValue( key, val, cur, accountName);
-                break;
-            }
+            return processAcctValueMsg(ptr, endPtr);
 
         case PORTFOLIO_VALUE:
-            {
-                // decode version
-                int version;
-                DECODE_FIELD( version);
-
-                // read contract fields
-                Contract contract;
-                DECODE_FIELD( contract.conId); // ver 6 field
-                DECODE_FIELD( contract.symbol);
-                DECODE_FIELD( contract.secType);
-                DECODE_FIELD( contract.expiry);
-                DECODE_FIELD( contract.strike);
-                DECODE_FIELD( contract.right);
-
-                if( version >= 7) {
-                    DECODE_FIELD( contract.multiplier);
-                    DECODE_FIELD( contract.primaryExchange);
-                }
-
-                DECODE_FIELD( contract.currency);
-                DECODE_FIELD( contract.localSymbol); // ver 2 field
-                if (version >= 8) {
-                    DECODE_FIELD( contract.tradingClass);
-                }
-
-                int     position;
-                double  marketPrice;
-                double  marketValue;
-                double  averageCost;
-                double  unrealizedPNL;
-                double  realizedPNL;
-
-                DECODE_FIELD( position);
-                DECODE_FIELD( marketPrice);
-                DECODE_FIELD( marketValue);
-                DECODE_FIELD( averageCost); // ver 3 field
-                DECODE_FIELD( unrealizedPNL); // ver 3 field
-                DECODE_FIELD( realizedPNL); // ver 3 field
-
-                std::string accountName;
-                DECODE_FIELD( accountName); // ver 4 field
-
-                if( version == 6 && m_serverVersion == 39) {
-                    DECODE_FIELD( contract.primaryExchange);
-                }
-
-                m_pEWrapper->updatePortfolio( contract,
-                    position, marketPrice, marketValue, averageCost,
-                    unrealizedPNL, realizedPNL, accountName);
-
-                break;
-            }
+            return processPortfolioValueMsg(ptr, endPtr);
 
         case ACCT_UPDATE_TIME:
-            {
-                int version;
-                std::string accountTime;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( accountTime);
-
-                m_pEWrapper->updateAccountTime( accountTime);
-                break;
-            }
+            return processAcctUpdateTimeMsg(ptr, endPtr);
 
         case NEXT_VALID_ID:
-            {
-                int version;
-                int orderId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( orderId);
-
-                m_pEWrapper->nextValidId(orderId);
-                break;
-            }
+            return processNextValidIdMsg(ptr, endPtr);
 
         case CONTRACT_DATA:
-            {
-                int version;
-                DECODE_FIELD( version);
-
-                int reqId = -1;
-                if( version >= 3) {
-                    DECODE_FIELD( reqId);
-                }
-
-                ContractDetails contract;
-                DECODE_FIELD( contract.summary.symbol);
-                DECODE_FIELD( contract.summary.secType);
-                DECODE_FIELD( contract.summary.expiry);
-                DECODE_FIELD( contract.summary.strike);
-                DECODE_FIELD( contract.summary.right);
-                DECODE_FIELD( contract.summary.exchange);
-                DECODE_FIELD( contract.summary.currency);
-                DECODE_FIELD( contract.summary.localSymbol);
-                DECODE_FIELD( contract.marketName);
-                DECODE_FIELD( contract.summary.tradingClass);
-                DECODE_FIELD( contract.summary.conId);
-                DECODE_FIELD( contract.minTick);
-                DECODE_FIELD( contract.summary.multiplier);
-                DECODE_FIELD( contract.orderTypes);
-                DECODE_FIELD( contract.validExchanges);
-                DECODE_FIELD( contract.priceMagnifier); // ver 2 field
-                if( version >= 4) {
-                    DECODE_FIELD( contract.underConId);
-                }
-                if( version >= 5) {
-                    DECODE_FIELD( contract.longName);
-                    DECODE_FIELD( contract.summary.primaryExchange);
-                }
-                if( version >= 6) {
-                    DECODE_FIELD( contract.contractMonth);
-                    DECODE_FIELD( contract.industry);
-                    DECODE_FIELD( contract.category);
-                    DECODE_FIELD( contract.subcategory);
-                    DECODE_FIELD( contract.timeZoneId);
-                    DECODE_FIELD( contract.tradingHours);
-                    DECODE_FIELD( contract.liquidHours);
-                }
-                if( version >= 8) {
-                    DECODE_FIELD( contract.evRule);
-                    DECODE_FIELD( contract.evMultiplier);
-                }
-                if( version >= 7) {
-                    int secIdListCount = 0;
-                    DECODE_FIELD( secIdListCount);
-                    if( secIdListCount > 0) {
-                        TagValueListSPtr secIdList( new TagValueList);
-                        secIdList->reserve( secIdListCount);
-                        for( int i = 0; i < secIdListCount; ++i) {
-                            TagValueSPtr tagValue( new TagValue());
-                            DECODE_FIELD( tagValue->tag);
-                            DECODE_FIELD( tagValue->value);
-                            secIdList->push_back( tagValue);
-                        }
-                        contract.secIdList = secIdList;
-                    }
-                }
-
-                m_pEWrapper->contractDetails( reqId, contract);
-                break;
-            }
+            return processContractDataMsg(ptr, endPtr);
 
         case BOND_CONTRACT_DATA:
-            {
-                int version;
-                DECODE_FIELD( version);
-
-                int reqId = -1;
-                if( version >= 3) {
-                    DECODE_FIELD( reqId);
-                }
-
-                ContractDetails contract;
-                DECODE_FIELD( contract.summary.symbol);
-                DECODE_FIELD( contract.summary.secType);
-                DECODE_FIELD( contract.cusip);
-                DECODE_FIELD( contract.coupon);
-                DECODE_FIELD( contract.maturity);
-                DECODE_FIELD( contract.issueDate);
-                DECODE_FIELD( contract.ratings);
-                DECODE_FIELD( contract.bondType);
-                DECODE_FIELD( contract.couponType);
-                DECODE_FIELD( contract.convertible);
-                DECODE_FIELD( contract.callable);
-                DECODE_FIELD( contract.putable);
-                DECODE_FIELD( contract.descAppend);
-                DECODE_FIELD( contract.summary.exchange);
-                DECODE_FIELD( contract.summary.currency);
-                DECODE_FIELD( contract.marketName);
-                DECODE_FIELD( contract.summary.tradingClass);
-                DECODE_FIELD( contract.summary.conId);
-                DECODE_FIELD( contract.minTick);
-                DECODE_FIELD( contract.orderTypes);
-                DECODE_FIELD( contract.validExchanges);
-                DECODE_FIELD( contract.nextOptionDate); // ver 2 field
-                DECODE_FIELD( contract.nextOptionType); // ver 2 field
-                DECODE_FIELD( contract.nextOptionPartial); // ver 2 field
-                DECODE_FIELD( contract.notes); // ver 2 field
-                if( version >= 4) {
-                    DECODE_FIELD( contract.longName);
-                }
-                if( version >= 6) {
-                    DECODE_FIELD( contract.evRule);
-                    DECODE_FIELD( contract.evMultiplier);
-                }
-                if( version >= 5) {
-                    int secIdListCount = 0;
-                    DECODE_FIELD( secIdListCount);
-                    if( secIdListCount > 0) {
-                        TagValueListSPtr secIdList( new TagValueList);
-                        secIdList->reserve( secIdListCount);
-                        for( int i = 0; i < secIdListCount; ++i) {
-                            TagValueSPtr tagValue( new TagValue());
-                            DECODE_FIELD( tagValue->tag);
-                            DECODE_FIELD( tagValue->value);
-                            secIdList->push_back( tagValue);
-                        }
-                        contract.secIdList = secIdList;
-                    }
-                }
-
-                m_pEWrapper->bondContractDetails( reqId, contract);
-                break;
-            }
+            return processBondContractDataMsg(ptr, endPtr);
 
         case EXECUTION_DATA:
-            {
-                int version;
-                DECODE_FIELD( version);
-
-                int reqId = -1;
-                if( version >= 7) {
-                    DECODE_FIELD(reqId);
-                }
-
-                int orderId;
-                DECODE_FIELD( orderId);
-
-                // decode contract fields
-                Contract contract;
-                DECODE_FIELD( contract.conId); // ver 5 field
-                DECODE_FIELD( contract.symbol);
-                DECODE_FIELD( contract.secType);
-                DECODE_FIELD( contract.expiry);
-                DECODE_FIELD( contract.strike);
-                DECODE_FIELD( contract.right);
-                if( version >= 9) {
-                    DECODE_FIELD( contract.multiplier);
-                }
-                DECODE_FIELD( contract.exchange);
-                DECODE_FIELD( contract.currency);
-                DECODE_FIELD( contract.localSymbol);
-                if (version >= 10) {
-                    DECODE_FIELD( contract.tradingClass);
-                }
-
-                // decode execution fields
-                Execution exec;
-                exec.orderId = orderId;
-                DECODE_FIELD( exec.execId);
-                DECODE_FIELD( exec.time);
-                DECODE_FIELD( exec.acctNumber);
-                DECODE_FIELD( exec.exchange);
-                DECODE_FIELD( exec.side);
-                DECODE_FIELD( exec.shares);
-                DECODE_FIELD( exec.price);
-                DECODE_FIELD( exec.permId); // ver 2 field
-                DECODE_FIELD( exec.clientId); // ver 3 field
-                DECODE_FIELD( exec.liquidation); // ver 4 field
-
-                if( version >= 6) {
-                    DECODE_FIELD( exec.cumQty);
-                    DECODE_FIELD( exec.avgPrice);
-                }
-
-                if( version >= 8) {
-                    DECODE_FIELD( exec.orderRef);
-                }
-
-                if( version >= 9) {
-                    DECODE_FIELD( exec.evRule);
-                    DECODE_FIELD( exec.evMultiplier);
-                }
-
-                m_pEWrapper->execDetails( reqId, contract, exec);
-                break;
-            }
+            return processExecutionDataMsg(ptr, endPtr);
 
         case MARKET_DEPTH:
-            {
-                int version;
-                int id;
-                int position;
-                int operation;
-                int side;
-                double price;
-                int size;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( id);
-                DECODE_FIELD( position);
-                DECODE_FIELD( operation);
-                DECODE_FIELD( side);
-                DECODE_FIELD( price);
-                DECODE_FIELD( size);
-
-                m_pEWrapper->updateMktDepth( id, position, operation, side, price, size);
-                break;
-            }
+            return processMarketDepthMsg(ptr, endPtr);
 
         case MARKET_DEPTH_L2:
-            {
-                int version;
-                int id;
-                int position;
-                std::string marketMaker;
-                int operation;
-                int side;
-                double price;
-                int size;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( id);
-                DECODE_FIELD( position);
-                DECODE_FIELD( marketMaker);
-                DECODE_FIELD( operation);
-                DECODE_FIELD( side);
-                DECODE_FIELD( price);
-                DECODE_FIELD( size);
-
-                m_pEWrapper->updateMktDepthL2( id, position, marketMaker, operation, side,
-                    price, size);
-
-                break;
-            }
+            return processMarketDepthL2Msg(ptr, endPtr);
 
         case NEWS_BULLETINS:
-            {
-                int version;
-                int msgId;
-                int msgType;
-                std::string newsMessage;
-                std::string originatingExch;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( msgId);
-                DECODE_FIELD( msgType);
-                DECODE_FIELD( newsMessage);
-                DECODE_FIELD( originatingExch);
-
-                m_pEWrapper->updateNewsBulletin( msgId, msgType, newsMessage, originatingExch);
-                break;
-            }
+            return processNewsBulletinsMsg(ptr, endPtr);
 
         case MANAGED_ACCTS:
-            {
-                int version;
-                std::string accountsList;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( accountsList);
-
-                m_pEWrapper->managedAccounts( accountsList);
-                break;
-            }
+            return processManagedAcctsMsg(ptr, endPtr);
 
         case RECEIVE_FA:
-            {
-                int version;
-                int faDataTypeInt;
-                std::string cxml;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( faDataTypeInt);
-                DECODE_FIELD( cxml);
-
-                m_pEWrapper->receiveFA( (faDataType)faDataTypeInt, cxml);
-                break;
-            }
+            return processReceiveFaMsg(ptr, endPtr);
 
         case HISTORICAL_DATA:
-            {
-                int version;
-                int reqId;
-                std::string startDateStr;
-                std::string endDateStr;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( startDateStr); // ver 2 field
-                DECODE_FIELD( endDateStr); // ver 2 field
-
-                int itemCount;
-                DECODE_FIELD( itemCount);
-
-                typedef std::vector<BarData> BarDataList;
-                BarDataList bars;
-
-                bars.reserve( itemCount);
-
-                for( int ctr = 0; ctr < itemCount; ++ctr) {
-
-                    BarData bar;
-                    DECODE_FIELD( bar.date);
-                    DECODE_FIELD( bar.open);
-                    DECODE_FIELD( bar.high);
-                    DECODE_FIELD( bar.low);
-                    DECODE_FIELD( bar.close);
-                    DECODE_FIELD( bar.volume);
-                    DECODE_FIELD( bar.average);
-                    DECODE_FIELD( bar.hasGaps);
-                    DECODE_FIELD( bar.barCount); // ver 3 field
-
-                    bars.push_back(bar);
-                }
-
-                assert( (int)bars.size() == itemCount);
-
-                for( int ctr = 0; ctr < itemCount; ++ctr) {
-
-                    const BarData& bar = bars[ctr];
-                    m_pEWrapper->historicalData( reqId, bar.date, bar.open, bar.high, bar.low,
-                        bar.close, bar.volume, bar.barCount, bar.average,
-                        bar.hasGaps == "true");
-                }
-
-                // send end of dataset marker
-                std::string finishedStr = std::string("finished-") + startDateStr + "-" + endDateStr;
-                m_pEWrapper->historicalData( reqId, finishedStr, -1, -1, -1, -1, -1, -1, -1, 0);
-                break;
-            }
+            return processHistoricalDataMsg(ptr, endPtr);
 
         case SCANNER_DATA:
-            {
-                int version;
-                int tickerId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( tickerId);
-
-                int numberOfElements;
-                DECODE_FIELD( numberOfElements);
-
-                typedef std::vector<ScanData> ScanDataList;
-                ScanDataList scannerDataList;
-
-                scannerDataList.reserve( numberOfElements);
-
-                for( int ctr=0; ctr < numberOfElements; ++ctr) {
-
-                    ScanData data;
-
-                    DECODE_FIELD( data.rank);
-                    DECODE_FIELD( data.contract.summary.conId); // ver 3 field
-                    DECODE_FIELD( data.contract.summary.symbol);
-                    DECODE_FIELD( data.contract.summary.secType);
-                    DECODE_FIELD( data.contract.summary.expiry);
-                    DECODE_FIELD( data.contract.summary.strike);
-                    DECODE_FIELD( data.contract.summary.right);
-                    DECODE_FIELD( data.contract.summary.exchange);
-                    DECODE_FIELD( data.contract.summary.currency);
-                    DECODE_FIELD( data.contract.summary.localSymbol);
-                    DECODE_FIELD( data.contract.marketName);
-                    DECODE_FIELD( data.contract.summary.tradingClass);
-                    DECODE_FIELD( data.distance);
-                    DECODE_FIELD( data.benchmark);
-                    DECODE_FIELD( data.projection);
-                    DECODE_FIELD( data.legsStr);
-
-                    scannerDataList.push_back( data);
-                }
-
-                assert( (int)scannerDataList.size() == numberOfElements);
-
-                for( int ctr=0; ctr < numberOfElements; ++ctr) {
-
-                    const ScanData& data = scannerDataList[ctr];
-                    m_pEWrapper->scannerData( tickerId, data.rank, data.contract,
-                        data.distance, data.benchmark, data.projection, data.legsStr);
-                }
-
-                m_pEWrapper->scannerDataEnd( tickerId);
-                break;
-            }
+            return processScannerDataMsg(ptr, endPtr);
 
         case SCANNER_PARAMETERS:
-            {
-                int version;
-                std::string xml;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( xml);
-
-                m_pEWrapper->scannerParameters( xml);
-                break;
-            }
+            return processScannerParametersMsg(ptr, endPtr);
 
         case CURRENT_TIME:
-            {
-                int version;
-                int time;
-
-                DECODE_FIELD(version);
-                DECODE_FIELD(time);
-
-                m_pEWrapper->currentTime( time);
-                break;
-            }
+            return processCurrentTimeMsg(ptr, endPtr);
 
         case REAL_TIME_BARS:
-            {
-                int version;
-                int reqId;
-                int time;
-                double open;
-                double high;
-                double low;
-                double close;
-                int volume;
-                double average;
-                int count;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( time);
-                DECODE_FIELD( open);
-                DECODE_FIELD( high);
-                DECODE_FIELD( low);
-                DECODE_FIELD( close);
-                DECODE_FIELD( volume);
-                DECODE_FIELD( average);
-                DECODE_FIELD( count);
-
-                m_pEWrapper->realtimeBar( reqId, time, open, high, low, close,
-                    volume, average, count);
-
-                break;
-            }
+            return processRealTimeBarsMsg(ptr, endPtr);
 
         case FUNDAMENTAL_DATA:
-            {
-                int version;
-                int reqId;
-                std::string data;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( data);
-
-                m_pEWrapper->fundamentalData( reqId, data);
-                break;
-            }
+            return processFundamentalDataMsg(ptr, endPtr);
 
         case CONTRACT_DATA_END:
-            {
-                int version;
-                int reqId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-
-                m_pEWrapper->contractDetailsEnd( reqId);
-                break;
-            }
+            return processContractDataEndMsg(ptr, endPtr);
 
         case OPEN_ORDER_END:
-            {
-                int version;
-
-                DECODE_FIELD( version);
-
-                m_pEWrapper->openOrderEnd();
-                break;
-            }
+            return processOpenOrderEndMsg(ptr, endPtr);
 
         case ACCT_DOWNLOAD_END:
-            {
-                int version;
-                std::string account;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( account);
-
-                m_pEWrapper->accountDownloadEnd( account);
-                break;
-            }
+            return processAcctDownloadEndMsg(ptr, endPtr);
 
         case EXECUTION_DATA_END:
-            {
-                int version;
-                int reqId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-
-                m_pEWrapper->execDetailsEnd( reqId);
-                break;
-            }
+            return processExecutionDataEndMsg(ptr, endPtr);
 
         case DELTA_NEUTRAL_VALIDATION:
-            {
-                int version;
-                int reqId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-
-                UnderComp underComp;
-
-                DECODE_FIELD( underComp.conId);
-                DECODE_FIELD( underComp.delta);
-                DECODE_FIELD( underComp.price);
-
-                m_pEWrapper->deltaNeutralValidation( reqId, underComp);
-                break;
-            }
+            return processDeltaNeutralValidationMsg(ptr, endPtr);
 
         case TICK_SNAPSHOT_END:
-            {
-                int version;
-                int reqId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-
-                m_pEWrapper->tickSnapshotEnd( reqId);
-                break;
-            }
+            return processTickSnapshotEndMsg(ptr, endPtr);
 
         case MARKET_DATA_TYPE:
-            {
-                int version;
-                int reqId;
-                int marketDataType;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( marketDataType);
-
-                m_pEWrapper->marketDataType( reqId, marketDataType);
-                break;
-            }
+            return processMarketDataTypeMsg(ptr, endPtr);
 
         case COMMISSION_REPORT:
-            {
-                int version;
-                DECODE_FIELD( version);
-
-                CommissionReport commissionReport;
-                DECODE_FIELD( commissionReport.execId);
-                DECODE_FIELD( commissionReport.commission);
-                DECODE_FIELD( commissionReport.currency);
-                DECODE_FIELD( commissionReport.realizedPNL);
-                DECODE_FIELD( commissionReport.yield);
-                DECODE_FIELD( commissionReport.yieldRedemptionDate);
-
-                m_pEWrapper->commissionReport( commissionReport);
-                break;
-            }
+            return processCommissionReportMsg(ptr, endPtr);
 
         case POSITION_DATA:
-            {
-                int version;
-                std::string account;
-                int position;
-                double avgCost = 0;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( account);
-
-                // decode contract fields
-                Contract contract;
-                DECODE_FIELD( contract.conId);
-                DECODE_FIELD( contract.symbol);
-                DECODE_FIELD( contract.secType);
-                DECODE_FIELD( contract.expiry);
-                DECODE_FIELD( contract.strike);
-                DECODE_FIELD( contract.right);
-                DECODE_FIELD( contract.multiplier);
-                DECODE_FIELD( contract.exchange);
-                DECODE_FIELD( contract.currency);
-                DECODE_FIELD( contract.localSymbol);
-                if (version >= 2) {
-                    DECODE_FIELD( contract.tradingClass);
-                }
-
-                DECODE_FIELD( position);
-                if (version >= 3) {
-                    DECODE_FIELD( avgCost);
-                }
-
-                m_pEWrapper->position( account, contract, position, avgCost);
-                break;
-            }
+            return processPositionDataMsg(ptr, endPtr);
 
         case POSITION_END:
-            {
-                int version;
-
-                DECODE_FIELD( version);
-
-                m_pEWrapper->positionEnd();
-                break;
-            }
+            return processPositionEndMsg(ptr, endPtr);
 
         case ACCOUNT_SUMMARY:
-            {
-                int version;
-                int reqId;
-                std::string account;
-                std::string tag;
-                std::string value;
-                std::string curency;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( account);
-                DECODE_FIELD( tag);
-                DECODE_FIELD( value);
-                DECODE_FIELD( curency);
-
-                m_pEWrapper->accountSummary( reqId, account, tag, value, curency);
-                break;
-            }
+            return processAccountSummaryMsg(ptr, endPtr);
 
         case ACCOUNT_SUMMARY_END:
-            {
-                int version;
-                int reqId;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-
-                m_pEWrapper->accountSummaryEnd( reqId);
-                break;
-            }
+            return processAccountSummaryEndMsg(ptr, endPtr);
 
         case VERIFY_MESSAGE_API:
-            {
-                int version;
-                std::string apiData;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( apiData);
-
-                m_pEWrapper->verifyMessageAPI( apiData);
-                break;
-            }
+            return processVerifyMessageApiMsg(ptr, endPtr);
 
         case VERIFY_COMPLETED:
-            {
-                int version;
-                std::string isSuccessful;
-                std::string errorText;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( isSuccessful);
-                DECODE_FIELD( errorText);
-
-                bool bRes = isSuccessful == "true";
-
-                if (bRes) {
-                    m_pEClient->startApi();
-                }
-
-                m_pEWrapper->verifyCompleted( bRes, errorText);
-                break;
-            }
+            return processVerifyCompletedMsg(ptr, endPtr);
 
         case DISPLAY_GROUP_LIST:
-            {
-                int version;
-                int reqId;
-                std::string groups;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( groups);
-
-                m_pEWrapper->displayGroupList( reqId, groups);
-                break;
-            }
+            processDisplayGroupListMsg(ptr, endPtr);
 
         case DISPLAY_GROUP_UPDATED:
-            {
-                int version;
-                int reqId;
-                std::string contractInfo;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( reqId);
-                DECODE_FIELD( contractInfo);
-
-                m_pEWrapper->displayGroupUpdated( reqId, contractInfo);
-                break;
-            }
+            processDisplayGroupUpdatedMsg(ptr, endPtr);
 
         case VERIFY_AND_AUTH_MESSAGE_API:
-            {
-                int version;
-                std::string apiData;
-                std::string xyzChallenge;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( apiData);
-                DECODE_FIELD( xyzChallenge);
-
-                m_pEWrapper->verifyAndAuthMessageAPI( apiData, xyzChallenge);
-                break;
-            }
+            processVerifyAndAuthMessageApiMsg(ptr, endPtr);
 
         case VERIFY_AND_AUTH_COMPLETED:
-            {
-                int version;
-                std::string isSuccessful;
-                std::string errorText;
-
-                DECODE_FIELD( version);
-                DECODE_FIELD( isSuccessful);
-                DECODE_FIELD( errorText);
-
-                bool bRes = isSuccessful == "true";
-
-                if (bRes) {
-                    m_pEClient->startApi();
-                }
-
-                m_pEWrapper->verifyAndAuthCompleted( bRes, errorText);
-                break;
-            }
+            processVerifyAndAuthCompletedMsg(ptr, endPtr);
 
         default:
             {
