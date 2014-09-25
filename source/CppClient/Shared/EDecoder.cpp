@@ -19,7 +19,7 @@ EDecoder::EDecoder(EClient *parent, EWrapper *callback, int serverVersion) {
     m_pEClient = parent;
 }
 
-int EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -56,10 +56,10 @@ int EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
             m_pEWrapper->tickSize( tickerId, sizeTickType, size);
     }
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickSizeMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickSizeMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -72,10 +72,10 @@ int EDecoder::processTickSizeMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->tickSize( tickerId, (TickType)tickTypeInt, size);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickOptionComputationMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickOptionComputationMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -139,10 +139,10 @@ int EDecoder::processTickOptionComputationMsg(const char* ptr, const char* endPt
     m_pEWrapper->tickOptionComputation( tickerId, (TickType)tickTypeInt,
         impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickGenericMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickGenericMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -155,10 +155,10 @@ int EDecoder::processTickGenericMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->tickGeneric( tickerId, (TickType)tickTypeInt, value);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickStringMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickStringMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -171,10 +171,10 @@ int EDecoder::processTickStringMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->tickString( tickerId, (TickType)tickTypeInt, value);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
     int tickTypeInt;
@@ -200,10 +200,10 @@ int EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
     m_pEWrapper->tickEFP( tickerId, (TickType)tickTypeInt, basisPoints, formattedBasisPoints,
         impliedFuturesPrice, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr) {
     int version;
     int orderId;
     std::string status;
@@ -233,10 +233,10 @@ int EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr) {
         avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
 
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processErrMsgMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processErrMsgMsg(const char* ptr, const char* endPtr) {
     int version;
     int id; // ver 2 field
     int errorCode; // ver 2 field
@@ -249,10 +249,10 @@ int EDecoder::processErrMsgMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->error( id, errorCode, errorMsg);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     // read version
     int version;
     DECODE_FIELD( version);
@@ -552,10 +552,10 @@ int EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
 
-    return 0;
+    return ptr;
 } 
 
-int EDecoder::processAcctValueMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processAcctValueMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string key;
     std::string val;
@@ -569,10 +569,10 @@ int EDecoder::processAcctValueMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( accountName); // ver 2 field
 
     m_pEWrapper->updateAccountValue( key, val, cur, accountName);
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processPortfolioValueMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processPortfolioValueMsg(const char* ptr, const char* endPtr) {
     // decode version
     int version;
     DECODE_FIELD( version);
@@ -622,10 +622,10 @@ int EDecoder::processPortfolioValueMsg(const char* ptr, const char* endPtr) {
         position, marketPrice, marketValue, averageCost,
         unrealizedPNL, realizedPNL, accountName);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processAcctUpdateTimeMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processAcctUpdateTimeMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string accountTime;
 
@@ -634,10 +634,10 @@ int EDecoder::processAcctUpdateTimeMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->updateAccountTime( accountTime);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processNextValidIdMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processNextValidIdMsg(const char* ptr, const char* endPtr) {
     int version;
     int orderId;
 
@@ -646,10 +646,10 @@ int EDecoder::processNextValidIdMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->nextValidId(orderId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processContractDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr) {
     int version;
     DECODE_FIELD( version);
 
@@ -713,10 +713,10 @@ int EDecoder::processContractDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->contractDetails( reqId, contract);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processBondContractDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* endPtr) {
     int version;
     DECODE_FIELD( version);
 
@@ -776,10 +776,10 @@ int EDecoder::processBondContractDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->bondContractDetails( reqId, contract);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processExecutionDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPtr) {
     int version;
     DECODE_FIELD( version);
 
@@ -839,10 +839,10 @@ int EDecoder::processExecutionDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->execDetails( reqId, contract, exec);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processMarketDepthMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processMarketDepthMsg(const char* ptr, const char* endPtr) {
     int version;
     int id;
     int position;
@@ -861,10 +861,10 @@ int EDecoder::processMarketDepthMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->updateMktDepth( id, position, operation, side, price, size);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processMarketDepthL2Msg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processMarketDepthL2Msg(const char* ptr, const char* endPtr) {
     int version;
     int id;
     int position;
@@ -886,10 +886,10 @@ int EDecoder::processMarketDepthL2Msg(const char* ptr, const char* endPtr) {
     m_pEWrapper->updateMktDepthL2( id, position, marketMaker, operation, side,
         price, size);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processNewsBulletinsMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processNewsBulletinsMsg(const char* ptr, const char* endPtr) {
     int version;
     int msgId;
     int msgType;
@@ -904,10 +904,10 @@ int EDecoder::processNewsBulletinsMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->updateNewsBulletin( msgId, msgType, newsMessage, originatingExch);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processManagedAcctsMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processManagedAcctsMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string accountsList;
 
@@ -916,10 +916,10 @@ int EDecoder::processManagedAcctsMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->managedAccounts( accountsList);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processReceiveFaMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processReceiveFaMsg(const char* ptr, const char* endPtr) {
     int version;
     int faDataTypeInt;
     std::string cxml;
@@ -930,10 +930,10 @@ int EDecoder::processReceiveFaMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->receiveFA( (faDataType)faDataTypeInt, cxml);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processHistoricalDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processHistoricalDataMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     std::string startDateStr;
@@ -982,10 +982,10 @@ int EDecoder::processHistoricalDataMsg(const char* ptr, const char* endPtr) {
     std::string finishedStr = std::string("finished-") + startDateStr + "-" + endDateStr;
     m_pEWrapper->historicalData( reqId, finishedStr, -1, -1, -1, -1, -1, -1, -1, 0);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processScannerDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processScannerDataMsg(const char* ptr, const char* endPtr) {
     int version;
     int tickerId;
 
@@ -1035,10 +1035,10 @@ int EDecoder::processScannerDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->scannerDataEnd( tickerId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processScannerParametersMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processScannerParametersMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string xml;
 
@@ -1047,10 +1047,10 @@ int EDecoder::processScannerParametersMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->scannerParameters( xml);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processCurrentTimeMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processCurrentTimeMsg(const char* ptr, const char* endPtr) {
     int version;
     int time;
 
@@ -1059,10 +1059,10 @@ int EDecoder::processCurrentTimeMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->currentTime( time);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processRealTimeBarsMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processRealTimeBarsMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     int time;
@@ -1088,10 +1088,10 @@ int EDecoder::processRealTimeBarsMsg(const char* ptr, const char* endPtr) {
     m_pEWrapper->realtimeBar( reqId, time, open, high, low, close,
         volume, average, count);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processFundamentalDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processFundamentalDataMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     std::string data;
@@ -1102,10 +1102,10 @@ int EDecoder::processFundamentalDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->fundamentalData( reqId, data);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processContractDataEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processContractDataEndMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
 
@@ -1114,20 +1114,20 @@ int EDecoder::processContractDataEndMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->contractDetailsEnd( reqId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processOpenOrderEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processOpenOrderEndMsg(const char* ptr, const char* endPtr) {
     int version;
 
     DECODE_FIELD( version);
 
     m_pEWrapper->openOrderEnd();
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processAcctDownloadEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processAcctDownloadEndMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string account;
 
@@ -1136,10 +1136,10 @@ int EDecoder::processAcctDownloadEndMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->accountDownloadEnd( account);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processExecutionDataEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processExecutionDataEndMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
 
@@ -1148,10 +1148,10 @@ int EDecoder::processExecutionDataEndMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->execDetailsEnd( reqId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processDeltaNeutralValidationMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processDeltaNeutralValidationMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
 
@@ -1166,10 +1166,10 @@ int EDecoder::processDeltaNeutralValidationMsg(const char* ptr, const char* endP
 
     m_pEWrapper->deltaNeutralValidation( reqId, underComp);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processTickSnapshotEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processTickSnapshotEndMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
 
@@ -1178,10 +1178,10 @@ int EDecoder::processTickSnapshotEndMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->tickSnapshotEnd( reqId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processMarketDataTypeMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processMarketDataTypeMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     int marketDataType;
@@ -1192,10 +1192,10 @@ int EDecoder::processMarketDataTypeMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->marketDataType( reqId, marketDataType);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processCommissionReportMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processCommissionReportMsg(const char* ptr, const char* endPtr) {
     int version;
     DECODE_FIELD( version);
 
@@ -1209,10 +1209,10 @@ int EDecoder::processCommissionReportMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->commissionReport( commissionReport);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string account;
     int position;
@@ -1244,20 +1244,20 @@ int EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->position( account, contract, position, avgCost);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processPositionEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processPositionEndMsg(const char* ptr, const char* endPtr) {
     int version;
 
     DECODE_FIELD( version);
 
     m_pEWrapper->positionEnd();
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processAccountSummaryMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processAccountSummaryMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     std::string account;
@@ -1274,10 +1274,10 @@ int EDecoder::processAccountSummaryMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->accountSummary( reqId, account, tag, value, curency);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processAccountSummaryEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processAccountSummaryEndMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
 
@@ -1286,10 +1286,10 @@ int EDecoder::processAccountSummaryEndMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->accountSummaryEnd( reqId);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processVerifyMessageApiMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processVerifyMessageApiMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string apiData;
 
@@ -1298,10 +1298,10 @@ int EDecoder::processVerifyMessageApiMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->verifyMessageAPI( apiData);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processVerifyCompletedMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processVerifyCompletedMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string isSuccessful;
     std::string errorText;
@@ -1318,10 +1318,10 @@ int EDecoder::processVerifyCompletedMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->verifyCompleted( bRes, errorText);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processDisplayGroupListMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processDisplayGroupListMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     std::string groups;
@@ -1332,10 +1332,10 @@ int EDecoder::processDisplayGroupListMsg(const char* ptr, const char* endPtr) {
 
     m_pEWrapper->displayGroupList( reqId, groups);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processDisplayGroupUpdatedMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processDisplayGroupUpdatedMsg(const char* ptr, const char* endPtr) {
     int version;
     int reqId;
     std::string contractInfo;
@@ -1346,10 +1346,10 @@ int EDecoder::processDisplayGroupUpdatedMsg(const char* ptr, const char* endPtr)
 
     m_pEWrapper->displayGroupUpdated( reqId, contractInfo);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processVerifyAndAuthMessageApiMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processVerifyAndAuthMessageApiMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string apiData;
     std::string xyzChallenge;
@@ -1360,10 +1360,10 @@ int EDecoder::processVerifyAndAuthMessageApiMsg(const char* ptr, const char* end
 
     m_pEWrapper->verifyAndAuthMessageAPI( apiData, xyzChallenge);
 
-    return 0;
+    return ptr;
 }
 
-int EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string isSuccessful;
     std::string errorText;
@@ -1379,8 +1379,8 @@ int EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const char* endP
     }
 
     m_pEWrapper->verifyAndAuthCompleted( bRes, errorText);
-    
-    return 0;
+
+    return ptr;
 }
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
@@ -1398,139 +1398,184 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
         switch( msgId) {
         case TICK_PRICE:
-            return processTickPriceMsg(ptr, endPtr);
+            ptr = processTickPriceMsg(ptr, endPtr);
+            break;
 
         case TICK_SIZE:
-            return processTickSizeMsg(ptr, endPtr);
+            ptr = processTickSizeMsg(ptr, endPtr);
+            break;
 
         case TICK_OPTION_COMPUTATION:
-            return processTickOptionComputationMsg(ptr, endPtr);
+            ptr = processTickOptionComputationMsg(ptr, endPtr);
+            break;
 
         case TICK_GENERIC:
-            return processTickGenericMsg(ptr, endPtr);
+            ptr = processTickGenericMsg(ptr, endPtr);
+            break;
 
         case TICK_STRING:
-            return processTickStringMsg(ptr, endPtr);
+            ptr = processTickStringMsg(ptr, endPtr);
+            break;
 
         case TICK_EFP:
-            return processTickEfpMsg(ptr, endPtr);
+            ptr = processTickEfpMsg(ptr, endPtr);
+            break;
 
         case ORDER_STATUS:
-            return processOrderStatusMsg(ptr, endPtr);
+            ptr = processOrderStatusMsg(ptr, endPtr);
+            break;
 
         case ERR_MSG:
-            return processErrMsgMsg(ptr, endPtr);
+            ptr = processErrMsgMsg(ptr, endPtr);
+            break;
 
         case OPEN_ORDER:
-            return processOpenOrderMsg(ptr, endPtr);
+            ptr = processOpenOrderMsg(ptr, endPtr);
+            break;
 
         case ACCT_VALUE:
-            return processAcctValueMsg(ptr, endPtr);
+            ptr = processAcctValueMsg(ptr, endPtr);
+            break;
 
         case PORTFOLIO_VALUE:
-            return processPortfolioValueMsg(ptr, endPtr);
+            ptr = processPortfolioValueMsg(ptr, endPtr);
+            break;
 
         case ACCT_UPDATE_TIME:
-            return processAcctUpdateTimeMsg(ptr, endPtr);
+            ptr = processAcctUpdateTimeMsg(ptr, endPtr);
+            break;
 
         case NEXT_VALID_ID:
-            return processNextValidIdMsg(ptr, endPtr);
+            ptr = processNextValidIdMsg(ptr, endPtr);
+            break;
 
         case CONTRACT_DATA:
-            return processContractDataMsg(ptr, endPtr);
+            ptr = processContractDataMsg(ptr, endPtr);
+            break;
 
         case BOND_CONTRACT_DATA:
-            return processBondContractDataMsg(ptr, endPtr);
+            ptr = processBondContractDataMsg(ptr, endPtr);
+            break;
 
         case EXECUTION_DATA:
-            return processExecutionDataMsg(ptr, endPtr);
+            ptr = processExecutionDataMsg(ptr, endPtr);
+            break;
 
         case MARKET_DEPTH:
-            return processMarketDepthMsg(ptr, endPtr);
+            ptr = processMarketDepthMsg(ptr, endPtr);
+            break;
 
         case MARKET_DEPTH_L2:
-            return processMarketDepthL2Msg(ptr, endPtr);
+            ptr = processMarketDepthL2Msg(ptr, endPtr);
+            break;
 
         case NEWS_BULLETINS:
-            return processNewsBulletinsMsg(ptr, endPtr);
+            ptr = processNewsBulletinsMsg(ptr, endPtr);
+            break;
 
         case MANAGED_ACCTS:
-            return processManagedAcctsMsg(ptr, endPtr);
+            ptr = processManagedAcctsMsg(ptr, endPtr);
+            break;
 
         case RECEIVE_FA:
-            return processReceiveFaMsg(ptr, endPtr);
+            ptr = processReceiveFaMsg(ptr, endPtr);
+            break;
 
         case HISTORICAL_DATA:
-            return processHistoricalDataMsg(ptr, endPtr);
+            ptr = processHistoricalDataMsg(ptr, endPtr);
+            break;
 
         case SCANNER_DATA:
-            return processScannerDataMsg(ptr, endPtr);
+            ptr = processScannerDataMsg(ptr, endPtr);
+            break;
 
         case SCANNER_PARAMETERS:
-            return processScannerParametersMsg(ptr, endPtr);
+            ptr = processScannerParametersMsg(ptr, endPtr);
+            break;
 
         case CURRENT_TIME:
-            return processCurrentTimeMsg(ptr, endPtr);
+            ptr = processCurrentTimeMsg(ptr, endPtr);
+            break;
 
         case REAL_TIME_BARS:
-            return processRealTimeBarsMsg(ptr, endPtr);
+            ptr = processRealTimeBarsMsg(ptr, endPtr);
+            break;
 
         case FUNDAMENTAL_DATA:
-            return processFundamentalDataMsg(ptr, endPtr);
+            ptr = processFundamentalDataMsg(ptr, endPtr);
+            break;
 
         case CONTRACT_DATA_END:
-            return processContractDataEndMsg(ptr, endPtr);
+            ptr = processContractDataEndMsg(ptr, endPtr);
+            break;
 
         case OPEN_ORDER_END:
-            return processOpenOrderEndMsg(ptr, endPtr);
+            ptr = processOpenOrderEndMsg(ptr, endPtr);
+            break;
 
         case ACCT_DOWNLOAD_END:
-            return processAcctDownloadEndMsg(ptr, endPtr);
+            ptr = processAcctDownloadEndMsg(ptr, endPtr);
+            break;
 
         case EXECUTION_DATA_END:
-            return processExecutionDataEndMsg(ptr, endPtr);
+            ptr = processExecutionDataEndMsg(ptr, endPtr);
+            break;
 
         case DELTA_NEUTRAL_VALIDATION:
-            return processDeltaNeutralValidationMsg(ptr, endPtr);
+            ptr = processDeltaNeutralValidationMsg(ptr, endPtr);
+            break;
 
         case TICK_SNAPSHOT_END:
-            return processTickSnapshotEndMsg(ptr, endPtr);
+            ptr = processTickSnapshotEndMsg(ptr, endPtr);
+            break;
 
         case MARKET_DATA_TYPE:
-            return processMarketDataTypeMsg(ptr, endPtr);
+            ptr = processMarketDataTypeMsg(ptr, endPtr);
+            break;
 
         case COMMISSION_REPORT:
-            return processCommissionReportMsg(ptr, endPtr);
+            ptr = processCommissionReportMsg(ptr, endPtr);
+            break;
 
         case POSITION_DATA:
-            return processPositionDataMsg(ptr, endPtr);
+            ptr = processPositionDataMsg(ptr, endPtr);
+            break;
 
         case POSITION_END:
-            return processPositionEndMsg(ptr, endPtr);
+            ptr = processPositionEndMsg(ptr, endPtr);
+            break;
 
         case ACCOUNT_SUMMARY:
-            return processAccountSummaryMsg(ptr, endPtr);
+            ptr = processAccountSummaryMsg(ptr, endPtr);
+            break;
 
         case ACCOUNT_SUMMARY_END:
-            return processAccountSummaryEndMsg(ptr, endPtr);
+            ptr = processAccountSummaryEndMsg(ptr, endPtr);
+            break;
 
         case VERIFY_MESSAGE_API:
-            return processVerifyMessageApiMsg(ptr, endPtr);
+            ptr = processVerifyMessageApiMsg(ptr, endPtr);
+            break;
 
         case VERIFY_COMPLETED:
-            return processVerifyCompletedMsg(ptr, endPtr);
+            ptr = processVerifyCompletedMsg(ptr, endPtr);
+            break;
 
         case DISPLAY_GROUP_LIST:
-            processDisplayGroupListMsg(ptr, endPtr);
+            ptr = processDisplayGroupListMsg(ptr, endPtr);
+            break;
 
         case DISPLAY_GROUP_UPDATED:
-            processDisplayGroupUpdatedMsg(ptr, endPtr);
+            ptr = processDisplayGroupUpdatedMsg(ptr, endPtr);
+            break;
 
         case VERIFY_AND_AUTH_MESSAGE_API:
-            processVerifyAndAuthMessageApiMsg(ptr, endPtr);
+            ptr = processVerifyAndAuthMessageApiMsg(ptr, endPtr);
+            break;
 
         case VERIFY_AND_AUTH_COMPLETED:
-            processVerifyAndAuthCompletedMsg(ptr, endPtr);
+            ptr = processVerifyAndAuthCompletedMsg(ptr, endPtr);
+            break;
 
         default:
             {
@@ -1540,6 +1585,9 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
                 break;
             }
         }
+
+        if (!ptr)
+            return 0;
 
         int processed = ptr - beginPtr;
         beginPtr = ptr;
