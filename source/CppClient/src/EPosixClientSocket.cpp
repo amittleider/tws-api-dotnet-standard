@@ -8,6 +8,8 @@
 #include "EPosixClientSocketPlatform.h"
 #include "TwsSocketClientErrors.h"
 #include "EWrapper.h"
+#include "contract.h"
+#include "EDecoder.h"
 
 
 #include <string.h>
@@ -262,3 +264,4 @@ bool EPosixClientSocket::handleSocketError()
 	eDisconnect();
 	return false;
 }
+

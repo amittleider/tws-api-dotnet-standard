@@ -45,11 +45,13 @@
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <SourcePath>C:\Users\mvorobyev\Desktop\Source\repositories\tws-api-mvorobyev\source\CppClient\Shared;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <SourcePath>C:\Users\mvorobyev\Desktop\Source\repositories\tws-api-mvorobyev\source\CppClient\Shared;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -154,6 +156,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Shared\CriticalSection.cpp" />
     <ClCompile Include="..\Shared\EDecoder.cpp" />
     <ClCompile Include="..\Shared\EMessage.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
@@ -169,6 +172,7 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\CriticalSection.h" />
     <ClInclude Include="..\Shared\DefaultWrapper.h" />
     <ClInclude Include="..\Shared\EDecoder.h" />
     <ClInclude Include="..\Shared\EMessage.h" />

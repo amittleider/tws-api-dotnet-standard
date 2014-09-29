@@ -268,9 +268,6 @@ const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
-const int HEADER_LEN = 4; // 4 bytes for msg length
-const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
-const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
 
 ///////////////////////////////////////////////////////////
 // helper macroses
@@ -552,6 +549,10 @@ void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
 	}
 	m_useV100Plus = true;
 	m_connectOptions = connectOptions;
+}
+
+bool EClientSocketBase::usingV100Plus() {
+    return m_useV100Plus;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
@@ -3035,7 +3036,7 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 
 int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
-    EDecoder decoder(this, m_pEWrapper, m_serverVersion);
+    EDecoder decoder(this, m_pEWrapper);
 
     return decoder.parseAndProcessMsg(beginPtr, endPtr);
 }

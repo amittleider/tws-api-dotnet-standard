@@ -90,6 +90,11 @@ const int DISPLAY_GROUP_UPDATED     = 68;
 const int VERIFY_AND_AUTH_MESSAGE_API = 69;
 const int VERIFY_AND_AUTH_COMPLETED   = 70;
 
+const int HEADER_LEN = 4; // 4 bytes for msg length
+const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
+const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
+
+
 // helper structures
 namespace {
 
@@ -130,7 +135,6 @@ class EDecoder
 {
     EWrapper *m_pEWrapper;
     EClient *m_pEClient;
-    int m_serverVersion;
 
     const char* processTickPriceMsg(const char* ptr, const char* endPtr);
     const char* processTickSizeMsg(const char* ptr, const char* endPtr);
@@ -192,7 +196,7 @@ public:
 	static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
 	static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
 
-    EDecoder(EClient *parent, EWrapper *callback, int serverVersion);
+    EDecoder(EClient *parent, EWrapper *callback);
 
     int parseAndProcessMsg(const char*& beginPtr, const char* endPtr);
 };

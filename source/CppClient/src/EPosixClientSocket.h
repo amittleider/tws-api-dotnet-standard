@@ -30,7 +30,9 @@ private:
 private:
 
 	int send( const char* buf, size_t sz);
-	int receive( char* buf, size_t sz);
+
+public:
+    int receive( char* buf, size_t sz);
 
 public:
 	// callback from socket

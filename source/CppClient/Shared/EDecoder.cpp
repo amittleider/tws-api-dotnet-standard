@@ -13,9 +13,8 @@
 #include "EDecoder.h"
 
 
-EDecoder::EDecoder(EClient *parent, EWrapper *callback, int serverVersion) {
+EDecoder::EDecoder(EClient *parent, EWrapper *callback) {
     m_pEWrapper = callback;
-    m_serverVersion = serverVersion;
     m_pEClient = parent;
 }
 
@@ -335,7 +334,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( order.settlingFirm); // ver 9 field
     DECODE_FIELD( order.shortSaleSlot); // ver 9 field
     DECODE_FIELD( order.designatedLocation); // ver 9 field
-    if( m_serverVersion == MIN_SERVER_VER_SSHORTX_OLD){
+    if( m_pEClient->serverVersion() == MIN_SERVER_VER_SSHORTX_OLD){
         int exemptCode;
         DECODE_FIELD( exemptCode);
     }
@@ -614,7 +613,7 @@ const char* EDecoder::processPortfolioValueMsg(const char* ptr, const char* endP
     std::string accountName;
     DECODE_FIELD( accountName); // ver 4 field
 
-    if( version == 6 && m_serverVersion == 39) {
+    if( version == 6 && m_pEClient->serverVersion() == 39) {
         DECODE_FIELD( contract.primaryExchange);
     }
 

@@ -13,6 +13,8 @@
 #endif
 
 #include <string>
+#include <deque>
+#include <vector>
 
 #ifndef TWSAPIDLLEXP
 #define TWSAPIDLLEXP

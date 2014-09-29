@@ -30,6 +30,7 @@ public:
 	void setOptionalCapabilities(const std::string& optCapts);
 
 	void setUseV100Plus(const std::string& connectOptions);
+    bool usingV100Plus();
 
 protected:
 
@@ -52,11 +53,12 @@ public:
 	const std::string& host() const { return m_host; }
 	unsigned port() const { return m_port; }
 
-protected:
+public:
 
 	// access to protected variables
 	EWrapper * getWrapper() const;
-	void setClientId( int clientId);
+protected:
+    void setClientId( int clientId);
 	void setExtraAuth( bool extraAuth);
 	void setHost( const std::string& host);
 	void setPort( unsigned port);
@@ -148,10 +150,13 @@ private:
 	int bufferedSend(const std::string& msg);
 
 	// read and buffer what's available
-	int bufferedRead();
+
+protected:
+    int bufferedRead();
 
 	// try to process connection request ack
-	int processConnectAckImpl(const char*& ptr, const char* endPtr);
+private:
+    int processConnectAckImpl(const char*& ptr, const char* endPtr);
 	int processConnectAck(const char*& ptr, const char* endPtr);
 
 	// try to process single msg
@@ -202,8 +207,11 @@ private:
 
 	EWrapper *m_pEWrapper;
 
-	BytesVec m_inBuffer;
-	BytesVec m_outBuffer;
+
+protected:
+    BytesVec m_inBuffer;
+private:
+    BytesVec m_outBuffer;
 
 	std::string m_host;
 	int m_port;
@@ -217,8 +225,10 @@ private:
 
 	std::string m_optionalCapabilities;
 
-	bool m_useV100Plus;
 	std::string m_connectOptions;
+
+protected:
+    bool m_useV100Plus;
 
 };
 
