@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,11 +21,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
-import com.ib.client.Order;
 import com.ib.client.TagValue;
 
 public class SmartComboRoutingParamsDlg extends JDialog {
-
     private JTextField 		m_tag = new JTextField( "");
     private JTextField 		m_value = new JTextField( "");
     private JButton 		m_addParam = new JButton( "Add");
@@ -36,12 +34,12 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     private SmartComboRoutingParamModel 	m_paramModel = new SmartComboRoutingParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
     private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
-    Vector<TagValue> m_smartComboRoutingParams = new Vector<TagValue>();
+    ArrayList<TagValue> m_smartComboRoutingParams = new ArrayList<TagValue>();
     
     public SmartComboRoutingParamModel paramModel() { return m_paramModel; }
-    public Vector<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
+    public ArrayList<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
 
-    public SmartComboRoutingParamsDlg(String dlgTitle, Vector<TagValue> smartComboRoutingParams, JDialog owner) {
+    public SmartComboRoutingParamsDlg(String dlgTitle, ArrayList<TagValue> smartComboRoutingParams, JDialog owner) {
         super( owner, dlgTitle, true);
 
         setTitle( dlgTitle);
@@ -136,7 +134,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     }
 
     void onOk() {
-    	Vector<TagValue> smartComboRoutingParams = m_paramModel.smartComboRoutingParams();
+        ArrayList<TagValue> smartComboRoutingParams = m_paramModel.smartComboRoutingParams();
     	
     	m_smartComboRoutingParams = smartComboRoutingParams.isEmpty() ? null : smartComboRoutingParams;
 
@@ -146,7 +144,6 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     void onCancel() {
         setVisible( false);
     }
-
 
     void reportError( String msg, Exception e) {
         Main.inform( this, msg + " --" + e);
@@ -166,8 +163,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 }
 
 class SmartComboRoutingParamModel extends AbstractTableModel {
-
-    private Vector<TagValue> m_allData = new Vector<TagValue>();
+    private ArrayList<TagValue> m_allData = new ArrayList<TagValue>();
 
     synchronized public void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
@@ -180,7 +176,7 @@ class SmartComboRoutingParamModel extends AbstractTableModel {
     }
 
     synchronized public void reset() {
-        m_allData.removeAllElements();
+        m_allData.clear();
 		fireTableDataChanged();
     }
 
@@ -221,7 +217,7 @@ class SmartComboRoutingParamModel extends AbstractTableModel {
         }
     }
 
-    public Vector<TagValue> smartComboRoutingParams() {
+    public ArrayList<TagValue> smartComboRoutingParams() {
         return m_allData;
     }
 }

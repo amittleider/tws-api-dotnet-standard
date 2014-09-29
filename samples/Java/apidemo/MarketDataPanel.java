@@ -22,7 +22,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.TCombo;
@@ -31,11 +30,11 @@ import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
+import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
 import com.ib.client.ScannerSubscription;
 import com.ib.controller.Bar;
 import com.ib.controller.Instrument;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewContractDetails;
 import com.ib.controller.ScanCode;
 import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
@@ -49,7 +48,7 @@ import com.ib.controller.Types.MktDataType;
 import com.ib.controller.Types.WhatToShow;
 
 public class MarketDataPanel extends JPanel {
-	private final NewContract m_contract = new NewContract();
+	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_requestPanel = new NewTabbedPanel();
 	private final NewTabbedPanel m_resultsPanel = new NewTabbedPanel();
 	private TopResultsPanel m_topResultPanel;
@@ -554,7 +553,7 @@ public class MarketDataPanel extends JPanel {
 			}
 		}
 
-		@Override public void scannerData(int rank, final NewContractDetails contractDetails, String legsStr) {
+		@Override public void scannerData(int rank, final ContractDetails contractDetails, String legsStr) {
 			if (!m_conids.contains( contractDetails.conid() ) ) {
 				m_conids.add( contractDetails.conid() );
 				SwingUtilities.invokeLater( new Runnable() {

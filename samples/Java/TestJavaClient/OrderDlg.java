@@ -9,10 +9,10 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,7 +29,7 @@ import com.ib.client.Contract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.TagValue;
-import com.ib.client.UnderComp;
+import com.ib.controller.DeltaNeutralContract;
 
 public class OrderDlg extends JDialog {
     final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";
@@ -51,13 +51,13 @@ public class OrderDlg extends JDialog {
     public String       m_whatToShow;
     public Contract 	m_contract = new Contract();
     public Order 		m_order = new Order();
-    public UnderComp	m_underComp = new UnderComp();
+    public DeltaNeutralContract	m_underComp = new DeltaNeutralContract();
     public int          m_exerciseAction;
     public int          m_exerciseQuantity;
     public int          m_override;
     public int          m_marketDataType;
     private String      m_optionsDlgTitle;
-    private Vector<TagValue> m_options = new Vector<TagValue>();
+    private ArrayList<TagValue> m_options = new ArrayList<TagValue>();
 
     private JTextField	m_Id = new JTextField( "0");
     private JTextField	m_BackfillEndTime = new JTextField(22);
@@ -360,30 +360,27 @@ public class OrderDlg extends JDialog {
     }
 
     void onAddComboLegs() {
-
         ComboLegDlg comboLegDlg = new ComboLegDlg(
-        		m_contract.m_comboLegs, m_order.m_orderComboLegs, m_exchange.getText(), this);
+        		m_contract.comboLegs(), m_order.orderComboLegs(), m_exchange.getText(), this);
 
         // show the combo leg dialog
         comboLegDlg.setVisible( true);
     }
 
     void onBtnUnderComp() {
-
         UnderCompDlg underCompDlg = new UnderCompDlg(m_underComp, this);
 
         // show delta neutral dialog
         underCompDlg.setVisible( true);
         if (underCompDlg.ok()) {
-        	m_contract.m_underComp = m_underComp;
+        	m_contract.underComp(m_underComp);
         }
         else if (underCompDlg.reset()) {
-        	m_contract.m_underComp = null;
+        	m_contract.underComp(null);
         }
     }
 
     void onBtnAlgoParams() {
-
         AlgoParamsDlg algoParamsDlg = new AlgoParamsDlg(m_order, this);
 
         // show delta neutral dialog
@@ -391,15 +388,13 @@ public class OrderDlg extends JDialog {
     }
 
     void onBtnSmartComboRoutingParams() {
-
-        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Smart Combo Routing Params", m_order.m_smartComboRoutingParams, this);
+        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Smart Combo Routing Params", m_order.smartComboRoutingParams(), this);
 
         // show smart combo routing params dialog
         smartComboRoutingParamsDlg.setVisible( true);
     }
 
     void onBtnOptions() {
-
     	SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg(m_optionsDlgTitle, m_options, this);
 
         // show smart combo routing params dialog
@@ -416,41 +411,41 @@ public class OrderDlg extends JDialog {
             m_id = Integer.parseInt( m_Id.getText() );
 
             // set contract fields
-            m_contract.m_conId = ParseInt(m_conId.getText(), 0);
-            m_contract.m_symbol = m_symbol.getText();
-            m_contract.m_secType = m_secType.getText();
-            m_contract.m_expiry = m_expiry.getText();
-           	m_contract.m_strike = ParseDouble(m_strike.getText(), 0.0);
-            m_contract.m_right = m_right.getText();
-            m_contract.m_multiplier = m_multiplier.getText();
-            m_contract.m_exchange = m_exchange.getText();
-            m_contract.m_primaryExch = m_primaryExch.getText();
-            m_contract.m_currency = m_currency.getText();
-            m_contract.m_localSymbol = m_localSymbol.getText();
-            m_contract.m_tradingClass = m_tradingClass.getText();
+            m_contract.conid(ParseInt(m_conId.getText(), 0));
+            m_contract.symbol(m_symbol.getText());
+            m_contract.secType(m_secType.getText());
+            m_contract.expiry(m_expiry.getText());
+           	m_contract.strike(ParseDouble(m_strike.getText(), 0.0));
+            m_contract.right(m_right.getText());
+            m_contract.multiplier(m_multiplier.getText());
+            m_contract.exchange(m_exchange.getText());
+            m_contract.primaryExch(m_primaryExch.getText());
+            m_contract.currency(m_currency.getText());
+            m_contract.localSymbol(m_localSymbol.getText());
+            m_contract.tradingClass(m_tradingClass.getText());
             try {
             	int includeExpired = Integer.parseInt(m_includeExpired.getText());
-            	m_contract.m_includeExpired = (includeExpired == 1);
+            	m_contract.includeExpired(includeExpired == 1);
             }
             catch (NumberFormatException ex) {
-            	m_contract.m_includeExpired = false;
+            	m_contract.includeExpired(false);
             }
-            m_contract.m_secIdType = m_secIdType.getText();
-            m_contract.m_secId = m_secId.getText();
+            m_contract.secIdType(m_secIdType.getText());
+            m_contract.secId(m_secId.getText());
 
             // set order fields
-            m_order.m_action = m_action.getText();
-            m_order.m_totalQuantity = Integer.parseInt( m_totalQuantity.getText() );
-            m_order.m_orderType = m_orderType.getText();
-            m_order.m_lmtPrice = parseStringToMaxDouble( m_lmtPrice.getText());
-            m_order.m_auxPrice = parseStringToMaxDouble( m_auxPrice.getText());
-            m_order.m_goodAfterTime = m_goodAfterTime.getText();
-            m_order.m_goodTillDate = m_goodTillDate.getText();
+            m_order.action(m_action.getText());
+            m_order.totalQuantity(Integer.parseInt( m_totalQuantity.getText() ));
+            m_order.orderType(m_orderType.getText());
+            m_order.lmtPrice(parseStringToMaxDouble( m_lmtPrice.getText()));
+            m_order.auxPrice(parseStringToMaxDouble( m_auxPrice.getText()));
+            m_order.goodAfterTime(m_goodAfterTime.getText());
+            m_order.goodTillDate(m_goodTillDate.getText());
 
-            m_order.m_faGroup = m_faGroup;
-            m_order.m_faProfile = m_faProfile;
-            m_order.m_faMethod = m_faMethod;
-            m_order.m_faPercentage = m_faPercentage;
+            m_order.faGroup(m_faGroup);
+            m_order.faProfile(m_faProfile);
+            m_order.faMethod(m_faMethod);
+            m_order.faPercentage(m_faPercentage);
 
             // set historical data fields
             m_backfillEndTime = m_BackfillEndTime.getText();
@@ -531,7 +526,7 @@ public class OrderDlg extends JDialog {
 //    	m_optionsDlgTitle = title;
 //    }
   
-    void init(String btnText, boolean btnEnabled, String dlgTitle, Vector<TagValue> options) {
+    void init(String btnText, boolean btnEnabled, String dlgTitle, ArrayList<TagValue> options) {
     	init(btnText, btnEnabled);
     	m_options = options;
     	m_optionsDlgTitle = dlgTitle;
@@ -548,7 +543,7 @@ public class OrderDlg extends JDialog {
 //    	m_btnOptions.setText(name);
 //    }
     
-    Vector<TagValue> getOptions() {
+    ArrayList<TagValue> getOptions() {
     	return m_options;
     }
 //    void disableBtnOptions(){

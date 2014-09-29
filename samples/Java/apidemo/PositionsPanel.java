@@ -12,14 +12,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-
 import apidemo.AccountInfoPanel.Table;
 import apidemo.util.HtmlButton;
 import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 
+import com.ib.client.Contract;
 import com.ib.controller.Formats;
-import com.ib.controller.NewContract;
 import com.ib.controller.ApiController.IPositionHandler;
 
 
@@ -75,7 +74,7 @@ public class PositionsPanel extends NewTabPanel {
 		HashMap<PositionKey,PositionRow> m_map = new HashMap<PositionKey,PositionRow>();
 		ArrayList<PositionRow> m_list = new ArrayList<PositionRow>();
 
-		@Override public void position(String account, NewContract contract, int position, double avgCost) {
+		@Override public void position(String account, Contract contract, int position, double avgCost) {
 			PositionKey key = new PositionKey( account, contract.conid() );
 			PositionRow row = m_map.get( key);
 			if (row == null) {
@@ -153,11 +152,11 @@ public class PositionsPanel extends NewTabPanel {
 
 	private static class PositionRow {
 		String m_account;
-		NewContract m_contract;
+		Contract m_contract;
 		int m_position;
 		double m_avgCost;
 
-		void update(String account, NewContract contract, int position, double avgCost) {
+		void update(String account, Contract contract, int position, double avgCost) {
 			m_account = account;
 			m_contract = contract;
 			m_position = position;

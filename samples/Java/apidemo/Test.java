@@ -11,7 +11,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
-import com.ib.client.UnderComp;
+import com.ib.controller.DeltaNeutralContract;
 
 public class Test implements EWrapper {
 	EClientSocket m_s = new EClientSocket(this);
@@ -131,7 +131,7 @@ public class Test implements EWrapper {
 	@Override public void fundamentalData(int reqId, String data) {
 	}
 
-	@Override public void deltaNeutralValidation(int reqId, UnderComp underComp) {
+	@Override public void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
 	}
 
 	@Override public void tickSnapshotEnd(int reqId) {
@@ -172,5 +172,4 @@ public class Test implements EWrapper {
 
 	@Override public void displayGroupUpdated( int reqId, String contractInfo){
 	}
-	
 }

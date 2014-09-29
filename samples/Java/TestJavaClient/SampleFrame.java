@@ -9,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +27,7 @@ import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
-import com.ib.client.UnderComp;
+import com.ib.controller.DeltaNeutralContract;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
@@ -46,12 +46,12 @@ class SampleFrame extends JFrame implements EWrapper {
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
 
-    private Vector<TagValue> m_mktDataOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_chartOptions = new Vector<TagValue>();
-//    private Vector<TagValue> m_orderMiscOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_mktDepthOptions = new Vector<TagValue>();
-//    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
-    private Vector<TagValue> m_realTimeBarsOptions = new Vector<TagValue>();
+    private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
+//    private Vector<TagValue> m_orderMiscOptions = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_mktDepthOptions = new ArrayList<TagValue>();
+//    private Vector<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_realTimeBarsOptions = new ArrayList<TagValue>();
     
     String faGroupXML ;
     String faProfilesXML ;
@@ -614,9 +614,8 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     void placeOrder(boolean whatIf) {
-    	
         // run m_orderDlg
-        m_orderDlg.init("Order Misc Options", true, "Order Misc Options",  m_orderDlg.m_order.m_orderMiscOptions);
+        m_orderDlg.init("Order Misc Options", true, "Order Misc Options",  m_orderDlg.m_order.orderMiscOptions());
 
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -624,17 +623,17 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         Order order = m_orderDlg.m_order;
-        order.m_orderMiscOptions = m_orderDlg.getOptions();
+        order.orderMiscOptions(m_orderDlg.getOptions());
 
         // save old and set new value of whatIf attribute
-        boolean savedWhatIf = order.m_whatIf;
-        order.m_whatIf = whatIf;
+        boolean savedWhatIf = order.whatIf();
+        order.whatIf(whatIf);
 
         // place order
         m_client.placeOrder( m_orderDlg.m_id, m_orderDlg.m_contract, order );
 
         // restore whatIf attribute
-        order.m_whatIf = savedWhatIf;
+        order.whatIf(savedWhatIf);
     }
 
     void onExerciseOptions() {
@@ -647,7 +646,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // cancel order
         m_client.exerciseOptions( m_orderDlg.m_id, m_orderDlg.m_contract,
                                   m_orderDlg.m_exerciseAction, m_orderDlg.m_exerciseQuantity,
-                                  m_orderDlg.m_order.m_account, m_orderDlg.m_override);
+                                  m_orderDlg.m_order.account(), m_orderDlg.m_override);
     }
 
     void onCancelOrder() {
@@ -770,7 +769,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         m_client.calculateImpliedVolatility( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
+                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
     void onCancelCalculateImpliedVolatility() {
@@ -792,7 +791,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         m_client.calculateOptionPrice( m_orderDlg.m_id, m_orderDlg.m_contract,
-                m_orderDlg.m_order.m_lmtPrice, m_orderDlg.m_order.m_auxPrice);
+                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
     void onCancelCalculateOptionPrice() {
@@ -1090,7 +1089,7 @@ class SampleFrame extends JFrame implements EWrapper {
 		String msg = EWrapperMsgGenerator.fundamentalData(reqId, data);
 		m_tickers.add(msg);
 	}
-	public void deltaNeutralValidation(int reqId, UnderComp underComp) {
+	public void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
 		String msg = EWrapperMsgGenerator.deltaNeutralValidation(reqId, underComp);
 		m_TWS.add(msg);
 	}
@@ -1142,77 +1141,77 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     private static void copyExtendedOrderDetails( Order destOrder, Order srcOrder) {
-        destOrder.m_tif = srcOrder.m_tif;
-        destOrder.m_activeStartTime = srcOrder.m_activeStartTime;
-        destOrder.m_activeStopTime = srcOrder.m_activeStopTime;
-        destOrder.m_ocaGroup = srcOrder.m_ocaGroup;
-        destOrder.m_ocaType = srcOrder.m_ocaType;
-        destOrder.m_openClose = srcOrder.m_openClose;
-        destOrder.m_origin = srcOrder.m_origin;
-        destOrder.m_orderRef = srcOrder.m_orderRef;
-        destOrder.m_transmit = srcOrder.m_transmit;
-        destOrder.m_parentId = srcOrder.m_parentId;
-        destOrder.m_blockOrder = srcOrder.m_blockOrder;
-        destOrder.m_sweepToFill = srcOrder.m_sweepToFill;
-        destOrder.m_displaySize = srcOrder.m_displaySize;
-        destOrder.m_triggerMethod = srcOrder.m_triggerMethod;
-        destOrder.m_outsideRth = srcOrder.m_outsideRth;
-        destOrder.m_hidden = srcOrder.m_hidden;
-        destOrder.m_discretionaryAmt = srcOrder.m_discretionaryAmt;
-        destOrder.m_goodAfterTime = srcOrder.m_goodAfterTime;
-        destOrder.m_shortSaleSlot = srcOrder.m_shortSaleSlot;
-        destOrder.m_designatedLocation = srcOrder.m_designatedLocation;
-        destOrder.m_exemptCode = srcOrder.m_exemptCode;
-        destOrder.m_ocaType = srcOrder.m_ocaType;
-        destOrder.m_rule80A = srcOrder.m_rule80A;
-        destOrder.m_allOrNone = srcOrder.m_allOrNone;
-        destOrder.m_minQty = srcOrder.m_minQty;
-        destOrder.m_percentOffset = srcOrder.m_percentOffset;
-        destOrder.m_eTradeOnly = srcOrder.m_eTradeOnly;
-        destOrder.m_firmQuoteOnly = srcOrder.m_firmQuoteOnly;
-        destOrder.m_nbboPriceCap = srcOrder.m_nbboPriceCap;
-        destOrder.m_optOutSmartRouting = srcOrder.m_optOutSmartRouting;
-        destOrder.m_auctionStrategy = srcOrder.m_auctionStrategy;
-        destOrder.m_startingPrice = srcOrder.m_startingPrice;
-        destOrder.m_stockRefPrice = srcOrder.m_stockRefPrice;
-        destOrder.m_delta = srcOrder.m_delta;
-        destOrder.m_stockRangeLower = srcOrder.m_stockRangeLower;
-        destOrder.m_stockRangeUpper = srcOrder.m_stockRangeUpper;
-        destOrder.m_overridePercentageConstraints = srcOrder.m_overridePercentageConstraints;
-        destOrder.m_volatility = srcOrder.m_volatility;
-        destOrder.m_volatilityType = srcOrder.m_volatilityType;
-        destOrder.m_deltaNeutralOrderType = srcOrder.m_deltaNeutralOrderType;
-        destOrder.m_deltaNeutralAuxPrice = srcOrder.m_deltaNeutralAuxPrice;
-        destOrder.m_deltaNeutralConId = srcOrder.m_deltaNeutralConId;
-        destOrder.m_deltaNeutralSettlingFirm = srcOrder.m_deltaNeutralSettlingFirm;
-        destOrder.m_deltaNeutralClearingAccount = srcOrder.m_deltaNeutralClearingAccount;
-        destOrder.m_deltaNeutralClearingIntent = srcOrder.m_deltaNeutralClearingIntent;
-        destOrder.m_deltaNeutralOpenClose = srcOrder.m_deltaNeutralOpenClose;
-        destOrder.m_deltaNeutralShortSale = srcOrder.m_deltaNeutralShortSale;
-        destOrder.m_deltaNeutralShortSaleSlot = srcOrder.m_deltaNeutralShortSaleSlot;
-        destOrder.m_deltaNeutralDesignatedLocation = srcOrder.m_deltaNeutralDesignatedLocation;
-        destOrder.m_continuousUpdate = srcOrder.m_continuousUpdate;
-        destOrder.m_referencePriceType = srcOrder.m_referencePriceType;
-        destOrder.m_trailStopPrice = srcOrder.m_trailStopPrice;
-        destOrder.m_trailingPercent = srcOrder.m_trailingPercent;
-        destOrder.m_scaleInitLevelSize = srcOrder.m_scaleInitLevelSize;
-        destOrder.m_scaleSubsLevelSize = srcOrder.m_scaleSubsLevelSize;
-        destOrder.m_scalePriceIncrement = srcOrder.m_scalePriceIncrement;
-        destOrder.m_scalePriceAdjustValue = srcOrder.m_scalePriceAdjustValue;
-        destOrder.m_scalePriceAdjustInterval = srcOrder.m_scalePriceAdjustInterval;
-        destOrder.m_scaleProfitOffset = srcOrder.m_scaleProfitOffset;
-        destOrder.m_scaleAutoReset = srcOrder.m_scaleAutoReset;
-        destOrder.m_scaleInitPosition = srcOrder.m_scaleInitPosition;
-        destOrder.m_scaleInitFillQty = srcOrder.m_scaleInitFillQty;
-        destOrder.m_scaleRandomPercent = srcOrder.m_scaleRandomPercent;
-        destOrder.m_scaleTable = srcOrder.m_scaleTable;
-        destOrder.m_hedgeType = srcOrder.m_hedgeType;
-        destOrder.m_hedgeParam = srcOrder.m_hedgeParam;
-        destOrder.m_account = srcOrder.m_account;
-        destOrder.m_settlingFirm = srcOrder.m_settlingFirm;
-        destOrder.m_clearingAccount = srcOrder.m_clearingAccount;
-        destOrder.m_clearingIntent = srcOrder.m_clearingIntent;
-        destOrder.m_solicited = srcOrder.m_solicited;
+        destOrder.tif(srcOrder.getTif());
+        destOrder.activeStartTime(srcOrder.activeStartTime());
+        destOrder.activeStopTime(srcOrder.activeStopTime());
+        destOrder.ocaGroup(srcOrder.ocaGroup());
+        destOrder.ocaType(srcOrder.getOcaType());
+        destOrder.openClose(srcOrder.openClose());
+        destOrder.origin(srcOrder.origin());
+        destOrder.orderRef(srcOrder.orderRef());
+        destOrder.transmit(srcOrder.transmit());
+        destOrder.parentId(srcOrder.parentId());
+        destOrder.blockOrder(srcOrder.blockOrder());
+        destOrder.sweepToFill(srcOrder.sweepToFill());
+        destOrder.displaySize(srcOrder.displaySize());
+        destOrder.triggerMethod(srcOrder.getTriggerMethod());
+        destOrder.outsideRth(srcOrder.outsideRth());
+        destOrder.hidden(srcOrder.hidden());
+        destOrder.discretionaryAmt(srcOrder.discretionaryAmt());
+        destOrder.goodAfterTime(srcOrder.goodAfterTime());
+        destOrder.shortSaleSlot(srcOrder.shortSaleSlot());
+        destOrder.designatedLocation(srcOrder.designatedLocation());
+        destOrder.exemptCode(srcOrder.exemptCode());
+        destOrder.ocaType(srcOrder.getOcaType());
+        destOrder.rule80A(srcOrder.getRule80A());
+        destOrder.allOrNone(srcOrder.allOrNone());
+        destOrder.minQty(srcOrder.minQty());
+        destOrder.percentOffset(srcOrder.percentOffset());
+        destOrder.eTradeOnly(srcOrder.eTradeOnly());
+        destOrder.firmQuoteOnly(srcOrder.firmQuoteOnly());
+        destOrder.nbboPriceCap(srcOrder.nbboPriceCap());
+        destOrder.optOutSmartRouting(srcOrder.optOutSmartRouting());
+        destOrder.auctionStrategy(srcOrder.auctionStrategy());
+        destOrder.startingPrice(srcOrder.startingPrice());
+        destOrder.stockRefPrice(srcOrder.stockRefPrice());
+        destOrder.delta(srcOrder.delta());
+        destOrder.stockRangeLower(srcOrder.stockRangeLower());
+        destOrder.stockRangeUpper(srcOrder.stockRangeUpper());
+        destOrder.overridePercentageConstraints(srcOrder.overridePercentageConstraints());
+        destOrder.volatility(srcOrder.volatility());
+        destOrder.volatilityType(srcOrder.getVolatilityType());
+        destOrder.deltaNeutralOrderType(srcOrder.getDeltaNeutralOrderType());
+        destOrder.deltaNeutralAuxPrice(srcOrder.deltaNeutralAuxPrice());
+        destOrder.deltaNeutralConId(srcOrder.deltaNeutralConId());
+        destOrder.deltaNeutralSettlingFirm(srcOrder.deltaNeutralSettlingFirm());
+        destOrder.deltaNeutralClearingAccount(srcOrder.deltaNeutralClearingAccount());
+        destOrder.deltaNeutralClearingIntent(srcOrder.deltaNeutralClearingIntent());
+        destOrder.deltaNeutralOpenClose(srcOrder.deltaNeutralOpenClose());
+        destOrder.deltaNeutralShortSale(srcOrder.deltaNeutralShortSale());
+        destOrder.deltaNeutralShortSaleSlot(srcOrder.deltaNeutralShortSaleSlot());
+        destOrder.deltaNeutralDesignatedLocation(srcOrder.deltaNeutralDesignatedLocation());
+        destOrder.continuousUpdate(srcOrder.continuousUpdate());
+        destOrder.referencePriceType(srcOrder.getReferencePriceType());
+        destOrder.trailStopPrice(srcOrder.trailStopPrice());
+        destOrder.trailingPercent(srcOrder.trailingPercent());
+        destOrder.scaleInitLevelSize(srcOrder.scaleInitLevelSize());
+        destOrder.scaleSubsLevelSize(srcOrder.scaleSubsLevelSize());
+        destOrder.scalePriceIncrement(srcOrder.scalePriceIncrement());
+        destOrder.scalePriceAdjustValue(srcOrder.scalePriceAdjustValue());
+        destOrder.scalePriceAdjustInterval(srcOrder.scalePriceAdjustInterval());
+        destOrder.scaleProfitOffset(srcOrder.scaleProfitOffset());
+        destOrder.scaleAutoReset(srcOrder.scaleAutoReset());
+        destOrder.scaleInitPosition(srcOrder.scaleInitPosition());
+        destOrder.scaleInitFillQty(srcOrder.scaleInitFillQty());
+        destOrder.scaleRandomPercent(srcOrder.scaleRandomPercent());
+        destOrder.scaleTable(srcOrder.scaleTable());
+        destOrder.hedgeType(srcOrder.getHedgeType());
+        destOrder.hedgeParam(srcOrder.hedgeParam());
+        destOrder.account(srcOrder.account());
+        destOrder.settlingFirm(srcOrder.settlingFirm());
+        destOrder.clearingAccount(srcOrder.clearingAccount());
+        destOrder.clearingIntent(srcOrder.clearingIntent());
+        destOrder.solicited(srcOrder.solicited());
     }
 
     public void position(String account, Contract contract, int pos, double avgCost) {
@@ -1235,21 +1234,10 @@ class SampleFrame extends JFrame implements EWrapper {
         m_TWS.add(msg);
     }
     
-    public void verifyMessageAPI( String apiData) {
-    	
-    }
-    
-    public void verifyCompleted( boolean isSuccessful, String errorText) {
-    	
-    }
-    
-    public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {
-
-    }
-
-    public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {
-
-    }
+    public void verifyMessageAPI( String apiData) { /* Empty */ }
+    public void verifyCompleted( boolean isSuccessful, String errorText) { /* Empty */ }
+    public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) { /* Empty */ }
+    public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) { /* Empty */ }
 
     public void displayGroupList( int reqId, String groups) {
         m_groupsDlg.displayGroupList(reqId, groups);
@@ -1258,5 +1246,4 @@ class SampleFrame extends JFrame implements EWrapper {
     public void displayGroupUpdated( int reqId, String contractInfo) {
         m_groupsDlg.displayGroupUpdated(reqId, contractInfo);
     }
-    
 }

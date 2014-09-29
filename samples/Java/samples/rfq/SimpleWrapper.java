@@ -17,7 +17,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
-import com.ib.client.UnderComp;
+import com.ib.controller.DeltaNeutralContract;
 
 
 public class SimpleWrapper implements EWrapper {
@@ -217,7 +217,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("fundamentalData");    	
 	}
 
-	public void deltaNeutralValidation(int reqId, UnderComp underComp) {
+	public void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
 		logIn("deltaNeutralValidation");    	
 	}
 

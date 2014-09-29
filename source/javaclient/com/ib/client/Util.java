@@ -3,10 +3,9 @@
 
 package com.ib.client;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Util {
-
 	public static boolean StringIsEmpty(String str) {
 		return str == null || str.length() == 0;
 	}
@@ -23,8 +22,7 @@ public class Util {
     	return NormalizeString(lhs).compareToIgnoreCase(NormalizeString(rhs));
     }
 
-    public static boolean VectorEqualsUnordered(Vector lhs, Vector rhs) {
-
+    public static boolean ArrayEqualsUnordered(ArrayList<?> lhs, ArrayList<?> rhs) {
     	if (lhs == rhs)
     		return true;
 
@@ -56,7 +54,6 @@ public class Util {
     			return false;
     		}
     	}
-
     	return true;
     }
 
@@ -67,5 +64,4 @@ public class Util {
     public static String DoubleMaxString(double value) {
     	return (value == Double.MAX_VALUE) ? "" : "" + value;
     }
-
 }

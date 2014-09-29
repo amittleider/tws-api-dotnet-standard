@@ -3,8 +3,9 @@
 
 package com.ib.client;
 
-public interface EWrapper {
+import com.ib.controller.DeltaNeutralContract;
 
+public interface EWrapper {
     ///////////////////////////////////////////////////////////////////////
     // Interface methods
     ///////////////////////////////////////////////////////////////////////
@@ -49,7 +50,7 @@ public interface EWrapper {
     void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double wap, int count);
     void currentTime(long time);
     void fundamentalData(int reqId, String data);
-    void deltaNeutralValidation(int reqId, UnderComp underComp);
+    void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp);
     void tickSnapshotEnd(int reqId);
     void marketDataType(int reqId, int marketDataType);
     void commissionReport(CommissionReport commissionReport);

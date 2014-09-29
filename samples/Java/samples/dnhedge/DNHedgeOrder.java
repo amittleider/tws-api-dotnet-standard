@@ -4,36 +4,35 @@
 package samples.dnhedge;
 
 import com.ib.client.Order;
+import com.ib.controller.OrderType;
+import com.ib.controller.Types.Action;
+import com.ib.controller.Types.VolatilityType;
 
 public class DNHedgeOrder extends Order {
-
    public DNHedgeOrder(int clientId, int id, int size, String account,
       String settlingFirm, int underConId, String designatedLocation) {
+      clientId(clientId);
+      orderId(id);
+      permId(id);
 
-      m_clientId = clientId;
-      m_orderId = id;
-      m_permId = id;
+      account(account);
+      clearingIntent("AWAY");
+      settlingFirm(settlingFirm);
 
-      m_account = account;
-      m_clearingIntent = "AWAY";
-      m_settlingFirm = settlingFirm;
+      orderType(OrderType.VOL);
+      action(Action.BUY);
+      totalQuantity(size);
 
-      m_orderType = "VOL";
-      m_action = "BUY";
-      m_totalQuantity = size;
+      volatility(0.1);
+      volatilityType(VolatilityType.Daily);
+      continuousUpdate(1);
+      deltaNeutralOrderType(OrderType.LMT);
 
-      m_volatility = 0.1;
-      m_volatilityType = 1; // daily
-      m_continuousUpdate = 1;
-      m_deltaNeutralOrderType = "LMT";
+      deltaNeutralConId(underConId);
+      deltaNeutralOpenClose("O");
+      deltaNeutralShortSale(true);
 
-      m_deltaNeutralConId = underConId;
-      m_deltaNeutralOpenClose = "O";
-      m_deltaNeutralShortSale = true;
-
-      m_deltaNeutralDesignatedLocation = designatedLocation;
-      m_deltaNeutralShortSaleSlot =
-         (m_deltaNeutralDesignatedLocation.length() == 0) ? 1 : 2;
+      deltaNeutralDesignatedLocation(designatedLocation);
+      deltaNeutralShortSaleSlot(deltaNeutralDesignatedLocation().length() == 0 ? 1 : 2);
    }
 }
-

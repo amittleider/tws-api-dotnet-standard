@@ -3,8 +3,11 @@
 
 package com.ib.controller;
 
+import com.ib.client.Contract;
+
+
 public class Position {
-	private NewContract m_contract;
+	private Contract m_contract;
 	private String m_account;
 	private int m_position;
 	private double m_marketPrice;
@@ -13,7 +16,7 @@ public class Position {
 	private double m_unrealPnl;
 	private double m_realPnl;
 
-	public NewContract contract()   { return m_contract; }
+	public Contract contract()      { return m_contract; }
 	public int conid()				{ return m_contract.conid(); }
 	public double averageCost() 	{ return m_averageCost;}
 	public double marketPrice() 	{ return m_marketPrice;}
@@ -31,7 +34,7 @@ public class Position {
 //	public void realPnl(double v) 		{ m_realPnl = v;}
 //	public void unrealPnl(double v) 	{ m_unrealPnl = v;}
 
-	public Position( NewContract contract, String account, int position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl) {
+	public Position( Contract contract, String account, int position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl) {
 		m_contract = contract;
 		m_account = account;
 		m_position = position;

@@ -16,11 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ib.client.UnderComp;
+import com.ib.controller.DeltaNeutralContract;
+
 
 public class UnderCompDlg extends JDialog {
-
-	private UnderComp m_underComp;
+	private DeltaNeutralContract m_underComp;
 
     private JTextField 	m_txtConId = new JTextField();
     private JTextField 	m_txtDelta = new JTextField();
@@ -36,7 +36,7 @@ public class UnderCompDlg extends JDialog {
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
 
-    public UnderCompDlg(UnderComp underComp, JDialog owner) {
+    public UnderCompDlg(DeltaNeutralContract underComp, JDialog owner) {
     	super( owner, true);
 
     	m_underComp = underComp;
@@ -82,9 +82,9 @@ public class UnderCompDlg extends JDialog {
         addGBComponent(midPanel, m_txtPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
 
 
-        m_txtConId.setText(Integer.toString(m_underComp.m_conId));
-        m_txtDelta.setText(Double.toString(m_underComp.m_delta));
-        m_txtPrice.setText(Double.toString(m_underComp.m_price));
+        m_txtConId.setText(Integer.toString(m_underComp.conid()));
+        m_txtDelta.setText(Double.toString(m_underComp.delta()));
+        m_txtPrice.setText(Double.toString(m_underComp.price()));
 
         // create dlg box
         getContentPane().add( midPanel, BorderLayout.CENTER);
@@ -101,9 +101,9 @@ public class UnderCompDlg extends JDialog {
 			double delta = Double.parseDouble(m_txtDelta.getText());
 			double price = Double.parseDouble(m_txtPrice.getText());
 
-			m_underComp.m_conId = conId;
-			m_underComp.m_delta = delta;
-			m_underComp.m_price = price;
+			m_underComp.conid(conId);
+			m_underComp.delta(delta);
+			m_underComp.price(price);
 			m_ok = true;
 			setVisible( false);
 		}
@@ -113,9 +113,9 @@ public class UnderCompDlg extends JDialog {
 	}
 
 	private void onReset() {
-		m_underComp.m_conId = 0;
-		m_underComp.m_delta = 0;
-		m_underComp.m_price = 0;
+		m_underComp.conid(0);
+		m_underComp.delta(0);
+		m_underComp.price(0);
 		m_reset = true;
 		setVisible( false);
 	}
@@ -140,5 +140,4 @@ public class UnderCompDlg extends JDialog {
     	panel.setConstraints(comp, gbc);
     	panel.add(comp, gbc);
     }
-
 }
