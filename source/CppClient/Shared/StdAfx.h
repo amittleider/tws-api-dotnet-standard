@@ -12,6 +12,8 @@
 
 #endif
 
+#include <string>
+
 #ifndef TWSAPIDLLEXP
 #define TWSAPIDLLEXP
 #endif
