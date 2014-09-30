@@ -54,6 +54,8 @@ EMessage * EReader::readSingleMsg() {
 
         m_pClientSocket->receive((char *)&msgSize, sizeof(msgSize));
 
+        msgSize = htonl(msgSize);
+
         if (msgSize <= 0 || msgSize > MAX_MSG_LEN)
             return 0;
 

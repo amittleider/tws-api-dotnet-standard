@@ -127,12 +127,12 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
     }
 
     // set socket to non-blocking state
-    if ( !SetSocketNonBlocking(m_fd)) {
+   /* if ( !SetSocketNonBlocking(m_fd)) {
         // error setting socket to non-blocking
         eDisconnect();
         getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
         return false;
-    }
+    }*/
 
     assert( connState() == CS_CONNECTED);
     if( stateOutPt) {
