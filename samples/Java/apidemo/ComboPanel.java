@@ -266,6 +266,7 @@ public class ComboPanel extends JPanel implements INewTab {
 				p2.add( "Put/call", m_right);
 				p2.add( "Multiplier", m_multiplier);
 				p2.add( "Exchange", m_exchange);
+				p2.add( "Comp. Exch.", m_compExch);
 				p2.add( "Currency", m_currency);
 				p2.add( "Local symbol", m_localSymbol);
 
