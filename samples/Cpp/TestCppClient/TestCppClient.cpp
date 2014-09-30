@@ -23,11 +23,18 @@ TestCppClient::TestCppClient()
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
+    , m_reader(m_pClient.get(), this)
 {
+    m_evMsgs = CreateEvent(0, false, false, 0);
 }
 
 TestCppClient::~TestCppClient()
 {
+    CloseHandle(m_evMsgs);
+}
+
+void TestCppClient::onMsgRecv() {
+    SetEvent(m_evMsgs);
 }
 
 bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
@@ -39,6 +46,7 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 
 	if (bRes) {
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
+        m_reader.start();
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -63,96 +71,9 @@ void TestCppClient::setUseV100Plus(const std::string& connectOptions)
 	m_pClient->setUseV100Plus(connectOptions);
 }
 
-void TestCppClient::processMessages()
-{
-	fd_set readSet, writeSet, errorSet;
-
-	struct timeval tval;
-	tval.tv_usec = 0;
-	tval.tv_sec = 0;
-
-	time_t now = time(NULL);
-
-	switch (m_state) {
-		case ST_PLACEORDER:
-			placeOrder();
-			break;
-		case ST_PLACEORDER_ACK:
-			break;
-		case ST_CANCELORDER:
-			cancelOrder();
-			break;
-		case ST_CANCELORDER_ACK:
-			break;
-		case ST_PING:
-			reqCurrentTime();
-			break;
-		case ST_PING_ACK:
-			if( m_sleepDeadline < now) {
-				disconnect();
-				return;
-			}
-			break;
-		case ST_IDLE:
-			if( m_sleepDeadline < now) {
-				m_state = ST_PING;
-				return;
-			}
-			break;
-	}
-
-	if( m_sleepDeadline > 0) {
-		// initialize timeout with m_sleepDeadline - now
-		tval.tv_sec = m_sleepDeadline - now;
-	}
-
-	if( m_pClient->fd() >= 0 ) {
-
-		FD_ZERO( &readSet);
-		errorSet = writeSet = readSet;
-
-		FD_SET( m_pClient->fd(), &readSet);
-
-		if( !m_pClient->isOutBufferEmpty())
-			FD_SET( m_pClient->fd(), &writeSet);
-
-		FD_SET( m_pClient->fd(), &errorSet);
-
-		int ret = select( m_pClient->fd() + 1, &readSet, &writeSet, &errorSet, &tval);
-
-		if( ret == 0) { // timeout
-			return;
-		}
-
-		if( ret < 0) {	// error
-			disconnect();
-			return;
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &errorSet)) {
-			// error on socket
-			m_pClient->onError();
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &writeSet)) {
-			// socket is ready for writing
-			m_pClient->onSend();
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &readSet)) {
-			// socket is ready for reading
-			m_pClient->onReceive();
-		}
-	}
+void TestCppClient::processMessages() {
+    WaitForSingleObject(m_evMsgs, INFINITE);
+    m_reader.processMsgs();
 }
 
 //////////////////////////////////////////////////////////////////

@@ -6,6 +6,8 @@
 #define testcppclient_h__INCLUDED
 
 #include "EWrapper.h"
+#include "EReaderSignal.h"
+#include "EReader.h"
 
 #include <memory>
 
@@ -23,8 +25,11 @@ enum State {
 };
 
 
-class TestCppClient : public EWrapper
+class TestCppClient : public EWrapper, public EReaderSignal
 {
+public:
+    virtual void onMsgRecv();
+
 public:
 
 	TestCppClient();
@@ -116,6 +121,8 @@ private:
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
+    EReader m_reader;
+    HANDLE m_evMsgs;
 };
 
 #endif

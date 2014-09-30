@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	unsigned int port = argc > 2 ? atoi(argv[2]) : 0;
 	if (port <= 0)
 		port = 7496;
-	const char* connectOptions = argc > 3 ? argv[3] : 0;
+	const char* connectOptions = argc > 3 ? argv[3] : "";
 	int clientId = 0;
 
 	unsigned attempt = 0;
@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 		if( connectOptions) {
 			client.setUseV100Plus( connectOptions);
 		}
+
 		client.connect( host, port, clientId);
 
 		while( client.isConnected()) {
