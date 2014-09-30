@@ -3,8 +3,6 @@
 
 package apidemo;
 
-import static com.ib.controller.Formats.fmt;
-import static com.ib.controller.Formats.fmtPct;
 import static com.ib.controller.Formats.*;
 
 import java.awt.Color;
@@ -14,16 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import com.ib.client.Contract;
+import com.ib.client.TickType;
+import com.ib.client.Types.MktDataType;
 import com.ib.controller.ApiController.TopMktDataAdapter;
 import com.ib.controller.Formats;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewTickType;
-import com.ib.controller.Types.MktDataType;
 
 class TopModel extends AbstractTableModel {
 	private ArrayList<TopRow> m_rows = new ArrayList<TopRow>();
 
-	void addRow( NewContract contract) {
+	void addRow( Contract contract) {
 		TopRow row = new TopRow( this, contract.description() );
 		m_rows.add( row);
 		ApiDemo.INSTANCE.controller().reqTopMktData(contract, "", false, row);
@@ -112,7 +110,7 @@ class TopModel extends AbstractTableModel {
 			return m_close == 0	? null : fmtPct( (m_last - m_close) / m_close);
 		}
 
-		@Override public void tickPrice( NewTickType tickType, double price, int canAutoExecute) {
+		@Override public void tickPrice( TickType tickType, double price, int canAutoExecute) {
 			switch( tickType) {
 				case BID:
 					m_bid = price;
@@ -126,11 +124,12 @@ class TopModel extends AbstractTableModel {
 				case CLOSE:
 					m_close = price;
 					break;
+				default: break;	
 			}
 			m_model.fireTableDataChanged(); // should use a timer to be more efficient
 		}
 
-		@Override public void tickSize( NewTickType tickType, int size) {
+		@Override public void tickSize( TickType tickType, int size) {
 			switch( tickType) {
 				case BID_SIZE:
 					m_bidSize = size;
@@ -141,15 +140,17 @@ class TopModel extends AbstractTableModel {
 				case VOLUME:
 					m_volume = size;
 					break;
+                default: break; 
 			}
 			m_model.fireTableDataChanged();
 		}
 		
-		@Override public void tickString(NewTickType tickType, String value) {
+		@Override public void tickString(TickType tickType, String value) {
 			switch( tickType) {
 				case LAST_TIMESTAMP:
 					m_lastTime = Long.parseLong( value) * 1000;
 					break;
+                default: break; 
 			}
 		}
 		

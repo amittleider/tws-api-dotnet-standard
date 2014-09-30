@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-
 import apidemo.OrdersPanel.OrderRow;
 import apidemo.OrdersPanel.OrdersModel;
 import apidemo.TopModel.TopRow;
@@ -32,21 +31,21 @@ import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.VerticalPanel.HorzPanel;
 
-import com.ib.controller.DeltaNeutralContract;
-import com.ib.controller.NewComboLeg;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewContractDetails;
-import com.ib.controller.NewOrder;
-import com.ib.controller.NewOrderState;
+import com.ib.client.ComboLeg;
+import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
+import com.ib.client.Order;
+import com.ib.client.OrderState;
+import com.ib.client.Types.Action;
+import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IEfpHandler;
-import com.ib.controller.Types.Action;
-import com.ib.controller.Types.SecType;
 
 
 public class ComboPanel extends JPanel implements INewTab {
 	private final OrdersModel m_ordersModel = new OrdersModel() {
-		@Override protected boolean shouldAdd(NewContract contract, NewOrder order, NewOrderState orderState) {
+		@Override protected boolean shouldAdd(Contract contract, Order order, OrderState orderState) {
 			return contract.isCombo();
 		}
 	};
@@ -91,7 +90,7 @@ public class ComboPanel extends JPanel implements INewTab {
 	}
 	
 	static class SpreadsPanel extends JPanel {
-		private final NewContract m_contract = new NewContract(); 
+		private final Contract m_contract = new Contract(); 
 		private final TCombo<Action> m_action = new TCombo<Action>( Action.values() );
 		private final UpperField m_ratio = new UpperField( "1");
 		private final ContractPanel m_contractPanel = new ComboContractPanel();
@@ -171,8 +170,8 @@ public class ComboPanel extends JPanel implements INewTab {
 		protected void onAddLeg() {
 			m_contractPanel.onOK();
 			ApiDemo.INSTANCE.controller().reqContractDetails( m_contract, new IContractDetailsHandler() {
-				@Override public void contractDetails(ArrayList<NewContractDetails> list) {
-					for (NewContractDetails details : list) {
+				@Override public void contractDetails(ArrayList<ContractDetails> list) {
+					for (ContractDetails details : list) {
 						addLeg( details);
 					}
 				}
@@ -193,9 +192,9 @@ public class ComboPanel extends JPanel implements INewTab {
 			m_legsModel.fireTableDataChanged();
 		}
 
-		protected void addLeg(NewContractDetails contractDetails) {
-			NewContract c = contractDetails.contract();
-			NewComboLeg leg = new NewComboLeg();
+		protected void addLeg(ContractDetails contractDetails) {
+			Contract c = contractDetails.contract();
+			ComboLeg leg = new ComboLeg();
 			leg.action( m_action.getSelectedItem() );
 			leg.ratio( m_ratio.getInt() );
 			leg.conid( c.conid() );
@@ -207,20 +206,20 @@ public class ComboPanel extends JPanel implements INewTab {
 		}
 
 		protected void onReqMktData() {
-			NewContract combo = getComboContractFromLegs();
+			Contract combo = getComboContractFromLegs();
 			if (combo != null) {
 				m_mktDataModel.addRow( getComboContractFromLegs() );
 			}
 		}
 
-		private NewContract getComboContractFromLegs() {
+		private Contract getComboContractFromLegs() {
 			if (m_legRows.size() < 2) {
 				return null;
 			}
 
 			LegRow leg = m_legRows.get( 0);
 
-			NewContract comboContract = new NewContract();
+			Contract comboContract = new Contract();
 			comboContract.secType( SecType.BAG);
 			comboContract.currency( leg.m_contract.currency() );
 			comboContract.exchange( leg.m_contract.exchange() );
@@ -240,10 +239,10 @@ public class ComboPanel extends JPanel implements INewTab {
 		}
 
 		protected void onPlaceOrder() {
-			NewOrder o = new NewOrder();
+			Order o = new Order();
 			o.totalQuantity( 1);
 
-			NewContract c = getComboContractFromLegs();
+			Contract c = getComboContractFromLegs();
 			TicketDlg dlg = new TicketDlg( c, o);
 			dlg.setVisible( true);
 		}
@@ -303,7 +302,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			}
 
 			protected void onAdd() {
-				NewContract dn = new NewContract();
+				Contract dn = new Contract();
 				dn.symbol( m_symbol.getText().toUpperCase() ); 
 				dn.secType( m_secType.getSelectedItem() ); 
 				dn.expiry( m_expiry.getText() ); 
@@ -311,9 +310,9 @@ public class ComboPanel extends JPanel implements INewTab {
 				dn.currency( m_currency.getText().toUpperCase() ); 
 				
 				ApiDemo.INSTANCE.controller().reqContractDetails(dn, new IContractDetailsHandler() {
-					@Override public void contractDetails(ArrayList<NewContractDetails> list) {
+					@Override public void contractDetails(ArrayList<ContractDetails> list) {
 						if (list.size() == 1) {
-							NewContract c = list.get( 0).contract();
+						    Contract c = list.get( 0).contract();
 							m_dnContract = new DeltaNeutralContract( c.conid(), m_delta.getDouble(), m_price.getDouble() );
 							m_dnText.setText( String.format( "Delta-neutral: %s Delta: %s  Price: %s", c.description(), m_delta.getText(), m_price.getText() ) );
 						}
@@ -393,7 +392,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			m_legRows.clear();
 			m_legsModel.fireTableDataChanged();
 
-			NewContract fut = new NewContract();
+			Contract fut = new Contract();
 			fut.symbol( m_symbol.getText() );
 			fut.secType( SecType.FUT);
 			fut.exchange( m_futExch.getText() );
@@ -401,7 +400,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			fut.currency( "USD");
 			
 			ApiDemo.INSTANCE.controller().reqContractDetails( fut, new IContractDetailsHandler() {
-				@Override public void contractDetails(ArrayList<NewContractDetails> list) {
+				@Override public void contractDetails(ArrayList<ContractDetails> list) {
 					// if two futures are returned, assume that the first is is no div prot and the 
 					// second one is div prot; unfortunately TWS does not send down the div prot flag
 					if (list.size() == 2) {
@@ -415,28 +414,28 @@ public class ComboPanel extends JPanel implements INewTab {
 						addFutLeg( list.get( 0) );
 					}
 				}
-				void addFutLeg(NewContractDetails details) {
+				void addFutLeg(ContractDetails details) {
 					addLeg( details.contract(), Action.BUY, 1);
 				};
 			});
 
-			NewContract stk = new NewContract();
+			Contract stk = new Contract();
 			stk.symbol( m_symbol.getText() );
 			stk.secType( SecType.STK);
 			stk.exchange( m_stkExch.getText() );
 			stk.currency( "USD");
 			
 			ApiDemo.INSTANCE.controller().reqContractDetails( stk, new IContractDetailsHandler() {
-				@Override public void contractDetails(ArrayList<NewContractDetails> list) {
-					for (NewContractDetails data : list) {
+				@Override public void contractDetails(ArrayList<ContractDetails> list) {
+					for (ContractDetails data : list) {
 						addLeg( data.contract(), Action.SELL, 100);
 					}
 				}
 			});
 		}
 		
-		protected void addLeg(NewContract contract, Action action, int ratio) {
-			NewComboLeg leg = new NewComboLeg();
+		protected void addLeg(Contract contract, Action action, int ratio) {
+			ComboLeg leg = new ComboLeg();
 			leg.action( action);
 			leg.ratio( ratio);
 			leg.conid( contract.conid() );
@@ -459,14 +458,14 @@ public class ComboPanel extends JPanel implements INewTab {
 			m_efpModel.addRow( getComboContractFromLegs() );
 		}
 
-		private NewContract getComboContractFromLegs() {
+		private Contract getComboContractFromLegs() {
 			if (m_legRows.size() < 2) {
 				return null;
 			}
 
 			LegRow leg = m_legRows.get( 0);
 
-			NewContract comboContract = new NewContract();
+			Contract comboContract = new Contract();
 			comboContract.secType( SecType.BAG);
 			comboContract.currency( leg.m_contract.currency() );
 			comboContract.exchange( "SMART");
@@ -480,10 +479,10 @@ public class ComboPanel extends JPanel implements INewTab {
 		}
 
 		protected void onPlaceOrder() {
-			NewOrder o = new NewOrder();
+			Order o = new Order();
 			o.totalQuantity( 1);
 
-			NewContract c = getComboContractFromLegs();
+			Contract c = getComboContractFromLegs();
 			TicketDlg dlg = new TicketDlg( c, o);
 			dlg.setVisible( true);
 		}
@@ -491,7 +490,7 @@ public class ComboPanel extends JPanel implements INewTab {
 		static class EfpModel extends AbstractTableModel {
 			ArrayList<EfpRow> m_rows = new ArrayList<EfpRow>();
 
-			void addRow(NewContract contract) {
+			void addRow(Contract contract) {
 				EfpRow row = new EfpRow( this, contract.description() );
 				m_rows.add( row);
 				ApiDemo.INSTANCE.controller().reqEfpMktData( contract, "", false, row);
@@ -569,10 +568,10 @@ public class ComboPanel extends JPanel implements INewTab {
 	}
 
 	static class LegRow {
-		NewContract m_contract;
-		NewComboLeg m_leg = new NewComboLeg();
+		Contract m_contract;
+		ComboLeg m_leg = new ComboLeg();
 
-		public LegRow(NewContract c, NewComboLeg leg) {
+		public LegRow(Contract c, ComboLeg leg) {
 			m_contract = c;
 			m_leg = leg;
 		}
@@ -612,5 +611,4 @@ public class ComboPanel extends JPanel implements INewTab {
 			}
 		}
 	}
-	
 }

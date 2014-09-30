@@ -8,7 +8,8 @@ import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Vector;
+import java.util.ArrayList;
+
 
 /**
  * This class reads commands from TWS and passes them to the user defined
@@ -186,18 +187,18 @@ public class EReader extends Thread {
                 String account = readStr();
 
                 Contract contract = new Contract();
-                contract.m_conId = readInt();
-                contract.m_symbol = readStr();
-                contract.m_secType = readStr();
-                contract.m_expiry = readStr();
-                contract.m_strike = readDouble();
-                contract.m_right = readStr();
-                contract.m_multiplier = readStr();
-                contract.m_exchange = readStr();
-                contract.m_currency = readStr();
-                contract.m_localSymbol = readStr();
+                contract.conid(readInt());
+                contract.symbol(readStr());
+                contract.secType(readStr());
+                contract.expiry(readStr());
+                contract.strike(readDouble());
+                contract.right(readStr());
+                contract.multiplier(readStr());
+                contract.exchange(readStr());
+                contract.currency(readStr());
+                contract.localSymbol(readStr());
                 if (version >= 2) {
-                	contract.m_tradingClass = readStr();
+                	contract.tradingClass(readStr());
                 }
 
                 int pos = readInt();
@@ -252,7 +253,7 @@ public class EReader extends Thread {
             	double vega = Double.MAX_VALUE;
             	double theta = Double.MAX_VALUE;
             	double undPrice = Double.MAX_VALUE;
-            	if (version >= 6 || tickType == TickType.MODEL_OPTION) { // introduced in version == 5
+            	if (version >= 6 || tickType == TickType.MODEL_OPTION.index()) { // introduced in version == 5
             		optPrice = readDouble();
             		if (optPrice < 0) { // -1 is the "not yet computed" indicator
             			optPrice = Double.MAX_VALUE;
@@ -376,23 +377,23 @@ public class EReader extends Thread {
                 int version = readInt();
                 Contract contract = new Contract();
                 if (version >= 6) {
-                	contract.m_conId = readInt();
+                	contract.conid(readInt());
                 }
-                contract.m_symbol  = readStr();
-                contract.m_secType = readStr();
-                contract.m_expiry  = readStr();
-                contract.m_strike  = readDouble();
-                contract.m_right   = readStr();
+                contract.symbol(readStr());
+                contract.secType(readStr());
+                contract.expiry(readStr());
+                contract.strike(readDouble());
+                contract.right(readStr());
                 if (version >= 7) {
-                	contract.m_multiplier = readStr();
-                	contract.m_primaryExch = readStr();
+                	contract.multiplier(readStr());
+                	contract.primaryExch(readStr());
                 }
-                contract.m_currency = readStr();
+                contract.currency(readStr());
                 if ( version >= 2 ) {
-                    contract.m_localSymbol = readStr();
+                    contract.localSymbol(readStr());
                 }
                 if (version >= 8) {
-                    contract.m_tradingClass = readStr();
+                    contract.tradingClass(readStr());
                 }
 
                 int position  = readInt();
@@ -413,7 +414,7 @@ public class EReader extends Thread {
                 }
 
                 if(version == 6 && m_parent.serverVersion() == 39) {
-                	contract.m_primaryExch = readStr();
+                	contract.primaryExch(readStr());
                 }
 
                 eWrapper().updatePortfolio(contract, position, marketPrice, marketValue,
@@ -449,72 +450,72 @@ public class EReader extends Thread {
 
                 // read order id
                 Order order = new Order();
-                order.m_orderId = readInt();
+                order.orderId(readInt());
 
                 // read contract fields
                 Contract contract = new Contract();
                 if (version >= 17) {
-                	contract.m_conId = readInt();
+                	contract.conid(readInt());
                 }
-                contract.m_symbol = readStr();
-                contract.m_secType = readStr();
-                contract.m_expiry = readStr();
-                contract.m_strike = readDouble();
-                contract.m_right = readStr();
+                contract.symbol(readStr());
+                contract.secType(readStr());
+                contract.expiry(readStr());
+                contract.strike(readDouble());
+                contract.right(readStr());
                 if ( version >= 32) {
-                   contract.m_multiplier = readStr();
+                   contract.multiplier(readStr());
                 }
-                contract.m_exchange = readStr();
-                contract.m_currency = readStr();
+                contract.exchange(readStr());
+                contract.currency(readStr());
                 if ( version >= 2 ) {
-                    contract.m_localSymbol = readStr();
+                    contract.localSymbol(readStr());
                 }
                 if (version >= 32) {
-                    contract.m_tradingClass = readStr();
+                    contract.tradingClass(readStr());
                 }
 
                 // read order fields
-                order.m_action = readStr();
-                order.m_totalQuantity = readInt();
-                order.m_orderType = readStr();
+                order.action(readStr());
+                order.totalQuantity(readInt());
+                order.orderType(readStr());
                 if (version < 29) {
-                    order.m_lmtPrice = readDouble();
+                    order.lmtPrice(readDouble());
                 }
                 else {
-                    order.m_lmtPrice = readDoubleMax();
+                    order.lmtPrice(readDoubleMax());
                 }
                 if (version < 30) {
-                    order.m_auxPrice = readDouble();
+                    order.auxPrice(readDouble());
                 }
                 else {
-                    order.m_auxPrice = readDoubleMax();
+                    order.auxPrice(readDoubleMax());
                 }
-                order.m_tif = readStr();
-                order.m_ocaGroup = readStr();
-                order.m_account = readStr();
-                order.m_openClose = readStr();
-                order.m_origin = readInt();
-                order.m_orderRef = readStr();
+                order.tif(readStr());
+                order.ocaGroup(readStr());
+                order.account(readStr());
+                order.openClose(readStr());
+                order.origin(readInt());
+                order.orderRef(readStr());
 
                 if(version >= 3) {
-                    order.m_clientId = readInt();
+                    order.clientId(readInt());
                 }
 
                 if( version >= 4 ) {
-                    order.m_permId = readInt();
+                    order.permId(readInt());
                     if ( version < 18) {
                         // will never happen
                     	/* order.m_ignoreRth = */ readBoolFromInt();
                     }
                     else {
-                    	order.m_outsideRth = readBoolFromInt();
+                    	order.outsideRth(readBoolFromInt());
                     }
-                    order.m_hidden = readInt() == 1;
-                    order.m_discretionaryAmt = readDouble();
+                    order.hidden(readInt() == 1);
+                    order.discretionaryAmt(readDouble());
                 }
 
                 if ( version >= 5 ) {
-                    order.m_goodAfterTime = readStr();
+                    order.goodAfterTime(readStr());
                 }
 
                 if ( version >= 6 ) {
@@ -523,104 +524,104 @@ public class EReader extends Thread {
                 }
 
                 if ( version >= 7 ) {
-                    order.m_faGroup = readStr();
-                    order.m_faMethod = readStr();
-                    order.m_faPercentage = readStr();
-                    order.m_faProfile = readStr();
+                    order.faGroup(readStr());
+                    order.faMethod(readStr());
+                    order.faPercentage(readStr());
+                    order.faProfile(readStr());
                 }
 
                 if ( version >= 8 ) {
-                    order.m_goodTillDate = readStr();
+                    order.goodTillDate(readStr());
                 }
 
                 if ( version >= 9) {
-                    order.m_rule80A = readStr();
-                    order.m_percentOffset = readDoubleMax();
-                    order.m_settlingFirm = readStr();
-                    order.m_shortSaleSlot = readInt();
-                    order.m_designatedLocation = readStr();
+                    order.rule80A(readStr());
+                    order.percentOffset(readDoubleMax());
+                    order.settlingFirm(readStr());
+                    order.shortSaleSlot(readInt());
+                    order.designatedLocation(readStr());
                     if ( m_parent.serverVersion() == 51){
                         readInt(); // exemptCode
                     }
                     else if ( version >= 23){
-                    	order.m_exemptCode = readInt();
+                    	order.exemptCode(readInt());
                     }
-                    order.m_auctionStrategy = readInt();
-                    order.m_startingPrice = readDoubleMax();
-                    order.m_stockRefPrice = readDoubleMax();
-                    order.m_delta = readDoubleMax();
-                    order.m_stockRangeLower = readDoubleMax();
-                    order.m_stockRangeUpper = readDoubleMax();
-                    order.m_displaySize = readInt();
+                    order.auctionStrategy(readInt());
+                    order.startingPrice(readDoubleMax());
+                    order.stockRefPrice(readDoubleMax());
+                    order.delta(readDoubleMax());
+                    order.stockRangeLower(readDoubleMax());
+                    order.stockRangeUpper(readDoubleMax());
+                    order.displaySize(readInt());
                     if ( version < 18) {
                         // will never happen
                     	/* order.m_rthOnly = */ readBoolFromInt();
                     }
-                    order.m_blockOrder = readBoolFromInt();
-                    order.m_sweepToFill = readBoolFromInt();
-                    order.m_allOrNone = readBoolFromInt();
-                    order.m_minQty = readIntMax();
-                    order.m_ocaType = readInt();
-                    order.m_eTradeOnly = readBoolFromInt();
-                    order.m_firmQuoteOnly = readBoolFromInt();
-                    order.m_nbboPriceCap = readDoubleMax();
+                    order.blockOrder(readBoolFromInt());
+                    order.sweepToFill(readBoolFromInt());
+                    order.allOrNone(readBoolFromInt());
+                    order.minQty(readIntMax());
+                    order.ocaType(readInt());
+                    order.eTradeOnly(readBoolFromInt());
+                    order.firmQuoteOnly(readBoolFromInt());
+                    order.nbboPriceCap(readDoubleMax());
                 }
 
                 if ( version >= 10) {
-                    order.m_parentId = readInt();
-                    order.m_triggerMethod = readInt();
+                    order.parentId(readInt());
+                    order.triggerMethod(readInt());
                 }
 
                 if (version >= 11) {
-                    order.m_volatility = readDoubleMax();
-                    order.m_volatilityType = readInt();
+                    order.volatility(readDoubleMax());
+                    order.volatilityType(readInt());
                     if (version == 11) {
                     	int receivedInt = readInt();
-                    	order.m_deltaNeutralOrderType = ( (receivedInt == 0) ? "NONE" : "MKT" );
+                    	order.deltaNeutralOrderType( (receivedInt == 0) ? "NONE" : "MKT" );
                     } else { // version 12 and up
-                    	order.m_deltaNeutralOrderType = readStr();
-                    	order.m_deltaNeutralAuxPrice = readDoubleMax();
+                    	order.deltaNeutralOrderType(readStr());
+                    	order.deltaNeutralAuxPrice(readDoubleMax());
 
-                        if (version >= 27 && !Util.StringIsEmpty(order.m_deltaNeutralOrderType)) {
-                            order.m_deltaNeutralConId = readInt();
-                            order.m_deltaNeutralSettlingFirm = readStr();
-                            order.m_deltaNeutralClearingAccount = readStr();
-                            order.m_deltaNeutralClearingIntent = readStr();
+                        if (version >= 27 && !Util.StringIsEmpty(order.getDeltaNeutralOrderType())) {
+                            order.deltaNeutralConId(readInt());
+                            order.deltaNeutralSettlingFirm(readStr());
+                            order.deltaNeutralClearingAccount(readStr());
+                            order.deltaNeutralClearingIntent(readStr());
                         }
 
-                        if (version >= 31 && !Util.StringIsEmpty(order.m_deltaNeutralOrderType)) {
-                            order.m_deltaNeutralOpenClose = readStr();
-                            order.m_deltaNeutralShortSale = readBoolFromInt();
-                            order.m_deltaNeutralShortSaleSlot = readInt();
-                            order.m_deltaNeutralDesignatedLocation = readStr();
+                        if (version >= 31 && !Util.StringIsEmpty(order.getDeltaNeutralOrderType())) {
+                            order.deltaNeutralOpenClose(readStr());
+                            order.deltaNeutralShortSale(readBoolFromInt());
+                            order.deltaNeutralShortSaleSlot(readInt());
+                            order.deltaNeutralDesignatedLocation(readStr());
                         }
                     }
-                    order.m_continuousUpdate = readInt();
+                    order.continuousUpdate(readInt());
                     if (m_parent.serverVersion() == 26) {
-                    	order.m_stockRangeLower = readDouble();
-                    	order.m_stockRangeUpper = readDouble();
+                    	order.stockRangeLower(readDouble());
+                    	order.stockRangeUpper(readDouble());
                     }
-                    order.m_referencePriceType = readInt();
+                    order.referencePriceType(readInt());
                 }
 
                 if (version >= 13) {
-                	order.m_trailStopPrice = readDoubleMax();
+                	order.trailStopPrice(readDoubleMax());
                 }
 
                 if (version >= 30) {
-                	order.m_trailingPercent = readDoubleMax();
+                	order.trailingPercent(readDoubleMax());
                 }
 
                 if (version >= 14) {
-                	order.m_basisPoints = readDoubleMax();
-                	order.m_basisPointsType = readIntMax();
-                	contract.m_comboLegsDescrip = readStr();
+                	order.basisPoints(readDoubleMax());
+                	order.basisPointsType(readIntMax());
+                	contract.comboLegsDescrip(readStr());
                 }
 
                 if (version >= 29) {
                 	int comboLegsCount = readInt();
                 	if (comboLegsCount > 0) {
-                		contract.m_comboLegs = new Vector<ComboLeg>(comboLegsCount);
+                		contract.comboLegs(new ArrayList<ComboLeg>(comboLegsCount));
                 		for (int i = 0; i < comboLegsCount; ++i) {
                 			int conId = readInt();
                 			int ratio = readInt();
@@ -633,18 +634,18 @@ public class EReader extends Thread {
 
                 			ComboLeg comboLeg = new ComboLeg(conId, ratio, action, exchange, openClose,
                 					shortSaleSlot, designatedLocation, exemptCode);
-                			contract.m_comboLegs.add(comboLeg);
+                			contract.comboLegs().add(comboLeg);
                 		}
                 	}
 
                 	int orderComboLegsCount = readInt();
                 	if (orderComboLegsCount > 0) {
-                		order.m_orderComboLegs = new Vector<OrderComboLeg>(orderComboLegsCount);
+                		order.orderComboLegs(new ArrayList<OrderComboLeg>(orderComboLegsCount));
                 		for (int i = 0; i < orderComboLegsCount; ++i) {
                 			double price = readDoubleMax();
 
                 			OrderComboLeg orderComboLeg = new OrderComboLeg(price);
-                			order.m_orderComboLegs.add(orderComboLeg);
+                			order.orderComboLegs().add(orderComboLeg);
                 		}
                 	}
                 }
@@ -652,106 +653,104 @@ public class EReader extends Thread {
                 if (version >= 26) {
                 	int smartComboRoutingParamsCount = readInt();
                 	if (smartComboRoutingParamsCount > 0) {
-                		order.m_smartComboRoutingParams = new Vector<TagValue>(smartComboRoutingParamsCount);
+                		order.smartComboRoutingParams(new ArrayList<TagValue>(smartComboRoutingParamsCount));
                 		for (int i = 0; i < smartComboRoutingParamsCount; ++i) {
                 			TagValue tagValue = new TagValue();
                 			tagValue.m_tag = readStr();
                 			tagValue.m_value = readStr();
-                			order.m_smartComboRoutingParams.add(tagValue);
+                			order.smartComboRoutingParams().add(tagValue);
                 		}
                 	}
                 }
 
                 if (version >= 15) {
                 	if (version >= 20) {
-                		order.m_scaleInitLevelSize = readIntMax();
-                		order.m_scaleSubsLevelSize = readIntMax();
+                		order.scaleInitLevelSize(readIntMax());
+                		order.scaleSubsLevelSize(readIntMax());
                 	}
                 	else {
                 		/* int notSuppScaleNumComponents = */ readIntMax();
-                		order.m_scaleInitLevelSize = readIntMax();
+                		order.scaleInitLevelSize(readIntMax());
                 	}
-                	order.m_scalePriceIncrement = readDoubleMax();
+                	order.scalePriceIncrement(readDoubleMax());
                 }
 
-                if (version >= 28 && order.m_scalePriceIncrement > 0.0 && order.m_scalePriceIncrement != Double.MAX_VALUE) {
-                    order.m_scalePriceAdjustValue = readDoubleMax();
-                    order.m_scalePriceAdjustInterval = readIntMax();
-                    order.m_scaleProfitOffset = readDoubleMax();
-                    order.m_scaleAutoReset = readBoolFromInt();
-                    order.m_scaleInitPosition = readIntMax();
-                    order.m_scaleInitFillQty = readIntMax();
-                    order.m_scaleRandomPercent = readBoolFromInt();
+                if (version >= 28 && order.scalePriceIncrement() > 0.0 && order.scalePriceIncrement() != Double.MAX_VALUE) {
+                    order.scalePriceAdjustValue(readDoubleMax());
+                    order.scalePriceAdjustInterval(readIntMax());
+                    order.scaleProfitOffset(readDoubleMax());
+                    order.scaleAutoReset(readBoolFromInt());
+                    order.scaleInitPosition(readIntMax());
+                    order.scaleInitFillQty(readIntMax());
+                    order.scaleRandomPercent(readBoolFromInt());
                 }
 
                 if (version >= 24) {
-                	order.m_hedgeType = readStr();
-                	if (!Util.StringIsEmpty(order.m_hedgeType)) {
-                		order.m_hedgeParam = readStr();
+                	order.hedgeType(readStr());
+                    if (!Util.StringIsEmpty(order.getHedgeType())) {
+                		order.hedgeParam(readStr());
                 	}
                 }
 
                 if (version >= 25) {
-                	order.m_optOutSmartRouting = readBoolFromInt();
+                	order.optOutSmartRouting(readBoolFromInt());
                 }
 
                 if (version >= 19) {
-                	order.m_clearingAccount = readStr();
-                	order.m_clearingIntent = readStr();
+                	order.clearingAccount(readStr());
+                	order.clearingIntent(readStr());
                 }
 
                 if (version >= 22) {
-                	order.m_notHeld = readBoolFromInt();
+                	order.notHeld(readBoolFromInt());
                 }
 
                 if (version >= 20) {
                     if (readBoolFromInt()) {
-                        UnderComp underComp = new UnderComp();
-                        underComp.m_conId = readInt();
-                        underComp.m_delta = readDouble();
-                        underComp.m_price = readDouble();
-                        contract.m_underComp = underComp;
+                        DeltaNeutralContract underComp = new DeltaNeutralContract();
+                        underComp.conid(readInt());
+                        underComp.delta(readDouble());
+                        underComp.price(readDouble());
+                        contract.underComp(underComp);
                     }
                 }
 
                 if (version >= 21) {
-                	order.m_algoStrategy = readStr();
-                	if (!Util.StringIsEmpty(order.m_algoStrategy)) {
+                	order.algoStrategy(readStr());
+                    if (!Util.StringIsEmpty(order.getAlgoStrategy())) {
                 		int algoParamsCount = readInt();
                 		if (algoParamsCount > 0) {
-                			order.m_algoParams = new Vector<TagValue>(algoParamsCount);
                 			for (int i = 0; i < algoParamsCount; ++i) {
                 				TagValue tagValue = new TagValue();
                 				tagValue.m_tag = readStr();
                 				tagValue.m_value = readStr();
-                				order.m_algoParams.add(tagValue);
+                				order.algoParams().add(tagValue);
                 			}
                 		}
                 	}
                 }
                 
                 if (version >= 33) {
-                	order.m_solicited = readBoolFromInt();
+                	order.solicited(readBoolFromInt());
                 }
 
                 OrderState orderState = new OrderState();
 
                 if (version >= 16) {
+                	order.whatIf(readBoolFromInt());
 
-                	order.m_whatIf = readBoolFromInt();
-
-                	orderState.m_status = readStr();
-                	orderState.m_initMargin = readStr();
-                	orderState.m_maintMargin = readStr();
-                	orderState.m_equityWithLoan = readStr();
-                	orderState.m_commission = readDoubleMax();
-                	orderState.m_minCommission = readDoubleMax();
-                	orderState.m_maxCommission = readDoubleMax();
-                	orderState.m_commissionCurrency = readStr();
-                	orderState.m_warningText = readStr();
+                	orderState.status(readStr());
+                	orderState.initMargin(readStr());
+                	orderState.maintMargin(readStr());
+                	orderState.equityWithLoan(readStr());
+                	orderState.commission(readDoubleMax());
+                	orderState.minCommission(readDoubleMax());
+                	orderState.maxCommission(readDoubleMax());
+                	orderState.commissionCurrency(readStr());
+                	orderState.warningText(readStr());
                 }
 
-                eWrapper().openOrder( order.m_orderId, contract, order, orderState);
+                eWrapper().openOrder( order.orderId(), contract, order, orderState);
                 break;
             }
 
@@ -770,18 +769,18 @@ public class EReader extends Thread {
                 for (int ctr=0; ctr < numberOfElements; ctr++) {
                     int rank = readInt();
                     if (version >= 3) {
-                    	contract.m_summary.m_conId = readInt();
+                    	contract.contract().conid(readInt());
                     }
-                    contract.m_summary.m_symbol = readStr();
-                    contract.m_summary.m_secType = readStr();
-                    contract.m_summary.m_expiry = readStr();
-                    contract.m_summary.m_strike = readDouble();
-                    contract.m_summary.m_right = readStr();
-                    contract.m_summary.m_exchange = readStr();
-                    contract.m_summary.m_currency = readStr();
-                    contract.m_summary.m_localSymbol = readStr();
-                    contract.m_marketName = readStr();
-                    contract.m_summary.m_tradingClass = readStr();
+                    contract.contract().symbol(readStr());
+                    contract.contract().secType(readStr());
+                    contract.contract().expiry(readStr());
+                    contract.contract().strike(readDouble());
+                    contract.contract().right(readStr());
+                    contract.contract().exchange(readStr());
+                    contract.contract().currency(readStr());
+                    contract.contract().localSymbol(readStr());
+                    contract.marketName(readStr());
+                    contract.contract().tradingClass(readStr());
                     String distance = readStr();
                     String benchmark = readStr();
                     String projection = readStr();
@@ -805,53 +804,53 @@ public class EReader extends Thread {
                 }
 
                 ContractDetails contract = new ContractDetails();
-                contract.m_summary.m_symbol = readStr();
-                contract.m_summary.m_secType = readStr();
-                contract.m_summary.m_expiry = readStr();
-                contract.m_summary.m_strike = readDouble();
-                contract.m_summary.m_right = readStr();
-                contract.m_summary.m_exchange = readStr();
-                contract.m_summary.m_currency = readStr();
-                contract.m_summary.m_localSymbol = readStr();
-                contract.m_marketName = readStr();
-                contract.m_summary.m_tradingClass = readStr();
-                contract.m_summary.m_conId = readInt();
-                contract.m_minTick = readDouble();
-                contract.m_summary.m_multiplier = readStr();
-                contract.m_orderTypes = readStr();
-                contract.m_validExchanges = readStr();
+                contract.contract().symbol(readStr());
+                contract.contract().secType(readStr());
+                contract.contract().expiry(readStr());
+                contract.contract().strike(readDouble());
+                contract.contract().right(readStr());
+                contract.contract().exchange(readStr());
+                contract.contract().currency(readStr());
+                contract.contract().localSymbol(readStr());
+                contract.marketName(readStr());
+                contract.contract().tradingClass(readStr());
+                contract.contract().conid(readInt());
+                contract.minTick(readDouble());
+                contract.contract().multiplier(readStr());
+                contract.orderTypes(readStr());
+                contract.validExchanges(readStr());
                 if (version >= 2) {
-                    contract.m_priceMagnifier = readInt();
+                    contract.priceMagnifier(readInt());
                 }
                 if (version >= 4) {
-                	contract.m_underConId = readInt();
+                	contract.underConid(readInt());
                 }
                 if( version >= 5) {
-                   contract.m_longName = readStr();
-                   contract.m_summary.m_primaryExch = readStr();
+                   contract.longName(readStr());
+                   contract.contract().primaryExch(readStr());
                 }
                 if( version >= 6) {
-                    contract.m_contractMonth = readStr();
-                    contract.m_industry = readStr();
-                    contract.m_category = readStr();
-                    contract.m_subcategory = readStr();
-                    contract.m_timeZoneId = readStr();
-                    contract.m_tradingHours = readStr();
-                    contract.m_liquidHours = readStr();
+                    contract.contractMonth(readStr());
+                    contract.industry(readStr());
+                    contract.category(readStr());
+                    contract.subcategory(readStr());
+                    contract.timeZoneId(readStr());
+                    contract.tradingHours(readStr());
+                    contract.liquidHours(readStr());
                  }
                 if (version >= 8) {
-                    contract.m_evRule = readStr();
-                    contract.m_evMultiplier = readDouble();
+                    contract.evRule(readStr());
+                    contract.evMultiplier(readDouble());
                 }
                 if (version >= 7) {
                     int secIdListCount = readInt();
                         if (secIdListCount  > 0) {
-                            contract.m_secIdList = new Vector<TagValue>(secIdListCount);
+                            contract.secIdList(new ArrayList<TagValue>(secIdListCount));
                             for (int i = 0; i < secIdListCount; ++i) {
                                 TagValue tagValue = new TagValue();
                                 tagValue.m_tag = readStr();
                                 tagValue.m_value = readStr();
-                                contract.m_secIdList.add(tagValue);
+                                contract.secIdList().add(tagValue);
                             }
                         }
                 }
@@ -869,51 +868,51 @@ public class EReader extends Thread {
 
                 ContractDetails contract = new ContractDetails();
 
-                contract.m_summary.m_symbol = readStr();
-                contract.m_summary.m_secType = readStr();
-                contract.m_cusip = readStr();
-                contract.m_coupon = readDouble();
-                contract.m_maturity = readStr();
-                contract.m_issueDate  = readStr();
-                contract.m_ratings = readStr();
-                contract.m_bondType = readStr();
-                contract.m_couponType = readStr();
-                contract.m_convertible = readBoolFromInt();
-                contract.m_callable = readBoolFromInt();
-                contract.m_putable = readBoolFromInt();
-                contract.m_descAppend = readStr();
-                contract.m_summary.m_exchange = readStr();
-                contract.m_summary.m_currency = readStr();
-                contract.m_marketName = readStr();
-                contract.m_summary.m_tradingClass = readStr();
-                contract.m_summary.m_conId = readInt();
-                contract.m_minTick = readDouble();
-                contract.m_orderTypes = readStr();
-                contract.m_validExchanges = readStr();
+                contract.contract().symbol(readStr());
+                contract.contract().secType(readStr());
+                contract.cusip(readStr());
+                contract.coupon(readDouble());
+                contract.maturity(readStr());
+                contract.issueDate(readStr());
+                contract.ratings(readStr());
+                contract.bondType(readStr());
+                contract.couponType(readStr());
+                contract.convertible(readBoolFromInt());
+                contract.callable(readBoolFromInt());
+                contract.putable(readBoolFromInt());
+                contract.descAppend(readStr());
+                contract.contract().exchange(readStr());
+                contract.contract().currency(readStr());
+                contract.marketName(readStr());
+                contract.contract().tradingClass(readStr());
+                contract.contract().conid(readInt());
+                contract.minTick(readDouble());
+                contract.orderTypes(readStr());
+                contract.validExchanges(readStr());
                 if (version >= 2) {
-                	contract.m_nextOptionDate = readStr();
-                	contract.m_nextOptionType = readStr();
-                	contract.m_nextOptionPartial = readBoolFromInt();
-                	contract.m_notes = readStr();
+                	contract.nextOptionDate(readStr());
+                	contract.nextOptionType(readStr());
+                	contract.nextOptionPartial(readBoolFromInt());
+                	contract.notes(readStr());
                 }
                 if( version >= 4) {
-                   contract.m_longName = readStr();
+                   contract.longName(readStr());
                 }
                 if ( version >= 6) {
-                    contract.m_evRule = readStr();
-                    contract.m_evMultiplier = readDouble();
+                    contract.evRule(readStr());
+                    contract.evMultiplier(readDouble());
                 }
                 if (version >= 5) {
                     int secIdListCount = readInt();
-                        if (secIdListCount  > 0) {
-                            contract.m_secIdList = new Vector<TagValue>(secIdListCount);
-                            for (int i = 0; i < secIdListCount; ++i) {
-                                TagValue tagValue = new TagValue();
-                                tagValue.m_tag = readStr();
-                                tagValue.m_value = readStr();
-                                contract.m_secIdList.add(tagValue);
-                            }
+                    if (secIdListCount  > 0) {
+                        contract.secIdList(new ArrayList<TagValue>(secIdListCount));
+                        for (int i = 0; i < secIdListCount; ++i) {
+                            TagValue tagValue = new TagValue();
+                            tagValue.m_tag = readStr();
+                            tagValue.m_value = readStr();
+                            contract.secIdList().add(tagValue);
                         }
+                    }
                 }
 
                 eWrapper().bondContractDetails( reqId, contract);
@@ -932,51 +931,51 @@ public class EReader extends Thread {
                 // read contract fields
                 Contract contract = new Contract();
                 if (version >= 5) {
-                	contract.m_conId = readInt();
+                	contract.conid(readInt());
                 }
-                contract.m_symbol = readStr();
-                contract.m_secType = readStr();
-                contract.m_expiry = readStr();
-                contract.m_strike = readDouble();
-                contract.m_right = readStr();
+                contract.symbol(readStr());
+                contract.secType(readStr());
+                contract.expiry(readStr());
+                contract.strike(readDouble());
+                contract.right(readStr());
                 if (version >= 9) {
-                    contract.m_multiplier = readStr();
+                    contract.multiplier(readStr());
                 }
-                contract.m_exchange = readStr();
-                contract.m_currency = readStr();
-                contract.m_localSymbol = readStr();
+                contract.exchange(readStr());
+                contract.currency(readStr());
+                contract.localSymbol(readStr());
                 if (version >= 10) {
-                    contract.m_tradingClass = readStr();
+                    contract.tradingClass(readStr());
                 }
 
                 Execution exec = new Execution();
-                exec.m_orderId = orderId;
-                exec.m_execId = readStr();
-                exec.m_time = readStr();
-                exec.m_acctNumber = readStr();
-                exec.m_exchange = readStr();
-                exec.m_side = readStr();
-                exec.m_shares = readInt();
-                exec.m_price = readDouble();
+                exec.orderId(orderId);
+                exec.execId(readStr());
+                exec.time(readStr());
+                exec.acctNumber(readStr());
+                exec.exchange(readStr());
+                exec.side(readStr());
+                exec.shares(readInt());
+                exec.price(readDouble());
                 if ( version >= 2 ) {
-                    exec.m_permId = readInt();
+                    exec.permId(readInt());
                 }
                 if ( version >= 3) {
-                    exec.m_clientId = readInt();
+                    exec.clientId(readInt());
                 }
                 if ( version >= 4) {
-                    exec.m_liquidation = readInt();
+                    exec.liquidation(readInt());
                 }
                 if (version >= 6) {
-                	exec.m_cumQty = readInt();
-                	exec.m_avgPrice = readDouble();
+                	exec.cumQty(readInt());
+                	exec.avgPrice(readDouble());
                 }
                 if (version >= 8) {
-                    exec.m_orderRef = readStr();
+                    exec.orderRef(readStr());
                 }
                 if (version >= 9) {
-                    exec.m_evRule = readStr();
-                    exec.m_evMultiplier = readDouble();
+                    exec.evRule(readStr());
+                    exec.evMultiplier(readDouble());
                 }
 
                 eWrapper().execDetails( reqId, contract, exec);
@@ -1129,11 +1128,7 @@ public class EReader extends Thread {
                 /*int version =*/ readInt();
                 int reqId = readInt();
 
-                UnderComp underComp = new UnderComp();
-                underComp.m_conId = readInt();
-                underComp.m_delta = readDouble();
-                underComp.m_price = readDouble();
-
+                DeltaNeutralContract underComp = new DeltaNeutralContract(readInt(), readDouble(), readDouble());
                 eWrapper().deltaNeutralValidation( reqId, underComp);
                 break;
             }

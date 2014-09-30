@@ -13,15 +13,20 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
+import com.ib.client.ComboLeg;
+import com.ib.client.Contract;
 import com.ib.client.EWrapper;
 import com.ib.client.Builder;
 import com.ib.client.EClientErrors;
 import com.ib.client.EClientSocket;
 import com.ib.client.EReader;
+import com.ib.client.Order;
+import com.ib.client.OrderComboLeg;
+import com.ib.client.OrderType;
 import com.ib.client.TagValue;
-import com.ib.controller.Types.AlgoStrategy;
-import com.ib.controller.Types.HedgeType;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Types.AlgoStrategy;
+import com.ib.client.Types.HedgeType;
+import com.ib.client.Types.SecType;
 
 // NOTE: TWS 936 SERVER_VERSION is 67.
 
@@ -59,7 +64,7 @@ public class ApiConnection extends EClientSocket {
 		}
 	}
 
-	/** Replace the input stream with ont that logs all data to m_inLogger. */
+	/** Replace the input stream with one that logs all data to m_inLogger. */
 	@Override public EReader createReader(EClientSocket socket, DataInputStream dis) {
 		try {
 			Field realIsField = FilterInputStream.class.getDeclaredField( "in");
@@ -73,7 +78,7 @@ public class ApiConnection extends EClientSocket {
 		return super.createReader(socket, dis);
 	}
 
-	public synchronized void placeOrder(NewContract contract, NewOrder order) {
+	public synchronized void placeOrder(Contract contract, Order order) {
 		// not connected?
 		if( !isConnected() ) {
             notConnected();
@@ -101,7 +106,7 @@ public class ApiConnection extends EClientSocket {
 			b.send( contract.secType() );
 			b.send( contract.expiry());
 			b.send( contract.strike());
-			b.send( contract.right().getApiString() );
+			b.send( contract.right().getApiString() ); // TODO: Here and below: do not need to call getApiString() - NPE is possible
 			b.send( contract.multiplier() );
 			b.send( contract.exchange() );
 			b.send( contract.primaryExch() );
@@ -136,7 +141,7 @@ public class ApiConnection extends EClientSocket {
 			if(contract.secType() == SecType.BAG) {
 				b.send( contract.comboLegs().size());
 
-				for (NewComboLeg leg : contract.comboLegs() ) {
+				for (ComboLeg leg : contract.comboLegs() ) {
 					b.send( leg.conid() );
 					b.send( leg.ratio() );
 					b.send( leg.action().getApiString() );
@@ -148,8 +153,8 @@ public class ApiConnection extends EClientSocket {
 				}
 
 				b.send( order.orderComboLegs().size());
-				for (Double orderComboLeg : order.orderComboLegs() ) {
-					b.send( orderComboLeg);
+				for (OrderComboLeg orderComboLeg : order.orderComboLegs() ) {
+					b.send( orderComboLeg.price());
 				}
 
 				b.send( order.smartComboRoutingParams().size() );

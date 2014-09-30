@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,7 +25,6 @@ import com.ib.client.Order;
 import com.ib.client.TagValue;
 
 public class AlgoParamsDlg extends JDialog {
-
 	private Order m_order;
     private JTextField 		m_algoStrategy = new JTextField( "");
     private JTextField 		m_tag = new JTextField( "");
@@ -50,14 +49,14 @@ public class AlgoParamsDlg extends JDialog {
         JPanel pAlgoPanel = new JPanel( new GridLayout( 0, 2, 10, 10) );
         pAlgoPanel.setBorder( BorderFactory.createTitledBorder( "Algorithm") );
         pAlgoPanel.add( new JLabel( "Strategy:") );
-        m_algoStrategy.setText(m_order.m_algoStrategy);
+        m_algoStrategy.setText(m_order.getAlgoStrategy());
         pAlgoPanel.add(m_algoStrategy);
 
         // create algo params panel
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
         pParamList.setBorder( BorderFactory.createTitledBorder( "Parameters") );
 
-        Vector<TagValue> algoParams = m_order.m_algoParams;
+        ArrayList<TagValue> algoParams = m_order.algoParams();
         if (algoParams != null) {
         	m_paramModel.algoParams().addAll(algoParams);
         }
@@ -144,11 +143,10 @@ public class AlgoParamsDlg extends JDialog {
     }
 
     void onOk() {
+    	m_order.algoStrategy(m_algoStrategy.getText());
 
-    	m_order.m_algoStrategy = m_algoStrategy.getText();
-
-    	Vector<TagValue> algoParams = m_paramModel.algoParams();
-    	m_order.m_algoParams = algoParams.isEmpty() ? null : algoParams;
+    	ArrayList<TagValue> algoParams = m_paramModel.algoParams();
+    	m_order.algoParams(algoParams.isEmpty() ? null : algoParams);
 
         setVisible( false);
     }
@@ -156,7 +154,6 @@ public class AlgoParamsDlg extends JDialog {
     void onCancel() {
         setVisible( false);
     }
-
 
     void reportError( String msg, Exception e) {
         Main.inform( this, msg + " --" + e);
@@ -176,8 +173,7 @@ public class AlgoParamsDlg extends JDialog {
 }
 
 class AlgoParamModel extends AbstractTableModel {
-
-    private Vector<TagValue> m_allData = new Vector<TagValue>();
+    private ArrayList<TagValue> m_allData = new ArrayList<TagValue>();
 
     synchronized public void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
@@ -190,7 +186,7 @@ class AlgoParamModel extends AbstractTableModel {
     }
 
     synchronized public void reset() {
-        m_allData.removeAllElements();
+        m_allData.clear();
 		fireTableDataChanged();
     }
 
@@ -213,7 +209,6 @@ class AlgoParamModel extends AbstractTableModel {
             default:
                 return "";
         }
-
     }
 
     public boolean isCellEditable(int r, int c) {
@@ -231,7 +226,7 @@ class AlgoParamModel extends AbstractTableModel {
         }
     }
 
-    public Vector<TagValue> algoParams() {
+    public ArrayList<TagValue> algoParams() {
         return m_allData;
     }
 }
