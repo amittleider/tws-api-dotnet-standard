@@ -14,9 +14,9 @@ import javax.swing.table.TableCellRenderer;
 
 import com.ib.client.Contract;
 import com.ib.client.TickType;
+import com.ib.client.Types.MktDataType;
 import com.ib.controller.ApiController.TopMktDataAdapter;
 import com.ib.controller.Formats;
-import com.ib.controller.Types.MktDataType;
 
 class TopModel extends AbstractTableModel {
 	private ArrayList<TopRow> m_rows = new ArrayList<TopRow>();

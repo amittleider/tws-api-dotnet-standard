@@ -4,7 +4,7 @@
 package samples.rfq;
 
 import com.ib.client.Order;
-import com.ib.controller.OrderType;
+import com.ib.client.OrderType;
 
 public class RfqOrder extends Order {
 

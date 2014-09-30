@@ -11,8 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ib.controller.DeltaNeutralContract;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Types.SecType;
 
 public class EClientSocket {
 

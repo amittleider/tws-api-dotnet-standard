@@ -6,12 +6,12 @@ package apidemo;
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
-import com.ib.controller.DeltaNeutralContract;
 
 public class Test implements EWrapper {
 	EClientSocket m_s = new EClientSocket(this);

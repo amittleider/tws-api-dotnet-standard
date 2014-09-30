@@ -6,6 +6,8 @@ package com.ib.controller;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import com.ib.client.Types;
+
 public class Profile {
 	static final String SEP = "/";
 

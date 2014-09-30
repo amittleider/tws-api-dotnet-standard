@@ -22,10 +22,11 @@ import com.ib.client.EClientSocket;
 import com.ib.client.EReader;
 import com.ib.client.Order;
 import com.ib.client.OrderComboLeg;
+import com.ib.client.OrderType;
 import com.ib.client.TagValue;
-import com.ib.controller.Types.AlgoStrategy;
-import com.ib.controller.Types.HedgeType;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Types.AlgoStrategy;
+import com.ib.client.Types.HedgeType;
+import com.ib.client.Types.SecType;
 
 // NOTE: TWS 936 SERVER_VERSION is 67.
 

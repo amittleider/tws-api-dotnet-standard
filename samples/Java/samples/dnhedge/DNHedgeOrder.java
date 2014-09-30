@@ -4,9 +4,9 @@
 package samples.dnhedge;
 
 import com.ib.client.Order;
-import com.ib.controller.OrderType;
-import com.ib.controller.Types.Action;
-import com.ib.controller.Types.VolatilityType;
+import com.ib.client.OrderType;
+import com.ib.client.Types.Action;
+import com.ib.client.Types.VolatilityType;
 
 public class DNHedgeOrder extends Order {
    public DNHedgeOrder(int clientId, int id, int size, String account,

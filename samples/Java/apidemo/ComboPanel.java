@@ -34,13 +34,13 @@ import apidemo.util.VerticalPanel.HorzPanel;
 import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
-import com.ib.controller.DeltaNeutralContract;
+import com.ib.client.Types.Action;
+import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IEfpHandler;
-import com.ib.controller.Types.Action;
-import com.ib.controller.Types.SecType;
 
 
 public class ComboPanel extends JPanel implements INewTab {

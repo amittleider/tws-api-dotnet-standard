@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
@@ -27,7 +28,6 @@ import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
-import com.ib.controller.DeltaNeutralContract;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;

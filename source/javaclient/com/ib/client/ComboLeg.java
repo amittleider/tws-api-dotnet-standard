@@ -3,8 +3,7 @@
 
 package com.ib.client;
 
-import com.ib.controller.Types;
-import com.ib.controller.Types.Action;
+import com.ib.client.Types.Action;
 
 public class ComboLeg {
     public enum OpenClose implements IApiEnum {

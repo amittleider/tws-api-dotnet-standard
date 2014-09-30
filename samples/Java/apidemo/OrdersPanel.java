@@ -21,8 +21,8 @@ import apidemo.util.VerticalPanel;
 import com.ib.client.Contract;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.OrderType;
 import com.ib.controller.OrderStatus;
-import com.ib.controller.OrderType;
 import com.ib.controller.ApiController.ILiveOrderHandler;
 
 public class OrdersPanel extends JPanel {

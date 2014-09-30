@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ib.controller.DeltaNeutralContract;
+import com.ib.client.DeltaNeutralContract;
 
 
 public class UnderCompDlg extends JDialog {

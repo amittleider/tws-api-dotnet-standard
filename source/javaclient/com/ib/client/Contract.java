@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
-import com.ib.controller.DeltaNeutralContract;
-import com.ib.controller.Types.Right;
-import com.ib.controller.Types.SecIdType;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Types.Right;
+import com.ib.client.Types.SecIdType;
+import com.ib.client.Types.SecType;
 
 public class Contract implements Cloneable {
     private int     m_conid;

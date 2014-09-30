@@ -5,17 +5,16 @@ package com.ib.client;
 
 import java.util.ArrayList;
 
-import com.ib.controller.OrderType;
-import com.ib.controller.Types.Action;
-import com.ib.controller.Types.AlgoStrategy;
-import com.ib.controller.Types.HedgeType;
-import com.ib.controller.Types.Method;
-import com.ib.controller.Types.OcaType;
-import com.ib.controller.Types.ReferencePriceType;
-import com.ib.controller.Types.Rule80A;
-import com.ib.controller.Types.TimeInForce;
-import com.ib.controller.Types.TriggerMethod;
-import com.ib.controller.Types.VolatilityType;
+import com.ib.client.Types.Action;
+import com.ib.client.Types.AlgoStrategy;
+import com.ib.client.Types.HedgeType;
+import com.ib.client.Types.Method;
+import com.ib.client.Types.OcaType;
+import com.ib.client.Types.ReferencePriceType;
+import com.ib.client.Types.Rule80A;
+import com.ib.client.Types.TimeInForce;
+import com.ib.client.Types.TriggerMethod;
+import com.ib.client.Types.VolatilityType;
 
 public class Order {
     final public static int 	CUSTOMER = 0;

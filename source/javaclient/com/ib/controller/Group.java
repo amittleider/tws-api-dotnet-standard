@@ -6,7 +6,7 @@ package com.ib.controller;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.ib.controller.Types.Method;
+import com.ib.client.Types.Method;
 
 public class Group {
 	private String m_name;

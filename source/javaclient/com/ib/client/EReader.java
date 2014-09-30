@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import com.ib.controller.DeltaNeutralContract;
-import com.ib.controller.OrderType;
-
 
 /**
  * This class reads commands from TWS and passes them to the user defined

@@ -1,30 +1,28 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-package com.ib.controller;
+package com.ib.client;
 
-import static com.ib.controller.Types.AlgoParam.allowPastEndTime;
-import static com.ib.controller.Types.AlgoParam.catchUp;
-import static com.ib.controller.Types.AlgoParam.componentSize;
-import static com.ib.controller.Types.AlgoParam.displaySize;
-import static com.ib.controller.Types.AlgoParam.endTime;
-import static com.ib.controller.Types.AlgoParam.forceCompletion;
-import static com.ib.controller.Types.AlgoParam.getDone;
-import static com.ib.controller.Types.AlgoParam.giveUp;
-import static com.ib.controller.Types.AlgoParam.maxPctVol;
-import static com.ib.controller.Types.AlgoParam.noTakeLiq;
-import static com.ib.controller.Types.AlgoParam.noTradeAhead;
-import static com.ib.controller.Types.AlgoParam.pctVol;
-import static com.ib.controller.Types.AlgoParam.randomizeSize55;
-import static com.ib.controller.Types.AlgoParam.randomizeTime20;
-import static com.ib.controller.Types.AlgoParam.riskAversion;
-import static com.ib.controller.Types.AlgoParam.startTime;
-import static com.ib.controller.Types.AlgoParam.strategyType;
-import static com.ib.controller.Types.AlgoParam.timeBetweenOrders;
-import static com.ib.controller.Types.AlgoParam.useOddLots;
-import static com.ib.controller.Types.AlgoParam.waitForFill;
-
-import com.ib.client.IApiEnum;
+import static com.ib.client.Types.AlgoParam.allowPastEndTime;
+import static com.ib.client.Types.AlgoParam.catchUp;
+import static com.ib.client.Types.AlgoParam.componentSize;
+import static com.ib.client.Types.AlgoParam.displaySize;
+import static com.ib.client.Types.AlgoParam.endTime;
+import static com.ib.client.Types.AlgoParam.forceCompletion;
+import static com.ib.client.Types.AlgoParam.getDone;
+import static com.ib.client.Types.AlgoParam.giveUp;
+import static com.ib.client.Types.AlgoParam.maxPctVol;
+import static com.ib.client.Types.AlgoParam.noTakeLiq;
+import static com.ib.client.Types.AlgoParam.noTradeAhead;
+import static com.ib.client.Types.AlgoParam.pctVol;
+import static com.ib.client.Types.AlgoParam.randomizeSize55;
+import static com.ib.client.Types.AlgoParam.randomizeTime20;
+import static com.ib.client.Types.AlgoParam.riskAversion;
+import static com.ib.client.Types.AlgoParam.startTime;
+import static com.ib.client.Types.AlgoParam.strategyType;
+import static com.ib.client.Types.AlgoParam.timeBetweenOrders;
+import static com.ib.client.Types.AlgoParam.useOddLots;
+import static com.ib.client.Types.AlgoParam.waitForFill;
 
 public class Types {
 	public static enum ComboParam {
@@ -257,7 +255,7 @@ public class Types {
 	public enum NewsType {
 		UNKNOWN, BBS, LIVE_EXCH, DEAD_EXCH, HTML, POPUP_TEXT, POPUP_HTML;
 
-		static NewsType get( int ordinal) {
+		public static NewsType get( int ordinal) {
 			return getEnum( ordinal, values() );
 		}
 	}

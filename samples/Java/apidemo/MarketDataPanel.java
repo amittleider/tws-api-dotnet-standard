@@ -33,6 +33,12 @@ import apidemo.util.VerticalPanel.StackPanel;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.ScannerSubscription;
+import com.ib.client.Types.BarSize;
+import com.ib.client.Types.DeepSide;
+import com.ib.client.Types.DeepType;
+import com.ib.client.Types.DurationUnit;
+import com.ib.client.Types.MktDataType;
+import com.ib.client.Types.WhatToShow;
 import com.ib.controller.Bar;
 import com.ib.controller.Instrument;
 import com.ib.controller.ScanCode;
@@ -40,12 +46,6 @@ import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.ApiController.IScannerHandler;
-import com.ib.controller.Types.BarSize;
-import com.ib.controller.Types.DeepSide;
-import com.ib.controller.Types.DeepType;
-import com.ib.controller.Types.DurationUnit;
-import com.ib.controller.Types.MktDataType;
-import com.ib.controller.Types.WhatToShow;
 
 public class MarketDataPanel extends JPanel {
 	private final Contract m_contract = new Contract();

@@ -4,7 +4,7 @@
 package com.ib.contracts;
 
 import com.ib.client.Contract;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Types.SecType;
 
 public class OptContract extends Contract {
     public OptContract(String symbol, String expiry, double strike, String right) {

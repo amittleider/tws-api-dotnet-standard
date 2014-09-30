@@ -26,10 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.ib.client.Contract;
+import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.TagValue;
-import com.ib.controller.DeltaNeutralContract;
 
 public class OrderDlg extends JDialog {
     final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";

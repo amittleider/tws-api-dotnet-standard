@@ -3,7 +3,6 @@
 
 package com.ib.client;
 
-import com.ib.controller.DeltaNeutralContract;
 
 public interface EWrapper {
     ///////////////////////////////////////////////////////////////////////

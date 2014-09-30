@@ -26,12 +26,12 @@ import apidemo.util.VerticalPanel.HorzPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
 import com.ib.client.Contract;
+import com.ib.client.Types.BarSize;
+import com.ib.client.Types.DurationUnit;
+import com.ib.client.Types.WhatToShow;
 import com.ib.controller.Bar;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
-import com.ib.controller.Types.BarSize;
-import com.ib.controller.Types.DurationUnit;
-import com.ib.controller.Types.WhatToShow;
 
 
 public class StratPanel extends StackPanel implements IHistoricalDataHandler, IRealTimeBarHandler {

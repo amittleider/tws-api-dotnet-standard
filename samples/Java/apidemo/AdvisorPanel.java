@@ -20,19 +20,18 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
-
 import apidemo.util.HtmlButton;
 import apidemo.util.TCombo;
 import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 
+import com.ib.client.Types.FADataType;
+import com.ib.client.Types.Method;
 import com.ib.controller.Alias;
 import com.ib.controller.Group;
 import com.ib.controller.Profile;
 import com.ib.controller.ApiController.IAdvisorHandler;
 import com.ib.controller.Profile.Type;
-import com.ib.controller.Types.FADataType;
-import com.ib.controller.Types.Method;
 
 public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	static DefaultCellEditor DEF_CELL_EDITOR = new DefaultCellEditor( new JTextField() );
