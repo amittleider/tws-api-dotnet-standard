@@ -1,4 +1,8 @@
 #pragma once
+
+#include "contract.h"
+
+
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
 //const int MIN_SERVER_VER_SCALE_ORDERS         = 35;
 //const int MIN_SERVER_VER_SNAPSHOT_MKT_DATA    = 35;

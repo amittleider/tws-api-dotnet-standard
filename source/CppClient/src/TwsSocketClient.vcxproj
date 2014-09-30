@@ -159,9 +159,9 @@
     <ClCompile Include="..\Shared\CriticalSection.cpp" />
     <ClCompile Include="..\Shared\EDecoder.cpp" />
     <ClCompile Include="..\Shared\EMessage.cpp" />
+    <ClCompile Include="..\Shared\EReader.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
-    <ClCompile Include="EReader.cpp" />
     <ClCompile Include="StdAfx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,10 +176,10 @@
     <ClInclude Include="..\Shared\DefaultWrapper.h" />
     <ClInclude Include="..\Shared\EDecoder.h" />
     <ClInclude Include="..\Shared\EMessage.h" />
+    <ClInclude Include="..\Shared\EReader.h" />
     <ClInclude Include="..\Shared\EReaderSignal.h" />
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
-    <ClInclude Include="EReader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="..\Shared\CommissionReport.h" />

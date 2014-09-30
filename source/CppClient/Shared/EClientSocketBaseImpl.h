@@ -2938,10 +2938,9 @@ bool EClientSocketBase::checkMessages()
 	const char*	endPtr = ptr + m_inBuffer.size();
 
 	try {
-		while( (isConnected() ? processMsg( ptr, endPtr)
-			: isConnecting() ? processConnectAck( ptr, endPtr) : 0) > 0) {
+		if (isConnecting() && processConnectAck( ptr, endPtr) > 0) {
 			if( (ptr - beginPtr) >= (int)m_inBuffer.size())
-				break;
+				return false;
 		}
 	}
 	catch (...) {

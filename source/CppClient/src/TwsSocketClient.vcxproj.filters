@@ -27,13 +27,13 @@
     <ClCompile Include="..\Shared\EDecoder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Shared\EMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Shared\CriticalSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\EReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,9 +114,6 @@
     <ClInclude Include="..\Shared\DefaultWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Shared\EReaderSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -124,6 +121,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\CriticalSection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\EReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
