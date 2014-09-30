@@ -3,7 +3,6 @@
 
 package com.ib.client;
 
-import com.ib.controller.OrderStatus;
 
 public class OrderState {
     private String m_status;

@@ -19,6 +19,7 @@ import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.OrderStatus;
 import com.ib.client.ScannerSubscription;
 import com.ib.client.TagValue;
 import com.ib.client.TickType;

@@ -31,6 +31,7 @@ import apidemo.util.VerticalPanel.StackPanel;
 import com.ib.client.Contract;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
 import com.ib.client.TagValue;
 import com.ib.client.Types.Action;
@@ -46,7 +47,6 @@ import com.ib.client.Types.TimeInForce;
 import com.ib.client.Types.TriggerMethod;
 import com.ib.client.Types.VolatilityType;
 import com.ib.controller.ApiController.IOrderHandler;
-import com.ib.controller.OrderStatus;
 
 public class TicketDlg extends JDialog {
 	private boolean m_editContract;
