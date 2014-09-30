@@ -28,30 +28,30 @@ import apidemo.util.VerticalPanel;
 import apidemo.util.VerticalPanel.HorzPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
+import com.ib.client.Contract;
+import com.ib.client.Order;
+import com.ib.client.OrderState;
+import com.ib.client.OrderStatus;
+import com.ib.client.OrderType;
 import com.ib.client.TagValue;
+import com.ib.client.Types.Action;
+import com.ib.client.Types.AlgoParam;
+import com.ib.client.Types.AlgoStrategy;
+import com.ib.client.Types.ComboParam;
+import com.ib.client.Types.HedgeType;
+import com.ib.client.Types.Method;
+import com.ib.client.Types.OcaType;
+import com.ib.client.Types.ReferencePriceType;
+import com.ib.client.Types.Rule80A;
+import com.ib.client.Types.TimeInForce;
+import com.ib.client.Types.TriggerMethod;
+import com.ib.client.Types.VolatilityType;
 import com.ib.controller.ApiController.IOrderHandler;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewOrder;
-import com.ib.controller.NewOrderState;
-import com.ib.controller.OrderStatus;
-import com.ib.controller.OrderType;
-import com.ib.controller.Types.Action;
-import com.ib.controller.Types.AlgoParam;
-import com.ib.controller.Types.AlgoStrategy;
-import com.ib.controller.Types.ComboParam;
-import com.ib.controller.Types.HedgeType;
-import com.ib.controller.Types.Method;
-import com.ib.controller.Types.OcaType;
-import com.ib.controller.Types.ReferencePriceType;
-import com.ib.controller.Types.Rule80A;
-import com.ib.controller.Types.TimeInForce;
-import com.ib.controller.Types.TriggerMethod;
-import com.ib.controller.Types.VolatilityType;
 
 public class TicketDlg extends JDialog {
 	private boolean m_editContract;
-	private final NewContract m_contract;
-	private final NewOrder m_order;
+	private final Contract m_contract;
+	private final Order m_order;
 	private final ContractPanel m_contractPanel;
 	private final OrderPanel m_orderPanel;
 	private final AdvisorTicketPanel m_advisorPanel;
@@ -61,16 +61,16 @@ public class TicketDlg extends JDialog {
 	private final AlgoPanel m_algoPanel;
 	private final ScalePanel m_scalePanel;
 	
-	public TicketDlg(NewContract contract, NewOrder order) {
+	public TicketDlg(Contract contract, Order order) {
 		super( ApiDemo.INSTANCE.frame());
 		
 		if (contract == null) {
-			contract = new NewContract();
+			contract = new Contract();
 			m_editContract = true;
 		}
 
 		if (order == null) {
-			order = new NewOrder();
+			order = new Order();
 			order.totalQuantity( 100);
 			order.lmtPrice( 1);
 		}
@@ -146,7 +146,7 @@ public class TicketDlg extends JDialog {
 		}
 
 		ApiDemo.INSTANCE.controller().placeOrModifyOrder( m_contract, m_order, new IOrderHandler() {
-			@Override public void orderState(NewOrderState orderState) {
+			@Override public void orderState(OrderState orderState) {
 				ApiDemo.INSTANCE.controller().removeOrderHandler( this);
 				SwingUtilities.invokeLater( new Runnable() {
 					@Override public void run() {
@@ -172,7 +172,7 @@ public class TicketDlg extends JDialog {
 		
 		m_order.whatIf( true);
 		ApiDemo.INSTANCE.controller().placeOrModifyOrder( m_contract, m_order, new IOrderHandler() {
-			@Override public void orderState(final NewOrderState orderState) {
+			@Override public void orderState(final OrderState orderState) {
 				SwingUtilities.invokeLater( new Runnable() {
 					@Override public void run() {
 						displayMargin( orderState);
@@ -194,7 +194,7 @@ public class TicketDlg extends JDialog {
 		m_order.orderId( 0);
 	}
 
-	protected void displayMargin(NewOrderState orderState) {
+	protected void displayMargin(OrderState orderState) {
 		String str = String.format( "Equity with loan: %s\n\nInitial margin: %s\nMaintenance margin: %s\n",
 				fmt( Double.parseDouble(orderState.equityWithLoan() ) ),
 				fmt( Double.parseDouble( orderState.initMargin() ) ),
@@ -460,7 +460,7 @@ public class TicketDlg extends JDialog {
 			
 			m_volatility.setText( m_order.volatility() );
 			m_volatilityType.setSelectedItem( m_order.volatilityType() );
-			m_continuousUpdate.setSelected( m_order.continuousUpdate() );
+			m_continuousUpdate.setSelected( m_order.continuousUpdate() != 0 );
 			m_referencePriceType.setSelectedItem( m_order.referencePriceType() );
 			m_deltaNeutralOrderType.setSelectedItem( m_order.deltaNeutralOrderType() );
 			m_deltaNeutralAuxPrice.setText( m_order.deltaNeutralAuxPrice() );
@@ -472,7 +472,7 @@ public class TicketDlg extends JDialog {
 		void onOK() {
 			m_order.volatility( m_volatility.getDouble() );
 			m_order.volatilityType( m_volatilityType.getSelectedItem() );
-			m_order.continuousUpdate( m_continuousUpdate.isSelected() );
+			m_order.continuousUpdate( m_continuousUpdate.isSelected() ? 1 : 0 );
 			m_order.referencePriceType( m_referencePriceType.getSelectedItem() );
 			m_order.deltaNeutralOrderType( m_deltaNeutralOrderType.getSelectedItem() );
 			m_order.deltaNeutralAuxPrice( m_deltaNeutralAuxPrice.getDouble() );

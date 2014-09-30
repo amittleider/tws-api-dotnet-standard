@@ -3,6 +3,8 @@
 
 package com.ib.controller;
 
+import com.ib.client.Types;
+
 public enum MarketValueTag {
 	NetLiquidationByCurrency,
 	CashBalance,

@@ -15,15 +15,14 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-
 import apidemo.util.HtmlButton;
 import apidemo.util.VerticalPanel;
 
-import com.ib.controller.NewContract;
-import com.ib.controller.NewOrder;
-import com.ib.controller.NewOrderState;
-import com.ib.controller.OrderStatus;
-import com.ib.controller.OrderType;
+import com.ib.client.Contract;
+import com.ib.client.Order;
+import com.ib.client.OrderState;
+import com.ib.client.OrderStatus;
+import com.ib.client.OrderType;
 import com.ib.controller.ApiController.ILiveOrderHandler;
 
 public class OrdersPanel extends JPanel {
@@ -149,9 +148,9 @@ public class OrdersPanel extends JPanel {
 	protected void onAttachOrder() {
 		OrderRow row = getSelectedOrder();
 		if (row != null) {
-			NewOrder parent = row.m_order;
+			Order parent = row.m_order;
 			
-			NewOrder child = new NewOrder();
+			Order child = new Order();
 			child.parentId( parent.orderId() );
 			child.action( parent.action() );
 			child.totalQuantity( parent.totalQuantity() );
@@ -186,7 +185,7 @@ public class OrdersPanel extends JPanel {
 			return m_orders.get( i);
 		}
 
-		@Override public void openOrder(NewContract contract, NewOrder order, NewOrderState orderState) {
+		@Override public void openOrder(Contract contract, Order order, OrderState orderState) {
 			OrderRow full = m_map.get( order.permId() );
 			
 			if (full != null) {
@@ -202,7 +201,7 @@ public class OrdersPanel extends JPanel {
 			}
 		}
 
-		protected boolean shouldAdd(NewContract contract, NewOrder order, NewOrderState orderState) {
+		protected boolean shouldAdd(Contract contract, Order order, OrderState orderState) {
 			return true;
 		}
 
@@ -241,7 +240,7 @@ public class OrdersPanel extends JPanel {
 		
 		@Override public Object getValueAt(int row, int col) {
 			OrderRow fullOrder = m_orders.get( row);
-			NewOrder order = fullOrder.m_order;
+			Order order = fullOrder.m_order;
 			switch( col) {
 				case 0: return order.permId();
 				case 1: return order.clientId();
@@ -260,11 +259,11 @@ public class OrdersPanel extends JPanel {
 	}
 	
 	static class OrderRow {
-		NewContract m_contract;
-		NewOrder m_order;
-		NewOrderState m_state;
+		Contract m_contract;
+		Order m_order;
+		OrderState m_state;
 
-		OrderRow( NewContract contract, NewOrder order, NewOrderState state) {
+		OrderRow( Contract contract, Order order, OrderState state) {
 			m_contract = contract;
 			m_order = order;
 			m_state = state;

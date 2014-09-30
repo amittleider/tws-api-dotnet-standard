@@ -11,15 +11,15 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
+import com.ib.client.Contract;
 
 import apidemo.util.HtmlButton;
 
-import com.ib.controller.NewContract;
 
 class ContractDlg extends JDialog {
 	ContractPanel m_contractPanel;
     
-    ContractDlg( JFrame f, NewContract c) {
+    ContractDlg( JFrame f, Contract c) {
     	super( f, true);
     	
     	m_contractPanel = new ContractPanel( c);

@@ -8,7 +8,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -30,7 +30,7 @@ public class ScannerDlg extends JDialog {
     public int          m_userSelection = NO_SELECTION;
     public int 			m_id;
     public ScannerSubscription m_subscription = new ScannerSubscription();
-    private Vector<TagValue> m_scannerSubscriptionOptions = new Vector<TagValue>();
+    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
 
     private JTextField m_Id = new JTextField( "0");
     private JTextField m_numberOfRows = new JTextField("10");
@@ -63,13 +63,12 @@ public class ScannerDlg extends JDialog {
     private static final int COL1_WIDTH = 30;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH;
 
-    Vector<TagValue> scannerSubscriptionOptions() {
+    ArrayList<TagValue> scannerSubscriptionOptions() {
     	return m_scannerSubscriptionOptions;
     }
     
     private static void addGBComponent(IBGridBagPanel panel, Component comp,
-                                       GridBagConstraints gbc, int weightx, int gridwidth)
-    {
+                                       GridBagConstraints gbc, int weightx, int gridwidth) {
       gbc.weightx = weightx;
       gbc.gridwidth = gridwidth;
       panel.setConstraints(comp, gbc);
@@ -198,7 +197,6 @@ public class ScannerDlg extends JDialog {
             return Integer.MAX_VALUE;
         }
     }
-
 
     void onSubscribe() {
         m_userSelection = NO_SELECTION;

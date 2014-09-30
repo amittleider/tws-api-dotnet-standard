@@ -14,13 +14,12 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-
 import apidemo.util.HtmlButton;
 
 import com.ib.client.CommissionReport;
+import com.ib.client.Contract;
 import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
-import com.ib.controller.NewContract;
 import com.ib.controller.ApiController.ITradeReportHandler;
 
 public class TradesPanel extends JPanel implements ITradeReportHandler {
@@ -55,7 +54,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 		ApiDemo.INSTANCE.controller().reqExecutions( new ExecutionFilter(), this);
 	}
 
-	@Override public void tradeReport(String tradeKey, NewContract contract, Execution trade) {
+	@Override public void tradeReport(String tradeKey, Contract contract, Execution trade) {
 		FullExec full = m_map.get( tradeKey);
 		
 		if (full != null) {
@@ -106,12 +105,12 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 			FullExec full = m_trades.get( row);
 			
 			switch( col) {
-				case 0: return full.m_trade.m_time;
-				case 1: return full.m_trade.m_acctNumber;
-				case 2: return full.m_trade.m_side;
-				case 3: return full.m_trade.m_shares;
+				case 0: return full.m_trade.time();
+				case 1: return full.m_trade.acctNumber();
+				case 2: return full.m_trade.side();
+				case 3: return full.m_trade.shares();
 				case 4: return full.m_contract.description();
-				case 5: return full.m_trade.m_price;
+				case 5: return full.m_trade.price();
 				case 6: return full.m_commissionReport != null ? full.m_commissionReport.m_commission : null;
 				default: return null;
 			}
@@ -119,11 +118,11 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 	}
 
 	static class FullExec {
-		NewContract m_contract;
+		Contract m_contract;
 		Execution m_trade;
 		CommissionReport m_commissionReport;
 		
-		FullExec( NewContract contract, Execution trade) {
+		FullExec( Contract contract, Execution trade) {
 			m_contract = contract;
 			m_trade = trade;
 		}

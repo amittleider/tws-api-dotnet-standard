@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
-
 import apidemo.OrdersPanel.OrdersModel;
 import apidemo.util.HtmlButton;
 import apidemo.util.TCombo;
@@ -26,17 +25,17 @@ import apidemo.util.VerticalPanel.BorderPanel;
 import apidemo.util.VerticalPanel.HorzPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
+import com.ib.client.Contract;
+import com.ib.client.Types.BarSize;
+import com.ib.client.Types.DurationUnit;
+import com.ib.client.Types.WhatToShow;
 import com.ib.controller.Bar;
-import com.ib.controller.NewContract;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
-import com.ib.controller.Types.BarSize;
-import com.ib.controller.Types.DurationUnit;
-import com.ib.controller.Types.WhatToShow;
 
 
 public class StratPanel extends StackPanel implements IHistoricalDataHandler, IRealTimeBarHandler {
-	final private NewContract m_contract = new NewContract();
+	final private Contract m_contract = new Contract();
 	final private ContractPanel m_contractPanel = new ContractPanel( m_contract);
 	final private UpperField m_shares = new UpperField();
 	final private UpperField m_pct1 = new UpperField();

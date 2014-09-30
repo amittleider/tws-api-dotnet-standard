@@ -26,13 +26,13 @@ import apidemo.util.NewLookAndFeel;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.VerticalPanel;
 
+import com.ib.client.Types.NewsType;
 import com.ib.controller.ApiConnection.ILogger;
 import com.ib.controller.ApiController;
 import com.ib.controller.ApiController.IBulletinHandler;
 import com.ib.controller.ApiController.IConnectionHandler;
 import com.ib.controller.ApiController.ITimeHandler;
 import com.ib.controller.Formats;
-import com.ib.controller.Types.NewsType;
 
 public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
