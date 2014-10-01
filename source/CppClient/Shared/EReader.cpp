@@ -52,7 +52,8 @@ EMessage * EReader::readSingleMsg() {
     if (m_pClientSocket->usingV100Plus()) {
         int msgSize;
 
-        m_pClientSocket->receive((char *)&msgSize, sizeof(msgSize));
+        if (!m_pClientSocket->receive((char *)&msgSize, sizeof(msgSize)))
+			return 0;
 
         msgSize = htonl(msgSize);
 
@@ -61,7 +62,8 @@ EMessage * EReader::readSingleMsg() {
 
         std::vector<char> buf = std::vector<char>(msgSize);
 
-        m_pClientSocket->receive(buf.data(), buf.size());
+        if (!m_pClientSocket->receive(buf.data(), buf.size()))
+			return 0;
 
         return new EMessage(buf);
     }
