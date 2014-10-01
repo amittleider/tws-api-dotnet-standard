@@ -1,7 +1,7 @@
 #pragma once
 
 #include "EDecoder.h"
-#include "CriticalSection.h"
+#include "EMutex.h"
 
 class EPosixClientSocket;
 class EReaderSignal;
@@ -13,7 +13,7 @@ class TWSAPIDLLEXP EReader
     EReaderSignal *m_pEReaderSignal;
     EDecoder m_decoder;
     std::deque<shared_ptr<EMessage>> m_msgQueue;
-    CriticalSection m_csMsgQueue;
+    EMutex m_csMsgQueue;
     std::vector<char> m_buf;
 
 public:

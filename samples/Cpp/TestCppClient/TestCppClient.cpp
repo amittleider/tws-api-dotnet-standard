@@ -23,19 +23,14 @@ TestCppClient::TestCppClient()
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
-	, m_reader(m_pClient.get(), this)
+	, m_reader(m_pClient.get(), &m_osSignal)
 {
-	m_evMsgs = CreateEvent(0, false, false, 0);
 }
 
 TestCppClient::~TestCppClient()
 {
-	CloseHandle(m_evMsgs);
 }
 
-void TestCppClient::onMsgRecv() {
-	SetEvent(m_evMsgs);
-}
 
 bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 {
@@ -72,7 +67,7 @@ void TestCppClient::setUseV100Plus(const std::string& connectOptions)
 }
 
 void TestCppClient::processMessages() {
-	WaitForSingleObject(m_evMsgs, INFINITE);
+	m_osSignal.waitSignal();
 	m_reader.processMsgs();
 }
 

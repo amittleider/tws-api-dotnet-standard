@@ -1,13 +1,12 @@
 #pragma once
 
-class CriticalSection
+class EMutex
 {
     CRITICAL_SECTION cs;
-    bool locked;
 
 public:
-    CriticalSection();
-    ~CriticalSection();
+    EMutex();
+    ~EMutex();
     bool TryEnter();
     void Enter();
     void Leave();

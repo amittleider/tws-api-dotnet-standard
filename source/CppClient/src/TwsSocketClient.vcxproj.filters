@@ -30,13 +30,16 @@
     <ClCompile Include="..\Shared\EMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shared\CriticalSection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Shared\EReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EReaderWMSignal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\EMutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\defaultwrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,13 +126,13 @@
     <ClInclude Include="..\Shared\EMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shared\CriticalSection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Shared\EReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EReaderWMSignal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\EMutex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

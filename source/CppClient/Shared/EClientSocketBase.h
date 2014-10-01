@@ -194,9 +194,8 @@ private:
 	EWrapper *m_pEWrapper;
 
 
-protected:
-	BytesVec m_inBuffer;
 private:
+	BytesVec m_inBuffer;
 	BytesVec m_outBuffer;
 
 	std::string m_host;

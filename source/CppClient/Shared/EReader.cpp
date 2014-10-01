@@ -2,7 +2,7 @@
 #include "shared_ptr.h"
 #include "contract.h"
 #include "EDecoder.h"
-#include "CriticalSection.h"
+#include "EMutex.h"
 #include "EReader.h"
 #include "..\src\EPosixClientSocket.h"
 #include "EReaderSignal.h"
