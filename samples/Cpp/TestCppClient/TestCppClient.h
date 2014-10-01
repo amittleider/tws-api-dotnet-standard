@@ -1,5 +1,5 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
 #ifndef testcppclient_h__INCLUDED
@@ -28,7 +28,7 @@ enum State {
 class TestCppClient : public EWrapper, public EReaderSignal
 {
 public:
-    virtual void onMsgRecv();
+	virtual void onMsgRecv();
 
 public:
 
@@ -121,8 +121,8 @@ private:
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
-    EReader m_reader;
-    HANDLE m_evMsgs;
+	EReader m_reader;
+	HANDLE m_evMsgs;
 };
 
 #endif
