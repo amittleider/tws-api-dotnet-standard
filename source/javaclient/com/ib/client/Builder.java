@@ -58,7 +58,7 @@ public class Builder {
 	}
 
 	public void send( IApiEnum a) {
-		send( a.getApiString() );
+		send( a == null ? (String)null : a.getApiString() );
 	}
 
 	public void send( String a) {

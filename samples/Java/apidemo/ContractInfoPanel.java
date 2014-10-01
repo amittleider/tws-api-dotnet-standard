@@ -22,14 +22,14 @@ import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.TCombo;
 import apidemo.util.VerticalPanel;
 
+import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.Types.FundamentalType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IFundamentalsHandler;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewContractDetails;
-import com.ib.controller.Types.FundamentalType;
 
 public class ContractInfoPanel extends JPanel {
-	private final NewContract m_contract = new NewContract();
+	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 	
@@ -79,8 +79,8 @@ public class ContractInfoPanel extends JPanel {
 			add( scroll);
 		}
 
-		@Override public void contractDetails(ArrayList<NewContractDetails> list) {
-			// set label
+		@Override public void contractDetails(ArrayList<ContractDetails> list) {
+ 			// set label
 			if (list.size() == 0) {
 				m_label.setText( "No matching contracts were found");
 			}

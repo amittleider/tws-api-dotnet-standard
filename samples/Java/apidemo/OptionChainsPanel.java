@@ -33,17 +33,17 @@ import apidemo.util.UpperField;
 import apidemo.util.Util;
 import apidemo.util.VerticalPanel;
 
+import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.TickType;
+import com.ib.client.Types.Right;
+import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IOptHandler;
 import com.ib.controller.ApiController.TopMktDataAdapter;
-import com.ib.controller.NewContract;
-import com.ib.controller.NewContractDetails;
-import com.ib.controller.NewTickType;
-import com.ib.controller.Types.Right;
-import com.ib.controller.Types.SecType;
 
 public class OptionChainsPanel extends JPanel {
-	private NewContract m_underContract = new NewContract();
+	private Contract m_underContract = new Contract();
 	private NewTabbedPanel m_tabbedPanel = new NewTabbedPanel();
 	private JTextField m_optExch = new UpperField();
 	private UpperField m_symbol = new UpperField();
@@ -85,20 +85,20 @@ public class OptionChainsPanel extends JPanel {
 		m_underContract.currency( m_currency.getText().toUpperCase() ); 
 
 		ApiDemo.INSTANCE.controller().reqContractDetails( m_underContract, new IContractDetailsHandler() {
-			@Override public void contractDetails(ArrayList<NewContractDetails> list) {
+			@Override public void contractDetails(ArrayList<ContractDetails> list) {
 				onRecUnderDetails( list);
 			}
 		});
 	}
 
-	protected void onRecUnderDetails(ArrayList<NewContractDetails> list) {
+	protected void onRecUnderDetails(ArrayList<ContractDetails> list) {
 		if (list.size() != 1) {
 			ApiDemo.INSTANCE.show( "Error: " + list.size() + " underlying contracts returned");
 			return;
 		}
 		
 		// request option chains
-		NewContract optContract = new NewContract();
+		Contract optContract = new Contract();
 		optContract.symbol( m_underContract.symbol() );
 		optContract.currency( m_underContract.currency() );
 		optContract.exchange( m_optExch.getText() );
@@ -118,8 +118,8 @@ public class OptionChainsPanel extends JPanel {
 		Timer m_timer = new Timer( 800, this);
 	    JLabel m_labUnderPrice = new JLabel();
 	    TopMktDataAdapter m_stockListener = new TopMktDataAdapter() {
-            @Override public void tickPrice(NewTickType tickType, double price, int canAutoExecute) {
-                if (tickType == NewTickType.LAST) {
+            @Override public void tickPrice(TickType tickType, double price, int canAutoExecute) {
+                if (tickType == TickType.LAST) {
                     m_labUnderPrice.setText( "" + price);
                 }
             }
@@ -166,9 +166,9 @@ public class OptionChainsPanel extends JPanel {
 			m_callsModel.fireTableDataChanged();
 		}
 		
-		@Override public void contractDetails(ArrayList<NewContractDetails> list) {
-			for (NewContractDetails data : list) {
-				NewContract contract = data.contract();
+		@Override public void contractDetails(ArrayList<ContractDetails> list) {
+			for (ContractDetails data : list) {
+				Contract contract = data.contract();
 				
 				if (contract.right() == Right.Put) {
 					m_putsModel.addRow( contract, m_snapshot.isSelected() );
@@ -214,7 +214,7 @@ public class OptionChainsPanel extends JPanel {
 				fireTableDataChanged();
 			}
 
-			public void addRow(NewContract contract, boolean snapshot) {
+			public void addRow(Contract contract, boolean snapshot) {
 				ChainRow row = new ChainRow( contract);
 				m_list.add( row);
 				
@@ -262,7 +262,7 @@ public class OptionChainsPanel extends JPanel {
 			}
 	
 			private class ChainRow extends TopMktDataAdapter implements IOptHandler {
-				NewContract m_c;
+				Contract m_c;
 				double m_bid;
 				double m_ask;
 				double m_impVol;
@@ -272,11 +272,11 @@ public class OptionChainsPanel extends JPanel {
 				double m_theta;
 				boolean m_done;
 		
-				public ChainRow(NewContract contract) {
+				public ChainRow(Contract contract) {
 					m_c = contract;
 				}
 		
-				@Override public void tickPrice(NewTickType tickType, double price, int canAutoExecute) {
+				@Override public void tickPrice(TickType tickType, double price, int canAutoExecute) {
 					switch( tickType) {
 						case BID:
 							m_bid = price;
@@ -284,11 +284,12 @@ public class OptionChainsPanel extends JPanel {
 						case ASK:
 							m_ask = price;
 							break;
+		                default: break; 
 					}
 				}
 		
-				@Override public void tickOptionComputation( NewTickType tickType, double impVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) {
-					if (tickType == NewTickType.MODEL_OPTION) {
+				@Override public void tickOptionComputation( TickType tickType, double impVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) {
+					if (tickType == TickType.MODEL_OPTION) {
 						m_impVol = impVol;
 						m_delta = delta;
 						m_gamma = gamma;

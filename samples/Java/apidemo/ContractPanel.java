@@ -12,9 +12,9 @@ import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
-import com.ib.controller.NewContract;
-import com.ib.controller.Types.Right;
-import com.ib.controller.Types.SecType;
+import com.ib.client.Contract;
+import com.ib.client.Types.Right;
+import com.ib.client.Types.SecType;
 
 public class ContractPanel extends JPanel {
 	protected UpperField m_symbol = new UpperField();
@@ -29,9 +29,9 @@ public class ContractPanel extends JPanel {
 	protected UpperField m_localSymbol = new UpperField();
 	protected UpperField m_tradingClass = new UpperField();
 
-	private NewContract m_contract;
+	private Contract m_contract;
 
-	ContractPanel(NewContract c) {
+	ContractPanel(Contract c) {
 		m_contract = c;
 
 		if (c.secType() == SecType.None) {

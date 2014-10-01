@@ -13,7 +13,6 @@ import com.ib.contracts.StkContract;
 
 
 public class SampleDNHedge extends SimpleWrapper {
-
    private enum Status { None, SecDef, Order, Done, Error };
 
    private static final int ParentAcked = 1;
@@ -48,13 +47,10 @@ public class SampleDNHedge extends SimpleWrapper {
    }
 
    public void testOrder() throws Exception {
-
       connect(m_clientId);
 
       if (client() != null && client().isConnected()) {
-
          try {
-
             synchronized (m_mutex) {
 
                if (client().serverVersion() < 66) {
@@ -88,10 +84,9 @@ public class SampleDNHedge extends SimpleWrapper {
    }
 
    private void obtainContract() {
-
       m_contract = new OptContract("IBM", "20121019", 200, "CALL");
-      m_contract.m_currency = "USD";
-      m_contract.m_multiplier = "100";
+      m_contract.currency("USD");
+      m_contract.multiplier("100");
 
       Contract underlying = new StkContract("IBM");
       submitSecDef(1, underlying);
@@ -100,14 +95,12 @@ public class SampleDNHedge extends SimpleWrapper {
    }
 
    private void submitSecDef(int reqId, Contract contract) {
-
       consoleMsg("REQ: secDef " + reqId);
 
       client().reqContractDetails(reqId, contract);
    }
 
    private void submitOrder() {
-
       consoleMsg("REQ: order " + m_orderId);
 
       m_status = Status.Order;
@@ -118,7 +111,6 @@ public class SampleDNHedge extends SimpleWrapper {
    }
 
    private void checkReceivedAllAcks() {
-
       if ((m_receivedAcks & AllAcked) == AllAcked) {
          m_status = Status.Done;
          m_mutex.notify();
@@ -126,21 +118,16 @@ public class SampleDNHedge extends SimpleWrapper {
    }
 
    public void contractDetails(int reqId, ContractDetails contractDetails) {
-
       consoleMsg("contractDetails: " + reqId);
 
       try {
-
          synchronized (m_mutex) {
-
             if (m_status == Status.SecDef) {
-
-
                /*
                 * Store underConId if needed
                 */
                if (m_underConId == 0) {
-                  m_underConId  = contractDetails.m_summary.m_conId; 
+                  m_underConId  = contractDetails.contract().conid(); 
                }
 
                consoleMsg("using " + m_underConId + " for hedging");
@@ -153,30 +140,23 @@ public class SampleDNHedge extends SimpleWrapper {
          }
       }
       catch (Exception e) {
-
          // will update status and notify main thread
          error (e.toString());
       }
    }
 
    public void contractDetailsEnd(int reqId) {
-
       consoleMsg("contractDetailsEnd: " + reqId);
 
       try {
-
          synchronized (m_mutex) {
-
             if (m_status == Status.SecDef) {
-
                error ("Could not find hedge contract id");
                return;
-
             }
          }
       }
       catch (Exception e) {
-
          // will update status and notify main thread
          error (e.toString());
       }
@@ -185,13 +165,10 @@ public class SampleDNHedge extends SimpleWrapper {
    public void orderStatus(int orderId, String status, int filled,
          int remaining, double avgFillPrice, int permId, int parentId,
          double lastFillPrice, int clientId, String whyHeld) {
-
       consoleMsg("orderStatus:" + orderId + " status=" + status);       
 
       synchronized (m_mutex) {
-
          if (status.equals("Cancelled")) {
-
             m_status = Status.Error;
             m_mutex.notify();
          }
@@ -207,23 +184,19 @@ public class SampleDNHedge extends SimpleWrapper {
 
             checkReceivedAllAcks();
          }
- 
       }
    }
 
    public void error(String str) {
-
       consoleMsg("Error=" + str);
 
       synchronized (m_mutex) {
-
          m_status = Status.Error;
          m_mutex.notify();
       }
    }
 
    public void error(int id, int errorCode, String errorMsg) {
-
       consoleMsg("Error id=" + id + " code=" + errorCode + " msg=" + errorMsg);
 
       if (errorCode >= 2100 && errorCode < 2200) {
@@ -231,7 +204,6 @@ public class SampleDNHedge extends SimpleWrapper {
       }
 
       synchronized (m_mutex) {
-
          m_status = Status.Error;
          m_mutex.notify();
       }
@@ -240,11 +212,8 @@ public class SampleDNHedge extends SimpleWrapper {
    /* ***************************************************************
     * Main Method
     *****************************************************************/
-
    public static void main(String[] args) {
-
       try {
-
          if (args.length < 2) {
             System.err.println("Account and settlingFirm parameters " +
                "are required");
@@ -263,4 +232,3 @@ public class SampleDNHedge extends SimpleWrapper {
       }
    }
 }
-

@@ -251,27 +251,27 @@ class PortfolioTable extends AbstractTableModel {
         Object getValue(int c) {
             switch(c) {
                 case 0:
-                    return m_contract.m_conId;
+                    return m_contract.conid();
                 case 1:
-                    return m_contract.m_symbol;
+                    return m_contract.symbol();
                 case 2:
-                    return m_contract.m_secType;
+                    return m_contract.secType();
                 case 3:
-                    return m_contract.m_expiry;
+                    return m_contract.expiry();
                 case 4:
-                    return m_contract.m_expiry == null ? null : "" + m_contract.m_strike;
+                    return m_contract.expiry() == null ? null : "" + m_contract.strike();
                 case 5:
-                    return (m_contract.m_right != null && m_contract.m_right.equals("???")) ? null : m_contract.m_right;
+                    return (m_contract.getRight() != null && m_contract.getRight().equals("???")) ? null : m_contract.getRight();
                 case 6:
-                	return m_contract.m_multiplier;
+                	return m_contract.multiplier();
                 case 7:
-                	return (m_contract.m_primaryExch != null ? m_contract.m_primaryExch : "");
+                	return (m_contract.primaryExch() != null ? m_contract.primaryExch() : "");
                 case 8:
-                    return m_contract.m_currency;
+                    return m_contract.currency();
                 case 9:
-                    return (m_contract.m_localSymbol != null ? m_contract.m_localSymbol : "");
+                    return (m_contract.localSymbol() != null ? m_contract.localSymbol() : "");
                 case 10:
-                    return (m_contract.m_tradingClass != null ? m_contract.m_tradingClass : "");
+                    return (m_contract.tradingClass() != null ? m_contract.tradingClass() : "");
                 case 11:
                     return "" + m_position;
                 case 12:
