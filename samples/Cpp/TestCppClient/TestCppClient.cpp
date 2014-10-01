@@ -67,6 +67,47 @@ void TestCppClient::setUseV100Plus(const std::string& connectOptions)
 }
 
 void TestCppClient::processMessages() {
+	fd_set readSet, writeSet, errorSet;
+
+	struct timeval tval;
+	tval.tv_usec = 0;
+	tval.tv_sec = 0;
+
+	time_t now = time(NULL);
+
+	switch (m_state) {
+		case ST_PLACEORDER:
+			placeOrder();
+			break;
+		case ST_PLACEORDER_ACK:
+			break;
+		case ST_CANCELORDER:
+			cancelOrder();
+			break;
+		case ST_CANCELORDER_ACK:
+			break;
+		case ST_PING:
+			reqCurrentTime();
+			break;
+		case ST_PING_ACK:
+			if( m_sleepDeadline < now) {
+				disconnect();
+				return;
+			}
+			break;
+		case ST_IDLE:
+			if( m_sleepDeadline < now) {
+				m_state = ST_PING;
+				return;
+			}
+			break;
+	}
+
+	if( m_sleepDeadline > 0) {
+		// initialize timeout with m_sleepDeadline - now
+		tval.tv_sec = m_sleepDeadline - now;
+	}
+
 	m_osSignal.waitSignal();
 	m_reader.processMsgs();
 }
