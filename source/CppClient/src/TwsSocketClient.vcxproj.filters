@@ -36,6 +36,9 @@
     <ClCompile Include="..\Shared\EReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EReaderWMSignal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def">
@@ -124,6 +127,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\EReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EReaderWMSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
