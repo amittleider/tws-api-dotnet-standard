@@ -1,5 +1,5 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
 #ifndef eclientsocketbaseimpl_h__INCLUDED
@@ -172,137 +172,14 @@ const int START_API                     = 71;
 const int VERIFY_AND_AUTH_REQUEST       = 72;
 const int VERIFY_AND_AUTH_MESSAGE       = 73;
 
-////const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
-////const int MIN_SERVER_VER_SCALE_ORDERS         = 35;
-////const int MIN_SERVER_VER_SNAPSHOT_MKT_DATA    = 35;
-////const int MIN_SERVER_VER_SSHORT_COMBO_LEGS    = 35;
-////const int MIN_SERVER_VER_WHAT_IF_ORDERS       = 36;
-////const int MIN_SERVER_VER_CONTRACT_CONID       = 37;
-//const int MIN_SERVER_VER_PTA_ORDERS             = 39;
-//const int MIN_SERVER_VER_FUNDAMENTAL_DATA       = 40;
-//const int MIN_SERVER_VER_UNDER_COMP             = 40;
-//const int MIN_SERVER_VER_CONTRACT_DATA_CHAIN    = 40;
-//const int MIN_SERVER_VER_SCALE_ORDERS2          = 40;
-//const int MIN_SERVER_VER_ALGO_ORDERS            = 41;
-//const int MIN_SERVER_VER_EXECUTION_DATA_CHAIN   = 42;
-//const int MIN_SERVER_VER_NOT_HELD               = 44;
-//const int MIN_SERVER_VER_SEC_ID_TYPE            = 45;
-//const int MIN_SERVER_VER_PLACE_ORDER_CONID      = 46;
-//const int MIN_SERVER_VER_REQ_MKT_DATA_CONID     = 47;
-//const int MIN_SERVER_VER_REQ_CALC_IMPLIED_VOLAT = 49;
-//const int MIN_SERVER_VER_REQ_CALC_OPTION_PRICE  = 50;
-//const int MIN_SERVER_VER_CANCEL_CALC_IMPLIED_VOLAT = 50;
-//const int MIN_SERVER_VER_CANCEL_CALC_OPTION_PRICE  = 50;
-//const int MIN_SERVER_VER_SSHORTX_OLD            = 51;
-//const int MIN_SERVER_VER_SSHORTX                = 52;
-//const int MIN_SERVER_VER_REQ_GLOBAL_CANCEL      = 53;
-//const int MIN_SERVER_VER_HEDGE_ORDERS			= 54;
-//const int MIN_SERVER_VER_REQ_MARKET_DATA_TYPE	= 55;
-//const int MIN_SERVER_VER_OPT_OUT_SMART_ROUTING  = 56;
-//const int MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS = 57;
-//const int MIN_SERVER_VER_DELTA_NEUTRAL_CONID    = 58;
-//const int MIN_SERVER_VER_SCALE_ORDERS3          = 60;
-//const int MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE = 61;
-//const int MIN_SERVER_VER_TRAILING_PERCENT       = 62;
-//const int MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE = 66;
-//const int MIN_SERVER_VER_POSITIONS              = 67;
-//const int MIN_SERVER_VER_ACCOUNT_SUMMARY        = 67;
-//const int MIN_SERVER_VER_TRADING_CLASS          = 68;
-//const int MIN_SERVER_VER_SCALE_TABLE            = 69;
-//const int MIN_SERVER_VER_LINKING                = 70;
-//const int MIN_SERVER_VER_ALGO_ID                = 71;
-//const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
-//const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
-//const int MIN_SERVER_VER_LINKING_AUTH           = 74;
-//const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
-
-//// incoming msg id's
-//const int TICK_PRICE                = 1;
-//const int TICK_SIZE                 = 2;
-//const int ORDER_STATUS              = 3;
-//const int ERR_MSG                   = 4;
-//const int OPEN_ORDER                = 5;
-//const int ACCT_VALUE                = 6;
-//const int PORTFOLIO_VALUE           = 7;
-//const int ACCT_UPDATE_TIME          = 8;
-//const int NEXT_VALID_ID             = 9;
-//const int CONTRACT_DATA             = 10;
-//const int EXECUTION_DATA            = 11;
-//const int MARKET_DEPTH              = 12;
-//const int MARKET_DEPTH_L2           = 13;
-//const int NEWS_BULLETINS            = 14;
-//const int MANAGED_ACCTS             = 15;
-//const int RECEIVE_FA                = 16;
-//const int HISTORICAL_DATA           = 17;
-//const int BOND_CONTRACT_DATA        = 18;
-//const int SCANNER_PARAMETERS        = 19;
-//const int SCANNER_DATA              = 20;
-//const int TICK_OPTION_COMPUTATION   = 21;
-//const int TICK_GENERIC              = 45;
-//const int TICK_STRING               = 46;
-//const int TICK_EFP                  = 47;
-//const int CURRENT_TIME              = 49;
-//const int REAL_TIME_BARS            = 50;
-//const int FUNDAMENTAL_DATA          = 51;
-//const int CONTRACT_DATA_END         = 52;
-//const int OPEN_ORDER_END            = 53;
-//const int ACCT_DOWNLOAD_END         = 54;
-//const int EXECUTION_DATA_END        = 55;
-//const int DELTA_NEUTRAL_VALIDATION  = 56;
-//const int TICK_SNAPSHOT_END         = 57;
-//const int MARKET_DATA_TYPE          = 58;
-//const int COMMISSION_REPORT         = 59;
-//const int POSITION_DATA             = 61;
-//const int POSITION_END              = 62;
-//const int ACCOUNT_SUMMARY           = 63;
-//const int ACCOUNT_SUMMARY_END       = 64;
-//const int VERIFY_MESSAGE_API        = 65;
-//const int VERIFY_COMPLETED          = 66;
-//const int DISPLAY_GROUP_LIST        = 67;
-//const int DISPLAY_GROUP_UPDATED     = 68;
-//const int VERIFY_AND_AUTH_MESSAGE_API = 69;
-//const int VERIFY_AND_AUTH_COMPLETED   = 70;
-
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
 
 
-///////////////////////////////////////////////////////////
-// helper macroses
-//#define DECODE_FIELD(x) if (!DecodeField(x, ptr, endPtr)) return 0;
-//#define DECODE_FIELD_MAX(x) if (!DecodeFieldMax(x, ptr, endPtr)) return 0;
-
 #define ENCODE_FIELD(x) EncodeField(msg, x);
 #define ENCODE_FIELD_MAX(x) EncodeFieldMax(msg, x);
-
-///////////////////////////////////////////////////////////
-//// helper structures
-//namespace {
-//
-//struct BarData {
-//	std::string date;
-//	double open;
-//	double high;
-//	double low;
-//	double close;
-//	int volume;
-//	double average;
-//	std::string hasGaps;
-//	int barCount;
-//};
-//
-//struct ScanData {
-//	ContractDetails contract;
-//	int rank;
-//	std::string distance;
-//	std::string benchmark;
-//	std::string projection;
-//	std::string legsStr;
-//};
-//
-//} // end of anonymous namespace
 
 ///////////////////////////////////////////////////////////
 // encoders
@@ -347,104 +224,6 @@ void EClientSocketBase::EncodeFieldMax(std::ostream& os, double doubleValue)
 	}
 	EncodeField(os, doubleValue);
 }
-
-///////////////////////////////////////////////////////////
-// decoders
-//bool EClientSocketBase::CheckOffset(const char* ptr, const char* endPtr)
-//{
-//	assert (ptr && ptr <= endPtr);
-//	return (ptr && ptr < endPtr);
-//}
-//
-//const char* EClientSocketBase::FindFieldEnd(const char* ptr, const char* endPtr)
-//{
-//	return (const char*)memchr(ptr, 0, endPtr - ptr);
-//}
-
-//bool EClientSocketBase::DecodeField(bool& boolValue, const char*& ptr, const char* endPtr)
-//{
-//	int intValue;
-//	if( !DecodeField(intValue, ptr, endPtr))
-//		return false;
-//	boolValue = (intValue > 0);
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeField(int& intValue, const char*& ptr, const char* endPtr)
-//{
-//	if( !CheckOffset(ptr, endPtr))
-//		return false;
-//	const char* fieldBeg = ptr;
-//	const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
-//	if( !fieldEnd)
-//		return false;
-//	intValue = atoi(fieldBeg);
-//	ptr = ++fieldEnd;
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeField(long& longValue, const char*& ptr, const char* endPtr)
-//{
-//	int intValue;
-//	if( !DecodeField(intValue, ptr, endPtr))
-//		return false;
-//	longValue = intValue;
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeField(double& doubleValue, const char*& ptr, const char* endPtr)
-//{
-//	if( !CheckOffset(ptr, endPtr))
-//		return false;
-//	const char* fieldBeg = ptr;
-//	const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
-//	if( !fieldEnd)
-//		return false;
-//	doubleValue = atof(fieldBeg);
-//	ptr = ++fieldEnd;
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeField(std::string& stringValue,
-//								const char*& ptr, const char* endPtr)
-//{
-//	if( !CheckOffset(ptr, endPtr))
-//		return false;
-//	const char* fieldBeg = ptr;
-//	const char* fieldEnd = FindFieldEnd(ptr, endPtr);
-//	if( !fieldEnd)
-//		return false;
-//	stringValue = fieldBeg; // better way?
-//	ptr = ++fieldEnd;
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeFieldMax(int& intValue, const char*& ptr, const char* endPtr)
-//{
-//	std::string stringValue;
-//	if( !DecodeField(stringValue, ptr, endPtr))
-//		return false;
-//	intValue = stringValue.empty() ? UNSET_INTEGER : atoi(stringValue.c_str());
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeFieldMax(long& longValue, const char*& ptr, const char* endPtr)
-//{
-//	int intValue;
-//	if( !DecodeFieldMax(intValue, ptr, endPtr))
-//		return false;
-//	longValue = intValue;
-//	return true;
-//}
-//
-//bool EClientSocketBase::DecodeFieldMax(double& doubleValue, const char*& ptr, const char* endPtr)
-//{
-//	std::string stringValue;
-//	if( !DecodeField(stringValue, ptr, endPtr))
-//		return false;
-//	doubleValue = stringValue.empty() ? UNSET_DOUBLE : atof(stringValue.c_str());
-//	return true;
-//}
 
 ///////////////////////////////////////////////////////////
 // static helpers
@@ -552,11 +331,11 @@ void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
 }
 
 bool EClientSocketBase::usingV100Plus() {
-    return m_useV100Plus;
+	return m_useV100Plus;
 }
 
 void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
-							   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
+								   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -801,9 +580,9 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 }
 
 void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
-									   const std::string& endDateTime, const std::string& durationStr,
-									   const std::string&  barSizeSetting, const std::string& whatToShow,
-									   int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
+										  const std::string& endDateTime, const std::string& durationStr,
+										  const std::string&  barSizeSetting, const std::string& whatToShow,
+										  int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -926,8 +705,8 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 }
 
 void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
-									int barSize, const std::string& whatToShow, bool useRTH,
-									const TagValueListSPtr& realTimeBarsOptions)
+										int barSize, const std::string& whatToShow, bool useRTH,
+										const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1056,7 +835,7 @@ void EClientSocketBase::reqScannerParameters()
 
 
 void EClientSocketBase::reqScannerSubscription(int tickerId,
-	const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
+											   const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1197,7 +976,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 
 void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 {
-		// not connected?
+	// not connected?
 	if( !isConnected()) {
 		m_pEWrapper->error( reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
@@ -1396,10 +1175,10 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
 		if( !contract.secIdType.empty() || !contract.secId.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-     			"  It does not support secIdType and secId parameters.");
-     		return;
-     	}
-    }
+				"  It does not support secIdType and secId parameters.");
+			return;
+		}
+	}
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
 		if( !contract.tradingClass.empty()) {
 			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
@@ -1407,13 +1186,13 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 			return;
 		}
 	}
-    if (m_serverVersion < MIN_SERVER_VER_LINKING) {
-        if (!contract.primaryExchange.empty()) {
-            m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                "  It does not support primaryExchange parameter in reqContractDetails.");
-            return;
-    }
-    }
+	if (m_serverVersion < MIN_SERVER_VER_LINKING) {
+		if (!contract.primaryExchange.empty()) {
+			m_pEWrapper->error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support primaryExchange parameter in reqContractDetails.");
+			return;
+		}
+	}
 
 	std::ostringstream msg;
 	prepareBuffer( msg);
@@ -1437,22 +1216,22 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
 
-    if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH)
-    {
-        ENCODE_FIELD(contract.exchange);
-        ENCODE_FIELD(contract.primaryExchange);
-    }
-    else if (m_serverVersion >= MIN_SERVER_VER_LINKING)
-    {
-        if (!contract.primaryExchange.empty() && (contract.exchange == "BEST" || contract.exchange == "SMART"))
-        {
-            ENCODE_FIELD( contract.exchange + ":" + contract.primaryExchange);
-        }
-        else
-        {
-            ENCODE_FIELD(contract.exchange);
-        }
-    }
+	if (m_serverVersion >= MIN_SERVER_VER_PRIMARYEXCH)
+	{
+		ENCODE_FIELD(contract.exchange);
+		ENCODE_FIELD(contract.primaryExchange);
+	}
+	else if (m_serverVersion >= MIN_SERVER_VER_LINKING)
+	{
+		if (!contract.primaryExchange.empty() && (contract.exchange == "BEST" || contract.exchange == "SMART"))
+		{
+			ENCODE_FIELD( contract.exchange + ":" + contract.primaryExchange);
+		}
+		else
+		{
+			ENCODE_FIELD(contract.exchange);
+		}
+	}
 
 	ENCODE_FIELD( contract.currency);
 	ENCODE_FIELD( contract.localSymbol);
@@ -1471,7 +1250,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 
 void EClientSocketBase::reqCurrentTime()
 {
-    // not connected?
+	// not connected?
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
@@ -1579,7 +1358,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_SEC_ID_TYPE) {
 		if( !contract.secIdType.empty() || !contract.secId.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-     			"  It does not support secIdType and secId parameters.");
+				"  It does not support secIdType and secId parameters.");
 			return;
 		}
 	}
@@ -1587,7 +1366,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_PLACE_ORDER_CONID) {
 		if( contract.conId > 0) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-     			"  It does not support conId parameter.");
+				"  It does not support conId parameter.");
 			return;
 		}
 	}
@@ -1617,7 +1396,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if( m_serverVersion < MIN_SERVER_VER_HEDGE_ORDERS) {
 		if( !order.hedgeType.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-     			"  It does not support hedge orders.");
+				"  It does not support hedge orders.");
 			return;
 		}
 	}
@@ -1632,25 +1411,25 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_CONID) {
 		if (order.deltaNeutralConId > 0 
-				|| !order.deltaNeutralSettlingFirm.empty()
-				|| !order.deltaNeutralClearingAccount.empty()
-				|| !order.deltaNeutralClearingIntent.empty()
-				) {
-			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-				"  It does not support deltaNeutral parameters: ConId, SettlingFirm, ClearingAccount, ClearingIntent.");
-			return;
+			|| !order.deltaNeutralSettlingFirm.empty()
+			|| !order.deltaNeutralClearingAccount.empty()
+			|| !order.deltaNeutralClearingIntent.empty()
+			) {
+				m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+					"  It does not support deltaNeutral parameters: ConId, SettlingFirm, ClearingAccount, ClearingIntent.");
+				return;
 		}
 	}
 
 	if (m_serverVersion < MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE) {
 		if (!order.deltaNeutralOpenClose.empty()
-				|| order.deltaNeutralShortSale
-				|| order.deltaNeutralShortSaleSlot > 0 
-				|| !order.deltaNeutralDesignatedLocation.empty()
-				) {
-			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() + 
-				"  It does not support deltaNeutral parameters: OpenClose, ShortSale, ShortSaleSlot, DesignatedLocation.");
-			return;
+			|| order.deltaNeutralShortSale
+			|| order.deltaNeutralShortSaleSlot > 0 
+			|| !order.deltaNeutralDesignatedLocation.empty()
+			) {
+				m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() + 
+					"  It does not support deltaNeutral parameters: OpenClose, ShortSale, ShortSaleSlot, DesignatedLocation.");
+				return;
 		}
 	}
 
@@ -1663,10 +1442,10 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 				|| order.scaleInitPosition != UNSET_INTEGER 
 				|| order.scaleInitFillQty != UNSET_INTEGER 
 				|| order.scaleRandomPercent) {
-				m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+					m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 						"  It does not support Scale order parameters: PriceAdjustValue, PriceAdjustInterval, " +
 						"ProfitOffset, AutoReset, InitPosition, InitFillQty and RandomPercent");
-				return;
+					return;
 			}
 		}
 	}
@@ -1688,7 +1467,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_TRAILING_PERCENT) {
 		if (order.trailingPercent != UNSET_DOUBLE) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-					"  It does not support trailing percent parameter");
+				"  It does not support trailing percent parameter");
 			return;
 		}
 	}
@@ -1704,7 +1483,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_SCALE_TABLE) {
 		if( !order.scaleTable.empty() || !order.activeStartTime.empty() || !order.activeStopTime.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-					"  It does not support scaleTable, activeStartTime and activeStopTime parameters");
+				"  It does not support scaleTable, activeStartTime and activeStopTime parameters");
 			return;
 		}
 	}
@@ -1712,7 +1491,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_ALGO_ID) {
 		if( !order.algoId.empty()) {
 			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-					"  It does not support algoId parameter");
+				"  It does not support algoId parameter");
 			return;
 		}
 	}
@@ -1720,7 +1499,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion < MIN_SERVER_VER_ORDER_SOLICITED) {
 		if (order.solicited) {
 			m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-					"  It does not support order solicited parameter.");
+				"  It does not support order solicited parameter.");
 			return;
 		}
 	}
@@ -1795,7 +1574,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	//	ENCODE_FIELD(/* order.ignoreRth */ false);
 	//}
 	//else {
-		ENCODE_FIELD( order.outsideRth); // srv v5 and above
+	ENCODE_FIELD( order.outsideRth); // srv v5 and above
 	//}
 
 	ENCODE_FIELD( order.hidden); // srv v7 and above
@@ -1923,22 +1702,22 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	//	send( order.deltaNeutralOrderType.CompareNoCase("MKT") == 0);
 	//}
 	//else {
-		ENCODE_FIELD( order.deltaNeutralOrderType); // srv v28 and above
-		ENCODE_FIELD_MAX( order.deltaNeutralAuxPrice); // srv v28 and above
+	ENCODE_FIELD( order.deltaNeutralOrderType); // srv v28 and above
+	ENCODE_FIELD_MAX( order.deltaNeutralAuxPrice); // srv v28 and above
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !order.deltaNeutralOrderType.empty()){
-			ENCODE_FIELD( order.deltaNeutralConId);
-			ENCODE_FIELD( order.deltaNeutralSettlingFirm);
-			ENCODE_FIELD( order.deltaNeutralClearingAccount);
-			ENCODE_FIELD( order.deltaNeutralClearingIntent);
-		}
+	if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_CONID && !order.deltaNeutralOrderType.empty()){
+		ENCODE_FIELD( order.deltaNeutralConId);
+		ENCODE_FIELD( order.deltaNeutralSettlingFirm);
+		ENCODE_FIELD( order.deltaNeutralClearingAccount);
+		ENCODE_FIELD( order.deltaNeutralClearingIntent);
+	}
 
-		if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !order.deltaNeutralOrderType.empty()){
-			ENCODE_FIELD( order.deltaNeutralOpenClose);
-			ENCODE_FIELD( order.deltaNeutralShortSale);
-			ENCODE_FIELD( order.deltaNeutralShortSaleSlot);
-			ENCODE_FIELD( order.deltaNeutralDesignatedLocation);
-		}
+	if (m_serverVersion >= MIN_SERVER_VER_DELTA_NEUTRAL_OPEN_CLOSE && !order.deltaNeutralOrderType.empty()){
+		ENCODE_FIELD( order.deltaNeutralOpenClose);
+		ENCODE_FIELD( order.deltaNeutralShortSale);
+		ENCODE_FIELD( order.deltaNeutralShortSaleSlot);
+		ENCODE_FIELD( order.deltaNeutralDesignatedLocation);
+	}
 
 	//}
 	ENCODE_FIELD( order.continuousUpdate);
@@ -1972,13 +1751,13 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 
 	if( m_serverVersion >= MIN_SERVER_VER_SCALE_ORDERS3 
 		&& order.scalePriceIncrement > 0.0 && order.scalePriceIncrement != UNSET_DOUBLE) {
-		ENCODE_FIELD_MAX( order.scalePriceAdjustValue);
-		ENCODE_FIELD_MAX( order.scalePriceAdjustInterval);
-		ENCODE_FIELD_MAX( order.scaleProfitOffset);
-		ENCODE_FIELD( order.scaleAutoReset);
-		ENCODE_FIELD_MAX( order.scaleInitPosition);
-		ENCODE_FIELD_MAX( order.scaleInitFillQty);
-		ENCODE_FIELD( order.scaleRandomPercent);
+			ENCODE_FIELD_MAX( order.scalePriceAdjustValue);
+			ENCODE_FIELD_MAX( order.scalePriceAdjustInterval);
+			ENCODE_FIELD_MAX( order.scaleProfitOffset);
+			ENCODE_FIELD( order.scaleAutoReset);
+			ENCODE_FIELD_MAX( order.scaleInitPosition);
+			ENCODE_FIELD_MAX( order.scaleInitFillQty);
+			ENCODE_FIELD( order.scaleRandomPercent);
 	}
 
 	if( m_serverVersion >= MIN_SERVER_VER_SCALE_TABLE) {
@@ -2370,8 +2149,8 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 
 
 void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& contract,
-                                     int exerciseAction, int exerciseQuantity,
-                                     const std::string& account, int override)
+										int exerciseAction, int exerciseQuantity,
+										const std::string& account, int override)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2930,7 +2709,7 @@ bool EClientSocketBase::checkMessages()
 		return false;
 
 	if( bufferedRead() <= 0) {;
-		return false;
+	return false;
 	}
 
 	const char*	beginPtr = &m_inBuffer[0];
@@ -3035,9 +2814,9 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 
 int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
-    EDecoder decoder(this, m_pEWrapper);
+	EDecoder decoder(this, m_pEWrapper);
 
-    return decoder.parseAndProcessMsg(beginPtr, endPtr);
+	return decoder.parseAndProcessMsg(beginPtr, endPtr);
 }
 
 int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)

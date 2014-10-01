@@ -1,5 +1,5 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
 #ifndef eclientsocketbase_h__INCLUDED
@@ -30,7 +30,7 @@ public:
 	void setOptionalCapabilities(const std::string& optCapts);
 
 	void setUseV100Plus(const std::string& connectOptions);
-    bool usingV100Plus();
+	bool usingV100Plus();
 
 protected:
 
@@ -58,7 +58,7 @@ public:
 	// access to protected variables
 	EWrapper * getWrapper() const;
 protected:
-    void setClientId( int clientId);
+	void setClientId( int clientId);
 	void setExtraAuth( bool extraAuth);
 	void setHost( const std::string& host);
 	void setPort( unsigned port);
@@ -152,11 +152,11 @@ private:
 	// read and buffer what's available
 
 protected:
-    int bufferedRead();
+	int bufferedRead();
 
 	// try to process connection request ack
 private:
-    int processConnectAckImpl(const char*& ptr, const char* endPtr);
+	int processConnectAckImpl(const char*& ptr, const char* endPtr);
 	int processConnectAck(const char*& ptr, const char* endPtr);
 
 	// try to process single msg
@@ -165,20 +165,6 @@ private:
 
 	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
 	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
-
-	//static bool CheckOffset(const char* ptr, const char* endPtr);
-	//static const char* FindFieldEnd(const char* ptr, const char* endPtr);
-
-	//// decoders
-	//static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
-	//static bool DecodeField(int&, const char*& ptr, const char* endPtr);
-	//static bool DecodeField(long&, const char*& ptr, const char* endPtr);
-	//static bool DecodeField(double&, const char*& ptr, const char* endPtr);
-	//static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
-
-	//static bool DecodeFieldMax(int&, const char*& ptr, const char* endPtr);
-	//static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
-	//static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
 
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);
@@ -209,9 +195,9 @@ private:
 
 
 protected:
-    BytesVec m_inBuffer;
+	BytesVec m_inBuffer;
 private:
-    BytesVec m_outBuffer;
+	BytesVec m_outBuffer;
 
 	std::string m_host;
 	int m_port;
@@ -228,7 +214,7 @@ private:
 	std::string m_connectOptions;
 
 protected:
-    bool m_useV100Plus;
+	bool m_useV100Plus;
 
 };
 
