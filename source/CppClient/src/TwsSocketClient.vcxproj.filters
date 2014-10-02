@@ -42,6 +42,9 @@
     <ClCompile Include="..\shared\defaultwrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EReaderOSSignal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def">
@@ -133,6 +136,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\EMutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EReaderOSSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -70,13 +70,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EReaderOSSignal.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="TestCppClient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EReaderOSSignal.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestCppClient.h" />
   </ItemGroup>

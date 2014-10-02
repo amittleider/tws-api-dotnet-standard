@@ -163,6 +163,7 @@
     <ClCompile Include="..\Shared\EReader.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
+    <ClCompile Include="EReaderOSSignal.cpp" />
     <ClCompile Include="EReaderWMSignal.cpp" />
     <ClCompile Include="StdAfx.cpp" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="..\Shared\EReaderSignal.h" />
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
+    <ClInclude Include="EReaderOSSignal.h" />
     <ClInclude Include="EReaderWMSignal.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
