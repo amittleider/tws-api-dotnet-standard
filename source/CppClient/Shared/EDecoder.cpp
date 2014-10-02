@@ -13,9 +13,9 @@
 #include "EDecoder.h"
 
 
-EDecoder::EDecoder(EClient *parent, EWrapper *callback) {
+EDecoder::EDecoder(int serverVersion, EWrapper *callback) {
     m_pEWrapper = callback;
-    m_pEClient = parent;
+	m_serverVersion = serverVersion;
 }
 
 const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
@@ -334,7 +334,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( order.settlingFirm); // ver 9 field
     DECODE_FIELD( order.shortSaleSlot); // ver 9 field
     DECODE_FIELD( order.designatedLocation); // ver 9 field
-    if( m_pEClient->serverVersion() == MIN_SERVER_VER_SSHORTX_OLD){
+    if( m_serverVersion == MIN_SERVER_VER_SSHORTX_OLD){
         int exemptCode;
         DECODE_FIELD( exemptCode);
     }
@@ -613,7 +613,7 @@ const char* EDecoder::processPortfolioValueMsg(const char* ptr, const char* endP
     std::string accountName;
     DECODE_FIELD( accountName); // ver 4 field
 
-    if( version == 6 && m_pEClient->serverVersion() == 39) {
+    if( version == 6 && m_serverVersion == 39) {
         DECODE_FIELD( contract.primaryExchange);
     }
 
@@ -1311,10 +1311,6 @@ const char* EDecoder::processVerifyCompletedMsg(const char* ptr, const char* end
 
     bool bRes = isSuccessful == "true";
 
-    if (bRes) {
-        m_pEClient->startApi();
-    }
-
     m_pEWrapper->verifyCompleted( bRes, errorText);
 
     return ptr;
@@ -1372,10 +1368,6 @@ const char* EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const ch
     DECODE_FIELD( errorText);
 
     bool bRes = isSuccessful == "true";
-
-    if (bRes) {
-        m_pEClient->startApi();
-    }
 
     m_pEWrapper->verifyAndAuthCompleted( bRes, errorText);
 
@@ -1579,7 +1571,6 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
         default:
             {
                 m_pEWrapper->error( msgId, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
-                m_pEClient->eDisconnect();
                 m_pEWrapper->connectionClosed();
                 break;
             }

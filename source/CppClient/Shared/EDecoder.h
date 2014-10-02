@@ -138,7 +138,7 @@ class EClient;
 class EDecoder
 {
     EWrapper *m_pEWrapper;
-    EClient *m_pEClient;
+    int m_serverVersion;
 
     const char* processTickPriceMsg(const char* ptr, const char* endPtr);
     const char* processTickSizeMsg(const char* ptr, const char* endPtr);
@@ -200,7 +200,7 @@ public:
 	static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
 	static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
 
-    EDecoder(EClient *parent, EWrapper *callback);
+    EDecoder(int serverVersion, EWrapper *callback);
 
     int parseAndProcessMsg(const char*& beginPtr, const char* endPtr);
 };

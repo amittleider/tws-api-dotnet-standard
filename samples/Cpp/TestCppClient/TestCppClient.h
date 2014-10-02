@@ -118,7 +118,7 @@ private:
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
-	EReader m_reader;
+	std::auto_ptr<EReader> m_pReader;
 	EReaderOSSignal m_osSignal;
 };
 

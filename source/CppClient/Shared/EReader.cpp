@@ -12,12 +12,13 @@
 DefaultWrapper defaultWrapper;
 
 EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
-	: m_decoder(clientSocket, clientSocket->getWrapper())
-	, tmpDecoder(clientSocket, &defaultWrapper) {
+	: m_decoder(clientSocket->serverVersion(), clientSocket->getWrapper())
+	, tmpDecoder(clientSocket->serverVersion(), &defaultWrapper) {
 		m_pClientSocket = clientSocket;
 		m_pEReaderSignal = signal;
 
 		m_buf.reserve(8192);
+		start();
 }
 
 EReader::~EReader(void) {

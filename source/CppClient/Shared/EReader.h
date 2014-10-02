@@ -34,6 +34,8 @@ protected:
 
 public:
     void processMsgs(void);
-    void start();
+
+private:
+	void start();
 };
 

@@ -2814,7 +2814,7 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 
 int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
-	EDecoder decoder(this, m_pEWrapper);
+	EDecoder decoder(serverVersion(), m_pEWrapper);
 
 	return decoder.parseAndProcessMsg(beginPtr, endPtr);
 }
