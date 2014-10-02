@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "DefaultWrapper.h"
 
 void DefaultWrapper::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) { }

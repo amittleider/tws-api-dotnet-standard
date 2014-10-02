@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "EDecoder.h"
 #include "EMutex.h"

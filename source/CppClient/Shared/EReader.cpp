@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "shared_ptr.h"
 #include "contract.h"
 #include "EDecoder.h"

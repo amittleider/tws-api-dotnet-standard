@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include <Winsock2.h>
 #include <assert.h>
 #include <string>
