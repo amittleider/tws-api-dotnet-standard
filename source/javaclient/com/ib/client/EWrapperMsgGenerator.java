@@ -198,13 +198,13 @@ public class EWrapperMsgGenerator {
     		msg += " algoStrategy=" + order.getAlgoStrategy();
     		msg += " algoParams={";
     		if (order.algoParams() != null) {
-    			ArrayList algoParams = order.algoParams();
+    			ArrayList<TagValue> algoParams = order.algoParams();
     			for (int i = 0; i < algoParams.size(); ++i) {
-    				TagValue param = (TagValue)algoParams.get(i);
+    				TagValue param = algoParams.get(i);
     				if (i > 0) {
     					msg += ",";
     				}
-    				msg += param.m_tag + "=" + param.m_value;
+    				msg += param.tag() + "=" + param.value();
     			}
     		}
     		msg += "}";
@@ -213,13 +213,13 @@ public class EWrapperMsgGenerator {
         if ("BAG".equals(contract.getSecType())) {
         	msg += " smartComboRoutingParams={";
         	if (order.smartComboRoutingParams() != null) {
-        		ArrayList smartComboRoutingParams = order.smartComboRoutingParams();
+        		ArrayList<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
         		for (int i = 0; i < smartComboRoutingParams.size(); ++i) {
-        			TagValue param = (TagValue)smartComboRoutingParams.get(i);
+        			TagValue param = smartComboRoutingParams.get(i);
         			if (i > 0) {
         				msg += ",";
         			}
-        			msg += param.m_tag + "=" + param.m_value;
+        			msg += param.tag() + "=" + param.value();
         		}
         	}
         	msg += "}";
@@ -355,13 +355,13 @@ public class EWrapperMsgGenerator {
     static public String contractDetailsSecIdList(ContractDetails contractDetails) {
         String msg = "secIdList={";
         if (contractDetails.secIdList() != null) {
-            ArrayList secIdList = contractDetails.secIdList();
+            ArrayList<TagValue> secIdList = contractDetails.secIdList();
             for (int i = 0; i < secIdList.size(); ++i) {
-                TagValue param = (TagValue)secIdList.get(i);
+                TagValue param = secIdList.get(i);
                 if (i > 0) {
                     msg += ",";
                 }
-                msg += param.m_tag + "=" + param.m_value;
+                msg += param.tag() + "=" + param.value();
             }
         }
         msg += "}\n";

@@ -203,9 +203,9 @@ class AlgoParamModel extends AbstractTableModel {
 
         switch (c) {
             case 0:
-                return tagValue.m_tag;
+                return tagValue.tag();
             case 1:
-                return tagValue.m_value;
+                return tagValue.value();
             default:
                 return "";
         }
