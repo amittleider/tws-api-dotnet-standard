@@ -40,9 +40,9 @@ public class Builder {
 		send( a ? 1 : 0);
 	}
 
-//	public void send( IApiEnum a) {
-//		send( a == null ? (String)null : a.getApiString() );
-//	}
+	public void send( IApiEnum a) {
+		send( a == null ? (String)null : a.getApiString() );
+	}
 
 	public void send( String a) {
 		if (a != null) {

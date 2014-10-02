@@ -13,20 +13,12 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
-import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
-import com.ib.client.EWrapper;
-import com.ib.client.Builder;
 import com.ib.client.EClientErrors;
+import com.ib.client.EWrapper;
 import com.ib.client.EClientSocket;
 import com.ib.client.EReader;
 import com.ib.client.Order;
-import com.ib.client.OrderComboLeg;
-import com.ib.client.OrderType;
-import com.ib.client.TagValue;
-import com.ib.client.Types.AlgoStrategy;
-import com.ib.client.Types.HedgeType;
-import com.ib.client.Types.SecType;
 
 // NOTE: TWS 936 SERVER_VERSION is 67.
 
@@ -79,7 +71,19 @@ public class ApiConnection extends EClientSocket {
 	}
 
 	public synchronized void placeOrder(Contract contract, Order order) {
-	    placeOrder(order.orderId(), contract, order, true);
+        // not connected?
+        if( !isConnected() ) {
+            notConnected();
+            return;
+        }
+
+        // ApiController requires TWS 932 or higher; this limitation could be removed if needed
+        if( serverVersion() < 66 ) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS, "ApiController requires TWS build 932 or higher to place orders.");
+            return;
+        }
+
+	    placeOrder(order.orderId(), contract, order);
 	}
 
     /** An output stream that forks all writes to the output logger. */

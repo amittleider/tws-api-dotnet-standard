@@ -4,18 +4,11 @@
 package com.ib.client;
 
 public class TagValue {
-	private String m_tag;
-	private String m_value;
 
-	// Get
-	public String tag()   { return m_tag; }
-    public String value() { return m_value; }
+	public String m_tag;
+	public String m_value;
 
-    // Set
-    public void value(String value) { m_value = value; }
-    public void tag(String tag)     { m_tag = tag; }
-
-    public TagValue() {
+	public TagValue() {
 	}
 
 	public TagValue(String p_tag, String p_value) {
@@ -24,6 +17,7 @@ public class TagValue {
 	}
 
 	public boolean equals(Object p_other) {
+
 		if( this == p_other)
             return true;
 
@@ -36,6 +30,7 @@ public class TagValue {
         	Util.StringCompare(m_value, l_theOther.m_value) != 0) {
         	return false;
         }
+
 		return true;
 	}
 }

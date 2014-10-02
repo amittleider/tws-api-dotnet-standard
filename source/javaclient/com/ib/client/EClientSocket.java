@@ -598,9 +598,9 @@ public class EClientSocket {
                 if( scannerSubscriptionOptionsCount > 0) {
                     for( int i = 0; i < scannerSubscriptionOptionsCount; ++i) {
                         TagValue tagValue = (TagValue)scannerSubscriptionOptions.get(i);
-                        scannerSubscriptionOptionsStr.append( tagValue.tag());
+                        scannerSubscriptionOptionsStr.append( tagValue.m_tag);
                         scannerSubscriptionOptionsStr.append( "=");
-                        scannerSubscriptionOptionsStr.append( tagValue.value());
+                        scannerSubscriptionOptionsStr.append( tagValue.m_value);
                         scannerSubscriptionOptionsStr.append( ";");
                     }
                 }
@@ -736,9 +736,9 @@ public class EClientSocket {
                 if( mktDataOptionsCount > 0) {
                     for( int i = 0; i < mktDataOptionsCount; ++i) {
                         TagValue tagValue = (TagValue)mktDataOptions.get(i);
-                        mktDataOptionsStr.append( tagValue.tag());
+                        mktDataOptionsStr.append( tagValue.m_tag);
                         mktDataOptionsStr.append( "=");
-                        mktDataOptionsStr.append( tagValue.value());
+                        mktDataOptionsStr.append( tagValue.m_value);
                         mktDataOptionsStr.append( ";");
                     }
                 }
@@ -903,9 +903,9 @@ public class EClientSocket {
               if( chartOptionsCount > 0) {
                   for( int i = 0; i < chartOptionsCount; ++i) {
                       TagValue tagValue = (TagValue)chartOptions.get(i);
-                      chartOptionsStr.append( tagValue.tag());
+                      chartOptionsStr.append( tagValue.m_tag);
                       chartOptionsStr.append( "=");
-                      chartOptionsStr.append( tagValue.value());
+                      chartOptionsStr.append( tagValue.m_value);
                       chartOptionsStr.append( ";");
                   }
               }
@@ -977,9 +977,9 @@ public class EClientSocket {
                 if( realTimeBarsOptionsCount > 0) {
                     for( int i = 0; i < realTimeBarsOptionsCount; ++i) {
                         TagValue tagValue = (TagValue)realTimeBarsOptions.get(i);
-                        realTimeBarsOptionsStr.append( tagValue.tag());
+                        realTimeBarsOptionsStr.append( tagValue.m_tag);
                         realTimeBarsOptionsStr.append( "=");
-                        realTimeBarsOptionsStr.append( tagValue.value());
+                        realTimeBarsOptionsStr.append( tagValue.m_value);
                         realTimeBarsOptionsStr.append( ";");
                     }
                 }
@@ -1154,9 +1154,9 @@ public class EClientSocket {
                 if( mktDepthOptionsCount > 0) {
                     for( int i = 0; i < mktDepthOptionsCount; ++i) {
                         TagValue tagValue = (TagValue)mktDepthOptions.get(i);
-                        mktDepthOptionsStr.append( tagValue.tag());
+                        mktDepthOptionsStr.append( tagValue.m_tag);
                         mktDepthOptionsStr.append( "=");
-                        mktDepthOptionsStr.append( tagValue.value());
+                        mktDepthOptionsStr.append( tagValue.m_value);
                         mktDepthOptionsStr.append( ";");
                     }
                 }
@@ -1288,20 +1288,10 @@ public class EClientSocket {
       }
     }
 
-    public synchronized void placeOrder(int id, Contract contract, Order order) {
-        placeOrder(id, contract, order, false);
-    }
-    
-    public synchronized void placeOrder( int id, Contract contract, Order order, boolean apiDemo) {
+    public synchronized void placeOrder( int id, Contract contract, Order order) {
         // not connected?
         if( !m_connected) {
             notConnected();
-            return;
-        }
-
-        // ApiController requires TWS 932 or higher; this limitation could be removed if needed
-        if( apiDemo && serverVersion() < 66 ) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS, "ApiController requires TWS build 932 or higher to place orders.");
             return;
         }
 
@@ -1639,8 +1629,8 @@ public class EClientSocket {
                 b.send( smartComboRoutingParamsCount);
                 if( smartComboRoutingParamsCount > 0) {
                     for( TagValue tagValue : smartComboRoutingParams ) {
-                        b.send( tagValue.tag());
-                        b.send( tagValue.value());
+                        b.send( tagValue.m_tag);
+                        b.send( tagValue.m_value);
                     }
                 }
             }
@@ -1819,8 +1809,8 @@ public class EClientSocket {
         		   int algoParamsCount = algoParams.size();
         		   b.send( algoParamsCount);
         		   for( TagValue tagValue : algoParams ) {
-                       b.send( tagValue.tag());
-                       b.send( tagValue.value());
+                       b.send( tagValue.m_tag);
+                       b.send( tagValue.m_value);
         		   }
         	   }
            }
@@ -1840,9 +1830,9 @@ public class EClientSocket {
                int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
                if( orderMiscOptionsCount > 0) {
                    for( TagValue tagValue : orderMiscOptions ) {
-                       orderMiscOptionsStr.append( tagValue.tag());
+                       orderMiscOptionsStr.append( tagValue.m_tag);
                        orderMiscOptionsStr.append( "=");
-                       orderMiscOptionsStr.append( tagValue.value());
+                       orderMiscOptionsStr.append( tagValue.m_value);
                        orderMiscOptionsStr.append( ";");
                    }
                }

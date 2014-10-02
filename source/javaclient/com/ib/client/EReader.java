@@ -656,8 +656,8 @@ public class EReader extends Thread {
                 		order.smartComboRoutingParams(new ArrayList<TagValue>(smartComboRoutingParamsCount));
                 		for (int i = 0; i < smartComboRoutingParamsCount; ++i) {
                 			TagValue tagValue = new TagValue();
-                			tagValue.tag(readStr());
-                			tagValue.value(readStr());
+                			tagValue.m_tag = readStr();
+                			tagValue.m_value = readStr();
                 			order.smartComboRoutingParams().add(tagValue);
                 		}
                 	}
@@ -722,8 +722,8 @@ public class EReader extends Thread {
                 		if (algoParamsCount > 0) {
                 			for (int i = 0; i < algoParamsCount; ++i) {
                 				TagValue tagValue = new TagValue();
-                				tagValue.tag(readStr());
-                				tagValue.value(readStr());
+                				tagValue.m_tag = readStr();
+                				tagValue.m_value = readStr();
                 				order.algoParams().add(tagValue);
                 			}
                 		}
@@ -848,8 +848,8 @@ public class EReader extends Thread {
                             contract.secIdList(new ArrayList<TagValue>(secIdListCount));
                             for (int i = 0; i < secIdListCount; ++i) {
                                 TagValue tagValue = new TagValue();
-                                tagValue.tag(readStr());
-                                tagValue.value(readStr());
+                                tagValue.m_tag = readStr();
+                                tagValue.m_value = readStr();
                                 contract.secIdList().add(tagValue);
                             }
                         }
@@ -908,8 +908,8 @@ public class EReader extends Thread {
                         contract.secIdList(new ArrayList<TagValue>(secIdListCount));
                         for (int i = 0; i < secIdListCount; ++i) {
                             TagValue tagValue = new TagValue();
-                            tagValue.tag(readStr());
-                            tagValue.value(readStr());
+                            tagValue.m_tag = readStr();
+                            tagValue.m_value = readStr();
                             contract.secIdList().add(tagValue);
                         }
                     }

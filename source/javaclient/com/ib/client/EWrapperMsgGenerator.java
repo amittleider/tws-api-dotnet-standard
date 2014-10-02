@@ -204,7 +204,7 @@ public class EWrapperMsgGenerator {
     				if (i > 0) {
     					msg += ",";
     				}
-    				msg += param.tag() + "=" + param.value();
+    				msg += param.m_tag + "=" + param.m_value;
     			}
     		}
     		msg += "}";
@@ -219,7 +219,7 @@ public class EWrapperMsgGenerator {
         			if (i > 0) {
         				msg += ",";
         			}
-        			msg += param.tag() + "=" + param.value();
+        			msg += param.m_tag + "=" + param.m_value;
         		}
         	}
         	msg += "}";
@@ -361,7 +361,7 @@ public class EWrapperMsgGenerator {
                 if (i > 0) {
                     msg += ",";
                 }
-                msg += param.tag() + "=" + param.value();
+                msg += param.m_tag + "=" + param.m_value;
             }
         }
         msg += "}\n";

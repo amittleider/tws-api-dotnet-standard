@@ -531,8 +531,8 @@ public class TicketDlg extends JDialog {
 			
 			if (m_order.algoParams() != null) {
 				for (TagValue tagVal : m_order.algoParams() ) {
-					AlgoParam param = AlgoParam.valueOf( tagVal.tag());
-					m_params[param.ordinal()].setText( tagVal.value());
+					AlgoParam param = AlgoParam.valueOf( tagVal.m_tag);
+					m_params[param.ordinal()].setText( tagVal.m_value);
 				}
 			}
 
@@ -631,8 +631,8 @@ public class TicketDlg extends JDialog {
 	private String getVal(ComboParam param) {
 		if (m_order.smartComboRoutingParams() != null) {
 			for (TagValue tv : m_order.smartComboRoutingParams() ) {
-				if (tv.tag().equals( param.toString() ) ) {
-					return tv.value(); 
+				if (tv.m_tag.equals( param.toString() ) ) {
+					return tv.m_value; 
 				}
 			}
 		}
