@@ -73,7 +73,6 @@ public:
    virtual void subscribeToGroupEvents( int reqId, int groupId) = 0;
    virtual void updateDisplayGroup( int reqId, const std::string& contractInfo) = 0;
    virtual void unsubscribeFromGroupEvents( int reqId) = 0;
-   virtual void startApi() = 0;
 
 private:
 };

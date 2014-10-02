@@ -127,7 +127,6 @@ public:
 	void subscribeToGroupEvents( int reqId, int groupId);
 	void updateDisplayGroup( int reqId, const std::string& contractInfo);
 	void unsubscribeFromGroupEvents( int reqId);
-	void startApi();
 
 private:
 
@@ -165,6 +164,7 @@ private:
 
 	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
 	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
+	void startApi();
 
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);
