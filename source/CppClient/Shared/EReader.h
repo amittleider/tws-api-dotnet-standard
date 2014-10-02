@@ -15,11 +15,17 @@ class TWSAPIDLLEXP EReader
     std::deque<shared_ptr<EMessage>> m_msgQueue;
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
+	EDecoder tmpDecoder;
+
+
+	void onReceive();
+	bool bufferedRead(char *buf, int size);
 
 public:
     EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal);
     ~EReader(void);
 protected:
+	bool processNonBlockingSelect();
     shared_ptr<EMessage> getMsg(void);
     void readToQueue();
     static DWORD WINAPI readToQueueThread(LPVOID lpParam);

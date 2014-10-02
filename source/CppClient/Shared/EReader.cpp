@@ -12,122 +12,204 @@
 DefaultWrapper defaultWrapper;
 
 EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
-    : m_decoder(clientSocket, clientSocket->getWrapper()) {
-        m_pClientSocket = clientSocket;
-        m_pEReaderSignal = signal;
+	: m_decoder(clientSocket, clientSocket->getWrapper())
+	, tmpDecoder(clientSocket, &defaultWrapper) {
+		m_pClientSocket = clientSocket;
+		m_pEReaderSignal = signal;
 
-        m_buf.reserve(8192);
+		m_buf.reserve(8192);
 }
 
 EReader::~EReader(void) {
 }
 
 void EReader::start() {
-    CreateThread(0, 0, readToQueueThread, this, 0, 0);
+	CreateThread(0, 0, readToQueueThread, this, 0, 0);
 }
 
 DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam) {
-    EReader *pThis = reinterpret_cast<EReader *>(lpParam);
+	EReader *pThis = reinterpret_cast<EReader *>(lpParam);
 
-    pThis->readToQueue();
-    return 0;
+	pThis->readToQueue();
+	return 0;
 }
 
 void EReader::readToQueue() {
-    EMessage *msg = readSingleMsg();
+	EMessage *msg = 0;
 
-    while (msg != 0) {
-        m_csMsgQueue.Enter();
-        m_msgQueue.push_back(shared_ptr<EMessage>(msg));
-        m_csMsgQueue.Leave();
-        m_pEReaderSignal->onMsgRecv();
-        
-        msg = readSingleMsg();
-    }
+	while (true) {
+		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
+			continue;
 
-    m_pClientSocket->handleSocketError();
+		msg = readSingleMsg();
+
+		if (msg == 0)
+			return;
+
+		m_csMsgQueue.Enter();
+		m_msgQueue.push_back(shared_ptr<EMessage>(msg));
+		m_csMsgQueue.Leave();
+		m_pEReaderSignal->onMsgRecv();
+	}
+
+	m_pClientSocket->handleSocketError();
+}
+
+bool EReader::processNonBlockingSelect() {
+	fd_set readSet, writeSet, errorSet;
+	struct timeval tval;
+
+	tval.tv_usec = 0;
+	tval.tv_sec = 0;
+
+	if( m_pClientSocket->fd() >= 0 ) {
+
+		FD_ZERO( &readSet);
+		errorSet = writeSet = readSet;
+
+		FD_SET( m_pClientSocket->fd(), &readSet);
+
+		if( !m_pClientSocket->isOutBufferEmpty())
+			FD_SET( m_pClientSocket->fd(), &writeSet);
+
+		FD_SET( m_pClientSocket->fd(), &errorSet);
+
+		int ret = select( m_pClientSocket->fd() + 1, &readSet, &writeSet, &errorSet, &tval);
+
+		if( ret == 0) { // timeout
+			return false;
+		}
+
+		if( ret < 0) {	// error
+			m_pClientSocket->eDisconnect();
+			return false;
+		}
+
+		if( m_pClientSocket->fd() < 0)
+			return false;
+
+		if( FD_ISSET( m_pClientSocket->fd(), &errorSet)) {
+			// error on socket
+			m_pClientSocket->onError();
+		}
+
+		if( m_pClientSocket->fd() < 0)
+			return false;
+
+		if( FD_ISSET( m_pClientSocket->fd(), &writeSet)) {
+			// socket is ready for writing
+			m_pClientSocket->onSend();
+		}
+
+		if( m_pClientSocket->fd() < 0)
+			return false;
+
+		if( FD_ISSET( m_pClientSocket->fd(), &readSet)) {
+			// socket is ready for reading
+			onReceive();
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+void EReader::onReceive() {
+	int nOffset = m_buf.size();
+
+	m_buf.resize(8192);
+
+	int nRes = m_pClientSocket->receive(m_buf.data() + nOffset, m_buf.size() - nOffset);
+
+	if (nRes <= 0)
+		return;
+
+	m_buf.resize(nRes + nOffset);	
+}
+
+bool EReader::bufferedRead(char *buf, int size) {
+	while (m_buf.size() < size)
+		if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
+			return false;
+
+	std::copy(m_buf.begin(), m_buf.begin() + size, buf);
+	std::copy(m_buf.begin() + size, m_buf.end(), m_buf.begin());
+	m_buf.resize(m_buf.size() - size);
+
+	return true;
 }
 
 EMessage * EReader::readSingleMsg() {
-    if (m_pClientSocket->usingV100Plus()) {
-        int msgSize;
+	if (m_pClientSocket->usingV100Plus()) {
+		int msgSize;
 
-        if (!m_pClientSocket->receive((char *)&msgSize, sizeof(msgSize)))
+		if (!bufferedRead((char *)&msgSize, sizeof(msgSize)))
 			return 0;
 
-        msgSize = htonl(msgSize);
+		msgSize = htonl(msgSize);
 
-        if (msgSize <= 0 || msgSize > MAX_MSG_LEN)
-            return 0;
-
-        std::vector<char> buf = std::vector<char>(msgSize);
-
-        if (!m_pClientSocket->receive(buf.data(), buf.size()))
+		if (msgSize <= 0 || msgSize > MAX_MSG_LEN)
 			return 0;
 
-        return new EMessage(buf);
-    }
-    else {
-        EDecoder tmpDecoder(m_pClientSocket, &defaultWrapper);
+		std::vector<char> buf = std::vector<char>(msgSize);
 
-        if (m_buf.size() == 0) {             
-            m_buf.resize(8192);        
+		if (!bufferedRead(buf.data(), buf.size()))
+			return 0;
 
-            int nResult = m_pClientSocket->receive( m_buf.data(), m_buf.size());
+		return new EMessage(buf);
+	}
+	else {
+		const char *pBegin = m_buf.data();
+		const char *pEnd = pBegin + m_buf.size();
+		int msgSize = tmpDecoder.parseAndProcessMsg(pBegin, pEnd);
 
+		if (msgSize == 0)
+			return 0;
 
-            if( nResult == 0)
-                return 0;
+		std::vector<char> msgData(msgSize);
 
-            m_buf.resize(nResult);
-        }
+		if (!bufferedRead(msgData.data(), msgSize))
+			return 0;
 
-        const char *pBegin = m_buf.data();
-        const char *pEnd = pBegin + m_buf.size();
-        int msgSize = tmpDecoder.parseAndProcessMsg(pBegin, pEnd);
+		EMessage * msg = new EMessage(msgData);
 
-        if (msgSize == 0)
-            return 0;
-
-        EMessage * msg = new EMessage(std::vector<char>(m_buf.begin(), m_buf.begin() + msgSize));
-
-        std::copy(m_buf.begin() + msgSize, m_buf.end(), m_buf.begin());
-        //m_buf.assign(m_buf.begin() + msgSize, m_buf.end());
-        m_buf.resize(m_buf.size() - msgSize);
-
-        return msg;
-    }
+		return msg;
+	}
 }
 
 shared_ptr<EMessage> EReader::getMsg(void) {
-    m_csMsgQueue.Enter();
+	m_csMsgQueue.Enter();
 
-    if (m_msgQueue.size() == 0)
-        return shared_ptr<EMessage>();
+	if (m_msgQueue.size() == 0) {
+		m_csMsgQueue.Leave();
 
-    shared_ptr<EMessage> msg = m_msgQueue.front();
+		return shared_ptr<EMessage>();
+	}
 
-    m_msgQueue.pop_front();
-    m_csMsgQueue.Leave();
+	shared_ptr<EMessage> msg = m_msgQueue.front();
 
-    return msg;
+	m_msgQueue.pop_front();
+	m_csMsgQueue.Leave();
+
+	return msg;
 }
 
 
 void EReader::processMsgs(void) {
-    shared_ptr<EMessage> msg = getMsg();
+	shared_ptr<EMessage> msg = getMsg();
 
-    if (!msg.get())
-        return;
+	if (!msg.get())
+		return;
 
-    const char *pBegin = msg->begin();
+	const char *pBegin = msg->begin();
 
-    while (m_decoder.parseAndProcessMsg(pBegin, msg->end()) > 0) {
-        msg = getMsg();
+	while (m_decoder.parseAndProcessMsg(pBegin, msg->end()) > 0) {
+		msg = getMsg();
 
-        if (!msg.get())
-            break;
+		if (!msg.get())
+			break;
 
-        pBegin = msg->begin();
-    } 
+		pBegin = msg->begin();
+	} 
 }
