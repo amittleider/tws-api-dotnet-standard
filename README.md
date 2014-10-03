@@ -3,7 +3,7 @@
 </a>
 
 ### Download
-[Download the TWS API here](http://interactivebrokers.github.com)
+[Download the TWS API here](http://interactivebrokers.github.io/)
 
 ### Contribute
-[Learn how to contribute to the API here](http://interactivebrokers.github.com/api_software_contribute.html)
+[Learn how to contribute to the API here](http://interactivebrokers.github.io/api_software_contribute.html)
