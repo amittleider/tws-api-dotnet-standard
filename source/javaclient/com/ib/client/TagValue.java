@@ -3,8 +3,7 @@
 
 package com.ib.client;
 
-public class TagValue {
-
+public final class TagValue {
 	public String m_tag;
 	public String m_value;
 
