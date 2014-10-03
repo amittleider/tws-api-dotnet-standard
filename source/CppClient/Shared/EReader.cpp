@@ -45,18 +45,22 @@ void EReader::readToQueue() {
 		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
 			continue;
 
-		msg = readSingleMsg();
+        if (m_pClientSocket->isSocketOK())
+		    msg = readSingleMsg();
 
 		if (msg == 0)
-			return;
+			break;
 
 		m_csMsgQueue.Enter();
 		m_msgQueue.push_back(shared_ptr<EMessage>(msg));
 		m_csMsgQueue.Leave();
 		m_pEReaderSignal->onMsgRecv();
+
+        msg = 0;
 	}
 
 	m_pClientSocket->handleSocketError();
+    m_pEReaderSignal->onMsgRecv(); //letting client know that socket was closed
 }
 
 bool EReader::processNonBlockingSelect() {

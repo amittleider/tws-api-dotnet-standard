@@ -113,12 +113,12 @@ public:
 
 private:
 
-	std::auto_ptr<EPosixClientSocket> m_pClient;
+	EPosixClientSocket * const m_pClient;
 	State m_state;
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
-	std::auto_ptr<EReader> m_pReader;
+	EReader *m_pReader;
 	EReaderOSSignal m_osSignal;
 };
 

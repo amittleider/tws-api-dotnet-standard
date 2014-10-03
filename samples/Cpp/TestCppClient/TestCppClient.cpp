@@ -23,11 +23,14 @@ TestCppClient::TestCppClient()
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
+    , m_pReader(0)
 {
 }
 
 TestCppClient::~TestCppClient()
 {
+    delete m_pReader;
+    delete m_pClient;
 }
 
 
@@ -41,7 +44,7 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 	if (bRes) {
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
 
-		m_pReader = std::auto_ptr<EReader>(new EReader(m_pClient.get(), &m_osSignal));
+        m_pReader = new EReader(m_pClient, &m_osSignal);
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
