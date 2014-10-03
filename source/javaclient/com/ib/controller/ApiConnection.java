@@ -71,17 +71,17 @@ public class ApiConnection extends EClientSocket {
 	}
 
 	public synchronized void placeOrder(Contract contract, Order order) {
-        // not connected?
-        if( !isConnected() ) {
+		// not connected?
+		if( !isConnected() ) {
             notConnected();
-            return;
-        }
+			return;
+		}
 
-        // ApiController requires TWS 932 or higher; this limitation could be removed if needed
-        if( serverVersion() < 66 ) {
+		// ApiController requires TWS 932 or higher; this limitation could be removed if needed
+		if (serverVersion() < 66) {
             error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS, "ApiController requires TWS build 932 or higher to place orders.");
             return;
-        }
+		}
 
 	    placeOrder(order.orderId(), contract, order);
 	}

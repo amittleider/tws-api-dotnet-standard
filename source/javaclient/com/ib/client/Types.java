@@ -161,12 +161,7 @@ public class Types {
 		}
 
 		public static Rule80A get( String apiString) {
-			for (Rule80A val : values() ) {
-				if (val.m_apiString.equals( apiString) ) {
-					return val;
-				}
-			}
-			return None;
+            return getValueOf(apiString, values(), None);
 		}
 
 		public String getApiString() {
