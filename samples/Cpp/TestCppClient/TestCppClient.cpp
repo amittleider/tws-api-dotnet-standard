@@ -29,7 +29,9 @@ TestCppClient::TestCppClient()
 
 TestCppClient::~TestCppClient()
 {
-    delete m_pReader;
+    if (m_pReader)
+        delete m_pReader;
+
     delete m_pClient;
 }
 
