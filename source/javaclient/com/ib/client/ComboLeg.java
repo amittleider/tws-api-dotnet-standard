@@ -29,7 +29,7 @@ public class ComboLeg {
     private int m_exemptCode;
 
     // Get
-    public Action action()              { return Action.valueOf(m_action); }
+    public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
     public int conid()                  { return m_conid; }
     public int exemptCode()             { return m_exemptCode; }

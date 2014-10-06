@@ -167,7 +167,7 @@ public class Order {
 	private boolean m_solicited;
     
     // getters
-    public Action action()              { return Action.valueOf(m_action); }
+    public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
     public boolean allOrNone()          { return m_allOrNone; }
     public boolean blockOrder()         { return m_blockOrder; }
@@ -245,7 +245,7 @@ public class Order {
     public String getHedgeType()        { return m_hedgeType; }
     public String ocaGroup()            { return m_ocaGroup; }
     public String orderRef()            { return m_orderRef; }
-    public TimeInForce tif()            { return TimeInForce.valueOf(m_tif); }
+    public TimeInForce tif()            { return TimeInForce.get(m_tif); }
     public String getTif()              { return m_tif; }
     public String scaleTable()          { return m_scaleTable; }
     public int auctionStrategy()        { return m_auctionStrategy; }

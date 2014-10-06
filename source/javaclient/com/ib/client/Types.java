@@ -51,8 +51,8 @@ public class Types {
 			m_params = params;
 		}
 
-		public static AlgoStrategy get( String apiString) {
-			return apiString != null && apiString.length() > 0 ? valueOf( apiString) : None;
+		public static AlgoStrategy get(String apiString) {
+			return getValueOf(apiString, values(), None);
 		}
 
 		@Override public String getApiString() {
@@ -63,13 +63,8 @@ public class Types {
 	public static enum HedgeType implements IApiEnum {
 		None, Delta, Beta, Fx, Pair;
 
-		public static HedgeType get( String apiString) {
-			for (HedgeType type : values() ) {
-				if (type.getApiString().equals( apiString) ) {
-					return type;
-				}
-			}
-			return None;
+		public static HedgeType get(String apiString) {
+            return getValueOf(apiString, values(), None);
 		}
 
 		@Override public String getApiString() {
@@ -147,7 +142,11 @@ public class Types {
 	public static enum Action implements IApiEnum {
 		BUY, SELL, SSHORT;
 
-		@Override public String getApiString() {
+        public static Action get(String apiString) {
+            return getValueOf(apiString, values(), null);
+        }
+
+        @Override public String getApiString() {
 			return toString();
 		}
 	}
@@ -162,12 +161,7 @@ public class Types {
 		}
 
 		public static Rule80A get( String apiString) {
-			for (Rule80A val : values() ) {
-				if (val.m_apiString.equals( apiString) ) {
-					return val;
-				}
-			}
-			return None;
+            return getValueOf(apiString, values(), None);
 		}
 
 		public String getApiString() {
@@ -189,6 +183,10 @@ public class Types {
 
 	public static enum TimeInForce implements IApiEnum {
 		DAY, GTC, OPG, IOC, GTD, GTT, AUC, FOK, GTX, DTC;
+
+        public static TimeInForce get(String apiString) {
+            return getValueOf(apiString, values(), null);
+        }
 
 		@Override public String getApiString() {
 			return toString();
@@ -272,7 +270,7 @@ public class Types {
 	    None, CUSIP, SEDOL, ISIN, RIC;
 
 		public static SecIdType get(String str) {
-			return str == null || str.length() == 0 ? None : valueOf( str);
+            return getValueOf(str, values(), None);
 		}
 
 		@Override public String getApiString() {
@@ -284,7 +282,7 @@ public class Types {
 		None, STK, OPT, FUT, CASH, BOND, CFD, FOP, WAR, IOPT, FWD, BAG, IND, BILL, FUND, FIXED, SLB, NEWS, CMDTY, BSK, ICU, ICS;
 
         public static SecType get(String str) {
-            return str == null || str.length() == 0 ? None : valueOf( str);
+            return getValueOf(str, values(), None);
         }
 
 		@Override public String getApiString() {
@@ -304,13 +302,22 @@ public class Types {
 		None, EqualQuantity, AvailableEquity, NetLiq, PctChange;
 
 	    public static Method get( String str) {
-	    	return str == null || str.length() == 0 ? None : valueOf( str);
+            return getValueOf(str, values(), None);
 	    }
 
 	    @Override public String getApiString() {
 			return this == None ? "" : super.toString();
 		}
 	}
+
+	public static <T extends Enum<?> & IApiEnum> T getValueOf( String v, T[] values, T defaultValue ) {
+        for( T currentEnum : values ) {
+            if( currentEnum.getApiString().equals(v) ) {
+                return currentEnum;
+            }
+        }
+        return defaultValue;
+    }
 
 	/** Lookup enum by ordinal. Use Enum.valueOf() to lookup by string. */
 	public static <T extends Enum<T>> T getEnum(int ordinal, T[] values) {

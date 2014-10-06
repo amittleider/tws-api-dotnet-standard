@@ -19,7 +19,7 @@ public class OrderState {
     public double commission()         { return m_commission; }
     public double maxCommission()      { return m_maxCommission; }
     public double minCommission()      { return m_minCommission; }
-    public OrderStatus status()        { return OrderStatus.valueOf(m_status); }
+    public OrderStatus status()        { return OrderStatus.get(m_status); }
     public String getStatus()          { return m_status; }
     public String commissionCurrency() { return m_commissionCurrency; }
     public String equityWithLoan()     { return m_equityWithLoan; }

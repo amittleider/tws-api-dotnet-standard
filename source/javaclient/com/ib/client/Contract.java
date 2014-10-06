@@ -38,7 +38,7 @@ public class Contract implements Cloneable {
     public int conid()              { return m_conid; }
     public SecIdType secIdType()    { return SecIdType.get(m_secIdType); }
     public String getSecIdType()    { return m_secIdType; }
-    public SecType secType()        { return m_secType == null ? SecType.None : SecType.valueOf(m_secType); }
+    public SecType secType()        { return SecType.get(m_secType); }
     public String getSecType()      { return m_secType; }
     public String currency()        { return m_currency; }
     public String exchange()        { return m_exchange; }

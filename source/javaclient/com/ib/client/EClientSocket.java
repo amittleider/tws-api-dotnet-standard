@@ -233,9 +233,9 @@ public class EClientSocket {
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
-    public EWrapper wrapper() 		{ return m_eWrapper; }
+    public EWrapper wrapper()           { return m_eWrapper; }
     public EReader reader()             { return m_reader; }
-    public boolean isConnected() 		{ return m_connected; }
+    public boolean isConnected()        { return m_connected; }
 
     // set
     protected synchronized void setExtraAuth(boolean extraAuth) { m_extraAuth = extraAuth; }
@@ -1306,9 +1306,7 @@ public class EClientSocket {
 
         if (m_serverVersion < MIN_SERVER_VER_SSHORT_COMBO_LEGS) {
         	if (!contract.comboLegs().isEmpty()) {
-                ComboLeg comboLeg;
-                for (int i = 0; i < contract.comboLegs().size(); ++i) {
-                    comboLeg = contract.comboLegs().get(i);
+                for( ComboLeg comboLeg : contract.comboLegs() ) {
                     if (comboLeg.shortSaleSlot() != 0 ||
                     	!IsEmpty(comboLeg.designatedLocation())) {
                 		error(id, EClientErrors.UPDATE_TWS,
@@ -1385,9 +1383,7 @@ public class EClientSocket {
 
         if (m_serverVersion < MIN_SERVER_VER_SSHORTX) {
         	if (!contract.comboLegs().isEmpty()) {
-                ComboLeg comboLeg;
-                for (int i = 0; i < contract.comboLegs().size(); ++i) {
-                    comboLeg = contract.comboLegs().get(i);
+                for( ComboLeg comboLeg : contract.comboLegs() ) {
                     if (comboLeg.exemptCode() != -1) {
                 		error(id, EClientErrors.UPDATE_TWS,
                 			"  It does not support exemptCode parameter.");
@@ -1456,9 +1452,7 @@ public class EClientSocket {
 
         if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE && SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
         	if (!order.orderComboLegs().isEmpty()) {
-        		OrderComboLeg orderComboLeg;
-        		for (int i = 0; i < order.orderComboLegs().size(); ++i) {
-        			orderComboLeg = order.orderComboLegs().get(i);
+                for( OrderComboLeg orderComboLeg : order.orderComboLegs() ) {
         			if (orderComboLeg.price() != Double.MAX_VALUE) {
         			error(id, EClientErrors.UPDATE_TWS,
         				"  It does not support per-leg prices for order combo legs.");
@@ -1597,9 +1591,7 @@ public class EClientSocket {
                 else {
                     b.send( contract.comboLegs().size());
 
-                    ComboLeg comboLeg;
-                    for (int i=0; i < contract.comboLegs().size(); i ++) {
-                        comboLeg = contract.comboLegs().get(i);
+                    for( ComboLeg comboLeg : contract.comboLegs() ) {
                         b.send( comboLeg.conid());
                         b.send( comboLeg.ratio());
                         b.send( comboLeg.getAction());
@@ -1625,20 +1617,18 @@ public class EClientSocket {
                 else {
                     b.send( order.orderComboLegs().size());
 
-                    for (int i = 0; i < order.orderComboLegs().size(); i++) {
-                        OrderComboLeg orderComboLeg = order.orderComboLegs().get(i);
+                    for( OrderComboLeg orderComboLeg : order.orderComboLegs() ) {
                         b.sendMax( orderComboLeg.price());
                     }
                 }
             }
 
             if(m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
-                ArrayList smartComboRoutingParams = order.smartComboRoutingParams();
+                ArrayList<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
                 int smartComboRoutingParamsCount = smartComboRoutingParams == null ? 0 : smartComboRoutingParams.size();
                 b.send( smartComboRoutingParamsCount);
                 if( smartComboRoutingParamsCount > 0) {
-                    for( int i = 0; i < smartComboRoutingParamsCount; ++i) {
-                        TagValue tagValue = (TagValue)smartComboRoutingParams.get(i);
+                    for( TagValue tagValue : smartComboRoutingParams ) {
                         b.send( tagValue.m_tag);
                         b.send( tagValue.m_value);
                     }
@@ -1815,15 +1805,12 @@ public class EClientSocket {
            if (m_serverVersion >= MIN_SERVER_VER_ALGO_ORDERS) {
         	   b.send( order.getAlgoStrategy());
                if( !IsEmpty(order.getAlgoStrategy())) {
-        		   ArrayList algoParams = order.algoParams();
-        		   int algoParamsCount = algoParams == null ? 0 : algoParams.size();
+        		   ArrayList<TagValue> algoParams = order.algoParams();
+        		   int algoParamsCount = algoParams.size();
         		   b.send( algoParamsCount);
-        		   if( algoParamsCount > 0) {
-        			   for( int i = 0; i < algoParamsCount; ++i) {
-        				   TagValue tagValue = (TagValue)algoParams.get(i);
-        				   b.send( tagValue.m_tag);
-        				   b.send( tagValue.m_value);
-        			   }
+        		   for( TagValue tagValue : algoParams ) {
+                       b.send( tagValue.m_tag);
+                       b.send( tagValue.m_value);
         		   }
         	   }
            }
@@ -1839,11 +1826,10 @@ public class EClientSocket {
            // send orderMiscOptions parameter
            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
                StringBuilder orderMiscOptionsStr = new StringBuilder();
-               ArrayList orderMiscOptions = order.orderMiscOptions();
+               ArrayList<TagValue> orderMiscOptions = order.orderMiscOptions();
                int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
                if( orderMiscOptionsCount > 0) {
-                   for( int i = 0; i < orderMiscOptionsCount; ++i) {
-                       TagValue tagValue = (TagValue)orderMiscOptions.get(i);
+                   for( TagValue tagValue : orderMiscOptions ) {
                        orderMiscOptionsStr.append( tagValue.m_tag);
                        orderMiscOptionsStr.append( "=");
                        orderMiscOptionsStr.append( tagValue.m_value);
