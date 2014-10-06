@@ -1,11 +1,13 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
 #ifndef testcppclient_h__INCLUDED
 #define testcppclient_h__INCLUDED
 
 #include "EWrapper.h"
+#include "EReaderOSSignal.h"
+#include "EReader.h"
 
 #include <memory>
 
@@ -111,11 +113,13 @@ public:
 
 private:
 
-	std::auto_ptr<EPosixClientSocket> m_pClient;
+	EPosixClientSocket * const m_pClient;
 	State m_state;
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
+	EReader *m_pReader;
+	EReaderOSSignal m_osSignal;
 };
 
 #endif

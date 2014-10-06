@@ -23,12 +23,18 @@ TestCppClient::TestCppClient()
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
+    , m_pReader(0)
 {
 }
 
 TestCppClient::~TestCppClient()
 {
+    if (m_pReader)
+        delete m_pReader;
+
+    delete m_pClient;
 }
+
 
 bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 {
@@ -39,6 +45,8 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 
 	if (bRes) {
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
+
+        m_pReader = new EReader(m_pClient, &m_osSignal);
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -63,8 +71,7 @@ void TestCppClient::setUseV100Plus(const std::string& connectOptions)
 	m_pClient->setUseV100Plus(connectOptions);
 }
 
-void TestCppClient::processMessages()
-{
+void TestCppClient::processMessages() {
 	fd_set readSet, writeSet, errorSet;
 
 	struct timeval tval;
@@ -106,53 +113,8 @@ void TestCppClient::processMessages()
 		tval.tv_sec = m_sleepDeadline - now;
 	}
 
-	if( m_pClient->fd() >= 0 ) {
-
-		FD_ZERO( &readSet);
-		errorSet = writeSet = readSet;
-
-		FD_SET( m_pClient->fd(), &readSet);
-
-		if( !m_pClient->isOutBufferEmpty())
-			FD_SET( m_pClient->fd(), &writeSet);
-
-		FD_SET( m_pClient->fd(), &errorSet);
-
-		int ret = select( m_pClient->fd() + 1, &readSet, &writeSet, &errorSet, &tval);
-
-		if( ret == 0) { // timeout
-			return;
-		}
-
-		if( ret < 0) {	// error
-			disconnect();
-			return;
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &errorSet)) {
-			// error on socket
-			m_pClient->onError();
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &writeSet)) {
-			// socket is ready for writing
-			m_pClient->onSend();
-		}
-
-		if( m_pClient->fd() < 0)
-			return;
-
-		if( FD_ISSET( m_pClient->fd(), &readSet)) {
-			// socket is ready for reading
-			m_pClient->onReceive();
-		}
-	}
+	m_osSignal.waitSignal();
+	m_pReader->processMsgs();
 }
 
 //////////////////////////////////////////////////////////////////
@@ -203,8 +165,8 @@ void TestCppClient::cancelOrder()
 ///////////////////////////////////////////////////////////////////
 // events
 void TestCppClient::orderStatus( OrderId orderId, const std::string& status, int filled,
-	   int remaining, double avgFillPrice, int permId, int parentId,
-	   double lastFillPrice, int clientId, const std::string& whyHeld)
+	                            int remaining, double avgFillPrice, int permId, int parentId,
+	                            double lastFillPrice, int clientId, const std::string& whyHeld)
 
 {
 	if( orderId == m_orderId) {
@@ -241,7 +203,7 @@ void TestCppClient::currentTime( long time)
 
 void TestCppClient::error(const int id, const int errorCode, const std::string errorString)
 {
-//	printf( "Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
+	//	printf( "Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
 
 	if( id == -1 && errorCode == 1100) // if "Connectivity between IB and TWS has been lost"
 		disconnect();
@@ -250,21 +212,21 @@ void TestCppClient::error(const int id, const int errorCode, const std::string e
 void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {}
 void TestCppClient::tickSize( TickerId tickerId, TickType field, int size) {}
 void TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
-											 double optPrice, double pvDividend,
-											 double gamma, double vega, double theta, double undPrice) {}
+                                          double optPrice, double pvDividend,
+                                          double gamma, double vega, double theta, double undPrice) {}
 void TestCppClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
 void TestCppClient::tickString(TickerId tickerId, TickType tickType, const std::string& value) {}
 void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
-							   double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
+                            double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
 void TestCppClient::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
 void TestCppClient::openOrderEnd() {}
 void TestCppClient::winError( const std::string& str, int lastError) {}
 void TestCppClient::connectionClosed() {}
 void TestCppClient::updateAccountValue(const std::string& key, const std::string& val,
-										  const std::string& currency, const std::string& accountName) {}
+                                       const std::string& currency, const std::string& accountName) {}
 void TestCppClient::updatePortfolio(const Contract& contract, int position,
-		double marketPrice, double marketValue, double averageCost,
-		double unrealizedPNL, double realizedPNL, const std::string& accountName){}
+                                    double marketPrice, double marketValue, double averageCost,
+                                    double unrealizedPNL, double realizedPNL, const std::string& accountName){}
 void TestCppClient::updateAccountTime(const std::string& timeStamp) {}
 void TestCppClient::accountDownloadEnd(const std::string& accountName) {}
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {}
@@ -274,21 +236,21 @@ void TestCppClient::execDetails( int reqId, const Contract& contract, const Exec
 void TestCppClient::execDetailsEnd( int reqId) {}
 
 void TestCppClient::updateMktDepth(TickerId id, int position, int operation, int side,
-									  double price, int size) {}
+                                   double price, int size) {}
 void TestCppClient::updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
-										int side, double price, int size) {}
+                                     int side, double price, int size) {}
 void TestCppClient::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) {}
 void TestCppClient::managedAccounts( const std::string& accountsList) {}
 void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {}
 void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
-									  double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
+                                   double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
 void TestCppClient::scannerParameters(const std::string& xml) {}
 void TestCppClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
-	   const std::string& distance, const std::string& benchmark, const std::string& projection,
-	   const std::string& legsStr) {}
+                                const std::string& distance, const std::string& benchmark, const std::string& projection,
+                                const std::string& legsStr) {}
 void TestCppClient::scannerDataEnd(int reqId) {}
 void TestCppClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
-								   long volume, double wap, int count) {}
+                                long volume, double wap, int count) {}
 void TestCppClient::fundamentalData(TickerId reqId, const std::string& data) {}
 void TestCppClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
 void TestCppClient::tickSnapshotEnd(int reqId) {}

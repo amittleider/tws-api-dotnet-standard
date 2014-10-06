@@ -1,13 +1,16 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
- * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
 
-#include "EPosixClientSocket.h"
 
 #include "EPosixClientSocketPlatform.h"
+#include "EMutex.h"
+#include "EPosixClientSocket.h"
+
 #include "TwsSocketClientErrors.h"
 #include "EWrapper.h"
+
 
 #include <string.h>
 #include <assert.h>
@@ -97,18 +100,8 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
 	// set client id
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
-
 	onConnectBase();
-
-	while( isSocketOK() && isConnecting()) {
-		if( !checkMessages()) {
-			if( connState() != CS_DISCONNECTED) {
-				eDisconnect();
-			}
-			getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
-			return false;
-		}
-	}
+	checkMessages();
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -123,7 +116,7 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
 
 	// set socket to non-blocking state
 	if ( !SetSocketNonBlocking(m_fd)) {
-		// error setting socket to non-blocking
+	// error setting socket to non-blocking
 		eDisconnect();
 		getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
 		return false;
@@ -142,7 +135,7 @@ void EPosixClientSocket::eDisconnect()
 {
 	if ( m_fd >= 0 )
 		// close socket
-		SocketClose( m_fd);
+			SocketClose( m_fd);
 	m_fd = -1;
 	eDisconnectBase();
 }
@@ -261,3 +254,4 @@ bool EPosixClientSocket::handleSocketError()
 	eDisconnect();
 	return false;
 }
+

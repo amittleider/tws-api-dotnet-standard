@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 		if( connectOptions) {
 			client.setUseV100Plus( connectOptions);
 		}
+
 		client.connect( host, port, clientId);
 
 		while( client.isConnected()) {

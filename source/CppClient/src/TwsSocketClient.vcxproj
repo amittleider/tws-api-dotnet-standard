@@ -45,11 +45,13 @@
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <SourcePath>../Shared;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <SourcePath>../Shared;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -154,8 +156,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\shared\defaultwrapper.cpp" />
+    <ClCompile Include="..\Shared\EMutex.cpp" />
+    <ClCompile Include="..\Shared\EDecoder.cpp" />
+    <ClCompile Include="..\Shared\EMessage.cpp" />
+    <ClCompile Include="..\Shared\EReader.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
+    <ClCompile Include="EReaderOSSignal.cpp" />
+    <ClCompile Include="EReaderWMSignal.cpp" />
     <ClCompile Include="StdAfx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +175,16 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\EMutex.h" />
+    <ClInclude Include="..\Shared\DefaultWrapper.h" />
+    <ClInclude Include="..\Shared\EDecoder.h" />
+    <ClInclude Include="..\Shared\EMessage.h" />
+    <ClInclude Include="..\Shared\EReader.h" />
+    <ClInclude Include="..\Shared\EReaderSignal.h" />
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
+    <ClInclude Include="EReaderOSSignal.h" />
+    <ClInclude Include="EReaderWMSignal.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="..\Shared\CommissionReport.h" />

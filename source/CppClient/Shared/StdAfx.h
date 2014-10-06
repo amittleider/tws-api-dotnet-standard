@@ -9,8 +9,15 @@
 
 #define assert ASSERT
 #define snprintf _snprintf
+#include <WinSock2.h>
+#include <Windows.h>
 
 #endif
+
+#include <string>
+#include <deque>
+#include <vector>
+#include <algorithm>
 
 #ifndef TWSAPIDLLEXP
 #define TWSAPIDLLEXP
