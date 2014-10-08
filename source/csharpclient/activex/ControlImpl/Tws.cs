@@ -945,6 +945,8 @@ namespace TWSLib
 
         public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP, int hasGaps);
 
+        public delegate void historicalDataEndDelegate(int reqId, string start, string end);
+
         public delegate void openOrder4Delegate(int id, string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
 
         public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, int convertible, int callable, int putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, int nextOptionPartial, string notes);
@@ -1063,6 +1065,8 @@ namespace TWSLib
         public event receiveFADelegate receiveFA;
 
         public event historicalDataDelegate historicalData;
+
+        public event historicalDataEndDelegate historicalDataEnd;
 
         public event openOrder4Delegate openOrder4;
 
@@ -1588,11 +1592,13 @@ namespace TWSLib
                 InvokeIfRequired(t_historicalData, reqId, date, open, high, low, close, volume, count, WAP, hasGaps ? 1 : 0);
         }
 
-        public void historicalDataEnd(int reqId, string start, string end)
+        void EWrapper.historicalDataEnd(int reqId, string start, string end)
         {
-
+            var t_historicalDataEnd = this.historicalDataEnd;
+            if (t_historicalDataEnd != null)
+                InvokeIfRequired(t_historicalDataEnd, reqId, start, end);
         }
-
+        
         void EWrapper.marketDataType(int reqId, int marketDataType)
         {
             var t_marketDataType = this.marketDataType;
