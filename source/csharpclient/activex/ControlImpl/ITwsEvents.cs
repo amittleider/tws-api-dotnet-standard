@@ -129,5 +129,7 @@ namespace TWSLib
         void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
         [DispId(115)]
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
+        [DispId(116)]
+        void historicalDataEnd(int reqId, string start, string end);
     }
 }
