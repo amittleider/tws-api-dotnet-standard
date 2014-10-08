@@ -1675,6 +1675,18 @@ Friend Class dlgMainWnd
     End Sub
 
     '--------------------------------------------------------------------------------
+    ' Historical data end event - triggered by the reqHistoricalDataEx() method after all historical data has been received
+    '--------------------------------------------------------------------------------
+    Private Sub Tws1_historicalDataEnd(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_historicalDataEnd) Handles Tws1.OnHistoricalDataEnd
+        Dim mktDataStr As String
+        mktDataStr = "id=" & eventArgs.reqId & " start=" & eventArgs.start & " end=" & eventArgs.end
+        Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
+
+        ' move into view
+        lstMktData.TopIndex = lstMktData.Items.Count - 1
+    End Sub
+
+    '--------------------------------------------------------------------------------
     ' Real Time Bar event - triggered by the reqRealTimeBarEx() method
     '--------------------------------------------------------------------------------
     Private Sub Tws1_realtimeBar(ByVal eventSender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_realtimeBarEvent) Handles Tws1.OnrealtimeBar
