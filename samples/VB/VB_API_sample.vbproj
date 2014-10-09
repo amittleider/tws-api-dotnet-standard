@@ -141,14 +141,12 @@
     <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
     <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
     <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
-    <Compile Include="_DTwsEvents_historicalDataEvent1.vb" />
     <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
     <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
     <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
     <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
     <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
     <Compile Include="_DTwsEvents_positionEvent.vb" />
-    <Compile Include="_DTwsEvents_positionEvent1.vb" />
     <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
     <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
     <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
