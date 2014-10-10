@@ -7,7 +7,7 @@
 #include "EDecoder.h"
 #include "EMutex.h"
 #include "EReader.h"
-#include "..\src\EPosixClientSocket.h"
+#include "EPosixClientSocket.h"
 #include "EReaderSignal.h"
 #include "EMessage.h"
 #include "DefaultWrapper.h"
