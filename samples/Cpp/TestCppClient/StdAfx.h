@@ -3,4 +3,4 @@
 
 #pragma once
 
-#include "Shared/StdAfx.h"
+#include "client/StdAfx.h"
