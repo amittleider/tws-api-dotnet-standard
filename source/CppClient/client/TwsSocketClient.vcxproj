@@ -156,11 +156,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\shared\defaultwrapper.cpp" />
-    <ClCompile Include="..\Shared\EMutex.cpp" />
-    <ClCompile Include="..\Shared\EDecoder.cpp" />
-    <ClCompile Include="..\Shared\EMessage.cpp" />
-    <ClCompile Include="..\Shared\EReader.cpp" />
+    <ClCompile Include="defaultwrapper.cpp" />
+    <ClCompile Include="EMutex.cpp" />
+    <ClCompile Include="EDecoder.cpp" />
+    <ClCompile Include="EMessage.cpp" />
+    <ClCompile Include="EReader.cpp" />
     <ClCompile Include="EClientSocketBase.cpp" />
     <ClCompile Include="EPosixClientSocket.cpp" />
     <ClCompile Include="EReaderOSSignal.cpp" />
@@ -175,33 +175,32 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Shared\EMutex.h" />
-    <ClInclude Include="..\Shared\DefaultWrapper.h" />
-    <ClInclude Include="..\Shared\EDecoder.h" />
-    <ClInclude Include="..\Shared\EMessage.h" />
-    <ClInclude Include="..\Shared\EReader.h" />
-    <ClInclude Include="..\Shared\EReaderSignal.h" />
+    <ClInclude Include="EMutex.h" />
+    <ClInclude Include="DefaultWrapper.h" />
+    <ClInclude Include="EDecoder.h" />
+    <ClInclude Include="EMessage.h" />
+    <ClInclude Include="EReader.h" />
+    <ClInclude Include="EReaderSignal.h" />
     <ClInclude Include="EPosixClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="EReaderOSSignal.h" />
     <ClInclude Include="EReaderWMSignal.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="..\Shared\CommissionReport.h" />
-    <ClInclude Include="..\Shared\CommonDefs.h" />
-    <ClInclude Include="..\Shared\Contract.h" />
-    <ClInclude Include="..\Shared\EClient.h" />
-    <ClInclude Include="..\Shared\EClientSocketBase.h" />
-    <ClInclude Include="..\Shared\EClientSocketBaseImpl.h" />
-    <ClInclude Include="..\Shared\EWrapper.h" />
-    <ClInclude Include="..\Shared\Execution.h" />
-    <ClInclude Include="..\Shared\Order.h" />
-    <ClInclude Include="..\Shared\OrderState.h" />
-    <ClInclude Include="..\Shared\ScannerSubscription.h" />
-    <ClInclude Include="..\Shared\shared_ptr.h" />
-    <ClInclude Include="..\Shared\StdAfx.h" />
-    <ClInclude Include="..\Shared\TagValue.h" />
-    <ClInclude Include="..\Shared\TwsSocketClientErrors.h" />
+    <ClInclude Include="CommissionReport.h" />
+    <ClInclude Include="CommonDefs.h" />
+    <ClInclude Include="Contract.h" />
+    <ClInclude Include="EClient.h" />
+    <ClInclude Include="EClientSocketBase.h" />
+    <ClInclude Include="EClientSocketBaseImpl.h" />
+    <ClInclude Include="EWrapper.h" />
+    <ClInclude Include="Execution.h" />
+    <ClInclude Include="Order.h" />
+    <ClInclude Include="OrderState.h" />
+    <ClInclude Include="ScannerSubscription.h" />
+    <ClInclude Include="shared_ptr.h" />
+    <ClInclude Include="TagValue.h" />
+    <ClInclude Include="TwsSocketClientErrors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
