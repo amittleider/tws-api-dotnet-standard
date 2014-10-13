@@ -15,5 +15,6 @@ public:
 	virtual void onMsgRecv();
 
 	void waitSignal();
+    bool isSet();
 };
 

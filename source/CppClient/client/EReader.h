@@ -5,6 +5,7 @@
 
 #include "EDecoder.h"
 #include "EMutex.h"
+#include "EReaderOSSignal.h"
 
 class EPosixClientSocket;
 class EReaderSignal;
@@ -14,19 +15,22 @@ class TWSAPIDLLEXP EReader
 {  
     EPosixClientSocket *m_pClientSocket;
     EReaderSignal *m_pEReaderSignal;
+    EReaderOSSignal m_onSendSignal;
     EDecoder m_decoder;
     std::deque<shared_ptr<EMessage>> m_msgQueue;
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
 	EDecoder tmpDecoder;
-
+    bool needsWriteSelect;
 
 	void onReceive();
+    void onSend();
 	bool bufferedRead(char *buf, int size);
 
 public:
     EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal);
     ~EReader(void);
+
 protected:
 	bool processNonBlockingSelect();
     shared_ptr<EMessage> getMsg(void);

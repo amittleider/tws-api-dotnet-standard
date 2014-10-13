@@ -67,7 +67,7 @@ bool EReader::processNonBlockingSelect() {
 	fd_set readSet, writeSet, errorSet;
 	struct timeval tval;
 
-	tval.tv_usec = 0;
+	tval.tv_usec = 100 * 1000; //100 ms
 	tval.tv_sec = 0;
 
 	if( m_pClientSocket->fd() >= 0 ) {
@@ -121,6 +121,10 @@ bool EReader::processNonBlockingSelect() {
 	}
 
 	return false;
+}
+
+void EReader::onSend() {
+    m_onSendSignal.onMsgRecv();
 }
 
 void EReader::onReceive() {
@@ -205,6 +209,9 @@ shared_ptr<EMessage> EReader::getMsg(void) {
 
 
 void EReader::processMsgs(void) {
+    if (m_onSendSignal.isSet())
+        m_pClientSocket->onSend();
+
 	shared_ptr<EMessage> msg = getMsg();
 
 	if (!msg.get())
