@@ -106,7 +106,7 @@ bool EReader::processNonBlockingSelect() {
 
 		if( FD_ISSET( m_pClientSocket->fd(), &writeSet)) {
 			// socket is ready for writing
-			m_pClientSocket->onSend();
+			onSend();
 		}
 
 		if( m_pClientSocket->fd() < 0)
