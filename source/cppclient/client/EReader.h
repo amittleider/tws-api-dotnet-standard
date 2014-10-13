@@ -21,7 +21,6 @@ class TWSAPIDLLEXP EReader
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
 	EDecoder tmpDecoder;
-    bool needsWriteSelect;
 
 	void onReceive();
     void onSend();
