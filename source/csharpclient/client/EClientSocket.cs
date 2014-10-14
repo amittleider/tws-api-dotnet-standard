@@ -137,7 +137,8 @@ namespace IBApi
                 }
                 catch (IOException)
                 {
-                    throw new EClientException(EClientErrors.CONNECT_FAIL);
+                    wrapper.error(clientId, EClientErrors.CONNECT_FAIL.Code, EClientErrors.CONNECT_FAIL.Message);
+                    throw;
                 }
 
                 if (!useV100Plus)
