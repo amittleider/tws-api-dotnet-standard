@@ -13,34 +13,34 @@ class EMessage;
 
 class TWSAPIDLLEXP EReader
 {  
-	EPosixClientSocket *m_pClientSocket;
-	EReaderSignal *m_pEReaderSignal;
-	EDecoder m_decoder;
-	std::deque<shared_ptr<EMessage>> m_msgQueue;
-	EMutex m_csMsgQueue;
-	std::vector<char> m_buf;
+    EPosixClientSocket *m_pClientSocket;
+    EReaderSignal *m_pEReaderSignal;
+    EDecoder m_decoder;
+    std::deque<shared_ptr<EMessage>> m_msgQueue;
+    EMutex m_csMsgQueue;
+    std::vector<char> m_buf;
 	EDecoder tmpDecoder;
-	bool m_needsWriteSelect;
+    bool m_needsWriteSelect;
 
 	void onReceive();
 	void onSend();
 	bool bufferedRead(char *buf, int size);
 
 public:
-	EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal);
-	~EReader(void);
+    EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal);
+    ~EReader(void);
 
 protected:
 	bool processNonBlockingSelect();
-	shared_ptr<EMessage> getMsg(void);
-	void readToQueue();
-	static DWORD WINAPI readToQueueThread(LPVOID lpParam);
+    shared_ptr<EMessage> getMsg(void);
+    void readToQueue();
+    static DWORD WINAPI readToQueueThread(LPVOID lpParam);
 
-	EMessage * readSingleMsg();
+    EMessage * readSingleMsg();
 
 public:
-	void processMsgs(void);
-	void checkClient();
+    void processMsgs(void);
+    void checkClient();
 
 private:
 	void start();
