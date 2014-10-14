@@ -35,7 +35,7 @@ protected:
     shared_ptr<EMessage> getMsg(void);
     void readToQueue();
     static DWORD WINAPI readToQueueThread(LPVOID lpParam);
-
+    
     EMessage * readSingleMsg();
 
 public:
