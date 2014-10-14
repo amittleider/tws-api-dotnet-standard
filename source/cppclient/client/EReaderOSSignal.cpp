@@ -8,6 +8,9 @@
 EReaderOSSignal::EReaderOSSignal(void)
 {
 	m_evMsgs = CreateEvent(0, false, false, 0);
+
+    if (NULL == m_evMsgs)
+        throw std::runtime_error("Failed to create event");
 }
 
 
@@ -23,8 +26,4 @@ void EReaderOSSignal::onMsgRecv() {
 
 void EReaderOSSignal::waitSignal() {
 	WaitForSingleObject(m_evMsgs, INFINITE);
-}
-
-bool EReaderOSSignal::isSet() {
-    return WaitForSingleObject(m_evMsgs, 0) == WAIT_OBJECT_0;
 }
