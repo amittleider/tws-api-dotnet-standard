@@ -9,7 +9,7 @@ class TWSAPIDLLEXP EReaderOSSignal :
 {
 	HANDLE m_evMsgs;
 public:
-	EReaderOSSignal(void);
+	EReaderOSSignal(void) throw (std::runtime_error);
 	~EReaderOSSignal(void);
 
 	virtual void onMsgRecv();

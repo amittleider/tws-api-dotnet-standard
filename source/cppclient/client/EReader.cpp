@@ -19,12 +19,17 @@ EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
 	, tmpDecoder(clientSocket->serverVersion(), &defaultWrapper) {
 		m_pClientSocket = clientSocket;
 		m_pEReaderSignal = signal;
+		m_needsWriteSelect = false;
 
 		m_buf.reserve(8192);
 		start();
 }
 
 EReader::~EReader(void) {
+}
+
+void EReader::checkClient() {
+	m_needsWriteSelect = !m_pClientSocket->isOutBufferEmpty();
 }
 
 void EReader::start() {
@@ -46,7 +51,7 @@ void EReader::readToQueue() {
 			continue;
 
         if (m_pClientSocket->isSocketOK())
-		    msg = readSingleMsg();
+            msg = readSingleMsg();
 
 		if (msg == 0)
 			break;
@@ -60,14 +65,14 @@ void EReader::readToQueue() {
 	}
 
 	m_pClientSocket->handleSocketError();
-    m_pEReaderSignal->onMsgRecv(); //letting client know that socket was closed
+	m_pEReaderSignal->onMsgRecv(); //letting client know that socket was closed
 }
 
 bool EReader::processNonBlockingSelect() {
 	fd_set readSet, writeSet, errorSet;
 	struct timeval tval;
 
-	tval.tv_usec = 0;
+	tval.tv_usec = 100 * 1000; //100 ms
 	tval.tv_sec = 0;
 
 	if( m_pClientSocket->fd() >= 0 ) {
@@ -77,7 +82,7 @@ bool EReader::processNonBlockingSelect() {
 
 		FD_SET( m_pClientSocket->fd(), &readSet);
 
-		if( !m_pClientSocket->isOutBufferEmpty())
+		if (m_needsWriteSelect)
 			FD_SET( m_pClientSocket->fd(), &writeSet);
 
 		FD_SET( m_pClientSocket->fd(), &errorSet);
@@ -106,7 +111,7 @@ bool EReader::processNonBlockingSelect() {
 
 		if( FD_ISSET( m_pClientSocket->fd(), &writeSet)) {
 			// socket is ready for writing
-			m_pClientSocket->onSend();
+			onSend();
 		}
 
 		if( m_pClientSocket->fd() < 0)
@@ -121,6 +126,10 @@ bool EReader::processNonBlockingSelect() {
 	}
 
 	return false;
+}
+
+void EReader::onSend() {
+	m_pEReaderSignal->onMsgRecv();
 }
 
 void EReader::onReceive() {
@@ -205,6 +214,9 @@ shared_ptr<EMessage> EReader::getMsg(void) {
 
 
 void EReader::processMsgs(void) {
+	m_pClientSocket->onSend();
+	checkClient();
+
 	shared_ptr<EMessage> msg = getMsg();
 
 	if (!msg.get())
