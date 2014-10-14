@@ -50,8 +50,8 @@ void EReader::readToQueue() {
 		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
 			continue;
 
-		if (m_pClientSocket->isSocketOK())
-			msg = readSingleMsg();
+        if (m_pClientSocket->isSocketOK())
+            msg = readSingleMsg();
 
 		if (msg == 0)
 			break;
@@ -61,7 +61,7 @@ void EReader::readToQueue() {
 		m_csMsgQueue.Leave();
 		m_pEReaderSignal->onMsgRecv();
 
-		msg = 0;
+        msg = 0;
 	}
 
 	m_pClientSocket->handleSocketError();

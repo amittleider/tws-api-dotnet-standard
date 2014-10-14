@@ -9,8 +9,8 @@ EReaderOSSignal::EReaderOSSignal(void)
 {
 	m_evMsgs = CreateEvent(0, false, false, 0);
 
-    if (NULL == m_evMsgs)
-        throw std::runtime_error("Failed to create event");
+	if (NULL == m_evMsgs)
+		throw std::runtime_error("Failed to create event");
 }
 
 

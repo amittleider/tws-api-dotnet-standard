@@ -113,7 +113,7 @@ void TestCppClient::processMessages() {
 		tval.tv_sec = m_sleepDeadline - now;
 	}
 
-    m_pReader->checkClient();
+	m_pReader->checkClient();
 	m_osSignal.waitSignal();
 	m_pReader->processMsgs();
 }
