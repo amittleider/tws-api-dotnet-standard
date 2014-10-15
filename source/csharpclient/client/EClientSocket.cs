@@ -128,18 +128,18 @@ namespace IBApi
                         tcpWriter.Write(UTF8Encoding.UTF8.GetBytes(Constants.ClientVersion.ToString()));
                         tcpWriter.Write(Constants.EOL);
                     }
+
+                    // Receive the response from the remote device.
+                    if (useV100Plus)
+                        reader.ReadMessageToInternalBuf();
+
+                    serverVersion = reader.ReadInt();
                 }
                 catch (IOException)
                 {
-                    wrapper.error("Could not establish connection. Make sure the TWS is enabled to accept socket clients!");
+                    wrapper.error(clientId, EClientErrors.CONNECT_FAIL.Code, EClientErrors.CONNECT_FAIL.Message);
                     throw;
                 }
-
-                // Receive the response from the remote device.
-                if (useV100Plus)
-                    reader.ReadMessageToInternalBuf();
-
-                serverVersion = reader.ReadInt();
 
                 if (!useV100Plus)
                 {
