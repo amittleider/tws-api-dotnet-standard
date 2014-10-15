@@ -173,14 +173,14 @@ namespace IBSampleApp.types
             faDefaultMethods.Columns.Add(new DataColumn("Value", typeof(string)));
             faDefaultMethods.Rows.Add("Equal quantity", "EqualQuantity");
             faDefaultMethods.Rows.Add("Available equity", "AvailableEquity");
-            faDefaultMethods.Rows.Add("Net liquidity", "NetLiquidity");
+            faDefaultMethods.Rows.Add("Net liquidity", "NetLiq");
             faDefaultMethods.Rows.Add("Percent change", "PctChange");
             return faDefaultMethods;
         }
 
         public static IBType EqualQuantity = new IBType("Equal quantity", "EqualQuantity");
         public static IBType AvailableEquity = new IBType("Available equity", "AvailableEquity");
-        public static IBType NetLiquidity = new IBType("Net liquidity", "NetLiquidity");
+        public static IBType NetLiquidity = new IBType("Net liquidity", "NetLiq");
         public static IBType PercentChange = new IBType("Percent change", "PctChange");
     }
 

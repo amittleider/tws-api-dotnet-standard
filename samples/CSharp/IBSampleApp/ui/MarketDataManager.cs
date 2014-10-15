@@ -35,7 +35,9 @@ namespace IBSampleApp.ui
         public void AddRequest(Contract contract, string genericTickList)
         {
             activeRequests.Add(contract);
-            ibClient.ClientSocket.reqMktData(TICK_ID_BASE+(currentTicker++), contract, genericTickList, false, new List<TagValue>());
+            int nextReqId = TICK_ID_BASE+(currentTicker++);
+            checkToAddRow(nextReqId);
+            ibClient.ClientSocket.reqMktData(nextReqId, contract, genericTickList, false, new List<TagValue>());
 
             if(!uiControl.Visible)
                 uiControl.Visible = true;
@@ -43,8 +45,8 @@ namespace IBSampleApp.ui
 
         public override void NotifyError(int requestId)
         {
-            activeRequests.RemoveAt(GetIndex(requestId));
-            currentTicker-=1;
+            //activeRequests.RemoveAt(GetIndex(requestId));
+            //currentTicker-=1;
         }
 
         public override void Clear()
@@ -83,7 +85,7 @@ namespace IBSampleApp.ui
         public override void UpdateUI(IBMessage message)
         {
             MarketDataMessage dataMessage = (MarketDataMessage)message;
-            checkToAddRow(dataMessage.RequestId);
+            //checkToAddRow(dataMessage.RequestId);
             DataGridView grid = (DataGridView)uiControl;
             if (grid.Rows.Count >= dataMessage.RequestId - TICK_ID_BASE)
             {

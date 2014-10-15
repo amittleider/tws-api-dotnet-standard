@@ -10,10 +10,7 @@ namespace IBSampleApp.util
     {
         public static string ContractToString(Contract contract)
         {
-            if (contract.PrimaryExch != null)
-                return contract.Symbol + " " + contract.SecType + " " + contract.Currency + " @ " + contract.PrimaryExch;
-            else
-                return contract.Symbol + " " + contract.SecType + " " + contract.Currency;
+            return contract.Symbol + " " + contract.SecType + " " + contract.Currency + " @ " + contract.Exchange;
         }
 
         public static bool ContractsAreEqual(Contract contractA, Contract contractB)
