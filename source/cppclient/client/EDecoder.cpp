@@ -2,7 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
-#include <Winsock2.h>
 #include <assert.h>
 #include <string>
 #include "EWrapper.h"

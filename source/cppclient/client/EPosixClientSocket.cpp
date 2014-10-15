@@ -5,7 +5,6 @@
 
 
 #include "EPosixClientSocketPlatform.h"
-#include "EMutex.h"
 #include "EPosixClientSocket.h"
 
 #include "TwsSocketClientErrors.h"
