@@ -37,6 +37,8 @@ namespace IBSampleApp
 
         private bool isConnected = false;
 
+        private int MAX_LINES_IN_MESSAGE_BOX = 100;
+
         public IBSampleApp()
         {
             InitializeComponent();
@@ -60,7 +62,7 @@ namespace IBSampleApp
 
             fundamentalsReportType.Items.AddRange(FundamentalsReport.GetAll());
             fundamentalsReportType.SelectedIndex = 0;
-
+            
             this.groupMethod.DataSource = AllocationGroupMethod.GetAsData();
             this.groupMethod.ValueMember = "Value";
             this.groupMethod.DisplayMember = "Name";
@@ -625,7 +627,15 @@ namespace IBSampleApp
         private void ShowMessageOnPanel(string message)
         {
             this.messageBox.Text += (message);
-            messageBox.Select(messageBox.Text.Length, 0);
+
+            if (messageBox.Lines.Length > MAX_LINES_IN_MESSAGE_BOX)//limit to 6 lines here
+            {
+                string[] newLines = new string[MAX_LINES_IN_MESSAGE_BOX];
+                Array.Copy(messageBox.Lines, 1, newLines, 0, MAX_LINES_IN_MESSAGE_BOX);
+                messageBox.Lines = newLines;
+            }
+
+            messageBox.SelectionStart = messageBox.Text.Length;
             messageBox.ScrollToCaret();
         }
 
