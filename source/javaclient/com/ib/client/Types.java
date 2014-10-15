@@ -98,7 +98,7 @@ public class Types {
 		}
 
 		@Override public String getApiString() {
-			return "" + ordinal();
+			return String.valueOf(ordinal());
 		}
 	}
 
@@ -110,7 +110,7 @@ public class Types {
 		}
 
 		@Override public String getApiString() {
-			return "" + ordinal();
+			return String.valueOf(ordinal());
 		}
 	}
 
@@ -135,7 +135,7 @@ public class Types {
 		}
 
 		@Override public String getApiString() {
-			return "" + m_val;
+			return String.valueOf(m_val);
 		}
 	}
 
@@ -177,7 +177,7 @@ public class Types {
 		}
 
 		@Override public String getApiString() {
-			return "" + ordinal();
+			return String.valueOf(ordinal());
 		}
 	}
 
