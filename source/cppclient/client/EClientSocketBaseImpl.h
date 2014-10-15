@@ -2849,7 +2849,7 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	const char* msgEnd = msgStart + msgLen;
 
 	// handle incomplete messages
-	if( msgStart > endPtr) {
+	if( msgEnd > endPtr) {
 		return 0;
 	}
 
