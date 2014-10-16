@@ -58,10 +58,10 @@ public class Util {
     }
 
     public static String IntMaxString(int value) {
-    	return (value == Integer.MAX_VALUE) ? "" : "" + value;
+    	return (value == Integer.MAX_VALUE) ? "" : String.valueOf(value);
     }
 
     public static String DoubleMaxString(double value) {
-    	return (value == Double.MAX_VALUE) ? "" : "" + value;
+    	return (value == Double.MAX_VALUE) ? "" : String.valueOf(value);
     }
 }

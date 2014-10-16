@@ -14,7 +14,7 @@ public class ComboLeg {
         }
 
         public String getApiString() {
-            return "" + ordinal();
+            return String.valueOf(ordinal());
         }
     }
 
