@@ -478,7 +478,7 @@ public class EClientSocket {
         }
         catch( Exception e) {
             error( EClientErrors.NO_VALID_ID,
-                   EClientErrors.FAIL_SEND_STARTAPI, "" + e);
+                   EClientErrors.FAIL_SEND_STARTAPI, e.toString());
             close();
         }
     }
@@ -509,7 +509,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_CANSCANNER, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_CANSCANNER, e.toString());
             close();
         }
     }
@@ -539,7 +539,7 @@ public class EClientSocket {
         }
         catch( Exception e) {
             error( EClientErrors.NO_VALID_ID,
-                   EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS, "" + e);
+                   EClientErrors.FAIL_SEND_REQSCANNERPARAMETERS, e.toString());
             close();
         }
     }
@@ -609,7 +609,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_REQSCANNER, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_REQSCANNER, e.toString());
             close();
         }
     }
@@ -747,7 +747,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_REQMKT, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_REQMKT, e.toString());
             close();
         }
     }
@@ -778,7 +778,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_CANHISTDATA, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_CANHISTDATA, e.toString());
             close();
         }
     }
@@ -809,7 +809,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_CANRTBARS, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_CANRTBARS, e.toString());
             close();
         }
     }
@@ -914,7 +914,7 @@ public class EClientSocket {
           closeAndSend(b);
         }
         catch (Exception e) {
-          error(tickerId, EClientErrors.FAIL_SEND_REQHISTDATA, "" + e);
+          error(tickerId, EClientErrors.FAIL_SEND_REQHISTDATA, e.toString());
           close();
         }
     }
@@ -988,7 +988,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_REQRTBARS, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_REQRTBARS, e.toString());
             close();
         }
     }
@@ -1088,7 +1088,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQCONTRACT, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQCONTRACT, e.toString());
             close();
         }
     }
@@ -1165,7 +1165,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_REQMKTDEPTH, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_REQMKTDEPTH, e.toString());
             close();
         }
     }
@@ -1190,7 +1190,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_CANMKT, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_CANMKT, e.toString());
             close();
         }
     }
@@ -1222,7 +1222,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( tickerId, EClientErrors.FAIL_SEND_CANMKTDEPTH, "" + e);
+            error( tickerId, EClientErrors.FAIL_SEND_CANMKTDEPTH, e.toString());
             close();
         }
     }
@@ -1283,7 +1283,7 @@ public class EClientSocket {
           closeAndSend(b);
       }
       catch (Exception e) {
-        error(tickerId, EClientErrors.FAIL_SEND_REQMKT, "" + e);
+        error(tickerId, EClientErrors.FAIL_SEND_REQMKT, e.toString());
         close();
       }
     }
@@ -1845,7 +1845,7 @@ public class EClientSocket {
            closeAndSend(b);
         }
         catch( Exception e) {
-            error( id, EClientErrors.FAIL_SEND_ORDER, "" + e);
+            error( id, EClientErrors.FAIL_SEND_ORDER, e.toString());
             close();
         }
     }
@@ -1874,7 +1874,7 @@ public class EClientSocket {
             closeAndSend(b);
        }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_ACCT, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_ACCT, e.toString());
             close();
         }
     }
@@ -1914,7 +1914,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_EXEC, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_EXEC, e.toString());
             close();
         }
     }
@@ -1939,7 +1939,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( id, EClientErrors.FAIL_SEND_CORDER, "" + e);
+            error( id, EClientErrors.FAIL_SEND_CORDER, e.toString());
             close();
         }
     }
@@ -1963,7 +1963,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, "" + e);
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, e.toString());
             close();
         }
     }
@@ -1987,7 +1987,7 @@ public class EClientSocket {
             closeAndSend(b);
        }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, e.toString());
             close();
         }
     }
@@ -2011,7 +2011,7 @@ public class EClientSocket {
             closeAndSend(b);
        }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, e.toString());
             close();
         }
     }
@@ -2035,7 +2035,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CORDER, e.toString());
             close();
         }
     }
@@ -2060,7 +2060,7 @@ public class EClientSocket {
                     closeAndSend(b);
                }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL, e.toString());
             close();
         }
     }
@@ -2085,7 +2085,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, "" + e);
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, e.toString());
             close();
         }
     }
@@ -2109,7 +2109,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, "" + e);
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, e.toString());
             close();
         }
     }
@@ -2133,7 +2133,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, "" + e);
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_OORDER, e.toString());
             close();
         }
     }
@@ -2164,7 +2164,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( faDataType, EClientErrors.FAIL_SEND_FA_REQUEST, "" + e);
+            error( faDataType, EClientErrors.FAIL_SEND_FA_REQUEST, e.toString());
             close();
         }
     }
@@ -2196,7 +2196,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( faDataType, EClientErrors.FAIL_SEND_FA_REPLACE, "" + e);
+            error( faDataType, EClientErrors.FAIL_SEND_FA_REPLACE, e.toString());
             close();
         }
     }
@@ -2226,7 +2226,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQCURRTIME, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQCURRTIME, e.toString());
             close();
         }
     }
@@ -2278,7 +2278,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_REQFUNDDATA, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_REQFUNDDATA, e.toString());
             close();
         }
     }
@@ -2309,7 +2309,7 @@ public class EClientSocket {
             closeAndSend(b);
        }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_CANFUNDDATA, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_CANFUNDDATA, e.toString());
             close();
         }
     }
@@ -2369,7 +2369,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_REQCALCIMPLIEDVOLAT, e.toString());
             close();
         }
     }
@@ -2401,7 +2401,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_CANCALCIMPLIEDVOLAT, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_CANCALCIMPLIEDVOLAT, e.toString());
             close();
         }
     }
@@ -2461,7 +2461,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_REQCALCOPTIONPRICE, e.toString());
             close();
         }
     }
@@ -2493,7 +2493,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( reqId, EClientErrors.FAIL_SEND_CANCALCOPTIONPRICE, "" + e);
+            error( reqId, EClientErrors.FAIL_SEND_CANCALCOPTIONPRICE, e.toString());
             close();
         }
     }
@@ -2523,7 +2523,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQGLOBALCANCEL, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQGLOBALCANCEL, e.toString());
             close();
         }
     }
@@ -2554,7 +2554,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch( Exception e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQMARKETDATATYPE, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQMARKETDATATYPE, e.toString());
             close();
         }
     }
@@ -2583,7 +2583,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONS, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONS, e.toString());
         }
     }
 
@@ -2611,7 +2611,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANPOSITIONS, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANPOSITIONS, e.toString());
         }
     }
 
@@ -2642,7 +2642,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQACCOUNTDATA, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQACCOUNTDATA, e.toString());
         }
     }
 
@@ -2671,7 +2671,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANACCOUNTDATA, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANACCOUNTDATA, e.toString());
         }
     }
     public synchronized void verifyRequest( String apiName, String apiVersion) {
@@ -2705,7 +2705,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYREQUEST, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYREQUEST, e.toString());
         }
     }
 
@@ -2733,7 +2733,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYMESSAGE, e.toString());
         }
     }
 
@@ -2769,7 +2769,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST, e.toString());
         }
     }
 
@@ -2798,7 +2798,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE, e.toString());
         }
     }
 
@@ -2827,7 +2827,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS, e.toString());
         }
     }
 	
@@ -2857,7 +2857,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS, e.toString());
         }
     }	
 
@@ -2887,7 +2887,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP, e.toString());
         }
     }	
 
@@ -2916,7 +2916,7 @@ public class EClientSocket {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS, "" + e);
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS, e.toString());
         }
     }	
 	
