@@ -230,6 +230,7 @@ public class EClientSocket {
     private String m_connectOptions; // iServer rails are used for Connection if this is not null
     private String m_host;           // Actual host, directly set or redirected
     private int m_redirectCount;
+    private boolean m_allowRedirect;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -237,6 +238,14 @@ public class EClientSocket {
     public EReader reader()             { return m_reader; }
     public boolean isConnected()        { return m_connected; }
 
+    public boolean allowRedirect() {
+    	return m_allowRedirect;
+    }
+    
+    public void allowRedirect(boolean val) {
+    	m_allowRedirect = val;
+    }
+    
     // set
     protected synchronized void setExtraAuth(boolean extraAuth) { m_extraAuth = extraAuth; }
     public void OptionalCapabilities(String val) 		{ m_optionalCapabilities = val; }
@@ -346,6 +355,11 @@ public class EClientSocket {
         
         // Handle redirect
         if( m_useV100Plus && m_serverVersion == REDIRECT_MSG_ID ) {
+        	if (!m_allowRedirect) {
+        		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(), EClientErrors.CONNECT_FAIL.msg());
+        		return;
+        	}
+        	
             ++m_redirectCount;
             if ( m_redirectCount > REDIRECT_COUNT_MAX ) {
                 eDisconnect();
