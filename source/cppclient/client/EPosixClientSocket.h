@@ -52,6 +52,7 @@ public:
 private:
 
 	int m_fd;
+    bool m_allowRedirect;
 };
 
 #endif
