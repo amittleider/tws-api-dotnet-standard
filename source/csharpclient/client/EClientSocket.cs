@@ -30,6 +30,7 @@ namespace IBApi
         private bool extraAuth;
         private bool useV100Plus;
         private string connectOptions;
+        private bool allowRedirect = false;
 
         /**
          * @brief Constructor
@@ -62,6 +63,8 @@ namespace IBApi
         {
             get { return wrapper; }
         }
+
+        public bool AllowRedirect { get { return allowRedirect; } set { allowRedirect = value; } }
 
         /**
          * @brief returns the Host's version. Some of the API functionality might not be available in older Hosts and therefore it is essential to keep the TWS/Gateway as up to date as possible.
@@ -152,6 +155,12 @@ namespace IBApi
                 else
                     if (serverVersion == -1)
                     {
+                        if (!allowRedirect)
+                        {
+                            wrapper.error(clientId, EClientErrors.CONNECT_FAIL.Code, EClientErrors.CONNECT_FAIL.Message);
+                            return;
+                        }
+
                         var srv = reader.ReadString().Split(':');
 
                         if (srv.Length > 1)
