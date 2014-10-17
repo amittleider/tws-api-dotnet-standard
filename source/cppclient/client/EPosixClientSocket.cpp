@@ -19,6 +19,7 @@
 EPosixClientSocket::EPosixClientSocket( EWrapper *ptr) : EClientSocketBase( ptr)
 {
 	m_fd = SocketsInit() ? -1 : -2;
+    m_allowRedirect = false;
 }
 
 EPosixClientSocket::~EPosixClientSocket()
@@ -57,6 +58,12 @@ bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clie
 
 	// handle redirect
 	if( !res && resState == CS_REDIRECT && (hostNorm != this->host() || port != this->port())) {
+        if (!m_allowRedirect) {
+            getWrapper()->error(NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
+
+            return false;
+        }
+
 		res = eConnectImpl( clientId, extraAuth, 0);
 	}
 	return res;

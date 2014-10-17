@@ -60,6 +60,9 @@
     <Compile Include="..\client\ContractDetails.cs">
       <Link>CSharpAPI\ContractDetails.cs</Link>
     </Compile>
+    <Compile Include="..\client\DefaultEWrapper.cs">
+      <Link>CSharpAPI\DefaultEWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\client\EClientErrors.cs">
       <Link>CSharpAPI\EClientErrors.cs</Link>
     </Compile>

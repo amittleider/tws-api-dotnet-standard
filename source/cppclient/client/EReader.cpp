@@ -10,9 +10,9 @@
 #include "EPosixClientSocket.h"
 #include "EReaderSignal.h"
 #include "EMessage.h"
-#include "DefaultWrapper.h"
+#include "DefaultEWrapper.h"
 
-DefaultWrapper defaultWrapper;
+DefaultEWrapper defaultWrapper;
 
 EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
 	: m_decoder(clientSocket->serverVersion(), clientSocket->getWrapper())
