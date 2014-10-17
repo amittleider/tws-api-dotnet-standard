@@ -1842,6 +1842,12 @@ public class EClientSocket {
            if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
         	   b.send(order.solicited());
            }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_PTA_ORDERS) {
+        	   b.send(order.randomizeSize());
+        	   b.send(order.randomizePrice());
+           }
+           
            closeAndSend(b);
         }
         catch( Exception e) {
