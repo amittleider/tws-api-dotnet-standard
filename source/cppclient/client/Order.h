@@ -95,6 +95,9 @@ struct Order
 		stockRangeLower = UNSET_DOUBLE;
 		stockRangeUpper = UNSET_DOUBLE;
 
+        randomizePrice = false;
+        randomizeSize = false;
+
 		// VOLATILITY ORDERS ONLY
 		volatility            = UNSET_DOUBLE;
 		volatilityType        = UNSET_INTEGER;     // 1=daily, 2=annual
@@ -202,6 +205,9 @@ struct Order
 	// pegged to stock and VOL orders only
 	double   stockRangeLower;
 	double   stockRangeUpper;
+
+    bool randomizeSize;
+    bool randomizePrice;
 
 	// VOLATILITY ORDERS ONLY
 	double   volatility;

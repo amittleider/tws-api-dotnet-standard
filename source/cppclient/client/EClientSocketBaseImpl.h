@@ -1845,6 +1845,11 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 		ENCODE_FIELD(order.solicited);
 	}
 
+    if (m_serverVersion >= MIN_SERVER_VER_PTA_ORDERS) {
+        ENCODE_FIELD(order.randomizeSize);
+        ENCODE_FIELD(order.randomizePrice);
+    }
+
 	closeAndSend( msg.str());
 }
 
