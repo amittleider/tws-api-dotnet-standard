@@ -156,7 +156,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="defaultwrapper.cpp" />
+    <ClCompile Include="DefaultEWrapper.cpp" />
     <ClCompile Include="EMutex.cpp" />
     <ClCompile Include="EDecoder.cpp" />
     <ClCompile Include="EMessage.cpp" />
@@ -176,7 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EMutex.h" />
-    <ClInclude Include="DefaultWrapper.h" />
+    <ClInclude Include="DefaultEWrapper.h" />
     <ClInclude Include="EDecoder.h" />
     <ClInclude Include="EMessage.h" />
     <ClInclude Include="EReader.h" />

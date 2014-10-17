@@ -4,7 +4,7 @@
 #pragma once
 #include "EWrapper.h"
 
-class DefaultWrapper :
+class DefaultEWrapper :
     public EWrapper
 {
 public:
