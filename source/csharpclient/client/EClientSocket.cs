@@ -1043,6 +1043,12 @@ namespace IBApi
                 paramsList.AddParameter(order.Solicited);
             }
 
+            if (serverVersion >= MinServerVer.PTA_ORDERS)
+            {
+                paramsList.AddParameter(order.RandomizeSize);
+                paramsList.AddParameter(order.RandomizePrice);
+            }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
