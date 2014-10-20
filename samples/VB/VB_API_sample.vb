@@ -2093,6 +2093,9 @@ Friend Class dlgMainWnd
         ' Solicited orders only
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  solicited=" & order.Solicited)
 
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " randomize size=" & order.RandomizeSize)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " randomize price=" & order.RandomizePrice)
+
         ' ALGO orders only
         Dim algoStrategy As String
         algoStrategy = order.AlgoStrategy

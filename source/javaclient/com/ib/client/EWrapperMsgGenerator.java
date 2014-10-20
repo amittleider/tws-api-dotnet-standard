@@ -150,8 +150,10 @@ public class EWrapperMsgGenerator {
         " clearingIntent=" + order.clearingIntent() +
         " notHeld=" + order.notHeld() +
         " whatIf=" + order.whatIf() +
-        " solicited=" + order.solicited();
-        ;
+        " solicited=" + order.solicited() +
+        " randomize size=" + order.randomizeSize() +
+        " randomize price=" + order.randomizePrice();
+        
 
         if ("BAG".equals(contract.getSecType())) {
         	if (contract.comboLegsDescrip() != null) {

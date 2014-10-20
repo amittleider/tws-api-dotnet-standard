@@ -97,6 +97,8 @@ public class ExtOrdDlg extends JDialog {
     private JTextField 	m_hedgeParam = new JTextField();
     private JCheckBox   m_optOutSmartRoutingCheckBox = new JCheckBox("Opting out of SMART routing", false);
 	private JCheckBox 	m_solicited = new JCheckBox("Solicited", false);
+	private JCheckBox 	m_randomizeSize = new JCheckBox("Randomize size", false);
+	private JCheckBox 	m_randomizePrice = new JCheckBox("Randomize price", false);
 
     private JButton 	m_ok = new JButton( "OK");
     private JButton 	m_cancel = new JButton( "Cancel");
@@ -253,6 +255,8 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_hedgeParam);
         extOrderDetailsPanel.add(m_optOutSmartRoutingCheckBox) ;
         extOrderDetailsPanel.add(m_solicited);
+        extOrderDetailsPanel.add(m_randomizeSize);
+        extOrderDetailsPanel.add(m_randomizePrice);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
@@ -358,6 +362,9 @@ public class ExtOrdDlg extends JDialog {
             m_order.scaleTable(m_scaleTable.getText().trim());
             m_order.hedgeType(m_hedgeType.getText().trim());
             m_order.hedgeParam(m_hedgeParam.getText().trim());
+            
+            m_order.randomizePrice(m_randomizePrice.isSelected());
+            m_order.randomizeSize(m_randomizeSize.isSelected());
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);

@@ -173,6 +173,8 @@ Public Class dlgOrderAttribs
     Public WithEvents Label61 As System.Windows.Forms.Label
     Public WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents cbSolicited As System.Windows.Forms.CheckBox
+    Friend WithEvents cbRandomizeSize As System.Windows.Forms.CheckBox
+    Friend WithEvents cbRandomizePrice As System.Windows.Forms.CheckBox
     Public WithEvents Label41 As System.Windows.Forms.Label
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -312,6 +314,8 @@ Public Class dlgOrderAttribs
         Me.Label61 = New System.Windows.Forms.Label()
         Me.Label62 = New System.Windows.Forms.Label()
         Me.cbSolicited = New System.Windows.Forms.CheckBox()
+        Me.cbRandomizeSize = New System.Windows.Forms.CheckBox()
+        Me.cbRandomizePrice = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'txtHedgeParam
@@ -2128,11 +2132,33 @@ Public Class dlgOrderAttribs
         Me.cbSolicited.Text = "Solicited"
         Me.cbSolicited.UseVisualStyleBackColor = True
         '
+        'cbRandomizeSize
+        '
+        Me.cbRandomizeSize.AutoSize = True
+        Me.cbRandomizeSize.Location = New System.Drawing.Point(16, 521)
+        Me.cbRandomizeSize.Name = "cbRandomizeSize"
+        Me.cbRandomizeSize.Size = New System.Drawing.Size(103, 18)
+        Me.cbRandomizeSize.TabIndex = 135
+        Me.cbRandomizeSize.Text = "Randomize Size"
+        Me.cbRandomizeSize.UseVisualStyleBackColor = True
+        '
+        'cbRandomizePrice
+        '
+        Me.cbRandomizePrice.AutoSize = True
+        Me.cbRandomizePrice.Location = New System.Drawing.Point(16, 545)
+        Me.cbRandomizePrice.Name = "cbRandomizePrice"
+        Me.cbRandomizePrice.Size = New System.Drawing.Size(106, 18)
+        Me.cbRandomizePrice.TabIndex = 136
+        Me.cbRandomizePrice.Text = "Randomize Price"
+        Me.cbRandomizePrice.UseVisualStyleBackColor = True
+        '
         'dlgOrderAttribs
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(850, 638)
+        Me.Controls.Add(Me.cbRandomizePrice)
+        Me.Controls.Add(Me.cbRandomizeSize)
         Me.Controls.Add(Me.cbSolicited)
         Me.Controls.Add(Me.txtActiveStopTime)
         Me.Controls.Add(Me.txtActiveStartTime)
@@ -2548,7 +2574,10 @@ Public Class dlgOrderAttribs
         m_orderInfo.settlingFirm = txtSettlingFirm.Text
         m_orderInfo.clearingAccount = txtClearingAccount.Text
         m_orderInfo.ClearingIntent = txtClearingIntent.Text
+
         m_orderInfo.Solicited = cbSolicited.Checked
+        m_orderInfo.RandomizePrice = cbRandomizePrice.Checked
+        m_orderInfo.RandomizeSize = cbRandomizeSize.Checked
 
         m_ok = True
         Hide()
