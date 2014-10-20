@@ -1052,7 +1052,7 @@ namespace IBApi
                 paramsList.AddParameter(order.Solicited);
             }
 
-            if (serverVersion >= MinServerVer.PTA_ORDERS)
+            if (serverVersion >= MinServerVer.RANDOMIZE_SIZE_AND_PRICE)
             {
                 paramsList.AddParameter(order.RandomizeSize);
                 paramsList.AddParameter(order.RandomizePrice);
