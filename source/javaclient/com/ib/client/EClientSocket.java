@@ -97,13 +97,14 @@ public class EClientSocket {
 	// 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 	// 64 = can receive solicited attrib in openOrder message
 	// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
+	// 66 = can receive randomize size and randomize price order fields
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = 100; // ditto
     private static final int REDIRECT_MSG_ID = -1;
     private static final int REDIRECT_COUNT_MAX = 2;
 
-    private static final int CLIENT_VERSION = 65;
+    private static final int CLIENT_VERSION = 66;
     private static final int SERVER_VERSION = 38;
     
     // FA msg data types
@@ -1512,7 +1513,7 @@ public class EClientSocket {
         	}
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
         // send place order msg
         try {

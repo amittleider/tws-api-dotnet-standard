@@ -111,8 +111,9 @@
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 // 64 = can receive solicited attrib in openOrder message
 // 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
+// 66 = can receive randomize size and randomize price order fields
 
-const int CLIENT_VERSION    = 65;
+const int CLIENT_VERSION    = 66;
 const int SERVER_VERSION    = 38;
 
 /* 100+ messaging */
@@ -1507,7 +1508,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	std::ostringstream msg;
 	prepareBuffer( msg);
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);

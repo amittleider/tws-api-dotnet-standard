@@ -551,6 +551,11 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( orderState.commissionCurrency); // ver 16 field
     DECODE_FIELD( orderState.warningText); // ver 16 field
 
+    if (version >= 34) {
+        DECODE_FIELD(order.randomizeSize);
+        DECODE_FIELD(order.randomizePrice);
+    }
+
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
 
     return ptr;

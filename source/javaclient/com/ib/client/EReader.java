@@ -749,6 +749,11 @@ public class EReader extends Thread {
                 	orderState.commissionCurrency(readStr());
                 	orderState.warningText(readStr());
                 }
+                
+                if (version >= 34) {
+                	order.randomizeSize(readBoolFromInt());
+                	order.randomizePrice(readBoolFromInt());
+                }
 
                 eWrapper().openOrder( order.orderId(), contract, order, orderState);
                 break;
