@@ -259,7 +259,7 @@ Friend Class dlgConnect
 	Private m_hostIP As String
 	Private m_port As Integer
 	Private m_clientId As Integer
-    Private m_ok As Boolean
+    Private m_ok As Boolean = False
     Private m_optcapts As String
 	
 	' ===============================================================================
@@ -305,11 +305,11 @@ Friend Class dlgConnect
         m_ok = True
         m_optcapts = txtOptCapts.Text
 		
-		Hide()
+        Close()
 	End Sub
 	
 	Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
 		m_ok = False
-		Hide()
+        Close()
 	End Sub
 End Class
