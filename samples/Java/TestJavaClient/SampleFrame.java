@@ -1212,6 +1212,8 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.clearingAccount(srcOrder.clearingAccount());
         destOrder.clearingIntent(srcOrder.clearingIntent());
         destOrder.solicited(srcOrder.solicited());
+        destOrder.randomizePrice(srcOrder.randomizePrice());
+        destOrder.randomizeSize(srcOrder.randomizeSize());
     }
 
     public void position(String account, Contract contract, int pos, double avgCost) {

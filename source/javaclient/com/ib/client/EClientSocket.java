@@ -97,14 +97,15 @@ public class EClientSocket {
 	// 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 	// 64 = can receive solicited attrib in openOrder message
 	// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
+	// 66 = can receive randomize size and randomize price order fields
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = 100; // ditto
     private static final int REDIRECT_MSG_ID = -1;
     private static final int REDIRECT_COUNT_MAX = 2;
 
-    private static final int CLIENT_VERSION = 65;
-    private static final int SERVER_VERSION = 38;
+    private static final int CLIENT_VERSION = 66;
+    private static final int MIN_SERVER_VER_SUPPORTED = 38; //all supported server versions are listed below
     
     // FA msg data types
     public static final int GROUPS = 1;
@@ -216,6 +217,7 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_ORDER_SOLICITED = 73;
     protected static final int MIN_SERVER_VER_LINKING_AUTH = 74;
     protected static final int MIN_SERVER_VER_PRIMARYEXCH = 75;
+    protected static final int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
 
     private EWrapper m_eWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
@@ -385,7 +387,7 @@ public class EClientSocket {
     		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.UNSUPPORTED_VERSION.code(), EClientErrors.UNSUPPORTED_VERSION.msg());
     		return;
    		}
-        if( m_serverVersion < SERVER_VERSION) {
+        if( m_serverVersion < MIN_SERVER_VER_SUPPORTED) {
         	eDisconnect();
             m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
             return;
@@ -1512,7 +1514,7 @@ public class EClientSocket {
         	}
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
         // send place order msg
         try {
@@ -1856,6 +1858,12 @@ public class EClientSocket {
            if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
         	   b.send(order.solicited());
            }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE) {
+        	   b.send(order.randomizeSize());
+        	   b.send(order.randomizePrice());
+           }
+           
            closeAndSend(b);
         }
         catch( Exception e) {

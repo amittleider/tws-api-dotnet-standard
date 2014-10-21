@@ -165,6 +165,9 @@ public class Order {
     
     //order algo id
 	private boolean m_solicited;
+	
+	private boolean m_randomizeSize;
+	private boolean m_randomizePrice;
     
     // getters
     public Action action()              { return Action.get(m_action); }
@@ -271,6 +274,8 @@ public class Order {
     public int getReferencePriceType()  { return m_referencePriceType; }
     public ArrayList<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
     public ArrayList<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
+    public boolean randomizeSize() { return m_randomizeSize; }
+    public boolean randomizePrice() { return m_randomizePrice; }
 
     // setters
     public void account(String v)               { m_account = v; }
@@ -378,6 +383,8 @@ public class Order {
     public void deltaNeutralClearingIntent(String v)    { m_deltaNeutralClearingIntent = v; }
     public void smartComboRoutingParams(ArrayList<TagValue> v) { m_smartComboRoutingParams = v; }
     public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
+    public void randomizeSize(boolean v) { m_randomizeSize = v; }
+    public void randomizePrice(boolean v) { m_randomizePrice = v; }
 
     public Order() {
         m_activeStartTime = EMPTY_STR;
@@ -407,6 +414,8 @@ public class Order {
         m_notHeld = false;
         m_algoId = EMPTY_STR;
         m_solicited = false;
+        m_randomizeSize = false;
+        m_randomizePrice = false;
     }
 
     public ArrayList<TagValue> algoParams() { 
@@ -485,6 +494,8 @@ public class Order {
         	m_whatIf != l_theOther.m_whatIf ||
         	m_notHeld != l_theOther.m_notHeld ||
         	m_exemptCode != l_theOther.m_exemptCode ||
+        	m_randomizePrice != l_theOther.m_randomizePrice ||
+            m_randomizeSize != l_theOther.m_randomizeSize ||        
         	m_solicited != l_theOther.m_solicited) {
         	return false;
         }

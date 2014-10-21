@@ -49,6 +49,7 @@ const int MIN_SERVER_VER_OPTIONAL_CAPABILITIES  = 72;
 const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 const int MIN_SERVER_VER_LINKING_AUTH           = 74;
 const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
+const int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
 
 // incoming msg id's
 const int TICK_PRICE                = 1;

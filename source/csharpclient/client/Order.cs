@@ -1233,6 +1233,8 @@ namespace IBApi
                 WhatIf != l_theOther.WhatIf ||
                 NotHeld != l_theOther.NotHeld ||
                 ExemptCode != l_theOther.ExemptCode ||
+                RandomizePrice != l_theOther.RandomizePrice ||
+                RandomizeSize != l_theOther.RandomizeSize ||
                 Solicited != l_theOther.Solicited)
             {
                 return false;
@@ -1291,5 +1293,8 @@ namespace IBApi
 
             return true;
         }
+
+        public bool RandomizeSize { get; set; }
+        public bool RandomizePrice { get; set; }
     }
 }

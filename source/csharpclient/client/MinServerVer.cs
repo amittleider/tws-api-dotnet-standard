@@ -59,5 +59,6 @@ namespace IBApi
         public const int ORDER_SOLICITED = 73;
         public const int LINKING_AUTH = 74;
         public const int PRIMARYEXCH = 75;
+        public const int RANDOMIZE_SIZE_AND_PRICE = 76;
     }
 }

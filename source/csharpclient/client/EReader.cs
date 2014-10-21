@@ -1179,6 +1179,12 @@ namespace IBApi
                 orderState.WarningText = ReadString();
             }
 
+            if (msgVersion >= 34)
+            {
+                order.RandomizeSize = ReadBoolFromInt();
+                order.RandomizePrice = ReadBoolFromInt();
+            }
+
             parent.Wrapper.openOrder(order.OrderId, contract, order, orderState);
         }
 

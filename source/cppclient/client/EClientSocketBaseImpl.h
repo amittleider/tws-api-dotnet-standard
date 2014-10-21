@@ -111,9 +111,10 @@
 // 63 = can receive verifyMessageAPI, verifyCompleted, displayGroupList and displayGroupUpdated messages
 // 64 = can receive solicited attrib in openOrder message
 // 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
+// 66 = can receive randomize size and randomize price order fields
 
-const int CLIENT_VERSION    = 65;
-const int SERVER_VERSION    = 38;
+const int CLIENT_VERSION    = 66;
+const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
@@ -1507,7 +1508,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	std::ostringstream msg;
 	prepareBuffer( msg);
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 44;
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);
@@ -1844,6 +1845,11 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
 		ENCODE_FIELD(order.solicited);
 	}
+
+    if (m_serverVersion >= MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE) {
+        ENCODE_FIELD(order.randomizeSize);
+        ENCODE_FIELD(order.randomizePrice);
+    }
 
 	closeAndSend( msg.str());
 }
@@ -2777,7 +2783,7 @@ int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* 
 			DECODE_FIELD( m_TwsTime);
 		}
 
-		if( m_serverVersion < SERVER_VERSION) {
+		if( m_serverVersion < MIN_SERVER_VER_SUPPORTED) {
 			eDisconnect();
 			m_pEWrapper->error( NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg());
 			return -1;
