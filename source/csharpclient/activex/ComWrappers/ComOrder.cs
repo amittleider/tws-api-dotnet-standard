@@ -958,6 +958,9 @@ namespace TWSLib
             set { data.Solicited = value; }
         }
 
+        public bool RandomizeSize { get { return data.RandomizeSize; } set { data.RandomizeSize = value; } }
+        public bool RandomizePrice { get { return data.RandomizePrice; } set { data.RandomizePrice = value; } }
+
         public override bool Equals(Object p_other)
         {
             if (!(p_other is ComOrder))
@@ -1238,6 +1241,9 @@ namespace TWSLib
                 Solicited = value;
             }
         }
+
+        bool TWSLib.IOrder.randomizeSize { get { return RandomizeSize; } set { RandomizeSize = value; } }
+        bool TWSLib.IOrder.randomizePrice { get { return RandomizePrice; } set { RandomizePrice = value; } }
 
         public static explicit operator ComOrder(IBApi.Order o)
         {
