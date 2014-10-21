@@ -228,5 +228,9 @@ namespace TWSLib
         string algoId { get; set; }
         [DispId(144)]
         bool solicited { get; set; }
+        [DispId(145)]
+        bool randomizeSize { get; set; }
+        [DispId(146)]
+        bool randomizePrice { get; set; }
     }
 }
