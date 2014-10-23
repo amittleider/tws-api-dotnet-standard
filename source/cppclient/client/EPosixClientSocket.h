@@ -6,10 +6,11 @@
 #define eposixclientsocket_def
 
 #include "EClientSocketBase.h"
+#include "EClientMsgSink.h"
 
 class EWrapper;
 
-class TWSAPIDLLEXP EPosixClientSocket : public EClientSocketBase
+class TWSAPIDLLEXP EPosixClientSocket : public EClientSocketBase, public EClientMsgSink
 {
 public:
 
@@ -36,7 +37,6 @@ public:
 
 public:
 	// callback from socket
-	void onReceive();
 	void onSend();
 	void onError();
 
@@ -53,6 +53,14 @@ private:
 
 	int m_fd;
     bool m_allowRedirect;
+    const char* m_hostNorm;
+
+//EClientMsgSink implementation
+public:
+    void serverVersion(int value);
+    void serverTime(const char *value);
+    void redirect(const char *host, int port);
+    void connected();
 };
 
 #endif

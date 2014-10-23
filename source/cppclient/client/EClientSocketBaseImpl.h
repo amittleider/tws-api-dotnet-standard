@@ -114,13 +114,7 @@
 // 66 = can receive randomize size and randomize price order fields
 
 const int CLIENT_VERSION    = 66;
-const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
-/* 100+ messaging */
-// 100 = enhanced handshake, msg length prefixes
-
-const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = 100;
 
 // outgoing msg id's
 const int REQ_MKT_DATA                  = 1;
@@ -2709,115 +2703,6 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	closeAndSend( msg.str());
 }
 
-bool EClientSocketBase::checkMessages()
-{
-	if( !isSocketOK())
-		return false;
-
-	if( bufferedRead() <= 0) {;
-	return false;
-	}
-
-	const char*	beginPtr = &m_inBuffer[0];
-	const char*	ptr = beginPtr;
-	const char*	endPtr = ptr + m_inBuffer.size();
-
-	try {
-		if (isConnecting() && processConnectAck( ptr, endPtr) > 0) {
-			if( (ptr - beginPtr) >= (int)m_inBuffer.size())
-				return false;
-		}
-	}
-	catch (...) {
-		CleanupBuffer( m_inBuffer, (ptr - beginPtr));
-		throw;
-	}
-
-	CleanupBuffer( m_inBuffer, (ptr - beginPtr));
-	return true;
-}
-
-int EClientSocketBase::processConnectAckImpl(const char*& beginPtr, const char* endPtr)
-{
-	// process a connect Ack message from the buffer;
-	// return number of bytes consumed
-	assert( beginPtr && beginPtr < endPtr);
-
-	try {
-
-		const char* ptr = beginPtr;
-
-		// check server version
-		DECODE_FIELD( m_serverVersion);
-		if( m_useV100Plus) {
-
-			// handle redirects
-			if( m_serverVersion < 0) {
-
-				std::string hostport;
-				DECODE_FIELD( hostport);
-
-				std::string::size_type sep = hostport.find( ':');
-				if( sep != std::string::npos) {
-					m_host = hostport.substr(0, sep);
-					m_port = atoi( hostport.c_str() + ++sep);
-				}
-				else {
-					m_host = hostport;
-				}
-
-				m_connState = CS_REDIRECT;
-
-				int processed = ptr - beginPtr;
-				beginPtr = ptr;
-				return processed;
-			}
-
-			if( m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) {
-				eDisconnect();
-				m_pEWrapper->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
-				return -1;
-			}
-		}
-		if( m_serverVersion >= 20) {
-			DECODE_FIELD( m_TwsTime);
-		}
-
-		if( m_serverVersion < MIN_SERVER_VER_SUPPORTED) {
-			eDisconnect();
-			m_pEWrapper->error( NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg());
-			return -1;
-		}
-
-		m_connState = CS_CONNECTED;
-
-		// send the clientId
-		if( m_serverVersion >= 3) {
-			if( m_serverVersion < MIN_SERVER_VER_LINKING) {
-				std::ostringstream msg;
-				ENCODE_FIELD( m_clientId);
-				bufferedSend( msg.str());
-			}
-			else if (!m_extraAuth) {
-				startApi();
-			}
-		}
-
-		// That would be the place to notify client
-		// that we are fully connected
-		// e.g: m_pEWrapper->connected();
-
-		int processed = ptr - beginPtr;
-		beginPtr = ptr;
-		return processed;
-	}
-	catch(  std::exception e) {
-		m_pEWrapper->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
-			SOCKET_EXCEPTION.msg() + errMsg( e) );
-	}
-	return 0;
-}
-
 int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);
@@ -2874,12 +2759,8 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	return consumed;
 }
 
-int EClientSocketBase::processConnectAck(const char*& beginPtr, const char* endPtr)
-{
-	if( !m_useV100Plus) {
-		return processConnectAckImpl( beginPtr, endPtr);
-	}
-	return processOnePrefixedMsg( beginPtr, endPtr, &EClientSocketBase::processConnectAckImpl);
+bool EClientSocketBase::extraAuth() {
+    return m_extraAuth;
 }
 
 int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
@@ -2939,8 +2820,25 @@ void EClientSocketBase::onConnectBase()
 		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
-	ENCODE_FIELD( CLIENT_VERSION);
-	bufferedSend( msg.str());
+	
+    ENCODE_FIELD( CLIENT_VERSION);
+	
+    bufferedSend( msg.str());
+
+    m_connState = CS_CONNECTED;
+}
+
+void EClientSocketBase::connected() {
+    if( m_serverVersion >= 3) {
+        if( m_serverVersion < MIN_SERVER_VER_LINKING) {
+            std::ostringstream msg;
+            ENCODE_FIELD( m_clientId);
+            bufferedSend( msg.str());
+        }
+        else if (!m_extraAuth) {
+            startApi();
+        }
+    }
 }
 
 bool EClientSocketBase::isInBufferEmpty() const

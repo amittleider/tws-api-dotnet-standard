@@ -9,10 +9,12 @@
 
 #include "TwsSocketClientErrors.h"
 #include "EWrapper.h"
-
+#include "EDecoder.h"
 
 #include <string.h>
 #include <assert.h>
+
+const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
 ///////////////////////////////////////////////////////////
 // member funcs
@@ -46,27 +48,16 @@ bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clie
 	}
 
 	// normalize host
-	const char* hostNorm = (host && *host) ? host : "127.0.0.1";
+	m_hostNorm = (host && *host) ? host : "127.0.0.1";
 
 	// initialize host and port
-	setHost( hostNorm);
+	setHost( m_hostNorm);
 	setPort( port);
 
 	// try to connect to specified host and port
 	ConnState resState = CS_DISCONNECTED;
-	bool res = eConnectImpl( clientId, extraAuth, &resState);
-
-	// handle redirect
-	if( !res && resState == CS_REDIRECT && (hostNorm != this->host() || port != this->port())) {
-        if (!m_allowRedirect) {
-            getWrapper()->error(NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
-
-            return false;
-        }
-
-		res = eConnectImpl( clientId, extraAuth, 0);
-	}
-	return res;
+	
+    return eConnectImpl( clientId, extraAuth, &resState);
 }
 
 bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
@@ -107,7 +98,7 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
 	onConnectBase();
-	checkMessages();
+//	checkMessages();
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -191,6 +182,37 @@ int EPosixClientSocket::receive(char* buf, size_t sz)
 	return nResult;
 }
 
+void EPosixClientSocket::serverVersion(int value) {
+    m_serverVersion = value;
+
+    if( usingV100Plus() && (m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) || m_serverVersion < MIN_SERVER_VER_SUPPORTED ) {
+        getWrapper()->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
+        eDisconnect();
+    }
+}
+
+void EPosixClientSocket::serverTime(const char *value) {
+    m_TwsTime = value;
+}
+
+void EPosixClientSocket::redirect(const char *host, int port) {
+	// handle redirect
+	if( (m_hostNorm != this->host() || port != this->port())) {
+        if (!m_allowRedirect) {
+            getWrapper()->error(NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
+
+            return;
+        }
+
+        eDisconnect();
+		eConnectImpl( clientId(), extraAuth(), 0);
+	}
+}
+
+void EPosixClientSocket::connected() {
+    EClientSocketBase::connected();
+}
+
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 
@@ -200,14 +222,6 @@ void EPosixClientSocket::onConnect()
 		return;
 
 	onConnectBase();
-}
-
-void EPosixClientSocket::onReceive()
-{
-	if( !handleSocketError())
-		return;
-
-	checkMessages();
 }
 
 void EPosixClientSocket::onSend()

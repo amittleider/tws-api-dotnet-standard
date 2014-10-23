@@ -15,11 +15,11 @@ class TWSAPIDLLEXP EReader
 {  
     EPosixClientSocket *m_pClientSocket;
     EReaderSignal *m_pEReaderSignal;
-    EDecoder m_decoder;
+    EDecoder processMsgsDecoder_;
     std::deque<shared_ptr<EMessage>> m_msgQueue;
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
-	EDecoder tmpDecoder;
+	EDecoder threadReadDecoder_;
     bool m_needsWriteSelect;
 
 	void onReceive();

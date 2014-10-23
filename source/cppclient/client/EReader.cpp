@@ -15,8 +15,8 @@
 DefaultEWrapper defaultWrapper;
 
 EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
-	: m_decoder(clientSocket->serverVersion(), clientSocket->getWrapper())
-	, tmpDecoder(clientSocket->serverVersion(), &defaultWrapper) {
+	: processMsgsDecoder_(0, clientSocket->getWrapper(), clientSocket)
+	, threadReadDecoder_(0, &defaultWrapper) {
 		m_pClientSocket = clientSocket;
 		m_pEReaderSignal = signal;
 		m_needsWriteSelect = false;
@@ -179,7 +179,7 @@ EMessage * EReader::readSingleMsg() {
 	else {
 		const char *pBegin = m_buf.data();
 		const char *pEnd = pBegin + m_buf.size();
-		int msgSize = tmpDecoder.parseAndProcessMsg(pBegin, pEnd);
+		int msgSize = threadReadDecoder_.parseAndProcessMsg(pBegin, pEnd);
 
 		if (msgSize == 0)
 			return 0;
@@ -224,7 +224,7 @@ void EReader::processMsgs(void) {
 
 	const char *pBegin = msg->begin();
 
-	while (m_decoder.parseAndProcessMsg(pBegin, msg->end()) > 0) {
+	while (processMsgsDecoder_.parseAndProcessMsg(pBegin, msg->end()) > 0) {
 		msg = getMsg();
 
 		if (!msg.get())

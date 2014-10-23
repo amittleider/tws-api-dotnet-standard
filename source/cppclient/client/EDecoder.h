@@ -6,6 +6,12 @@
 #include "contract.h"
 
 
+/* 100+ messaging */
+// 100 = enhanced handshake, msg length prefixes
+
+const int MIN_CLIENT_VER = 100;
+const int MAX_CLIENT_VER = 100;
+
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
 //const int MIN_SERVER_VER_SCALE_ORDERS         = 35;
 //const int MIN_SERVER_VER_SNAPSHOT_MKT_DATA    = 35;
@@ -138,11 +144,13 @@ static std::string errMsg(std::exception e) {
 
 class EWrapper;
 class EClient;
+struct EClientMsgSink;
 
 class EDecoder
 {
     EWrapper *m_pEWrapper;
     int m_serverVersion;
+    EClientMsgSink *m_pClientMsgSink;
 
     const char* processTickPriceMsg(const char* ptr, const char* endPtr);
     const char* processTickSizeMsg(const char* ptr, const char* endPtr);
@@ -190,6 +198,8 @@ class EDecoder
     const char* processVerifyAndAuthMessageApiMsg(const char* ptr, const char* endPtr);
     const char* processVerifyAndAuthCompletedMsg(const char* ptr, const char* endPtr);
 
+    int processConnectAck(const char*& beginPtr, const char* endPtr);
+
 public:
 	static bool CheckOffset(const char* ptr, const char* endPtr);
 	static const char* FindFieldEnd(const char* ptr, const char* endPtr);
@@ -204,7 +214,7 @@ public:
 	static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
 	static bool DecodeFieldMax(double&, const char*& ptr, const char* endPtr);
 
-    EDecoder(int serverVersion, EWrapper *callback);
+    EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink = 0);
 
     int parseAndProcessMsg(const char*& beginPtr, const char* endPtr);
 };

@@ -13,11 +13,12 @@
 #include "EClient.h"
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
+#include "EClientMsgSink.h"
 
-
-EDecoder::EDecoder(int serverVersion, EWrapper *callback) {
+EDecoder::EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink) {
     m_pEWrapper = callback;
 	m_serverVersion = serverVersion;
+    m_pClientMsgSink = clientMsgSink;
 }
 
 const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
@@ -1381,11 +1382,77 @@ const char* EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const ch
     return ptr;
 }
 
+int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
+{
+	// process a connect Ack message from the buffer;
+	// return number of bytes consumed
+	assert( beginPtr && beginPtr < endPtr);
+
+	try {
+
+		const char* ptr = beginPtr;
+
+        // check server version
+        DECODE_FIELD( m_serverVersion);
+
+        // handle redirects
+        if( m_serverVersion < 0) {
+            m_serverVersion = 0;
+
+            std::string hostport, host;
+            int port = -1;
+
+            DECODE_FIELD( hostport);
+
+            std::string::size_type sep = hostport.find( ':');
+            if( sep != std::string::npos) {
+                host = hostport.substr(0, sep);
+                port = atoi( hostport.c_str() + ++sep);
+            }
+            else {
+                host = hostport;
+            }
+
+            if (m_pClientMsgSink)
+                m_pClientMsgSink->redirect(host.c_str(), port);
+        } else {
+            if (m_pClientMsgSink)
+                m_pClientMsgSink->serverVersion(m_serverVersion);
+
+            if( m_serverVersion >= 20) {
+                std::string twsTime;
+
+                DECODE_FIELD(twsTime);
+
+                if (m_pClientMsgSink)
+                    m_pClientMsgSink->serverTime(twsTime.c_str());
+            }
+
+            if (m_pClientMsgSink)
+                m_pClientMsgSink->connected();
+        }
+
+		int processed = ptr - beginPtr;
+		beginPtr = ptr;
+		return processed;
+	}
+	catch(  std::exception e) {
+		m_pEWrapper->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
+			SOCKET_EXCEPTION.msg() + errMsg( e) );
+	}
+
+	return 0;
+}
+
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
     // process a single message from the buffer;
     // return number of bytes consumed
 
     assert( beginPtr && beginPtr < endPtr);
+
+    if (m_serverVersion == 0)
+        return processConnectAck(beginPtr, endPtr);
 
     try {
 
