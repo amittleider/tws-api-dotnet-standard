@@ -37,7 +37,8 @@ public enum OrderType implements IApiEnum {
 	TRAIL_REL_PLUS_MKT( "TRAIL REL + MKT"),
 	VOL( "VOL"),
 	VWAP( "VWAP"),
-	QUOTE("QUOTE");
+	QUOTE("QUOTE"),
+	PPV("PPV");
 
 	private String m_apiString;
 
