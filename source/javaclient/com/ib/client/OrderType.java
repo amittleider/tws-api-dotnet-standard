@@ -40,7 +40,7 @@ public enum OrderType implements IApiEnum {
 	QUOTE("QUOTE"),
 	PEG_PRIM_VOL("PPV"),
 	PEG_MID_VOL("PDV"),
-	MEG_MKT_VOL("PMV"),
+	PEG_MKT_VOL("PMV"),
 	PEG_SRF_VOL("PSV"); 
 
 	private String m_apiString;
