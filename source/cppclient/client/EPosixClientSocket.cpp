@@ -182,17 +182,14 @@ int EPosixClientSocket::receive(char* buf, size_t sz)
 	return nResult;
 }
 
-void EPosixClientSocket::serverVersion(int value) {
-    m_serverVersion = value;
+void EPosixClientSocket::serverVersion(int version, const char *time) {
+    m_serverVersion = version;
+    m_TwsTime = time;
 
     if( usingV100Plus() && (m_serverVersion < MIN_CLIENT_VER || m_serverVersion > MAX_CLIENT_VER) || m_serverVersion < MIN_SERVER_VER_SUPPORTED ) {
         getWrapper()->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
         eDisconnect();
     }
-}
-
-void EPosixClientSocket::serverTime(const char *value) {
-    m_TwsTime = value;
 }
 
 void EPosixClientSocket::redirect(const char *host, int port) {

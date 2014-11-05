@@ -1416,20 +1416,18 @@ int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
             if (m_pClientMsgSink)
                 m_pClientMsgSink->redirect(host.c_str(), port);
         } else {
-            if (m_pClientMsgSink)
-                m_pClientMsgSink->serverVersion(m_serverVersion);
-
+            std::string twsTime;
+            
             if( m_serverVersion >= 20) {
-                std::string twsTime;
 
                 DECODE_FIELD(twsTime);
-
-                if (m_pClientMsgSink)
-                    m_pClientMsgSink->serverTime(twsTime.c_str());
             }
 
-            if (m_pClientMsgSink)
+            if (m_pClientMsgSink) {
+                m_pClientMsgSink->serverVersion(m_serverVersion, twsTime.c_str());
+
                 m_pClientMsgSink->connected();
+            }
         }
 
 		int processed = ptr - beginPtr;

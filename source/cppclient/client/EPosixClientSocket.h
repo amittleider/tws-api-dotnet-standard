@@ -57,8 +57,7 @@ private:
 
 //EClientMsgSink implementation
 public:
-    void serverVersion(int value);
-    void serverTime(const char *value);
+    void serverVersion(int version, const char *time);
     void redirect(const char *host, int port);
     void connected();
 };

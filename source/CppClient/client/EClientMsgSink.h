@@ -4,8 +4,7 @@
 #pragma once
 struct EClientMsgSink
 {
-    virtual void serverVersion(int value) = 0;
-    virtual void serverTime(const char *value) = 0;
+    virtual void serverVersion(int version, const char *time) = 0;
     virtual void redirect(const char *host, int port) = 0;
     virtual void connected() = 0;
 };
