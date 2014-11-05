@@ -65,3 +65,4 @@ void DefaultEWrapper::displayGroupList( int reqId, const std::string& groups) { 
 void DefaultEWrapper::displayGroupUpdated( int reqId, const std::string& contractInfo) { }
 void DefaultEWrapper::verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallange) { }
 void DefaultEWrapper::verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText) { }
+void DefaultEWrapper::connectAck() { }

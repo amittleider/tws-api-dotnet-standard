@@ -80,7 +80,6 @@ public:
 	void reqAccountUpdates(bool subscribe, const std::string& acctCode);
 	void reqExecutions(int reqId, const ExecutionFilter& filter);
 	void reqIds(int numIds);
-	bool checkMessages();
 	void reqContractDetails(int reqId, const Contract& contract);
 	void reqMktDepth(TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions);
 	void cancelMktDepth(TickerId tickerId);
@@ -155,9 +154,6 @@ protected:
 
 	// try to process connection request ack
 private:
-	int processConnectAckImpl(const char*& ptr, const char* endPtr);
-	int processConnectAck(const char*& ptr, const char* endPtr);
-
 	// try to process single msg
 	int processMsgImpl(const char*& ptr, const char* endPtr);
 	int processMsg(const char*& ptr, const char* endPtr);
@@ -183,6 +179,7 @@ protected:
 
 	bool isConnecting() const;
 	void onConnectBase();
+    bool extraAuth();
 
 private:
 
@@ -208,9 +205,12 @@ private:
 
 	ConnState m_connState;
 	bool m_extraAuth;
+
+protected:
 	int m_serverVersion;
 	std::string m_TwsTime;
 
+private:
 	std::string m_optionalCapabilities;
 
 	std::string m_connectOptions;

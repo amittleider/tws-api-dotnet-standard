@@ -138,5 +138,8 @@
     <ClInclude Include="DefaultEWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EClientMsgSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ public:
    virtual void reqAccountUpdates(bool subscribe, const std::string& acctCode) = 0;
    virtual void reqExecutions(int reqId, const ExecutionFilter& filter) = 0;
    virtual void reqIds( int numIds) = 0;
-   virtual bool checkMessages() = 0;
+   //virtual bool checkMessages() = 0;
    virtual void reqContractDetails( int reqId, const Contract& contract) = 0;
    virtual void reqMktDepth( TickerId id, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions) = 0;
    virtual void cancelMktDepth( TickerId id) = 0;
