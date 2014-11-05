@@ -264,6 +264,11 @@ void TestCppClient::accountSummaryEnd( int reqId) {}
 void TestCppClient::verifyMessageAPI( const std::string& apiData) {}
 void TestCppClient::verifyCompleted( bool isSuccessful, const std::string& errorText) {}
 void TestCppClient::verifyAndAuthMessageAPI( const std::string& apiDatai, const std::string& xyzChallenge) {}
-void TestCppClient::verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText) {}
+
+void TestCppClient::verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText) {
+    if (isSuccessful)
+        m_pClient->startApi();
+}
+
 void TestCppClient::displayGroupList( int reqId, const std::string& groups) {}
 void TestCppClient::displayGroupUpdated( int reqId, const std::string& contractInfo) {}
