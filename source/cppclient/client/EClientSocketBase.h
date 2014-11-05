@@ -160,8 +160,11 @@ private:
 
 	typedef int (EClientSocketBase::*messageHandler)(const char*& ptr, const char* endPtr);
 	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
+
+public:
 	void startApi();
 
+private:
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);
 
