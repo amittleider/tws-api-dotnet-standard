@@ -69,5 +69,6 @@ public:
    virtual void displayGroupUpdated( int reqId, const std::string& contractInfo);
    virtual void verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallange);
    virtual void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText);
+   virtual void connectAck();
 };
 

@@ -176,9 +176,6 @@ private:
 	virtual bool isSocketOK() const = 0;
 
 protected:
-    void connected();
-
-protected:
 
 	bool isConnecting() const;
 	void onConnectBase();

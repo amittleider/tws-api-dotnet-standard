@@ -206,10 +206,6 @@ void EPosixClientSocket::redirect(const char *host, int port) {
 	}
 }
 
-void EPosixClientSocket::connected() {
-    EClientSocketBase::connected();
-}
-
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 

@@ -1426,7 +1426,7 @@ int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
             if (m_pClientMsgSink) {
                 m_pClientMsgSink->serverVersion(m_serverVersion, twsTime.c_str());
 
-                m_pClientMsgSink->connected();
+                m_pEWrapper->connectAck();
             }
         }
 

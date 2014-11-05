@@ -24,6 +24,7 @@ TestCppClient::TestCppClient()
 	, m_sleepDeadline(0)
 	, m_orderId(0)
     , m_pReader(0)
+    , m_extraAuth(false)
 {
 }
 
@@ -35,13 +36,12 @@ TestCppClient::~TestCppClient()
     delete m_pClient;
 }
 
-
 bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 {
 	// trying to connect
 	printf( "Connecting to %s:%d clientId:%d\n", !( host && *host) ? "127.0.0.1" : host, port, clientId);
 
-	bool bRes = m_pClient->eConnect( host, port, clientId, /* extraAuth */ false);
+	bool bRes = m_pClient->eConnect( host, port, clientId, m_extraAuth);
 
 	if (bRes) {
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -120,6 +120,11 @@ void TestCppClient::processMessages() {
 
 //////////////////////////////////////////////////////////////////
 // methods
+void TestCppClient::connectAck() {
+    if (!m_extraAuth)
+        m_pClient->startApi();
+}
+
 void TestCppClient::reqCurrentTime()
 {
 	printf( "Requesting Current Time\n");

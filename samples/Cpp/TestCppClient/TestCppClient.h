@@ -110,6 +110,7 @@ public:
 	void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText);
 	void displayGroupList( int reqId, const std::string& groups);
 	void displayGroupUpdated( int reqId, const std::string& contractInfo);
+    void connectAck();
 
 private:
 
@@ -120,6 +121,7 @@ private:
 	OrderId m_orderId;
 	EReader *m_pReader;
 	EReaderOSSignal m_osSignal;
+    bool m_extraAuth;
 };
 
 #endif

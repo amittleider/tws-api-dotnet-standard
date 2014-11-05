@@ -2656,25 +2656,34 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 
 void EClientSocketBase::startApi()
 {
-	// not connected?
-	if( !isConnected()) {
-		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
-		return;
-	}
+    // not connected?
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
 
-	std::ostringstream msg;
-	prepareBuffer( msg);
+    if( m_serverVersion >= 3)
+        if( m_serverVersion < MIN_SERVER_VER_LINKING) {
+            std::ostringstream msg;
+            ENCODE_FIELD( m_clientId);
+            bufferedSend( msg.str());
+        }
+        else
+        {
+            std::ostringstream msg;
+            prepareBuffer( msg);
 
-	const int VERSION = 2;
+            const int VERSION = 2;
 
-	ENCODE_FIELD( START_API);
-	ENCODE_FIELD( VERSION);
-	ENCODE_FIELD( m_clientId);
+            ENCODE_FIELD( START_API);
+            ENCODE_FIELD( VERSION);
+            ENCODE_FIELD( m_clientId);
 
-	if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
-		ENCODE_FIELD(m_optionalCapabilities);
+            if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+                ENCODE_FIELD(m_optionalCapabilities);
 
-	closeAndSend( msg.str());
+            closeAndSend( msg.str());
+        }
 }
 
 void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
@@ -2826,19 +2835,6 @@ void EClientSocketBase::onConnectBase()
     bufferedSend( msg.str());
 
     m_connState = CS_CONNECTED;
-}
-
-void EClientSocketBase::connected() {
-    if( m_serverVersion >= 3) {
-        if( m_serverVersion < MIN_SERVER_VER_LINKING) {
-            std::ostringstream msg;
-            ENCODE_FIELD( m_clientId);
-            bufferedSend( msg.str());
-        }
-        else if (!m_extraAuth) {
-            startApi();
-        }
-    }
 }
 
 bool EClientSocketBase::isInBufferEmpty() const
