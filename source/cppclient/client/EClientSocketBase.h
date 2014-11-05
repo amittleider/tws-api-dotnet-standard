@@ -203,11 +203,11 @@ private:
 
 	int m_clientId;
 
+	ConnState m_connState;
 	bool m_extraAuth;
 
 protected:
 	int m_serverVersion;
-	ConnState m_connState;
 	std::string m_TwsTime;
 
 private:

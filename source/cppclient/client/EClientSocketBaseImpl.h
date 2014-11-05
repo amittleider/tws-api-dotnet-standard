@@ -2829,12 +2829,10 @@ void EClientSocketBase::onConnectBase()
 		closeAndSend( msg.str(), sizeof(API_SIGN));
 		return;
 	}
-	
-    ENCODE_FIELD( CLIENT_VERSION);
-	
-    bufferedSend( msg.str());
+	ENCODE_FIELD( CLIENT_VERSION);
+	bufferedSend( msg.str());
 
-    m_connState = CS_CONNECTED;
+	m_connState = CS_CONNECTED;
 }
 
 bool EClientSocketBase::isInBufferEmpty() const
