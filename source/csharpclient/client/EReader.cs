@@ -69,49 +69,55 @@ namespace IBApi
         {
             try
             {
-                while (!stopEvent.WaitOne(0))
+                try
                 {
-                    if (useV100Plus)
+                    while (!stopEvent.WaitOne(0))
                     {
-                        ReadMessageToInternalBuf();
-                    }
+                        if (useV100Plus)
+                        {
+                            ReadMessageToInternalBuf();
+                        }
 
-                    try
-                    {
-                        int incomingMessage = ReadInt();
-                        ProcessIncomingMessage(incomingMessage);
-                    }
-                    catch (Exception)
-                    {
-                        throw new EClientException(EClientErrors.BAD_MESSAGE);
+                        try
+                        {
+                            int incomingMessage = ReadInt();
+                            ProcessIncomingMessage(incomingMessage);
+                        }
+                        catch (Exception)
+                        {
+                            throw new EClientException(EClientErrors.BAD_MESSAGE);
+                        }
                     }
                 }
-            }
-            catch (EClientException e)
-            {
+                catch (EClientException e)
+                {
+                    if (parent.IsConnected())
+                    {
+                        var cmp = e.Err;
+
+                        parent.Wrapper.error(-1, cmp.Code, cmp.Message);
+                    }
+                }
+                catch (Exception e)
+                {
+                    // For when TWS is closed when the trading program open
+                    if (parent.IsConnected())
+                    {
+
+                        parent.Wrapper.error(e);
+                    }
+                }
                 if (parent.IsConnected())
                 {
-                    var cmp = (e as EClientException).Err;
-
-                    parent.Wrapper.error(-1, cmp.Code, cmp.Message);
+                    dataReader.Close();
+                    tcpReader.Close();
+                    parent.Close();
                 }
             }
-            catch (Exception e)
+            catch (ThreadAbortException)
             {
-                // For when TWS is closed when the trading program open
-                if (parent.IsConnected())
-                {
-
-                    parent.Wrapper.error(e);
-                }
+                Thread.ResetAbort();
             }
-            if (parent.IsConnected())
-            {
-                dataReader.Close();
-                tcpReader.Close();
-                parent.Close();
-            }
-
         }
 
 
