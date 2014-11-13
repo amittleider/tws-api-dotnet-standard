@@ -13,18 +13,18 @@
 #include <Windows.h>
 #define IB_WIN32
 
-#elif defined(__IPHONE_5_0) // If running on (minimum) of iOS 5.0+
-#include <pthread.h>
-#define IB_POSIX
-
-#elif defined(_POSIX_THREADS)
-#include <pthread.h>
-#define IB_POSIX
-
 #else
-#error "Not supported on this platform"
 
+#include <unistd.h> // defines _POSIX_THREADS, @see http://bit.ly/1pWJ8KQ#tag_13_80_03_02
+
+#if defined(_POSIX_THREADS) && (_POSIX_THREADS > 0)
+    #include <pthread.h>
+    #define IB_POSIX
+#else
+    #error "Not supported on this platform"
 #endif
+
+#endif // #ifdef _MSC_VER
 
 #include <string>
 #include <deque>
