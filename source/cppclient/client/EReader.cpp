@@ -8,6 +8,7 @@
 #include "EMutex.h"
 #include "EReader.h"
 #include "EPosixClientSocket.h"
+#include "EPosixClientSocketPlatform.h"
 #include "EReaderSignal.h"
 #include "EMessage.h"
 #include "DefaultEWrapper.h"
@@ -20,7 +21,6 @@ EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
 		m_pClientSocket = clientSocket;
 		m_pEReaderSignal = signal;
 		m_needsWriteSelect = false;
-
 		m_buf.reserve(8192);
 		start();
 }
@@ -33,10 +33,28 @@ void EReader::checkClient() {
 }
 
 void EReader::start() {
-	CreateThread(0, 0, readToQueueThread, this, 0, 0);
+#if defined(IB_POSIX)
+    pthread_t thread;
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+    pthread_create( &thread, &attr, readToQueueThread, this );
+    pthread_attr_destroy(&attr);
+#elif defined(IB_WIN32)
+    CreateThread(0, 0, readToQueueThread, this, 0, 0);
+#else
+#   error "Not implemented on this platform"
+#endif
 }
 
-DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam) {
+#if defined(IB_POSIX)
+void * EReader::readToQueueThread(void * lpParam)
+#elif defined(IB_WIN32)
+DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam)
+#else
+#   error "Not implemented on this platform"
+#endif
+{
 	EReader *pThis = reinterpret_cast<EReader *>(lpParam);
 
 	pThis->readToQueue();

@@ -11,6 +11,18 @@
 #define snprintf _snprintf
 #include <WinSock2.h>
 #include <Windows.h>
+#define IB_WIN32
+
+#elif defined(__IPHONE_5_0) // If running on (minimum) of iOS 5.0+
+#include <pthread.h>
+#define IB_POSIX
+
+#elif defined(_POSIX_THREADS)
+#include <pthread.h>
+#define IB_POSIX
+
+#else
+#error "Not supported on this platform"
 
 #endif
 

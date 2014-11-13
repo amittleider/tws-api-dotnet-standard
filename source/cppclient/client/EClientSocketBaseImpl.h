@@ -2827,11 +2827,12 @@ void EClientSocketBase::onConnectBase()
 			msg << ' ' << m_connectOptions;
 		}
 		closeAndSend( msg.str(), sizeof(API_SIGN));
-		return;
 	}
-	ENCODE_FIELD( CLIENT_VERSION);
-	bufferedSend( msg.str());
-
+    else {
+        ENCODE_FIELD( CLIENT_VERSION);
+        bufferedSend( msg.str());
+    }
+    
 	m_connState = CS_CONNECTED;
 }
 

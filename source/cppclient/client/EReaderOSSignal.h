@@ -3,12 +3,24 @@
 
 #pragma once
 #include "ereadersignal.h"
+#include "StdAfx.h"
+
+#if !defined(INFINITE)
+#define INFINITE ((unsigned long)-1)
+#endif
 
 class TWSAPIDLLEXP EReaderOSSignal :
 	public EReaderSignal
 {
+#if defined(IB_POSIX)
+    pthread_cond_t m_evMsgs;
+    pthread_mutex_t m_mutex;
+#elif defined(IB_WIN32)
 	HANDLE m_evMsgs;
-    unsigned long m_waitTimeout;
+#else
+#   error "Not implemented on this platform"
+#endif
+    unsigned long m_waitTimeout; // in milliseconds
 
 public:
 	EReaderOSSignal(unsigned long waitTimeout = INFINITE) throw (std::runtime_error);
