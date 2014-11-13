@@ -25,6 +25,7 @@ TestCppClient::TestCppClient()
 	, m_orderId(0)
     , m_pReader(0)
     , m_extraAuth(false)
+    , m_osSignal(2000)//2-seconds timeout
 {
 }
 
@@ -114,7 +115,7 @@ void TestCppClient::processMessages() {
 	}
 
 	m_pReader->checkClient();
-	m_osSignal.waitSignal();
+	m_osSignal.waitForSignal();
 	m_pReader->processMsgs();
 }
 

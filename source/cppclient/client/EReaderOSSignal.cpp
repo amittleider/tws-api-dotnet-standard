@@ -5,8 +5,9 @@
 #include "EReaderOSSignal.h"
 
 
-EReaderOSSignal::EReaderOSSignal(void)
+EReaderOSSignal::EReaderOSSignal(unsigned long waitTimeout)
 {
+    m_waitTimeout = waitTimeout;
 	m_evMsgs = CreateEvent(0, false, false, 0);
 
 	if (NULL == m_evMsgs)
@@ -20,10 +21,10 @@ EReaderOSSignal::~EReaderOSSignal(void)
 }
 
 
-void EReaderOSSignal::onMsgRecv() {
+void EReaderOSSignal::issueSignal() {
 	SetEvent(m_evMsgs);
 }
 
-void EReaderOSSignal::waitSignal() {
-	WaitForSingleObject(m_evMsgs, INFINITE);
+void EReaderOSSignal::waitForSignal() {
+	WaitForSingleObject(m_evMsgs, m_waitTimeout);
 }

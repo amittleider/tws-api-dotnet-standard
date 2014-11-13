@@ -4,6 +4,7 @@
 #pragma once
 struct EReaderSignal
 {
-    virtual void onMsgRecv() = 0;
+    virtual void issueSignal() = 0;
+    virtual void waitForSignal() = 0;
 };
 

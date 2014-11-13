@@ -13,6 +13,7 @@ class EReaderWMSignal :
 public:
 	EReaderWMSignal(HWND hWnd, int msg);
 
-	virtual void onMsgRecv();
+	virtual void issueSignal();
+    virtual void waitForSignal();
 };
 

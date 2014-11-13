@@ -10,7 +10,14 @@ EReaderWMSignal::EReaderWMSignal(HWND hWnd, int wmUserOffset) {
 	m_msg = WM_USER + wmUserOffset;
 }
 
-void EReaderWMSignal::onMsgRecv() {
+void EReaderWMSignal::issueSignal() {
 	if (IsWindow(m_hWnd))
 		PostMessage(m_hWnd, m_msg, 0, 0);
+}
+
+void EReaderWMSignal::waitForSignal() {
+    MSG msg;
+
+    if (GetMessage(&msg, 0, m_msg, m_msg))
+        DispatchMessage(&msg);
 }
