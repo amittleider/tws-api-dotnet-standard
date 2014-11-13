@@ -59,13 +59,13 @@ void EReader::readToQueue() {
 		m_csMsgQueue.Enter();
 		m_msgQueue.push_back(shared_ptr<EMessage>(msg));
 		m_csMsgQueue.Leave();
-		m_pEReaderSignal->onMsgRecv();
+		m_pEReaderSignal->issueSignal();
 
         msg = 0;
 	}
 
 	m_pClientSocket->handleSocketError();
-	m_pEReaderSignal->onMsgRecv(); //letting client know that socket was closed
+	m_pEReaderSignal->issueSignal(); //letting client know that socket was closed
 }
 
 bool EReader::processNonBlockingSelect() {
@@ -129,7 +129,7 @@ bool EReader::processNonBlockingSelect() {
 }
 
 void EReader::onSend() {
-	m_pEReaderSignal->onMsgRecv();
+	m_pEReaderSignal->issueSignal();
 }
 
 void EReader::onReceive() {

@@ -8,12 +8,13 @@ class TWSAPIDLLEXP EReaderOSSignal :
 	public EReaderSignal
 {
 	HANDLE m_evMsgs;
+    unsigned long m_waitTimeout;
+
 public:
-	EReaderOSSignal(void) throw (std::runtime_error);
+	EReaderOSSignal(unsigned long waitTimeout = INFINITE) throw (std::runtime_error);
 	~EReaderOSSignal(void);
 
-	virtual void onMsgRecv();
-
-	void waitSignal();
+	virtual void issueSignal();
+	virtual void waitForSignal();
 };
 
