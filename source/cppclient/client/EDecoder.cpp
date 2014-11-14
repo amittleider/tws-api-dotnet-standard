@@ -53,6 +53,8 @@ const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
         case LAST:
             sizeTickType = LAST_SIZE;
             break;
+        default:
+            break;
         }
         if( sizeTickType != NOT_SET)
             m_pEWrapper->tickSize( tickerId, sizeTickType, size);

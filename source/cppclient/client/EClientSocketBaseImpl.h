@@ -2662,7 +2662,7 @@ void EClientSocketBase::startApi()
         return;
     }
 
-    if( m_serverVersion >= 3)
+    if( m_serverVersion >= 3) {
         if( m_serverVersion < MIN_SERVER_VER_LINKING) {
             std::ostringstream msg;
             ENCODE_FIELD( m_clientId);
@@ -2684,6 +2684,7 @@ void EClientSocketBase::startApi()
 
             closeAndSend( msg.str());
         }
+    }
 }
 
 void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
@@ -2827,11 +2828,12 @@ void EClientSocketBase::onConnectBase()
 			msg << ' ' << m_connectOptions;
 		}
 		closeAndSend( msg.str(), sizeof(API_SIGN));
-		return;
 	}
-	ENCODE_FIELD( CLIENT_VERSION);
-	bufferedSend( msg.str());
-
+    else {
+        ENCODE_FIELD( CLIENT_VERSION);
+        bufferedSend( msg.str());
+    }
+    
 	m_connState = CS_CONNECTED;
 }
 

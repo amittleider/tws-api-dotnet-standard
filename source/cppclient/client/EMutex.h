@@ -3,9 +3,17 @@
 
 #pragma once
 
+#include "StdAfx.h"
+
 class EMutex
 {
+#if defined(IB_POSIX)
+    pthread_mutex_t cs;
+#elif defined(IB_WIN32)
     CRITICAL_SECTION cs;
+#else
+#   error "Not implemented on this platform"
+#endif
 
 public:
     EMutex();

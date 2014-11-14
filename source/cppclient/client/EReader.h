@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "StdAfx.h"
 #include "EDecoder.h"
 #include "EMutex.h"
 #include "EReaderOSSignal.h"
@@ -34,7 +35,13 @@ protected:
 	bool processNonBlockingSelect();
     shared_ptr<EMessage> getMsg(void);
     void readToQueue();
+#if defined(IB_POSIX)
+    static void * readToQueueThread(void * lpParam);
+#elif defined(IB_WIN32)
     static DWORD WINAPI readToQueueThread(LPVOID lpParam);
+#else
+#   error "Not implemented on this platform"
+#endif
     
     EMessage * readSingleMsg();
 
