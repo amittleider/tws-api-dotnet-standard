@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBApi
 {
-    class DefaultEWrapper : EWrapper
+    public class DefaultEWrapper : EWrapper
     {
         public void error(Exception e)
         {
