@@ -37,6 +37,7 @@ namespace IBApi
         {
             stopEvent = new ManualResetEvent(false);
             this.runner = new Thread(ReadAndProcessMessages);
+            this.runner.Name = "IBApi Callback";
             this.runner.Start();
         }
 
