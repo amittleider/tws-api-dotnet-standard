@@ -23,8 +23,8 @@ public:
 	explicit EClientSocket(EWrapper *ptr, EReaderSignal *pSignal = 0);
 	~EClientSocket();
 
-	// override virtual funcs from EClient
 	bool eConnect( const char *host, unsigned int port, int clientId = 0, bool extraAuth = false);
+	// override virtual funcs from EClient
 	void eDisconnect();
 
 	bool isSocketOK() const;
