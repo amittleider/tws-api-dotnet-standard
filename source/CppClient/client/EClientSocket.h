@@ -5,17 +5,23 @@
 #ifndef eposixclientsocket_def
 #define eposixclientsocket_def
 
-#include "EClientSocketBase.h"
+#include "EClient.h"
 #include "EClientMsgSink.h"
 
 class EWrapper;
+class EReaderSignal;
 
-class TWSAPIDLLEXP EPosixClientSocket : public EClientSocketBase, public EClientMsgSink
+class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
 {
+protected:
+    virtual void prepareBufferImpl(std::ostream&) const;
+	virtual void prepareBuffer(std::ostream&) const;
+	void closeAndSend(std::string msg, unsigned offset = 0);
+
 public:
 
-	explicit EPosixClientSocket( EWrapper *ptr);
-	~EPosixClientSocket();
+	explicit EClientSocket(EWrapper *ptr, EReaderSignal *pSignal = 0);
+	~EClientSocket();
 
 	// override virtual funcs from EClient
 	bool eConnect( const char *host, unsigned int port, int clientId = 0, bool extraAuth = false);
@@ -23,17 +29,26 @@ public:
 
 	bool isSocketOK() const;
 	int fd() const;
+    bool asyncEConnect() const;
+    void asyncEConnect(bool val);
 
 private:
 
 	bool eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt);
 
 private:
-
 	int send( const char* buf, size_t sz);
+	void encodeMsgLen(std::string& msg, unsigned offset) const;
+	int bufferedSend(const char* buf, size_t sz);
+	int bufferedSend(const std::string& msg);
+    int sendBufferedData();
+
+    static void CleanupBuffer(BytesVec&, int processed);
+
 
 public:
 	int receive( char* buf, size_t sz);
+	bool isOutBufferEmpty() const;
 
 public:
 	// callback from socket
@@ -54,6 +69,9 @@ private:
 	int m_fd;
     bool m_allowRedirect;
     const char* m_hostNorm;
+    bool m_asyncEConnect;
+    EReaderSignal *m_pSignal;
+	BytesVec m_outBuffer;
 
 //EClientMsgSink implementation
 public:

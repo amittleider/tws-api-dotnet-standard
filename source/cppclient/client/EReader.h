@@ -8,13 +8,13 @@
 #include "EMutex.h"
 #include "EReaderOSSignal.h"
 
-class EPosixClientSocket;
+class EClientSocket;
 class EReaderSignal;
 class EMessage;
 
 class TWSAPIDLLEXP EReader
 {  
-    EPosixClientSocket *m_pClientSocket;
+    EClientSocket *m_pClientSocket;
     EReaderSignal *m_pEReaderSignal;
     EDecoder processMsgsDecoder_;
     std::deque<shared_ptr<EMessage>> m_msgQueue;
@@ -22,13 +22,15 @@ class TWSAPIDLLEXP EReader
     std::vector<char> m_buf;
 	EDecoder threadReadDecoder_;
     bool m_needsWriteSelect;
+    bool m_isAlive;
+    HANDLE m_hReadThread;
 
 	void onReceive();
 	void onSend();
 	bool bufferedRead(char *buf, int size);
 
 public:
-    EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal);
+    EReader(EClientSocket *clientSocket, EReaderSignal *signal);
     ~EReader(void);
 
 protected:

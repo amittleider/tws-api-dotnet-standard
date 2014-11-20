@@ -5,7 +5,7 @@
 
 #include "TestCppClient.h"
 
-#include "EPosixClientSocket.h"
+#include "EClientSocket.h"
 #include "EPosixClientSocketPlatform.h"
 
 #include "Contract.h"
@@ -18,14 +18,14 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 
 ///////////////////////////////////////////////////////////
 // member funcs
-TestCppClient::TestCppClient()
-	: m_pClient(new EPosixClientSocket(this))
+TestCppClient::TestCppClient() : 
+      m_osSignal(2000)//2-seconds timeout
+    , m_pClient(new EClientSocket(this, &m_osSignal))
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
     , m_pReader(0)
     , m_extraAuth(false)
-    , m_osSignal(2000)//2-seconds timeout
 {
 }
 
@@ -210,7 +210,7 @@ void TestCppClient::currentTime( long time)
 
 void TestCppClient::error(const int id, const int errorCode, const std::string errorString)
 {
-	//	printf( "Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
+	//  printf( "Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
 
 	if( id == -1 && errorCode == 1100) // if "Connectivity between IB and TWS has been lost"
 		disconnect();

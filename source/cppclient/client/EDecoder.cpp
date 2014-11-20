@@ -10,7 +10,6 @@
 #include "OrderState.h"
 #include "Execution.h"
 #include "CommissionReport.h"
-#include "EClient.h"
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
 #include "EClientMsgSink.h"

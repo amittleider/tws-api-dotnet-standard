@@ -11,7 +11,7 @@
 
 #include <memory>
 
-class EPosixClientSocket;
+class EClientSocket;
 
 enum State {
 	ST_CONNECT,
@@ -114,7 +114,7 @@ public:
 
 private:
 
-	EPosixClientSocket * const m_pClient;
+	EClientSocket * const m_pClient;
 	State m_state;
 	time_t m_sleepDeadline;
 

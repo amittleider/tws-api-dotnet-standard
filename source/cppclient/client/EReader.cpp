@@ -7,7 +7,7 @@
 #include "EDecoder.h"
 #include "EMutex.h"
 #include "EReader.h"
-#include "EPosixClientSocket.h"
+#include "EClientSocket.h"
 #include "EPosixClientSocketPlatform.h"
 #include "EReaderSignal.h"
 #include "EMessage.h"
@@ -15,10 +15,11 @@
 
 DefaultEWrapper defaultWrapper;
 
-EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
-	: processMsgsDecoder_(0, clientSocket->getWrapper(), clientSocket)
-	, threadReadDecoder_(0, &defaultWrapper) {
-		m_pClientSocket = clientSocket;
+EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
+	: processMsgsDecoder_(clientSocket->EClient::serverVersion(), clientSocket->getWrapper(), clientSocket)
+	, threadReadDecoder_(clientSocket->EClient::serverVersion(), &defaultWrapper) {
+		m_isAlive = true;
+        m_pClientSocket = clientSocket;       
 		m_pEReaderSignal = signal;
 		m_needsWriteSelect = false;
 		m_buf.reserve(8192);
@@ -26,6 +27,9 @@ EReader::EReader(EPosixClientSocket *clientSocket, EReaderSignal *signal)
 }
 
 EReader::~EReader(void) {
+    m_isAlive = false;
+
+    WaitForSingleObject(m_hReadThread, INFINITE);
 }
 
 void EReader::checkClient() {
@@ -41,7 +45,7 @@ void EReader::start() {
     pthread_create( &thread, &attr, readToQueueThread, this );
     pthread_attr_destroy(&attr);
 #elif defined(IB_WIN32)
-    CreateThread(0, 0, readToQueueThread, this, 0, 0);
+    m_hReadThread = CreateThread(0, 0, readToQueueThread, this, 0, 0);
 #else
 #   error "Not implemented on this platform"
 #endif
@@ -64,7 +68,7 @@ DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam)
 void EReader::readToQueue() {
 	EMessage *msg = 0;
 
-	while (true) {
+	while (m_isAlive) {
 		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
 			continue;
 
@@ -160,7 +164,7 @@ void EReader::onReceive() {
 	if (nRes <= 0)
 		return;
 
-	m_buf.resize(nRes + nOffset);	
+ 	m_buf.resize(nRes + nOffset);	
 }
 
 bool EReader::bufferedRead(char *buf, int size) {

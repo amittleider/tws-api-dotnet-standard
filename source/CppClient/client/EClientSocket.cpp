@@ -5,11 +5,13 @@
 
 
 #include "EPosixClientSocketPlatform.h"
-#include "EPosixClientSocket.h"
+#include "EClientSocket.h"
 
 #include "TwsSocketClientErrors.h"
 #include "EWrapper.h"
 #include "EDecoder.h"
+#include "EReaderSignal.h"
+#include "EReader.h"
 
 #include <string.h>
 #include <assert.h>
@@ -18,19 +20,29 @@ const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are 
 
 ///////////////////////////////////////////////////////////
 // member funcs
-EPosixClientSocket::EPosixClientSocket( EWrapper *ptr) : EClientSocketBase( ptr)
+EClientSocket::EClientSocket(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr)
 {
 	m_fd = SocketsInit() ? -1 : -2;
     m_allowRedirect = false;
+    m_asyncEConnect = false;
+    m_pSignal = pSignal;
 }
 
-EPosixClientSocket::~EPosixClientSocket()
+EClientSocket::~EClientSocket()
 {
 	if( m_fd != -2)
 		SocketsDestroy();
 }
 
-bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clientId, bool extraAuth)
+bool EClientSocket::asyncEConnect() const {
+    return m_asyncEConnect;
+}
+
+void EClientSocket::asyncEConnect(bool val) {
+    m_asyncEConnect = val;
+}
+
+bool EClientSocket::eConnect( const char *host, unsigned int port, int clientId, bool extraAuth)
 {
 	if( m_fd == -2) {
 		getWrapper()->error( NO_VALID_ID, FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg());
@@ -60,7 +72,7 @@ bool EPosixClientSocket::eConnect( const char *host, unsigned int port, int clie
     return eConnectImpl( clientId, extraAuth, &resState);
 }
 
-bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
+bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
 {
 	// resolve host
 	struct hostent* hostEnt = gethostbyname( host().c_str());
@@ -97,8 +109,7 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
 	// set client id
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
-	onConnectBase();
-//	checkMessages();
+	sendConnectRequest();
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -123,31 +134,153 @@ bool EPosixClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* s
 	if( stateOutPt) {
 		*stateOutPt = connState();
 	}
+            
+    if (!m_asyncEConnect) {
+        EReader reader(this, m_pSignal);
+
+        while (m_pSignal && !m_serverVersion) {
+            reader.checkClient();
+            m_pSignal->waitForSignal();
+            reader.processMsgs();
+        }
+    }
 
 	// successfully connected
 	return true;
 }
 
-void EPosixClientSocket::eDisconnect()
+int EClientSocket::sendBufferedData()
+{
+	if( m_outBuffer.empty())
+		return 0;
+
+	int nResult = send( &m_outBuffer[0], m_outBuffer.size());
+	if( nResult <= 0) {
+		return nResult;
+	}
+	CleanupBuffer( m_outBuffer, nResult);
+	return nResult;
+}
+
+
+///////////////////////////////////////////////////////////
+// static helpers
+
+static const size_t BufferSizeHighMark = 1 * 1024 * 1024; // 1Mb
+
+void EClientSocket::CleanupBuffer(BytesVec& buffer, int processed)
+{
+	assert( buffer.empty() || processed <= (int)buffer.size());
+
+	if( buffer.empty())
+		return;
+
+	if( processed <= 0)
+		return;
+
+	if( (size_t)processed == buffer.size()) {
+		if( buffer.capacity() >= BufferSizeHighMark) {
+			BytesVec().swap(buffer);
+		}
+		else {
+			buffer.clear();
+		}
+	}
+	else {
+		buffer.erase( buffer.begin(), buffer.begin() + processed);
+	}
+};
+
+int EClientSocket::bufferedSend(const char* buf, size_t sz)
+{
+	if( sz <= 0)
+		return 0;
+
+	if( !m_outBuffer.empty()) {
+		m_outBuffer.insert( m_outBuffer.end(), buf, buf + sz);
+		return sendBufferedData();
+	}
+
+	int nResult = send(buf, sz);
+
+	if( nResult < (int)sz) {
+		int sent = (std::max)( nResult, 0);
+		m_outBuffer.insert( m_outBuffer.end(), buf + sent, buf + sz);
+	}
+
+	return nResult;
+}
+
+int EClientSocket::bufferedSend(const std::string& msg)
+{
+	return bufferedSend( msg.data(), msg.size());
+}
+
+void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
+{
+	assert( !msg.empty());
+	assert( m_useV100Plus);
+
+	assert( sizeof(unsigned) == HEADER_LEN);
+	assert( msg.size() > offset + HEADER_LEN);
+	unsigned len = msg.size() - HEADER_LEN - offset;
+	if( len > MAX_MSG_LEN) {
+		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
+		return;
+	}
+
+	unsigned netlen = htonl( len);
+	memcpy( &msg[offset], &netlen, HEADER_LEN);
+}
+
+void EClientSocket::closeAndSend(std::string msg, unsigned offset)
+{
+	assert( !msg.empty());
+	if( m_useV100Plus) {
+		encodeMsgLen( msg, offset);
+	}
+	bufferedSend( msg);
+}
+
+void EClientSocket::prepareBufferImpl(std::ostream& buf) const
+{
+	assert( m_useV100Plus);
+	assert( sizeof(unsigned) == HEADER_LEN);
+
+	char header[HEADER_LEN] = { 0 };
+	buf.write( header, sizeof(header));
+}
+
+void EClientSocket::prepareBuffer(std::ostream& buf) const
+{
+	if( !m_useV100Plus)
+		return;
+
+	prepareBufferImpl( buf);
+}
+
+void EClientSocket::eDisconnect()
 {
 	if ( m_fd >= 0 )
 		// close socket
 			SocketClose( m_fd);
 	m_fd = -1;
+
+    m_outBuffer.clear();
 	eDisconnectBase();
 }
 
-bool EPosixClientSocket::isSocketOK() const
+bool EClientSocket::isSocketOK() const
 {
 	return ( m_fd >= 0);
 }
 
-int EPosixClientSocket::fd() const
+int EClientSocket::fd() const
 {
 	return m_fd;
 }
 
-int EPosixClientSocket::send(const char* buf, size_t sz)
+int EClientSocket::send(const char* buf, size_t sz)
 {
 	if( sz <= 0)
 		return 0;
@@ -163,7 +296,7 @@ int EPosixClientSocket::send(const char* buf, size_t sz)
 	return nResult;
 }
 
-int EPosixClientSocket::receive(char* buf, size_t sz)
+int EClientSocket::receive(char* buf, size_t sz)
 {
 	if( sz <= 0)
 		return 0;
@@ -182,7 +315,7 @@ int EPosixClientSocket::receive(char* buf, size_t sz)
 	return nResult;
 }
 
-void EPosixClientSocket::serverVersion(int version, const char *time) {
+void EClientSocket::serverVersion(int version, const char *time) {
     m_serverVersion = version;
     m_TwsTime = time;
 
@@ -192,7 +325,7 @@ void EPosixClientSocket::serverVersion(int version, const char *time) {
     }
 }
 
-void EPosixClientSocket::redirect(const char *host, int port) {
+void EClientSocket::redirect(const char *host, int port) {
 	// handle redirect
 	if( (m_hostNorm != this->host() || port != this->port())) {
         if (!m_allowRedirect) {
@@ -209,15 +342,15 @@ void EPosixClientSocket::redirect(const char *host, int port) {
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 
-void EPosixClientSocket::onConnect()
+void EClientSocket::onConnect()
 {
 	if( !handleSocketError())
 		return;
 
-	onConnectBase();
+	sendConnectRequest();
 }
 
-void EPosixClientSocket::onSend()
+void EClientSocket::onSend()
 {
 	if( !handleSocketError())
 		return;
@@ -225,7 +358,7 @@ void EPosixClientSocket::onSend()
 	sendBufferedData();
 }
 
-void EPosixClientSocket::onClose()
+void EClientSocket::onClose()
 {
 	if( !handleSocketError())
 		return;
@@ -234,14 +367,14 @@ void EPosixClientSocket::onClose()
 	getWrapper()->connectionClosed();
 }
 
-void EPosixClientSocket::onError()
+void EClientSocket::onError()
 {
 	handleSocketError();
 }
 
 ///////////////////////////////////////////////////////////
 // helper
-bool EPosixClientSocket::handleSocketError()
+bool EClientSocket::handleSocketError()
 {
 	// no error
 	if( errno == 0)
@@ -268,3 +401,8 @@ bool EPosixClientSocket::handleSocketError()
 	return false;
 }
 
+
+bool EClientSocket::isOutBufferEmpty() const
+{
+	return m_outBuffer.empty();
+}
