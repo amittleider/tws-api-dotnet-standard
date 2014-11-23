@@ -2,9 +2,14 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
-#ifndef eclient_def
-#define eclient_def
+#ifndef eclient_h__INCLUDED
+#define eclient_h__INCLUDED
 
+
+#include <memory>
+#include <string>
+#include <vector>
+#include <iosfwd>
 #include "CommonDefs.h"
 #include "TagValue.h"
 
@@ -13,68 +18,196 @@ struct Order;
 struct ExecutionFilter;
 struct ScannerSubscription;
 
+class EWrapper;
+typedef std::vector<char> BytesVec;
+
+
 class TWSAPIDLLEXP EClient
 {
 public:
-   virtual ~EClient() {}
-   virtual bool eConnect( const char *host, unsigned int port, int clientId = 0, bool extraAuth = 0) = 0;
-   virtual void eDisconnect() = 0;
-   virtual int serverVersion() = 0;
-   virtual std::string TwsConnectionTime() = 0;
-   virtual void reqMktData( TickerId id, const Contract& contract,
-	   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions) = 0;
-   virtual void cancelMktData( TickerId id) = 0;
-   virtual void placeOrder( OrderId id, const Contract& contract, const Order& order) = 0;
-   virtual void cancelOrder( OrderId id) = 0;
-   virtual void reqOpenOrders() = 0;
-   virtual void reqAccountUpdates(bool subscribe, const std::string& acctCode) = 0;
-   virtual void reqExecutions(int reqId, const ExecutionFilter& filter) = 0;
-   virtual void reqIds( int numIds) = 0;
-   //virtual bool checkMessages() = 0;
-   virtual void reqContractDetails( int reqId, const Contract& contract) = 0;
-   virtual void reqMktDepth( TickerId id, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions) = 0;
-   virtual void cancelMktDepth( TickerId id) = 0;
-   virtual void reqNewsBulletins( bool allMsgs) = 0;
-   virtual void cancelNewsBulletins() = 0;
-   virtual void setServerLogLevel(int level) = 0;
-   virtual void reqAutoOpenOrders(bool bAutoBind) = 0;
-   virtual void reqAllOpenOrders() = 0;
-   virtual void reqManagedAccts() = 0;
-   virtual void requestFA(faDataType pFaDataType) = 0;
-   virtual void replaceFA(faDataType pFaDataType, const std::string& cxml) = 0;
-   virtual void reqHistoricalData( TickerId id, const Contract& contract,
-	   const std::string& endDateTime, const std::string& durationStr, const std::string& barSizeSetting,
-	   const std::string& whatToShow, int useRTH, int formatDate, const TagValueListSPtr& chartOptions) = 0;
-   virtual void exerciseOptions( TickerId id, const Contract& contract,
-       int exerciseAction, int exerciseQuantity, const std::string& account, int override) = 0;
-   virtual void cancelHistoricalData( TickerId tickerId ) = 0;
-   virtual void reqRealTimeBars( TickerId id, const Contract& contract, int barSize,
-	   const std::string& whatToShow, bool useRTH, const TagValueListSPtr& realTimeBarsOptions) = 0;
-   virtual void cancelRealTimeBars( TickerId tickerId) = 0;
-   virtual void cancelScannerSubscription( int tickerId) = 0;
-   virtual void reqScannerParameters() = 0;
-   virtual void reqScannerSubscription( int tickerId, const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions) = 0;
-   virtual void reqCurrentTime() = 0;
-   virtual void reqFundamentalData( TickerId reqId, const Contract&, const std::string& reportType) = 0;
-   virtual void cancelFundamentalData( TickerId reqId) = 0;
-   virtual void calculateImpliedVolatility( TickerId reqId, const Contract& contract, double optionPrice, double underPrice) = 0;
-   virtual void calculateOptionPrice( TickerId reqId, const Contract& contract, double volatility, double underPrice) = 0;
-   virtual void cancelCalculateImpliedVolatility( TickerId reqId) = 0;
-   virtual void cancelCalculateOptionPrice( TickerId reqId) = 0;
-   virtual void reqGlobalCancel() = 0;
-   virtual void reqMarketDataType( int marketDataType) = 0;
-   virtual void reqPositions() = 0;
-   virtual void cancelPositions() = 0;
-   virtual void reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags) = 0;
-   virtual void cancelAccountSummary( int reqId) = 0;
-   virtual void verifyRequest( const std::string& apiName, const std::string& apiVersion) = 0;
-   virtual void verifyMessage( const std::string& apiData) = 0;
-   virtual void queryDisplayGroups( int reqId) = 0;
-   virtual void subscribeToGroupEvents( int reqId, int groupId) = 0;
-   virtual void updateDisplayGroup( int reqId, const std::string& contractInfo) = 0;
-   virtual void unsubscribeFromGroupEvents( int reqId) = 0;
+
+	explicit EClient(EWrapper *ptr);
+	~EClient();
+
+	virtual void eDisconnect() = 0;
+
+	int clientId() const { return m_clientId; }
+
+	const std::string& optionalCapabilities() const;
+	void setOptionalCapabilities(const std::string& optCapts);
+
+	void setUseV100Plus(const std::string& connectOptions);
+	bool usingV100Plus();
+
+protected:
+
+	void eConnectBase();
+	void eDisconnectBase();
+
+public:
+
+	enum ConnState {
+		CS_DISCONNECTED,
+		CS_CONNECTING,
+		CS_CONNECTED,
+		CS_REDIRECT
+	};
+
+	// connection state
+	ConnState connState() const;
+	bool isConnected() const;
+
+	const std::string& host() const { return m_host; }
+	unsigned port() const { return m_port; }
+
+public:
+
+	// access to protected variables
+	EWrapper * getWrapper() const;
+protected:
+	void setClientId( int clientId);
+	void setExtraAuth( bool extraAuth);
+	void setHost( const std::string& host);
+	void setPort( unsigned port);
+
+public:
+
+	bool isInBufferEmpty() const;
+
+	// override virtual funcs from EClient
+	int serverVersion();
+	std::string TwsConnectionTime();
+	void reqMktData(TickerId id, const Contract& contract,
+		const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions);
+	void cancelMktData(TickerId id);
+	void placeOrder(OrderId id, const Contract& contract, const Order& order);
+	void cancelOrder(OrderId id) ;
+	void reqOpenOrders();
+	void reqAccountUpdates(bool subscribe, const std::string& acctCode);
+	void reqExecutions(int reqId, const ExecutionFilter& filter);
+	void reqIds(int numIds);
+	void reqContractDetails(int reqId, const Contract& contract);
+	void reqMktDepth(TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions);
+	void cancelMktDepth(TickerId tickerId);
+	void reqNewsBulletins(bool allMsgs);
+	void cancelNewsBulletins();
+	void setServerLogLevel(int level);
+	void reqAutoOpenOrders(bool bAutoBind);
+	void reqAllOpenOrders();
+	void reqManagedAccts();
+	void requestFA(faDataType pFaDataType);
+	void replaceFA(faDataType pFaDataType, const std::string& cxml);
+	void reqHistoricalData( TickerId id, const Contract& contract,
+		const std::string& endDateTime, const std::string& durationStr,
+		const std::string&  barSizeSetting, const std::string& whatToShow,
+		int useRTH, int formatDate, const TagValueListSPtr& chartOptions);
+	void exerciseOptions(TickerId tickerId, const Contract& contract,
+		int exerciseAction, int exerciseQuantity,
+		const std::string& account, int override);
+	void cancelHistoricalData(TickerId tickerId );
+	void reqRealTimeBars(TickerId id, const Contract& contract, int barSize,
+		const std::string& whatToShow, bool useRTH, const TagValueListSPtr& realTimeBarsOptions);
+	void cancelRealTimeBars(TickerId tickerId );
+	void cancelScannerSubscription(int tickerId);
+	void reqScannerParameters();
+	void reqScannerSubscription(int tickerId, const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions);
+	void reqCurrentTime();
+	void reqFundamentalData(TickerId reqId, const Contract&, const std::string& reportType);
+	void cancelFundamentalData(TickerId reqId);
+	void calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice);
+	void calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice);
+	void cancelCalculateImpliedVolatility(TickerId reqId);
+	void cancelCalculateOptionPrice(TickerId reqId);
+	void reqGlobalCancel();
+	void reqMarketDataType(int marketDataType);
+	void reqPositions();
+	void cancelPositions();
+	void reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags);
+	void cancelAccountSummary( int reqId);
+	void verifyRequest( const std::string& apiName, const std::string& apiVersion);
+	void verifyMessage( const std::string& apiData);
+	void verifyAndAuthRequest( const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey);
+	void verifyAndAuthMessage( const std::string& apiData, const std::string& xyzResponse);
+	void queryDisplayGroups( int reqId);
+	void subscribeToGroupEvents( int reqId, int groupId);
+	void updateDisplayGroup( int reqId, const std::string& contractInfo);
+	void unsubscribeFromGroupEvents( int reqId);
 
 private:
+
+	virtual int send(const char* buf, size_t sz) = 0;
+	virtual int receive(char* buf, size_t sz) = 0;
+
+protected:
+
+	virtual void prepareBufferImpl(std::ostream&) const = 0;
+	virtual void prepareBuffer(std::ostream&) const = 0;
+	virtual void closeAndSend(std::string msg, unsigned offset = 0) = 0;
+	virtual int bufferedSend(const std::string& msg) = 0;
+
+protected:
+	int bufferedRead();
+
+	// try to process connection request ack
+private:
+	// try to process single msg
+	int processMsgImpl(const char*& ptr, const char* endPtr);
+	int processMsg(const char*& ptr, const char* endPtr);
+
+	typedef int (EClient::*messageHandler)(const char*& ptr, const char* endPtr);
+	int processOnePrefixedMsg(const char*& ptr, const char* endPtr, messageHandler);
+
+public:
+	void startApi();
+
+private:
+	// encoders
+	template<class T> static void EncodeField(std::ostream&, T);
+
+	// "max" encoders
+	static void EncodeFieldMax(std::ostream& os, int);
+	static void EncodeFieldMax(std::ostream& os, double);
+
+	// socket state
+	virtual bool isSocketOK() const = 0;
+
+protected:
+
+	bool isConnecting() const;
+	void sendConnectRequest();
+    bool extraAuth();
+
+protected:
+
+	EWrapper *m_pEWrapper;
+
+
+private:
+	BytesVec m_inBuffer;
+
+	std::string m_host;
+	int m_port;
+
+	int m_clientId;
+
+	ConnState m_connState;
+	bool m_extraAuth;
+
+protected:
+	int m_serverVersion;
+	std::string m_TwsTime;
+
+private:
+	std::string m_optionalCapabilities;
+
+	std::string m_connectOptions;
+
+protected:
+	bool m_useV100Plus;
+
 };
+
+template<> void EClient::EncodeField<bool>(std::ostream& os, bool);
+template<> void EClient::EncodeField<double>(std::ostream& os, double);
 
 #endif

@@ -161,8 +161,7 @@
     <ClCompile Include="EDecoder.cpp" />
     <ClCompile Include="EMessage.cpp" />
     <ClCompile Include="EReader.cpp" />
-    <ClCompile Include="EClientSocketBase.cpp" />
-    <ClCompile Include="EPosixClientSocket.cpp" />
+    <ClCompile Include="EClientSocket.cpp" />
     <ClCompile Include="EReaderOSSignal.cpp" />
     <ClCompile Include="EReaderWMSignal.cpp" />
     <ClCompile Include="StdAfx.cpp" />
@@ -182,7 +181,7 @@
     <ClInclude Include="EMessage.h" />
     <ClInclude Include="EReader.h" />
     <ClInclude Include="EReaderSignal.h" />
-    <ClInclude Include="EPosixClientSocket.h" />
+    <ClInclude Include="EClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="EReaderOSSignal.h" />
     <ClInclude Include="EReaderWMSignal.h" />
@@ -192,8 +191,9 @@
     <ClInclude Include="CommonDefs.h" />
     <ClInclude Include="Contract.h" />
     <ClInclude Include="EClient.h" />
-    <ClInclude Include="EClientSocketBase.h" />
-    <ClInclude Include="EClientSocketBaseImpl.h" />
+    <ClCompile Include="EClient.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="EWrapper.h" />
     <ClInclude Include="Execution.h" />
     <ClInclude Include="Order.h" />

@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EClientSocketBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EPosixClientSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EReaderWMSignal.cpp">
@@ -45,6 +39,12 @@
     <ClCompile Include="DefaultEWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EClientSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def">
@@ -60,9 +60,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EPosixClientSocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EPosixClientSocketPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,15 +99,6 @@
     <ClInclude Include="Contract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EClientSocketBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EClientSocketBaseImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -139,6 +127,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EClientMsgSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EClientSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

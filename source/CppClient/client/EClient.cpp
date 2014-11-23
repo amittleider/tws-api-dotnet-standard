@@ -1,11 +1,11 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-#pragma once
-#ifndef eclientsocketbaseimpl_h__INCLUDED
-#define eclientsocketbaseimpl_h__INCLUDED
+#include "StdAfx.h"
 
-#include "EClientSocketBase.h"
+#include "EPosixClientSocketPlatform.h"
+
+#include "EClient.h"
 
 #include "EWrapper.h"
 #include "TwsSocketClientErrors.h"
@@ -179,19 +179,19 @@ const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exc
 ///////////////////////////////////////////////////////////
 // encoders
 template<class T>
-void EClientSocketBase::EncodeField(std::ostream& os, T value)
+void EClient::EncodeField(std::ostream& os, T value)
 {
 	os << value << '\0';
 }
 
 template<>
-void EClientSocketBase::EncodeField<bool>(std::ostream& os, bool boolValue)
+void EClient::EncodeField<bool>(std::ostream& os, bool boolValue)
 {
 	EncodeField<int>(os, boolValue ? 1 : 0);
 }
 
 template<>
-void EClientSocketBase::EncodeField<double>(std::ostream& os, double doubleValue)
+void EClient::EncodeField<double>(std::ostream& os, double doubleValue)
 {
 	char str[128];
 
@@ -202,7 +202,7 @@ void EClientSocketBase::EncodeField<double>(std::ostream& os, double doubleValue
 
 ///////////////////////////////////////////////////////////
 // "max" encoders
-void EClientSocketBase::EncodeFieldMax(std::ostream& os, int intValue)
+void EClient::EncodeFieldMax(std::ostream& os, int intValue)
 {
 	if( intValue == INT_MAX) {
 		EncodeField(os, "");
@@ -211,7 +211,7 @@ void EClientSocketBase::EncodeFieldMax(std::ostream& os, int intValue)
 	EncodeField(os, intValue);
 }
 
-void EClientSocketBase::EncodeFieldMax(std::ostream& os, double doubleValue)
+void EClient::EncodeFieldMax(std::ostream& os, double doubleValue)
 {
 	if( doubleValue == DBL_MAX) {
 		EncodeField(os, "");
@@ -220,38 +220,10 @@ void EClientSocketBase::EncodeFieldMax(std::ostream& os, double doubleValue)
 	EncodeField(os, doubleValue);
 }
 
-///////////////////////////////////////////////////////////
-// static helpers
-
-static const size_t BufferSizeHighMark = 1 * 1024 * 1024; // 1Mb
-
-void EClientSocketBase::CleanupBuffer(BytesVec& buffer, int processed)
-{
-	assert( buffer.empty() || processed <= (int)buffer.size());
-
-	if( buffer.empty())
-		return;
-
-	if( processed <= 0)
-		return;
-
-	if( (size_t)processed == buffer.size()) {
-		if( buffer.capacity() >= BufferSizeHighMark) {
-			BytesVec().swap(buffer);
-		}
-		else {
-			buffer.clear();
-		}
-	}
-	else {
-		buffer.erase( buffer.begin(), buffer.begin() + processed);
-	}
-};
-
 
 ///////////////////////////////////////////////////////////
 // member funcs
-EClientSocketBase::EClientSocketBase( EWrapper *ptr)
+EClient::EClient( EWrapper *ptr)
 	: m_pEWrapper(ptr)
 	, m_clientId(-1)
 	, m_connState(CS_DISCONNECTED)
@@ -261,61 +233,60 @@ EClientSocketBase::EClientSocketBase( EWrapper *ptr)
 {
 }
 
-EClientSocketBase::~EClientSocketBase()
+EClient::~EClient()
 {
 }
 
-EClientSocketBase::ConnState EClientSocketBase::connState() const
+EClient::ConnState EClient::connState() const
 {
 	return m_connState;
 }
 
-bool EClientSocketBase::isConnected() const
+bool EClient::isConnected() const
 {
 	return m_connState == CS_CONNECTED;
 }
 
-bool EClientSocketBase::isConnecting() const
+bool EClient::isConnecting() const
 {
 	return m_connState == CS_CONNECTING;
 }
 
-void EClientSocketBase::eConnectBase()
+void EClient::eConnectBase()
 {
 }
 
-void EClientSocketBase::eDisconnectBase()
+void EClient::eDisconnectBase()
 {
 	m_TwsTime.clear();
 	m_serverVersion = 0;
 	m_connState = CS_DISCONNECTED;
 	m_extraAuth = false;
 	m_clientId = -1;
-	m_outBuffer.clear();
 	m_inBuffer.clear();
 }
 
-int EClientSocketBase::serverVersion()
+int EClient::serverVersion()
 {
 	return m_serverVersion;
 }
 
-std::string EClientSocketBase::TwsConnectionTime()
+std::string EClient::TwsConnectionTime()
 {
 	return m_TwsTime;
 }
 
-const std::string& EClientSocketBase::optionalCapabilities() const
+const std::string& EClient::optionalCapabilities() const
 {
 	return m_optionalCapabilities;
 }
 
-void EClientSocketBase::setOptionalCapabilities(const std::string& optCapts)
+void EClient::setOptionalCapabilities(const std::string& optCapts)
 {
 	m_optionalCapabilities = optCapts;
 }
 
-void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
+void EClient::setUseV100Plus(const std::string& connectOptions)
 {
 	if( isSocketOK()) {
 		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
@@ -325,11 +296,11 @@ void EClientSocketBase::setUseV100Plus(const std::string& connectOptions)
 	m_connectOptions = connectOptions;
 }
 
-bool EClientSocketBase::usingV100Plus() {
+bool EClient::usingV100Plus() {
 	return m_useV100Plus;
 }
 
-void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
+void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 								   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
@@ -453,7 +424,7 @@ void EClientSocketBase::reqMktData(TickerId tickerId, const Contract& contract,
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelMktData(TickerId tickerId)
+void EClient::cancelMktData(TickerId tickerId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -474,7 +445,7 @@ void EClientSocketBase::cancelMktData(TickerId tickerId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
+void EClient::reqMktDepth( TickerId tickerId, const Contract& contract, int numRows, const TagValueListSPtr& mktDepthOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -546,7 +517,7 @@ void EClientSocketBase::reqMktDepth( TickerId tickerId, const Contract& contract
 }
 
 
-void EClientSocketBase::cancelMktDepth( TickerId tickerId)
+void EClient::cancelMktDepth( TickerId tickerId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -574,7 +545,7 @@ void EClientSocketBase::cancelMktDepth( TickerId tickerId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& contract,
+void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
 										  const std::string& endDateTime, const std::string& durationStr,
 										  const std::string&  barSizeSetting, const std::string& whatToShow,
 										  int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
@@ -672,7 +643,7 @@ void EClientSocketBase::reqHistoricalData( TickerId tickerId, const Contract& co
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
+void EClient::cancelHistoricalData(TickerId tickerId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -699,7 +670,7 @@ void EClientSocketBase::cancelHistoricalData(TickerId tickerId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contract,
+void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
 										int barSize, const std::string& whatToShow, bool useRTH,
 										const TagValueListSPtr& realTimeBarsOptions)
 {
@@ -774,7 +745,7 @@ void EClientSocketBase::reqRealTimeBars(TickerId tickerId, const Contract& contr
 }
 
 
-void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
+void EClient::cancelRealTimeBars(TickerId tickerId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -802,7 +773,7 @@ void EClientSocketBase::cancelRealTimeBars(TickerId tickerId)
 }
 
 
-void EClientSocketBase::reqScannerParameters()
+void EClient::reqScannerParameters()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -829,7 +800,7 @@ void EClientSocketBase::reqScannerParameters()
 }
 
 
-void EClientSocketBase::reqScannerSubscription(int tickerId,
+void EClient::reqScannerSubscription(int tickerId,
 											   const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
 {
 	// not connected?
@@ -894,7 +865,7 @@ void EClientSocketBase::reqScannerSubscription(int tickerId,
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelScannerSubscription(int tickerId)
+void EClient::cancelScannerSubscription(int tickerId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -921,7 +892,7 @@ void EClientSocketBase::cancelScannerSubscription(int tickerId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contract, 
+void EClient::reqFundamentalData(TickerId reqId, const Contract& contract, 
 										   const std::string& reportType)
 {
 	// not connected?
@@ -969,7 +940,7 @@ void EClientSocketBase::reqFundamentalData(TickerId reqId, const Contract& contr
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelFundamentalData( TickerId reqId)
+void EClient::cancelFundamentalData( TickerId reqId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -995,7 +966,7 @@ void EClientSocketBase::cancelFundamentalData( TickerId reqId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
+void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
 
 	// not connected?
 	if( !isConnected()) {
@@ -1048,7 +1019,7 @@ void EClientSocketBase::calculateImpliedVolatility(TickerId reqId, const Contrac
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
+void EClient::cancelCalculateImpliedVolatility(TickerId reqId) {
 
 	// not connected?
 	if( !isConnected()) {
@@ -1074,7 +1045,7 @@ void EClientSocketBase::cancelCalculateImpliedVolatility(TickerId reqId) {
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
+void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
 
 	// not connected?
 	if( !isConnected()) {
@@ -1127,7 +1098,7 @@ void EClientSocketBase::calculateOptionPrice(TickerId reqId, const Contract& con
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
+void EClient::cancelCalculateOptionPrice(TickerId reqId) {
 
 	// not connected?
 	if( !isConnected()) {
@@ -1153,7 +1124,7 @@ void EClientSocketBase::cancelCalculateOptionPrice(TickerId reqId) {
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
+void EClient::reqContractDetails( int reqId, const Contract& contract)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1243,7 +1214,7 @@ void EClientSocketBase::reqContractDetails( int reqId, const Contract& contract)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqCurrentTime()
+void EClient::reqCurrentTime()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1271,7 +1242,7 @@ void EClientSocketBase::reqCurrentTime()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const Order& order)
+void EClient::placeOrder( OrderId id, const Contract& contract, const Order& order)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1848,7 +1819,7 @@ void EClientSocketBase::placeOrder( OrderId id, const Contract& contract, const 
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelOrder( OrderId id)
+void EClient::cancelOrder( OrderId id)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1869,7 +1840,7 @@ void EClientSocketBase::cancelOrder( OrderId id)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acctCode)
+void EClient::reqAccountUpdates(bool subscribe, const std::string& acctCode)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1893,7 +1864,7 @@ void EClientSocketBase::reqAccountUpdates(bool subscribe, const std::string& acc
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqOpenOrders()
+void EClient::reqOpenOrders()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1913,7 +1884,7 @@ void EClientSocketBase::reqOpenOrders()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
+void EClient::reqAutoOpenOrders(bool bAutoBind)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1934,7 +1905,7 @@ void EClientSocketBase::reqAutoOpenOrders(bool bAutoBind)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqAllOpenOrders()
+void EClient::reqAllOpenOrders()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1954,7 +1925,7 @@ void EClientSocketBase::reqAllOpenOrders()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
+void EClient::reqExecutions(int reqId, const ExecutionFilter& filter)
 {
 	//NOTE: Time format must be 'yyyymmdd-hh:mm:ss' E.g. '20030702-14:55'
 
@@ -1989,7 +1960,7 @@ void EClientSocketBase::reqExecutions(int reqId, const ExecutionFilter& filter)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqIds( int numIds)
+void EClient::reqIds( int numIds)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2010,7 +1981,7 @@ void EClientSocketBase::reqIds( int numIds)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqNewsBulletins(bool allMsgs)
+void EClient::reqNewsBulletins(bool allMsgs)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2031,7 +2002,7 @@ void EClientSocketBase::reqNewsBulletins(bool allMsgs)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelNewsBulletins()
+void EClient::cancelNewsBulletins()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2051,7 +2022,7 @@ void EClientSocketBase::cancelNewsBulletins()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::setServerLogLevel(int logLevel)
+void EClient::setServerLogLevel(int logLevel)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2072,7 +2043,7 @@ void EClientSocketBase::setServerLogLevel(int logLevel)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqManagedAccts()
+void EClient::reqManagedAccts()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2093,7 +2064,7 @@ void EClientSocketBase::reqManagedAccts()
 }
 
 
-void EClientSocketBase::requestFA(faDataType pFaDataType)
+void EClient::requestFA(faDataType pFaDataType)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2119,7 +2090,7 @@ void EClientSocketBase::requestFA(faDataType pFaDataType)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxml)
+void EClient::replaceFA(faDataType pFaDataType, const std::string& cxml)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2148,7 +2119,7 @@ void EClientSocketBase::replaceFA(faDataType pFaDataType, const std::string& cxm
 
 
 
-void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& contract,
+void EClient::exerciseOptions( TickerId tickerId, const Contract& contract,
 										int exerciseAction, int exerciseQuantity,
 										const std::string& account, int override)
 {
@@ -2205,7 +2176,7 @@ void EClientSocketBase::exerciseOptions( TickerId tickerId, const Contract& cont
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqGlobalCancel()
+void EClient::reqGlobalCancel()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2231,7 +2202,7 @@ void EClientSocketBase::reqGlobalCancel()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqMarketDataType( int marketDataType)
+void EClient::reqMarketDataType( int marketDataType)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2257,88 +2228,7 @@ void EClientSocketBase::reqMarketDataType( int marketDataType)
 	closeAndSend( msg.str());
 }
 
-int EClientSocketBase::sendBufferedData()
-{
-	if( m_outBuffer.empty())
-		return 0;
-
-	int nResult = send( &m_outBuffer[0], m_outBuffer.size());
-	if( nResult <= 0) {
-		return nResult;
-	}
-	CleanupBuffer( m_outBuffer, nResult);
-	return nResult;
-}
-
-void EClientSocketBase::prepareBufferImpl(std::ostream& buf) const
-{
-	assert( m_useV100Plus);
-	assert( sizeof(unsigned) == HEADER_LEN);
-
-	char header[HEADER_LEN] = { 0 };
-	buf.write( header, sizeof(header));
-}
-
-void EClientSocketBase::prepareBuffer(std::ostream& buf) const
-{
-	if( !m_useV100Plus)
-		return;
-
-	prepareBufferImpl( buf);
-}
-
-void EClientSocketBase::encodeMsgLen(std::string& msg, unsigned offset) const
-{
-	assert( !msg.empty());
-	assert( m_useV100Plus);
-
-	assert( sizeof(unsigned) == HEADER_LEN);
-	assert( msg.size() > offset + HEADER_LEN);
-	unsigned len = msg.size() - HEADER_LEN - offset;
-	if( len > MAX_MSG_LEN) {
-		m_pEWrapper->error( NO_VALID_ID, BAD_LENGTH.code(), BAD_LENGTH.msg());
-		return;
-	}
-
-	unsigned netlen = htonl( len);
-	memcpy( &msg[offset], &netlen, HEADER_LEN);
-}
-
-void EClientSocketBase::closeAndSend(std::string msg, unsigned offset)
-{
-	assert( !msg.empty());
-	if( m_useV100Plus) {
-		encodeMsgLen( msg, offset);
-	}
-	bufferedSend( msg);
-}
-
-int EClientSocketBase::bufferedSend(const char* buf, size_t sz)
-{
-	if( sz <= 0)
-		return 0;
-
-	if( !m_outBuffer.empty()) {
-		m_outBuffer.insert( m_outBuffer.end(), buf, buf + sz);
-		return sendBufferedData();
-	}
-
-	int nResult = send(buf, sz);
-
-	if( nResult < (int)sz) {
-		int sent = (std::max)( nResult, 0);
-		m_outBuffer.insert( m_outBuffer.end(), buf + sent, buf + sz);
-	}
-
-	return nResult;
-}
-
-int EClientSocketBase::bufferedSend(const std::string& msg)
-{
-	return bufferedSend( msg.data(), msg.size());
-}
-
-int EClientSocketBase::bufferedRead()
+int EClient::bufferedRead()
 {
 	char buf[8192];
 	int nResult = receive( buf, sizeof(buf));
@@ -2350,7 +2240,7 @@ int EClientSocketBase::bufferedRead()
 	return nResult;
 }
 
-void EClientSocketBase::reqPositions()
+void EClient::reqPositions()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2375,7 +2265,7 @@ void EClientSocketBase::reqPositions()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelPositions()
+void EClient::cancelPositions()
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2400,7 +2290,7 @@ void EClientSocketBase::cancelPositions()
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags)
+void EClient::reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2428,7 +2318,7 @@ void EClientSocketBase::reqAccountSummary( int reqId, const std::string& groupNa
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::cancelAccountSummary( int reqId)
+void EClient::cancelAccountSummary( int reqId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2454,7 +2344,7 @@ void EClientSocketBase::cancelAccountSummary( int reqId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::verifyRequest(const std::string& apiName, const std::string& apiVersion)
+void EClient::verifyRequest(const std::string& apiName, const std::string& apiVersion)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2487,7 +2377,7 @@ void EClientSocketBase::verifyRequest(const std::string& apiName, const std::str
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::verifyMessage(const std::string& apiData)
+void EClient::verifyMessage(const std::string& apiData)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2513,7 +2403,7 @@ void EClientSocketBase::verifyMessage(const std::string& apiData)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::verifyAndAuthRequest(const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey)
+void EClient::verifyAndAuthRequest(const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2547,7 +2437,7 @@ void EClientSocketBase::verifyAndAuthRequest(const std::string& apiName, const s
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::verifyAndAuthMessage(const std::string& apiData, const std::string& xyzResponse)
+void EClient::verifyAndAuthMessage(const std::string& apiData, const std::string& xyzResponse)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2574,7 +2464,7 @@ void EClientSocketBase::verifyAndAuthMessage(const std::string& apiData, const s
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::queryDisplayGroups( int reqId)
+void EClient::queryDisplayGroups( int reqId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2600,7 +2490,7 @@ void EClientSocketBase::queryDisplayGroups( int reqId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
+void EClient::subscribeToGroupEvents( int reqId, int groupId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2627,7 +2517,7 @@ void EClientSocketBase::subscribeToGroupEvents( int reqId, int groupId)
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contractInfo)
+void EClient::updateDisplayGroup( int reqId, const std::string& contractInfo)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2654,7 +2544,7 @@ void EClientSocketBase::updateDisplayGroup( int reqId, const std::string& contra
 	closeAndSend( msg.str());
 }
 
-void EClientSocketBase::startApi()
+void EClient::startApi()
 {
     // not connected?
     if( !isConnected()) {
@@ -2687,7 +2577,7 @@ void EClientSocketBase::startApi()
     }
 }
 
-void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
+void EClient::unsubscribeFromGroupEvents( int reqId)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2713,14 +2603,14 @@ void EClientSocketBase::unsubscribeFromGroupEvents( int reqId)
 	closeAndSend( msg.str());
 }
 
-int EClientSocketBase::processMsgImpl(const char*& beginPtr, const char* endPtr)
+int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);
 
 	return decoder.parseAndProcessMsg(beginPtr, endPtr);
 }
 
-int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)
+int EClient::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, messageHandler handler)
 {
 	if( beginPtr + HEADER_LEN >= endPtr)
 		return 0;
@@ -2769,39 +2659,39 @@ int EClientSocketBase::processOnePrefixedMsg(const char*& beginPtr, const char* 
 	return consumed;
 }
 
-bool EClientSocketBase::extraAuth() {
+bool EClient::extraAuth() {
     return m_extraAuth;
 }
 
-int EClientSocketBase::processMsg(const char*& beginPtr, const char* endPtr)
+int EClient::processMsg(const char*& beginPtr, const char* endPtr)
 {
 	if( !m_useV100Plus) {
 		return processMsgImpl( beginPtr, endPtr);
 	}
-	return processOnePrefixedMsg( beginPtr, endPtr, &EClientSocketBase::processMsgImpl);
+	return processOnePrefixedMsg( beginPtr, endPtr, &EClient::processMsgImpl);
 }
 
-EWrapper * EClientSocketBase::getWrapper() const
+EWrapper * EClient::getWrapper() const
 {
 	return m_pEWrapper;
 }
 
-void EClientSocketBase::setClientId( int clientId)
+void EClient::setClientId( int clientId)
 {
 	m_clientId = clientId;
 }
 
-void EClientSocketBase::setExtraAuth( bool extraAuth)
+void EClient::setExtraAuth( bool extraAuth)
 {
 	m_extraAuth = extraAuth;
 }
 
-void EClientSocketBase::setHost( const std::string& host)
+void EClient::setHost( const std::string& host)
 {
 	m_host = host;
 }
 
-void EClientSocketBase::setPort( unsigned port)
+void EClient::setPort( unsigned port)
 {
 	m_port = port;
 }
@@ -2809,7 +2699,7 @@ void EClientSocketBase::setPort( unsigned port)
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
-void EClientSocketBase::onConnectBase()
+void EClient::sendConnectRequest()
 {
 	m_connState = CS_CONNECTING;
 
@@ -2837,14 +2727,8 @@ void EClientSocketBase::onConnectBase()
 	m_connState = CS_CONNECTED;
 }
 
-bool EClientSocketBase::isInBufferEmpty() const
+bool EClient::isInBufferEmpty() const
 {
 	return m_inBuffer.empty();
 }
 
-bool EClientSocketBase::isOutBufferEmpty() const
-{
-	return m_outBuffer.empty();
-}
-
-#endif
