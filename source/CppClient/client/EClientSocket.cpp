@@ -12,6 +12,7 @@
 #include "EDecoder.h"
 #include "EReaderSignal.h"
 #include "EReader.h"
+#include "EMessage.h"
 
 #include <string.h>
 #include <assert.h>
@@ -20,7 +21,7 @@ const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are 
 
 ///////////////////////////////////////////////////////////
 // member funcs
-EClientSocket::EClientSocket(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr)
+EClientSocket::EClientSocket(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr, new ESocket())
 {
 	m_fd = SocketsInit() ? -1 : -2;
     m_allowRedirect = false;
@@ -72,6 +73,10 @@ bool EClientSocket::eConnect( const char *host, unsigned int port, int clientId,
     return eConnectImpl( clientId, extraAuth, &resState);
 }
 
+ESocket *EClientSocket::getTransport() {
+    return dynamic_cast<ESocket*>(socketTransport_.get());
+}
+
 bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
 {
 	// resolve host
@@ -105,6 +110,8 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 		getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
 		return false;
 	}
+
+    getTransport()->fd(m_fd);
 
 	// set client id
 	setClientId( clientId);
@@ -147,73 +154,6 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 
 	// successfully connected
 	return true;
-}
-
-int EClientSocket::sendBufferedData()
-{
-	if( m_outBuffer.empty())
-		return 0;
-
-	int nResult = send( &m_outBuffer[0], m_outBuffer.size());
-	if( nResult <= 0) {
-		return nResult;
-	}
-	CleanupBuffer( m_outBuffer, nResult);
-	return nResult;
-}
-
-
-///////////////////////////////////////////////////////////
-// static helpers
-
-static const size_t BufferSizeHighMark = 1 * 1024 * 1024; // 1Mb
-
-void EClientSocket::CleanupBuffer(BytesVec& buffer, int processed)
-{
-	assert( buffer.empty() || processed <= (int)buffer.size());
-
-	if( buffer.empty())
-		return;
-
-	if( processed <= 0)
-		return;
-
-	if( (size_t)processed == buffer.size()) {
-		if( buffer.capacity() >= BufferSizeHighMark) {
-			BytesVec().swap(buffer);
-		}
-		else {
-			buffer.clear();
-		}
-	}
-	else {
-		buffer.erase( buffer.begin(), buffer.begin() + processed);
-	}
-};
-
-int EClientSocket::bufferedSend(const char* buf, size_t sz)
-{
-	if( sz <= 0)
-		return 0;
-
-	if( !m_outBuffer.empty()) {
-		m_outBuffer.insert( m_outBuffer.end(), buf, buf + sz);
-		return sendBufferedData();
-	}
-
-	int nResult = send(buf, sz);
-
-	if( nResult < (int)sz) {
-		int sent = (std::max)( nResult, 0);
-		m_outBuffer.insert( m_outBuffer.end(), buf + sent, buf + sz);
-	}
-
-	return nResult;
-}
-
-int EClientSocket::bufferedSend(const std::string& msg)
-{
-	return bufferedSend( msg.data(), msg.size());
 }
 
 void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
@@ -266,7 +206,6 @@ void EClientSocket::eDisconnect()
 			SocketClose( m_fd);
 	m_fd = -1;
 
-    m_outBuffer.clear();
 	eDisconnectBase();
 }
 
@@ -278,22 +217,6 @@ bool EClientSocket::isSocketOK() const
 int EClientSocket::fd() const
 {
 	return m_fd;
-}
-
-int EClientSocket::send(const char* buf, size_t sz)
-{
-	if( sz <= 0)
-		return 0;
-
-	int nResult = ::send( m_fd, buf, sz, 0);
-
-	if( nResult == -1 && !handleSocketError()) {
-		return -1;
-	}
-	if( nResult <= 0) {
-		return 0;
-	}
-	return nResult;
 }
 
 int EClientSocket::receive(char* buf, size_t sz)
@@ -355,7 +278,7 @@ void EClientSocket::onSend()
 	if( !handleSocketError())
 		return;
 
-	sendBufferedData();
+	getTransport()->sendBufferedData();
 }
 
 void EClientSocket::onClose()
@@ -370,39 +293,4 @@ void EClientSocket::onClose()
 void EClientSocket::onError()
 {
 	handleSocketError();
-}
-
-///////////////////////////////////////////////////////////
-// helper
-bool EClientSocket::handleSocketError()
-{
-	// no error
-	if( errno == 0)
-		return true;
-
-	// Socket is already connected
-	if( errno == EISCONN) {
-		return true;
-	}
-
-	if( errno == EWOULDBLOCK)
-		return false;
-
-	if( errno == ECONNREFUSED) {
-		getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
-	}
-	else {
-		getWrapper()->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
-			SOCKET_EXCEPTION.msg() + strerror(errno));
-	}
-	// reset errno
-	errno = 0;
-	eDisconnect();
-	return false;
-}
-
-
-bool EClientSocket::isOutBufferEmpty() const
-{
-	return m_outBuffer.empty();
 }

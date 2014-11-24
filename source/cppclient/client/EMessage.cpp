@@ -9,12 +9,12 @@ EMessage::EMessage(const std::vector<char> &data) {
     this->data = data;
 }
 
-const char* EMessage::begin(void)
+const char* EMessage::begin(void) const
 {
     return data.data();
 }
 
-const char* EMessage::end(void)
+const char* EMessage::end(void) const
 {
     return data.data() + data.size();
 }

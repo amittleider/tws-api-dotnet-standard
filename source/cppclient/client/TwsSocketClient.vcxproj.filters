@@ -45,6 +45,9 @@
     <ClCompile Include="EClientSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ESocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def">
@@ -133,6 +136,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EClientSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ETransport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ESocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

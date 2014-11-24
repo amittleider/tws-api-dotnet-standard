@@ -33,7 +33,7 @@ EReader::~EReader(void) {
 }
 
 void EReader::checkClient() {
-	m_needsWriteSelect = !m_pClientSocket->isOutBufferEmpty();
+	m_needsWriteSelect = !m_pClientSocket->getTransport()->isOutBufferEmpty();
 }
 
 void EReader::start() {
