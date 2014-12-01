@@ -180,11 +180,7 @@ protected:
 protected:
 
 	EWrapper *m_pEWrapper;
-    std::auto_ptr<ETransport> socketTransport_;
-
-public:
-	// helper
-	bool handleSocketError();
+    std::auto_ptr<ETransport> m_transport;
 
 private:
 	BytesVec m_inBuffer;

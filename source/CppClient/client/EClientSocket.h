@@ -40,9 +40,8 @@ private:
 
 private:
 	void encodeMsgLen(std::string& msg, unsigned offset) const;
-
-
 public:
+	bool handleSocketError();
 	int receive( char* buf, size_t sz);
 
 public:
