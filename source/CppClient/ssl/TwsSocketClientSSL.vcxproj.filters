@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\client\DefaultEWrapper.cpp" />
+    <ClCompile Include="..\client\EMutex.cpp" />
+    <ClCompile Include="..\client\EDecoder.cpp" />
+    <ClCompile Include="..\client\EMessage.cpp" />
+    <ClCompile Include="EReaderSSL.cpp" />
+    <ClCompile Include="EClientSocketSSL.cpp" />
+    <ClCompile Include="..\client\EReaderOSSignal.cpp" />
+    <ClCompile Include="..\client\EReaderWMSignal.cpp" />
+    <ClCompile Include="ESocketSSL.cpp" />
+    <ClCompile Include="..\client\StdAfx.cpp" />
+    <ClCompile Include="..\client\EClient.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\client\TwsSocketClientSSL.def" />
+    <None Include="..\client\res\TwsSocketClientSSL.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\client\TwsSocketClientSSL.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\client\EClientMsgSink.h" />
+    <ClInclude Include="..\client\EMutex.h" />
+    <ClInclude Include="..\client\DefaultEWrapper.h" />
+    <ClInclude Include="..\client\EDecoder.h" />
+    <ClInclude Include="..\client\EMessage.h" />
+    <ClInclude Include="EReaderSSL.h" />
+    <ClInclude Include="..\client\EReaderSignal.h" />
+    <ClInclude Include="EClientSocketSSL.h" />
+    <ClInclude Include="..\client\EPosixClientSocketPlatform.h" />
+    <ClInclude Include="..\client\EReaderOSSignal.h" />
+    <ClInclude Include="..\client\EReaderWMSignal.h" />
+    <ClInclude Include="ESocketSSL.h" />
+    <ClInclude Include="..\client\ETransport.h" />
+    <ClInclude Include="..\client\Resource.h" />
+    <ClInclude Include="..\client\StdAfx.h" />
+    <ClInclude Include="..\client\CommissionReport.h" />
+    <ClInclude Include="..\client\CommonDefs.h" />
+    <ClInclude Include="..\client\Contract.h" />
+    <ClInclude Include="..\client\EClient.h" />
+    <ClInclude Include="..\client\EWrapper.h" />
+    <ClInclude Include="..\client\Execution.h" />
+    <ClInclude Include="..\client\Order.h" />
+    <ClInclude Include="..\client\OrderState.h" />
+    <ClInclude Include="..\client\ScannerSubscription.h" />
+    <ClInclude Include="..\client\shared_ptr.h" />
+    <ClInclude Include="..\client\TagValue.h" />
+    <ClInclude Include="..\client\TwsSocketClientErrors.h" />
+  </ItemGroup>
+</Project>
