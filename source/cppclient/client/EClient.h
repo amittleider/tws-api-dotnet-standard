@@ -17,6 +17,7 @@ struct Contract;
 struct Order;
 struct ExecutionFilter;
 struct ScannerSubscription;
+struct ETransport;
 
 class EWrapper;
 typedef std::vector<char> BytesVec;
@@ -26,7 +27,7 @@ class TWSAPIDLLEXP EClient
 {
 public:
 
-	explicit EClient(EWrapper *ptr);
+	explicit EClient(EWrapper *ptr, ETransport *pTransport);
 	~EClient();
 
 	virtual void eDisconnect() = 0;
@@ -135,7 +136,6 @@ public:
 
 private:
 
-	virtual int send(const char* buf, size_t sz) = 0;
 	virtual int receive(char* buf, size_t sz) = 0;
 
 protected:
@@ -143,7 +143,7 @@ protected:
 	virtual void prepareBufferImpl(std::ostream&) const = 0;
 	virtual void prepareBuffer(std::ostream&) const = 0;
 	virtual void closeAndSend(std::string msg, unsigned offset = 0) = 0;
-	virtual int bufferedSend(const std::string& msg) = 0;
+	virtual int bufferedSend(const std::string& msg);
 
 protected:
 	int bufferedRead();
@@ -180,7 +180,11 @@ protected:
 protected:
 
 	EWrapper *m_pEWrapper;
+    std::auto_ptr<ETransport> socketTransport_;
 
+public:
+	// helper
+	bool handleSocketError();
 
 private:
 	BytesVec m_inBuffer;

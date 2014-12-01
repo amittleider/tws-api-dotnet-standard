@@ -16,6 +16,8 @@
 #include "ScannerSubscription.h"
 #include "CommissionReport.h"
 #include "EDecoder.h"
+#include "EMessage.h"
+#include "ETransport.h"
 
 #include <sstream>
 #include <iomanip>
@@ -223,13 +225,14 @@ void EClient::EncodeFieldMax(std::ostream& os, double doubleValue)
 
 ///////////////////////////////////////////////////////////
 // member funcs
-EClient::EClient( EWrapper *ptr)
+EClient::EClient( EWrapper *ptr, ETransport *pTransport)
 	: m_pEWrapper(ptr)
 	, m_clientId(-1)
 	, m_connState(CS_DISCONNECTED)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
 	, m_useV100Plus(false)
+    , socketTransport_(pTransport)
 {
 }
 
@@ -298,6 +301,45 @@ void EClient::setUseV100Plus(const std::string& connectOptions)
 
 bool EClient::usingV100Plus() {
 	return m_useV100Plus;
+}
+
+
+///////////////////////////////////////////////////////////
+// helper
+bool EClient::handleSocketError()
+{
+	// no error
+	if( errno == 0)
+		return true;
+
+	// Socket is already connected
+	if( errno == EISCONN) {
+		return true;
+	}
+
+	if( errno == EWOULDBLOCK)
+		return false;
+
+	if( errno == ECONNREFUSED) {
+		getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
+	}
+	else {
+		getWrapper()->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
+			SOCKET_EXCEPTION.msg() + strerror(errno));
+	}
+	// reset errno
+	errno = 0;
+	eDisconnect();
+	return false;
+}
+
+int EClient::bufferedSend(const std::string& msg) {
+    EMessage emsg(std::vector<char>(msg.begin(), msg.end()));
+
+    if (socketTransport_->send(&emsg) == -1 && !handleSocketError())
+        return -1;
+
+    return 0;
 }
 
 void EClient::reqMktData(TickerId tickerId, const Contract& contract,

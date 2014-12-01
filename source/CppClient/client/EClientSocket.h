@@ -7,6 +7,7 @@
 
 #include "EClient.h"
 #include "EClientMsgSink.h"
+#include "ESocket.h"
 
 class EWrapper;
 class EReaderSignal;
@@ -31,24 +32,18 @@ public:
 	int fd() const;
     bool asyncEConnect() const;
     void asyncEConnect(bool val);
+    ESocket *getTransport();
 
 private:
 
 	bool eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt);
 
 private:
-	int send( const char* buf, size_t sz);
 	void encodeMsgLen(std::string& msg, unsigned offset) const;
-	int bufferedSend(const char* buf, size_t sz);
-	int bufferedSend(const std::string& msg);
-    int sendBufferedData();
-
-    static void CleanupBuffer(BytesVec&, int processed);
 
 
 public:
 	int receive( char* buf, size_t sz);
-	bool isOutBufferEmpty() const;
 
 public:
 	// callback from socket
@@ -60,10 +55,6 @@ private:
 	void onConnect();
 	void onClose();
 
-public:
-	// helper
-	bool handleSocketError();
-
 private:
 
 	int m_fd;
@@ -71,7 +62,6 @@ private:
     const char* m_hostNorm;
     bool m_asyncEConnect;
     EReaderSignal *m_pSignal;
-	BytesVec m_outBuffer;
 
 //EClientMsgSink implementation
 public:

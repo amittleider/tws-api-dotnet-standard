@@ -7,7 +7,7 @@ class EMessage
     std::vector<char> data;
 public:
     EMessage(const std::vector<char> &data);
-    const char* begin(void);
-    const char* end(void);
+    const char* begin(void) const;
+    const char* end(void) const;
 };
 
