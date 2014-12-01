@@ -95,7 +95,7 @@ namespace TWSLib
         [DispId(41)]
         double stockRangeUpper { get; set; }
         [DispId(42)]
-        string TwsConnectionTime { get; set; }
+        string TwsConnectionTime { get; }
         [DispId(43)]
         int serverVersion { get; set; }
         [DispId(44)]

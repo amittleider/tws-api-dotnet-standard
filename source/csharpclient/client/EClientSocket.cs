@@ -88,6 +88,8 @@ namespace IBApi
             eConnect(host, port, clientId, false);
         }
 
+        public string ServerTime { get; private set; }
+
         /**
          * @brief Establishes a connection to the designated Host.
          * After establishing a connection succesfully, the Host will provide the next valid order id, server's current time, managed accounts and open orders among others depending on the Host version.
@@ -180,8 +182,7 @@ namespace IBApi
 
                 if (serverVersion >= 20)
                 {
-                    string twsTime = reader.ReadString();
-                    Console.WriteLine("TWS time: " + twsTime);
+                    ServerTime = reader.ReadString();
                 }
                 isConnected = true;
                 if (serverVersion >= 3)

@@ -132,7 +132,7 @@ namespace TWSLib
         [DispId(41)]
         public double stockRangeUpper { get; set; }
         [DispId(42)]
-        public string TwsConnectionTime { get; set; }
+        public string TwsConnectionTime { get { return socket.ServerTime; } }
         [DispId(43)]
         public int serverVersion { get; set; }
         [DispId(44)]
@@ -688,7 +688,6 @@ namespace TWSLib
             designatedLocation = "";
             rule80A = "";
             settlingFirm = "";
-            TwsConnectionTime = "";
             deltaNeutralOrderType = "";
             trailStopPrice = double.MaxValue;
             scaleInitLevelSize = int.MaxValue;

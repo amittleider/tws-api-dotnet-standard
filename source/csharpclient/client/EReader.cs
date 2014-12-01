@@ -1632,7 +1632,7 @@ namespace IBApi
                         strBuilder.Append((char)b);
                     }
                 }
-                //Console.WriteLine("Last value being read: "+strBuilder.ToString());
+
                 return strBuilder.ToString();
             }
         }
