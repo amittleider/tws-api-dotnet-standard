@@ -74,7 +74,9 @@ bool EClientSocket::eConnect( const char *host, unsigned int port, int clientId,
 }
 
 ESocket *EClientSocket::getTransport() {
-    return dynamic_cast<ESocket*>(socketTransport_.get());
+    assert(dynamic_cast<ESocket*>(m_transport.get()) != 0);
+
+    return static_cast<ESocket*>(m_transport.get());
 }
 
 bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
@@ -179,7 +181,9 @@ void EClientSocket::closeAndSend(std::string msg, unsigned offset)
 	if( m_useV100Plus) {
 		encodeMsgLen( msg, offset);
 	}
-	bufferedSend( msg);
+
+	if (bufferedSend(msg) == -1)
+        handleSocketError();
 }
 
 void EClientSocket::prepareBufferImpl(std::ostream& buf) const
@@ -261,6 +265,34 @@ void EClientSocket::redirect(const char *host, int port) {
 		eConnectImpl( clientId(), extraAuth(), 0);
 	}
 }
+
+bool EClientSocket::handleSocketError()
+{
+	// no error
+	if( errno == 0)
+		return true;
+
+	// Socket is already connected
+	if( errno == EISCONN) {
+		return true;
+	}
+
+	if( errno == EWOULDBLOCK)
+		return false;
+
+	if( errno == ECONNREFUSED) {
+		getWrapper()->error( NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg());
+	}
+	else {
+		getWrapper()->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
+			SOCKET_EXCEPTION.msg() + strerror(errno));
+	}
+	// reset errno
+	errno = 0;
+	eDisconnect();
+	return false;
+}
+
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
