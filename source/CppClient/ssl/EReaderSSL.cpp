@@ -2,20 +2,20 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
-#include "shared_ptr.h"
-#include "contract.h"
-#include "EDecoder.h"
-#include "EMutex.h"
-#include "EReader.h"
-#include "EClientSocket.h"
-#include "EPosixClientSocketPlatform.h"
-#include "EReaderSignal.h"
-#include "EMessage.h"
-#include "DefaultEWrapper.h"
+#include "../client/shared_ptr.h"
+#include "../client/contract.h"
+#include "../client/EDecoder.h"
+#include "../client/EMutex.h"
+#include "EReaderSSL.h"
+#include "EClientSocketSSL.h"
+#include "../client/EPosixClientSocketPlatform.h"
+#include "../client/EReaderSignal.h"
+#include "../client/EMessage.h"
+#include "../client/DefaultEWrapper.h"
 
 DefaultEWrapper defaultWrapper;
 
-EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
+EReaderSSL::EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal)
 	: processMsgsDecoder_(clientSocket->EClient::serverVersion(), clientSocket->getWrapper(), clientSocket)
 	, threadReadDecoder_(clientSocket->EClient::serverVersion(), &defaultWrapper) {
 		m_isAlive = true;
@@ -26,17 +26,17 @@ EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
 		start();
 }
 
-EReader::~EReader(void) {
+EReaderSSL::~EReaderSSL(void) {
     m_isAlive = false;
 
     WaitForSingleObject(m_hReadThread, INFINITE);
 }
 
-void EReader::checkClient() {
+void EReaderSSL::checkClient() {
 	m_needsWriteSelect = !m_pClientSocket->getTransport()->isOutBufferEmpty();
 }
 
-void EReader::start() {
+void EReaderSSL::start() {
 #if defined(IB_POSIX)
     pthread_t thread;
     pthread_attr_t attr;
@@ -52,20 +52,20 @@ void EReader::start() {
 }
 
 #if defined(IB_POSIX)
-void * EReader::readToQueueThread(void * lpParam)
+void * EReaderSSL::readToQueueThread(void * lpParam)
 #elif defined(IB_WIN32)
-DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam)
+DWORD WINAPI EReaderSSL::readToQueueThread(LPVOID lpParam)
 #else
 #   error "Not implemented on this platform"
 #endif
 {
-	EReader *pThis = reinterpret_cast<EReader *>(lpParam);
+	EReaderSSL *pThis = reinterpret_cast<EReaderSSL *>(lpParam);
 
 	pThis->readToQueue();
 	return 0;
 }
 
-void EReader::readToQueue() {
+void EReaderSSL::readToQueue() {
 	EMessage *msg = 0;
 
 	while (m_isAlive) {
@@ -90,7 +90,7 @@ void EReader::readToQueue() {
 	m_pEReaderSignal->issueSignal(); //letting client know that socket was closed
 }
 
-bool EReader::processNonBlockingSelect() {
+bool EReaderSSL::processNonBlockingSelect() {
 	fd_set readSet, writeSet, errorSet;
 	struct timeval tval;
 
@@ -150,24 +150,27 @@ bool EReader::processNonBlockingSelect() {
 	return false;
 }
 
-void EReader::onSend() {
+void EReaderSSL::onSend() {
 	m_pEReaderSignal->issueSignal();
 }
 
-void EReader::onReceive() {
+void EReaderSSL::onReceive() {
 	int nOffset = m_buf.size();
 
 	m_buf.resize(8192);
 
 	int nRes = m_pClientSocket->receive(m_buf.data() + nOffset, m_buf.size() - nOffset);
 
-	if (nRes <= 0)
+	if (nRes <= 0) {
+        m_pClientSocket->handleSocketError(nRes);
+
 		return;
+    }
 
  	m_buf.resize(nRes + nOffset);	
 }
 
-bool EReader::bufferedRead(char *buf, int size) {
+bool EReaderSSL::bufferedRead(char *buf, int size) {
 	while (m_buf.size() < size)
 		if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
 			return false;
@@ -179,7 +182,7 @@ bool EReader::bufferedRead(char *buf, int size) {
 	return true;
 }
 
-EMessage * EReader::readSingleMsg() {
+EMessage * EReaderSSL::readSingleMsg() {
 	if (m_pClientSocket->usingV100Plus()) {
 		int msgSize;
 
@@ -217,7 +220,7 @@ EMessage * EReader::readSingleMsg() {
 	}
 }
 
-shared_ptr<EMessage> EReader::getMsg(void) {
+shared_ptr<EMessage> EReaderSSL::getMsg(void) {
 	m_csMsgQueue.Enter();
 
 	if (m_msgQueue.size() == 0) {
@@ -235,7 +238,7 @@ shared_ptr<EMessage> EReader::getMsg(void) {
 }
 
 
-void EReader::processMsgs(void) {
+void EReaderSSL::processMsgs(void) {
 	m_pClientSocket->onSend();
 	checkClient();
 

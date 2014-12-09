@@ -4,7 +4,7 @@
 #pragma once
 #include "EWrapper.h"
 
-class DefaultEWrapper :
+class TWSAPIDLLEXP DefaultEWrapper :
     public EWrapper
 {
 public:

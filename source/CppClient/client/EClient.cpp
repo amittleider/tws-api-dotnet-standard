@@ -2708,9 +2708,11 @@ void EClient::setPort( unsigned port)
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
-void EClient::sendConnectRequest()
+int EClient::sendConnectRequest()
 {
 	m_connState = CS_CONNECTING;
+
+    int rval;
 
 	// send client version
 	std::ostringstream msg;
@@ -2726,14 +2728,18 @@ void EClient::sendConnectRequest()
 		if( !m_connectOptions.empty()) {
 			msg << ' ' << m_connectOptions;
 		}
-		closeAndSend( msg.str(), sizeof(API_SIGN));
+
+		rval = closeAndSend( msg.str(), sizeof(API_SIGN));
 	}
     else {
         ENCODE_FIELD( CLIENT_VERSION);
-        bufferedSend( msg.str());
+
+        rval = bufferedSend( msg.str());
     }
     
-	m_connState = CS_CONNECTED;
+    m_connState = rval > 0 ? CS_CONNECTED : CS_DISCONNECTED;
+
+    return rval;
 }
 
 bool EClient::isInBufferEmpty() const

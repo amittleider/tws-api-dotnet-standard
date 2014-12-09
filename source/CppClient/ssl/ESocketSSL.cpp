@@ -1,24 +1,24 @@
 #include "StdAfx.h"
-#include "EMessage.h"
-#include "ESocket.h"
+#include "../client/EMessage.h"
+#include "ESocketSSL.h"
 
 #include <assert.h>
 
-ESocket::ESocket() {
+ESocketSSL::ESocketSSL() {
 }
 
-void ESocket::fd(int fd) {
+void ESocketSSL::fd(SSL *fd) {
     m_fd = fd;
 }
 
-ESocket::~ESocket(void) {
+ESocketSSL::~ESocketSSL(void) {
 }
 
-int ESocket::send(EMessage *pMsg) {
+int ESocketSSL::send(EMessage *pMsg) {
     return bufferedSend(pMsg->begin(), pMsg->end() - pMsg->begin());
 }
 
-int ESocket::bufferedSend(const char* buf, size_t sz)
+int ESocketSSL::bufferedSend(const char* buf, size_t sz)
 {
 	if( sz <= 0)
 		return 0;
@@ -38,7 +38,7 @@ int ESocket::bufferedSend(const char* buf, size_t sz)
 	return nResult;
 }
 
-int ESocket::sendBufferedData()
+int ESocketSSL::sendBufferedData()
 {
 	if( m_outBuffer.empty())
 		return 0;
@@ -51,12 +51,12 @@ int ESocket::sendBufferedData()
 	return nResult;
 }
 
-int ESocket::send(const char* buf, size_t sz)
+int ESocketSSL::send(const char* buf, size_t sz)
 {
 	if( sz <= 0)
 		return 0;
 
-	int nResult = ::send( m_fd, buf, sz, 0);
+	int nResult = ::SSL_write( m_fd, buf, sz);
 
 	if( nResult == -1) {
 		return -1;
@@ -69,7 +69,7 @@ int ESocket::send(const char* buf, size_t sz)
 
 static const size_t BufferSizeHighMark = 1 * 1024 * 1024; // 1Mb
 
-void ESocket::CleanupBuffer(std::vector<char>& buffer, int processed)
+void ESocketSSL::CleanupBuffer(std::vector<char>& buffer, int processed)
 {
 	assert( buffer.empty() || processed <= (int)buffer.size());
 
@@ -92,7 +92,7 @@ void ESocket::CleanupBuffer(std::vector<char>& buffer, int processed)
 	}
 }
 
-bool ESocket::isOutBufferEmpty() const
+bool ESocketSSL::isOutBufferEmpty() const
 {
 	return m_outBuffer.empty();
 }

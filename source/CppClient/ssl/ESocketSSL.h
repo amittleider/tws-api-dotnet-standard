@@ -1,10 +1,10 @@
 #pragma once
-#include "ETransport.h"
+#include "../client/ETransport.h"
 
-class ESocket :
+class ESocketSSL :
     public ETransport
 {
-    int m_fd;
+    SSL *m_fd;
 	std::vector<char> m_outBuffer;
 
     int bufferedSend(const char* buf, size_t sz);
@@ -12,12 +12,12 @@ class ESocket :
     void CleanupBuffer(std::vector<char>& buffer, int processed);
 
 public:
-    ESocket();
-    ~ESocket(void);
+    ESocketSSL();
+    ~ESocketSSL(void);
 
     int send(EMessage *pMsg);
     bool isOutBufferEmpty() const;
     int sendBufferedData();
-    void fd(int fd);
+    void fd(SSL *fd);
 };
 

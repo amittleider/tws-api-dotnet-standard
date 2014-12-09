@@ -4,15 +4,15 @@
 #include "StdAfx.h"
 
 
-#include "EPosixClientSocketPlatform.h"
-#include "EClientSocket.h"
+#include "../client/EPosixClientSocketPlatform.h"
+#include "EClientSocketSSL.h"
 
-#include "TwsSocketClientErrors.h"
-#include "EWrapper.h"
-#include "EDecoder.h"
-#include "EReaderSignal.h"
-#include "EReader.h"
-#include "EMessage.h"
+#include "../client/TwsSocketClientErrors.h"
+#include "../client/EWrapper.h"
+#include "../client/EDecoder.h"
+#include "../client/EReaderSignal.h"
+#include "EReaderSSL.h"
+#include "../client/EMessage.h"
 
 #include <string.h>
 #include <assert.h>
@@ -21,29 +21,33 @@ const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are 
 
 ///////////////////////////////////////////////////////////
 // member funcs
-EClientSocket::EClientSocket(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr, new ESocket())
+EClientSocketSSL::EClientSocketSSL(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr, new ESocketSSL())
 {
 	m_fd = SocketsInit() ? -1 : -2;
     m_allowRedirect = false;
     m_asyncEConnect = false;
     m_pSignal = pSignal;
+
+    SSL_load_error_strings();
+    ERR_load_BIO_strings();
+    SSL_library_init();
 }
 
-EClientSocket::~EClientSocket()
+EClientSocketSSL::~EClientSocketSSL()
 {
 	if( m_fd != -2)
 		SocketsDestroy();
 }
 
-bool EClientSocket::asyncEConnect() const {
+bool EClientSocketSSL::asyncEConnect() const {
     return m_asyncEConnect;
 }
 
-void EClientSocket::asyncEConnect(bool val) {
+void EClientSocketSSL::asyncEConnect(bool val) {
     m_asyncEConnect = val;
 }
 
-bool EClientSocket::eConnect( const char *host, unsigned int port, int clientId, bool extraAuth)
+bool EClientSocketSSL::eConnect( const char *host, unsigned int port, int clientId, bool extraAuth)
 {
 	if( m_fd == -2) {
 		getWrapper()->error( NO_VALID_ID, FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg());
@@ -73,13 +77,13 @@ bool EClientSocket::eConnect( const char *host, unsigned int port, int clientId,
     return eConnectImpl( clientId, extraAuth, &resState);
 }
 
-ESocket *EClientSocket::getTransport() {
-    assert(dynamic_cast<ESocket*>(m_transport.get()) != 0);
+ESocketSSL *EClientSocketSSL::getTransport() {
+    assert(dynamic_cast<ESocketSSL*>(m_transport.get()) != 0);
 
-    return static_cast<ESocket*>(m_transport.get());
+    return static_cast<ESocketSSL*>(m_transport.get());
 }
 
-bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
+bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
 {
 	// resolve host
 	struct hostent* hostEnt = gethostbyname( host().c_str());
@@ -113,12 +117,32 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 		return false;
 	}
 
-    getTransport()->fd(m_fd);
+    m_pCTX = SSL_CTX_new(SSLv23_client_method());
+
+    if (!m_pCTX && !handleSocketError())
+        return false;
+
+    m_pSSL = SSL_new(m_pCTX);
+
+    if (!m_pSSL && !handleSocketError())
+        return false;
+
+    if (!SSL_set_fd(m_pSSL, m_fd) && !handleSocketError())
+        return false;
+
+    if (!SSL_connect(m_pSSL) && !handleSocketError())
+        return false;
+
+    getTransport()->fd(m_pSSL);
 
 	// set client id
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
-	sendConnectRequest();
+	
+    int res = sendConnectRequest();
+
+    if (res == 0 || res < 0 && !handleSocketError(res))
+        return false;
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -145,7 +169,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 	}
             
     if (!m_asyncEConnect) {
-        EReader reader(this, m_pSignal);
+        EReaderSSL reader(this, m_pSignal);
 
         while (m_pSignal && !m_serverVersion) {
             reader.checkClient();
@@ -158,7 +182,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 	return true;
 }
 
-void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
+void EClientSocketSSL::encodeMsgLen(std::string& msg, unsigned offset) const
 {
 	assert( !msg.empty());
 	assert( m_useV100Plus);
@@ -175,18 +199,22 @@ void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
 	memcpy( &msg[offset], &netlen, HEADER_LEN);
 }
 
-void EClientSocket::closeAndSend(std::string msg, unsigned offset)
+bool EClientSocketSSL::closeAndSend(std::string msg, unsigned offset)
 {
 	assert( !msg.empty());
 	if( m_useV100Plus) {
 		encodeMsgLen( msg, offset);
 	}
 
-	if (bufferedSend(msg) == -1)
-        handleSocketError();
+    int res = bufferedSend(msg);
+
+	if (res < 0)
+        return handleSocketError(res);
+
+    return true;
 }
 
-void EClientSocket::prepareBufferImpl(std::ostream& buf) const
+void EClientSocketSSL::prepareBufferImpl(std::ostream& buf) const
 {
 	assert( m_useV100Plus);
 	assert( sizeof(unsigned) == HEADER_LEN);
@@ -195,7 +223,7 @@ void EClientSocket::prepareBufferImpl(std::ostream& buf) const
 	buf.write( header, sizeof(header));
 }
 
-void EClientSocket::prepareBuffer(std::ostream& buf) const
+void EClientSocketSSL::prepareBuffer(std::ostream& buf) const
 {
 	if( !m_useV100Plus)
 		return;
@@ -203,8 +231,14 @@ void EClientSocket::prepareBuffer(std::ostream& buf) const
 	prepareBufferImpl( buf);
 }
 
-void EClientSocket::eDisconnect()
+void EClientSocketSSL::eDisconnect()
 {
+    if (m_pSSL)
+        SSL_shutdown(m_pSSL);
+
+    if (m_pCTX)
+        SSL_CTX_free(m_pCTX);
+
 	if ( m_fd >= 0 )
 		// close socket
 			SocketClose( m_fd);
@@ -213,27 +247,27 @@ void EClientSocket::eDisconnect()
 	eDisconnectBase();
 }
 
-bool EClientSocket::isSocketOK() const
+bool EClientSocketSSL::isSocketOK() const
 {
 	return ( m_fd >= 0);
 }
 
-int EClientSocket::fd() const
+int EClientSocketSSL::fd() const
 {
 	return m_fd;
 }
 
-int EClientSocket::receive(char* buf, size_t sz)
+int EClientSocketSSL::receive(char* buf, size_t sz)
 {
 	if( sz <= 0)
 		return 0;
 
-	int nResult = ::recv( m_fd, buf, sz, 0);
+	int nResult = SSL_read( m_pSSL, buf, sz);
 
-	if( nResult == -1 && !handleSocketError()) {
+	if( nResult == -1 && !handleSocketError(nResult)) {
 		return -1;
 	}
-	if( nResult == 0) {
+	if( nResult == 0 && !handleSocketError(nResult)) {
 		onClose();
 	}
 	if( nResult <= 0) {
@@ -242,7 +276,7 @@ int EClientSocket::receive(char* buf, size_t sz)
 	return nResult;
 }
 
-void EClientSocket::serverVersion(int version, const char *time) {
+void EClientSocketSSL::serverVersion(int version, const char *time) {
     m_serverVersion = version;
     m_TwsTime = time;
 
@@ -252,7 +286,7 @@ void EClientSocket::serverVersion(int version, const char *time) {
     }
 }
 
-void EClientSocket::redirect(const char *host, int port) {
+void EClientSocketSSL::redirect(const char *host, int port) {
 	// handle redirect
 	if( (m_hostNorm != this->host() || port != this->port())) {
         if (!m_allowRedirect) {
@@ -266,9 +300,21 @@ void EClientSocket::redirect(const char *host, int port) {
 	}
 }
 
-bool EClientSocket::handleSocketError()
-{
-	// no error
+bool EClientSocketSSL::handleSSLError(int &ret_code) {
+    ret_code = SSL_get_error(m_pSSL, ret_code);
+
+    switch (ret_code) {
+    case SSL_ERROR_NONE:
+    case SSL_ERROR_WANT_READ:
+    case SSL_ERROR_WANT_WRITE:
+        return true;
+    }
+
+    return false;
+}
+
+bool EClientSocketSSL::handleSocketErrorInternal() {
+    	// no error
 	if( errno == 0)
 		return true;
 
@@ -293,19 +339,33 @@ bool EClientSocket::handleSocketError()
 	return false;
 }
 
+bool EClientSocketSSL::handleSocketError(int res)
+{
+    if (!handleSSLError(res)) {
+        getWrapper()->error(NO_VALID_ID, SSL_FAIL.code(), SSL_FAIL.msg() + ERR_error_string(res, 0));
+
+        return false;
+    }
+
+    return handleSocketErrorInternal();
+}
+
+bool EClientSocketSSL::handleSocketError() {
+    int res = ERR_get_error();
+
+    if (res) {
+        getWrapper()->error(NO_VALID_ID, SSL_FAIL.code(), SSL_FAIL.msg() + ERR_error_string(res, 0));
+
+        return false;
+    }
+
+    return handleSocketErrorInternal();  
+}
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
 
-void EClientSocket::onConnect()
-{
-	if( !handleSocketError())
-		return;
-
-	sendConnectRequest();
-}
-
-void EClientSocket::onSend()
+void EClientSocketSSL::onSend()
 {
 	if( !handleSocketError())
 		return;
@@ -313,7 +373,7 @@ void EClientSocket::onSend()
 	getTransport()->sendBufferedData();
 }
 
-void EClientSocket::onClose()
+void EClientSocketSSL::onClose()
 {
 	if( !handleSocketError())
 		return;
@@ -322,7 +382,7 @@ void EClientSocket::onClose()
 	getWrapper()->connectionClosed();
 }
 
-void EClientSocket::onError()
+void EClientSocketSSL::onError()
 {
 	handleSocketError();
 }

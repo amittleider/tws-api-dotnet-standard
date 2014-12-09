@@ -4,17 +4,17 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "EDecoder.h"
-#include "EMutex.h"
-#include "EReaderOSSignal.h"
+#include "../client/EDecoder.h"
+#include "../client/EMutex.h"
+#include "../client/EReaderOSSignal.h"
 
-class EClientSocket;
+class EClientSocketSSL;
 class EReaderSignal;
 class EMessage;
 
-class TWSAPIDLLEXP EReader
+class TWSAPISSLDLLEXP EReaderSSL
 {  
-    EClientSocket *m_pClientSocket;
+    EClientSocketSSL *m_pClientSocket;
     EReaderSignal *m_pEReaderSignal;
     EDecoder processMsgsDecoder_;
     std::deque<shared_ptr<EMessage>> m_msgQueue;
@@ -30,8 +30,8 @@ class TWSAPIDLLEXP EReader
 	bool bufferedRead(char *buf, int size);
 
 public:
-    EReader(EClientSocket *clientSocket, EReaderSignal *signal);
-    ~EReader(void);
+    EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal);
+    ~EReaderSSL(void);
 
 protected:
 	bool processNonBlockingSelect();

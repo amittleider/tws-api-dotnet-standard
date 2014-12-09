@@ -95,6 +95,7 @@
       <ImportLibrary>..\lib\TwsSocketClient.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -145,6 +146,7 @@
       <ImportLibrary>.\Debug/TwsSocketClient.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>

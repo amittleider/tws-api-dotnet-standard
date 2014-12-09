@@ -5,7 +5,7 @@
 
 #include "StdAfx.h"
 
-class EMutex
+class TWSAPIDLLEXP EMutex
 {
 #if defined(IB_POSIX)
     pthread_mutex_t cs;

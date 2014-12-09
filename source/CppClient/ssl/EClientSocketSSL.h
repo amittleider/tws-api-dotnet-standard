@@ -5,24 +5,24 @@
 #ifndef eposixclientsocket_def
 #define eposixclientsocket_def
 
-#include "EClient.h"
-#include "EClientMsgSink.h"
-#include "ESocket.h"
+#include "../client/EClient.h"
+#include "../client/EClientMsgSink.h"
+#include "ESocketSSL.h"
 
 class EWrapper;
 class EReaderSignal;
 
-class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
+class TWSAPISSLDLLEXP EClientSocketSSL : public EClient, public EClientMsgSink
 {
 protected:
     virtual void prepareBufferImpl(std::ostream&) const;
 	virtual void prepareBuffer(std::ostream&) const;
-	void closeAndSend(std::string msg, unsigned offset = 0);
+	virtual bool closeAndSend(std::string msg, unsigned offset = 0);
 
 public:
 
-	explicit EClientSocket(EWrapper *ptr, EReaderSignal *pSignal = 0);
-	~EClientSocket();
+	explicit EClientSocketSSL(EWrapper *ptr, EReaderSignal *pSignal = 0);
+	~EClientSocketSSL();
 
 	bool eConnect( const char *host, unsigned int port, int clientId = 0, bool extraAuth = false);
 	// override virtual funcs from EClient
@@ -32,7 +32,7 @@ public:
 	int fd() const;
     bool asyncEConnect() const;
     void asyncEConnect(bool val);
-    ESocket *getTransport();
+    ESocketSSL *getTransport();
 
 private:
 
@@ -40,8 +40,12 @@ private:
 
 private:
 	void encodeMsgLen(std::string& msg, unsigned offset) const;
+    bool handleSSLError(int &ret_code);
+	bool handleSocketErrorInternal();
+
 public:
 	bool handleSocketError();
+	bool handleSocketError(int res);
 	int receive( char* buf, size_t sz);
 
 public:
@@ -51,11 +55,10 @@ public:
 
 private:
 
-	void onConnect();
 	void onClose();
 
-private:
-
+    SSL *m_pSSL;
+    SSL_CTX *m_pCTX;
 	int m_fd;
     bool m_allowRedirect;
     const char* m_hostNorm;
