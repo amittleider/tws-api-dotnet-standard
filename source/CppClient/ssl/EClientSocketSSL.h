@@ -8,6 +8,7 @@
 #include "../client/EClient.h"
 #include "../client/EClientMsgSink.h"
 #include "ESocketSSL.h"
+#include "../client/EMutex.h"
 
 class EWrapper;
 class EReaderSignal;
@@ -57,6 +58,11 @@ private:
 
 	void onClose();
     void ImportRootCertificatesFromWindowsCertStore();
+
+    static void lockingFunc(int mode, int type, const char *file, int line);
+    static unsigned long thIdFunc();
+
+    static std::vector<EMutex> sslLocks;
 
     SSL *m_pSSL;
     SSL_CTX *m_pCTX;

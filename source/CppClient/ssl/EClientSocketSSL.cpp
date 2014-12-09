@@ -19,6 +19,19 @@
 
 const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
+std::vector<EMutex> EClientSocketSSL::sslLocks(CRYPTO_num_locks());
+
+void EClientSocketSSL::lockingFunc(int mode, int type, const char *file, int line) {
+    if (mode & CRYPTO_LOCK)
+        sslLocks[type].Enter();
+    else
+        sslLocks[type].Leave();
+}
+
+unsigned long EClientSocketSSL::thIdFunc() {
+    return GetCurrentThreadId();
+}
+
 ///////////////////////////////////////////////////////////
 // member funcs
 EClientSocketSSL::EClientSocketSSL(EWrapper *ptr, EReaderSignal *pSignal) : EClient( ptr, new ESocketSSL())
@@ -31,6 +44,10 @@ EClientSocketSSL::EClientSocketSSL(EWrapper *ptr, EReaderSignal *pSignal) : ECli
     SSL_load_error_strings();
     ERR_load_BIO_strings();
     SSL_library_init();
+    CRYPTO_set_locking_callback(lockingFunc);
+    CRYPTO_w_lock(CRYPTO_LOCK_DYNLOCK);
+    CRYPTO_set_id_callback(thIdFunc);
+    CRYPTO_w_unlock(CRYPTO_LOCK_DYNLOCK);
 }
 
 EClientSocketSSL::~EClientSocketSSL()
