@@ -83,6 +83,25 @@ ESocketSSL *EClientSocketSSL::getTransport() {
     return static_cast<ESocketSSL*>(m_transport.get());
 }
 
+void EClientSocketSSL::ImportRootCertificatesFromWindowsCertStore() {
+    auto store = CertOpenSystemStore(0, "ROOT");
+    auto osslStore = SSL_CTX_get_cert_store(m_pCTX);
+
+    for (auto certCtx = CertEnumCertificatesInStore(store, 0); certCtx; certCtx = CertEnumCertificatesInStore(store, certCtx)) {
+        if (!(certCtx->dwCertEncodingType & X509_ASN_ENCODING))
+            continue;
+
+        auto pBuf = certCtx->pbCertEncoded;
+        auto cert = d2i_X509(0, (const unsigned char **)&pBuf, certCtx->cbCertEncoded);
+
+        X509_STORE_add_cert(osslStore, cert);
+    }
+
+
+    CertCloseStore(store, 0);
+}
+
+
 bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* stateOutPt)
 {
 	// resolve host
@@ -122,6 +141,8 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
     if (!m_pCTX && !handleSocketError())
         return false;
 
+    ImportRootCertificatesFromWindowsCertStore();
+
     m_pSSL = SSL_new(m_pCTX);
 
     if (!m_pSSL && !handleSocketError())
@@ -132,6 +153,13 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
 
     if (!SSL_connect(m_pSSL) && !handleSocketError())
         return false;
+
+    if(SSL_get_verify_result(m_pSSL) != X509_V_OK)
+    {
+        getWrapper()->error(NO_VALID_ID, SSL_FAIL.code(), SSL_FAIL.msg() + "certificate verification failure");
+
+        return false;
+    }
 
     getTransport()->fd(m_pSSL);
 

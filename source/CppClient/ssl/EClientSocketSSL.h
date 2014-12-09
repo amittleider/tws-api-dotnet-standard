@@ -56,6 +56,7 @@ public:
 private:
 
 	void onClose();
+    void ImportRootCertificatesFromWindowsCertStore();
 
     SSL *m_pSSL;
     SSL_CTX *m_pCTX;
