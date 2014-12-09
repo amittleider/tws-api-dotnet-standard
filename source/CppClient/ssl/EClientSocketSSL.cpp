@@ -171,7 +171,7 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
     if (!m_asyncEConnect) {
         EReaderSSL reader(this, m_pSignal);
 
-        while (m_pSignal && !m_serverVersion) {
+        while (m_pSignal && !m_serverVersion && isSocketOK()) {
             reader.checkClient();
             m_pSignal->waitForSignal();
             reader.processMsgs();
@@ -179,7 +179,7 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
     }
 
 	// successfully connected
-	return true;
+	return isSocketOK();
 }
 
 void EClientSocketSSL::encodeMsgLen(std::string& msg, unsigned offset) const
@@ -262,7 +262,7 @@ int EClientSocketSSL::receive(char* buf, size_t sz)
 	if( sz <= 0)
 		return 0;
 
-	int nResult = SSL_read( m_pSSL, buf, sz);
+	int nResult = SSL_read(m_pSSL, buf, sz);
 
 	if( nResult == -1 && !handleSocketError(nResult)) {
 		return -1;

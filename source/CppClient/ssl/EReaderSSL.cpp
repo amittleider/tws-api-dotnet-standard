@@ -161,11 +161,8 @@ void EReaderSSL::onReceive() {
 
 	int nRes = m_pClientSocket->receive(m_buf.data() + nOffset, m_buf.size() - nOffset);
 
-	if (nRes <= 0) {
-        m_pClientSocket->handleSocketError(nRes);
-
+	if (nRes <= 0)
 		return;
-    }
 
  	m_buf.resize(nRes + nOffset);	
 }

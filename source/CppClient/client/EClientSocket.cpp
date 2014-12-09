@@ -151,7 +151,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
     if (!m_asyncEConnect) {
         EReader reader(this, m_pSignal);
 
-        while (m_pSignal && !m_serverVersion) {
+        while (m_pSignal && !m_serverVersion && isSocketOK()) {
             reader.checkClient();
             m_pSignal->waitForSignal();
             reader.processMsgs();
@@ -159,7 +159,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
     }
 
 	// successfully connected
-	return true;
+	return isSocketOK();
 }
 
 void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
