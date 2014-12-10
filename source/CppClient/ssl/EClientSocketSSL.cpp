@@ -312,7 +312,7 @@ int EClientSocketSSL::receive(char* buf, size_t sz)
 	if( nResult == -1 && !handleSocketError(nResult)) {
 		return -1;
 	}
-	if( nResult == 0 && !handleSocketError(nResult)) {
+	if( nResult == 0) {
 		onClose();
 	}
 	if( nResult <= 0) {
