@@ -5,9 +5,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCppClient", "TestCppCli
 		{E9C3126E-CEA8-41A8-A714-7644B016DB3C} = {E9C3126E-CEA8-41A8-A714-7644B016DB3C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClient", "..\..\..\source\CppClient\client\TwsSocketClient.vcxproj", "{E9C3126E-CEA8-41A8-A714-7644B016DB3C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClient", "..\..\..\source\cppclient\client\TwsSocketClient.vcxproj", "{E9C3126E-CEA8-41A8-A714-7644B016DB3C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClientSSL", "..\..\..\source\CppClient\ssl\TwsSocketClientSSL.vcxproj", "{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClientSSL", "..\..\..\source\cppclient\ssl\TwsSocketClientSSL.vcxproj", "{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
