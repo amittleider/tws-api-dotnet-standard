@@ -146,7 +146,7 @@ class EWrapper;
 class EClient;
 struct EClientMsgSink;
 
-class EDecoder
+class TWSAPIDLLEXP EDecoder
 {
     EWrapper *m_pEWrapper;
     int m_serverVersion;

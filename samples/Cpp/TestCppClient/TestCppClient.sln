@@ -1,11 +1,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCppClient", "TestCppClient.vcxproj", "{458559CA-82CB-46EA-A45C-2E9DA3927D42}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E9C3126E-CEA8-41A8-A714-7644B016DB3C} = {E9C3126E-CEA8-41A8-A714-7644B016DB3C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClient", "..\..\..\source\CppClient\client\TwsSocketClient.vcxproj", "{E9C3126E-CEA8-41A8-A714-7644B016DB3C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClient", "..\..\..\source\cppclient\client\TwsSocketClient.vcxproj", "{E9C3126E-CEA8-41A8-A714-7644B016DB3C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TwsSocketClientSSL", "..\..\..\source\cppclient\ssl\TwsSocketClientSSL.vcxproj", "{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E9C3126E-CEA8-41A8-A714-7644B016DB3C}.Debug|Win32.Build.0 = Debug|Win32
 		{E9C3126E-CEA8-41A8-A714-7644B016DB3C}.Release|Win32.ActiveCfg = Release|Win32
 		{E9C3126E-CEA8-41A8-A714-7644B016DB3C}.Release|Win32.Build.0 = Release|Win32
+		{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}.Debug|Win32.Build.0 = Debug|Win32
+		{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}.Release|Win32.ActiveCfg = Release|Win32
+		{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

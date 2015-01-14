@@ -142,7 +142,7 @@ protected:
 
 	virtual void prepareBufferImpl(std::ostream&) const = 0;
 	virtual void prepareBuffer(std::ostream&) const = 0;
-	virtual void closeAndSend(std::string msg, unsigned offset = 0) = 0;
+	virtual bool closeAndSend(std::string msg, unsigned offset = 0) = 0;
 	virtual int bufferedSend(const std::string& msg);
 
 protected:
@@ -174,7 +174,7 @@ private:
 protected:
 
 	bool isConnecting() const;
-	void sendConnectRequest();
+	int sendConnectRequest();
     bool extraAuth();
 
 protected:

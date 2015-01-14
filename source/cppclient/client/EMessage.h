@@ -2,7 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
-class EMessage
+class TWSAPIDLLEXP EMessage
 {
     std::vector<char> data;
 public:

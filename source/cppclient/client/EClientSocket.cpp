@@ -118,7 +118,11 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 	// set client id
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
-	sendConnectRequest();
+
+    int res = sendConnectRequest();
+
+    if (res < 0 && !handleSocketError())
+        return false;
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -147,7 +151,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
     if (!m_asyncEConnect) {
         EReader reader(this, m_pSignal);
 
-        while (m_pSignal && !m_serverVersion) {
+        while (m_pSignal && !m_serverVersion && isSocketOK()) {
             reader.checkClient();
             m_pSignal->waitForSignal();
             reader.processMsgs();
@@ -155,7 +159,7 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
     }
 
 	// successfully connected
-	return true;
+	return isSocketOK();
 }
 
 void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
@@ -175,7 +179,7 @@ void EClientSocket::encodeMsgLen(std::string& msg, unsigned offset) const
 	memcpy( &msg[offset], &netlen, HEADER_LEN);
 }
 
-void EClientSocket::closeAndSend(std::string msg, unsigned offset)
+bool EClientSocket::closeAndSend(std::string msg, unsigned offset)
 {
 	assert( !msg.empty());
 	if( m_useV100Plus) {
@@ -183,7 +187,9 @@ void EClientSocket::closeAndSend(std::string msg, unsigned offset)
 	}
 
 	if (bufferedSend(msg) == -1)
-        handleSocketError();
+        return handleSocketError();
+
+    return true;
 }
 
 void EClientSocket::prepareBufferImpl(std::ostream& buf) const
@@ -296,14 +302,6 @@ bool EClientSocket::handleSocketError()
 
 ///////////////////////////////////////////////////////////
 // callbacks from socket
-
-void EClientSocket::onConnect()
-{
-	if( !handleSocketError())
-		return;
-
-	sendConnectRequest();
-}
 
 void EClientSocket::onSend()
 {

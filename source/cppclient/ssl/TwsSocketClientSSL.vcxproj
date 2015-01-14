@@ -10,9 +10,33 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EClientSocketSSL.cpp" />
+    <ClCompile Include="EReaderSSL.cpp" />
+    <ClCompile Include="ESocketSSL.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EClientSocketSSL.h" />
+    <ClInclude Include="EReaderSSL.h" />
+    <ClInclude Include="ESocketSSL.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\TwsSocketClientSSL.rc2" />
+    <None Include="TwsSocketClientSSL.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TwsSocketClientSSL.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\client\TwsSocketClient.vcxproj">
+      <Project>{e9c3126e-cea8-41a8-a714-7644b016db3c}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E9C3126E-CEA8-41A8-A714-7644B016DB3C}</ProjectGuid>
-    <RootNamespace>TwsSocketClient</RootNamespace>
+    <ProjectGuid>{8F050D05-30A1-4AC1-9A9E-C655A617FFD4}</ProjectGuid>
+    <RootNamespace>TwsSocketClientSSL</RootNamespace>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -59,20 +83,20 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Release/TwsSocketClient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/TwsSocketClientSSL.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\OpenSSL-Win32\include;../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPISSLDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Release/TwsSocketClient.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Release/TwsSocketClientSSL.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
       <ObjectFileName>.\Release/</ObjectFileName>
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
@@ -87,19 +111,19 @@
       <AdditionalIncludeDirectories>h:\tws-api\interop\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>.\Release/TwsSocketClient.dll</OutputFile>
+      <OutputFile>.\Release/TwsSocketClientSSL.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ModuleDefinitionFile>.\TwsSocketClient.def</ModuleDefinitionFile>
-      <ProgramDatabaseFile>.\Release/TwsSocketClient.pdb</ProgramDatabaseFile>
+      <ModuleDefinitionFile>.\TwsSocketClientSSL.def</ModuleDefinitionFile>
+      <ProgramDatabaseFile>.\Release/TwsSocketClientSSL.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>..\lib\TwsSocketClient.lib</ImportLibrary>
+      <ImportLibrary>..\lib\TwsSocketClientSSL.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;libeay32MD.lib;ssleay32MD.lib;Crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OpenSSL-Win32\lib\VC\static;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release/TwsSocketClient.bsc</OutputFile>
+      <OutputFile>.\Release/TwsSocketClientSSL.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
       <Command>
@@ -112,17 +136,17 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/TwsSocketClient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/TwsSocketClientSSL.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\OpenSSL-Win32\include;../Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;TWSAPISSLDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>.\Debug/TwsSocketClient.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Debug/TwsSocketClientSSL.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
       <ObjectFileName>.\Debug/</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
@@ -137,77 +161,26 @@
       <AdditionalIncludeDirectories>h:\tws-api\interop\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>.\Debug/TwsSocketClient.dll</OutputFile>
+      <OutputFile>.\Debug/TwsSocketClientSSL.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ModuleDefinitionFile>.\TwsSocketClient.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\TwsSocketClientSSL.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\Debug/TwsSocketClient.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Debug/TwsSocketClientSSL.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>.\Debug/TwsSocketClient.lib</ImportLibrary>
+      <ImportLibrary>.\Debug/TwsSocketClientSSL.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;libeay32MDd.lib;ssleay32MDd.lib;Crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OpenSSL-Win32\lib\VC\static;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug/TwsSocketClient.bsc</OutputFile>
+      <OutputFile>.\Debug/TwsSocketClientSSL.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
       <Command>
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="DefaultEWrapper.cpp" />
-    <ClCompile Include="EMutex.cpp" />
-    <ClCompile Include="EDecoder.cpp" />
-    <ClCompile Include="EMessage.cpp" />
-    <ClCompile Include="EReader.cpp" />
-    <ClCompile Include="EClientSocket.cpp" />
-    <ClCompile Include="EReaderOSSignal.cpp" />
-    <ClCompile Include="EReaderWMSignal.cpp" />
-    <ClCompile Include="ESocket.cpp" />
-    <ClCompile Include="StdAfx.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TwsSocketClient.def" />
-    <None Include="res\TwsSocketClient.rc2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="TwsSocketClient.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="EClientMsgSink.h" />
-    <ClInclude Include="EMutex.h" />
-    <ClInclude Include="DefaultEWrapper.h" />
-    <ClInclude Include="EDecoder.h" />
-    <ClInclude Include="EMessage.h" />
-    <ClInclude Include="EReader.h" />
-    <ClInclude Include="EReaderSignal.h" />
-    <ClInclude Include="EClientSocket.h" />
-    <ClInclude Include="EPosixClientSocketPlatform.h" />
-    <ClInclude Include="EReaderOSSignal.h" />
-    <ClInclude Include="EReaderWMSignal.h" />
-    <ClInclude Include="ESocket.h" />
-    <ClInclude Include="ETransport.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="CommissionReport.h" />
-    <ClInclude Include="CommonDefs.h" />
-    <ClInclude Include="Contract.h" />
-    <ClInclude Include="EClient.h" />
-    <ClCompile Include="EClient.cpp">
-      <FileType>CppHeader</FileType>
-    </ClCompile>
-    <ClInclude Include="EWrapper.h" />
-    <ClInclude Include="Execution.h" />
-    <ClInclude Include="Order.h" />
-    <ClInclude Include="OrderState.h" />
-    <ClInclude Include="ScannerSubscription.h" />
-    <ClInclude Include="shared_ptr.h" />
-    <ClInclude Include="TagValue.h" />
-    <ClInclude Include="TwsSocketClientErrors.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

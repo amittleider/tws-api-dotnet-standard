@@ -17,7 +17,7 @@ class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
 protected:
     virtual void prepareBufferImpl(std::ostream&) const;
 	virtual void prepareBuffer(std::ostream&) const;
-	void closeAndSend(std::string msg, unsigned offset = 0);
+	virtual bool closeAndSend(std::string msg, unsigned offset = 0);
 
 public:
 
@@ -51,7 +51,6 @@ public:
 
 private:
 
-	void onConnect();
 	void onClose();
 
 private:
