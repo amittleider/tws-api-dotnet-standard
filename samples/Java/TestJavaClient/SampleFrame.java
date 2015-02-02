@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,25 +18,32 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
+import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
+import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
+import com.sun.prism.Texture.WrapMode;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
     private int faErrorCodes[] = { 503, 504, 505, 522, 1100, NOT_AN_FA_ACCOUNT_ERROR } ;
     private boolean faError ;
 
-    private EClientSocket   m_client = new EClientSocket( this);
+    private EJavaSignal m_signal = new EJavaSignal();
+    private EClientSocket   m_client = new EClientSocket( this, m_signal);
+    private EReader m_reader;
     private IBTextPanel     m_tickers = new IBTextPanel("Market and Historical Data", false);
     private IBTextPanel     m_TWS = new IBTextPanel("TWS Server Responses", false);
     private IBTextPanel     m_errors = new IBTextPanel("Errors and Messages", false);
@@ -410,7 +419,38 @@ class SampleFrame extends JFrame implements EWrapper {
                        m_client.serverVersion() + " at " +
                        m_client.TwsConnectionTime());
         }
+        
+        m_reader = new EReader(m_client, m_signal);
+        
+        m_reader.start();
+       
+        new Thread() {
+        	public void run() {
+        		processMessages();
+        	}
+        }.start();
     }
+	
+	private void processMessages() {
+		
+		while (m_client.isConnected()) {
+			m_signal.waitForSignal();
+				try {
+					javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								m_reader.processMsgs();
+							} catch (IOException e) {
+								error(e);
+							}
+						}
+					});
+				} catch (Exception e) {
+					error(e);
+				}
+		}
+	}
 
     void onDisconnect() {
         // disconnect from TWS

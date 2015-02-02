@@ -5,6 +5,7 @@ package com.ib.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FilterInputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import com.ib.client.Types.SecType;
 
-public class EClientSocket {
+public class EClientSocket implements EClientMsgSink {
 
     // Client version history
     //
@@ -219,10 +220,10 @@ public class EClientSocket {
     protected static final int MIN_SERVER_VER_PRIMARYEXCH = 75;
     protected static final int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
 
+    private EReaderSignal m_signal;
     private EWrapper m_eWrapper;    // msg handler
     protected DataOutputStream m_dos;   // the socket output stream
     private boolean m_connected;        // true if we are connected
-    private EReader m_reader;           // thread which reads msgs from socket
     protected int m_serverVersion;
     private String m_TwsTime;
     private int m_clientId;
@@ -233,11 +234,13 @@ public class EClientSocket {
     private String m_host;           // Actual host, directly set or redirected
     private int m_redirectCount;
     private boolean m_allowRedirect;
+	private int m_defaultPort;
+	private DataInputStream m_dis;
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
     public EWrapper wrapper()           { return m_eWrapper; }
-    public EReader reader()             { return m_reader; }
+//    public EReader reader()             { return m_reader; }
     public boolean isConnected()        { return m_connected; }
 
     public boolean allowRedirect() {
@@ -256,8 +259,9 @@ public class EClientSocket {
     public String OptionalCapabilities() { return m_optionalCapabilities; }
     public String connectedHost()        { return m_host; } // Host that was connected/redirected
 
-    public EClientSocket( EWrapper eWrapper) {
+    public EClientSocket( EWrapper eWrapper, EReaderSignal signal) {
         m_eWrapper = eWrapper;
+        m_signal = signal;
         m_clientId = -1;
         m_extraAuth = false;
         m_optionalCapabilities = "";
@@ -305,7 +309,6 @@ public class EClientSocket {
     protected void connectionError() {
         m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(),
                 EClientErrors.CONNECT_FAIL.msg());
-        m_reader = null;
     }
 
     protected String checkConnected(String host) {
@@ -319,11 +322,7 @@ public class EClientSocket {
         }
         return host;
     }
-
-    public EReader createReader(EClientSocket socket, DataInputStream dis) {
-        return new EReader(socket, dis);
-    }
-
+    
     public synchronized void eConnect(Socket socket, int clientId) throws IOException {
         m_clientId = clientId;
         m_redirectCount = 0;
@@ -333,6 +332,8 @@ public class EClientSocket {
     private synchronized void eConnect(Socket socket) throws IOException {
         // create io streams
         m_dos = new DataOutputStream( socket.getOutputStream() );
+        m_dis = new DataInputStream(socket.getInputStream());
+        m_defaultPort = socket.getPort();
 
         // send client version (unless logon via iserver and/or Version > 100)
         if( !m_useV100Plus || m_connectOptions == null ) {
@@ -344,70 +345,31 @@ public class EClientSocket {
         }
 
         // start reader thread
-        m_reader = createReader(this, new DataInputStream(socket.getInputStream()));
-        if( m_useV100Plus ) {
-            m_reader.setUseV100Plus();
+        EReader reader = createReader(this, m_dis);
+
+        if (m_useV100Plus) {
+        	reader.setUseV100Plus();
         }
         
-        // check server version
-    	if( !m_reader.readMessageToInternalBuf() ) {
-    	    return;
-    	}
-        m_serverVersion = m_reader.readInt();
+        reader.putMessageToQueue();
         
-        // Handle redirect
-        if( m_useV100Plus && m_serverVersion == REDIRECT_MSG_ID ) {
-        	if (!m_allowRedirect) {
-        		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(), EClientErrors.CONNECT_FAIL.msg());
-        		return;
-        	}
-        	
-            ++m_redirectCount;
-            if ( m_redirectCount > REDIRECT_COUNT_MAX ) {
-                eDisconnect();
-                m_eWrapper.error( "Redirect count exceeded" );
-                return;
-            }
-            String newAddress = m_reader.readStr();
-            int defaultPort = socket.getPort();
-            eDisconnect( false );
-            performRedirect( newAddress, defaultPort );
-        	return;
-        }
-
-        System.out.println("Server Version:" + m_serverVersion);
-        
-        if ( m_serverVersion >= 20 ){
-        	// currently with Unified both server version and time sent in one message
-            m_TwsTime = m_reader.readStr();
-            System.out.println("TWS Time at connection:" + m_TwsTime);
-        }
-    	if( m_useV100Plus && (m_serverVersion < MIN_VERSION || m_serverVersion > MAX_VERSION) ) {
-    		eDisconnect();
-    		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.UNSUPPORTED_VERSION.code(), EClientErrors.UNSUPPORTED_VERSION.msg());
-    		return;
-   		}
-        if( m_serverVersion < MIN_SERVER_VER_SUPPORTED) {
-        	eDisconnect();
-            m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
-            return;
-        }
-
-        // set connected flag
-        m_connected = true;
-
-        // Send the client id
+        while (m_serverVersion == 0) {
+        	m_signal.waitForSignal();
+        	reader.processMsgs();
+        }       
+                
         if ( m_serverVersion >= 3 ){
             if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
-                send( m_clientId);
+                try {
+					send( m_clientId);
+				} catch (IOException e) {
+					m_eWrapper.error(e);
+				}
             }
             else if (!m_extraAuth){
                 startAPI();
             }
-        }
-
-        m_reader.start();
-
+        }        
     }
 
     private void performRedirect( String address, int defaultPort ) throws IOException {
@@ -433,7 +395,7 @@ public class EClientSocket {
     
     private synchronized void eDisconnect( boolean resetState ) {
         // not connected?
-        if( m_dos == null) {
+        if( m_dos == null && m_dis == null) {
             return;
         }
 
@@ -447,25 +409,18 @@ public class EClientSocket {
         }
 
         FilterOutputStream dos = m_dos;
+        FilterInputStream dis = m_dis;
         m_dos = null;
-
-        EReader reader = m_reader;
-        m_reader = null;
-
-        try {
-            // stop reader thread; reader thread will close input stream
-            if( reader != null) {
-                reader.interrupt();
-            }
-        }
-        catch( Exception e) {
-        }
+        m_dis = null;
 
         try {
             // close output stream
             if( dos != null) {
                 dos.close();
             }
+            
+            if (dis != null)
+            	dis.close();
         }
         catch( Exception e) {
         }
@@ -3013,4 +2968,65 @@ public class EClientSocket {
     protected void notConnected() {
         error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
     }
+    
+	@Override
+	public void serverVersion(int version, String time) {
+		m_serverVersion = version;
+		m_TwsTime = time;	
+		
+    	if( m_useV100Plus && (m_serverVersion < MIN_VERSION || m_serverVersion > MAX_VERSION) ) {
+    		eDisconnect();
+    		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.UNSUPPORTED_VERSION.code(), EClientErrors.UNSUPPORTED_VERSION.msg());
+    		return;
+   		}
+    	
+        if( m_serverVersion < MIN_SERVER_VER_SUPPORTED) {
+        	eDisconnect();
+            m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
+            return;
+        }
+        
+        // set connected flag
+        m_connected = true;       
+ 	}
+	
+	@Override
+	public void redirect(String newAddress) {
+        if( m_useV100Plus ) {
+        	if (!m_allowRedirect) {
+        		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(), EClientErrors.CONNECT_FAIL.msg());
+        		return;
+        	}
+        	
+            ++m_redirectCount;
+            
+            if ( m_redirectCount > REDIRECT_COUNT_MAX ) {
+                eDisconnect();
+                m_eWrapper.error( "Redirect count exceeded" );
+                return;
+            }
+                        
+            eDisconnect( false );
+            
+          	try {
+				performRedirect( newAddress, m_defaultPort );
+			} catch (IOException e) {
+				m_eWrapper.error(e);
+			}
+            
+        	return;
+        }
+	}
+	
+	public int readInt() throws IOException {
+		return m_dis.readInt();
+	}
+	public int read(byte[] buf, int off, int len) throws IOException {
+		return m_dis.read(buf, off, len);
+	}
+	
+	public EReader createReader(EClientSocket socket, DataInputStream dis) {
+		// TODO Auto-generated method stub
+		return new EReader(socket, m_signal);
+	}
 }
