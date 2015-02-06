@@ -15,6 +15,7 @@ import java.net.Socket;
 
 import com.ib.client.Contract;
 import com.ib.client.EClientErrors;
+import com.ib.client.EJavaSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.EClientSocket;
 import com.ib.client.EReader;
@@ -32,9 +33,10 @@ public class ApiConnection extends EClientSocket {
 
 	private final ILogger m_inLogger;
 	private final ILogger m_outLogger;
+	private static final EJavaSignal m_signal = new EJavaSignal();
 
 	public ApiConnection(EWrapper wrapper, ILogger inLogger, ILogger outLogger) {
-		super( wrapper);
+		super( wrapper, m_signal);
 		m_inLogger = inLogger;
 		m_outLogger = outLogger;
 	}

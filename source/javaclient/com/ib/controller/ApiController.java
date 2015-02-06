@@ -3,6 +3,7 @@
 
 package com.ib.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -14,6 +15,9 @@ import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
+import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
+import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
@@ -82,9 +86,32 @@ public class ApiController implements EWrapper {
 		m_inLogger = inLogger;
 		m_outLogger = outLogger;
 	}
+	
+	private void startMsgProcessingThread() {
+		final EReaderSignal signal = new EJavaSignal();		
+		final EReader reader = new EReader(client(), signal);
+		
+		reader.start();
+		
+		new Thread() {
+			@Override
+			public void run() {
+				while (client().isConnected()) {
+					signal.waitForSignal();
+					try {
+						reader.processMsgs();
+					} catch (IOException e) {
+						error(e);
+					}
+				}
+			}
+		}.start();
+	}
 
 	public void connect( String host, int port, int clientId, String connectionOpts ) {
         m_client.eConnect(host, port, clientId);
+        
+		startMsgProcessingThread();
         sendEOM();
     }
 

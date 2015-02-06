@@ -7,6 +7,7 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -26,6 +27,9 @@ import apidemo.util.NewLookAndFeel;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.VerticalPanel;
 
+import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
+import com.ib.client.EReaderSignal;
 import com.ib.client.Types.NewsType;
 import com.ib.controller.ApiConnection.ILogger;
 import com.ib.controller.ApiController;

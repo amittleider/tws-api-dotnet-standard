@@ -14,6 +14,7 @@ import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
+import com.ib.client.EJavaSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
@@ -25,7 +26,8 @@ public class SimpleWrapper implements EWrapper {
 	private final static SimpleDateFormat m_df = new SimpleDateFormat("HH:mm:ss"); 
 
 	// main client
-	private EClientSocket m_client = new EClientSocket(this);
+	private EJavaSignal m_signal = new EJavaSignal();
+	private EClientSocket m_client = new EClientSocket(this, m_signal);
 
 	// utils
 	private long ts;
