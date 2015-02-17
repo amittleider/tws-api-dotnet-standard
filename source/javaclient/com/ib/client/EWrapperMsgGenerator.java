@@ -421,7 +421,7 @@ public class EWrapperMsgGenerator {
     }
     
     static public String receiveFA(int faDataType, String xml) {
-    	return FINANCIAL_ADVISOR + " " + EClientSocket.faMsgTypeName(faDataType) + " " + xml;
+    	return FINANCIAL_ADVISOR + " " + EClient.faMsgTypeName(faDataType) + " " + xml;
     }
     
     static public String historicalData(int reqId, String date, double open, double high, double low,

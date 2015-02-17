@@ -22,6 +22,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
 
 public class MktDepthDlg extends JDialog {
@@ -36,7 +37,7 @@ public class MktDepthDlg extends JDialog {
     private JButton 		m_close = new JButton( "Close");
     private MktDepthModel 	m_bidModel = new MktDepthModel();
     private MktDepthModel 	m_askModel = new MktDepthModel();
-    private EClientSocket 	m_client;
+    private EClient 	m_client;
     private int			  	m_id;
 
     public MktDepthDlg(String title, JFrame parent) {
@@ -75,7 +76,7 @@ public class MktDepthDlg extends JDialog {
         reset();
     }
 
-    void setParams( EClientSocket client, int id) {
+    void setParams( EClient client, int id) {
         m_client = client;
         m_id = id;
         reset();

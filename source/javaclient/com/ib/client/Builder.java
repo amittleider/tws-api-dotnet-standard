@@ -18,7 +18,7 @@ public class Builder {
 	
 	public Builder( int size ) {
 	    m_sb = new ByteBuffer( size );
-	}
+	}	
 	
 	public void send(int a) {
         send( String.valueOf(a) );
