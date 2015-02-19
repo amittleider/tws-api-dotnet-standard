@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapperMsgGenerator;
 
@@ -42,9 +43,9 @@ public class GroupsDlg extends JDialog {
 
     private IBTextPanel m_txtGroupMessages = new IBTextPanel("Group Messages", false);
 
-    private EClientSocket  m_client;
+    private EClient  m_client;
     
-    public GroupsDlg( SampleFrame owner, EClientSocket client) {
+    public GroupsDlg( SampleFrame owner, EClient client) {
         super( owner, true);
 
         m_client = client;

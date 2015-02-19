@@ -31,7 +31,7 @@ public class EReader extends Thread {
     
     public void setUseV100Plus() { m_useV100Plus = true; }
 
-    protected EClientSocket parent()    { return m_clientSocket; }
+    protected EClient parent()    { return m_clientSocket; }
     private EWrapper eWrapper()         { return parent().wrapper(); }
 
     /**
