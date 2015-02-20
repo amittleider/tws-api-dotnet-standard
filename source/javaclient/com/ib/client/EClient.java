@@ -2821,10 +2821,6 @@ public abstract class EClient {
         error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
     }
     
-	public EReader createReader(EClientSocket socket, DataInputStream dis) {
-		// TODO Auto-generated method stub
-		return new EReader(socket, m_signal);
-	}
 	public String connectedHost()        { return m_host; } // Host that was connected/redirected
 	protected void send( int val) throws IOException {
 		send( String.valueOf( val) );

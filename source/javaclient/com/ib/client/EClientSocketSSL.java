@@ -7,14 +7,17 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class EClientSocket extends EClient implements EClientMsgSink  {
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
+public class EClientSocketSSL extends EClient implements EClientMsgSink  {
 
 	private int m_redirectCount = 0;
 	private int m_defaultPort;
     private boolean m_allowRedirect;
     protected DataInputStream m_dis;
 		
-	public EClientSocket(EWrapper eWrapper, EReaderSignal signal) {
+	public EClientSocketSSL(EWrapper eWrapper, EReaderSignal signal) {
 		super(eWrapper, signal);
 	}
 
@@ -38,16 +41,16 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
     	sendMsg(msg);
     }
 
-	private synchronized void eConnect(Socket socket) throws IOException {
+	private synchronized void eConnect(SSLSocket socket) throws IOException {
 	    // create io streams
-	    m_socketTransport = new ESocket(socket);
+	    m_socketTransport = new ESocketSSL(socket);
 	    m_dis = new DataInputStream(socket.getInputStream());
 	    m_defaultPort = socket.getPort();
 	
 	    sendConnectRequest();
 	
 	    // start reader thread
-	    EReader reader = new EReader(this, m_signal);;
+	    EReaderSSL reader = new EReaderSSL(this, m_signal);;
 	
 	    if (m_useV100Plus) {
 	    	reader.setUseV100Plus();
@@ -74,7 +77,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    }        
 	}
 
-	public synchronized void eConnect(Socket socket, int clientId) throws IOException {
+	public synchronized void eConnect(SSLSocket socket, int clientId) throws IOException {
 	    m_clientId = clientId;
 	    m_redirectCount = 0;
 	    eConnect(socket);
@@ -96,7 +99,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	        return;
 	    }
 	    try{
-	        Socket socket = new Socket( m_host, port);
+	        SSLSocket socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(m_host, port);
 	        eConnect(socket);
 	    }
 	    catch( Exception e) {
@@ -176,7 +179,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	        System.out.println( "Warning: redirect port is invalid, using default port");
 	        newPort = defaultPort;
 	    }
-	    eConnect( new Socket( m_host, newPort ) );
+	    eConnect( (SSLSocket) SSLSocketFactory.getDefault().createSocket( m_host, newPort ) );
 	}
 
 	public synchronized void eDisconnect() {
