@@ -69,11 +69,26 @@
     <Compile Include="..\client\EClientException.cs">
       <Link>CSharpAPI\EClientException.cs</Link>
     </Compile>
+    <Compile Include="..\client\EClientMsgSink.cs">
+      <Link>CSharpAPI\EClientMsgSink.cs</Link>
+    </Compile>
     <Compile Include="..\client\EClientSocket.cs">
       <Link>CSharpAPI\EClientSocket.cs</Link>
     </Compile>
+    <Compile Include="..\client\EDecoder.cs">
+      <Link>CSharpAPI\EDecoder.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EMessage.cs">
+      <Link>CSharpAPI\EMessage.cs</Link>
+    </Compile>
     <Compile Include="..\client\EReader.cs">
       <Link>CSharpAPI\EReader.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReaderMonitorSignal.cs">
+      <Link>CSharpAPI\EReaderMonitorSignal.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReaderSignal.cs">
+      <Link>CSharpAPI\EReaderSignal.cs</Link>
     </Compile>
     <Compile Include="..\client\EWrapper.cs">
       <Link>CSharpAPI\EWrapper.cs</Link>

@@ -2,60 +2,61 @@
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 Option Strict Off
-Option Explicit On 
+Option Explicit On
 Imports System.Xml
 Imports System.Collections.Generic
+Imports IBApi
 
 Friend Class dlgMainWnd
-	Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-	Public Sub New()
+    Public Sub New()
         MyBase.New()
 
         Tws1 = New Tws(Me)
 
-		If m_vb6FormDefInstance Is Nothing Then
-			If m_InitializingDefInstance Then
-				m_vb6FormDefInstance = Me
-			Else
-				Try 
-					'For the start-up form, the first instance created is the default instance.
-					If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
-						m_vb6FormDefInstance = Me
-					End If
-				Catch
-				End Try
-			End If
-		End If
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
+        If m_vb6FormDefInstance Is Nothing Then
+            If m_InitializingDefInstance Then
+                m_vb6FormDefInstance = Me
+            Else
+                Try
+                    'For the start-up form, the first instance created is the default instance.
+                    If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
+                        m_vb6FormDefInstance = Me
+                    End If
+                Catch
+                End Try
+            End If
+        End If
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
     Public vbTwips As Integer
     Public WithEvents Tws1 As Tws
-	Public WithEvents cmdReqHistoricalData As System.Windows.Forms.Button
-	Public WithEvents cmdFinancialAdvisor As System.Windows.Forms.Button
+    Public WithEvents cmdReqHistoricalData As System.Windows.Forms.Button
+    Public WithEvents cmdFinancialAdvisor As System.Windows.Forms.Button
     Public WithEvents cmdReqAllOpenOrders As System.Windows.Forms.Button
-	Public WithEvents cmdReqAutoOpenOrders As System.Windows.Forms.Button
-	Public WithEvents cmdServerLogLevel As System.Windows.Forms.Button
-	Public WithEvents cmdReqNews As System.Windows.Forms.Button
-	Public WithEvents cmdReqAcctData As System.Windows.Forms.Button
-	Public WithEvents cmdReqExecutions As System.Windows.Forms.Button
-	Public WithEvents cmdReqIds As System.Windows.Forms.Button
-	Public WithEvents cmdClearForm As System.Windows.Forms.Button
-	Public WithEvents cmdClose As System.Windows.Forms.Button
-	Public WithEvents cmdDisconnect As System.Windows.Forms.Button
-	Public WithEvents cmdReqMktData As System.Windows.Forms.Button
+    Public WithEvents cmdReqAutoOpenOrders As System.Windows.Forms.Button
+    Public WithEvents cmdServerLogLevel As System.Windows.Forms.Button
+    Public WithEvents cmdReqNews As System.Windows.Forms.Button
+    Public WithEvents cmdReqAcctData As System.Windows.Forms.Button
+    Public WithEvents cmdReqExecutions As System.Windows.Forms.Button
+    Public WithEvents cmdReqIds As System.Windows.Forms.Button
+    Public WithEvents cmdClearForm As System.Windows.Forms.Button
+    Public WithEvents cmdClose As System.Windows.Forms.Button
+    Public WithEvents cmdDisconnect As System.Windows.Forms.Button
+    Public WithEvents cmdReqMktData As System.Windows.Forms.Button
     Public WithEvents cmdReqMktDepth As System.Windows.Forms.Button
     Public WithEvents cmdCancelMktDepth As System.Windows.Forms.Button
     Public WithEvents cmdPlaceOrder As System.Windows.Forms.Button
@@ -1132,19 +1133,19 @@ Friend Class dlgMainWnd
 
         ' Set the dialog state
         m_dlgOrder.init((dlgOrder.Dlg_Type.PLACE_ORDER_DLG), _
-            m_contractInfo, m_orderInfo, m_underComp, m_orderInfo.orderMiscOptions, Me)
+            m_contractInfo, m_orderInfo, m_underComp, m_orderInfo.OrderMiscOptions, Me)
 
         m_dlgOrder.ShowDialog()
 
-        m_orderInfo.orderMiscOptions = m_dlgOrder.options
+        m_orderInfo.OrderMiscOptions = m_dlgOrder.options
 
         If m_dlgOrder.ok Then
 
             Dim savedWhatIf As Boolean
-            savedWhatIf = m_orderInfo.whatIf()
-            m_orderInfo.whatIf = whatIf
+            savedWhatIf = m_orderInfo.WhatIf()
+            m_orderInfo.WhatIf = whatIf
             Call Tws1.placeOrderEx(m_dlgOrder.orderId, m_contractInfo, m_orderInfo)
-            m_orderInfo.whatIf = savedWhatIf
+            m_orderInfo.WhatIf = savedWhatIf
         End If
     End Sub
 
@@ -1175,7 +1176,7 @@ Friend Class dlgMainWnd
             ' TODO: get account in a less convoluted way
             Call Tws1.exerciseOptionsEx(m_dlgOrder.orderId, m_contractInfo, _
                             m_dlgOrder.exerciseAction, m_dlgOrder.exerciseQuantity, _
-                            m_orderInfo.account, m_dlgOrder.exerciseOverride)
+                            m_orderInfo.Account, m_dlgOrder.exerciseOverride)
         End If
 
     End Sub
@@ -1319,7 +1320,7 @@ Friend Class dlgMainWnd
         m_dlgOrder.ShowDialog()
 
         If m_dlgOrder.ok Then
-            Call Tws1.calculateImpliedVolatility(m_dlgOrder.orderId, m_contractInfo, m_orderInfo.lmtPrice, m_orderInfo.auxPrice)
+            Call Tws1.calculateImpliedVolatility(m_dlgOrder.orderId, m_contractInfo, m_orderInfo.LmtPrice, m_orderInfo.AuxPrice)
         End If
     End Sub
 
@@ -1334,7 +1335,7 @@ Friend Class dlgMainWnd
 
         If m_dlgOrder.ok Then
 
-            Call Tws1.calculateOptionPrice(m_dlgOrder.orderId, m_contractInfo, m_orderInfo.lmtPrice, m_orderInfo.auxPrice)
+            Call Tws1.calculateOptionPrice(m_dlgOrder.orderId, m_contractInfo, m_orderInfo.LmtPrice, m_orderInfo.AuxPrice)
         End If
     End Sub
 
@@ -1348,7 +1349,7 @@ Friend Class dlgMainWnd
 
         m_dlgOrder.ShowDialog()
         If m_dlgOrder.ok Then
-        	Call Tws1.cancelCalculateImpliedVolatility(m_dlgOrder.orderId)
+            Call Tws1.cancelCalculateImpliedVolatility(m_dlgOrder.orderId)
         End If
     End Sub
 
@@ -1362,7 +1363,7 @@ Friend Class dlgMainWnd
 
         m_dlgOrder.ShowDialog()
         If m_dlgOrder.ok Then
-        	Call Tws1.cancelCalculateOptionPrice(m_dlgOrder.orderId)
+            Call Tws1.cancelCalculateOptionPrice(m_dlgOrder.orderId)
         End If
     End Sub
 
@@ -1753,12 +1754,12 @@ Friend Class dlgMainWnd
         contractDetails = eventArgs.contractDetails
 
         Dim contract As IBApi.Contract
-        contract = contractDetails.summary
+        contract = contractDetails.Summary
 
-        mktDataStr = "id=" & eventArgs.reqId & " rank=" & eventArgs.rank & " conId=" & contract.conId & _
-                     " symbol=" & contract.symbol & " secType=" & contract.secType & " currency=" & contract.currency & _
-                     " localSymbol=" & contract.localSymbol & " marketName=" & contractDetails.marketName & _
-                     " tradingClass=" & contract.tradingClass & " distance=" & eventArgs.distance & _
+        mktDataStr = "id=" & eventArgs.reqId & " rank=" & eventArgs.rank & " conId=" & contract.ConId & _
+                     " symbol=" & contract.Symbol & " secType=" & contract.SecType & " currency=" & contract.Currency & _
+                     " localSymbol=" & contract.LocalSymbol & " marketName=" & contractDetails.MarketName & _
+                     " tradingClass=" & contract.TradingClass & " distance=" & eventArgs.distance & _
                      " benchmark=" & eventArgs.benchmark & " projection=" & eventArgs.projection & _
                      " legsStr=" & eventArgs.legsStr
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
@@ -1805,7 +1806,7 @@ Friend Class dlgMainWnd
         contractDetails = eventArgs.contractDetails
 
         Dim contract As IBApi.Contract
-        contract = contractDetails.summary
+        contract = contractDetails.Summary
 
         Dim offset As Long
         offset = lstServerResponses.Items.Count
@@ -1814,58 +1815,58 @@ Friend Class dlgMainWnd
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Contract Details Begin ----")
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId = " & contract.conId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol = " & contract.symbol)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType = " & contract.secType)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry = " & contract.expiry)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike = " & contract.strike)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right = " & contract.right)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier = " & contract.multiplier)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & contract.exchange)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId = " & contract.ConId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol = " & contract.Symbol)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType = " & contract.SecType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry = " & contract.Expiry)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike = " & contract.Strike)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right = " & contract.Right)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier = " & contract.Multiplier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & contract.Exchange)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange = " & contract.PrimaryExch)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency = " & contract.currency)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol = " & contract.localSymbol)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass = " & contract.tradingClass)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency = " & contract.Currency)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol = " & contract.LocalSymbol)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass = " & contract.TradingClass)
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Details:")
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  marketName = " & contractDetails.marketName)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minTick = " & contractDetails.minTick)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  priceMagnifier = " & contractDetails.priceMagnifier)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderTypes = " & contractDetails.orderTypes)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  validExchanges = " & contractDetails.validExchanges)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underConId = " & contractDetails.underConId)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  longName = " & contractDetails.longName)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  marketName = " & contractDetails.MarketName)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minTick = " & contractDetails.MinTick)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  priceMagnifier = " & contractDetails.PriceMagnifier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderTypes = " & contractDetails.OrderTypes)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  validExchanges = " & contractDetails.ValidExchanges)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underConId = " & contractDetails.UnderConId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  longName = " & contractDetails.LongName)
 
-        If (contract.secType <> "BOND") Then
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  contractMonth = " & contractDetails.contractMonth)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  industry = " & contractDetails.industry)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  category = " & contractDetails.category)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  subcategory = " & contractDetails.subcategory)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  timeZoneId = " & contractDetails.timeZoneId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingHours = " & contractDetails.tradingHours)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  liquidHours = " & contractDetails.liquidHours)
+        If (contract.SecType <> "BOND") Then
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  contractMonth = " & contractDetails.ContractMonth)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  industry = " & contractDetails.Industry)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  category = " & contractDetails.Category)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  subcategory = " & contractDetails.Subcategory)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  timeZoneId = " & contractDetails.TimeZoneId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingHours = " & contractDetails.TradingHours)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  liquidHours = " & contractDetails.LiquidHours)
         End If
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.evRule)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.evMultiplier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.EvRule)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.EvMultiplier)
 
-        If (contract.secType = "BOND") Then
+        If (contract.SecType = "BOND") Then
 
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Bond Details:")
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cusip = " & contractDetails.cusip)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ratings = " & contractDetails.ratings)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  descAppend = " & contractDetails.descAppend)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  bondType = " & contractDetails.bondType)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  couponType = " & contractDetails.couponType)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  callable = " & contractDetails.callable)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  putable = " & contractDetails.putable)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  coupon = " & contractDetails.coupon)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  convertible = " & contractDetails.convertible)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maturity = " & contractDetails.maturity)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  issueDate = " & contractDetails.issueDate)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionDate = " & contractDetails.nextOptionDate)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionType = " & contractDetails.nextOptionType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cusip = " & contractDetails.Cusip)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ratings = " & contractDetails.Ratings)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  descAppend = " & contractDetails.DescAppend)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  bondType = " & contractDetails.BondType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  couponType = " & contractDetails.CouponType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  callable = " & contractDetails.Callable)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  putable = " & contractDetails.Putable)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  coupon = " & contractDetails.Coupon)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  convertible = " & contractDetails.Convertible)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maturity = " & contractDetails.Maturity)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  issueDate = " & contractDetails.IssueDate)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionDate = " & contractDetails.NextOptionDate)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionType = " & contractDetails.NextOptionType)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionPartial = " & contractDetails.NextOptionPartial)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notes = " & contractDetails.notes)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notes = " & contractDetails.Notes)
 
 
         End If
@@ -1873,7 +1874,7 @@ Friend Class dlgMainWnd
         ' CUSIP/ISIN/etc.
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secIdList={")
         Dim secIdList As List(Of IBApi.TagValue)
-        secIdList = contractDetails.secIdList
+        secIdList = contractDetails.SecIdList
         If (Not secIdList Is Nothing) Then
             Dim secIdListCount As Long
             secIdListCount = secIdList.Count
@@ -1881,7 +1882,7 @@ Friend Class dlgMainWnd
             For iLoop = 0 To secIdListCount - 1
                 Dim param As IBApi.TagValue
                 param = secIdList.Item(iLoop)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.Tag & "=" & param.Value)
             Next iLoop
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
@@ -2111,7 +2112,7 @@ Friend Class dlgMainWnd
                 For iLoop = 0 To algoParamsCount - 1
                     Dim param As IBApi.TagValue
                     param = algoParams.Item(iLoop)
-                    Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
+                    Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.Tag & "=" & param.Value)
                 Next iLoop
             End If
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
@@ -2128,7 +2129,7 @@ Friend Class dlgMainWnd
             For iLoop = 0 To smartComboRoutingParamsCount - 1
                 Dim param As IBApi.TagValue
                 param = smartComboRoutingParams.Item(iLoop)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.tag & "=" & param.value)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.Tag & "=" & param.Value)
             Next iLoop
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
@@ -2165,9 +2166,9 @@ Friend Class dlgMainWnd
 
         If (Not underComp Is Nothing) Then
             With underComp
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.conId=" & .conId)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .delta)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .price)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.conId=" & .ConId)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .Delta)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  underComp.delta=" & .Price)
             End With
         End If
 
@@ -2235,40 +2236,40 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
         With contract
 
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & .conId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & .symbol)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & .secType)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & .expiry)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & .strike)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .right)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .multiplier)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .exchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & .ConId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & .Symbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & .SecType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & .Expiry)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & .Strike)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .Right)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .Multiplier)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .Exchange)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .PrimaryExch)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .currency)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .localSymbol)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .tradingClass)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .Currency)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .LocalSymbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .TradingClass)
 
         End With
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Execution:")
         With execution
 
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  execId = " & .execId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderId = " & .orderId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clientId = " & .clientId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  permId = " & .permId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  time = " & .time)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  acctNumber = " & .acctNumber)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & .exchange)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  side = " & .side)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  shares = " & .shares)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  price = " & .price)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  liquidation = " & .liquidation)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cumQty = " & .cumQty)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  avgPrice = " & .avgPrice)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderRef = " & .orderRef)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & .evRule)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & .evMultiplier)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  execId = " & .ExecId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderId = " & .OrderId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clientId = " & .ClientId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  permId = " & .PermId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  time = " & .Time)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  acctNumber = " & .AcctNumber)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & .Exchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  side = " & .Side)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  shares = " & .Shares)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  price = " & .Price)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  liquidation = " & .Liquidation)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cumQty = " & .CumQty)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  avgPrice = " & .AvgPrice)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderRef = " & .OrderRef)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & .EvRule)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & .EvMultiplier)
 
         End With
 
@@ -2374,12 +2375,12 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Commission Report ----")
 
         With commissionReport
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  execId=" & .execId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  commission=" & DblMaxStr(.commission))
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .currency)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  realizedPNL=" & DblMaxStr(.realizedPNL))
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  yield=" & DblMaxStr(.yield))
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  yieldRedemptionDate=" & IntMaxStr(.yieldRedemptionDate))
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  execId=" & .ExecId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  commission=" & DblMaxStr(.Commission))
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .Currency)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  realizedPNL=" & DblMaxStr(.RealizedPNL))
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  yield=" & DblMaxStr(.Yield))
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  yieldRedemptionDate=" & IntMaxStr(.YieldRedemptionDate))
 
         End With
 
@@ -2405,18 +2406,18 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
 
         With contract
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & .conId)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & .symbol)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & .secType)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & .expiry)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & .strike)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .right)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .multiplier)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .exchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & .ConId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & .Symbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & .SecType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  expiry=" & .Expiry)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & .Strike)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .Right)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .Multiplier)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .Exchange)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .PrimaryExch)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .currency)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .localSymbol)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .tradingClass)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .Currency)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .LocalSymbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .TradingClass)
         End With
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "position=" & IntMaxStr(e.pos))
@@ -2613,4 +2614,12 @@ Friend Class dlgMainWnd
             DblMaxStr = CStr(dblVal)
         End If
     End Function
+
+    Private Sub Tws1_OnverifyCompleted(tws As Tws, p2 As Object) Handles Tws1.OnverifyCompleted
+        Tws1.StartAPI()
+    End Sub
+
+    Private Sub Tws1_OnverifyAndAuthCompleted(tws As Tws, p2 As Object) Handles Tws1.OnverifyAndAuthCompleted
+        Tws1.StartAPI()
+    End Sub
 End Class

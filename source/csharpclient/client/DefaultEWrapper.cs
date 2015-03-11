@@ -206,5 +206,9 @@ namespace IBApi
         public virtual void displayGroupUpdated(int reqId, string contractInfo)
         {
         }
+
+        public void connectAck()
+        {            
+        }
     }
 }
