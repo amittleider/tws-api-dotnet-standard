@@ -321,4 +321,9 @@ class DefaultEWrapper implements EWrapper {
 		
 	}
 
+	@Override
+	public void connectAck() {
+		// TODO Auto-generated method stub
+		
+	}	
 }

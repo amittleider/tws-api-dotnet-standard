@@ -13,7 +13,16 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	private int m_defaultPort;
     private boolean m_allowRedirect;
     protected DataInputStream m_dis;
+	private boolean asyncEConnect;
 		
+	public void setAsyncEConnect(boolean asyncEConnect) {
+		this.asyncEConnect = asyncEConnect;
+	}
+
+	public boolean isAsyncEConnect() {
+		return asyncEConnect;
+	}
+
 	public EClientSocket(EWrapper eWrapper, EReaderSignal signal) {
 		super(eWrapper, signal);
 	}
@@ -53,25 +62,14 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    	reader.setUseV100Plus();
 	    }
 	    
-	    reader.putMessageToQueue();
-	    
-	    while (m_serverVersion == 0) {
-	    	m_signal.waitForSignal();
-	    	reader.processMsgs();
-	    }       
-	            
-	    if ( m_serverVersion >= 3 ){
-	        if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
-	            try {
-					send( m_clientId);
-				} catch (IOException e) {
-					m_eWrapper.error(e);
-				}
-	        }
-	        else if (!m_extraAuth){
-	            startAPI();
-	        }
-	    }        
+	    if (!asyncEConnect) {
+	    	reader.putMessageToQueue();
+
+	    	while (m_serverVersion == 0) {
+	    		m_signal.waitForSignal();
+	    		reader.processMsgs();
+	    	}       
+	    }
 	}
 
 	public synchronized void eConnect(Socket socket, int clientId) throws IOException {
@@ -156,6 +154,16 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    	eDisconnect();
 	        m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
 	        return;
+	    }
+	    
+	    if ( m_serverVersion >= 3 ){
+	        if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
+	            try {
+					send( m_clientId);
+				} catch (IOException e) {
+					m_eWrapper.error(e);
+				}
+	        }
 	    }
 	    
 	    // set connected flag

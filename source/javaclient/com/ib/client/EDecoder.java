@@ -99,7 +99,9 @@ class EDecoder {
 		} else {
 			if (m_clientMsgSink != null)
 				m_clientMsgSink.serverVersion(m_serverVersion, null);
-		}     
+		}
+		
+		m_EWrapper.connectAck();
     } 
     
     protected boolean readMessageToInternalBuf(InputStream dis) throws IOException {

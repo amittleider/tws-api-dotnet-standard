@@ -1289,4 +1289,9 @@ class SampleFrame extends JFrame implements EWrapper {
     public void displayGroupUpdated( int reqId, String contractInfo) {
         m_groupsDlg.displayGroupUpdated(reqId, contractInfo);
     }
+	
+	public void connectAck() {
+		m_client.startAPI();
+	}
+    
 }

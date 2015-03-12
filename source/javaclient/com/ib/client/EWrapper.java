@@ -67,5 +67,6 @@ public interface EWrapper {
     void error( String str);
     void error(int id, int errorCode, String errorMsg);
     void connectionClosed();
+    void connectAck();
 }
 

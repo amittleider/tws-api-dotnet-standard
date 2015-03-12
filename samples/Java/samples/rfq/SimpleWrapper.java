@@ -330,4 +330,8 @@ public class SimpleWrapper implements EWrapper {
 			}
 		});			    	
 	}
+	
+	public void connectAck() {
+		m_client.startAPI();
+	}
 }
