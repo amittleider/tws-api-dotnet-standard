@@ -1424,11 +1424,10 @@ int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
                 DECODE_FIELD(twsTime);
             }
 
-            if (m_pClientMsgSink) {
+            if (m_pClientMsgSink)
                 m_pClientMsgSink->serverVersion(m_serverVersion, twsTime.c_str());
 
-                m_pEWrapper->connectAck();
-            }
+            m_pEWrapper->connectAck();
         }
 
 		int processed = ptr - beginPtr;

@@ -297,7 +297,7 @@ public abstract class EClient {
     
     public abstract void eDisconnect();
     
-    protected synchronized void startAPI() {
+    public synchronized void startAPI() {
         // not connected?
         if( !m_connected) {
             notConnected();

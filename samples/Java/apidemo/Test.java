@@ -175,4 +175,7 @@ public class Test implements EWrapper {
 
 	@Override public void displayGroupUpdated( int reqId, String contractInfo){
 	}
+	
+	public void connectAck() {		
+	}
 }
