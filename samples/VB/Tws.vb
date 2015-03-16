@@ -3,11 +3,13 @@
 
 Imports System.Linq
 Imports System.Collections.Generic
+Imports IBApi
 
 Friend Class Tws
     Implements IBApi.EWrapper
 
-    Dim socket As IBApi.EClientSocket = New IBApi.EClientSocket(Me)
+    Dim eReaderSignal As EReaderSignal = New EReaderMonitorSignal
+    Dim socket As IBApi.EClientSocket = New IBApi.EClientSocket(Me, eReaderSignal)
     Dim form As Form
 
     Sub New(form As Form)
@@ -511,14 +513,35 @@ Friend Class Tws
 
         'socket.SetUseV100Plus("")
         socket.eConnect(p1, p2, p3, p4)
+
+        Dim msgThread As Threading.Thread = New Threading.Thread(AddressOf msgProcessing)
+
+        msgThread.IsBackground = True
+
+        If serverVersion() > 0 Then Call msgThread.Start()
+    End Sub
+
+    Public Sub StartAPI()
+        socket.startApi()
+    End Sub
+
+    Private Sub msgProcessing()
+        Dim reader As EReader = New EReader(socket, eReaderSignal)
+
+        reader.Start()
+
+        While socket.IsConnected
+            eReaderSignal.waitForSignal()
+            InvokeIfRequired(Sub() reader.processMsgs())
+        End While
     End Sub
 
     Function serverVersion() As Integer
-        serverVersion = socket.ServerVersion()
+        serverVersion = socket.ServerVersion
     End Function
 
     Function TwsConnectionTime() As String
-        TwsConnectionTime = 0 'socket.C
+        TwsConnectionTime = socket.ServerTime
     End Function
 
     Sub disconnect()

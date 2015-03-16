@@ -439,6 +439,6 @@ namespace IBApi
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
         void displayGroupList(int reqId, string groups);
         void displayGroupUpdated(int reqId, string contractInfo);
-
+        void connectAck();
     }
 }
