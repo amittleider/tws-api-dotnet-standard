@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using System.Threading;
 
 namespace TWSLib
 {
@@ -42,10 +43,11 @@ namespace TWSLib
         }
 
         EClientSocket socket;
+        EReaderSignal eReaderSignal = new EReaderMonitorSignal();
 
         public Tws()
         {
-            socket = new EClientSocket(this);
+            socket = new EClientSocket(this, eReaderSignal);
 
             resetAllProperties();
         }
@@ -267,6 +269,22 @@ namespace TWSLib
         public void connect(string host, int port, int clientId, bool extraAuth)
         {
             this.socket.eConnect(host, port, clientId, extraAuth);
+
+            if (socket.ServerVersion == 0)
+                return;
+
+            var reader = new EReader(socket, eReaderSignal);
+
+            reader.Start();
+
+            new Thread(() =>
+            {
+                while (socket.IsConnected())
+                {
+                    eReaderSignal.waitForSignal();
+                    reader.processMsgs();
+                }
+            }) { IsBackground = true }.Start();
         }
 
         [DispId(60)]
@@ -1023,6 +1041,8 @@ namespace TWSLib
 
         public delegate void displayGroupUpdatedDelegate(int reqId, string contractInfo);
 
+        public delegate void connectAckDelegate();
+
         public event tickPriceDelegate tickPrice;
 
         public event tickSizeDelegate tickSize;
@@ -1139,6 +1159,8 @@ namespace TWSLib
         public event displayGroupListDelegate displayGroupList;
 
         public event displayGroupUpdatedDelegate displayGroupUpdated;
+
+        public event connectAckDelegate connectAck;
 
         #endregion
 
@@ -1736,6 +1758,13 @@ namespace TWSLib
             var t_displayGroupUpdated = this.displayGroupUpdated;
             if (t_displayGroupUpdated != null)
                 InvokeIfRequired(t_displayGroupUpdated, reqId, contractInfo);
+        }
+
+        void EWrapper.connectAck()
+        {
+            var t_connectAck = this.connectAck;
+            if (t_connectAck != null)
+                InvokeIfRequired(t_connectAck);
         }
 
         void IDisposable.Dispose()
