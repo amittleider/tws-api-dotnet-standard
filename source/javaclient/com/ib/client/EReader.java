@@ -114,7 +114,7 @@ public class EReader extends Thread {
 		if (m_iBufLen == 0)
 			m_iBufLen = m_clientSocket.read(m_iBuf, m_iBufLen, m_iBuf.length - m_iBufLen);
 				
-		int msgSize = m_threadReadDecoder.processMsg(new EMessage(m_iBuf));
+		int msgSize = m_iBufLen > 0 ? m_threadReadDecoder.processMsg(new EMessage(m_iBuf)) : 0;
 		
 		if (msgSize == 0)
 			return null;

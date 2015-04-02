@@ -352,13 +352,29 @@ bool EClientSocketSSL::handleSSLError(int &ret_code) {
     case SSL_ERROR_NONE:
     case SSL_ERROR_WANT_READ:
     case SSL_ERROR_WANT_WRITE:
+		ret_code = 0;
         return true;
+
+	case SSL_ERROR_SYSCALL:
+		ret_code = GetLastError();
+		return true;
     }
 
     return false;
 }
 
-bool EClientSocketSSL::handleSocketErrorInternal() {
+bool EClientSocketSSL::handleSocketErrorInternal(int hr) {
+	if (hr != 0) {
+		LPTSTR buf;
+
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, 0, hr, 0, (LPTSTR)&buf, 0, 0);
+		getWrapper()->error( NO_VALID_ID, SOCKET_EXCEPTION.code(),
+			SOCKET_EXCEPTION.msg() + buf);
+		LocalFree(buf);
+
+		return false;
+	}
+
     	// no error
 	if( errno == 0)
 		return true;
@@ -392,7 +408,7 @@ bool EClientSocketSSL::handleSocketError(int res)
         return false;
     }
 
-    return handleSocketErrorInternal();
+    return handleSocketErrorInternal(res);
 }
 
 bool EClientSocketSSL::handleSocketError() {

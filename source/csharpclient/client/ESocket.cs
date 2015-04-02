@@ -11,9 +11,9 @@ namespace IBApi
     {
         BinaryWriter tcpWriter;
 
-        public ESocket(TcpClient clientSocket)
+        public ESocket(Stream socketStream)
         {
-            tcpWriter = new BinaryWriter(clientSocket.GetStream());
+            tcpWriter = new BinaryWriter(socketStream);
         }
 
         public void Send(EMessage msg)

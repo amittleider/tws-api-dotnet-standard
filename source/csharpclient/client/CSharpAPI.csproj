@@ -58,6 +58,7 @@
     <Compile Include="EClientMsgSink.cs" />
     <Compile Include="EClient.cs" />
     <Compile Include="EClientSocket.cs" />
+    <Compile Include="EClientSocketSSL.cs" />
     <Compile Include="EDecoder.cs" />
     <Compile Include="EMessage.cs" />
     <Compile Include="EReader.cs" />

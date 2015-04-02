@@ -9,11 +9,13 @@ import java.net.Socket;
 
 public class EClientSocket extends EClient implements EClientMsgSink  {
 
-	private int m_redirectCount = 0;
-	private int m_defaultPort;
+	protected int m_redirectCount = 0;
+	protected int m_defaultPort;
     private boolean m_allowRedirect;
     protected DataInputStream m_dis;
 	private boolean asyncEConnect;
+	private boolean m_connected = false;
+	private Socket m_socket;
 		
 	public void setAsyncEConnect(boolean asyncEConnect) {
 		this.asyncEConnect = asyncEConnect;
@@ -47,11 +49,12 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
     	sendMsg(msg);
     }
 
-	private synchronized void eConnect(Socket socket) throws IOException {
+	protected synchronized void eConnect(Socket socket) throws IOException {
 	    // create io streams
 	    m_socketTransport = new ESocket(socket);
 	    m_dis = new DataInputStream(socket.getInputStream());
 	    m_defaultPort = socket.getPort();
+	    m_socket = socket;
 	
 	    sendConnectRequest();
 	
@@ -170,7 +173,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    m_connected = true;       
 	}
 
-	private void performRedirect( String address, int defaultPort ) throws IOException {
+	protected void performRedirect( String address, int defaultPort ) throws IOException {
 	    System.out.println("Server Redirect: " + address);
 	    
 	    // Get host:port from address string and reconnect (note: port is optional)
@@ -198,7 +201,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    }
 	
 	    if ( resetState ) {
-	        m_connected = false;
+	    	m_connected = false;
 	        m_extraAuth = false;
 	        m_clientId = -1;
 	        m_serverVersion = 0;
@@ -226,5 +229,8 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 		return m_dis.readInt();
 	}
 
-
+	@Override
+	public boolean isConnected() {
+		return m_socket != null && m_socket.isConnected() && m_connected;
+	}
 }

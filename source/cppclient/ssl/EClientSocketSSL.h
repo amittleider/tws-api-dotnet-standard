@@ -42,7 +42,7 @@ private:
 private:
 	void encodeMsgLen(std::string& msg, unsigned offset) const;
     bool handleSSLError(int &ret_code);
-	bool handleSocketErrorInternal();
+	bool handleSocketErrorInternal(int hr = 0);
 
 public:
 	bool handleSocketError();

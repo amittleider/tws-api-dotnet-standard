@@ -26,6 +26,7 @@ import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
+import com.ib.client.EClientSocketSSL;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
 import com.ib.client.EReaderSignal;
@@ -412,7 +413,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
         // connect to TWS
         m_disconnectInProgress = false;
-
+        
         m_client.OptionalCapabilities(dlg.m_retOptCapts);
         m_client.eConnect( dlg.m_retIpAddress, dlg.m_retPort, dlg.m_retClientId);
         if (m_client.isConnected()) {
