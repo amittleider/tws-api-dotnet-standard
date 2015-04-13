@@ -581,7 +581,7 @@ class EDecoder {
 		}
 		contract.symbol(readStr());
 		contract.secType(readStr());
-		contract.expiry(readStr());
+		contract.lastTradeDate(readStr());
 		contract.strike(readDouble());
 		contract.right(readStr());
 		if (version >= 9) {
@@ -698,7 +698,7 @@ class EDecoder {
 		ContractDetails contract = new ContractDetails();
 		contract.contract().symbol(readStr());
 		contract.contract().secType(readStr());
-		contract.contract().expiry(readStr());
+		contract.contract().lastTradeDate(readStr());
 		contract.contract().strike(readDouble());
 		contract.contract().right(readStr());
 		contract.contract().exchange(readStr());
@@ -762,7 +762,7 @@ class EDecoder {
 		    }
 		    contract.contract().symbol(readStr());
 		    contract.contract().secType(readStr());
-		    contract.contract().expiry(readStr());
+		    contract.contract().lastTradeDate(readStr());
 		    contract.contract().strike(readDouble());
 		    contract.contract().right(readStr());
 		    contract.contract().exchange(readStr());
@@ -804,7 +804,7 @@ class EDecoder {
 		}
 		contract.symbol(readStr());
 		contract.secType(readStr());
-		contract.expiry(readStr());
+		contract.lastTradeDate(readStr());
 		contract.strike(readDouble());
 		contract.right(readStr());
 		if ( version >= 32) {
@@ -1130,7 +1130,7 @@ class EDecoder {
 		}
 		contract.symbol(readStr());
 		contract.secType(readStr());
-		contract.expiry(readStr());
+		contract.lastTradeDate(readStr());
 		contract.strike(readDouble());
 		contract.right(readStr());
 		if (version >= 7) {
@@ -1331,7 +1331,7 @@ class EDecoder {
 		contract.conid(readInt());
 		contract.symbol(readStr());
 		contract.secType(readStr());
-		contract.expiry(readStr());
+		contract.lastTradeDate(readStr());
 		contract.strike(readDouble());
 		contract.right(readStr());
 		contract.multiplier(readStr());

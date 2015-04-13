@@ -121,13 +121,13 @@ namespace IBSampleApp
             this.exchange_label_TMD_MDT = new System.Windows.Forms.Label();
             this.localSymbol_TMD_MDT = new System.Windows.Forms.TextBox();
             this.currency_label_TMD_MDT = new System.Windows.Forms.Label();
-            this.expiry_TMD_MDT = new System.Windows.Forms.TextBox();
+            this.lastTradeDate_TMD_MDT = new System.Windows.Forms.TextBox();
             this.symbol_TMD_MDT = new System.Windows.Forms.TextBox();
             this.strike_TMD_MDT = new System.Windows.Forms.TextBox();
             this.currency_TMD_MDT = new System.Windows.Forms.TextBox();
             this.exchange_TMD_MDT = new System.Windows.Forms.TextBox();
             this.localSymbol_label_TMD_MDT = new System.Windows.Forms.Label();
-            this.expiry_label_TMD_MDT = new System.Windows.Forms.Label();
+            this.lastTradeDate_label_TMD_MDT = new System.Windows.Forms.Label();
             this.strike_label_TMD_MDT = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.contractMDRTH = new System.Windows.Forms.CheckBox();
@@ -1099,13 +1099,13 @@ namespace IBSampleApp
             this.groupBox2.Controls.Add(this.exchange_label_TMD_MDT);
             this.groupBox2.Controls.Add(this.localSymbol_TMD_MDT);
             this.groupBox2.Controls.Add(this.currency_label_TMD_MDT);
-            this.groupBox2.Controls.Add(this.expiry_TMD_MDT);
+            this.groupBox2.Controls.Add(this.lastTradeDate_TMD_MDT);
             this.groupBox2.Controls.Add(this.symbol_TMD_MDT);
             this.groupBox2.Controls.Add(this.strike_TMD_MDT);
             this.groupBox2.Controls.Add(this.currency_TMD_MDT);
             this.groupBox2.Controls.Add(this.exchange_TMD_MDT);
             this.groupBox2.Controls.Add(this.localSymbol_label_TMD_MDT);
-            this.groupBox2.Controls.Add(this.expiry_label_TMD_MDT);
+            this.groupBox2.Controls.Add(this.lastTradeDate_label_TMD_MDT);
             this.groupBox2.Controls.Add(this.strike_label_TMD_MDT);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
@@ -1283,12 +1283,12 @@ namespace IBSampleApp
             this.currency_label_TMD_MDT.TabIndex = 8;
             this.currency_label_TMD_MDT.Text = "Currency";
             // 
-            // expiry_TMD_MDT
+            // lastTradeDate_TMD_MDT
             // 
-            this.expiry_TMD_MDT.Location = new System.Drawing.Point(276, 40);
-            this.expiry_TMD_MDT.Name = "expiry_TMD_MDT";
-            this.expiry_TMD_MDT.Size = new System.Drawing.Size(100, 20);
-            this.expiry_TMD_MDT.TabIndex = 14;
+            this.lastTradeDate_TMD_MDT.Location = new System.Drawing.Point(276, 40);
+            this.lastTradeDate_TMD_MDT.Name = "lastTradeDate_TMD_MDT";
+            this.lastTradeDate_TMD_MDT.Size = new System.Drawing.Size(100, 20);
+            this.lastTradeDate_TMD_MDT.TabIndex = 14;
             // 
             // symbol_TMD_MDT
             // 
@@ -1330,14 +1330,14 @@ namespace IBSampleApp
             this.localSymbol_label_TMD_MDT.TabIndex = 9;
             this.localSymbol_label_TMD_MDT.Text = "Local Symbol";
             // 
-            // expiry_label_TMD_MDT
+            // lastTradeDate_label_TMD_MDT
             // 
-            this.expiry_label_TMD_MDT.AutoSize = true;
-            this.expiry_label_TMD_MDT.Location = new System.Drawing.Point(235, 39);
-            this.expiry_label_TMD_MDT.Name = "expiry_label_TMD_MDT";
-            this.expiry_label_TMD_MDT.Size = new System.Drawing.Size(35, 13);
-            this.expiry_label_TMD_MDT.TabIndex = 4;
-            this.expiry_label_TMD_MDT.Text = "Expiry";
+            this.lastTradeDate_label_TMD_MDT.AutoSize = true;
+            this.lastTradeDate_label_TMD_MDT.Location = new System.Drawing.Point(235, 39);
+            this.lastTradeDate_label_TMD_MDT.Name = "lastTradeDate_label_TMD_MDT";
+            this.lastTradeDate_label_TMD_MDT.Size = new System.Drawing.Size(35, 13);
+            this.lastTradeDate_label_TMD_MDT.TabIndex = 4;
+            this.lastTradeDate_label_TMD_MDT.Text = "lastTradeDate";
             // 
             // strike_label_TMD_MDT
             // 
@@ -2465,7 +2465,7 @@ namespace IBSampleApp
             this.conDetExpiryLabel.Name = "conDetExpiryLabel";
             this.conDetExpiryLabel.Size = new System.Drawing.Size(35, 13);
             this.conDetExpiryLabel.TabIndex = 20;
-            this.conDetExpiryLabel.Text = "Expiry";
+            this.conDetExpiryLabel.Text = "lastTradeDate";
             // 
             // conDetSecType
             // 
@@ -2686,7 +2686,7 @@ namespace IBSampleApp
             // 
             // conResExpiry
             // 
-            this.conResExpiry.HeaderText = "Expiry";
+            this.conResExpiry.HeaderText = "lastTradeDate";
             this.conResExpiry.Name = "conResExpiry";
             this.conResExpiry.ReadOnly = true;
             // 
@@ -2781,7 +2781,7 @@ namespace IBSampleApp
             // 
             // callExpiry
             // 
-            this.callExpiry.HeaderText = "Expiry";
+            this.callExpiry.HeaderText = "lastTradeDate";
             this.callExpiry.Name = "callExpiry";
             this.callExpiry.Width = 70;
             // 
@@ -2871,7 +2871,7 @@ namespace IBSampleApp
             // 
             // putExpiry
             // 
-            this.putExpiry.HeaderText = "Expiry";
+            this.putExpiry.HeaderText = "lastTradeDate";
             this.putExpiry.Name = "putExpiry";
             this.putExpiry.Width = 70;
             // 
@@ -3523,7 +3523,7 @@ namespace IBSampleApp
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 88;
-            this.label4.Text = "Expiry";
+            this.label4.Text = "lastTradeDate";
             // 
             // comboLegsBox
             // 
@@ -3694,7 +3694,7 @@ namespace IBSampleApp
             this.comboExpiryLabel.Name = "comboExpiryLabel";
             this.comboExpiryLabel.Size = new System.Drawing.Size(35, 13);
             this.comboExpiryLabel.TabIndex = 64;
-            this.comboExpiryLabel.Text = "Expiry";
+            this.comboExpiryLabel.Text = "lastTradeDate";
             // 
             // comboMultiplier
             // 
@@ -4016,7 +4016,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label exchange_label_TMD_MDT;
         private System.Windows.Forms.TextBox localSymbol_TMD_MDT;
         private System.Windows.Forms.Label currency_label_TMD_MDT;
-        private System.Windows.Forms.TextBox expiry_TMD_MDT;
+        private System.Windows.Forms.TextBox lastTradeDate_TMD_MDT;
         private System.Windows.Forms.TextBox symbol_TMD_MDT;
         private System.Windows.Forms.TextBox strike_TMD_MDT;
         private System.Windows.Forms.TextBox currency_TMD_MDT;
@@ -4024,7 +4024,7 @@ namespace IBSampleApp
         private System.Windows.Forms.TextBox exchange_TMD_MDT;
         private System.Windows.Forms.Label localSymbol_label_TMD_MDT;
         private System.Windows.Forms.Label putcall_label_TMD_MDT;
-        private System.Windows.Forms.Label expiry_label_TMD_MDT;
+        private System.Windows.Forms.Label lastTradeDate_label_TMD_MDT;
         private System.Windows.Forms.Label strike_label_TMD_MDT;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button realTime_Button;

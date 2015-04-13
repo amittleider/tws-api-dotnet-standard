@@ -20,7 +20,7 @@ namespace IBSampleApp.ui
         private const int OPTIONS_EXERCISING_BASE = OPTIONS_ID_BASE + 1000000;
 
         //Options' chain table indexes
-        private const int EXPIRY_INDEX = 0;
+        private const int LASTTRADEDATE_INDEX = 0;
         private const int STRIKE_INDEX = 1;
         private const int BID_INDEX = 2;
         private const int ASK_INDEX = 3;
@@ -151,7 +151,7 @@ namespace IBSampleApp.ui
         private void UpdateContractDetails(DataGridView grid, int row, Contract contract)
         {
             grid.Rows.Add();
-            grid[EXPIRY_INDEX, row].Value = contract.Expiry;
+            grid[LASTTRADEDATE_INDEX, row].Value = contract.LastTradeDate;
             grid[STRIKE_INDEX, row].Value = contract.Strike;
         }
 

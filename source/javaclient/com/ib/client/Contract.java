@@ -43,7 +43,7 @@ public class Contract implements Cloneable {
     public String currency()        { return m_currency; }
     public String exchange()        { return m_exchange; }
     public String primaryExch()     { return m_primaryExch; }
-    public String expiry()          { return m_expiry; }
+    public String lastTradeDate()          { return m_expiry; }
     public String localSymbol()     { return m_localSymbol; }
     public String tradingClass()    { return m_tradingClass; }
     public String multiplier()      { return m_multiplier; }
@@ -60,7 +60,7 @@ public class Contract implements Cloneable {
     public void conid(int v)            { m_conid = v; }
     public void currency(String v)      { m_currency = v; }
     public void exchange(String v)      { m_exchange = v; }
-    public void expiry(String v)        { m_expiry = v; }
+    public void lastTradeDate(String v)        { m_expiry = v; }
     public void localSymbol(String v)   { m_localSymbol = v; }
     public void tradingClass(String v)  { m_tradingClass = v; }
     public void multiplier(String v)    { m_multiplier = v; }
@@ -242,7 +242,7 @@ public class Contract implements Cloneable {
         add( sb, "conid", m_conid);
         add( sb, "symbol", m_symbol);
         add( sb, "secType", m_secType);
-        add( sb, "expiry", m_expiry);
+        add( sb, "lastTradeDate", m_expiry);
         add( sb, "strike", m_strike);
         add( sb, "right", m_right);
         add( sb, "multiplier", m_multiplier);

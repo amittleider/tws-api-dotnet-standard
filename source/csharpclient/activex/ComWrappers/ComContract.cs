@@ -57,10 +57,10 @@ namespace TWSLib
         /**
         * @brief The contract's expiration date (i.e. Options and Futures)
         */
-        public string Expiry
+        public string lastTradeDate
         {
-            get { return data != null ? data.Expiry : default(string); }
-            set { if (data != null) data.Expiry = value; }
+            get { return data != null ? data.LastTradeDate : default(string); }
+            set { if (data != null) data.LastTradeDate = value; }
         }
 
         /**
@@ -205,7 +205,7 @@ namespace TWSLib
 
         string TWSLib.IContract.secType { get { return SecType; } set { SecType = value; } }
 
-        string TWSLib.IContract.expiry { get { return Expiry; } set { Expiry = value; } }
+        string TWSLib.IContract.lastTradeDate { get { return lastTradeDate; } set { lastTradeDate = value; } }
 
         double TWSLib.IContract.strike { get { return Strike; } set { Strike = value; } }
 

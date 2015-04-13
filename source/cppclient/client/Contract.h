@@ -80,7 +80,7 @@ struct Contract
 	long		conId;
 	std::string	symbol;
 	std::string	secType;
-	std::string	expiry;
+	std::string	lastTradeDate;
 	double		strike;
 	std::string	right;
 	std::string	multiplier;

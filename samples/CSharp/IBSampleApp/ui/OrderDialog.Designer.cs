@@ -582,7 +582,7 @@ namespace IBSampleApp
             this.orderExpiryLabel.Name = "orderExpiryLabel";
             this.orderExpiryLabel.Size = new System.Drawing.Size(35, 13);
             this.orderExpiryLabel.TabIndex = 10;
-            this.orderExpiryLabel.Text = "Expiry";
+            this.orderExpiryLabel.Text = "Last trade date";
             // 
             // contractStrike
             // 

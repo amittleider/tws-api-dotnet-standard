@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../client/ETransport.h"
 
 class ESocketSSL :

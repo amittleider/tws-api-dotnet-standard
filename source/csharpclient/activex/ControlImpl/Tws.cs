@@ -176,7 +176,7 @@ namespace TWSLib
 
         [DispId(57)]
         public void placeOrder(int id, string action, int quantity, string localSymbol, string secType,
-                   string expiry, double strike, string right, string multiplier,
+                   string lastTradeDate, double strike, string right, string multiplier,
                    string exchange, string primaryExchange, string curency, string orderType,
                    double lmtPrice, double auxPrice, string goodAfterTime, string faGroup,
                    string faMethod, string faPercentage, string faProfile, string goodTillDate)
@@ -288,7 +288,7 @@ namespace TWSLib
         }
 
         [DispId(60)]
-        public void reqMktData(int id, string symbol, string secType, string expiry, double strike,
+        public void reqMktData(int id, string symbol, string secType, string lastTradeDate, double strike,
                    string right, string multiplier, string exchange, string primaryExchange,
                    string currency, string genericTicks, bool snapshot, ITagValueList options)
         {
@@ -297,7 +297,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -409,7 +409,7 @@ namespace TWSLib
         }
 
         [DispId(67)]
-        public void reqContractDetails(string symbol, string secType, string expiry, double strike,
+        public void reqContractDetails(string symbol, string secType, string lastTradeDate, double strike,
                    string right, string multiplier, string exchange, string curency, int includeExpired)
         {
             // set contract fields
@@ -417,7 +417,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -446,7 +446,7 @@ namespace TWSLib
         }
 
         [DispId(69)]
-        public void reqMktDepth(int id, string symbol, string secType, string expiry, double strike,
+        public void reqMktDepth(int id, string symbol, string secType, string lastTradeDate, double strike,
                    string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options)
         {
             // set contract fields
@@ -454,7 +454,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -558,7 +558,7 @@ namespace TWSLib
         }
 
         [DispId(82)]
-        public void reqHistoricalData(int id, string symbol, string secType, string expiry, double strike,
+        public void reqHistoricalData(int id, string symbol, string secType, string lastTradeDate, double strike,
                    string right, string multiplier, string exchange, string curency, int isExpired,
                    string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
                    int useRTH, int formatDate, ITagValueList options)
@@ -567,7 +567,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -583,7 +583,7 @@ namespace TWSLib
         }
 
         [DispId(83)]
-        public void exerciseOptions(int id, string symbol, string secType, string expiry, double strike,
+        public void exerciseOptions(int id, string symbol, string secType, string lastTradeDate, double strike,
                    string right, string multiplier, string exchange, string curency,
                    int exerciseAction, int exerciseQuantity, int @override)
         {
@@ -591,7 +591,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -714,7 +714,7 @@ namespace TWSLib
         }
 
         [DispId(89)]
-        public void reqRealTimeBars(int tickerId, string symbol, string secType, string expiry, double strike,
+        public void reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDate, double strike,
             string right, string multiplier, string exchange, string primaryExchange, string currency,
             int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options)
         {
@@ -722,7 +722,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.Expiry = expiry;
+            contract.LastTradeDate = lastTradeDate;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -926,7 +926,7 @@ namespace TWSLib
 
         public delegate void connectionClosedDelegate();
 
-        public delegate void openOrder1Delegate(int id, string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol);
+        public delegate void openOrder1Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol);
 
         public delegate void openOrder2Delegate(int id, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId);
 
@@ -940,13 +940,13 @@ namespace TWSLib
 
         public delegate void errMsgDelegate(int id, int errorCode, string errorMsg);
 
-        public delegate void updatePortfolioDelegate(string symbol, string secType, string expiry, double strike, string right, string curency, string localSymbol, int position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
+        public delegate void updatePortfolioDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, int position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
         public delegate void orderStatusDelegate(int id, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
 
-        public delegate void contractDetailsDelegate(string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
+        public delegate void contractDetailsDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
 
-        public delegate void execDetailsDelegate(int id, string symbol, string secType, string expiry, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, int shares, double price, int permId, int clientId, int isLiquidation);
+        public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, int shares, double price, int permId, int clientId, int isLiquidation);
 
         public delegate void updateMktDepthDelegate(int id, int position, int operation, int side, double price, int size);
 
@@ -956,7 +956,7 @@ namespace TWSLib
 
         public delegate void managedAccountsDelegate(string accountsList);
 
-        public delegate void openOrder3Delegate(int id, string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate);
+        public delegate void openOrder3Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate);
 
         public delegate void receiveFADelegate(int faDataType, string cxml);
 
@@ -964,13 +964,13 @@ namespace TWSLib
 
         public delegate void historicalDataEndDelegate(int reqId, string start, string end);
 
-        public delegate void openOrder4Delegate(int id, string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
+        public delegate void openOrder4Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
 
         public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, int convertible, int callable, int putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, int nextOptionPartial, string notes);
 
         public delegate void scannerParametersDelegate(string xml);
 
-        public delegate void scannerDataDelegate(int reqId, int rank, string symbol, string secType, string expiry, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, string distance, string benchmark, string projection, string legsStr);
+        public delegate void scannerDataDelegate(int reqId, int rank, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, string distance, string benchmark, string projection, string legsStr);
 
         public delegate void tickOptionComputationDelegate(int id, int tickType, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
 
@@ -1317,7 +1317,7 @@ namespace TWSLib
                 InvokeIfRequired(t_updatePortfolio,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.Expiry,
+                                contract.LastTradeDate,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Currency,
@@ -1364,7 +1364,7 @@ namespace TWSLib
                     orderId,
                     contract.Symbol,
                     contract.SecType,
-                    contract.Expiry,
+                    contract.LastTradeDate,
                     contract.Strike,
                     contract.Right,
                     contract.Exchange,
@@ -1396,7 +1396,7 @@ namespace TWSLib
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.Expiry,
+                                contract.LastTradeDate,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1430,7 +1430,7 @@ namespace TWSLib
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.Expiry,
+                                contract.LastTradeDate,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1520,7 +1520,7 @@ namespace TWSLib
                 InvokeIfRequired(t_contractDetails,
                                 contractDetails.Summary.Symbol,
                                 contractDetails.Summary.SecIdType,
-                                contractDetails.Summary.Expiry,
+                                contractDetails.Summary.LastTradeDate,
                                 contractDetails.Summary.Strike,
                                 contractDetails.Summary.Right,
                                 contractDetails.Summary.Exchange,
@@ -1563,7 +1563,7 @@ namespace TWSLib
                                 reqId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.Expiry,
+                                contract.LastTradeDate,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1685,7 +1685,7 @@ namespace TWSLib
                                 rank,
                                 contractDetails.Summary.Symbol,
                                 distance,
-                                contractDetails.Summary.Expiry,
+                                contractDetails.Summary.LastTradeDate,
                                 contractDetails.Summary.Strike,
                                 contractDetails.Summary.Right,
                                 contractDetails.Summary.Exchange,

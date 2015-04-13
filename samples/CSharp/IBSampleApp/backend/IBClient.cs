@@ -16,6 +16,7 @@ namespace IBSampleApp
         private int nextOrderId;
         private IBSampleApp parentUI;
         private int clientId;
+        private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
         public int ClientId
         {
@@ -26,7 +27,7 @@ namespace IBSampleApp
         public IBClient(IBSampleApp parent)
         {
             parentUI = parent;
-            clientSocket = new EClientSocket(this);
+            clientSocket = new EClientSocket(this, signal);
         }
 
         public EClientSocket ClientSocket
@@ -296,6 +297,12 @@ namespace IBSampleApp
         private void addTextToBox(string text)
         {
             parentUI.HandleMessage(new ErrorMessage(-1, -1, text));
+        }
+
+
+        public void connectAck()
+        {
+            ClientSocket.startApi();
         }
     }
 }

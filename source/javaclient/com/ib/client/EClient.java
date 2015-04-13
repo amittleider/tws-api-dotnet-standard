@@ -509,7 +509,7 @@ public abstract class EClient {
             }
             b.send(contract.symbol());
             b.send(contract.getSecType());
-            b.send(contract.expiry());
+            b.send(contract.lastTradeDate());
             b.send(contract.strike());
             b.send(contract.getRight());
             if (m_serverVersion >= 15) {
@@ -696,7 +696,7 @@ public abstract class EClient {
           }
           b.send(contract.symbol());
           b.send(contract.getSecType());
-          b.send(contract.expiry());
+          b.send(contract.lastTradeDate());
           b.send(contract.strike());
           b.send(contract.getRight());
           b.send(contract.multiplier());
@@ -797,7 +797,7 @@ public abstract class EClient {
             }
             b.send(contract.symbol());
             b.send(contract.getSecType());
-            b.send(contract.expiry());
+            b.send(contract.lastTradeDate());
             b.send(contract.strike());
             b.send(contract.getRight());
             b.send(contract.multiplier());
@@ -891,7 +891,7 @@ public abstract class EClient {
             }
             b.send( contract.symbol());
             b.send( contract.getSecType());
-            b.send( contract.expiry());
+            b.send( contract.lastTradeDate());
             b.send( contract.strike());
             b.send( contract.getRight());
             if (m_serverVersion >= 15) {
@@ -973,7 +973,7 @@ public abstract class EClient {
             }
             b.send( contract.symbol());
             b.send( contract.getSecType());
-            b.send( contract.expiry());
+            b.send( contract.lastTradeDate());
             b.send( contract.strike());
             b.send( contract.getRight());
             if (m_serverVersion >= 15) {
@@ -1107,7 +1107,7 @@ public abstract class EClient {
           }
           b.send(contract.symbol());
           b.send(contract.getSecType());
-          b.send(contract.expiry());
+          b.send(contract.lastTradeDate());
           b.send(contract.strike());
           b.send(contract.getRight());
           b.send(contract.multiplier());
@@ -1356,7 +1356,7 @@ public abstract class EClient {
             }
             b.send( contract.symbol());
             b.send( contract.getSecType());
-            b.send( contract.expiry());
+            b.send( contract.lastTradeDate());
             b.send( contract.strike());
             b.send( contract.getRight());
             if (m_serverVersion >= 15) {
@@ -2199,7 +2199,7 @@ public abstract class EClient {
             b.send( contract.conid());
             b.send( contract.symbol());
             b.send( contract.getSecType());
-            b.send( contract.expiry());
+            b.send( contract.lastTradeDate());
             b.send( contract.strike());
             b.send( contract.getRight());
             b.send( contract.multiplier());
@@ -2291,7 +2291,7 @@ public abstract class EClient {
             b.send( contract.conid());
             b.send( contract.symbol());
             b.send( contract.getSecType());
-            b.send( contract.expiry());
+            b.send( contract.lastTradeDate());
             b.send( contract.strike());
             b.send( contract.getRight());
             b.send( contract.multiplier());
