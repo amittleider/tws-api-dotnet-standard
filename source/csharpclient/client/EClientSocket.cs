@@ -38,6 +38,11 @@ namespace IBApi
             eConnect(host, port, clientId, false);
         }
 
+        protected virtual Stream createClientStream(string host, int port)
+        {
+            return new TcpClient(host, port).GetStream();
+        }
+
         public void eConnect(string host, int port, int clientId, bool extraAuth)
         {
             if (isConnected)
@@ -47,11 +52,9 @@ namespace IBApi
             }
             try
             {
-                var tcpClient = new TcpClient(host, port);
-                
-                tcpStream = tcpClient.GetStream();
+                tcpStream = createClientStream(host, port);
                 this.port = port;
-                socketTransport = new ESocket(tcpClient);
+                socketTransport = new ESocket(tcpStream);
 
                 this.clientId = clientId;
                 this.extraAuth = extraAuth;
@@ -91,10 +94,6 @@ namespace IBApi
                             buf.AddRange(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
                             buf.Add(Constants.EOL);
                             socketTransport.Send(new EMessage(buf.ToArray()));
-                        }
-                        else if (!extraAuth)
-                        {
-                            startApi();
                         }
                     }
                 }

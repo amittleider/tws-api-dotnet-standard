@@ -1561,6 +1561,9 @@ namespace IBApi
         protected string ReadString()
         {
             byte b = dataReader.ReadByte();
+
+            nDecodedLen++;
+
             if (b == 0)
             {
                 return null;
@@ -1582,7 +1585,7 @@ namespace IBApi
                     }
                 }
 
-                nDecodedLen += strBuilder.Length + 1;
+                nDecodedLen += strBuilder.Length;
 
                 return strBuilder.ToString();
             }

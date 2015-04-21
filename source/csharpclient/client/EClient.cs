@@ -93,7 +93,7 @@ namespace IBApi
          */
 
         private static readonly string encodedVersion = Constants.MinVersion.ToString() + (Constants.MaxVersion != Constants.MinVersion ? ".." + Constants.MaxVersion : string.Empty);
-        protected NetworkStream tcpStream;
+        protected Stream tcpStream;
 
         protected abstract uint prepareBuffer(BinaryWriter paramsList);
 

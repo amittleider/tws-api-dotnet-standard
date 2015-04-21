@@ -113,7 +113,7 @@ public abstract class EClient {
     public static final int PROFILES = 2;
     public static final int ALIASES = 3;
 
-    public static String faMsgTypeName(int faDataType) {
+	public static String faMsgTypeName(int faDataType) {
         switch (faDataType) {
             case GROUPS:
                 return "GROUPS";
@@ -222,7 +222,6 @@ public abstract class EClient {
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
-    protected boolean m_connected;        // true if we are connected
     protected int m_serverVersion;
     protected String m_TwsTime;
     protected int m_clientId;
@@ -237,7 +236,7 @@ public abstract class EClient {
     public String TwsConnectionTime()   { return m_TwsTime; }
     public EWrapper wrapper()           { return m_eWrapper; }
 //    public EReader reader()             { return m_reader; }
-    public boolean isConnected()        { return m_connected; }
+    public abstract boolean isConnected();
 
     // set
     protected synchronized void setExtraAuth(boolean extraAuth) { m_extraAuth = extraAuth; }
@@ -252,7 +251,6 @@ public abstract class EClient {
         m_clientId = -1;
         m_extraAuth = false;
         m_optionalCapabilities = "";
-        m_connected = false;
         m_serverVersion = 0;
     }
     
@@ -269,7 +267,7 @@ public abstract class EClient {
     
     // iServer rails are used for Connection if connectOptions != null
     public void setUseV100Plus(String connectOptions) { 
-    	if( m_connected ) {
+    	if( isConnected() ) {
             m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
     		return;
@@ -284,7 +282,7 @@ public abstract class EClient {
     }
 
     protected String checkConnected(String host) {
-        if( m_connected) {
+        if( isConnected()) {
             m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
             return null;
@@ -299,7 +297,7 @@ public abstract class EClient {
     
     public synchronized void startAPI() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -327,7 +325,7 @@ public abstract class EClient {
 
     public synchronized void cancelScannerSubscription( int tickerId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -358,7 +356,7 @@ public abstract class EClient {
 
     public synchronized void reqScannerParameters() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -388,7 +386,7 @@ public abstract class EClient {
 
     public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription, ArrayList<TagValue> scannerSubscriptionOptions) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -458,7 +456,7 @@ public abstract class EClient {
 
     public synchronized void reqMktData(int tickerId, Contract contract,
     		String genericTickList, boolean snapshot, List<TagValue> mktDataOptions) {
-        if (!m_connected) {
+        if (!isConnected()) {
             error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
             return;
         }
@@ -596,7 +594,7 @@ public abstract class EClient {
 
     public synchronized void cancelHistoricalData( int tickerId ) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -627,7 +625,7 @@ public abstract class EClient {
 
     public void cancelRealTimeBars(int tickerId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -662,7 +660,7 @@ public abstract class EClient {
                                                 String barSizeSetting, String whatToShow,
                                                 int useRTH, int formatDate, List<TagValue> chartOptions) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -763,7 +761,7 @@ public abstract class EClient {
 
     public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, ArrayList<TagValue> realTimeBarsOptions) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -837,7 +835,7 @@ public abstract class EClient {
 
     public synchronized void reqContractDetails(int reqId, Contract contract) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -937,7 +935,7 @@ public abstract class EClient {
 
     public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows, ArrayList<TagValue> mktDepthOptions) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1014,7 +1012,7 @@ public abstract class EClient {
 
     public synchronized void cancelMktData( int tickerId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1039,7 +1037,7 @@ public abstract class EClient {
 
     public synchronized void cancelMktDepth( int tickerId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1073,7 +1071,7 @@ public abstract class EClient {
                                               int exerciseAction, int exerciseQuantity,
                                               String account, int override) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1132,7 +1130,7 @@ public abstract class EClient {
 
     public synchronized void placeOrder( int id, Contract contract, Order order) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1700,7 +1698,7 @@ public abstract class EClient {
 
     public synchronized void reqAccountUpdates(boolean subscribe, String acctCode) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1729,7 +1727,7 @@ public abstract class EClient {
 
     public synchronized void reqExecutions(int reqId, ExecutionFilter filter) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1769,7 +1767,7 @@ public abstract class EClient {
 
     public synchronized void cancelOrder( int id) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1794,7 +1792,7 @@ public abstract class EClient {
 
     public synchronized void reqOpenOrders() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1818,7 +1816,7 @@ public abstract class EClient {
 
     public synchronized void reqIds( int numIds) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1842,7 +1840,7 @@ public abstract class EClient {
 
     public synchronized void reqNewsBulletins( boolean allMsgs) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1866,7 +1864,7 @@ public abstract class EClient {
 
     public synchronized void cancelNewsBulletins() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1890,7 +1888,7 @@ public abstract class EClient {
 
     public synchronized void setServerLogLevel(int logLevel) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1915,7 +1913,7 @@ public abstract class EClient {
 
     public synchronized void reqAutoOpenOrders(boolean bAutoBind) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1940,7 +1938,7 @@ public abstract class EClient {
 
     public synchronized void reqAllOpenOrders() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1964,7 +1962,7 @@ public abstract class EClient {
 
     public synchronized void reqManagedAccts() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -1988,7 +1986,7 @@ public abstract class EClient {
 
     public synchronized void requestFA( int faDataType ) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2019,7 +2017,7 @@ public abstract class EClient {
 
     public synchronized void replaceFA( int faDataType, String xml ) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2051,7 +2049,7 @@ public abstract class EClient {
 
     public synchronized void reqCurrentTime() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2081,7 +2079,7 @@ public abstract class EClient {
 
     public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2133,7 +2131,7 @@ public abstract class EClient {
 
     public synchronized void cancelFundamentalData(int reqId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2166,7 +2164,7 @@ public abstract class EClient {
             double optionPrice, double underPrice) {
 
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2225,7 +2223,7 @@ public abstract class EClient {
     public synchronized void cancelCalculateImpliedVolatility(int reqId) {
 
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2258,7 +2256,7 @@ public abstract class EClient {
             double volatility, double underPrice) {
 
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2317,7 +2315,7 @@ public abstract class EClient {
     public synchronized void cancelCalculateOptionPrice(int reqId) {
 
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2348,7 +2346,7 @@ public abstract class EClient {
 
     public synchronized void reqGlobalCancel() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2378,7 +2376,7 @@ public abstract class EClient {
 
     public synchronized void reqMarketDataType(int marketDataType) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2409,7 +2407,7 @@ public abstract class EClient {
 
     public synchronized void reqPositions() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2437,7 +2435,7 @@ public abstract class EClient {
 
     public synchronized void cancelPositions() {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2465,7 +2463,7 @@ public abstract class EClient {
 
     public synchronized void reqAccountSummary( int reqId, String group, String tags) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2496,7 +2494,7 @@ public abstract class EClient {
 
 	public synchronized void cancelAccountSummary( int reqId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2524,7 +2522,7 @@ public abstract class EClient {
     }
     public synchronized void verifyRequest( String apiName, String apiVersion) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2559,7 +2557,7 @@ public abstract class EClient {
 
     public synchronized void verifyMessage( String apiData) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2587,7 +2585,7 @@ public abstract class EClient {
 
     public synchronized void verifyAndAuthRequest( String apiName, String apiVersion, String opaqueIsvKey) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2623,7 +2621,7 @@ public abstract class EClient {
 
     public synchronized void verifyAndAuthMessage( String apiData, String xyzResponse) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2652,7 +2650,7 @@ public abstract class EClient {
 
 	public synchronized void queryDisplayGroups( int reqId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2681,7 +2679,7 @@ public abstract class EClient {
 	
 	public synchronized void subscribeToGroupEvents( int reqId, int groupId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2711,7 +2709,7 @@ public abstract class EClient {
 
 	public synchronized void updateDisplayGroup( int reqId, String contractInfo) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }
@@ -2741,7 +2739,7 @@ public abstract class EClient {
 
 	public synchronized void unsubscribeFromGroupEvents( int reqId) {
         // not connected?
-        if( !m_connected) {
+        if( !isConnected()) {
             notConnected();
             return;
         }

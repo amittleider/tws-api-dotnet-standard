@@ -497,6 +497,10 @@ Friend Class Tws
                          End Sub)
     End Sub
 
+    Public Sub connectAck() Implements EWrapper.connectAck
+        socket.startApi()
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
