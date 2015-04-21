@@ -278,7 +278,7 @@ public class SampleRfq extends SimpleWrapper {
                /*
                 * Check if we have a better match
                 */
-               int contractExpiry = Integer.parseInt(contract.expiry());
+               int contractExpiry = Integer.parseInt(contract.lastTradeDate());
                int contractMult = Integer.parseInt(contract.multiplier());
 
                if (m_frontMonthFuture != null) {

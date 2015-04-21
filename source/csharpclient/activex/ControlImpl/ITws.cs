@@ -131,7 +131,7 @@ namespace TWSLib
 
         [DispId(57)]
         void placeOrder(int id, string action, int quantity, string symbol, string secType,
-                  string expiry, double strike, string right, string multiplier,
+                  string lastTradeDate, double strike, string right, string multiplier,
                   string exchange, string primaryExchange, string curency, string orderType,
                   double price, double auxPrice, string goodAfterTime, string group,
                   string faMethod, string faPercentage, string faProfile, string goodTillDate);
@@ -143,7 +143,7 @@ namespace TWSLib
         void connect(string host, int port, int clientId, bool extraAuth);
 
         [DispId(60)]
-        void reqMktData(int id, string symbol, string secType, string expiry, double strike,
+        void reqMktData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string primaryExchange,
                   string currency, string genericTicks, bool snapshot, ITagValueList options);
 
@@ -171,12 +171,12 @@ namespace TWSLib
                   string goodAfterTime, string group,
                   string faMethod, string faPercentage, string faProfile, string goodTillDate);
         [DispId(67)]
-        void reqContractDetails(string symbol, string secType, string expiry, double strike,
+        void reqContractDetails(string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency, int includeExpired);
         [DispId(68)]
         void reqContractDetails2(string localSymbol, string secType, string exchange, string curency, int includeExpired);
         [DispId(69)]
-        void reqMktDepth(int id, string symbol, string secType, string expiry, double strike,
+        void reqMktDepth(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options);
         [DispId(70)]
         void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options);
@@ -203,12 +203,12 @@ namespace TWSLib
         [DispId(81)]
         void replaceFA(int faDataType, string cxml);
         [DispId(82)]
-        void reqHistoricalData(int id, string symbol, string secType, string expiry, double strike,
+        void reqHistoricalData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency, int isExpired,
                   string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
                   int useRTH, int formatDate, ITagValueList options);
         [DispId(83)]
-        void exerciseOptions(int id, string symbol, string secType, string expiry, double strike,
+        void exerciseOptions(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency,
                   int exerciseAction, int exerciseQuantity, int @override);
         [DispId(84)]
@@ -228,7 +228,7 @@ namespace TWSLib
         [DispId(88)]
         void resetAllProperties();
         [DispId(89)]
-        void reqRealTimeBars(int tickerId, string symbol, string secType, string expiry, double strike,
+        void reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDate, double strike,
            string right, string multiplier, string exchange, string primaryExchange, string currency,
            int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options);
         [DispId(90)]

@@ -675,7 +675,7 @@ namespace IBApi
                 contract.ConId = ReadInt();
             contract.Symbol = ReadString();
             contract.SecType = ReadString();
-            contract.Expiry = ReadString();
+            contract.LastTradeDate = ReadString();
             contract.Strike = ReadDouble();
             contract.Right = ReadString();
             if (msgVersion >= 7)
@@ -792,7 +792,7 @@ namespace IBApi
             }
             contract.Symbol = ReadString();
             contract.SecType = ReadString();
-            contract.Expiry = ReadString();
+            contract.LastTradeDate = ReadString();
             contract.Strike = ReadDouble();
             contract.Right = ReadString();
             if (msgVersion >= 32)
@@ -1164,7 +1164,7 @@ namespace IBApi
             ContractDetails contract = new ContractDetails();
             contract.Summary.Symbol = ReadString();
             contract.Summary.SecType = ReadString();
-            contract.Summary.Expiry = ReadString();
+            contract.Summary.LastTradeDate = ReadString();
             contract.Summary.Strike = ReadDouble();
             contract.Summary.Right = ReadString();
             contract.Summary.Exchange = ReadString();
@@ -1246,7 +1246,7 @@ namespace IBApi
             }
             contract.Symbol = ReadString();
             contract.SecType = ReadString();
-            contract.Expiry = ReadString();
+            contract.LastTradeDate = ReadString();
             contract.Strike = ReadDouble();
             contract.Right = ReadString();
             if (msgVersion >= 9)
@@ -1416,7 +1416,7 @@ namespace IBApi
             contract.ConId = ReadInt();
             contract.Symbol = ReadString();
             contract.SecType = ReadString();
-            contract.Expiry = ReadString();
+            contract.LastTradeDate = ReadString();
             contract.Strike = ReadDouble();
             contract.Right = ReadString();
             contract.Multiplier = ReadString();
@@ -1476,7 +1476,7 @@ namespace IBApi
                     conDet.Summary.ConId = ReadInt();
                 conDet.Summary.Symbol = ReadString();
                 conDet.Summary.SecType = ReadString();
-                conDet.Summary.Expiry = ReadString();
+                conDet.Summary.LastTradeDate = ReadString();
                 conDet.Summary.Strike = ReadDouble();
                 conDet.Summary.Right = ReadString();
                 conDet.Summary.Exchange = ReadString();

@@ -184,7 +184,7 @@ public class OptionChainsPanel extends JPanel {
 		private class ChainModel extends AbstractTableModel {
 			Comparator<ChainRow> c = new Comparator<ChainRow>() {
 				@Override public int compare(ChainRow o1, ChainRow o2) {
-					int rc = o1.m_c.expiry().compareTo( o2.m_c.expiry());
+					int rc = o1.m_c.lastTradeDate().compareTo( o2.m_c.lastTradeDate());
 					if (rc == 0) {
 						if (o1.m_c.strike() < o2.m_c.strike()) {
 							rc = -1;
@@ -231,7 +231,7 @@ public class OptionChainsPanel extends JPanel {
 			
 			@Override public String getColumnName(int col) {
 				switch( col) {
-					case 0: return "Expiry";
+					case 0: return "Last trade date";
 					case 1: return "Strike";
 					case 2: return "Bid";
 					case 3: return "Ask";
@@ -247,7 +247,7 @@ public class OptionChainsPanel extends JPanel {
 			@Override public Object getValueAt(int rowIn, int col) {
 				ChainRow row = m_list.get( rowIn);
 				switch( col) {
-					case 0: return row.m_c.expiry();
+					case 0: return row.m_c.lastTradeDate();
 					case 1: return row.m_c.strike();
 					case 2: return fmtNz( row.m_bid);
 					case 3: return fmtNz( row.m_ask);

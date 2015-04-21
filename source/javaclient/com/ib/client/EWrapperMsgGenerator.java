@@ -69,7 +69,7 @@ public class EWrapperMsgGenerator {
         " conid=" + contract.conid() + 
         " symbol=" + contract.symbol() + 
         " secType=" + contract.getSecType() + 
-        " expiry=" + contract.expiry() + 
+        " lastTradeDate=" + contract.lastTradeDate() + 
         " strike=" + contract.strike() + 
         " right=" + contract.getRight() + 
         " multiplier=" + contract.multiplier() + 
@@ -305,7 +305,7 @@ public class EWrapperMsgGenerator {
     	String msg = "conid = " + contract.conid() + "\n"
         + "symbol = " + contract.symbol() + "\n"
         + "secType = " + contract.getSecType() + "\n"
-        + "expiry = " + contract.expiry() + "\n"
+        + "lastTradeDate = " + contract.lastTradeDate() + "\n"
         + "strike = " + contract.strike() + "\n"
         + "right = " + contract.getRight() + "\n"
         + "multiplier = " + contract.multiplier() + "\n"
@@ -462,7 +462,7 @@ public class EWrapperMsgGenerator {
         " rank=" + rank +
         " symbol=" + contract.symbol() +
         " secType=" + contract.getSecType() +
-        " expiry=" + contract.expiry() +
+        " lastTradeDate=" + contract.lastTradeDate() +
         " strike=" + contract.strike() +
         " right=" + contract.getRight() +
         " exchange=" + contract.exchange() +

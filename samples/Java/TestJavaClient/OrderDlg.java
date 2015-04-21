@@ -69,7 +69,7 @@ public class OrderDlg extends JDialog {
     private JTextField 	m_conId = new JTextField();
     private JTextField 	m_symbol = new JTextField( "QQQQ");
     private JTextField 	m_secType = new JTextField( "STK");
-    private JTextField 	m_expiry = new JTextField();
+    private JTextField 	m_lastTradeDate = new JTextField();
     private JTextField 	m_strike = new JTextField( "0");
     private JTextField 	m_right = new JTextField();
     private JTextField 	m_multiplier = new JTextField("");
@@ -158,8 +158,8 @@ public class OrderDlg extends JDialog {
         addGBComponent(pContractDetails, m_symbol, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pContractDetails, new JLabel( "Security Type"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pContractDetails, m_secType, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
-        addGBComponent(pContractDetails, new JLabel( "Expiry"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
-        addGBComponent(pContractDetails, m_expiry, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
+        addGBComponent(pContractDetails, new JLabel( "Last trade date"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
+        addGBComponent(pContractDetails, m_lastTradeDate, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pContractDetails, new JLabel( "Strike"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pContractDetails, m_strike, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pContractDetails, new JLabel( "Put/Call"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
@@ -414,7 +414,7 @@ public class OrderDlg extends JDialog {
             m_contract.conid(ParseInt(m_conId.getText(), 0));
             m_contract.symbol(m_symbol.getText());
             m_contract.secType(m_secType.getText());
-            m_contract.expiry(m_expiry.getText());
+            m_contract.lastTradeDate(m_lastTradeDate.getText());
            	m_contract.strike(ParseDouble(m_strike.getText(), 0.0));
             m_contract.right(m_right.getText());
             m_contract.multiplier(m_multiplier.getText());

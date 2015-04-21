@@ -421,7 +421,7 @@ namespace IBSampleApp
             contract.Symbol = this.symbol_TMD_MDT.Text;
             contract.Exchange = this.exchange_TMD_MDT.Text;
             contract.Currency = this.currency_TMD_MDT.Text;
-            contract.Expiry = this.expiry_TMD_MDT.Text;
+            contract.LastTradeDate = this.lastTradeDate_TMD_MDT.Text;
             contract.PrimaryExch = this.primaryExchange.Text;
             contract.IncludeExpired = includeExpired.Checked;
 
@@ -534,7 +534,7 @@ namespace IBSampleApp
             contract.SecType = this.conDetSecType.Text;
             contract.Exchange = this.conDetExchange.Text;
             contract.Currency = this.conDetCurrency.Text;
-            contract.Expiry = this.conDetExpiry.Text;
+            contract.LastTradeDate = this.conDetExpiry.Text;
             contract.Strike = stringToDouble(this.conDetStrike.Text);
             contract.Multiplier = this.conDetMultiplier.Text;
             contract.LocalSymbol = this.conDetLocalSymbol.Text;
@@ -594,7 +594,7 @@ namespace IBSampleApp
             contract.SecType = this.comboSecType.Text;
             contract.Exchange = this.comboExchange.Text;
             contract.Currency = this.comboCurrency.Text;
-            contract.Expiry = this.comboExpiry.Text;
+            contract.LastTradeDate = this.comboExpiry.Text;
             contract.Strike = stringToDouble(this.comboStrike.Text);
             contract.Multiplier = this.comboMultiplier.Text;
             contract.LocalSymbol = this.comboLocalSymbol.Text;

@@ -28,7 +28,7 @@ namespace IBSampleApp.ui
             contractResults[2, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Multiplier;
             contractResults[3, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Strike;
             contractResults[4, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Right;
-            contractResults[5, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Expiry;
+            contractResults[5, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.LastTradeDate;
             contractResults[6, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.ConId;
         }
 

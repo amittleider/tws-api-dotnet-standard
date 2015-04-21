@@ -37,7 +37,7 @@ namespace IBSampleApp.ui
             this.multiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.strike = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.right = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.expiry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addComboLeg = new System.Windows.Forms.Button();
             this.contractResultsClose = new System.Windows.Forms.Button();
@@ -66,7 +66,7 @@ namespace IBSampleApp.ui
             this.multiplier,
             this.strike,
             this.right,
-            this.expiry,
+            this.lastTradeDate,
             this.conId});
             this.contractResults.Location = new System.Drawing.Point(6, 19);
             this.contractResults.Name = "contractResults";
@@ -109,11 +109,11 @@ namespace IBSampleApp.ui
             this.right.ReadOnly = true;
             this.right.Width = 50;
             // 
-            // expiry
+            // lastTradeDate
             // 
-            this.expiry.HeaderText = "Expiry";
-            this.expiry.Name = "expiry";
-            this.expiry.ReadOnly = true;
+            this.lastTradeDate.HeaderText = "Last trade date";
+            this.lastTradeDate.Name = "lastTradeDate";
+            this.lastTradeDate.ReadOnly = true;
             // 
             // conId
             // 
@@ -169,7 +169,7 @@ namespace IBSampleApp.ui
         private System.Windows.Forms.DataGridViewTextBoxColumn multiplier;
         private System.Windows.Forms.DataGridViewTextBoxColumn strike;
         private System.Windows.Forms.DataGridViewTextBoxColumn right;
-        private System.Windows.Forms.DataGridViewTextBoxColumn expiry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastTradeDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn conId;
     }
 }

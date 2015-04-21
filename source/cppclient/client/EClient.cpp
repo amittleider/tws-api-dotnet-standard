@@ -365,7 +365,7 @@ void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
@@ -493,7 +493,7 @@ void EClient::reqMktDepth( TickerId tickerId, const Contract& contract, int numR
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
@@ -594,7 +594,7 @@ void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier);
@@ -719,7 +719,7 @@ void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier);
@@ -1010,7 +1010,7 @@ void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contrac
 	ENCODE_FIELD( contract.conId);
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier);
@@ -1089,7 +1089,7 @@ void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, dou
 	ENCODE_FIELD( contract.conId);
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier);
@@ -1186,7 +1186,7 @@ void EClient::reqContractDetails( int reqId, const Contract& contract)
 	ENCODE_FIELD( contract.conId); // srv v37 and above
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
@@ -1495,7 +1495,7 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier); // srv v15 and above
@@ -2167,7 +2167,7 @@ void EClient::exerciseOptions( TickerId tickerId, const Contract& contract,
 	}
 	ENCODE_FIELD( contract.symbol);
 	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.expiry);
+	ENCODE_FIELD( contract.lastTradeDate);
 	ENCODE_FIELD( contract.strike);
 	ENCODE_FIELD( contract.right);
 	ENCODE_FIELD( contract.multiplier);

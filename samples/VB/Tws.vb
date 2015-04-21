@@ -26,6 +26,9 @@ Friend Class Tws
 
 #Region "IBApi.EWrapper"
 
+    Public Sub connectAck() Implements EWrapper.connectAck
+        'socket.startApi()
+    End Sub
 
     Public Sub accountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
         InvokeIfRequired(Sub()
