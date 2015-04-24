@@ -84,7 +84,7 @@ public:
    virtual void tickGeneric(TickerId tickerId, TickType tickType, double value) = 0;
    virtual void tickString(TickerId tickerId, TickType tickType, const std::string& value) = 0;
    virtual void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
-	   double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) = 0;
+	   double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) = 0;
    virtual void orderStatus( OrderId orderId, const std::string& status, int filled,
 	   int remaining, double avgFillPrice, int permId, int parentId,
 	   double lastFillPrice, int clientId, const std::string& whyHeld) = 0;

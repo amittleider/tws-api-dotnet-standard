@@ -14,11 +14,11 @@ Namespace AxTWSLib
 
         Property holdDays As Integer
 
-        Property futureExpiry As String
+        Property futureLastTradeDate As String
 
         Property dividendImpact As Double
 
-        Property dividendsToExpiry As Double
+        Property dividendsToLastTradeDate As Double
 
         Property formattedBasisPoints As String
 

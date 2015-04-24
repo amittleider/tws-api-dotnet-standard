@@ -406,7 +406,7 @@ public class ApiController implements EWrapper {
 	}
 
 	public interface IEfpHandler extends ITopMktDataHandler {
-		void tickEFP(int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureExpiry, double dividendImpact, double dividendsToExpiry);
+		void tickEFP(int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 	}
 
 	public interface IOptHandler extends ITopMktDataHandler {
@@ -507,10 +507,10 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
-	@Override public void tickEFP(int reqId, int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+	@Override public void tickEFP(int reqId, int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
 		IEfpHandler handler = m_efpMap.get( reqId);
 		if (handler != null) {
-			handler.tickEFP( tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+			handler.tickEFP( tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
 		}
 		recEOM();
 	}

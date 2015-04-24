@@ -45,12 +45,12 @@ public class EWrapperMsgGenerator {
     
     static public String tickEFP(int tickerId, int tickType, double basisPoints,
 			String formattedBasisPoints, double impliedFuture, int holdDays,
-			String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
     	return "id=" + tickerId + "  " + TickType.getField(tickType)
 		+ ": basisPoints = " + basisPoints + "/" + formattedBasisPoints
 		+ " impliedFuture = " + impliedFuture + " holdDays = " + holdDays +
-		" futureExpiry = " + futureExpiry + " dividendImpact = " + dividendImpact +
-		" dividends to expiry = "	+ dividendsToExpiry;
+		" futureLastTradeDate = " + futureLastTradeDate + " dividendImpact = " + dividendImpact +
+		" dividends to expiry = "	+ dividendsToLastTradeDate;
     }
     
     static public String orderStatus( int orderId, String status, int filled, int remaining,

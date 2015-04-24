@@ -224,7 +224,7 @@ void TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType,
 void TestCppClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
 void TestCppClient::tickString(TickerId tickerId, TickType tickType, const std::string& value) {}
 void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
-                            double totalDividends, int holdDays, const std::string& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
+                            double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {}
 void TestCppClient::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
 void TestCppClient::openOrderEnd() {}
 void TestCppClient::winError( const std::string& str, int lastError) {}

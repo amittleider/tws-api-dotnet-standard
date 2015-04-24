@@ -26,10 +26,6 @@ Friend Class Tws
 
 #Region "IBApi.EWrapper"
 
-    Public Sub connectAck() Implements EWrapper.connectAck
-        'socket.startApi()
-    End Sub
-
     Public Sub accountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
         InvokeIfRequired(Sub()
                              RaiseEvent OnaccountDownloadEnd(Me, New AxTWSLib._DTwsEvents_accountDownloadEndEvent With {
@@ -325,7 +321,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub tickEFP(tickerId As Integer, tickType As Integer, basisPoints As Double, formattedBasisPoints As String, impliedFuture As Double, holdDays As Integer, futureExpiry As String, dividendImpact As Double, dividendsToExpiry As Double) Implements IBApi.EWrapper.tickEFP
+    Public Sub tickEFP(tickerId As Integer, tickType As Integer, basisPoints As Double, formattedBasisPoints As String, impliedFuture As Double, holdDays As Integer, futureLastTradeDate As String, dividendImpact As Double, dividendsToLastTradeDate As Double) Implements IBApi.EWrapper.tickEFP
         InvokeIfRequired(Sub()
                              RaiseEvent OnTickEFP(Me, New AxTWSLib._DTwsEvents_tickEFPEvent With {
                                                                                       .tickerId = tickerId,
@@ -334,9 +330,9 @@ Friend Class Tws
                                                                                       .formattedBasisPoints = formattedBasisPoints,
                                                                                       .impliedFuture = impliedFuture,
                                                                                       .holdDays = holdDays,
-                                                                                      .futureExpiry = futureExpiry,
+                                                                                      .futureLastTradeDate = futureLastTradeDate,
                                                                                       .dividendImpact = dividendImpact,
-                                                                                      .dividendsToExpiry = dividendsToExpiry
+                                                                                      .dividendsToLastTradeDate = dividendsToLastTradeDate
                                                                                   })
                          End Sub)
     End Sub

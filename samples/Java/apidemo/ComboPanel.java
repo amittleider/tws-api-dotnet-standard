@@ -533,9 +533,9 @@ public class ComboPanel extends JPanel implements INewTab {
 					case 4: return row.m_formattedBasisPoints;
 					case 5: return row.m_impliedFuture;
 					case 6: return row.m_holdDays;
-					case 7: return row.m_futureExpiry;
+					case 7: return row.m_futureLastTradeDate;
 					case 8: return row.m_dividendImpact;
-					case 9: return row.m_dividendsToExpiry;
+					case 9: return row.m_dividendsToLastTradeDate;
 					default: return null;
 				}
 			}
@@ -545,22 +545,22 @@ public class ComboPanel extends JPanel implements INewTab {
 				String m_formattedBasisPoints;
 				double m_impliedFuture;
 				int m_holdDays;
-				String m_futureExpiry;
+				String m_futureLastTradeDate;
 				double m_dividendImpact;
-				double m_dividendsToExpiry;
+				double m_dividendsToLastTradeDate;
 				
 				EfpRow(AbstractTableModel model, String description) {
 					super(model, description);
 				}
 
-				@Override public void tickEFP(int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+				@Override public void tickEFP(int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
 					m_basisPoints = basisPoints;
 					m_formattedBasisPoints = formattedBasisPoints;
 					m_impliedFuture = impliedFuture;
 					m_holdDays = holdDays;
-					m_futureExpiry = futureExpiry;
+					m_futureLastTradeDate = futureLastTradeDate;
 					m_dividendImpact = dividendImpact;
-					m_dividendsToExpiry = dividendsToExpiry;
+					m_dividendsToLastTradeDate = dividendsToLastTradeDate;
 
 					m_model.fireTableDataChanged();
 				}

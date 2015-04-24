@@ -175,7 +175,7 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
     {
         getWrapper()->error(NO_VALID_ID, SSL_FAIL.code(), SSL_FAIL.msg() + "certificate verification failure");
 
-        return false;
+        //return false;
     }
 
     getTransport()->fd(m_pSSL);

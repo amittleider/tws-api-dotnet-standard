@@ -18,6 +18,13 @@ namespace Samples
         {
             EWrapperImpl testImpl = new EWrapperImpl();
             testImpl.ClientSocket.eConnect("127.0.0.1", 7496, 0, false);
+
+            var reader = new EReader(testImpl.ClientSocket, testImpl.Signal);
+
+            reader.Start();
+
+            new Thread(() => { while (testImpl.ClientSocket.IsConnected()) { testImpl.Signal.waitForSignal(); reader.processMsgs(); } }) { IsBackground = true }.Start();
+
             /*************************************************************************************************************************************************/
             /* One good way of knowing if we can proceed is by monitoring the order's nextValidId reception which comes down automatically after connecting. */
             /*************************************************************************************************************************************************/

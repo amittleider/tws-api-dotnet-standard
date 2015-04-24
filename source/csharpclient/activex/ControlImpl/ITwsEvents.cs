@@ -71,8 +71,8 @@ namespace TWSLib
         void tickString(int id, int tickType, string value);
         [DispId(30)]
         void tickEFP(int tickerId, int field, double basisPoints, string formattedBasisPoints,
-                     double totalDividends, int holdDays, string futureExpiry, double dividendImpact,
-                     double dividendsToExpiry);
+                     double totalDividends, int holdDays, string futureLastTradeDate, double dividendImpact,
+                     double dividendsToLastTradeDate);
         [DispId(31)]
         void realtimeBar(int tickerId, int time, double open, double high, double low, double close,
                          int volume, double WAP, int count);

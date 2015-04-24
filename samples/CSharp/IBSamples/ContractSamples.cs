@@ -17,7 +17,7 @@ namespace Samples
             contract.SecType = "OPT";
             contract.Exchange = "DTB";
             contract.Currency = "EUR";
-            contract.lastTradeDate = "201512";
+            contract.LastTradeDate = "201512";
             contract.Strike = 100;
             contract.Right = "CALL";
             contract.Multiplier = "100";
@@ -42,7 +42,7 @@ namespace Samples
             contract.SecType = "OPT";
             contract.Exchange = "MEFFRV";
             contract.Currency = "EUR";
-            contract.lastTradeDate = "20131220";
+            contract.LastTradeDate = "20131220";
             contract.Strike = 6;
             contract.Right = "CALL";
             contract.Multiplier = "100";
