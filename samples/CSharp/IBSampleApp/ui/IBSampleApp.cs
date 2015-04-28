@@ -14,6 +14,7 @@ using IBApi;
 using IBSampleApp.ui;
 using IBSampleApp.util;
 using IBSampleApp.types;
+using System.Threading;
 
 
 namespace IBSampleApp
@@ -38,11 +39,13 @@ namespace IBSampleApp
         private bool isConnected = false;
 
         private int MAX_LINES_IN_MESSAGE_BOX = 100;
+        private EReaderMonitorSignal signal = new EReaderMonitorSignal();
+
 
         public IBSampleApp()
         {
             InitializeComponent();
-            ibClient = new IBClient(this);
+            ibClient = new IBClient(this, signal);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
             historicalDataManager = new HistoricalDataManager(ibClient, historicalChart, barsGrid);
@@ -297,6 +300,12 @@ namespace IBSampleApp
                     port = Int32.Parse(this.port_CT.Text);
                     ibClient.ClientId = Int32.Parse(this.clientid_CT.Text);
                     ibClient.ClientSocket.eConnect(host, port, ibClient.ClientId);
+
+                    var reader = new EReader(ibClient.ClientSocket, signal);
+
+                    reader.Start();
+
+                    new Thread(() => { while (ibClient.ClientSocket.IsConnected()) { signal.waitForSignal(); reader.processMsgs(); } }) { IsBackground = true }.Start();
                 }
                 catch (Exception)
                 {
@@ -534,7 +543,7 @@ namespace IBSampleApp
             contract.SecType = this.conDetSecType.Text;
             contract.Exchange = this.conDetExchange.Text;
             contract.Currency = this.conDetCurrency.Text;
-            contract.LastTradeDate = this.conDetExpiry.Text;
+            contract.LastTradeDate = this.conDetLastTradeDate.Text;
             contract.Strike = stringToDouble(this.conDetStrike.Text);
             contract.Multiplier = this.conDetMultiplier.Text;
             contract.LocalSymbol = this.conDetLocalSymbol.Text;
@@ -594,7 +603,7 @@ namespace IBSampleApp
             contract.SecType = this.comboSecType.Text;
             contract.Exchange = this.comboExchange.Text;
             contract.Currency = this.comboCurrency.Text;
-            contract.LastTradeDate = this.comboExpiry.Text;
+            contract.LastTradeDate = this.comboLastTradeDate.Text;
             contract.Strike = stringToDouble(this.comboStrike.Text);
             contract.Multiplier = this.comboMultiplier.Text;
             contract.LocalSymbol = this.comboLocalSymbol.Text;

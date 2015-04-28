@@ -1227,11 +1227,11 @@ class EDecoder {
 		String formattedBasisPoints = readStr();
 		double impliedFuturesPrice = readDouble();
 		int holdDays = readInt();
-		String futureExpiry = readStr();
+		String futureLastTradeDate = readStr();
 		double dividendImpact = readDouble();
-		double dividendsToExpiry = readDouble();
+		double dividendsToLastTradeDate = readDouble();
 		m_EWrapper.tickEFP( tickerId, tickType, basisPoints, formattedBasisPoints,
-							impliedFuturesPrice, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+							impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
 	}
 
 	private void processTickStringMsg() throws IOException {

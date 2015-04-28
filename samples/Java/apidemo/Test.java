@@ -58,8 +58,8 @@ public class Test implements EWrapper {
 	@Override public void tickString(int tickerId, int tickType, String value) {
 	}
 
-	@Override public void tickEFP(int tickerId, int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureExpiry, double dividendImpact,
-			double dividendsToExpiry) {
+	@Override public void tickEFP(int tickerId, int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact,
+			double dividendsToLastTradeDate) {
 	}
 
 	@Override public void orderStatus(int orderId, String status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {

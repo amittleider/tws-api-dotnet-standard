@@ -185,9 +185,9 @@ const char* EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
     std::string formattedBasisPoints;
     double impliedFuturesPrice;
     int holdDays;
-    std::string futureExpiry;
+    std::string futureLastTradeDate;
     double dividendImpact;
-    double dividendsToExpiry;
+    double dividendsToLastTradeDate;
 
     DECODE_FIELD( version);
     DECODE_FIELD( tickerId);
@@ -196,12 +196,12 @@ const char* EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( formattedBasisPoints);
     DECODE_FIELD( impliedFuturesPrice);
     DECODE_FIELD( holdDays);
-    DECODE_FIELD( futureExpiry);
+    DECODE_FIELD( futureLastTradeDate);
     DECODE_FIELD( dividendImpact);
-    DECODE_FIELD( dividendsToExpiry);
+    DECODE_FIELD( dividendsToLastTradeDate);
 
     m_pEWrapper->tickEFP( tickerId, (TickType)tickTypeInt, basisPoints, formattedBasisPoints,
-        impliedFuturesPrice, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+        impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
 
     return ptr;
 }

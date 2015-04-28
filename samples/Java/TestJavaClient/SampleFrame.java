@@ -937,11 +937,11 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void tickEFP(int tickerId, int tickType, double basisPoints, String formattedBasisPoints,
-    					double impliedFuture, int holdDays, String futureExpiry, double dividendImpact,
-    					double dividendsToExpiry) {
+    					double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact,
+    					double dividendsToLastTradeDate) {
         // received EFP tick
     	String msg = EWrapperMsgGenerator.tickEFP(tickerId, tickType, basisPoints, formattedBasisPoints,
-				impliedFuture, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+				impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         m_tickers.add(msg);
     }
 

@@ -374,7 +374,7 @@ Friend Class dlgOrder
         Me.Label21.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label21.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label21.Location = New System.Drawing.Point(13, 171)
+        Me.Label21.Location = New System.Drawing.Point(14, 178)
         Me.Label21.Name = "Label21"
         Me.Label21.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label21.Size = New System.Drawing.Size(80, 33)
@@ -387,10 +387,10 @@ Friend Class dlgOrder
         Me.Label20.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label20.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label20.Location = New System.Drawing.Point(13, 141)
+        Me.Label20.Location = New System.Drawing.Point(13, 134)
         Me.Label20.Name = "Label20"
         Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label20.Size = New System.Drawing.Size(80, 29)
+        Me.Label20.Size = New System.Drawing.Size(80, 44)
         Me.Label20.TabIndex = 8
         Me.Label20.Text = "Regular Trading Hours (1 or 0)"
         '
@@ -1120,7 +1120,7 @@ Friend Class dlgOrder
         Me.Label1.Location = New System.Drawing.Point(8, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label1.Size = New System.Drawing.Size(96, 17)
+        Me.Label1.Size = New System.Drawing.Size(96, 30)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Max Market Depth Rows"
         '

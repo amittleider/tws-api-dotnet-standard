@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,12 @@ namespace Samples
     public class EWrapperImpl : EWrapper 
     {
         EClientSocket clientSocket;
+        public readonly EReaderSignal Signal = new EReaderMonitorSignal();
         private int nextOrderId;
         
         public EWrapperImpl()
         {
-            clientSocket = new EClientSocket(this);
+            clientSocket = new EClientSocket(this, Signal);
         }
 
         public EClientSocket ClientSocket
@@ -76,9 +77,9 @@ namespace Samples
             Console.WriteLine("Tick Generic. Ticker Id:" + tickerId + ", Field: " + field + ", Value: " + value+"\n");
         }
 
-        public virtual void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureExpiry, double dividendImpact, double dividendsToExpiry)
+        public virtual void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
         {
-            Console.WriteLine("TickEFP. "+tickerId+", Type: "+tickType+", BasisPoints: "+basisPoints+", FormattedBasisPoints: "+formattedBasisPoints+", ImpliedFuture: "+impliedFuture+", HoldDays: "+holdDays+", FutureExpiry: "+futureExpiry+", DividendImpact: "+dividendImpact+", DividendsToExpiry: "+dividendsToExpiry+"\n");
+            Console.WriteLine("TickEFP. "+tickerId+", Type: "+tickType+", BasisPoints: "+basisPoints+", FormattedBasisPoints: "+formattedBasisPoints+", ImpliedFuture: "+impliedFuture+", HoldDays: "+holdDays+", FutureLastTradeDate: "+futureLastTradeDate+", DividendImpact: "+dividendImpact+", DividendsToLastTradeDate: "+dividendsToLastTradeDate+"\n");
         }
 
         public virtual void tickSnapshotEnd(int tickerId)
@@ -281,6 +282,12 @@ namespace Samples
         public virtual void displayGroupUpdated(int reqId, string contractInfo)
         {
             Console.WriteLine("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
+        }
+
+
+        public void connectAck()
+        {
+            ClientSocket.startApi();
         }
     }
 }

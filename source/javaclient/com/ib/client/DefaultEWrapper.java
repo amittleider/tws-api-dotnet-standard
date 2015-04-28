@@ -42,7 +42,7 @@ class DefaultEWrapper implements EWrapper {
 	@Override
 	public void tickEFP(int tickerId, int tickType, double basisPoints,
 			String formattedBasisPoints, double impliedFuture, int holdDays,
-			String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
 		// TODO Auto-generated method stub
 		
 	}

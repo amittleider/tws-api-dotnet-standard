@@ -979,8 +979,8 @@ namespace TWSLib
         public delegate void tickStringDelegate(int id, int tickType, string value);
 
         public delegate void tickEFPDelegate(int tickerId, int field, double basisPoints, string formattedBasisPoints,
-                     double totalDividends, int holdDays, string futureExpiry, double dividendImpact,
-                     double dividendsToExpiry);
+                     double totalDividends, int holdDays, string futureLastTradeDate, double dividendImpact,
+                     double dividendsToLastTradeDate);
 
         public delegate void realtimeBarDelegate(int tickerId, int time, double open, double high, double low, double close,
                          int volume, double WAP, int count);
@@ -1236,11 +1236,11 @@ namespace TWSLib
                 InvokeIfRequired(t_tickGeneric, tickerId, field, value);
         }
 
-        void EWrapper.tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureExpiry, double dividendImpact, double dividendsToExpiry)
+        void EWrapper.tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
         {
             var t_tickEFP = this.tickEFP;
             if (t_tickEFP != null)
-                InvokeIfRequired(t_tickEFP, tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+                InvokeIfRequired(t_tickEFP, tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
 
         void EWrapper.deltaNeutralValidation(int reqId, UnderComp underComp)

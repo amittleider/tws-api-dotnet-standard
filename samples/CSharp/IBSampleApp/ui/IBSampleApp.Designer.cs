@@ -235,7 +235,7 @@ namespace IBSampleApp
             this.conDetRightLabel = new System.Windows.Forms.Label();
             this.conDetStrikeLabel = new System.Windows.Forms.Label();
             this.conDetRight = new System.Windows.Forms.ComboBox();
-            this.conDetExpiryLabel = new System.Windows.Forms.Label();
+            this.conDetLastTradeDateLabel = new System.Windows.Forms.Label();
             this.conDetSecType = new System.Windows.Forms.ComboBox();
             this.conDetMultiplierLabel = new System.Windows.Forms.Label();
             this.conDetSecTypeLabel = new System.Windows.Forms.Label();
@@ -246,7 +246,7 @@ namespace IBSampleApp
             this.conDetMultiplier = new System.Windows.Forms.TextBox();
             this.conDetCurrencyLabel = new System.Windows.Forms.Label();
             this.conDetCurrency = new System.Windows.Forms.TextBox();
-            this.conDetExpiry = new System.Windows.Forms.TextBox();
+            this.conDetLastTradeDate = new System.Windows.Forms.TextBox();
             this.conDetStrike = new System.Windows.Forms.TextBox();
             this.conDetSymbol = new System.Windows.Forms.TextBox();
             this.contractInfoTab = new System.Windows.Forms.TabControl();
@@ -258,7 +258,7 @@ namespace IBSampleApp
             this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResExpiry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -268,7 +268,7 @@ namespace IBSampleApp
             this.optionChainPage = new System.Windows.Forms.TabPage();
             this.optionChainCallGroup = new System.Windows.Forms.GroupBox();
             this.optionChainCallGrid = new System.Windows.Forms.DataGridView();
-            this.callExpiry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.callLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.callStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.callBid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.callAsk = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -279,7 +279,7 @@ namespace IBSampleApp
             this.callTheta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.optionChainPutGroup = new System.Windows.Forms.GroupBox();
             this.optionChainPutGrid = new System.Windows.Forms.DataGridView();
-            this.putExpiry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.putLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putBid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putAsk = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -361,12 +361,12 @@ namespace IBSampleApp
             this.comboSymbol = new System.Windows.Forms.TextBox();
             this.comboStrike = new System.Windows.Forms.TextBox();
             this.comboRightLabel = new System.Windows.Forms.Label();
-            this.comboExpiry = new System.Windows.Forms.TextBox();
+            this.comboLastTradeDate = new System.Windows.Forms.TextBox();
             this.comboStrikeLabel = new System.Windows.Forms.Label();
             this.comboCurrency = new System.Windows.Forms.TextBox();
             this.comboRight = new System.Windows.Forms.ComboBox();
             this.comboCurrencyLabel = new System.Windows.Forms.Label();
-            this.comboExpiryLabel = new System.Windows.Forms.Label();
+            this.comboLastTradeDateLabel = new System.Windows.Forms.Label();
             this.comboMultiplier = new System.Windows.Forms.TextBox();
             this.comboSecType = new System.Windows.Forms.ComboBox();
             this.comboLocalSymbol = new System.Windows.Forms.TextBox();
@@ -2391,7 +2391,7 @@ namespace IBSampleApp
             this.contractDetailsGroupBox.Controls.Add(this.conDetRightLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetStrikeLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetRight);
-            this.contractDetailsGroupBox.Controls.Add(this.conDetExpiryLabel);
+            this.contractDetailsGroupBox.Controls.Add(this.conDetLastTradeDateLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetSecType);
             this.contractDetailsGroupBox.Controls.Add(this.conDetMultiplierLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetSecTypeLabel);
@@ -2402,7 +2402,7 @@ namespace IBSampleApp
             this.contractDetailsGroupBox.Controls.Add(this.conDetMultiplier);
             this.contractDetailsGroupBox.Controls.Add(this.conDetCurrencyLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetCurrency);
-            this.contractDetailsGroupBox.Controls.Add(this.conDetExpiry);
+            this.contractDetailsGroupBox.Controls.Add(this.conDetLastTradeDate);
             this.contractDetailsGroupBox.Controls.Add(this.conDetStrike);
             this.contractDetailsGroupBox.Controls.Add(this.conDetSymbol);
             this.contractDetailsGroupBox.Location = new System.Drawing.Point(8, 6);
@@ -2458,14 +2458,14 @@ namespace IBSampleApp
             this.conDetRight.Size = new System.Drawing.Size(100, 21);
             this.conDetRight.TabIndex = 58;
             // 
-            // conDetExpiryLabel
+            // conDetLastTradeDateLabel
             // 
-            this.conDetExpiryLabel.AutoSize = true;
-            this.conDetExpiryLabel.Location = new System.Drawing.Point(233, 48);
-            this.conDetExpiryLabel.Name = "conDetExpiryLabel";
-            this.conDetExpiryLabel.Size = new System.Drawing.Size(35, 13);
-            this.conDetExpiryLabel.TabIndex = 20;
-            this.conDetExpiryLabel.Text = "lastTradeDate";
+            this.conDetLastTradeDateLabel.AutoSize = true;
+            this.conDetLastTradeDateLabel.Location = new System.Drawing.Point(233, 48);
+            this.conDetLastTradeDateLabel.Name = "conDetLastTradeDateLabel";
+            this.conDetLastTradeDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.conDetLastTradeDateLabel.TabIndex = 20;
+            this.conDetLastTradeDateLabel.Text = "lastTradeDate";
             // 
             // conDetSecType
             // 
@@ -2573,12 +2573,12 @@ namespace IBSampleApp
             this.conDetCurrency.TabIndex = 26;
             this.conDetCurrency.Text = "USD";
             // 
-            // conDetExpiry
+            // conDetLastTradeDate
             // 
-            this.conDetExpiry.Location = new System.Drawing.Point(274, 49);
-            this.conDetExpiry.Name = "conDetExpiry";
-            this.conDetExpiry.Size = new System.Drawing.Size(100, 20);
-            this.conDetExpiry.TabIndex = 30;
+            this.conDetLastTradeDate.Location = new System.Drawing.Point(274, 49);
+            this.conDetLastTradeDate.Name = "conDetLastTradeDate";
+            this.conDetLastTradeDate.Size = new System.Drawing.Size(100, 20);
+            this.conDetLastTradeDate.TabIndex = 30;
             // 
             // conDetStrike
             // 
@@ -2637,7 +2637,7 @@ namespace IBSampleApp
             this.conResCurrency,
             this.conResExchange,
             this.conResPrimaryExch,
-            this.conResExpiry,
+            this.conResLastTradeDate,
             this.conResMultiplier,
             this.conResStrike,
             this.conResRight,
@@ -2684,11 +2684,11 @@ namespace IBSampleApp
             this.conResPrimaryExch.Name = "conResPrimaryExch";
             this.conResPrimaryExch.ReadOnly = true;
             // 
-            // conResExpiry
+            // conResLastTradeDate
             // 
-            this.conResExpiry.HeaderText = "lastTradeDate";
-            this.conResExpiry.Name = "conResExpiry";
-            this.conResExpiry.ReadOnly = true;
+            this.conResLastTradeDate.HeaderText = "lastTradeDate";
+            this.conResLastTradeDate.Name = "conResLastTradeDate";
+            this.conResLastTradeDate.ReadOnly = true;
             // 
             // conResMultiplier
             // 
@@ -2764,7 +2764,7 @@ namespace IBSampleApp
             // 
             this.optionChainCallGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.optionChainCallGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.callExpiry,
+            this.callLastTradeDate,
             this.callStrike,
             this.callBid,
             this.callAsk,
@@ -2779,11 +2779,11 @@ namespace IBSampleApp
             this.optionChainCallGrid.Size = new System.Drawing.Size(576, 206);
             this.optionChainCallGrid.TabIndex = 40;
             // 
-            // callExpiry
+            // callLastTradeDate
             // 
-            this.callExpiry.HeaderText = "lastTradeDate";
-            this.callExpiry.Name = "callExpiry";
-            this.callExpiry.Width = 70;
+            this.callLastTradeDate.HeaderText = "lastTradeDate";
+            this.callLastTradeDate.Name = "callLastTradeDate";
+            this.callLastTradeDate.Width = 70;
             // 
             // callStrike
             // 
@@ -2854,7 +2854,7 @@ namespace IBSampleApp
             // 
             this.optionChainPutGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.optionChainPutGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.putExpiry,
+            this.putLastTradeDate,
             this.putStrike,
             this.putBid,
             this.putAsk,
@@ -2869,11 +2869,11 @@ namespace IBSampleApp
             this.optionChainPutGrid.Size = new System.Drawing.Size(579, 206);
             this.optionChainPutGrid.TabIndex = 41;
             // 
-            // putExpiry
+            // putLastTradeDate
             // 
-            this.putExpiry.HeaderText = "lastTradeDate";
-            this.putExpiry.Name = "putExpiry";
-            this.putExpiry.Width = 70;
+            this.putLastTradeDate.HeaderText = "lastTradeDate";
+            this.putLastTradeDate.Name = "putLastTradeDate";
+            this.putLastTradeDate.Width = 70;
             // 
             // putStrike
             // 
@@ -3580,12 +3580,12 @@ namespace IBSampleApp
             this.comboContractBox.Controls.Add(this.comboSymbol);
             this.comboContractBox.Controls.Add(this.comboStrike);
             this.comboContractBox.Controls.Add(this.comboRightLabel);
-            this.comboContractBox.Controls.Add(this.comboExpiry);
+            this.comboContractBox.Controls.Add(this.comboLastTradeDate);
             this.comboContractBox.Controls.Add(this.comboStrikeLabel);
             this.comboContractBox.Controls.Add(this.comboCurrency);
             this.comboContractBox.Controls.Add(this.comboRight);
             this.comboContractBox.Controls.Add(this.comboCurrencyLabel);
-            this.comboContractBox.Controls.Add(this.comboExpiryLabel);
+            this.comboContractBox.Controls.Add(this.comboLastTradeDateLabel);
             this.comboContractBox.Controls.Add(this.comboMultiplier);
             this.comboContractBox.Controls.Add(this.comboSecType);
             this.comboContractBox.Controls.Add(this.comboLocalSymbol);
@@ -3645,13 +3645,13 @@ namespace IBSampleApp
             this.comboRightLabel.TabIndex = 78;
             this.comboRightLabel.Text = "Put/Call";
             // 
-            // comboExpiry
+            // comboLastTradeDate
             // 
-            this.comboExpiry.Location = new System.Drawing.Point(213, 45);
-            this.comboExpiry.Name = "comboExpiry";
-            this.comboExpiry.Size = new System.Drawing.Size(67, 20);
-            this.comboExpiry.TabIndex = 74;
-            this.comboExpiry.Text = "20130908";
+            this.comboLastTradeDate.Location = new System.Drawing.Point(213, 45);
+            this.comboLastTradeDate.Name = "comboLastTradeDate";
+            this.comboLastTradeDate.Size = new System.Drawing.Size(67, 20);
+            this.comboLastTradeDate.TabIndex = 74;
+            this.comboLastTradeDate.Text = "20130908";
             // 
             // comboStrikeLabel
             // 
@@ -3687,14 +3687,14 @@ namespace IBSampleApp
             this.comboCurrencyLabel.TabIndex = 68;
             this.comboCurrencyLabel.Text = "Currency";
             // 
-            // comboExpiryLabel
+            // comboLastTradeDateLabel
             // 
-            this.comboExpiryLabel.AutoSize = true;
-            this.comboExpiryLabel.Location = new System.Drawing.Point(172, 44);
-            this.comboExpiryLabel.Name = "comboExpiryLabel";
-            this.comboExpiryLabel.Size = new System.Drawing.Size(35, 13);
-            this.comboExpiryLabel.TabIndex = 64;
-            this.comboExpiryLabel.Text = "lastTradeDate";
+            this.comboLastTradeDateLabel.AutoSize = true;
+            this.comboLastTradeDateLabel.Location = new System.Drawing.Point(172, 44);
+            this.comboLastTradeDateLabel.Name = "comboLastTradeDateLabel";
+            this.comboLastTradeDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.comboLastTradeDateLabel.TabIndex = 64;
+            this.comboLastTradeDateLabel.Text = "lastTradeDate";
             // 
             // comboMultiplier
             // 
@@ -4143,7 +4143,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label conDetExchangeLabel;
         private System.Windows.Forms.TextBox conDetLocalSymbol;
         private System.Windows.Forms.Label conDetCurrencyLabel;
-        private System.Windows.Forms.TextBox conDetExpiry;
+        private System.Windows.Forms.TextBox conDetLastTradeDate;
         private System.Windows.Forms.TextBox conDetSymbol;
         private System.Windows.Forms.TextBox conDetStrike;
         private System.Windows.Forms.TextBox conDetCurrency;
@@ -4151,7 +4151,7 @@ namespace IBSampleApp
         private System.Windows.Forms.TextBox conDetExchange;
         private System.Windows.Forms.Label conDetLocalSymbolLabel;
         private System.Windows.Forms.Label conDetMultiplierLabel;
-        private System.Windows.Forms.Label conDetExpiryLabel;
+        private System.Windows.Forms.Label conDetLastTradeDateLabel;
         private System.Windows.Forms.Label conDetStrikeLabel;
         private System.Windows.Forms.TabControl contractInfoTab;
         private System.Windows.Forms.TabPage contractDetailsPage;
@@ -4163,7 +4163,7 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn conResCurrency;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResExchange;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResPrimaryExch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResExpiry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResMultiplier;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResStrike;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResRight;
@@ -4205,7 +4205,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label comboRightLabel;
         private System.Windows.Forms.Label comboStrikeLabel;
         private System.Windows.Forms.ComboBox comboRight;
-        private System.Windows.Forms.Label comboExpiryLabel;
+        private System.Windows.Forms.Label comboLastTradeDateLabel;
         private System.Windows.Forms.ComboBox comboSecType;
         private System.Windows.Forms.Label comboMultiplierLabel;
         private System.Windows.Forms.Label comboSecTypeLabel;
@@ -4216,7 +4216,7 @@ namespace IBSampleApp
         private System.Windows.Forms.TextBox comboMultiplier;
         private System.Windows.Forms.Label comboCurrencyLabel;
         private System.Windows.Forms.TextBox comboCurrency;
-        private System.Windows.Forms.TextBox comboExpiry;
+        private System.Windows.Forms.TextBox comboLastTradeDate;
         private System.Windows.Forms.TextBox comboStrike;
         private System.Windows.Forms.TextBox comboSymbol;
         private System.Windows.Forms.GroupBox comboContractBox;
@@ -4247,7 +4247,7 @@ namespace IBSampleApp
         private System.Windows.Forms.CheckBox optionChainUseSnapshot;
         private System.Windows.Forms.DataGridView optionChainCallGrid;
         private System.Windows.Forms.DataGridView optionChainPutGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn putExpiry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn putLastTradeDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn putStrike;
         private System.Windows.Forms.DataGridViewTextBoxColumn putBid;
         private System.Windows.Forms.DataGridViewTextBoxColumn putAsk;
@@ -4256,7 +4256,7 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn putGamma;
         private System.Windows.Forms.DataGridViewTextBoxColumn putVega;
         private System.Windows.Forms.DataGridViewTextBoxColumn putTheta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn callExpiry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn callLastTradeDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn callStrike;
         private System.Windows.Forms.DataGridViewTextBoxColumn callBid;
         private System.Windows.Forms.DataGridViewTextBoxColumn callAsk;

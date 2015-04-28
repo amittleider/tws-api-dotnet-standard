@@ -452,10 +452,10 @@ namespace IBApi
             string formattedBasisPoints = ReadString();
             double impliedFuturesPrice = ReadDouble();
             int holdDays = ReadInt();
-            string futureExpiry = ReadString();
+            string futureLastTradeDate = ReadString();
             double dividendImpact = ReadDouble();
-            double dividendsToExpiry = ReadDouble();
-            eWrapper.tickEFP(requestId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureExpiry, dividendImpact, dividendsToExpiry);
+            double dividendsToLastTradeDate = ReadDouble();
+            eWrapper.tickEFP(requestId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
 
         private void TickSnapshotEndEvent()

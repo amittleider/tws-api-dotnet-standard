@@ -91,11 +91,11 @@ namespace IBApi
          * @param formattedBasisPoints Annualized basis points as a formatted string that depicts them in percentage form.
          * @param impliedFuture The implied Futures price.
          * @param holdDays The number of hold days until the lastTradeDate of the EFP.
-         * @param futureExpiry The expiration date of the single stock future.
+         * @param futureLastTradeDate The expiration date of the single stock future.
          * @param dividendImpact The dividend impact upon the annualized basis points interest rate.
-         * @param dividendsToExpiry The dividends expected until the expiration of the single stock future.
+         * @param dividendsToLastTradeDate The dividends expected until the expiration of the single stock future.
          */
-        void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays,  string futureExpiry, double dividendImpact, double dividendsToExpiry);
+        void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays,  string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 
         /**
          * @brief -

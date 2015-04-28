@@ -40,7 +40,7 @@ public class SampleRfq extends SimpleWrapper {
 
    private boolean  m_needFrontMonthFuture = false;
    private Contract m_frontMonthFuture = null;
-   private int m_frontMonthFutureExpiry = 0;
+   private int m_frontMonthFutureLastTradeDate = 0;
    private int m_frontMonthFutureMult = 0;
 
    private double m_bidPrice = 0;
@@ -278,21 +278,21 @@ public class SampleRfq extends SimpleWrapper {
                /*
                 * Check if we have a better match
                 */
-               int contractExpiry = Integer.parseInt(contract.lastTradeDate());
+               int contractLastTradeDate = Integer.parseInt(contract.lastTradeDate());
                int contractMult = Integer.parseInt(contract.multiplier());
 
                if (m_frontMonthFuture != null) {
-                  if (m_frontMonthFutureExpiry <= contractExpiry) {
+                  if (m_frontMonthFutureLastTradeDate <= contractLastTradeDate) {
                      return;
                   }
-                  if (m_frontMonthFutureExpiry == contractExpiry &&
+                  if (m_frontMonthFutureLastTradeDate == contractLastTradeDate &&
                       m_frontMonthFutureMult <= contractMult) {
                      return;
                   }
                }
 
                m_frontMonthFuture = contract;
-               m_frontMonthFutureExpiry = contractExpiry;
+               m_frontMonthFutureLastTradeDate = contractLastTradeDate;
                m_frontMonthFutureMult = contractMult;
             }
          }

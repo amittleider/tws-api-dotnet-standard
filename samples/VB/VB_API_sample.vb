@@ -1580,8 +1580,8 @@ Friend Class dlgMainWnd
         mktDataStr = "id=" & eventArgs.tickerId & " " & m_utils.getField(eventArgs.field) & ":" & _
              eventArgs.basisPoints & " / " & eventArgs.formattedBasisPoints & _
              " totalDividends=" & eventArgs.totalDividends & " holdDays=" & eventArgs.holdDays & _
-             " futureExpiry=" & eventArgs.futureExpiry & " dividendImpact=" & eventArgs.dividendImpact & _
-             " dividendsToExpiry=" & eventArgs.dividendsToExpiry
+             " futureLastTradeDate=" & eventArgs.futureLastTradeDate & " dividendImpact=" & eventArgs.dividendImpact & _
+             " dividendsToLastTradeDate=" & eventArgs.dividendsToLastTradeDate
 
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
 
