@@ -425,6 +425,7 @@ public class Order {
         return m_algoParams; 
     }
 
+    @Override
     public boolean equals(Object p_other) {
         if ( this == p_other )
             return true;

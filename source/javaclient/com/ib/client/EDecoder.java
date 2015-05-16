@@ -1507,7 +1507,8 @@ class EDecoder {
     		m_din = din;
     	}
     	
-    	public int msgLength() {
+    	@Override
+        public int msgLength() {
     		return m_msgLength;
     	}
     	

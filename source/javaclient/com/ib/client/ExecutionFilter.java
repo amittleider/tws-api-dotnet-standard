@@ -45,6 +45,7 @@ public class ExecutionFilter{
         m_side = p_side;
     }
 
+    @Override
     public boolean equals(Object p_other) {
         boolean l_bRetVal = false;
 
