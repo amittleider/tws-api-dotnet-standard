@@ -269,7 +269,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( contract.conId); // ver 17 field
     DECODE_FIELD( contract.symbol);
     DECODE_FIELD( contract.secType);
-    DECODE_FIELD( contract.lastTradeDate);
+    DECODE_FIELD( contract.lastTradeDateOrContractMonth);
     DECODE_FIELD( contract.strike);
     DECODE_FIELD( contract.right);
     if (version >= 32) {
@@ -590,7 +590,7 @@ const char* EDecoder::processPortfolioValueMsg(const char* ptr, const char* endP
     DECODE_FIELD( contract.conId); // ver 6 field
     DECODE_FIELD( contract.symbol);
     DECODE_FIELD( contract.secType);
-    DECODE_FIELD( contract.lastTradeDate);
+    DECODE_FIELD( contract.lastTradeDateOrContractMonth);
     DECODE_FIELD( contract.strike);
     DECODE_FIELD( contract.right);
 
@@ -669,7 +669,7 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
     ContractDetails contract;
     DECODE_FIELD( contract.summary.symbol);
     DECODE_FIELD( contract.summary.secType);
-    DECODE_FIELD( contract.summary.lastTradeDate);
+    DECODE_FIELD( contract.summary.lastTradeDateOrContractMonth);
     DECODE_FIELD( contract.summary.strike);
     DECODE_FIELD( contract.summary.right);
     DECODE_FIELD( contract.summary.exchange);
@@ -804,7 +804,7 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
     DECODE_FIELD( contract.conId); // ver 5 field
     DECODE_FIELD( contract.symbol);
     DECODE_FIELD( contract.secType);
-    DECODE_FIELD( contract.lastTradeDate);
+    DECODE_FIELD( contract.lastTradeDateOrContractMonth);
     DECODE_FIELD( contract.strike);
     DECODE_FIELD( contract.right);
     if( version >= 9) {
@@ -1016,7 +1016,7 @@ const char* EDecoder::processScannerDataMsg(const char* ptr, const char* endPtr)
         DECODE_FIELD( data.contract.summary.conId); // ver 3 field
         DECODE_FIELD( data.contract.summary.symbol);
         DECODE_FIELD( data.contract.summary.secType);
-        DECODE_FIELD( data.contract.summary.lastTradeDate);
+        DECODE_FIELD( data.contract.summary.lastTradeDateOrContractMonth);
         DECODE_FIELD( data.contract.summary.strike);
         DECODE_FIELD( data.contract.summary.right);
         DECODE_FIELD( data.contract.summary.exchange);
@@ -1234,7 +1234,7 @@ const char* EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr
     DECODE_FIELD( contract.conId);
     DECODE_FIELD( contract.symbol);
     DECODE_FIELD( contract.secType);
-    DECODE_FIELD( contract.lastTradeDate);
+    DECODE_FIELD( contract.lastTradeDateOrContractMonth);
     DECODE_FIELD( contract.strike);
     DECODE_FIELD( contract.right);
     DECODE_FIELD( contract.multiplier);

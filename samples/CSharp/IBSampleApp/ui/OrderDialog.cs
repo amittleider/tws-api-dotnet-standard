@@ -136,7 +136,7 @@ namespace IBSampleApp
             contract.SecType = contractSecType.Text;
             contract.Currency = contractCurrency.Text;
             contract.Exchange = contractExchange.Text;
-            contract.LastTradeDate = contractLastTradeDate.Text;
+            contract.LastTradeDateOrContractMonth = contractLastTradeDateOrContractMonth.Text;
             if(!contractStrike.Text.Equals(""))
                 contract.Strike = Double.Parse(contractStrike.Text);
             if (!contractRight.Text.Equals("") || !contractRight.Text.Equals("None"))
@@ -151,7 +151,7 @@ namespace IBSampleApp
             contractSecType.Text = contract.SecType;
             contractCurrency.Text = contract.Currency;
             contractExchange.Text = contract.Exchange;
-            contractLastTradeDate.Text = contract.LastTradeDate;
+            contractLastTradeDateOrContractMonth.Text = contract.LastTradeDateOrContractMonth;
             contractStrike.Text = contract.Strike.ToString();
             contractRight.Text = contract.Right;
             contractLocalSymbol.Text = contract.LocalSymbol;

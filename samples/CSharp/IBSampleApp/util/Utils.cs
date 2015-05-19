@@ -17,9 +17,9 @@ namespace IBSampleApp.util
         {
             if (contractA.Symbol.Equals(contractB.Symbol) && contractA.SecType.Equals(contractB.SecType) && contractA.Currency.Equals(contractB.Currency))
             {
-                if (contractA.LastTradeDate != null && contractB.LastTradeDate != null)
+                if (contractA.LastTradeDateOrContractMonth != null && contractB.LastTradeDateOrContractMonth != null)
                 {
-                    if (contractA.LastTradeDate.Equals(contractB.LastTradeDate))
+                    if (contractA.LastTradeDateOrContractMonth.Equals(contractB.LastTradeDateOrContractMonth))
                     {
                         if (contractA.Multiplier != null && contractB.Multiplier != null)
                         {

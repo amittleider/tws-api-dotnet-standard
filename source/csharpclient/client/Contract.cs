@@ -19,7 +19,7 @@ namespace IBApi
         private int conId;
         private string symbol;
         private string secType;
-        private string lastTradeDate;
+        private string lastTradeDateOrContractMonth;
         private double strike;
         private string right;
         private string multiplier;
@@ -75,10 +75,10 @@ namespace IBApi
         /**
         * @brief The contract's expiration date (i.e. Options and Futures)
         */
-        public string LastTradeDate
+        public string LastTradeDateOrContractMonth
         {
-            get { return lastTradeDate; }
-            set { lastTradeDate = value; }
+            get { return lastTradeDateOrContractMonth; }
+            set { lastTradeDateOrContractMonth = value; }
         }
 
         /**

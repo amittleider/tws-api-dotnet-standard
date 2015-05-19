@@ -151,7 +151,7 @@ namespace IBSampleApp.ui
         private void UpdateContractDetails(DataGridView grid, int row, Contract contract)
         {
             grid.Rows.Add();
-            grid[LASTTRADEDATE_INDEX, row].Value = contract.LastTradeDate;
+            grid[LASTTRADEDATE_INDEX, row].Value = contract.LastTradeDateOrContractMonth;
             grid[STRIKE_INDEX, row].Value = contract.Strike;
         }
 

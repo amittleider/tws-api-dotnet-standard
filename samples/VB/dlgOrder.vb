@@ -52,7 +52,7 @@ Friend Class dlgOrder
     Public WithEvents txtCurrency As System.Windows.Forms.TextBox
     Public WithEvents txtExchange As System.Windows.Forms.TextBox
     Public WithEvents txtStrike As System.Windows.Forms.TextBox
-    Public WithEvents txtLastTradeDate As System.Windows.Forms.TextBox
+    Public WithEvents txtLastTradeDateOrContractMonth As System.Windows.Forms.TextBox
     Public WithEvents txtSecType As System.Windows.Forms.TextBox
     Public WithEvents txtSymbol As System.Windows.Forms.TextBox
     Public WithEvents frameTickerDesc As System.Windows.Forms.GroupBox
@@ -164,7 +164,7 @@ Friend Class dlgOrder
         Me.txtCurrency = New System.Windows.Forms.TextBox()
         Me.txtExchange = New System.Windows.Forms.TextBox()
         Me.txtStrike = New System.Windows.Forms.TextBox()
-        Me.txtLastTradeDate = New System.Windows.Forms.TextBox()
+        Me.txtLastTradeDateOrContractMonth = New System.Windows.Forms.TextBox()
         Me.txtSecType = New System.Windows.Forms.TextBox()
         Me.txtSymbol = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -469,7 +469,7 @@ Friend Class dlgOrder
         Me.frameTickerDesc.Controls.Add(Me.txtCurrency)
         Me.frameTickerDesc.Controls.Add(Me.txtExchange)
         Me.frameTickerDesc.Controls.Add(Me.txtStrike)
-        Me.frameTickerDesc.Controls.Add(Me.txtLastTradeDate)
+        Me.frameTickerDesc.Controls.Add(Me.txtLastTradeDateOrContractMonth)
         Me.frameTickerDesc.Controls.Add(Me.txtSecType)
         Me.frameTickerDesc.Controls.Add(Me.txtSymbol)
         Me.frameTickerDesc.Controls.Add(Me.Label5)
@@ -612,12 +612,12 @@ Friend Class dlgOrder
         Me.Label4.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label4.Location = New System.Drawing.Point(8, 106)
+        Me.Label4.Location = New System.Drawing.Point(8, 101)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label4.Size = New System.Drawing.Size(88, 18)
+        Me.Label4.Size = New System.Drawing.Size(96, 32)
         Me.Label4.TabIndex = 6
-        Me.Label4.Text = "Last trade date"
+        Me.Label4.Text = "Last trade date or contract month"
         '
         'TextMultiplier
         '
@@ -721,19 +721,19 @@ Friend Class dlgOrder
         Me.txtStrike.TabIndex = 9
         Me.txtStrike.Text = "0"
         '
-        'txtLastTradeDate
+        'txtLastTradeDateOrContractMonth
         '
-        Me.txtLastTradeDate.AcceptsReturn = True
-        Me.txtLastTradeDate.BackColor = System.Drawing.SystemColors.Window
-        Me.txtLastTradeDate.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtLastTradeDate.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLastTradeDate.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtLastTradeDate.Location = New System.Drawing.Point(120, 104)
-        Me.txtLastTradeDate.MaxLength = 0
-        Me.txtLastTradeDate.Name = "txtLastTradeDate"
-        Me.txtLastTradeDate.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLastTradeDate.Size = New System.Drawing.Size(88, 20)
-        Me.txtLastTradeDate.TabIndex = 7
+        Me.txtLastTradeDateOrContractMonth.AcceptsReturn = True
+        Me.txtLastTradeDateOrContractMonth.BackColor = System.Drawing.SystemColors.Window
+        Me.txtLastTradeDateOrContractMonth.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtLastTradeDateOrContractMonth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLastTradeDateOrContractMonth.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtLastTradeDateOrContractMonth.Location = New System.Drawing.Point(120, 104)
+        Me.txtLastTradeDateOrContractMonth.MaxLength = 0
+        Me.txtLastTradeDateOrContractMonth.Name = "txtLastTradeDateOrContractMonth"
+        Me.txtLastTradeDateOrContractMonth.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtLastTradeDateOrContractMonth.Size = New System.Drawing.Size(88, 20)
+        Me.txtLastTradeDateOrContractMonth.TabIndex = 7
         '
         'txtSecType
         '
@@ -1797,7 +1797,7 @@ Friend Class dlgOrder
         m_contractInfo.ConId = CInt(txtConId.Text)
         m_contractInfo.Symbol = txtSymbol.Text
         m_contractInfo.SecType = txtSecType.Text
-        m_contractInfo.lastTradeDate = txtLastTradeDate.Text
+        m_contractInfo.LastTradeDateOrContractMonth = txtLastTradeDateOrContractMonth.Text
         m_contractInfo.Strike = CDbl(txtStrike.Text)
         m_contractInfo.Right = txtRight.Text
         m_contractInfo.Multiplier = TextMultiplier.Text
@@ -1939,7 +1939,7 @@ Friend Class dlgOrder
             txtConId.Enabled = False
             txtSymbol.Enabled = False
             txtSecType.Enabled = False
-            txtLastTradeDate.Enabled = False
+            txtLastTradeDateOrContractMonth.Enabled = False
             txtStrike.Enabled = False
             txtRight.Enabled = False
             TextMultiplier.Enabled = False
@@ -1952,7 +1952,7 @@ Friend Class dlgOrder
             txtConId.Enabled = True
             txtSymbol.Enabled = True
             txtSecType.Enabled = True
-            txtLastTradeDate.Enabled = True
+            txtLastTradeDateOrContractMonth.Enabled = True
             txtStrike.Enabled = True
             txtRight.Enabled = True
             TextMultiplier.Enabled = True

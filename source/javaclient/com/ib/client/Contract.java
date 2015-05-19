@@ -15,7 +15,7 @@ public class Contract implements Cloneable {
     private int     m_conid;
     private String  m_symbol;
     private String  m_secType;
-    private String  m_expiry;
+    private String  m_lastTradedateOrContractMonth;
     private double  m_strike;
     private String  m_right;
     private String  m_multiplier; // should be double
@@ -43,7 +43,7 @@ public class Contract implements Cloneable {
     public String currency()        { return m_currency; }
     public String exchange()        { return m_exchange; }
     public String primaryExch()     { return m_primaryExch; }
-    public String lastTradeDate()          { return m_expiry; }
+    public String lastTradeDateOrContractMonth()          { return m_lastTradedateOrContractMonth; }
     public String localSymbol()     { return m_localSymbol; }
     public String tradingClass()    { return m_tradingClass; }
     public String multiplier()      { return m_multiplier; }
@@ -60,7 +60,7 @@ public class Contract implements Cloneable {
     public void conid(int v)            { m_conid = v; }
     public void currency(String v)      { m_currency = v; }
     public void exchange(String v)      { m_exchange = v; }
-    public void lastTradeDate(String v)        { m_expiry = v; }
+    public void lastTradeDateOrContractMonth(String v)        { m_lastTradedateOrContractMonth = v; }
     public void localSymbol(String v)   { m_localSymbol = v; }
     public void tradingClass(String v)  { m_tradingClass = v; }
     public void multiplier(String v)    { m_multiplier = v; }
@@ -102,7 +102,7 @@ public class Contract implements Cloneable {
         }
     }
 
-    public Contract(int p_conId, String p_symbol, String p_secType, String p_expiry,
+    public Contract(int p_conId, String p_symbol, String p_secType, String p_lastTradeDateOrContractMonth,
                     double p_strike, String p_right, String p_multiplier,
                     String p_exchange, String p_currency, String p_localSymbol, String p_tradingClass,
                     ArrayList<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired,
@@ -110,7 +110,7 @@ public class Contract implements Cloneable {
     	m_conid = p_conId;
         m_symbol = p_symbol;
         m_secType = p_secType;
-        m_expiry = p_expiry;
+        m_lastTradedateOrContractMonth = p_lastTradeDateOrContractMonth;
         m_strike = p_strike;
         m_right = p_right;
         m_multiplier = p_multiplier;
@@ -157,7 +157,7 @@ public class Contract implements Cloneable {
         		return false;
         	}
 
-        	if (Util.StringCompare(m_expiry, l_theOther.m_expiry) != 0 ||
+        	if (Util.StringCompare(m_lastTradedateOrContractMonth, l_theOther.m_lastTradedateOrContractMonth) != 0 ||
         		Util.StringCompare(m_right, l_theOther.m_right) != 0 ||
         		Util.StringCompare(m_multiplier, l_theOther.m_multiplier) != 0 ||
         		Util.StringCompare(m_localSymbol, l_theOther.m_localSymbol) != 0 ||
@@ -212,7 +212,7 @@ public class Contract implements Cloneable {
                 app( sb, m_primaryExch);
             }
 
-            app( sb, m_expiry);
+            app( sb, m_lastTradedateOrContractMonth);
 
             if (m_strike != 0) {
                 app( sb, m_strike);
@@ -242,7 +242,7 @@ public class Contract implements Cloneable {
         add( sb, "conid", m_conid);
         add( sb, "symbol", m_symbol);
         add( sb, "secType", m_secType);
-        add( sb, "lastTradeDate", m_expiry);
+        add( sb, "lastTradeDateOrContractMonth", m_lastTradedateOrContractMonth);
         add( sb, "strike", m_strike);
         add( sb, "right", m_right);
         add( sb, "multiplier", m_multiplier);

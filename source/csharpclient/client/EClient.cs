@@ -226,7 +226,7 @@ namespace IBApi
             paramsList.AddParameter(contract.ConId);
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             paramsList.AddParameter(contract.Multiplier);
@@ -279,7 +279,7 @@ namespace IBApi
             paramsList.AddParameter(contract.ConId);
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             paramsList.AddParameter(contract.Multiplier);
@@ -494,7 +494,7 @@ namespace IBApi
             }
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             paramsList.AddParameter(contract.Multiplier);
@@ -545,7 +545,7 @@ namespace IBApi
             }
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             if (serverVersion >= 15)
@@ -1165,7 +1165,7 @@ namespace IBApi
             }
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             if (serverVersion >= 15)
@@ -1415,7 +1415,7 @@ namespace IBApi
                 paramsList.AddParameter(contract.ConId);
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             paramsList.AddParameter(contract.Multiplier);
@@ -1563,7 +1563,7 @@ namespace IBApi
                 paramsList.AddParameter(contract.ConId);
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             if (serverVersion >= 15)
@@ -1681,7 +1681,7 @@ namespace IBApi
             }
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             if (serverVersion >= 15)
@@ -1807,7 +1807,7 @@ namespace IBApi
             }
             paramsList.AddParameter(contract.Symbol);
             paramsList.AddParameter(contract.SecType);
-            paramsList.AddParameter(contract.LastTradeDate);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
             paramsList.AddParameter(contract.Strike);
             paramsList.AddParameter(contract.Right);
             paramsList.AddParameter(contract.Multiplier);

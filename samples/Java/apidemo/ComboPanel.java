@@ -258,7 +258,7 @@ public class ComboPanel extends JPanel implements INewTab {
 				p1.add( "Ratio", m_ratio);
 				p1.add( "Symbol", m_symbol);
 				p1.add( "Sec type", m_secType);
-				p1.add( "Last trade date", m_lastTradeDate);
+				p1.add( "Last trade date", m_lastTradeDateOrContractMonth);
 				p1.add( "Strike", m_strike);
 
 				VerticalPanel p2 = new VerticalPanel();
@@ -279,7 +279,7 @@ public class ComboPanel extends JPanel implements INewTab {
 		class DnPanel extends VerticalPanel {
 			UpperField m_symbol = new UpperField();
 			TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
-			UpperField m_expiry = new UpperField();
+			UpperField m_lastTradeDateOrContractMonth = new UpperField();
 			UpperField m_exchange = new UpperField();
 			UpperField m_currency = new UpperField();
 			UpperField m_delta = new UpperField();
@@ -295,7 +295,7 @@ public class ComboPanel extends JPanel implements INewTab {
 				setBorder( new TitledBorder( "Delta-Neutral"));
 		    	add( "Symbol", m_symbol);
 		    	add( "Sec type", m_secType);
-		    	add( "Last trade date", m_expiry);
+		    	add( "Last trade date or contract month", m_lastTradeDateOrContractMonth);
 		    	add( "Exchange", m_exchange, but);
 		    	add( "Currency", m_currency);
 				add( "Delta", m_delta);
@@ -306,7 +306,7 @@ public class ComboPanel extends JPanel implements INewTab {
 				Contract dn = new Contract();
 				dn.symbol( m_symbol.getText().toUpperCase() ); 
 				dn.secType( m_secType.getSelectedItem() ); 
-				dn.lastTradeDate( m_expiry.getText() ); 
+				dn.lastTradeDateOrContractMonth( m_lastTradeDateOrContractMonth.getText() ); 
 				dn.exchange( m_exchange.getText().toUpperCase() ); 
 				dn.currency( m_currency.getText().toUpperCase() ); 
 				
@@ -361,7 +361,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			VerticalPanel params = new VerticalPanel();
 			params.add( "Symbol", m_symbol);
 			params.add( "Futures exchange", m_futExch);
-			params.add( "Last trade date", m_lastTradeDate);
+			params.add( "Last trade date or contract month", m_lastTradeDate);
 			params.add( "Stock exchange", m_stkExch);
 			params.add( "Dividend protected", m_divProt);
 
@@ -397,7 +397,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			fut.symbol( m_symbol.getText() );
 			fut.secType( SecType.FUT);
 			fut.exchange( m_futExch.getText() );
-			fut.lastTradeDate( m_lastTradeDate.getText() );
+			fut.lastTradeDateOrContractMonth( m_lastTradeDate.getText() );
 			fut.currency( "USD");
 			
 			ApiDemo.INSTANCE.controller().reqContractDetails( fut, new IContractDetailsHandler() {

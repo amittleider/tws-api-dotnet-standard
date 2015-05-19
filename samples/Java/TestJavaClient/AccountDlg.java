@@ -257,9 +257,9 @@ class PortfolioTable extends AbstractTableModel {
                 case 2:
                     return m_contract.secType();
                 case 3:
-                    return m_contract.lastTradeDate();
+                    return m_contract.lastTradeDateOrContractMonth();
                 case 4:
-                    return m_contract.lastTradeDate() == null ? null : "" + m_contract.strike();
+                    return m_contract.lastTradeDateOrContractMonth() == null ? null : "" + m_contract.strike();
                 case 5:
                     return (m_contract.getRight() != null && m_contract.getRight().equals("???")) ? null : m_contract.getRight();
                 case 6:

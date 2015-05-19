@@ -7,16 +7,16 @@ import com.ib.client.Contract;
 import com.ib.client.Types.SecType;
 
 public class OptContract extends Contract {
-    public OptContract(String symbol, String lastTradeDate, double strike, String right) {
-        this(symbol, "SMART", lastTradeDate, strike, right);
+    public OptContract(String symbol, String lastTradeDateOrContractMonth, double strike, String right) {
+        this(symbol, "SMART", lastTradeDateOrContractMonth, strike, right);
     }
 
-    public OptContract(String symbol, String exchange, String lastTradeDate, double strike, String right) {
+    public OptContract(String symbol, String exchange, String lastTradeDateOrContractMonth, double strike, String right) {
         symbol(symbol);
         secType(SecType.OPT.name());
         exchange(exchange);
         currency("USD");
-        lastTradeDate(lastTradeDate);
+        lastTradeDateOrContractMonth(lastTradeDateOrContractMonth);
         strike(strike);
         right(right);
     }
