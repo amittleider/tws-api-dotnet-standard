@@ -121,7 +121,7 @@ namespace IBSampleApp
             this.exchange_label_TMD_MDT = new System.Windows.Forms.Label();
             this.localSymbol_TMD_MDT = new System.Windows.Forms.TextBox();
             this.currency_label_TMD_MDT = new System.Windows.Forms.Label();
-            this.lastTradeDate_TMD_MDT = new System.Windows.Forms.TextBox();
+            this.lastTradeDateOrContractMonth_TMD_MDT = new System.Windows.Forms.TextBox();
             this.symbol_TMD_MDT = new System.Windows.Forms.TextBox();
             this.strike_TMD_MDT = new System.Windows.Forms.TextBox();
             this.currency_TMD_MDT = new System.Windows.Forms.TextBox();
@@ -246,7 +246,7 @@ namespace IBSampleApp
             this.conDetMultiplier = new System.Windows.Forms.TextBox();
             this.conDetCurrencyLabel = new System.Windows.Forms.Label();
             this.conDetCurrency = new System.Windows.Forms.TextBox();
-            this.conDetLastTradeDate = new System.Windows.Forms.TextBox();
+            this.conDetLastTradeDateOrContractMonth = new System.Windows.Forms.TextBox();
             this.conDetStrike = new System.Windows.Forms.TextBox();
             this.conDetSymbol = new System.Windows.Forms.TextBox();
             this.contractInfoTab = new System.Windows.Forms.TabControl();
@@ -1099,7 +1099,7 @@ namespace IBSampleApp
             this.groupBox2.Controls.Add(this.exchange_label_TMD_MDT);
             this.groupBox2.Controls.Add(this.localSymbol_TMD_MDT);
             this.groupBox2.Controls.Add(this.currency_label_TMD_MDT);
-            this.groupBox2.Controls.Add(this.lastTradeDate_TMD_MDT);
+            this.groupBox2.Controls.Add(this.lastTradeDateOrContractMonth_TMD_MDT);
             this.groupBox2.Controls.Add(this.symbol_TMD_MDT);
             this.groupBox2.Controls.Add(this.strike_TMD_MDT);
             this.groupBox2.Controls.Add(this.currency_TMD_MDT);
@@ -1283,12 +1283,12 @@ namespace IBSampleApp
             this.currency_label_TMD_MDT.TabIndex = 8;
             this.currency_label_TMD_MDT.Text = "Currency";
             // 
-            // lastTradeDate_TMD_MDT
+            // lastTradeDateOrContractMonth_TMD_MDT
             // 
-            this.lastTradeDate_TMD_MDT.Location = new System.Drawing.Point(276, 40);
-            this.lastTradeDate_TMD_MDT.Name = "lastTradeDate_TMD_MDT";
-            this.lastTradeDate_TMD_MDT.Size = new System.Drawing.Size(100, 20);
-            this.lastTradeDate_TMD_MDT.TabIndex = 14;
+            this.lastTradeDateOrContractMonth_TMD_MDT.Location = new System.Drawing.Point(276, 40);
+            this.lastTradeDateOrContractMonth_TMD_MDT.Name = "lastTradeDateOrContractMonth_TMD_MDT";
+            this.lastTradeDateOrContractMonth_TMD_MDT.Size = new System.Drawing.Size(100, 20);
+            this.lastTradeDateOrContractMonth_TMD_MDT.TabIndex = 14;
             // 
             // symbol_TMD_MDT
             // 
@@ -1332,12 +1332,11 @@ namespace IBSampleApp
             // 
             // lastTradeDate_label_TMD_MDT
             // 
-            this.lastTradeDate_label_TMD_MDT.AutoSize = true;
-            this.lastTradeDate_label_TMD_MDT.Location = new System.Drawing.Point(235, 39);
+            this.lastTradeDate_label_TMD_MDT.Location = new System.Drawing.Point(191, 31);
             this.lastTradeDate_label_TMD_MDT.Name = "lastTradeDate_label_TMD_MDT";
-            this.lastTradeDate_label_TMD_MDT.Size = new System.Drawing.Size(35, 13);
+            this.lastTradeDate_label_TMD_MDT.Size = new System.Drawing.Size(92, 28);
             this.lastTradeDate_label_TMD_MDT.TabIndex = 4;
-            this.lastTradeDate_label_TMD_MDT.Text = "lastTradeDate";
+            this.lastTradeDate_label_TMD_MDT.Text = "Last trade date or contract month";
             // 
             // strike_label_TMD_MDT
             // 
@@ -2402,7 +2401,7 @@ namespace IBSampleApp
             this.contractDetailsGroupBox.Controls.Add(this.conDetMultiplier);
             this.contractDetailsGroupBox.Controls.Add(this.conDetCurrencyLabel);
             this.contractDetailsGroupBox.Controls.Add(this.conDetCurrency);
-            this.contractDetailsGroupBox.Controls.Add(this.conDetLastTradeDate);
+            this.contractDetailsGroupBox.Controls.Add(this.conDetLastTradeDateOrContractMonth);
             this.contractDetailsGroupBox.Controls.Add(this.conDetStrike);
             this.contractDetailsGroupBox.Controls.Add(this.conDetSymbol);
             this.contractDetailsGroupBox.Location = new System.Drawing.Point(8, 6);
@@ -2460,12 +2459,11 @@ namespace IBSampleApp
             // 
             // conDetLastTradeDateLabel
             // 
-            this.conDetLastTradeDateLabel.AutoSize = true;
-            this.conDetLastTradeDateLabel.Location = new System.Drawing.Point(233, 48);
+            this.conDetLastTradeDateLabel.Location = new System.Drawing.Point(182, 42);
             this.conDetLastTradeDateLabel.Name = "conDetLastTradeDateLabel";
-            this.conDetLastTradeDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.conDetLastTradeDateLabel.Size = new System.Drawing.Size(94, 33);
             this.conDetLastTradeDateLabel.TabIndex = 20;
-            this.conDetLastTradeDateLabel.Text = "lastTradeDate";
+            this.conDetLastTradeDateLabel.Text = "Last trade date or contract month";
             // 
             // conDetSecType
             // 
@@ -2573,12 +2571,12 @@ namespace IBSampleApp
             this.conDetCurrency.TabIndex = 26;
             this.conDetCurrency.Text = "USD";
             // 
-            // conDetLastTradeDate
+            // conDetLastTradeDateOrContractMonth
             // 
-            this.conDetLastTradeDate.Location = new System.Drawing.Point(274, 49);
-            this.conDetLastTradeDate.Name = "conDetLastTradeDate";
-            this.conDetLastTradeDate.Size = new System.Drawing.Size(100, 20);
-            this.conDetLastTradeDate.TabIndex = 30;
+            this.conDetLastTradeDateOrContractMonth.Location = new System.Drawing.Point(274, 49);
+            this.conDetLastTradeDateOrContractMonth.Name = "conDetLastTradeDateOrContractMonth";
+            this.conDetLastTradeDateOrContractMonth.Size = new System.Drawing.Size(100, 20);
+            this.conDetLastTradeDateOrContractMonth.TabIndex = 30;
             // 
             // conDetStrike
             // 
@@ -3521,7 +3519,7 @@ namespace IBSampleApp
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(30, 123);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 88;
             this.label4.Text = "lastTradeDate";
             // 
@@ -3692,7 +3690,7 @@ namespace IBSampleApp
             this.comboLastTradeDateLabel.AutoSize = true;
             this.comboLastTradeDateLabel.Location = new System.Drawing.Point(172, 44);
             this.comboLastTradeDateLabel.Name = "comboLastTradeDateLabel";
-            this.comboLastTradeDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.comboLastTradeDateLabel.Size = new System.Drawing.Size(74, 13);
             this.comboLastTradeDateLabel.TabIndex = 64;
             this.comboLastTradeDateLabel.Text = "lastTradeDate";
             // 
@@ -4016,7 +4014,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label exchange_label_TMD_MDT;
         private System.Windows.Forms.TextBox localSymbol_TMD_MDT;
         private System.Windows.Forms.Label currency_label_TMD_MDT;
-        private System.Windows.Forms.TextBox lastTradeDate_TMD_MDT;
+        private System.Windows.Forms.TextBox lastTradeDateOrContractMonth_TMD_MDT;
         private System.Windows.Forms.TextBox symbol_TMD_MDT;
         private System.Windows.Forms.TextBox strike_TMD_MDT;
         private System.Windows.Forms.TextBox currency_TMD_MDT;
@@ -4143,7 +4141,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label conDetExchangeLabel;
         private System.Windows.Forms.TextBox conDetLocalSymbol;
         private System.Windows.Forms.Label conDetCurrencyLabel;
-        private System.Windows.Forms.TextBox conDetLastTradeDate;
+        private System.Windows.Forms.TextBox conDetLastTradeDateOrContractMonth;
         private System.Windows.Forms.TextBox conDetSymbol;
         private System.Windows.Forms.TextBox conDetStrike;
         private System.Windows.Forms.TextBox conDetCurrency;

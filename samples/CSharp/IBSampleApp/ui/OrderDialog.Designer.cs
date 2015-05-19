@@ -61,8 +61,8 @@ namespace IBSampleApp
             this.orderRightLabel = new System.Windows.Forms.Label();
             this.contractSecType = new System.Windows.Forms.ComboBox();
             this.orderStrikeLabel = new System.Windows.Forms.Label();
-            this.contractLastTradeDate = new System.Windows.Forms.TextBox();
-            this.orderLastTradeDateLabel = new System.Windows.Forms.Label();
+            this.contractLastTradeDateOrContractMonth = new System.Windows.Forms.TextBox();
+            this.orderLastTradeDateOrContractMonthLabel = new System.Windows.Forms.Label();
             this.contractStrike = new System.Windows.Forms.TextBox();
             this.orderSecTypeLabel = new System.Windows.Forms.Label();
             this.contractRight = new System.Windows.Forms.ComboBox();
@@ -458,8 +458,8 @@ namespace IBSampleApp
             this.contractGroup.Controls.Add(this.orderRightLabel);
             this.contractGroup.Controls.Add(this.contractSecType);
             this.contractGroup.Controls.Add(this.orderStrikeLabel);
-            this.contractGroup.Controls.Add(this.contractLastTradeDate);
-            this.contractGroup.Controls.Add(this.orderLastTradeDateLabel);
+            this.contractGroup.Controls.Add(this.contractLastTradeDateOrContractMonth);
+            this.contractGroup.Controls.Add(this.orderLastTradeDateOrContractMonthLabel);
             this.contractGroup.Controls.Add(this.contractStrike);
             this.contractGroup.Controls.Add(this.orderSecTypeLabel);
             this.contractGroup.Controls.Add(this.contractRight);
@@ -568,21 +568,20 @@ namespace IBSampleApp
             this.orderStrikeLabel.TabIndex = 11;
             this.orderStrikeLabel.Text = "Strike";
             // 
-            // contractLastTradeDate
+            // contractLastTradeDateOrContractMonth
             // 
-            this.contractLastTradeDate.Location = new System.Drawing.Point(273, 24);
-            this.contractLastTradeDate.Name = "contractLastTradeDate";
-            this.contractLastTradeDate.Size = new System.Drawing.Size(71, 20);
-            this.contractLastTradeDate.TabIndex = 2;
+            this.contractLastTradeDateOrContractMonth.Location = new System.Drawing.Point(273, 24);
+            this.contractLastTradeDateOrContractMonth.Name = "contractLastTradeDateOrContractMonth";
+            this.contractLastTradeDateOrContractMonth.Size = new System.Drawing.Size(71, 20);
+            this.contractLastTradeDateOrContractMonth.TabIndex = 2;
             // 
-            // orderLastTradeDateLabel
+            // orderLastTradeDateOrContractMonthLabel
             // 
-            this.orderLastTradeDateLabel.AutoSize = true;
-            this.orderLastTradeDateLabel.Location = new System.Drawing.Point(189, 28);
-            this.orderLastTradeDateLabel.Name = "orderLastTradeDateLabel";
-            this.orderLastTradeDateLabel.Size = new System.Drawing.Size(78, 13);
-            this.orderLastTradeDateLabel.TabIndex = 10;
-            this.orderLastTradeDateLabel.Text = "Last trade date";
+            this.orderLastTradeDateOrContractMonthLabel.Location = new System.Drawing.Point(172, 24);
+            this.orderLastTradeDateOrContractMonthLabel.Name = "orderLastTradeDateOrContractMonthLabel";
+            this.orderLastTradeDateOrContractMonthLabel.Size = new System.Drawing.Size(95, 28);
+            this.orderLastTradeDateOrContractMonthLabel.TabIndex = 10;
+            this.orderLastTradeDateOrContractMonthLabel.Text = "Last trade date or contract month";
             // 
             // contractStrike
             // 
@@ -683,7 +682,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(574, 262);
+            this.extendedOrderTab.Size = new System.Drawing.Size(597, 262);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1051,7 +1050,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(574, 262);
+            this.advisorTab.Size = new System.Drawing.Size(597, 262);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1151,7 +1150,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(574, 262);
+            this.volatilityTab.Size = new System.Drawing.Size(597, 262);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1348,7 +1347,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(574, 262);
+            this.scaleTab.Size = new System.Drawing.Size(597, 262);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1545,7 +1544,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(574, 262);
+            this.algoTab.Size = new System.Drawing.Size(597, 262);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1896,7 +1895,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Button sendOrderButton;
 
         private System.Windows.Forms.ComboBox contractSecType;
-        private System.Windows.Forms.TextBox contractLastTradeDate;
+        private System.Windows.Forms.TextBox contractLastTradeDateOrContractMonth;
         private System.Windows.Forms.TextBox contractStrike;
         private System.Windows.Forms.ComboBox contractRight;
         private System.Windows.Forms.TextBox contractMultiplier;
@@ -1938,7 +1937,7 @@ namespace IBSampleApp
 
         private System.Windows.Forms.Label orderSymbolLabel;
         private System.Windows.Forms.Label orderSecTypeLabel;
-        private System.Windows.Forms.Label orderLastTradeDateLabel;
+        private System.Windows.Forms.Label orderLastTradeDateOrContractMonthLabel;
         private System.Windows.Forms.Label orderStrikeLabel;
         private System.Windows.Forms.Label orderRightLabel;
         private System.Windows.Forms.Label orderMultiplierLabel;

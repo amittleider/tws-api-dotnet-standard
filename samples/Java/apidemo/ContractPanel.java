@@ -19,7 +19,7 @@ import com.ib.client.Types.SecType;
 public class ContractPanel extends JPanel {
 	protected UpperField m_symbol = new UpperField();
 	protected TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
-	protected UpperField m_lastTradeDate = new UpperField();
+	protected UpperField m_lastTradeDateOrContractMonth = new UpperField();
 	protected UpperField m_strike = new UpperField();
 	protected TCombo<Right> m_right = new TCombo<Right>( Right.values() );
 	protected UpperField m_multiplier = new UpperField();
@@ -44,7 +44,7 @@ public class ContractPanel extends JPanel {
 		else {
 			m_symbol.setText( m_contract.symbol());
 			m_secType.setSelectedItem( m_contract.secType() );
-			m_lastTradeDate.setText( m_contract.lastTradeDate());
+			m_lastTradeDateOrContractMonth.setText( m_contract.lastTradeDateOrContractMonth());
 			m_strike.setText( "" + m_contract.strike() );
 			m_right.setSelectedItem( m_contract.right() ); 
 			m_multiplier.setText( m_contract.multiplier() );
@@ -58,7 +58,7 @@ public class ContractPanel extends JPanel {
 		VerticalPanel p = new VerticalPanel();
     	p.add( "Symbol", m_symbol);
     	p.add( "Sec type", m_secType);
-    	p.add( "Last trade date", m_lastTradeDate);
+    	p.add( "Last trade date or contract month", m_lastTradeDateOrContractMonth);
     	p.add( "Strike", m_strike);
     	p.add( "Put/call", m_right);
     	p.add( "Multiplier", m_multiplier);
@@ -87,7 +87,7 @@ public class ContractPanel extends JPanel {
 		
 		m_contract.symbol( m_symbol.getText().toUpperCase() ); 
 		m_contract.secType( m_secType.getSelectedItem() ); 
-		m_contract.lastTradeDate( m_lastTradeDate.getText() ); 
+		m_contract.lastTradeDateOrContractMonth( m_lastTradeDateOrContractMonth.getText() ); 
 		m_contract.strike( m_strike.getDouble() ); 
 		m_contract.right( m_right.getSelectedItem() ); 
 		m_contract.multiplier( m_multiplier.getText() ); 

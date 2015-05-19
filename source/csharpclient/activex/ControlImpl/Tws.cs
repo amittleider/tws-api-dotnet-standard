@@ -176,7 +176,7 @@ namespace TWSLib
 
         [DispId(57)]
         public void placeOrder(int id, string action, int quantity, string localSymbol, string secType,
-                   string lastTradeDate, double strike, string right, string multiplier,
+                   string lastTradeDateOrContractMonth, double strike, string right, string multiplier,
                    string exchange, string primaryExchange, string curency, string orderType,
                    double lmtPrice, double auxPrice, string goodAfterTime, string faGroup,
                    string faMethod, string faPercentage, string faProfile, string goodTillDate)
@@ -203,7 +203,11 @@ namespace TWSLib
                 Exchange = exchange,
                 PrimaryExch = primaryExchange,
                 Currency = curency,
-                ComboLegs = this.comboLegs
+                ComboLegs = this.comboLegs,
+                LastTradeDateOrContractMonth = lastTradeDateOrContractMonth,
+                Strike = strike,
+                Right = right,
+                Multiplier = multiplier
             }, order);
 
 
@@ -288,7 +292,7 @@ namespace TWSLib
         }
 
         [DispId(60)]
-        public void reqMktData(int id, string symbol, string secType, string lastTradeDate, double strike,
+        public void reqMktData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string primaryExchange,
                    string currency, string genericTicks, bool snapshot, ITagValueList options)
         {
@@ -297,7 +301,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -409,7 +413,7 @@ namespace TWSLib
         }
 
         [DispId(67)]
-        public void reqContractDetails(string symbol, string secType, string lastTradeDate, double strike,
+        public void reqContractDetails(string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int includeExpired)
         {
             // set contract fields
@@ -417,7 +421,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -446,7 +450,7 @@ namespace TWSLib
         }
 
         [DispId(69)]
-        public void reqMktDepth(int id, string symbol, string secType, string lastTradeDate, double strike,
+        public void reqMktDepth(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options)
         {
             // set contract fields
@@ -454,7 +458,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -558,7 +562,7 @@ namespace TWSLib
         }
 
         [DispId(82)]
-        public void reqHistoricalData(int id, string symbol, string secType, string lastTradeDate, double strike,
+        public void reqHistoricalData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int isExpired,
                    string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
                    int useRTH, int formatDate, ITagValueList options)
@@ -567,7 +571,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -583,7 +587,7 @@ namespace TWSLib
         }
 
         [DispId(83)]
-        public void exerciseOptions(int id, string symbol, string secType, string lastTradeDate, double strike,
+        public void exerciseOptions(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency,
                    int exerciseAction, int exerciseQuantity, int @override)
         {
@@ -591,7 +595,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -714,7 +718,7 @@ namespace TWSLib
         }
 
         [DispId(89)]
-        public void reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDate, double strike,
+        public void reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
             string right, string multiplier, string exchange, string primaryExchange, string currency,
             int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options)
         {
@@ -722,7 +726,7 @@ namespace TWSLib
 
             contract.Symbol = symbol;
             contract.SecType = secType;
-            contract.LastTradeDate = lastTradeDate;
+            contract.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
             contract.Strike = strike;
             contract.Right = right;
             contract.Multiplier = multiplier;
@@ -1317,7 +1321,7 @@ namespace TWSLib
                 InvokeIfRequired(t_updatePortfolio,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.LastTradeDate,
+                                contract.LastTradeDateOrContractMonth,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Currency,
@@ -1364,7 +1368,7 @@ namespace TWSLib
                     orderId,
                     contract.Symbol,
                     contract.SecType,
-                    contract.LastTradeDate,
+                    contract.LastTradeDateOrContractMonth,
                     contract.Strike,
                     contract.Right,
                     contract.Exchange,
@@ -1396,7 +1400,7 @@ namespace TWSLib
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.LastTradeDate,
+                                contract.LastTradeDateOrContractMonth,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1430,7 +1434,7 @@ namespace TWSLib
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.LastTradeDate,
+                                contract.LastTradeDateOrContractMonth,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1520,7 +1524,7 @@ namespace TWSLib
                 InvokeIfRequired(t_contractDetails,
                                 contractDetails.Summary.Symbol,
                                 contractDetails.Summary.SecIdType,
-                                contractDetails.Summary.LastTradeDate,
+                                contractDetails.Summary.LastTradeDateOrContractMonth,
                                 contractDetails.Summary.Strike,
                                 contractDetails.Summary.Right,
                                 contractDetails.Summary.Exchange,
@@ -1563,7 +1567,7 @@ namespace TWSLib
                                 reqId,
                                 contract.Symbol,
                                 contract.SecType,
-                                contract.LastTradeDate,
+                                contract.LastTradeDateOrContractMonth,
                                 contract.Strike,
                                 contract.Right,
                                 contract.Exchange,
@@ -1685,7 +1689,7 @@ namespace TWSLib
                                 rank,
                                 contractDetails.Summary.Symbol,
                                 distance,
-                                contractDetails.Summary.LastTradeDate,
+                                contractDetails.Summary.LastTradeDateOrContractMonth,
                                 contractDetails.Summary.Strike,
                                 contractDetails.Summary.Right,
                                 contractDetails.Summary.Exchange,

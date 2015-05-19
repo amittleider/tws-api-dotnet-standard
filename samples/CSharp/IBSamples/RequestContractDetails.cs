@@ -48,7 +48,7 @@ namespace Samples
         {
             Console.WriteLine("/*******Incoming Contract Details - RequestId "+reqId+"************/");
             Console.WriteLine(contractDetails.Summary.Symbol + " " + contractDetails.Summary.SecType + " @ " + contractDetails.Summary.Exchange);
-            Console.WriteLine("lastTradeDate: " + contractDetails.Summary.LastTradeDate + ", Right: " + contractDetails.Summary.Right);
+            Console.WriteLine("lastTradeDate: " + contractDetails.Summary.LastTradeDateOrContractMonth + ", Right: " + contractDetails.Summary.Right);
             Console.WriteLine("Strike: " + contractDetails.Summary.Strike + ", Multiplier: " + contractDetails.Summary.Multiplier);
             Console.WriteLine("/*******     End     *************/\n");
         }

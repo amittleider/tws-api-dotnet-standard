@@ -247,7 +247,7 @@ Friend Class dlgAcctData
         Dim msg As String
 
         With contract
-            msg = "conId=" & .ConId & " symbol=" & .Symbol & " secType=" & .SecType & " lastTradeDate=" & .lastTradeDate & " strike=" & .Strike _
+            msg = "conId=" & .ConId & " symbol=" & .Symbol & " secType=" & .SecType & " lastTradeDate=" & .LastTradeDateOrContractMonth & " strike=" & .Strike _
             & " right=" & .Right & " multiplier=" & .Multiplier & " primaryExch=" & .PrimaryExch & " currency=" & .Currency _
             & " localSymbol=" & .LocalSymbol & " tradingClass=" & .TradingClass & " position=" & position & " mktPrice=" & marketPrice & " mktValue=" & marketValue _
             & " avgCost=" & averageCost & " unrealizedPNL=" & unrealizedPNL & " realizedPNL=" & realizedPNL & " account=" & accountName
