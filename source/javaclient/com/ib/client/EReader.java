@@ -49,6 +49,7 @@ public class EReader extends Thread {
     /**
      * Read and put messages to the msg queue until interrupted or TWS closes connection.
      */
+    @Override
     public void run() {
         try {
             // loop until thread is terminated

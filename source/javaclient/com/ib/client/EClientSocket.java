@@ -190,7 +190,8 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    eConnect( new Socket( m_host, newPort ) );
 	}
 
-	public synchronized void eDisconnect() {
+	@Override
+    public synchronized void eDisconnect() {
 	    eDisconnect( true );
 	}
 

@@ -47,7 +47,8 @@ public class EClientSocketSSL extends EClientSocket  {
         }
     }
 
-	public synchronized void eConnect( String host, int port, int clientId, boolean extraAuth) {
+	@Override
+    public synchronized void eConnect( String host, int port, int clientId, boolean extraAuth) {
 	    // already connected?
 	    m_host = checkConnected(host);
 	
@@ -69,7 +70,8 @@ public class EClientSocketSSL extends EClientSocket  {
 	    }
 	}
 
-	protected void performRedirect( String address, int defaultPort ) throws IOException {
+	@Override
+    protected void performRedirect( String address, int defaultPort ) throws IOException {
 	    System.out.println("Server Redirect: " + address);
 	    
 	    // Get host:port from address string and reconnect (note: port is optional)

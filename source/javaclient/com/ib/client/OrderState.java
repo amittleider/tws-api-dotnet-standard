@@ -57,7 +57,8 @@ public class OrderState {
 		m_warningText = warningText;
 	}
 
-	public boolean equals(Object other) {
+	@Override
+    public boolean equals(Object other) {
         if (this == other)
             return true;
 

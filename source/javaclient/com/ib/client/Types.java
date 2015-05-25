@@ -164,7 +164,8 @@ public class Types {
             return getValueOf(apiString, values(), None);
 		}
 
-		public String getApiString() {
+		@Override
+        public String getApiString() {
 			return m_apiString;
 		}
 	}
@@ -225,7 +226,8 @@ public class Types {
 	public static enum BarSize {
 		_1_secs, _5_secs, _10_secs, _15_secs, _30_secs, _1_min, _2_mins, _3_mins, _5_mins, _10_mins, _15_mins, _20_mins, _30_mins, _1_hour, _4_hours, _1_day, _1_week;
 
-		public String toString() {
+		@Override
+        public String toString() {
 			return super.toString().substring( 1).replace( '_', ' ');
 		}
 	}

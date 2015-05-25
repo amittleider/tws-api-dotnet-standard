@@ -22,7 +22,8 @@ public enum Instrument {
 	STOCK_NA,
 	WAR_EU;
 
-	public String toString() {
+	@Override
+    public String toString() {
 		return super.toString().replace( '_', '.');
 	}
 }
