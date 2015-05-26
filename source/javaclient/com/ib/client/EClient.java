@@ -3,12 +3,7 @@
 
 package com.ib.client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FilterInputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +97,6 @@ public abstract class EClient {
 
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = 100; // ditto
-    private static final int REDIRECT_MSG_ID = -1;
     protected static final int REDIRECT_COUNT_MAX = 2;
 
     protected static final int CLIENT_VERSION = 66;
