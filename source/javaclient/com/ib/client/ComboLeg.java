@@ -13,6 +13,7 @@ public class ComboLeg {
             return Types.getEnum( i, values() );
         }
 
+        @Override
         public String getApiString() {
             return String.valueOf(ordinal());
         }
@@ -83,6 +84,7 @@ public class ComboLeg {
         m_exemptCode = p_exemptCode;
     }
 
+    @Override
     public boolean equals(Object p_other) {
         if ( this == p_other ) {
             return true;

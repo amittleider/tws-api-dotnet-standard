@@ -15,7 +15,8 @@ public final class TagValue {
 		m_value = p_value;
 	}
 
-	public boolean equals(Object p_other) {
+	@Override
+    public boolean equals(Object p_other) {
 
 		if( this == p_other)
             return true;

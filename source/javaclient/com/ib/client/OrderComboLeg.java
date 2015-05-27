@@ -18,6 +18,7 @@ public class OrderComboLeg {
         m_price = p_price;
     }
 
+    @Override
     public boolean equals(Object p_other) {
         if ( this == p_other ) {
             return true;

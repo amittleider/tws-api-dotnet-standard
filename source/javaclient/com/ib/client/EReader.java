@@ -49,6 +49,7 @@ public class EReader extends Thread {
     /**
      * Read and put messages to the msg queue until interrupted or TWS closes connection.
      */
+    @Override
     public void run() {
         try {
             // loop until thread is terminated
@@ -113,10 +114,11 @@ public class EReader extends Thread {
 	private EMessage readSingleMessage() throws IOException {
 		if (m_useV100Plus) {
 			int msgSize = m_clientSocket.readInt();
-			
-			if ( msgSize > MAX_MSG_LENGTH ) {
-    			throw new InvalidMessageLengthException( "message is too long: " + msgSize );
-    		}
+
+			if (msgSize > MAX_MSG_LENGTH) {
+				throw new InvalidMessageLengthException("message is too long: "
+						+ msgSize);
+			}
 			
 			byte[] buf = new byte[msgSize];
 			

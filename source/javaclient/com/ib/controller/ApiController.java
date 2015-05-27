@@ -1026,7 +1026,8 @@ public class ApiController implements EWrapper {
 		throw new RuntimeException();
 	}
 	
-	public void connectAck() {
+	@Override
+    public void connectAck() {
 		m_client.startAPI();
 	}
 }

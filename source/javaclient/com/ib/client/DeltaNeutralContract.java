@@ -30,6 +30,7 @@ public class DeltaNeutralContract {
 		m_price = price;
 	}
 
+    @Override
     public boolean equals(Object p_other) {
         if (this == p_other) {
             return true;
