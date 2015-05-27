@@ -89,6 +89,11 @@ namespace IBApi
             {
                 msgSize = eClientSocket.ReadInt();
 
+                if (msgSize > Constants.MaxMsgSize)
+                {
+                    throw new EClientException(EClientErrors.BAD_LENGTH);
+                }
+
                 return new EMessage(eClientSocket.ReadByteArray(msgSize));
             }
 

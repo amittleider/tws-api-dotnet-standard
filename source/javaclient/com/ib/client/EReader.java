@@ -92,6 +92,15 @@ public class EReader extends Thread {
     		return m_msgQueue.isEmpty() ? null : m_msgQueue.removeLast();
 		}
     }
+	
+    static final int MAX_MSG_LENGTH = 0xffffff;
+    
+    @SuppressWarnings("serial")
+	private static class InvalidMessageLengthException extends IOException {
+		public InvalidMessageLengthException(String message) {
+			super(message);
+		}
+    }
     
     public void processMsgs() throws IOException {
     	EMessage msg = getMsg();
@@ -104,6 +113,11 @@ public class EReader extends Thread {
 	private EMessage readSingleMessage() throws IOException {
 		if (m_useV100Plus) {
 			int msgSize = m_clientSocket.readInt();
+			
+			if ( msgSize > MAX_MSG_LENGTH ) {
+    			throw new InvalidMessageLengthException( "message is too long: " + msgSize );
+    		}
+			
 			byte[] buf = new byte[msgSize];
 			
 			m_clientSocket.read(buf, 0, msgSize);
