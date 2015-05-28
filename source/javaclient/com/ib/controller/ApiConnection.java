@@ -4,23 +4,14 @@
 package com.ib.controller;
 
 
-import java.io.DataInputStream;
-import java.io.FilterInputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.net.Socket;
 
 import com.ib.client.Contract;
-import com.ib.client.EClient;
 import com.ib.client.EClientErrors;
+import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EMessage;
 import com.ib.client.EWrapper;
-import com.ib.client.EClientSocket;
-import com.ib.client.EReader;
 import com.ib.client.Order;
 
 // NOTE: TWS 936 SERVER_VERSION is 67.

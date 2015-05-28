@@ -1435,70 +1435,7 @@ class EDecoder {
     	public abstract String readStr() throws IOException;
     	public abstract int msgLength();
     }
-    
-    /** Buffered reading implementation for a length prefixed message */
-    private static class LengthPrefixedMessageReader implements IMessageReader {
-    	private final byte[] m_buffer;
-    	private int m_currentPos = 0;
-    	
-    	public LengthPrefixedMessageReader( InputStream din ) throws IOException {
-    		long length = readUnsignedIntLength( din );
-    		if ( length > MAX_MSG_LENGTH ) {
-    			throw new InvalidMessageLengthException( "message is too long: " + length );
-    		}
-    		m_buffer = readFully( din, (int)length );
-    	}
-    	
-        public final long readUnsignedIntLength( InputStream in ) throws IOException {
-            int ch1 = in.read();
-            if ( ch1 < 0 ) {
-            	throw new EOSException( "eos");
-            }
-            int ch2 = in.read();
-            int ch3 = in.read();
-            int ch4 = in.read();
-            if ((ch2 | ch3 | ch4) < 0) {
-                throw new EOFException();
-            }
-            return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0)) & 0xffffffffL;
-        }
-        
-        public final byte[] readFully( InputStream in, int len ) throws IOException {
-        	byte[] b = new byte[ len ];
-            for ( int n = 0, count; n < len; n+= count ) {
-                count = in.read( b, n, len - n );
-                if ( count < 0) {
-                    throw new EOFException();
-                }
-            }
-            return b;
-        }
-    	
-    	@Override public String readStr() throws IOException {
-    		int startPos = m_currentPos;
-    		int bufferLength = m_buffer.length;
-            for ( int currentPos = startPos; currentPos < bufferLength; ++currentPos ) {
-                if ( m_buffer[ currentPos ] == 0 ) {
-                	m_currentPos = currentPos + 1;
-                	return currentPos > startPos 
-                			? new String( m_buffer, startPos, currentPos - startPos )
-                			: null;
-                }
-            }
-            m_currentPos = m_buffer.length;
-    		throw new EOFException( "attempt to read past the end of buffer" );
-        }
 
-        @Override public void close() {
-            m_currentPos = m_buffer.length;
-        }
-
-		@Override
-		public int msgLength() {
-			return m_buffer.length;
-		}
-    }
-    
     private static class PreV100MessageReader implements IMessageReader {
     	private final InputStream m_din;
     	private int m_msgLength = 0;
@@ -1535,19 +1472,5 @@ class EDecoder {
     	@Override public void close() {
     	    /** noop in pre-v100 */
     	}
-    }
-    
-    @SuppressWarnings("serial")
-    private static class EOSException extends EOFException {
-    	public EOSException(String message) {
-    		super(message);
-    	}
-    }
-    
-    @SuppressWarnings("serial")
-	private static class InvalidMessageLengthException extends IOException {
-		public InvalidMessageLengthException(String message) {
-			super(message);
-		}
     }
 }

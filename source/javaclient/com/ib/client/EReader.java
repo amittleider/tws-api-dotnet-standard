@@ -3,7 +3,6 @@
 
 package com.ib.client;
 
-import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.Arrays;
