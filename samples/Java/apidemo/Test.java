@@ -74,7 +74,7 @@ public class Test implements EWrapper {
 	@Override public void updateAccountValue(String key, String value, String currency, String accountName) {
 	}
 
-	@Override public void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
+	@Override public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
 	}
 
 	@Override public void updateAccountTime(String timeStamp) {
@@ -146,7 +146,7 @@ public class Test implements EWrapper {
 	@Override public void commissionReport(CommissionReport commissionReport) {
 	}
 
-	@Override public void position(String account, Contract contract, int pos, double avgCost) {
+	@Override public void position(String account, Contract contract, double pos, double avgCost) {
 	}
 
 	@Override public void positionEnd() {

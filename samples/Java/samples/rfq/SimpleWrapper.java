@@ -131,7 +131,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("updateAccountValue");
 	}
 
-	public void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+	public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
 			double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
 		logIn("updatePortfolio");
 	}
@@ -233,7 +233,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	
-	public void position(String account, Contract contract, int pos, double avgCost) {
+	public void position(String account, Contract contract, double pos, double avgCost) {
 		logIn("position");
 	}
 	

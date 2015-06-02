@@ -693,7 +693,7 @@ namespace IBApi
                 contract.TradingClass = ReadString();
             }
 
-            int position = ReadInt();
+            var position = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             double marketPrice = ReadDouble();
             double marketValue = ReadDouble();
             double averageCost = 0.0;
@@ -812,7 +812,7 @@ namespace IBApi
 
             // read order fields
             order.Action = ReadString();
-            order.TotalQuantity = ReadInt();
+            order.TotalQuantity = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             order.OrderType = ReadString();
             if (msgVersion < 29)
             {
@@ -1268,7 +1268,7 @@ namespace IBApi
             exec.AcctNumber = ReadString();
             exec.Exchange = ReadString();
             exec.Side = ReadString();
-            exec.Shares = ReadInt();
+            exec.Shares = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             exec.Price = ReadDouble();
             if (msgVersion >= 2)
             {
@@ -1428,7 +1428,7 @@ namespace IBApi
                 contract.TradingClass = ReadString();
             }
 
-            int pos = ReadInt();
+            var pos = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             double avgCost = 0;
             if (msgVersion >= 3)
                 avgCost = ReadDouble();

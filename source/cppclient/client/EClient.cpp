@@ -1514,7 +1514,12 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 
 	// send main order fields
 	ENCODE_FIELD( order.action);
-	ENCODE_FIELD( order.totalQuantity);
+
+	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+		ENCODE_FIELD(order.totalQuantity)
+	else
+		ENCODE_FIELD((long)order.totalQuantity)
+
 	ENCODE_FIELD( order.orderType);
 	if( m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE) {
 		ENCODE_FIELD( order.lmtPrice == UNSET_DOUBLE ? 0 : order.lmtPrice);

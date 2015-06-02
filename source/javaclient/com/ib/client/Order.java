@@ -39,7 +39,7 @@ public class Order {
 
     // primary attributes
     private String      m_action = "BUY";
-    private int         m_totalQuantity;
+    private double         m_totalQuantity;
     private int         m_displaySize;
     private String      m_orderType = "LMT";
     private double      m_lmtPrice = Double.MAX_VALUE;
@@ -221,7 +221,7 @@ public class Order {
     public int scaleInitPosition()      { return m_scaleInitPosition; }
     public int scalePriceAdjustInterval() { return m_scalePriceAdjustInterval; }
     public int scaleSubsLevelSize()     { return m_scaleSubsLevelSize; }
-    public int totalQuantity()          { return m_totalQuantity; }
+    public double totalQuantity()          { return m_totalQuantity; }
     public long permId()                { return m_permId; }
     public Method faMethod()            { return Method.get(m_faMethod); }
     public String getFaMethod()         { return m_faMethod; }
@@ -362,7 +362,7 @@ public class Order {
     public void sweepToFill(boolean v)          { m_sweepToFill = v; }
     public void tif(TimeInForce v)              { m_tif = ( v == null ) ? null : v.getApiString(); }
     public void tif(String v)                   { m_tif = v; }
-    public void totalQuantity(int v)            { m_totalQuantity = v; }
+    public void totalQuantity(double v)            { m_totalQuantity = v; }
     public void trailingPercent(double v)       { m_trailingPercent = v; }
     public void trailStopPrice(double v)        { m_trailStopPrice = v; }
     public void transmit(boolean v)             { m_transmit = v; }

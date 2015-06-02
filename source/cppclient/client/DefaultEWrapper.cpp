@@ -21,7 +21,7 @@ void DefaultEWrapper::winError( const std::string& str, int lastError) { }
 void DefaultEWrapper::connectionClosed() { }
 void DefaultEWrapper::updateAccountValue(const std::string& key, const std::string& val,
    const std::string& currency, const std::string& accountName) { }
-void DefaultEWrapper::updatePortfolio( const Contract& contract, int position,
+void DefaultEWrapper::updatePortfolio( const Contract& contract, double position,
       double marketPrice, double marketValue, double averageCost,
       double unrealizedPNL, double realizedPNL, const std::string& accountName) { }
 void DefaultEWrapper::updateAccountTime(const std::string& timeStamp) { }
@@ -55,7 +55,7 @@ void DefaultEWrapper::deltaNeutralValidation(int reqId, const UnderComp& underCo
 void DefaultEWrapper::tickSnapshotEnd( int reqId) { }
 void DefaultEWrapper::marketDataType( TickerId reqId, int marketDataType) { }
 void DefaultEWrapper::commissionReport( const CommissionReport& commissionReport) { }
-void DefaultEWrapper::position( const std::string& account, const Contract& contract, int position, double avgCost) { }
+void DefaultEWrapper::position( const std::string& account, const Contract& contract, double position, double avgCost) { }
 void DefaultEWrapper::positionEnd() { }
 void DefaultEWrapper::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) { }
 void DefaultEWrapper::accountSummaryEnd( int reqId) { }

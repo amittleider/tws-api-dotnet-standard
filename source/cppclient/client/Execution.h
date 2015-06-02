@@ -25,7 +25,7 @@ struct Execution
 	std::string	acctNumber;
 	std::string	exchange;
 	std::string	side;
-	int			shares;
+	double		shares;
 	double		price;
 	int			permId;
 	long		clientId;

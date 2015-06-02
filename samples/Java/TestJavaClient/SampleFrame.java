@@ -1080,7 +1080,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_acctDlg.updateAccountValue(key, value, currency, accountName);
     }
 
-    public void updatePortfolio(Contract contract, int position, double marketPrice,
+    public void updatePortfolio(Contract contract, double position, double marketPrice,
         double marketValue, double averageCost, double unrealizedPNL, double realizedPNL,
         String accountName) {
         m_acctDlg.updatePortfolio(contract, position, marketPrice, marketValue,
@@ -1258,7 +1258,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.randomizeSize(srcOrder.randomizeSize());
     }
 
-    public void position(String account, Contract contract, int pos, double avgCost) {
+    public void position(String account, Contract contract, double pos, double avgCost) {
         String msg = EWrapperMsgGenerator.position(account, contract, pos, avgCost);
         m_TWS.add(msg);
     }

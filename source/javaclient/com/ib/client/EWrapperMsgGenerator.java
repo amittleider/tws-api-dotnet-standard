@@ -514,11 +514,11 @@ public class EWrapperMsgGenerator {
         return msg;
     }
     
-    static public String position( String account, Contract contract, int position, double avgCost) {
+    static public String position( String account, Contract contract, double pos, double avgCost) {
         String msg = " ---- Position begin ----\n"
         + "account = " + account + "\n"
         + contractMsg(contract)
-        + "position = " + Util.IntMaxString(position) + "\n"
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
         + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
         + " ---- Position end ----\n";
         return msg;

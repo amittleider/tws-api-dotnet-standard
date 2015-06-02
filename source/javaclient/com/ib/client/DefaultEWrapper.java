@@ -76,7 +76,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void updatePortfolio(Contract contract, int position,
+	public void updatePortfolio(Contract contract, double position,
 			double marketPrice, double marketValue, double averageCost,
 			double unrealizedPNL, double realizedPNL, String accountName) {
 		// TODO Auto-generated method stub
@@ -236,7 +236,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void position(String account, Contract contract, int pos,
+	public void position(String account, Contract contract, double pos,
 			double avgCost) {
 		// TODO Auto-generated method stub
 		

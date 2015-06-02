@@ -249,7 +249,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub position(account As String, contract As IBApi.Contract, pos As Integer, avgCost As Double) Implements IBApi.EWrapper.position
+    Public Sub position(account As String, contract As IBApi.Contract, pos As Double, avgCost As Double) Implements IBApi.EWrapper.position
         InvokeIfRequired(Sub()
                              RaiseEvent Onposition(Me, New AxTWSLib._DTwsEvents_positionEvent With {
                                                                  .account = account,
@@ -443,7 +443,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub updatePortfolio(contract As IBApi.Contract, position As Integer, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
+    Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
         InvokeIfRequired(Sub()
                              RaiseEvent OnupdatePortfolioEx(Me, New AxTWSLib._DTwsEvents_updatePortfolioExEvent With {
                                                                  .contract = contract,

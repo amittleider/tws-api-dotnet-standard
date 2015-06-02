@@ -25,7 +25,7 @@ public:
    virtual void connectionClosed();
    virtual void updateAccountValue(const std::string& key, const std::string& val,
    const std::string& currency, const std::string& accountName);
-   virtual void updatePortfolio( const Contract& contract, int position,
+   virtual void updatePortfolio( const Contract& contract, double position,
       double marketPrice, double marketValue, double averageCost,
       double unrealizedPNL, double realizedPNL, const std::string& accountName);
    virtual void updateAccountTime(const std::string& timeStamp);
@@ -59,7 +59,7 @@ public:
    virtual void tickSnapshotEnd( int reqId);
    virtual void marketDataType( TickerId reqId, int marketDataType);
    virtual void commissionReport( const CommissionReport& commissionReport);
-   virtual void position( const std::string& account, const Contract& contract, int position, double avgCost);
+   virtual void position( const std::string& account, const Contract& contract, double position, double avgCost);
    virtual void positionEnd();
    virtual void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency);
    virtual void accountSummaryEnd( int reqId);

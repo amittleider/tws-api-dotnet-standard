@@ -601,7 +601,12 @@ class EDecoder {
 		exec.acctNumber(readStr());
 		exec.exchange(readStr());
 		exec.side(readStr());
-		exec.shares(readInt());
+		
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS)			
+			exec.shares(readDouble());
+		else
+			exec.shares(readInt());
+				
 		exec.price(readDouble());
 		if ( version >= 2 ) {
 		    exec.permId(readInt());
@@ -821,7 +826,12 @@ class EDecoder {
 
 		// read order fields
 		order.action(readStr());
-		order.totalQuantity(readInt());
+		
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS)		
+			order.totalQuantity(readDouble());
+		else
+			order.totalQuantity(readInt());
+		
 		order.orderType(readStr());
 		if (version < 29) {
 		    order.lmtPrice(readDouble());
@@ -1342,7 +1352,7 @@ class EDecoder {
 			contract.tradingClass(readStr());
 		}
 
-		int pos = readInt();
+		double pos = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();
 		double avgCost = 0;
 		if (version >= 3) {
 			avgCost = readDouble();

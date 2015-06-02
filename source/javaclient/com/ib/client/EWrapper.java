@@ -24,7 +24,7 @@ public interface EWrapper {
     void openOrder( int orderId, Contract contract, Order order, OrderState orderState);
     void openOrderEnd();
     void updateAccountValue(String key, String value, String currency, String accountName);
-    void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+    void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
             double averageCost, double unrealizedPNL, double realizedPNL, String accountName);
     void updateAccountTime(String timeStamp);
     void accountDownloadEnd(String accountName);
@@ -53,7 +53,7 @@ public interface EWrapper {
     void tickSnapshotEnd(int reqId);
     void marketDataType(int reqId, int marketDataType);
     void commissionReport(CommissionReport commissionReport);
-    void position(String account, Contract contract, int pos, double avgCost);
+    void position(String account, Contract contract, double pos, double avgCost);
     void positionEnd();
     void accountSummary(int reqId, String account, String tag, String value, String currency);
     void accountSummaryEnd(int reqId);

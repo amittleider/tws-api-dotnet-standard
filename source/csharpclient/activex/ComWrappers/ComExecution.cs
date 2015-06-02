@@ -85,7 +85,7 @@ namespace TWSLib
         /**
          * @brief The number of shares filled.
          */
-        public int Shares
+        public double Shares
         {
             get { return data != null ? data.Shares : default(int); }
             set { if (data != null) data.Shares = value; }
@@ -227,7 +227,7 @@ namespace TWSLib
             get { return Side; }
         }
 
-        int TWSLib.IExecution.shares
+        double TWSLib.IExecution.shares
         {
             get { return Shares; }
         }

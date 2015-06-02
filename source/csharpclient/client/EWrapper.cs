@@ -186,7 +186,7 @@ namespace IBApi
          * @param marketValue total market value of the instrument.
          * @sa updateAccountTime, accountDownloadEnd, updateAccountValue, EClientSocket::reqAccountUpdates
          */
-        void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+        void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
             double averageCost, double unrealisedPNL, double realisedPNL, string accountName);
 
         /**
@@ -371,7 +371,7 @@ namespace IBApi
          * @Param avgCost the average cost of the position.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, int pos, double avgCost);
+        void position(string account, Contract contract, double pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.

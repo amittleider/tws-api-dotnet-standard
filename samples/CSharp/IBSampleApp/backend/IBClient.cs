@@ -138,7 +138,7 @@ namespace IBSampleApp
             parentUI.HandleMessage(new AccountValueMessage(key, value, currency, accountName));
         }
 
-        public virtual void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public virtual void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
             parentUI.HandleMessage(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName));
         }
@@ -228,7 +228,7 @@ namespace IBSampleApp
             addTextToBox("News Bulletins. " + msgId + " - Type: " + msgType + ", Message: " + message + ", Exchange of Origin: " + origExchange + "\n");
         }
 
-        public virtual void position(string account, Contract contract, int pos, double avgCost)
+        public virtual void position(string account, Contract contract, double pos, double avgCost)
         {
             parentUI.HandleMessage(new PositionMessage(account, contract, pos, avgCost));
         }
