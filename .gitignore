@@ -1,8 +1,13 @@
 *.class
 *.jar
+*.suo
 /source/javaclient/nbproject/private/
 /samples/Java/nbproject/private/
 /source/javaclient/build/
+/source/csharpclient/client/bin
+/source/csharpclient/client/obj
 /samples/Java/build/
 /samples/Java/dist/
+/samples/CSharp/IBSampleApp/bin
+/samples/CSharp/IBSampleApp/obj
 /bin/
