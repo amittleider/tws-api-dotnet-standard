@@ -318,6 +318,8 @@ namespace TWSLib
         IOrderComboLegList createOrderComboLegList();
         [DispId(208)]
         void setUseV100Plus(string connectOptions);
+        [DispId(209)]
+        void startApi();
         #endregion
     }
 }

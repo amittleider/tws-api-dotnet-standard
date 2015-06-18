@@ -1111,7 +1111,7 @@ namespace TWSLib
 
         public event currentTimeDelegate currentTime;
 
-        event scannerDataEndDelegate scannerDataEnd;
+        public event scannerDataEndDelegate scannerDataEnd;
 
         public event fundamentalDataDelegate fundamentalData;
 
@@ -1819,6 +1819,11 @@ namespace TWSLib
         public void setUseV100Plus(string connectOptions)
         {
             socket.SetUseV100Plus(connectOptions);
+        }
+
+        public void startApi()
+        {
+            socket.startApi();
         }
     }
 }
