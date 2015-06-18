@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBApi
 {
-    class EClientException : Exception
+    public class EClientException : Exception
     {
         public CodeMsgPair Err { get; private set; }
 
