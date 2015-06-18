@@ -205,7 +205,7 @@ namespace TWSLib
 
         string TWSLib.IContract.secType { get { return SecType; } set { SecType = value; } }
 
-        string TWSLib.IContract.lastTradeDate { get { return lastTradeDateOrContractMonth; } set { lastTradeDateOrContractMonth = value; } }
+        string TWSLib.IContract.lastTradeDateOrContractMonth { get { return lastTradeDateOrContractMonth; } set { lastTradeDateOrContractMonth = value; } }
 
         double TWSLib.IContract.strike { get { return Strike; } set { Strike = value; } }
 
