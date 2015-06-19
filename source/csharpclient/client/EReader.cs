@@ -98,9 +98,16 @@ namespace IBApi
                 }
 
                 var buf = new List<byte>();
+                var offset = 0;
 
-                while (buf.Count < msgSize)
-                    buf.AddRange(eClientSocket.ReadByteArray(msgSize));
+                while (offset < msgSize)
+                {
+                    var readBuf = eClientSocket.ReadByteArray(msgSize - offset);
+
+                    buf.AddRange(readBuf);
+
+                    offset += readBuf.Length;
+                }
 
                 return new EMessage(buf.ToArray());
             }
