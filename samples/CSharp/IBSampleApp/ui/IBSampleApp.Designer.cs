@@ -464,7 +464,7 @@ namespace IBSampleApp
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(1256, 456);
-            this.TabControl.TabIndex = 0;
+            this.TabControl.TabIndex = 7;
             // 
             // marketDataTab
             // 
@@ -3304,7 +3304,7 @@ namespace IBSampleApp
             this.connectButton.Location = new System.Drawing.Point(1181, 12);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
-            this.connectButton.TabIndex = 8;
+            this.connectButton.TabIndex = 6;
             this.connectButton.Text = "Connect";
             this.informationTooltip.SetToolTip(this.connectButton, "Connects to TWS or IB Gateway.");
             this.connectButton.UseVisualStyleBackColor = true;
@@ -3352,7 +3352,7 @@ namespace IBSampleApp
             this.host_label_CT.Location = new System.Drawing.Point(796, 22);
             this.host_label_CT.Name = "host_label_CT";
             this.host_label_CT.Size = new System.Drawing.Size(29, 13);
-            this.host_label_CT.TabIndex = 1;
+            this.host_label_CT.TabIndex = 0;
             this.host_label_CT.Text = "Host";
             // 
             // host_CT
@@ -3360,7 +3360,7 @@ namespace IBSampleApp
             this.host_CT.Location = new System.Drawing.Point(831, 16);
             this.host_CT.Name = "host_CT";
             this.host_CT.Size = new System.Drawing.Size(83, 20);
-            this.host_CT.TabIndex = 0;
+            this.host_CT.TabIndex = 1;
             this.informationTooltip.SetToolTip(this.host_CT, "TWS host\'s IP address (leave blank if TWS is running on the same machine).");
             // 
             // comboTab
@@ -3811,7 +3811,7 @@ namespace IBSampleApp
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1256, 186);
-            this.tabControl2.TabIndex = 1;
+            this.tabControl2.TabIndex = 8;
             // 
             // messagesTab
             // 
@@ -3874,6 +3874,7 @@ namespace IBSampleApp
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IBSampleApp";
             this.Text = "Interactive Brokers - C# Sample Application";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.TabControl.ResumeLayout(false);
             this.marketDataTab.ResumeLayout(false);
             this.marketData_MDT.ResumeLayout(false);
