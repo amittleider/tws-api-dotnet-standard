@@ -62,7 +62,7 @@ public class Test implements EWrapper {
 			double dividendsToLastTradeDate) {
 	}
 
-	@Override public void orderStatus(int orderId, String status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
+	@Override public void orderStatus(int orderId, String status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
 	}
 
 	@Override public void openOrder(int orderId, Contract contract, Order order, OrderState orderState) {

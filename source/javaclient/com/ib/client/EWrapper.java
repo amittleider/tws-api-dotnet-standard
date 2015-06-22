@@ -18,7 +18,7 @@ public interface EWrapper {
 	void tickEFP(int tickerId, int tickType, double basisPoints,
 			String formattedBasisPoints, double impliedFuture, int holdDays,
 			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
-    void orderStatus( int orderId, String status, int filled, int remaining,
+    void orderStatus( int orderId, String status, double filled, double remaining,
             double avgFillPrice, int permId, int parentId, double lastFillPrice,
             int clientId, String whyHeld);
     void openOrder( int orderId, Contract contract, Order order, OrderState orderState);

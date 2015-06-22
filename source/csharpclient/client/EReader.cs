@@ -13,14 +13,17 @@ namespace IBApi
         Queue<EMessage> msgQueue = new Queue<EMessage>();
         EDecoder processMsgsDecoder;
         EDecoder threadReadDecoder;
-        bool useV100Plus = false;
+
+        bool UseV100Plus
+        {
+            get
+            {
+                return eClientSocket.UseV100Plus;
+            }
+        }
+
 
         static EWrapper defaultWrapper = new DefaultEWrapper();
-
-        public void SetUseV100Plus()
-        {
-            useV100Plus = true;
-        }
 
         public EReader(EClientSocket clientSocket, EReaderSignal signal)
         {
@@ -85,7 +88,7 @@ namespace IBApi
         {
             var msgSize = 0;
 
-            if (useV100Plus)
+            if (UseV100Plus)
             {
                 msgSize = eClientSocket.ReadInt();
 
@@ -94,7 +97,19 @@ namespace IBApi
                     throw new EClientException(EClientErrors.BAD_LENGTH);
                 }
 
-                return new EMessage(eClientSocket.ReadByteArray(msgSize));
+                var buf = new List<byte>();
+                var offset = 0;
+
+                while (offset < msgSize)
+                {
+                    var readBuf = eClientSocket.ReadByteArray(msgSize - offset);
+
+                    buf.AddRange(readBuf);
+
+                    offset += readBuf.Length;
+                }
+
+                return new EMessage(buf.ToArray());
             }
 
             if (inBuf.Count == 0)

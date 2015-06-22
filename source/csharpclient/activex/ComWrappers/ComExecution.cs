@@ -87,7 +87,7 @@ namespace TWSLib
          */
         public double Shares
         {
-            get { return data != null ? data.Shares : default(int); }
+            get { return data != null ? data.Shares : default(double); }
             set { if (data != null) data.Shares = value; }
         }
 

@@ -1155,7 +1155,7 @@ class EDecoder {
 		    contract.tradingClass(readStr());
 		}
 
-		int position  = readInt();
+		double position = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();;
 		double marketPrice = readDouble();
 		double marketValue = readDouble();
 		double  averageCost = 0.0;
@@ -1196,8 +1196,8 @@ class EDecoder {
 		int version = readInt();
 		int id = readInt();
 		String status = readStr();
-		int filled = readInt();
-		int remaining = readInt();
+		double filled = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();
+		double remaining = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();
 		double avgFillPrice = readDouble();
 
 		int permId = 0;

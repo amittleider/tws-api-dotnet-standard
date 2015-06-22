@@ -946,7 +946,7 @@ namespace TWSLib
 
         public delegate void updatePortfolioDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
-        public delegate void orderStatusDelegate(int id, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        public delegate void orderStatusDelegate(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
 
         public delegate void contractDetailsDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
 
@@ -1111,7 +1111,7 @@ namespace TWSLib
 
         public event currentTimeDelegate currentTime;
 
-        event scannerDataEndDelegate scannerDataEnd;
+        public event scannerDataEndDelegate scannerDataEnd;
 
         public event fundamentalDataDelegate fundamentalData;
 
@@ -1353,7 +1353,7 @@ namespace TWSLib
                 InvokeIfRequired(t_accountDownloadEnd, account);
         }
 
-        void EWrapper.orderStatus(int orderId, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        void EWrapper.orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
             var t_orderStatus = this.orderStatus;
             if (t_orderStatus != null)
@@ -1819,6 +1819,11 @@ namespace TWSLib
         public void setUseV100Plus(string connectOptions)
         {
             socket.SetUseV100Plus(connectOptions);
+        }
+
+        public void startApi()
+        {
+            socket.startApi();
         }
     }
 }

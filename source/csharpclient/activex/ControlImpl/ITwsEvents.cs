@@ -131,5 +131,9 @@ namespace TWSLib
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
         [DispId(116)]
         void historicalDataEnd(int reqId, string start, string end);
+        [DispId(117)]
+        void bondContractDetailsEx(int reqId, IContractDetails contractDetails);
+        [DispId(118)]
+        void connectAck();
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace IBApi
 {
@@ -26,6 +27,9 @@ namespace IBApi
         protected int clientId;
         protected bool extraAuth;
         protected bool useV100Plus;
+
+        internal bool UseV100Plus { get { return useV100Plus; } }
+
         private string connectOptions;
         protected bool allowRedirect = false;
 
@@ -2486,11 +2490,8 @@ namespace IBApi
         public byte[] ReadByteArray(int msgSize)
         {
             var buf = new byte[msgSize];
-            var rval = new byte[tcpStream.Read(buf, 0, msgSize)];
 
-            Buffer.BlockCopy(buf, 0, rval, 0, rval.Length);
-
-            return rval;
+            return buf.Take(tcpStream.Read(buf, 0, msgSize)).ToArray();
         }
 
         public bool AsyncEConnect { get; set; }

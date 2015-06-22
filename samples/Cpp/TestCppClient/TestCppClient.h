@@ -57,8 +57,8 @@ public:
 	void tickString(TickerId tickerId, TickType tickType, const std::string& value);
 	void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
-	void orderStatus(OrderId orderId, const std::string& status, int filled,
-		int remaining, double avgFillPrice, int permId, int parentId,
+	void orderStatus(OrderId orderId, const std::string& status, double filled,
+		double remaining, double avgFillPrice, int permId, int parentId,
 		double lastFillPrice, int clientId, const std::string& whyHeld);
 	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
 	void openOrderEnd();

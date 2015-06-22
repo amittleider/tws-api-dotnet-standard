@@ -22,11 +22,30 @@ namespace IBApi
         {
             base.serverVersion = version;
 
-            if (useV100Plus && (base.serverVersion < Constants.MinVersion || base.serverVersion > Constants.MaxVersion))
+            if (!useV100Plus)
             {
-                Wrapper.error(0, EClientErrors.UNSUPPORTED_VERSION.Code, EClientErrors.UNSUPPORTED_VERSION.Message);
-
+                if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
+                {
+                    ReportUpdateTWS("");
+                    return;
+                }
+            }
+            else if (serverVersion < Constants.MinVersion || serverVersion > Constants.MaxVersion)
+            {
+                wrapper.error(clientId, EClientErrors.UNSUPPORTED_VERSION.Code, EClientErrors.UNSUPPORTED_VERSION.Message);
                 return;
+            }
+
+            if (serverVersion >= 3)
+            {
+                if (serverVersion < MinServerVer.LINKING)
+                {
+                    List<byte> buf = new List<byte>();
+
+                    buf.AddRange(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
+                    buf.Add(Constants.EOL);
+                    socketTransport.Send(new EMessage(buf.ToArray()));
+                }
             }
 
             ServerTime = time;
@@ -69,32 +88,6 @@ namespace IBApi
                     {
                         eReaderSignal.waitForSignal();
                         eReader.processMsgs();
-                    }
-
-                    if (!useV100Plus)
-                    {
-                        if (!CheckServerVersion(MinServerVer.MIN_VERSION, ""))
-                        {
-                            ReportUpdateTWS("");
-                            return;
-                        }
-                    }
-                    else if (serverVersion < Constants.MinVersion || serverVersion > Constants.MaxVersion)
-                    {
-                        wrapper.error(clientId, EClientErrors.UNSUPPORTED_VERSION.Code, EClientErrors.UNSUPPORTED_VERSION.Message);
-                        return;
-                    }
-
-                    if (serverVersion >= 3)
-                    {
-                        if (serverVersion < MinServerVer.LINKING)
-                        {
-                            List<byte> buf = new List<byte>();
-
-                            buf.AddRange(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
-                            buf.Add(Constants.EOL);
-                            socketTransport.Send(new EMessage(buf.ToArray()));
-                        }
                     }
                 }
             }

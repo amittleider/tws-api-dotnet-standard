@@ -19,7 +19,7 @@ namespace TWSLib
         [DispId(3)]
         string secType { get; set; }
         [DispId(4)]
-        string lastTradeDate { get; set; }
+        string lastTradeDateOrContractMonth { get; set; }
         [DispId(5)]
         double strike { get; set; }
         [DispId(6)]

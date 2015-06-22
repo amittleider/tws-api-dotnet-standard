@@ -1811,7 +1811,7 @@ Friend Class dlgOrder
         m_contractInfo.SecId = txtSecId.Text
 
         m_orderInfo.Action = txtAction.Text
-        m_orderInfo.TotalQuantity = CInt(txtQuantity.Text)
+        m_orderInfo.TotalQuantity = CDbl(txtQuantity.Text)
         m_orderInfo.OrderType = txtOrderType.Text
         m_orderInfo.LmtPrice = dval(txtLmtPrice.Text)
         m_orderInfo.AuxPrice = dval(txtAuxPrice.Text)

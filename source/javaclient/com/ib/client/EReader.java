@@ -121,8 +121,12 @@ public class EReader extends Thread {
 			
 			byte[] buf = new byte[msgSize];
 			
-			m_clientSocket.read(buf, 0, msgSize);
+			int offset = 0;
 			
+			while (offset < msgSize) {
+				offset += m_clientSocket.read(buf, offset, msgSize - offset);
+			}
+						
 			return new EMessage(buf);
 		}
 		

@@ -740,8 +740,8 @@ namespace IBApi
             int msgVersion = ReadInt();
             int id = ReadInt();
             string status = ReadString();
-            int filled = ReadInt();
-            int remaining = ReadInt();
+            double filled = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
+            double remaining = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             double avgFillPrice = ReadDouble();
 
             int permId = 0;

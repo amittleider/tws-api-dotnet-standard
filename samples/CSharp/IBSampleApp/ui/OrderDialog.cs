@@ -167,7 +167,7 @@ namespace IBSampleApp
             if(!lmtPrice.Text.Equals(""))
                 order.LmtPrice = Double.Parse(lmtPrice.Text);
             if(!quantity.Text.Equals(""))
-                order.TotalQuantity = Int32.Parse(quantity.Text);
+                order.TotalQuantity = Double.Parse(quantity.Text);
             order.Account = account.Text;
             order.Tif = timeInForce.Text;
             if (!auxPrice.Text.Equals(""))

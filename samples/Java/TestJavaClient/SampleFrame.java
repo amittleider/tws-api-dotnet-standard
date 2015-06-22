@@ -945,7 +945,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_tickers.add(msg);
     }
 
-    public void orderStatus( int orderId, String status, int filled, int remaining,
+    public void orderStatus( int orderId, String status, double filled, double remaining,
     						 double avgFillPrice, int permId, int parentId,
     						 double lastFillPrice, int clientId, String whyHeld) {
         // received order status

@@ -210,8 +210,8 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
     int version;
     int orderId;
     std::string status;
-    int filled;
-    int remaining;
+    double filled;
+    double remaining;
     double avgFillPrice;
     int permId;
     int parentId;
@@ -222,8 +222,33 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
     DECODE_FIELD( version);
     DECODE_FIELD( orderId);
     DECODE_FIELD( status);
-    DECODE_FIELD( filled);
-    DECODE_FIELD( remaining);
+   
+	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+	{
+		DECODE_FIELD( filled);
+	}
+	else
+	{
+		int iFilled;
+
+		DECODE_FIELD(iFilled);
+
+		filled = iFilled;
+	}
+
+    if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+	{
+		DECODE_FIELD( remaining);
+	}
+	else
+	{
+		int iRemaining;
+
+		DECODE_FIELD(iRemaining);
+
+		remaining = iRemaining;
+	}
+
     DECODE_FIELD( avgFillPrice);
 
     DECODE_FIELD( permId); // ver 2 field
@@ -1259,7 +1284,7 @@ const char* EDecoder::processCommissionReportMsg(const char* ptr, const char* en
 const char* EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr) {
     int version;
     std::string account;
-    int position;
+    double position;
     double avgCost = 0;
 
     DECODE_FIELD( version);
@@ -1281,7 +1306,19 @@ const char* EDecoder::processPositionDataMsg(const char* ptr, const char* endPtr
         DECODE_FIELD( contract.tradingClass);
     }
 
-    DECODE_FIELD( position);
+    if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+	{
+		DECODE_FIELD( position);
+	}
+	else
+	{
+		int iPosition;
+
+		DECODE_FIELD(iPosition);
+
+		position = iPosition;
+	}
+
     if (version >= 3) {
         DECODE_FIELD( avgCost);
     }

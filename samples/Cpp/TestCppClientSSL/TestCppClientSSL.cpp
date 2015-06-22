@@ -171,8 +171,8 @@ void TestCppClient::cancelOrder()
 
 ///////////////////////////////////////////////////////////////////
 // events
-void TestCppClient::orderStatus( OrderId orderId, const std::string& status, int filled,
-	                            int remaining, double avgFillPrice, int permId, int parentId,
+void TestCppClient::orderStatus( OrderId orderId, const std::string& status, double filled,
+	                            double remaining, double avgFillPrice, int permId, int parentId,
 	                            double lastFillPrice, int clientId, const std::string& whyHeld)
 
 {

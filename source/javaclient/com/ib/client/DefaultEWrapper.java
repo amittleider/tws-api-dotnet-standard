@@ -48,8 +48,8 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void orderStatus(int orderId, String status, int filled,
-			int remaining, double avgFillPrice, int permId, int parentId,
+	public void orderStatus(int orderId, String status, double filled,
+			double remaining, double avgFillPrice, int permId, int parentId,
 			double lastFillPrice, int clientId, String whyHeld) {
 		// TODO Auto-generated method stub
 		
