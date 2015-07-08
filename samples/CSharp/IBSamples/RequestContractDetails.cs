@@ -27,7 +27,7 @@ namespace Samples
 
             //We can request the whole option's chain by giving a brief description of the contract
             //i.e. we only specify symbol, currency, secType and exchange (SMART)
-            Contract optionContract = ContractSamples.getOptionForQuery();
+            Contract optionContract = ContractSamples.OptionForQuery();
 
             testImpl.ClientSocket.reqContractDetails(1, optionContract);
 

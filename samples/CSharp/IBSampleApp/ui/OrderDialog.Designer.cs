@@ -192,6 +192,8 @@ namespace IBSampleApp
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.checkMarginButton = new System.Windows.Forms.Button();
             this.closeOrderDialogButton = new System.Windows.Forms.Button();
+            this.orderPrimExchLabel = new System.Windows.Forms.Label();
+            this.contractPrimaryExch = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.orderContractTab.SuspendLayout();
             this.baseGroup.SuspendLayout();
@@ -205,7 +207,7 @@ namespace IBSampleApp
             // 
             // contractSymbol
             // 
-            this.contractSymbol.Location = new System.Drawing.Point(84, 25);
+            this.contractSymbol.Location = new System.Drawing.Point(82, 24);
             this.contractSymbol.Name = "contractSymbol";
             this.contractSymbol.Size = new System.Drawing.Size(71, 20);
             this.contractSymbol.TabIndex = 0;
@@ -449,6 +451,8 @@ namespace IBSampleApp
             // 
             // contractGroup
             // 
+            this.contractGroup.Controls.Add(this.orderPrimExchLabel);
+            this.contractGroup.Controls.Add(this.contractPrimaryExch);
             this.contractGroup.Controls.Add(this.orderLocalSymbol);
             this.contractGroup.Controls.Add(this.orderCurrencyLabel);
             this.contractGroup.Controls.Add(this.orderExchangeLabel);
@@ -477,7 +481,7 @@ namespace IBSampleApp
             // orderLocalSymbol
             // 
             this.orderLocalSymbol.AutoSize = true;
-            this.orderLocalSymbol.Location = new System.Drawing.Point(8, 130);
+            this.orderLocalSymbol.Location = new System.Drawing.Point(6, 130);
             this.orderLocalSymbol.Name = "orderLocalSymbol";
             this.orderLocalSymbol.Size = new System.Drawing.Size(70, 13);
             this.orderLocalSymbol.TabIndex = 16;
@@ -486,7 +490,7 @@ namespace IBSampleApp
             // orderCurrencyLabel
             // 
             this.orderCurrencyLabel.AutoSize = true;
-            this.orderCurrencyLabel.Location = new System.Drawing.Point(29, 104);
+            this.orderCurrencyLabel.Location = new System.Drawing.Point(27, 103);
             this.orderCurrencyLabel.Name = "orderCurrencyLabel";
             this.orderCurrencyLabel.Size = new System.Drawing.Size(49, 13);
             this.orderCurrencyLabel.TabIndex = 15;
@@ -495,7 +499,7 @@ namespace IBSampleApp
             // orderExchangeLabel
             // 
             this.orderExchangeLabel.AutoSize = true;
-            this.orderExchangeLabel.Location = new System.Drawing.Point(23, 78);
+            this.orderExchangeLabel.Location = new System.Drawing.Point(21, 77);
             this.orderExchangeLabel.Name = "orderExchangeLabel";
             this.orderExchangeLabel.Size = new System.Drawing.Size(55, 13);
             this.orderExchangeLabel.TabIndex = 14;
@@ -504,7 +508,7 @@ namespace IBSampleApp
             // orderSymbolLabel
             // 
             this.orderSymbolLabel.AutoSize = true;
-            this.orderSymbolLabel.Location = new System.Drawing.Point(37, 25);
+            this.orderSymbolLabel.Location = new System.Drawing.Point(35, 24);
             this.orderSymbolLabel.Name = "orderSymbolLabel";
             this.orderSymbolLabel.Size = new System.Drawing.Size(41, 13);
             this.orderSymbolLabel.TabIndex = 0;
@@ -513,7 +517,7 @@ namespace IBSampleApp
             // orderMultiplierLabel
             // 
             this.orderMultiplierLabel.AutoSize = true;
-            this.orderMultiplierLabel.Location = new System.Drawing.Point(216, 105);
+            this.orderMultiplierLabel.Location = new System.Drawing.Point(216, 108);
             this.orderMultiplierLabel.Name = "orderMultiplierLabel";
             this.orderMultiplierLabel.Size = new System.Drawing.Size(48, 13);
             this.orderMultiplierLabel.TabIndex = 13;
@@ -522,7 +526,7 @@ namespace IBSampleApp
             // orderRightLabel
             // 
             this.orderRightLabel.AutoSize = true;
-            this.orderRightLabel.Location = new System.Drawing.Point(216, 82);
+            this.orderRightLabel.Location = new System.Drawing.Point(216, 85);
             this.orderRightLabel.Name = "orderRightLabel";
             this.orderRightLabel.Size = new System.Drawing.Size(45, 13);
             this.orderRightLabel.TabIndex = 12;
@@ -553,7 +557,7 @@ namespace IBSampleApp
             "BSK",
             "ICU",
             "ICS"});
-            this.contractSecType.Location = new System.Drawing.Point(84, 51);
+            this.contractSecType.Location = new System.Drawing.Point(82, 50);
             this.contractSecType.Name = "contractSecType";
             this.contractSecType.Size = new System.Drawing.Size(71, 21);
             this.contractSecType.TabIndex = 1;
@@ -562,7 +566,7 @@ namespace IBSampleApp
             // orderStrikeLabel
             // 
             this.orderStrikeLabel.AutoSize = true;
-            this.orderStrikeLabel.Location = new System.Drawing.Point(226, 52);
+            this.orderStrikeLabel.Location = new System.Drawing.Point(226, 55);
             this.orderStrikeLabel.Name = "orderStrikeLabel";
             this.orderStrikeLabel.Size = new System.Drawing.Size(34, 13);
             this.orderStrikeLabel.TabIndex = 11;
@@ -570,22 +574,22 @@ namespace IBSampleApp
             // 
             // contractLastTradeDateOrContractMonth
             // 
-            this.contractLastTradeDateOrContractMonth.Location = new System.Drawing.Point(273, 24);
+            this.contractLastTradeDateOrContractMonth.Location = new System.Drawing.Point(273, 22);
             this.contractLastTradeDateOrContractMonth.Name = "contractLastTradeDateOrContractMonth";
             this.contractLastTradeDateOrContractMonth.Size = new System.Drawing.Size(71, 20);
             this.contractLastTradeDateOrContractMonth.TabIndex = 2;
             // 
             // orderLastTradeDateOrContractMonthLabel
             // 
-            this.orderLastTradeDateOrContractMonthLabel.Location = new System.Drawing.Point(172, 24);
+            this.orderLastTradeDateOrContractMonthLabel.Location = new System.Drawing.Point(178, 22);
             this.orderLastTradeDateOrContractMonthLabel.Name = "orderLastTradeDateOrContractMonthLabel";
-            this.orderLastTradeDateOrContractMonthLabel.Size = new System.Drawing.Size(95, 28);
+            this.orderLastTradeDateOrContractMonthLabel.Size = new System.Drawing.Size(89, 28);
             this.orderLastTradeDateOrContractMonthLabel.TabIndex = 10;
-            this.orderLastTradeDateOrContractMonthLabel.Text = "Last trade date or contract month";
+            this.orderLastTradeDateOrContractMonthLabel.Text = "Last trade date / contract month";
             // 
             // contractStrike
             // 
-            this.contractStrike.Location = new System.Drawing.Point(273, 51);
+            this.contractStrike.Location = new System.Drawing.Point(273, 54);
             this.contractStrike.Name = "contractStrike";
             this.contractStrike.Size = new System.Drawing.Size(71, 20);
             this.contractStrike.TabIndex = 3;
@@ -593,7 +597,7 @@ namespace IBSampleApp
             // orderSecTypeLabel
             // 
             this.orderSecTypeLabel.AutoSize = true;
-            this.orderSecTypeLabel.Location = new System.Drawing.Point(28, 51);
+            this.orderSecTypeLabel.Location = new System.Drawing.Point(26, 50);
             this.orderSecTypeLabel.Name = "orderSecTypeLabel";
             this.orderSecTypeLabel.Size = new System.Drawing.Size(50, 13);
             this.orderSecTypeLabel.TabIndex = 9;
@@ -602,28 +606,28 @@ namespace IBSampleApp
             // contractRight
             // 
             this.contractRight.FormattingEnabled = true;
-            this.contractRight.Location = new System.Drawing.Point(273, 79);
+            this.contractRight.Location = new System.Drawing.Point(273, 82);
             this.contractRight.Name = "contractRight";
             this.contractRight.Size = new System.Drawing.Size(71, 21);
             this.contractRight.TabIndex = 4;
             // 
             // contractLocalSymbol
             // 
-            this.contractLocalSymbol.Location = new System.Drawing.Point(84, 130);
+            this.contractLocalSymbol.Location = new System.Drawing.Point(82, 130);
             this.contractLocalSymbol.Name = "contractLocalSymbol";
             this.contractLocalSymbol.Size = new System.Drawing.Size(71, 20);
             this.contractLocalSymbol.TabIndex = 8;
             // 
             // contractMultiplier
             // 
-            this.contractMultiplier.Location = new System.Drawing.Point(273, 106);
+            this.contractMultiplier.Location = new System.Drawing.Point(273, 109);
             this.contractMultiplier.Name = "contractMultiplier";
             this.contractMultiplier.Size = new System.Drawing.Size(71, 20);
             this.contractMultiplier.TabIndex = 5;
             // 
             // contractCurrency
             // 
-            this.contractCurrency.Location = new System.Drawing.Point(84, 104);
+            this.contractCurrency.Location = new System.Drawing.Point(82, 103);
             this.contractCurrency.Name = "contractCurrency";
             this.contractCurrency.Size = new System.Drawing.Size(71, 20);
             this.contractCurrency.TabIndex = 7;
@@ -631,7 +635,7 @@ namespace IBSampleApp
             // 
             // contractExchange
             // 
-            this.contractExchange.Location = new System.Drawing.Point(84, 78);
+            this.contractExchange.Location = new System.Drawing.Point(82, 77);
             this.contractExchange.Name = "contractExchange";
             this.contractExchange.Size = new System.Drawing.Size(71, 20);
             this.contractExchange.TabIndex = 6;
@@ -1849,6 +1853,22 @@ namespace IBSampleApp
             this.closeOrderDialogButton.UseVisualStyleBackColor = true;
             this.closeOrderDialogButton.Click += new System.EventHandler(this.closeOrderDialogButton_Click);
             // 
+            // orderPrimExchLabel
+            // 
+            this.orderPrimExchLabel.AutoSize = true;
+            this.orderPrimExchLabel.Location = new System.Drawing.Point(6, 160);
+            this.orderPrimExchLabel.Name = "orderPrimExchLabel";
+            this.orderPrimExchLabel.Size = new System.Drawing.Size(71, 13);
+            this.orderPrimExchLabel.TabIndex = 18;
+            this.orderPrimExchLabel.Text = "Primary Exch.";
+            // 
+            // contractPrimaryExch
+            // 
+            this.contractPrimaryExch.Location = new System.Drawing.Point(82, 160);
+            this.contractPrimaryExch.Name = "contractPrimaryExch";
+            this.contractPrimaryExch.Size = new System.Drawing.Size(71, 20);
+            this.contractPrimaryExch.TabIndex = 17;
+            // 
             // OrderDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2051,6 +2071,8 @@ namespace IBSampleApp
         private System.Windows.Forms.TextBox startTime;
         private System.Windows.Forms.Button checkMarginButton;
         private System.Windows.Forms.Button closeOrderDialogButton;
+        private System.Windows.Forms.Label orderPrimExchLabel;
+        private System.Windows.Forms.TextBox contractPrimaryExch;
         
     }
 }

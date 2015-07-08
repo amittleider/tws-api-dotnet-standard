@@ -36,7 +36,6 @@ import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
-import com.sun.prism.Texture.WrapMode;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
