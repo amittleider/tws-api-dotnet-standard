@@ -225,6 +225,10 @@ public abstract class EClient {
     private String m_connectOptions; // iServer rails are used for Connection if this is not null
 	protected String m_host;
 	protected ETransport m_socketTransport;
+	
+	public boolean isUseV100Plus() {
+		return m_useV100Plus;
+	}
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }

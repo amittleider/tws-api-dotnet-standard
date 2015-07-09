@@ -17,6 +17,8 @@ namespace Samples
         public static int Main(string[] args)
         {
             EWrapperImpl testImpl = new EWrapperImpl();
+
+            testImpl.ClientSocket.SetUseV100Plus("");
             testImpl.ClientSocket.eConnect("127.0.0.1", 7496, 0, false);
 
             var reader = new EReader(testImpl.ClientSocket, testImpl.Signal);

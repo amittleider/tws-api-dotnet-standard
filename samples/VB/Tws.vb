@@ -514,7 +514,7 @@ Friend Class Tws
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean, optcapts As String)
         socket.optionalCapabilities = optcapts
 
-        'socket.SetUseV100Plus("")
+        socket.SetUseV100Plus("")
         socket.eConnect(p1, p2, p3, p4)
 
         Dim msgThread As Threading.Thread = New Threading.Thread(AddressOf msgProcessing)

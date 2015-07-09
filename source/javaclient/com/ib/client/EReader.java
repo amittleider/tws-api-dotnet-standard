@@ -21,14 +21,15 @@ import java.util.LinkedList;
 public class EReader extends Thread {
     private EClientSocket 	m_clientSocket;
     private EReaderSignal m_signal;
-    private boolean 		m_useV100Plus;
     private EDecoder m_threadReadDecoder, m_processMsgsDecoder;
     private static final EWrapper defaultWrapper = new DefaultEWrapper();
     private byte[] m_iBuf = new byte[8192];
     private int m_iBufLen = 0;
     private Deque<EMessage> m_msgQueue = new LinkedList<EMessage>();
     
-    public void setUseV100Plus() { m_useV100Plus = true; }
+    private boolean isUseV100Plus() {
+		return m_clientSocket.isUseV100Plus();
+	}
 
     protected EClient parent()    { return m_clientSocket; }
     private EWrapper eWrapper()         { return parent().wrapper(); }
@@ -111,7 +112,7 @@ public class EReader extends Thread {
     }
 
 	private EMessage readSingleMessage() throws IOException {
-		if (m_useV100Plus) {
+		if (isUseV100Plus()) {
 			int msgSize = m_clientSocket.readInt();
 
 			if (msgSize > MAX_MSG_LENGTH) {

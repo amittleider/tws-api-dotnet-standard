@@ -16,6 +16,7 @@ import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
@@ -50,7 +51,35 @@ public class SimpleWrapper implements EWrapper {
 	public void connect(int clientId) {
 		String host = System.getProperty("jts.host");
 		host = host != null ? host : "";
-		m_client.eConnect(host, 7496, clientId);	
+		m_client.setUseV100Plus("");
+		m_client.eConnect(host, 7496, clientId);
+		
+        final EReader reader = new EReader(m_client, m_signal);
+        
+        reader.start();
+       
+		new Thread() {
+			public void run() {
+				while (m_client.isConnected()) {
+					m_signal.waitForSignal();
+					try {
+						javax.swing.SwingUtilities
+								.invokeAndWait(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											reader.processMsgs();
+										} catch (IOException e) {
+											error(e);
+										}
+									}
+								});
+					} catch (Exception e) {
+						error(e);
+					}
+				}
+			}
+		}.start();
 	}
 
 	public void disconnect() {

@@ -59,10 +59,6 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    // start reader thread
 	    EReader reader = new EReader(this, m_signal);;
 	
-	    if (m_useV100Plus) {
-	    	reader.setUseV100Plus();
-	    }
-	    
 	    if (!asyncEConnect) {
 	    	reader.putMessageToQueue();
 
