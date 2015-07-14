@@ -40,6 +40,8 @@ namespace IBApi
                 while (eClientSocket.IsConnected())
                     if (!putMessageToQueue())
                         break;
+
+                eReaderSignal.issueSignal();
             }) { IsBackground = true }.Start();
         }
 
