@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Linq;
+using System.IO;
 
 namespace IBApi
 {
@@ -12,7 +13,7 @@ namespace IBApi
         EReaderSignal eReaderSignal;
         Queue<EMessage> msgQueue = new Queue<EMessage>();
         EDecoder processMsgsDecoder;
-        EDecoder threadReadDecoder;
+        const int defaultInBufSize = ushort.MaxValue / 8;
 
         bool UseV100Plus
         {
@@ -29,7 +30,6 @@ namespace IBApi
         {
             eClientSocket = clientSocket;
             eReaderSignal = signal;
-            threadReadDecoder = new EDecoder(eClientSocket.ServerVersion, defaultWrapper);
             processMsgsDecoder = new EDecoder(eClientSocket.ServerVersion, eClientSocket.Wrapper, eClientSocket);
         }
 
@@ -84,7 +84,7 @@ namespace IBApi
             }
         }
 
-        List<byte> inBuf = new List<byte>(short.MaxValue / 8);
+        List<byte> inBuf = new List<byte>(defaultInBufSize);
 
         private EMessage readSingleMessage()
         {
@@ -115,16 +115,36 @@ namespace IBApi
             }
 
             if (inBuf.Count == 0)
-                inBuf.AddRange(eClientSocket.ReadByteArray(inBuf.Capacity - inBuf.Count));
+                AppendInBuf();
 
-            msgSize = threadReadDecoder.ParseAndProcessMsg(inBuf.ToArray());
+            while (true)
+                try
+                {
+                    msgSize = new EDecoder(this.eClientSocket.ServerVersion, defaultWrapper).ParseAndProcessMsg(inBuf.ToArray());
+                    break;
+                }
+                catch (EndOfStreamException)
+                {
+                    if (inBuf.Count >= inBuf.Capacity * 3/4)
+                        inBuf.Capacity *= 2;
+
+                    AppendInBuf();
+                }
             
             var msgBuf = new byte[msgSize];
 
             inBuf.CopyTo(0, msgBuf, 0, msgSize);
             inBuf.RemoveRange(0, msgSize);
+          
+            if (inBuf.Count < defaultInBufSize && inBuf.Capacity > defaultInBufSize)
+                inBuf.Capacity = defaultInBufSize;
 
             return new EMessage(msgBuf);
+        }
+
+        private void AppendInBuf()
+        {
+            inBuf.AddRange(eClientSocket.ReadByteArray(inBuf.Capacity - inBuf.Count));
         }
     }
 }
