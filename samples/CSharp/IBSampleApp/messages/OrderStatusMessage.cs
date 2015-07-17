@@ -10,8 +10,8 @@ namespace IBSampleApp.messages
     public class OrderStatusMessage : OrderMessage
     {
         private string status;
-        private int filled;
-        private int remaining;
+        private double filled;
+        private double remaining;
         private double avgFillPrice;
         private int permId;
         private int parentId;
@@ -19,7 +19,7 @@ namespace IBSampleApp.messages
         private int clientId;
         private string whyHeld;
 
-        public OrderStatusMessage(int orderId, string status, int filled, int remaining, double avgFillPrice,
+        public OrderStatusMessage(int orderId, string status, double filled, double remaining, double avgFillPrice,
            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
             Type = MessageType.OrderStatus;
@@ -40,14 +40,14 @@ namespace IBSampleApp.messages
             get { return status; }
             set { status = value; }
         }
-        
-        public int Filled
+
+        public double Filled
         {
             get { return filled; }
             set { filled = value; }
         }
-        
-        public int Remaining
+
+        public double Remaining
         {
             get { return remaining; }
             set { remaining = value; }

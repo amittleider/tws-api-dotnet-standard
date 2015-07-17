@@ -11,7 +11,7 @@ namespace IBSampleApp.messages
     public class UpdatePortfolioMessage : IBMessage
     {
         private Contract contract;
-        private int position;
+        private double position;
         private double marketPrice;
         private double marketValue;
         private double averageCost;
@@ -19,7 +19,7 @@ namespace IBSampleApp.messages
         private double realisedPNL;
         private string accountName;
 
-        public UpdatePortfolioMessage(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public UpdatePortfolioMessage(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
             Type = MessageType.PortfolioValue;
             Contract = contract;
@@ -38,7 +38,7 @@ namespace IBSampleApp.messages
             set { contract = value; }
         }
         
-        public int Position
+        public double Position
         {
             get { return position; }
             set { position = value; }

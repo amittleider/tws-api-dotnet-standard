@@ -60,5 +60,6 @@ namespace IBApi
         public const int LINKING_AUTH = 74;
         public const int PRIMARYEXCH = 75;
         public const int RANDOMIZE_SIZE_AND_PRICE = 76;
+        public const int FRACTIONAL_POSITIONS = 101;
     }
 }

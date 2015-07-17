@@ -59,9 +59,9 @@ namespace TWSLib
         /**
          * @brief The number of positions being bought/sold.
          */
-        public int TotalQuantity
+        public double TotalQuantity
         {
-            get { return data != null ? data.TotalQuantity : default(int); }
+            get { return data != null ? data.TotalQuantity : default(double); }
             set { if (data != null) data.TotalQuantity = value; }
         }
 
@@ -978,7 +978,7 @@ namespace TWSLib
 
         string TWSLib.IOrder.action { get { return Action; } set { Action = value; } }
 
-        int TWSLib.IOrder.totalQuantity { get { return TotalQuantity; } set { TotalQuantity = value; } }
+        double TWSLib.IOrder.totalQuantity { get { return TotalQuantity; } set { TotalQuantity = value; } }
 
         string TWSLib.IOrder.orderType { get { return OrderType; } set { OrderType = value; } }
 

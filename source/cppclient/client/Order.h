@@ -146,7 +146,7 @@ struct Order
 
 	// main order fields
 	std::string action;
-	long     totalQuantity;
+	double     totalQuantity;
 	std::string orderType;
 	double   lmtPrice;
 	double   auxPrice;

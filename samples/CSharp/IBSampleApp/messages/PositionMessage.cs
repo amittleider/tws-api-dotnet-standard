@@ -12,10 +12,10 @@ namespace IBSampleApp.messages
     {
         private string account;
         private Contract contract;
-        private int position;
+        private double position;
         private double averageCost;
         
-        public PositionMessage(string account, Contract contract, int pos, double avgCost)
+        public PositionMessage(string account, Contract contract, double pos, double avgCost)
         {
             Type = MessageType.Position;
             Account = account;
@@ -36,7 +36,7 @@ namespace IBSampleApp.messages
             set { contract = value; }
         }
 
-        public int Position
+        public double Position
         {
             get { return position; }
             set { position = value; }
