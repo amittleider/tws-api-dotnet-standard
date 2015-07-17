@@ -24,6 +24,7 @@ class TWSAPISSLDLLEXP EReaderSSL
     bool m_needsWriteSelect;
     bool m_isAlive;
     HANDLE m_hReadThread;
+	int m_nMaxBufSize;
 
 	void onReceive();
 	void onSend();
