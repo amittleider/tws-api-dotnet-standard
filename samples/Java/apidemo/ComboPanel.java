@@ -25,10 +25,10 @@ import apidemo.OrdersPanel.OrdersModel;
 import apidemo.TopModel.TopRow;
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
-import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.VerticalPanel.HorzPanel;
 
 import com.ib.client.ComboLeg;

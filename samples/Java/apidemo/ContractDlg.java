@@ -11,9 +11,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
-import com.ib.client.Contract;
-
 import apidemo.util.HtmlButton;
+
+import com.ib.client.Contract;
 
 
 class ContractDlg extends JDialog {
