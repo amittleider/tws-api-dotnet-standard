@@ -12,8 +12,8 @@ import javax.swing.JTable;
 import apidemo.AccountInfoPanel.MktValModel;
 import apidemo.AccountInfoPanel.Table;
 import apidemo.util.HtmlButton;
-import apidemo.util.VerticalPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
+import apidemo.util.VerticalPanel;
 
 import com.ib.controller.ApiController.IMarketValueSummaryHandler;
 import com.ib.controller.MarketValueTag;

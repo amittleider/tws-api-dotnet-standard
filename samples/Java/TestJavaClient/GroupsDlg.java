@@ -12,14 +12,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ib.client.EClient;
-import com.ib.client.EClientSocket;
-import com.ib.client.EWrapperMsgGenerator;
 
 
 public class GroupsDlg extends JDialog {

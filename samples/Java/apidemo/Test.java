@@ -7,7 +7,6 @@ import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
-import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EWrapper;
