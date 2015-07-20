@@ -260,7 +260,7 @@ public class TicketDlg extends JDialog {
 		private void onOK() {
 			m_order.account( m_account.getText().toUpperCase() );
 			m_order.action( m_action.getSelectedItem() );
-			m_order.totalQuantity( m_quantity.getInt() );
+			m_order.totalQuantity( m_quantity.getDouble() );
 			m_order.displaySize( m_displaySize.getInt() );
 			m_order.orderType( m_orderType.getSelectedItem() );
 			m_order.lmtPrice( m_lmtPrice.getDouble() );

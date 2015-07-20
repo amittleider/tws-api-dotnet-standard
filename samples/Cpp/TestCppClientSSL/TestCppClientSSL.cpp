@@ -153,7 +153,7 @@ void TestCppClient::placeOrder()
 	order.orderType = "LMT";
 	order.lmtPrice = 0.01;
 
-	printf( "Placing Order %ld: %s %ld %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
+	printf( "Placing Order %ld: %s %f %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
 
 	m_state = ST_PLACEORDER_ACK;
 
