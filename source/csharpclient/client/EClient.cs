@@ -26,11 +26,11 @@ namespace IBApi
         protected bool isConnected;
         protected int clientId;
         protected bool extraAuth;
-        protected bool useV100Plus;
+        protected bool useV100Plus = true;
 
         internal bool UseV100Plus { get { return useV100Plus; } }
 
-        private string connectOptions;
+        private string connectOptions = "";
         protected bool allowRedirect = false;
 
         /**
@@ -48,7 +48,7 @@ namespace IBApi
             this.AsyncEConnect = false;
         }
 
-        public void SetUseV100Plus(string connectOptions)
+        public void SetConnectOptions(string connectOptions)
         {
             if (IsConnected())
             {
@@ -57,8 +57,13 @@ namespace IBApi
                 return;
             }
 
-            this.useV100Plus = true;
             this.connectOptions = connectOptions;
+        }
+
+        public void DisableUseV100Plus()
+        {
+            this.useV100Plus = false;
+            this.connectOptions = "";
         }
 
         public EWrapper Wrapper

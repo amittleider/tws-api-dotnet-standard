@@ -299,7 +299,6 @@ namespace IBSampleApp
                 {
                     port = Int32.Parse(this.port_CT.Text);
                     ibClient.ClientId = Int32.Parse(this.clientid_CT.Text);
-                    ibClient.ClientSocket.SetUseV100Plus("");
                     ibClient.ClientSocket.eConnect(host, port, ibClient.ClientId);
 
                     var reader = new EReader(ibClient.ClientSocket, signal);
