@@ -67,9 +67,9 @@ bool TestCppClient::isConnected() const
 	return m_pClient->isConnected();
 }
 
-void TestCppClient::setUseV100Plus(const std::string& connectOptions)
+void TestCppClient::setConnectOptions(const std::string& connectOptions)
 {
-	m_pClient->setUseV100Plus(connectOptions);
+	m_pClient->setConnectOptions(connectOptions);
 }
 
 void TestCppClient::processMessages() {
@@ -122,7 +122,7 @@ void TestCppClient::processMessages() {
 //////////////////////////////////////////////////////////////////
 // methods
 void TestCppClient::connectAck() {
-    if (!m_extraAuth)
+	if (!m_extraAuth && m_pClient->asyncEConnect())
         m_pClient->startApi();
 }
 
@@ -153,7 +153,7 @@ void TestCppClient::placeOrder()
 	order.orderType = "LMT";
 	order.lmtPrice = 0.01;
 
-	printf( "Placing Order %ld: %s %ld %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
+	printf( "Placing Order %ld: %s %f %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
 
 	m_state = ST_PLACEORDER_ACK;
 
