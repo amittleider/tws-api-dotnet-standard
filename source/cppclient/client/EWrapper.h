@@ -85,8 +85,8 @@ public:
    virtual void tickString(TickerId tickerId, TickType tickType, const std::string& value) = 0;
    virtual void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 	   double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) = 0;
-   virtual void orderStatus( OrderId orderId, const std::string& status, int filled,
-	   int remaining, double avgFillPrice, int permId, int parentId,
+   virtual void orderStatus( OrderId orderId, const std::string& status, double filled,
+	   double remaining, double avgFillPrice, int permId, int parentId,
 	   double lastFillPrice, int clientId, const std::string& whyHeld) = 0;
    virtual void openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&) = 0;
    virtual void openOrderEnd() = 0;
@@ -94,7 +94,7 @@ public:
    virtual void connectionClosed() = 0;
    virtual void updateAccountValue(const std::string& key, const std::string& val,
    const std::string& currency, const std::string& accountName) = 0;
-   virtual void updatePortfolio( const Contract& contract, int position,
+   virtual void updatePortfolio( const Contract& contract, double position,
       double marketPrice, double marketValue, double averageCost,
       double unrealizedPNL, double realizedPNL, const std::string& accountName) = 0;
    virtual void updateAccountTime(const std::string& timeStamp) = 0;
@@ -128,7 +128,7 @@ public:
    virtual void tickSnapshotEnd( int reqId) = 0;
    virtual void marketDataType( TickerId reqId, int marketDataType) = 0;
    virtual void commissionReport( const CommissionReport& commissionReport) = 0;
-   virtual void position( const std::string& account, const Contract& contract, int position, double avgCost) = 0;
+   virtual void position( const std::string& account, const Contract& contract, double position, double avgCost) = 0;
    virtual void positionEnd() = 0;
    virtual void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) = 0;
    virtual void accountSummaryEnd( int reqId) = 0;

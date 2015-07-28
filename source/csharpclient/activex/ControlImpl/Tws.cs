@@ -944,9 +944,9 @@ namespace TWSLib
 
         public delegate void errMsgDelegate(int id, int errorCode, string errorMsg);
 
-        public delegate void updatePortfolioDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, int position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
+        public delegate void updatePortfolioDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
-        public delegate void orderStatusDelegate(int id, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        public delegate void orderStatusDelegate(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
 
         public delegate void contractDetailsDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
 
@@ -1018,14 +1018,14 @@ namespace TWSLib
 
         public delegate void execDetailsExDelegate(int reqId, IContract contract, IExecution execution);
 
-        public delegate void updatePortfolioExDelegate(IContract contract, int position, double marketPrice,
+        public delegate void updatePortfolioExDelegate(IContract contract, double position, double marketPrice,
             double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
         public delegate void scannerDataExDelegate(int reqId, int rank, IContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr);
 
         public delegate void commissionReportDelegate(ICommissionReport commissionReport);
 
-        public delegate void positionDelegate(string account, IContract contract, int position, double avgCost);
+        public delegate void positionDelegate(string account, IContract contract, double position, double avgCost);
 
         public delegate void positionEndDelegate();
 
@@ -1314,7 +1314,7 @@ namespace TWSLib
                 InvokeIfRequired(t_updateAccountValue, key, value, currency, accountName);
         }
 
-        void EWrapper.updatePortfolio(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
             var t_updatePortfolio = this.updatePortfolio;
             if (t_updatePortfolio != null)
@@ -1353,7 +1353,7 @@ namespace TWSLib
                 InvokeIfRequired(t_accountDownloadEnd, account);
         }
 
-        void EWrapper.orderStatus(int orderId, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        void EWrapper.orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
             var t_orderStatus = this.orderStatus;
             if (t_orderStatus != null)
@@ -1652,7 +1652,7 @@ namespace TWSLib
                 InvokeIfRequired(t_updateNewsBulletin, (short)msgId, (short)msgType, message, origExchange);
         }
 
-        void EWrapper.position(string account, Contract contract, int pos, double avgCost)
+        void EWrapper.position(string account, Contract contract, double pos, double avgCost)
         {
             var t_position = this.position;
             if (t_position != null)

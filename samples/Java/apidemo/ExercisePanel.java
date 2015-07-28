@@ -15,16 +15,16 @@ import javax.swing.event.ListSelectionListener;
 
 import apidemo.AccountInfoPanel.PortfolioModel;
 import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
-import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.VerticalPanel.HorzPanel;
 
 import com.ib.client.Types.ExerciseType;
 import com.ib.client.Types.SecType;
-import com.ib.controller.Position;
 import com.ib.controller.ApiController.IAccountHandler;
+import com.ib.controller.Position;
 
 
 public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler {

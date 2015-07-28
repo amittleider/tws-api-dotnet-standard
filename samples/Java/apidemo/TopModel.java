@@ -3,7 +3,9 @@
 
 package apidemo;
 
-import static com.ib.controller.Formats.*;
+import static com.ib.controller.Formats.fmt;
+import static com.ib.controller.Formats.fmtPct;
+import static com.ib.controller.Formats.fmtTime;
 
 import java.awt.Color;
 import java.util.ArrayList;

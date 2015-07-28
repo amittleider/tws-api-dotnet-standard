@@ -583,7 +583,12 @@ namespace IBApi
 
             // paramsList.AddParameter main order fields
             paramsList.AddParameter(order.Action);
-            paramsList.AddParameter(order.TotalQuantity);
+
+            if (ServerVersion >= MinServerVer.FRACTIONAL_POSITIONS)
+                paramsList.AddParameter(order.TotalQuantity);
+            else
+                paramsList.AddParameter((int)order.TotalQuantity);
+
             paramsList.AddParameter(order.OrderType);
             if (serverVersion < MinServerVer.ORDER_COMBO_LEGS_PRICE)
             {

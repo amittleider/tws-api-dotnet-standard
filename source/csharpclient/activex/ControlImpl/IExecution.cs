@@ -28,7 +28,7 @@ namespace TWSLib
         [DispId(8)]
         string side { get; }
         [DispId(9)]
-        int shares { get; }
+        double shares { get; }
         [DispId(10)]
         double price { get; }
         [DispId(11)]

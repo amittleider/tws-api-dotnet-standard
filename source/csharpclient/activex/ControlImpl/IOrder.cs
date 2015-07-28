@@ -20,7 +20,7 @@ namespace TWSLib
         [DispId(4)]
         string action { get; set; }
         [DispId(5)]
-        int totalQuantity { get; set; }
+        double totalQuantity { get; set; }
         [DispId(6)]
         string orderType { get; set; }
         [DispId(7)]

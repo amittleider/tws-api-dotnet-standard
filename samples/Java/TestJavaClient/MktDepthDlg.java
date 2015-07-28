@@ -23,7 +23,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.EClient;
-import com.ib.client.EClientSocket;
 
 public class MktDepthDlg extends JDialog {
     final static int OPERATION_INSERT 		= 0;

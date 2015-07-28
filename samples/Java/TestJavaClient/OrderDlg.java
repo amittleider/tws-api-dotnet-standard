@@ -5,7 +5,6 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -435,7 +434,7 @@ public class OrderDlg extends JDialog {
 
             // set order fields
             m_order.action(m_action.getText());
-            m_order.totalQuantity(Integer.parseInt( m_totalQuantity.getText() ));
+            m_order.totalQuantity(Double.parseDouble( m_totalQuantity.getText() ));
             m_order.orderType(m_orderType.getText());
             m_order.lmtPrice(parseStringToMaxDouble( m_lmtPrice.getText()));
             m_order.auxPrice(parseStringToMaxDouble( m_auxPrice.getText()));

@@ -24,10 +24,10 @@ import javax.swing.table.TableCellRenderer;
 
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
-import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
 import com.ib.client.Contract;
@@ -39,13 +39,13 @@ import com.ib.client.Types.DeepType;
 import com.ib.client.Types.DurationUnit;
 import com.ib.client.Types.MktDataType;
 import com.ib.client.Types.WhatToShow;
-import com.ib.controller.Bar;
-import com.ib.controller.Instrument;
-import com.ib.controller.ScanCode;
 import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.ApiController.IScannerHandler;
+import com.ib.controller.Bar;
+import com.ib.controller.Instrument;
+import com.ib.controller.ScanCode;
 
 public class MarketDataPanel extends JPanel {
 	private final Contract m_contract = new Contract();
