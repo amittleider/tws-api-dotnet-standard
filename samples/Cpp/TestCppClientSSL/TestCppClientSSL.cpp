@@ -67,9 +67,9 @@ bool TestCppClient::isConnected() const
 	return m_pClient->isConnected();
 }
 
-void TestCppClient::setUseV100Plus(const std::string& connectOptions)
+void TestCppClient::setConnectOptions(const std::string& connectOptions)
 {
-	m_pClient->setUseV100Plus(connectOptions);
+	m_pClient->setConnectOptions(connectOptions);
 }
 
 void TestCppClient::processMessages() {
@@ -122,7 +122,7 @@ void TestCppClient::processMessages() {
 //////////////////////////////////////////////////////////////////
 // methods
 void TestCppClient::connectAck() {
-    if (!m_extraAuth)
+	if (!m_extraAuth && m_pClient->asyncEConnect())
         m_pClient->startApi();
 }
 

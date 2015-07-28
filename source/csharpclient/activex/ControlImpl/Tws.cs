@@ -1816,9 +1816,14 @@ namespace TWSLib
             socket.unsubscribeFromGroupEvents(reqId);
         }
 
-        public void setUseV100Plus(string connectOptions)
+        public void setConnectOptions(string connectOptions)
         {
-            socket.SetUseV100Plus(connectOptions);
+            socket.SetConnectOptions(connectOptions);
+        }
+
+        public void disableUseV100Plus()
+        {
+            socket.DisableUseV100Plus();
         }
 
         public void startApi()

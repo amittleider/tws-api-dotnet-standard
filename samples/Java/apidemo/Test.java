@@ -3,12 +3,15 @@
 
 package apidemo;
 
+import java.io.IOException;
+
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
@@ -24,6 +27,33 @@ public class Test implements EWrapper {
 
 	private void run() {
 		m_s.eConnect("localhost", 7496, 0);
+		
+        final EReader reader = new EReader(m_s, m_signal);
+        
+        reader.start();
+       
+		new Thread() {
+			public void run() {
+				while (m_s.isConnected()) {
+					m_signal.waitForSignal();
+					try {
+						javax.swing.SwingUtilities
+								.invokeAndWait(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											reader.processMsgs();
+										} catch (IOException e) {
+											error(e);
+										}
+									}
+								});
+					} catch (Exception e) {
+						error(e);
+					}
+				}
+			}
+		}.start();
 	}
 
 	@Override public void nextValidId(int orderId) {

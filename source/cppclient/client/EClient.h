@@ -37,7 +37,8 @@ public:
 	const std::string& optionalCapabilities() const;
 	void setOptionalCapabilities(const std::string& optCapts);
 
-	void setUseV100Plus(const std::string& connectOptions);
+	void setConnectOptions(const std::string& connectOptions);
+	void disableUseV100Plus();
 	bool usingV100Plus();
 
 protected:

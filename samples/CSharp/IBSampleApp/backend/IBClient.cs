@@ -301,7 +301,8 @@ namespace IBSampleApp
 
         public void connectAck()
         {
-            ClientSocket.startApi();
+            if (ClientSocket.AsyncEConnect)
+                ClientSocket.startApi();
         }
     }
 }

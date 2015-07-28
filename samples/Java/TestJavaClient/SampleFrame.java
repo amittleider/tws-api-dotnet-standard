@@ -1286,7 +1286,8 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 	
 	public void connectAck() {
-		m_client.startAPI();
+		if (m_client.isAsyncEConnect())
+			m_client.startAPI();
 	}
     
 }

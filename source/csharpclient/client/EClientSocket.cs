@@ -50,6 +50,9 @@ namespace IBApi
 
             ServerTime = time;
             isConnected = true;
+
+            if (!this.AsyncEConnect)
+                startApi();
         }
 
         public void eConnect(string host, int port, int clientId)

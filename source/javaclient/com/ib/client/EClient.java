@@ -223,11 +223,15 @@ public abstract class EClient {
     protected String m_TwsTime;
     protected int m_clientId;
     protected boolean m_extraAuth;
-    protected boolean m_useV100Plus;
+    protected boolean m_useV100Plus = true;
     private String m_optionalCapabilities;
-    private String m_connectOptions; // iServer rails are used for Connection if this is not null
+    private String m_connectOptions = ""; // iServer rails are used for Connection if this is not null
 	protected String m_host;
 	protected ETransport m_socketTransport;
+	
+	public boolean isUseV100Plus() {
+		return m_useV100Plus;
+	}
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -262,16 +266,26 @@ public abstract class EClient {
 	    }
     }
     
-    // iServer rails are used for Connection if connectOptions != null
-    public void setUseV100Plus(String connectOptions) { 
+    public void disableUseV100Plus() {
     	if( isConnected() ) {
             m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
     		return;
   		}
-    	m_connectOptions = connectOptions; 
-    	m_useV100Plus = true; 
-   	} 
+    	
+    	m_connectOptions = "";
+    	m_useV100Plus = false;
+    }   
+    
+    public void setConnectOptions(String options) {
+    	if( isConnected() ) {
+            m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
+                    EClientErrors.ALREADY_CONNECTED.msg());
+    		return;
+  		}
+    	
+    	m_connectOptions = options;
+    }
 
     protected void connectionError() {
         m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(),

@@ -1028,6 +1028,7 @@ public class ApiController implements EWrapper {
 	
 	@Override
     public void connectAck() {
-		m_client.startAPI();
+		if (m_client.isAsyncEConnect())
+			m_client.startAPI();
 	}
 }
