@@ -11,16 +11,16 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	protected int m_defaultPort;
     private boolean m_allowRedirect;
     protected DataInputStream m_dis;
-	private boolean asyncEConnect;
+	private boolean m_asyncEConnect = false;
 	private boolean m_connected = false;
 	private Socket m_socket;
 		
 	public void setAsyncEConnect(boolean asyncEConnect) {
-		this.asyncEConnect = asyncEConnect;
+		this.m_asyncEConnect = asyncEConnect;
 	}
 
 	public boolean isAsyncEConnect() {
-		return asyncEConnect;
+		return m_asyncEConnect;
 	}
 
 	public EClientSocket(EWrapper eWrapper, EReaderSignal signal) {
@@ -59,7 +59,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    // start reader thread
 	    EReader reader = new EReader(this, m_signal);;
 	
-	    if (!asyncEConnect) {
+	    if (!m_asyncEConnect) {
 	    	reader.putMessageToQueue();
 
 	    	while (m_serverVersion == 0) {
@@ -163,8 +163,12 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	        }
 	    }
 	    
+	    
 	    // set connected flag
 	    m_connected = true;       
+
+	    if (!m_asyncEConnect)
+	    	startAPI();
 	}
 
 	protected void performRedirect( String address, int defaultPort ) throws IOException {

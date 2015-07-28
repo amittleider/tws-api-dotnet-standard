@@ -27,7 +27,6 @@ public class Test implements EWrapper {
 	}
 
 	private void run() {
-		m_s.setUseV100Plus("");
 		m_s.eConnect("localhost", 7496, 0);
 		
         final EReader reader = new EReader(m_s, m_signal);

@@ -109,7 +109,6 @@ public class ApiController implements EWrapper {
 	}
 
 	public void connect( String host, int port, int clientId, String connectionOpts ) {
-		m_client.setUseV100Plus("");
         m_client.eConnect(host, port, clientId);
         
 		startMsgProcessingThread();
@@ -1029,6 +1028,7 @@ public class ApiController implements EWrapper {
 	
 	@Override
     public void connectAck() {
-		m_client.startAPI();
+		if (m_client.isAsyncEConnect())
+			m_client.startAPI();
 	}
 }

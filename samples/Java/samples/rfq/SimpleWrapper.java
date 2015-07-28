@@ -51,7 +51,6 @@ public class SimpleWrapper implements EWrapper {
 	public void connect(int clientId) {
 		String host = System.getProperty("jts.host");
 		host = host != null ? host : "";
-		m_client.setUseV100Plus("");
 		m_client.eConnect(host, 7496, clientId);
 		
         final EReader reader = new EReader(m_client, m_signal);

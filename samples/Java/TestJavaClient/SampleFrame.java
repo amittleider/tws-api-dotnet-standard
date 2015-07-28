@@ -415,7 +415,6 @@ class SampleFrame extends JFrame implements EWrapper {
         m_disconnectInProgress = false;
         
         m_client.OptionalCapabilities(dlg.m_retOptCapts);
-        m_client.setUseV100Plus("");
         m_client.eConnect( dlg.m_retIpAddress, dlg.m_retPort, dlg.m_retClientId);
         if (m_client.isConnected()) {
             m_TWS.add("Connected to Tws server version " +
@@ -1293,7 +1292,8 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 	
 	public void connectAck() {
-		m_client.startAPI();
+		if (m_client.isAsyncEConnect())
+			m_client.startAPI();
 	}
     
 }
