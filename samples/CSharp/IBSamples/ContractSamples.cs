@@ -65,10 +65,12 @@ namespace Samples
             contract.SecType = "OPT";
             contract.Exchange = "DTB";
             contract.Currency = "EUR";
-            contract.LastTradeDateOrContractMonth = "201612";
+            contract.LastTradeDateOrContractMonth = "20161216";
             contract.Strike = 100;
             contract.Right = "C";
             contract.Multiplier = "100";
+            //Often, contracts will also require a trading class to rule out ambiguities
+            contract.TradingClass = "BAY";
             return contract;
         }
 
@@ -233,22 +235,22 @@ namespace Samples
         public static Contract FutureComboContract()
         {
             Contract contract = new Contract();
-            contract.Symbol = "RB";
+            contract.Symbol = "VIX";
             contract.SecType = "BAG";
             contract.Currency = "USD";
-            contract.Exchange = "NYMEX";
+            contract.Exchange = "CFE";
 
             ComboLeg leg1 = new ComboLeg();
-            leg1.ConId = 114833269;
+            leg1.ConId = 195538625;
             leg1.Ratio = 1;
             leg1.Action = "BUY";
-            leg1.Exchange = "NYMEX";
+            leg1.Exchange = "CFE";
 
             ComboLeg leg2 = new ComboLeg();
-            leg2.ConId = 113088887;
+            leg2.ConId = 197436571;
             leg2.Ratio = 1;
             leg2.Action = "SELL";
-            leg2.Exchange = "NYMEX";
+            leg2.Exchange = "CFE";
 
             contract.ComboLegs = new List<ComboLeg>();
             contract.ComboLegs.Add(leg1);

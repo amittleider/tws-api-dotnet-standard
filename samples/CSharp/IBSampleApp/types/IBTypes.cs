@@ -141,14 +141,12 @@ namespace IBSampleApp.types
     {
         public static object[] GetAll()
         {
-            return new object[] { ReportSnapshot, FinancialSummary, Ratios, FinStatements, RESC, CalendarReport };
+            return new object[] { ReportSnapshot, FinancialSummary, FinStatements, RESC};
         }
         public static IBType ReportSnapshot = new IBType("Company overview", "ReportSnapshot");
         public static IBType FinancialSummary = new IBType("Financial summary", "ReportsFinSummary");
-        public static IBType Ratios = new IBType("Financial ratios", "ReportRatios");
         public static IBType FinStatements = new IBType("Financial statements", "ReportsFinStatements");
         public static IBType RESC = new IBType("Analyst estimates", "RESC");
-        public static IBType CalendarReport = new IBType("Company calendar", "CalendarReport");
     }
 
     public class FinancialAdvisorDataType

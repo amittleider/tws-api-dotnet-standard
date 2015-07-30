@@ -15,7 +15,8 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>tws40.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -163,7 +164,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tws40.ico" />
+    <Content Include="ib_logo_2015.ico" />
+    <Content Include="LogoIcon.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

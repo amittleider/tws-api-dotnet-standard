@@ -13,7 +13,8 @@ namespace Samples
 {
     public class Sample
     {
-
+        /* IMPORTANT: always use your paper trading account. The code below will submit orders as part of the demonstration. */
+        /* IB will not be responsible for accidental executions on your live account. */
         public static int Main(string[] args)
         {
             EWrapperImpl testImpl = new EWrapperImpl();
@@ -35,7 +36,7 @@ namespace Samples
         }
 
         /*****************************************************************/
-        /* Below are few quick-to-test examples on the IB API functions. */
+        /* Below are few quick-to-test examples on the IB API functions grouped by functionality. Uncomment the relevant methods. */
         /*****************************************************************/
         private static void testIBMethods(EClientSocket client, int nextValidId)
         {
@@ -122,17 +123,15 @@ namespace Samples
         private static void tickDataOperations(EClientSocket client)
         {
             /*** Requesting real time market data ***/
-            //client.reqMarketDataType(MarketDataType.Frozen);
             //Thread.Sleep(1000);
-            //client.reqMktData(1001, ContractSamples.StockComboContract(), string.Empty, false);
+            client.reqMktData(1001, ContractSamples.StockComboContract(), string.Empty, false, null);
             client.reqMktData(1002, ContractSamples.FuturesOnOptions(), string.Empty, false, null);
-            //client.reqMktData(1003, ContractSamples.EuropeanStock(), string.Empty, false);
-            //client.reqMktData(1003, ContractSamples.USStock(), string.Empty, false);
+            client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, false, null);
             Thread.Sleep(10000);
             /*** Canceling the market data subscription ***/
-            //client.cancelMktData(1001);
+            client.cancelMktData(1001);
             client.cancelMktData(1002);
-            //client.cancelMktData(1003);
+            client.cancelMktData(1003);
         }
 
         private static void marketDepthOperations(EClientSocket client)
@@ -162,8 +161,9 @@ namespace Samples
         private static void historicalDataRequests(EClientSocket client)
         {
             /*** Requesting historical data ***/
-            client.reqHistoricalData(4001, ContractSamples.EurGbpFx(), "20130722 23:59:59", "1 D", "1 min", "MIDPOINT", 1, 1, null);
-            client.reqHistoricalData(4002, ContractSamples.EuropeanStock(), "20131009 23:59:59", "10 D", "1 min", "TRADES", 1, 1, null);
+            String queryTime = DateTime.Now.AddMonths(-6).ToString("yyyyMMdd HH:mm:ss");
+            client.reqHistoricalData(4001, ContractSamples.EurGbpFx(), queryTime, "1 M", "1 day", "MIDPOINT", 1, 1, null);
+            client.reqHistoricalData(4002, ContractSamples.EuropeanStock(), queryTime, "10 D", "1 min", "TRADES", 1, 1, null);
             Thread.Sleep(2000);
             /*** Canceling historical data requests ***/
             client.cancelHistoricalData(4001);
@@ -187,6 +187,7 @@ namespace Samples
         private static void contractOperations(EClientSocket client)
         {
             client.reqContractDetails(209, ContractSamples.EurGbpFx());
+            Thread.Sleep(2000);
             client.reqContractDetails(210, ContractSamples.OptionForQuery());
         }
 

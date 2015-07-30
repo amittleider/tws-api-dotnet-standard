@@ -75,6 +75,9 @@ namespace IBSampleApp
             this.profileType.DisplayMember = "Name";
 
             hdRequest_EndTime.Text = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+
+            DateTime execFilterDefault = DateTime.Now.AddHours(-1);
+            execFilterTime.Text = execFilterDefault.ToString("yyyyMMdd HH:mm:ss");
         }
 
        
@@ -482,7 +485,18 @@ namespace IBSampleApp
         private void refreshExecutionsButton_Click(object sender, EventArgs e)
         {
             tradeLogGrid.Rows.Clear();
-            ibClient.ClientSocket.reqExecutions(1, new ExecutionFilter());
+
+            ExecutionFilter execFilter = new ExecutionFilter();
+            if(!execFilterClientId.Text.Equals(String.Empty))
+                execFilter.ClientId = Int32.Parse(execFilterClientId.Text);
+            execFilter.AcctCode = execFilterAccount.Text;
+            execFilter.Time = execFilterTime.Text;
+            execFilter.Symbol = execFilterSymbol.Text;
+            execFilter.SecType = execFilterSecType.Text;
+            execFilter.Exchange = execFilterExchange.Text;
+            execFilter.Side = execFilterSide.Text;
+
+            ibClient.ClientSocket.reqExecutions(1, execFilter);
         }
 
         private void bindOrdersButton_Click(object sender, EventArgs e)

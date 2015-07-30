@@ -27,7 +27,6 @@ namespace IBSampleApp
         {
             parentUI = parent;
             clientSocket = new EClientSocket(this, signal);
-            clientSocket.SetUseV100Plus("");
         }
 
         public EClientSocket ClientSocket
