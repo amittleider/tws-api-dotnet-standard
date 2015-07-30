@@ -42,7 +42,19 @@ namespace Samples
             order.OrderType = "MKT";
             order.TotalQuantity = 1;
             order.SmartComboRoutingParams = new List<TagValue>();
-            order.SmartComboRoutingParams.Add(new TagValue("NonGuaranteed", "1"));
+            //order.SmartComboRoutingParams.Add(new TagValue("NonGuaranteed", "1"));
+            return order;
+        }
+        public static Order ComboLimitOrder()
+        {
+            Order order = new Order();
+            order.Action = "BUY";
+            order.OrderType = "LMT";
+            order.TotalQuantity = 1;
+            order.LmtPrice = -0.15;
+            order.SmartComboRoutingParams = new List<TagValue>();
+            order.Transmit = false;
+            //order.SmartComboRoutingParams.Add(new TagValue("NonGuaranteed", "1"));
             return order;
         }
 

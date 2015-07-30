@@ -233,22 +233,22 @@ namespace Samples
         public static Contract FutureComboContract()
         {
             Contract contract = new Contract();
-            contract.Symbol = "VIX";
+            contract.Symbol = "RB";
             contract.SecType = "BAG";
             contract.Currency = "USD";
-            contract.Exchange = "CFE";
+            contract.Exchange = "NYMEX";
 
             ComboLeg leg1 = new ComboLeg();
-            leg1.ConId = 195538625;
+            leg1.ConId = 114833269;
             leg1.Ratio = 1;
             leg1.Action = "BUY";
-            leg1.Exchange = "CFE";
+            leg1.Exchange = "NYMEX";
 
             ComboLeg leg2 = new ComboLeg();
-            leg2.ConId = 197436571;
+            leg2.ConId = 113088887;
             leg2.Ratio = 1;
             leg2.Action = "SELL";
-            leg2.Exchange = "CFE";
+            leg2.Exchange = "NYMEX";
 
             contract.ComboLegs = new List<ComboLeg>();
             contract.ComboLegs.Add(leg1);

@@ -240,16 +240,21 @@ namespace Samples
         {
             /*** Requesting the next valid id ***/
             client.reqIds(-1);
+            Thread.Sleep(1000);
             /*** Requesting all open orders ***/
             client.reqAllOpenOrders();
+            Thread.Sleep(1000);
             /*** Taking over orders to be submitted via TWS ***/
             client.reqAutoOpenOrders(true);
+            Thread.Sleep(1000);
             /*** Requesting this API client's orders ***/
             client.reqOpenOrders();
+            Thread.Sleep(1000);
             /*** Placing/modifying an order - remember to ALWAYS increment the nextValidId after placing an order so it can be used for the next one! ***/
-            client.placeOrder(nextOrderId++, ContractSamples.StockComboContract(), OrderSamples.ComboMarketOrder());
-            client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.LimitOrderForComboWithLegPrice());
-            client.placeOrder(nextOrderId++, ContractSamples.ByISIN(), OrderSamples.MarketOrder());
+            //client.placeOrder(nextOrderId++, ContractSamples.StockComboContract(), OrderSamples.ComboMarketOrder());
+            //client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.LimitOrderForComboWithLegPrice());
+            client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.ComboLimitOrder());
+            //client.placeOrder(nextOrderId++, ContractSamples.ByISIN(), OrderSamples.MarketOrder());
             Thread.Sleep(3000);
             /*** Cancel all orders for all accounts ***/
             client.reqGlobalCancel();
