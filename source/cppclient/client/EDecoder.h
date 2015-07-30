@@ -6,12 +6,6 @@
 #include "contract.h"
 
 
-/* 100+ messaging */
-// 100 = enhanced handshake, msg length prefixes
-
-const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = 100;
-
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
 //const int MIN_SERVER_VER_SCALE_ORDERS         = 35;
 //const int MIN_SERVER_VER_SNAPSHOT_MKT_DATA    = 35;
@@ -56,6 +50,14 @@ const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 const int MIN_SERVER_VER_LINKING_AUTH           = 74;
 const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
 const int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
+const int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
+
+/* 100+ messaging */
+// 100 = enhanced handshake, msg length prefixes
+
+const int MIN_CLIENT_VER = 100;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_FRACTIONAL_POSITIONS;
+
 
 // incoming msg id's
 const int TICK_PRICE                = 1;

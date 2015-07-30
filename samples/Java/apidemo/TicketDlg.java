@@ -154,7 +154,7 @@ public class TicketDlg extends JDialog {
 					}
 				});
 			}
-			@Override public void orderStatus(OrderStatus status, int filled, int remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
+			@Override public void orderStatus(OrderStatus status, double filled, double remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
 			}
 			@Override public void handle(int errorCode, final String errorMsg) {
 				m_order.orderId( 0);
@@ -186,7 +186,7 @@ public class TicketDlg extends JDialog {
 					}
 				});
 			}
-			@Override public void orderStatus(OrderStatus status, int filled, int remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
+			@Override public void orderStatus(OrderStatus status, double filled, double remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
 			}
 		});
 		
@@ -260,7 +260,7 @@ public class TicketDlg extends JDialog {
 		private void onOK() {
 			m_order.account( m_account.getText().toUpperCase() );
 			m_order.action( m_action.getSelectedItem() );
-			m_order.totalQuantity( m_quantity.getInt() );
+			m_order.totalQuantity( m_quantity.getDouble() );
 			m_order.displaySize( m_displaySize.getInt() );
 			m_order.orderType( m_orderType.getSelectedItem() );
 			m_order.lmtPrice( m_lmtPrice.getDouble() );

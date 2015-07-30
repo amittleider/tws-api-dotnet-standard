@@ -22,9 +22,10 @@ public class EReader extends Thread {
     private EClientSocket 	m_clientSocket;
     private EReaderSignal m_signal;
     private boolean 		m_useV100Plus;
-    private EDecoder m_threadReadDecoder, m_processMsgsDecoder;
+    private EDecoder m_processMsgsDecoder;
     private static final EWrapper defaultWrapper = new DefaultEWrapper();
-    private byte[] m_iBuf = new byte[8192];
+    private static final int IN_BUF_SIZE_DEFAULT = 8192;
+    private byte[] m_iBuf = new byte[IN_BUF_SIZE_DEFAULT];
     private int m_iBufLen = 0;
     private Deque<EMessage> m_msgQueue = new LinkedList<EMessage>();
     
@@ -41,7 +42,6 @@ public class EReader extends Thread {
     public EReader(EClientSocket parent, EReaderSignal signal) {
     	m_clientSocket = parent;
         m_signal = signal;
-        m_threadReadDecoder = new EDecoder(parent.serverVersion(), defaultWrapper);
         m_processMsgsDecoder = new EDecoder(parent.serverVersion(), parent.wrapper(), parent);
     }
     
@@ -127,23 +127,54 @@ public class EReader extends Thread {
 				offset += m_clientSocket.read(buf, offset, msgSize - offset);
 			}
 						
-			return new EMessage(buf);
+			return new EMessage(buf, buf.length);
 		}
 		
-		if (m_iBufLen == 0)
-			m_iBufLen = m_clientSocket.read(m_iBuf, m_iBufLen, m_iBuf.length - m_iBufLen);
+		if (m_iBufLen == 0) {
+			m_iBufLen = appendIBuf();
+		}
 				
-		int msgSize = m_iBufLen > 0 ? m_threadReadDecoder.processMsg(new EMessage(m_iBuf)) : 0;
+		int msgSize = 0;
+		
+		while (true)
+			try {
+				msgSize = m_iBufLen > 0 ? new EDecoder(m_clientSocket.serverVersion(), defaultWrapper)
+						.processMsg(new EMessage(m_iBuf, m_iBufLen)) : 0;
+				break;
+			} catch (Exception e) {
+				if (m_iBufLen >= m_iBuf.length * 3/4) {
+					byte[] tmp = new byte[m_iBuf.length * 2];
+					
+					System.arraycopy(m_iBuf, 0, tmp, 0, m_iBuf.length);
+					
+					m_iBuf = tmp;
+				}
+				
+				m_iBufLen += appendIBuf();
+			}
 		
 		if (msgSize == 0)
 			return null;
 		
-		EMessage msg = new EMessage(Arrays.copyOf(m_iBuf, msgSize));
+		
+		EMessage msg = new EMessage(m_iBuf, msgSize);
 		
 		System.arraycopy(Arrays.copyOfRange(m_iBuf, msgSize, m_iBuf.length), 0, m_iBuf, 0, m_iBuf.length - msgSize);
 		
 		m_iBufLen -= msgSize;
 		
+		if (m_iBufLen < IN_BUF_SIZE_DEFAULT && m_iBuf.length > IN_BUF_SIZE_DEFAULT) {
+			byte[] tmp = new byte[IN_BUF_SIZE_DEFAULT];
+			
+			System.arraycopy(m_iBuf, 0, tmp, 0, tmp.length);
+			
+			m_iBuf = tmp;
+		}			
+		
 		return msg;
+	}
+
+	protected int appendIBuf() throws IOException {
+		return m_clientSocket.read(m_iBuf, m_iBufLen, m_iBuf.length - m_iBufLen);
 	}   
 }

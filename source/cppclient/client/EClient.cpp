@@ -231,7 +231,7 @@ EClient::EClient( EWrapper *ptr, ETransport *pTransport)
 	, m_connState(CS_DISCONNECTED)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
-	, m_useV100Plus(false)
+	, m_useV100Plus(true)
     , m_transport(pTransport)
 {
 }
@@ -289,14 +289,25 @@ void EClient::setOptionalCapabilities(const std::string& optCapts)
 	m_optionalCapabilities = optCapts;
 }
 
-void EClient::setUseV100Plus(const std::string& connectOptions)
+void EClient::setConnectOptions(const std::string& connectOptions)
 {
 	if( isSocketOK()) {
 		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
 		return;
 	}
-	m_useV100Plus = true;
+
 	m_connectOptions = connectOptions;
+}
+
+void EClient::disableUseV100Plus()
+{
+	if( isSocketOK()) {
+		m_pEWrapper->error( NO_VALID_ID, ALREADY_CONNECTED.code(), ALREADY_CONNECTED.msg());
+		return;
+	}
+
+	m_useV100Plus = false;
+	m_connectOptions = "";
 }
 
 bool EClient::usingV100Plus() {
@@ -1514,7 +1525,12 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 
 	// send main order fields
 	ENCODE_FIELD( order.action);
-	ENCODE_FIELD( order.totalQuantity);
+
+	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+		ENCODE_FIELD(order.totalQuantity)
+	else
+		ENCODE_FIELD((long)order.totalQuantity)
+
 	ENCODE_FIELD( order.orderType);
 	if( m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE) {
 		ENCODE_FIELD( order.lmtPrice == UNSET_DOUBLE ? 0 : order.lmtPrice);

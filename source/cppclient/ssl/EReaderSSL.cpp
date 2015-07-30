@@ -13,6 +13,8 @@
 #include "../client/EMessage.h"
 #include "../client/DefaultEWrapper.h"
 
+#define IN_BUF_SIZE_DEFAULT 8192
+
 DefaultEWrapper defaultWrapper;
 
 EReaderSSL::EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal)
@@ -22,7 +24,8 @@ EReaderSSL::EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal)
         m_pClientSocket = clientSocket;       
 		m_pEReaderSignal = signal;
 		m_needsWriteSelect = false;
-		m_buf.reserve(8192);
+		m_nMaxBufSize = IN_BUF_SIZE_DEFAULT;
+		m_buf.reserve(IN_BUF_SIZE_DEFAULT);
 		start();
 }
 
@@ -157,7 +160,7 @@ void EReaderSSL::onSend() {
 void EReaderSSL::onReceive() {
 	int nOffset = m_buf.size();
 
-	m_buf.resize(8192);
+	m_buf.resize(m_nMaxBufSize);
 
 	int nRes = m_pClientSocket->receive(m_buf.data() + nOffset, m_buf.size() - nOffset);
 
@@ -199,17 +202,33 @@ EMessage * EReaderSSL::readSingleMsg() {
 		return new EMessage(buf);
 	}
 	else {
-		const char *pBegin = m_buf.data();
-		const char *pEnd = pBegin + m_buf.size();
-		int msgSize = threadReadDecoder_.parseAndProcessMsg(pBegin, pEnd);
+		const char *pBegin = 0;
+		const char *pEnd = 0;
+		int msgSize = 0;
 
-		if (msgSize == 0)
-			return 0;
+		while (msgSize == 0)
+		{
+			if (m_buf.size() >= m_nMaxBufSize * 3/4)
+				m_nMaxBufSize *= 2;
 
+			if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
+				return 0;
+		
+			pBegin = m_buf.data();
+			pEnd = pBegin + m_buf.size();
+			msgSize = EDecoder(m_pClientSocket->EClient::serverVersion(), &defaultWrapper).parseAndProcessMsg(pBegin, pEnd);
+		}
+	
 		std::vector<char> msgData(msgSize);
 
 		if (!bufferedRead(msgData.data(), msgSize))
 			return 0;
+
+		if (m_buf.size() < IN_BUF_SIZE_DEFAULT && m_buf.capacity() > IN_BUF_SIZE_DEFAULT)
+		{
+			m_buf.resize(m_nMaxBufSize = IN_BUF_SIZE_DEFAULT);
+			m_buf.shrink_to_fit();
+		}
 
 		EMessage * msg = new EMessage(msgData);
 

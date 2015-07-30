@@ -139,7 +139,7 @@ namespace IBSampleApp
             parentUI.HandleMessage(new AccountValueMessage(key, value, currency, accountName));
         }
 
-        public virtual void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public virtual void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
             parentUI.HandleMessage(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName));
         }
@@ -154,7 +154,7 @@ namespace IBSampleApp
             parentUI.HandleMessage(new AccountDownloadEndMessage(account));
         }
 
-        public virtual void orderStatus(int orderId, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        public virtual void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
             parentUI.HandleMessage(new OrderStatusMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld));
         }
@@ -229,7 +229,7 @@ namespace IBSampleApp
             addTextToBox("News Bulletins. " + msgId + " - Type: " + msgType + ", Message: " + message + ", Exchange of Origin: " + origExchange + "\n");
         }
 
-        public virtual void position(string account, Contract contract, int pos, double avgCost)
+        public virtual void position(string account, Contract contract, double pos, double avgCost)
         {
             parentUI.HandleMessage(new PositionMessage(account, contract, pos, avgCost));
         }
@@ -302,7 +302,8 @@ namespace IBSampleApp
 
         public void connectAck()
         {
-            ClientSocket.startApi();
+            if (ClientSocket.AsyncEConnect)
+                ClientSocket.startApi();
         }
     }
 }

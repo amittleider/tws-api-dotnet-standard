@@ -11,7 +11,7 @@ public class Execution {
     private String 	m_acctNumber;
     private String 	m_exchange;
     private String 	m_side;
-    private int 	m_shares;
+    private double 	m_shares;
     private double 	m_price;
     private int		m_permId;
     private int     m_liquidation;
@@ -29,7 +29,7 @@ public class Execution {
     public String acctNumber()   { return m_acctNumber; }
     public String exchange()     { return m_exchange; }
     public String side()         { return m_side; }
-    public int shares()          { return m_shares; }
+    public double shares()          { return m_shares; }
     public double price()        { return m_price; }
     public int permId()          { return m_permId; }
     public int liquidation()     { return m_liquidation; }
@@ -47,7 +47,7 @@ public class Execution {
     public void acctNumber(String acctNumber)     { m_acctNumber = acctNumber; }
     public void exchange(String exchange)         { m_exchange = exchange; }
     public void side(String side)                 { m_side = side; }
-    public void shares(int shares)                { m_shares = shares; }
+    public void shares(double shares)                { m_shares = shares; }
     public void price(double price)               { m_price = price; }
     public void permId(int permId)                { m_permId = permId; }
     public void liquidation(int liquidation)      { m_liquidation = liquidation; }

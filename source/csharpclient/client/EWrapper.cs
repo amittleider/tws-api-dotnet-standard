@@ -186,7 +186,7 @@ namespace IBApi
          * @param marketValue total market value of the instrument.
          * @sa updateAccountTime, accountDownloadEnd, updateAccountValue, EClientSocket::reqAccountUpdates
          */
-        void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+        void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
             double averageCost, double unrealisedPNL, double realisedPNL, string accountName);
 
         /**
@@ -225,7 +225,7 @@ namespace IBApi
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
-        void orderStatus(int orderId, string status, int filled, int remaining, double avgFillPrice, 
+        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, 
             int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
 
         /**
@@ -371,7 +371,7 @@ namespace IBApi
          * @Param avgCost the average cost of the position.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, int pos, double avgCost);
+        void position(string account, Contract contract, double pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.

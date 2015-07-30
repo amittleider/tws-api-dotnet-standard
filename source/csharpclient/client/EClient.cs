@@ -26,11 +26,11 @@ namespace IBApi
         protected bool isConnected;
         protected int clientId;
         protected bool extraAuth;
-        protected bool useV100Plus;
+        protected bool useV100Plus = true;
 
         internal bool UseV100Plus { get { return useV100Plus; } }
 
-        private string connectOptions;
+        private string connectOptions = "";
         protected bool allowRedirect = false;
 
         /**
@@ -48,7 +48,7 @@ namespace IBApi
             this.AsyncEConnect = false;
         }
 
-        public void SetUseV100Plus(string connectOptions)
+        public void SetConnectOptions(string connectOptions)
         {
             if (IsConnected())
             {
@@ -57,8 +57,13 @@ namespace IBApi
                 return;
             }
 
-            this.useV100Plus = true;
             this.connectOptions = connectOptions;
+        }
+
+        public void DisableUseV100Plus()
+        {
+            this.useV100Plus = false;
+            this.connectOptions = "";
         }
 
         public EWrapper Wrapper
@@ -578,7 +583,12 @@ namespace IBApi
 
             // paramsList.AddParameter main order fields
             paramsList.AddParameter(order.Action);
-            paramsList.AddParameter(order.TotalQuantity);
+
+            if (ServerVersion >= MinServerVer.FRACTIONAL_POSITIONS)
+                paramsList.AddParameter(order.TotalQuantity);
+            else
+                paramsList.AddParameter((int)order.TotalQuantity);
+
             paramsList.AddParameter(order.OrderType);
             if (serverVersion < MinServerVer.ORDER_COMBO_LEGS_PRICE)
             {

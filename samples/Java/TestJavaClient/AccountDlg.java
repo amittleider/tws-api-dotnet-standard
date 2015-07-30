@@ -78,7 +78,7 @@ public class AccountDlg extends JDialog {
         m_acctValueModel.updateAccountValue(key, value, currency, accountName);
     }
 
-    void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+    void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
     		double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
        m_portfolioModel.updatePortfolio(contract, position, marketPrice, marketValue,
           averageCost, unrealizedPNL, realizedPNL, accountName);
@@ -140,7 +140,7 @@ public class AccountDlg extends JDialog {
 class PortfolioTable extends AbstractTableModel {
     Vector<PortfolioTableRow> m_allData = new Vector<PortfolioTableRow>();
 
-    void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+    void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
                          double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
          PortfolioTableRow newData =
          new PortfolioTableRow(contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName);
@@ -227,7 +227,7 @@ class PortfolioTable extends AbstractTableModel {
 
     class PortfolioTableRow {
         Contract m_contract;
-        int      m_position;
+        double      m_position;
         double   m_marketPrice;
         double   m_marketValue;
         double   m_averageCost;
@@ -235,7 +235,7 @@ class PortfolioTable extends AbstractTableModel {
         double   m_realizedPNL;
         String   m_accountName;
 
-        PortfolioTableRow( Contract contract, int position, double marketPrice,
+        PortfolioTableRow( Contract contract, double position, double marketPrice,
             double marketValue, double averageCost, double unrealizedPNL,
             double realizedPNL, String accountName) {
             m_contract = contract;

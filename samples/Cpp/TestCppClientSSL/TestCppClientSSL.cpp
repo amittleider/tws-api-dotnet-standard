@@ -67,9 +67,9 @@ bool TestCppClient::isConnected() const
 	return m_pClient->isConnected();
 }
 
-void TestCppClient::setUseV100Plus(const std::string& connectOptions)
+void TestCppClient::setConnectOptions(const std::string& connectOptions)
 {
-	m_pClient->setUseV100Plus(connectOptions);
+	m_pClient->setConnectOptions(connectOptions);
 }
 
 void TestCppClient::processMessages() {
@@ -122,7 +122,7 @@ void TestCppClient::processMessages() {
 //////////////////////////////////////////////////////////////////
 // methods
 void TestCppClient::connectAck() {
-    if (!m_extraAuth)
+	if (!m_extraAuth && m_pClient->asyncEConnect())
         m_pClient->startApi();
 }
 
@@ -153,7 +153,7 @@ void TestCppClient::placeOrder()
 	order.orderType = "LMT";
 	order.lmtPrice = 0.01;
 
-	printf( "Placing Order %ld: %s %ld %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
+	printf( "Placing Order %ld: %s %f %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
 
 	m_state = ST_PLACEORDER_ACK;
 
@@ -171,8 +171,8 @@ void TestCppClient::cancelOrder()
 
 ///////////////////////////////////////////////////////////////////
 // events
-void TestCppClient::orderStatus( OrderId orderId, const std::string& status, int filled,
-	                            int remaining, double avgFillPrice, int permId, int parentId,
+void TestCppClient::orderStatus( OrderId orderId, const std::string& status, double filled,
+	                            double remaining, double avgFillPrice, int permId, int parentId,
 	                            double lastFillPrice, int clientId, const std::string& whyHeld)
 
 {
@@ -231,7 +231,7 @@ void TestCppClient::winError( const std::string& str, int lastError) {}
 void TestCppClient::connectionClosed() {}
 void TestCppClient::updateAccountValue(const std::string& key, const std::string& val,
                                        const std::string& currency, const std::string& accountName) {}
-void TestCppClient::updatePortfolio(const Contract& contract, int position,
+void TestCppClient::updatePortfolio(const Contract& contract, double position,
                                     double marketPrice, double marketValue, double averageCost,
                                     double unrealizedPNL, double realizedPNL, const std::string& accountName){}
 void TestCppClient::updateAccountTime(const std::string& timeStamp) {}
@@ -263,7 +263,7 @@ void TestCppClient::deltaNeutralValidation(int reqId, const UnderComp& underComp
 void TestCppClient::tickSnapshotEnd(int reqId) {}
 void TestCppClient::marketDataType(TickerId reqId, int marketDataType) {}
 void TestCppClient::commissionReport( const CommissionReport& commissionReport) {}
-void TestCppClient::position( const std::string& account, const Contract& contract, int position, double avgCost) {}
+void TestCppClient::position( const std::string& account, const Contract& contract, double position, double avgCost) {}
 void TestCppClient::positionEnd() {}
 void TestCppClient::accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency) {}
 void TestCppClient::accountSummaryEnd( int reqId) {}

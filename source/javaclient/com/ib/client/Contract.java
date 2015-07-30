@@ -5,8 +5,6 @@ package com.ib.client;
 
 import java.util.ArrayList;
 
-import com.ib.client.ComboLeg;
-import com.ib.client.Contract;
 import com.ib.client.Types.Right;
 import com.ib.client.Types.SecIdType;
 import com.ib.client.Types.SecType;

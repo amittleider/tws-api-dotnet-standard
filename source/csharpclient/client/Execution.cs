@@ -23,7 +23,7 @@ namespace IBApi
         private string acctNumber;
         private string exchange;
         private string side;
-        private int shares;
+        private double shares;
         private double price;
         private int permId;
         private int liquidation;
@@ -100,7 +100,7 @@ namespace IBApi
         /**
          * @brief The number of shares filled.
          */
-        public int Shares
+        public double Shares
         {
             get { return shares; }
             set { shares = value; }
@@ -196,7 +196,7 @@ namespace IBApi
         }
 
         public Execution(int orderId, int clientId, String execId, String time,
-                          String acctNumber, String exchange, String side, int shares,
+                          String acctNumber, String exchange, String side, double shares,
                           double price, int permId, int liquidation, int cumQty,
                           double avgPrice, String orderRef, String evRule, double evMultiplier)
         {

@@ -83,7 +83,7 @@ namespace IBApi
         {
         }
 
-        public virtual void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public virtual void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
         }
 
@@ -95,7 +95,7 @@ namespace IBApi
         {
         }
 
-        public virtual void orderStatus(int orderId, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        public virtual void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
         }
 
@@ -155,7 +155,7 @@ namespace IBApi
         {
         }
 
-        public virtual void position(string account, Contract contract, int pos, double avgCost)
+        public virtual void position(string account, Contract contract, double pos, double avgCost)
         {
         }
 

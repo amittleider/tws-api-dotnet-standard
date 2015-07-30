@@ -232,7 +232,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub orderStatus(orderId As Integer, status As String, filled As Integer, remaining As Integer, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
+    Public Sub orderStatus(orderId As Integer, status As String, filled As Double, remaining As Double, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
         InvokeIfRequired(Sub()
                              RaiseEvent OnorderStatus(Me, New AxTWSLib._DTwsEvents_orderStatusEvent With {
                                                                  .orderId = orderId,
@@ -249,7 +249,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub position(account As String, contract As IBApi.Contract, pos As Integer, avgCost As Double) Implements IBApi.EWrapper.position
+    Public Sub position(account As String, contract As IBApi.Contract, pos As Double, avgCost As Double) Implements IBApi.EWrapper.position
         InvokeIfRequired(Sub()
                              RaiseEvent Onposition(Me, New AxTWSLib._DTwsEvents_positionEvent With {
                                                                  .account = account,
@@ -443,7 +443,7 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub updatePortfolio(contract As IBApi.Contract, position As Integer, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
+    Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
         InvokeIfRequired(Sub()
                              RaiseEvent OnupdatePortfolioEx(Me, New AxTWSLib._DTwsEvents_updatePortfolioExEvent With {
                                                                  .contract = contract,
@@ -494,7 +494,9 @@ Friend Class Tws
     End Sub
 
     Public Sub connectAck() Implements EWrapper.connectAck
-        socket.startApi()
+        If socket.AsyncEConnect Then
+            socket.startApi()
+        End If
     End Sub
 
 #End Region
@@ -514,7 +516,6 @@ Friend Class Tws
     Sub connect(p1 As String, p2 As Integer, p3 As Integer, p4 As Boolean, optcapts As String)
         socket.optionalCapabilities = optcapts
 
-        'socket.SetUseV100Plus("")
         socket.eConnect(p1, p2, p3, p4)
 
         Dim msgThread As Threading.Thread = New Threading.Thread(AddressOf msgProcessing)

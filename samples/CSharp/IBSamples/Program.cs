@@ -17,8 +17,6 @@ namespace Samples
         public static int Main(string[] args)
         {
             EWrapperImpl testImpl = new EWrapperImpl();
-            //As of 9.72.04, always use V100Plus
-            testImpl.ClientSocket.SetUseV100Plus("");
             testImpl.ClientSocket.eConnect("127.0.0.1", 7496, 0, false);
             //Create a reader to consume messages from the TWS. The EReader will consume the incoming messages and put them in a queue
             var reader = new EReader(testImpl.ClientSocket, testImpl.Signal);

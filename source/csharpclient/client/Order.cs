@@ -35,7 +35,7 @@ namespace IBApi
         private int clientId;
         private int permId;
         private string action;
-        private int totalQuantity;
+        private double totalQuantity;
         private string orderType;
         private double lmtPrice;
         private double auxPrice;
@@ -215,7 +215,7 @@ namespace IBApi
         /**
          * @brief The number of positions being bought/sold.
          */
-        public int TotalQuantity
+        public double TotalQuantity
         {
             get { return totalQuantity; }
             set { totalQuantity = value; }

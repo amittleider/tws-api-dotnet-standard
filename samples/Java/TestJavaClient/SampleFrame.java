@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,18 +17,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
-import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
-import com.ib.client.EClientSocketSSL;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
-import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
@@ -944,7 +939,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_tickers.add(msg);
     }
 
-    public void orderStatus( int orderId, String status, int filled, int remaining,
+    public void orderStatus( int orderId, String status, double filled, double remaining,
     						 double avgFillPrice, int permId, int parentId,
     						 double lastFillPrice, int clientId, String whyHeld) {
         // received order status
@@ -1079,7 +1074,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_acctDlg.updateAccountValue(key, value, currency, accountName);
     }
 
-    public void updatePortfolio(Contract contract, int position, double marketPrice,
+    public void updatePortfolio(Contract contract, double position, double marketPrice,
         double marketValue, double averageCost, double unrealizedPNL, double realizedPNL,
         String accountName) {
         m_acctDlg.updatePortfolio(contract, position, marketPrice, marketValue,
@@ -1257,7 +1252,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.randomizeSize(srcOrder.randomizeSize());
     }
 
-    public void position(String account, Contract contract, int pos, double avgCost) {
+    public void position(String account, Contract contract, double pos, double avgCost) {
         String msg = EWrapperMsgGenerator.position(account, contract, pos, avgCost);
         m_TWS.add(msg);
     }
@@ -1291,7 +1286,8 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 	
 	public void connectAck() {
-		m_client.startAPI();
+		if (m_client.isAsyncEConnect())
+			m_client.startAPI();
 	}
     
 }

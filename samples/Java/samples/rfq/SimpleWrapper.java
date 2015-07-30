@@ -13,9 +13,9 @@ import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
-import com.ib.client.EClient;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
@@ -50,7 +50,34 @@ public class SimpleWrapper implements EWrapper {
 	public void connect(int clientId) {
 		String host = System.getProperty("jts.host");
 		host = host != null ? host : "";
-		m_client.eConnect(host, 7496, clientId);	
+		m_client.eConnect(host, 7496, clientId);
+		
+        final EReader reader = new EReader(m_client, m_signal);
+        
+        reader.start();
+       
+		new Thread() {
+			public void run() {
+				while (m_client.isConnected()) {
+					m_signal.waitForSignal();
+					try {
+						javax.swing.SwingUtilities
+								.invokeAndWait(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											reader.processMsgs();
+										} catch (IOException e) {
+											error(e);
+										}
+									}
+								});
+					} catch (Exception e) {
+						error(e);
+					}
+				}
+			}
+		}.start();
 	}
 
 	public void disconnect() {
@@ -113,7 +140,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("tickEFP");
 	}
 
-	public void orderStatus(int orderId, String status, int filled, int remaining,
+	public void orderStatus(int orderId, String status, double filled, double remaining,
 			double avgFillPrice, int permId, int parentId, double lastFillPrice,
 			int clientId, String whyHeld) {
 		logIn("orderStatus");    	
@@ -131,7 +158,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("updateAccountValue");
 	}
 
-	public void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+	public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
 			double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
 		logIn("updatePortfolio");
 	}
@@ -233,7 +260,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	
-	public void position(String account, Contract contract, int pos, double avgCost) {
+	public void position(String account, Contract contract, double pos, double avgCost) {
 		logIn("position");
 	}
 	

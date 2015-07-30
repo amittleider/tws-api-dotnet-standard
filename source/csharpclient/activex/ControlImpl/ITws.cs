@@ -317,9 +317,11 @@ namespace TWSLib
         [DispId(207)]
         IOrderComboLegList createOrderComboLegList();
         [DispId(208)]
-        void setUseV100Plus(string connectOptions);
+        void setConnectOptions(string connectOptions);
         [DispId(209)]
         void startApi();
+        [DispId(210)]
+        void disableUseV100Plus();
         #endregion
     }
 }

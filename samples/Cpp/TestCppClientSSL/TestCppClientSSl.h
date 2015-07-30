@@ -32,7 +32,7 @@ public:
 	TestCppClient();
 	~TestCppClient();
 
-	void setUseV100Plus(const std::string&);
+	void setConnectOptions(const std::string&);
 	void processMessages();
 
 public:
@@ -57,8 +57,8 @@ public:
 	void tickString(TickerId tickerId, TickType tickType, const std::string& value);
 	void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
 		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
-	void orderStatus(OrderId orderId, const std::string& status, int filled,
-		int remaining, double avgFillPrice, int permId, int parentId,
+	void orderStatus(OrderId orderId, const std::string& status, double filled,
+		double remaining, double avgFillPrice, int permId, int parentId,
 		double lastFillPrice, int clientId, const std::string& whyHeld);
 	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
 	void openOrderEnd();
@@ -66,7 +66,7 @@ public:
 	void connectionClosed();
 	void updateAccountValue(const std::string& key, const std::string& val,
 		const std::string& currency, const std::string& accountName);
-	void updatePortfolio(const Contract& contract, int position,
+	void updatePortfolio(const Contract& contract, double position,
 		double marketPrice, double marketValue, double averageCost,
 		double unrealizedPNL, double realizedPNL, const std::string& accountName);
 	void updateAccountTime(const std::string& timeStamp);
@@ -100,7 +100,7 @@ public:
 	void tickSnapshotEnd(int reqId);
 	void marketDataType(TickerId reqId, int marketDataType);
 	void commissionReport( const CommissionReport& commissionReport);
-	void position( const std::string& account, const Contract& contract, int position, double avgCost);
+	void position( const std::string& account, const Contract& contract, double position, double avgCost);
 	void positionEnd();
 	void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency);
 	void accountSummaryEnd( int reqId);

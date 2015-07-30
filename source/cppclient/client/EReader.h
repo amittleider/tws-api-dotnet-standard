@@ -20,10 +20,10 @@ class TWSAPIDLLEXP EReader
     std::deque<shared_ptr<EMessage>> m_msgQueue;
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
-	EDecoder threadReadDecoder_;
     bool m_needsWriteSelect;
     bool m_isAlive;
     HANDLE m_hReadThread;
+	int m_nMaxBufSize;
 
 	void onReceive();
 	void onSend();

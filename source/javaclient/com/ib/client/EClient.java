@@ -95,8 +95,6 @@ public abstract class EClient {
 	// 65 = can receive verifyAndAuthMessageAPI and verifyAndAuthCompleted messages
 	// 66 = can receive randomize size and randomize price order fields
 
-    public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = 100; // ditto
     protected static final int REDIRECT_COUNT_MAX = 2;
 
     protected static final int CLIENT_VERSION = 66;
@@ -213,6 +211,11 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_LINKING_AUTH = 74;
     protected static final int MIN_SERVER_VER_PRIMARYEXCH = 75;
     protected static final int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
+    protected static final int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
+    
+    public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
+    public static final int MAX_VERSION = MIN_SERVER_VER_FRACTIONAL_POSITIONS; // ditto
+
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -220,11 +223,15 @@ public abstract class EClient {
     protected String m_TwsTime;
     protected int m_clientId;
     protected boolean m_extraAuth;
-    protected boolean m_useV100Plus;
+    protected boolean m_useV100Plus = true;
     private String m_optionalCapabilities;
-    private String m_connectOptions; // iServer rails are used for Connection if this is not null
+    private String m_connectOptions = ""; // iServer rails are used for Connection if this is not null
 	protected String m_host;
 	protected ETransport m_socketTransport;
+	
+	public boolean isUseV100Plus() {
+		return m_useV100Plus;
+	}
 
     public int serverVersion()          { return m_serverVersion;   }
     public String TwsConnectionTime()   { return m_TwsTime; }
@@ -259,16 +266,26 @@ public abstract class EClient {
 	    }
     }
     
-    // iServer rails are used for Connection if connectOptions != null
-    public void setUseV100Plus(String connectOptions) { 
+    public void disableUseV100Plus() {
     	if( isConnected() ) {
             m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
                     EClientErrors.ALREADY_CONNECTED.msg());
     		return;
   		}
-    	m_connectOptions = connectOptions; 
-    	m_useV100Plus = true; 
-   	} 
+    	
+    	m_connectOptions = "";
+    	m_useV100Plus = false;
+    }   
+    
+    public void setConnectOptions(String options) {
+    	if( isConnected() ) {
+            m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.ALREADY_CONNECTED.code(),
+                    EClientErrors.ALREADY_CONNECTED.msg());
+    		return;
+  		}
+    	
+    	m_connectOptions = options;
+    }
 
     protected void connectionError() {
         m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(),
@@ -1372,8 +1389,13 @@ public abstract class EClient {
 
             // send main order fields
             b.send( order.getAction());
-            b.send( order.totalQuantity());
-            b.send( order.getOrderType());
+            
+			if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+				b.send(order.totalQuantity());
+			else
+				b.send((int) order.totalQuantity());
+            
+			b.send( order.getOrderType());
             if (m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE) {
                 b.send( order.lmtPrice() == Double.MAX_VALUE ? 0 : order.lmtPrice());
             }

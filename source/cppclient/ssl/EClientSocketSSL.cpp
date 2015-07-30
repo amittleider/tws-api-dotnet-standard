@@ -329,6 +329,9 @@ void EClientSocketSSL::serverVersion(int version, const char *time) {
         getWrapper()->error( NO_VALID_ID, UNSUPPORTED_VERSION.code(), UNSUPPORTED_VERSION.msg());
         eDisconnect();
     }
+
+	if (!m_asyncEConnect)
+		startApi();
 }
 
 void EClientSocketSSL::redirect(const char *host, int port) {

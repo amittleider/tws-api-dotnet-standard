@@ -53,7 +53,7 @@ public class EWrapperMsgGenerator {
 		" dividends to expiry = "	+ dividendsToLastTradeDate;
     }
     
-    static public String orderStatus( int orderId, String status, int filled, int remaining,
+    static public String orderStatus( int orderId, String status, double filled, double remaining,
             double avgFillPrice, int permId, int parentId, double lastFillPrice,
             int clientId, String whyHeld) {
     	return "order status: orderId=" + orderId + " clientId=" + clientId + " permId=" + permId +
@@ -514,11 +514,11 @@ public class EWrapperMsgGenerator {
         return msg;
     }
     
-    static public String position( String account, Contract contract, int position, double avgCost) {
+    static public String position( String account, Contract contract, double pos, double avgCost) {
         String msg = " ---- Position begin ----\n"
         + "account = " + account + "\n"
         + contractMsg(contract)
-        + "position = " + Util.IntMaxString(position) + "\n"
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
         + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
         + " ---- Position end ----\n";
         return msg;
