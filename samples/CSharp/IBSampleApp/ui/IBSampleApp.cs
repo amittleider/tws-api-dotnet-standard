@@ -50,7 +50,7 @@ namespace IBSampleApp
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
             historicalDataManager = new HistoricalDataManager(ibClient, historicalChart, barsGrid);
             realTimeBarManager = new RealTimeBarsManager(ibClient, rtBarsChart, rtBarsGrid);
-            scannerManager = new ScannerManager(ibClient, scannerGrid);
+            scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
@@ -73,6 +73,11 @@ namespace IBSampleApp
             this.profileType.DataSource = AllocationProfileType.GetAsData();
             this.profileType.ValueMember = "Value";
             this.profileType.DisplayMember = "Name";
+
+            hdRequest_EndTime.Text = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+
+            DateTime execFilterDefault = DateTime.Now.AddHours(-1);
+            execFilterTime.Text = execFilterDefault.ToString("yyyyMMdd HH:mm:ss");
         }
 
        
@@ -147,6 +152,7 @@ namespace IBSampleApp
                         break;
                     }
                 case MessageType.ScannerData:
+                case MessageType.ScannerParameters:
                     {
                         scannerManager.UpdateUI(message);
                         break;
@@ -409,6 +415,13 @@ namespace IBSampleApp
                 ShowTab(marketData_MDT, scannerTab);
             }
         }
+
+        private void scannerParamsRequest_button_Click(object sender, EventArgs e)
+        {
+            scannerManager.RequestParameters();
+            ShowTab(marketData_MDT, scannerParamsTab);
+        }
+
         private void scannerTab_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             scannerManager.Clear();
@@ -472,7 +485,18 @@ namespace IBSampleApp
         private void refreshExecutionsButton_Click(object sender, EventArgs e)
         {
             tradeLogGrid.Rows.Clear();
-            ibClient.ClientSocket.reqExecutions(1, new ExecutionFilter());
+
+            ExecutionFilter execFilter = new ExecutionFilter();
+            if(!execFilterClientId.Text.Equals(String.Empty))
+                execFilter.ClientId = Int32.Parse(execFilterClientId.Text);
+            execFilter.AcctCode = execFilterAccount.Text;
+            execFilter.Time = execFilterTime.Text;
+            execFilter.Symbol = execFilterSymbol.Text;
+            execFilter.SecType = execFilterSecType.Text;
+            execFilter.Exchange = execFilterExchange.Text;
+            execFilter.Side = execFilterSide.Text;
+
+            ibClient.ClientSocket.reqExecutions(1, execFilter);
         }
 
         private void bindOrdersButton_Click(object sender, EventArgs e)
@@ -671,6 +695,6 @@ namespace IBSampleApp
         {
 
         }
-
+        
     }
 }

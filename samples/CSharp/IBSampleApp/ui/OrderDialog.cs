@@ -142,6 +142,7 @@ namespace IBSampleApp
             if (!contractRight.Text.Equals("") || !contractRight.Text.Equals("None"))
                 contract.Right = (string)((IBType)contractRight.SelectedItem).Value;
             contract.LocalSymbol = contractLocalSymbol.Text;
+            contract.PrimaryExch = contractPrimaryExch.Text;
             return contract;
         }
 

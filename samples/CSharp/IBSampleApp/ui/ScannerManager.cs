@@ -22,9 +22,12 @@ namespace IBSampleApp.ui
         private const int PROJECTION_IDX = 4;
         private const int LEGS_IDX = 5;
 
-        public ScannerManager(IBClient client, DataGridView dataGrid)
+        private TextBox parametersOutput;
+
+        public ScannerManager(IBClient client, DataGridView dataGrid, TextBox paramsOutput)
             : base(client, dataGrid)
         {
+            this.parametersOutput = paramsOutput;
         }
 
         public override void NotifyError(int requestId)
@@ -33,16 +36,25 @@ namespace IBSampleApp.ui
 
         public override void UpdateUI(IBMessage message)
         {
-            ScannerMessage scannMessage = (ScannerMessage)message;
-            DataGridView grid = (DataGridView)uiControl;
-            rowCounter++;
-            grid.Rows.Add();
-            grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
-            grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
-            grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
-            grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
-            grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
-            grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
+
+            if (message.Type == MessageType.ScannerParameters)
+            {
+                ScannerParametersMessage scanParamsMessage = (ScannerParametersMessage)message;
+                parametersOutput.Text = scanParamsMessage.XmlData;
+            }
+            else
+            {
+                ScannerMessage scannMessage = (ScannerMessage)message;
+                DataGridView grid = (DataGridView)uiControl;
+                rowCounter++;
+                grid.Rows.Add();
+                grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
+                grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
+                grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
+                grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
+                grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
+                grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
+            }
         }
 
         public override void Clear()
@@ -56,6 +68,11 @@ namespace IBSampleApp.ui
         public void AddRequest(ScannerSubscription scannerSubscription)
         {
             ibClient.ClientSocket.reqScannerSubscription(currentTicker, scannerSubscription, new List<TagValue>());
+        }
+
+        public void RequestParameters()
+        {
+            ibClient.ClientSocket.reqScannerParameters();
         }
     }
 }

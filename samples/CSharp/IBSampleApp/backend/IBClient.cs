@@ -245,7 +245,7 @@ namespace IBSampleApp
 
         public virtual void scannerParameters(string xml)
         {
-            addTextToBox("ScannerParameters. " + xml + "\n");
+            parentUI.HandleMessage(new ScannerParametersMessage(xml));
         }
 
         public virtual void scannerData(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)

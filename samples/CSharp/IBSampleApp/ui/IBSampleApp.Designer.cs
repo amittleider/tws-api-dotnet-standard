@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -97,6 +97,8 @@ namespace IBSampleApp
             this.scanBenchmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scanProjection = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scanLegStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scannerParamsTab = new System.Windows.Forms.TabPage();
+            this.scannerParamsOutput = new System.Windows.Forms.TextBox();
             this.dataResults_MDT = new System.Windows.Forms.TabControl();
             this.topMktData_MDT = new System.Windows.Forms.TabPage();
             this.deepBookGroupBox = new System.Windows.Forms.GroupBox();
@@ -112,7 +114,6 @@ namespace IBSampleApp
             this.mdRightLabel = new System.Windows.Forms.Label();
             this.mdContractRight = new System.Windows.Forms.ComboBox();
             this.putcall_label_TMD_MDT = new System.Windows.Forms.Label();
-            this.includeExpired = new System.Windows.Forms.CheckBox();
             this.multiplier_TMD_MDT = new System.Windows.Forms.TextBox();
             this.symbol_label_TMD_MDT = new System.Windows.Forms.Label();
             this.marketData_Button = new System.Windows.Forms.Button();
@@ -138,22 +139,25 @@ namespace IBSampleApp
             this.hdRequest_EndTime = new System.Windows.Forms.TextBox();
             this.hdRequest_WhatToShow = new System.Windows.Forms.ComboBox();
             this.hdRequest_Duration = new System.Windows.Forms.TextBox();
+            this.includeExpired = new System.Windows.Forms.CheckBox();
             this.hdRequest_BarSize = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.hdRequest_TimeUnit = new System.Windows.Forms.ComboBox();
             this.marketScanner_MDT = new System.Windows.Forms.TabPage();
-            this.scanLocation = new System.Windows.Forms.ComboBox();
-            this.scannerRequest_Button = new System.Windows.Forms.Button();
-            this.scanNumRows_label = new System.Windows.Forms.Label();
-            this.scanStockType_label = new System.Windows.Forms.Label();
-            this.scanLocation_label = new System.Windows.Forms.Label();
-            this.scanInstrument_label = new System.Windows.Forms.Label();
-            this.scanCode_label = new System.Windows.Forms.Label();
-            this.scanNumRows = new System.Windows.Forms.TextBox();
-            this.scanStockType = new System.Windows.Forms.ComboBox();
-            this.scanInstrument = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.scanCode = new System.Windows.Forms.ComboBox();
+            this.scanInstrument = new System.Windows.Forms.ComboBox();
+            this.scannerRequest_Button = new System.Windows.Forms.Button();
+            this.scanLocation = new System.Windows.Forms.ComboBox();
+            this.scanStockType = new System.Windows.Forms.ComboBox();
+            this.scanNumRows = new System.Windows.Forms.TextBox();
+            this.scanNumRows_label = new System.Windows.Forms.Label();
+            this.scanCode_label = new System.Windows.Forms.Label();
+            this.scanStockType_label = new System.Windows.Forms.Label();
+            this.scanInstrument_label = new System.Windows.Forms.Label();
+            this.scanLocation_label = new System.Windows.Forms.Label();
+            this.scannerParamsRequest_button = new System.Windows.Forms.Button();
             this.tradingTab = new System.Windows.Forms.TabPage();
             this.globalCancelButton = new System.Windows.Forms.Button();
             this.clientOrdersButton = new System.Windows.Forms.Button();
@@ -382,6 +386,22 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.execFilterGroup = new System.Windows.Forms.GroupBox();
+            this.execFilterClientId = new System.Windows.Forms.TextBox();
+            this.execFilterAccount = new System.Windows.Forms.TextBox();
+            this.execFilterTime = new System.Windows.Forms.TextBox();
+            this.execFilterSymbol = new System.Windows.Forms.TextBox();
+            this.execFilterSecType = new System.Windows.Forms.TextBox();
+            this.execFilterClientLabel = new System.Windows.Forms.Label();
+            this.execFilterAcctLabel = new System.Windows.Forms.Label();
+            this.execFilterTimeLabel = new System.Windows.Forms.Label();
+            this.execFilterSymbolLabel = new System.Windows.Forms.Label();
+            this.execFilterSecTypeLabel = new System.Windows.Forms.Label();
+            this.execFilterExchangeLabel = new System.Windows.Forms.Label();
+            this.execFilterSideLabel = new System.Windows.Forms.Label();
+            this.execFilterSide = new System.Windows.Forms.TextBox();
+            this.execFilterExchange = new System.Windows.Forms.TextBox();
+            this.ib_banner = new System.Windows.Forms.PictureBox();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -397,12 +417,14 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.rtBarsChart)).BeginInit();
             this.scannerTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scannerGrid)).BeginInit();
+            this.scannerParamsTab.SuspendLayout();
             this.dataResults_MDT.SuspendLayout();
             this.topMktData_MDT.SuspendLayout();
             this.deepBookGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.marketScanner_MDT.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.tradingTab.SuspendLayout();
             this.executionsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tradeLogGrid)).BeginInit();
@@ -447,6 +469,8 @@ namespace IBSampleApp
             this.comboContractBox.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.messagesTab.SuspendLayout();
+            this.execFilterGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -488,6 +512,7 @@ namespace IBSampleApp
             this.marketData_MDT.Controls.Add(this.historicalDataTab);
             this.marketData_MDT.Controls.Add(this.rtBarsTab_MDT);
             this.marketData_MDT.Controls.Add(this.scannerTab);
+            this.marketData_MDT.Controls.Add(this.scannerParamsTab);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 210);
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
@@ -633,14 +658,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -786,27 +811,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            chartArea11.AxisX.MajorGrid.Enabled = false;
+            chartArea11.AxisX.MajorTickMark.Enabled = false;
+            chartArea11.AxisY.IsStartedFromZero = false;
+            chartArea11.Name = "ChartArea1";
+            chartArea11.Position.Auto = false;
+            chartArea11.Position.Height = 100F;
+            chartArea11.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend11);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series11.IsVisibleInLegend = false;
+            series11.IsXValueIndexed = true;
+            series11.Legend = "Legend1";
+            series11.Name = "Series1";
+            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series11.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series11);
             this.historicalChart.Size = new System.Drawing.Size(699, 182);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -913,26 +938,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend2);
+            chartArea12.AxisX.MajorGrid.Enabled = false;
+            chartArea12.AxisX.MajorTickMark.Enabled = false;
+            chartArea12.AxisY.IsStartedFromZero = false;
+            chartArea12.Name = "ChartArea1";
+            chartArea12.Position.Auto = false;
+            chartArea12.Position.Height = 100F;
+            chartArea12.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea12);
+            legend12.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend12);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series2);
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series12.IsVisibleInLegend = false;
+            series12.Legend = "Legend1";
+            series12.Name = "Series1";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series12.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series12);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 182);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -947,7 +972,7 @@ namespace IBSampleApp
             this.scannerTab.Padding = new System.Windows.Forms.Padding(3);
             this.scannerTab.Size = new System.Drawing.Size(1234, 191);
             this.scannerTab.TabIndex = 3;
-            this.scannerTab.Text = "Scanner";
+            this.scannerTab.Text = "Scanner Results";
             // 
             // scannerTab_link
             // 
@@ -976,7 +1001,7 @@ namespace IBSampleApp
             this.scannerGrid.Name = "scannerGrid";
             this.scannerGrid.ReadOnly = true;
             this.scannerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.scannerGrid.Size = new System.Drawing.Size(765, 210);
+            this.scannerGrid.Size = new System.Drawing.Size(765, 157);
             this.scannerGrid.TabIndex = 0;
             // 
             // scanRank
@@ -1016,6 +1041,28 @@ namespace IBSampleApp
             this.scanLegStr.Name = "scanLegStr";
             this.scanLegStr.ReadOnly = true;
             // 
+            // scannerParamsTab
+            // 
+            this.scannerParamsTab.BackColor = System.Drawing.Color.LightGray;
+            this.scannerParamsTab.Controls.Add(this.scannerParamsOutput);
+            this.scannerParamsTab.Location = new System.Drawing.Point(4, 22);
+            this.scannerParamsTab.Name = "scannerParamsTab";
+            this.scannerParamsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.scannerParamsTab.Size = new System.Drawing.Size(1234, 191);
+            this.scannerParamsTab.TabIndex = 4;
+            this.scannerParamsTab.Text = "Scanner Parameters";
+            // 
+            // scannerParamsOutput
+            // 
+            this.scannerParamsOutput.BackColor = System.Drawing.SystemColors.Control;
+            this.scannerParamsOutput.Location = new System.Drawing.Point(4, 6);
+            this.scannerParamsOutput.Multiline = true;
+            this.scannerParamsOutput.Name = "scannerParamsOutput";
+            this.scannerParamsOutput.ReadOnly = true;
+            this.scannerParamsOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.scannerParamsOutput.Size = new System.Drawing.Size(1224, 179);
+            this.scannerParamsOutput.TabIndex = 0;
+            // 
             // dataResults_MDT
             // 
             this.dataResults_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1025,7 +1072,7 @@ namespace IBSampleApp
             this.dataResults_MDT.Location = new System.Drawing.Point(0, 0);
             this.dataResults_MDT.Name = "dataResults_MDT";
             this.dataResults_MDT.SelectedIndex = 0;
-            this.dataResults_MDT.Size = new System.Drawing.Size(1238, 229);
+            this.dataResults_MDT.Size = new System.Drawing.Size(1238, 226);
             this.dataResults_MDT.TabIndex = 0;
             // 
             // topMktData_MDT
@@ -1037,7 +1084,7 @@ namespace IBSampleApp
             this.topMktData_MDT.Location = new System.Drawing.Point(4, 22);
             this.topMktData_MDT.Name = "topMktData_MDT";
             this.topMktData_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.topMktData_MDT.Size = new System.Drawing.Size(1230, 203);
+            this.topMktData_MDT.Size = new System.Drawing.Size(1230, 200);
             this.topMktData_MDT.TabIndex = 0;
             this.topMktData_MDT.Text = "Market Data";
             // 
@@ -1090,7 +1137,6 @@ namespace IBSampleApp
             this.groupBox2.Controls.Add(this.mdRightLabel);
             this.groupBox2.Controls.Add(this.mdContractRight);
             this.groupBox2.Controls.Add(this.putcall_label_TMD_MDT);
-            this.groupBox2.Controls.Add(this.includeExpired);
             this.groupBox2.Controls.Add(this.multiplier_TMD_MDT);
             this.groupBox2.Controls.Add(this.symbol_label_TMD_MDT);
             this.groupBox2.Controls.Add(this.marketData_Button);
@@ -1142,9 +1188,9 @@ namespace IBSampleApp
             // 
             // genericTickList
             // 
-            this.genericTickList.Location = new System.Drawing.Point(276, 15);
+            this.genericTickList.Location = new System.Drawing.Point(292, 15);
             this.genericTickList.Name = "genericTickList";
-            this.genericTickList.Size = new System.Drawing.Size(211, 20);
+            this.genericTickList.Size = new System.Drawing.Size(198, 20);
             this.genericTickList.TabIndex = 59;
             // 
             // genericTickListLabel
@@ -1159,7 +1205,7 @@ namespace IBSampleApp
             // mdRightLabel
             // 
             this.mdRightLabel.AutoSize = true;
-            this.mdRightLabel.Location = new System.Drawing.Point(225, 67);
+            this.mdRightLabel.Location = new System.Drawing.Point(225, 86);
             this.mdRightLabel.Name = "mdRightLabel";
             this.mdRightLabel.Size = new System.Drawing.Size(45, 13);
             this.mdRightLabel.TabIndex = 57;
@@ -1168,35 +1214,25 @@ namespace IBSampleApp
             // mdContractRight
             // 
             this.mdContractRight.FormattingEnabled = true;
-            this.mdContractRight.Location = new System.Drawing.Point(276, 66);
+            this.mdContractRight.Location = new System.Drawing.Point(292, 85);
             this.mdContractRight.Name = "mdContractRight";
-            this.mdContractRight.Size = new System.Drawing.Size(100, 21);
+            this.mdContractRight.Size = new System.Drawing.Size(87, 21);
             this.mdContractRight.TabIndex = 56;
             // 
             // putcall_label_TMD_MDT
             // 
             this.putcall_label_TMD_MDT.AutoSize = true;
-            this.putcall_label_TMD_MDT.Location = new System.Drawing.Point(221, 117);
+            this.putcall_label_TMD_MDT.Location = new System.Drawing.Point(221, 142);
             this.putcall_label_TMD_MDT.Name = "putcall_label_TMD_MDT";
             this.putcall_label_TMD_MDT.Size = new System.Drawing.Size(48, 13);
             this.putcall_label_TMD_MDT.TabIndex = 6;
             this.putcall_label_TMD_MDT.Text = "Multiplier";
             // 
-            // includeExpired
-            // 
-            this.includeExpired.AutoSize = true;
-            this.includeExpired.Location = new System.Drawing.Point(389, 42);
-            this.includeExpired.Name = "includeExpired";
-            this.includeExpired.Size = new System.Drawing.Size(98, 17);
-            this.includeExpired.TabIndex = 56;
-            this.includeExpired.Text = "Include expired";
-            this.includeExpired.UseVisualStyleBackColor = true;
-            // 
             // multiplier_TMD_MDT
             // 
-            this.multiplier_TMD_MDT.Location = new System.Drawing.Point(276, 117);
+            this.multiplier_TMD_MDT.Location = new System.Drawing.Point(292, 142);
             this.multiplier_TMD_MDT.Name = "multiplier_TMD_MDT";
-            this.multiplier_TMD_MDT.Size = new System.Drawing.Size(100, 20);
+            this.multiplier_TMD_MDT.Size = new System.Drawing.Size(87, 20);
             this.multiplier_TMD_MDT.TabIndex = 12;
             // 
             // symbol_label_TMD_MDT
@@ -1210,9 +1246,9 @@ namespace IBSampleApp
             // 
             // marketData_Button
             // 
-            this.marketData_Button.Location = new System.Drawing.Point(311, 146);
+            this.marketData_Button.Location = new System.Drawing.Point(399, 114);
             this.marketData_Button.Name = "marketData_Button";
-            this.marketData_Button.Size = new System.Drawing.Size(82, 23);
+            this.marketData_Button.Size = new System.Drawing.Size(75, 23);
             this.marketData_Button.TabIndex = 17;
             this.marketData_Button.Text = "Add Ticker";
             this.marketData_Button.UseVisualStyleBackColor = true;
@@ -1285,7 +1321,7 @@ namespace IBSampleApp
             // 
             // lastTradeDateOrContractMonth_TMD_MDT
             // 
-            this.lastTradeDateOrContractMonth_TMD_MDT.Location = new System.Drawing.Point(276, 40);
+            this.lastTradeDateOrContractMonth_TMD_MDT.Location = new System.Drawing.Point(292, 46);
             this.lastTradeDateOrContractMonth_TMD_MDT.Name = "lastTradeDateOrContractMonth_TMD_MDT";
             this.lastTradeDateOrContractMonth_TMD_MDT.Size = new System.Drawing.Size(100, 20);
             this.lastTradeDateOrContractMonth_TMD_MDT.TabIndex = 14;
@@ -1300,9 +1336,9 @@ namespace IBSampleApp
             // 
             // strike_TMD_MDT
             // 
-            this.strike_TMD_MDT.Location = new System.Drawing.Point(276, 93);
+            this.strike_TMD_MDT.Location = new System.Drawing.Point(292, 113);
             this.strike_TMD_MDT.Name = "strike_TMD_MDT";
-            this.strike_TMD_MDT.Size = new System.Drawing.Size(100, 20);
+            this.strike_TMD_MDT.Size = new System.Drawing.Size(87, 20);
             this.strike_TMD_MDT.TabIndex = 13;
             // 
             // currency_TMD_MDT
@@ -1332,16 +1368,16 @@ namespace IBSampleApp
             // 
             // lastTradeDate_label_TMD_MDT
             // 
-            this.lastTradeDate_label_TMD_MDT.Location = new System.Drawing.Point(191, 31);
+            this.lastTradeDate_label_TMD_MDT.Location = new System.Drawing.Point(191, 46);
             this.lastTradeDate_label_TMD_MDT.Name = "lastTradeDate_label_TMD_MDT";
             this.lastTradeDate_label_TMD_MDT.Size = new System.Drawing.Size(92, 28);
             this.lastTradeDate_label_TMD_MDT.TabIndex = 4;
-            this.lastTradeDate_label_TMD_MDT.Text = "Last trade date or contract month";
+            this.lastTradeDate_label_TMD_MDT.Text = "Last trade date / contract month";
             // 
             // strike_label_TMD_MDT
             // 
             this.strike_label_TMD_MDT.AutoSize = true;
-            this.strike_label_TMD_MDT.Location = new System.Drawing.Point(236, 93);
+            this.strike_label_TMD_MDT.Location = new System.Drawing.Point(236, 113);
             this.strike_label_TMD_MDT.Name = "strike_label_TMD_MDT";
             this.strike_label_TMD_MDT.Size = new System.Drawing.Size(34, 13);
             this.strike_label_TMD_MDT.TabIndex = 5;
@@ -1357,6 +1393,7 @@ namespace IBSampleApp
             this.groupBox1.Controls.Add(this.hdRequest_EndTime);
             this.groupBox1.Controls.Add(this.hdRequest_WhatToShow);
             this.groupBox1.Controls.Add(this.hdRequest_Duration);
+            this.groupBox1.Controls.Add(this.includeExpired);
             this.groupBox1.Controls.Add(this.hdRequest_BarSize);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label11);
@@ -1454,6 +1491,16 @@ namespace IBSampleApp
             this.hdRequest_Duration.TabIndex = 47;
             this.hdRequest_Duration.Text = "10";
             // 
+            // includeExpired
+            // 
+            this.includeExpired.AutoSize = true;
+            this.includeExpired.Location = new System.Drawing.Point(221, 45);
+            this.includeExpired.Name = "includeExpired";
+            this.includeExpired.Size = new System.Drawing.Size(61, 17);
+            this.includeExpired.TabIndex = 56;
+            this.includeExpired.Text = "Expired";
+            this.includeExpired.UseVisualStyleBackColor = true;
+            // 
             // hdRequest_BarSize
             // 
             this.hdRequest_BarSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1513,124 +1560,34 @@ namespace IBSampleApp
             // marketScanner_MDT
             // 
             this.marketScanner_MDT.BackColor = System.Drawing.Color.LightGray;
-            this.marketScanner_MDT.Controls.Add(this.scanLocation);
-            this.marketScanner_MDT.Controls.Add(this.scannerRequest_Button);
-            this.marketScanner_MDT.Controls.Add(this.scanNumRows_label);
-            this.marketScanner_MDT.Controls.Add(this.scanStockType_label);
-            this.marketScanner_MDT.Controls.Add(this.scanLocation_label);
-            this.marketScanner_MDT.Controls.Add(this.scanInstrument_label);
-            this.marketScanner_MDT.Controls.Add(this.scanCode_label);
-            this.marketScanner_MDT.Controls.Add(this.scanNumRows);
-            this.marketScanner_MDT.Controls.Add(this.scanStockType);
-            this.marketScanner_MDT.Controls.Add(this.scanInstrument);
-            this.marketScanner_MDT.Controls.Add(this.scanCode);
+            this.marketScanner_MDT.Controls.Add(this.groupBox4);
+            this.marketScanner_MDT.Controls.Add(this.scannerParamsRequest_button);
             this.marketScanner_MDT.Location = new System.Drawing.Point(4, 22);
             this.marketScanner_MDT.Name = "marketScanner_MDT";
             this.marketScanner_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.marketScanner_MDT.Size = new System.Drawing.Size(1230, 203);
+            this.marketScanner_MDT.Size = new System.Drawing.Size(1230, 200);
             this.marketScanner_MDT.TabIndex = 4;
             this.marketScanner_MDT.Text = "Scanner";
             // 
-            // scanLocation
+            // groupBox4
             // 
-            this.scanLocation.FormattingEnabled = true;
-            this.scanLocation.Items.AddRange(new object[] {
-            "STK.US",
-            "STK.US.MAJOR",
-            "STK.US.MINOR",
-            "STK.HK.SEHK",
-            "STK.HK.ASX",
-            "STK.EU"});
-            this.scanLocation.Location = new System.Drawing.Point(367, 14);
-            this.scanLocation.Name = "scanLocation";
-            this.scanLocation.Size = new System.Drawing.Size(121, 21);
-            this.scanLocation.TabIndex = 11;
-            this.scanLocation.Text = "STK.EU.IBIS";
-            // 
-            // scannerRequest_Button
-            // 
-            this.scannerRequest_Button.Location = new System.Drawing.Point(391, 72);
-            this.scannerRequest_Button.Name = "scannerRequest_Button";
-            this.scannerRequest_Button.Size = new System.Drawing.Size(76, 21);
-            this.scannerRequest_Button.TabIndex = 10;
-            this.scannerRequest_Button.Text = "Submit";
-            this.scannerRequest_Button.UseVisualStyleBackColor = true;
-            this.scannerRequest_Button.Click += new System.EventHandler(this.scannerRequest_Button_Click);
-            // 
-            // scanNumRows_label
-            // 
-            this.scanNumRows_label.AutoSize = true;
-            this.scanNumRows_label.Location = new System.Drawing.Point(302, 44);
-            this.scanNumRows_label.Name = "scanNumRows_label";
-            this.scanNumRows_label.Size = new System.Drawing.Size(59, 13);
-            this.scanNumRows_label.TabIndex = 9;
-            this.scanNumRows_label.Text = "Num Rows";
-            // 
-            // scanStockType_label
-            // 
-            this.scanStockType_label.AutoSize = true;
-            this.scanStockType_label.Location = new System.Drawing.Point(4, 69);
-            this.scanStockType_label.Name = "scanStockType_label";
-            this.scanStockType_label.Size = new System.Drawing.Size(62, 13);
-            this.scanStockType_label.TabIndex = 8;
-            this.scanStockType_label.Text = "Stock Type";
-            // 
-            // scanLocation_label
-            // 
-            this.scanLocation_label.AutoSize = true;
-            this.scanLocation_label.Location = new System.Drawing.Point(313, 14);
-            this.scanLocation_label.Name = "scanLocation_label";
-            this.scanLocation_label.Size = new System.Drawing.Size(48, 13);
-            this.scanLocation_label.TabIndex = 7;
-            this.scanLocation_label.Text = "Location";
-            // 
-            // scanInstrument_label
-            // 
-            this.scanInstrument_label.AutoSize = true;
-            this.scanInstrument_label.Location = new System.Drawing.Point(10, 41);
-            this.scanInstrument_label.Name = "scanInstrument_label";
-            this.scanInstrument_label.Size = new System.Drawing.Size(56, 13);
-            this.scanInstrument_label.TabIndex = 6;
-            this.scanInstrument_label.Text = "Instrument";
-            // 
-            // scanCode_label
-            // 
-            this.scanCode_label.AutoSize = true;
-            this.scanCode_label.Location = new System.Drawing.Point(6, 14);
-            this.scanCode_label.Name = "scanCode_label";
-            this.scanCode_label.Size = new System.Drawing.Size(60, 13);
-            this.scanCode_label.TabIndex = 5;
-            this.scanCode_label.Text = "Scan Code";
-            // 
-            // scanNumRows
-            // 
-            this.scanNumRows.Location = new System.Drawing.Point(367, 44);
-            this.scanNumRows.Name = "scanNumRows";
-            this.scanNumRows.Size = new System.Drawing.Size(100, 20);
-            this.scanNumRows.TabIndex = 4;
-            this.scanNumRows.Text = "15";
-            // 
-            // scanStockType
-            // 
-            this.scanStockType.FormattingEnabled = true;
-            this.scanStockType.Location = new System.Drawing.Point(72, 69);
-            this.scanStockType.Name = "scanStockType";
-            this.scanStockType.Size = new System.Drawing.Size(121, 21);
-            this.scanStockType.TabIndex = 3;
-            this.scanStockType.Text = "ALL";
-            // 
-            // scanInstrument
-            // 
-            this.scanInstrument.FormattingEnabled = true;
-            this.scanInstrument.Items.AddRange(new object[] {
-            "STK",
-            "STOCK.HK",
-            "STOCK.EU"});
-            this.scanInstrument.Location = new System.Drawing.Point(72, 41);
-            this.scanInstrument.Name = "scanInstrument";
-            this.scanInstrument.Size = new System.Drawing.Size(121, 21);
-            this.scanInstrument.TabIndex = 1;
-            this.scanInstrument.Text = "STOCK.EU";
+            this.groupBox4.Controls.Add(this.scanCode);
+            this.groupBox4.Controls.Add(this.scanInstrument);
+            this.groupBox4.Controls.Add(this.scannerRequest_Button);
+            this.groupBox4.Controls.Add(this.scanLocation);
+            this.groupBox4.Controls.Add(this.scanStockType);
+            this.groupBox4.Controls.Add(this.scanNumRows);
+            this.groupBox4.Controls.Add(this.scanNumRows_label);
+            this.groupBox4.Controls.Add(this.scanCode_label);
+            this.groupBox4.Controls.Add(this.scanStockType_label);
+            this.groupBox4.Controls.Add(this.scanInstrument_label);
+            this.groupBox4.Controls.Add(this.scanLocation_label);
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(264, 161);
+            this.groupBox4.TabIndex = 13;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Scanner Filters";
             // 
             // scanCode
             // 
@@ -1678,15 +1635,127 @@ namespace IBSampleApp
             "LOW_VS_52W_HL",
             "HIGH_SYNTH_BID_REV_NAT_YIELD",
             "LOW_SYNTH_BID_REV_NAT_YIELD"});
-            this.scanCode.Location = new System.Drawing.Point(72, 14);
+            this.scanCode.Location = new System.Drawing.Point(75, 19);
             this.scanCode.Name = "scanCode";
             this.scanCode.Size = new System.Drawing.Size(179, 21);
             this.scanCode.TabIndex = 0;
             this.scanCode.Text = "TOP_PERC_GAIN";
             // 
+            // scanInstrument
+            // 
+            this.scanInstrument.FormattingEnabled = true;
+            this.scanInstrument.Items.AddRange(new object[] {
+            "STK",
+            "STOCK.HK",
+            "STOCK.EU"});
+            this.scanInstrument.Location = new System.Drawing.Point(75, 46);
+            this.scanInstrument.Name = "scanInstrument";
+            this.scanInstrument.Size = new System.Drawing.Size(121, 21);
+            this.scanInstrument.TabIndex = 1;
+            this.scanInstrument.Text = "STOCK.EU";
+            // 
+            // scannerRequest_Button
+            // 
+            this.scannerRequest_Button.Location = new System.Drawing.Point(181, 128);
+            this.scannerRequest_Button.Name = "scannerRequest_Button";
+            this.scannerRequest_Button.Size = new System.Drawing.Size(76, 21);
+            this.scannerRequest_Button.TabIndex = 10;
+            this.scannerRequest_Button.Text = "Submit";
+            this.scannerRequest_Button.UseVisualStyleBackColor = true;
+            this.scannerRequest_Button.Click += new System.EventHandler(this.scannerRequest_Button_Click);
+            // 
+            // scanLocation
+            // 
+            this.scanLocation.FormattingEnabled = true;
+            this.scanLocation.Items.AddRange(new object[] {
+            "STK.US",
+            "STK.US.MAJOR",
+            "STK.US.MINOR",
+            "STK.HK.SEHK",
+            "STK.HK.ASX",
+            "STK.EU"});
+            this.scanLocation.Location = new System.Drawing.Point(75, 101);
+            this.scanLocation.Name = "scanLocation";
+            this.scanLocation.Size = new System.Drawing.Size(121, 21);
+            this.scanLocation.TabIndex = 11;
+            this.scanLocation.Text = "STK.EU.IBIS";
+            // 
+            // scanStockType
+            // 
+            this.scanStockType.FormattingEnabled = true;
+            this.scanStockType.Location = new System.Drawing.Point(75, 74);
+            this.scanStockType.Name = "scanStockType";
+            this.scanStockType.Size = new System.Drawing.Size(121, 21);
+            this.scanStockType.TabIndex = 3;
+            this.scanStockType.Text = "ALL";
+            // 
+            // scanNumRows
+            // 
+            this.scanNumRows.Location = new System.Drawing.Point(75, 128);
+            this.scanNumRows.Name = "scanNumRows";
+            this.scanNumRows.Size = new System.Drawing.Size(100, 20);
+            this.scanNumRows.TabIndex = 4;
+            this.scanNumRows.Text = "15";
+            // 
+            // scanNumRows_label
+            // 
+            this.scanNumRows_label.AutoSize = true;
+            this.scanNumRows_label.Location = new System.Drawing.Point(10, 128);
+            this.scanNumRows_label.Name = "scanNumRows_label";
+            this.scanNumRows_label.Size = new System.Drawing.Size(59, 13);
+            this.scanNumRows_label.TabIndex = 9;
+            this.scanNumRows_label.Text = "Num Rows";
+            // 
+            // scanCode_label
+            // 
+            this.scanCode_label.AutoSize = true;
+            this.scanCode_label.Location = new System.Drawing.Point(9, 19);
+            this.scanCode_label.Name = "scanCode_label";
+            this.scanCode_label.Size = new System.Drawing.Size(60, 13);
+            this.scanCode_label.TabIndex = 5;
+            this.scanCode_label.Text = "Scan Code";
+            // 
+            // scanStockType_label
+            // 
+            this.scanStockType_label.AutoSize = true;
+            this.scanStockType_label.Location = new System.Drawing.Point(7, 74);
+            this.scanStockType_label.Name = "scanStockType_label";
+            this.scanStockType_label.Size = new System.Drawing.Size(62, 13);
+            this.scanStockType_label.TabIndex = 8;
+            this.scanStockType_label.Text = "Stock Type";
+            // 
+            // scanInstrument_label
+            // 
+            this.scanInstrument_label.AutoSize = true;
+            this.scanInstrument_label.Location = new System.Drawing.Point(13, 46);
+            this.scanInstrument_label.Name = "scanInstrument_label";
+            this.scanInstrument_label.Size = new System.Drawing.Size(56, 13);
+            this.scanInstrument_label.TabIndex = 6;
+            this.scanInstrument_label.Text = "Instrument";
+            // 
+            // scanLocation_label
+            // 
+            this.scanLocation_label.AutoSize = true;
+            this.scanLocation_label.Location = new System.Drawing.Point(21, 101);
+            this.scanLocation_label.Name = "scanLocation_label";
+            this.scanLocation_label.Size = new System.Drawing.Size(48, 13);
+            this.scanLocation_label.TabIndex = 7;
+            this.scanLocation_label.Text = "Location";
+            // 
+            // scannerParamsRequest_button
+            // 
+            this.scannerParamsRequest_button.Location = new System.Drawing.Point(276, 15);
+            this.scannerParamsRequest_button.Name = "scannerParamsRequest_button";
+            this.scannerParamsRequest_button.Size = new System.Drawing.Size(120, 23);
+            this.scannerParamsRequest_button.TabIndex = 12;
+            this.scannerParamsRequest_button.Text = "Request Parameters";
+            this.scannerParamsRequest_button.UseVisualStyleBackColor = true;
+            this.scannerParamsRequest_button.Click += new System.EventHandler(this.scannerParamsRequest_button_Click);
+            // 
             // tradingTab
             // 
             this.tradingTab.BackColor = System.Drawing.Color.LightGray;
+            this.tradingTab.Controls.Add(this.execFilterGroup);
             this.tradingTab.Controls.Add(this.globalCancelButton);
             this.tradingTab.Controls.Add(this.clientOrdersButton);
             this.tradingTab.Controls.Add(this.refreshOrdersButton);
@@ -1765,18 +1834,17 @@ namespace IBSampleApp
             // 
             // executionsGroup
             // 
-            this.executionsGroup.Controls.Add(this.refreshExecutionsButton);
             this.executionsGroup.Controls.Add(this.tradeLogGrid);
             this.executionsGroup.Location = new System.Drawing.Point(9, 218);
             this.executionsGroup.Name = "executionsGroup";
-            this.executionsGroup.Size = new System.Drawing.Size(960, 236);
+            this.executionsGroup.Size = new System.Drawing.Size(960, 206);
             this.executionsGroup.TabIndex = 2;
             this.executionsGroup.TabStop = false;
             this.executionsGroup.Text = "Trade Log (Executions)";
             // 
             // refreshExecutionsButton
             // 
-            this.refreshExecutionsButton.Location = new System.Drawing.Point(877, 207);
+            this.refreshExecutionsButton.Location = new System.Drawing.Point(149, 19);
             this.refreshExecutionsButton.Name = "refreshExecutionsButton";
             this.refreshExecutionsButton.Size = new System.Drawing.Size(75, 23);
             this.refreshExecutionsButton.TabIndex = 1;
@@ -2294,7 +2362,7 @@ namespace IBSampleApp
             this.groupBox3.Controls.Add(this.optionChainUseSnapshot);
             this.groupBox3.Controls.Add(this.optionChainOptionExchangeLabel);
             this.groupBox3.Controls.Add(this.optionChainExchange);
-            this.groupBox3.Location = new System.Drawing.Point(398, 6);
+            this.groupBox3.Location = new System.Drawing.Point(425, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(204, 95);
             this.groupBox3.TabIndex = 45;
@@ -2348,7 +2416,7 @@ namespace IBSampleApp
             this.contractFundamentalsGroupBox.Controls.Add(this.fundamentalsQueryButton);
             this.contractFundamentalsGroupBox.Controls.Add(this.fundamentalsReportTypeLabel);
             this.contractFundamentalsGroupBox.Controls.Add(this.fundamentalsReportType);
-            this.contractFundamentalsGroupBox.Location = new System.Drawing.Point(398, 107);
+            this.contractFundamentalsGroupBox.Location = new System.Drawing.Point(425, 107);
             this.contractFundamentalsGroupBox.Name = "contractFundamentalsGroupBox";
             this.contractFundamentalsGroupBox.Size = new System.Drawing.Size(204, 72);
             this.contractFundamentalsGroupBox.TabIndex = 36;
@@ -2406,14 +2474,14 @@ namespace IBSampleApp
             this.contractDetailsGroupBox.Controls.Add(this.conDetSymbol);
             this.contractDetailsGroupBox.Location = new System.Drawing.Point(8, 6);
             this.contractDetailsGroupBox.Name = "contractDetailsGroupBox";
-            this.contractDetailsGroupBox.Size = new System.Drawing.Size(384, 173);
+            this.contractDetailsGroupBox.Size = new System.Drawing.Size(399, 173);
             this.contractDetailsGroupBox.TabIndex = 33;
             this.contractDetailsGroupBox.TabStop = false;
             this.contractDetailsGroupBox.Text = "Contract details";
             // 
             // searchContractDetails
             // 
-            this.searchContractDetails.Location = new System.Drawing.Point(299, 144);
+            this.searchContractDetails.Location = new System.Drawing.Point(309, 144);
             this.searchContractDetails.Name = "searchContractDetails";
             this.searchContractDetails.Size = new System.Drawing.Size(75, 23);
             this.searchContractDetails.TabIndex = 34;
@@ -2443,7 +2511,7 @@ namespace IBSampleApp
             // conDetStrikeLabel
             // 
             this.conDetStrikeLabel.AutoSize = true;
-            this.conDetStrikeLabel.Location = new System.Drawing.Point(234, 75);
+            this.conDetStrikeLabel.Location = new System.Drawing.Point(234, 91);
             this.conDetStrikeLabel.Name = "conDetStrikeLabel";
             this.conDetStrikeLabel.Size = new System.Drawing.Size(34, 13);
             this.conDetStrikeLabel.TabIndex = 21;
@@ -2459,11 +2527,11 @@ namespace IBSampleApp
             // 
             // conDetLastTradeDateLabel
             // 
-            this.conDetLastTradeDateLabel.Location = new System.Drawing.Point(182, 42);
+            this.conDetLastTradeDateLabel.Location = new System.Drawing.Point(192, 51);
             this.conDetLastTradeDateLabel.Name = "conDetLastTradeDateLabel";
-            this.conDetLastTradeDateLabel.Size = new System.Drawing.Size(94, 33);
+            this.conDetLastTradeDateLabel.Size = new System.Drawing.Size(86, 33);
             this.conDetLastTradeDateLabel.TabIndex = 20;
-            this.conDetLastTradeDateLabel.Text = "Last trade date or contract month";
+            this.conDetLastTradeDateLabel.Text = "Last trade date / contract month";
             // 
             // conDetSecType
             // 
@@ -2517,7 +2585,7 @@ namespace IBSampleApp
             // conDetLocalSymbolLabel
             // 
             this.conDetLocalSymbolLabel.AutoSize = true;
-            this.conDetLocalSymbolLabel.Location = new System.Drawing.Point(198, 101);
+            this.conDetLocalSymbolLabel.Location = new System.Drawing.Point(198, 117);
             this.conDetLocalSymbolLabel.Name = "conDetLocalSymbolLabel";
             this.conDetLocalSymbolLabel.Size = new System.Drawing.Size(70, 13);
             this.conDetLocalSymbolLabel.TabIndex = 25;
@@ -2542,14 +2610,14 @@ namespace IBSampleApp
             // 
             // conDetLocalSymbol
             // 
-            this.conDetLocalSymbol.Location = new System.Drawing.Point(274, 101);
+            this.conDetLocalSymbol.Location = new System.Drawing.Point(284, 117);
             this.conDetLocalSymbol.Name = "conDetLocalSymbol";
             this.conDetLocalSymbol.Size = new System.Drawing.Size(100, 20);
             this.conDetLocalSymbol.TabIndex = 31;
             // 
             // conDetMultiplier
             // 
-            this.conDetMultiplier.Location = new System.Drawing.Point(274, 26);
+            this.conDetMultiplier.Location = new System.Drawing.Point(284, 19);
             this.conDetMultiplier.Name = "conDetMultiplier";
             this.conDetMultiplier.Size = new System.Drawing.Size(100, 20);
             this.conDetMultiplier.TabIndex = 28;
@@ -2573,14 +2641,14 @@ namespace IBSampleApp
             // 
             // conDetLastTradeDateOrContractMonth
             // 
-            this.conDetLastTradeDateOrContractMonth.Location = new System.Drawing.Point(274, 49);
+            this.conDetLastTradeDateOrContractMonth.Location = new System.Drawing.Point(284, 58);
             this.conDetLastTradeDateOrContractMonth.Name = "conDetLastTradeDateOrContractMonth";
             this.conDetLastTradeDateOrContractMonth.Size = new System.Drawing.Size(100, 20);
             this.conDetLastTradeDateOrContractMonth.TabIndex = 30;
             // 
             // conDetStrike
             // 
-            this.conDetStrike.Location = new System.Drawing.Point(274, 75);
+            this.conDetStrike.Location = new System.Drawing.Point(284, 91);
             this.conDetStrike.Name = "conDetStrike";
             this.conDetStrike.Size = new System.Drawing.Size(100, 20);
             this.conDetStrike.TabIndex = 29;
@@ -3856,12 +3924,159 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
+            // execFilterGroup
+            // 
+            this.execFilterGroup.Controls.Add(this.execFilterExchange);
+            this.execFilterGroup.Controls.Add(this.execFilterSide);
+            this.execFilterGroup.Controls.Add(this.execFilterSideLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterExchangeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecTypeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbolLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterTimeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterAcctLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterClientLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecType);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbol);
+            this.execFilterGroup.Controls.Add(this.execFilterTime);
+            this.execFilterGroup.Controls.Add(this.execFilterAccount);
+            this.execFilterGroup.Controls.Add(this.execFilterClientId);
+            this.execFilterGroup.Controls.Add(this.refreshExecutionsButton);
+            this.execFilterGroup.Location = new System.Drawing.Point(975, 218);
+            this.execFilterGroup.Name = "execFilterGroup";
+            this.execFilterGroup.Size = new System.Drawing.Size(230, 206);
+            this.execFilterGroup.TabIndex = 10;
+            this.execFilterGroup.TabStop = false;
+            this.execFilterGroup.Text = "Execution Filter";
+            // 
+            // execFilterClientId
+            // 
+            this.execFilterClientId.Location = new System.Drawing.Point(65, 19);
+            this.execFilterClientId.Name = "execFilterClientId";
+            this.execFilterClientId.Size = new System.Drawing.Size(77, 20);
+            this.execFilterClientId.TabIndex = 2;
+            // 
+            // execFilterAccount
+            // 
+            this.execFilterAccount.Location = new System.Drawing.Point(65, 44);
+            this.execFilterAccount.Name = "execFilterAccount";
+            this.execFilterAccount.Size = new System.Drawing.Size(77, 20);
+            this.execFilterAccount.TabIndex = 3;
+            // 
+            // execFilterTime
+            // 
+            this.execFilterTime.Location = new System.Drawing.Point(65, 173);
+            this.execFilterTime.Name = "execFilterTime";
+            this.execFilterTime.Size = new System.Drawing.Size(101, 20);
+            this.execFilterTime.TabIndex = 4;
+            // 
+            // execFilterSymbol
+            // 
+            this.execFilterSymbol.Location = new System.Drawing.Point(65, 122);
+            this.execFilterSymbol.Name = "execFilterSymbol";
+            this.execFilterSymbol.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSymbol.TabIndex = 5;
+            // 
+            // execFilterSecType
+            // 
+            this.execFilterSecType.Location = new System.Drawing.Point(65, 147);
+            this.execFilterSecType.Name = "execFilterSecType";
+            this.execFilterSecType.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSecType.TabIndex = 6;
+            // 
+            // execFilterClientLabel
+            // 
+            this.execFilterClientLabel.AutoSize = true;
+            this.execFilterClientLabel.Location = new System.Drawing.Point(6, 26);
+            this.execFilterClientLabel.Name = "execFilterClientLabel";
+            this.execFilterClientLabel.Size = new System.Drawing.Size(42, 13);
+            this.execFilterClientLabel.TabIndex = 7;
+            this.execFilterClientLabel.Text = "ClientId";
+            // 
+            // execFilterAcctLabel
+            // 
+            this.execFilterAcctLabel.AutoSize = true;
+            this.execFilterAcctLabel.Location = new System.Drawing.Point(6, 51);
+            this.execFilterAcctLabel.Name = "execFilterAcctLabel";
+            this.execFilterAcctLabel.Size = new System.Drawing.Size(47, 13);
+            this.execFilterAcctLabel.TabIndex = 8;
+            this.execFilterAcctLabel.Text = "Account";
+            // 
+            // execFilterTimeLabel
+            // 
+            this.execFilterTimeLabel.AutoSize = true;
+            this.execFilterTimeLabel.Location = new System.Drawing.Point(6, 180);
+            this.execFilterTimeLabel.Name = "execFilterTimeLabel";
+            this.execFilterTimeLabel.Size = new System.Drawing.Size(30, 13);
+            this.execFilterTimeLabel.TabIndex = 9;
+            this.execFilterTimeLabel.Text = "Time";
+            // 
+            // execFilterSymbolLabel
+            // 
+            this.execFilterSymbolLabel.AutoSize = true;
+            this.execFilterSymbolLabel.Location = new System.Drawing.Point(6, 129);
+            this.execFilterSymbolLabel.Name = "execFilterSymbolLabel";
+            this.execFilterSymbolLabel.Size = new System.Drawing.Size(41, 13);
+            this.execFilterSymbolLabel.TabIndex = 10;
+            this.execFilterSymbolLabel.Text = "Symbol";
+            // 
+            // execFilterSecTypeLabel
+            // 
+            this.execFilterSecTypeLabel.AutoSize = true;
+            this.execFilterSecTypeLabel.Location = new System.Drawing.Point(6, 154);
+            this.execFilterSecTypeLabel.Name = "execFilterSecTypeLabel";
+            this.execFilterSecTypeLabel.Size = new System.Drawing.Size(50, 13);
+            this.execFilterSecTypeLabel.TabIndex = 11;
+            this.execFilterSecTypeLabel.Text = "SecType";
+            // 
+            // execFilterExchangeLabel
+            // 
+            this.execFilterExchangeLabel.AutoSize = true;
+            this.execFilterExchangeLabel.Location = new System.Drawing.Point(6, 78);
+            this.execFilterExchangeLabel.Name = "execFilterExchangeLabel";
+            this.execFilterExchangeLabel.Size = new System.Drawing.Size(55, 13);
+            this.execFilterExchangeLabel.TabIndex = 12;
+            this.execFilterExchangeLabel.Text = "Exchange";
+            // 
+            // execFilterSideLabel
+            // 
+            this.execFilterSideLabel.AutoSize = true;
+            this.execFilterSideLabel.Location = new System.Drawing.Point(6, 103);
+            this.execFilterSideLabel.Name = "execFilterSideLabel";
+            this.execFilterSideLabel.Size = new System.Drawing.Size(28, 13);
+            this.execFilterSideLabel.TabIndex = 13;
+            this.execFilterSideLabel.Text = "Side";
+            // 
+            // execFilterSide
+            // 
+            this.execFilterSide.Location = new System.Drawing.Point(65, 96);
+            this.execFilterSide.Name = "execFilterSide";
+            this.execFilterSide.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSide.TabIndex = 14;
+            this.execFilterSide.Text = "BUY";
+            // 
+            // execFilterExchange
+            // 
+            this.execFilterExchange.Location = new System.Drawing.Point(65, 70);
+            this.execFilterExchange.Name = "execFilterExchange";
+            this.execFilterExchange.Size = new System.Drawing.Size(77, 20);
+            this.execFilterExchange.TabIndex = 15;
+            // 
+            // ib_banner
+            // 
+            this.ib_banner.Image = ((System.Drawing.Image)(resources.GetObject("ib_banner.Image")));
+            this.ib_banner.Location = new System.Drawing.Point(4, 4);
+            this.ib_banner.Name = "ib_banner";
+            this.ib_banner.Size = new System.Drawing.Size(238, 32);
+            this.ib_banner.TabIndex = 9;
+            this.ib_banner.TabStop = false;
+            // 
             // IBSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1263, 696);
+            this.Controls.Add(this.ib_banner);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.clientid_CT);
@@ -3873,8 +4088,7 @@ namespace IBSampleApp
             this.Controls.Add(this.port_label_CT);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IBSampleApp";
-            this.Text = "Interactive Brokers - C# Sample Application";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "Interactive Brokers - Sample Application C# TWS API v. 9.72";
             this.TabControl.ResumeLayout(false);
             this.marketDataTab.ResumeLayout(false);
             this.marketData_MDT.ResumeLayout(false);
@@ -3895,6 +4109,8 @@ namespace IBSampleApp
             this.scannerTab.ResumeLayout(false);
             this.scannerTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scannerGrid)).EndInit();
+            this.scannerParamsTab.ResumeLayout(false);
+            this.scannerParamsTab.PerformLayout();
             this.dataResults_MDT.ResumeLayout(false);
             this.topMktData_MDT.ResumeLayout(false);
             this.deepBookGroupBox.ResumeLayout(false);
@@ -3904,7 +4120,8 @@ namespace IBSampleApp
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.marketScanner_MDT.ResumeLayout(false);
-            this.marketScanner_MDT.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tradingTab.ResumeLayout(false);
             this.tradingTab.PerformLayout();
             this.executionsGroup.ResumeLayout(false);
@@ -3960,6 +4177,9 @@ namespace IBSampleApp
             this.tabControl2.ResumeLayout(false);
             this.messagesTab.ResumeLayout(false);
             this.messagesTab.PerformLayout();
+            this.execFilterGroup.ResumeLayout(false);
+            this.execFilterGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4306,6 +4526,26 @@ namespace IBSampleApp
         private System.Windows.Forms.CheckBox contractMDRTH;
         private System.Windows.Forms.Label primaryExchLabel;
         private System.Windows.Forms.TextBox primaryExchange;
+        private System.Windows.Forms.TabPage scannerParamsTab;
+        private System.Windows.Forms.TextBox scannerParamsOutput;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button scannerParamsRequest_button;
+        private System.Windows.Forms.GroupBox execFilterGroup;
+        private System.Windows.Forms.Label execFilterClientLabel;
+        private System.Windows.Forms.TextBox execFilterSecType;
+        private System.Windows.Forms.TextBox execFilterSymbol;
+        private System.Windows.Forms.TextBox execFilterTime;
+        private System.Windows.Forms.TextBox execFilterAccount;
+        private System.Windows.Forms.TextBox execFilterClientId;
+        private System.Windows.Forms.TextBox execFilterExchange;
+        private System.Windows.Forms.TextBox execFilterSide;
+        private System.Windows.Forms.Label execFilterSideLabel;
+        private System.Windows.Forms.Label execFilterExchangeLabel;
+        private System.Windows.Forms.Label execFilterSecTypeLabel;
+        private System.Windows.Forms.Label execFilterSymbolLabel;
+        private System.Windows.Forms.Label execFilterTimeLabel;
+        private System.Windows.Forms.Label execFilterAcctLabel;
+        private System.Windows.Forms.PictureBox ib_banner;
     }
 }
 
