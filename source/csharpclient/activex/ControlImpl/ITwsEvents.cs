@@ -34,9 +34,9 @@ namespace TWSLib
         [DispId(11)]
         void errMsg(int id, int errorCode, string errorMsg);
         [DispId(12)]
-        void updatePortfolio(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, int position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
+        void updatePortfolio(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
         [DispId(13)]
-        void orderStatus(int id, string status, int filled, int remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        void orderStatus(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
         [DispId(14)]
         void contractDetails(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
         [DispId(15)]
@@ -103,14 +103,14 @@ namespace TWSLib
         [DispId(102)]
         void execDetailsEx(int reqId, IContract contract, IExecution execution);
         [DispId(103)]
-        void updatePortfolioEx(IContract contract, int position, double marketPrice,
+        void updatePortfolioEx(IContract contract, double position, double marketPrice,
             double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
         [DispId(104)]
         void scannerDataEx(int reqId, int rank, IContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr);
         [DispId(105)]
         void commissionReport(ICommissionReport commissionReport);
         [DispId(106)]
-        void position(string account, IContract contract, int position, double avgCost);
+        void position(string account, IContract contract, double position, double avgCost);
         [DispId(107)]
         void positionEnd();
         [DispId(108)]
