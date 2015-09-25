@@ -15,6 +15,8 @@ namespace Samples
     {
         /* IMPORTANT: always use your paper trading account. The code below will submit orders as part of the demonstration. */
         /* IB will not be responsible for accidental executions on your live account. */
+        /* Any stock or option symbols displayed are for illustrative purposes only and are not intended to portray a recommendation. */
+        /* Before contacting our API support team please refer to the available documentation. */
         public static int Main(string[] args)
         {
             EWrapperImpl testImpl = new EWrapperImpl();
@@ -249,11 +251,56 @@ namespace Samples
             /*** Requesting this API client's orders ***/
             client.reqOpenOrders();
             Thread.Sleep(1000);
+
             /*** Placing/modifying an order - remember to ALWAYS increment the nextValidId after placing an order so it can be used for the next one! ***/
-            //client.placeOrder(nextOrderId++, ContractSamples.StockComboContract(), OrderSamples.ComboMarketOrder());
-            //client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.LimitOrderForComboWithLegPrice());
-            client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.ComboLimitOrder());
-            //client.placeOrder(nextOrderId++, ContractSamples.ByISIN(), OrderSamples.MarketOrder());
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.Block("BUY", 50, 20));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.BoxTop("SELL", 10));
+            //client.placeOrder(nextOrderId++, ContractSamples.FutureComboContract(), OrderSamples.ComboLimitOrder("SELL", 1, 1, false));
+            //client.placeOrder(nextOrderId++, ContractSamples.StockComboContract(), OrderSamples.ComboMarketOrder("BUY", 1, true));
+            //client.placeOrder(nextOrderId++, ContractSamples.StockComboContract(), OrderSamples.LimitOrderForComboWithLegPrices("BUY", 1, new double[]{10, 5}, true));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.Discretionary("SELL", 1, 45, 0.5));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.LimitIfTouched("BUY", 1, 30, 34));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.LimitOnClose("SELL", 1, 34));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.LimitOnOpen("BUY", 1, 35));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.LimitOrder("SELL", 1, 50));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketIfTouched("BUY", 1, 30));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketOnClose("SELL", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketOnOpen("BUY", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketOrder("SELL", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketToLimit("BUY", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtIse(), OrderSamples.MidpointMatch("BUY", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.MarketToLimit("BUY", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.Stop("SELL", 1, 34));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.StopLimit("BUY", 1, 35, 33));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.StopWithProtection("SELL", 1, 45));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.SweepToFill("BUY", 1, 35));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStop("SELL", 1, 0.5, 30));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 50, 5, 30));
+            //client.placeOrder(nextOrderId++, ContractSamples.NormalOption(), OrderSamples.Volatility("SELL", 1, 5, 2));
+
+            //BRACKET ORDER
+            //List<Order> bracket = OrderSamples.BracketOrder(nextOrderId++, "BUY", 100, 30, 40, 20);
+            //foreach (Order o in bracket)
+            //    client.placeOrder(o.OrderId, ContractSamples.EuropeanStock(), o);
+
+            //OCA ORDER
+            //List<Order> ocaOrders = new List<Order>();
+            //ocaOrders.Add(OrderSamples.LimitOrder("BUY", 1, 10));
+            //ocaOrders.Add(OrderSamples.LimitOrder("BUY", 1, 11));
+            //ocaOrders.Add(OrderSamples.LimitOrder("BUY", 1, 12));
+            //ocaOrders = OrderSamples.OneCancelsAll("TestOCA_" + nextOrderId, ocaOrders, 2);
+            //foreach (Order o in ocaOrders)
+            //    client.placeOrder(nextOrderId++, ContractSamples.USStock(), o);
+            
+            //NOTE: the following orders are not supported for Paper Trading
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.AtAuction("BUY", 100, 30.0));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.AuctionLimit("SELL", 10, 30.0, 2));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.AuctionPeggedToStock("BUY", 10, 30, 0.5));
+            //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.AuctionRelative("SELL", 10, 0.6));
+            //client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), OrderSamples.MarketWithProtection("BUY", 1));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.PassiveRelative("BUY", 1, 0.5));
+            //client.placeOrder(nextOrderId++, ContractSamples.NormalOption(), OrderSamples.Volatility("BUY", 1, 4, 2));            
+
             Thread.Sleep(3000);
             /*** Cancel all orders for all accounts ***/
             client.reqGlobalCancel();
