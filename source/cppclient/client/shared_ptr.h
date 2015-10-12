@@ -14,6 +14,9 @@
 // See "Handles and Exception Safety, Part 4: Tracking References without Counters"
 // by Andrew Koenig and Barbara E. Moo, Feb. 2003 C++ Users Journal
 //
+
+namespace ibapi {
+
 namespace shared_ptr_defs {
 
 class Use {
@@ -92,6 +95,11 @@ private:
    X *ptr_;
    Use use_;
 };
+
+
+} //end of namespace ibapi
+
+
 #else
 //#include <memory>
 //using std::shared_ptr;

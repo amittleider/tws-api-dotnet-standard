@@ -81,7 +81,7 @@ void EReader::readToQueue() {
 			break;
 
 		m_csMsgQueue.Enter();
-		m_msgQueue.push_back(shared_ptr<EMessage>(msg));
+		m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
 		m_csMsgQueue.Leave();
 		m_pEReaderSignal->issueSignal();
 
@@ -235,16 +235,16 @@ EMessage * EReader::readSingleMsg() {
 	}
 }
 
-shared_ptr<EMessage> EReader::getMsg(void) {
+ibapi::shared_ptr<EMessage> EReader::getMsg(void) {
 	m_csMsgQueue.Enter();
 
 	if (m_msgQueue.size() == 0) {
 		m_csMsgQueue.Leave();
 
-		return shared_ptr<EMessage>();
+		return ibapi::shared_ptr<EMessage>();
 	}
 
-	shared_ptr<EMessage> msg = m_msgQueue.front();
+	ibapi::shared_ptr<EMessage> msg = m_msgQueue.front();
 
 	m_msgQueue.pop_front();
 	m_csMsgQueue.Leave();
@@ -257,7 +257,7 @@ void EReader::processMsgs(void) {
 	m_pClientSocket->onSend();
 	checkClient();
 
-	shared_ptr<EMessage> msg = getMsg();
+	ibapi::shared_ptr<EMessage> msg = getMsg();
 
 	if (!msg.get())
 		return;
