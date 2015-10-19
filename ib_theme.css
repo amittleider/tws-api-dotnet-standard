@@ -1387,11 +1387,33 @@ ul#tab li.active {
     display: block;
 }
 
-/*OVERRIDING STUFF*/
+/*OVERRIDING DEFAULTS*/
 #nav-tree {
   background-image:none;
   background-repeat:repeat-x;
-  background-color: #FDF0F0;
+  background-color: #242424;
   -webkit-overflow-scrolling : touch; /* iOS 5+ */
 }
+#nav-tree a {
+	color: #c7c7c7;
+}
 
+#nav-tree a:hover {
+	text-shadow:3px 3px 3px #AAAAAA;
+	color: white;
+}
+
+
+ .tablist a {
+    display: block;
+    padding: 0 20px;
+    font-weight: bold;
+    background-image:url('tab_s.png');
+    background-repeat:no-repeat;
+    background-position:right;
+    color: #200202;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    outline: none;
+}
+ 
