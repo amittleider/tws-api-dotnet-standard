@@ -135,30 +135,9 @@ Receiving</h1>
 <p>After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement these methods to manipulate the data relayed back to the client:</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
-<div class="line">    {</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> tickPrice(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> field, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> canAutoExecute) </div>
-<div class="line">        {</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Tick Price. Ticker Id:&quot;</span>+tickerId+<span class="stringliteral">&quot;, Field: &quot;</span>+field+<span class="stringliteral">&quot;, Price: &quot;</span>+price+<span class="stringliteral">&quot;, CanAutoExecute: &quot;</span>+canAutoExecute+<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line">        }</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> tickSize(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> field, <span class="keywordtype">int</span> size)</div>
-<div class="line">        {</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Tick Size. Ticker Id:&quot;</span> + tickerId + <span class="stringliteral">&quot;, Field: &quot;</span> + field + <span class="stringliteral">&quot;, Size: &quot;</span> + size+<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line">        }</div>
-</div><!-- fragment --> ....  </li>
+<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ....  </li>
 <li>
-<div class="fragment"><div class="line"><span class="keyword">class </span>SampleFrame <span class="keyword">extends</span> JFrame implements EWrapper {</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> tickPrice( <span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> field, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> canAutoExecute) {</div>
-<div class="line">        <span class="comment">// received price tick</span></div>
-<div class="line">        String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);</div>
-<div class="line">        m_tickers.add( msg );</div>
-<div class="line">    }</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> tickSize( <span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> field, <span class="keywordtype">int</span> size) {</div>
-<div class="line">        <span class="comment">// received size tick</span></div>
-<div class="line">        String msg = EWrapperMsgGenerator.tickSize( tickerId, field, size);</div>
-<div class="line">        m_tickers.add( msg);</div>
-<div class="line">    }</div>
-</div><!-- fragment --> ....  </li>
+<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ....  </li>
 <li>
 </li>
 <li>
@@ -206,13 +185,7 @@ Snapshots</h1>
 <h4>End marker reception:</h4>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
-<div class="line">    {</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> tickSnapshotEnd(<span class="keywordtype">int</span> tickerId)</div>
-<div class="line">        {</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;TickSnapshotEnd: &quot;</span>+tickerId+<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line">        }</div>
-</div><!-- fragment -->  </li>
+<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
 <li>
 </li>
 <li>

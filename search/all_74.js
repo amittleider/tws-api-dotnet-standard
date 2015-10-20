@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['trader_20workstation_27s_20api',['Trader Workstation&apos;s API',['../index.html',1,'']]],
+  ['trader_20workstation_20api',['Trader Workstation API',['../index.html',1,'']]],
   ['tagvalue',['TagValue',['../classIBApi_1_1TagValue.html',1,'IBApi']]],
   ['tickefp',['tickEFP',['../classIBApi_1_1DefaultEWrapper.html#a5811c19703c8f08643c781c443a6a039',1,'IBApi.DefaultEWrapper.tickEFP()'],['../interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc',1,'IBApi.EWrapper.tickEFP()']]],
   ['tickgeneric',['tickGeneric',['../classIBApi_1_1DefaultEWrapper.html#a596b7883dc70f4fd62753f803a15e996',1,'IBApi.DefaultEWrapper.tickGeneric()'],['../interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26',1,'IBApi.EWrapper.tickGeneric()']]],

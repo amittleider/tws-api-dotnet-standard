@@ -1,12 +1,17 @@
 var NAVTREE =
 [
   [ "TWS API", "index.html", [
-    [ "Trader Workstation's API", "index.html", null ],
+    [ "Trader Workstation API", "index.html", null ],
     [ "Introduction", "introduction.html", [
       [ "Audience", "introduction.html#audience", null ],
       [ "Requirements", "introduction.html#requirements", null ]
     ] ],
-    [ "Connection", "connection.html", null ],
+    [ "Connection", "connection.html", [
+      [ "Implementing the EWrapper interface", "connection.html#ewrapper_impl", null ],
+      [ "The EClientSocket class", "connection.html#client_socket", null ],
+      [ "Connecting", "connection.html#connect", null ],
+      [ "Starting an EReader", "connection.html#ereader", null ]
+    ] ],
     [ "Contract Definition", "contract_definitions.html", [
       [ "Overview", "contract_definitions.html#Overview", null ],
       [ "Sample Contracts", "contract_definitions.html#sample_defs", [

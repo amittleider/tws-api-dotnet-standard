@@ -104,7 +104,114 @@ $(document).ready(function(){initNavTree('connection.html','');});
 <div class="title">Connection </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><p>A TCP connection between your API client application and the TWS needs to be established via the IBApi::EClientSocket::eConnect function. The TWS can be considered like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to 32 different client applications simultaneously each of them identified by a unique client Id. Before we can connect though, we need to follow a few simple steps.</p>
+<h1><a class="anchor" id="ewrapper_impl"></a>
+Implementing the EWrapper interface</h1>
+<p>The <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface is the mechanism through which the TWS delivers information to the API client application. By implementing this interface the client application will be able to receive and handle the information coming from the TWS. For further information on how to implement interfaces, refer to your programming language's documentation.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">Public Class EWrapperImpl</div>
+<div class="line">    Implements EWrapper</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="client_socket"></a>
+The EClientSocket class</h1>
+<p>Just as the EWrapper implementing class receives information from the TWS, an <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> object is used to send requests to the the TWS. Note this class requires an implementation of the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface as part of its contructor parameters. Behind the curtains the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> requires this object to invoke the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface methods after reading the incoming data from the TWS:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        EClientSocket clientSocket;</div>
+<div class="line">        <span class="keyword">public</span> readonly EReaderSignal Signal;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> EWrapperImpl()</div>
+<div class="line">        {</div>
+<div class="line">            Signal = <span class="keyword">new</span> EReaderMonitorSignal();</div>
+<div class="line">            clientSocket = <span class="keyword">new</span> EClientSocket(<span class="keyword">this</span>, Signal);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public eReaderSignal As EReaderSignal</div>
+<div class="line">    Public socketClient As EClientSocket</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    Sub New()</div>
+<div class="line">        eReaderSignal = New EReaderMonitorSignal</div>
+<div class="line">        socketClient = New EClientSocket(Me, eReaderSignal)</div>
+<div class="line">    End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    EClientSocket * <span class="keyword">const</span> m_pClient;</div>
+<div class="line">    EReaderOSSignal m_osSignal;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">TestCppClient::TestCppClient() : </div>
+<div class="line">      m_osSignal(2000)<span class="comment">//2-seconds timeout</span></div>
+<div class="line">    , m_pClient(new EClientSocket(this, &amp;m_osSignal))</div>
+<div class="line">    , m_state(ST_CONNECT)</div>
+<div class="line">    , m_sleepDeadline(0)</div>
+<div class="line">    , m_orderId(0)</div>
+<div class="line">    , m_pReader(0)</div>
+<div class="line">    , m_extraAuth(false)</div>
+<div class="line">{</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="connect"></a>
+Connecting</h1>
+<p>Once our two main objects have been created, the client application can then connect via the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> object:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            clientSocket.eConnect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 7496, 0, <span class="keyword">false</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        socketClient.eConnect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 7496, 0, False)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.connect( host, port, clientId);</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="ereader"></a>
+Starting an EReader</h1>
+<p>The final step on this procedure is to launch a new thread to consume the data sent by the TWS through the TCP socket:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            <span class="comment">//Create a reader to consume messages from the TWS. The EReader will consume the incoming messages and put them in a queue</span></div>
+<div class="line">            var reader = <span class="keyword">new</span> EReader(clientSocket, readerSignal);</div>
+<div class="line">            reader.Start();</div>
+<div class="line">            <span class="comment">//Once the messages are in the queue, an additional thread need to fetch them</span></div>
+<div class="line">            <span class="keyword">new</span> Thread(() =&gt; { <span class="keywordflow">while</span> (clientSocket.IsConnected()) { readerSignal.waitForSignal(); reader.processMsgs(); } }) { IsBackground = <span class="keyword">true</span> }.Start();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim msgThread As Thread = New Thread(AddressOf messageProcessing)</div>
+<div class="line">        msgThread.IsBackground = True</div>
+<div class="line">        If (wrapperImpl.serverVersion() &gt; 0) Then Call msgThread.Start()</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    Private Sub messageProcessing()</div>
+<div class="line">        Dim reader As EReader = New EReader(wrapperImpl.socketClient, wrapperImpl.eReaderSignal)</div>
+<div class="line">        reader.Start()</div>
+<div class="line">        While (wrapperImpl.socketClient.IsConnected)</div>
+<div class="line">            wrapperImpl.eReaderSignal.waitForSignal()</div>
+<div class="line">            reader.processMsgs()</div>
+<div class="line">        End While</div>
+<div class="line">    End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        <span class="comment">//Unlike the C# and Java clients, there is no need to explicitely create an EReader object nor a thread</span></div>
+<div class="line">        <span class="keywordflow">while</span>( client.isConnected()) {</div>
+<div class="line">            client.processMessages();</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->
