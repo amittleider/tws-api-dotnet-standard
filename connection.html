@@ -114,7 +114,8 @@ Implementing the EWrapper interface</h1>
 <div class="line">    {</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">Public Class EWrapperImpl</div>
 <div class="line">    Implements EWrapper</div>
@@ -138,7 +139,13 @@ The EClientSocket class</h1>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">    <span class="keyword">private</span> EReaderSignal readerSignal;</div>
+<div class="line">    <span class="keyword">private</span> EClientSocket clientSocket;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> EWrapperImpl() {</div>
+<div class="line">        readerSignal = <span class="keyword">new</span> EJavaSignal();</div>
+<div class="line">        clientSocket = <span class="keyword">new</span> EClientSocket(<span class="keyword">this</span>, readerSignal);</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Public eReaderSignal As EReaderSignal</div>
 <div class="line">    Public socketClient As EClientSocket</div>
@@ -170,7 +177,8 @@ Connecting</h1>
 <div class="fragment"><div class="line">            clientSocket.eConnect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 7496, 0, <span class="keyword">false</span>);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">        m_client.eConnect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 7496, 0, <span class="keyword">false</span>);</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        socketClient.eConnect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 7496, 0, False)</div>
 </div><!-- fragment -->  </li>
@@ -190,7 +198,21 @@ Starting an EReader</h1>
 <div class="line">            <span class="keyword">new</span> Thread(() =&gt; { <span class="keywordflow">while</span> (clientSocket.IsConnected()) { readerSignal.waitForSignal(); reader.processMsgs(); } }) { IsBackground = <span class="keyword">true</span> }.Start();</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">        <span class="keyword">final</span> EReader reader = <span class="keyword">new</span> EReader(m_client, m_signal);        </div>
+<div class="line">        reader.start();        </div>
+<div class="line">        <span class="keyword">new</span> Thread() {</div>
+<div class="line">            <span class="keyword">public</span> <span class="keywordtype">void</span> run() {</div>
+<div class="line">                <span class="keywordflow">while</span> (m_client.isConnected()) {</div>
+<div class="line">                    m_signal.waitForSignal();</div>
+<div class="line">                    <span class="keywordflow">try</span> {</div>
+<div class="line">                        reader.processMsgs();</div>
+<div class="line">                    } <span class="keywordflow">catch</span> (Exception e) {</div>
+<div class="line">                        System.out.println(<span class="stringliteral">&quot;Exception: &quot;</span>+e.getMessage());</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }.start();</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim msgThread As Thread = New Thread(AddressOf messageProcessing)</div>
 <div class="line">        msgThread.IsBackground = True</div>
