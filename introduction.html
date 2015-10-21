@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('introduction.html','');});
 <h1><a class="anchor" id="audience"></a>
 Audience</h1>
 <p>Our API components are aimed at experienced professional developers willing to enhance the current TWS functionality. Regreatably, Interactive Brokers cannot offer any programming consulting. Before contacting our API support, please always refer to our available documentation and samples.</p>
+<h1><a class="anchor" id="how_to_use"></a>
+How to use this guide</h1>
+<p>This guide references the Java, VB, C# and C++ <b>Testbed</b> sample projects to demonstrate the TWS API functionality. All code snippets are extracted from these projects and we suggest all those users new to the TWS API to get familiar with them in order to quickly understand the fundamentals of our programming interface. The <b>Testbed</b> sample projects can be found within the <b>samples</b> folder of the TWS API's installation directory.</p>
 <h1><a class="anchor" id="requirements"></a>
 Requirements</h1>
 <p>To obtain the TWS API source and sample code, download the <a href="http://interactivebrokers.github.io/">API Components</a></p>
@@ -115,7 +118,14 @@ Requirements</h1>
 <div class="image">
 <img src="tws_api_settings.png" alt="tws_api_settings.png"/>
 </div>
- </div></div><!-- contents -->
+<h1><a class="anchor" id="limitations"></a>
+Limitations</h1>
+<p>Our programming interface automates some of the operations a user normally does when working with the TWS such as placing orders, viewing an instrument's live data, etc. There is no logic within the API other than to ensure the integrity of the exchanged messages. Most validations and checks occur in the TWS and our servers. Because of this it is highly convenient to get familiar with the TWS itself in order to gain a better understanding on how our platform works. Before spending precious development time troubleshooting on the API side, it is recommended to first experiment with the TWS directly.</p>
+<p><b>Remember:</b> if a certain feature or operation is not available in the TWS, it will not be available on the API side either!</p>
+<h2><a class="anchor" id="fifty_messages"></a>
+Requests</h2>
+<p>The TWS is designed to accept up to <b>fifty</b> messages per second coming from the <b>client</b> side. Anything coming from the client application to the TWS counts as a message (i.e. requesting data, placing an order, requesting your portfolio, etc.). This limitation is applied to <b>all</b> connected clients in the sense were all connected client applications put together cannot exceed this number. On the other hand, there are <b>no limits</b> on the amount of messages the TWS can send the client application. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->
