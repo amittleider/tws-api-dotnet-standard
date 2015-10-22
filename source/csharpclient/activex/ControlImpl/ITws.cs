@@ -130,7 +130,7 @@ namespace TWSLib
         void cancelOrder(int id);
 
         [DispId(57)]
-        void placeOrder(int id, string action, int quantity, string symbol, string secType,
+        void placeOrder(int id, string action, double quantity, string symbol, string secType,
                   string lastTradeDate, double strike, string right, string multiplier,
                   string exchange, string primaryExchange, string curency, string orderType,
                   double price, double auxPrice, string goodAfterTime, string group,
@@ -165,7 +165,7 @@ namespace TWSLib
                   bool snapshot, ITagValueList options);
 
         [DispId(66)]
-        void placeOrder2(int id, string action, int quantity, string localSymbol,
+        void placeOrder2(int id, string action, double quantity, string localSymbol,
                   string secType, string exchange, string primaryExchange, string curency,
                   string orderType, double lmtPrice, double auxPrice,
                   string goodAfterTime, string group,
