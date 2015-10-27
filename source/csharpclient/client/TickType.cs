@@ -68,7 +68,25 @@ namespace IBApi
         public const int TRADE_RATE = 55;
         public const int VOLUME_RATE = 56;
         public const int LAST_RTH_TRADE = 57;
+        public const int RT_HISTORICAL_VOL = 58;
+        public const int IB_DIVIDENDS = 59;
+        public const int BOND_FACTOR_MULTIPLIER = 60;
         public const int REGULATORY_IMBALANCE = 61;
+        public const int NEWS_TICK = 62;
+        public const int SHORT_TERM_VOLUME_3_MIN = 63;
+        public const int SHORT_TERM_VOLUME_5_MIN = 64;
+        public const int SHORT_TERM_VOLUME_10_MIN = 65;
+        public const int DELAYED_BID = 66;
+        public const int DELAYED_ASK = 67;
+        public const int DELAYED_LAST = 68;
+        public const int DELAYED_BID_SIZE = 69;
+        public const int DELAYED_ASK_SIZE = 70;
+        public const int DELAYED_LAST_SIZE = 71;
+        public const int DELAYED_HIGH = 72;
+        public const int DELAYED_LOW = 73;
+        public const int DELAYED_VOLUME = 74;
+        public const int DELAYED_CLOSE = 75;
+        public const int DELAYED_OPEN = 76;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -130,7 +148,25 @@ namespace IBApi
                 case TRADE_RATE:                  return "trades/min";
                 case VOLUME_RATE:                 return "volume/min";             
                 case LAST_RTH_TRADE:              return "lastRTHTrade";
+                case RT_HISTORICAL_VOL:           return "RTHistoricalVol";
+                case IB_DIVIDENDS:                return "IBDividends";
+                case BOND_FACTOR_MULTIPLIER:      return "bondFactorMultiplier";
                 case REGULATORY_IMBALANCE:        return "regulatoryImbalance";
+                case NEWS_TICK:                   return "newsTick";
+                case SHORT_TERM_VOLUME_3_MIN:     return "shortTermVolume3Min";
+                case SHORT_TERM_VOLUME_5_MIN:     return "shortTermVolume5Min";
+                case SHORT_TERM_VOLUME_10_MIN:    return "shortTermVolume10Min";
+                case DELAYED_BID:                 return "delayedBid";
+                case DELAYED_ASK:                 return "delayedAsk";
+                case DELAYED_LAST:                return "delayedLast";
+                case DELAYED_BID_SIZE:            return "delayedBidSize";
+                case DELAYED_ASK_SIZE:            return "delayedAskSize";
+                case DELAYED_LAST_SIZE:           return "delayedLastSize";
+                case DELAYED_HIGH:                return "delayedHigh";
+                case DELAYED_LOW:                 return "delayedLow";
+                case DELAYED_VOLUME:              return "delayedVolume";
+                case DELAYED_CLOSE:               return "delayedClose";
+                case DELAYED_OPEN:                return "delayedOpen";
                 default:                          return "unknown";
             }
         }
