@@ -64,9 +64,26 @@ public enum TickType {
     VOLUME_RATE( 56, "volume/min" ),
     LAST_RTH_TRADE( 57, "lastRTHTrade" ),
     RT_HISTORICAL_VOL( 58, "RTHistoricalVol" ),
+    IB_DIVIDENDS( 59, "IBDividends" ),
+    BOND_FACTOR_MULTIPLIER( 60, "bondFactorMultiplier" ),
     REGULATORY_IMBALANCE( 61, "regulatoryImbalance" ),
+    NEWS_TICK( 62, "newsTick" ),
+    SHORT_TERM_VOLUME_3_MIN( 63, "shortTermVolume3Min"),
+    SHORT_TERM_VOLUME_5_MIN( 64, "shortTermVolume5Min"),
+    SHORT_TERM_VOLUME_10_MIN( 65, "shortTermVolume10Min"),
+    DELAYED_BID( 66, "delayedBid"),
+    DELAYED_ASK( 67, "delayedAsk"),
+    DELAYED_LAST( 68, "delayedLast"),
+    DELAYED_BID_SIZE( 69, "delayedBidSize"),
+    DELAYED_ASK_SIZE( 70, "delayedAskSize"),
+    DELAYED_LAST_SIZE( 71, "delayedLastSize"),
+    DELAYED_HIGH( 72, "delayedHigh"),
+    DELAYED_LOW( 73, "delayedLow"),
+    DELAYED_VOLUME( 74, "delayedVolume"),
+    DELAYED_CLOSE( 75, "delayedClose"),
+    DELAYED_OPEN( 76, "delayedOpen"),
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
-
+	
     private int m_ndx;
     private String m_field;
     
