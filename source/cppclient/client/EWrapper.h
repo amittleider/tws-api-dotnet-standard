@@ -78,7 +78,7 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				DELAYED_CLOSE,
 				DELAYED_OPEN,
 				NOT_SET };
-				
+
 inline bool isPrice( TickType tickType) {
 	return tickType == BID || tickType == ASK || tickType == LAST;
 }
