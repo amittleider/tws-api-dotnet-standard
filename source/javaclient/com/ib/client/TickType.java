@@ -83,7 +83,7 @@ public enum TickType {
     DELAYED_CLOSE( 75, "delayedClose"),
     DELAYED_OPEN( 76, "delayedOpen"),
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
-	
+
     private int m_ndx;
     private String m_field;
     
