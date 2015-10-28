@@ -6,6 +6,8 @@
 /source/javaclient/build/
 /source/csharpclient/client/bin
 /source/csharpclient/client/obj
+/source/csharpclient/activex/bin
+/source/csharpclient/activex/obj
 /samples/Java/build/
 /samples/Java/dist/
 /samples/CSharp/IBSampleApp/bin
