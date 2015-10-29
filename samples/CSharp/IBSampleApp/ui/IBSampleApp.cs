@@ -38,7 +38,6 @@ namespace IBSampleApp
 
         private bool isConnected = false;
 
-        private int MAX_LINES_IN_MESSAGE_BOX = 100;
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
 
@@ -659,17 +658,7 @@ namespace IBSampleApp
 
         private void ShowMessageOnPanel(string message)
         {
-            this.messageBox.Text += (message);
-
-            if (messageBox.Lines.Length > MAX_LINES_IN_MESSAGE_BOX)//limit to 6 lines here
-            {
-                string[] newLines = new string[MAX_LINES_IN_MESSAGE_BOX];
-                Array.Copy(messageBox.Lines, 1, newLines, 0, MAX_LINES_IN_MESSAGE_BOX);
-                messageBox.Lines = newLines;
-            }
-
-            messageBox.SelectionStart = messageBox.Text.Length;
-            messageBox.ScrollToCaret();
+            this.messageBox.AppendText(message);
         }
 
         private void cancelMarketDataRequests_Click(object sender, EventArgs e)
