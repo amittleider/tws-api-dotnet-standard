@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
+using System.Collections;
 
 namespace TWSLib
 {
@@ -51,6 +52,7 @@ namespace TWSLib
 
             resetAllProperties();
         }
+
 
         #region properties
         [DispId(1)]
@@ -175,7 +177,7 @@ namespace TWSLib
         }
 
         [DispId(57)]
-        public void placeOrder(int id, string action, int quantity, string localSymbol, string secType,
+        public void placeOrder(int id, string action, double quantity, string localSymbol, string secType,
                    string lastTradeDateOrContractMonth, double strike, string right, string multiplier,
                    string exchange, string primaryExchange, string curency, string orderType,
                    double lmtPrice, double auxPrice, string goodAfterTime, string faGroup,
@@ -372,7 +374,7 @@ namespace TWSLib
         }
 
         [DispId(66)]
-        public void placeOrder2(int id, string action, int quantity, string localSymbol,
+        public void placeOrder2(int id, string action, double quantity, string localSymbol,
                    string secType, string exchange, string primaryExchange, string curency,
                    string orderType, double lmtPrice, double auxPrice,
                    string goodAfterTime, string faGroup,
@@ -932,7 +934,7 @@ namespace TWSLib
 
         public delegate void openOrder1Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol);
 
-        public delegate void openOrder2Delegate(int id, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId);
+        public delegate void openOrder2Delegate(int id, string action, double quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId);
 
         public delegate void updateAccountTimeDelegate(string timeStamp);
 
@@ -950,7 +952,7 @@ namespace TWSLib
 
         public delegate void contractDetailsDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
 
-        public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, int shares, double price, int permId, int clientId, int isLiquidation);
+        public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation);
 
         public delegate void updateMktDepthDelegate(int id, int position, int operation, int side, double price, int size);
 
@@ -960,7 +962,7 @@ namespace TWSLib
 
         public delegate void managedAccountsDelegate(string accountsList);
 
-        public delegate void openOrder3Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate);
+        public delegate void openOrder3Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, double quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate);
 
         public delegate void receiveFADelegate(int faDataType, string cxml);
 
@@ -968,7 +970,7 @@ namespace TWSLib
 
         public delegate void historicalDataEndDelegate(int reqId, string start, string end);
 
-        public delegate void openOrder4Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, int quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
+        public delegate void openOrder4Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, double quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
 
         public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, int convertible, int callable, int putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, int nextOptionPartial, string notes);
 
@@ -1829,6 +1831,28 @@ namespace TWSLib
         public void startApi()
         {
             socket.startApi();
+        }
+
+        public ArrayList ParseConditions(string str)
+        {
+            var strConditions = str.Split(new[] { " or", " and" }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var conditions = strConditions.Select(c => OrderCondition.Parse(c)).ToArray();
+
+            return new ArrayList(conditions);
+        }
+
+        public string ConditionsToString(object oConditions)
+        {
+            var conditions = (oConditions as ArrayList);
+            var rval = "";
+
+            if (conditions.Count > 0)
+                rval = string.Join(" ", conditions.OfType<OrderCondition>().Take(conditions.Count - 1).Select(o => o + (o.IsConjunctionConnection ? " and" : " or")));
+
+            if (conditions.Count > 1)
+                rval += " " + conditions.OfType<OrderCondition>().Last();
+
+            return rval;
         }
     }
 }

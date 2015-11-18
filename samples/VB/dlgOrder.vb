@@ -128,6 +128,9 @@ Friend Class dlgOrder
     Public WithEvents txtTradingClass As System.Windows.Forms.TextBox
     Public WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents cmdOptions As System.Windows.Forms.Button
+    Friend WithEvents cmdPegBench As System.Windows.Forms.Button
+    Friend WithEvents cmdAdjustStop As System.Windows.Forms.Button
+    Friend WithEvents cmdConditions As System.Windows.Forms.Button
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
@@ -212,6 +215,9 @@ Friend Class dlgOrder
         Me.cmdUnderComp = New System.Windows.Forms.Button()
         Me.cmdAlgoParams = New System.Windows.Forms.Button()
         Me.frameOrderDesc = New System.Windows.Forms.GroupBox()
+        Me.cmdPegBench = New System.Windows.Forms.Button()
+        Me.cmdAdjustStop = New System.Windows.Forms.Button()
+        Me.cmdConditions = New System.Windows.Forms.Button()
         Me.cmdOptions = New System.Windows.Forms.Button()
         Me.cmdSmartComboRoutingParams = New System.Windows.Forms.Button()
         Me.labelMarketDataType = New System.Windows.Forms.Label()
@@ -244,7 +250,7 @@ Friend Class dlgOrder
         Me.Frame1.Controls.Add(Me.Label25)
         Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Frame1.Location = New System.Drawing.Point(232, 420)
+        Me.Frame1.Location = New System.Drawing.Point(234, 465)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Frame1.Size = New System.Drawing.Size(232, 220)
@@ -1377,6 +1383,9 @@ Friend Class dlgOrder
         'frameOrderDesc
         '
         Me.frameOrderDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameOrderDesc.Controls.Add(Me.cmdPegBench)
+        Me.frameOrderDesc.Controls.Add(Me.cmdAdjustStop)
+        Me.frameOrderDesc.Controls.Add(Me.cmdConditions)
         Me.frameOrderDesc.Controls.Add(Me.cmdOptions)
         Me.frameOrderDesc.Controls.Add(Me.cmdSmartComboRoutingParams)
         Me.frameOrderDesc.Controls.Add(Me.cmdAlgoParams)
@@ -1402,10 +1411,37 @@ Friend Class dlgOrder
         Me.frameOrderDesc.Location = New System.Drawing.Point(232, 48)
         Me.frameOrderDesc.Name = "frameOrderDesc"
         Me.frameOrderDesc.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.frameOrderDesc.Size = New System.Drawing.Size(232, 366)
+        Me.frameOrderDesc.Size = New System.Drawing.Size(232, 398)
         Me.frameOrderDesc.TabIndex = 5
         Me.frameOrderDesc.TabStop = False
         Me.frameOrderDesc.Text = "Order Description"
+        '
+        'cmdPegBench
+        '
+        Me.cmdPegBench.Location = New System.Drawing.Point(63, 362)
+        Me.cmdPegBench.Name = "cmdPegBench"
+        Me.cmdPegBench.Size = New System.Drawing.Size(125, 25)
+        Me.cmdPegBench.TabIndex = 22
+        Me.cmdPegBench.Text = "Pegged to benchmark"
+        Me.cmdPegBench.UseVisualStyleBackColor = True
+        '
+        'cmdAdjustStop
+        '
+        Me.cmdAdjustStop.Location = New System.Drawing.Point(122, 331)
+        Me.cmdAdjustStop.Name = "cmdAdjustStop"
+        Me.cmdAdjustStop.Size = New System.Drawing.Size(99, 25)
+        Me.cmdAdjustStop.TabIndex = 21
+        Me.cmdAdjustStop.Text = "Adjustable stops"
+        Me.cmdAdjustStop.UseVisualStyleBackColor = True
+        '
+        'cmdConditions
+        '
+        Me.cmdConditions.Location = New System.Drawing.Point(17, 331)
+        Me.cmdConditions.Name = "cmdConditions"
+        Me.cmdConditions.Size = New System.Drawing.Size(99, 25)
+        Me.cmdConditions.TabIndex = 20
+        Me.cmdConditions.Text = "Conditions"
+        Me.cmdConditions.UseVisualStyleBackColor = True
         '
         'cmdOptions
         '
@@ -1451,7 +1487,7 @@ Friend Class dlgOrder
         Me.frameMarketDataType.Controls.Add(Me.labelMarketDataType)
         Me.frameMarketDataType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.frameMarketDataType.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.frameMarketDataType.Location = New System.Drawing.Point(234, 649)
+        Me.frameMarketDataType.Location = New System.Drawing.Point(234, 691)
         Me.frameMarketDataType.Name = "frameMarketDataType"
         Me.frameMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.frameMarketDataType.Size = New System.Drawing.Size(228, 52)
@@ -1755,7 +1791,7 @@ Friend Class dlgOrder
         dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
         Dim res As DialogResult
         res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
+        If res = DialogResult.OK Then
             m_orderInfo.AlgoStrategy = dlg.algoStrategy
             m_orderInfo.AlgoParams = dlg.algoParams
         End If
@@ -1784,8 +1820,8 @@ Friend Class dlgOrder
             Dim res As DialogResult
             res = .ShowDialog()
             Select Case res
-                Case Windows.Forms.DialogResult.OK : m_contractInfo.UnderComp = m_underComp
-                Case Windows.Forms.DialogResult.Abort : m_contractInfo.UnderComp = Nothing
+                Case DialogResult.OK : m_contractInfo.UnderComp = m_underComp
+                Case DialogResult.Abort : m_contractInfo.UnderComp = Nothing
             End Select
         End With
     End Sub
@@ -2072,7 +2108,7 @@ Friend Class dlgOrder
         dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
         Dim res As DialogResult
         res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
+        If res = DialogResult.OK Then
             m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
         End If
 
@@ -2084,7 +2120,7 @@ Friend Class dlgOrder
         dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
         Dim res As DialogResult
         res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
+        If res = DialogResult.OK Then
             m_options = dlg.smartComboRoutingParams
         End If
 
@@ -2098,4 +2134,22 @@ Friend Class dlgOrder
             dval = CDbl(text)
         End If
     End Function
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles cmdPegBench.Click
+        Dim dlg As New dlgPegBench(m_orderInfo)
+
+        dlg.ShowDialog()
+    End Sub
+
+    Private Sub cmdConditions_Click(sender As Object, e As EventArgs) Handles cmdConditions.Click
+        Dim dlg As New dlgConditions(m_orderInfo)
+
+        dlg.ShowDialog()
+    End Sub
+
+    Private Sub cmdAdjustStop_Click(sender As Object, e As EventArgs) Handles cmdAdjustStop.Click
+        Dim dlg As New dlgAdjustStop(m_orderInfo)
+
+        dlg.ShowDialog()
+    End Sub
 End Class

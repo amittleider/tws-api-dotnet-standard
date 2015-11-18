@@ -21,9 +21,9 @@ struct TagValue
 	std::string value;
 };
 
-typedef shared_ptr<TagValue> TagValueSPtr;
+typedef ibapi::shared_ptr<TagValue> TagValueSPtr;
 typedef std::vector<TagValueSPtr> TagValueList;
-typedef shared_ptr<TagValueList> TagValueListSPtr;
+typedef ibapi::shared_ptr<TagValueList> TagValueListSPtr;
 
 #endif
 

@@ -18,6 +18,7 @@ namespace Samples
      *  - The TWS' symbol corresponds to the API's localSymbol. Keep this in mind when defining Futures or Options.
      *  - The TWS' underlying's symbol can usually be mapped to the API's symbol.
      *  
+     * Any stock or option symbols displayed are for illustrative purposes only and are not intended to portray a recommendation.
      */
     public class ContractSamples
     {
@@ -44,6 +45,20 @@ namespace Samples
             return contract;
         }
 
+        public static Contract OptionAtIse()
+        {
+            Contract contract = new Contract();
+            contract.Symbol = "BPX";
+            contract.SecType = "OPT";
+            contract.Currency = "USD";
+            contract.Exchange = "ISE";
+            contract.LastTradeDateOrContractMonth = "20160916";
+            contract.Right = "C";
+            contract.Strike = 65;
+            contract.Multiplier = "100";
+            return contract;
+        }
+
         public static Contract USStock()
         {
             Contract contract = new Contract();
@@ -51,6 +66,20 @@ namespace Samples
             contract.SecType = "STK";
             contract.Currency = "USD";
             contract.Exchange = "SMART";
+            return contract;
+        }
+
+        public static Contract OptionAtBOX()
+        {
+            Contract contract = new Contract();
+            contract.Symbol = "GOOG";
+            contract.SecType = "OPT";
+            contract.Exchange = "BOX";
+            contract.Currency = "USD";
+            contract.LastTradeDateOrContractMonth = "20170120";
+            contract.Strike = 615;
+            contract.Right = "C";
+            contract.Multiplier = "100";
             return contract;
         }
 
@@ -102,7 +131,7 @@ namespace Samples
             contract.SecType = "FUT";
             contract.Exchange = "GLOBEX";
             contract.Currency = "USD";
-            contract.LastTradeDateOrContractMonth = "201609";
+            contract.LastTradeDateOrContractMonth = "201612";
             return contract;
         }
 

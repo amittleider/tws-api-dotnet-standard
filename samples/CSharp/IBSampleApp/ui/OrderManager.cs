@@ -21,6 +21,8 @@ namespace IBSampleApp.ui
         private DataGridView liveOrdersGrid;
         private DataGridView tradeLogGrid;
 
+        public IBClient IBClient { get { return ibClient; } }
+
         public OrderManager(IBClient ibClient, DataGridView liveOrdersGrid, DataGridView tradeLogGrid)
         {
             this.ibClient = ibClient;
@@ -75,6 +77,13 @@ namespace IBSampleApp.ui
 
         public void OpenOrderDialog()
         {
+            orderDialog.ShowDialog();
+        }
+
+        public void OpenNewOrderDialog()
+        {
+            orderDialog = new OrderDialog(this);
+
             orderDialog.ShowDialog();
         }
 

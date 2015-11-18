@@ -17,7 +17,7 @@ class TWSAPIDLLEXP EReader
     EClientSocket *m_pClientSocket;
     EReaderSignal *m_pEReaderSignal;
     EDecoder processMsgsDecoder_;
-    std::deque<shared_ptr<EMessage>> m_msgQueue;
+    std::deque<ibapi::shared_ptr<EMessage>> m_msgQueue;
     EMutex m_csMsgQueue;
     std::vector<char> m_buf;
     bool m_needsWriteSelect;
@@ -35,7 +35,7 @@ public:
 
 protected:
 	bool processNonBlockingSelect();
-    shared_ptr<EMessage> getMsg(void);
+    ibapi::shared_ptr<EMessage> getMsg(void);
     void readToQueue();
 #if defined(IB_POSIX)
     static void * readToQueueThread(void * lpParam);

@@ -69,17 +69,21 @@ namespace IBSampleApp.ui
             if (message is ContractDetailsMessage)
             {
                 Contract contract = ((ContractDetailsMessage)message).ContractDetails.Summary;
-                if (contract.Right.Equals("C"))
+
+                if (contract.Right != null)
                 {
-                    int mktDataRequest = currentMktDataCallRequest++;
-                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
-                    UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
-                }
-                else
-                {
-                    int mktDataRequest = currentMktDataPutRequest++;
-                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
-                    UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
+                    if (contract.Right.Equals("C"))
+                    {
+                        int mktDataRequest = currentMktDataCallRequest++;
+                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
+                        UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
+                    }
+                    else
+                    {
+                        int mktDataRequest = currentMktDataPutRequest++;
+                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
+                        UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
+                    }
                 }
             }
             else if (message is MarketDataMessage)

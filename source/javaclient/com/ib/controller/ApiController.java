@@ -355,9 +355,25 @@ public class ApiController implements EWrapper {
 		void contractDetailsEnd();
 	}
 
-	private void internalReqContractDetails( Contract contract, IInternalHandler processor) {
+	private void internalReqContractDetails( Contract contract, final IInternalHandler processor) {
 		int reqId = m_reqId++;
 		m_contractDetailsMap.put( reqId, processor);
+		m_orderHandlers.put(reqId, new IOrderHandler() { public void handle(int errorCode, String errorMsg) { processor.contractDetailsEnd();}
+
+		@Override
+		public void orderState(OrderState orderState) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void orderStatus(OrderStatus status, double filled,
+				double remaining, double avgFillPrice, long permId,
+				int parentId, double lastFillPrice, int clientId, String whyHeld) {
+			// TODO Auto-generated method stub
+			
+		} });
+		
 		m_client.reqContractDetails(reqId, contract);
 		sendEOM();
 	}
