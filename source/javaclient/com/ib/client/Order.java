@@ -168,7 +168,10 @@ public class Order {
 	
 	private boolean m_randomizeSize;
 	private boolean m_randomizePrice;
-    
+
+    // models
+    private String m_modelCode;
+
     // getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
@@ -276,6 +279,7 @@ public class Order {
     public ArrayList<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
     public boolean randomizeSize() { return m_randomizeSize; }
     public boolean randomizePrice() { return m_randomizePrice; }
+    public String modelCode() { return m_modelCode; }
 
     // setters
     public void account(String v)               { m_account = v; }
@@ -385,6 +389,7 @@ public class Order {
     public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
     public void randomizeSize(boolean v) { m_randomizeSize = v; }
     public void randomizePrice(boolean v) { m_randomizePrice = v; }
+    public void modelCode(String v) { m_modelCode = v; }
 
     public Order() {
         m_activeStartTime = EMPTY_STR;
@@ -531,7 +536,8 @@ public class Order {
         	Util.StringCompare(m_clearingIntent, l_theOther.m_clearingIntent) != 0 ||
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
-        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0) {
+        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
+        	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0) {
         	return false;
         }
 

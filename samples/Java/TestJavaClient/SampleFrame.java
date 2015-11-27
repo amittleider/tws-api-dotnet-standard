@@ -320,6 +320,30 @@ class SampleFrame extends JFrame implements EWrapper {
                 onCancelAccountSummary();
             }
         });
+        JButton butRequestPositionsMulti = new JButton( "Request Positions Multi");
+        butRequestPositionsMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestPositionsMulti();
+            }
+        });
+        JButton butCancelPositionsMulti = new JButton( "Cancel Positions Multi");
+        butCancelPositionsMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onCancelPositionsMulti();
+            }
+        });
+        JButton butRequestAccountUpdatesMulti = new JButton( "Request Account Updates Multi");
+        butRequestAccountUpdatesMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestAccountUpdatesMulti();
+            }
+        });
+        JButton butCancelAccountUpdatesMulti = new JButton( "Cancel Account Updates Multi");
+        butCancelAccountUpdatesMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onCancelAccountUpdatesMulti();
+            }
+        });
         JButton butGroups = new JButton( "Groups");
         butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -387,6 +411,10 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelPositions ) ;
         buttonPanel.add( butRequestAccountSummary ) ;
         buttonPanel.add( butCancelAccountSummary ) ;
+        buttonPanel.add( butRequestPositionsMulti ) ;
+        buttonPanel.add( butCancelPositionsMulti ) ;
+        buttonPanel.add( butRequestAccountUpdatesMulti ) ;
+        buttonPanel.add( butCancelAccountUpdatesMulti ) ;
         buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
@@ -885,6 +913,46 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
+    void onRequestPositionsMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // request positions multi
+            m_client.reqPositionsMulti( dlg.m_retId, dlg.m_retAccount, dlg.m_retModelCode);
+        }
+    }
+
+    void onCancelPositionsMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // cancel positions multi
+            m_client.cancelPositionsMulti( dlg.m_retId);
+        }
+    }
+
+    void onRequestAccountUpdatesMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // request account updates multi
+            m_client.reqAccountUpdatesMulti( dlg.m_retId, dlg.m_retAccount, dlg.m_retModelCode, dlg.m_retLedgerAndNLV);
+        }
+    }
+
+    void onCancelAccountUpdatesMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // cancel account updates multi
+            m_client.cancelAccountUpdatesMulti( dlg.m_retId);
+        }
+    }
+    
     void onGroups() {
 
         m_groupsDlg.setVisible(true);
@@ -1244,6 +1312,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.hedgeType(srcOrder.getHedgeType());
         destOrder.hedgeParam(srcOrder.hedgeParam());
         destOrder.account(srcOrder.account());
+        destOrder.modelCode(srcOrder.modelCode());
         destOrder.settlingFirm(srcOrder.settlingFirm());
         destOrder.clearingAccount(srcOrder.clearingAccount());
         destOrder.clearingIntent(srcOrder.clearingIntent());
@@ -1271,7 +1340,27 @@ class SampleFrame extends JFrame implements EWrapper {
         String msg = EWrapperMsgGenerator.accountSummaryEnd(reqId);
         m_TWS.add(msg);
     }
-    
+
+    public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+        String msg = EWrapperMsgGenerator.positionMulti(reqId, account, modelCode, contract, pos, avgCost);
+        m_TWS.add(msg);
+    }
+
+    public void positionMultiEnd( int reqId) {
+        String msg = EWrapperMsgGenerator.positionMultiEnd(reqId);
+        m_TWS.add(msg);
+    }
+
+    public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+        String msg = EWrapperMsgGenerator.accountUpdateMulti(reqId, account, modelCode, key, value, currency);
+        m_TWS.add(msg);
+    }
+
+    public void accountUpdateMultiEnd( int reqId) {
+        String msg = EWrapperMsgGenerator.accountUpdateMultiEnd(reqId);
+        m_TWS.add(msg);
+    }
+
     public void verifyMessageAPI( String apiData) { /* Empty */ }
     public void verifyCompleted( boolean isSuccessful, String errorText) { /* Empty */ }
     public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) { /* Empty */ }

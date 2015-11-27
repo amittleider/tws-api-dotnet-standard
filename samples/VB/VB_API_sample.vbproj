@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -32,6 +32,8 @@
     </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -44,10 +46,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -85,7 +85,7 @@
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>none</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSharpAPI">
@@ -113,6 +113,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dlgPositions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dlgAlgoParams.Designer.vb">
       <DependentUpon>dlgAlgoParams.vb</DependentUpon>
     </Compile>
@@ -128,6 +131,8 @@
     <Compile Include="_DTwsEvents_accountDownloadEndEvent.vb" />
     <Compile Include="_DTwsEvents_accountSummaryEndEvent.vb" />
     <Compile Include="_DTwsEvents_accountSummaryEvent.vb" />
+    <Compile Include="_DTwsEvents_accountUpdateMultiEndEvent.vb" />
+    <Compile Include="_DTwsEvents_accountUpdateMultiEvent.vb" />
     <Compile Include="_DTwsEvents_commissionReportEvent.vb" />
     <Compile Include="_DTwsEvents_contractDetailsEndEvent.vb" />
     <Compile Include="_DTwsEvents_contractDetailsExEvent.vb" />
@@ -147,6 +152,8 @@
     <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
     <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
     <Compile Include="_DTwsEvents_positionEvent.vb" />
+    <Compile Include="_DTwsEvents_positionMultiEndEvent.vb" />
+    <Compile Include="_DTwsEvents_positionMultiEvent.vb" />
     <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
     <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
     <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
@@ -237,6 +244,10 @@
     <Compile Include="VB_API_sample.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="dlgPositions.resX">
+      <DependentUpon>dlgPositions.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgAccountSummary.resX">
       <DependentUpon>dlgAccountSummary.vb</DependentUpon>
       <SubType>Designer</SubType>

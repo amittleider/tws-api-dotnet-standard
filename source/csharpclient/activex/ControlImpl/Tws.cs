@@ -903,6 +903,26 @@ namespace TWSLib
         {
             this.socket.cancelAccountSummary(reqId);
         }
+        [DispId(123)]
+        public void reqPositionsMulti(int requestId, string account, string modelCode)
+        {
+            this.socket.reqPositionsMulti(requestId, account, modelCode);
+        }
+        [DispId(124)]
+        public void cancelPositionsMulti(int requestId)
+        {
+            this.socket.cancelPositionsMulti(requestId);
+        }
+        [DispId(125)]
+        public void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
+        {
+            this.socket.reqAccountUpdatesMulti(requestId, account, modelCode, ledgerAndNLV);
+        }
+        [DispId(126)]
+        public void cancelAccountUpdatesMulti(int requestId)
+        {
+            this.socket.cancelAccountUpdatesMulti(requestId);
+        }
 
         [DispId(200)]
         public IContract createContract() { return new ComContract(); }
@@ -1047,6 +1067,14 @@ namespace TWSLib
 
         public delegate void connectAckDelegate();
 
+        public delegate void positionMultiDelegate(int requestId, string account, string modelCode, IContract contract, double position, double avgCost);
+
+        public delegate void positionMultiEndDelegate(int requestId);
+
+        public delegate void accountUpdateMultiDelegate(int requestId, string account, string modelCode, string key, string value, string currency);
+
+        public delegate void accountUpdateMultiEndDelegate(int requestId);
+
         public event tickPriceDelegate tickPrice;
 
         public event tickSizeDelegate tickSize;
@@ -1165,6 +1193,14 @@ namespace TWSLib
         public event displayGroupUpdatedDelegate displayGroupUpdated;
 
         public event connectAckDelegate connectAck;
+
+        public event positionMultiDelegate positionMulti;
+
+        public event positionMultiEndDelegate positionMultiEnd;
+
+        public event accountUpdateMultiDelegate accountUpdateMulti;
+
+        public event accountUpdateMultiEndDelegate accountUpdateMultiEnd;
 
         #endregion
 
@@ -1769,6 +1805,34 @@ namespace TWSLib
             var t_connectAck = this.connectAck;
             if (t_connectAck != null)
                 InvokeIfRequired(t_connectAck);
+        }
+
+        void EWrapper.positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            var t_positionMulti = this.positionMulti;
+            if (t_positionMulti != null)
+                InvokeIfRequired(t_positionMulti, requestId, account, modelCode, (ComContract)contract, pos, avgCost);
+        }
+
+        void EWrapper.positionMultiEnd(int requestId)
+        {
+            var t_positionMultiEnd = this.positionMultiEnd;
+            if (t_positionMultiEnd != null)
+                InvokeIfRequired(t_positionMultiEnd, requestId);
+        }
+
+        void EWrapper.accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
+        {
+            var t_accountUpdateMulti = this.accountUpdateMulti;
+            if (t_accountUpdateMulti != null)
+                InvokeIfRequired(t_accountUpdateMulti, requestId, account, modelCode, key, value, currency);
+        }
+
+        void EWrapper.accountUpdateMultiEnd(int requestId)
+        {
+            var t_accountUpdateMultiEnd = this.accountUpdateMultiEnd;
+            if (t_accountUpdateMultiEnd != null)
+                InvokeIfRequired(t_accountUpdateMultiEnd, requestId);
         }
 
         void IDisposable.Dispose()

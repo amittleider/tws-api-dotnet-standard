@@ -33,6 +33,7 @@ namespace IBSampleApp
         private ContractManager contractManager;
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
+        private AcctPosMultiManager acctPosMultiManager;
 
         protected IBClient ibClient;
 
@@ -56,6 +57,7 @@ namespace IBSampleApp
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid);
+            acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -223,6 +225,24 @@ namespace IBSampleApp
                 case MessageType.ReceiveFA:
                     {
                         advisorManager.UpdateUI((AdvisorDataMessage)message);
+                        break;
+                    }
+                case MessageType.PositionMulti:
+                case MessageType.AccountUpdateMulti:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.PositionMultiEnd:
+                    {
+                        buttonRequestPositionsMulti.Text = "Request Positions Multi";
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.AccountUpdateMultiEnd:
+                    {
+                        buttonRequestAccountUpdatesMulti.Text = "Request Account Updates Multi";
+                        acctPosMultiManager.UpdateUI(message);
                         break;
                     }
                 default:
@@ -694,6 +714,23 @@ namespace IBSampleApp
         private void optionsTab_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonRequestPositionsMulti_Click(object sender, EventArgs e)
+        {
+            buttonRequestPositionsMulti.Text = "Cancel Positions Multi";
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            acctPosMultiManager.RequestPositionsMulti(account, modelCode);
+        }
+
+        private void buttonRequestAccountUpdatesMulti_Click(object sender, EventArgs e)
+        {
+            buttonRequestAccountUpdatesMulti.Text = "Cancel Account Updates Multi";
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            Boolean ledgerAndNLV = this.cbLedgerAndNLV.Checked;
+            acctPosMultiManager.RequestAccountUpdatesMulti(account, modelCode, ledgerAndNLV);
         }
         
     }

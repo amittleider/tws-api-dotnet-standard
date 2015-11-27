@@ -304,5 +304,25 @@ namespace IBSampleApp
             if (ClientSocket.AsyncEConnect)
                 ClientSocket.startApi();
         }
+
+        public virtual void positionMulti(int reqId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            parentUI.HandleMessage(new PositionMultiMessage(reqId, account, modelCode, contract, pos, avgCost));
+        }
+
+        public virtual void positionMultiEnd(int reqId)
+        {
+            parentUI.HandleMessage(new PositionMultiEndMessage(reqId));
+        }
+
+        public virtual void accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
+        {
+            parentUI.HandleMessage(new AccountUpdateMultiMessage(reqId, account, modelCode, key, value, currency));
+        }
+
+        public virtual void accountUpdateMultiEnd(int reqId)
+        {
+            parentUI.HandleMessage(new AccountUpdateMultiEndMessage(reqId));
+        }
     }
 }

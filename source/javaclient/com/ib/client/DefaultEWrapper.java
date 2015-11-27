@@ -325,5 +325,30 @@ class DefaultEWrapper implements EWrapper {
 	public void connectAck() {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+	
+	@Override
+	public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void positionMultiEnd( int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accountUpdateMultiEnd( int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

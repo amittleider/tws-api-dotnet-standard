@@ -58,6 +58,10 @@
     <Compile Include="messages\ConnectionStatusMessage.cs" />
     <Compile Include="messages\ContractDetailsEndMessage.cs" />
     <Compile Include="messages\ContractDetailsMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiMessage.cs" />
     <Compile Include="messages\DeepBookMessage.cs" />
     <Compile Include="messages\ExecutionMessage.cs" />
     <Compile Include="messages\FundamentalsMessage.cs" />
@@ -88,6 +92,7 @@
       <DependentUpon>ComboContractResults.cs</DependentUpon>
     </Compile>
     <Compile Include="ui\ContractManager.cs" />
+    <Compile Include="ui\AcctPosMultiManager.cs" />
     <Compile Include="ui\MarginDialog.cs">
       <SubType>Form</SubType>
     </Compile>

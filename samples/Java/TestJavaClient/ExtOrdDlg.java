@@ -30,6 +30,7 @@ public class ExtOrdDlg extends JDialog {
     private JTextField 	m_ocaType = new JTextField("0");
 
     private JTextField 	m_account = new JTextField();
+    private JTextField 	m_modelCode = new JTextField();
     private JTextField  m_settlingFirm = new JTextField();
     private JTextField  m_clearingAccount = new JTextField();
     private JTextField  m_clearingIntent = new JTextField();
@@ -124,6 +125,8 @@ public class ExtOrdDlg extends JDialog {
 
         extOrderDetailsPanel.add( new JLabel( "Account") );
         extOrderDetailsPanel.add( m_account);
+        extOrderDetailsPanel.add( new JLabel( "Model Code") );
+        extOrderDetailsPanel.add( m_modelCode);
         extOrderDetailsPanel.add(new JLabel("Settling Firm"));
         extOrderDetailsPanel.add(m_settlingFirm);
         extOrderDetailsPanel.add(new JLabel("Clearing Account"));
@@ -297,6 +300,7 @@ public class ExtOrdDlg extends JDialog {
             m_order.ocaType(parseInt(m_ocaType));
 
             m_order.account(m_account.getText().trim());
+            m_order.modelCode(m_modelCode.getText().trim());
             m_order.settlingFirm(m_settlingFirm.getText().trim());
             m_order.clearingAccount(m_clearingAccount.getText().trim());
             m_order.clearingIntent(m_clearingIntent.getText().trim());

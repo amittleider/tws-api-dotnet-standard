@@ -232,5 +232,8 @@ namespace TWSLib
         bool randomizeSize { get; set; }
         [DispId(146)]
         bool randomizePrice { get; set; }
+                [DispId(147)]
+        string modelCode { get; set; }
+
     }
 }

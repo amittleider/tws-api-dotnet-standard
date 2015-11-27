@@ -961,6 +961,15 @@ namespace TWSLib
         public bool RandomizeSize { get { return data.RandomizeSize; } set { data.RandomizeSize = value; } }
         public bool RandomizePrice { get { return data.RandomizePrice; } set { data.RandomizePrice = value; } }
 
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return data != null ? data.ModelCode : default(string); }
+            set { if (data != null) data.ModelCode = value; }
+        }
+
         public override bool Equals(Object p_other)
         {
             if (!(p_other is ComOrder))
@@ -1254,5 +1263,7 @@ namespace TWSLib
         {
             return co.ConvertTo();
         }
+
+        string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
     }
 }

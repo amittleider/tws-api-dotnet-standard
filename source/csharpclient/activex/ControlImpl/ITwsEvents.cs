@@ -135,5 +135,13 @@ namespace TWSLib
         void bondContractDetailsEx(int reqId, IContractDetails contractDetails);
         [DispId(118)]
         void connectAck();
+        [DispId(119)]
+        void positionMulti(int requestId, string account, string modelCode, IContract contract, double position, double avgCost);
+        [DispId(120)]
+        void positionMultiEnd(int requestId);
+        [DispId(121)]
+        void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
+        [DispId(122)]
+        void accountUpdateMultiEnd(int requestId);
     }
 }

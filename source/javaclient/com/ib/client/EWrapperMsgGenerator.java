@@ -97,6 +97,7 @@ public class EWrapperMsgGenerator {
         " faMethod=" + order.getFaMethod() +
         " faPercentage=" + order.faPercentage() +
         " faProfile=" + order.faProfile() +
+        " modelCode=" + order.modelCode() +
         " shortSaleSlot=" + order.shortSaleSlot() +
         " designatedLocation=" + order.designatedLocation() +
         " exemptCode=" + order.exemptCode() +
@@ -394,6 +395,7 @@ public class EWrapperMsgGenerator {
         + "orderRef = " + execution.orderRef() + "\n"
         + "evRule = " + execution.evRule() + "\n"
         + "evMultiplier = " + execution.evMultiplier() + "\n"
+        + "modelCode = " + execution.modelCode() + "\n"
         + " ---- Execution Details end ----\n";
         return msg;
     }
@@ -541,6 +543,32 @@ public class EWrapperMsgGenerator {
 
     static public String accountSummaryEnd( int reqId) {
     	return "id=" + reqId + " =============== end ===============";
+    }
+
+    static public String positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+        String msg = " ---- Position begin ----\n"
+        + "id = " + reqId + "\n"
+        + "account = " + account + "\n"
+        + "modelCode = " + modelCode + "\n"
+        + contractMsg(contract)
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
+        + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
+        + " ---- Position end ----\n";
+        return msg;
+    }    
+
+    static public String positionMultiEnd( int reqId) {
+        return "id = " + reqId + " =============== end ===============";
+    }
+
+    static public String accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+        String msg = " id = " + reqId + " account = " + account + " modelCode = " + modelCode + 
+        		" key = " + key + " value = " + value + " currency = " + currency;
+        return msg;
+    }
+
+    static public String accountUpdateMultiEnd( int reqId) {
+    	return "id = " + reqId + " =============== end ===============";
     }
 
     public static String error( Exception ex) { return "Error - " + ex;}

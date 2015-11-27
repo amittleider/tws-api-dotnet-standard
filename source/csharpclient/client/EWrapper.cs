@@ -440,5 +440,42 @@ namespace IBApi
         void displayGroupList(int reqId, string groups);
         void displayGroupUpdated(int reqId, string contractInfo);
         void connectAck();
+
+        /**
+         * @brief provides the portfolio's open positions.
+         * @param requestId the id of request
+         * @param account the account holding the position.
+         * @param modelCode the model code holding the position.
+         * @param contract the position's Contract
+         * @param pos the number of positions held.
+         * @Param avgCost the average cost of the position.
+         * @sa positionMultiEnd, EClientSocket::reqPositionsMulti
+         */
+        void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost);
+
+        /**
+         * @brief Indicates all the positions have been transmitted.
+         * @sa positionMulti, reqPositionsMulti
+         */
+        void positionMultiEnd(int requestId);
+
+        /**
+         * @brief provides the account updates.
+         * @param requestId the id of request
+         * @param account the account with updates
+         * @param modelCode the model code with updates
+         * @param key the name of parameter
+         * @param value the value of parameter
+         * @param currency the currency of parameter
+         * @sa accountUpdateMultiEnd, EClientSocket::reqAccountUpdatesMulti
+         */
+        void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
+
+        /**
+         * @brief Indicates all the account updates have been transmitted
+         * @sa accountUpdateMulti, reqAccountUpdatesMulti
+         */
+        void accountUpdateMultiEnd(int requestId);
+
     }
 }

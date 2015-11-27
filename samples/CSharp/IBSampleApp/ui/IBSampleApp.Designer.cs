@@ -35,13 +35,14 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -159,6 +160,22 @@ namespace IBSampleApp
             this.scanLocation_label = new System.Windows.Forms.Label();
             this.scannerParamsRequest_button = new System.Windows.Forms.Button();
             this.tradingTab = new System.Windows.Forms.TabPage();
+            this.execFilterGroup = new System.Windows.Forms.GroupBox();
+            this.execFilterExchange = new System.Windows.Forms.TextBox();
+            this.execFilterSide = new System.Windows.Forms.TextBox();
+            this.execFilterSideLabel = new System.Windows.Forms.Label();
+            this.execFilterExchangeLabel = new System.Windows.Forms.Label();
+            this.execFilterSecTypeLabel = new System.Windows.Forms.Label();
+            this.execFilterSymbolLabel = new System.Windows.Forms.Label();
+            this.execFilterTimeLabel = new System.Windows.Forms.Label();
+            this.execFilterAcctLabel = new System.Windows.Forms.Label();
+            this.execFilterClientLabel = new System.Windows.Forms.Label();
+            this.execFilterSecType = new System.Windows.Forms.TextBox();
+            this.execFilterSymbol = new System.Windows.Forms.TextBox();
+            this.execFilterTime = new System.Windows.Forms.TextBox();
+            this.execFilterAccount = new System.Windows.Forms.TextBox();
+            this.execFilterClientId = new System.Windows.Forms.TextBox();
+            this.refreshExecutionsButton = new System.Windows.Forms.Button();
             this.globalCancelButton = new System.Windows.Forms.Button();
             this.clientOrdersButton = new System.Windows.Forms.Button();
             this.refreshOrdersButton = new System.Windows.Forms.Button();
@@ -166,7 +183,6 @@ namespace IBSampleApp
             this.button1 = new System.Windows.Forms.Button();
             this.newOrderLink = new System.Windows.Forms.LinkLabel();
             this.executionsGroup = new System.Windows.Forms.GroupBox();
-            this.refreshExecutionsButton = new System.Windows.Forms.Button();
             this.tradeLogGrid = new System.Windows.Forms.DataGridView();
             this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -332,6 +348,31 @@ namespace IBSampleApp
             this.exerciseOption = new System.Windows.Forms.Button();
             this.exerciseAccountLabel = new System.Windows.Forms.Label();
             this.exerciseAccount = new System.Windows.Forms.ComboBox();
+            this.acctPosTab = new System.Windows.Forms.TabPage();
+            this.acctPosMultiPanel = new System.Windows.Forms.TabControl();
+            this.tabPositionsMulti = new System.Windows.Forms.TabPage();
+            this.clearPositionsMulti = new System.Windows.Forms.LinkLabel();
+            this.positionsMultiGrid = new System.Windows.Forms.DataGridView();
+            this.accountPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodePositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contractPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.positionPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avgCostPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAccountUpdatesMulti = new System.Windows.Forms.TabPage();
+            this.clearAccountUpdatesMulti = new System.Windows.Forms.LinkLabel();
+            this.accountUpdatesMultiGrid = new System.Windows.Forms.DataGridView();
+            this.accountAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodeAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.keyAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valueAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.currencyAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBoxRequestData = new System.Windows.Forms.GroupBox();
+            this.cbLedgerAndNLV = new System.Windows.Forms.CheckBox();
+            this.labelAccount = new System.Windows.Forms.Label();
+            this.buttonRequestPositionsMulti = new System.Windows.Forms.Button();
+            this.labelModelCode = new System.Windows.Forms.Label();
+            this.textAccount = new System.Windows.Forms.TextBox();
+            this.textModelCode = new System.Windows.Forms.TextBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -386,22 +427,8 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.execFilterGroup = new System.Windows.Forms.GroupBox();
-            this.execFilterClientId = new System.Windows.Forms.TextBox();
-            this.execFilterAccount = new System.Windows.Forms.TextBox();
-            this.execFilterTime = new System.Windows.Forms.TextBox();
-            this.execFilterSymbol = new System.Windows.Forms.TextBox();
-            this.execFilterSecType = new System.Windows.Forms.TextBox();
-            this.execFilterClientLabel = new System.Windows.Forms.Label();
-            this.execFilterAcctLabel = new System.Windows.Forms.Label();
-            this.execFilterTimeLabel = new System.Windows.Forms.Label();
-            this.execFilterSymbolLabel = new System.Windows.Forms.Label();
-            this.execFilterSecTypeLabel = new System.Windows.Forms.Label();
-            this.execFilterExchangeLabel = new System.Windows.Forms.Label();
-            this.execFilterSideLabel = new System.Windows.Forms.Label();
-            this.execFilterSide = new System.Windows.Forms.TextBox();
-            this.execFilterExchange = new System.Windows.Forms.TextBox();
             this.ib_banner = new System.Windows.Forms.PictureBox();
+            this.buttonRequestAccountUpdatesMulti = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -426,6 +453,7 @@ namespace IBSampleApp
             this.marketScanner_MDT.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tradingTab.SuspendLayout();
+            this.execFilterGroup.SuspendLayout();
             this.executionsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tradeLogGrid)).BeginInit();
             this.liveOrdersGroup.SuspendLayout();
@@ -462,6 +490,13 @@ namespace IBSampleApp
             this.optionsTab.SuspendLayout();
             this.optionsPositionsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optionPositionsGrid)).BeginInit();
+            this.acctPosTab.SuspendLayout();
+            this.acctPosMultiPanel.SuspendLayout();
+            this.tabPositionsMulti.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsMultiGrid)).BeginInit();
+            this.tabAccountUpdatesMulti.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).BeginInit();
+            this.groupBoxRequestData.SuspendLayout();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -469,7 +504,6 @@ namespace IBSampleApp
             this.comboContractBox.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.messagesTab.SuspendLayout();
-            this.execFilterGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).BeginInit();
             this.SuspendLayout();
             // 
@@ -484,6 +518,7 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.tabPage1);
             this.TabControl.Controls.Add(this.advisorTab);
             this.TabControl.Controls.Add(this.optionsTab);
+            this.TabControl.Controls.Add(this.acctPosTab);
             this.TabControl.Location = new System.Drawing.Point(0, 42);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
@@ -658,14 +693,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle11;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -1771,6 +1806,153 @@ namespace IBSampleApp
             this.tradingTab.TabIndex = 2;
             this.tradingTab.Text = "Trading";
             // 
+            // execFilterGroup
+            // 
+            this.execFilterGroup.Controls.Add(this.execFilterExchange);
+            this.execFilterGroup.Controls.Add(this.execFilterSide);
+            this.execFilterGroup.Controls.Add(this.execFilterSideLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterExchangeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecTypeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbolLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterTimeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterAcctLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterClientLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecType);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbol);
+            this.execFilterGroup.Controls.Add(this.execFilterTime);
+            this.execFilterGroup.Controls.Add(this.execFilterAccount);
+            this.execFilterGroup.Controls.Add(this.execFilterClientId);
+            this.execFilterGroup.Controls.Add(this.refreshExecutionsButton);
+            this.execFilterGroup.Location = new System.Drawing.Point(975, 218);
+            this.execFilterGroup.Name = "execFilterGroup";
+            this.execFilterGroup.Size = new System.Drawing.Size(230, 206);
+            this.execFilterGroup.TabIndex = 10;
+            this.execFilterGroup.TabStop = false;
+            this.execFilterGroup.Text = "Execution Filter";
+            // 
+            // execFilterExchange
+            // 
+            this.execFilterExchange.Location = new System.Drawing.Point(65, 70);
+            this.execFilterExchange.Name = "execFilterExchange";
+            this.execFilterExchange.Size = new System.Drawing.Size(77, 20);
+            this.execFilterExchange.TabIndex = 15;
+            // 
+            // execFilterSide
+            // 
+            this.execFilterSide.Location = new System.Drawing.Point(65, 96);
+            this.execFilterSide.Name = "execFilterSide";
+            this.execFilterSide.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSide.TabIndex = 14;
+            this.execFilterSide.Text = "BUY";
+            // 
+            // execFilterSideLabel
+            // 
+            this.execFilterSideLabel.AutoSize = true;
+            this.execFilterSideLabel.Location = new System.Drawing.Point(6, 103);
+            this.execFilterSideLabel.Name = "execFilterSideLabel";
+            this.execFilterSideLabel.Size = new System.Drawing.Size(28, 13);
+            this.execFilterSideLabel.TabIndex = 13;
+            this.execFilterSideLabel.Text = "Side";
+            // 
+            // execFilterExchangeLabel
+            // 
+            this.execFilterExchangeLabel.AutoSize = true;
+            this.execFilterExchangeLabel.Location = new System.Drawing.Point(6, 78);
+            this.execFilterExchangeLabel.Name = "execFilterExchangeLabel";
+            this.execFilterExchangeLabel.Size = new System.Drawing.Size(55, 13);
+            this.execFilterExchangeLabel.TabIndex = 12;
+            this.execFilterExchangeLabel.Text = "Exchange";
+            // 
+            // execFilterSecTypeLabel
+            // 
+            this.execFilterSecTypeLabel.AutoSize = true;
+            this.execFilterSecTypeLabel.Location = new System.Drawing.Point(6, 154);
+            this.execFilterSecTypeLabel.Name = "execFilterSecTypeLabel";
+            this.execFilterSecTypeLabel.Size = new System.Drawing.Size(50, 13);
+            this.execFilterSecTypeLabel.TabIndex = 11;
+            this.execFilterSecTypeLabel.Text = "SecType";
+            // 
+            // execFilterSymbolLabel
+            // 
+            this.execFilterSymbolLabel.AutoSize = true;
+            this.execFilterSymbolLabel.Location = new System.Drawing.Point(6, 129);
+            this.execFilterSymbolLabel.Name = "execFilterSymbolLabel";
+            this.execFilterSymbolLabel.Size = new System.Drawing.Size(41, 13);
+            this.execFilterSymbolLabel.TabIndex = 10;
+            this.execFilterSymbolLabel.Text = "Symbol";
+            // 
+            // execFilterTimeLabel
+            // 
+            this.execFilterTimeLabel.AutoSize = true;
+            this.execFilterTimeLabel.Location = new System.Drawing.Point(6, 180);
+            this.execFilterTimeLabel.Name = "execFilterTimeLabel";
+            this.execFilterTimeLabel.Size = new System.Drawing.Size(30, 13);
+            this.execFilterTimeLabel.TabIndex = 9;
+            this.execFilterTimeLabel.Text = "Time";
+            // 
+            // execFilterAcctLabel
+            // 
+            this.execFilterAcctLabel.AutoSize = true;
+            this.execFilterAcctLabel.Location = new System.Drawing.Point(6, 51);
+            this.execFilterAcctLabel.Name = "execFilterAcctLabel";
+            this.execFilterAcctLabel.Size = new System.Drawing.Size(47, 13);
+            this.execFilterAcctLabel.TabIndex = 8;
+            this.execFilterAcctLabel.Text = "Account";
+            // 
+            // execFilterClientLabel
+            // 
+            this.execFilterClientLabel.AutoSize = true;
+            this.execFilterClientLabel.Location = new System.Drawing.Point(6, 26);
+            this.execFilterClientLabel.Name = "execFilterClientLabel";
+            this.execFilterClientLabel.Size = new System.Drawing.Size(42, 13);
+            this.execFilterClientLabel.TabIndex = 7;
+            this.execFilterClientLabel.Text = "ClientId";
+            // 
+            // execFilterSecType
+            // 
+            this.execFilterSecType.Location = new System.Drawing.Point(65, 147);
+            this.execFilterSecType.Name = "execFilterSecType";
+            this.execFilterSecType.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSecType.TabIndex = 6;
+            // 
+            // execFilterSymbol
+            // 
+            this.execFilterSymbol.Location = new System.Drawing.Point(65, 122);
+            this.execFilterSymbol.Name = "execFilterSymbol";
+            this.execFilterSymbol.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSymbol.TabIndex = 5;
+            // 
+            // execFilterTime
+            // 
+            this.execFilterTime.Location = new System.Drawing.Point(65, 173);
+            this.execFilterTime.Name = "execFilterTime";
+            this.execFilterTime.Size = new System.Drawing.Size(101, 20);
+            this.execFilterTime.TabIndex = 4;
+            // 
+            // execFilterAccount
+            // 
+            this.execFilterAccount.Location = new System.Drawing.Point(65, 44);
+            this.execFilterAccount.Name = "execFilterAccount";
+            this.execFilterAccount.Size = new System.Drawing.Size(77, 20);
+            this.execFilterAccount.TabIndex = 3;
+            // 
+            // execFilterClientId
+            // 
+            this.execFilterClientId.Location = new System.Drawing.Point(65, 19);
+            this.execFilterClientId.Name = "execFilterClientId";
+            this.execFilterClientId.Size = new System.Drawing.Size(77, 20);
+            this.execFilterClientId.TabIndex = 2;
+            // 
+            // refreshExecutionsButton
+            // 
+            this.refreshExecutionsButton.Location = new System.Drawing.Point(149, 19);
+            this.refreshExecutionsButton.Name = "refreshExecutionsButton";
+            this.refreshExecutionsButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshExecutionsButton.TabIndex = 1;
+            this.refreshExecutionsButton.Text = "Refresh";
+            this.refreshExecutionsButton.UseVisualStyleBackColor = true;
+            this.refreshExecutionsButton.Click += new System.EventHandler(this.refreshExecutionsButton_Click);
+            // 
             // globalCancelButton
             // 
             this.globalCancelButton.Location = new System.Drawing.Point(914, 167);
@@ -1841,16 +2023,6 @@ namespace IBSampleApp
             this.executionsGroup.TabIndex = 2;
             this.executionsGroup.TabStop = false;
             this.executionsGroup.Text = "Trade Log (Executions)";
-            // 
-            // refreshExecutionsButton
-            // 
-            this.refreshExecutionsButton.Location = new System.Drawing.Point(149, 19);
-            this.refreshExecutionsButton.Name = "refreshExecutionsButton";
-            this.refreshExecutionsButton.Size = new System.Drawing.Size(75, 23);
-            this.refreshExecutionsButton.TabIndex = 1;
-            this.refreshExecutionsButton.Text = "Refresh";
-            this.refreshExecutionsButton.UseVisualStyleBackColor = true;
-            this.refreshExecutionsButton.Click += new System.EventHandler(this.refreshExecutionsButton_Click);
             // 
             // tradeLogGrid
             // 
@@ -3367,6 +3539,257 @@ namespace IBSampleApp
             this.exerciseAccount.TabIndex = 2;
             this.exerciseAccount.SelectedIndexChanged += new System.EventHandler(this.exerciseAccount_SelectedIndexChanged);
             // 
+            // acctPosTab
+            // 
+            this.acctPosTab.BackColor = System.Drawing.Color.LightGray;
+            this.acctPosTab.Controls.Add(this.acctPosMultiPanel);
+            this.acctPosTab.Controls.Add(this.groupBoxRequestData);
+            this.acctPosTab.Location = new System.Drawing.Point(4, 22);
+            this.acctPosTab.Name = "acctPosTab";
+            this.acctPosTab.Padding = new System.Windows.Forms.Padding(3);
+            this.acctPosTab.Size = new System.Drawing.Size(1248, 430);
+            this.acctPosTab.TabIndex = 8;
+            this.acctPosTab.Text = "Acct/Pos Multi";
+            // 
+            // acctPosMultiPanel
+            // 
+            this.acctPosMultiPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.acctPosMultiPanel.Controls.Add(this.tabPositionsMulti);
+            this.acctPosMultiPanel.Controls.Add(this.tabAccountUpdatesMulti);
+            this.acctPosMultiPanel.Location = new System.Drawing.Point(5, 124);
+            this.acctPosMultiPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.acctPosMultiPanel.Name = "acctPosMultiPanel";
+            this.acctPosMultiPanel.SelectedIndex = 0;
+            this.acctPosMultiPanel.Size = new System.Drawing.Size(1242, 217);
+            this.acctPosMultiPanel.TabIndex = 1;
+            // 
+            // tabPositionsMulti
+            // 
+            this.tabPositionsMulti.BackColor = System.Drawing.Color.LightGray;
+            this.tabPositionsMulti.Controls.Add(this.clearPositionsMulti);
+            this.tabPositionsMulti.Controls.Add(this.positionsMultiGrid);
+            this.tabPositionsMulti.Location = new System.Drawing.Point(4, 22);
+            this.tabPositionsMulti.Name = "tabPositionsMulti";
+            this.tabPositionsMulti.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPositionsMulti.Size = new System.Drawing.Size(1234, 191);
+            this.tabPositionsMulti.TabIndex = 0;
+            this.tabPositionsMulti.Text = "Positions Multi";
+            // 
+            // clearPositionsMulti
+            // 
+            this.clearPositionsMulti.AutoSize = true;
+            this.clearPositionsMulti.Location = new System.Drawing.Point(6, 3);
+            this.clearPositionsMulti.Name = "clearPositionsMulti";
+            this.clearPositionsMulti.Size = new System.Drawing.Size(31, 13);
+            this.clearPositionsMulti.TabIndex = 6;
+            this.clearPositionsMulti.TabStop = true;
+            this.clearPositionsMulti.Text = "Clear";
+            // 
+            // positionsMultiGrid
+            // 
+            this.positionsMultiGrid.AllowUserToAddRows = false;
+            this.positionsMultiGrid.AllowUserToDeleteRows = false;
+            this.positionsMultiGrid.AllowUserToOrderColumns = true;
+            this.positionsMultiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.positionsMultiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.positionsMultiGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.accountPositionsMulti,
+            this.modelCodePositionsMulti,
+            this.contractPositionsMulti,
+            this.positionPositionsMulti,
+            this.avgCostPositionsMulti});
+            this.positionsMultiGrid.Location = new System.Drawing.Point(3, 19);
+            this.positionsMultiGrid.Name = "positionsMultiGrid";
+            this.positionsMultiGrid.ReadOnly = true;
+            this.positionsMultiGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.positionsMultiGrid.Size = new System.Drawing.Size(1225, 166);
+            this.positionsMultiGrid.TabIndex = 0;
+            // 
+            // accountPositionsMulti
+            // 
+            this.accountPositionsMulti.HeaderText = "Account";
+            this.accountPositionsMulti.Name = "accountPositionsMulti";
+            this.accountPositionsMulti.ReadOnly = true;
+            // 
+            // modelCodePositionsMulti
+            // 
+            this.modelCodePositionsMulti.HeaderText = "Model Code";
+            this.modelCodePositionsMulti.Name = "modelCodePositionsMulti";
+            this.modelCodePositionsMulti.ReadOnly = true;
+            // 
+            // contractPositionsMulti
+            // 
+            this.contractPositionsMulti.HeaderText = "Contract";
+            this.contractPositionsMulti.Name = "contractPositionsMulti";
+            this.contractPositionsMulti.ReadOnly = true;
+            this.contractPositionsMulti.Width = 300;
+            // 
+            // positionPositionsMulti
+            // 
+            this.positionPositionsMulti.HeaderText = "Position";
+            this.positionPositionsMulti.Name = "positionPositionsMulti";
+            this.positionPositionsMulti.ReadOnly = true;
+            // 
+            // avgCostPositionsMulti
+            // 
+            this.avgCostPositionsMulti.HeaderText = "Avg Cost";
+            this.avgCostPositionsMulti.Name = "avgCostPositionsMulti";
+            this.avgCostPositionsMulti.ReadOnly = true;
+            // 
+            // tabAccountUpdatesMulti
+            // 
+            this.tabAccountUpdatesMulti.BackColor = System.Drawing.Color.LightGray;
+            this.tabAccountUpdatesMulti.Controls.Add(this.clearAccountUpdatesMulti);
+            this.tabAccountUpdatesMulti.Controls.Add(this.accountUpdatesMultiGrid);
+            this.tabAccountUpdatesMulti.Location = new System.Drawing.Point(4, 22);
+            this.tabAccountUpdatesMulti.Name = "tabAccountUpdatesMulti";
+            this.tabAccountUpdatesMulti.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAccountUpdatesMulti.Size = new System.Drawing.Size(1234, 191);
+            this.tabAccountUpdatesMulti.TabIndex = 1;
+            this.tabAccountUpdatesMulti.Text = "Account Updates Multi";
+            // 
+            // clearAccountUpdatesMulti
+            // 
+            this.clearAccountUpdatesMulti.AutoSize = true;
+            this.clearAccountUpdatesMulti.Location = new System.Drawing.Point(6, 3);
+            this.clearAccountUpdatesMulti.Name = "clearAccountUpdatesMulti";
+            this.clearAccountUpdatesMulti.Size = new System.Drawing.Size(31, 13);
+            this.clearAccountUpdatesMulti.TabIndex = 0;
+            this.clearAccountUpdatesMulti.TabStop = true;
+            this.clearAccountUpdatesMulti.Text = "Clear";
+            // 
+            // accountUpdatesMultiGrid
+            // 
+            this.accountUpdatesMultiGrid.AllowUserToAddRows = false;
+            this.accountUpdatesMultiGrid.AllowUserToDeleteRows = false;
+            this.accountUpdatesMultiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.accountUpdatesMultiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.accountUpdatesMultiGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.accountAccountUpdatesMulti,
+            this.modelCodeAccountUpdatesMulti,
+            this.keyAccountUpdatesMulti,
+            this.valueAccountUpdatesMulti,
+            this.currencyAccountUpdatesMulti});
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.accountUpdatesMultiGrid.DefaultCellStyle = dataGridViewCellStyle12;
+            this.accountUpdatesMultiGrid.Location = new System.Drawing.Point(4, 19);
+            this.accountUpdatesMultiGrid.Name = "accountUpdatesMultiGrid";
+            this.accountUpdatesMultiGrid.ReadOnly = true;
+            this.accountUpdatesMultiGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.accountUpdatesMultiGrid.Size = new System.Drawing.Size(1224, 166);
+            this.accountUpdatesMultiGrid.TabIndex = 1;
+            // 
+            // accountAccountUpdatesMulti
+            // 
+            this.accountAccountUpdatesMulti.HeaderText = "Account";
+            this.accountAccountUpdatesMulti.Name = "accountAccountUpdatesMulti";
+            this.accountAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // modelCodeAccountUpdatesMulti
+            // 
+            this.modelCodeAccountUpdatesMulti.HeaderText = "Model Code";
+            this.modelCodeAccountUpdatesMulti.Name = "modelCodeAccountUpdatesMulti";
+            this.modelCodeAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // keyAccountUpdatesMulti
+            // 
+            this.keyAccountUpdatesMulti.HeaderText = "Key";
+            this.keyAccountUpdatesMulti.Name = "keyAccountUpdatesMulti";
+            this.keyAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // valueAccountUpdatesMulti
+            // 
+            this.valueAccountUpdatesMulti.HeaderText = "Value";
+            this.valueAccountUpdatesMulti.Name = "valueAccountUpdatesMulti";
+            this.valueAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // currencyAccountUpdatesMulti
+            // 
+            this.currencyAccountUpdatesMulti.HeaderText = "Currency";
+            this.currencyAccountUpdatesMulti.Name = "currencyAccountUpdatesMulti";
+            this.currencyAccountUpdatesMulti.ReadOnly = true;
+            this.currencyAccountUpdatesMulti.Width = 50;
+            // 
+            // groupBoxRequestData
+            // 
+            this.groupBoxRequestData.Controls.Add(this.buttonRequestAccountUpdatesMulti);
+            this.groupBoxRequestData.Controls.Add(this.cbLedgerAndNLV);
+            this.groupBoxRequestData.Controls.Add(this.labelAccount);
+            this.groupBoxRequestData.Controls.Add(this.buttonRequestPositionsMulti);
+            this.groupBoxRequestData.Controls.Add(this.labelModelCode);
+            this.groupBoxRequestData.Controls.Add(this.textAccount);
+            this.groupBoxRequestData.Controls.Add(this.textModelCode);
+            this.groupBoxRequestData.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxRequestData.Name = "groupBoxRequestData";
+            this.groupBoxRequestData.Size = new System.Drawing.Size(354, 92);
+            this.groupBoxRequestData.TabIndex = 0;
+            this.groupBoxRequestData.TabStop = false;
+            this.groupBoxRequestData.Text = "Request Data";
+            // 
+            // cbLedgerAndNLV
+            // 
+            this.cbLedgerAndNLV.AutoSize = true;
+            this.cbLedgerAndNLV.Location = new System.Drawing.Point(85, 67);
+            this.cbLedgerAndNLV.Name = "cbLedgerAndNLV";
+            this.cbLedgerAndNLV.Size = new System.Drawing.Size(99, 17);
+            this.cbLedgerAndNLV.TabIndex = 4;
+            this.cbLedgerAndNLV.Text = "LedgerAndNLV";
+            this.cbLedgerAndNLV.UseVisualStyleBackColor = true;
+            // 
+            // labelAccount
+            // 
+            this.labelAccount.AutoSize = true;
+            this.labelAccount.Location = new System.Drawing.Point(32, 22);
+            this.labelAccount.Name = "labelAccount";
+            this.labelAccount.Size = new System.Drawing.Size(47, 13);
+            this.labelAccount.TabIndex = 0;
+            this.labelAccount.Text = "Account";
+            // 
+            // buttonRequestPositionsMulti
+            // 
+            this.buttonRequestPositionsMulti.Location = new System.Drawing.Point(191, 19);
+            this.buttonRequestPositionsMulti.Name = "buttonRequestPositionsMulti";
+            this.buttonRequestPositionsMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonRequestPositionsMulti.TabIndex = 5;
+            this.buttonRequestPositionsMulti.Text = "Request Positions Multi";
+            this.buttonRequestPositionsMulti.UseVisualStyleBackColor = true;
+            this.buttonRequestPositionsMulti.Click += new System.EventHandler(this.buttonRequestPositionsMulti_Click);
+            // 
+            // labelModelCode
+            // 
+            this.labelModelCode.AutoSize = true;
+            this.labelModelCode.Location = new System.Drawing.Point(15, 48);
+            this.labelModelCode.Name = "labelModelCode";
+            this.labelModelCode.Size = new System.Drawing.Size(64, 13);
+            this.labelModelCode.TabIndex = 1;
+            this.labelModelCode.Text = "Model Code";
+            // 
+            // textAccount
+            // 
+            this.textAccount.Location = new System.Drawing.Point(85, 15);
+            this.textAccount.Name = "textAccount";
+            this.textAccount.Size = new System.Drawing.Size(100, 20);
+            this.textAccount.TabIndex = 2;
+            // 
+            // textModelCode
+            // 
+            this.textModelCode.Location = new System.Drawing.Point(85, 41);
+            this.textModelCode.Name = "textModelCode";
+            this.textModelCode.Size = new System.Drawing.Size(100, 20);
+            this.textModelCode.TabIndex = 3;
+            // 
             // connectButton
             // 
             this.connectButton.Location = new System.Drawing.Point(1181, 12);
@@ -3924,143 +4347,6 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // execFilterGroup
-            // 
-            this.execFilterGroup.Controls.Add(this.execFilterExchange);
-            this.execFilterGroup.Controls.Add(this.execFilterSide);
-            this.execFilterGroup.Controls.Add(this.execFilterSideLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterExchangeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSecTypeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSymbolLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterTimeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterAcctLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterClientLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSecType);
-            this.execFilterGroup.Controls.Add(this.execFilterSymbol);
-            this.execFilterGroup.Controls.Add(this.execFilterTime);
-            this.execFilterGroup.Controls.Add(this.execFilterAccount);
-            this.execFilterGroup.Controls.Add(this.execFilterClientId);
-            this.execFilterGroup.Controls.Add(this.refreshExecutionsButton);
-            this.execFilterGroup.Location = new System.Drawing.Point(975, 218);
-            this.execFilterGroup.Name = "execFilterGroup";
-            this.execFilterGroup.Size = new System.Drawing.Size(230, 206);
-            this.execFilterGroup.TabIndex = 10;
-            this.execFilterGroup.TabStop = false;
-            this.execFilterGroup.Text = "Execution Filter";
-            // 
-            // execFilterClientId
-            // 
-            this.execFilterClientId.Location = new System.Drawing.Point(65, 19);
-            this.execFilterClientId.Name = "execFilterClientId";
-            this.execFilterClientId.Size = new System.Drawing.Size(77, 20);
-            this.execFilterClientId.TabIndex = 2;
-            // 
-            // execFilterAccount
-            // 
-            this.execFilterAccount.Location = new System.Drawing.Point(65, 44);
-            this.execFilterAccount.Name = "execFilterAccount";
-            this.execFilterAccount.Size = new System.Drawing.Size(77, 20);
-            this.execFilterAccount.TabIndex = 3;
-            // 
-            // execFilterTime
-            // 
-            this.execFilterTime.Location = new System.Drawing.Point(65, 173);
-            this.execFilterTime.Name = "execFilterTime";
-            this.execFilterTime.Size = new System.Drawing.Size(101, 20);
-            this.execFilterTime.TabIndex = 4;
-            // 
-            // execFilterSymbol
-            // 
-            this.execFilterSymbol.Location = new System.Drawing.Point(65, 122);
-            this.execFilterSymbol.Name = "execFilterSymbol";
-            this.execFilterSymbol.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSymbol.TabIndex = 5;
-            // 
-            // execFilterSecType
-            // 
-            this.execFilterSecType.Location = new System.Drawing.Point(65, 147);
-            this.execFilterSecType.Name = "execFilterSecType";
-            this.execFilterSecType.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSecType.TabIndex = 6;
-            // 
-            // execFilterClientLabel
-            // 
-            this.execFilterClientLabel.AutoSize = true;
-            this.execFilterClientLabel.Location = new System.Drawing.Point(6, 26);
-            this.execFilterClientLabel.Name = "execFilterClientLabel";
-            this.execFilterClientLabel.Size = new System.Drawing.Size(42, 13);
-            this.execFilterClientLabel.TabIndex = 7;
-            this.execFilterClientLabel.Text = "ClientId";
-            // 
-            // execFilterAcctLabel
-            // 
-            this.execFilterAcctLabel.AutoSize = true;
-            this.execFilterAcctLabel.Location = new System.Drawing.Point(6, 51);
-            this.execFilterAcctLabel.Name = "execFilterAcctLabel";
-            this.execFilterAcctLabel.Size = new System.Drawing.Size(47, 13);
-            this.execFilterAcctLabel.TabIndex = 8;
-            this.execFilterAcctLabel.Text = "Account";
-            // 
-            // execFilterTimeLabel
-            // 
-            this.execFilterTimeLabel.AutoSize = true;
-            this.execFilterTimeLabel.Location = new System.Drawing.Point(6, 180);
-            this.execFilterTimeLabel.Name = "execFilterTimeLabel";
-            this.execFilterTimeLabel.Size = new System.Drawing.Size(30, 13);
-            this.execFilterTimeLabel.TabIndex = 9;
-            this.execFilterTimeLabel.Text = "Time";
-            // 
-            // execFilterSymbolLabel
-            // 
-            this.execFilterSymbolLabel.AutoSize = true;
-            this.execFilterSymbolLabel.Location = new System.Drawing.Point(6, 129);
-            this.execFilterSymbolLabel.Name = "execFilterSymbolLabel";
-            this.execFilterSymbolLabel.Size = new System.Drawing.Size(41, 13);
-            this.execFilterSymbolLabel.TabIndex = 10;
-            this.execFilterSymbolLabel.Text = "Symbol";
-            // 
-            // execFilterSecTypeLabel
-            // 
-            this.execFilterSecTypeLabel.AutoSize = true;
-            this.execFilterSecTypeLabel.Location = new System.Drawing.Point(6, 154);
-            this.execFilterSecTypeLabel.Name = "execFilterSecTypeLabel";
-            this.execFilterSecTypeLabel.Size = new System.Drawing.Size(50, 13);
-            this.execFilterSecTypeLabel.TabIndex = 11;
-            this.execFilterSecTypeLabel.Text = "SecType";
-            // 
-            // execFilterExchangeLabel
-            // 
-            this.execFilterExchangeLabel.AutoSize = true;
-            this.execFilterExchangeLabel.Location = new System.Drawing.Point(6, 78);
-            this.execFilterExchangeLabel.Name = "execFilterExchangeLabel";
-            this.execFilterExchangeLabel.Size = new System.Drawing.Size(55, 13);
-            this.execFilterExchangeLabel.TabIndex = 12;
-            this.execFilterExchangeLabel.Text = "Exchange";
-            // 
-            // execFilterSideLabel
-            // 
-            this.execFilterSideLabel.AutoSize = true;
-            this.execFilterSideLabel.Location = new System.Drawing.Point(6, 103);
-            this.execFilterSideLabel.Name = "execFilterSideLabel";
-            this.execFilterSideLabel.Size = new System.Drawing.Size(28, 13);
-            this.execFilterSideLabel.TabIndex = 13;
-            this.execFilterSideLabel.Text = "Side";
-            // 
-            // execFilterSide
-            // 
-            this.execFilterSide.Location = new System.Drawing.Point(65, 96);
-            this.execFilterSide.Name = "execFilterSide";
-            this.execFilterSide.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSide.TabIndex = 14;
-            this.execFilterSide.Text = "BUY";
-            // 
-            // execFilterExchange
-            // 
-            this.execFilterExchange.Location = new System.Drawing.Point(65, 70);
-            this.execFilterExchange.Name = "execFilterExchange";
-            this.execFilterExchange.Size = new System.Drawing.Size(77, 20);
-            this.execFilterExchange.TabIndex = 15;
-            // 
             // ib_banner
             // 
             this.ib_banner.Image = ((System.Drawing.Image)(resources.GetObject("ib_banner.Image")));
@@ -4069,6 +4355,16 @@ namespace IBSampleApp
             this.ib_banner.Size = new System.Drawing.Size(238, 32);
             this.ib_banner.TabIndex = 9;
             this.ib_banner.TabStop = false;
+            // 
+            // buttonRequestAccountUpdatesMulti
+            // 
+            this.buttonRequestAccountUpdatesMulti.Location = new System.Drawing.Point(191, 48);
+            this.buttonRequestAccountUpdatesMulti.Name = "buttonRequestAccountUpdatesMulti";
+            this.buttonRequestAccountUpdatesMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonRequestAccountUpdatesMulti.TabIndex = 7;
+            this.buttonRequestAccountUpdatesMulti.Text = "Req Account Updates Multi";
+            this.buttonRequestAccountUpdatesMulti.UseVisualStyleBackColor = true;
+            this.buttonRequestAccountUpdatesMulti.Click += new System.EventHandler(this.buttonRequestAccountUpdatesMulti_Click);
             // 
             // IBSampleApp
             // 
@@ -4124,6 +4420,8 @@ namespace IBSampleApp
             this.groupBox4.PerformLayout();
             this.tradingTab.ResumeLayout(false);
             this.tradingTab.PerformLayout();
+            this.execFilterGroup.ResumeLayout(false);
+            this.execFilterGroup.PerformLayout();
             this.executionsGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tradeLogGrid)).EndInit();
             this.liveOrdersGroup.ResumeLayout(false);
@@ -4167,6 +4465,16 @@ namespace IBSampleApp
             this.optionsTab.PerformLayout();
             this.optionsPositionsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.optionPositionsGrid)).EndInit();
+            this.acctPosTab.ResumeLayout(false);
+            this.acctPosMultiPanel.ResumeLayout(false);
+            this.tabPositionsMulti.ResumeLayout(false);
+            this.tabPositionsMulti.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsMultiGrid)).EndInit();
+            this.tabAccountUpdatesMulti.ResumeLayout(false);
+            this.tabAccountUpdatesMulti.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).EndInit();
+            this.groupBoxRequestData.ResumeLayout(false);
+            this.groupBoxRequestData.PerformLayout();
             this.comboTab.ResumeLayout(false);
             this.comboDeltaNeutralBox.ResumeLayout(false);
             this.comboDeltaNeutralBox.PerformLayout();
@@ -4177,8 +4485,6 @@ namespace IBSampleApp
             this.tabControl2.ResumeLayout(false);
             this.messagesTab.ResumeLayout(false);
             this.messagesTab.PerformLayout();
-            this.execFilterGroup.ResumeLayout(false);
-            this.execFilterGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -4546,6 +4852,32 @@ namespace IBSampleApp
         private System.Windows.Forms.Label execFilterTimeLabel;
         private System.Windows.Forms.Label execFilterAcctLabel;
         private System.Windows.Forms.PictureBox ib_banner;
+        private System.Windows.Forms.TabPage acctPosTab;
+        private System.Windows.Forms.GroupBox groupBoxRequestData;
+        private System.Windows.Forms.CheckBox cbLedgerAndNLV;
+        private System.Windows.Forms.Label labelAccount;
+        private System.Windows.Forms.Button buttonRequestPositionsMulti;
+        private System.Windows.Forms.Label labelModelCode;
+        private System.Windows.Forms.TextBox textAccount;
+        private System.Windows.Forms.TextBox textModelCode;
+        private System.Windows.Forms.TabControl acctPosMultiPanel;
+        private System.Windows.Forms.TabPage tabPositionsMulti;
+        private System.Windows.Forms.LinkLabel clearPositionsMulti;
+        private System.Windows.Forms.DataGridView positionsMultiGrid;
+        private System.Windows.Forms.TabPage tabAccountUpdatesMulti;
+        private System.Windows.Forms.LinkLabel clearAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridView accountUpdatesMultiGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn keyAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valueAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn currencyAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodePositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contractPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn positionPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn avgCostPositionsMulti;
+        private System.Windows.Forms.Button buttonRequestAccountUpdatesMulti;
     }
 }
 
