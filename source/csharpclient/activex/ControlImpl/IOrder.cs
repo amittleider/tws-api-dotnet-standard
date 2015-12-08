@@ -2,6 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -224,13 +225,71 @@ namespace TWSLib
 
         [DispId(142)]
         object orderMiscOptions { [return: MarshalAs(UnmanagedType.IDispatch)] get; [param: MarshalAs(UnmanagedType.IDispatch)] set; }
+        
         [DispId(143)]
         string algoId { get; set; }
+        
         [DispId(144)]
         bool solicited { get; set; }
+        
         [DispId(145)]
         bool randomizeSize { get; set; }
+        
         [DispId(146)]
         bool randomizePrice { get; set; }
+        
+        [DispId(147)]
+        int ReferenceContractId { get; set; }
+        
+        [DispId(148)]
+        bool IsPeggedChangeAmountDecrease { get; set; }
+        
+        [DispId(149)]
+        double PeggedChangeAmount { get; set; }
+        
+        [DispId(150)]
+        double ReferenceChangeAmount { get; set; }
+        
+        [DispId(151)]
+        string ReferenceExchange { get; set; }
+        
+        [DispId(152)]
+        ArrayList Conditions { get; set; }
+        
+        [DispId(153)]
+        string adjustedOrderType { get; set; }
+        
+        [DispId(154)]
+        double stopPrice { get; set; }
+
+        [DispId(155)]
+        double triggerPrice { get; set; }
+
+        [DispId(156)]
+        double trailingAmount { get; set; }
+
+        [DispId(157)]
+        int trailingUnit { get; set; }
+
+        [DispId(158)]
+        double lmtPriceOffset { get; set; }
+
+        [DispId(159)]
+        double adjustedStopPrice { get; set; }
+
+        [DispId(160)]
+        double adjustedStopLimitPrice { get; set; }
+
+        [DispId(161)]
+        double adjustedTrailingAmount { get; set; }
+
+        [DispId(162)]
+        int adjustableTrailingUnit { get; set; }
+
+        [DispId(163)]
+        bool conditionsIgnoreRth { get; set; }
+
+        [DispId(164)]
+        bool conditionsCancelOrder { get; set; }
     }
 }

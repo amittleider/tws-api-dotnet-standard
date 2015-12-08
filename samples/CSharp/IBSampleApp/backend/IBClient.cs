@@ -7,6 +7,7 @@ using System.Text;
 using IBApi;
 using System.Windows.Forms;
 using IBSampleApp.messages;
+using System.Threading.Tasks;
 
 namespace IBSampleApp
 {
@@ -14,8 +15,92 @@ namespace IBSampleApp
     {
         private EClientSocket clientSocket;
         private int nextOrderId;
-        private IBSampleApp parentUI;
         private int clientId;
+
+        public Task<Contract> ResolveContractAsync(int conId, string refExch)
+        {
+            var reqId = new Random(DateTime.Now.Millisecond).Next();
+            var resolveResult = new TaskCompletionSource<Contract>();
+            var resolveContract_Error = new Action<int, int, string, Exception>((id, code, msg, ex) =>
+                {
+                    if (reqId != id)
+                        return;
+
+                    resolveResult.SetResult(null);
+                });
+            var resolveContract = new Action<int, ContractDetails>((id, details) =>
+                {
+                    if (id == reqId) 
+                        resolveResult.SetResult(details.Summary);
+                });
+            var contractDetailsEnd = new Action<int>(id =>
+            {
+                if (reqId == id && !resolveResult.Task.IsCompleted)
+                    resolveResult.SetResult(null);
+            });
+
+            var tmpError = Error;
+            var tmpContractDetails = ContractDetails;
+            var tmpContractDetailsEnd = ContractDetailsEnd;
+
+            Error = resolveContract_Error;
+            ContractDetails = resolveContract;
+            ContractDetailsEnd = contractDetailsEnd;
+
+            resolveResult.Task.ContinueWith(t => {
+                Error = tmpError;
+                ContractDetails = tmpContractDetails;
+                ContractDetailsEnd = tmpContractDetailsEnd; 
+            });
+
+            ClientSocket.reqContractDetails(reqId, new Contract() { ConId = conId, Exchange = refExch });
+
+            return resolveResult.Task;
+        }
+
+        public Task<Contract[]> ResolveContractAsync(string secType, string symbol, string currency, string exchange)
+        {
+            var reqId = new Random(DateTime.Now.Millisecond).Next();
+            var res = new TaskCompletionSource<Contract[]>();
+            var contractList = new List<Contract>();
+            var resolveContract_Error = new Action<int, int, string, Exception>((id, code, msg, ex) =>
+                {
+                    if (reqId != id)
+                        return;
+
+                    res.SetResult(new Contract[0]);
+                });
+            var contractDetails = new Action<int, ContractDetails>((id, details) =>
+                {
+                    if (reqId != id)
+                        return;
+
+                    contractList.Add(details.Summary);
+                });
+            var contractDetailsEnd = new Action<int>(id =>
+                {
+                    if (reqId == id)
+                        res.SetResult(contractList.ToArray());
+                });
+
+            var tmpError = Error;
+            var tmpContractDetails = ContractDetails;
+            var tmpContractDetailsEnd = ContractDetailsEnd;
+
+            Error = resolveContract_Error;
+            ContractDetails = contractDetails;
+            ContractDetailsEnd = contractDetailsEnd;
+
+            res.Task.ContinueWith(t => {
+                Error = tmpError;
+                ContractDetails = tmpContractDetails;
+                ContractDetailsEnd = tmpContractDetailsEnd; 
+            });
+
+            ClientSocket.reqContractDetails(reqId, new Contract() { SecType = secType, Symbol = symbol, Currency = currency, Exchange = exchange });
+
+            return res.Task;
+        }
 
         public int ClientId
         {
@@ -23,16 +108,15 @@ namespace IBSampleApp
             set { clientId = value; }
         }
 
-        public IBClient(IBSampleApp parent, EReaderSignal signal)
+        public IBClient(EReaderSignal signal)
         {
-            parentUI = parent;
             clientSocket = new EClientSocket(this, signal);
         }
 
         public EClientSocket ClientSocket
         {
             get { return clientSocket; }
-            set { clientSocket = value; }
+            private set { clientSocket = value; }
         }
 
         public int NextOrderId
@@ -41,261 +125,501 @@ namespace IBSampleApp
             set { nextOrderId = value; }
         }
 
-        public virtual void error(Exception e)
+        public event Action<int, int, string, Exception> Error;
+
+        void EWrapper.error(Exception e)
         {
-            addTextToBox("Error: " + e);
+            var tmp = Error;
+
+            if (tmp != null)
+                tmp(0, 0, null, e);
         }
 
-        public virtual void error(string str)
+        void EWrapper.error(string str)
         {
-            addTextToBox("Error: " + str + "\n");
+            var tmp = Error;
+
+            if (tmp != null)
+                tmp(0, 0, str, null);
         }
 
-        public virtual void error(int id, int errorCode, string errorMsg)
+        void EWrapper.error(int id, int errorCode, string errorMsg)
         {
-           parentUI.HandleMessage(new ErrorMessage(id, errorCode, errorMsg));
+            var tmp = Error;
+
+            if (tmp != null)
+                tmp(id, errorCode, errorMsg, null);
         }
 
-        public virtual void connectionClosed()
+        public event Action ConnectionClosed;
+
+        void EWrapper.connectionClosed()
         {
-            parentUI.IsConnected = false;
-            parentUI.HandleMessage(new ConnectionStatusMessage(false));
+            var tmp = ConnectionClosed;
+
+            if (tmp != null)
+                tmp();
         }
 
-        public virtual void currentTime(long time)
+        public event Action<long> CurrentTime;
+
+        void EWrapper.currentTime(long time)
         {
-            addTextToBox("Current Time: " + time + "\n");
+            var tmp = CurrentTime;
+
+            if (tmp != null)
+                tmp(time);
         }
 
-        public virtual void tickPrice(int tickerId, int field, double price, int canAutoExecute)
+        public event Action<int, int, double, int> TickPrice;
+
+        void EWrapper.tickPrice(int tickerId, int field, double price, int canAutoExecute)
         {
-            addTextToBox("Tick Price. Ticker Id:" + tickerId + ", Type: " + TickType.getField(field) + ", Price: " + price + "\n");
-            parentUI.HandleMessage(new TickPriceMessage(tickerId, field, price, canAutoExecute));
+            var tmp = TickPrice;
+
+            if (tmp != null)
+                tmp(tickerId, field, price, canAutoExecute);
         }
 
-        public virtual void tickSize(int tickerId, int field, int size)
+        public event Action<int, int, int> TickSize;
+
+        void EWrapper.tickSize(int tickerId, int field, int size)
         {
-            addTextToBox("Tick Size. Ticker Id:" + tickerId + ", Type: " + TickType.getField(field) + ", Size: " + size + "\n");
-            parentUI.HandleMessage(new TickSizeMessage(tickerId, field, size));
+            var tmp = TickSize;
+
+            if (tmp != null)
+                tmp(tickerId, field, size);
         }
 
-        public virtual void tickString(int tickerId, int tickType, string value)
+        public event Action<int, int, string> TickString;
+
+        void EWrapper.tickString(int tickerId, int tickType, string value)
         {
-            addTextToBox("Tick string. Ticker Id:" + tickerId + ", Type: " + TickType.getField(tickType) + ", Value: " + value + "\n");
+            var tmp = TickString;
+
+            if (tmp != null)
+                tmp(tickerId, tickType, value);
         }
 
-        public virtual void tickGeneric(int tickerId, int field, double value)
+        public event Action<int, int, double> TickGeneric;
+
+        void EWrapper.tickGeneric(int tickerId, int field, double value)
         {
-            addTextToBox("Tick Generic. Ticker Id:" + tickerId + ", Field: " + TickType.getField(field) + ", Value: " + value + "\n");
+            var tmp = TickGeneric;
+
+            if (tmp != null)
+                tmp(tickerId, field, value);            
         }
 
-        public virtual void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
+        public event Action<int, int, double, string, double, int, string, double, double> TickEFP;
+
+        void EWrapper.tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
         {
-            addTextToBox("TickEFP. " + tickerId + ", Type: " + tickType + ", BasisPoints: " + basisPoints + ", FormattedBasisPoints: " + formattedBasisPoints + ", ImpliedFuture: " + impliedFuture + ", HoldDays: " + holdDays + ", FutureLastTradeDate: " + futureLastTradeDate + ", DividendImpact: " + dividendImpact + ", DividendsToLastTradeDate: " + dividendsToLastTradeDate + "\n");
+            var tmp = TickEFP;
+
+            if (tmp != null)
+                tmp(tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
 
-        public virtual void tickSnapshotEnd(int tickerId)
+        public event Action<int> TickSnapshotEnd;
+
+        void EWrapper.tickSnapshotEnd(int tickerId)
         {
-            addTextToBox("TickSnapshotEnd: " + tickerId + "\n");
+            var tmp = TickSnapshotEnd;
+
+            if (tmp != null)
+                tmp(tickerId);            
         }
 
-        public virtual void nextValidId(int orderId)
+        public event Action<int> NextValidId;
+
+        void EWrapper.nextValidId(int orderId)
         {
-            parentUI.IsConnected = true;
+            var tmp = NextValidId;
+
+            if (tmp != null)
+                tmp(orderId);
+
             NextOrderId = orderId;
-            parentUI.HandleMessage(new ConnectionStatusMessage(true));
         }
 
-        public virtual void deltaNeutralValidation(int reqId, UnderComp underComp)
+        public event Action<int, UnderComp> DeltaNeutralValidation;
+
+        void EWrapper.deltaNeutralValidation(int reqId, UnderComp underComp)
         {
-            addTextToBox("DeltaNeutralValidation. " + reqId + ", ConId: " + underComp.ConId + ", Delta: " + underComp.Delta + ", Price: " + underComp.Price + "\n");
+            var tmp = DeltaNeutralValidation;
+
+            if (tmp != null)
+                tmp(reqId, underComp);            
         }
 
-        public virtual void managedAccounts(string accountsList)
+        public event Action<string> ManagedAccounts;
+
+        void EWrapper.managedAccounts(string accountsList)
         {
-            parentUI.HandleMessage(new ManagedAccountsMessage(accountsList));
+            var tmp = ManagedAccounts;
+
+            if (tmp != null)
+                tmp(accountsList);            
         }
 
-        public virtual void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        public event Action<int, int, double, double, double, double, double, double, double, double> TickOptionCommunication;
+
+        void EWrapper.tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
-            //addTextToBox("TickOptionComputation. TickerId: " + tickerId + ", field: " + field + ", ImpliedVolatility: " + impliedVolatility + ", Delta: " + delta
-              //  + ", OptionPrice: " + optPrice + ", pvDividend: " + pvDividend + ", Gamma: " + gamma + ", Vega: " + vega + ", Theta: " + theta + ", UnderlyingPrice: " + undPrice + "\n");
-            parentUI.HandleMessage(new TickOptionMessage(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice));
+            var tmp = TickOptionCommunication;
+
+            if (tmp != null)
+                tmp(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
         }
 
-        public virtual void accountSummary(int reqId, string account, string tag, string value, string currency)
+        public event Action<int, string, string, string, string> AccountSummary;
+
+        void EWrapper.accountSummary(int reqId, string account, string tag, string value, string currency)
         {
-            parentUI.HandleMessage(new AccountSummaryMessage(reqId, account, tag, value, currency));
+            var tmp = AccountSummary;
+
+            if (tmp != null)
+                tmp(reqId, account, tag, value, currency);
         }
 
-        public virtual void accountSummaryEnd(int reqId)
+        public event Action<int> AccountSummaryEnd;
+
+        void EWrapper.accountSummaryEnd(int reqId)
         {
-            parentUI.HandleMessage(new AccountSummaryEndMessage(reqId));
+            var tmp = AccountSummaryEnd;
+
+            if (tmp != null)
+                tmp(reqId);
         }
 
-        public virtual void updateAccountValue(string key, string value, string currency, string accountName)
+        public event Action<string, string, string, string> UpdateAccountValue;
+
+        void EWrapper.updateAccountValue(string key, string value, string currency, string accountName)
         {
-            parentUI.HandleMessage(new AccountValueMessage(key, value, currency, accountName));
+            var tmp = UpdateAccountValue;
+
+            if (tmp != null)
+                tmp(key, value, currency, accountName);
         }
 
-        public virtual void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public event Action<Contract, double, double, double, double, double, double, string> UpdatePortfolio;
+
+        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
-            parentUI.HandleMessage(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName));
+            var tmp = UpdatePortfolio;
+
+            if (tmp != null)
+                tmp(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName);
         }
 
-        public virtual void updateAccountTime(string timestamp)
+        public event Action<string> UpdateAccountTime;
+
+        void EWrapper.updateAccountTime(string timestamp)
         {
-            parentUI.HandleMessage(new UpdateAccountTimeMessage(timestamp));
+            var tmp = UpdateAccountTime;
+
+            if (tmp != null)
+                tmp(timestamp);
         }
 
-        public virtual void accountDownloadEnd(string account)
+        public event Action<string> AccountDownloadEnd;
+
+        void EWrapper.accountDownloadEnd(string account)
         {
-            parentUI.HandleMessage(new AccountDownloadEndMessage(account));
+            var tmp = AccountDownloadEnd;
+
+            if (tmp != null)
+                tmp(account);
         }
 
-        public virtual void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        public event Action<int, string, double, double, double, int, int, double, int, string> OrderStatus;
+
+        void EWrapper.orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
-            parentUI.HandleMessage(new OrderStatusMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld));
+            var tmp = OrderStatus;
+
+            if (tmp != null)
+                tmp(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
         }
 
-        public virtual void openOrder(int orderId, Contract contract, Order order, OrderState orderState)
+        public event Action<int, Contract, Order, OrderState> OpenOrder;
+
+        void EWrapper.openOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
-            parentUI.HandleMessage(new OpenOrderMessage(orderId, contract, order, orderState));
+            var tmp = OpenOrder;
+
+            if (tmp != null)
+                tmp(orderId, contract, order, orderState);
         }
 
-        public virtual void openOrderEnd()
+        public event Action OpenOrderEnd;
+
+        void EWrapper.openOrderEnd()
         {
-            parentUI.HandleMessage(new OpenOrderEndMessage());
+            var tmp = OpenOrderEnd;
+
+            if (tmp != null)
+                tmp();
         }
 
-        public virtual void contractDetails(int reqId, ContractDetails contractDetails)
+        public event Action<int, ContractDetails> ContractDetails;
+
+        void EWrapper.contractDetails(int reqId, ContractDetails contractDetails)
         {
-            parentUI.HandleMessage(new ContractDetailsMessage(reqId, contractDetails));
+            var tmp = ContractDetails;
+
+            if (tmp != null)
+                tmp(reqId, contractDetails);
         }
 
-        public virtual void contractDetailsEnd(int reqId)
+        public event Action<int> ContractDetailsEnd;
+
+        void EWrapper.contractDetailsEnd(int reqId)
         {
-            parentUI.HandleMessage(new ContractDetailsEndMessage());
+            var tmp = ContractDetailsEnd;
+
+            if (tmp != null)
+                tmp(reqId);
         }
 
-        public virtual void execDetails(int reqId, Contract contract, Execution execution)
+        public event Action<int, Contract, Execution> ExecDetails;
+
+        void EWrapper.execDetails(int reqId, Contract contract, Execution execution)
         {
-            parentUI.HandleMessage(new ExecutionMessage(reqId, contract, execution));
+            var tmp = ExecDetails;
+
+            if (tmp != null)
+                tmp(reqId, contract, execution);
         }
 
-        public virtual void execDetailsEnd(int reqId)
+        public event Action<int> ExecDetailsEnd;
+
+        void EWrapper.execDetailsEnd(int reqId)
         {
-            addTextToBox("ExecDetailsEnd. " + reqId + "\n");
+            var tmp = ExecDetailsEnd;
+
+            if (tmp != null)
+                tmp(reqId);
         }
 
-        public virtual void commissionReport(CommissionReport commissionReport)
+        public event Action<CommissionReport> CommissionReport;
+
+        void EWrapper.commissionReport(CommissionReport commissionReport)
         {
-            parentUI.HandleMessage(new CommissionMessage(commissionReport));
+            var tmp = CommissionReport;
+
+            if (tmp != null)
+                tmp(commissionReport);
         }
 
-        public virtual void fundamentalData(int reqId, string data)
+        public event Action<int, string> FundamentalData;
+
+        void EWrapper.fundamentalData(int reqId, string data)
         {
-            parentUI.HandleMessage(new FundamentalsMessage(data));
+            var tmp = FundamentalData;
+
+            if (tmp != null)
+                tmp(reqId, data);
         }
 
-        public virtual void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        public event Action<int, string, double, double, double, double, int, int, double, bool> HistoricalData;
+
+        void EWrapper.historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
         {
-            parentUI.HandleMessage(new HistoricalDataMessage(reqId, date, open, high, low, close, volume, count, WAP, hasGaps));
+            var tmp = HistoricalData;
+
+            if (tmp != null)
+                tmp(reqId, date, open, high, low, close, volume, count, WAP, hasGaps);
         }
 
-        public virtual void historicalDataEnd(int reqId, string startDate, string endDate)
+        public event Action<int, string, string> HistoricalDataEnd;
+
+        void EWrapper.historicalDataEnd(int reqId, string startDate, string endDate)
         {
-            parentUI.HandleMessage(new HistoricalDataEndMessage(reqId, startDate, endDate));
+            var tmp = HistoricalDataEnd;
+
+            if (tmp != null)
+                tmp(reqId, startDate, endDate);
         }
 
-        public virtual void marketDataType(int reqId, int marketDataType)
+        public event Action<int, int> MarketDataType;
+
+        void EWrapper.marketDataType(int reqId, int marketDataType)
         {
-            addTextToBox("MarketDataType. " + reqId + ", Type: " + marketDataType + "\n");
+            var tmp = MarketDataType;
+
+            if (tmp != null)
+                tmp(reqId, marketDataType);
         }
 
-        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
+        public event Action<int, int, int, int, double, int> UpdateMktDepth;
+
+        void EWrapper.updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
         {
-            parentUI.HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, ""));
+            var tmp = UpdateMktDepth;
+
+            if (tmp != null)
+                tmp(tickerId, position, operation, side, price, size);
         }
 
-        public virtual void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size)
+        public event Action<int, int, string, int, int, double, int> UpdateMktDepthL2;
+
+        void EWrapper.updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size)
         {
-            parentUI.HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, marketMaker));
+            var tmp = UpdateMktDepthL2;
+
+            if (tmp != null)
+                tmp(tickerId, position, marketMaker, operation, side, price, size);
         }
 
-        public virtual void updateNewsBulletin(int msgId, int msgType, String message, String origExchange)
+        public event Action<int, int, String, String> UpdateNewsBulletin;
+
+        void EWrapper.updateNewsBulletin(int msgId, int msgType, String message, String origExchange)
         {
-            addTextToBox("News Bulletins. " + msgId + " - Type: " + msgType + ", Message: " + message + ", Exchange of Origin: " + origExchange + "\n");
+            var tmp = UpdateNewsBulletin;
+
+            if (tmp != null)
+                tmp(msgId, msgType, message, origExchange);
         }
 
-        public virtual void position(string account, Contract contract, double pos, double avgCost)
+        public event Action<string, Contract, double, double> Position;
+
+        void EWrapper.position(string account, Contract contract, double pos, double avgCost)
         {
-            parentUI.HandleMessage(new PositionMessage(account, contract, pos, avgCost));
+            var tmp = Position;
+
+            if (tmp != null)
+                tmp(account, contract, pos, avgCost);
         }
 
-        public virtual void positionEnd()
+        public event Action PositionEnd;
+
+        void EWrapper.positionEnd()
         {
-            addTextToBox("PositionEnd \n");
+            var tmp = PositionEnd;
+
+            if (tmp != null)
+                tmp();            
         }
 
-        public virtual void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count)
+        public event Action<int, long, double, double, double, double, long, double, int> RealtimeBar;
+
+        void EWrapper.realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count)
         {
-            parentUI.HandleMessage(new RealTimeBarMessage(reqId, time, open, high, low, close, volume, WAP, count));
+            var tmp = RealtimeBar;
+
+            if (tmp != null)
+                tmp(reqId, time, open, high, low, close, volume, WAP, count);
         }
 
-        public virtual void scannerParameters(string xml)
+        public event Action<string> ScannerParameters;
+
+        void EWrapper.scannerParameters(string xml)
         {
-            parentUI.HandleMessage(new ScannerParametersMessage(xml));
+            var tmp = ScannerParameters;
+
+            if (tmp != null)
+                tmp(xml);
         }
 
-        public virtual void scannerData(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)
+        public event Action<int, int, ContractDetails, string, string, string, string> ScannerData;
+
+        void EWrapper.scannerData(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)
         {
-            parentUI.HandleMessage(new ScannerMessage(reqId, rank, contractDetails, distance, benchmark, projection, legsStr));
+            var tmp = ScannerData;
+
+            if (tmp != null)
+                tmp(reqId, rank, contractDetails, distance, benchmark, projection, legsStr);
         }
 
-        public virtual void scannerDataEnd(int reqId)
+        public event Action<int> ScannerDataEnd;
+
+        void EWrapper.scannerDataEnd(int reqId)
         {
-            addTextToBox("ScannerDataEnd. " + reqId + "\r\n");
+            var tmp = ScannerDataEnd;
+
+            if (tmp != null)
+                tmp(reqId);
         }
 
-        public virtual void receiveFA(int faDataType, string faXmlData)
+        public event Action<int, string> ReceiveFA;
+
+        void EWrapper.receiveFA(int faDataType, string faXmlData)
         {
-            parentUI.HandleMessage(new AdvisorDataMessage(faDataType, faXmlData));
+            var tmp = ReceiveFA;
+
+            if (tmp != null)
+                tmp(faDataType, faXmlData);
         }
 
-        public virtual void bondContractDetails(int requestId, ContractDetails contractDetails)
+        public event Action<int, ContractDetails> BondContractDetails;
+
+        void EWrapper.bondContractDetails(int requestId, ContractDetails contractDetails)
         {
-            addTextToBox("Receiving bond contract details.");
+            var tmp = BondContractDetails;
+
+            if (tmp != null)
+                tmp(requestId, contractDetails);
         }
 
-        public virtual void verifyMessageAPI(string apiData)
+        public event Action<string> VerifyMessageAPI;
+
+        void EWrapper.verifyMessageAPI(string apiData)
         {
-            addTextToBox("verifyMessageAPI: "+apiData);
+            var tmp = VerifyMessageAPI;
+
+            if (tmp != null)
+                tmp(apiData);
         }
-        public virtual void verifyCompleted(bool isSuccessful, string errorText)
+        public event Action<bool, string> VerifyCompleted;
+
+        void EWrapper.verifyCompleted(bool isSuccessful, string errorText)
         {
-            addTextToBox("verifyCompleted. IsSuccessfule: "+isSuccessful+" - Error: "+errorText);
-        }
-        public virtual void verifyAndAuthMessageAPI(string apiData, string xyzChallenge)
-        {
-            addTextToBox("verifyAndAuthMessageAPI: " + apiData + " " + xyzChallenge);
-        }
-        public virtual void verifyAndAuthCompleted(bool isSuccessful, string errorText)
-        {
-            addTextToBox("verifyAndAuthCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
-        }
-        public virtual void displayGroupList(int reqId, string groups)
-        {
-            addTextToBox("DisplayGroupList. Request: "+reqId+", Groups"+groups);
-        }
-        public virtual void displayGroupUpdated(int reqId, string contractInfo)
-        {
-            addTextToBox("displayGroupUpdated. Request: "+reqId+", ContractInfo: "+contractInfo);
+            var tmp = VerifyCompleted;
+
+            if (tmp != null)
+                tmp(isSuccessful, errorText);
         }
 
-        private void addTextToBox(string text)
+        public event Action<string, string> VerifyAndAuthMessageAPI;
+
+        void EWrapper.verifyAndAuthMessageAPI(string apiData, string xyzChallenge)
         {
-            parentUI.HandleMessage(new ErrorMessage(-1, -1, text));
+            var tmp = VerifyAndAuthMessageAPI;
+
+            if (tmp != null)
+                tmp(apiData, xyzChallenge);
+        }
+
+        public event Action<bool, string> VerifyAndAuthCompleted;
+
+        void EWrapper.verifyAndAuthCompleted(bool isSuccessful, string errorText)
+        {
+            var tmp = VerifyAndAuthCompleted;
+
+            if (tmp != null)
+                tmp(isSuccessful, errorText);            
+        }
+
+        public event Action<int, string> DisplayGroupList;
+
+        void EWrapper.displayGroupList(int reqId, string groups)
+        {
+            var tmp = DisplayGroupList;
+
+            if (tmp != null)
+                tmp(reqId, groups);
+        }
+
+        public event Action<int, string> DisplayGroupUpdated;
+
+        void EWrapper.displayGroupUpdated(int reqId, string contractInfo)
+        {
+            var tmp = DisplayGroupUpdated;
+
+            if (tmp != null)
+                tmp(reqId, contractInfo);
         }
 
 

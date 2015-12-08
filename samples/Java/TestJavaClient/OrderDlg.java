@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+import java.util.concurrent.Callable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,7 +25,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import apidemo.AdjustedPanel;
+import apidemo.ApiDemo;
+import apidemo.ConditionDlg;
+import apidemo.ConditionsPanel;
+import apidemo.OnOKPanel;
+import apidemo.PegBenchPanel;
+import apidemo.util.VerticalPanel;
+
 import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.ContractLookuper;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
@@ -84,6 +95,7 @@ public class OrderDlg extends JDialog {
     private JTextField 	m_totalQuantity = new JTextField( "10");
     private JTextField 	m_orderType = new JTextField( "LMT");
     private JTextField 	m_lmtPrice = new JTextField( "40");
+    private JTextField 	m_stpPrice = new JTextField( "40");
     private JTextField 	m_auxPrice = new JTextField( "0");
     private JTextField 	m_goodAfterTime = new JTextField();
     private JTextField 	m_goodTillDate = new JTextField();
@@ -101,6 +113,9 @@ public class OrderDlg extends JDialog {
     private JButton 	m_btnAlgoParams = new JButton( "Algo Params");
     private JButton 	m_btnSmartComboRoutingParams = new JButton( "Smart Combo Routing Params");
     private JButton 	m_btnOptions = new JButton( "Options");
+    private JButton		m_btnConditions = new JButton("Conditions");
+    private JButton		m_btnPeg2Bench = new JButton("Pegged to benchmark");
+    private JButton		m_btnAdjStop = new JButton("Adjustable stops");
 
     private JButton 	m_ok = new JButton( "OK");
     private JButton 	m_cancel = new JButton( "Cancel");
@@ -191,8 +206,10 @@ public class OrderDlg extends JDialog {
         addGBComponent(pOrderDetails, m_totalQuantity, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Order Type"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_orderType, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
-        addGBComponent(pOrderDetails, new JLabel( "Lmt Price / Option Price / Volatility"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
+        addGBComponent(pOrderDetails, new JLabel( "Lmt Price / Option Price / Stop Price / Volatility"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_lmtPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
+        addGBComponent(pOrderDetails, new JLabel( "Stop Price"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
+        addGBComponent(pOrderDetails, m_stpPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Aux Price / Underlying Price"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_auxPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Good After Time"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
@@ -275,9 +292,16 @@ public class OrderDlg extends JDialog {
         pOrderButtonPanel.add( m_btnUnderComp);
         pOrderButtonPanel.add( m_btnAlgoParams);
         pOrderButtonPanel.add( m_btnSmartComboRoutingParams);
-        pOrderButtonPanel.add( m_btnOptions);
 
         pMidPanel.add( pOrderButtonPanel, BorderLayout.CENTER);
+        
+        JPanel pOrderButtonPanel2 = new JPanel();
+        pOrderButtonPanel2.add( m_btnOptions);
+        pOrderButtonPanel2.add( m_btnConditions);
+        pOrderButtonPanel2.add( m_btnPeg2Bench);
+        pOrderButtonPanel2.add( m_btnAdjStop);
+
+        pMidPanel.add( pOrderButtonPanel2, BorderLayout.CENTER);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
@@ -285,6 +309,24 @@ public class OrderDlg extends JDialog {
         buttonPanel.add( m_cancel);
 
         // create action listeners
+        m_btnPeg2Bench.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnPeg2Bench();
+			}
+		});
+        m_btnAdjStop.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnAdjStop();
+			}
+		});
+        m_btnConditions.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnConditions();
+			}
+		});
         m_sharesAlloc.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onSharesAlloc();
@@ -343,7 +385,71 @@ public class OrderDlg extends JDialog {
         pack();
     }
 
-    private static String pad( int val) {
+    protected void onBtnAdjStop() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new AdjustedPanel((JDialog)param, m_order);
+			} 
+		});
+	}
+    
+	protected void onBtnPeg2Bench() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new PegBenchPanel((JDialog)param, m_order, new ContractLookuper() {					
+					@Override
+					public ArrayList<ContractDetails> lookupContract(Contract contract) {
+						try {
+							return m_parent.lookupContract(contract);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						return new ArrayList<ContractDetails>();
+					}
+				});
+			} 
+		});
+	}
+
+	
+	protected void onBtnConditions() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new ConditionsPanel((JDialog)param, m_order,  new ContractLookuper() {					
+					@Override
+					public ArrayList<ContractDetails> lookupContract(Contract contract) {
+						try {
+							return m_parent.lookupContract(contract);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						return new ArrayList<ContractDetails>();
+					}
+				});
+			} 
+		});
+	}	
+	
+	interface CallableWithParam {
+		Object call(Object param);
+	}
+	
+	private void showModalPanelDialog(CallableWithParam panelCreator) {
+		JDialog dialog = new JDialog();
+		OnOKPanel panel = (OnOKPanel)panelCreator.call(dialog);
+    	
+    	dialog.add(panel);
+    	dialog.pack();
+    	dialog.setModal(true);
+    	dialog.setVisible(true);
+    	panel.onOK();
+	}
+    
+	private static String pad( int val) {
         return val < 10 ? "0" + val : "" + val;
     }
 
@@ -437,6 +543,7 @@ public class OrderDlg extends JDialog {
             m_order.totalQuantity(Double.parseDouble( m_totalQuantity.getText() ));
             m_order.orderType(m_orderType.getText());
             m_order.lmtPrice(parseStringToMaxDouble( m_lmtPrice.getText()));
+            m_order.stopPrice(parseStringToMaxDouble(m_stpPrice.getText()));
             m_order.auxPrice(parseStringToMaxDouble( m_auxPrice.getText()));
             m_order.goodAfterTime(m_goodAfterTime.getText());
             m_order.goodTillDate(m_goodTillDate.getText());

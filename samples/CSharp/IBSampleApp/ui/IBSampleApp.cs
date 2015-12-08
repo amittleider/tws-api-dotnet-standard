@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace IBSampleApp
 {
-    public partial class IBSampleApp : Form
+    public partial class IBSampleAppDialog : Form
     {
         delegate void MessageHandlerDelegate(IBMessage message);
 
@@ -42,10 +42,10 @@ namespace IBSampleApp
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
 
-        public IBSampleApp()
+        public IBSampleAppDialog()
         {
             InitializeComponent();
-            ibClient = new IBClient(this, signal);
+            ibClient = new IBClient(signal);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
             historicalDataManager = new HistoricalDataManager(ibClient, historicalChart, barsGrid);
@@ -78,6 +78,118 @@ namespace IBSampleApp
 
             DateTime execFilterDefault = DateTime.Now.AddHours(-1);
             execFilterTime.Text = execFilterDefault.ToString("yyyyMMdd HH:mm:ss");
+
+            ibClient.Error += ibClient_Error;
+            ibClient.ConnectionClosed += ibClient_ConnectionClosed;
+            ibClient.CurrentTime += time => addTextToBox("Current Time: " + time + "\n");
+            ibClient.TickPrice += ibClient_TickPrice;
+            ibClient.TickSize += ibClient_TickSize;
+            ibClient.TickString += (tickerId, tickType, value) => addTextToBox("Tick string. Ticker Id:" + tickerId + ", Type: " + TickType.getField(tickType) + ", Value: " + value + "\n");
+            ibClient.TickGeneric += (tickerId, field, value) => addTextToBox("Tick Generic. Ticker Id:" + tickerId + ", Field: " + TickType.getField(field) + ", Value: " + value + "\n");
+            ibClient.TickEFP += (tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate) => addTextToBox("TickEFP. " + tickerId + ", Type: " + tickType + ", BasisPoints: " + basisPoints + ", FormattedBasisPoints: " + formattedBasisPoints + ", ImpliedFuture: " + impliedFuture + ", HoldDays: " + holdDays + ", FutureLastTradeDate: " + futureLastTradeDate + ", DividendImpact: " + dividendImpact + ", DividendsToLastTradeDate: " + dividendsToLastTradeDate + "\n");
+            ibClient.TickSnapshotEnd += tickerId => addTextToBox("TickSnapshotEnd: " + tickerId + "\n");
+            ibClient.NextValidId += ibClient_NextValidId;
+            ibClient.DeltaNeutralValidation += (reqId, underComp) => 
+                addTextToBox("DeltaNeutralValidation. " + reqId + ", ConId: " + underComp.ConId + ", Delta: " + underComp.Delta + ", Price: " + underComp.Price + "\n");
+
+            ibClient.ManagedAccounts += accountsList => HandleMessage(new ManagedAccountsMessage(accountsList));
+            ibClient.TickOptionCommunication += (tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice) => 
+                HandleMessage(new TickOptionMessage(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice));
+
+            ibClient.AccountSummary += (reqId, account, tag, value, currency) => HandleMessage(new AccountSummaryMessage(reqId, account, tag, value, currency));
+            ibClient.AccountSummaryEnd += reqId => HandleMessage(new AccountSummaryEndMessage(reqId));
+            ibClient.UpdateAccountValue += (key, value, currency, accountName) => HandleMessage(new AccountValueMessage(key, value, currency, accountName));
+            ibClient.UpdatePortfolio += (contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName) => 
+                HandleMessage(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName));
+
+            ibClient.UpdateAccountTime += timestamp => HandleMessage(new UpdateAccountTimeMessage(timestamp));
+            ibClient.AccountDownloadEnd += account => HandleMessage(new AccountDownloadEndMessage(account));
+            ibClient.OrderStatus += (orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld) => 
+                HandleMessage(new OrderStatusMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld));
+
+            ibClient.OpenOrder += (orderId, contract, order, orderState) => HandleMessage(new OpenOrderMessage(orderId, contract, order, orderState));
+            ibClient.OpenOrderEnd += () => HandleMessage(new OpenOrderEndMessage());
+            ibClient.ContractDetails += (reqId, contractDetails) => HandleMessage(new ContractDetailsMessage(reqId, contractDetails));
+            ibClient.ContractDetailsEnd += (reqId) => HandleMessage(new ContractDetailsEndMessage());
+            ibClient.ExecDetails += (reqId, contract, execution) => HandleMessage(new ExecutionMessage(reqId, contract, execution));
+            ibClient.ExecDetailsEnd += reqId => addTextToBox("ExecDetailsEnd. " + reqId + "\n");
+            ibClient.CommissionReport += commissionReport => HandleMessage(new CommissionMessage(commissionReport));
+            ibClient.FundamentalData += (reqId, data) => HandleMessage(new FundamentalsMessage(data));
+            ibClient.HistoricalData += (reqId, date, open, high, low, close, volume, count, WAP, hasGaps) => 
+                HandleMessage(new HistoricalDataMessage(reqId, date, open, high, low, close, volume, count, WAP, hasGaps));
+
+            ibClient.HistoricalDataEnd += (reqId, startDate, endDate) => HandleMessage(new HistoricalDataEndMessage(reqId, startDate, endDate));
+            ibClient.MarketDataType += (reqId, marketDataType) => addTextToBox("MarketDataType. " + reqId + ", Type: " + marketDataType + "\n");
+            ibClient.UpdateMktDepth += (tickerId, position, operation, side, price, size) => HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, ""));
+            ibClient.UpdateMktDepthL2 += (tickerId, position, marketMaker, operation, side, price, size) => HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, marketMaker));
+            ibClient.UpdateNewsBulletin += (msgId, msgType, message, origExchange) => 
+                addTextToBox("News Bulletins. " + msgId + " - Type: " + msgType + ", Message: " + message + ", Exchange of Origin: " + origExchange + "\n");
+
+            ibClient.Position += (account, contract, pos, avgCost) => HandleMessage(new PositionMessage(account, contract, pos, avgCost));
+            ibClient.PositionEnd += () => addTextToBox("PositionEnd \n");
+            ibClient.RealtimeBar += (reqId, time, open, high, low, close, volume, WAP, count) => HandleMessage(new RealTimeBarMessage(reqId, time, open, high, low, close, volume, WAP, count));
+            ibClient.ScannerParameters += xml => HandleMessage(new ScannerParametersMessage(xml));
+            ibClient.ScannerData += (reqId, rank, contractDetails, distance, benchmark, projection, legsStr) => 
+                HandleMessage(new ScannerMessage(reqId, rank, contractDetails, distance, benchmark, projection, legsStr));
+            
+            ibClient.ScannerDataEnd += reqId => addTextToBox("ScannerDataEnd. " + reqId + "\r\n");
+            ibClient.ReceiveFA += (faDataType, faXmlData) => HandleMessage(new AdvisorDataMessage(faDataType, faXmlData));
+            ibClient.BondContractDetails += (requestId, contractDetails) => addTextToBox("Receiving bond contract details.");
+            ibClient.VerifyMessageAPI += apiData => addTextToBox("verifyMessageAPI: " + apiData);
+            ibClient.VerifyCompleted += (isSuccessful, errorText) => addTextToBox("verifyCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
+            ibClient.VerifyAndAuthMessageAPI += (apiData, xyzChallenge) => addTextToBox("verifyAndAuthMessageAPI: " + apiData + " " + xyzChallenge);
+            ibClient.VerifyAndAuthCompleted += (isSuccessful, errorText) => addTextToBox("verifyAndAuthCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
+            ibClient.DisplayGroupList += (reqId, groups) => addTextToBox("DisplayGroupList. Request: " + reqId + ", Groups" + groups);
+            ibClient.DisplayGroupUpdated += (reqId, contractInfo) => addTextToBox("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
+        }
+
+        void ibClient_NextValidId(int orderId)
+        {
+            IsConnected = true;
+            HandleMessage(new ConnectionStatusMessage(true));
+        }
+
+        void ibClient_TickSize(int tickerId, int field, int size)
+        {
+            addTextToBox("Tick Size. Ticker Id:" + tickerId + ", Type: " + TickType.getField(field) + ", Size: " + size + "\n");
+            HandleMessage(new TickSizeMessage(tickerId, field, size));
+        }
+
+        void ibClient_TickPrice(int tickerId, int field, double price, int canAutoExecute)
+        {
+            addTextToBox("Tick Price. Ticker Id:" + tickerId + ", Type: " + TickType.getField(field) + ", Price: " + price + "\n");
+            HandleMessage(new TickPriceMessage(tickerId, field, price, canAutoExecute));
+        }
+
+        void ibClient_ConnectionClosed()
+        {
+            IsConnected = false;
+            HandleMessage(new ConnectionStatusMessage(false));
+        }
+
+        void ibClient_Error(int id, int errorCode, string str, Exception ex)
+        {
+            if (ex != null)
+            {
+                addTextToBox("Error: " + ex);
+
+                return;
+            }
+
+            if (id == 0 || errorCode == 0)
+            {
+                addTextToBox("Error: " + str + "\n");
+
+                return;
+            }
+
+            HandleMessage(new ErrorMessage(id, errorCode, str));
+        }
+
+
+        private void addTextToBox(string text)
+        {
+            HandleMessage(new ErrorMessage(-1, -1, text));
         }
 
        
@@ -473,7 +585,7 @@ namespace IBSampleApp
 
         private void newOrderLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            orderManager.OpenOrderDialog();
+            orderManager.OpenNewOrderDialog();
         }
 
         private void refreshOrdersButton_Click(object sender, EventArgs e)

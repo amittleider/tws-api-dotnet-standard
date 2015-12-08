@@ -30,7 +30,7 @@
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -47,7 +47,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -67,6 +68,7 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -86,6 +88,7 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>none</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSharpAPI">
@@ -113,10 +116,34 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dlgAdjustStop.Designer.vb">
+      <DependentUpon>dlgAdjustStop.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgAdjustStop.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dlgAlgoParams.Designer.vb">
       <DependentUpon>dlgAlgoParams.vb</DependentUpon>
     </Compile>
     <Compile Include="dlgAlgoParams.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgCondition.Designer.vb">
+      <DependentUpon>dlgCondition.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgCondition.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgConditions.Designer.vb">
+      <DependentUpon>dlgConditions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgConditions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgPegBench.Designer.vb">
+      <DependentUpon>dlgPegBench.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgPegBench.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="dlgSmartComboRoutingParams.Designer.vb">
@@ -241,8 +268,17 @@
       <DependentUpon>dlgAccountSummary.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="dlgAdjustStop.resx">
+      <DependentUpon>dlgAdjustStop.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgAlgoParams.resX">
       <DependentUpon>dlgAlgoParams.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgCondition.resx">
+      <DependentUpon>dlgCondition.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgConditions.resx">
+      <DependentUpon>dlgConditions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgGroups.resX">
       <SubType>Designer</SubType>
@@ -290,6 +326,9 @@
     <EmbeddedResource Include="dlgOrderAttribs.resX">
       <DependentUpon>dlgOrderAttribs.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgPegBench.resx">
+      <DependentUpon>dlgPegBench.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgScanner.resX">
       <DependentUpon>dlgScanner.vb</DependentUpon>

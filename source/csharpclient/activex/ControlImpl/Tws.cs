@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
+using System.Collections;
 
 namespace TWSLib
 {
@@ -51,6 +52,7 @@ namespace TWSLib
 
             resetAllProperties();
         }
+
 
         #region properties
         [DispId(1)]
@@ -1829,6 +1831,28 @@ namespace TWSLib
         public void startApi()
         {
             socket.startApi();
+        }
+
+        public ArrayList ParseConditions(string str)
+        {
+            var strConditions = str.Split(new[] { " or", " and" }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var conditions = strConditions.Select(c => OrderCondition.Parse(c)).ToArray();
+
+            return new ArrayList(conditions);
+        }
+
+        public string ConditionsToString(object oConditions)
+        {
+            var conditions = (oConditions as ArrayList);
+            var rval = "";
+
+            if (conditions.Count > 0)
+                rval = string.Join(" ", conditions.OfType<OrderCondition>().Take(conditions.Count - 1).Select(o => o + (o.IsConjunctionConnection ? " and" : " or")));
+
+            if (conditions.Count > 1)
+                rval += " " + conditions.OfType<OrderCondition>().Last();
+
+            return rval;
         }
     }
 }

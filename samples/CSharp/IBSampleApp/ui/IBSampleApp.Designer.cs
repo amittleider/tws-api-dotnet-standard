@@ -5,7 +5,7 @@ using IBSampleApp.types;
 using System.Data;
 namespace IBSampleApp
 {
-    partial class IBSampleApp
+    partial class IBSampleAppDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,7 @@ namespace IBSampleApp
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();

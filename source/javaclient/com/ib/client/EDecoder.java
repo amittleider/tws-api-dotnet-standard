@@ -4,9 +4,12 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInput;
 import java.util.ArrayList;
 
-class EDecoder {
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+class EDecoder implements ObjectInput {
     // incoming msg id's
     static final int END_CONN           = -1;
     static final int TICK_PRICE		= 1;
@@ -1109,8 +1112,54 @@ class EDecoder {
 			order.randomizeSize(readBoolFromInt());
 			order.randomizePrice(readBoolFromInt());
 		}
+		
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_PEGGED_TO_BENCHMARK) {
+			if (order.orderType() == OrderType.PEG_BENCH) {
+				order.referenceContractId(readInt());
+				order.isPeggedChangeAmountDecrease(readBoolFromInt());
+				order.peggedChangeAmount(readDouble());
+				order.referenceChangeAmount(readDouble());
+				order.referenceExchangeId(readStr());
+			}
+			
+			int nConditions = readInt();
+
+			if (nConditions > 0) {			
+				for (int i = 0; i < nConditions; i++) {
+					OrderConditionType orderConditionType = OrderConditionType.fromInt(readInt());				
+					OrderCondition condition = OrderCondition.create(orderConditionType);
+
+					try {
+						condition.readExternal(this);					
+						order.conditions().add(condition);
+					} catch (ClassNotFoundException e) {
+						throw new IOException(e.getCause());
+					}
+				}
+				
+				order.conditionsIgnoreRth(readBoolFromInt());
+				order.conditionsCancelOrder(readBoolFromInt());
+			}
+						
+			order.adjustedOrderType(OrderType.get(readStr()));
+			order.stopPrice(readDoubleMax());
+			order.triggerPrice(readDoubleMax());
+			order.trailingAmount(readDoubleMax());
+			order.trailingUnit(readInt());
+			order.lmtPriceOffset(readDoubleMax());
+			order.adjustedStopPrice(readDoubleMax());
+			order.adjustedStopLimitPrice(readDoubleMax());
+			order.adjustedTrailingAmount(readDoubleMax());
+			order.adjustableTrailingUnit(readInt());
+		}
 
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);
+	}
+
+	private void foo(String connector, int conditionType, String secType,
+			String operator, String val) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void processErrMsgMsg() throws IOException {
@@ -1413,7 +1462,7 @@ class EDecoder {
         return str == null ? false : (Integer.parseInt( str) != 0);
     }
 
-    protected int readInt() throws IOException {
+    public int readInt() throws IOException {
         String str = readStr();
         return str == null ? 0 : Integer.parseInt( str);
     }
@@ -1424,12 +1473,12 @@ class EDecoder {
         	                                      : Integer.parseInt( str);
     }
 
-    protected long readLong() throws IOException {
+    public long readLong() throws IOException {
         String str = readStr();
         return str == null ? 0l : Long.parseLong(str);
     }
 
-    protected double readDouble() throws IOException {
+    public double readDouble() throws IOException {
         String str = readStr();
         return str == null ? 0 : Double.parseDouble( str);
     }
@@ -1483,4 +1532,62 @@ class EDecoder {
     	    /** noop in pre-v100 */
     	}
     }
+
+	@Override
+	public int skipBytes(int arg0) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int readUnsignedShort() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int readUnsignedByte() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public String readUTF() throws IOException { return readStr(); }
+	
+	@Override
+	public short readShort() throws IOException { throw new NotImplementedException(); }
+		
+	@Override
+	public String readLine() throws IOException { return readStr(); }
+		
+	@Override
+	public void readFully(byte[] arg0, int arg1, int arg2) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public void readFully(byte[] arg0) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public float readFloat() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public char readChar() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public byte readByte() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public boolean readBoolean() throws IOException { return readBoolFromInt(); }
+	
+	@Override
+	public long skip(long arg0) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public Object readObject() throws ClassNotFoundException, IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int read(byte[] arg0, int arg1, int arg2) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int read(byte[] arg0) throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int read() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public void close() throws IOException { throw new NotImplementedException(); }
+	
+	@Override
+	public int available() throws IOException { throw new NotImplementedException(); }
+
 }

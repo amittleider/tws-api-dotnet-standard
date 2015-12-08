@@ -216,5 +216,10 @@ namespace IBApi
             get { return underComp; }
             set { underComp = value; }
         }
+
+        public override string ToString()
+        {
+            return SecType + " " + Symbol + " " + Currency + " " + Exchange;
+        }
     }
 }

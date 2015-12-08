@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.JCheckBox;
@@ -29,6 +30,8 @@ import apidemo.util.VerticalPanel.HorzPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
 import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.ContractLookuper;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
@@ -51,7 +54,7 @@ import com.ib.controller.ApiController.IOrderHandler;
 public class TicketDlg extends JDialog {
 	private boolean m_editContract;
 	private final Contract m_contract;
-	private final Order m_order;
+	final Order m_order;
 	private final ContractPanel m_contractPanel;
 	private final OrderPanel m_orderPanel;
 	private final AdvisorTicketPanel m_advisorPanel;
@@ -60,6 +63,9 @@ public class TicketDlg extends JDialog {
 	private final ComboTicketPanel m_comboPanel;
 	private final AlgoPanel m_algoPanel;
 	private final ScalePanel m_scalePanel;
+	private final PegBenchPanel m_pegBenchPanel;
+	private final AdjustedPanel m_adjustedPanel;
+	private final ConditionsPanel m_conditionPanel;
 	
 	public TicketDlg(Contract contract, Order order) {
 		super( ApiDemo.INSTANCE.frame());
@@ -79,13 +85,26 @@ public class TicketDlg extends JDialog {
 		m_order = order;
 		
 		m_contractPanel = new ContractPanel( m_contract);
-		m_orderPanel = new OrderPanel();
+		m_pegBenchPanel = new PegBenchPanel(this, m_order, new ContractLookuper() {
+			@Override
+			public ArrayList<ContractDetails> lookupContract(Contract contract) {
+				return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), contract);
+			}
+		});
 		m_advisorPanel = new AdvisorTicketPanel();
 		m_attribTicketPanel = new MiscTicketPanel();
 		m_volPanel = new VolatilityTicketPanel();
 		m_comboPanel = new ComboTicketPanel();
 		m_algoPanel = new AlgoPanel();
 		m_scalePanel = new ScalePanel();
+		m_orderPanel = new OrderPanel();
+		m_adjustedPanel = new AdjustedPanel(this, m_order);
+		m_conditionPanel = new ConditionsPanel(this, m_order, new ContractLookuper() {
+			@Override
+			public ArrayList<ContractDetails> lookupContract(Contract contract) {
+				return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), contract);
+			}
+		});
 		
 		HtmlButton transmitOrder = new HtmlButton( "Transmit Order") {
 			@Override public void actionPerformed() {
@@ -110,6 +129,8 @@ public class TicketDlg extends JDialog {
 			tabbedPanel.addTab( "Contract", m_contractPanel);
 		}
 		tabbedPanel.addTab( "Order", m_orderPanel);
+		tabbedPanel.addTab("Pegged to benchmark", m_pegBenchPanel);
+		tabbedPanel.addTab("Adjustable stops", m_adjustedPanel);
 		tabbedPanel.addTab( "Misc", m_attribTicketPanel);
 		tabbedPanel.addTab( "Advisor", m_advisorPanel);
 		tabbedPanel.addTab( "Volatility", m_volPanel);
@@ -118,6 +139,7 @@ public class TicketDlg extends JDialog {
 		}
 		tabbedPanel.addTab( "Scale", m_scalePanel);
 		tabbedPanel.addTab( "IB Algo", m_algoPanel);
+		tabbedPanel.addTab("Conditions", m_conditionPanel);
 		
 		JPanel buts = new JPanel( new FlowLayout( FlowLayout.CENTER, 15, 5));
 		buts.add( transmitOrder);		
@@ -218,6 +240,35 @@ public class TicketDlg extends JDialog {
 		if (m_contract.isCombo() ) {
 			m_comboPanel.onOK();
 		}
+		m_pegBenchPanel.onOK();
+		m_adjustedPanel.onOK();
+		m_conditionPanel.onOK();
+	}
+	
+	enum AmntUnit {
+		Amnt("amnt", 0),
+		Percent("%", 100);
+		
+		String m_text;
+		int m_val;
+		
+		AmntUnit(String txt, int v) {
+			m_text = txt;
+			m_val = v;
+		}
+		
+		public static AmntUnit fromInt(int i) {
+			for (AmntUnit v : AmntUnit.values())
+				if (v.m_val == i)
+					return v;
+			
+			return Amnt;
+		}
+
+		@Override
+		public String toString() {
+			return m_text;
+		}
 	}
 
 	class OrderPanel extends VerticalPanel {
@@ -230,6 +281,11 @@ public class TicketDlg extends JDialog {
 		final UpperField m_auxPrice = new UpperField();
 		final TCombo<TimeInForce> m_tif = new TCombo<TimeInForce>( TimeInForce.values() );
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
+		final UpperField m_lmtPriceOffset = new UpperField();
+		final UpperField m_stopPrice = new UpperField();
+		final UpperField m_triggerPrice = new UpperField();
+		final UpperField m_trailingAmnt = new UpperField();
+		final TCombo<AmntUnit> m_trailingAmntUnit = new TCombo<AmntUnit>(AmntUnit.values());
 
 		OrderPanel() {
 			m_orderType.removeItemAt( 0); // remove None
@@ -243,6 +299,11 @@ public class TicketDlg extends JDialog {
 			m_auxPrice.setText( m_order.auxPrice());
 			m_tif.setSelectedItem( m_order.tif());
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
+			m_stopPrice.setText(m_order.stopPrice());
+			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
+			m_triggerPrice.setText(m_order.triggerPrice());
+			m_trailingAmnt.setText(m_order.trailingAmount());
+			m_trailingAmntUnit.setSelectedItem(AmntUnit.fromInt(m_order.trailingUnit()));
 			
 			add( "Account", m_account);
 			add( "Action", m_action);
@@ -250,6 +311,11 @@ public class TicketDlg extends JDialog {
 			add( "Display size", m_displaySize);
 			add( "Order type", m_orderType);
 			add( "Limit price", m_lmtPrice);
+			add("Limit price offset", m_lmtPriceOffset);
+			add("Stop price", m_stopPrice);
+			add("Trigger price", m_triggerPrice);
+			add("Trailing amount", m_trailingAmnt);
+			add("Trailing amount unit", m_trailingAmntUnit);
 			add( "Aux price", m_auxPrice);
 			add( "Time-in-force", m_tif);
 			if (m_contract.isCombo() ) {
@@ -266,6 +332,12 @@ public class TicketDlg extends JDialog {
 			m_order.lmtPrice( m_lmtPrice.getDouble() );
 			m_order.auxPrice( m_auxPrice.getDouble() );
 			m_order.tif( m_tif.getSelectedItem() );
+			m_order.stopPrice(m_stopPrice.getDouble());
+			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
+			m_order.triggerPrice(m_triggerPrice.getDouble());
+			m_order.trailingAmount(m_trailingAmnt.getDouble());
+			m_order.trailingUnit(m_trailingAmntUnit.getSelectedItem().m_val);
+			
 			if (m_contract.isCombo() ) {
 				TagValue tv = new TagValue( ComboParam.NonGuaranteed.toString(), m_nonGuaranteed.isSelected() ? "1" : "0");
 				m_order.smartComboRoutingParams().add( tv);

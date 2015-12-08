@@ -2,6 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -322,6 +323,10 @@ namespace TWSLib
         void startApi();
         [DispId(210)]
         void disableUseV100Plus();
+        [DispId(211)]
+        ArrayList ParseConditions(string str);
+        [DispId(212)]
+        string ConditionsToString([MarshalAs(UnmanagedType.IDispatch)] object oConditions);
         #endregion
     }
 }
