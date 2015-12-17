@@ -15,7 +15,6 @@ var hierarchy =
     [ "EClientMsgSink", "interfaceIBApi_1_1EClientMsgSink.html", [
       [ "EClientSocket", "classIBApi_1_1EClientSocket.html", null ]
     ] ],
-    [ "EDecoder", "classIBApi_1_1EDecoder.html", null ],
     [ "EMessage", "classIBApi_1_1EMessage.html", null ],
     [ "EReader", "classIBApi_1_1EReader.html", null ],
     [ "EReaderSignal", "interfaceIBApi_1_1EReaderSignal.html", [
@@ -32,6 +31,9 @@ var hierarchy =
     ] ],
     [ "Execution", "classIBApi_1_1Execution.html", null ],
     [ "ExecutionFilter", "classIBApi_1_1ExecutionFilter.html", null ],
+    [ "IDecoder", "interfaceIBApi_1_1IDecoder.html", [
+      [ "EDecoder", "classIBApi_1_1EDecoder.html", null ]
+    ] ],
     [ "IDisposable", null, [
       [ "ESocket", "classIBApi_1_1ESocket.html", null ]
     ] ],
@@ -40,8 +42,21 @@ var hierarchy =
     [ "MinServerVer", "classIBApi_1_1MinServerVer.html", null ],
     [ "Order", "classIBApi_1_1Order.html", null ],
     [ "OrderComboLeg", "classIBApi_1_1OrderComboLeg.html", null ],
+    [ "OrderCondition", "classIBApi_1_1OrderCondition.html", [
+      [ "ExecutionCondition", "classIBApi_1_1ExecutionCondition.html", null ],
+      [ "OperatorCondition", "classIBApi_1_1OperatorCondition.html", [
+        [ "ContractCondition", "classIBApi_1_1ContractCondition.html", [
+          [ "PercentChangeCondition", "classIBApi_1_1PercentChangeCondition.html", null ],
+          [ "PriceCondition", "classIBApi_1_1PriceCondition.html", null ],
+          [ "VolumeCondition", "classIBApi_1_1VolumeCondition.html", null ]
+        ] ],
+        [ "MarginCondition", "classIBApi_1_1MarginCondition.html", null ],
+        [ "TimeCondition", "classIBApi_1_1TimeCondition.html", null ]
+      ] ]
+    ] ],
     [ "OrderState", "classIBApi_1_1OrderState.html", null ],
     [ "ScannerSubscription", "classIBApi_1_1ScannerSubscription.html", null ],
+    [ "StringSuffixParser", "classIBApi_1_1StringSuffixParser.html", null ],
     [ "TagValue", "classIBApi_1_1TagValue.html", null ],
     [ "TickType", "classIBApi_1_1TickType.html", null ],
     [ "UnderComp", "classIBApi_1_1UnderComp.html", null ]

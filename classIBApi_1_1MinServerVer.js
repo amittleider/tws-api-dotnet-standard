@@ -23,6 +23,7 @@ var classIBApi_1_1MinServerVer =
     [ "OPTIONAL_CAPABILITIES", "classIBApi_1_1MinServerVer.html#a47c4d1f728311d8690c4bd22b50e3eb5", null ],
     [ "ORDER_COMBO_LEGS_PRICE", "classIBApi_1_1MinServerVer.html#a6d96719661b974f0a70d9a9e8f863032", null ],
     [ "ORDER_SOLICITED", "classIBApi_1_1MinServerVer.html#a17634d08159a9a307ae32d174f51e887", null ],
+    [ "PEGGED_TO_BENCHMARK", "classIBApi_1_1MinServerVer.html#ab0aa840430bc6741cde36eae1ab12371", null ],
     [ "PLACE_ORDER_CONID", "classIBApi_1_1MinServerVer.html#a34d5e2846d00eb47fb869fae68061dec", null ],
     [ "PRIMARYEXCH", "classIBApi_1_1MinServerVer.html#a569d6cf0c75ab76a9e43a7285a2a4f9c", null ],
     [ "PTA_ORDERS", "classIBApi_1_1MinServerVer.html#a03f4efeac756200a2527c3553bc6114b", null ],

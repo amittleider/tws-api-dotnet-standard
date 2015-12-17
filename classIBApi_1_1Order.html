@@ -8,6 +8,7 @@
 <title>TWS API: Order Class Reference</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
 <script>
 $(document).ready(function(){
     $("ul#tabs li").click(function(e){
@@ -34,7 +35,8 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
-<link href="ib_theme.css" rel="stylesheet" type="text/css" />
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="ib_theme.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -648,6 +650,60 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>RandomizeSize</b><cod
 <tr class="memitem:ae065252f125f59ef38eef98e41437d91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae065252f125f59ef38eef98e41437d91"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>RandomizePrice</b><code> [get, set]</code></td></tr>
 <tr class="separator:ae065252f125f59ef38eef98e41437d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1563e35f89dc18ec3d53994dc20f5712"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1563e35f89dc18ec3d53994dc20f5712"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>ReferenceContractId</b><code> [get, set]</code></td></tr>
+<tr class="separator:a1563e35f89dc18ec3d53994dc20f5712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f6d5a75fbb289b314722dae3701b56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21f6d5a75fbb289b314722dae3701b56"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsPeggedChangeAmountDecrease</b><code> [get, set]</code></td></tr>
+<tr class="separator:a21f6d5a75fbb289b314722dae3701b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a034ac74e2eed096d2c616f5fd83fbc7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a034ac74e2eed096d2c616f5fd83fbc7d"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>PeggedChangeAmount</b><code> [get, set]</code></td></tr>
+<tr class="separator:a034ac74e2eed096d2c616f5fd83fbc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a693f08dde0a9f4fbad3f5ae55af080"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a693f08dde0a9f4fbad3f5ae55af080"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>ReferenceChangeAmount</b><code> [get, set]</code></td></tr>
+<tr class="separator:a8a693f08dde0a9f4fbad3f5ae55af080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6feac4c8668854e4f84bdbcd7d3175b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6feac4c8668854e4f84bdbcd7d3175b1"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>ReferenceExchange</b><code> [get, set]</code></td></tr>
+<tr class="separator:a6feac4c8668854e4f84bdbcd7d3175b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ce5f90ac0c8209ffb4a6086c8f5c3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02ce5f90ac0c8209ffb4a6086c8f5c3d"></a>
+List&lt; <a class="el" href="classIBApi_1_1OrderCondition.html">OrderCondition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Conditions</b><code> [get, set]</code></td></tr>
+<tr class="separator:a02ce5f90ac0c8209ffb4a6086c8f5c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff60e18d6f932936a2368e461fac0524"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff60e18d6f932936a2368e461fac0524"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>AdjustedOrderType</b><code> [get, set]</code></td></tr>
+<tr class="separator:aff60e18d6f932936a2368e461fac0524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f46cbde5ab5c61d7758ba518c07d327"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f46cbde5ab5c61d7758ba518c07d327"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>StopPrice</b><code> [get, set]</code></td></tr>
+<tr class="separator:a3f46cbde5ab5c61d7758ba518c07d327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b277f630d3777fcf9a7243ba8b522b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9b277f630d3777fcf9a7243ba8b522b"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>TriggerPrice</b><code> [get, set]</code></td></tr>
+<tr class="separator:af9b277f630d3777fcf9a7243ba8b522b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af525300c529f9d8c10e50b669b6ef0f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af525300c529f9d8c10e50b669b6ef0f6"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>TrailingAmount</b><code> [get, set]</code></td></tr>
+<tr class="separator:af525300c529f9d8c10e50b669b6ef0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123046df0defcefc5fcc7407a3b1a665"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a123046df0defcefc5fcc7407a3b1a665"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>TrailingUnit</b><code> [get, set]</code></td></tr>
+<tr class="separator:a123046df0defcefc5fcc7407a3b1a665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408dfd4c09e3fd2e3d935506cee8dd17"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a408dfd4c09e3fd2e3d935506cee8dd17"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>LmtPriceOffset</b><code> [get, set]</code></td></tr>
+<tr class="separator:a408dfd4c09e3fd2e3d935506cee8dd17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb8071c69cb2187d60d31254ce0a7022"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb8071c69cb2187d60d31254ce0a7022"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>AdjustedStopPrice</b><code> [get, set]</code></td></tr>
+<tr class="separator:adb8071c69cb2187d60d31254ce0a7022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c33f6bcaf106aad336cd69e47655bba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c33f6bcaf106aad336cd69e47655bba"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>AdjustedStopLimitPrice</b><code> [get, set]</code></td></tr>
+<tr class="separator:a0c33f6bcaf106aad336cd69e47655bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87594ab75fe5e381a098e8418c2d5f3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87594ab75fe5e381a098e8418c2d5f3f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>AdjustedTrailingAmount</b><code> [get, set]</code></td></tr>
+<tr class="separator:a87594ab75fe5e381a098e8418c2d5f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6e75380679e471ed86a84594cb7f657"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6e75380679e471ed86a84594cb7f657"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>AdjustableTrailingUnit</b><code> [get, set]</code></td></tr>
+<tr class="separator:af6e75380679e471ed86a84594cb7f657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf0b1152b17c6d332971d96a379958dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf0b1152b17c6d332971d96a379958dd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ConditionsIgnoreRth</b><code> [get, set]</code></td></tr>
+<tr class="separator:acf0b1152b17c6d332971d96a379958dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1938c154f0e7888dbbb99dcf0f4bd4cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1938c154f0e7888dbbb99dcf0f4bd4cb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ConditionsCancelOrder</b><code> [get, set]</code></td></tr>
+<tr class="separator:a1938c154f0e7888dbbb99dcf0f4bd4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The order's description. </p>
@@ -685,7 +741,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>RandomizePrice</b><co
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Dev/IBAPI_Github/documentation/tws-api/source/csharpclient/client/Order.cs</li>
+<li>C:/Dev/IBAPI_Github/documentation/doc_commit_fix/tws-api/source/csharpclient/client/Order.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -694,7 +750,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>RandomizePrice</b><co
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceIBApi.html">IBApi</a></li><li class="navelem"><a class="el" href="classIBApi_1_1Order.html">Order</a></li>
-    <li class="footer">Copyright IB 2015 </li>
+    <li class="footer">Copyright Interactive Brokers 2015 </li>
   </ul>
 </div>
 </body>

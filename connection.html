@@ -5,9 +5,10 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API: Connection</title>
+<title>TWS API: Connection Management</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
 <script>
 $(document).ready(function(){
     $("ul#tabs li").click(function(e){
@@ -34,7 +35,8 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
-<link href="ib_theme.css" rel="stylesheet" type="text/css" />
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="ib_theme.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -101,75 +103,10 @@ $(document).ready(function(){initNavTree('connection.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Connection </div>  </div>
+<div class="title">Connection Management </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>A TCP connection between your API client application and the TWS needs to be established via the IBApi::EClientSocket::eConnect function. The TWS can be considered like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to <b>32 different client applications</b> simultaneously each of them identified by a unique client Id.</p>
-<p>Before we can connect though, we need to follow a few simple steps.</p>
-<h1><a class="anchor" id="ewrapper_impl"></a>
-Implementing the EWrapper interface</h1>
-<p>The <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface is the mechanism through which the TWS delivers information to the API client application. By implementing this interface the client application will be able to receive and handle the information coming from the TWS. For further information on how to implement interfaces, refer to your programming language's documentation.</p>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
-<div class="line">    {</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">Public Class EWrapperImpl</div>
-<div class="line">    Implements EWrapper</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
-<div class="line">{</div>
-</div><!-- fragment -->  </li>
-</ul>
-<h1><a class="anchor" id="client_socket"></a>
-The EClientSocket class</h1>
-<p>Just as the EWrapper implementing class receives information from the TWS, an <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> object is used to send requests to the the TWS. Note this class requires an implementation of the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface as part of its contructor parameters. Behind the curtains the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> requires this object to invoke the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface methods after reading the incoming data from the TWS:</p>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">        EClientSocket clientSocket;</div>
-<div class="line">        <span class="keyword">public</span> readonly EReaderSignal Signal;</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> EWrapperImpl()</div>
-<div class="line">        {</div>
-<div class="line">            Signal = <span class="keyword">new</span> EReaderMonitorSignal();</div>
-<div class="line">            clientSocket = <span class="keyword">new</span> EClientSocket(<span class="keyword">this</span>, Signal);</div>
-<div class="line">        }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    <span class="keyword">private</span> EReaderSignal readerSignal;</div>
-<div class="line">    <span class="keyword">private</span> EClientSocket clientSocket;</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> EWrapperImpl() {</div>
-<div class="line">        readerSignal = <span class="keyword">new</span> EJavaSignal();</div>
-<div class="line">        clientSocket = <span class="keyword">new</span> EClientSocket(<span class="keyword">this</span>, readerSignal);</div>
-<div class="line">    }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    Public eReaderSignal As EReaderSignal</div>
-<div class="line">    Public socketClient As EClientSocket</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    Sub New()</div>
-<div class="line">        eReaderSignal = New EReaderMonitorSignal</div>
-<div class="line">        socketClient = New EClientSocket(Me, eReaderSignal)</div>
-<div class="line">    End Sub</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    EClientSocket * <span class="keyword">const</span> m_pClient;</div>
-<div class="line">    EReaderOSSignal m_osSignal;</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">TestCppClient::TestCppClient() : </div>
-<div class="line">      m_osSignal(2000)<span class="comment">//2-seconds timeout</span></div>
-<div class="line">    , m_pClient(new EClientSocket(this, &amp;m_osSignal))</div>
-<div class="line">    , m_state(ST_CONNECT)</div>
-<div class="line">    , m_sleepDeadline(0)</div>
-<div class="line">    , m_orderId(0)</div>
-<div class="line">    , m_pReader(0)</div>
-<div class="line">    , m_extraAuth(false)</div>
-<div class="line">{</div>
-<div class="line">}</div>
-</div><!-- fragment -->  </li>
-</ul>
 <h1><a class="anchor" id="connect"></a>
 Connecting</h1>
 <p>Once our two main objects have been created, the client application can then connect via the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> object:</p>
@@ -291,7 +228,7 @@ Accepting the connection on the TWS side.</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Copyright IB 2015 </li>
+    <li class="footer">Copyright Interactive Brokers 2015 </li>
   </ul>
 </div>
 </body>

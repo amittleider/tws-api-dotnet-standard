@@ -2,8 +2,9 @@ var searchData=
 [
   ['maintmargin',['MaintMargin',['../classIBApi_1_1OrderState.html#a96ad50fb5e01f71811b473fc1734c398',1,'IBApi::OrderState']]],
   ['managedaccounts',['managedAccounts',['../classIBApi_1_1DefaultEWrapper.html#a5cbc7170b3737daf6dc4225e6a100405',1,'IBApi.DefaultEWrapper.managedAccounts()'],['../interfaceIBApi_1_1EWrapper.html#abd7e561f313bcc4c860074906199a46c',1,'IBApi.EWrapper.managedAccounts()']]],
-  ['market_20data',['Market Data',['../market_data.html',1,'']]],
-  ['market_20depth',['Market Depth',['../market_depth.html',1,'']]],
+  ['margincondition',['MarginCondition',['../classIBApi_1_1MarginCondition.html',1,'IBApi']]],
+  ['market_20depth_20_28level_202_29',['Market Depth (Level 2)',['../market_depth.html',1,'']]],
+  ['market_20scanners',['Market Scanners',['../market_scanners.html',1,'']]],
   ['marketdatatype',['marketDataType',['../classIBApi_1_1DefaultEWrapper.html#a269f35525f9e50d0f4e0613a9e745ce7',1,'IBApi.DefaultEWrapper.marketDataType()'],['../interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c',1,'IBApi.EWrapper.marketDataType()']]],
   ['marketname',['MarketName',['../classIBApi_1_1ContractDetails.html#af016b758ae39fa9ed2b3e5b52e85f373',1,'IBApi::ContractDetails']]],
   ['maturity',['Maturity',['../classIBApi_1_1ContractDetails.html#a0529525f5a8f43b10ceb558577763c15',1,'IBApi::ContractDetails']]],

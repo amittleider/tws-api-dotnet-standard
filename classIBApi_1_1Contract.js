@@ -1,5 +1,6 @@
 var classIBApi_1_1Contract =
 [
+    [ "ToString", "classIBApi_1_1Contract.html#aa73e7c4dd1df5fd5fbf81c7764ee1533", null ],
     [ "ComboLegs", "classIBApi_1_1Contract.html#a08b1e62aa65c87da75e650e4958cdeab", null ],
     [ "ComboLegsDescription", "classIBApi_1_1Contract.html#abd38cc68a8531bfb49805d24494947de", null ],
     [ "ConId", "classIBApi_1_1Contract.html#ad95ff82697b5dcfbf64f404b9ce0f750", null ],

@@ -5,9 +5,10 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API: Contract Definition</title>
+<title>TWS API: Defining Contracts</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
 <script>
 $(document).ready(function(){
     $("ul#tabs li").click(function(e){
@@ -34,7 +35,8 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
-<link href="ib_theme.css" rel="stylesheet" type="text/css" />
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="ib_theme.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -101,7 +103,7 @@ $(document).ready(function(){initNavTree('contract_definitions.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Contract Definition </div>  </div>
+<div class="title">Defining Contracts </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="Overview"></a>
@@ -117,29 +119,299 @@ Overview</h1>
 <img src="contract_description_tws.png" alt="contract_description_tws.png"/>
 </div>
 <h1><a class="anchor" id="sample_defs"></a>
-Sample Contracts</h1>
-<p>Here we can have our fancy contract snippets. </p>
-<h2><a class="anchor" id="Stocks"></a>
-Stocks</h2>
+Basic Contracts</h1>
+<h2><a class="anchor" id="cash"></a>
+FX Pairs</h2>
 <ul id="tab">
 <li class="active">
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;EUR&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;CASH&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;GBP&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;IDEALPRO&quot;</span>;</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"></div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;EUR&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;CASH&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;GBP&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;IDEALPRO&quot;</span>;</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"></div><!-- fragment -->  </li>
 </ul>
-<h2><a class="anchor" id="Options"></a>
+<h2><a class="anchor" id="stk"></a>
+Stocks</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;IBKR&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            <span class="comment">//In the API side, NASDAQ is always defined as ISLAND</span></div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;IBKR&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            <span class="comment">//In the API side, NASDAQ is always defined as ISLAND</span></div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2><a class="anchor" id="fut"></a>
+Futures</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;ES&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;FUT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;GLOBEX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;201612&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;ES&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;FUT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;GLOBEX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;201612&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2><a class="anchor" id="opt"></a>
 Options</h2>
 <ul id="tab">
 <li class="active">
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;GOOG&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;OPT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;BOX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;20170120&quot;</span>;</div>
+<div class="line">            contract.Strike = 615;</div>
+<div class="line">            contract.Right = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">            contract.Multiplier = <span class="stringliteral">&quot;100&quot;</span>;</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"></div><!-- fragment -->  </li>
 <li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;GOOG&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;OPT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;BOX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;20170120&quot;</span>;</div>
+<div class="line">            contract.Strike = 615;</div>
+<div class="line">            contract.Right = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">            contract.Multiplier = <span class="stringliteral">&quot;100&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
 <div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2><a class="anchor" id="fop"></a>
+Futures on Options</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;ES&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;FOP&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;GLOBEX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;20160617&quot;</span>;</div>
+<div class="line">            contract.Strike = 1810;</div>
+<div class="line">            contract.Right = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">            contract.Multiplier = <span class="stringliteral">&quot;50&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;ES&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;FOP&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;GLOBEX&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.LastTradeDateOrContractMonth = <span class="stringliteral">&quot;20160617&quot;</span>;</div>
+<div class="line">            contract.Strike = 1810;</div>
+<div class="line">            contract.Right = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">            contract.Multiplier = <span class="stringliteral">&quot;50&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="sample_comb"></a>
+Spreads</h1>
+<p>Spread contracts, also known as combos or combinations, combine two or more instruments. To define a combination contract it is required to know the conId of the <a class="el" href="classIBApi_1_1Contract.html">IBApi.Contract</a> in question. The conId of an instrument can easily be obtained via the <a class="el" href="classIBApi_1_1EClient.html#ade440c6db838b548594981d800ea5ca9">IBApi.EClientSocket.reqContractDetails</a> request.</p>
+<h2><a class="anchor" id="bag_stk"></a>
+Stock Spread</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;MCD&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 43645865;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 9408;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;MCD&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 43645865;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 9408;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2><a class="anchor" id="bag_fut"></a>
+Futures Spread</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;VIX&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 195538625;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 197436571;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;VIX&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 195538625;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 197436571;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2><a class="anchor" id="bag_opt"></a>
+Options Spread</h2>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;VIX&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 195538625;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 197436571;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;VIX&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 195538625;</div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 197436571;</div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;CFE&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"></div><!-- fragment -->  </li>
 </ul>
@@ -149,7 +421,7 @@ Options</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Copyright IB 2015 </li>
+    <li class="footer">Copyright Interactive Brokers 2015 </li>
   </ul>
 </div>
 </body>

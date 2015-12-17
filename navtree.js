@@ -10,30 +10,33 @@ var NAVTREE =
         [ "Requests", "introduction.html#fifty_messages", null ]
       ] ]
     ] ],
-    [ "Connection", "connection.html", [
-      [ "Implementing the EWrapper interface", "connection.html#ewrapper_impl", null ],
-      [ "The EClientSocket class", "connection.html#client_socket", null ],
+    [ "Initial Setup", "initial_setup.html", [
+      [ "Enable API connections", "initial_setup.html#enable_api", null ],
+      [ "The TWS API's main components", "initial_setup.html#main_components", null ],
+      [ "Implementing the EWrapper interface", "initial_setup.html#ewrapper_impl", null ],
+      [ "The EClientSocket class", "initial_setup.html#client_socket", null ]
+    ] ],
+    [ "Connection Management", "connection.html", [
       [ "Connecting", "connection.html#connect", null ],
       [ "Acknowledging the connection", "connection.html#connect_ack", null ],
       [ "Consuming TWS data", "connection.html#ereader", null ],
       [ "Accepting the connection on the TWS side.", "connection.html#accept_connections", null ]
     ] ],
-    [ "Contract Definition", "contract_definitions.html", [
+    [ "Defining Contracts", "contract_definitions.html", [
       [ "Overview", "contract_definitions.html#Overview", null ],
-      [ "Sample Contracts", "contract_definitions.html#sample_defs", [
-        [ "Stocks", "contract_definitions.html#Stocks", null ],
-        [ "Options", "contract_definitions.html#Options", null ]
+      [ "Basic Contracts", "contract_definitions.html#sample_defs", [
+        [ "FX Pairs", "contract_definitions.html#cash", null ],
+        [ "Stocks", "contract_definitions.html#stk", null ],
+        [ "Futures", "contract_definitions.html#fut", null ],
+        [ "Options", "contract_definitions.html#opt", null ],
+        [ "Futures on Options", "contract_definitions.html#fop", null ]
+      ] ],
+      [ "Spreads", "contract_definitions.html#sample_comb", [
+        [ "Stock Spread", "contract_definitions.html#bag_stk", null ],
+        [ "Futures Spread", "contract_definitions.html#bag_fut", null ],
+        [ "Options Spread", "contract_definitions.html#bag_opt", null ]
       ] ]
     ] ],
-    [ "Market Data", "market_data.html", [
-      [ "Requesting", "market_data.html#md_request", null ],
-      [ "Receiving", "market_data.html#md_receive", null ],
-      [ "Cancelling", "market_data.html#md_cancel", null ],
-      [ "Snapshots", "market_data.html#md_snapshot", null ],
-      [ "Generic Ticks", "market_data.html#genticks", null ]
-    ] ],
-    [ "Market Depth", "market_depth.html", null ],
-    [ "Historical Data", "historical_data.html", null ],
     [ "Orders", "orders.html", [
       [ "Overview", "orders.html#Overview", null ],
       [ "Placing", "orders.html#placing", null ],
@@ -45,12 +48,30 @@ var NAVTREE =
         [ "Limit", "orders.html#Limit", null ]
       ] ]
     ] ],
+    [ "Top Market Data (Level 1)", "market_data.html", [
+      [ "Requesting", "market_data.html#md_request", null ],
+      [ "Receiving", "market_data.html#md_receive", null ],
+      [ "Cancelling", "market_data.html#md_cancel", null ],
+      [ "Snapshots", "market_data.html#md_snapshot", null ],
+      [ "Generic Ticks", "market_data.html#genticks", null ]
+    ] ],
+    [ "Market Depth (Level 2)", "market_depth.html", null ],
+    [ "Historical Data", "historical_data.html", null ],
+    [ "Realtime Bars", "realtime_bars.html", null ],
+    [ "Option Price Calculation", "option_calculation.html", null ],
+    [ "Exercising Options", "option_exercise.html", null ],
     [ "Executions and Commissions", "exec_comms.html", null ],
     [ "Account and Portfolio", "acct_and_portfolio.html", null ],
     [ "Financial Advisors", "fa.html", null ],
     [ "Fundamental Data", "fundamentals.html", null ],
+    [ "Market Scanners", "market_scanners.html", null ],
     [ "Contract Details", "contract_details.html", null ],
-    [ "Sample Definitions", "sample_definitions.html", null ],
+    [ "News", "news.html", null ],
+    [ "Bulletins", "bulletins.html", null ],
+    [ "Display Groups", "display_groups.html", null ],
+    [ "Frequently Asked Questions", "faq.html", null ],
+    [ "Excel Integration", "excel_integration.html", null ],
+    [ "Third Party Software", "third_party.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -70,8 +91,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "acct_and_portfolio.html",
-"classIBApi_1_1EDecoder.html#acc9a6d7c7f6db257ec75b61d8e906bb6",
-"classIBApi_1_1OrderState.html#a1360cb86f7544045a8be41200976d456"
+"classIBApi_1_1EClientSocketSSL.html",
+"classIBApi_1_1Order.html#aaabbc2dc4c7caf904476f6183e0dacde",
+"fundamentals.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

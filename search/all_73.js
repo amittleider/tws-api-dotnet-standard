@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['sample_20definitions',['Sample Definitions',['../sample_definitions.html',1,'']]],
   ['scaleautoreset',['ScaleAutoReset',['../classIBApi_1_1Order.html#aea423db1d4d8e5c097cb01bc64ca02d4',1,'IBApi::Order']]],
   ['scaleinitfillqty',['ScaleInitFillQty',['../classIBApi_1_1Order.html#a33c7a08fbc7ecf1ba33b9e4f27876c17',1,'IBApi::Order']]],
   ['scaleinitlevelsize',['ScaleInitLevelSize',['../classIBApi_1_1Order.html#a0ffd872cdcb1cd30f873a0883d48fdd5',1,'IBApi::Order']]],
@@ -32,6 +31,7 @@ var searchData=
   ['stockrangeupper',['StockRangeUpper',['../classIBApi_1_1Order.html#ad20733800e5dc40758b9d7f07dccb4ab',1,'IBApi::Order']]],
   ['stockrefprice',['StockRefPrice',['../classIBApi_1_1Order.html#a9466f0d1ac7b06c54f4fb811becf1766',1,'IBApi::Order']]],
   ['strike',['Strike',['../classIBApi_1_1Contract.html#a6abc153eb1f0ca527fb8fb8f763e519f',1,'IBApi::Contract']]],
+  ['stringsuffixparser',['StringSuffixParser',['../classIBApi_1_1StringSuffixParser.html',1,'IBApi']]],
   ['subcategory',['Subcategory',['../classIBApi_1_1ContractDetails.html#a751de8689d02dc04046cc5fec2091447',1,'IBApi::ContractDetails']]],
   ['summary',['Summary',['../classIBApi_1_1ContractDetails.html#a40a338fa317ee374f497d7363969e7e4',1,'IBApi::ContractDetails']]],
   ['sweeptofill',['SweepToFill',['../classIBApi_1_1Order.html#ae7242331ac2ff093f65c333cde2b229b',1,'IBApi::Order']]],

@@ -8,6 +8,7 @@
 <title>TWS API: TickType Class Reference</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
 <script>
 $(document).ready(function(){
     $("ul#tabs li").click(function(e){
@@ -34,7 +35,8 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
 </script>
-<link href="ib_theme.css" rel="stylesheet" type="text/css" />
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="ib_theme.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -291,12 +293,66 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>VOLUME_RATE</b> 
 <tr class="memitem:a09f8c6322ea8ef2915c64294118203a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09f8c6322ea8ef2915c64294118203a6"></a>
 const int&#160;</td><td class="memItemRight" valign="bottom"><b>LAST_RTH_TRADE</b> = 57</td></tr>
 <tr class="separator:a09f8c6322ea8ef2915c64294118203a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a98d0ca1c19501de5ab32e0fe06f4e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a98d0ca1c19501de5ab32e0fe06f4e2"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>RT_HISTORICAL_VOL</b> = 58</td></tr>
+<tr class="separator:a2a98d0ca1c19501de5ab32e0fe06f4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06b1472fd2a0bb0dae8bf84ac5874940"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06b1472fd2a0bb0dae8bf84ac5874940"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>IB_DIVIDENDS</b> = 59</td></tr>
+<tr class="separator:a06b1472fd2a0bb0dae8bf84ac5874940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a997a269e83bdfb677b57752eae4f95be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a997a269e83bdfb677b57752eae4f95be"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>BOND_FACTOR_MULTIPLIER</b> = 60</td></tr>
+<tr class="separator:a997a269e83bdfb677b57752eae4f95be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab33ec2fbf4cd0c0e8e02d081c30aee00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab33ec2fbf4cd0c0e8e02d081c30aee00"></a>
 const int&#160;</td><td class="memItemRight" valign="bottom"><b>REGULATORY_IMBALANCE</b> = 61</td></tr>
 <tr class="separator:ab33ec2fbf4cd0c0e8e02d081c30aee00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8c1c174bc97fd3e7d45ca0d1b488cb5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8c1c174bc97fd3e7d45ca0d1b488cb5"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>NEWS_TICK</b> = 62</td></tr>
+<tr class="separator:af8c1c174bc97fd3e7d45ca0d1b488cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24cc0e4267927591c7cba393048a67e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24cc0e4267927591c7cba393048a67e6"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>SHORT_TERM_VOLUME_3_MIN</b> = 63</td></tr>
+<tr class="separator:a24cc0e4267927591c7cba393048a67e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0db93993a6d8c585e61e19d71edd24b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0db93993a6d8c585e61e19d71edd24b9"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>SHORT_TERM_VOLUME_5_MIN</b> = 64</td></tr>
+<tr class="separator:a0db93993a6d8c585e61e19d71edd24b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7107fdb69805ffeab2f14dc9184e880e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7107fdb69805ffeab2f14dc9184e880e"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>SHORT_TERM_VOLUME_10_MIN</b> = 65</td></tr>
+<tr class="separator:a7107fdb69805ffeab2f14dc9184e880e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ae3aa296ae9b91dfd3a54b6c7eda48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04ae3aa296ae9b91dfd3a54b6c7eda48"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_BID</b> = 66</td></tr>
+<tr class="separator:a04ae3aa296ae9b91dfd3a54b6c7eda48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8b698c6ceb5b74ea6e1ca2a82d000a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c8b698c6ceb5b74ea6e1ca2a82d000a"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_ASK</b> = 67</td></tr>
+<tr class="separator:a3c8b698c6ceb5b74ea6e1ca2a82d000a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778e22f3d2d21768ac17843f16915a35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a778e22f3d2d21768ac17843f16915a35"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_LAST</b> = 68</td></tr>
+<tr class="separator:a778e22f3d2d21768ac17843f16915a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbc8f3254e6896e6c65961385889a3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cbc8f3254e6896e6c65961385889a3e"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_BID_SIZE</b> = 69</td></tr>
+<tr class="separator:a1cbc8f3254e6896e6c65961385889a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3258d6c4f37eb0a4d9bcf1dc9663eb33"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3258d6c4f37eb0a4d9bcf1dc9663eb33"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_ASK_SIZE</b> = 70</td></tr>
+<tr class="separator:a3258d6c4f37eb0a4d9bcf1dc9663eb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada246a3811896421e61245a5c2b8437d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada246a3811896421e61245a5c2b8437d"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_LAST_SIZE</b> = 71</td></tr>
+<tr class="separator:ada246a3811896421e61245a5c2b8437d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf0847d69ff76c1a45626c3ba402dcd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf0847d69ff76c1a45626c3ba402dcd9"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_HIGH</b> = 72</td></tr>
+<tr class="separator:aaf0847d69ff76c1a45626c3ba402dcd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af866ba2126ab511f145805de934240"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6af866ba2126ab511f145805de934240"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_LOW</b> = 73</td></tr>
+<tr class="separator:a6af866ba2126ab511f145805de934240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b5f8c81590103efababdb8e81fe2fd3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b5f8c81590103efababdb8e81fe2fd3"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_VOLUME</b> = 74</td></tr>
+<tr class="separator:a3b5f8c81590103efababdb8e81fe2fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d3317f2184f207cc5c2cb9eeaff48f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5d3317f2184f207cc5c2cb9eeaff48f"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_CLOSE</b> = 75</td></tr>
+<tr class="separator:ad5d3317f2184f207cc5c2cb9eeaff48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b517e36c7e75af8bfa671aedc4e471f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b517e36c7e75af8bfa671aedc4e471f"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>DELAYED_OPEN</b> = 76</td></tr>
+<tr class="separator:a8b517e36c7e75af8bfa671aedc4e471f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Dev/IBAPI_Github/documentation/tws-api/source/csharpclient/client/TickType.cs</li>
+<li>C:/Dev/IBAPI_Github/documentation/doc_commit_fix/tws-api/source/csharpclient/client/TickType.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -305,7 +361,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>REGULATORY_IMBAL
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceIBApi.html">IBApi</a></li><li class="navelem"><a class="el" href="classIBApi_1_1TickType.html">TickType</a></li>
-    <li class="footer">Copyright IB 2015 </li>
+    <li class="footer">Copyright Interactive Brokers 2015 </li>
   </ul>
 </div>
 </body>
