@@ -919,10 +919,10 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
     DECODE_FIELD( exec.exchange);
     DECODE_FIELD( exec.side);
 
-	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS) {
 		DECODE_FIELD( exec.shares)
-	else 
-	{
+	} 
+	else {
 		int iShares;
 
 		DECODE_FIELD(iShares);
