@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWSLib", "TWSLib.csproj", "{44541143-0CA2-43A9-92A6-ACC174CE7061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderConditionsParsingTestProject", "..\OrderConditionsParsingTestProject\OrderConditionsParsingTestProject.csproj", "{B1A560A9-6E30-4ACD-83FA-7166CF483030}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderConditionsParsingTestProject", "..\..\..\tests\OrderConditionsParsingTestProject\OrderConditionsParsingTestProject.csproj", "{B1A560A9-6E30-4ACD-83FA-7166CF483030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
