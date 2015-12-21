@@ -130,7 +130,7 @@ namespace TWSLib
         [DispId(115)]
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
         [DispId(116)]
-        void historicalDataEnd(int reqId, string start, string end);
+        void historicalDataEnd(int reqId, string startDate, string endDate);
         [DispId(117)]
         void bondContractDetailsEx(int reqId, IContractDetails contractDetails);
         [DispId(118)]
