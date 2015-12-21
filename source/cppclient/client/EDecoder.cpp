@@ -596,6 +596,49 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
         DECODE_FIELD(order.randomizePrice);
     }
 
+	if (m_serverVersion >= MIN_SERVER_VER_PEGGED_TO_BENCHMARK) {
+		if (order.orderType == "PEG BENCH") {
+			DECODE_FIELD(order.referenceContractId);
+			DECODE_FIELD(order.isPeggedChangeAmountDecrease);
+			DECODE_FIELD(order.peggedChangeAmount);
+			DECODE_FIELD(order.referenceChangeAmount);
+			DECODE_FIELD(order.referenceExchangeId);
+		}
+
+		int conditionsSize;
+
+		DECODE_FIELD(conditionsSize);
+
+		if (conditionsSize > 0) {
+			for (; conditionsSize; conditionsSize--) {
+				int conditionType;
+
+				DECODE_FIELD(conditionType);
+
+				ibapi::shared_ptr<OrderCondition> item = OrderCondition::create((OrderCondition::OrderConditionType)conditionType);
+
+				if (!item->readExternal(ptr, endPtr))
+					return 0;
+
+				order.conditions.push_back(item);
+			}
+
+			DECODE_FIELD(order.conditionsIgnoreRth);
+			DECODE_FIELD(order.conditionsCancelOrder);
+		}
+
+		DECODE_FIELD(order.adjustedOrderType);
+		DECODE_FIELD(order.stopPrice);
+		DECODE_FIELD(order.triggerPrice);
+		DECODE_FIELD(order.trailingAmount);
+		DECODE_FIELD(order.trailingUnit);
+		DECODE_FIELD(order.lmtPriceOffset);
+		DECODE_FIELD(order.adjustedStopPrice);
+		DECODE_FIELD(order.adjustedStopLimitPrice);
+		DECODE_FIELD(order.adjustedTrailingAmount);
+		DECODE_FIELD(order.adjustableTrailingUnit);
+	}
+
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
 
     return ptr;
@@ -876,10 +919,10 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
     DECODE_FIELD( exec.exchange);
     DECODE_FIELD( exec.side);
 
-	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
+	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS) {
 		DECODE_FIELD( exec.shares)
-	else 
-	{
+	} 
+	else {
 		int iShares;
 
 		DECODE_FIELD(iShares);

@@ -6,10 +6,11 @@ package com.ib.client;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutput;
 
 /** This class is used to build messages so the entire message can be
  *  sent to the socket in a single write. */
-public class Builder {
+public class Builder implements ObjectOutput {
 	private static final char SEP = 0;
 	private static final int PADDING_SIZE = 1; // 1 disables padding, 4 is normal if padding is used
 	private static final byte[] EMPTY_LENGTH_HEADER = new byte[ 4 ]; 
@@ -103,4 +104,40 @@ public class Builder {
             out.write( this.buf, 0, this.count );
         }
     }
+
+	@Override
+	public void writeBoolean(boolean arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeByte(int arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeBytes(String arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeChar(int arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeChars(String arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeDouble(double arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeFloat(float arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeInt(int arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeLong(long arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeShort(int arg0) throws IOException { send(arg0); }
+	@Override
+	public void writeUTF(String arg0) throws IOException { send(arg0); }
+	@Override
+	public void close() throws IOException { }
+	@Override
+	public void flush() throws IOException { }
+	@Override
+	public void write(int arg0) throws IOException { }
+	@Override
+	public void write(byte[] arg0) throws IOException { }
+	@Override
+	public void write(byte[] arg0, int arg1, int arg2)
+			throws IOException { }
+	@Override
+	public void writeObject(Object arg0) throws IOException { } 
 }

@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IBApi</RootNamespace>
     <AssemblyName>CSharpAPI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -34,6 +36,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,6 +54,7 @@
     <Compile Include="CommissionReport.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Contract.cs" />
+    <Compile Include="ContractCondition.cs" />
     <Compile Include="ContractDetails.cs" />
     <Compile Include="DefaultEWrapper.cs" />
     <Compile Include="EClientErrors.cs" />
@@ -68,21 +72,30 @@
     <Compile Include="ETransport.cs" />
     <Compile Include="EWrapper.cs" />
     <Compile Include="Execution.cs" />
+    <Compile Include="ExecutionCondition.cs" />
     <Compile Include="ExecutionFilter.cs" />
     <Compile Include="IBParamsList.cs" />
+    <Compile Include="IDecoder.cs" />
     <Compile Include="IncomingMessage.cs" />
+    <Compile Include="MarginCondition.cs" />
     <Compile Include="MessageValidator.cs" />
     <Compile Include="MinServerVer.cs" />
+    <Compile Include="OperatorCondition.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderComboLeg.cs" />
+    <Compile Include="OrderCondition.cs" />
     <Compile Include="OrderState.cs" />
     <Compile Include="OutgoingMessages.cs" />
+    <Compile Include="PercentChangeCondition.cs" />
+    <Compile Include="PriceCondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScannerSubscription.cs" />
     <Compile Include="TagValue.cs" />
     <Compile Include="TickType.cs" />
+    <Compile Include="TimeCondition.cs" />
     <Compile Include="UnderComp.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="VolumeCondition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

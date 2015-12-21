@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,6 +14,7 @@
     <ProjectGuid>{E9C3126E-CEA8-41A8-A714-7644B016DB3C}</ProjectGuid>
     <RootNamespace>TwsSocketClient</RootNamespace>
     <Keyword>MFCProj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -23,7 +24,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -158,6 +159,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ContractCondition.cpp" />
     <ClCompile Include="DefaultEWrapper.cpp" />
     <ClCompile Include="EMutex.cpp" />
     <ClCompile Include="EDecoder.cpp" />
@@ -167,7 +169,15 @@
     <ClCompile Include="EReaderOSSignal.cpp" />
     <ClCompile Include="EReaderWMSignal.cpp" />
     <ClCompile Include="ESocket.cpp" />
+    <ClCompile Include="executioncondition.cpp" />
+    <ClCompile Include="MarginCondition.cpp" />
+    <ClCompile Include="OperatorCondition.cpp" />
+    <ClCompile Include="OrderCondition.cpp" />
+    <ClCompile Include="PercentChangeCondition.cpp" />
+    <ClCompile Include="PriceCondition.cpp" />
     <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="TimeCondition.cpp" />
+    <ClCompile Include="VolumeCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def" />
@@ -177,6 +187,7 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContractCondition.h" />
     <ClInclude Include="EClientMsgSink.h" />
     <ClInclude Include="EMutex.h" />
     <ClInclude Include="DefaultEWrapper.h" />
@@ -190,6 +201,13 @@
     <ClInclude Include="EReaderWMSignal.h" />
     <ClInclude Include="ESocket.h" />
     <ClInclude Include="ETransport.h" />
+    <ClInclude Include="executioncondition.h" />
+    <ClInclude Include="IExternalizable.h" />
+    <ClInclude Include="MarginCondition.h" />
+    <ClInclude Include="OperatorCondition.h" />
+    <ClInclude Include="OrderCondition.h" />
+    <ClInclude Include="PercentChangeCondition.h" />
+    <ClInclude Include="PriceCondition.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="CommissionReport.h" />
@@ -206,7 +224,9 @@
     <ClInclude Include="ScannerSubscription.h" />
     <ClInclude Include="shared_ptr.h" />
     <ClInclude Include="TagValue.h" />
+    <ClInclude Include="TimeCondition.h" />
     <ClInclude Include="TwsSocketClientErrors.h" />
+    <ClInclude Include="VolumeCondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

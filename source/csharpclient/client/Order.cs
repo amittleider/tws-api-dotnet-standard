@@ -1159,6 +1159,14 @@ namespace IBApi
             scaleTable = EMPTY_STR;
             whatIf = false;
             notHeld = false;
+            Conditions = new List<OrderCondition>();
+            StopPrice = double.MaxValue;
+            TriggerPrice = double.MaxValue;
+            TrailingAmount = double.MaxValue;
+            LmtPriceOffset = double.MaxValue;
+            AdjustedStopPrice = double.MaxValue;
+            AdjustedStopLimitPrice = double.MaxValue;
+            AdjustedTrailingAmount = double.MaxValue;
         }
 
         public override bool Equals(Object p_other)
@@ -1235,7 +1243,9 @@ namespace IBApi
                 ExemptCode != l_theOther.ExemptCode ||
                 RandomizePrice != l_theOther.RandomizePrice ||
                 RandomizeSize != l_theOther.RandomizeSize ||
-                Solicited != l_theOther.Solicited)
+                Solicited != l_theOther.Solicited ||
+                ConditionsIgnoreRth != l_theOther.ConditionsIgnoreRth ||
+                ConditionsCancelOrder != l_theOther.ConditionsCancelOrder)
             {
                 return false;
             }
@@ -1296,5 +1306,36 @@ namespace IBApi
 
         public bool RandomizeSize { get; set; }
         public bool RandomizePrice { get; set; }
+
+        public int ReferenceContractId { get; set; }
+        public bool IsPeggedChangeAmountDecrease { get; set; }
+        public double PeggedChangeAmount { get; set; }
+        public double ReferenceChangeAmount { get; set; }
+        public string ReferenceExchange { get; set; }
+        public List<OrderCondition> Conditions { get; set; }
+
+        public string AdjustedOrderType { get; set; }
+
+        public double StopPrice { get; set; }
+
+        public double TriggerPrice { get; set; }
+
+        public double TrailingAmount { get; set; }
+
+        public int TrailingUnit { get; set; }
+
+        public double LmtPriceOffset { get; set; }
+
+        public double AdjustedStopPrice { get; set; }
+
+        public double AdjustedStopLimitPrice { get; set; }
+
+        public double AdjustedTrailingAmount { get; set; }
+
+        public int AdjustableTrailingUnit { get; set; }
+
+        public bool ConditionsIgnoreRth { get; set; }
+
+        public bool ConditionsCancelOrder { get; set; }
     }
 }

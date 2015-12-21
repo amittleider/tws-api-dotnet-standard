@@ -963,7 +963,7 @@ Friend Class dlgScanner
         dlg.init(m_scannerSubscriptionOptions, m_mainWnd.Tws1, "Scanner Subscription Options")
         Dim res As DialogResult
         res = dlg.ShowDialog()
-        If res = Windows.Forms.DialogResult.OK Then
+        If res = DialogResult.OK Then
             m_scannerSubscriptionOptions = dlg.smartComboRoutingParams
         End If
     End Sub

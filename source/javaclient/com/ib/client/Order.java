@@ -168,8 +168,29 @@ public class Order {
 	
 	private boolean m_randomizeSize;
 	private boolean m_randomizePrice;
+	
+	//VER PEG2BENCH fields:
+	private int m_referenceContractId;
+	private double m_peggedChangeAmount;
+	private boolean m_isPeggedChangeAmountDecrease;
+	private double m_referenceChangeAmount;
+	private String m_referenceExchangeId;
+	private OrderType m_adjustedOrderType;
+	private double m_stopPrice = Double.MAX_VALUE;
+	private double m_triggerPrice = Double.MAX_VALUE;
+	private double m_trailingAmount = Double.MAX_VALUE;
+	private int m_trailingUnit;
+	private double m_adjustedStopPrice = Double.MAX_VALUE;
+	private double m_adjustedStopLimitPrice = Double.MAX_VALUE;
+	private double m_adjustedTrailingAmount = Double.MAX_VALUE;
+	private int m_adjustableTrailingUnit;
+	private double m_lmtPriceOffset = Double.MAX_VALUE;
+	
+	private ArrayList<OrderCondition> m_conditions = new ArrayList<OrderCondition>();
+	private boolean m_conditionsCancelOrder;
+	private boolean m_conditionsIgnoreRth;
     
-    // getters
+	// getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
     public boolean allOrNone()          { return m_allOrNone; }
@@ -276,8 +297,27 @@ public class Order {
     public ArrayList<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
     public boolean randomizeSize() { return m_randomizeSize; }
     public boolean randomizePrice() { return m_randomizePrice; }
-
-    // setters
+    public int referenceContractId() { return m_referenceContractId; }
+    public boolean isPeggedChangeAmountDecrease() { return m_isPeggedChangeAmountDecrease; }
+    public double peggedChangeAmount() { return m_peggedChangeAmount; }
+	public double referenceChangeAmount() { return m_referenceChangeAmount; }
+	public String referenceExchangeId() { return m_referenceExchangeId; }
+	public OrderType adjustedOrderType() {	return m_adjustedOrderType; }
+	public double triggerPrice() { return m_triggerPrice; }
+	public double adjustedStopPrice() {	return m_adjustedStopPrice; }
+	public double adjustedStopLimitPrice() { return m_adjustedStopLimitPrice; }
+	public double adjustedTrailingAmount() { return m_adjustedTrailingAmount; }
+	public int adjustableTrailingUnit() { return m_adjustableTrailingUnit; }
+	public double stopPrice() { return m_stopPrice; }
+	public double trailingAmount() { return m_trailingAmount; }
+	public int trailingUnit() { return m_trailingUnit; }
+	public double lmtPriceOffset() { return m_lmtPriceOffset; }
+	public ArrayList<OrderCondition> conditions() {	return m_conditions; }
+	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
+	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
+	
+	// setters
+	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
     public void account(String v)               { m_account = v; }
     public void settlingFirm(String v)          { m_settlingFirm = v; }
     public void clearingAccount(String v)       { m_clearingAccount = v; }
@@ -385,6 +425,23 @@ public class Order {
     public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
     public void randomizeSize(boolean v) { m_randomizeSize = v; }
     public void randomizePrice(boolean v) { m_randomizePrice = v; }
+    public void isPeggedChangeAmountDecrease(boolean v) { m_isPeggedChangeAmountDecrease = v; }
+	public void peggedChangeAmount(double m_peggedChangeAmount) { this.m_peggedChangeAmount = m_peggedChangeAmount; }
+	public void referenceChangeAmount(double m_referenceChangeAmount) { this.m_referenceChangeAmount = m_referenceChangeAmount; }
+	public void referenceExchangeId(String m_referenceExchangeId) { this.m_referenceExchangeId = m_referenceExchangeId; }
+	public void adjustedOrderType(OrderType v) { m_adjustedOrderType = v; }
+	public void triggerPrice(double v) { m_triggerPrice = v; }
+	public void adjustedStopPrice(double v) {	m_adjustedStopPrice = v; }
+	public void adjustedStopLimitPrice(double v) { m_adjustedStopLimitPrice = v; }
+	public void adjustedTrailingAmount(double v) { m_adjustedTrailingAmount = v; }
+	public void adjustableTrailingUnit(int v) { m_adjustableTrailingUnit = v; }
+	public void stopPrice(double v) { m_stopPrice = v; }
+	public void trailingAmount(double v) { m_trailingAmount = v; }
+	public void trailingUnit(int v) { m_trailingUnit = v; }
+	public void lmtPriceOffset(double v) { m_lmtPriceOffset = v; }
+	public void conditions(ArrayList<OrderCondition> v) { m_conditions = v; }
+	public void conditionsIgnoreRth(boolean v) { m_conditionsIgnoreRth = v; }
+	public void conditionsCancelOrder(boolean v) { m_conditionsCancelOrder = v; }
 
     public Order() {
         m_activeStartTime = EMPTY_STR;
@@ -497,7 +554,20 @@ public class Order {
         	m_exemptCode != l_theOther.m_exemptCode ||
         	m_randomizePrice != l_theOther.m_randomizePrice ||
             m_randomizeSize != l_theOther.m_randomizeSize ||        
-        	m_solicited != l_theOther.m_solicited) {
+        	m_solicited != l_theOther.m_solicited ||
+        	m_referenceContractId != l_theOther.m_referenceContractId ||
+        	m_peggedChangeAmount != l_theOther.m_peggedChangeAmount ||
+        	m_referenceChangeAmount != l_theOther.m_referenceChangeAmount ||
+        	m_adjustedOrderType != l_theOther.m_adjustedOrderType ||
+        	m_triggerPrice != l_theOther.m_triggerPrice ||
+        	m_adjustedStopPrice != l_theOther.m_adjustedStopPrice ||
+        	m_adjustedStopLimitPrice != l_theOther.m_adjustedStopLimitPrice ||
+        	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
+        	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
+        	m_stopPrice != l_theOther.m_stopPrice ||
+        	m_trailingAmount != l_theOther.m_trailingAmount ||
+        	m_trailingUnit != l_theOther.m_trailingUnit ||
+        	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset) {
         	return false;
         }
 
@@ -531,7 +601,8 @@ public class Order {
         	Util.StringCompare(m_clearingIntent, l_theOther.m_clearingIntent) != 0 ||
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
-        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0) {
+        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
+        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0) {
         	return false;
         }
 
@@ -547,6 +618,11 @@ public class Order {
         if (!Util.ArrayEqualsUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
         	return false;
         }
+        
+        if (!Util.ArrayEqualsUnordered(m_conditions, l_theOther.m_conditions)) {
+        	return false;
+        }
+        
         return true;
-    }
+    }    
 }
