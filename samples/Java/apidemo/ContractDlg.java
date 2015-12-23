@@ -51,7 +51,7 @@ class ContractDlg extends JDialog {
     	pack();
     }
 
-	private void onOK() {
+	public void onOK() {
 		m_contractPanel.onOK();
 		setVisible( false);
 	}

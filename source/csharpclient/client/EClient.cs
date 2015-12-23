@@ -187,7 +187,7 @@ namespace IBApi
 
             if (tcpStream != null)
                 tcpStream.Close();
- 
+
             wrapper.connectionClosed();
         }
 
@@ -966,6 +966,42 @@ namespace IBApi
                 paramsList.AddParameter(order.RandomizePrice);
             }
 
+            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK) 
+            {
+        	   if ( order.OrderType == "PEG BENCH") {
+        		   paramsList.AddParameter(order.ReferenceContractId);
+        		   paramsList.AddParameter(order.IsPeggedChangeAmountDecrease);
+        		   paramsList.AddParameter(order.PeggedChangeAmount);
+        		   paramsList.AddParameter(order.ReferenceChangeAmount);
+        		   paramsList.AddParameter(order.ReferenceExchange);
+        	   }
+        	   
+        	   paramsList.AddParameter(order.Conditions.Count);
+
+               if (order.Conditions.Count > 0)
+               {
+                   foreach (OrderCondition item in order.Conditions)
+                   {
+                       paramsList.AddParameter((int)item.Type);
+                       item.Serialize(paramsList);
+                   }
+
+                   paramsList.AddParameter(order.ConditionsIgnoreRth);
+                   paramsList.AddParameter(order.ConditionsCancelOrder);
+               }
+        	   
+        	   paramsList.AddParameter(order.AdjustedOrderType);
+        	   paramsList.AddParameter(order.StopPrice);
+        	   paramsList.AddParameter(order.TriggerPrice);
+        	   paramsList.AddParameter(order.TrailingAmount);
+        	   paramsList.AddParameter(order.TrailingUnit);
+        	   paramsList.AddParameter(order.LmtPriceOffset);
+        	   paramsList.AddParameter(order.AdjustedStopPrice);
+        	   paramsList.AddParameter(order.AdjustedStopLimitPrice);
+        	   paramsList.AddParameter(order.AdjustedTrailingAmount);
+        	   paramsList.AddParameter(order.AdjustableTrailingUnit);
+           }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
@@ -1209,7 +1245,7 @@ namespace IBApi
                     paramsList.AddParameter(contract.Exchange);
                 }
             }
-            
+
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
             if (serverVersion >= MinServerVer.TRADING_CLASS)

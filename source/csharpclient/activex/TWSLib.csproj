@@ -31,6 +31,26 @@
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,6 +76,9 @@
     </Compile>
     <Compile Include="..\client\Contract.cs">
       <Link>CSharpAPI\Contract.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ContractCondition.cs">
+      <Link>CSharpAPI\ContractCondition.cs</Link>
     </Compile>
     <Compile Include="..\client\ContractDetails.cs">
       <Link>CSharpAPI\ContractDetails.cs</Link>
@@ -105,14 +128,23 @@
     <Compile Include="..\client\Execution.cs">
       <Link>CSharpAPI\Execution.cs</Link>
     </Compile>
+    <Compile Include="..\client\ExecutionCondition.cs">
+      <Link>CSharpAPI\ExecutionCondition.cs</Link>
+    </Compile>
     <Compile Include="..\client\ExecutionFilter.cs">
       <Link>CSharpAPI\ExecutionFilter.cs</Link>
     </Compile>
     <Compile Include="..\client\IBParamsList.cs">
       <Link>CSharpAPI\IBParamsList.cs</Link>
     </Compile>
+    <Compile Include="..\client\IDecoder.cs">
+      <Link>CSharpAPI\IDecoder.cs</Link>
+    </Compile>
     <Compile Include="..\client\IncomingMessage.cs">
       <Link>CSharpAPI\IncomingMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MarginCondition.cs">
+      <Link>CSharpAPI\MarginCondition.cs</Link>
     </Compile>
     <Compile Include="..\client\MessageValidator.cs">
       <Link>CSharpAPI\MessageValidator.cs</Link>
@@ -120,17 +152,29 @@
     <Compile Include="..\client\MinServerVer.cs">
       <Link>CSharpAPI\MinServerVer.cs</Link>
     </Compile>
+    <Compile Include="..\client\OperatorCondition.cs">
+      <Link>CSharpAPI\OperatorCondition.cs</Link>
+    </Compile>
     <Compile Include="..\client\Order.cs">
       <Link>CSharpAPI\Order.cs</Link>
     </Compile>
     <Compile Include="..\client\OrderComboLeg.cs">
       <Link>CSharpAPI\OrderComboLeg.cs</Link>
     </Compile>
+    <Compile Include="..\client\OrderCondition.cs">
+      <Link>CSharpAPI\OrderCondition.cs</Link>
+    </Compile>
     <Compile Include="..\client\OrderState.cs">
       <Link>CSharpAPI\OrderState.cs</Link>
     </Compile>
     <Compile Include="..\client\OutgoingMessages.cs">
       <Link>CSharpAPI\OutgoingMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\client\PercentChangeCondition.cs">
+      <Link>CSharpAPI\PercentChangeCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\PriceCondition.cs">
+      <Link>CSharpAPI\PriceCondition.cs</Link>
     </Compile>
     <Compile Include="..\client\ScannerSubscription.cs">
       <Link>CSharpAPI\ScannerSubscription.cs</Link>
@@ -141,11 +185,17 @@
     <Compile Include="..\client\TickType.cs">
       <Link>CSharpAPI\TickType.cs</Link>
     </Compile>
+    <Compile Include="..\client\TimeCondition.cs">
+      <Link>CSharpAPI\TimeCondition.cs</Link>
+    </Compile>
     <Compile Include="..\client\UnderComp.cs">
       <Link>CSharpAPI\UnderComp.cs</Link>
     </Compile>
     <Compile Include="..\client\Util.cs">
       <Link>CSharpAPI\Util.cs</Link>
+    </Compile>
+    <Compile Include="..\client\VolumeCondition.cs">
+      <Link>CSharpAPI\VolumeCondition.cs</Link>
     </Compile>
     <Compile Include="ComWrappers\comComboLeg.cs" />
     <Compile Include="ComWrappers\comCommissionReport.cs" />

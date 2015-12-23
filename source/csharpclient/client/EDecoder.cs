@@ -12,7 +12,7 @@ using System.Net;
 
 namespace IBApi
 {
-    class EDecoder
+    class EDecoder : IDecoder
     {
         private EClientMsgSink eClientMsgSink;
         private EWrapper eWrapper;
@@ -1171,6 +1171,46 @@ namespace IBApi
                 order.RandomizePrice = ReadBoolFromInt();
             }
 
+            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
+            {
+                if (order.OrderType == "PEG BENCH")
+                {
+                    order.ReferenceContractId = ReadInt();
+                    order.IsPeggedChangeAmountDecrease = ReadBoolFromInt();
+                    order.PeggedChangeAmount = ReadDoubleMax();
+                    order.ReferenceChangeAmount = ReadDoubleMax();
+                    order.ReferenceExchange = ReadString();
+                }
+
+                int nConditions = ReadInt();
+
+                if (nConditions > 0)
+                {
+                    for (int i = 0; i < nConditions; i++)
+                    {
+                        OrderConditionType orderConditionType = (OrderConditionType)ReadInt();
+                        OrderCondition condition = OrderCondition.Create(orderConditionType);
+
+                        condition.Deserialize(this);
+                        order.Conditions.Add(condition);
+                    }
+
+                    order.ConditionsIgnoreRth = ReadBoolFromInt();
+                    order.ConditionsCancelOrder = ReadBoolFromInt();
+                }
+
+                order.AdjustedOrderType = ReadString();
+                order.StopPrice = ReadDoubleMax();
+                order.TriggerPrice = ReadDoubleMax();
+                order.TrailingAmount = ReadDoubleMax();
+                order.TrailingUnit = ReadInt();
+                order.LmtPriceOffset = ReadDoubleMax();
+                order.AdjustedStopPrice = ReadDoubleMax();
+                order.AdjustedStopLimitPrice = ReadDoubleMax();
+                order.AdjustedTrailingAmount = ReadDoubleMax();
+                order.AdjustableTrailingUnit = ReadInt();
+            }
+
             eWrapper.openOrder(order.OrderId, contract, order, orderState);
         }
 
@@ -1585,7 +1625,7 @@ namespace IBApi
             eWrapper.accountUpdateMultiEnd(requestId);
         }
 
-        protected double ReadDouble()
+        public double ReadDouble()
         {
             string doubleAsstring = ReadString();
             if (string.IsNullOrEmpty(doubleAsstring) ||
@@ -1596,13 +1636,13 @@ namespace IBApi
             else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected double ReadDoubleMax()
+        public double ReadDoubleMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected long ReadLong()
+        public long ReadLong()
         {
             string longAsstring = ReadString();
             if (string.IsNullOrEmpty(longAsstring) ||
@@ -1613,7 +1653,7 @@ namespace IBApi
             else return Int64.Parse(longAsstring);
         }
 
-        protected int ReadInt()
+        public int ReadInt()
         {
             string intAsstring = ReadString();
             if (string.IsNullOrEmpty(intAsstring) ||
@@ -1624,19 +1664,19 @@ namespace IBApi
             else return Int32.Parse(intAsstring);
         }
 
-        protected int ReadIntMax()
+        public int ReadIntMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
         }
 
-        protected bool ReadBoolFromInt()
+        public bool ReadBoolFromInt()
         {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
         }
 
-        protected string ReadString()
+        public string ReadString()
         {
             byte b = dataReader.ReadByte();
 

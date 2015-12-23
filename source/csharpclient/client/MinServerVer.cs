@@ -61,6 +61,7 @@ namespace IBApi
         public const int PRIMARYEXCH = 75;
         public const int RANDOMIZE_SIZE_AND_PRICE = 76;
         public const int FRACTIONAL_POSITIONS = 101;
-        public const int MODELS_SUPPORT = 102;
+        public const int PEGGED_TO_BENCHMARK = 102;
+        public const int MODELS_SUPPORT = 103;
     }
 }

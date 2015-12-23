@@ -127,5 +127,5 @@ public class VerticalPanel extends JPanel {
 		@Override public Dimension getMaximumSize() {
 			return super.getPreferredSize();
 		}
-	}
+	}	
 }

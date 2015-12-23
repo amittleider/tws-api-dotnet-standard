@@ -9,14 +9,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import sun.swing.SwingUtilities2;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -31,6 +36,9 @@ import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
+import com.ib.controller.ApiController;
+import com.sun.java.swing.SwingUtilities3;
+import com.sun.javafx.tk.Toolkit;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
@@ -81,6 +89,55 @@ class SampleFrame extends JFrame implements EWrapper {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
     	m_groupsDlg = new GroupsDlg(this, m_client);
+    }
+    
+    interface ContractDetailsCallback {
+    	void onContractDetails(ContractDetails contractDetails);
+    	void onContractDetailsEnd();
+    	void onError(int errorCode, String errorMsg);
+    }
+    
+    HashMap<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<Integer, ContractDetailsCallback>(); 
+    
+    public ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
+    	final ArrayList<ContractDetails> rval = new ArrayList<ContractDetails>();    	
+    	int reqId = m_orderDlg.m_id;
+    	final Object sync = new Object();
+    	final boolean[] done = new boolean[] { false };
+    	
+    	m_callbackMap.put(reqId, new ContractDetailsCallback() {
+			
+			@Override
+			public void onError(int errorCode, String errorMsg) {
+				done[0] = true;
+				synchronized (sync) {
+					sync.notifyAll();
+				}
+			}
+			
+			@Override
+			public void onContractDetailsEnd() {
+				done[0] = true;
+				synchronized (sync) {
+					sync.notifyAll();
+				}
+			}
+			
+			@Override
+			public void onContractDetails(ContractDetails contractDetails) {
+				rval.add(contractDetails);
+			}
+		});
+    	
+		m_client.reqContractDetails(reqId, contract);   
+		
+		while (!done[0]) {
+			synchronized (sync) {
+				sync.wait();
+			}
+		}
+    	
+    	return rval;
     }
 
     private JPanel createButtonPanel() {
@@ -451,6 +508,9 @@ class SampleFrame extends JFrame implements EWrapper {
         new Thread() {
         	public void run() {
         		processMessages();
+        		
+        		int i = 0;
+        		System.out.println(i);
         	}
         }.start();
     }
@@ -460,16 +520,7 @@ class SampleFrame extends JFrame implements EWrapper {
 		while (m_client.isConnected()) {
 			m_signal.waitForSignal();
 				try {
-					javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								m_reader.processMsgs();
-							} catch (IOException e) {
-								error(e);
-							}
-						}
-					});
+					m_reader.processMsgs();
 				} catch (Exception e) {
 					error(e);
 				}
@@ -1032,12 +1083,20 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void contractDetails(int reqId, ContractDetails contractDetails) {
+    	if (m_callbackMap.containsKey(reqId)) {
+    		m_callbackMap.get(reqId).onContractDetails(contractDetails);
+    	}
+    	
     	String msg = EWrapperMsgGenerator.contractDetails( reqId, contractDetails);
     	m_TWS.add(msg);
     }
 
 	public void contractDetailsEnd(int reqId) {
-		String msg = EWrapperMsgGenerator.contractDetailsEnd(reqId);
+    	if (m_callbackMap.containsKey(reqId)) {
+    		m_callbackMap.get(reqId).onContractDetailsEnd();
+    	}
+    	
+    	String msg = EWrapperMsgGenerator.contractDetailsEnd(reqId);
 		m_TWS.add(msg);
 	}
 
@@ -1116,6 +1175,15 @@ class SampleFrame extends JFrame implements EWrapper {
 
     public void error( int id, int errorCode, String errorMsg) {
         // received error
+    	if (m_callbackMap.containsKey(id)) {
+    		m_callbackMap.get(id).onError(errorCode, errorMsg);    		
+    	}
+    	else if (id == -1) {
+    		for (ContractDetailsCallback callback : m_callbackMap.values()) {
+    			callback.onError(errorCode, errorMsg);
+    		}
+    	}
+    	
     	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg);
         m_errors.add( msg);
         for (int ctr=0; ctr < faErrorCodes.length; ctr++) {

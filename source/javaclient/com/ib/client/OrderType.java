@@ -67,4 +67,5 @@ public enum OrderType implements IApiEnum {
 	@Override public String getApiString() {
 		return m_apiString;
 	}
+
 }

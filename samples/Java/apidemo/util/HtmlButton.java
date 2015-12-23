@@ -33,6 +33,12 @@ public class HtmlButton extends JLabel {
 		this( text, null);
 	}
 	
+	@Override
+	public void setText(String text) {
+		m_text = text;
+		super.setText(text);
+	}
+
 	public HtmlButton( String text, ActionListener v) {
 		super( text);
 		m_text = text;

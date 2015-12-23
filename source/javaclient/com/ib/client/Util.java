@@ -5,6 +5,9 @@ package com.ib.client;
 
 import java.util.ArrayList;
 
+import com.ib.controller.ApiController;
+import com.ib.controller.ApiController.IContractDetailsHandler;
+
 public class Util {
 	public static boolean StringIsEmpty(String str) {
 		return str == null || str.length() == 0;
@@ -64,4 +67,43 @@ public class Util {
     public static String DoubleMaxString(double value) {
     	return (value == Double.MAX_VALUE) ? "" : String.valueOf(value);
     }
+    
+    
+    
+	public static ArrayList<ContractDetails> lookupContract(ApiController controller, Contract contract) {
+		final ArrayList<ContractDetails> rval = new ArrayList<ContractDetails>();
+		final boolean[] isReady = new boolean[1];
+		final Object sync = new Object();
+		
+		if (controller == null)
+			return rval;
+		
+		isReady[0] = false;
+				
+		controller.reqContractDetails(contract, new IContractDetailsHandler() {
+
+			@Override
+			public void contractDetails(ArrayList<ContractDetails> list) {
+				rval.addAll(list);
+				
+				synchronized (sync) {
+					isReady[0] = true;
+					sync.notify();
+				}
+			}
+		});
+		
+		synchronized (sync) {
+			try {
+				while (!isReady[0]) {
+					sync.wait();
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return rval;
+	}
 }

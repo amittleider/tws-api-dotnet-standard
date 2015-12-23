@@ -165,7 +165,7 @@ private:
 public:
 	void startApi();
 
-private:
+
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);
 
@@ -174,6 +174,7 @@ private:
 	static void EncodeFieldMax(std::ostream& os, double);
 
 	// socket state
+private:
 	virtual bool isSocketOK() const = 0;
 
 protected:
@@ -214,5 +215,9 @@ protected:
 
 template<> void EClient::EncodeField<bool>(std::ostream& os, bool);
 template<> void EClient::EncodeField<double>(std::ostream& os, double);
+
+#define ENCODE_FIELD(x) EClient::EncodeField(msg, x);
+#define ENCODE_FIELD_MAX(x) EClient::EncodeFieldMax(msg, x);
+
 
 #endif

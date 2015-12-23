@@ -14,7 +14,7 @@ namespace IBSampleApp.messages
         
         public AccountUpdateMultiEndMessage(int reqId)
         {
-            Type = MessageType.AccountUpdateMulti;
+            Type = MessageType.AccountUpdateMultiEnd;
             ReqId = ReqId;
         }
 

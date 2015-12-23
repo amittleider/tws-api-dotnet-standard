@@ -51,7 +51,8 @@ const int MIN_SERVER_VER_LINKING_AUTH           = 74;
 const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
 const int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
 const int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
-const int MIN_SERVER_VER_MODELS_SUPPORT         = 102;
+const int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
+const int MIN_SERVER_VER_MODELS_SUPPORT         = 103;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes

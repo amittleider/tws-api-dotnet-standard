@@ -110,7 +110,7 @@ public class ExtOrdDlg extends JDialog {
         setTitle( "Sample");
 
         // create extended order attributes panel
-        JPanel extOrderDetailsPanel = new JPanel( new GridLayout( 0, 4, 5, 5) );
+        JPanel extOrderDetailsPanel = new JPanel( new GridLayout( 0, 6, 5, 5) );
         extOrderDetailsPanel.setBorder( BorderFactory.createTitledBorder( "Extended Order Info") );
         extOrderDetailsPanel.add( new JLabel( "TIF") );
         extOrderDetailsPanel.add( m_tif);

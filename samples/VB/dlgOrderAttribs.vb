@@ -2612,6 +2612,7 @@ Public Class dlgOrderAttribs
         m_orderInfo.Solicited = cbSolicited.Checked
         m_orderInfo.RandomizePrice = cbRandomizePrice.Checked
         m_orderInfo.RandomizeSize = cbRandomizeSize.Checked
+        m_orderInfo.ModelCode = txtModelCode.Text
 
         m_ok = True
         Hide()

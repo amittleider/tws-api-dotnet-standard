@@ -97,7 +97,6 @@ public class EWrapperMsgGenerator {
         " faMethod=" + order.getFaMethod() +
         " faPercentage=" + order.faPercentage() +
         " faProfile=" + order.faProfile() +
-        " modelCode=" + order.modelCode() +
         " shortSaleSlot=" + order.shortSaleSlot() +
         " designatedLocation=" + order.designatedLocation() +
         " exemptCode=" + order.exemptCode() +
@@ -146,6 +145,7 @@ public class EWrapperMsgGenerator {
         " hedgeType=" + order.getHedgeType() +
         " hedgeParam=" + order.hedgeParam() +
         " account=" + order.account() +
+        " modelCode = " + order.modelCode() +
         " settlingFirm=" + order.settlingFirm() +
         " clearingAccount=" + order.clearingAccount() +
         " clearingIntent=" + order.clearingIntent() +

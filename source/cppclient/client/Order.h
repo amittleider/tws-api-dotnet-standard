@@ -6,6 +6,7 @@
 #define order_def
 
 #include "TagValue.h"
+#include "OrderCondition.h"
 
 #include <float.h>
 #include <limits.h>
@@ -137,6 +138,14 @@ struct Order
 		// Not Held
 		notHeld = false;
 		solicited = false;
+
+		stopPrice = UNSET_DOUBLE;
+		triggerPrice = UNSET_DOUBLE;
+		trailingAmount = UNSET_DOUBLE;
+		adjustedStopPrice = UNSET_DOUBLE;
+		adjustedStopLimitPrice = UNSET_DOUBLE;
+		adjustedTrailingAmount = UNSET_DOUBLE;
+		lmtPriceOffset = UNSET_DOUBLE;
 	}
 
 	// order identifier
@@ -277,6 +286,27 @@ struct Order
 	OrderComboLegListSPtr orderComboLegs;
 
 	TagValueListSPtr orderMiscOptions;
+
+	//VER PEG2BENCH fields:
+	int referenceContractId;
+	double peggedChangeAmount;
+	bool isPeggedChangeAmountDecrease;
+	double referenceChangeAmount;
+	std::string referenceExchangeId;
+	std::string adjustedOrderType;
+	double stopPrice;
+	double triggerPrice;
+	double trailingAmount;
+	int trailingUnit;
+	double adjustedStopPrice;
+	double adjustedStopLimitPrice;
+	double adjustedTrailingAmount;
+	int adjustableTrailingUnit;
+	double lmtPriceOffset;
+
+	std::vector<ibapi::shared_ptr<OrderCondition>> conditions;
+	bool conditionsCancelOrder;
+	bool conditionsIgnoreRth;
 
 public:
 

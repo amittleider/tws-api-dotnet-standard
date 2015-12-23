@@ -36,7 +36,7 @@ import com.ib.controller.Formats;
 
 public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
-	static ApiDemo INSTANCE;
+	public static ApiDemo INSTANCE;
 
 	private final IConnectionConfiguration m_connectionConfiguration;
 	private final JTextArea m_inLog = new JTextArea();
@@ -44,7 +44,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final Logger m_inLogger = new Logger( m_inLog);
 	private final Logger m_outLogger = new Logger( m_outLog);
 	private ApiController m_controller;
-	private final ArrayList<String> m_acctList = new ArrayList<String>();
+	private final ArrayList<String> m_acctList = new ArrayList<>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
 	private final ConnectionPanel m_connectionPanel;

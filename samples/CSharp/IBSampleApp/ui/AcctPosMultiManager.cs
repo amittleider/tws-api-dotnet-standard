@@ -21,9 +21,6 @@ namespace IBSampleApp.ui
         private DataGridView positionsMultiGrid;
         private DataGridView accountUpdatesMultiGrid;
 
-        private bool positionsMultiRequestActive = false;
-        private bool accountUpdatesMultiRequestActive = false;
-
         public AcctPosMultiManager(IBClient ibClient, DataGridView positionsMultiGrid, DataGridView accountUpdatesMultiGrid)
         {
             IbClient = ibClient;
@@ -39,11 +36,13 @@ namespace IBSampleApp.ui
                     HandlePositionMulti((PositionMultiMessage)message);
                     break;
                 case MessageType.PositionMultiEnd:
+                    HandlePositionMultiEnd((PositionMultiEndMessage)message);
                     break;
                 case MessageType.AccountUpdateMulti:
                     HandleAccountUpdateMulti((AccountUpdateMultiMessage)message);
                     break;
                 case MessageType.AccountUpdateMultiEnd:
+                    HandleAccountUpdateMultiEnd((AccountUpdateMultiEndMessage)message);
                     break;
             }
         }
@@ -52,7 +51,8 @@ namespace IBSampleApp.ui
         {
             for (int i = 0; i < accountUpdatesMultiGrid.Rows.Count; i++)
             {
-                if (accountUpdatesMultiGrid[2, i].Value.Equals(accountUpdateMultiMessage.Key) && accountUpdatesMultiGrid[4, i].Value.Equals(accountUpdateMultiMessage.Currency))
+                if (accountUpdatesMultiGrid[2, i].Value.Equals(accountUpdateMultiMessage.Key) && 
+                    accountUpdatesMultiGrid[4, i].Value.Equals(accountUpdateMultiMessage.Currency == null ? "" : accountUpdateMultiMessage.Currency))
                 {
                     accountUpdatesMultiGrid[0, i].Value = accountUpdateMultiMessage.Account;
                     accountUpdatesMultiGrid[1, i].Value = accountUpdateMultiMessage.ModelCode;
@@ -65,7 +65,11 @@ namespace IBSampleApp.ui
             accountUpdatesMultiGrid[1, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.ModelCode;
             accountUpdatesMultiGrid[2, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.Key;
             accountUpdatesMultiGrid[3, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.Value;
-            accountUpdatesMultiGrid[4, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.Currency;
+            accountUpdatesMultiGrid[4, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.Currency == null ? "" : accountUpdateMultiMessage.Currency;
+        }
+
+        private void HandleAccountUpdateMultiEnd(AccountUpdateMultiEndMessage accountUpdateMultiEndMessage)
+        {
         }
 
         public void HandlePositionMulti(PositionMultiMessage positionMultiMessage)
@@ -73,10 +77,11 @@ namespace IBSampleApp.ui
             for (int i = 0; i < positionsMultiGrid.Rows.Count; i++)
             {
 
-                if (positionsMultiGrid[0, i].Value.Equals(Utils.ContractToString(positionMultiMessage.Contract)))
+                if (positionsMultiGrid[2, i].Value.Equals(Utils.ContractToString(positionMultiMessage.Contract)) &&
+                    positionsMultiGrid[0, i].Value.Equals(positionMultiMessage.Account) &&
+                    positionsMultiGrid[1, i].Value.Equals(positionMultiMessage.ModelCode == null ? "" : positionMultiMessage.ModelCode)
+                    )
                 {
-                    positionsMultiGrid[1, i].Value = positionMultiMessage.Account;
-                    positionsMultiGrid[2, i].Value = positionMultiMessage.ModelCode;
                     positionsMultiGrid[3, i].Value = positionMultiMessage.Position;
                     positionsMultiGrid[4, i].Value = positionMultiMessage.AverageCost;
                     return;
@@ -84,39 +89,48 @@ namespace IBSampleApp.ui
             }
 
             positionsMultiGrid.Rows.Add(1);
-            positionsMultiGrid[0, positionsMultiGrid.Rows.Count - 1].Value = Utils.ContractToString(positionMultiMessage.Contract);
-            positionsMultiGrid[1, positionsMultiGrid.Rows.Count - 1].Value = positionMultiMessage.Account;
-            positionsMultiGrid[2, positionsMultiGrid.Rows.Count - 1].Value = positionMultiMessage.ModelCode;
+            positionsMultiGrid[0, positionsMultiGrid.Rows.Count - 1].Value = positionMultiMessage.Account;
+            positionsMultiGrid[1, positionsMultiGrid.Rows.Count - 1].Value = (positionMultiMessage.ModelCode == null) ? "" : positionMultiMessage.ModelCode;
+            positionsMultiGrid[2, positionsMultiGrid.Rows.Count - 1].Value = Utils.ContractToString(positionMultiMessage.Contract);
             positionsMultiGrid[3, positionsMultiGrid.Rows.Count - 1].Value = positionMultiMessage.Position;
             positionsMultiGrid[4, positionsMultiGrid.Rows.Count - 1].Value = positionMultiMessage.AverageCost;
         }
 
+        public void HandlePositionMultiEnd(PositionMultiEndMessage positionMultiEndMessage)
+        {
+        }
+
         public void RequestPositionsMulti(string account, string modelCode)
         {
-            if (!positionsMultiRequestActive)
-            {
-                positionsMultiRequestActive = true;
-                positionsMultiGrid.Rows.Clear();
-                ibClient.ClientSocket.reqPositionsMulti(POSITIONS_MULTI_ID, account, modelCode);
-            }
-            else
-            {
-                ibClient.ClientSocket.cancelPositionsMulti(POSITIONS_MULTI_ID);
-            }
+            positionsMultiGrid.Rows.Clear();
+            ibClient.ClientSocket.reqPositionsMulti(POSITIONS_MULTI_ID, account, modelCode);
         }
+
+        public void CancelPositionsMulti()
+        {
+            ibClient.ClientSocket.cancelPositionsMulti(POSITIONS_MULTI_ID);
+        }
+
 
         public void RequestAccountUpdatesMulti(string account, string modelCode, bool ledgerAndNLV)
         {
-            if (!accountUpdatesMultiRequestActive)
-            {
-                accountUpdatesMultiRequestActive = true;
-                accountUpdatesMultiGrid.Rows.Clear();
-                ibClient.ClientSocket.reqAccountUpdatesMulti(ACCOUNT_UPDATES_MULTI_ID, account, modelCode, ledgerAndNLV);
-            }
-            else
-            {
-                ibClient.ClientSocket.cancelAccountUpdatesMulti(ACCOUNT_UPDATES_MULTI_ID);
-            }
+            accountUpdatesMultiGrid.Rows.Clear();
+            ibClient.ClientSocket.reqAccountUpdatesMulti(ACCOUNT_UPDATES_MULTI_ID, account, modelCode, ledgerAndNLV);
+        }
+
+        public void CancelAccountUpdatesMulti()
+        {
+            ibClient.ClientSocket.cancelAccountUpdatesMulti(ACCOUNT_UPDATES_MULTI_ID);
+        }
+
+        public void ClearPositionsMulti()
+        {
+            positionsMultiGrid.Rows.Clear();
+        }
+
+        public void ClearAccountUpdatesMulti()
+        {
+            accountUpdatesMultiGrid.Rows.Clear();
         }
 
         public DataGridView AccountUpdatesMultiGrid

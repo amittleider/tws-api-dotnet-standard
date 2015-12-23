@@ -216,7 +216,8 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_PRIMARYEXCH = 75;
     protected static final int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
     protected static final int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
-    protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 102;
+    protected static final int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
+    protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 103;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = MIN_SERVER_VER_MODELS_SUPPORT; // ditto
@@ -1366,7 +1367,7 @@ public abstract class EClient {
 
         // send place order msg
         try {
-            Builder b = prepareBuffer(); 
+            final Builder b = prepareBuffer(); 
 
             b.send( PLACE_ORDER);
             b.send( VERSION);
@@ -1720,6 +1721,39 @@ public abstract class EClient {
            if (m_serverVersion >= MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE) {
         	   b.send(order.randomizeSize());
         	   b.send(order.randomizePrice());
+           }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_PEGGED_TO_BENCHMARK) {
+        	   if (order.orderType() == OrderType.PEG_BENCH) {
+        		   b.send(order.referenceContractId());
+        		   b.send(order.isPeggedChangeAmountDecrease());
+        		   b.send(order.peggedChangeAmount());
+        		   b.send(order.referenceChangeAmount());
+        		   b.send(order.referenceExchangeId());
+        	   }
+        	   
+        	   b.send(order.conditions().size());
+        	           	   
+        	   if (order.conditions().size() > 0) {
+        		   for (OrderCondition item : order.conditions()) {
+        			   b.send(item.type().val());
+        			   item.writeExternal(b);
+        		   }
+        		   
+        		   b.send(order.conditionsIgnoreRth());
+        		   b.send(order.conditionsCancelOrder());
+        	   }
+        	   
+        	   b.send(order.adjustedOrderType());
+        	   b.send(order.stopPrice());
+        	   b.send(order.triggerPrice());
+        	   b.send(order.trailingAmount());
+        	   b.send(order.trailingUnit());
+        	   b.send(order.lmtPriceOffset());
+        	   b.send(order.adjustedStopPrice());
+        	   b.send(order.adjustedStopLimitPrice());
+        	   b.send(order.adjustedTrailingAmount());
+        	   b.send(order.adjustableTrailingUnit());
            }
            
            closeAndSend(b);
