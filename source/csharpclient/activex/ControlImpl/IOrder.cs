@@ -291,7 +291,7 @@ namespace TWSLib
 
         [DispId(164)]
         bool conditionsCancelOrder { get; set; }
-        
+
         [DispId(165)]
         string modelCode { get; set; }
     }

@@ -37,6 +37,8 @@ namespace IBSampleApp
             this.conditionsTab = new System.Windows.Forms.TabControl();
             this.orderContractTab = new System.Windows.Forms.TabPage();
             this.baseGroup = new System.Windows.Forms.GroupBox();
+            this.modelCode = new System.Windows.Forms.TextBox();
+            this.modelCodeLabel = new System.Windows.Forms.Label();
             this.trailingAmnt = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.trailingAmntUnit = new System.Windows.Forms.ComboBox();
@@ -238,8 +240,6 @@ namespace IBSampleApp
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.checkMarginButton = new System.Windows.Forms.Button();
             this.closeOrderDialogButton = new System.Windows.Forms.Button();
-            this.modelCodeLabel = new System.Windows.Forms.Label();
-            this.modelCode = new System.Windows.Forms.TextBox();
             this.conditionsTab.SuspendLayout();
             this.orderContractTab.SuspendLayout();
             this.baseGroup.SuspendLayout();
@@ -280,7 +280,7 @@ namespace IBSampleApp
             this.conditionsTab.Location = new System.Drawing.Point(1, 1);
             this.conditionsTab.Name = "conditionsTab";
             this.conditionsTab.SelectedIndex = 0;
-            this.conditionsTab.Size = new System.Drawing.Size(628, 370);
+            this.conditionsTab.Size = new System.Drawing.Size(628, 384);
             this.conditionsTab.TabIndex = 1;
             // 
             // orderContractTab
@@ -291,7 +291,7 @@ namespace IBSampleApp
             this.orderContractTab.Location = new System.Drawing.Point(4, 22);
             this.orderContractTab.Name = "orderContractTab";
             this.orderContractTab.Padding = new System.Windows.Forms.Padding(3);
-            this.orderContractTab.Size = new System.Drawing.Size(620, 344);
+            this.orderContractTab.Size = new System.Drawing.Size(620, 358);
             this.orderContractTab.TabIndex = 0;
             this.orderContractTab.Text = "Basic Order";
             // 
@@ -324,10 +324,26 @@ namespace IBSampleApp
             this.baseGroup.Controls.Add(this.accountLabel);
             this.baseGroup.Location = new System.Drawing.Point(362, 6);
             this.baseGroup.Name = "baseGroup";
-            this.baseGroup.Size = new System.Drawing.Size(242, 332);
+            this.baseGroup.Size = new System.Drawing.Size(242, 323);
             this.baseGroup.TabIndex = 15;
             this.baseGroup.TabStop = false;
             this.baseGroup.Text = "Order Base Attributes";
+            // 
+            // modelCode
+            // 
+            this.modelCode.Location = new System.Drawing.Point(121, 54);
+            this.modelCode.Name = "modelCode";
+            this.modelCode.Size = new System.Drawing.Size(89, 20);
+            this.modelCode.TabIndex = 21;
+            // 
+            // modelCodeLabel
+            // 
+            this.modelCodeLabel.AutoSize = true;
+            this.modelCodeLabel.Location = new System.Drawing.Point(13, 61);
+            this.modelCodeLabel.Name = "modelCodeLabel";
+            this.modelCodeLabel.Size = new System.Drawing.Size(64, 13);
+            this.modelCodeLabel.TabIndex = 20;
+            this.modelCodeLabel.Text = "Model Code";
             // 
             // trailingAmnt
             // 
@@ -541,7 +557,6 @@ namespace IBSampleApp
             this.actionLabel.Size = new System.Drawing.Size(37, 13);
             this.actionLabel.TabIndex = 1;
             this.actionLabel.Text = "Action";
-            this.actionLabel.Click += new System.EventHandler(this.actionLabel_Click);
             // 
             // accountLabel
             // 
@@ -579,7 +594,7 @@ namespace IBSampleApp
             this.contractGroup.Controls.Add(this.contractExchange);
             this.contractGroup.Location = new System.Drawing.Point(6, 6);
             this.contractGroup.Name = "contractGroup";
-            this.contractGroup.Size = new System.Drawing.Size(350, 332);
+            this.contractGroup.Size = new System.Drawing.Size(350, 323);
             this.contractGroup.TabIndex = 14;
             this.contractGroup.TabStop = false;
             this.contractGroup.Text = "Contract";
@@ -2318,7 +2333,7 @@ namespace IBSampleApp
             // sendOrderButton
             // 
             this.sendOrderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendOrderButton.Location = new System.Drawing.Point(12, 377);
+            this.sendOrderButton.Location = new System.Drawing.Point(12, 419);
             this.sendOrderButton.Name = "sendOrderButton";
             this.sendOrderButton.Size = new System.Drawing.Size(75, 23);
             this.sendOrderButton.TabIndex = 2;
@@ -2353,7 +2368,7 @@ namespace IBSampleApp
             // checkMarginButton
             // 
             this.checkMarginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkMarginButton.Location = new System.Drawing.Point(93, 377);
+            this.checkMarginButton.Location = new System.Drawing.Point(93, 419);
             this.checkMarginButton.Name = "checkMarginButton";
             this.checkMarginButton.Size = new System.Drawing.Size(87, 23);
             this.checkMarginButton.TabIndex = 11;
@@ -2364,7 +2379,7 @@ namespace IBSampleApp
             // closeOrderDialogButton
             // 
             this.closeOrderDialogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 377);
+            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 419);
             this.closeOrderDialogButton.Name = "closeOrderDialogButton";
             this.closeOrderDialogButton.Size = new System.Drawing.Size(75, 23);
             this.closeOrderDialogButton.TabIndex = 12;
@@ -2372,27 +2387,11 @@ namespace IBSampleApp
             this.closeOrderDialogButton.UseVisualStyleBackColor = true;
             this.closeOrderDialogButton.Click += new System.EventHandler(this.closeOrderDialogButton_Click);
             // 
-            // modelCodeLabel
-            // 
-            this.modelCodeLabel.AutoSize = true;
-            this.modelCodeLabel.Location = new System.Drawing.Point(13, 61);
-            this.modelCodeLabel.Name = "modelCodeLabel";
-            this.modelCodeLabel.Size = new System.Drawing.Size(64, 13);
-            this.modelCodeLabel.TabIndex = 20;
-            this.modelCodeLabel.Text = "Model Code";
-            // 
-            // modelCode
-            // 
-            this.modelCode.Location = new System.Drawing.Point(121, 54);
-            this.modelCode.Name = "modelCode";
-            this.modelCode.Size = new System.Drawing.Size(89, 20);
-            this.modelCode.TabIndex = 21;
-            // 
             // OrderDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 405);
+            this.ClientSize = new System.Drawing.Size(641, 447);
             this.ControlBox = false;
             this.Controls.Add(this.closeOrderDialogButton);
             this.Controls.Add(this.checkMarginButton);

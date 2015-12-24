@@ -35,14 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -369,6 +368,8 @@ namespace IBSampleApp
             this.valueAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.currencyAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxRequestData = new System.Windows.Forms.GroupBox();
+            this.buttonCancelAccountUpdatesMulti = new System.Windows.Forms.Button();
+            this.buttonCancelPositionsMulti = new System.Windows.Forms.Button();
             this.buttonRequestAccountUpdatesMulti = new System.Windows.Forms.Button();
             this.cbLedgerAndNLV = new System.Windows.Forms.CheckBox();
             this.labelAccount = new System.Windows.Forms.Label();
@@ -431,8 +432,6 @@ namespace IBSampleApp
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
-            this.buttonCancelPositionsMulti = new System.Windows.Forms.Button();
-            this.buttonCancelAccountUpdatesMulti = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -697,14 +696,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -850,27 +849,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea5.AxisX.MajorGrid.Enabled = false;
-            chartArea5.AxisX.MajorTickMark.Enabled = false;
-            chartArea5.AxisY.IsStartedFromZero = false;
-            chartArea5.Name = "ChartArea1";
-            chartArea5.Position.Auto = false;
-            chartArea5.Position.Height = 100F;
-            chartArea5.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend5);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series5.IsVisibleInLegend = false;
-            series5.IsXValueIndexed = true;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series5.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
             this.historicalChart.Size = new System.Drawing.Size(699, 182);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -977,26 +976,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea6.AxisX.MajorGrid.Enabled = false;
-            chartArea6.AxisX.MajorTickMark.Enabled = false;
-            chartArea6.AxisY.IsStartedFromZero = false;
-            chartArea6.Name = "ChartArea1";
-            chartArea6.Position.Auto = false;
-            chartArea6.Position.Height = 100F;
-            chartArea6.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend6);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend2);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series6.IsVisibleInLegend = false;
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series6.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series2);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 182);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -1959,7 +1958,7 @@ namespace IBSampleApp
             // 
             // globalCancelButton
             // 
-            this.globalCancelButton.Location = new System.Drawing.Point(975, 173);
+            this.globalCancelButton.Location = new System.Drawing.Point(977, 168);
             this.globalCancelButton.Name = "globalCancelButton";
             this.globalCancelButton.Size = new System.Drawing.Size(105, 23);
             this.globalCancelButton.TabIndex = 9;
@@ -1969,7 +1968,7 @@ namespace IBSampleApp
             // 
             // clientOrdersButton
             // 
-            this.clientOrdersButton.Location = new System.Drawing.Point(975, 56);
+            this.clientOrdersButton.Location = new System.Drawing.Point(977, 51);
             this.clientOrdersButton.Name = "clientOrdersButton";
             this.clientOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.clientOrdersButton.TabIndex = 8;
@@ -1979,7 +1978,7 @@ namespace IBSampleApp
             // 
             // refreshOrdersButton
             // 
-            this.refreshOrdersButton.Location = new System.Drawing.Point(975, 85);
+            this.refreshOrdersButton.Location = new System.Drawing.Point(977, 80);
             this.refreshOrdersButton.Name = "refreshOrdersButton";
             this.refreshOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.refreshOrdersButton.TabIndex = 1;
@@ -1989,7 +1988,7 @@ namespace IBSampleApp
             // 
             // cancelOrdersButton
             // 
-            this.cancelOrdersButton.Location = new System.Drawing.Point(975, 144);
+            this.cancelOrdersButton.Location = new System.Drawing.Point(977, 139);
             this.cancelOrdersButton.Name = "cancelOrdersButton";
             this.cancelOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.cancelOrdersButton.TabIndex = 7;
@@ -1999,7 +1998,7 @@ namespace IBSampleApp
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(975, 115);
+            this.button1.Location = new System.Drawing.Point(977, 110);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 23);
             this.button1.TabIndex = 6;
@@ -2010,7 +2009,7 @@ namespace IBSampleApp
             // newOrderLink
             // 
             this.newOrderLink.AutoSize = true;
-            this.newOrderLink.Location = new System.Drawing.Point(972, 31);
+            this.newOrderLink.Location = new System.Drawing.Point(974, 26);
             this.newOrderLink.Name = "newOrderLink";
             this.newOrderLink.Size = new System.Drawing.Size(58, 13);
             this.newOrderLink.TabIndex = 3;
@@ -3695,14 +3694,6 @@ namespace IBSampleApp
             this.keyAccountUpdatesMulti,
             this.valueAccountUpdatesMulti,
             this.currencyAccountUpdatesMulti});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.accountUpdatesMultiGrid.DefaultCellStyle = dataGridViewCellStyle5;
             this.accountUpdatesMultiGrid.Location = new System.Drawing.Point(4, 19);
             this.accountUpdatesMultiGrid.Name = "accountUpdatesMultiGrid";
             this.accountUpdatesMultiGrid.ReadOnly = true;
@@ -3758,6 +3749,26 @@ namespace IBSampleApp
             this.groupBoxRequestData.TabIndex = 0;
             this.groupBoxRequestData.TabStop = false;
             this.groupBoxRequestData.Text = "Request Data";
+            // 
+            // buttonCancelAccountUpdatesMulti
+            // 
+            this.buttonCancelAccountUpdatesMulti.Location = new System.Drawing.Point(350, 48);
+            this.buttonCancelAccountUpdatesMulti.Name = "buttonCancelAccountUpdatesMulti";
+            this.buttonCancelAccountUpdatesMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonCancelAccountUpdatesMulti.TabIndex = 9;
+            this.buttonCancelAccountUpdatesMulti.Text = "Cancel Acct Updates Multi";
+            this.buttonCancelAccountUpdatesMulti.UseVisualStyleBackColor = true;
+            this.buttonCancelAccountUpdatesMulti.Click += new System.EventHandler(this.buttonCancelAccountUpdatesMulti_Click);
+            // 
+            // buttonCancelPositionsMulti
+            // 
+            this.buttonCancelPositionsMulti.Location = new System.Drawing.Point(350, 19);
+            this.buttonCancelPositionsMulti.Name = "buttonCancelPositionsMulti";
+            this.buttonCancelPositionsMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonCancelPositionsMulti.TabIndex = 8;
+            this.buttonCancelPositionsMulti.Text = "Cancel Positions Multi";
+            this.buttonCancelPositionsMulti.UseVisualStyleBackColor = true;
+            this.buttonCancelPositionsMulti.Click += new System.EventHandler(this.buttonCancelPositionsMulti_Click);
             // 
             // buttonRequestAccountUpdatesMulti
             // 
@@ -4387,26 +4398,6 @@ namespace IBSampleApp
             this.ib_banner.TabIndex = 9;
             this.ib_banner.TabStop = false;
             // 
-            // buttonCancelPositionsMulti
-            // 
-            this.buttonCancelPositionsMulti.Location = new System.Drawing.Point(350, 19);
-            this.buttonCancelPositionsMulti.Name = "buttonCancelPositionsMulti";
-            this.buttonCancelPositionsMulti.Size = new System.Drawing.Size(153, 23);
-            this.buttonCancelPositionsMulti.TabIndex = 8;
-            this.buttonCancelPositionsMulti.Text = "Cancel Positions Multi";
-            this.buttonCancelPositionsMulti.UseVisualStyleBackColor = true;
-            this.buttonCancelPositionsMulti.Click += new System.EventHandler(this.buttonCancelPositionsMulti_Click);
-            // 
-            // buttonCancelAccountUpdatesMulti
-            // 
-            this.buttonCancelAccountUpdatesMulti.Location = new System.Drawing.Point(350, 48);
-            this.buttonCancelAccountUpdatesMulti.Name = "buttonCancelAccountUpdatesMulti";
-            this.buttonCancelAccountUpdatesMulti.Size = new System.Drawing.Size(153, 23);
-            this.buttonCancelAccountUpdatesMulti.TabIndex = 9;
-            this.buttonCancelAccountUpdatesMulti.Text = "Cancel Acct Updates Multi";
-            this.buttonCancelAccountUpdatesMulti.UseVisualStyleBackColor = true;
-            this.buttonCancelAccountUpdatesMulti.Click += new System.EventHandler(this.buttonCancelAccountUpdatesMulti_Click);
-            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4649,6 +4640,14 @@ namespace IBSampleApp
         private System.Windows.Forms.Button refreshOrdersButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button cancelOrdersButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clientIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orderIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn actionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contractColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
         private System.Windows.Forms.Button clientOrdersButton;
         private System.Windows.Forms.Button globalCancelButton;
         private System.Windows.Forms.Label accountSelectorLabel;
@@ -4658,6 +4657,15 @@ namespace IBSampleApp
         private System.Windows.Forms.TabPage accSummaryTab;
         private System.Windows.Forms.TabPage accUpdatesTab;
         private System.Windows.Forms.Label accUpdatesLastUpdateValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExecutionId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn actionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RealisedPnL;
         private System.Windows.Forms.TabPage positionsTab;
         private System.Windows.Forms.DataGridView accSummaryGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn tag;

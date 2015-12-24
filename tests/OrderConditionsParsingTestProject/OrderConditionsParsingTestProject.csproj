@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\activex\TWSLib.csproj">
+    <ProjectReference Include="..\..\source\csharpclient\activex\TWSLib.csproj">
       <Project>{44541143-0ca2-43a9-92a6-acc174ce7061}</Project>
       <Name>TWSLib</Name>
     </ProjectReference>

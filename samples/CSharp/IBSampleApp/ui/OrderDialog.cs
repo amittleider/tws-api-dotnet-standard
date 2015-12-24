@@ -293,11 +293,11 @@ namespace IBSampleApp
 
             order.IsPeggedChangeAmountDecrease = cbPeggedChangeType.SelectedIndex == 1;
 
-//            if (contractSearchControl1.Contract != null)
-//            {
-//                order.ReferenceContractId = contractSearchControl1.Contract.ConId;
-//                order.ReferenceExchange = contractSearchControl1.Contract.Exchange;
-//            }
+            if (contractSearchControl1.Contract != null)
+            {
+                order.ReferenceContractId = contractSearchControl1.Contract.ConId;
+                order.ReferenceExchange = contractSearchControl1.Contract.Exchange;
+            }
         }
 
         private void FillExtendedOrderAttributes(Order order)
@@ -644,11 +644,6 @@ namespace IBSampleApp
                 if (dlg.ShowDialog() == DialogResult.OK)
                     selectedCondition = dlg.Condition;
             }
-        }
-
-        private void actionLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
