@@ -4910,25 +4910,8 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn positionPositionsMulti;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgCostPositionsMulti;
         private System.Windows.Forms.Button buttonRequestAccountUpdatesMulti;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExecutionId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountExecColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RealisedPnL;
-        private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clientIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actionColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contractColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
         private System.Windows.Forms.Button buttonCancelPositionsMulti;
         private System.Windows.Forms.Button buttonCancelAccountUpdatesMulti;
     }
