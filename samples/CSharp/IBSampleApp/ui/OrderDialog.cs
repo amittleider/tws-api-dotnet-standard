@@ -30,7 +30,7 @@ namespace IBSampleApp
 
             this.orderManager = orderManager;
             marginDialog = new MarginDialog();
-            //contractSearchControl1.IBClient = orderManager.IBClient;
+            contractSearchControl1.IBClient = orderManager.IBClient;
             conditionList.CellFormatting += conditionList_CellFormatting;
             conditionList.DataSource = orderBindingSource;
             conditionList.AutoGenerateColumns = false;
@@ -465,7 +465,7 @@ namespace IBSampleApp
 
             var c = await orderManager.IBClient.ResolveContractAsync(order.ReferenceContractId, order.ReferenceExchange);
 
-            //contractSearchControl1.Contract = c;
+            contractSearchControl1.Contract = c;
 
             if (order.OrderType == "PEG BENCH")
             {
