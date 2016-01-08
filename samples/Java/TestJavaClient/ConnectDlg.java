@@ -4,6 +4,7 @@
 package TestJavaClient;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -62,9 +63,17 @@ public class ConnectDlg extends JDialog {
         m_clientId.setText( Integer.toString(LAST_CLIENT_ID) );
         midPanel.add( new JLabel( "Optional capabilities") );
         midPanel.add( m_optCapts );
+        JPanel defaultPortNumberPanel = new JPanel();
+        JLabel defaultPortNumberLabel = new JLabel( "<html>Live Trading ports:<b> TWS: 7496; IB Gateway: 4001.</b><br>"
+			    + "Simulated Trading ports for new installations of<br>"
+				+ "version 9xx.y or newer: "
+				+ "<b>TWS: 7497; IB Gateway: 4002</b></html>"); 
+        defaultPortNumberLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        defaultPortNumberPanel.add( defaultPortNumberLabel );
 
         // create dlg box
-        getContentPane().add( midPanel, BorderLayout.CENTER);
+        getContentPane().add( midPanel, BorderLayout.NORTH);
+        getContentPane().add( defaultPortNumberPanel, BorderLayout.CENTER);
         getContentPane().add( buttonPanel, BorderLayout.SOUTH);
         setTitle( "Connect");
         pack();

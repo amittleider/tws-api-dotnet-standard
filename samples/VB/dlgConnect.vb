@@ -45,6 +45,7 @@ Friend Class dlgConnect
     Public WithEvents Label2 As System.Windows.Forms.Label
     Public WithEvents txtOptCapts As System.Windows.Forms.TextBox
     Public WithEvents Label4 As System.Windows.Forms.Label
+    Public WithEvents Label5 As System.Windows.Forms.Label
     Public WithEvents Label1 As System.Windows.Forms.Label
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -62,6 +63,7 @@ Friend Class dlgConnect
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtOptCapts = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -71,7 +73,7 @@ Friend Class dlgConnect
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(60, 246)
+        Me.cmdOk.Location = New System.Drawing.Point(60, 315)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -86,7 +88,7 @@ Friend Class dlgConnect
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(148, 246)
+        Me.cmdCancel.Location = New System.Drawing.Point(148, 315)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -204,11 +206,26 @@ Friend Class dlgConnect
         Me.Label4.TabIndex = 9
         Me.Label4.Text = "Optional capabilities"
         '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.SystemColors.Control
+        Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label5.Location = New System.Drawing.Point(16, 239)
+        Me.Label5.Name = "Label5"
+        Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label5.Size = New System.Drawing.Size(252, 60)
+        Me.Label5.TabIndex = 10
+        Me.Label5.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " & _
+    "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002"
+        '
         'dlgConnect
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(280, 279)
+        Me.ClientSize = New System.Drawing.Size(280, 348)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.txtOptCapts)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cmdOk)

@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -159,6 +159,22 @@ namespace IBSampleApp
             this.scanLocation_label = new System.Windows.Forms.Label();
             this.scannerParamsRequest_button = new System.Windows.Forms.Button();
             this.tradingTab = new System.Windows.Forms.TabPage();
+            this.execFilterGroup = new System.Windows.Forms.GroupBox();
+            this.execFilterExchange = new System.Windows.Forms.TextBox();
+            this.execFilterSide = new System.Windows.Forms.TextBox();
+            this.execFilterSideLabel = new System.Windows.Forms.Label();
+            this.execFilterExchangeLabel = new System.Windows.Forms.Label();
+            this.execFilterSecTypeLabel = new System.Windows.Forms.Label();
+            this.execFilterSymbolLabel = new System.Windows.Forms.Label();
+            this.execFilterTimeLabel = new System.Windows.Forms.Label();
+            this.execFilterAcctLabel = new System.Windows.Forms.Label();
+            this.execFilterClientLabel = new System.Windows.Forms.Label();
+            this.execFilterSecType = new System.Windows.Forms.TextBox();
+            this.execFilterSymbol = new System.Windows.Forms.TextBox();
+            this.execFilterTime = new System.Windows.Forms.TextBox();
+            this.execFilterAccount = new System.Windows.Forms.TextBox();
+            this.execFilterClientId = new System.Windows.Forms.TextBox();
+            this.refreshExecutionsButton = new System.Windows.Forms.Button();
             this.globalCancelButton = new System.Windows.Forms.Button();
             this.clientOrdersButton = new System.Windows.Forms.Button();
             this.refreshOrdersButton = new System.Windows.Forms.Button();
@@ -166,7 +182,6 @@ namespace IBSampleApp
             this.button1 = new System.Windows.Forms.Button();
             this.newOrderLink = new System.Windows.Forms.LinkLabel();
             this.executionsGroup = new System.Windows.Forms.GroupBox();
-            this.refreshExecutionsButton = new System.Windows.Forms.Button();
             this.tradeLogGrid = new System.Windows.Forms.DataGridView();
             this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -386,22 +401,8 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.execFilterGroup = new System.Windows.Forms.GroupBox();
-            this.execFilterClientId = new System.Windows.Forms.TextBox();
-            this.execFilterAccount = new System.Windows.Forms.TextBox();
-            this.execFilterTime = new System.Windows.Forms.TextBox();
-            this.execFilterSymbol = new System.Windows.Forms.TextBox();
-            this.execFilterSecType = new System.Windows.Forms.TextBox();
-            this.execFilterClientLabel = new System.Windows.Forms.Label();
-            this.execFilterAcctLabel = new System.Windows.Forms.Label();
-            this.execFilterTimeLabel = new System.Windows.Forms.Label();
-            this.execFilterSymbolLabel = new System.Windows.Forms.Label();
-            this.execFilterSecTypeLabel = new System.Windows.Forms.Label();
-            this.execFilterExchangeLabel = new System.Windows.Forms.Label();
-            this.execFilterSideLabel = new System.Windows.Forms.Label();
-            this.execFilterSide = new System.Windows.Forms.TextBox();
-            this.execFilterExchange = new System.Windows.Forms.TextBox();
             this.ib_banner = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -426,6 +427,7 @@ namespace IBSampleApp
             this.marketScanner_MDT.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tradingTab.SuspendLayout();
+            this.execFilterGroup.SuspendLayout();
             this.executionsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tradeLogGrid)).BeginInit();
             this.liveOrdersGroup.SuspendLayout();
@@ -469,7 +471,6 @@ namespace IBSampleApp
             this.comboContractBox.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.messagesTab.SuspendLayout();
-            this.execFilterGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).BeginInit();
             this.SuspendLayout();
             // 
@@ -484,10 +485,10 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.tabPage1);
             this.TabControl.Controls.Add(this.advisorTab);
             this.TabControl.Controls.Add(this.optionsTab);
-            this.TabControl.Location = new System.Drawing.Point(0, 42);
+            this.TabControl.Location = new System.Drawing.Point(0, 68);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(1256, 456);
+            this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
             // marketDataTab
@@ -498,7 +499,7 @@ namespace IBSampleApp
             this.marketDataTab.Location = new System.Drawing.Point(4, 22);
             this.marketDataTab.Name = "marketDataTab";
             this.marketDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.marketDataTab.Size = new System.Drawing.Size(1248, 430);
+            this.marketDataTab.Size = new System.Drawing.Size(1248, 448);
             this.marketDataTab.TabIndex = 1;
             this.marketDataTab.Text = "Data";
             // 
@@ -517,7 +518,7 @@ namespace IBSampleApp
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
             this.marketData_MDT.SelectedIndex = 0;
-            this.marketData_MDT.Size = new System.Drawing.Size(1242, 217);
+            this.marketData_MDT.Size = new System.Drawing.Size(1242, 235);
             this.marketData_MDT.TabIndex = 1;
             // 
             // topMarketDataTab_MDT
@@ -528,7 +529,7 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
             this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
@@ -565,7 +566,7 @@ namespace IBSampleApp
             this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
             this.marketDataGrid_MDT.ReadOnly = true;
             this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.marketDataGrid_MDT.Size = new System.Drawing.Size(966, 166);
+            this.marketDataGrid_MDT.Size = new System.Drawing.Size(966, 184);
             this.marketDataGrid_MDT.TabIndex = 0;
             this.marketDataGrid_MDT.Visible = false;
             // 
@@ -628,7 +629,7 @@ namespace IBSampleApp
             this.deepBookTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.deepBookTab_MDT.Name = "deepBookTab_MDT";
             this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.deepBookTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.deepBookTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.deepBookTab_MDT.TabIndex = 1;
             this.deepBookTab_MDT.Text = "Deep Book";
             // 
@@ -658,19 +659,19 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
             this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deepBookGrid.Size = new System.Drawing.Size(1224, 166);
+            this.deepBookGrid.Size = new System.Drawing.Size(1224, 184);
             this.deepBookGrid.TabIndex = 0;
             // 
             // bidBookMaker
@@ -718,7 +719,7 @@ namespace IBSampleApp
             this.historicalDataTab.Location = new System.Drawing.Point(4, 22);
             this.historicalDataTab.Name = "historicalDataTab";
             this.historicalDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.historicalDataTab.Size = new System.Drawing.Size(1234, 191);
+            this.historicalDataTab.Size = new System.Drawing.Size(1234, 209);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
             // 
@@ -750,7 +751,7 @@ namespace IBSampleApp
             this.barsGrid.Location = new System.Drawing.Point(3, 19);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.barsGrid.Size = new System.Drawing.Size(504, 166);
+            this.barsGrid.Size = new System.Drawing.Size(504, 184);
             this.barsGrid.TabIndex = 1;
             // 
             // hdDate
@@ -811,28 +812,28 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea11.AxisX.MajorGrid.Enabled = false;
-            chartArea11.AxisX.MajorTickMark.Enabled = false;
-            chartArea11.AxisY.IsStartedFromZero = false;
-            chartArea11.Name = "ChartArea1";
-            chartArea11.Position.Auto = false;
-            chartArea11.Position.Height = 100F;
-            chartArea11.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea11);
-            legend11.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend11);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series11.IsVisibleInLegend = false;
-            series11.IsXValueIndexed = true;
-            series11.Legend = "Legend1";
-            series11.Name = "Series1";
-            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series11.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series11);
-            this.historicalChart.Size = new System.Drawing.Size(699, 182);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
+            this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
             // 
@@ -845,7 +846,7 @@ namespace IBSampleApp
             this.rtBarsTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.rtBarsTab_MDT.Name = "rtBarsTab_MDT";
             this.rtBarsTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.rtBarsTab_MDT.TabIndex = 2;
             this.rtBarsTab_MDT.Text = "RT Bars";
             // 
@@ -877,7 +878,7 @@ namespace IBSampleApp
             this.rtBarsGrid.Location = new System.Drawing.Point(5, 20);
             this.rtBarsGrid.Name = "rtBarsGrid";
             this.rtBarsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rtBarsGrid.Size = new System.Drawing.Size(504, 166);
+            this.rtBarsGrid.Size = new System.Drawing.Size(504, 184);
             this.rtBarsGrid.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn1
@@ -938,27 +939,27 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea12.AxisX.MajorGrid.Enabled = false;
-            chartArea12.AxisX.MajorTickMark.Enabled = false;
-            chartArea12.AxisY.IsStartedFromZero = false;
-            chartArea12.Name = "ChartArea1";
-            chartArea12.Position.Auto = false;
-            chartArea12.Position.Height = 100F;
-            chartArea12.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea12);
-            legend12.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend12);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend2);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series12.IsVisibleInLegend = false;
-            series12.Legend = "Legend1";
-            series12.Name = "Series1";
-            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series12.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series12);
-            this.rtBarsChart.Size = new System.Drawing.Size(699, 182);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series2);
+            this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
             // 
@@ -970,7 +971,7 @@ namespace IBSampleApp
             this.scannerTab.Location = new System.Drawing.Point(4, 22);
             this.scannerTab.Name = "scannerTab";
             this.scannerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerTab.Size = new System.Drawing.Size(1234, 191);
+            this.scannerTab.Size = new System.Drawing.Size(1234, 209);
             this.scannerTab.TabIndex = 3;
             this.scannerTab.Text = "Scanner Results";
             // 
@@ -1048,7 +1049,7 @@ namespace IBSampleApp
             this.scannerParamsTab.Location = new System.Drawing.Point(4, 22);
             this.scannerParamsTab.Name = "scannerParamsTab";
             this.scannerParamsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerParamsTab.Size = new System.Drawing.Size(1234, 191);
+            this.scannerParamsTab.Size = new System.Drawing.Size(1234, 209);
             this.scannerParamsTab.TabIndex = 4;
             this.scannerParamsTab.Text = "Scanner Parameters";
             // 
@@ -1767,9 +1768,156 @@ namespace IBSampleApp
             this.tradingTab.Location = new System.Drawing.Point(4, 22);
             this.tradingTab.Name = "tradingTab";
             this.tradingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.tradingTab.Size = new System.Drawing.Size(1248, 430);
+            this.tradingTab.Size = new System.Drawing.Size(1248, 448);
             this.tradingTab.TabIndex = 2;
             this.tradingTab.Text = "Trading";
+            // 
+            // execFilterGroup
+            // 
+            this.execFilterGroup.Controls.Add(this.execFilterExchange);
+            this.execFilterGroup.Controls.Add(this.execFilterSide);
+            this.execFilterGroup.Controls.Add(this.execFilterSideLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterExchangeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecTypeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbolLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterTimeLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterAcctLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterClientLabel);
+            this.execFilterGroup.Controls.Add(this.execFilterSecType);
+            this.execFilterGroup.Controls.Add(this.execFilterSymbol);
+            this.execFilterGroup.Controls.Add(this.execFilterTime);
+            this.execFilterGroup.Controls.Add(this.execFilterAccount);
+            this.execFilterGroup.Controls.Add(this.execFilterClientId);
+            this.execFilterGroup.Controls.Add(this.refreshExecutionsButton);
+            this.execFilterGroup.Location = new System.Drawing.Point(975, 218);
+            this.execFilterGroup.Name = "execFilterGroup";
+            this.execFilterGroup.Size = new System.Drawing.Size(230, 206);
+            this.execFilterGroup.TabIndex = 10;
+            this.execFilterGroup.TabStop = false;
+            this.execFilterGroup.Text = "Execution Filter";
+            // 
+            // execFilterExchange
+            // 
+            this.execFilterExchange.Location = new System.Drawing.Point(65, 70);
+            this.execFilterExchange.Name = "execFilterExchange";
+            this.execFilterExchange.Size = new System.Drawing.Size(77, 20);
+            this.execFilterExchange.TabIndex = 15;
+            // 
+            // execFilterSide
+            // 
+            this.execFilterSide.Location = new System.Drawing.Point(65, 96);
+            this.execFilterSide.Name = "execFilterSide";
+            this.execFilterSide.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSide.TabIndex = 14;
+            this.execFilterSide.Text = "BUY";
+            // 
+            // execFilterSideLabel
+            // 
+            this.execFilterSideLabel.AutoSize = true;
+            this.execFilterSideLabel.Location = new System.Drawing.Point(6, 103);
+            this.execFilterSideLabel.Name = "execFilterSideLabel";
+            this.execFilterSideLabel.Size = new System.Drawing.Size(28, 13);
+            this.execFilterSideLabel.TabIndex = 13;
+            this.execFilterSideLabel.Text = "Side";
+            // 
+            // execFilterExchangeLabel
+            // 
+            this.execFilterExchangeLabel.AutoSize = true;
+            this.execFilterExchangeLabel.Location = new System.Drawing.Point(6, 78);
+            this.execFilterExchangeLabel.Name = "execFilterExchangeLabel";
+            this.execFilterExchangeLabel.Size = new System.Drawing.Size(55, 13);
+            this.execFilterExchangeLabel.TabIndex = 12;
+            this.execFilterExchangeLabel.Text = "Exchange";
+            // 
+            // execFilterSecTypeLabel
+            // 
+            this.execFilterSecTypeLabel.AutoSize = true;
+            this.execFilterSecTypeLabel.Location = new System.Drawing.Point(6, 154);
+            this.execFilterSecTypeLabel.Name = "execFilterSecTypeLabel";
+            this.execFilterSecTypeLabel.Size = new System.Drawing.Size(50, 13);
+            this.execFilterSecTypeLabel.TabIndex = 11;
+            this.execFilterSecTypeLabel.Text = "SecType";
+            // 
+            // execFilterSymbolLabel
+            // 
+            this.execFilterSymbolLabel.AutoSize = true;
+            this.execFilterSymbolLabel.Location = new System.Drawing.Point(6, 129);
+            this.execFilterSymbolLabel.Name = "execFilterSymbolLabel";
+            this.execFilterSymbolLabel.Size = new System.Drawing.Size(41, 13);
+            this.execFilterSymbolLabel.TabIndex = 10;
+            this.execFilterSymbolLabel.Text = "Symbol";
+            // 
+            // execFilterTimeLabel
+            // 
+            this.execFilterTimeLabel.AutoSize = true;
+            this.execFilterTimeLabel.Location = new System.Drawing.Point(6, 180);
+            this.execFilterTimeLabel.Name = "execFilterTimeLabel";
+            this.execFilterTimeLabel.Size = new System.Drawing.Size(30, 13);
+            this.execFilterTimeLabel.TabIndex = 9;
+            this.execFilterTimeLabel.Text = "Time";
+            // 
+            // execFilterAcctLabel
+            // 
+            this.execFilterAcctLabel.AutoSize = true;
+            this.execFilterAcctLabel.Location = new System.Drawing.Point(6, 51);
+            this.execFilterAcctLabel.Name = "execFilterAcctLabel";
+            this.execFilterAcctLabel.Size = new System.Drawing.Size(47, 13);
+            this.execFilterAcctLabel.TabIndex = 8;
+            this.execFilterAcctLabel.Text = "Account";
+            // 
+            // execFilterClientLabel
+            // 
+            this.execFilterClientLabel.AutoSize = true;
+            this.execFilterClientLabel.Location = new System.Drawing.Point(6, 26);
+            this.execFilterClientLabel.Name = "execFilterClientLabel";
+            this.execFilterClientLabel.Size = new System.Drawing.Size(42, 13);
+            this.execFilterClientLabel.TabIndex = 7;
+            this.execFilterClientLabel.Text = "ClientId";
+            // 
+            // execFilterSecType
+            // 
+            this.execFilterSecType.Location = new System.Drawing.Point(65, 147);
+            this.execFilterSecType.Name = "execFilterSecType";
+            this.execFilterSecType.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSecType.TabIndex = 6;
+            // 
+            // execFilterSymbol
+            // 
+            this.execFilterSymbol.Location = new System.Drawing.Point(65, 122);
+            this.execFilterSymbol.Name = "execFilterSymbol";
+            this.execFilterSymbol.Size = new System.Drawing.Size(77, 20);
+            this.execFilterSymbol.TabIndex = 5;
+            // 
+            // execFilterTime
+            // 
+            this.execFilterTime.Location = new System.Drawing.Point(65, 173);
+            this.execFilterTime.Name = "execFilterTime";
+            this.execFilterTime.Size = new System.Drawing.Size(101, 20);
+            this.execFilterTime.TabIndex = 4;
+            // 
+            // execFilterAccount
+            // 
+            this.execFilterAccount.Location = new System.Drawing.Point(65, 44);
+            this.execFilterAccount.Name = "execFilterAccount";
+            this.execFilterAccount.Size = new System.Drawing.Size(77, 20);
+            this.execFilterAccount.TabIndex = 3;
+            // 
+            // execFilterClientId
+            // 
+            this.execFilterClientId.Location = new System.Drawing.Point(65, 19);
+            this.execFilterClientId.Name = "execFilterClientId";
+            this.execFilterClientId.Size = new System.Drawing.Size(77, 20);
+            this.execFilterClientId.TabIndex = 2;
+            // 
+            // refreshExecutionsButton
+            // 
+            this.refreshExecutionsButton.Location = new System.Drawing.Point(149, 19);
+            this.refreshExecutionsButton.Name = "refreshExecutionsButton";
+            this.refreshExecutionsButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshExecutionsButton.TabIndex = 1;
+            this.refreshExecutionsButton.Text = "Refresh";
+            this.refreshExecutionsButton.UseVisualStyleBackColor = true;
+            this.refreshExecutionsButton.Click += new System.EventHandler(this.refreshExecutionsButton_Click);
             // 
             // globalCancelButton
             // 
@@ -1841,16 +1989,6 @@ namespace IBSampleApp
             this.executionsGroup.TabIndex = 2;
             this.executionsGroup.TabStop = false;
             this.executionsGroup.Text = "Trade Log (Executions)";
-            // 
-            // refreshExecutionsButton
-            // 
-            this.refreshExecutionsButton.Location = new System.Drawing.Point(149, 19);
-            this.refreshExecutionsButton.Name = "refreshExecutionsButton";
-            this.refreshExecutionsButton.Size = new System.Drawing.Size(75, 23);
-            this.refreshExecutionsButton.TabIndex = 1;
-            this.refreshExecutionsButton.Text = "Refresh";
-            this.refreshExecutionsButton.UseVisualStyleBackColor = true;
-            this.refreshExecutionsButton.Click += new System.EventHandler(this.refreshExecutionsButton_Click);
             // 
             // tradeLogGrid
             // 
@@ -2015,7 +2153,7 @@ namespace IBSampleApp
             this.accountInfoTab.Location = new System.Drawing.Point(4, 22);
             this.accountInfoTab.Name = "accountInfoTab";
             this.accountInfoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountInfoTab.Size = new System.Drawing.Size(1248, 430);
+            this.accountInfoTab.Size = new System.Drawing.Size(1248, 448);
             this.accountInfoTab.TabIndex = 3;
             this.accountInfoTab.Text = "Account Info";
             // 
@@ -2352,7 +2490,7 @@ namespace IBSampleApp
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1248, 430);
+            this.tabPage1.Size = new System.Drawing.Size(1248, 448);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Contract Information";
             // 
@@ -3005,7 +3143,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(1248, 430);
+            this.advisorTab.Size = new System.Drawing.Size(1248, 448);
             this.advisorTab.TabIndex = 5;
             this.advisorTab.Text = "Financial Advisor";
             // 
@@ -3199,7 +3337,7 @@ namespace IBSampleApp
             this.optionsTab.Location = new System.Drawing.Point(4, 22);
             this.optionsTab.Name = "optionsTab";
             this.optionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.optionsTab.Size = new System.Drawing.Size(1248, 430);
+            this.optionsTab.Size = new System.Drawing.Size(1248, 448);
             this.optionsTab.TabIndex = 7;
             this.optionsTab.Text = "Option exercising";
             this.optionsTab.Click += new System.EventHandler(this.optionsTab_Click);
@@ -3874,7 +4012,7 @@ namespace IBSampleApp
             this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.messagesTab);
-            this.tabControl2.Location = new System.Drawing.Point(0, 501);
+            this.tabControl2.Location = new System.Drawing.Point(0, 545);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -3924,143 +4062,6 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // execFilterGroup
-            // 
-            this.execFilterGroup.Controls.Add(this.execFilterExchange);
-            this.execFilterGroup.Controls.Add(this.execFilterSide);
-            this.execFilterGroup.Controls.Add(this.execFilterSideLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterExchangeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSecTypeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSymbolLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterTimeLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterAcctLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterClientLabel);
-            this.execFilterGroup.Controls.Add(this.execFilterSecType);
-            this.execFilterGroup.Controls.Add(this.execFilterSymbol);
-            this.execFilterGroup.Controls.Add(this.execFilterTime);
-            this.execFilterGroup.Controls.Add(this.execFilterAccount);
-            this.execFilterGroup.Controls.Add(this.execFilterClientId);
-            this.execFilterGroup.Controls.Add(this.refreshExecutionsButton);
-            this.execFilterGroup.Location = new System.Drawing.Point(975, 218);
-            this.execFilterGroup.Name = "execFilterGroup";
-            this.execFilterGroup.Size = new System.Drawing.Size(230, 206);
-            this.execFilterGroup.TabIndex = 10;
-            this.execFilterGroup.TabStop = false;
-            this.execFilterGroup.Text = "Execution Filter";
-            // 
-            // execFilterClientId
-            // 
-            this.execFilterClientId.Location = new System.Drawing.Point(65, 19);
-            this.execFilterClientId.Name = "execFilterClientId";
-            this.execFilterClientId.Size = new System.Drawing.Size(77, 20);
-            this.execFilterClientId.TabIndex = 2;
-            // 
-            // execFilterAccount
-            // 
-            this.execFilterAccount.Location = new System.Drawing.Point(65, 44);
-            this.execFilterAccount.Name = "execFilterAccount";
-            this.execFilterAccount.Size = new System.Drawing.Size(77, 20);
-            this.execFilterAccount.TabIndex = 3;
-            // 
-            // execFilterTime
-            // 
-            this.execFilterTime.Location = new System.Drawing.Point(65, 173);
-            this.execFilterTime.Name = "execFilterTime";
-            this.execFilterTime.Size = new System.Drawing.Size(101, 20);
-            this.execFilterTime.TabIndex = 4;
-            // 
-            // execFilterSymbol
-            // 
-            this.execFilterSymbol.Location = new System.Drawing.Point(65, 122);
-            this.execFilterSymbol.Name = "execFilterSymbol";
-            this.execFilterSymbol.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSymbol.TabIndex = 5;
-            // 
-            // execFilterSecType
-            // 
-            this.execFilterSecType.Location = new System.Drawing.Point(65, 147);
-            this.execFilterSecType.Name = "execFilterSecType";
-            this.execFilterSecType.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSecType.TabIndex = 6;
-            // 
-            // execFilterClientLabel
-            // 
-            this.execFilterClientLabel.AutoSize = true;
-            this.execFilterClientLabel.Location = new System.Drawing.Point(6, 26);
-            this.execFilterClientLabel.Name = "execFilterClientLabel";
-            this.execFilterClientLabel.Size = new System.Drawing.Size(42, 13);
-            this.execFilterClientLabel.TabIndex = 7;
-            this.execFilterClientLabel.Text = "ClientId";
-            // 
-            // execFilterAcctLabel
-            // 
-            this.execFilterAcctLabel.AutoSize = true;
-            this.execFilterAcctLabel.Location = new System.Drawing.Point(6, 51);
-            this.execFilterAcctLabel.Name = "execFilterAcctLabel";
-            this.execFilterAcctLabel.Size = new System.Drawing.Size(47, 13);
-            this.execFilterAcctLabel.TabIndex = 8;
-            this.execFilterAcctLabel.Text = "Account";
-            // 
-            // execFilterTimeLabel
-            // 
-            this.execFilterTimeLabel.AutoSize = true;
-            this.execFilterTimeLabel.Location = new System.Drawing.Point(6, 180);
-            this.execFilterTimeLabel.Name = "execFilterTimeLabel";
-            this.execFilterTimeLabel.Size = new System.Drawing.Size(30, 13);
-            this.execFilterTimeLabel.TabIndex = 9;
-            this.execFilterTimeLabel.Text = "Time";
-            // 
-            // execFilterSymbolLabel
-            // 
-            this.execFilterSymbolLabel.AutoSize = true;
-            this.execFilterSymbolLabel.Location = new System.Drawing.Point(6, 129);
-            this.execFilterSymbolLabel.Name = "execFilterSymbolLabel";
-            this.execFilterSymbolLabel.Size = new System.Drawing.Size(41, 13);
-            this.execFilterSymbolLabel.TabIndex = 10;
-            this.execFilterSymbolLabel.Text = "Symbol";
-            // 
-            // execFilterSecTypeLabel
-            // 
-            this.execFilterSecTypeLabel.AutoSize = true;
-            this.execFilterSecTypeLabel.Location = new System.Drawing.Point(6, 154);
-            this.execFilterSecTypeLabel.Name = "execFilterSecTypeLabel";
-            this.execFilterSecTypeLabel.Size = new System.Drawing.Size(50, 13);
-            this.execFilterSecTypeLabel.TabIndex = 11;
-            this.execFilterSecTypeLabel.Text = "SecType";
-            // 
-            // execFilterExchangeLabel
-            // 
-            this.execFilterExchangeLabel.AutoSize = true;
-            this.execFilterExchangeLabel.Location = new System.Drawing.Point(6, 78);
-            this.execFilterExchangeLabel.Name = "execFilterExchangeLabel";
-            this.execFilterExchangeLabel.Size = new System.Drawing.Size(55, 13);
-            this.execFilterExchangeLabel.TabIndex = 12;
-            this.execFilterExchangeLabel.Text = "Exchange";
-            // 
-            // execFilterSideLabel
-            // 
-            this.execFilterSideLabel.AutoSize = true;
-            this.execFilterSideLabel.Location = new System.Drawing.Point(6, 103);
-            this.execFilterSideLabel.Name = "execFilterSideLabel";
-            this.execFilterSideLabel.Size = new System.Drawing.Size(28, 13);
-            this.execFilterSideLabel.TabIndex = 13;
-            this.execFilterSideLabel.Text = "Side";
-            // 
-            // execFilterSide
-            // 
-            this.execFilterSide.Location = new System.Drawing.Point(65, 96);
-            this.execFilterSide.Name = "execFilterSide";
-            this.execFilterSide.Size = new System.Drawing.Size(77, 20);
-            this.execFilterSide.TabIndex = 14;
-            this.execFilterSide.Text = "BUY";
-            // 
-            // execFilterExchange
-            // 
-            this.execFilterExchange.Location = new System.Drawing.Point(65, 70);
-            this.execFilterExchange.Name = "execFilterExchange";
-            this.execFilterExchange.Size = new System.Drawing.Size(77, 20);
-            this.execFilterExchange.TabIndex = 15;
-            // 
             // ib_banner
             // 
             this.ib_banner.Image = ((System.Drawing.Image)(resources.GetObject("ib_banner.Image")));
@@ -4070,12 +4071,23 @@ namespace IBSampleApp
             this.ib_banner.TabIndex = 9;
             this.ib_banner.TabStop = false;
             // 
-            // IBSampleApp
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(512, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(734, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
+    "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
+            // 
+            // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1263, 696);
+            this.ClientSize = new System.Drawing.Size(1263, 740);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.ib_banner);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.tabControl2);
@@ -4087,7 +4099,7 @@ namespace IBSampleApp
             this.Controls.Add(this.host_label_CT);
             this.Controls.Add(this.port_label_CT);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "IBSampleApp";
+            this.Name = "IBSampleAppDialog";
             this.Text = "Interactive Brokers - Sample Application C# TWS API v. 9.72";
             this.TabControl.ResumeLayout(false);
             this.marketDataTab.ResumeLayout(false);
@@ -4124,6 +4136,8 @@ namespace IBSampleApp
             this.groupBox4.PerformLayout();
             this.tradingTab.ResumeLayout(false);
             this.tradingTab.PerformLayout();
+            this.execFilterGroup.ResumeLayout(false);
+            this.execFilterGroup.PerformLayout();
             this.executionsGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tradeLogGrid)).EndInit();
             this.liveOrdersGroup.ResumeLayout(false);
@@ -4177,8 +4191,6 @@ namespace IBSampleApp
             this.tabControl2.ResumeLayout(false);
             this.messagesTab.ResumeLayout(false);
             this.messagesTab.PerformLayout();
-            this.execFilterGroup.ResumeLayout(false);
-            this.execFilterGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -4546,6 +4558,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label execFilterTimeLabel;
         private System.Windows.Forms.Label execFilterAcctLabel;
         private System.Windows.Forms.PictureBox ib_banner;
+        private System.Windows.Forms.Label label7;
     }
 }
 
