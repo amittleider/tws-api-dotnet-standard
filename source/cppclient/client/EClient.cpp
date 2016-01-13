@@ -1501,7 +1501,7 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	std::stringstream msg;
 	prepareBuffer( msg);
 
-	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 46;
+	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
 	// send place order msg
 	ENCODE_FIELD( PLACE_ORDER);

@@ -1363,7 +1363,7 @@ public abstract class EClient {
             }
         }
 
-        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 46;
+        int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
         // send place order msg
         try {

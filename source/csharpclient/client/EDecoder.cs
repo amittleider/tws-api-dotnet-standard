@@ -898,7 +898,7 @@ namespace IBApi
                 order.FaProfile = ReadString();
             }
 
-            if (msgVersion >= 35)
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
             {
                 order.ModelCode = ReadString();
             }

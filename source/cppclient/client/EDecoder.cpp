@@ -369,7 +369,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( order.faPercentage); // ver 7 field
     DECODE_FIELD( order.faProfile); // ver 7 field
 
-    if( version >= 35) {
+    if( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT ) {
         DECODE_FIELD( order.modelCode);
     }
 

@@ -539,7 +539,7 @@ namespace IBApi
             if (!VerifyOrderContract(contract, id))
                 return;
 
-            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 46;
+            int MsgVersion = (serverVersion < MinServerVer.NOT_HELD) ? 27 : 45;
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 

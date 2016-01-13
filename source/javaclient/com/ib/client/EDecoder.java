@@ -911,7 +911,7 @@ class EDecoder implements ObjectInput {
 		    order.faProfile(readStr());
 		}
 
-		if ( version >= 35) {
+		if ( m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
 			order.modelCode(readStr());
 		}
 
