@@ -1361,7 +1361,7 @@ namespace IBApi
                 exec.EvRule = ReadString();
                 exec.EvMultiplier = ReadDouble();
             }
-            if (msgVersion >= 11)
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
             {
                 exec.ModelCode = ReadString();
             }

@@ -651,7 +651,7 @@ class EDecoder implements ObjectInput {
 		    exec.evRule(readStr());
 		    exec.evMultiplier(readDouble());
 		}
-		if (version >= 11) {
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
 			exec.modelCode(readStr());
 		}
 

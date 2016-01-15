@@ -952,7 +952,7 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
         DECODE_FIELD( exec.evRule);
         DECODE_FIELD( exec.evMultiplier);
     }
-    if( version >= 11) {
+    if( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT) {
         DECODE_FIELD( exec.modelCode);
     }
 
