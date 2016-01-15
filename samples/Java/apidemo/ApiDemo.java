@@ -52,6 +52,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final ContractInfoPanel m_contractInfoPanel = new ContractInfoPanel();
 	private final TradingPanel m_tradingPanel = new TradingPanel();
 	private final AccountInfoPanel m_acctInfoPanel = new AccountInfoPanel();
+	private final AccountPositionsMultiPanel m_acctPosMultiPanel = new AccountPositionsMultiPanel();
 	private final OptionsPanel m_optionsPanel = new OptionsPanel();
 	private final AdvisorPanel m_advisorPanel = new AdvisorPanel();
 	private final ComboPanel m_comboPanel = new ComboPanel();
@@ -90,6 +91,7 @@ public class ApiDemo implements IConnectionHandler {
 		m_tabbedPanel.addTab( "Market Data", m_mktDataPanel);
 		m_tabbedPanel.addTab( "Trading", m_tradingPanel);
 		m_tabbedPanel.addTab( "Account Info", m_acctInfoPanel);
+		m_tabbedPanel.addTab( "Acct/Pos Multi", m_acctPosMultiPanel);
 		m_tabbedPanel.addTab( "Options", m_optionsPanel);
 		m_tabbedPanel.addTab( "Combos", m_comboPanel);
 		m_tabbedPanel.addTab( "Contract Info", m_contractInfoPanel);

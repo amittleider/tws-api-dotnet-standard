@@ -19,6 +19,15 @@ namespace TWSLib
     [ComVisible(true)]
     public class ComOrder : ComWrapper<Order>, TWSLib.IOrder
     {        
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return data != null ? data.ModelCode : default(string); }
+            set { if (data != null) data.ModelCode = value; }
+        }
+
         public override bool Equals(Object p_other)
         {
             if (!(p_other is ComOrder))
@@ -343,5 +352,7 @@ namespace TWSLib
         {
             return co.ConvertTo();
         }
+
+        string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
     }
 }

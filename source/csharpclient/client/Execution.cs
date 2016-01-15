@@ -32,6 +32,7 @@ namespace IBApi
         private string orderRef;
         private string evRule;
         private double evMultiplier;
+        private string modelCode;
 
         /**
          * @brief The API client's order Id.
@@ -182,6 +183,16 @@ namespace IBApi
             set { evMultiplier = value; }
         }
 
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return modelCode; }
+            set { modelCode = value; }
+        }
+
+
         public Execution()
         {
             orderId = 0;
@@ -198,7 +209,8 @@ namespace IBApi
         public Execution(int orderId, int clientId, String execId, String time,
                           String acctNumber, String exchange, String side, double shares,
                           double price, int permId, int liquidation, int cumQty,
-                          double avgPrice, String orderRef, String evRule, double evMultiplier)
+                          double avgPrice, String orderRef, String evRule, double evMultiplier,
+                          String modelCode)
         {
             OrderId = orderId;
             ClientId = clientId;
@@ -216,6 +228,7 @@ namespace IBApi
             OrderRef = orderRef;
             EvRule = evRule;
             EvMultiplier = evMultiplier;
+            ModelCode = modelCode;
         }
 
         public override bool Equals(Object p_other)

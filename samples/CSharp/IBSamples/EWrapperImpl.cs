@@ -283,7 +283,22 @@ namespace Samples
         {
             Console.WriteLine("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
         }
-
+        public virtual void positionMulti(int reqId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            Console.WriteLine("Position Multi. Request: " + reqId + ", Account: " + account + ", ModelCode: " + modelCode + ", Symbol: " + contract.Symbol + ", SecType: " + contract.SecType + ", Currency: " + contract.Currency + ", Position: " + pos + ", Avg cost: " + avgCost + "\n");
+        }
+        public virtual void positionMultiEnd(int reqId)
+        {
+            Console.WriteLine("Position Multi End. Request: " + reqId + "\n");
+        }
+        public virtual void accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
+        {
+            Console.WriteLine("Account Update Multi. Request: " + reqId + ", Account: " + account + ", ModelCode: " + modelCode + ", Key: " + key + ", Value: " + value + ", Currency: " + currency + "\n");
+        }
+        public virtual void accountUpdateMultiEnd(int reqId)
+        {
+            Console.WriteLine("Account Update Multi End. Request: " + reqId + "\n");
+        }
 
         public void connectAck()
         {

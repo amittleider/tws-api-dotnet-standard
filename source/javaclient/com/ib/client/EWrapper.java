@@ -68,5 +68,9 @@ public interface EWrapper {
     void error(int id, int errorCode, String errorMsg);
     void connectionClosed();
     void connectAck();
+    void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost);
+    void positionMultiEnd( int reqId);
+    void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency);
+    void accountUpdateMultiEnd( int reqId);
 }
 

@@ -276,6 +276,9 @@ struct Order
 	bool     notHeld;
 	bool     solicited;
 
+	// models
+	std::string modelCode;
+
 	// order combo legs
 	typedef std::vector<OrderComboLegSPtr> OrderComboLegList;
 	typedef ibapi::shared_ptr<OrderComboLegList> OrderComboLegListSPtr;

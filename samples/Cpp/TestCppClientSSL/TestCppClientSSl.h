@@ -111,6 +111,10 @@ public:
 	void displayGroupList( int reqId, const std::string& groups);
 	void displayGroupUpdated( int reqId, const std::string& contractInfo);
     void connectAck();
+	void positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost);
+	void positionMultiEnd( int reqId);
+	void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency);
+	void accountUpdateMultiEnd( int reqId);
 
 private:
 

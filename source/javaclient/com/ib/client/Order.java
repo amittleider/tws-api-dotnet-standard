@@ -190,6 +190,9 @@ public class Order {
 	private boolean m_conditionsCancelOrder;
 	private boolean m_conditionsIgnoreRth;
     
+    // models
+    private String m_modelCode;
+	
 	// getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
@@ -315,6 +318,7 @@ public class Order {
 	public ArrayList<OrderCondition> conditions() {	return m_conditions; }
 	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
 	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
+    public String modelCode() { return m_modelCode; }
 	
 	// setters
 	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
@@ -425,6 +429,7 @@ public class Order {
     public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
     public void randomizeSize(boolean v) { m_randomizeSize = v; }
     public void randomizePrice(boolean v) { m_randomizePrice = v; }
+    public void modelCode(String v) { m_modelCode = v; }
     public void isPeggedChangeAmountDecrease(boolean v) { m_isPeggedChangeAmountDecrease = v; }
 	public void peggedChangeAmount(double m_peggedChangeAmount) { this.m_peggedChangeAmount = m_peggedChangeAmount; }
 	public void referenceChangeAmount(double m_referenceChangeAmount) { this.m_referenceChangeAmount = m_referenceChangeAmount; }
@@ -602,6 +607,7 @@ public class Order {
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
         	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
+        	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0 ||
         	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0) {
         	return false;
         }

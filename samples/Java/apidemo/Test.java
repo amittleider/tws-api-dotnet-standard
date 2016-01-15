@@ -205,6 +205,18 @@ public class Test implements EWrapper {
 	@Override public void displayGroupUpdated( int reqId, String contractInfo){
 	}
 	
+	@Override public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+	}
+
+	@Override public void positionMultiEnd( int reqId) {
+	}
+
+	@Override public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+	}
+
+	@Override public void accountUpdateMultiEnd( int reqId) {
+	}
+	
 	public void connectAck() {		
 	}
 }
