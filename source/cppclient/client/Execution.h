@@ -36,6 +36,7 @@ struct Execution
 	std::string	orderRef;
 	std::string	evRule;
 	double		evMultiplier;
+	std::string modelCode;
 };
 
 struct ExecutionFilter

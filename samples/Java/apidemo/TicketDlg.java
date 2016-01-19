@@ -274,6 +274,7 @@ public class TicketDlg extends JDialog {
 	class OrderPanel extends VerticalPanel {
 		final TCombo<String> m_account = new TCombo<String>( ApiDemo.INSTANCE.accountList().toArray(new String[0]) );
 		final TCombo<Action> m_action = new TCombo<Action>( Action.values() );
+		final JTextField m_modelCode = new JTextField();
 		final UpperField m_quantity = new UpperField( "100");
 		final UpperField m_displaySize = new UpperField();
 		final TCombo<OrderType> m_orderType = new TCombo<OrderType>( OrderType.values() ); 
@@ -291,6 +292,7 @@ public class TicketDlg extends JDialog {
 			m_orderType.removeItemAt( 0); // remove None
 			
 			m_account.setSelectedItem( m_order.account() != null ? m_order.account() : ApiDemo.INSTANCE.accountList().get( 0) ); 
+			m_modelCode.setText( m_order.modelCode() );
 			m_action.setSelectedItem( m_order.action() );
 			m_quantity.setText( m_order.totalQuantity());
 			m_displaySize.setText( m_order.displaySize());
@@ -306,6 +308,8 @@ public class TicketDlg extends JDialog {
 			m_trailingAmntUnit.setSelectedItem(AmntUnit.fromInt(m_order.trailingUnit()));
 			
 			add( "Account", m_account);
+			m_modelCode.setColumns(7);
+			add( "Model code", m_modelCode);
 			add( "Action", m_action);
 			add( "Quantity", m_quantity);
 			add( "Display size", m_displaySize);
@@ -325,6 +329,7 @@ public class TicketDlg extends JDialog {
 		
 		private void onOK() {
 			m_order.account( m_account.getText().toUpperCase() );
+			m_order.modelCode( m_modelCode.getText().trim() );
 			m_order.action( m_action.getSelectedItem() );
 			m_order.totalQuantity( m_quantity.getDouble() );
 			m_order.displaySize( m_displaySize.getInt() );

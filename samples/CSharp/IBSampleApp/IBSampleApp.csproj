@@ -61,6 +61,10 @@
     <Compile Include="messages\ConnectionStatusMessage.cs" />
     <Compile Include="messages\ContractDetailsEndMessage.cs" />
     <Compile Include="messages\ContractDetailsMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiMessage.cs" />
     <Compile Include="messages\DeepBookMessage.cs" />
     <Compile Include="messages\ExecutionMessage.cs" />
     <Compile Include="messages\FundamentalsMessage.cs" />
@@ -122,6 +126,7 @@
     <Compile Include="ui\OrderDialog.Designer.cs">
       <DependentUpon>OrderDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\AcctPosMultiManager.cs" />
     <Compile Include="ui\DataManager.cs" />
     <Compile Include="ui\DeepBookManager.cs" />
     <Compile Include="backend\IBClient.cs" />

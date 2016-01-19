@@ -68,6 +68,8 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<IPositionHandler> m_positionHandlers = new ConcurrentHashSet<IPositionHandler>();
 	private final ConcurrentHashSet<IAccountHandler> m_accountHandlers = new ConcurrentHashSet<IAccountHandler>();
 	private final ConcurrentHashSet<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<ILiveOrderHandler>();
+	private final HashMap<Integer, IPositionMultiHandler> m_positionMultiMap = new HashMap<Integer, IPositionMultiHandler>();
+	private final HashMap<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<Integer, IAccountUpdateMultiHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1138,6 +1140,92 @@ public class ApiController implements EWrapper {
 
 	@Override public void updateNewsBulletin(int msgId, int msgType, String message, String origExchange) {
 		m_bulletinHandler.bulletin( msgId, NewsType.get( msgType), message, origExchange);
+		recEOM();
+	}
+
+	// ---------------------------------------- Position Multi handling ----------------------------------------
+	public interface IPositionMultiHandler {
+		void positionMulti( String account, String modelCode, Contract contract, double pos, double avgCost);
+		void positionMultiEnd();
+	}
+
+	public void reqPositionsMulti( String account, String modelCode, IPositionMultiHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int reqId = m_reqId++;
+		m_positionMultiMap.put( reqId, handler);
+		m_client.reqPositionsMulti( reqId, account, modelCode);
+		sendEOM();
+	}
+
+	public void cancelPositionsMulti( IPositionMultiHandler handler) {
+		if (!checkConnection())
+			return;
+
+		Integer reqId = getAndRemoveKey( m_positionMultiMap, handler);
+		if (reqId != null) {
+			m_client.cancelPositionsMulti( reqId);
+			sendEOM();
+		}
+	}
+
+	@Override public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+		IPositionMultiHandler handler = m_positionMultiMap.get( reqId);
+		if (handler != null) {
+			handler.positionMulti( account, modelCode, contract, pos, avgCost);
+		}
+		recEOM();
+	}
+
+	@Override public void positionMultiEnd( int reqId) {
+		IPositionMultiHandler handler = m_positionMultiMap.get( reqId);
+		if (handler != null) {
+			handler.positionMultiEnd();
+		}
+		recEOM();
+	}
+	
+	// ---------------------------------------- Account Update Multi handling ----------------------------------------
+	public interface IAccountUpdateMultiHandler {
+		void accountUpdateMulti( String account, String modelCode, String key, String value, String curreny);
+		void accountUpdateMultiEnd();
+	}
+
+	public void reqAccountUpdatesMulti( String account, String modelCode, boolean ledgerAndNLV, IAccountUpdateMultiHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int reqId = m_reqId++;
+		m_accountUpdateMultiMap.put( reqId, handler);
+		m_client.reqAccountUpdatesMulti( reqId, account, modelCode, ledgerAndNLV);
+		sendEOM();
+	}
+
+	public void cancelAccountUpdatesMulti( IAccountUpdateMultiHandler handler) {
+		if (!checkConnection())
+			return;
+
+		Integer reqId = getAndRemoveKey( m_accountUpdateMultiMap, handler);
+		if (reqId != null) {
+			m_client.cancelAccountUpdatesMulti( reqId);
+			sendEOM();
+		}
+	}
+
+	@Override public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+		IAccountUpdateMultiHandler handler = m_accountUpdateMultiMap.get( reqId);
+		if (handler != null) {
+			handler.accountUpdateMulti( account, modelCode, key, value, currency);
+		}
+		recEOM();
+	}
+
+	@Override public void accountUpdateMultiEnd( int reqId) {
+		IAccountUpdateMultiHandler handler = m_accountUpdateMultiMap.get( reqId);
+		if (handler != null) {
+			handler.accountUpdateMultiEnd();
+		}
 		recEOM();
 	}
 

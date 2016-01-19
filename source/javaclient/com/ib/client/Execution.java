@@ -20,6 +20,7 @@ public class Execution {
     private String  m_orderRef;
     private String 	m_evRule;
     private double 	m_evMultiplier;
+    private String m_modelCode;
 
     // Get
     public int orderId()         { return m_orderId; }
@@ -38,6 +39,7 @@ public class Execution {
     public String orderRef()     { return m_orderRef; }
     public String evRule()       { return m_evRule; }
     public double evMultiplier() { return m_evMultiplier; }
+    public String modelCode()    { return m_modelCode; }
     
     // Set 
     public void orderId(int orderId)              { m_orderId = orderId; }
@@ -56,6 +58,7 @@ public class Execution {
     public void orderRef(String orderRef)         { m_orderRef = orderRef; }
     public void evRule(String evRule)             { m_evRule = evRule; }
     public void evMultiplier(double evMultiplier) { m_evMultiplier = evMultiplier; }
+    public void modelCode(String modelCode)       { m_modelCode = modelCode; }
     
     public Execution() {
         m_orderId = 0;
@@ -72,7 +75,8 @@ public class Execution {
     public Execution( int p_orderId, int p_clientId, String p_execId, String p_time,
                       String p_acctNumber, String p_exchange, String p_side, int p_shares,
                       double p_price, int p_permId, int p_liquidation, int p_cumQty,
-                      double p_avgPrice, String p_orderRef, String p_evRule, double p_evMultiplier) {
+                      double p_avgPrice, String p_orderRef, String p_evRule, double p_evMultiplier,
+                      String p_modelCode) {
         m_orderId = p_orderId;
         m_clientId = p_clientId;
         m_execId = p_execId;
@@ -89,6 +93,7 @@ public class Execution {
         m_orderRef = p_orderRef;
         m_evRule = p_evRule;
         m_evMultiplier = p_evMultiplier;
+        m_modelCode = p_modelCode;
     }
 
     @Override

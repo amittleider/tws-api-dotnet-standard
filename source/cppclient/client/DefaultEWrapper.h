@@ -70,5 +70,9 @@ public:
    virtual void verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallange);
    virtual void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText);
    virtual void connectAck();
+   virtual void positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost);
+   virtual void positionMultiEnd( int reqId);
+   virtual void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency);
+   virtual void accountUpdateMultiEnd( int reqId);
 };
 

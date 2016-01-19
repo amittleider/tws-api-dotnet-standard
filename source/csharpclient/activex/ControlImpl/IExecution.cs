@@ -43,5 +43,7 @@ namespace TWSLib
         string evRule { get; }
         [DispId(16)]
         double evMultiplier { get; }
+        [DispId(17)]
+        string modelCode { get; }
     }
 }

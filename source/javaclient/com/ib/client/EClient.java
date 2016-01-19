@@ -167,6 +167,10 @@ public abstract class EClient {
     private static final int START_API = 71;
     private static final int VERIFY_AND_AUTH_REQUEST = 72;
     private static final int VERIFY_AND_AUTH_MESSAGE = 73;
+    private static final int REQ_POSITIONS_MULTI = 74;
+    private static final int CANCEL_POSITIONS_MULTI = 75;
+    private static final int REQ_ACCOUNT_UPDATES_MULTI = 76;
+    private static final int CANCEL_ACCOUNT_UPDATES_MULTI = 77;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -213,9 +217,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
     protected static final int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
     protected static final int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
+    protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 103;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_PEGGED_TO_BENCHMARK; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_MODELS_SUPPORT; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -1350,6 +1355,14 @@ public abstract class EClient {
         	}
         }
 
+        if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+            if (!IsEmpty(order.modelCode())) {
+                error(id, EClientErrors.UPDATE_TWS,
+                        "  It does not support model code parameter.");
+                return;
+            }
+        }
+
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
         // send place order msg
@@ -1515,6 +1528,11 @@ public abstract class EClient {
                b.send( order.faPercentage());
                b.send( order.faProfile());
            }
+
+           if ( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT ) {
+               b.send( order.modelCode());
+           }
+
            if (m_serverVersion >= 18) { // institutional short sale slot fields.
                b.send( order.shortSaleSlot());      // 0 only for retail, 1 or 2 only for institution.
                b.send( order.designatedLocation()); // only populate when order.m_shortSaleSlot = 2.
@@ -2510,7 +2528,128 @@ public abstract class EClient {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANPOSITIONS, e.toString());
         }
     }
+    
+    public synchronized void reqPositionsMulti( int reqId, String account, String modelCode) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
 
+        if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support positions multi request.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+
+        b.send( REQ_POSITIONS_MULTI);
+        b.send( VERSION);
+        b.send( reqId);
+        b.send( account);
+        b.send( modelCode);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONSMULTI, e.toString());
+        }
+    }    
+    
+    public synchronized void cancelPositionsMulti( int reqId) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support positions multi cancellation.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+
+        b.send( CANCEL_POSITIONS_MULTI);
+        b.send( VERSION);
+        b.send( reqId);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANPOSITIONSMULTI, e.toString());
+        }
+    }
+    
+	public synchronized void cancelAccountUpdatesMulti( int reqId) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support account updates multi cancellation.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+
+        b.send( CANCEL_ACCOUNT_UPDATES_MULTI);
+        b.send( VERSION);
+        b.send( reqId);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_CANACCOUNTUPDATESMULTI, e.toString());
+        }
+    }
+
+    public synchronized void reqAccountUpdatesMulti( int reqId, String account, String modelCode, boolean ledgerAndNLV) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support account updates multi requests.");
+            return;
+        }
+
+        final int VERSION = 1;
+
+        Builder b = prepareBuffer();
+
+        b.send( REQ_ACCOUNT_UPDATES_MULTI);
+        b.send( VERSION);
+        b.send( reqId);
+        b.send( account);
+        b.send( modelCode);
+        b.send( ledgerAndNLV);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQACCOUNTUPDATESMULTI, e.toString());
+        }
+    }
+    
     public synchronized void reqAccountSummary( int reqId, String group, String tags) {
         // not connected?
         if( !isConnected()) {

@@ -499,6 +499,48 @@ Friend Class Tws
         End If
     End Sub
 
+    Public Sub positionMulti(reqId As Integer, account As String, modelCode As String, contract As IBApi.Contract, pos As Double, avgCost As Double) Implements IBApi.EWrapper.positionMulti
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnpositionMulti(Me, New AxTWSLib._DTwsEvents_positionMultiEvent With {
+                                                       .reqId = reqId,
+                                                       .account = account,
+                                                       .modelCode = modelCode,
+                                                       .contract = contract,
+                                                       .pos = pos,
+                                                       .avgCost = avgCost
+                                                       })
+                         End Sub)
+    End Sub
+
+    Public Sub positionMultiEnd(reqId As Integer) Implements IBApi.EWrapper.positionMultiEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnpositionMultiEnd(Me, New AxTWSLib._DTwsEvents_positionMultiEndEvent With {
+                                                          .reqId = reqId
+                                                          })
+                         End Sub)
+    End Sub
+
+    Public Sub accountUpdateMulti(reqId As Integer, account As String, modelCode As String, key As String, value As String, currency As String) Implements IBApi.EWrapper.accountUpdateMulti
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountUpdateMulti(Me, New AxTWSLib._DTwsEvents_accountUpdateMultiEvent With {
+                                                            .reqId = reqId,
+                                                            .account = account,
+                                                            .modelCode = modelCode,
+                                                            .key = key,
+                                                            .value = value,
+                                                            .currency = currency
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub accountUpdateMultiEnd(reqId As Integer) Implements IBApi.EWrapper.accountUpdateMultiEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountUpdateMultiEnd(Me, New AxTWSLib._DTwsEvents_accountUpdateMultiEndEvent With {
+                                                          .reqId = reqId
+                                                          })
+                         End Sub)
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
@@ -716,6 +758,22 @@ Friend Class Tws
         socket.replaceFA(fA_Message_Type, aliasesXML)
     End Sub
 
+    Sub reqPositionsMulti(reqId As Integer, account As String, modelCode As String)
+        socket.reqPositionsMulti(reqId, account, modelCode)
+    End Sub
+
+    Sub cancelPositionsMulti(reqId As Integer)
+        socket.cancelPositionsMulti(reqId)
+    End Sub
+
+    Sub reqAccountUpdatesMulti(reqId As Integer, account As String, modelCode As String, ledgerAndNLV As Boolean)
+        socket.reqAccountUpdatesMulti(reqId, account, modelCode, ledgerAndNLV)
+    End Sub
+
+    Sub cancelAccountUpdatesMulti(reqId As Integer)
+        socket.cancelAccountUpdatesMulti(reqId)
+    End Sub
+
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
     Event OnErrMsg(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_errMsgEvent)
     Event OnConnectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
@@ -799,6 +857,14 @@ Friend Class Tws
     Event OnopenOrderEnd(tws As Tws, Empty As EventArgs)
 
     Event OnpositionEnd(tws As Tws, Empty As EventArgs)
+
+    Event OnpositionMulti(tws As Tws, p2 As Object)
+
+    Event OnpositionMultiEnd(tws As Tws, p2 As Object)
+
+    Event OnaccountUpdateMulti(tws As Tws, p2 As Object)
+
+    Event OnaccountUpdateMultiEnd(tws As Tws, p2 As Object)
 
     Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
 

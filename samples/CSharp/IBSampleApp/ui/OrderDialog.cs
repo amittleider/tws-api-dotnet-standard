@@ -216,6 +216,7 @@ namespace IBSampleApp
             if (!quantity.Text.Equals(""))
                 order.TotalQuantity = Double.Parse(quantity.Text);
             order.Account = account.Text;
+            order.ModelCode = modelCode.Text;
             order.Tif = timeInForce.Text;
             if (!auxPrice.Text.Equals(""))
                 order.AuxPrice = Double.Parse(auxPrice.Text);
@@ -450,6 +451,7 @@ namespace IBSampleApp
             lmtPrice.Text = doubleToStr(order.LmtPrice);
             quantity.Text = doubleToStr(order.TotalQuantity);
             account.Text = order.Account;
+            modelCode.Text = order.ModelCode;
             timeInForce.Text = order.Tif;
             auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();

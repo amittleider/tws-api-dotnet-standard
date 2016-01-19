@@ -299,7 +299,23 @@ public class SimpleWrapper implements EWrapper {
 	public void displayGroupUpdated( int reqId, String contractInfo){
 		logIn("displayGroupUpdated");
 	}
+
+	public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+		logIn("positionMulti");
+	}
 	
+	public void positionMultiEnd( int reqId) {
+		logIn("positionMultiEnd");
+	}
+	
+	public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+		logIn("accountUpdateMulti");
+	}
+
+	public void accountUpdateMultiEnd( int reqId) {
+		logIn("accountUpdateMultiEnd");
+	}
+
 	/* ***************************************************************
 	 * Helpers
 	 *****************************************************************/

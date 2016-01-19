@@ -57,6 +57,10 @@ class EDecoder implements ObjectInput {
     static final int DISPLAY_GROUP_UPDATED = 68;
     static final int VERIFY_AND_AUTH_MESSAGE_API = 69;
     static final int VERIFY_AND_AUTH_COMPLETED = 70;
+    static final int POSITION_MULTI = 71;
+    static final int POSITION_MULTI_END = 72;
+    static final int ACCOUNT_UPDATE_MULTI = 73;
+    static final int ACCOUNT_UPDATE_MULTI_END = 74;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -325,6 +329,22 @@ class EDecoder implements ObjectInput {
             }
             case VERIFY_AND_AUTH_COMPLETED: {
                 processVerifyAndAuthCompletedMsg();
+                break;
+            }
+            case POSITION_MULTI: {
+                processPositionMultiMsg();
+                break;
+            }
+            case POSITION_MULTI_END: {
+                processPositionMultiEndMsg();
+                break;
+            }
+            case ACCOUNT_UPDATE_MULTI: {
+                processAccountUpdateMultiMsg();
+                break;
+            }
+            case ACCOUNT_UPDATE_MULTI_END: {
+                processAccountUpdateMultiEndMsg();
                 break;
             }
 
@@ -631,6 +651,9 @@ class EDecoder implements ObjectInput {
 		    exec.evRule(readStr());
 		    exec.evMultiplier(readDouble());
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
+			exec.modelCode(readStr());
+		}
 
 		m_EWrapper.execDetails( reqId, contract, exec);
 	}
@@ -886,6 +909,10 @@ class EDecoder implements ObjectInput {
 		    order.faMethod(readStr());
 		    order.faPercentage(readStr());
 		    order.faProfile(readStr());
+		}
+
+		if ( m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
+			order.modelCode(readStr());
 		}
 
 		if ( version >= 8 ) {
@@ -1446,6 +1473,56 @@ class EDecoder implements ObjectInput {
 		    }
 		}
 	}
+    
+    private void processPositionMultiMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+        String account = readStr();
+
+        Contract contract = new Contract();
+        contract.conid(readInt());
+        contract.symbol(readStr());
+        contract.secType(readStr());
+        contract.lastTradeDateOrContractMonth(readStr());
+        contract.strike(readDouble());
+        contract.right(readStr());
+        contract.multiplier(readStr());
+        contract.exchange(readStr());
+        contract.currency(readStr());
+        contract.localSymbol(readStr());
+        contract.tradingClass(readStr());
+        double pos = readDouble();
+        double avgCost = readDouble();
+        String modelCode = readStr();
+
+        m_EWrapper.positionMulti( reqId, account, modelCode, contract, pos, avgCost);
+    }
+
+    private void processPositionMultiEndMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+
+        m_EWrapper.positionMultiEnd( reqId);
+    }
+
+    private void processAccountUpdateMultiMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+        String account = readStr();
+        String modelCode = readStr();
+        String key = readStr();
+        String value = readStr();
+        String currency = readStr();
+
+        m_EWrapper.accountUpdateMulti( reqId, account, modelCode, key, value, currency);
+    }
+
+    private void processAccountUpdateMultiEndMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+
+        m_EWrapper.accountUpdateMultiEnd( reqId);
+    }
     
     protected String readStr() throws IOException {
     	return m_messageReader.readStr();

@@ -158,6 +158,11 @@ public:
    virtual void verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallange) = 0;
    virtual void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText) = 0;
    virtual void connectAck() = 0;
+   virtual void positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost) = 0;
+   virtual void positionMultiEnd( int reqId) = 0;
+   virtual void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency) = 0;
+   virtual void accountUpdateMultiEnd( int reqId) = 0;
+
 };
 
 

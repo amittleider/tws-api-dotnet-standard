@@ -33,12 +33,17 @@ namespace IBSampleApp
         private ContractManager contractManager;
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
+        private AcctPosMultiManager acctPosMultiManager;
 
         protected IBClient ibClient;
 
         private bool isConnected = false;
 
-        private int MAX_LINES_IN_MESSAGE_BOX = 100;
+        private const int MAX_LINES_IN_MESSAGE_BOX = 200;
+        private const int REDUCED_LINES_IN_MESSAGE_BOX = 100;
+        private int numberOfLinesInMessageBox = 0;
+        private List<string> linesInMessageBox = new List<string>(MAX_LINES_IN_MESSAGE_BOX);
+
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
 
@@ -56,7 +61,7 @@ namespace IBSampleApp
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid);
-
+            acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -141,6 +146,11 @@ namespace IBSampleApp
             ibClient.VerifyAndAuthCompleted += (isSuccessful, errorText) => addTextToBox("verifyAndAuthCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
             ibClient.DisplayGroupList += (reqId, groups) => addTextToBox("DisplayGroupList. Request: " + reqId + ", Groups" + groups);
             ibClient.DisplayGroupUpdated += (reqId, contractInfo) => addTextToBox("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
+
+            ibClient.PositionMulti += (reqId, account, modelCode, contract, pos, avgCost) => HandleMessage(new PositionMultiMessage(reqId, account, modelCode, contract, pos, avgCost));
+            ibClient.PositionMultiEnd += (reqId) => HandleMessage(new PositionMultiEndMessage(reqId));
+            ibClient.AccountUpdateMulti += (reqId, account, modelCode, key, value, currency) => HandleMessage(new AccountUpdateMultiMessage(reqId, account, modelCode, key, value, currency));
+            ibClient.AccountUpdateMultiEnd += (reqId) => HandleMessage(new AccountUpdateMultiEndMessage(reqId));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -235,7 +245,7 @@ namespace IBSampleApp
                 case MessageType.Error:
                     {
                         ErrorMessage error = (ErrorMessage)message;
-                        ShowMessageOnPanel("Request " + error.RequestId + ", Code: " + error.ErrorCode + " - " + error.Message + "\r\n");
+                        ShowMessageOnPanel("Request " + error.RequestId + ", Code: " + error.ErrorCode + " - " + error.Message);
                         HandleErrorMessage(error);
                         break;
                     }
@@ -335,6 +345,26 @@ namespace IBSampleApp
                 case MessageType.ReceiveFA:
                     {
                         advisorManager.UpdateUI((AdvisorDataMessage)message);
+                        break;
+                    }
+                case MessageType.PositionMulti:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.AccountUpdateMulti:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.PositionMultiEnd:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.AccountUpdateMultiEnd:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
                         break;
                     }
                 default:
@@ -571,6 +601,8 @@ namespace IBSampleApp
 
         private void messageBoxClear_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            numberOfLinesInMessageBox = 0;
+            linesInMessageBox.Clear();
             messageBox.Clear();
         }
 
@@ -771,17 +803,30 @@ namespace IBSampleApp
 
         private void ShowMessageOnPanel(string message)
         {
-            this.messageBox.Text += (message);
+            message = ensureMessageHasNewline(message);
 
-            if (messageBox.Lines.Length > MAX_LINES_IN_MESSAGE_BOX)//limit to 6 lines here
+            if (numberOfLinesInMessageBox >= MAX_LINES_IN_MESSAGE_BOX)
             {
-                string[] newLines = new string[MAX_LINES_IN_MESSAGE_BOX];
-                Array.Copy(messageBox.Lines, 1, newLines, 0, MAX_LINES_IN_MESSAGE_BOX);
-                messageBox.Lines = newLines;
+                linesInMessageBox.RemoveRange(0, MAX_LINES_IN_MESSAGE_BOX - REDUCED_LINES_IN_MESSAGE_BOX);
+                messageBox.Lines = linesInMessageBox.ToArray();
+                numberOfLinesInMessageBox = REDUCED_LINES_IN_MESSAGE_BOX;
             }
 
-            messageBox.SelectionStart = messageBox.Text.Length;
-            messageBox.ScrollToCaret();
+            linesInMessageBox.Add(message);
+            numberOfLinesInMessageBox += 1;
+            this.messageBox.AppendText(message);
+        }
+
+        private string ensureMessageHasNewline(string message)
+        {
+            if (message.Substring(message.Length - 1) != "\n")
+            {
+                return message + "\n";
+            }
+            else
+            {
+                return message;
+            }
         }
 
         private void cancelMarketDataRequests_Click(object sender, EventArgs e)
@@ -806,6 +851,41 @@ namespace IBSampleApp
         private void optionsTab_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonRequestPositionsMulti_Click(object sender, EventArgs e)
+        {
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            acctPosMultiManager.RequestPositionsMulti(account, modelCode);
+        }
+
+        private void buttonRequestAccountUpdatesMulti_Click(object sender, EventArgs e)
+        {
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            Boolean ledgerAndNLV = this.cbLedgerAndNLV.Checked;
+            acctPosMultiManager.RequestAccountUpdatesMulti(account, modelCode, ledgerAndNLV);
+        }
+
+        private void buttonCancelPositionsMulti_Click(object sender, EventArgs e)
+        {
+            acctPosMultiManager.CancelPositionsMulti();
+        }
+
+        private void buttonCancelAccountUpdatesMulti_Click(object sender, EventArgs e)
+        {
+            acctPosMultiManager.CancelAccountUpdatesMulti();
+        }
+
+        private void clearPositionsMulti_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            acctPosMultiManager.ClearPositionsMulti();
+        }
+
+        private void clearAccountUpdatesMulti_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            acctPosMultiManager.ClearAccountUpdatesMulti();
         }
         
     }
