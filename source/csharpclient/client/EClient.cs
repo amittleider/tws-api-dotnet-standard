@@ -991,7 +991,6 @@ namespace IBApi
                }
         	   
         	   paramsList.AddParameter(order.AdjustedOrderType);
-        	   paramsList.AddParameter(order.StopPrice);
         	   paramsList.AddParameter(order.TriggerPrice);
         	   paramsList.AddParameter(order.TrailingAmount);
         	   paramsList.AddParameter(order.TrailingUnit);

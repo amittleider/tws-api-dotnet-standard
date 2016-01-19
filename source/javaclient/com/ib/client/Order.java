@@ -176,7 +176,6 @@ public class Order {
 	private double m_referenceChangeAmount;
 	private String m_referenceExchangeId;
 	private OrderType m_adjustedOrderType;
-	private double m_stopPrice = Double.MAX_VALUE;
 	private double m_triggerPrice = Double.MAX_VALUE;
 	private double m_trailingAmount = Double.MAX_VALUE;
 	private int m_trailingUnit;
@@ -311,7 +310,6 @@ public class Order {
 	public double adjustedStopLimitPrice() { return m_adjustedStopLimitPrice; }
 	public double adjustedTrailingAmount() { return m_adjustedTrailingAmount; }
 	public int adjustableTrailingUnit() { return m_adjustableTrailingUnit; }
-	public double stopPrice() { return m_stopPrice; }
 	public double trailingAmount() { return m_trailingAmount; }
 	public int trailingUnit() { return m_trailingUnit; }
 	public double lmtPriceOffset() { return m_lmtPriceOffset; }
@@ -440,7 +438,6 @@ public class Order {
 	public void adjustedStopLimitPrice(double v) { m_adjustedStopLimitPrice = v; }
 	public void adjustedTrailingAmount(double v) { m_adjustedTrailingAmount = v; }
 	public void adjustableTrailingUnit(int v) { m_adjustableTrailingUnit = v; }
-	public void stopPrice(double v) { m_stopPrice = v; }
 	public void trailingAmount(double v) { m_trailingAmount = v; }
 	public void trailingUnit(int v) { m_trailingUnit = v; }
 	public void lmtPriceOffset(double v) { m_lmtPriceOffset = v; }
@@ -569,7 +566,6 @@ public class Order {
         	m_adjustedStopLimitPrice != l_theOther.m_adjustedStopLimitPrice ||
         	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
         	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
-        	m_stopPrice != l_theOther.m_stopPrice ||
         	m_trailingAmount != l_theOther.m_trailingAmount ||
         	m_trailingUnit != l_theOther.m_trailingUnit ||
         	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset) {

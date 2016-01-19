@@ -212,8 +212,6 @@ namespace IBSampleApp
             this.tbStartingPrice = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.adjustStopTab = new System.Windows.Forms.TabPage();
-            this.tbStopPrice = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.cbAdjustedTrailingAmntUnit = new System.Windows.Forms.ComboBox();
             this.tbAdjustedTrailingAmnt = new System.Windows.Forms.TextBox();
@@ -823,7 +821,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(620, 313);
+            this.extendedOrderTab.Size = new System.Drawing.Size(620, 358);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1191,7 +1189,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(620, 313);
+            this.advisorTab.Size = new System.Drawing.Size(620, 358);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1291,7 +1289,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(620, 313);
+            this.volatilityTab.Size = new System.Drawing.Size(620, 358);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1488,7 +1486,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(620, 313);
+            this.scaleTab.Size = new System.Drawing.Size(620, 358);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1685,7 +1683,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(620, 313);
+            this.algoTab.Size = new System.Drawing.Size(620, 358);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1956,7 +1954,7 @@ namespace IBSampleApp
             this.peg2benchTab.Controls.Add(this.label4);
             this.peg2benchTab.Location = new System.Drawing.Point(4, 22);
             this.peg2benchTab.Name = "peg2benchTab";
-            this.peg2benchTab.Size = new System.Drawing.Size(620, 313);
+            this.peg2benchTab.Size = new System.Drawing.Size(620, 358);
             this.peg2benchTab.TabIndex = 6;
             this.peg2benchTab.Text = "Pegged to Benchmark";
             // 
@@ -2095,8 +2093,6 @@ namespace IBSampleApp
             // adjustStopTab
             // 
             this.adjustStopTab.BackColor = System.Drawing.Color.LightGray;
-            this.adjustStopTab.Controls.Add(this.tbStopPrice);
-            this.adjustStopTab.Controls.Add(this.label17);
             this.adjustStopTab.Controls.Add(this.label16);
             this.adjustStopTab.Controls.Add(this.cbAdjustedTrailingAmntUnit);
             this.adjustStopTab.Controls.Add(this.tbAdjustedTrailingAmnt);
@@ -2111,30 +2107,14 @@ namespace IBSampleApp
             this.adjustStopTab.Controls.Add(this.label11);
             this.adjustStopTab.Location = new System.Drawing.Point(4, 22);
             this.adjustStopTab.Name = "adjustStopTab";
-            this.adjustStopTab.Size = new System.Drawing.Size(620, 313);
+            this.adjustStopTab.Size = new System.Drawing.Size(620, 358);
             this.adjustStopTab.TabIndex = 7;
             this.adjustStopTab.Text = "Adjustable stops";
-            // 
-            // tbStopPrice
-            // 
-            this.tbStopPrice.Location = new System.Drawing.Point(163, 3);
-            this.tbStopPrice.Name = "tbStopPrice";
-            this.tbStopPrice.Size = new System.Drawing.Size(121, 20);
-            this.tbStopPrice.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 6);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(55, 13);
-            this.label17.TabIndex = 12;
-            this.label17.Text = "Stop price";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(14, 163);
+            this.label16.Location = new System.Drawing.Point(14, 137);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(139, 13);
             this.label16.TabIndex = 11;
@@ -2147,14 +2127,14 @@ namespace IBSampleApp
             this.cbAdjustedTrailingAmntUnit.Items.AddRange(new object[] {
             "amonunt",
             "%"});
-            this.cbAdjustedTrailingAmntUnit.Location = new System.Drawing.Point(163, 160);
+            this.cbAdjustedTrailingAmntUnit.Location = new System.Drawing.Point(163, 134);
             this.cbAdjustedTrailingAmntUnit.Name = "cbAdjustedTrailingAmntUnit";
             this.cbAdjustedTrailingAmntUnit.Size = new System.Drawing.Size(121, 21);
             this.cbAdjustedTrailingAmntUnit.TabIndex = 7;
             // 
             // tbAdjustedTrailingAmnt
             // 
-            this.tbAdjustedTrailingAmnt.Location = new System.Drawing.Point(163, 134);
+            this.tbAdjustedTrailingAmnt.Location = new System.Drawing.Point(163, 108);
             this.tbAdjustedTrailingAmnt.Name = "tbAdjustedTrailingAmnt";
             this.tbAdjustedTrailingAmnt.Size = new System.Drawing.Size(121, 20);
             this.tbAdjustedTrailingAmnt.TabIndex = 6;
@@ -2162,7 +2142,7 @@ namespace IBSampleApp
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(14, 137);
+            this.label15.Location = new System.Drawing.Point(14, 111);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(119, 13);
             this.label15.TabIndex = 8;
@@ -2170,7 +2150,7 @@ namespace IBSampleApp
             // 
             // tbAdjustedStopLimitPrice
             // 
-            this.tbAdjustedStopLimitPrice.Location = new System.Drawing.Point(163, 108);
+            this.tbAdjustedStopLimitPrice.Location = new System.Drawing.Point(163, 82);
             this.tbAdjustedStopLimitPrice.Name = "tbAdjustedStopLimitPrice";
             this.tbAdjustedStopLimitPrice.Size = new System.Drawing.Size(121, 20);
             this.tbAdjustedStopLimitPrice.TabIndex = 5;
@@ -2178,7 +2158,7 @@ namespace IBSampleApp
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(14, 111);
+            this.label14.Location = new System.Drawing.Point(14, 85);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(115, 13);
             this.label14.TabIndex = 6;
@@ -2186,7 +2166,7 @@ namespace IBSampleApp
             // 
             // tbAdjustedStopPrice
             // 
-            this.tbAdjustedStopPrice.Location = new System.Drawing.Point(163, 82);
+            this.tbAdjustedStopPrice.Location = new System.Drawing.Point(163, 56);
             this.tbAdjustedStopPrice.Name = "tbAdjustedStopPrice";
             this.tbAdjustedStopPrice.Size = new System.Drawing.Size(121, 20);
             this.tbAdjustedStopPrice.TabIndex = 4;
@@ -2194,7 +2174,7 @@ namespace IBSampleApp
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(14, 85);
+            this.label13.Location = new System.Drawing.Point(14, 59);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(97, 13);
             this.label13.TabIndex = 4;
@@ -2202,7 +2182,7 @@ namespace IBSampleApp
             // 
             // tbTriggerPrice
             // 
-            this.tbTriggerPrice.Location = new System.Drawing.Point(163, 56);
+            this.tbTriggerPrice.Location = new System.Drawing.Point(163, 30);
             this.tbTriggerPrice.Name = "tbTriggerPrice";
             this.tbTriggerPrice.Size = new System.Drawing.Size(121, 20);
             this.tbTriggerPrice.TabIndex = 3;
@@ -2210,7 +2190,7 @@ namespace IBSampleApp
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(14, 32);
+            this.label12.Location = new System.Drawing.Point(14, 6);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(98, 13);
             this.label12.TabIndex = 2;
@@ -2226,7 +2206,7 @@ namespace IBSampleApp
             "STP LMT",
             "TRAIL",
             "TRAIL LIMIT"});
-            this.cbAdjustedOrderType.Location = new System.Drawing.Point(163, 29);
+            this.cbAdjustedOrderType.Location = new System.Drawing.Point(163, 3);
             this.cbAdjustedOrderType.Name = "cbAdjustedOrderType";
             this.cbAdjustedOrderType.Size = new System.Drawing.Size(121, 21);
             this.cbAdjustedOrderType.TabIndex = 2;
@@ -2234,7 +2214,7 @@ namespace IBSampleApp
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 59);
+            this.label11.Location = new System.Drawing.Point(14, 33);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(66, 13);
             this.label11.TabIndex = 0;
@@ -2250,7 +2230,7 @@ namespace IBSampleApp
             this.tabPage1.Controls.Add(this.lbRemoveCondition);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(620, 313);
+            this.tabPage1.Size = new System.Drawing.Size(620, 358);
             this.tabPage1.TabIndex = 8;
             this.tabPage1.Text = "Conditions";
             // 
@@ -2624,8 +2604,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbAdjustedOrderType;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox tbStopPrice;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.LinkLabel lbAddCondition;
         private System.Windows.Forms.LinkLabel lbRemoveCondition;

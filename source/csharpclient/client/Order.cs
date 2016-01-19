@@ -1170,7 +1170,6 @@ namespace IBApi
             whatIf = false;
             notHeld = false;
             Conditions = new List<OrderCondition>();
-            StopPrice = double.MaxValue;
             TriggerPrice = double.MaxValue;
             TrailingAmount = double.MaxValue;
             LmtPriceOffset = double.MaxValue;
@@ -1326,8 +1325,6 @@ namespace IBApi
         public List<OrderCondition> Conditions { get; set; }
 
         public string AdjustedOrderType { get; set; }
-
-        public double StopPrice { get; set; }
 
         public double TriggerPrice { get; set; }
 
