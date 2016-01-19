@@ -1156,12 +1156,6 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);
 	}
 
-	private void foo(String connector, int conditionType, String secType,
-			String operator, String val) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void processErrMsgMsg() throws IOException {
 		int version = readInt();
 		if(version < 2) {
