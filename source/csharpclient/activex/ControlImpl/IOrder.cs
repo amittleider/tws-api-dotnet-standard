@@ -258,9 +258,6 @@ namespace TWSLib
         
         [DispId(153)]
         string adjustedOrderType { get; set; }
-        
-        [DispId(154)]
-        double stopPrice { get; set; }
 
         [DispId(155)]
         double triggerPrice { get; set; }

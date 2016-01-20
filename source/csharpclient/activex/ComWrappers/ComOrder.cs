@@ -321,8 +321,6 @@ namespace TWSLib
 
         string TWSLib.IOrder.adjustedOrderType { get { return data.AdjustedOrderType; } set { data.AdjustedOrderType = value; } }
 
-        double TWSLib.IOrder.stopPrice { get { return data.StopPrice; } set { data.StopPrice = value; } }
-
         double TWSLib.IOrder.triggerPrice { get { return data.TriggerPrice; } set { data.TriggerPrice = value; } }
 
         double TWSLib.IOrder.trailingAmount { get { return data.TrailingAmount; } set { data.TrailingAmount = value; } }

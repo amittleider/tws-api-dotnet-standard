@@ -283,7 +283,6 @@ public class TicketDlg extends JDialog {
 		final TCombo<TimeInForce> m_tif = new TCombo<TimeInForce>( TimeInForce.values() );
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
 		final UpperField m_lmtPriceOffset = new UpperField();
-		final UpperField m_stopPrice = new UpperField();
 		final UpperField m_triggerPrice = new UpperField();
 		final UpperField m_trailingAmnt = new UpperField();
 		final TCombo<AmntUnit> m_trailingAmntUnit = new TCombo<AmntUnit>(AmntUnit.values());
@@ -301,7 +300,6 @@ public class TicketDlg extends JDialog {
 			m_auxPrice.setText( m_order.auxPrice());
 			m_tif.setSelectedItem( m_order.tif());
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
-			m_stopPrice.setText(m_order.stopPrice());
 			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
 			m_triggerPrice.setText(m_order.triggerPrice());
 			m_trailingAmnt.setText(m_order.trailingAmount());
@@ -316,7 +314,6 @@ public class TicketDlg extends JDialog {
 			add( "Order type", m_orderType);
 			add( "Limit price", m_lmtPrice);
 			add("Limit price offset", m_lmtPriceOffset);
-			add("Stop price", m_stopPrice);
 			add("Trigger price", m_triggerPrice);
 			add("Trailing amount", m_trailingAmnt);
 			add("Trailing amount unit", m_trailingAmntUnit);
@@ -337,7 +334,6 @@ public class TicketDlg extends JDialog {
 			m_order.lmtPrice( m_lmtPrice.getDouble() );
 			m_order.auxPrice( m_auxPrice.getDouble() );
 			m_order.tif( m_tif.getSelectedItem() );
-			m_order.stopPrice(m_stopPrice.getDouble());
 			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
 			m_order.triggerPrice(m_triggerPrice.getDouble());
 			m_order.trailingAmount(m_trailingAmnt.getDouble());

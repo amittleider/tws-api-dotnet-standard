@@ -22,8 +22,6 @@ Partial Class dlgAdjustStop
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.tbStopPrice = New System.Windows.Forms.TextBox()
-        Me.label17 = New System.Windows.Forms.Label()
         Me.label16 = New System.Windows.Forms.Label()
         Me.cbAdjustedTrailingAmntUnit = New System.Windows.Forms.ComboBox()
         Me.tbAdjustedTrailingAmnt = New System.Windows.Forms.TextBox()
@@ -40,26 +38,10 @@ Partial Class dlgAdjustStop
         Me.btnOK = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'tbStopPrice
-        '
-        Me.tbStopPrice.Location = New System.Drawing.Point(161, 6)
-        Me.tbStopPrice.Name = "tbStopPrice"
-        Me.tbStopPrice.Size = New System.Drawing.Size(121, 20)
-        Me.tbStopPrice.TabIndex = 14
-        '
-        'label17
-        '
-        Me.label17.AutoSize = True
-        Me.label17.Location = New System.Drawing.Point(12, 9)
-        Me.label17.Name = "label17"
-        Me.label17.Size = New System.Drawing.Size(55, 13)
-        Me.label17.TabIndex = 26
-        Me.label17.Text = "Stop price"
-        '
         'label16
         '
         Me.label16.AutoSize = True
-        Me.label16.Location = New System.Drawing.Point(12, 166)
+        Me.label16.Location = New System.Drawing.Point(13, 146)
         Me.label16.Name = "label16"
         Me.label16.Size = New System.Drawing.Size(139, 13)
         Me.label16.TabIndex = 25
@@ -70,14 +52,14 @@ Partial Class dlgAdjustStop
         Me.cbAdjustedTrailingAmntUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbAdjustedTrailingAmntUnit.FormattingEnabled = True
         Me.cbAdjustedTrailingAmntUnit.Items.AddRange(New Object() {"amonunt", "%"})
-        Me.cbAdjustedTrailingAmntUnit.Location = New System.Drawing.Point(161, 163)
+        Me.cbAdjustedTrailingAmntUnit.Location = New System.Drawing.Point(162, 143)
         Me.cbAdjustedTrailingAmntUnit.Name = "cbAdjustedTrailingAmntUnit"
         Me.cbAdjustedTrailingAmntUnit.Size = New System.Drawing.Size(121, 21)
         Me.cbAdjustedTrailingAmntUnit.TabIndex = 23
         '
         'tbAdjustedTrailingAmnt
         '
-        Me.tbAdjustedTrailingAmnt.Location = New System.Drawing.Point(161, 137)
+        Me.tbAdjustedTrailingAmnt.Location = New System.Drawing.Point(162, 117)
         Me.tbAdjustedTrailingAmnt.Name = "tbAdjustedTrailingAmnt"
         Me.tbAdjustedTrailingAmnt.Size = New System.Drawing.Size(121, 20)
         Me.tbAdjustedTrailingAmnt.TabIndex = 21
@@ -85,7 +67,7 @@ Partial Class dlgAdjustStop
         'label15
         '
         Me.label15.AutoSize = True
-        Me.label15.Location = New System.Drawing.Point(12, 140)
+        Me.label15.Location = New System.Drawing.Point(13, 120)
         Me.label15.Name = "label15"
         Me.label15.Size = New System.Drawing.Size(119, 13)
         Me.label15.TabIndex = 24
@@ -93,7 +75,7 @@ Partial Class dlgAdjustStop
         '
         'tbAdjustedStopLimitPrice
         '
-        Me.tbAdjustedStopLimitPrice.Location = New System.Drawing.Point(161, 111)
+        Me.tbAdjustedStopLimitPrice.Location = New System.Drawing.Point(162, 91)
         Me.tbAdjustedStopLimitPrice.Name = "tbAdjustedStopLimitPrice"
         Me.tbAdjustedStopLimitPrice.Size = New System.Drawing.Size(121, 20)
         Me.tbAdjustedStopLimitPrice.TabIndex = 20
@@ -101,7 +83,7 @@ Partial Class dlgAdjustStop
         'label14
         '
         Me.label14.AutoSize = True
-        Me.label14.Location = New System.Drawing.Point(12, 114)
+        Me.label14.Location = New System.Drawing.Point(13, 94)
         Me.label14.Name = "label14"
         Me.label14.Size = New System.Drawing.Size(115, 13)
         Me.label14.TabIndex = 22
@@ -109,7 +91,7 @@ Partial Class dlgAdjustStop
         '
         'tbAdjustedStopPrice
         '
-        Me.tbAdjustedStopPrice.Location = New System.Drawing.Point(161, 85)
+        Me.tbAdjustedStopPrice.Location = New System.Drawing.Point(162, 65)
         Me.tbAdjustedStopPrice.Name = "tbAdjustedStopPrice"
         Me.tbAdjustedStopPrice.Size = New System.Drawing.Size(121, 20)
         Me.tbAdjustedStopPrice.TabIndex = 18
@@ -117,7 +99,7 @@ Partial Class dlgAdjustStop
         'label13
         '
         Me.label13.AutoSize = True
-        Me.label13.Location = New System.Drawing.Point(12, 88)
+        Me.label13.Location = New System.Drawing.Point(13, 68)
         Me.label13.Name = "label13"
         Me.label13.Size = New System.Drawing.Size(97, 13)
         Me.label13.TabIndex = 19
@@ -125,7 +107,7 @@ Partial Class dlgAdjustStop
         '
         'tbTriggerPrice
         '
-        Me.tbTriggerPrice.Location = New System.Drawing.Point(161, 59)
+        Me.tbTriggerPrice.Location = New System.Drawing.Point(162, 39)
         Me.tbTriggerPrice.Name = "tbTriggerPrice"
         Me.tbTriggerPrice.Size = New System.Drawing.Size(121, 20)
         Me.tbTriggerPrice.TabIndex = 17
@@ -133,7 +115,7 @@ Partial Class dlgAdjustStop
         'label12
         '
         Me.label12.AutoSize = True
-        Me.label12.Location = New System.Drawing.Point(12, 35)
+        Me.label12.Location = New System.Drawing.Point(13, 15)
         Me.label12.Name = "label12"
         Me.label12.Size = New System.Drawing.Size(98, 13)
         Me.label12.TabIndex = 15
@@ -144,7 +126,7 @@ Partial Class dlgAdjustStop
         Me.cbAdjustedOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbAdjustedOrderType.FormattingEnabled = True
         Me.cbAdjustedOrderType.Items.AddRange(New Object() {"", "STP", "STP LMT", "TRAIL", "TRAIL LIMIT"})
-        Me.cbAdjustedOrderType.Location = New System.Drawing.Point(161, 32)
+        Me.cbAdjustedOrderType.Location = New System.Drawing.Point(162, 12)
         Me.cbAdjustedOrderType.Name = "cbAdjustedOrderType"
         Me.cbAdjustedOrderType.Size = New System.Drawing.Size(121, 21)
         Me.cbAdjustedOrderType.TabIndex = 16
@@ -152,7 +134,7 @@ Partial Class dlgAdjustStop
         'label11
         '
         Me.label11.AutoSize = True
-        Me.label11.Location = New System.Drawing.Point(12, 62)
+        Me.label11.Location = New System.Drawing.Point(13, 42)
         Me.label11.Name = "label11"
         Me.label11.Size = New System.Drawing.Size(66, 13)
         Me.label11.TabIndex = 13
@@ -161,7 +143,7 @@ Partial Class dlgAdjustStop
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(208, 198)
+        Me.btnCancel.Location = New System.Drawing.Point(208, 176)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 28
@@ -171,7 +153,7 @@ Partial Class dlgAdjustStop
         'btnOK
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(127, 198)
+        Me.btnOK.Location = New System.Drawing.Point(127, 176)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 27
@@ -182,11 +164,9 @@ Partial Class dlgAdjustStop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(295, 233)
+        Me.ClientSize = New System.Drawing.Size(295, 211)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.tbStopPrice)
-        Me.Controls.Add(Me.label17)
         Me.Controls.Add(Me.label16)
         Me.Controls.Add(Me.cbAdjustedTrailingAmntUnit)
         Me.Controls.Add(Me.tbAdjustedTrailingAmnt)
@@ -206,8 +186,6 @@ Partial Class dlgAdjustStop
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents tbStopPrice As System.Windows.Forms.TextBox
-    Private WithEvents label17 As System.Windows.Forms.Label
     Private WithEvents label16 As System.Windows.Forms.Label
     Private WithEvents cbAdjustedTrailingAmntUnit As System.Windows.Forms.ComboBox
     Private WithEvents tbAdjustedTrailingAmnt As System.Windows.Forms.TextBox

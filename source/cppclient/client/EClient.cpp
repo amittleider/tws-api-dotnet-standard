@@ -1875,7 +1875,6 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 
 		ENCODE_FIELD(order.adjustedOrderType);
-		ENCODE_FIELD(order.stopPrice);
 		ENCODE_FIELD(order.triggerPrice);
 		ENCODE_FIELD(order.trailingAmount);
 		ENCODE_FIELD(order.trailingUnit);

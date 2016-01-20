@@ -1169,7 +1169,6 @@ class EDecoder implements ObjectInput {
 			}
 						
 			order.adjustedOrderType(OrderType.get(readStr()));
-			order.stopPrice(readDoubleMax());
 			order.triggerPrice(readDoubleMax());
 			order.trailingAmount(readDoubleMax());
 			order.trailingUnit(readInt());
