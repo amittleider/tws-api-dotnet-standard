@@ -196,6 +196,7 @@ namespace IBSampleApp
             this.algoStrategy = new System.Windows.Forms.ComboBox();
             this.algoStrategyLabel = new System.Windows.Forms.Label();
             this.peg2benchTab = new System.Windows.Forms.TabPage();
+            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
             this.pgdStockRangeLower = new System.Windows.Forms.TextBox();
             this.pgdStockRangeUpper = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
