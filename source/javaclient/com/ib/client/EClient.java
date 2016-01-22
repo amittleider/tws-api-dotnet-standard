@@ -1745,7 +1745,6 @@ public abstract class EClient {
         	   }
         	   
         	   b.send(order.adjustedOrderType());
-        	   b.send(order.stopPrice());
         	   b.send(order.triggerPrice());
         	   b.send(order.trailingAmount());
         	   b.send(order.trailingUnit());

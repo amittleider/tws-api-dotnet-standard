@@ -249,9 +249,6 @@ namespace IBSampleApp
 
         private void FillAdjustedStops(Order order)
         {
-            if (!string.IsNullOrWhiteSpace(tbStopPrice.Text))
-                order.StopPrice = double.Parse(tbStopPrice.Text);
-
             if (cbAdjustedOrderType.SelectedIndex > 0)
                 order.AdjustedOrderType = cbAdjustedOrderType.Text;
 
@@ -268,7 +265,7 @@ namespace IBSampleApp
                 order.AdjustedTrailingAmount = double.Parse(tbAdjustedTrailingAmnt.Text);
 
             order.AdjustableTrailingUnit = (cbAdjustedTrailingAmntUnit.SelectedItem as TrailingAmountUnit).Val;
-            order.LmtPriceOffset = order.LmtPrice - order.StopPrice;
+            order.LmtPriceOffset = order.LmtPrice - order.AuxPrice;
         }
 
         private void FillPegToBench(Order order)
@@ -478,7 +475,6 @@ namespace IBSampleApp
                 pgdStockRangeLower.Text = doubleToStr(order.StockRangeLower);
             }
 
-            tbStopPrice.Text = doubleToStr(order.StopPrice);
             cbAdjustedOrderType.Text = order.AdjustedOrderType;
             tbTriggerPrice.Text = doubleToStr(order.TriggerPrice);
             tbAdjustedStopPrice.Text = doubleToStr(order.AdjustedStopPrice);
