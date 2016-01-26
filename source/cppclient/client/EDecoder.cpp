@@ -633,8 +633,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 
 		DECODE_FIELD(order.adjustedOrderType);
 		DECODE_FIELD(order.triggerPrice);
-		DECODE_FIELD(order.trailingAmount);
-		DECODE_FIELD(order.trailingUnit);
+		DECODE_FIELD(order.trailStopPrice);
 		DECODE_FIELD(order.lmtPriceOffset);
 		DECODE_FIELD(order.adjustedStopPrice);
 		DECODE_FIELD(order.adjustedStopLimitPrice);

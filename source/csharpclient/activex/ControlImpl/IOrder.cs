@@ -262,12 +262,6 @@ namespace TWSLib
         [DispId(155)]
         double triggerPrice { get; set; }
 
-        [DispId(156)]
-        double trailingAmount { get; set; }
-
-        [DispId(157)]
-        int trailingUnit { get; set; }
-
         [DispId(158)]
         double lmtPriceOffset { get; set; }
 
