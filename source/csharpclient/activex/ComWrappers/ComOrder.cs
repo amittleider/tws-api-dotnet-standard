@@ -323,10 +323,6 @@ namespace TWSLib
 
         double TWSLib.IOrder.triggerPrice { get { return data.TriggerPrice; } set { data.TriggerPrice = value; } }
 
-        double TWSLib.IOrder.trailingAmount { get { return data.TrailingAmount; } set { data.TrailingAmount = value; } }
-
-        int TWSLib.IOrder.trailingUnit { get { return data.TrailingUnit; } set { data.TrailingUnit = value; } }
-
         double TWSLib.IOrder.lmtPriceOffset { get { return data.LmtPriceOffset; } set { data.LmtPriceOffset = value; } }
 
         double TWSLib.IOrder.adjustedStopPrice { get { return data.AdjustedStopPrice; } set { data.AdjustedStopPrice = value; } }

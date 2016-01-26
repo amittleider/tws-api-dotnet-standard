@@ -1201,8 +1201,7 @@ namespace IBApi
 
                 order.AdjustedOrderType = ReadString();
                 order.TriggerPrice = ReadDoubleMax();
-                order.TrailingAmount = ReadDoubleMax();
-                order.TrailingUnit = ReadInt();
+                order.TrailStopPrice = ReadDoubleMax();
                 order.LmtPriceOffset = ReadDoubleMax();
                 order.AdjustedStopPrice = ReadDoubleMax();
                 order.AdjustedStopLimitPrice = ReadDoubleMax();
