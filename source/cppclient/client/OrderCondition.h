@@ -2,15 +2,15 @@
 #include "IExternalizable.h"
 #include "shared_ptr.h"
 
-class OrderCondition : public IExternalizable {
+class TWSAPIDLLEXP OrderCondition : public IExternalizable {
 public:
 	enum OrderConditionType {
-		Execution,
-		Margin,
-		PercentChange,
-		Price,
-		Time,
-		Volume
+		Price = 1,
+		Time = 3,
+		Margin = 4,
+		Execution = 5,
+		Volume = 6,
+		PercentChange = 7
 	};
 
 private:
@@ -26,5 +26,5 @@ public:
 	void conjunctionConnection(bool isConjunctionConnection);	
 	OrderConditionType type();
 	
-	static ibapi::shared_ptr<OrderCondition> create(OrderConditionType type);
+	static OrderCondition *create(OrderConditionType type);
 };

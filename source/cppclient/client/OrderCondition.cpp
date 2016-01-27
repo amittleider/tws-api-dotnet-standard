@@ -37,7 +37,7 @@ void OrderCondition::conjunctionConnection(bool isConjunctionConnection) {
 
 OrderCondition::OrderConditionType OrderCondition::type() { return m_type; }
 
-ibapi::shared_ptr<OrderCondition> OrderCondition::create(OrderConditionType type) {
+OrderCondition *OrderCondition::create(OrderConditionType type) {
 	OrderCondition *rval = 0;
 
 	switch (type) {
@@ -69,5 +69,5 @@ ibapi::shared_ptr<OrderCondition> OrderCondition::create(OrderConditionType type
 	if (rval != 0)
 		rval->m_type = type;
 
-	return ibapi::shared_ptr<OrderCondition>(rval);
+	return rval;
 }

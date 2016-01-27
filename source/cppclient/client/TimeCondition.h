@@ -1,7 +1,7 @@
 #pragma once
 #include "OperatorCondition.h"
 
-class TimeCondition : public OperatorCondition {
+class TWSAPIDLLEXP TimeCondition : public OperatorCondition {
 	friend OrderCondition;
 
 	std::string m_time;
