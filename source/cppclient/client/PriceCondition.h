@@ -1,7 +1,7 @@
 #pragma once
 #include "ContractCondition.h"
 
-class PriceCondition : public ContractCondition {
+class TWSAPIDLLEXP PriceCondition : public ContractCondition {
 	friend OrderCondition;
 
 	double m_price;
@@ -15,6 +15,15 @@ protected:
 
 public:
 	static const OrderConditionType conditionType = OrderConditionType::Price;
+	enum Method {
+		Default = 0,
+		DoubleBidAsk = 1,
+		Last = 2,
+		DoubleLast = 3,
+		BidAsk = 4,
+		LastBidAsk = 7,
+		MidPoint = 8
+	};
 
 	double price();
 	void price(double price);
@@ -23,7 +32,7 @@ public:
 	virtual const char* readExternal(const char* ptr, const char* endPtr);
 	virtual void writeExternal(std::ostream & out) const;
 
-	int triggerMethod();
+	Method triggerMethod();
 	std::string strTriggerMethod();
-	void triggerMethod(int triggerMethod);
+	void triggerMethod(Method triggerMethod);
 };

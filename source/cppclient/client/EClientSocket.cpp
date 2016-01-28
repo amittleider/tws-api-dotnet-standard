@@ -151,6 +151,8 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
     if (!m_asyncEConnect) {
         EReader reader(this, m_pSignal);
 
+		reader.putMessageToQueue();
+
         while (m_pSignal && !m_serverVersion && isSocketOK()) {
             reader.checkClient();
             m_pSignal->waitForSignal();

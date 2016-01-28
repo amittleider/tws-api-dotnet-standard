@@ -31,8 +31,8 @@ std::string PriceCondition::toString() {
 	return strTriggerMethod() + " " + ContractCondition::toString();
 }
 
-int PriceCondition::triggerMethod() {
-	return m_triggerMethod;
+PriceCondition::Method PriceCondition::triggerMethod() {
+	return (Method)m_triggerMethod;
 }
 
 std::string PriceCondition::strTriggerMethod() {
@@ -41,7 +41,7 @@ std::string PriceCondition::strTriggerMethod() {
 	return mthdNames[triggerMethod()];
 }
 
-void PriceCondition::triggerMethod(int triggerMethod) {
+void PriceCondition::triggerMethod(Method triggerMethod) {
 	m_triggerMethod = triggerMethod;
 }
 

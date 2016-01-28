@@ -2,7 +2,7 @@
 #include <string>
 #include "OrderCondition.h"
 
-class ExecutionCondition : public OrderCondition {
+class TWSAPIDLLEXP ExecutionCondition : public OrderCondition {
 	friend OrderCondition;
 
 	std::string m_exchange;

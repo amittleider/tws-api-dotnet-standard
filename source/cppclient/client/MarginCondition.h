@@ -1,7 +1,7 @@
 #pragma once
 #include "OperatorCondition.h"
 
-class MarginCondition : public OperatorCondition {
+class TWSAPIDLLEXP MarginCondition : public OperatorCondition {
 	friend OrderCondition;
 
 	int m_percent;

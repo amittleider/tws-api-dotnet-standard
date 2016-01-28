@@ -10,6 +10,7 @@
 
 #include "Contract.h"
 #include "Order.h"
+#include "ExecutionCondition.h"
 
 #include <stdio.h>
 
@@ -48,6 +49,8 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
 
         m_pReader = new EReader(m_pClient, &m_osSignal);
+
+		m_pReader->start();
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -152,6 +155,14 @@ void TestCppClient::placeOrder()
 	order.totalQuantity = 1000;
 	order.orderType = "LMT";
 	order.lmtPrice = 0.01;
+
+	ExecutionCondition *pCondition = dynamic_cast<ExecutionCondition *>(OrderCondition::create(OrderCondition::OrderConditionType::Execution));
+
+	pCondition->exchange("ANY");
+	pCondition->secType("ANY");
+	pCondition->symbol("ANY");
+
+	order.conditions.push_back(ibapi::shared_ptr<ExecutionCondition>(pCondition));
 
 	printf( "Placing Order %ld: %s %f %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
 
