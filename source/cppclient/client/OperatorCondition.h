@@ -1,7 +1,7 @@
 #pragma once
 #include "OrderCondition.h"
 
-class OperatorCondition : public OrderCondition {
+class TWSAPIDLLEXP OperatorCondition : public OrderCondition {
 	bool m_isMore;
 
 protected:

@@ -223,11 +223,6 @@ namespace IBSampleApp
             if (!displaySize.Text.Equals(""))
                 order.DisplaySize = Int32.Parse(displaySize.Text);
 
-            if (!string.IsNullOrWhiteSpace(trailingAmnt.Text))
-                order.TrailingAmount = double.Parse(trailingAmnt.Text);
-
-            order.TrailingUnit = trailingAmntUnit.SelectedIndex;
-
             FillExtendedOrderAttributes(order);
             FillAdvisorAttributes(order);
             FillVolatilityAttributes(order);
@@ -452,8 +447,7 @@ namespace IBSampleApp
             timeInForce.Text = order.Tif;
             auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();
-            trailingAmnt.Text = doubleToStr(order.TrailingAmount);
-            trailingAmntUnit.SelectedIndex = order.TrailingUnit;
+
             //order = GetExtendedOrderAttributes(order);
             //order = GetAdvisorAttributes(order);
             //order = GetVolatilityAttributes(order);

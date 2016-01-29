@@ -140,7 +140,6 @@ struct Order
 		solicited = false;
 
 		triggerPrice = UNSET_DOUBLE;
-		trailingAmount = UNSET_DOUBLE;
 		adjustedStopPrice = UNSET_DOUBLE;
 		adjustedStopLimitPrice = UNSET_DOUBLE;
 		adjustedTrailingAmount = UNSET_DOUBLE;
@@ -294,8 +293,6 @@ struct Order
 	std::string referenceExchangeId;
 	std::string adjustedOrderType;
 	double triggerPrice;
-	double trailingAmount;
-	int trailingUnit;
 	double adjustedStopPrice;
 	double adjustedStopLimitPrice;
 	double adjustedTrailingAmount;

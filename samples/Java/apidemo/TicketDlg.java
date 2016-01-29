@@ -284,8 +284,6 @@ public class TicketDlg extends JDialog {
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
 		final UpperField m_lmtPriceOffset = new UpperField();
 		final UpperField m_triggerPrice = new UpperField();
-		final UpperField m_trailingAmnt = new UpperField();
-		final TCombo<AmntUnit> m_trailingAmntUnit = new TCombo<AmntUnit>(AmntUnit.values());
 
 		OrderPanel() {
 			m_orderType.removeItemAt( 0); // remove None
@@ -302,8 +300,6 @@ public class TicketDlg extends JDialog {
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
 			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
 			m_triggerPrice.setText(m_order.triggerPrice());
-			m_trailingAmnt.setText(m_order.trailingAmount());
-			m_trailingAmntUnit.setSelectedItem(AmntUnit.fromInt(m_order.trailingUnit()));
 			
 			add( "Account", m_account);
 			m_modelCode.setColumns(7);
@@ -315,8 +311,6 @@ public class TicketDlg extends JDialog {
 			add( "Limit price", m_lmtPrice);
 			add("Limit price offset", m_lmtPriceOffset);
 			add("Trigger price", m_triggerPrice);
-			add("Trailing amount", m_trailingAmnt);
-			add("Trailing amount unit", m_trailingAmntUnit);
 			add( "Aux price", m_auxPrice);
 			add( "Time-in-force", m_tif);
 			if (m_contract.isCombo() ) {
@@ -336,8 +330,6 @@ public class TicketDlg extends JDialog {
 			m_order.tif( m_tif.getSelectedItem() );
 			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
 			m_order.triggerPrice(m_triggerPrice.getDouble());
-			m_order.trailingAmount(m_trailingAmnt.getDouble());
-			m_order.trailingUnit(m_trailingAmntUnit.getSelectedItem().m_val);
 			
 			if (m_contract.isCombo() ) {
 				TagValue tv = new TagValue( ComboParam.NonGuaranteed.toString(), m_nonGuaranteed.isSelected() ? "1" : "0");

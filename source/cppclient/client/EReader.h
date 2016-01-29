@@ -50,8 +50,7 @@ protected:
 public:
     void processMsgs(void);
     void checkClient();
-
-private:
+	bool putMessageToQueue();
 	void start();
 };
 

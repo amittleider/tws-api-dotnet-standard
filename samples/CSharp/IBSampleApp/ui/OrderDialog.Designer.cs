@@ -39,10 +39,6 @@ namespace IBSampleApp
             this.baseGroup = new System.Windows.Forms.GroupBox();
             this.modelCode = new System.Windows.Forms.TextBox();
             this.modelCodeLabel = new System.Windows.Forms.Label();
-            this.trailingAmnt = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.trailingAmntUnit = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.timeInForce = new System.Windows.Forms.ComboBox();
             this.auxPrice = new System.Windows.Forms.TextBox();
             this.lmtPrice = new System.Windows.Forms.TextBox();
@@ -196,7 +192,6 @@ namespace IBSampleApp
             this.algoStrategy = new System.Windows.Forms.ComboBox();
             this.algoStrategyLabel = new System.Windows.Forms.Label();
             this.peg2benchTab = new System.Windows.Forms.TabPage();
-            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
             this.pgdStockRangeLower = new System.Windows.Forms.TextBox();
             this.pgdStockRangeUpper = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -233,6 +228,7 @@ namespace IBSampleApp
             this.Logic = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.lbAddCondition = new System.Windows.Forms.LinkLabel();
             this.lbRemoveCondition = new System.Windows.Forms.LinkLabel();
+            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
             this.sendOrderButton = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -279,7 +275,7 @@ namespace IBSampleApp
             this.conditionsTab.Location = new System.Drawing.Point(1, 1);
             this.conditionsTab.Name = "conditionsTab";
             this.conditionsTab.SelectedIndex = 0;
-            this.conditionsTab.Size = new System.Drawing.Size(628, 384);
+            this.conditionsTab.Size = new System.Drawing.Size(628, 339);
             this.conditionsTab.TabIndex = 1;
             // 
             // orderContractTab
@@ -290,7 +286,7 @@ namespace IBSampleApp
             this.orderContractTab.Location = new System.Drawing.Point(4, 22);
             this.orderContractTab.Name = "orderContractTab";
             this.orderContractTab.Padding = new System.Windows.Forms.Padding(3);
-            this.orderContractTab.Size = new System.Drawing.Size(620, 358);
+            this.orderContractTab.Size = new System.Drawing.Size(620, 313);
             this.orderContractTab.TabIndex = 0;
             this.orderContractTab.Text = "Basic Order";
             // 
@@ -301,10 +297,6 @@ namespace IBSampleApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.baseGroup.Controls.Add(this.modelCode);
             this.baseGroup.Controls.Add(this.modelCodeLabel);
-            this.baseGroup.Controls.Add(this.trailingAmnt);
-            this.baseGroup.Controls.Add(this.label19);
-            this.baseGroup.Controls.Add(this.trailingAmntUnit);
-            this.baseGroup.Controls.Add(this.label18);
             this.baseGroup.Controls.Add(this.timeInForce);
             this.baseGroup.Controls.Add(this.auxPrice);
             this.baseGroup.Controls.Add(this.lmtPrice);
@@ -323,7 +315,7 @@ namespace IBSampleApp
             this.baseGroup.Controls.Add(this.accountLabel);
             this.baseGroup.Location = new System.Drawing.Point(362, 6);
             this.baseGroup.Name = "baseGroup";
-            this.baseGroup.Size = new System.Drawing.Size(242, 323);
+            this.baseGroup.Size = new System.Drawing.Size(242, 278);
             this.baseGroup.TabIndex = 15;
             this.baseGroup.TabStop = false;
             this.baseGroup.Text = "Order Base Attributes";
@@ -343,43 +335,6 @@ namespace IBSampleApp
             this.modelCodeLabel.Size = new System.Drawing.Size(64, 13);
             this.modelCodeLabel.TabIndex = 20;
             this.modelCodeLabel.Text = "Model Code";
-            // 
-            // trailingAmnt
-            // 
-            this.trailingAmnt.Location = new System.Drawing.Point(121, 269);
-            this.trailingAmnt.Name = "trailingAmnt";
-            this.trailingAmnt.Size = new System.Drawing.Size(89, 20);
-            this.trailingAmnt.TabIndex = 19;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(13, 272);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(79, 13);
-            this.label19.TabIndex = 18;
-            this.label19.Text = "Trailing amount";
-            // 
-            // trailingAmntUnit
-            // 
-            this.trailingAmntUnit.FormattingEnabled = true;
-            this.trailingAmntUnit.Items.AddRange(new object[] {
-            "amnt",
-            "%"});
-            this.trailingAmntUnit.Location = new System.Drawing.Point(121, 296);
-            this.trailingAmntUnit.Name = "trailingAmntUnit";
-            this.trailingAmntUnit.Size = new System.Drawing.Size(89, 21);
-            this.trailingAmntUnit.TabIndex = 17;
-            this.trailingAmntUnit.Text = "amnt";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(13, 299);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(99, 13);
-            this.label18.TabIndex = 16;
-            this.label18.Text = "Trailing amount unit";
             // 
             // timeInForce
             // 
@@ -593,7 +548,7 @@ namespace IBSampleApp
             this.contractGroup.Controls.Add(this.contractExchange);
             this.contractGroup.Location = new System.Drawing.Point(6, 6);
             this.contractGroup.Name = "contractGroup";
-            this.contractGroup.Size = new System.Drawing.Size(350, 323);
+            this.contractGroup.Size = new System.Drawing.Size(350, 278);
             this.contractGroup.TabIndex = 14;
             this.contractGroup.TabStop = false;
             this.contractGroup.Text = "Contract";
@@ -822,7 +777,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(620, 358);
+            this.extendedOrderTab.Size = new System.Drawing.Size(620, 316);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1190,7 +1145,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(620, 358);
+            this.advisorTab.Size = new System.Drawing.Size(620, 316);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1290,7 +1245,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(620, 358);
+            this.volatilityTab.Size = new System.Drawing.Size(620, 316);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1487,7 +1442,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(620, 358);
+            this.scaleTab.Size = new System.Drawing.Size(620, 316);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1684,7 +1639,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(620, 358);
+            this.algoTab.Size = new System.Drawing.Size(620, 316);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1955,7 +1910,7 @@ namespace IBSampleApp
             this.peg2benchTab.Controls.Add(this.label4);
             this.peg2benchTab.Location = new System.Drawing.Point(4, 22);
             this.peg2benchTab.Name = "peg2benchTab";
-            this.peg2benchTab.Size = new System.Drawing.Size(620, 358);
+            this.peg2benchTab.Size = new System.Drawing.Size(620, 316);
             this.peg2benchTab.TabIndex = 6;
             this.peg2benchTab.Text = "Pegged to Benchmark";
             // 
@@ -2108,7 +2063,7 @@ namespace IBSampleApp
             this.adjustStopTab.Controls.Add(this.label11);
             this.adjustStopTab.Location = new System.Drawing.Point(4, 22);
             this.adjustStopTab.Name = "adjustStopTab";
-            this.adjustStopTab.Size = new System.Drawing.Size(620, 358);
+            this.adjustStopTab.Size = new System.Drawing.Size(620, 316);
             this.adjustStopTab.TabIndex = 7;
             this.adjustStopTab.Text = "Adjustable stops";
             // 
@@ -2231,7 +2186,7 @@ namespace IBSampleApp
             this.tabPage1.Controls.Add(this.lbRemoveCondition);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(620, 358);
+            this.tabPage1.Size = new System.Drawing.Size(620, 316);
             this.tabPage1.TabIndex = 8;
             this.tabPage1.Text = "Conditions";
             // 
@@ -2311,10 +2266,19 @@ namespace IBSampleApp
             this.lbRemoveCondition.Text = "remove";
             this.lbRemoveCondition.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbRemoveCondition_LinkClicked);
             // 
+            // contractSearchControl1
+            // 
+            this.contractSearchControl1.Contract = null;
+            this.contractSearchControl1.IBClient = null;
+            this.contractSearchControl1.Location = new System.Drawing.Point(0, 0);
+            this.contractSearchControl1.Name = "contractSearchControl1";
+            this.contractSearchControl1.Size = new System.Drawing.Size(206, 13);
+            this.contractSearchControl1.TabIndex = 0;
+            // 
             // sendOrderButton
             // 
             this.sendOrderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendOrderButton.Location = new System.Drawing.Point(12, 419);
+            this.sendOrderButton.Location = new System.Drawing.Point(12, 374);
             this.sendOrderButton.Name = "sendOrderButton";
             this.sendOrderButton.Size = new System.Drawing.Size(75, 23);
             this.sendOrderButton.TabIndex = 2;
@@ -2349,7 +2313,7 @@ namespace IBSampleApp
             // checkMarginButton
             // 
             this.checkMarginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkMarginButton.Location = new System.Drawing.Point(93, 419);
+            this.checkMarginButton.Location = new System.Drawing.Point(93, 374);
             this.checkMarginButton.Name = "checkMarginButton";
             this.checkMarginButton.Size = new System.Drawing.Size(87, 23);
             this.checkMarginButton.TabIndex = 11;
@@ -2360,7 +2324,7 @@ namespace IBSampleApp
             // closeOrderDialogButton
             // 
             this.closeOrderDialogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 419);
+            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 374);
             this.closeOrderDialogButton.Name = "closeOrderDialogButton";
             this.closeOrderDialogButton.Size = new System.Drawing.Size(75, 23);
             this.closeOrderDialogButton.TabIndex = 12;
@@ -2372,7 +2336,7 @@ namespace IBSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 447);
+            this.ClientSize = new System.Drawing.Size(641, 402);
             this.ControlBox = false;
             this.Controls.Add(this.closeOrderDialogButton);
             this.Controls.Add(this.checkMarginButton);
@@ -2616,10 +2580,6 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewComboBoxColumn Logic;
         private System.Windows.Forms.ComboBox cancelOrder;
         private System.Windows.Forms.CheckBox ignoreRth;
-        private System.Windows.Forms.TextBox trailingAmnt;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.ComboBox trailingAmntUnit;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox pgdStockRangeLower;
         private System.Windows.Forms.TextBox pgdStockRangeUpper;
         private System.Windows.Forms.Label label20;
