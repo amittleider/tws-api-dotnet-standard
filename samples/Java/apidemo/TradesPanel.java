@@ -85,18 +85,19 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 		}
 
 		@Override public int getColumnCount() {
-			return 7;
+			return 8;
 		}
 		
 		@Override public String getColumnName(int col) {
 			switch( col) {
 				case 0: return "Date/Time";
 				case 1: return "Account";
-				case 2: return "Action";
-				case 3: return "Quantity";
-				case 4: return "Description";
-				case 5: return "Price";
-				case 6: return "Commission";
+				case 2: return "Model Code";
+				case 3: return "Action";
+				case 4: return "Quantity";
+				case 5: return "Description";
+				case 6: return "Price";
+				case 7: return "Commission";
 				default: return null;
 			}
 		}
@@ -107,11 +108,12 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 			switch( col) {
 				case 0: return full.m_trade.time();
 				case 1: return full.m_trade.acctNumber();
-				case 2: return full.m_trade.side();
-				case 3: return full.m_trade.shares();
-				case 4: return full.m_contract.description();
-				case 5: return full.m_trade.price();
-				case 6: return full.m_commissionReport != null ? full.m_commissionReport.m_commission : null;
+				case 2: return full.m_trade.modelCode();
+				case 3: return full.m_trade.side();
+				case 4: return full.m_trade.shares();
+				case 5: return full.m_contract.description();
+				case 6: return full.m_trade.price();
+				case 7: return full.m_commissionReport != null ? full.m_commissionReport.m_commission : null;
 				default: return null;
 			}
 		}

@@ -52,12 +52,13 @@ const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
 const int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
 const int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
 const int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
+const int MIN_SERVER_VER_MODELS_SUPPORT         = 103;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_PEGGED_TO_BENCHMARK;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_MODELS_SUPPORT;
 
 
 // incoming msg id's
@@ -106,6 +107,10 @@ const int DISPLAY_GROUP_LIST        = 67;
 const int DISPLAY_GROUP_UPDATED     = 68;
 const int VERIFY_AND_AUTH_MESSAGE_API = 69;
 const int VERIFY_AND_AUTH_COMPLETED   = 70;
+const int POSITION_MULTI            = 71;
+const int POSITION_MULTI_END        = 72;
+const int ACCOUNT_UPDATE_MULTI      = 73;
+const int ACCOUNT_UPDATE_MULTI_END  = 74;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -200,6 +205,10 @@ class TWSAPIDLLEXP EDecoder
     const char* processDisplayGroupUpdatedMsg(const char* ptr, const char* endPtr);
     const char* processVerifyAndAuthMessageApiMsg(const char* ptr, const char* endPtr);
     const char* processVerifyAndAuthCompletedMsg(const char* ptr, const char* endPtr);
+    const char* processPositionMultiMsg(const char* ptr, const char* endPtr);
+    const char* processPositionMultiEndMsg(const char* ptr, const char* endPtr);
+    const char* processAccountUpdateMultiMsg(const char* ptr, const char* endPtr);
+    const char* processAccountUpdateMultiEndMsg(const char* ptr, const char* endPtr);
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 

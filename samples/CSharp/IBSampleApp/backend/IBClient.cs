@@ -628,5 +628,45 @@ namespace IBSampleApp
             if (ClientSocket.AsyncEConnect)
                 ClientSocket.startApi();
         }
+
+        public event Action<int, string, string, Contract, double, double> PositionMulti;
+
+        void EWrapper.positionMulti(int reqId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            var tmp = PositionMulti;
+
+            if (tmp != null)
+                tmp(reqId, account, modelCode, contract, pos, avgCost);
+        }
+
+        public event Action<int> PositionMultiEnd;
+
+        void EWrapper.positionMultiEnd(int reqId)
+        {
+            var tmp = PositionMultiEnd;
+
+            if (tmp != null)
+                tmp(reqId);
+        }
+
+        public event Action<int, string, string, string, string, string> AccountUpdateMulti;
+
+        public virtual void accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
+        {
+            var tmp = AccountUpdateMulti;
+
+            if (tmp != null)
+                tmp(reqId, account, modelCode, key, value, currency);
+        }
+
+        public event Action<int> AccountUpdateMultiEnd;
+
+        public virtual void accountUpdateMultiEnd(int reqId)
+        {
+            var tmp = AccountUpdateMultiEnd;
+
+            if (tmp != null)
+                tmp(reqId);
+        }
     }
 }

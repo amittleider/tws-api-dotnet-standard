@@ -212,5 +212,21 @@ namespace IBApi
         public void connectAck()
         {            
         }
+
+        public void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+        }
+
+        public void positionMultiEnd(int requestId)
+        {
+        }
+
+        public void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
+        {
+        }
+
+        public void accountUpdateMultiEnd(int requestId)
+        {
+        }
     }
 }

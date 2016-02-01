@@ -186,6 +186,7 @@ namespace IBSampleApp
             this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.actionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -198,6 +199,7 @@ namespace IBSampleApp
             this.clientIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.actionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contractColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -347,6 +349,34 @@ namespace IBSampleApp
             this.exerciseOption = new System.Windows.Forms.Button();
             this.exerciseAccountLabel = new System.Windows.Forms.Label();
             this.exerciseAccount = new System.Windows.Forms.ComboBox();
+            this.acctPosTab = new System.Windows.Forms.TabPage();
+            this.acctPosMultiPanel = new System.Windows.Forms.TabControl();
+            this.tabPositionsMulti = new System.Windows.Forms.TabPage();
+            this.clearPositionsMulti = new System.Windows.Forms.LinkLabel();
+            this.positionsMultiGrid = new System.Windows.Forms.DataGridView();
+            this.accountPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodePositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contractPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.positionPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avgCostPositionsMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAccountUpdatesMulti = new System.Windows.Forms.TabPage();
+            this.clearAccountUpdatesMulti = new System.Windows.Forms.LinkLabel();
+            this.accountUpdatesMultiGrid = new System.Windows.Forms.DataGridView();
+            this.accountAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodeAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.keyAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valueAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.currencyAccountUpdatesMulti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBoxRequestData = new System.Windows.Forms.GroupBox();
+            this.buttonCancelAccountUpdatesMulti = new System.Windows.Forms.Button();
+            this.buttonCancelPositionsMulti = new System.Windows.Forms.Button();
+            this.buttonRequestAccountUpdatesMulti = new System.Windows.Forms.Button();
+            this.cbLedgerAndNLV = new System.Windows.Forms.CheckBox();
+            this.labelAccount = new System.Windows.Forms.Label();
+            this.buttonRequestPositionsMulti = new System.Windows.Forms.Button();
+            this.labelModelCode = new System.Windows.Forms.Label();
+            this.textAccount = new System.Windows.Forms.TextBox();
+            this.textModelCode = new System.Windows.Forms.TextBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -464,6 +494,13 @@ namespace IBSampleApp
             this.optionsTab.SuspendLayout();
             this.optionsPositionsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optionPositionsGrid)).BeginInit();
+            this.acctPosTab.SuspendLayout();
+            this.acctPosMultiPanel.SuspendLayout();
+            this.tabPositionsMulti.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsMultiGrid)).BeginInit();
+            this.tabAccountUpdatesMulti.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).BeginInit();
+            this.groupBoxRequestData.SuspendLayout();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -485,6 +522,7 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.tabPage1);
             this.TabControl.Controls.Add(this.advisorTab);
             this.TabControl.Controls.Add(this.optionsTab);
+            this.TabControl.Controls.Add(this.acctPosTab);
             this.TabControl.Location = new System.Drawing.Point(0, 68);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
@@ -1921,7 +1959,7 @@ namespace IBSampleApp
             // 
             // globalCancelButton
             // 
-            this.globalCancelButton.Location = new System.Drawing.Point(914, 167);
+            this.globalCancelButton.Location = new System.Drawing.Point(977, 168);
             this.globalCancelButton.Name = "globalCancelButton";
             this.globalCancelButton.Size = new System.Drawing.Size(105, 23);
             this.globalCancelButton.TabIndex = 9;
@@ -1931,7 +1969,7 @@ namespace IBSampleApp
             // 
             // clientOrdersButton
             // 
-            this.clientOrdersButton.Location = new System.Drawing.Point(914, 50);
+            this.clientOrdersButton.Location = new System.Drawing.Point(977, 51);
             this.clientOrdersButton.Name = "clientOrdersButton";
             this.clientOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.clientOrdersButton.TabIndex = 8;
@@ -1941,7 +1979,7 @@ namespace IBSampleApp
             // 
             // refreshOrdersButton
             // 
-            this.refreshOrdersButton.Location = new System.Drawing.Point(914, 79);
+            this.refreshOrdersButton.Location = new System.Drawing.Point(977, 80);
             this.refreshOrdersButton.Name = "refreshOrdersButton";
             this.refreshOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.refreshOrdersButton.TabIndex = 1;
@@ -1951,7 +1989,7 @@ namespace IBSampleApp
             // 
             // cancelOrdersButton
             // 
-            this.cancelOrdersButton.Location = new System.Drawing.Point(914, 138);
+            this.cancelOrdersButton.Location = new System.Drawing.Point(977, 139);
             this.cancelOrdersButton.Name = "cancelOrdersButton";
             this.cancelOrdersButton.Size = new System.Drawing.Size(105, 23);
             this.cancelOrdersButton.TabIndex = 7;
@@ -1961,7 +1999,7 @@ namespace IBSampleApp
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(914, 109);
+            this.button1.Location = new System.Drawing.Point(977, 110);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 23);
             this.button1.TabIndex = 6;
@@ -1972,7 +2010,7 @@ namespace IBSampleApp
             // newOrderLink
             // 
             this.newOrderLink.AutoSize = true;
-            this.newOrderLink.Location = new System.Drawing.Point(911, 25);
+            this.newOrderLink.Location = new System.Drawing.Point(974, 26);
             this.newOrderLink.Name = "newOrderLink";
             this.newOrderLink.Size = new System.Drawing.Size(58, 13);
             this.newOrderLink.TabIndex = 3;
@@ -1998,6 +2036,7 @@ namespace IBSampleApp
             this.ExecutionId,
             this.dateTimeExecColumn,
             this.accountExecColumn,
+            this.dataGridViewTextBoxColumn8,
             this.actionExecColumn,
             this.quantityExecColumn,
             this.descriptionExecColumn,
@@ -2027,6 +2066,11 @@ namespace IBSampleApp
             this.accountExecColumn.HeaderText = "Account";
             this.accountExecColumn.Name = "accountExecColumn";
             this.accountExecColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Model Code";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // actionExecColumn
             // 
@@ -2069,7 +2113,7 @@ namespace IBSampleApp
             this.liveOrdersGroup.Controls.Add(this.liveOrdersGrid);
             this.liveOrdersGroup.Location = new System.Drawing.Point(9, 6);
             this.liveOrdersGroup.Name = "liveOrdersGroup";
-            this.liveOrdersGroup.Size = new System.Drawing.Size(880, 206);
+            this.liveOrdersGroup.Size = new System.Drawing.Size(960, 206);
             this.liveOrdersGroup.TabIndex = 1;
             this.liveOrdersGroup.TabStop = false;
             this.liveOrdersGroup.Text = "Live Orders - double click to modify.";
@@ -2083,6 +2127,7 @@ namespace IBSampleApp
             this.clientIdColumn,
             this.orderIdColumn,
             this.accountColumn,
+            this.modelCodeColumn,
             this.actionColumn,
             this.quantityColumn,
             this.contractColumn,
@@ -2091,7 +2136,7 @@ namespace IBSampleApp
             this.liveOrdersGrid.Name = "liveOrdersGrid";
             this.liveOrdersGrid.ReadOnly = true;
             this.liveOrdersGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.liveOrdersGrid.Size = new System.Drawing.Size(868, 181);
+            this.liveOrdersGrid.Size = new System.Drawing.Size(946, 181);
             this.liveOrdersGrid.TabIndex = 0;
             this.liveOrdersGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.liveOrdersGrid_CellCoubleClick);
             // 
@@ -2118,6 +2163,12 @@ namespace IBSampleApp
             this.accountColumn.HeaderText = "Account";
             this.accountColumn.Name = "accountColumn";
             this.accountColumn.ReadOnly = true;
+            // 
+            // modelCodeColumn
+            // 
+            this.modelCodeColumn.HeaderText = "Model Code";
+            this.modelCodeColumn.Name = "modelCodeColumn";
+            this.modelCodeColumn.ReadOnly = true;
             // 
             // actionColumn
             // 
@@ -3505,6 +3556,283 @@ namespace IBSampleApp
             this.exerciseAccount.TabIndex = 2;
             this.exerciseAccount.SelectedIndexChanged += new System.EventHandler(this.exerciseAccount_SelectedIndexChanged);
             // 
+            // acctPosTab
+            // 
+            this.acctPosTab.BackColor = System.Drawing.Color.LightGray;
+            this.acctPosTab.Controls.Add(this.acctPosMultiPanel);
+            this.acctPosTab.Controls.Add(this.groupBoxRequestData);
+            this.acctPosTab.Location = new System.Drawing.Point(4, 22);
+            this.acctPosTab.Name = "acctPosTab";
+            this.acctPosTab.Padding = new System.Windows.Forms.Padding(3);
+            this.acctPosTab.Size = new System.Drawing.Size(1248, 430);
+            this.acctPosTab.TabIndex = 8;
+            this.acctPosTab.Text = "Acct/Pos Multi";
+            // 
+            // acctPosMultiPanel
+            // 
+            this.acctPosMultiPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.acctPosMultiPanel.Controls.Add(this.tabPositionsMulti);
+            this.acctPosMultiPanel.Controls.Add(this.tabAccountUpdatesMulti);
+            this.acctPosMultiPanel.Location = new System.Drawing.Point(5, 124);
+            this.acctPosMultiPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.acctPosMultiPanel.Name = "acctPosMultiPanel";
+            this.acctPosMultiPanel.SelectedIndex = 0;
+            this.acctPosMultiPanel.Size = new System.Drawing.Size(1242, 217);
+            this.acctPosMultiPanel.TabIndex = 1;
+            // 
+            // tabPositionsMulti
+            // 
+            this.tabPositionsMulti.BackColor = System.Drawing.Color.LightGray;
+            this.tabPositionsMulti.Controls.Add(this.clearPositionsMulti);
+            this.tabPositionsMulti.Controls.Add(this.positionsMultiGrid);
+            this.tabPositionsMulti.Location = new System.Drawing.Point(4, 22);
+            this.tabPositionsMulti.Name = "tabPositionsMulti";
+            this.tabPositionsMulti.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPositionsMulti.Size = new System.Drawing.Size(1234, 191);
+            this.tabPositionsMulti.TabIndex = 0;
+            this.tabPositionsMulti.Text = "Positions Multi";
+            // 
+            // clearPositionsMulti
+            // 
+            this.clearPositionsMulti.AutoSize = true;
+            this.clearPositionsMulti.Location = new System.Drawing.Point(6, 3);
+            this.clearPositionsMulti.Name = "clearPositionsMulti";
+            this.clearPositionsMulti.Size = new System.Drawing.Size(31, 13);
+            this.clearPositionsMulti.TabIndex = 6;
+            this.clearPositionsMulti.TabStop = true;
+            this.clearPositionsMulti.Text = "Clear";
+            this.clearPositionsMulti.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.clearPositionsMulti_LinkClicked);
+            // 
+            // positionsMultiGrid
+            // 
+            this.positionsMultiGrid.AllowUserToAddRows = false;
+            this.positionsMultiGrid.AllowUserToDeleteRows = false;
+            this.positionsMultiGrid.AllowUserToOrderColumns = true;
+            this.positionsMultiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.positionsMultiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.positionsMultiGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.accountPositionsMulti,
+            this.modelCodePositionsMulti,
+            this.contractPositionsMulti,
+            this.positionPositionsMulti,
+            this.avgCostPositionsMulti});
+            this.positionsMultiGrid.Location = new System.Drawing.Point(3, 19);
+            this.positionsMultiGrid.Name = "positionsMultiGrid";
+            this.positionsMultiGrid.ReadOnly = true;
+            this.positionsMultiGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.positionsMultiGrid.Size = new System.Drawing.Size(1225, 166);
+            this.positionsMultiGrid.TabIndex = 0;
+            // 
+            // accountPositionsMulti
+            // 
+            this.accountPositionsMulti.HeaderText = "Account";
+            this.accountPositionsMulti.Name = "accountPositionsMulti";
+            this.accountPositionsMulti.ReadOnly = true;
+            // 
+            // modelCodePositionsMulti
+            // 
+            this.modelCodePositionsMulti.HeaderText = "Model Code";
+            this.modelCodePositionsMulti.Name = "modelCodePositionsMulti";
+            this.modelCodePositionsMulti.ReadOnly = true;
+            // 
+            // contractPositionsMulti
+            // 
+            this.contractPositionsMulti.HeaderText = "Contract";
+            this.contractPositionsMulti.Name = "contractPositionsMulti";
+            this.contractPositionsMulti.ReadOnly = true;
+            this.contractPositionsMulti.Width = 300;
+            // 
+            // positionPositionsMulti
+            // 
+            this.positionPositionsMulti.HeaderText = "Position";
+            this.positionPositionsMulti.Name = "positionPositionsMulti";
+            this.positionPositionsMulti.ReadOnly = true;
+            // 
+            // avgCostPositionsMulti
+            // 
+            this.avgCostPositionsMulti.HeaderText = "Avg Cost";
+            this.avgCostPositionsMulti.Name = "avgCostPositionsMulti";
+            this.avgCostPositionsMulti.ReadOnly = true;
+            // 
+            // tabAccountUpdatesMulti
+            // 
+            this.tabAccountUpdatesMulti.BackColor = System.Drawing.Color.LightGray;
+            this.tabAccountUpdatesMulti.Controls.Add(this.clearAccountUpdatesMulti);
+            this.tabAccountUpdatesMulti.Controls.Add(this.accountUpdatesMultiGrid);
+            this.tabAccountUpdatesMulti.Location = new System.Drawing.Point(4, 22);
+            this.tabAccountUpdatesMulti.Name = "tabAccountUpdatesMulti";
+            this.tabAccountUpdatesMulti.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAccountUpdatesMulti.Size = new System.Drawing.Size(1234, 191);
+            this.tabAccountUpdatesMulti.TabIndex = 1;
+            this.tabAccountUpdatesMulti.Text = "Account Updates Multi";
+            // 
+            // clearAccountUpdatesMulti
+            // 
+            this.clearAccountUpdatesMulti.AutoSize = true;
+            this.clearAccountUpdatesMulti.Location = new System.Drawing.Point(6, 3);
+            this.clearAccountUpdatesMulti.Name = "clearAccountUpdatesMulti";
+            this.clearAccountUpdatesMulti.Size = new System.Drawing.Size(31, 13);
+            this.clearAccountUpdatesMulti.TabIndex = 0;
+            this.clearAccountUpdatesMulti.TabStop = true;
+            this.clearAccountUpdatesMulti.Text = "Clear";
+            this.clearAccountUpdatesMulti.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.clearAccountUpdatesMulti_LinkClicked);
+            // 
+            // accountUpdatesMultiGrid
+            // 
+            this.accountUpdatesMultiGrid.AllowUserToAddRows = false;
+            this.accountUpdatesMultiGrid.AllowUserToDeleteRows = false;
+            this.accountUpdatesMultiGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.accountUpdatesMultiGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.accountUpdatesMultiGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.accountAccountUpdatesMulti,
+            this.modelCodeAccountUpdatesMulti,
+            this.keyAccountUpdatesMulti,
+            this.valueAccountUpdatesMulti,
+            this.currencyAccountUpdatesMulti});
+            this.accountUpdatesMultiGrid.Location = new System.Drawing.Point(4, 19);
+            this.accountUpdatesMultiGrid.Name = "accountUpdatesMultiGrid";
+            this.accountUpdatesMultiGrid.ReadOnly = true;
+            this.accountUpdatesMultiGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.accountUpdatesMultiGrid.Size = new System.Drawing.Size(1224, 166);
+            this.accountUpdatesMultiGrid.TabIndex = 1;
+            // 
+            // accountAccountUpdatesMulti
+            // 
+            this.accountAccountUpdatesMulti.HeaderText = "Account";
+            this.accountAccountUpdatesMulti.Name = "accountAccountUpdatesMulti";
+            this.accountAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // modelCodeAccountUpdatesMulti
+            // 
+            this.modelCodeAccountUpdatesMulti.HeaderText = "Model Code";
+            this.modelCodeAccountUpdatesMulti.Name = "modelCodeAccountUpdatesMulti";
+            this.modelCodeAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // keyAccountUpdatesMulti
+            // 
+            this.keyAccountUpdatesMulti.HeaderText = "Key";
+            this.keyAccountUpdatesMulti.Name = "keyAccountUpdatesMulti";
+            this.keyAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // valueAccountUpdatesMulti
+            // 
+            this.valueAccountUpdatesMulti.HeaderText = "Value";
+            this.valueAccountUpdatesMulti.Name = "valueAccountUpdatesMulti";
+            this.valueAccountUpdatesMulti.ReadOnly = true;
+            // 
+            // currencyAccountUpdatesMulti
+            // 
+            this.currencyAccountUpdatesMulti.HeaderText = "Currency";
+            this.currencyAccountUpdatesMulti.Name = "currencyAccountUpdatesMulti";
+            this.currencyAccountUpdatesMulti.ReadOnly = true;
+            this.currencyAccountUpdatesMulti.Width = 50;
+            // 
+            // groupBoxRequestData
+            // 
+            this.groupBoxRequestData.Controls.Add(this.buttonCancelAccountUpdatesMulti);
+            this.groupBoxRequestData.Controls.Add(this.buttonCancelPositionsMulti);
+            this.groupBoxRequestData.Controls.Add(this.buttonRequestAccountUpdatesMulti);
+            this.groupBoxRequestData.Controls.Add(this.cbLedgerAndNLV);
+            this.groupBoxRequestData.Controls.Add(this.labelAccount);
+            this.groupBoxRequestData.Controls.Add(this.buttonRequestPositionsMulti);
+            this.groupBoxRequestData.Controls.Add(this.labelModelCode);
+            this.groupBoxRequestData.Controls.Add(this.textAccount);
+            this.groupBoxRequestData.Controls.Add(this.textModelCode);
+            this.groupBoxRequestData.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxRequestData.Name = "groupBoxRequestData";
+            this.groupBoxRequestData.Size = new System.Drawing.Size(515, 92);
+            this.groupBoxRequestData.TabIndex = 0;
+            this.groupBoxRequestData.TabStop = false;
+            this.groupBoxRequestData.Text = "Request Data";
+            // 
+            // buttonCancelAccountUpdatesMulti
+            // 
+            this.buttonCancelAccountUpdatesMulti.Location = new System.Drawing.Point(350, 48);
+            this.buttonCancelAccountUpdatesMulti.Name = "buttonCancelAccountUpdatesMulti";
+            this.buttonCancelAccountUpdatesMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonCancelAccountUpdatesMulti.TabIndex = 9;
+            this.buttonCancelAccountUpdatesMulti.Text = "Cancel Acct Updates Multi";
+            this.buttonCancelAccountUpdatesMulti.UseVisualStyleBackColor = true;
+            this.buttonCancelAccountUpdatesMulti.Click += new System.EventHandler(this.buttonCancelAccountUpdatesMulti_Click);
+            // 
+            // buttonCancelPositionsMulti
+            // 
+            this.buttonCancelPositionsMulti.Location = new System.Drawing.Point(350, 19);
+            this.buttonCancelPositionsMulti.Name = "buttonCancelPositionsMulti";
+            this.buttonCancelPositionsMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonCancelPositionsMulti.TabIndex = 8;
+            this.buttonCancelPositionsMulti.Text = "Cancel Positions Multi";
+            this.buttonCancelPositionsMulti.UseVisualStyleBackColor = true;
+            this.buttonCancelPositionsMulti.Click += new System.EventHandler(this.buttonCancelPositionsMulti_Click);
+            // 
+            // buttonRequestAccountUpdatesMulti
+            // 
+            this.buttonRequestAccountUpdatesMulti.Location = new System.Drawing.Point(191, 48);
+            this.buttonRequestAccountUpdatesMulti.Name = "buttonRequestAccountUpdatesMulti";
+            this.buttonRequestAccountUpdatesMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonRequestAccountUpdatesMulti.TabIndex = 7;
+            this.buttonRequestAccountUpdatesMulti.Text = "Req Account Updates Multi";
+            this.buttonRequestAccountUpdatesMulti.UseVisualStyleBackColor = true;
+            this.buttonRequestAccountUpdatesMulti.Click += new System.EventHandler(this.buttonRequestAccountUpdatesMulti_Click);
+            // 
+            // cbLedgerAndNLV
+            // 
+            this.cbLedgerAndNLV.AutoSize = true;
+            this.cbLedgerAndNLV.Location = new System.Drawing.Point(85, 67);
+            this.cbLedgerAndNLV.Name = "cbLedgerAndNLV";
+            this.cbLedgerAndNLV.Size = new System.Drawing.Size(99, 17);
+            this.cbLedgerAndNLV.TabIndex = 4;
+            this.cbLedgerAndNLV.Text = "LedgerAndNLV";
+            this.cbLedgerAndNLV.UseVisualStyleBackColor = true;
+            // 
+            // labelAccount
+            // 
+            this.labelAccount.AutoSize = true;
+            this.labelAccount.Location = new System.Drawing.Point(32, 22);
+            this.labelAccount.Name = "labelAccount";
+            this.labelAccount.Size = new System.Drawing.Size(47, 13);
+            this.labelAccount.TabIndex = 0;
+            this.labelAccount.Text = "Account";
+            // 
+            // buttonRequestPositionsMulti
+            // 
+            this.buttonRequestPositionsMulti.Location = new System.Drawing.Point(191, 19);
+            this.buttonRequestPositionsMulti.Name = "buttonRequestPositionsMulti";
+            this.buttonRequestPositionsMulti.Size = new System.Drawing.Size(153, 23);
+            this.buttonRequestPositionsMulti.TabIndex = 5;
+            this.buttonRequestPositionsMulti.Text = "Request Positions Multi";
+            this.buttonRequestPositionsMulti.UseVisualStyleBackColor = true;
+            this.buttonRequestPositionsMulti.Click += new System.EventHandler(this.buttonRequestPositionsMulti_Click);
+            // 
+            // labelModelCode
+            // 
+            this.labelModelCode.AutoSize = true;
+            this.labelModelCode.Location = new System.Drawing.Point(15, 48);
+            this.labelModelCode.Name = "labelModelCode";
+            this.labelModelCode.Size = new System.Drawing.Size(64, 13);
+            this.labelModelCode.TabIndex = 1;
+            this.labelModelCode.Text = "Model Code";
+            // 
+            // textAccount
+            // 
+            this.textAccount.Location = new System.Drawing.Point(85, 15);
+            this.textAccount.Name = "textAccount";
+            this.textAccount.Size = new System.Drawing.Size(100, 20);
+            this.textAccount.TabIndex = 2;
+            // 
+            // textModelCode
+            // 
+            this.textModelCode.Location = new System.Drawing.Point(85, 41);
+            this.textModelCode.Name = "textModelCode";
+            this.textModelCode.Size = new System.Drawing.Size(100, 20);
+            this.textModelCode.TabIndex = 3;
+            // 
             // connectButton
             // 
             this.connectButton.Location = new System.Drawing.Point(1181, 12);
@@ -4181,6 +4509,16 @@ namespace IBSampleApp
             this.optionsTab.PerformLayout();
             this.optionsPositionsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.optionPositionsGrid)).EndInit();
+            this.acctPosTab.ResumeLayout(false);
+            this.acctPosMultiPanel.ResumeLayout(false);
+            this.tabPositionsMulti.ResumeLayout(false);
+            this.tabPositionsMulti.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsMultiGrid)).EndInit();
+            this.tabAccountUpdatesMulti.ResumeLayout(false);
+            this.tabAccountUpdatesMulti.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).EndInit();
+            this.groupBoxRequestData.ResumeLayout(false);
+            this.groupBoxRequestData.PerformLayout();
             this.comboTab.ResumeLayout(false);
             this.comboDeltaNeutralBox.ResumeLayout(false);
             this.comboDeltaNeutralBox.PerformLayout();

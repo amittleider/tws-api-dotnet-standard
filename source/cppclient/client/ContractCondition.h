@@ -1,7 +1,7 @@
 #pragma once
 #include "OperatorCondition.h"
 
-class ContractCondition : public OperatorCondition {
+class TWSAPIDLLEXP ContractCondition : public OperatorCondition {
 	int m_conId;
 	std::string m_exchange;
 

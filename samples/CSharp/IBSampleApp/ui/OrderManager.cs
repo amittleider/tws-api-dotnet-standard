@@ -137,8 +137,8 @@ namespace IBSampleApp.ui
             {
                 if (((string)tradeLogGrid[0, i].Value).Equals(message.CommissionReport.ExecId))
                 {
-                    tradeLogGrid[7, i].Value = message.CommissionReport.Commission;
-                    tradeLogGrid[8, i].Value = message.CommissionReport.RealizedPNL;
+                    tradeLogGrid[8, i].Value = message.CommissionReport.Commission;
+                    tradeLogGrid[9, i].Value = message.CommissionReport.RealizedPNL;
                 }
             }
         }
@@ -172,10 +172,11 @@ namespace IBSampleApp.ui
             tradeLogGrid[0, index].Value = message.Execution.ExecId;
             tradeLogGrid[1, index].Value = message.Execution.Time;
             tradeLogGrid[2, index].Value = message.Execution.AcctNumber;
-            tradeLogGrid[3, index].Value = message.Execution.Side;
-            tradeLogGrid[4, index].Value = message.Execution.Shares;
-            tradeLogGrid[5, index].Value = message.Contract.Symbol + " " + message.Contract.SecType + " " + message.Contract.Exchange;
-            tradeLogGrid[6, index].Value = message.Execution.Price;
+            tradeLogGrid[3, index].Value = message.Execution.ModelCode;
+            tradeLogGrid[4, index].Value = message.Execution.Side;
+            tradeLogGrid[5, index].Value = message.Execution.Shares;
+            tradeLogGrid[6, index].Value = message.Contract.Symbol + " " + message.Contract.SecType + " " + message.Contract.Exchange;
+            tradeLogGrid[7, index].Value = message.Execution.Price;
         }
 
         private void handleOrderStatus(OrderStatusMessage statusMessage)
@@ -184,7 +185,7 @@ namespace IBSampleApp.ui
             {
                 if (liveOrdersGrid[0, i].Value.Equals(statusMessage.PermId))
                 {
-                    liveOrdersGrid[7, i].Value = statusMessage.Status;
+                    liveOrdersGrid[8, i].Value = statusMessage.Status;
                     return;
                 }
             }
@@ -223,10 +224,11 @@ namespace IBSampleApp.ui
             liveOrdersGrid[1, rowIndex].Value = orderMessage.Order.ClientId;
             liveOrdersGrid[2, rowIndex].Value = orderMessage.Order.OrderId;
             liveOrdersGrid[3, rowIndex].Value = orderMessage.Order.Account;
-            liveOrdersGrid[4, rowIndex].Value = orderMessage.Order.Action;
-            liveOrdersGrid[5, rowIndex].Value = orderMessage.Order.TotalQuantity;
-            liveOrdersGrid[6, rowIndex].Value = orderMessage.Contract.Symbol+" "+orderMessage.Contract.SecType+" "+orderMessage.Contract.Exchange;
-            liveOrdersGrid[7, rowIndex].Value = orderMessage.OrderState.Status;
+            liveOrdersGrid[4, rowIndex].Value = orderMessage.Order.ModelCode;
+            liveOrdersGrid[5, rowIndex].Value = orderMessage.Order.Action;
+            liveOrdersGrid[6, rowIndex].Value = orderMessage.Order.TotalQuantity;
+            liveOrdersGrid[7, rowIndex].Value = orderMessage.Contract.Symbol+" "+orderMessage.Contract.SecType+" "+orderMessage.Contract.Exchange;
+            liveOrdersGrid[8, rowIndex].Value = orderMessage.OrderState.Status;
         }
     }
 }

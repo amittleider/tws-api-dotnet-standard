@@ -2,7 +2,7 @@
 #include "ContractCondition.h"
 #include "Order.h"
 
-class PercentChangeCondition : public ContractCondition {
+class TWSAPIDLLEXP PercentChangeCondition : public ContractCondition {
 	friend OrderCondition;
 
 	double m_changePercent;

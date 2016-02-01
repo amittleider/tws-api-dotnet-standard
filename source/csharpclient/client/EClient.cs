@@ -740,6 +740,12 @@ namespace IBApi
                 paramsList.AddParameter(order.FaPercentage);
                 paramsList.AddParameter(order.FaProfile);
             }
+
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
+            {
+                paramsList.AddParameter(order.ModelCode);
+            }
+
             if (serverVersion >= 18)
             { // institutional short sale slot fields.
                 paramsList.AddParameter(order.ShortSaleSlot);      // 0 only for retail, 1 or 2 only for institution.
@@ -985,10 +991,7 @@ namespace IBApi
                }
         	   
         	   paramsList.AddParameter(order.AdjustedOrderType);
-        	   paramsList.AddParameter(order.StopPrice);
         	   paramsList.AddParameter(order.TriggerPrice);
-        	   paramsList.AddParameter(order.TrailingAmount);
-        	   paramsList.AddParameter(order.TrailingUnit);
         	   paramsList.AddParameter(order.LmtPriceOffset);
         	   paramsList.AddParameter(order.AdjustedStopPrice);
         	   paramsList.AddParameter(order.AdjustedStopLimitPrice);
@@ -2118,6 +2121,99 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+        }
+
+        /**
+         * @brief Requests positions for account and/or model
+         * @sa cancelPositionsMulti, EWrapper::positionMulti, EWrapper::positionMultiEnd
+         */
+        public void reqPositionsMulti(int requestId, string account, string modelCode)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support positions multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Cancels positions request for account and/or model
+         * @sa reqPositionsMulti
+         */
+        public void cancelPositionsMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support positions multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Requests account updates for account and/or model
+         * @sa cancelAcountUpdatesMulti, EWrapper::accountUpdateMulti, EWrapper::accountUpdateMultiEnd
+         */
+        public void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support account updates multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            paramsList.AddParameter(ledgerAndNLV);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTUPDATESMULTI);
+        }
+
+        /**
+         * @brief Cancels account updates request for account and/or model
+         * @sa reqAccountUpdatesMulti
+         */
+        public void cancelAccountUpdatesMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support account updates multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANACCOUNTUPDATESMULTI);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

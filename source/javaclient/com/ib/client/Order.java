@@ -176,10 +176,7 @@ public class Order {
 	private double m_referenceChangeAmount;
 	private String m_referenceExchangeId;
 	private OrderType m_adjustedOrderType;
-	private double m_stopPrice = Double.MAX_VALUE;
 	private double m_triggerPrice = Double.MAX_VALUE;
-	private double m_trailingAmount = Double.MAX_VALUE;
-	private int m_trailingUnit;
 	private double m_adjustedStopPrice = Double.MAX_VALUE;
 	private double m_adjustedStopLimitPrice = Double.MAX_VALUE;
 	private double m_adjustedTrailingAmount = Double.MAX_VALUE;
@@ -190,6 +187,9 @@ public class Order {
 	private boolean m_conditionsCancelOrder;
 	private boolean m_conditionsIgnoreRth;
     
+    // models
+    private String m_modelCode;
+	
 	// getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
@@ -308,13 +308,11 @@ public class Order {
 	public double adjustedStopLimitPrice() { return m_adjustedStopLimitPrice; }
 	public double adjustedTrailingAmount() { return m_adjustedTrailingAmount; }
 	public int adjustableTrailingUnit() { return m_adjustableTrailingUnit; }
-	public double stopPrice() { return m_stopPrice; }
-	public double trailingAmount() { return m_trailingAmount; }
-	public int trailingUnit() { return m_trailingUnit; }
 	public double lmtPriceOffset() { return m_lmtPriceOffset; }
 	public ArrayList<OrderCondition> conditions() {	return m_conditions; }
 	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
 	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
+    public String modelCode() { return m_modelCode; }
 	
 	// setters
 	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
@@ -425,6 +423,7 @@ public class Order {
     public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
     public void randomizeSize(boolean v) { m_randomizeSize = v; }
     public void randomizePrice(boolean v) { m_randomizePrice = v; }
+    public void modelCode(String v) { m_modelCode = v; }
     public void isPeggedChangeAmountDecrease(boolean v) { m_isPeggedChangeAmountDecrease = v; }
 	public void peggedChangeAmount(double m_peggedChangeAmount) { this.m_peggedChangeAmount = m_peggedChangeAmount; }
 	public void referenceChangeAmount(double m_referenceChangeAmount) { this.m_referenceChangeAmount = m_referenceChangeAmount; }
@@ -435,9 +434,6 @@ public class Order {
 	public void adjustedStopLimitPrice(double v) { m_adjustedStopLimitPrice = v; }
 	public void adjustedTrailingAmount(double v) { m_adjustedTrailingAmount = v; }
 	public void adjustableTrailingUnit(int v) { m_adjustableTrailingUnit = v; }
-	public void stopPrice(double v) { m_stopPrice = v; }
-	public void trailingAmount(double v) { m_trailingAmount = v; }
-	public void trailingUnit(int v) { m_trailingUnit = v; }
 	public void lmtPriceOffset(double v) { m_lmtPriceOffset = v; }
 	public void conditions(ArrayList<OrderCondition> v) { m_conditions = v; }
 	public void conditionsIgnoreRth(boolean v) { m_conditionsIgnoreRth = v; }
@@ -564,9 +560,6 @@ public class Order {
         	m_adjustedStopLimitPrice != l_theOther.m_adjustedStopLimitPrice ||
         	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
         	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
-        	m_stopPrice != l_theOther.m_stopPrice ||
-        	m_trailingAmount != l_theOther.m_trailingAmount ||
-        	m_trailingUnit != l_theOther.m_trailingUnit ||
         	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset) {
         	return false;
         }
@@ -602,6 +595,7 @@ public class Order {
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
         	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
+        	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0 ||
         	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0) {
         	return false;
         }

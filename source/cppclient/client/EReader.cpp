@@ -25,7 +25,6 @@ EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
 		m_needsWriteSelect = false;
 		m_nMaxBufSize = IN_BUF_SIZE_DEFAULT;
 		m_buf.reserve(IN_BUF_SIZE_DEFAULT);
-		start();
 }
 
 EReader::~EReader(void) {
@@ -74,22 +73,29 @@ void EReader::readToQueue() {
 		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
 			continue;
 
-        if (m_pClientSocket->isSocketOK())
-            msg = readSingleMsg();
-
-		if (msg == 0)
+        if (!putMessageToQueue())
 			break;
-
-		m_csMsgQueue.Enter();
-		m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
-		m_csMsgQueue.Leave();
-		m_pEReaderSignal->issueSignal();
-
-        msg = 0;
 	}
 
 	m_pClientSocket->handleSocketError();
 	m_pEReaderSignal->issueSignal(); //letting client know that socket was closed
+}
+
+bool EReader::putMessageToQueue() {
+	EMessage *msg = 0;
+
+	if (m_pClientSocket->isSocketOK())
+		msg = readSingleMsg();
+
+	if (msg == 0)
+		return false;
+
+	m_csMsgQueue.Enter();
+	m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
+	m_csMsgQueue.Leave();
+	m_pEReaderSignal->issueSignal();
+
+	return true;
 }
 
 bool EReader::processNonBlockingSelect() {

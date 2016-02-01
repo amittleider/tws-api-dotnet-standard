@@ -258,18 +258,9 @@ namespace TWSLib
         
         [DispId(153)]
         string adjustedOrderType { get; set; }
-        
-        [DispId(154)]
-        double stopPrice { get; set; }
 
         [DispId(155)]
         double triggerPrice { get; set; }
-
-        [DispId(156)]
-        double trailingAmount { get; set; }
-
-        [DispId(157)]
-        int trailingUnit { get; set; }
 
         [DispId(158)]
         double lmtPriceOffset { get; set; }
@@ -291,5 +282,8 @@ namespace TWSLib
 
         [DispId(164)]
         bool conditionsCancelOrder { get; set; }
+
+        [DispId(165)]
+        string modelCode { get; set; }
     }
 }

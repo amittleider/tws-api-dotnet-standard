@@ -10,6 +10,7 @@
 
 #include "Contract.h"
 #include "Order.h"
+#include "ExecutionCondition.h"
 
 #include <stdio.h>
 
@@ -48,6 +49,8 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
 
         m_pReader = new EReader(m_pClient, &m_osSignal);
+
+		m_pReader->start();
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -152,6 +155,14 @@ void TestCppClient::placeOrder()
 	order.totalQuantity = 1000;
 	order.orderType = "LMT";
 	order.lmtPrice = 0.01;
+
+	ExecutionCondition *pCondition = dynamic_cast<ExecutionCondition *>(OrderCondition::create(OrderCondition::OrderConditionType::Execution));
+
+	pCondition->exchange("ANY");
+	pCondition->secType("ANY");
+	pCondition->symbol("ANY");
+
+	order.conditions.push_back(ibapi::shared_ptr<ExecutionCondition>(pCondition));
 
 	printf( "Placing Order %ld: %s %f %s at %f\n", ++m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
 
@@ -278,3 +289,7 @@ void TestCppClient::verifyAndAuthCompleted( bool isSuccessful, const std::string
 
 void TestCppClient::displayGroupList( int reqId, const std::string& groups) {}
 void TestCppClient::displayGroupUpdated( int reqId, const std::string& contractInfo) {}
+void TestCppClient::positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost) {}
+void TestCppClient::positionMultiEnd( int reqId) {}
+void TestCppClient::accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency) {}
+void TestCppClient::accountUpdateMultiEnd( int reqId) {}

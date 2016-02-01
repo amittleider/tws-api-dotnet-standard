@@ -216,16 +216,12 @@ namespace IBSampleApp
             if (!quantity.Text.Equals(""))
                 order.TotalQuantity = Double.Parse(quantity.Text);
             order.Account = account.Text;
+            order.ModelCode = modelCode.Text;
             order.Tif = timeInForce.Text;
             if (!auxPrice.Text.Equals(""))
                 order.AuxPrice = Double.Parse(auxPrice.Text);
             if (!displaySize.Text.Equals(""))
                 order.DisplaySize = Int32.Parse(displaySize.Text);
-
-            if (!string.IsNullOrWhiteSpace(trailingAmnt.Text))
-                order.TrailingAmount = double.Parse(trailingAmnt.Text);
-
-            order.TrailingUnit = trailingAmntUnit.SelectedIndex;
 
             FillExtendedOrderAttributes(order);
             FillAdvisorAttributes(order);
@@ -248,9 +244,6 @@ namespace IBSampleApp
 
         private void FillAdjustedStops(Order order)
         {
-            if (!string.IsNullOrWhiteSpace(tbStopPrice.Text))
-                order.StopPrice = double.Parse(tbStopPrice.Text);
-
             if (cbAdjustedOrderType.SelectedIndex > 0)
                 order.AdjustedOrderType = cbAdjustedOrderType.Text;
 
@@ -267,7 +260,7 @@ namespace IBSampleApp
                 order.AdjustedTrailingAmount = double.Parse(tbAdjustedTrailingAmnt.Text);
 
             order.AdjustableTrailingUnit = (cbAdjustedTrailingAmntUnit.SelectedItem as TrailingAmountUnit).Val;
-            order.LmtPriceOffset = order.LmtPrice - order.StopPrice;
+            order.LmtPriceOffset = order.LmtPrice - order.AuxPrice;
         }
 
         private void FillPegToBench(Order order)
@@ -450,11 +443,11 @@ namespace IBSampleApp
             lmtPrice.Text = doubleToStr(order.LmtPrice);
             quantity.Text = doubleToStr(order.TotalQuantity);
             account.Text = order.Account;
+            modelCode.Text = order.ModelCode;
             timeInForce.Text = order.Tif;
             auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();
-            trailingAmnt.Text = doubleToStr(order.TrailingAmount);
-            trailingAmntUnit.SelectedIndex = order.TrailingUnit;
+
             //order = GetExtendedOrderAttributes(order);
             //order = GetAdvisorAttributes(order);
             //order = GetVolatilityAttributes(order);
@@ -476,7 +469,6 @@ namespace IBSampleApp
                 pgdStockRangeLower.Text = doubleToStr(order.StockRangeLower);
             }
 
-            tbStopPrice.Text = doubleToStr(order.StopPrice);
             cbAdjustedOrderType.Text = order.AdjustedOrderType;
             tbTriggerPrice.Text = doubleToStr(order.TriggerPrice);
             tbAdjustedStopPrice.Text = doubleToStr(order.AdjustedStopPrice);

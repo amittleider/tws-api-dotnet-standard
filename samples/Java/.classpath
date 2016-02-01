@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/javaclient"/>
+	<classpathentry kind="lib" path="C:/IB/Jars/openjfx-78-backport-1.8.0-ea-b96.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

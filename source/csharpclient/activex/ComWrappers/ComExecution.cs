@@ -167,6 +167,15 @@ namespace TWSLib
             set { if (data != null) data.EvMultiplier = value; }
         }
 
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return data != null ? data.ModelCode : default(string); }
+            set { if (data != null) data.ModelCode = value; }
+        }
+
         public override bool Equals(Object p_other)
         {
             bool l_bRetVal = false;
@@ -275,6 +284,11 @@ namespace TWSLib
         public static explicit operator ComExecution(Execution e)
         {
             return new ComExecution().ConvertFrom(e) as ComExecution;
+        }
+
+        string TWSLib.IExecution.modelCode
+        {
+            get { return ModelCode; }
         }
     }
 }
