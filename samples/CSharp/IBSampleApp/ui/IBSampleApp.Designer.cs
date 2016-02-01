@@ -4897,6 +4897,36 @@ namespace IBSampleApp
         private System.Windows.Forms.Label execFilterAcctLabel;
         private System.Windows.Forms.PictureBox ib_banner;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TabPage acctPosTab;
+        private System.Windows.Forms.GroupBox groupBoxRequestData;
+        private System.Windows.Forms.CheckBox cbLedgerAndNLV;
+        private System.Windows.Forms.Label labelAccount;
+        private System.Windows.Forms.Button buttonRequestPositionsMulti;
+        private System.Windows.Forms.Label labelModelCode;
+        private System.Windows.Forms.TextBox textAccount;
+        private System.Windows.Forms.TextBox textModelCode;
+        private System.Windows.Forms.TabControl acctPosMultiPanel;
+        private System.Windows.Forms.TabPage tabPositionsMulti;
+        private System.Windows.Forms.LinkLabel clearPositionsMulti;
+        private System.Windows.Forms.DataGridView positionsMultiGrid;
+        private System.Windows.Forms.TabPage tabAccountUpdatesMulti;
+        private System.Windows.Forms.LinkLabel clearAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridView accountUpdatesMultiGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn keyAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valueAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn currencyAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodePositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contractPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn positionPositionsMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn avgCostPositionsMulti;
+        private System.Windows.Forms.Button buttonRequestAccountUpdatesMulti;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeColumn;
+        private System.Windows.Forms.Button buttonCancelPositionsMulti;
+        private System.Windows.Forms.Button buttonCancelAccountUpdatesMulti;
     }
 }
 
