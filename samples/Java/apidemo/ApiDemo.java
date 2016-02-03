@@ -182,7 +182,7 @@ public class ApiDemo implements IConnectionHandler {
 		private final JLabel m_status = new JLabel("Disconnected");
 		private final JLabel m_defaultPortNumberLabel = new JLabel("<html>Live Trading ports:<b> TWS: 7496; IB Gateway: 4001.</b><br>"
 			    + "Simulated Trading ports for new installations of "
-				+ "version 9xx.y or newer: "
+				+ "version 954.1 or newer: "
 				+ "<b>TWS: 7497; IB Gateway: 4002</b></html>");
 		
 		public ConnectionPanel() {

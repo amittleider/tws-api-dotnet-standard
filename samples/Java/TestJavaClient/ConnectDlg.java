@@ -66,7 +66,7 @@ public class ConnectDlg extends JDialog {
         JPanel defaultPortNumberPanel = new JPanel();
         JLabel defaultPortNumberLabel = new JLabel( "<html>Live Trading ports:<b> TWS: 7496; IB Gateway: 4001.</b><br>"
 			    + "Simulated Trading ports for new installations of<br>"
-				+ "version 9xx.y or newer: "
+				+ "version 954.1 or newer: "
 				+ "<b>TWS: 7497; IB Gateway: 4002</b></html>"); 
         defaultPortNumberLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         defaultPortNumberPanel.add( defaultPortNumberLabel );
