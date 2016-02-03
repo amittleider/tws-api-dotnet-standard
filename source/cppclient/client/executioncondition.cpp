@@ -4,7 +4,7 @@
 #include "EClient.h"
 
 const char* ExecutionCondition::readExternal(const char* ptr, const char* endPtr) {
-	if (!OrderCondition::readExternal(ptr, endPtr))
+	if (!(ptr = OrderCondition::readExternal(ptr, endPtr)))
 		return 0;
 
 	DECODE_FIELD(m_secType)

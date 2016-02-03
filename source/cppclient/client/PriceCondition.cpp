@@ -46,7 +46,7 @@ void PriceCondition::triggerMethod(Method triggerMethod) {
 }
 
 const char* PriceCondition::readExternal(const char* ptr, const char* endPtr) {
-	if (!ContractCondition::readExternal(ptr, endPtr))
+	if (!(ptr = ContractCondition::readExternal(ptr, endPtr)))
 		return 0;
 
 	DECODE_FIELD(m_triggerMethod)
