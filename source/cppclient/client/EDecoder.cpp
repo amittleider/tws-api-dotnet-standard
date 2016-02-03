@@ -621,7 +621,7 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 
 				ibapi::shared_ptr<OrderCondition> item = ibapi::shared_ptr<OrderCondition>(OrderCondition::create((OrderCondition::OrderConditionType)conditionType));
 
-				if (!item->readExternal(ptr, endPtr))
+				if (!(ptr = item->readExternal(ptr, endPtr)))
 					return 0;
 
 				order.conditions.push_back(item);
