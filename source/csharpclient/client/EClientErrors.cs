@@ -11,7 +11,10 @@ namespace IBApi
     public class EClientErrors
     {
         public static readonly CodeMsgPair AlreadyConnected = new CodeMsgPair(501, "Already Connected.");
-        public static readonly CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, "Couldn't connect to TWS.  Confirm that \"Enable ActiveX and Socket Clients\" is enabled on the TWS \"Configure->API\" menu.");
+        public static readonly CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, @"Couldn't connect to TWS. Confirm that ""Enable ActiveX and Socket Clients"" 
+                            is enabled and connection port is the same as ""Socket Port"" on the TWS ""Edit->Global Configuration...->API->Settings"" menu. 
+                            Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations of version 954.1 or newer: 
+                            TWS: 7497; IB Gateway: 4002");
         public static readonly CodeMsgPair UPDATE_TWS = new CodeMsgPair(503, "The TWS is out of date and must be upgraded.");
         public static readonly CodeMsgPair NOT_CONNECTED = new CodeMsgPair(504, "Not connected");
         public static readonly CodeMsgPair UNKNOWN_ID = new CodeMsgPair(505, "Fatal Error: Unknown message id.");

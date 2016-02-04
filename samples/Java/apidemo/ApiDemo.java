@@ -180,6 +180,10 @@ public class ApiDemo implements IConnectionHandler {
 		private final JTextField m_connectOptionsTF = new JTextField( m_connectionConfiguration.getDefaultConnectOptions(), 30);
 		private final JTextField m_clientId = new JTextField("0", 7);
 		private final JLabel m_status = new JLabel("Disconnected");
+		private final JLabel m_defaultPortNumberLabel = new JLabel("<html>Live Trading ports:<b> TWS: 7496; IB Gateway: 4001.</b><br>"
+			    + "Simulated Trading ports for new installations of "
+				+ "version 954.1 or newer: "
+				+ "<b>TWS: 7497; IB Gateway: 4002</b></html>");
 		
 		public ConnectionPanel() {
 			HtmlButton connect = new HtmlButton("Connect") {
@@ -201,6 +205,7 @@ public class ApiDemo implements IConnectionHandler {
 			if ( m_connectionConfiguration.getDefaultConnectOptions() != null ) {
 				p1.add( "Connect options", m_connectOptionsTF);
 			}
+			p1.add( "", m_defaultPortNumberLabel);
 			
 			JPanel p2 = new VerticalPanel();
 			p2.add( connect);
