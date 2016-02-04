@@ -432,6 +432,7 @@ namespace IBSampleApp
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -522,10 +523,10 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.advisorTab);
             this.TabControl.Controls.Add(this.optionsTab);
             this.TabControl.Controls.Add(this.acctPosTab);
-            this.TabControl.Location = new System.Drawing.Point(0, 42);
+            this.TabControl.Location = new System.Drawing.Point(0, 68);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(1256, 456);
+            this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
             // marketDataTab
@@ -536,7 +537,7 @@ namespace IBSampleApp
             this.marketDataTab.Location = new System.Drawing.Point(4, 22);
             this.marketDataTab.Name = "marketDataTab";
             this.marketDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.marketDataTab.Size = new System.Drawing.Size(1248, 430);
+            this.marketDataTab.Size = new System.Drawing.Size(1248, 448);
             this.marketDataTab.TabIndex = 1;
             this.marketDataTab.Text = "Data";
             // 
@@ -555,7 +556,7 @@ namespace IBSampleApp
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
             this.marketData_MDT.SelectedIndex = 0;
-            this.marketData_MDT.Size = new System.Drawing.Size(1242, 217);
+            this.marketData_MDT.Size = new System.Drawing.Size(1242, 235);
             this.marketData_MDT.TabIndex = 1;
             // 
             // topMarketDataTab_MDT
@@ -566,7 +567,7 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
             this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
@@ -603,7 +604,7 @@ namespace IBSampleApp
             this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
             this.marketDataGrid_MDT.ReadOnly = true;
             this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.marketDataGrid_MDT.Size = new System.Drawing.Size(966, 166);
+            this.marketDataGrid_MDT.Size = new System.Drawing.Size(966, 184);
             this.marketDataGrid_MDT.TabIndex = 0;
             this.marketDataGrid_MDT.Visible = false;
             // 
@@ -666,7 +667,7 @@ namespace IBSampleApp
             this.deepBookTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.deepBookTab_MDT.Name = "deepBookTab_MDT";
             this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.deepBookTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.deepBookTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.deepBookTab_MDT.TabIndex = 1;
             this.deepBookTab_MDT.Text = "Deep Book";
             // 
@@ -708,7 +709,7 @@ namespace IBSampleApp
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
             this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deepBookGrid.Size = new System.Drawing.Size(1224, 166);
+            this.deepBookGrid.Size = new System.Drawing.Size(1224, 184);
             this.deepBookGrid.TabIndex = 0;
             // 
             // bidBookMaker
@@ -756,7 +757,7 @@ namespace IBSampleApp
             this.historicalDataTab.Location = new System.Drawing.Point(4, 22);
             this.historicalDataTab.Name = "historicalDataTab";
             this.historicalDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.historicalDataTab.Size = new System.Drawing.Size(1234, 191);
+            this.historicalDataTab.Size = new System.Drawing.Size(1234, 209);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
             // 
@@ -788,7 +789,7 @@ namespace IBSampleApp
             this.barsGrid.Location = new System.Drawing.Point(3, 19);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.barsGrid.Size = new System.Drawing.Size(504, 166);
+            this.barsGrid.Size = new System.Drawing.Size(504, 184);
             this.barsGrid.TabIndex = 1;
             // 
             // hdDate
@@ -870,7 +871,7 @@ namespace IBSampleApp
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.historicalChart.Series.Add(series1);
-            this.historicalChart.Size = new System.Drawing.Size(699, 182);
+            this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
             // 
@@ -883,7 +884,7 @@ namespace IBSampleApp
             this.rtBarsTab_MDT.Location = new System.Drawing.Point(4, 22);
             this.rtBarsTab_MDT.Name = "rtBarsTab_MDT";
             this.rtBarsTab_MDT.Padding = new System.Windows.Forms.Padding(3);
-            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1234, 191);
+            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1234, 209);
             this.rtBarsTab_MDT.TabIndex = 2;
             this.rtBarsTab_MDT.Text = "RT Bars";
             // 
@@ -915,7 +916,7 @@ namespace IBSampleApp
             this.rtBarsGrid.Location = new System.Drawing.Point(5, 20);
             this.rtBarsGrid.Name = "rtBarsGrid";
             this.rtBarsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rtBarsGrid.Size = new System.Drawing.Size(504, 166);
+            this.rtBarsGrid.Size = new System.Drawing.Size(504, 184);
             this.rtBarsGrid.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn1
@@ -996,7 +997,7 @@ namespace IBSampleApp
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series2.YValuesPerPoint = 4;
             this.rtBarsChart.Series.Add(series2);
-            this.rtBarsChart.Size = new System.Drawing.Size(699, 182);
+            this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
             // 
@@ -1008,7 +1009,7 @@ namespace IBSampleApp
             this.scannerTab.Location = new System.Drawing.Point(4, 22);
             this.scannerTab.Name = "scannerTab";
             this.scannerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerTab.Size = new System.Drawing.Size(1234, 191);
+            this.scannerTab.Size = new System.Drawing.Size(1234, 209);
             this.scannerTab.TabIndex = 3;
             this.scannerTab.Text = "Scanner Results";
             // 
@@ -1086,7 +1087,7 @@ namespace IBSampleApp
             this.scannerParamsTab.Location = new System.Drawing.Point(4, 22);
             this.scannerParamsTab.Name = "scannerParamsTab";
             this.scannerParamsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerParamsTab.Size = new System.Drawing.Size(1234, 191);
+            this.scannerParamsTab.Size = new System.Drawing.Size(1234, 209);
             this.scannerParamsTab.TabIndex = 4;
             this.scannerParamsTab.Text = "Scanner Parameters";
             // 
@@ -1805,7 +1806,7 @@ namespace IBSampleApp
             this.tradingTab.Location = new System.Drawing.Point(4, 22);
             this.tradingTab.Name = "tradingTab";
             this.tradingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.tradingTab.Size = new System.Drawing.Size(1248, 430);
+            this.tradingTab.Size = new System.Drawing.Size(1248, 448);
             this.tradingTab.TabIndex = 2;
             this.tradingTab.Text = "Trading";
             // 
@@ -2203,7 +2204,7 @@ namespace IBSampleApp
             this.accountInfoTab.Location = new System.Drawing.Point(4, 22);
             this.accountInfoTab.Name = "accountInfoTab";
             this.accountInfoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountInfoTab.Size = new System.Drawing.Size(1248, 430);
+            this.accountInfoTab.Size = new System.Drawing.Size(1248, 448);
             this.accountInfoTab.TabIndex = 3;
             this.accountInfoTab.Text = "Account Info";
             // 
@@ -2540,7 +2541,7 @@ namespace IBSampleApp
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1248, 430);
+            this.tabPage1.Size = new System.Drawing.Size(1248, 448);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Contract Information";
             // 
@@ -3193,7 +3194,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(1248, 430);
+            this.advisorTab.Size = new System.Drawing.Size(1248, 448);
             this.advisorTab.TabIndex = 5;
             this.advisorTab.Text = "Financial Advisor";
             // 
@@ -3387,7 +3388,7 @@ namespace IBSampleApp
             this.optionsTab.Location = new System.Drawing.Point(4, 22);
             this.optionsTab.Name = "optionsTab";
             this.optionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.optionsTab.Size = new System.Drawing.Size(1248, 430);
+            this.optionsTab.Size = new System.Drawing.Size(1248, 448);
             this.optionsTab.TabIndex = 7;
             this.optionsTab.Text = "Option exercising";
             this.optionsTab.Click += new System.EventHandler(this.optionsTab_Click);
@@ -4339,7 +4340,7 @@ namespace IBSampleApp
             this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.messagesTab);
-            this.tabControl2.Location = new System.Drawing.Point(0, 501);
+            this.tabControl2.Location = new System.Drawing.Point(0, 545);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -4398,12 +4399,23 @@ namespace IBSampleApp
             this.ib_banner.TabIndex = 9;
             this.ib_banner.TabStop = false;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(512, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(734, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
+    "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
+            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1263, 696);
+            this.ClientSize = new System.Drawing.Size(1263, 740);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.ib_banner);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.tabControl2);
@@ -4884,6 +4896,7 @@ namespace IBSampleApp
         private System.Windows.Forms.Label execFilterTimeLabel;
         private System.Windows.Forms.Label execFilterAcctLabel;
         private System.Windows.Forms.PictureBox ib_banner;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage acctPosTab;
         private System.Windows.Forms.GroupBox groupBoxRequestData;
         private System.Windows.Forms.CheckBox cbLedgerAndNLV;
