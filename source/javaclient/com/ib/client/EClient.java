@@ -171,6 +171,7 @@ public abstract class EClient {
     private static final int CANCEL_POSITIONS_MULTI = 75;
     private static final int REQ_ACCOUNT_UPDATES_MULTI = 76;
     private static final int CANCEL_ACCOUNT_UPDATES_MULTI = 77;
+    private static final int REQ_SEC_DEF_OPT_PARAMS     = 78;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -218,9 +219,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
     protected static final int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
     protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 103;
+    protected static final int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_MODELS_SUPPORT; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -2497,6 +2499,37 @@ public abstract class EClient {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONS, e.toString());
         }
     }
+    
+
+	public synchronized void reqSecDefOptParams(String underlyingSymbol, String underlyingExchange, String underlyingSecType, int underlyingConId, int ultimateUnderlyingConId) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+        
+        if (m_serverVersion < MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support security definiton option requests.");
+            return;
+        }
+        
+        Builder b = prepareBuffer();
+
+        b.send(REQ_SEC_DEF_OPT_PARAMS);
+        b.send(underlyingSymbol); 
+        b.send(underlyingExchange);
+        b.send(underlyingSecType);
+        b.send(underlyingConId);
+        b.send(ultimateUnderlyingConId); 
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONS, e.toString());
+        }
+	}
 
     public synchronized void cancelPositions() {
         // not connected?

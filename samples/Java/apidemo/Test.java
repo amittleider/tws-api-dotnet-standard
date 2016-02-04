@@ -26,7 +26,7 @@ public class Test implements EWrapper {
 	}
 
 	private void run() {
-		m_s.eConnect("localhost", 7496, 0);
+		m_s.eConnect("localhost", 7497, 0);
 		
         final EReader reader = new EReader(m_s, m_signal);
         
@@ -54,6 +54,9 @@ public class Test implements EWrapper {
 				}
 			}
 		}.start();
+		
+		m_s.reqSecDefOptParams("IBM", "SMART", "STK", 8314, 0);
+		m_s.eDisconnect();
 	}
 
 	@Override public void nextValidId(int orderId) {
