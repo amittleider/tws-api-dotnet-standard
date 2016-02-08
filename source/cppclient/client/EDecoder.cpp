@@ -1584,6 +1584,55 @@ const char* EDecoder::processAccountUpdateMultiEndMsg(const char* ptr, const cha
     return ptr;
 }
 
+const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr, const char* endPtr) {
+    int reqId;
+	int underlyingConId;
+	std::string tradingClass;
+	std::string multiplier;
+	int expirationsSize, strikesSize;
+	std::set<std::string> expirations;
+	std::set<double> strikes;
+
+    DECODE_FIELD(reqId);
+	DECODE_FIELD(underlyingConId);
+	DECODE_FIELD(tradingClass);
+	DECODE_FIELD(multiplier);
+	DECODE_FIELD(expirationsSize);
+
+	for (int i = 0; i < expirationsSize; i++) {
+		std::string expiration;
+
+		DECODE_FIELD(expiration);
+
+		expirations.insert(expiration);
+	}
+
+	DECODE_FIELD(strikesSize);
+
+	for (int i = 0; i < strikesSize; i++) {
+		double strike;
+
+		DECODE_FIELD(strike);
+
+		strikes.insert(strike);
+	}
+
+	m_pEWrapper->securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+
+    return ptr;
+}
+
+const char* EDecoder::processSecurityDefinitionOptionalParameterEnd(const char* ptr, const char* endPtr) {
+    int reqId;
+
+    DECODE_FIELD(reqId);
+
+    m_pEWrapper->securityDefinitionOptionalParameterEnd(reqId);
+
+    return ptr;
+}
+
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -1856,6 +1905,14 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
         case ACCOUNT_UPDATE_MULTI_END:
             ptr = processAccountUpdateMultiEndMsg(ptr, endPtr);
             break;
+
+		case SECURITY_DEFINITION_OPTION_PARAMETER:
+			ptr = processSecurityDefinitionOptionalParameter(ptr, endPtr);
+			break;
+
+		case SECURITY_DEFINITION_OPTION_PARAMETER_END:
+			ptr = processSecurityDefinitionOptionalParameterEnd(ptr, endPtr);
+			break;
 
         default:
             {

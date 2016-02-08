@@ -335,6 +335,9 @@ namespace TWSLib
         ArrayList ParseConditions(string str);
         [DispId(212)]
         string ConditionsToString([MarshalAs(UnmanagedType.IDispatch)] object oConditions);
+        [DispId(213)]
+        void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string currency, string underlyingSecType, int underlyingConId);
+
         #endregion
     }
 }

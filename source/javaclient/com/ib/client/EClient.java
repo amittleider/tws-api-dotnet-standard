@@ -2501,7 +2501,7 @@ public abstract class EClient {
     }
     
 
-	public synchronized void reqSecDefOptParams(String underlyingSymbol, String underlyingExchange, String underlyingSecType, int underlyingConId, int ultimateUnderlyingConId) {
+	public synchronized void reqSecDefOptParams(int reqId, String underlyingSymbol, String futFopExchange, String currency, String underlyingSecType, int underlyingConId) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -2517,11 +2517,12 @@ public abstract class EClient {
         Builder b = prepareBuffer();
 
         b.send(REQ_SEC_DEF_OPT_PARAMS);
+        b.send(reqId);
         b.send(underlyingSymbol); 
-        b.send(underlyingExchange);
+        b.send(futFopExchange);
+        b.send(currency);
         b.send(underlyingSecType);
         b.send(underlyingConId);
-        b.send(ultimateUnderlyingConId); 
 
         try {
             closeAndSend(b);

@@ -172,6 +172,7 @@ const int REQ_POSITIONS_MULTI           = 74;
 const int CANCEL_POSITIONS_MULTI        = 75;
 const int REQ_ACCOUNT_UPDATES_MULTI     = 76;
 const int CANCEL_ACCOUNT_UPDATES_MULTI  = 77;
+const int REQ_SEC_DEF_OPT_PARAMS		= 78;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -2778,6 +2779,35 @@ void EClient::cancelAccountUpdatesMulti( int reqId)
 	ENCODE_FIELD( reqId);
 
 	closeAndSend( msg.str());
+}
+
+void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& currency, const std::string& underlyingSecType, int underlyingConId)
+{
+		// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support security definiton option requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+
+	ENCODE_FIELD(REQ_SEC_DEF_OPT_PARAMS);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(underlyingSymbol); 
+    ENCODE_FIELD(futFopExchange);
+	ENCODE_FIELD(currency);
+    ENCODE_FIELD(underlyingSecType);
+    ENCODE_FIELD(underlyingConId);
+
+	closeAndSend(msg.str());
 }
 
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)

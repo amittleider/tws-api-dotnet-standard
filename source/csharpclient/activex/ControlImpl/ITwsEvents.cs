@@ -2,6 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -143,5 +144,10 @@ namespace TWSLib
         void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
         [DispId(122)]
         void accountUpdateMultiEnd(int requestId);
+        [DispId(123)]
+        void securityDefinitionOptionParameterDelegate(int reqId, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        [DispId(124)]
+        void securityDefinitionOptionParameterEndDelegate(int reqId);
+
     }
 }

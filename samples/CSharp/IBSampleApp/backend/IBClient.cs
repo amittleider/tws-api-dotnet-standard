@@ -651,7 +651,7 @@ namespace IBSampleApp
 
         public event Action<int, string, string, string, string, string> AccountUpdateMulti;
 
-        public virtual void accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
+        void EWrapper.accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
         {
             var tmp = AccountUpdateMulti;
 
@@ -661,9 +661,29 @@ namespace IBSampleApp
 
         public event Action<int> AccountUpdateMultiEnd;
 
-        public virtual void accountUpdateMultiEnd(int reqId)
+        void EWrapper.accountUpdateMultiEnd(int reqId)
         {
             var tmp = AccountUpdateMultiEnd;
+
+            if (tmp != null)
+                tmp(reqId);
+        }
+
+        public event Action<int, int, string, string, HashSet<string>, HashSet<double>> SecurityDefinitionOptionParameter;
+
+        void EWrapper.securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+            var tmp = SecurityDefinitionOptionParameter;
+
+            if (tmp != null)
+                tmp(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+        }
+
+        public event Action<int> SecurityDefinitionOptionParameterEnd;
+
+        void EWrapper.securityDefinitionOptionParameterEnd(int reqId)
+        {
+            var tmp = SecurityDefinitionOptionParameterEnd;
 
             if (tmp != null)
                 tmp(reqId);

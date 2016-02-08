@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import com.ib.controller.ApiController;
-
 public class PriceCondition extends ContractCondition {
 	
 	public static final OrderConditionType conditionType = OrderConditionType.Price;

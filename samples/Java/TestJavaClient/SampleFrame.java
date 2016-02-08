@@ -9,19 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import sun.swing.SwingUtilities2;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -36,9 +31,6 @@ import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.TagValue;
-import com.ib.controller.ApiController;
-import com.sun.java.swing.SwingUtilities3;
-import com.sun.javafx.tk.Toolkit;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
@@ -58,6 +50,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private NewsBulletinDlg m_newsBulletinDlg = new NewsBulletinDlg(this);
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
+	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
 
     private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
     private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
@@ -401,6 +394,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onCancelAccountUpdatesMulti();
             }
         });
+        JButton butRequestSecurityDefinitionOptionParameters = new JButton( "Request Security Definition Option Parameters");
+        butRequestSecurityDefinitionOptionParameters.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestSecurityDefinitionOptionParameters();
+            }
+        });
         JButton butGroups = new JButton( "Groups");
         butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -472,6 +471,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelPositionsMulti ) ;
         buttonPanel.add( butRequestAccountUpdatesMulti ) ;
         buttonPanel.add( butCancelAccountUpdatesMulti ) ;
+        buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
         buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
@@ -480,6 +480,21 @@ class SampleFrame extends JFrame implements EWrapper {
 
         return buttonPanel;
     }
+
+	protected void onRequestSecurityDefinitionOptionParameters() {
+		m_secDefOptParamsReq.setModal(true);
+		m_secDefOptParamsReq.setVisible(true);
+		
+		String underlyingSymbol = m_secDefOptParamsReq.underlyingSymbol();
+		String futFopExchange = m_secDefOptParamsReq.futFopExchange();
+		String currency = m_secDefOptParamsReq.currency();
+		String underlyingSecType = m_secDefOptParamsReq.underlyingSecType();
+		int underlyingConId = m_secDefOptParamsReq.underlyingConId();		
+		
+		if (m_secDefOptParamsReq.isOK()) {
+			m_client.reqSecDefOptParams(m_secDefOptParamsReq.id(), underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
+		}
+	}
 
 	void onConnect() {
         m_bIsFAAccount = false;
@@ -1445,6 +1460,17 @@ class SampleFrame extends JFrame implements EWrapper {
 	public void connectAck() {
 		if (m_client.isAsyncEConnect())
 			m_client.startAPI();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		String msg = EWrapperMsgGenerator.securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);		
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
 	}
     
 }

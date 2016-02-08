@@ -138,6 +138,7 @@ public:
 	void cancelPositionsMulti( int reqId);
 	void reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV);
 	void cancelAccountUpdatesMulti( int reqId);
+	void reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& currency, const std::string& underlyingSecType, int underlyingConId);
 
 private:
 

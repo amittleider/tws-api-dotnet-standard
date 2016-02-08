@@ -1,7 +1,5 @@
 package com.ib.client;
 
-import com.ib.controller.ApiController;
-
 public class PercentChangeCondition extends ContractCondition {
 
 	public static final OrderConditionType conditionType = OrderConditionType.PercentChange;

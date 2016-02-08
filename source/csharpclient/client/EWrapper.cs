@@ -477,5 +477,8 @@ namespace IBApi
          */
         void accountUpdateMultiEnd(int requestId);
 
+
+        void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
+        void securityDefinitionOptionParameterEnd(int reqId);
     }
 }

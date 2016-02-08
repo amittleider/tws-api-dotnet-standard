@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -241,6 +241,10 @@ namespace IBSampleApp
             this.accountSelectorLabel = new System.Windows.Forms.Label();
             this.accountSelector = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.underlyingConId = new System.Windows.Forms.TextBox();
+            this.queryOptionParams = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.queryOptionChain = new System.Windows.Forms.Button();
             this.optionChainUseSnapshot = new System.Windows.Forms.CheckBox();
@@ -309,6 +313,8 @@ namespace IBSampleApp
             this.putGamma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putVega = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putTheta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optionParametersPage = new System.Windows.Forms.TabPage();
+            this.listViewOptionParams = new System.Windows.Forms.ListView();
             this.advisorTab = new System.Windows.Forms.TabPage();
             this.advisorProfilesBox = new System.Windows.Forms.GroupBox();
             this.saveProfiles = new System.Windows.Forms.Button();
@@ -433,6 +439,8 @@ namespace IBSampleApp
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -472,6 +480,7 @@ namespace IBSampleApp
             this.positionsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.positionsGrid)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.contractFundamentalsGroupBox.SuspendLayout();
             this.contractDetailsGroupBox.SuspendLayout();
@@ -484,6 +493,7 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.optionChainCallGrid)).BeginInit();
             this.optionChainPutGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optionChainPutGrid)).BeginInit();
+            this.optionParametersPage.SuspendLayout();
             this.advisorTab.SuspendLayout();
             this.advisorProfilesBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advisorProfilesGrid)).BeginInit();
@@ -697,14 +707,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -850,27 +860,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorTickMark.Enabled = false;
+            chartArea3.AxisY.IsStartedFromZero = false;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend3);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series3.IsVisibleInLegend = false;
+            series3.IsXValueIndexed = true;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series3);
             this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -977,26 +987,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend2);
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.AxisY.IsStartedFromZero = false;
+            chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 100F;
+            chartArea4.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend4);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series4.IsVisibleInLegend = false;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series4.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series4);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -2534,6 +2544,7 @@ namespace IBSampleApp
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.contractFundamentalsGroupBox);
             this.tabPage1.Controls.Add(this.contractDetailsGroupBox);
@@ -2544,6 +2555,48 @@ namespace IBSampleApp
             this.tabPage1.Size = new System.Drawing.Size(1248, 448);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Contract Information";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.underlyingConId);
+            this.groupBox5.Controls.Add(this.queryOptionParams);
+            this.groupBox5.Location = new System.Drawing.Point(635, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(186, 95);
+            this.groupBox5.TabIndex = 46;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Option parameters";
+            this.informationTooltip.SetToolTip(this.groupBox5, "Requests all options available for the description provided on the Contract\'s det" +
+        "ails section.");
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(10, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(35, 13);
+            this.label14.TabIndex = 49;
+            this.label14.Text = "ConId";
+            // 
+            // underlyingConId
+            // 
+            this.underlyingConId.Location = new System.Drawing.Point(71, 19);
+            this.underlyingConId.Name = "underlyingConId";
+            this.underlyingConId.Size = new System.Drawing.Size(100, 20);
+            this.underlyingConId.TabIndex = 50;
+            // 
+            // queryOptionParams
+            // 
+            this.queryOptionParams.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.queryOptionParams.Location = new System.Drawing.Point(102, 66);
+            this.queryOptionParams.Name = "queryOptionParams";
+            this.queryOptionParams.Size = new System.Drawing.Size(75, 23);
+            this.queryOptionParams.TabIndex = 44;
+            this.queryOptionParams.Text = "Request";
+            this.informationTooltip.SetToolTip(this.queryOptionParams, "Requests security definition option parameters");
+            this.queryOptionParams.UseVisualStyleBackColor = true;
+            this.queryOptionParams.Click += new System.EventHandler(this.queryOptionParams_Click);
             // 
             // groupBox3
             // 
@@ -2859,6 +2912,7 @@ namespace IBSampleApp
             this.contractInfoTab.Controls.Add(this.contractDetailsPage);
             this.contractInfoTab.Controls.Add(this.fundamentalsPage);
             this.contractInfoTab.Controls.Add(this.optionChainPage);
+            this.contractInfoTab.Controls.Add(this.optionParametersPage);
             this.contractInfoTab.Location = new System.Drawing.Point(6, 185);
             this.contractInfoTab.Name = "contractInfoTab";
             this.contractInfoTab.SelectedIndex = 0;
@@ -3184,6 +3238,29 @@ namespace IBSampleApp
             this.putTheta.Name = "putTheta";
             this.putTheta.ReadOnly = true;
             this.putTheta.Width = 50;
+            // 
+            // optionParametersPage
+            // 
+            this.optionParametersPage.Controls.Add(this.listViewOptionParams);
+            this.optionParametersPage.Location = new System.Drawing.Point(4, 22);
+            this.optionParametersPage.Name = "optionParametersPage";
+            this.optionParametersPage.Size = new System.Drawing.Size(1228, 243);
+            this.optionParametersPage.TabIndex = 3;
+            this.optionParametersPage.Text = "Option parameters";
+            this.optionParametersPage.UseVisualStyleBackColor = true;
+            // 
+            // listViewOptionParams
+            // 
+            this.listViewOptionParams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewOptionParams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewOptionParams.Location = new System.Drawing.Point(0, 0);
+            this.listViewOptionParams.Name = "listViewOptionParams";
+            this.listViewOptionParams.Size = new System.Drawing.Size(1228, 243);
+            this.listViewOptionParams.TabIndex = 0;
+            this.listViewOptionParams.UseCompatibleStateImageBehavior = false;
+            this.listViewOptionParams.View = System.Windows.Forms.View.Details;
             // 
             // advisorTab
             // 
@@ -3564,7 +3641,7 @@ namespace IBSampleApp
             this.acctPosTab.Location = new System.Drawing.Point(4, 22);
             this.acctPosTab.Name = "acctPosTab";
             this.acctPosTab.Padding = new System.Windows.Forms.Padding(3);
-            this.acctPosTab.Size = new System.Drawing.Size(1248, 430);
+            this.acctPosTab.Size = new System.Drawing.Size(1248, 448);
             this.acctPosTab.TabIndex = 8;
             this.acctPosTab.Text = "Acct/Pos Multi";
             // 
@@ -4409,6 +4486,16 @@ namespace IBSampleApp
             this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Expirations";
+            this.columnHeader1.Width = 141;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Strikes";
+            this.columnHeader2.Width = 71;
+            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4482,6 +4569,8 @@ namespace IBSampleApp
             this.positionsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.positionsGrid)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.contractFundamentalsGroupBox.ResumeLayout(false);
@@ -4498,6 +4587,7 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.optionChainCallGrid)).EndInit();
             this.optionChainPutGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.optionChainPutGrid)).EndInit();
+            this.optionParametersPage.ResumeLayout(false);
             this.advisorTab.ResumeLayout(false);
             this.advisorProfilesBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.advisorProfilesGrid)).EndInit();
@@ -4927,6 +5017,14 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeColumn;
         private System.Windows.Forms.Button buttonCancelPositionsMulti;
         private System.Windows.Forms.Button buttonCancelAccountUpdatesMulti;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox underlyingConId;
+        private System.Windows.Forms.Button queryOptionParams;
+        private System.Windows.Forms.TabPage optionParametersPage;
+        private System.Windows.Forms.ListView listViewOptionParams;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 

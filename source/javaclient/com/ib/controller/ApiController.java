@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import com.ib.client.CommissionReport;
@@ -70,6 +71,7 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<ILiveOrderHandler>();
 	private final HashMap<Integer, IPositionMultiHandler> m_positionMultiMap = new HashMap<Integer, IPositionMultiHandler>();
 	private final HashMap<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<Integer, IAccountUpdateMultiHandler>();
+	private final HashMap<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<Integer, ISecDefOptParamsReqHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1274,5 +1276,39 @@ public class ApiController implements EWrapper {
     public void connectAck() {
 		if (m_client.isAsyncEConnect())
 			m_client.startAPI();
+	}
+
+	public void reqSecDefOptParams( String underlyingSymbol, String futFopExchange, String currency, String underlyingSecType, int underlyingConId, ISecDefOptParamsReqHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int reqId = m_reqId++;
+		m_secDefOptParamsReqMap.put( reqId, handler);
+		m_client.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
+		sendEOM();
+	} 
+	
+	public interface ISecDefOptParamsReqHandler {
+		void securityDefinitionOptionalParameter(int underlyingConId, String tradingClass,
+				String multiplier, Set<String> expirations, Set<Double> strikes);
+		void securityDefinitionOptionalParameterEnd(int reqId);
+	}
+	
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		ISecDefOptParamsReqHandler handler = m_secDefOptParamsReqMap.get( reqId);
+		
+		if (handler != null) {
+			handler.securityDefinitionOptionalParameter(underlyingConId, tradingClass, multiplier, expirations, strikes);
+		}
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		ISecDefOptParamsReqHandler handler = m_secDefOptParamsReqMap.get( reqId);
+		if (handler != null) {
+			handler.securityDefinitionOptionalParameterEnd(reqId);
+		}		
 	}
 }

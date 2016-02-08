@@ -1,7 +1,5 @@
 package com.ib.client;
 
-import com.ib.controller.ApiController;
-
 public class VolumeCondition extends ContractCondition {
 	
 	public static final OrderConditionType conditionType = OrderConditionType.Volume;

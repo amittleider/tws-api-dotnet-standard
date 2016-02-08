@@ -149,6 +149,9 @@
     <Compile Include="ui\OrderManager.cs" />
     <Compile Include="ui\RealTimeBarsManager.cs" />
     <Compile Include="ui\ScannerManager.cs" />
+    <Compile Include="messages\SecurityDefinitionOptionParameterEndMessage.cs" />
+    <Compile Include="messages\SecurityDefinitionOptionParameterMessage.cs" />
+    <Compile Include="ui\SecurityDefinitionOptionParameterKey.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">

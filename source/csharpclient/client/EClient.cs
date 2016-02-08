@@ -2216,6 +2216,32 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANACCOUNTUPDATESMULTI);
         }
 
+        /**
+         * @brief Requests security definition option parameters
+         * @sa EWrapper::secDefOptParams, EWrapper::secDefOptParamsEnd
+         */
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string currency, string underlyingSecType, int underlyingConId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.SEC_DEF_OPT_PARAMS_REQ,
+                " It does not support security definition option parameters."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestSecurityDefinitionOptionalParameters);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(underlyingSymbol);
+            paramsList.AddParameter(futFopExchange);
+            paramsList.AddParameter(currency);
+            paramsList.AddParameter(underlyingSecType);
+            paramsList.AddParameter(underlyingConId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");

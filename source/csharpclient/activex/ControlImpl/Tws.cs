@@ -992,7 +992,7 @@ namespace TWSLib
 
         public delegate void openOrder4Delegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string action, double quantity, string orderType, double lmtPrice, double auxPrice, string tif, string ocaGroup, string account, string openClose, int origin, string orderRef, int clientId, int permId, string sharesAllocation, string faGroup, string faMethod, string faPercentage, string faProfile, string goodAfterTime, string goodTillDate, int ocaType, string rule80A, string settlingFirm, int allOrNone, int minQty, double percentOffset, int eTradeOnly, int firmQuoteOnly, double nbboPriceCap, int auctionStrategy, double startingPrice, double stockRefPrice, double delta, double stockRangeLower, double stockRangeUpper, int blockOrder, int sweepToFill, int ignoreRth, int hidden, double discretionaryAmt, int displaySize, int parentId, int triggerMethod, int shortSaleSlot, string designatedLocation, double volatility, int volatilityType, string deltaNeutralOrderType, double deltaNeutralAuxPrice, int continuousUpdate, int referencePriceType, double trailStopPrice, double basisPoints, int basisPointsType, string legsStr, int scaleInitLevelSize, int scaleSubsLevelSize, double scalePriceIncrement);
 
-        public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, int convertible, int callable, int putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, int nextOptionPartial, string notes);
+        public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, bool convertible, bool callable, bool putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, bool nextOptionPartial, string notes);
 
         public delegate void scannerParametersDelegate(string xml);
 
@@ -1076,6 +1076,10 @@ namespace TWSLib
         public delegate void accountUpdateMultiDelegate(int requestId, string account, string modelCode, string key, string value, string currency);
 
         public delegate void accountUpdateMultiEndDelegate(int requestId);
+
+        public delegate void securityDefinitionOptionParameterDelegate(int reqId, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+
+        public delegate void securityDefinitionOptionParameterEndDelegate(int reqId);
 
         public event tickPriceDelegate tickPrice;
 
@@ -1203,6 +1207,10 @@ namespace TWSLib
         public event accountUpdateMultiDelegate accountUpdateMulti;
 
         public event accountUpdateMultiEndDelegate accountUpdateMultiEnd;
+
+        public event securityDefinitionOptionParameterDelegate securityDefinitionOptionParameter;
+
+        public event securityDefinitionOptionParameterEndDelegate securityDefinitionOptionParameterEnd;
 
         #endregion
 
@@ -1587,7 +1595,36 @@ namespace TWSLib
         {
             var t_bondContractDetailsEx = this.bondContractDetailsEx;
             if (t_bondContractDetailsEx != null)
-                Invoke(t_bondContractDetailsEx, reqId, (ComContractDetails)contractDetails);
+                InvokeIfRequired(t_bondContractDetailsEx, reqId, (ComContractDetails)contractDetails);
+
+            var t_bondContractDetails = this.bondContractDetails;
+
+            if (t_bondContractDetails != null)
+                InvokeIfRequired(t_bondContractDetails, contractDetails.Summary.Symbol,
+                                      contractDetails.Summary.SecType,
+                                      contractDetails.Cusip,
+                                      contractDetails.Coupon,
+                                      contractDetails.Maturity,
+                                      contractDetails.IssueDate,
+                                      contractDetails.Ratings,
+                                      contractDetails.BondType,
+                                      contractDetails.CouponType,
+                                      contractDetails.Convertible,
+                                      contractDetails.Callable,
+                                      contractDetails.Putable,
+                                      contractDetails.DescAppend,
+                                      contractDetails.Summary.Exchange,
+                                      contractDetails.Summary.Currency,
+                                      contractDetails.MarketName,
+                                      contractDetails.Summary.TradingClass,
+                                      contractDetails.Summary.ConId,
+                                      contractDetails.MinTick,
+                                      contractDetails.OrderTypes,
+                                      contractDetails.ValidExchanges,
+                                      contractDetails.NextOptionDate,
+                                      contractDetails.NextOptionType,
+                                      contractDetails.NextOptionPartial,
+                                      contractDetails.Notes);
         }
 
         void EWrapper.contractDetailsEnd(int reqId)
@@ -1837,6 +1874,20 @@ namespace TWSLib
                 InvokeIfRequired(t_accountUpdateMultiEnd, requestId);
         }
 
+        void EWrapper.securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+            var t_securityDefinitionOptionParameter = this.securityDefinitionOptionParameter;
+            if (t_securityDefinitionOptionParameter != null)
+                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, underlyingConId, tradingClass, multiplier, new ArrayList(expirations.ToArray()), new ArrayList(strikes.ToArray()));
+        }
+
+        void EWrapper.securityDefinitionOptionParameterEnd(int reqId)
+        {
+            var t_securityDefinitionOptionParameterEnd = this.securityDefinitionOptionParameterEnd;
+            if (t_securityDefinitionOptionParameterEnd != null)
+                InvokeIfRequired(t_securityDefinitionOptionParameterEnd, reqId);
+        }
+
         void IDisposable.Dispose()
         {
             this.socket.Close();
@@ -1895,6 +1946,11 @@ namespace TWSLib
         public void startApi()
         {
             socket.startApi();
+        }
+
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string currency, string underlyingSecType, int underlyingConId)
+        {
+            socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
         }
 
         public ArrayList ParseConditions(string str)

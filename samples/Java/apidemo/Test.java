@@ -4,6 +4,7 @@
 package apidemo;
 
 import java.io.IOException;
+import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -55,7 +56,13 @@ public class Test implements EWrapper {
 			}
 		}.start();
 		
-		m_s.reqSecDefOptParams("IBM", "SMART", "STK", 8314, 0);
+		m_s.reqSecDefOptParams(0, "IBM", "", "", "STK", 8314);
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		m_s.eDisconnect();
 	}
 
@@ -221,5 +228,26 @@ public class Test implements EWrapper {
 	}
 	
 	public void connectAck() {		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		System.out.print(reqId + ", " + underlyingConId + ", " + tradingClass + ", " + multiplier);
+		
+		for (String exp : expirations) {
+			System.out.print(", " + exp);
+		}
+		
+		for (double strk : strikes) { 
+			System.out.print(", " + strk);
+		}
+		
+		System.out.println();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		System.out.println("done");
 	}
 }
