@@ -13,6 +13,7 @@
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
 #include "EClientMsgSink.h"
+#include <string.h>
 
 EDecoder::EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink) {
     m_pEWrapper = callback;
