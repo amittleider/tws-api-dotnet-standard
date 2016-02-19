@@ -6,5 +6,7 @@
 #include "client/StdAfx.h"
 
 #ifndef TWSAPIDLL
-#    define TWSAPIDLLEXP __declspec(dllimport)
+#ifndef TWSAPIDLLEXP
+#define TWSAPIDLLEXP __declspec(dllimport)
+#endif
 #endif

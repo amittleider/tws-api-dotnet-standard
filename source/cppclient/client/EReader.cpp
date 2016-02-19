@@ -3,7 +3,7 @@
 
 #include "StdAfx.h"
 #include "shared_ptr.h"
-#include "contract.h"
+#include "Contract.h"
 #include "EDecoder.h"
 #include "EMutex.h"
 #include "EReader.h"
@@ -30,7 +30,9 @@ EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
 EReader::~EReader(void) {
     m_isAlive = false;
 
+#if defined(IB_WIN32)
     WaitForSingleObject(m_hReadThread, INFINITE);
+#endif
 }
 
 void EReader::checkClient() {

@@ -4,6 +4,10 @@
 
 #include <assert.h>
 
+#if defined(IB_POSIX)
+#include <sys/socket.h>
+#endif
+
 ESocket::ESocket() {
 }
 

@@ -16,6 +16,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <ostream>
 
 const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
