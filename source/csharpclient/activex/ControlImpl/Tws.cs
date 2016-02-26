@@ -1948,9 +1948,9 @@ namespace TWSLib
             socket.startApi();
         }
 
-        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string currency, string underlyingSecType, int underlyingConId)
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
         {
-            socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
+            socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId);
         }
 
         public ArrayList ParseConditions(string str)

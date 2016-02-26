@@ -572,7 +572,7 @@ public class EWrapperMsgGenerator {
     	return "id = " + reqId + " =============== end ===============";
     }    
 
-	public static String securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+	public static String securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
 		String expirationsStr = "";
 		
@@ -586,7 +586,7 @@ public class EWrapperMsgGenerator {
 			strikesStr += strike + ", ";
 		}
 		
-		String msg = " id = " + reqId + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
+		String msg = " id = " + reqId + "exchange = " + exchange + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
 			multiplier + " expirations: " + expirationsStr + " strikes: " + strikesStr;
 
 		return msg;

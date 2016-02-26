@@ -377,7 +377,8 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processSecurityDefinitionOptionalParameter() throws IOException {
-		int reqId = readInt();		
+		int reqId = readInt();	
+		String exchange = readStr();
 		int underlyingConId = readInt();
 		String tradingClass = readStr();
 		String multiplier = readStr();
@@ -395,7 +396,7 @@ class EDecoder implements ObjectInput {
 			strikes.add(readDouble());
 		}
 		
-		m_EWrapper.securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+		m_EWrapper.securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
 	}
 
 	private void processVerifyAndAuthCompletedMsg() throws IOException {

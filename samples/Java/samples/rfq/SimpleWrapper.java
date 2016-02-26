@@ -380,7 +380,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	@Override
-	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
 		// TODO Auto-generated method stub
 		

@@ -487,12 +487,12 @@ class SampleFrame extends JFrame implements EWrapper {
 		
 		String underlyingSymbol = m_secDefOptParamsReq.underlyingSymbol();
 		String futFopExchange = m_secDefOptParamsReq.futFopExchange();
-		String currency = m_secDefOptParamsReq.currency();
+//		String currency = m_secDefOptParamsReq.currency();
 		String underlyingSecType = m_secDefOptParamsReq.underlyingSecType();
 		int underlyingConId = m_secDefOptParamsReq.underlyingConId();		
 		
 		if (m_secDefOptParamsReq.isOK()) {
-			m_client.reqSecDefOptParams(m_secDefOptParamsReq.id(), underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
+			m_client.reqSecDefOptParams(m_secDefOptParamsReq.id(), underlyingSymbol, futFopExchange,/* currency,*/ underlyingSecType, underlyingConId);
 		}
 	}
 
@@ -1463,9 +1463,9 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
 	@Override
-	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
-		String msg = EWrapperMsgGenerator.securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);		
+		String msg = EWrapperMsgGenerator.securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);		
 		m_TWS.add(msg);
 	}
 

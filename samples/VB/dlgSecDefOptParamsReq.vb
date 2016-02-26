@@ -28,7 +28,6 @@ Friend Class dlgSecDefOptParamsReq
         txtConId.Text = m_conId
         txtReqId.Text = m_reqId
         txtExchange.Text = m_exchange
-        txtCurrency.Text = m_currency
         txtSecType.Text = m_secType
         txtSymbol.Text = m_symbol
     End Sub
@@ -48,7 +47,6 @@ Friend Class dlgSecDefOptParamsReq
     Public WithEvents txtSymbol As System.Windows.Forms.TextBox
     Public WithEvents txtSecType As System.Windows.Forms.TextBox
     Public WithEvents txtExchange As System.Windows.Forms.TextBox
-    Public WithEvents txtCurrency As System.Windows.Forms.TextBox
     Public WithEvents cmdCancel As System.Windows.Forms.Button
     Public WithEvents cmdOk As System.Windows.Forms.Button
     Public WithEvents lblSymbol As System.Windows.Forms.Label
@@ -57,7 +55,6 @@ Friend Class dlgSecDefOptParamsReq
     Public WithEvents txtReqId As System.Windows.Forms.TextBox
     Public WithEvents lblReqId As System.Windows.Forms.Label
     Public WithEvents Label1 As System.Windows.Forms.Label
-    Public WithEvents lblAction As System.Windows.Forms.Label
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
@@ -68,13 +65,11 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtSymbol = New System.Windows.Forms.TextBox()
         Me.txtSecType = New System.Windows.Forms.TextBox()
         Me.txtExchange = New System.Windows.Forms.TextBox()
-        Me.txtCurrency = New System.Windows.Forms.TextBox()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdOk = New System.Windows.Forms.Button()
         Me.lblSymbol = New System.Windows.Forms.Label()
         Me.lblSecType = New System.Windows.Forms.Label()
         Me.lblExchange = New System.Windows.Forms.Label()
-        Me.lblAction = New System.Windows.Forms.Label()
         Me.txtReqId = New System.Windows.Forms.TextBox()
         Me.lblReqId = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -87,7 +82,7 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtConId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtConId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtConId.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtConId.Location = New System.Drawing.Point(119, 140)
+        Me.txtConId.Location = New System.Drawing.Point(119, 114)
         Me.txtConId.MaxLength = 0
         Me.txtConId.Name = "txtConId"
         Me.txtConId.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -143,7 +138,7 @@ Friend Class dlgSecDefOptParamsReq
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(207, 176)
+        Me.cmdCancel.Location = New System.Drawing.Point(207, 148)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -158,7 +153,7 @@ Friend Class dlgSecDefOptParamsReq
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(128, 176)
+        Me.cmdOk.Location = New System.Drawing.Point(128, 148)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -205,19 +200,6 @@ Friend Class dlgSecDefOptParamsReq
         Me.lblExchange.TabIndex = 9
         Me.lblExchange.Text = "Exchange"
         '
-        'lblAction
-        '
-        Me.lblAction.BackColor = System.Drawing.SystemColors.Control
-        Me.lblAction.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblAction.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAction.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblAction.Location = New System.Drawing.Point(15, 117)
-        Me.lblAction.Name = "lblAction"
-        Me.lblAction.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblAction.Size = New System.Drawing.Size(81, 17)
-        Me.lblAction.TabIndex = 8
-        Me.lblAction.Text = "Currency"
-        '
         'txtReqId
         '
         Me.txtReqId.AcceptsReturn = True
@@ -244,7 +226,6 @@ Friend Class dlgSecDefOptParamsReq
         Me.lblReqId.Size = New System.Drawing.Size(65, 17)
         Me.lblReqId.TabIndex = 15
         Me.lblReqId.Text = "Request Id"
-
         '
         'Label1
         '
@@ -252,37 +233,22 @@ Friend Class dlgSecDefOptParamsReq
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label1.Location = New System.Drawing.Point(15, 143)
+        Me.Label1.Location = New System.Drawing.Point(15, 117)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(81, 17)
         Me.Label1.TabIndex = 17
         Me.Label1.Text = "ConID"
         '
-        '
-        'txtCurrency
-        '
-        Me.txtCurrency.AcceptsReturn = True
-        Me.txtCurrency.BackColor = System.Drawing.SystemColors.Window
-        Me.txtCurrency.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCurrency.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCurrency.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtCurrency.Location = New System.Drawing.Point(119, 114)
-        Me.txtCurrency.MaxLength = 0
-        Me.txtCurrency.Name = "txtCurrency"
-        Me.txtCurrency.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtCurrency.Size = New System.Drawing.Size(161, 20)
-        Me.txtCurrency.TabIndex = 5
         'dlgSecDefOptParamsReq
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(292, 213)
+        Me.ClientSize = New System.Drawing.Size(292, 185)
         Me.Controls.Add(Me.txtConId)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblReqId)
         Me.Controls.Add(Me.txtReqId)
-        Me.Controls.Add(Me.txtCurrency)
         Me.Controls.Add(Me.txtSymbol)
         Me.Controls.Add(Me.txtSecType)
         Me.Controls.Add(Me.txtExchange)
@@ -291,7 +257,6 @@ Friend Class dlgSecDefOptParamsReq
         Me.Controls.Add(Me.lblSymbol)
         Me.Controls.Add(Me.lblSecType)
         Me.Controls.Add(Me.lblExchange)
-        Me.Controls.Add(Me.lblAction)
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -333,7 +298,6 @@ Friend Class dlgSecDefOptParamsReq
     Private m_exchange As String
     Private m_conId As String
     Private m_reqId As Integer
-    Private m_currency As String
 
     ' ========================================================
     ' Get/Set Methods
@@ -369,12 +333,6 @@ Friend Class dlgSecDefOptParamsReq
         End Get
     End Property
 
-    Public ReadOnly Property currency As String
-        Get
-            Return m_currency
-        End Get
-    End Property
-
     ' ========================================================
     ' Button Events
     ' ========================================================
@@ -385,7 +343,6 @@ Friend Class dlgSecDefOptParamsReq
         m_symbol = txtSymbol.Text
         m_secType = txtSecType.Text
         m_exchange = txtExchange.Text
-        m_currency = txtCurrency.Text
         DialogResult = DialogResult.OK
 
         Me.Hide()

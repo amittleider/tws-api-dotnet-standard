@@ -73,7 +73,7 @@ public interface EWrapper {
     void positionMultiEnd( int reqId);
     void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency);
     void accountUpdateMultiEnd( int reqId);
-    void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass, String multiplier, Set<String> expirations, Set<Double> strikes);
+    void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass, String multiplier, Set<String> expirations, Set<Double> strikes);
     void securityDefinitionOptionalParameterEnd(int reqId);
 }
 

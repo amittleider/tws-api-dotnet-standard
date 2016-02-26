@@ -1278,29 +1278,29 @@ public class ApiController implements EWrapper {
 			m_client.startAPI();
 	}
 
-	public void reqSecDefOptParams( String underlyingSymbol, String futFopExchange, String currency, String underlyingSecType, int underlyingConId, ISecDefOptParamsReqHandler handler) {
+	public void reqSecDefOptParams( String underlyingSymbol, String futFopExchange, /*String currency,*/ String underlyingSecType, int underlyingConId, ISecDefOptParamsReqHandler handler) {
 		if (!checkConnection())
 			return;
 
 		int reqId = m_reqId++;
 		m_secDefOptParamsReqMap.put( reqId, handler);
-		m_client.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId);
+		m_client.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, /*currency,*/ underlyingSecType, underlyingConId);
 		sendEOM();
 	} 
 	
 	public interface ISecDefOptParamsReqHandler {
-		void securityDefinitionOptionalParameter(int underlyingConId, String tradingClass,
+		void securityDefinitionOptionalParameter(String exchange, int underlyingConId, String tradingClass,
 				String multiplier, Set<String> expirations, Set<Double> strikes);
 		void securityDefinitionOptionalParameterEnd(int reqId);
 	}
 	
 	@Override
-	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
 		ISecDefOptParamsReqHandler handler = m_secDefOptParamsReqMap.get( reqId);
 		
 		if (handler != null) {
-			handler.securityDefinitionOptionalParameter(underlyingConId, tradingClass, multiplier, expirations, strikes);
+			handler.securityDefinitionOptionalParameter(exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
 		}
 	}
 

@@ -2501,7 +2501,7 @@ public abstract class EClient {
     }
     
 
-	public synchronized void reqSecDefOptParams(int reqId, String underlyingSymbol, String futFopExchange, String currency, String underlyingSecType, int underlyingConId) {
+	public synchronized void reqSecDefOptParams(int reqId, String underlyingSymbol, String futFopExchange, String underlyingSecType, int underlyingConId) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -2520,7 +2520,6 @@ public abstract class EClient {
         b.send(reqId);
         b.send(underlyingSymbol); 
         b.send(futFopExchange);
-        b.send(currency);
         b.send(underlyingSecType);
         b.send(underlyingConId);
 

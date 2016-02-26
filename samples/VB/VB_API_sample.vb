@@ -2828,7 +2828,7 @@ Friend Class dlgMainWnd
         Dim dlg As New dlgSecDefOptParamsReq()
 
         If dlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            Tws1.reqSecDefOptParams(dlg.reqId, dlg.symbol, dlg.exchange, dlg.currency, dlg.secType, dlg.conId)
+            Tws1.reqSecDefOptParams(dlg.reqId, dlg.symbol, dlg.exchange, dlg.secType, dlg.conId)
         End If
     End Sub
 

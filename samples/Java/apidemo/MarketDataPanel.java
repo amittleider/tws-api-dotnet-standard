@@ -576,7 +576,7 @@ public class MarketDataPanel extends JPanel {
 		
 		final UpperField m_underlyingSymbol = new UpperField();
 		final UpperField m_futFopExchange = new UpperField();
-		final UpperField m_currency = new UpperField();
+//		final UpperField m_currency = new UpperField();
 		final UpperField m_underlyingSecType = new UpperField();
 		final UpperField m_underlyingConId = new UpperField();
 		
@@ -587,7 +587,7 @@ public class MarketDataPanel extends JPanel {
 			m_underlyingConId.setText(Integer.MAX_VALUE);			
 			paramsPanel.add("Underlying symbol", m_underlyingSymbol);			
 			paramsPanel.add("FUT-FOP exchange", m_futFopExchange);			
-			paramsPanel.add("Currency", m_currency);			
+//			paramsPanel.add("Currency", m_currency);			
 			paramsPanel.add("Underlying security type", m_underlyingSecType);			
 			paramsPanel.add("Underlying contract id", m_underlyingConId);			
 			paramsPanel.add(go);
@@ -598,14 +598,14 @@ public class MarketDataPanel extends JPanel {
 		protected void onGo() {
 			String underlyingSymbol = m_underlyingSymbol.getText();
 			String futFopExchange = m_futFopExchange.getText();
-			String currency = m_currency.getText();
+//			String currency = m_currency.getText();
 			String underlyingSecType = m_underlyingSecType.getText();
 			int underlyingConId = m_underlyingConId.getInt();
 			
 			ApiDemo.INSTANCE.controller().reqSecDefOptParams( 
 					underlyingSymbol,
 					futFopExchange,
-					currency,
+//					currency,
 					underlyingSecType,
 					underlyingConId,
 					new ISecDefOptParamsReqHandler() {
@@ -614,13 +614,14 @@ public class MarketDataPanel extends JPanel {
 						public void securityDefinitionOptionalParameterEnd(int reqId) { }
 						
 						@Override
-						public void securityDefinitionOptionalParameter(int underlyingConId, String tradingClass, String multiplier,
+						public void securityDefinitionOptionalParameter(String exchange, int underlyingConId, String tradingClass, String multiplier,
 								Set<String> expirations, Set<Double> strikes) {
 							SwingUtilities.invokeLater( new Runnable() { @Override public void run() {
 
 								SecDefOptParamsReqResultsPanel resultsPanel = new SecDefOptParamsReqResultsPanel(expirations, strikes);
 
-								m_resultsPanel.addTab(underlyingConId + " " + 
+								m_resultsPanel.addTab(exchange + " " + 
+										underlyingConId + " " + 
 										tradingClass + " " + 
 										multiplier, 
 										resultsPanel, true, true);

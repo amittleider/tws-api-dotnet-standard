@@ -240,13 +240,13 @@ namespace IBSampleApp.ui
         }
 
 
-        public void SecurityDefinitionOptionParametersRequest(string symbol, string exchange, string currency, string secType, int conId)
+        public void SecurityDefinitionOptionParametersRequest(string symbol, string exchange, string secType, int conId)
         {
             int reqId = currentMktDataCallRequest++;
 
             optionParamsListView.Items.Clear();
             optionParamsListView.Groups.Clear();
-            ibClient.ClientSocket.reqSecDefOptParams(reqId, symbol, exchange, currency, secType, conId);
+            ibClient.ClientSocket.reqSecDefOptParams(reqId, symbol, exchange, secType, conId);
         }
     }
 }

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "contract.h"
+#include "Contract.h"
 
 
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;

@@ -4,7 +4,9 @@
 #ifdef _MSC_VER
 
 #ifdef TWSAPIDLL
-#    define TWSAPIDLLEXP __declspec(dllexport)
+#ifndef TWSAPIDLLEXP
+#define TWSAPIDLLEXP __declspec(dllexport)
+#endif
 #endif
 
 #define assert ASSERT

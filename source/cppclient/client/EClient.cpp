@@ -2781,7 +2781,7 @@ void EClient::cancelAccountUpdatesMulti( int reqId)
 	closeAndSend( msg.str());
 }
 
-void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& currency, const std::string& underlyingSecType, int underlyingConId)
+void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId)
 {
 		// not connected?
 	if( !isConnected()) {
@@ -2803,7 +2803,6 @@ void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol,
     ENCODE_FIELD(reqId);
     ENCODE_FIELD(underlyingSymbol); 
     ENCODE_FIELD(futFopExchange);
-	ENCODE_FIELD(currency);
     ENCODE_FIELD(underlyingSecType);
     ENCODE_FIELD(underlyingConId);
 

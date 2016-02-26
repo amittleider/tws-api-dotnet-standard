@@ -2220,7 +2220,7 @@ namespace IBApi
          * @brief Requests security definition option parameters
          * @sa EWrapper::secDefOptParams, EWrapper::secDefOptParamsEnd
          */
-        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string currency, string underlyingSecType, int underlyingConId)
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
         {
             if (!CheckConnection())
                 return;
@@ -2236,7 +2236,6 @@ namespace IBApi
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(underlyingSymbol);
             paramsList.AddParameter(futFopExchange);
-            paramsList.AddParameter(currency);
             paramsList.AddParameter(underlyingSecType);
             paramsList.AddParameter(underlyingConId);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS);

@@ -56,7 +56,7 @@ public class Test implements EWrapper {
 			}
 		}.start();
 		
-		m_s.reqSecDefOptParams(0, "IBM", "", "", "STK", 8314);
+		m_s.reqSecDefOptParams(0, "IBM", "",/* "",*/ "STK", 8314);
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -231,9 +231,9 @@ public class Test implements EWrapper {
 	}
 
 	@Override
-	public void securityDefinitionOptionalParameter(int reqId, int underlyingConId, String tradingClass,
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
-		System.out.print(reqId + ", " + underlyingConId + ", " + tradingClass + ", " + multiplier);
+		System.out.print(reqId + ", " + exchange + ", " + underlyingConId + ", " + tradingClass + ", " + multiplier);
 		
 		for (String exp : expirations) {
 			System.out.print(", " + exp);

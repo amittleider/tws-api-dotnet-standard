@@ -903,11 +903,10 @@ namespace IBSampleApp
         {
             string symbol = conDetSymbol.Text;
             string exchange = conDetExchange.Text;
-            string currency = conDetCurrency.Text;
             string secType = conDetSecType.SelectedItem + "";
             int conId = string.IsNullOrWhiteSpace(underlyingConId.Text) ? int.MaxValue : int.Parse(underlyingConId.Text);
 
-            optionsManager.SecurityDefinitionOptionParametersRequest(symbol, exchange, currency, secType, conId);
+            optionsManager.SecurityDefinitionOptionParametersRequest(symbol, exchange, secType, conId);
             ShowTab(contractInfoTab, optionParametersPage);
         }
         

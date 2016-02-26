@@ -799,8 +799,8 @@ Friend Class Tws
         socket.cancelAccountUpdatesMulti(reqId)
     End Sub
 
-    Sub reqSecDefOptParams(reqId As Integer, underlyingSymbol As String, futFopExchange As String, currency As String, underlyingSecType As String, underlyingConId As Integer)
-        socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, currency, underlyingSecType, underlyingConId)
+    Sub reqSecDefOptParams(reqId As Integer, underlyingSymbol As String, futFopExchange As String, underlyingSecType As String, underlyingConId As Integer)
+        socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId)
     End Sub
 
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
