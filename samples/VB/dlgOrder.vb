@@ -1592,6 +1592,8 @@ Friend Class dlgOrder
     Public Enum MARKET_DATA_TYPE
         REALTIME = 1
         FROZEN = 2
+        DELAYED = 3
+        DELAYED_FROZEN = 4
     End Enum
 
 
@@ -2098,6 +2100,8 @@ Friend Class dlgOrder
         cmbMarketDataType.Items.Clear()
         cmbMarketDataType.Items.Add(("Real-Time"))
         cmbMarketDataType.Items.Add(("Frozen"))
+        cmbMarketDataType.Items.Add(("Delayed"))
+        cmbMarketDataType.Items.Add(("Delayed-Frozen"))
         cmbMarketDataType.SelectedIndex = MARKET_DATA_TYPE.REALTIME - 1
 
     End Sub

@@ -57,9 +57,9 @@ namespace Samples
             /**********************************************************/
             //realTimeBars(client);
 
-            /**************************************************************/
-            /*** Real time market data operations  - Streamed or Frozen ***/
-            /**************************************************************/
+            /**************************************************************************************/
+            /*** Real time market data operations  - Streamed, Frozen, Delayed or Delayed-Frozen***/
+            /**************************************************************************************/
             //marketDataType(client);
 
             /**********************************/
@@ -156,7 +156,7 @@ namespace Samples
 
         private static void marketDataType(EClientSocket client)
         {
-            /*** Switch to frozen (2) or streaming (1)***/
+            /*** Switch to streaming(1), frozen(2), delayed(3) or delayed-frozen(4) ***/
             client.reqMarketDataType(1);
         }
 
