@@ -2471,6 +2471,10 @@ Friend Class dlgMainWnd
                 msg = "id=" & e.reqId & " marketDataType = Real-Time"
             Case dlgOrder.MARKET_DATA_TYPE.FROZEN
                 msg = "id=" & e.reqId & " marketDataType = Frozen"
+            Case dlgOrder.MARKET_DATA_TYPE.DELAYED
+                msg = "id=" & e.reqId & " marketDataType = Delayed"
+            Case dlgOrder.MARKET_DATA_TYPE.DELAYED_FROZEN
+                msg = "id=" & e.reqId & " marketDataType = Delayed-Frozen"
             Case Else
                 msg = "id=" & e.reqId & " marketDataType = Unknown"
         End Select

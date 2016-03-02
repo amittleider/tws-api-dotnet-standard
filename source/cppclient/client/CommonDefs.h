@@ -25,7 +25,9 @@ inline const char* faDataTypeStr ( faDataType pFaDataType )
 
 enum MarketDataType { 
 	REALTIME = 1, 
-	FROZEN = 2
+	FROZEN = 2,
+	DELAYED = 3,
+	DELAYED_FROZEN = 4
 };
 
 #endif /* common_defs_h_INCLUDED */

@@ -313,9 +313,9 @@ namespace IBApi
        void historicalDataEnd(int reqId, string start, string end);
 
        /**
-        * @brief Returns the current market data type (frozen or real time streamed)
+        * @brief Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen)
         * @param reqId the request's identifier
-        * @param marketDataType 1 for real time, 2 for frozen
+        * @param marketDataType 1 for real time, 2 for frozen, 3 for delayed, 4 for delayed-frozen
         * @sa EClientSocket::reqMarketDataType
         */
         void marketDataType(int reqId, int marketDataType);

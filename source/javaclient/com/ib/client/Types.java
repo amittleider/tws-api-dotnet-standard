@@ -293,7 +293,7 @@ public class Types {
 	}
 
 	public enum MktDataType {
-		Unknown, Realtime, Frozen;
+		Unknown, Realtime, Frozen, Delayed, DelayedFrozen;
 
 		public static MktDataType get( int ordinal) {
 			return getEnum( ordinal, values() );
