@@ -25,14 +25,6 @@ import javax.swing.Timer;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.NewTabbedPanel.NewTabPanel;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.Util;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.TickType;
@@ -41,6 +33,14 @@ import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IOptHandler;
 import com.ib.controller.ApiController.TopMktDataAdapter;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.NewTabPanel;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.Util;
+import apidemo.util.VerticalPanel;
 
 public class OptionChainsPanel extends JPanel {
 	private Contract m_underContract = new Contract();

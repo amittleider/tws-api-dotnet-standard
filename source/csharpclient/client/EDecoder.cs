@@ -328,6 +328,16 @@ namespace IBApi
                         AccountUpdateMultiEndEvent();
                         break;
                     }
+                case IncomingMessage.SecurityDefinitionOptionParameter:
+                    {
+                        SecurityDefinitionOptionParameterEvent();
+                        break;
+                    }
+                case IncomingMessage.SecurityDefinitionOptionParameterEnd:
+                    {
+                        SecurityDefinitionOptionParameterEndEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -336,6 +346,38 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void SecurityDefinitionOptionParameterEndEvent()
+        {
+            int reqId = ReadInt();
+
+            eWrapper.securityDefinitionOptionParameterEnd(reqId);
+        }
+
+        private void SecurityDefinitionOptionParameterEvent()
+        {
+            int reqId = ReadInt();
+            int underlyingConId = ReadInt();
+            string tradingClass = ReadString();
+            string multiplier = ReadString();
+            int expirationsSize = ReadInt();
+            HashSet<string> expirations = new HashSet<string>();
+            HashSet<double> strikes = new HashSet<double>();
+
+            for (int i = 0; i < expirationsSize; i++)
+            {
+                expirations.Add(ReadString());
+            }
+
+            int strikesSize = ReadInt();
+
+            for (int i = 0; i < strikesSize; i++)
+            {
+                strikes.Add(ReadDouble());
+            }
+
+            eWrapper.securityDefinitionOptionParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
         }
 
         private void DisplayGroupUpdatedEvent()

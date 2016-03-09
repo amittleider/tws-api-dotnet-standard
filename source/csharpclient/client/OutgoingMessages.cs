@@ -63,5 +63,6 @@ namespace IBApi
         CancelPositionsMulti = 75,
         RequestAccountUpdatesMulti = 76,
         CancelAccountUpdatesMulti = 77,
+        RequestSecurityDefinitionOptionalParameters = 78,
     }
 }

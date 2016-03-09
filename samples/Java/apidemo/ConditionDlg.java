@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -23,8 +21,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import apidemo.util.HtmlButton;
-
 import com.ib.client.ContractLookuper;
 import com.ib.client.ExecutionCondition;
 import com.ib.client.MarginCondition;
@@ -34,6 +30,8 @@ import com.ib.client.PercentChangeCondition;
 import com.ib.client.PriceCondition;
 import com.ib.client.TimeCondition;
 import com.ib.client.VolumeCondition;
+
+import apidemo.util.HtmlButton;
 
 /**
  *

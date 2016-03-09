@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import java.util.concurrent.Callable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,14 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import apidemo.AdjustedPanel;
-import apidemo.ApiDemo;
-import apidemo.ConditionDlg;
-import apidemo.ConditionsPanel;
-import apidemo.OnOKPanel;
-import apidemo.PegBenchPanel;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.ContractLookuper;
@@ -40,6 +31,11 @@ import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.TagValue;
+
+import apidemo.AdjustedPanel;
+import apidemo.ConditionsPanel;
+import apidemo.OnOKPanel;
+import apidemo.PegBenchPanel;
 
 public class OrderDlg extends JDialog {
     final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";

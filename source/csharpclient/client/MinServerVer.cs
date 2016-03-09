@@ -63,5 +63,6 @@ namespace IBApi
         public const int FRACTIONAL_POSITIONS = 101;
         public const int PEGGED_TO_BENCHMARK = 102;
         public const int MODELS_SUPPORT = 103;
+        public const int SEC_DEF_OPT_PARAMS_REQ = 104;
     }
 }

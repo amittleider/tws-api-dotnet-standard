@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,14 +22,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import apidemo.util.HtmlButton;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.NewTabbedPanel.NewTabPanel;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
-import apidemo.util.VerticalPanel.StackPanel;
 
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -43,9 +36,18 @@ import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.ApiController.IScannerHandler;
+import com.ib.controller.ApiController.ISecDefOptParamsReqHandler;
 import com.ib.controller.Bar;
 import com.ib.controller.Instrument;
 import com.ib.controller.ScanCode;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.NewTabPanel;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.VerticalPanel;
+import apidemo.util.VerticalPanel.StackPanel;
 
 public class MarketDataPanel extends JPanel {
 	private final Contract m_contract = new Contract();
@@ -59,6 +61,7 @@ public class MarketDataPanel extends JPanel {
 		m_requestPanel.addTab( "Historical Data", new HistRequestPanel() );
 		m_requestPanel.addTab( "Real-time Bars", new RealtimeRequestPanel() );
 		m_requestPanel.addTab( "Market Scanner", new ScannerRequestPanel() );
+		m_requestPanel.addTab("Security defininition optional parameters", new SecDefOptParamsPanel());
 		
 		setLayout( new BorderLayout() );
 		add( m_requestPanel, BorderLayout.NORTH);
@@ -567,5 +570,87 @@ public class MarketDataPanel extends JPanel {
 		@Override public void scannerDataEnd() {
 			// we could sort here
 		}
+	}
+	
+	class SecDefOptParamsPanel extends JPanel {
+		
+		final UpperField m_underlyingSymbol = new UpperField();
+		final UpperField m_futFopExchange = new UpperField();
+//		final UpperField m_currency = new UpperField();
+		final UpperField m_underlyingSecType = new UpperField();
+		final UpperField m_underlyingConId = new UpperField();
+		
+		SecDefOptParamsPanel() {
+			VerticalPanel paramsPanel = new VerticalPanel();
+			HtmlButton go = new HtmlButton("Go") { @Override protected void actionPerformed() { onGo(); } };
+			
+			m_underlyingConId.setText(Integer.MAX_VALUE);			
+			paramsPanel.add("Underlying symbol", m_underlyingSymbol);			
+			paramsPanel.add("FUT-FOP exchange", m_futFopExchange);			
+//			paramsPanel.add("Currency", m_currency);			
+			paramsPanel.add("Underlying security type", m_underlyingSecType);			
+			paramsPanel.add("Underlying contract id", m_underlyingConId);			
+			paramsPanel.add(go);
+			setLayout(new BorderLayout());
+			add(paramsPanel, BorderLayout.NORTH);
+		}
+
+		protected void onGo() {
+			String underlyingSymbol = m_underlyingSymbol.getText();
+			String futFopExchange = m_futFopExchange.getText();
+//			String currency = m_currency.getText();
+			String underlyingSecType = m_underlyingSecType.getText();
+			int underlyingConId = m_underlyingConId.getInt();
+			
+			ApiDemo.INSTANCE.controller().reqSecDefOptParams( 
+					underlyingSymbol,
+					futFopExchange,
+//					currency,
+					underlyingSecType,
+					underlyingConId,
+					new ISecDefOptParamsReqHandler() {
+						
+						@Override
+						public void securityDefinitionOptionalParameterEnd(int reqId) { }
+						
+						@Override
+						public void securityDefinitionOptionalParameter(String exchange, int underlyingConId, String tradingClass, String multiplier,
+								Set<String> expirations, Set<Double> strikes) {
+							SwingUtilities.invokeLater( new Runnable() { @Override public void run() {
+
+								SecDefOptParamsReqResultsPanel resultsPanel = new SecDefOptParamsReqResultsPanel(expirations, strikes);
+
+								m_resultsPanel.addTab(exchange + " " + 
+										underlyingConId + " " + 
+										tradingClass + " " + 
+										multiplier, 
+										resultsPanel, true, true);
+							}});
+						}
+					});
+		}
+		
+	}
+	
+	static class SecDefOptParamsReqResultsPanel extends NewTabPanel {
+
+		final OptParamsModel m_model;
+		
+		public SecDefOptParamsReqResultsPanel(Set<String> expirations, Set<Double> strikes) {
+			JTable table = new JTable(m_model = new OptParamsModel(expirations, strikes));
+			JScrollPane scroll = new JScrollPane(table);
+			
+			setLayout(new BorderLayout());
+			add(scroll);
+		}
+		
+		@Override
+		public void activated() {
+		}
+
+		@Override
+		public void closed() {
+		}
+
 	}
 }

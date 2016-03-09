@@ -15,15 +15,15 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
 import com.ib.controller.ApiController.ILiveOrderHandler;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.VerticalPanel;
 
 public class OrdersPanel extends JPanel {
 	private OrdersModel m_model = new OrdersModel();

@@ -60,5 +60,8 @@ namespace IBApi
         public const int PositionMultiEnd = 72;
         public const int AccountUpdateMulti = 73;
         public const int AccountUpdateMultiEnd = 74;
+        public const int SecurityDefinitionOptionParameter = 75;
+        public const int SecurityDefinitionOptionParameterEnd = 76;
+
     }
 }

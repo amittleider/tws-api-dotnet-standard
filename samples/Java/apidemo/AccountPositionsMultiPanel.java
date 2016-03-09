@@ -18,16 +18,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
-import apidemo.util.NewTabbedPanel.NewTabPanel;
-
 import com.ib.client.Contract;
-import com.ib.controller.Formats;
 import com.ib.controller.ApiController.IAccountUpdateMultiHandler;
 import com.ib.controller.ApiController.IPositionMultiHandler;
+import com.ib.controller.Formats;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.NewTabPanel;
+import apidemo.util.UpperField;
+import apidemo.util.VerticalPanel;
 
 public class AccountPositionsMultiPanel extends JPanel {
 	private final NewTabbedPanel m_requestPanel = new NewTabbedPanel();

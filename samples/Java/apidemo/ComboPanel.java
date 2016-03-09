@@ -20,17 +20,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-import apidemo.OrdersPanel.OrderRow;
-import apidemo.OrdersPanel.OrdersModel;
-import apidemo.TopModel.TopRow;
-import apidemo.util.HtmlButton;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.NewTabbedPanel.INewTab;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
-import apidemo.util.VerticalPanel.HorzPanel;
-
 import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
@@ -41,6 +30,17 @@ import com.ib.client.Types.Action;
 import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IEfpHandler;
+
+import apidemo.OrdersPanel.OrderRow;
+import apidemo.OrdersPanel.OrdersModel;
+import apidemo.TopModel.TopRow;
+import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.NewTabbedPanel.INewTab;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.VerticalPanel;
+import apidemo.util.VerticalPanel.HorzPanel;
 
 
 public class ComboPanel extends JPanel implements INewTab {

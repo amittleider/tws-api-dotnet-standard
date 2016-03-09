@@ -2,14 +2,13 @@ package apidemo;
 
 import javax.swing.JDialog;
 
-import apidemo.TicketDlg.AmntUnit;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Order;
 import com.ib.client.OrderCondition;
 import com.ib.client.OrderType;
+
+import apidemo.TicketDlg.AmntUnit;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
 
 public class AdjustedPanel extends OnOKPanel {
 	/**

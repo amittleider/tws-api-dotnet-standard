@@ -3,6 +3,8 @@
 
 package com.ib.client;
 
+import java.util.Set;
+
 class DefaultEWrapper implements EWrapper {
 
 	@Override
@@ -347,6 +349,19 @@ class DefaultEWrapper implements EWrapper {
 
 	@Override
 	public void accountUpdateMultiEnd( int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
 		// TODO Auto-generated method stub
 		
 	}

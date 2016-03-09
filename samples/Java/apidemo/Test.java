@@ -4,6 +4,7 @@
 package apidemo;
 
 import java.io.IOException;
+import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -26,7 +27,7 @@ public class Test implements EWrapper {
 	}
 
 	private void run() {
-		m_s.eConnect("localhost", 7496, 0);
+		m_s.eConnect("localhost", 7497, 0);
 		
         final EReader reader = new EReader(m_s, m_signal);
         
@@ -54,6 +55,15 @@ public class Test implements EWrapper {
 				}
 			}
 		}.start();
+		
+		m_s.reqSecDefOptParams(0, "IBM", "",/* "",*/ "STK", 8314);
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		m_s.eDisconnect();
 	}
 
 	@Override public void nextValidId(int orderId) {
@@ -218,5 +228,26 @@ public class Test implements EWrapper {
 	}
 	
 	public void connectAck() {		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		System.out.print(reqId + ", " + exchange + ", " + underlyingConId + ", " + tradingClass + ", " + multiplier);
+		
+		for (String exp : expirations) {
+			System.out.print(", " + exp);
+		}
+		
+		for (double strk : strikes) { 
+			System.out.print(", " + strk);
+		}
+		
+		System.out.println();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		System.out.println("done");
 	}
 }

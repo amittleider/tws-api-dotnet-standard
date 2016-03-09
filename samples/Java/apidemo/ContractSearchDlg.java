@@ -15,12 +15,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.Util;
-
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.ContractLookuper;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.Util;
 
 public class ContractSearchDlg extends JDialog {
 

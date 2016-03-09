@@ -299,11 +299,21 @@ namespace Samples
         {
             Console.WriteLine("Account Update Multi End. Request: " + reqId + "\n");
         }
+        public void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+            Console.WriteLine("Security Definition Option Parameter. Reqest: {0}, Undrelying contract id: {1}, Trading class: {2}, Multiplier: {3}, Expirations: {4}, Strikes: {5}",
+                              reqId, underlyingConId, tradingClass, multiplier, string.Join(", ", expirations), string.Join(", ", strikes));
+        }
+        public void securityDefinitionOptionParameterEnd(int reqId)
+        {
+            Console.WriteLine("Security Definition Option Parameter End. Request: " + reqId + "\n");
+        }
 
         public void connectAck()
         {
             if (ClientSocket.AsyncEConnect)
                 ClientSocket.startApi();
         }
+
     }
 }

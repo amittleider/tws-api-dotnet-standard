@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -50,7 +51,7 @@ public class SimpleWrapper implements EWrapper {
 	public void connect(int clientId) {
 		String host = System.getProperty("jts.host");
 		host = host != null ? host : "";
-		m_client.eConnect(host, 7496, clientId);
+		m_client.eConnect(host, 7497, clientId);
 		
         final EReader reader = new EReader(m_client, m_signal);
         
@@ -376,5 +377,18 @@ public class SimpleWrapper implements EWrapper {
 	
 	public void connectAck() {
 		m_client.startAPI();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

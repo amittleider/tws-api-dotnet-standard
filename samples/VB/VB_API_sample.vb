@@ -99,6 +99,7 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdCancelPositionsMulti As System.Windows.Forms.Button
     Friend WithEvents cmdReqAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdCancelAccountUpdatesMulti As System.Windows.Forms.Button
+    Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -154,6 +155,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelPositionsMulti = New System.Windows.Forms.Button()
         Me.cmdReqAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdCancelAccountUpdatesMulti = New System.Windows.Forms.Button()
+        Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -692,7 +694,7 @@ Friend Class dlgMainWnd
         '
         Me.cmdReqMarketDataType.Location = New System.Drawing.Point(544, 464)
         Me.cmdReqMarketDataType.Name = "cmdReqMarketDataType"
-        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 36)
         Me.cmdReqMarketDataType.TabIndex = 35
         Me.cmdReqMarketDataType.Text = "Req Mkt Data Type"
         Me.cmdReqMarketDataType.UseVisualStyleBackColor = True
@@ -713,7 +715,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqPositions
         '
-        Me.cmdReqPositions.Location = New System.Drawing.Point(544, 491)
+        Me.cmdReqPositions.Location = New System.Drawing.Point(544, 506)
         Me.cmdReqPositions.Name = "cmdReqPositions"
         Me.cmdReqPositions.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqPositions.TabIndex = 36
@@ -722,7 +724,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqAccountSummary
         '
-        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 517)
+        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 532)
         Me.cmdReqAccountSummary.Name = "cmdReqAccountSummary"
         Me.cmdReqAccountSummary.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqAccountSummary.TabIndex = 38
@@ -731,7 +733,7 @@ Friend Class dlgMainWnd
         '
         'cmdCancelAccountSummary
         '
-        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 518)
+        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 533)
         Me.cmdCancelAccountSummary.Name = "cmdCancelAccountSummary"
         Me.cmdCancelAccountSummary.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelAccountSummary.TabIndex = 39
@@ -740,7 +742,7 @@ Friend Class dlgMainWnd
         '
         'cmdCancelPositions
         '
-        Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 491)
+        Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 506)
         Me.cmdCancelPositions.Name = "cmdCancelPositions"
         Me.cmdCancelPositions.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelPositions.TabIndex = 37
@@ -749,7 +751,7 @@ Friend Class dlgMainWnd
         '
         'cmdGroups
         '
-        Me.cmdGroups.Location = New System.Drawing.Point(545, 545)
+        Me.cmdGroups.Location = New System.Drawing.Point(545, 560)
         Me.cmdGroups.Name = "cmdGroups"
         Me.cmdGroups.Size = New System.Drawing.Size(133, 21)
         Me.cmdGroups.TabIndex = 40
@@ -776,7 +778,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqPositionsMulti
         '
-        Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 572)
+        Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 587)
         Me.cmdReqPositionsMulti.Name = "cmdReqPositionsMulti"
         Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqPositionsMulti.TabIndex = 41
@@ -785,7 +787,7 @@ Friend Class dlgMainWnd
         '
         'cmdCancelPositionsMulti
         '
-        Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 572)
+        Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 587)
         Me.cmdCancelPositionsMulti.Name = "cmdCancelPositionsMulti"
         Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelPositionsMulti.TabIndex = 42
@@ -794,7 +796,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqAccountUpdatesMulti
         '
-        Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 599)
+        Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 614)
         Me.cmdReqAccountUpdatesMulti.Name = "cmdReqAccountUpdatesMulti"
         Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqAccountUpdatesMulti.TabIndex = 43
@@ -803,18 +805,28 @@ Friend Class dlgMainWnd
         '
         'cmdCancelAccountUpdatesMulti
         '
-        Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 599)
+        Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 614)
         Me.cmdCancelAccountUpdatesMulti.Name = "cmdCancelAccountUpdatesMulti"
         Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelAccountUpdatesMulti.TabIndex = 44
         Me.cmdCancelAccountUpdatesMulti.Text = "Cancel Acct Upd Multi"
         Me.cmdCancelAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
+        'cmdReqSecDefOptParams
+        '
+        Me.cmdReqSecDefOptParams.Location = New System.Drawing.Point(683, 464)
+        Me.cmdReqSecDefOptParams.Name = "cmdReqSecDefOptParams"
+        Me.cmdReqSecDefOptParams.Size = New System.Drawing.Size(134, 36)
+        Me.cmdReqSecDefOptParams.TabIndex = 53
+        Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
+        Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
+        '
         'dlgMainWnd
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(823, 659)
+        Me.Controls.Add(Me.cmdReqSecDefOptParams)
         Me.Controls.Add(Me.cmdCancelAccountUpdatesMulti)
         Me.Controls.Add(Me.cmdReqAccountUpdatesMulti)
         Me.Controls.Add(Me.cmdCancelPositionsMulti)
@@ -2814,5 +2826,30 @@ Friend Class dlgMainWnd
 
     Private Sub Tws1_OnverifyAndAuthCompleted(tws As Tws, p2 As Object) Handles Tws1.OnverifyAndAuthCompleted
         Tws1.StartAPI()
+    End Sub
+
+    Private Sub cmdReqSecDefOptParams_Click(sender As Object, e As EventArgs) Handles cmdReqSecDefOptParams.Click
+        Dim dlg As New dlgSecDefOptParamsReq()
+
+        If dlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Tws1.reqSecDefOptParams(dlg.reqId, dlg.symbol, dlg.exchange, dlg.secType, dlg.conId)
+        End If
+    End Sub
+
+    Private Sub Tws1_OnSecurityDefinitionOptionParameter(tws As Tws, DTWsEvents_securityDefinitionOptionParameterEvent As AxTWSLib._DTWsEvents_securityDefinitionOptionParameterEvent) Handles Tws1.OnSecurityDefinitionOptionParameter
+        Dim displayString As String
+
+        displayString = String.Format("reqId: {0}, underlyingConId: {1}, tradingClass: {2}, multiplier: {3}, expirations: {4}, strikes: {5}",
+            DTWsEvents_securityDefinitionOptionParameterEvent.reqId,
+            DTWsEvents_securityDefinitionOptionParameterEvent.underlyingConId,
+            DTWsEvents_securityDefinitionOptionParameterEvent.tradingClass,
+            DTWsEvents_securityDefinitionOptionParameterEvent.multiplier,
+            String.Join(",", DTWsEvents_securityDefinitionOptionParameterEvent.expirations),
+            String.Join(", ", DTWsEvents_securityDefinitionOptionParameterEvent.strikes))
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, displayString)
+
+        ' move into view
+        lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
     End Sub
 End Class

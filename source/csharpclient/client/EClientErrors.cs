@@ -70,6 +70,7 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_CANPOSITIONSMULTI = new CodeMsgPair(554, "Cancel Positions Multi Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQACCOUNTUPDATESMULTI = new CodeMsgPair(555, "Request Account Updates Multi Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANACCOUNTUPDATESMULTI = new CodeMsgPair(556, "Cancel Account Updates Multi Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQSECDEFOPTPARAMS = new CodeMsgPair(556, "Request Security Definition Option Parameters Sending Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     

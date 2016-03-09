@@ -6,6 +6,7 @@ package com.ib.client;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
@@ -569,7 +570,27 @@ public class EWrapperMsgGenerator {
 
     static public String accountUpdateMultiEnd( int reqId) {
     	return "id = " + reqId + " =============== end ===============";
-    }
+    }    
+
+	public static String securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		String expirationsStr = "";
+		
+		for (String expiration : expirations) {
+			expirationsStr += expiration + ", ";			
+		}
+		
+		String strikesStr = "";
+		
+		for (Double strike : strikes) {
+			strikesStr += strike + ", ";
+		}
+		
+		String msg = " id = " + reqId + "exchange = " + exchange + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
+			multiplier + " expirations: " + expirationsStr + " strikes: " + strikesStr;
+
+		return msg;
+	}
 
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}

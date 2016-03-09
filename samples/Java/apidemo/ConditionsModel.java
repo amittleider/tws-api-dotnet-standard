@@ -4,12 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.ib.client.Contract;
 import com.ib.client.ContractCondition;
-import com.ib.client.ContractDetails;
 import com.ib.client.ContractLookuper;
 import com.ib.client.OrderCondition;
-import com.ib.client.Util;
 
 public class ConditionsModel extends AbstractTableModel {
 	

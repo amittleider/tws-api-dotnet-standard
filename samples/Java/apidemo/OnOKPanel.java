@@ -1,8 +1,8 @@
 package apidemo;
 
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.OrderCondition;
+
+import apidemo.util.VerticalPanel;
 
 public abstract class OnOKPanel extends VerticalPanel {
 	public abstract OrderCondition onOK();

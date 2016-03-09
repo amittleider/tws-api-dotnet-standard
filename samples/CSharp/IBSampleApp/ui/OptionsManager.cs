@@ -53,15 +53,17 @@ namespace IBSampleApp.ui
         private DataGridView callGrid;
         private DataGridView putGrid;
         private DataGridView positionsGrid;
+        private ListView optionParamsListView;
 
         private List<Contract> currentOptionsPositions = new List<Contract>();
 
-        public OptionsManager(IBClient ibClient, DataGridView callGrid, DataGridView putGrid, DataGridView optionPositionsGrid)
+        public OptionsManager(IBClient ibClient, DataGridView callGrid, DataGridView putGrid, DataGridView optionPositionsGrid, ListView optionParamsListView)
         {
             this.ibClient = ibClient;
             this.callGrid = callGrid;
             this.putGrid = putGrid;
             this.positionsGrid = optionPositionsGrid;
+            this.optionParamsListView = optionParamsListView;
         }
 
         public void UpdateUI(IBMessage message)
@@ -98,7 +100,31 @@ namespace IBSampleApp.ui
                     UpdateOptionGridTick(putGrid, (mktDataMsg.RequestId - OPTIONS_DATA_PUT_BASE), mktDataMsg);
                 }
             }
+            else if (message is SecurityDefinitionOptionParameterMessage)
+            {
+                SecurityDefinitionOptionParameterMessage secDefOptParamMsg = (SecurityDefinitionOptionParameterMessage)message;
+
+                var key = new SecDefOptParamKey(secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
+
+                if (!secDefOptParamGroups.ContainsKey(key))
+                {
+                    optionParamsListView.Groups.Add(secDefOptParamGroups[key] = new ListViewGroup(key + ""));                    
+                }
+
+                var strikes = secDefOptParamMsg.Strikes.ToArray();
+                var expriations = secDefOptParamMsg.Expirations.ToArray();
+                var n = Math.Max(strikes.Length, expriations.Length);
+
+                for (int i = 0; i < n; i++)
+                {
+                    var item = new ListViewItem(new[] { i < expriations.Length ? expriations[i] : "", i < strikes.Length ? strikes[i] + "" : "" }) { Group = secDefOptParamGroups[key] };
+
+                    optionParamsListView.Items.Add(item);
+                }
+            }
         }
+
+        Dictionary<SecDefOptParamKey, ListViewGroup> secDefOptParamGroups = new Dictionary<SecDefOptParamKey, ListViewGroup>();
 
         public void HandlePosition(UpdatePortfolioMessage positionMessage)
         {
@@ -213,5 +239,14 @@ namespace IBSampleApp.ui
             }
         }
 
+
+        public void SecurityDefinitionOptionParametersRequest(string symbol, string exchange, string secType, int conId)
+        {
+            int reqId = currentMktDataCallRequest++;
+
+            optionParamsListView.Items.Clear();
+            optionParamsListView.Groups.Clear();
+            ibClient.ClientSocket.reqSecDefOptParams(reqId, symbol, exchange, secType, conId);
+        }
     }
 }

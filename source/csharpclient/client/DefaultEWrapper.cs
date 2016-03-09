@@ -228,5 +228,14 @@ namespace IBApi
         public void accountUpdateMultiEnd(int requestId)
         {
         }
+
+
+        public void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+        }
+
+        public void securityDefinitionOptionParameterEnd(int reqId)
+        {
+        }
     }
 }

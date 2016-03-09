@@ -19,13 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.IConnectionConfiguration;
-import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
-import apidemo.util.NewLookAndFeel;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Types.NewsType;
 import com.ib.controller.ApiConnection.ILogger;
 import com.ib.controller.ApiController;
@@ -33,6 +26,13 @@ import com.ib.controller.ApiController.IBulletinHandler;
 import com.ib.controller.ApiController.IConnectionHandler;
 import com.ib.controller.ApiController.ITimeHandler;
 import com.ib.controller.Formats;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.IConnectionConfiguration;
+import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
+import apidemo.util.NewLookAndFeel;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.VerticalPanel;
 
 public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }

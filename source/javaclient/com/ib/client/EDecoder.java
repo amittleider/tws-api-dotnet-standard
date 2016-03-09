@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -61,6 +63,8 @@ class EDecoder implements ObjectInput {
     static final int POSITION_MULTI_END = 72;
     static final int ACCOUNT_UPDATE_MULTI = 73;
     static final int ACCOUNT_UPDATE_MULTI_END = 74;
+    static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
+    static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -347,6 +351,14 @@ class EDecoder implements ObjectInput {
                 processAccountUpdateMultiEndMsg();
                 break;
             }
+            
+            case SECURITY_DEFINITION_OPTION_PARAMETER:
+            	processSecurityDefinitionOptionalParameter();
+            	break;
+            	
+            case SECURITY_DEFINITION_OPTION_PARAMETER_END:
+            	processSecurityDefinitionOptionalParameterEnd();
+            	break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -357,6 +369,35 @@ class EDecoder implements ObjectInput {
         m_messageReader.close();
         return m_messageReader.msgLength();
     }
+
+	private void processSecurityDefinitionOptionalParameterEnd() throws IOException {
+		int reqId = readInt();
+		
+		m_EWrapper.securityDefinitionOptionalParameterEnd(reqId);
+	}
+
+	private void processSecurityDefinitionOptionalParameter() throws IOException {
+		int reqId = readInt();	
+		String exchange = readStr();
+		int underlyingConId = readInt();
+		String tradingClass = readStr();
+		String multiplier = readStr();
+		int expirationsSize = readInt();
+		Set<String> expirations = new HashSet<String>();
+		Set<Double> strikes = new HashSet<Double>();
+		
+		for (int i = 0; i < expirationsSize; i++) {
+			expirations.add(readStr());
+		}
+		
+		int strikesSize = readInt();
+		
+		for (int i = 0; i < strikesSize; i++) {
+			strikes.add(readDouble());
+		}
+		
+		m_EWrapper.securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
+	}
 
 	private void processVerifyAndAuthCompletedMsg() throws IOException {
 		/*int version =*/ readInt();

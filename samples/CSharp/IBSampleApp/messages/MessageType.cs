@@ -52,6 +52,8 @@ namespace IBSampleApp
         PositionMultiEnd = 72,
         AccountUpdateMulti = 73,
         AccountUpdateMultiEnd = 74,
+        SecurityDefinitionOptionParameter = 75,
+        SecurityDefinitionOptionParameterEnd = 76,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one
         HistoricalDataEnd = -HistoricalData,

@@ -7,6 +7,7 @@
 
 #include "CommonDefs.h"
 #include <string>
+#include <set>
 
 enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				HIGH, LOW, VOLUME, CLOSE,
@@ -162,7 +163,8 @@ public:
    virtual void positionMultiEnd( int reqId) = 0;
    virtual void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency) = 0;
    virtual void accountUpdateMultiEnd( int reqId) = 0;
-
+   virtual void securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) = 0;
+   virtual void securityDefinitionOptionalParameterEnd(int reqId) = 0;
 };
 
 
