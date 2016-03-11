@@ -23,7 +23,9 @@ class TWSAPISSLDLLEXP EReaderSSL
 	EDecoder threadReadDecoder_;
     bool m_needsWriteSelect;
     bool m_isAlive;
+#if defined(IB_WIN32)
     HANDLE m_hReadThread;
+#endif
 	int m_nMaxBufSize;
 
 	void onReceive();

@@ -15,7 +15,7 @@
 
 #define IN_BUF_SIZE_DEFAULT 8192
 
-DefaultEWrapper defaultWrapper;
+static DefaultEWrapper defaultWrapper;
 
 EReader::EReader(EClientSocket *clientSocket, EReaderSignal *signal)
 	: processMsgsDecoder_(clientSocket->EClient::serverVersion(), clientSocket->getWrapper(), clientSocket) {
