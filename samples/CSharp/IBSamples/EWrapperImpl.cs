@@ -283,12 +283,37 @@ namespace Samples
         {
             Console.WriteLine("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
         }
-
+        public virtual void positionMulti(int reqId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            Console.WriteLine("Position Multi. Request: " + reqId + ", Account: " + account + ", ModelCode: " + modelCode + ", Symbol: " + contract.Symbol + ", SecType: " + contract.SecType + ", Currency: " + contract.Currency + ", Position: " + pos + ", Avg cost: " + avgCost + "\n");
+        }
+        public virtual void positionMultiEnd(int reqId)
+        {
+            Console.WriteLine("Position Multi End. Request: " + reqId + "\n");
+        }
+        public virtual void accountUpdateMulti(int reqId, string account, string modelCode, string key, string value, string currency)
+        {
+            Console.WriteLine("Account Update Multi. Request: " + reqId + ", Account: " + account + ", ModelCode: " + modelCode + ", Key: " + key + ", Value: " + value + ", Currency: " + currency + "\n");
+        }
+        public virtual void accountUpdateMultiEnd(int reqId)
+        {
+            Console.WriteLine("Account Update Multi End. Request: " + reqId + "\n");
+        }
+        public void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+            Console.WriteLine("Security Definition Option Parameter. Reqest: {0}, Undrelying contract id: {1}, Trading class: {2}, Multiplier: {3}, Expirations: {4}, Strikes: {5}",
+                              reqId, underlyingConId, tradingClass, multiplier, string.Join(", ", expirations), string.Join(", ", strikes));
+        }
+        public void securityDefinitionOptionParameterEnd(int reqId)
+        {
+            Console.WriteLine("Security Definition Option Parameter End. Request: " + reqId + "\n");
+        }
 
         public void connectAck()
         {
             if (ClientSocket.AsyncEConnect)
                 ClientSocket.startApi();
         }
+
     }
 }

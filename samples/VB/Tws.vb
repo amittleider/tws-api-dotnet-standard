@@ -16,6 +16,7 @@ Friend Class Tws
         Me.form = form
     End Sub
 
+
     Sub InvokeIfRequired(del As [Delegate])
         If form.InvokeRequired Then
             form.Invoke(del)
@@ -499,6 +500,72 @@ Friend Class Tws
         End If
     End Sub
 
+    Public Sub positionMulti(reqId As Integer, account As String, modelCode As String, contract As IBApi.Contract, pos As Double, avgCost As Double) Implements IBApi.EWrapper.positionMulti
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnpositionMulti(Me, New AxTWSLib._DTwsEvents_positionMultiEvent With {
+                                                       .reqId = reqId,
+                                                       .account = account,
+                                                       .modelCode = modelCode,
+                                                       .contract = contract,
+                                                       .pos = pos,
+                                                       .avgCost = avgCost
+                                                       })
+                         End Sub)
+    End Sub
+
+    Public Sub positionMultiEnd(reqId As Integer) Implements IBApi.EWrapper.positionMultiEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnpositionMultiEnd(Me, New AxTWSLib._DTwsEvents_positionMultiEndEvent With {
+                                                          .reqId = reqId
+                                                          })
+                         End Sub)
+    End Sub
+
+    Public Sub accountUpdateMulti(reqId As Integer, account As String, modelCode As String, key As String, value As String, currency As String) Implements IBApi.EWrapper.accountUpdateMulti
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountUpdateMulti(Me, New AxTWSLib._DTwsEvents_accountUpdateMultiEvent With {
+                                                            .reqId = reqId,
+                                                            .account = account,
+                                                            .modelCode = modelCode,
+                                                            .key = key,
+                                                            .value = value,
+                                                            .currency = currency
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub accountUpdateMultiEnd(reqId As Integer) Implements IBApi.EWrapper.accountUpdateMultiEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnaccountUpdateMultiEnd(Me, New AxTWSLib._DTwsEvents_accountUpdateMultiEndEvent With {
+                                                          .reqId = reqId
+                                                          })
+                         End Sub)
+    End Sub
+
+    Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
+
+    End Sub
+
+    Public Sub securityDefinitionOptionParameter(reqId As Integer, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnSecurityDefinitionOptionParameter(Me, New AxTWSLib._DTWsEvents_securityDefinitionOptionParameterEvent With {
+                                                                            .reqId = reqId,
+                                                                            .underlyingConId = underlyingConId,
+                                                                            .tradingClass = tradingClass,
+                                                                            .multiplier = multiplier,
+                                                                            .expirations = expirations,
+                                                                            .strikes = strikes
+                                                                        })
+                         End Sub)
+    End Sub
+
+    Public Sub securityDefinitionOptionParameterEnd(reqId As Integer) Implements EWrapper.securityDefinitionOptionParameterEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnSecurityDefinitionOptionParameterEnd(Me, New AxTWSLib._DTwsEvents_securityDefinitionOptionParameterEnd With {
+                                                          .reqId = reqId
+                                                          })
+                         End Sub)
+    End Sub
 #End Region
 
     Sub reqScannerParameters()
@@ -716,6 +783,26 @@ Friend Class Tws
         socket.replaceFA(fA_Message_Type, aliasesXML)
     End Sub
 
+    Sub reqPositionsMulti(reqId As Integer, account As String, modelCode As String)
+        socket.reqPositionsMulti(reqId, account, modelCode)
+    End Sub
+
+    Sub cancelPositionsMulti(reqId As Integer)
+        socket.cancelPositionsMulti(reqId)
+    End Sub
+
+    Sub reqAccountUpdatesMulti(reqId As Integer, account As String, modelCode As String, ledgerAndNLV As Boolean)
+        socket.reqAccountUpdatesMulti(reqId, account, modelCode, ledgerAndNLV)
+    End Sub
+
+    Sub cancelAccountUpdatesMulti(reqId As Integer)
+        socket.cancelAccountUpdatesMulti(reqId)
+    End Sub
+
+    Sub reqSecDefOptParams(reqId As Integer, underlyingSymbol As String, futFopExchange As String, underlyingSecType As String, underlyingConId As Integer)
+        socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId)
+    End Sub
+
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
     Event OnErrMsg(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_errMsgEvent)
     Event OnConnectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
@@ -726,81 +813,49 @@ Friend Class Tws
     Event OnTickEFP(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickEFPEvent)
     Event OnTickOptionComputation(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_tickOptionComputationEvent)
     Event OnUpdateMktDepth(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_updateMktDepthEvent)
-    Event OnUpdateMktDepthL2(tws As Tws, p2 As Object)
-
-    Event OnaccountDownloadEnd(tws As Tws, p2 As Object)
-
-    Event OnaccountSummary(tws As Tws, p2 As Object)
-
-    Event OnaccountSummaryEnd(tws As Tws, p2 As Object)
-
-    Event OncommissionReport(tws As Tws, p2 As Object)
-
-    Event OncontractDetailsEx(tws As Tws, p2 As Object)
-
-    Event OncontractDetailsEnd(tws As Tws, p2 As Object)
-
-    Event OncurrentTime(tws As Tws, p2 As Object)
-
-    Event OndeltaNeutralValidation(tws As Tws, p2 As Object)
-
-    Event OndisplayGroupList(tws As Tws, p2 As Object)
-
-    Event OndisplayGroupUpdated(tws As Tws, p2 As Object)
-
-    Event OnexecDetailsEx(tws As Tws, p2 As Object)
-
-    Event OnexecDetailsEnd(tws As Tws, p2 As Object)
-
-    Event OnfundamentalData(tws As Tws, p2 As Object)
-
-    Event OnmanagedAccounts(tws As Tws, p2 As Object)
-
-    Event OnmarketDataType(tws As Tws, p2 As Object)
-
-    Event OnopenOrderEx(tws As Tws, p2 As Object)
-
-    Event OnorderStatus(tws As Tws, p2 As Object)
-
-    Event Onposition(tws As Tws, p2 As Object)
-
-    Event OnrealtimeBar(tws As Tws, p2 As Object)
-
-    Event OnreceiveFA(tws As Tws, p2 As Object)
-
-    Event OnscannerDataEx(tws As Tws, p2 As Object)
-
-    Event OnscannerDataEnd(tws As Tws, p2 As Object)
-
-    Event OnscannerParameters(tws As Tws, p2 As Object)
-
-    Event OntickSnapshotEnd(tws As Tws, p2 As Object)
-
-    Event OnupdateAccountTime(tws As Tws, p2 As Object)
-
-    Event OnupdateAccountValue(tws As Tws, p2 As Object)
-
-    Event OnupdateNewsBulletin(tws As Tws, p2 As Object)
-
-    Event OnupdatePortfolioEx(tws As Tws, p2 As Object)
-
-    Event OnverifyCompleted(tws As Tws, p2 As Object)
-
-    Event OnverifyMessageAPI(tws As Tws, p2 As Object)
-
-    Event OnverifyAndAuthCompleted(tws As Tws, p2 As Object)
-
-    Event OnverifyAndAuthMessageAPI(tws As Tws, p2 As Object)
-
-    Event OnHistoricalData(tws As Tws, p2 As Object)
-
-    Event OnHistoricalDataEnd(tws As Tws, p2 As Object)
-
+    Event OnaccountDownloadEnd(tws As Tws, DTwsEvents_accountDownloadEndEvent As AxTWSLib._DTwsEvents_accountDownloadEndEvent)
+    Event OnaccountSummary(tws As Tws, DTwsEvents_accountSummaryEvent As AxTWSLib._DTwsEvents_accountSummaryEvent)
+    Event OnaccountSummaryEnd(tws As Tws, DTwsEvents_accountSummaryEndEvent As AxTWSLib._DTwsEvents_accountSummaryEndEvent)
+    Event OncommissionReport(tws As Tws, DTwsEvents_commissionReportEvent As AxTWSLib._DTwsEvents_commissionReportEvent)
+    Event OncontractDetailsEx(tws As Tws, DTwsEvents_contractDetailsExEvent As AxTWSLib._DTwsEvents_contractDetailsExEvent)
+    Event OncontractDetailsEnd(tws As Tws, DTwsEvents_contractDetailsEndEvent As AxTWSLib._DTwsEvents_contractDetailsEndEvent)
+    Event OncurrentTime(tws As Tws, DTwsEvents_currentTimeEvent As AxTWSLib._DTwsEvents_currentTimeEvent)
+    Event OnaccountUpdateMulti(tws As Tws, DTwsEvents_accountUpdateMultiEvent As AxTWSLib._DTwsEvents_accountUpdateMultiEvent)
+    Event OnaccountUpdateMultiEnd(tws As Tws, DTwsEvents_accountUpdateMultiEndEvent As AxTWSLib._DTwsEvents_accountUpdateMultiEndEvent)
+    Event OndeltaNeutralValidation(tws As Tws, DTwsEvents_deltaNeutralValidationEvent As AxTWSLib._DTwsEvents_deltaNeutralValidationEvent)
+    Event OndisplayGroupList(tws As Tws, DTwsEvents_displayGroupListEvent As AxTWSLib._DTwsEvents_displayGroupListEvent)
+    Event OndisplayGroupUpdated(tws As Tws, DTwsEvents_displayGroupUpdatedEvent As AxTWSLib._DTwsEvents_displayGroupUpdatedEvent)
+    Event OnexecDetailsEnd(tws As Tws, DTwsEvents_execDetailsEndEvent As AxTWSLib._DTwsEvents_execDetailsEndEvent)
+    Event OnexecDetailsEx(tws As Tws, DTwsEvents_execDetailsExEvent As AxTWSLib._DTwsEvents_execDetailsExEvent)
+    Event OnfundamentalData(tws As Tws, DTwsEvents_fundamentalDataEvent As AxTWSLib._DTwsEvents_fundamentalDataEvent)
+    Event OnHistoricalData(tws As Tws, DTwsEvents_historicalDataEvent As AxTWSLib._DTwsEvents_historicalDataEvent)
+    Event OnHistoricalDataEnd(tws As Tws, DTwsEvents_historicalDataEnd As AxTWSLib._DTwsEvents_historicalDataEnd)
+    Event OnmanagedAccounts(tws As Tws, DTwsEvents_managedAccountsEvent As AxTWSLib._DTwsEvents_managedAccountsEvent)
+    Event OnmarketDataType(tws As Tws, DTwsEvents_marketDataTypeEvent As AxTWSLib._DTwsEvents_marketDataTypeEvent)
     Event OnopenOrderEnd(tws As Tws, Empty As EventArgs)
-
+    Event OnopenOrderEx(tws As Tws, DTwsEvents_openOrderExEvent As AxTWSLib._DTwsEvents_openOrderExEvent)
+    Event OnorderStatus(tws As Tws, DTwsEvents_orderStatusEvent As AxTWSLib._DTwsEvents_orderStatusEvent)
+    Event Onposition(tws As Tws, DTwsEvents_positionEvent As AxTWSLib._DTwsEvents_positionEvent)
     Event OnpositionEnd(tws As Tws, Empty As EventArgs)
+    Event OnpositionMulti(tws As Tws, DTwsEvents_positionMultiEvent As AxTWSLib._DTwsEvents_positionMultiEvent)
+    Event OnpositionMultiEnd(tws As Tws, DTwsEvents_positionMultiEndEvent As AxTWSLib._DTwsEvents_positionMultiEndEvent)
+    Event OnrealtimeBar(tws As Tws, DTwsEvents_realtimeBarEvent As AxTWSLib._DTwsEvents_realtimeBarEvent)
+    Event OnreceiveFA(tws As Tws, DTwsEvents_receiveFAEvent As AxTWSLib._DTwsEvents_receiveFAEvent)
+    Event OnscannerDataEnd(tws As Tws, DTwsEvents_scannerDataEndEvent As AxTWSLib._DTwsEvents_scannerDataEndEvent)
+    Event OnscannerDataEx(tws As Tws, DTwsEvents_scannerDataExEvent As AxTWSLib._DTwsEvents_scannerDataExEvent)
+    Event OnscannerParameters(tws As Tws, DTwsEvents_scannerParametersEvent As AxTWSLib._DTwsEvents_scannerParametersEvent)
+    Event OnSecurityDefinitionOptionParameter(tws As Tws, DTWsEvents_securityDefinitionOptionParameterEvent As AxTWSLib._DTWsEvents_securityDefinitionOptionParameterEvent)
+    Event OnSecurityDefinitionOptionParameterEnd(tws As Tws, DTwsEvents_securityDefinitionOptionParameterEnd As AxTWSLib._DTwsEvents_securityDefinitionOptionParameterEnd)
+    Event OntickSnapshotEnd(tws As Tws, DTwsEvents_tickSnapshotEndEvent As AxTWSLib._DTwsEvents_tickSnapshotEndEvent)
+    Event OnupdateAccountTime(tws As Tws, DTwsEvents_updateAccountTimeEvent As AxTWSLib._DTwsEvents_updateAccountTimeEvent)
+    Event OnupdateAccountValue(tws As Tws, DTwsEvents_updateAccountValueEvent As AxTWSLib._DTwsEvents_updateAccountValueEvent)
+    Event OnUpdateMktDepthL2(tws As Tws, DTwsEvents_updateMktDepthL2Event As AxTWSLib._DTwsEvents_updateMktDepthL2Event)
+    Event OnupdateNewsBulletin(tws As Tws, DTwsEvents_updateNewsBulletinEvent As AxTWSLib._DTwsEvents_updateNewsBulletinEvent)
+    Event OnupdatePortfolioEx(tws As Tws, DTwsEvents_updatePortfolioExEvent As AxTWSLib._DTwsEvents_updatePortfolioExEvent)
+    Event OnverifyCompleted(tws As Tws, DTwsEvents_verifyCompletedEvent As AxTWSLib._DTwsEvents_verifyCompletedEvent)
+    Event OnverifyMessageAPI(tws As Tws, DTwsEvents_verifyMessageAPIEvent As AxTWSLib._DTwsEvents_verifyMessageAPIEvent)
+    Event OnverifyAndAuthCompleted(tws As Tws, DTwsEvents_verifyAndAuthCompletedEvent As AxTWSLib._DTwsEvents_verifyAndAuthCompletedEvent)
+    Event OnverifyAndAuthMessageAPI(tws As Tws, DTwsEvents_verifyAndAuthMessageAPIEvent As AxTWSLib._DTwsEvents_verifyAndAuthMessageAPIEvent)
 
-    Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
 
-    End Sub
 End Class

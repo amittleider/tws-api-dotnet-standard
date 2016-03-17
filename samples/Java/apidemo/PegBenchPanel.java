@@ -8,7 +8,6 @@ import com.ib.client.OrderCondition;
 
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
 
 public class PegBenchPanel extends OnOKPanel {
 	/**

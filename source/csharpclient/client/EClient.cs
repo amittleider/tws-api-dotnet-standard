@@ -740,6 +740,12 @@ namespace IBApi
                 paramsList.AddParameter(order.FaPercentage);
                 paramsList.AddParameter(order.FaProfile);
             }
+
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
+            {
+                paramsList.AddParameter(order.ModelCode);
+            }
+
             if (serverVersion >= 18)
             { // institutional short sale slot fields.
                 paramsList.AddParameter(order.ShortSaleSlot);      // 0 only for retail, 1 or 2 only for institution.
@@ -985,10 +991,7 @@ namespace IBApi
                }
         	   
         	   paramsList.AddParameter(order.AdjustedOrderType);
-        	   paramsList.AddParameter(order.StopPrice);
         	   paramsList.AddParameter(order.TriggerPrice);
-        	   paramsList.AddParameter(order.TrailingAmount);
-        	   paramsList.AddParameter(order.TrailingUnit);
         	   paramsList.AddParameter(order.LmtPriceOffset);
         	   paramsList.AddParameter(order.AdjustedStopPrice);
         	   paramsList.AddParameter(order.AdjustedStopLimitPrice);
@@ -1678,9 +1681,9 @@ namespace IBApi
         }
 
         /**
-         * @brief indicates the TWS to switch to "frozen" market data.
+         * @brief indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data.
          * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.
-         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data.
+         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data.
          */
         public void reqMarketDataType(int marketDataType)
         {
@@ -2118,6 +2121,124 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+        }
+
+        /**
+         * @brief Requests positions for account and/or model
+         * @sa cancelPositionsMulti, EWrapper::positionMulti, EWrapper::positionMultiEnd
+         */
+        public void reqPositionsMulti(int requestId, string account, string modelCode)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support positions multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Cancels positions request for account and/or model
+         * @sa reqPositionsMulti
+         */
+        public void cancelPositionsMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support positions multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Requests account updates for account and/or model
+         * @sa cancelAcountUpdatesMulti, EWrapper::accountUpdateMulti, EWrapper::accountUpdateMultiEnd
+         */
+        public void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support account updates multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            paramsList.AddParameter(ledgerAndNLV);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTUPDATESMULTI);
+        }
+
+        /**
+         * @brief Cancels account updates request for account and/or model
+         * @sa reqAccountUpdatesMulti
+         */
+        public void cancelAccountUpdatesMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support account updates multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANACCOUNTUPDATESMULTI);
+        }
+
+        /**
+         * @brief Requests security definition option parameters
+         * @sa EWrapper::secDefOptParams, EWrapper::secDefOptParamsEnd
+         */
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.SEC_DEF_OPT_PARAMS_REQ,
+                " It does not support security definition option parameters."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestSecurityDefinitionOptionalParameters);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(underlyingSymbol);
+            paramsList.AddParameter(futFopExchange);
+            paramsList.AddParameter(underlyingSecType);
+            paramsList.AddParameter(underlyingConId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

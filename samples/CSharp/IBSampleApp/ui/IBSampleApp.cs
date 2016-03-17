@@ -33,6 +33,7 @@ namespace IBSampleApp
         private ContractManager contractManager;
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
+        private AcctPosMultiManager acctPosMultiManager;
 
         protected IBClient ibClient;
 
@@ -59,8 +60,8 @@ namespace IBSampleApp
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
-            optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid);
-
+            optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
+            acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -145,6 +146,13 @@ namespace IBSampleApp
             ibClient.VerifyAndAuthCompleted += (isSuccessful, errorText) => addTextToBox("verifyAndAuthCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
             ibClient.DisplayGroupList += (reqId, groups) => addTextToBox("DisplayGroupList. Request: " + reqId + ", Groups" + groups);
             ibClient.DisplayGroupUpdated += (reqId, contractInfo) => addTextToBox("displayGroupUpdated. Request: " + reqId + ", ContractInfo: " + contractInfo);
+
+            ibClient.PositionMulti += (reqId, account, modelCode, contract, pos, avgCost) => HandleMessage(new PositionMultiMessage(reqId, account, modelCode, contract, pos, avgCost));
+            ibClient.PositionMultiEnd += (reqId) => HandleMessage(new PositionMultiEndMessage(reqId));
+            ibClient.AccountUpdateMulti += (reqId, account, modelCode, key, value, currency) => HandleMessage(new AccountUpdateMultiMessage(reqId, account, modelCode, key, value, currency));
+            ibClient.AccountUpdateMultiEnd += (reqId) => HandleMessage(new AccountUpdateMultiEndMessage(reqId));
+            ibClient.SecurityDefinitionOptionParameter += (reqId, underlyingConId, tradingClass, multiplier, expirations, strikes) => HandleMessage(new SecurityDefinitionOptionParameterMessage(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes));
+            ibClient.SecurityDefinitionOptionParameterEnd += (reqId) => HandleMessage(new SecurityDefinitionOptionParameterEndMessage(reqId));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -341,6 +349,35 @@ namespace IBSampleApp
                         advisorManager.UpdateUI((AdvisorDataMessage)message);
                         break;
                     }
+                case MessageType.PositionMulti:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.AccountUpdateMulti:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.PositionMultiEnd:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.AccountUpdateMultiEnd:
+                    {
+                        acctPosMultiManager.UpdateUI(message);
+                        break;
+                    }
+
+                case MessageType.SecurityDefinitionOptionParameter:
+                case MessageType.SecurityDefinitionOptionParameterEnd:
+                    {
+                        optionsManager.UpdateUI(message);
+                        break;
+                    }
+
+
                 default:
                     {
                         HandleMessage(new ErrorMessage(-1, -1, message.ToString()));
@@ -825,6 +862,52 @@ namespace IBSampleApp
         private void optionsTab_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonRequestPositionsMulti_Click(object sender, EventArgs e)
+        {
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            acctPosMultiManager.RequestPositionsMulti(account, modelCode);
+        }
+
+        private void buttonRequestAccountUpdatesMulti_Click(object sender, EventArgs e)
+        {
+            string account = this.textAccount.Text;
+            string modelCode = this.textModelCode.Text;
+            Boolean ledgerAndNLV = this.cbLedgerAndNLV.Checked;
+            acctPosMultiManager.RequestAccountUpdatesMulti(account, modelCode, ledgerAndNLV);
+        }
+
+        private void buttonCancelPositionsMulti_Click(object sender, EventArgs e)
+        {
+            acctPosMultiManager.CancelPositionsMulti();
+        }
+
+        private void buttonCancelAccountUpdatesMulti_Click(object sender, EventArgs e)
+        {
+            acctPosMultiManager.CancelAccountUpdatesMulti();
+        }
+
+        private void clearPositionsMulti_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            acctPosMultiManager.ClearPositionsMulti();
+        }
+
+        private void clearAccountUpdatesMulti_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            acctPosMultiManager.ClearAccountUpdatesMulti();
+        }
+
+        private void queryOptionParams_Click(object sender, EventArgs e)
+        {
+            string symbol = conDetSymbol.Text;
+            string exchange = conDetExchange.Text;
+            string secType = conDetSecType.SelectedItem + "";
+            int conId = string.IsNullOrWhiteSpace(underlyingConId.Text) ? int.MaxValue : int.Parse(underlyingConId.Text);
+
+            optionsManager.SecurityDefinitionOptionParametersRequest(symbol, exchange, secType, conId);
+            ShowTab(contractInfoTab, optionParametersPage);
         }
         
     }

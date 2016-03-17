@@ -12,14 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import com.ib.client.Contract;
+import com.ib.controller.ApiController.IPositionHandler;
+import com.ib.controller.Formats;
+
 import apidemo.AccountInfoPanel.Table;
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.VerticalPanel;
-
-import com.ib.client.Contract;
-import com.ib.controller.ApiController.IPositionHandler;
-import com.ib.controller.Formats;
 
 
 public class PositionsPanel extends NewTabPanel {

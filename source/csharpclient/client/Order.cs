@@ -168,6 +168,7 @@ namespace IBApi
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
         private List<TagValue> orderMiscOptions = new List<TagValue>();
         private bool solicited;
+        private string modelCode;
 
         /**
          * @brief The API client's order id.
@@ -1108,6 +1109,15 @@ namespace IBApi
             set { scaleTable = value; }
         }
 
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return modelCode; }
+            set { modelCode = value; }
+        }
+
         public Order()
         {
             lmtPrice = Double.MaxValue;
@@ -1160,9 +1170,7 @@ namespace IBApi
             whatIf = false;
             notHeld = false;
             Conditions = new List<OrderCondition>();
-            StopPrice = double.MaxValue;
             TriggerPrice = double.MaxValue;
-            TrailingAmount = double.MaxValue;
             LmtPriceOffset = double.MaxValue;
             AdjustedStopPrice = double.MaxValue;
             AdjustedStopLimitPrice = double.MaxValue;
@@ -1280,7 +1288,8 @@ namespace IBApi
                 Util.StringCompare(ClearingIntent, l_theOther.ClearingIntent) != 0 ||
                 Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
                 Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
-                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0)
+                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0 ||
+                Util.StringCompare(ModelCode, l_theOther.ModelCode) != 0)
             {
                 return false;
             }
@@ -1316,13 +1325,7 @@ namespace IBApi
 
         public string AdjustedOrderType { get; set; }
 
-        public double StopPrice { get; set; }
-
         public double TriggerPrice { get; set; }
-
-        public double TrailingAmount { get; set; }
-
-        public int TrailingUnit { get; set; }
 
         public double LmtPriceOffset { get; set; }
 

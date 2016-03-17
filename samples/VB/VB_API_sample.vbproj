@@ -116,6 +116,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dlgSecDefOptParamsReq.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dlgAdjustStop.Designer.vb">
       <DependentUpon>dlgAdjustStop.vb</DependentUpon>
     </Compile>
@@ -152,9 +155,14 @@
     <Compile Include="dlgSmartComboRoutingParams.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="dlgPositions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_DTwsEvents_accountDownloadEndEvent.vb" />
     <Compile Include="_DTwsEvents_accountSummaryEndEvent.vb" />
     <Compile Include="_DTwsEvents_accountSummaryEvent.vb" />
+    <Compile Include="_DTwsEvents_accountUpdateMultiEndEvent.vb" />
+    <Compile Include="_DTwsEvents_accountUpdateMultiEvent.vb" />
     <Compile Include="_DTwsEvents_commissionReportEvent.vb" />
     <Compile Include="_DTwsEvents_contractDetailsEndEvent.vb" />
     <Compile Include="_DTwsEvents_contractDetailsExEvent.vb" />
@@ -174,11 +182,15 @@
     <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
     <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
     <Compile Include="_DTwsEvents_positionEvent.vb" />
+    <Compile Include="_DTwsEvents_positionMultiEndEvent.vb" />
+    <Compile Include="_DTwsEvents_positionMultiEvent.vb" />
     <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
     <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
     <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
     <Compile Include="_DTwsEvents_scannerDataExEvent.vb" />
     <Compile Include="_DTwsEvents_scannerParametersEvent.vb" />
+    <Compile Include="_DTwsEvents_securityDefinitionOptionParameterEnd.vb" />
+    <Compile Include="_DTWsEvents_securityDefinitionOptionParameterEvent.vb" />
     <Compile Include="_DTwsEvents_tickEFPEvent.vb" />
     <Compile Include="_DTwsEvents_tickGenericEvent.vb" />
     <Compile Include="_DTwsEvents_tickOptionComputationEvent.vb" />
@@ -264,6 +276,14 @@
     <Compile Include="VB_API_sample.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="dlgSecDefOptParamsReq.resX">
+      <DependentUpon>dlgSecDefOptParamsReq.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgPositions.resX">
+      <DependentUpon>dlgPositions.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgAccountSummary.resX">
       <DependentUpon>dlgAccountSummary.vb</DependentUpon>
       <SubType>Designer</SubType>

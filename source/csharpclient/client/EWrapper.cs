@@ -313,9 +313,9 @@ namespace IBApi
        void historicalDataEnd(int reqId, string start, string end);
 
        /**
-        * @brief Returns the current market data type (frozen or real time streamed)
+        * @brief Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen)
         * @param reqId the request's identifier
-        * @param marketDataType 1 for real time, 2 for frozen
+        * @param marketDataType 1 for real time, 2 for frozen, 3 for delayed, 4 for delayed-frozen
         * @sa EClientSocket::reqMarketDataType
         */
         void marketDataType(int reqId, int marketDataType);
@@ -440,5 +440,45 @@ namespace IBApi
         void displayGroupList(int reqId, string groups);
         void displayGroupUpdated(int reqId, string contractInfo);
         void connectAck();
+
+        /**
+         * @brief provides the portfolio's open positions.
+         * @param requestId the id of request
+         * @param account the account holding the position.
+         * @param modelCode the model code holding the position.
+         * @param contract the position's Contract
+         * @param pos the number of positions held.
+         * @Param avgCost the average cost of the position.
+         * @sa positionMultiEnd, EClientSocket::reqPositionsMulti
+         */
+        void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost);
+
+        /**
+         * @brief Indicates all the positions have been transmitted.
+         * @sa positionMulti, reqPositionsMulti
+         */
+        void positionMultiEnd(int requestId);
+
+        /**
+         * @brief provides the account updates.
+         * @param requestId the id of request
+         * @param account the account with updates
+         * @param modelCode the model code with updates
+         * @param key the name of parameter
+         * @param value the value of parameter
+         * @param currency the currency of parameter
+         * @sa accountUpdateMultiEnd, EClientSocket::reqAccountUpdatesMulti
+         */
+        void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
+
+        /**
+         * @brief Indicates all the account updates have been transmitted
+         * @sa accountUpdateMulti, reqAccountUpdatesMulti
+         */
+        void accountUpdateMultiEnd(int requestId);
+
+
+        void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
+        void securityDefinitionOptionParameterEnd(int reqId);
     }
 }

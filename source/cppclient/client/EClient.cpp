@@ -168,6 +168,11 @@ const int UNSUBSCRIBE_FROM_GROUP_EVENTS = 70;
 const int START_API                     = 71;
 const int VERIFY_AND_AUTH_REQUEST       = 72;
 const int VERIFY_AND_AUTH_MESSAGE       = 73;
+const int REQ_POSITIONS_MULTI           = 74;
+const int CANCEL_POSITIONS_MULTI        = 75;
+const int REQ_ACCOUNT_UPDATES_MULTI     = 76;
+const int CANCEL_ACCOUNT_UPDATES_MULTI  = 77;
+const int REQ_SEC_DEF_OPT_PARAMS		= 78;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -1486,6 +1491,14 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		if( !order.modelCode.empty()) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support model code parameter.");
+			return;
+		}
+	}
+
 	std::stringstream msg;
 	prepareBuffer( msg);
 
@@ -1644,6 +1657,10 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	ENCODE_FIELD( order.faMethod); // srv v13 and above
 	ENCODE_FIELD( order.faPercentage); // srv v13 and above
 	ENCODE_FIELD( order.faProfile); // srv v13 and above
+
+	if (m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT) {
+		ENCODE_FIELD( order.modelCode);
+	}
 
 	// institutional short saleslot data (srv v18 and above)
 	ENCODE_FIELD( order.shortSaleSlot);      // 0 for retail, 1 or 2 for institutions
@@ -1859,10 +1876,7 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 
 		ENCODE_FIELD(order.adjustedOrderType);
-		ENCODE_FIELD(order.stopPrice);
 		ENCODE_FIELD(order.triggerPrice);
-		ENCODE_FIELD(order.trailingAmount);
-		ENCODE_FIELD(order.trailingUnit);
 		ENCODE_FIELD(order.lmtPriceOffset);
 		ENCODE_FIELD(order.adjustedStopPrice);
 		ENCODE_FIELD(order.adjustedStopLimitPrice);
@@ -2656,6 +2670,143 @@ void EClient::unsubscribeFromGroupEvents( int reqId)
 	ENCODE_FIELD( reqId);
 
 	closeAndSend( msg.str());
+}
+
+void EClient::reqPositionsMulti( int reqId, const std::string& account, const std::string& modelCode)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support positions multi request.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( REQ_POSITIONS_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+	ENCODE_FIELD( account);
+	ENCODE_FIELD( modelCode);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::cancelPositionsMulti( int reqId)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support positions multi cancellation.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( CANCEL_POSITIONS_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support account updates multi request.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( REQ_ACCOUNT_UPDATES_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+	ENCODE_FIELD( account);
+	ENCODE_FIELD( modelCode);
+	ENCODE_FIELD( ledgerAndNLV);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::cancelAccountUpdatesMulti( int reqId)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support account updates multi cancellation.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( CANCEL_ACCOUNT_UPDATES_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId)
+{
+		// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support security definiton option requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+
+	ENCODE_FIELD(REQ_SEC_DEF_OPT_PARAMS);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(underlyingSymbol); 
+    ENCODE_FIELD(futFopExchange);
+    ENCODE_FIELD(underlyingSecType);
+    ENCODE_FIELD(underlyingConId);
+
+	closeAndSend(msg.str());
 }
 
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)

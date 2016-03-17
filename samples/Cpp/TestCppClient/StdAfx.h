@@ -4,3 +4,9 @@
 #pragma once
 
 #include "client/StdAfx.h"
+
+#ifndef TWSAPIDLL
+#ifndef TWSAPIDLLEXP
+#define TWSAPIDLLEXP __declspec(dllimport)
+#endif
+#endif

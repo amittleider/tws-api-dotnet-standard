@@ -10,7 +10,7 @@ std::string ContractCondition::toString() {
 }
 
 const char* ContractCondition::readExternal(const char* ptr, const char* endPtr) {
-	if (!OperatorCondition::readExternal(ptr, endPtr))\
+	if (!(ptr = OperatorCondition::readExternal(ptr, endPtr)))
 		return 0;
 
 	DECODE_FIELD(m_conId);

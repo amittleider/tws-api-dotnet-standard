@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -57,6 +59,12 @@ class EDecoder implements ObjectInput {
     static final int DISPLAY_GROUP_UPDATED = 68;
     static final int VERIFY_AND_AUTH_MESSAGE_API = 69;
     static final int VERIFY_AND_AUTH_COMPLETED = 70;
+    static final int POSITION_MULTI = 71;
+    static final int POSITION_MULTI_END = 72;
+    static final int ACCOUNT_UPDATE_MULTI = 73;
+    static final int ACCOUNT_UPDATE_MULTI_END = 74;
+    static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
+    static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -327,6 +335,30 @@ class EDecoder implements ObjectInput {
                 processVerifyAndAuthCompletedMsg();
                 break;
             }
+            case POSITION_MULTI: {
+                processPositionMultiMsg();
+                break;
+            }
+            case POSITION_MULTI_END: {
+                processPositionMultiEndMsg();
+                break;
+            }
+            case ACCOUNT_UPDATE_MULTI: {
+                processAccountUpdateMultiMsg();
+                break;
+            }
+            case ACCOUNT_UPDATE_MULTI_END: {
+                processAccountUpdateMultiEndMsg();
+                break;
+            }
+            
+            case SECURITY_DEFINITION_OPTION_PARAMETER:
+            	processSecurityDefinitionOptionalParameter();
+            	break;
+            	
+            case SECURITY_DEFINITION_OPTION_PARAMETER_END:
+            	processSecurityDefinitionOptionalParameterEnd();
+            	break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -337,6 +369,35 @@ class EDecoder implements ObjectInput {
         m_messageReader.close();
         return m_messageReader.msgLength();
     }
+
+	private void processSecurityDefinitionOptionalParameterEnd() throws IOException {
+		int reqId = readInt();
+		
+		m_EWrapper.securityDefinitionOptionalParameterEnd(reqId);
+	}
+
+	private void processSecurityDefinitionOptionalParameter() throws IOException {
+		int reqId = readInt();	
+		String exchange = readStr();
+		int underlyingConId = readInt();
+		String tradingClass = readStr();
+		String multiplier = readStr();
+		int expirationsSize = readInt();
+		Set<String> expirations = new HashSet<String>();
+		Set<Double> strikes = new HashSet<Double>();
+		
+		for (int i = 0; i < expirationsSize; i++) {
+			expirations.add(readStr());
+		}
+		
+		int strikesSize = readInt();
+		
+		for (int i = 0; i < strikesSize; i++) {
+			strikes.add(readDouble());
+		}
+		
+		m_EWrapper.securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
+	}
 
 	private void processVerifyAndAuthCompletedMsg() throws IOException {
 		/*int version =*/ readInt();
@@ -631,6 +692,9 @@ class EDecoder implements ObjectInput {
 		    exec.evRule(readStr());
 		    exec.evMultiplier(readDouble());
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
+			exec.modelCode(readStr());
+		}
 
 		m_EWrapper.execDetails( reqId, contract, exec);
 	}
@@ -888,6 +952,10 @@ class EDecoder implements ObjectInput {
 		    order.faProfile(readStr());
 		}
 
+		if ( m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
+			order.modelCode(readStr());
+		}
+
 		if ( version >= 8 ) {
 		    order.goodTillDate(readStr());
 		}
@@ -1142,10 +1210,8 @@ class EDecoder implements ObjectInput {
 			}
 						
 			order.adjustedOrderType(OrderType.get(readStr()));
-			order.stopPrice(readDoubleMax());
 			order.triggerPrice(readDoubleMax());
-			order.trailingAmount(readDoubleMax());
-			order.trailingUnit(readInt());
+			order.trailStopPrice(readDoubleMax());
 			order.lmtPriceOffset(readDoubleMax());
 			order.adjustedStopPrice(readDoubleMax());
 			order.adjustedStopLimitPrice(readDoubleMax());
@@ -1154,12 +1220,6 @@ class EDecoder implements ObjectInput {
 		}
 
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);
-	}
-
-	private void foo(String connector, int conditionType, String secType,
-			String operator, String val) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void processErrMsgMsg() throws IOException {
@@ -1452,6 +1512,56 @@ class EDecoder implements ObjectInput {
 		    }
 		}
 	}
+    
+    private void processPositionMultiMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+        String account = readStr();
+
+        Contract contract = new Contract();
+        contract.conid(readInt());
+        contract.symbol(readStr());
+        contract.secType(readStr());
+        contract.lastTradeDateOrContractMonth(readStr());
+        contract.strike(readDouble());
+        contract.right(readStr());
+        contract.multiplier(readStr());
+        contract.exchange(readStr());
+        contract.currency(readStr());
+        contract.localSymbol(readStr());
+        contract.tradingClass(readStr());
+        double pos = readDouble();
+        double avgCost = readDouble();
+        String modelCode = readStr();
+
+        m_EWrapper.positionMulti( reqId, account, modelCode, contract, pos, avgCost);
+    }
+
+    private void processPositionMultiEndMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+
+        m_EWrapper.positionMultiEnd( reqId);
+    }
+
+    private void processAccountUpdateMultiMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+        String account = readStr();
+        String modelCode = readStr();
+        String key = readStr();
+        String value = readStr();
+        String currency = readStr();
+
+        m_EWrapper.accountUpdateMulti( reqId, account, modelCode, key, value, currency);
+    }
+
+    private void processAccountUpdateMultiEndMsg() throws IOException {
+        int version = readInt();
+        int reqId = readInt();
+
+        m_EWrapper.accountUpdateMultiEnd( reqId);
+    }
     
     protected String readStr() throws IOException {
     	return m_messageReader.readStr();

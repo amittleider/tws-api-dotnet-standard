@@ -8,13 +8,13 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.Types.Right;
 import com.ib.client.Types.SecType;
+
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.VerticalPanel;
 
 public class ContractPanel extends JPanel {
 	protected UpperField m_symbol = new UpperField();

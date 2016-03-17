@@ -1,7 +1,7 @@
 #pragma once
 #include "ContractCondition.h"
 
-class VolumeCondition : public ContractCondition {
+class TWSAPIDLLEXP VolumeCondition : public ContractCondition {
 	friend OrderCondition;
 
 	int m_volume;

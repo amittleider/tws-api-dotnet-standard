@@ -301,6 +301,14 @@ namespace TWSLib
         void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey);
         [DispId(122)]
         void verifyAndAuthMessage(string apiData, string xyzResponse);
+        [DispId(123)]
+        void reqPositionsMulti(int requestId, string account, string modelCode);
+        [DispId(124)]
+        void cancelPositionsMulti(int requestId);
+        [DispId(125)]
+        void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV);
+        [DispId(126)]
+        void cancelAccountUpdatesMulti(int requestId);
         [DispId(200)]
         IContract createContract();
         [DispId(201)]
@@ -327,6 +335,9 @@ namespace TWSLib
         ArrayList ParseConditions(string str);
         [DispId(212)]
         string ConditionsToString([MarshalAs(UnmanagedType.IDispatch)] object oConditions);
+        [DispId(213)]
+        void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId);
+
         #endregion
     }
 }

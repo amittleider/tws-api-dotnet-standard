@@ -19,6 +19,15 @@ namespace TWSLib
     [ComVisible(true)]
     public class ComOrder : ComWrapper<Order>, TWSLib.IOrder
     {        
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return data != null ? data.ModelCode : default(string); }
+            set { if (data != null) data.ModelCode = value; }
+        }
+
         public override bool Equals(Object p_other)
         {
             if (!(p_other is ComOrder))
@@ -312,13 +321,7 @@ namespace TWSLib
 
         string TWSLib.IOrder.adjustedOrderType { get { return data.AdjustedOrderType; } set { data.AdjustedOrderType = value; } }
 
-        double TWSLib.IOrder.stopPrice { get { return data.StopPrice; } set { data.StopPrice = value; } }
-
         double TWSLib.IOrder.triggerPrice { get { return data.TriggerPrice; } set { data.TriggerPrice = value; } }
-
-        double TWSLib.IOrder.trailingAmount { get { return data.TrailingAmount; } set { data.TrailingAmount = value; } }
-
-        int TWSLib.IOrder.trailingUnit { get { return data.TrailingUnit; } set { data.TrailingUnit = value; } }
 
         double TWSLib.IOrder.lmtPriceOffset { get { return data.LmtPriceOffset; } set { data.LmtPriceOffset = value; } }
 
@@ -343,5 +346,7 @@ namespace TWSLib
         {
             return co.ConvertTo();
         }
+
+        string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
     }
 }

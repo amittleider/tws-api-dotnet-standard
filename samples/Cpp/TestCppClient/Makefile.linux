@@ -1,16 +1,12 @@
 CXX=g++
-CXXFLAGS=-Wall -Wno-switch
+CXXFLAGS=-pthread -Wall -Wno-switch -std=c++11
 ROOT_DIR=../../../source/cppclient
-BASE_SRC_DIR=${ROOT_DIR}/src
-INCLUDES=-I${ROOT_DIR} -I${ROOT_DIR}/Shared/ -I${BASE_SRC_DIR}
+BASE_SRC_DIR=${ROOT_DIR}/client
+INCLUDES=-I${BASE_SRC_DIR} -I${ROOT_DIR}
 TARGET=TestCppClient
 
 $(TARGET):
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o EClientSocketBase.o -c $(BASE_SRC_DIR)/EClientSocketBase.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o EPosixClientSocket.o -c $(BASE_SRC_DIR)/EPosixClientSocket.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o TestCppClient.o -c TestCppClient.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o Main.o -c Main.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ EClientSocketBase.o EPosixClientSocket.o TestCppClient.o Main.o
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(BASE_SRC_DIR)/*.cpp ./*.cpp -o$(TARGET)
 
 clean:
 	rm -f $(TARGET) *.o

@@ -3,6 +3,8 @@
 
 package com.ib.client;
 
+import java.util.Set;
+
 class DefaultEWrapper implements EWrapper {
 
 	@Override
@@ -325,5 +327,43 @@ class DefaultEWrapper implements EWrapper {
 	public void connectAck() {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+	
+	@Override
+	public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void positionMultiEnd( int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accountUpdateMultiEnd( int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

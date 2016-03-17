@@ -11,14 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.TCombo;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.ContractLookuper;
 import com.ib.client.Order;
 import com.ib.client.OrderCondition;
 import com.ib.client.OrderConditionType;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.TCombo;
 
 public class ConditionsPanel extends OnOKPanel {
 	/**

@@ -16,6 +16,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <ostream>
 
 const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
@@ -150,6 +151,8 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
             
     if (!m_asyncEConnect) {
         EReader reader(this, m_pSignal);
+
+		reader.putMessageToQueue();
 
         while (m_pSignal && !m_serverVersion && isSocketOK()) {
             reader.checkClient();

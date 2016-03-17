@@ -6,6 +6,7 @@ package com.ib.client;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
@@ -145,6 +146,7 @@ public class EWrapperMsgGenerator {
         " hedgeType=" + order.getHedgeType() +
         " hedgeParam=" + order.hedgeParam() +
         " account=" + order.account() +
+        " modelCode = " + order.modelCode() +
         " settlingFirm=" + order.settlingFirm() +
         " clearingAccount=" + order.clearingAccount() +
         " clearingIntent=" + order.clearingIntent() +
@@ -394,6 +396,7 @@ public class EWrapperMsgGenerator {
         + "orderRef = " + execution.orderRef() + "\n"
         + "evRule = " + execution.evRule() + "\n"
         + "evMultiplier = " + execution.evMultiplier() + "\n"
+        + "modelCode = " + execution.modelCode() + "\n"
         + " ---- Execution Details end ----\n";
         return msg;
     }
@@ -542,6 +545,52 @@ public class EWrapperMsgGenerator {
     static public String accountSummaryEnd( int reqId) {
     	return "id=" + reqId + " =============== end ===============";
     }
+
+    static public String positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+        String msg = " ---- Position begin ----\n"
+        + "id = " + reqId + "\n"
+        + "account = " + account + "\n"
+        + "modelCode = " + modelCode + "\n"
+        + contractMsg(contract)
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
+        + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
+        + " ---- Position end ----\n";
+        return msg;
+    }    
+
+    static public String positionMultiEnd( int reqId) {
+        return "id = " + reqId + " =============== end ===============";
+    }
+
+    static public String accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+        String msg = " id = " + reqId + " account = " + account + " modelCode = " + modelCode + 
+        		" key = " + key + " value = " + value + " currency = " + currency;
+        return msg;
+    }
+
+    static public String accountUpdateMultiEnd( int reqId) {
+    	return "id = " + reqId + " =============== end ===============";
+    }    
+
+	public static String securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		String expirationsStr = "";
+		
+		for (String expiration : expirations) {
+			expirationsStr += expiration + ", ";			
+		}
+		
+		String strikesStr = "";
+		
+		for (Double strike : strikes) {
+			strikesStr += strike + ", ";
+		}
+		
+		String msg = " id = " + reqId + "exchange = " + exchange + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
+			multiplier + " expirations: " + expirationsStr + " strikes: " + strikesStr;
+
+		return msg;
+	}
 
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}

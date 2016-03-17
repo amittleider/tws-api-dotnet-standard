@@ -5,8 +5,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.ArrayList;
 
-import com.ib.controller.ApiController;
-
 public abstract class ContractCondition extends OperatorCondition {
 
 	@Override

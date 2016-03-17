@@ -31,8 +31,8 @@ std::string PriceCondition::toString() {
 	return strTriggerMethod() + " " + ContractCondition::toString();
 }
 
-int PriceCondition::triggerMethod() {
-	return m_triggerMethod;
+PriceCondition::Method PriceCondition::triggerMethod() {
+	return (Method)m_triggerMethod;
 }
 
 std::string PriceCondition::strTriggerMethod() {
@@ -41,12 +41,12 @@ std::string PriceCondition::strTriggerMethod() {
 	return mthdNames[triggerMethod()];
 }
 
-void PriceCondition::triggerMethod(int triggerMethod) {
+void PriceCondition::triggerMethod(Method triggerMethod) {
 	m_triggerMethod = triggerMethod;
 }
 
 const char* PriceCondition::readExternal(const char* ptr, const char* endPtr) {
-	if (!ContractCondition::readExternal(ptr, endPtr))
+	if (!(ptr = ContractCondition::readExternal(ptr, endPtr)))
 		return 0;
 
 	DECODE_FIELD(m_triggerMethod)

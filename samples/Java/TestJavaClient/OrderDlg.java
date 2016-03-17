@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import java.util.concurrent.Callable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,14 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import apidemo.AdjustedPanel;
-import apidemo.ApiDemo;
-import apidemo.ConditionDlg;
-import apidemo.ConditionsPanel;
-import apidemo.OnOKPanel;
-import apidemo.PegBenchPanel;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
 import com.ib.client.ContractLookuper;
@@ -40,6 +31,11 @@ import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.TagValue;
+
+import apidemo.AdjustedPanel;
+import apidemo.ConditionsPanel;
+import apidemo.OnOKPanel;
+import apidemo.PegBenchPanel;
 
 public class OrderDlg extends JDialog {
     final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";
@@ -95,7 +91,6 @@ public class OrderDlg extends JDialog {
     private JTextField 	m_totalQuantity = new JTextField( "10");
     private JTextField 	m_orderType = new JTextField( "LMT");
     private JTextField 	m_lmtPrice = new JTextField( "40");
-    private JTextField 	m_stpPrice = new JTextField( "40");
     private JTextField 	m_auxPrice = new JTextField( "0");
     private JTextField 	m_goodAfterTime = new JTextField();
     private JTextField 	m_goodTillDate = new JTextField();
@@ -208,8 +203,6 @@ public class OrderDlg extends JDialog {
         addGBComponent(pOrderDetails, m_orderType, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Lmt Price / Option Price / Stop Price / Volatility"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_lmtPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
-        addGBComponent(pOrderDetails, new JLabel( "Stop Price"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
-        addGBComponent(pOrderDetails, m_stpPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Aux Price / Underlying Price"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_auxPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Good After Time"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
@@ -543,7 +536,6 @@ public class OrderDlg extends JDialog {
             m_order.totalQuantity(Double.parseDouble( m_totalQuantity.getText() ));
             m_order.orderType(m_orderType.getText());
             m_order.lmtPrice(parseStringToMaxDouble( m_lmtPrice.getText()));
-            m_order.stopPrice(parseStringToMaxDouble(m_stpPrice.getText()));
             m_order.auxPrice(parseStringToMaxDouble( m_auxPrice.getText()));
             m_order.goodAfterTime(m_goodAfterTime.getText());
             m_order.goodTillDate(m_goodTillDate.getText());

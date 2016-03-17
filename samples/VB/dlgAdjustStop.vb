@@ -8,7 +8,6 @@ Public Class dlgAdjustStop
         InitializeComponent()
 
         Me.order = order
-        tbStopPrice.Text = Util.DoubleMaxString(order.StopPrice)
         cbAdjustedOrderType.Text = order.AdjustedOrderType
         tbTriggerPrice.Text = Util.DoubleMaxString(order.TriggerPrice)
         tbAdjustedStopPrice.Text = Util.DoubleMaxString(order.AdjustedStopPrice)
@@ -18,7 +17,6 @@ Public Class dlgAdjustStop
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        order.StopPrice = Utils.StringToDouble(tbStopPrice.Text)
         order.AdjustedOrderType = cbAdjustedOrderType.Text
         order.TriggerPrice = Utils.StringToDouble(tbTriggerPrice.Text)
         order.AdjustedStopPrice = Utils.StringToDouble(tbAdjustedStopPrice.Text)

@@ -95,6 +95,11 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdGroups As System.Windows.Forms.Button
     Friend WithEvents cmdReqFundamentalData As System.Windows.Forms.Button
     Friend WithEvents cmdCancelFundamentalData As System.Windows.Forms.Button
+    Friend WithEvents cmdReqPositionsMulti As System.Windows.Forms.Button
+    Friend WithEvents cmdCancelPositionsMulti As System.Windows.Forms.Button
+    Friend WithEvents cmdReqAccountUpdatesMulti As System.Windows.Forms.Button
+    Friend WithEvents cmdCancelAccountUpdatesMulti As System.Windows.Forms.Button
+    Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -146,6 +151,11 @@ Friend Class dlgMainWnd
         Me.cmdGroups = New System.Windows.Forms.Button()
         Me.cmdReqFundamentalData = New System.Windows.Forms.Button()
         Me.cmdCancelFundamentalData = New System.Windows.Forms.Button()
+        Me.cmdReqPositionsMulti = New System.Windows.Forms.Button()
+        Me.cmdCancelPositionsMulti = New System.Windows.Forms.Button()
+        Me.cmdReqAccountUpdatesMulti = New System.Windows.Forms.Button()
+        Me.cmdCancelAccountUpdatesMulti = New System.Windows.Forms.Button()
+        Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -294,11 +304,11 @@ Friend Class dlgMainWnd
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(283, 589)
+        Me.cmdClearForm.Location = New System.Drawing.Point(282, 622)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 41
+        Me.cmdClearForm.TabIndex = 51
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = False
         '
@@ -308,11 +318,11 @@ Friend Class dlgMainWnd
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(387, 589)
+        Me.cmdClose.Location = New System.Drawing.Point(386, 622)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 42
+        Me.cmdClose.TabIndex = 52
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
@@ -468,7 +478,7 @@ Friend Class dlgMainWnd
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 172)
-        Me.lstErrors.TabIndex = 48
+        Me.lstErrors.TabIndex = 50
         '
         'lstServerResponses
         '
@@ -482,7 +492,7 @@ Friend Class dlgMainWnd
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 172)
-        Me.lstServerResponses.TabIndex = 46
+        Me.lstServerResponses.TabIndex = 48
         '
         'lstMktData
         '
@@ -496,7 +506,7 @@ Friend Class dlgMainWnd
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 158)
-        Me.lstMktData.TabIndex = 44
+        Me.lstMktData.TabIndex = 46
         '
         'Label3
         '
@@ -508,7 +518,7 @@ Friend Class dlgMainWnd
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 47
+        Me.Label3.TabIndex = 49
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -521,7 +531,7 @@ Friend Class dlgMainWnd
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 45
+        Me.Label2.TabIndex = 47
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -534,7 +544,7 @@ Friend Class dlgMainWnd
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 43
+        Me.Label1.TabIndex = 45
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -684,7 +694,7 @@ Friend Class dlgMainWnd
         '
         Me.cmdReqMarketDataType.Location = New System.Drawing.Point(544, 464)
         Me.cmdReqMarketDataType.Name = "cmdReqMarketDataType"
-        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 36)
         Me.cmdReqMarketDataType.TabIndex = 35
         Me.cmdReqMarketDataType.Text = "Req Mkt Data Type"
         Me.cmdReqMarketDataType.UseVisualStyleBackColor = True
@@ -705,7 +715,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqPositions
         '
-        Me.cmdReqPositions.Location = New System.Drawing.Point(544, 491)
+        Me.cmdReqPositions.Location = New System.Drawing.Point(544, 506)
         Me.cmdReqPositions.Name = "cmdReqPositions"
         Me.cmdReqPositions.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqPositions.TabIndex = 36
@@ -714,7 +724,7 @@ Friend Class dlgMainWnd
         '
         'cmdReqAccountSummary
         '
-        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 517)
+        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 532)
         Me.cmdReqAccountSummary.Name = "cmdReqAccountSummary"
         Me.cmdReqAccountSummary.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqAccountSummary.TabIndex = 38
@@ -723,7 +733,7 @@ Friend Class dlgMainWnd
         '
         'cmdCancelAccountSummary
         '
-        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 518)
+        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 533)
         Me.cmdCancelAccountSummary.Name = "cmdCancelAccountSummary"
         Me.cmdCancelAccountSummary.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelAccountSummary.TabIndex = 39
@@ -732,7 +742,7 @@ Friend Class dlgMainWnd
         '
         'cmdCancelPositions
         '
-        Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 491)
+        Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 506)
         Me.cmdCancelPositions.Name = "cmdCancelPositions"
         Me.cmdCancelPositions.Size = New System.Drawing.Size(134, 21)
         Me.cmdCancelPositions.TabIndex = 37
@@ -741,9 +751,9 @@ Friend Class dlgMainWnd
         '
         'cmdGroups
         '
-        Me.cmdGroups.Location = New System.Drawing.Point(546, 545)
+        Me.cmdGroups.Location = New System.Drawing.Point(545, 560)
         Me.cmdGroups.Name = "cmdGroups"
-        Me.cmdGroups.Size = New System.Drawing.Size(130, 21)
+        Me.cmdGroups.Size = New System.Drawing.Size(133, 21)
         Me.cmdGroups.TabIndex = 40
         Me.cmdGroups.Text = "Groups"
         Me.cmdGroups.UseVisualStyleBackColor = True
@@ -766,11 +776,61 @@ Friend Class dlgMainWnd
         Me.cmdCancelFundamentalData.Text = "Cancel Fund. Data..."
         Me.cmdCancelFundamentalData.UseVisualStyleBackColor = True
         '
+        'cmdReqPositionsMulti
+        '
+        Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 587)
+        Me.cmdReqPositionsMulti.Name = "cmdReqPositionsMulti"
+        Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPositionsMulti.TabIndex = 41
+        Me.cmdReqPositionsMulti.Text = "Req Positions Multi"
+        Me.cmdReqPositionsMulti.UseVisualStyleBackColor = True
+        '
+        'cmdCancelPositionsMulti
+        '
+        Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 587)
+        Me.cmdCancelPositionsMulti.Name = "cmdCancelPositionsMulti"
+        Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPositionsMulti.TabIndex = 42
+        Me.cmdCancelPositionsMulti.Text = "Cancel Positions Multi"
+        Me.cmdCancelPositionsMulti.UseVisualStyleBackColor = True
+        '
+        'cmdReqAccountUpdatesMulti
+        '
+        Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 614)
+        Me.cmdReqAccountUpdatesMulti.Name = "cmdReqAccountUpdatesMulti"
+        Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAccountUpdatesMulti.TabIndex = 43
+        Me.cmdReqAccountUpdatesMulti.Text = "Req Acct Upd Multi"
+        Me.cmdReqAccountUpdatesMulti.UseVisualStyleBackColor = True
+        '
+        'cmdCancelAccountUpdatesMulti
+        '
+        Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 614)
+        Me.cmdCancelAccountUpdatesMulti.Name = "cmdCancelAccountUpdatesMulti"
+        Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelAccountUpdatesMulti.TabIndex = 44
+        Me.cmdCancelAccountUpdatesMulti.Text = "Cancel Acct Upd Multi"
+        Me.cmdCancelAccountUpdatesMulti.UseVisualStyleBackColor = True
+        '
+        'cmdReqSecDefOptParams
+        '
+        Me.cmdReqSecDefOptParams.Location = New System.Drawing.Point(683, 464)
+        Me.cmdReqSecDefOptParams.Name = "cmdReqSecDefOptParams"
+        Me.cmdReqSecDefOptParams.Size = New System.Drawing.Size(134, 36)
+        Me.cmdReqSecDefOptParams.TabIndex = 53
+        Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
+        Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
+        '
         'dlgMainWnd
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(823, 624)
+        Me.ClientSize = New System.Drawing.Size(823, 659)
+        Me.Controls.Add(Me.cmdReqSecDefOptParams)
+        Me.Controls.Add(Me.cmdCancelAccountUpdatesMulti)
+        Me.Controls.Add(Me.cmdReqAccountUpdatesMulti)
+        Me.Controls.Add(Me.cmdCancelPositionsMulti)
+        Me.Controls.Add(Me.cmdReqPositionsMulti)
         Me.Controls.Add(Me.cmdCancelFundamentalData)
         Me.Controls.Add(Me.cmdReqFundamentalData)
         Me.Controls.Add(Me.cmdGroups)
@@ -1444,6 +1504,71 @@ Friend Class dlgMainWnd
     End Sub
 
     '--------------------------------------------------------------------------------
+    ' Request Positions Multi
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqPositionsMulti_Click(sender As Object, e As EventArgs) Handles cmdReqPositionsMulti.Click
+        Dim dlgPositions As New dlgPositions
+
+        ' Set the dialog state
+        dlgPositions.init(dlgPositions.Dlg_Type.REQUEST_POSITIONS_MULTI)
+        dlgPositions.ShowDialog()
+
+        If dlgPositions.ok Then
+            Call Tws1.reqPositionsMulti(dlgPositions.id, dlgPositions.account, dlgPositions.modelCode)
+        End If
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Cancel Positions Multi
+    '--------------------------------------------------------------------------------
+    Private Sub cmdCancelPositionsMulti_Click(sender As Object, e As EventArgs) Handles cmdCancelPositionsMulti.Click
+        Dim dlgPositions As New dlgPositions
+
+        ' Set the dialog state
+        dlgPositions.init(dlgPositions.Dlg_Type.CANCEL_POSITIONS_MULTI)
+        dlgPositions.ShowDialog()
+
+        If dlgPositions.ok Then
+            Call Tws1.cancelPositionsMulti(dlgPositions.id)
+        End If
+
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Request Account Updates Multi
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqAccountUpdatesMulti_Click(sender As Object, e As EventArgs) Handles cmdReqAccountUpdatesMulti.Click
+        Dim dlgPositions As New dlgPositions
+
+        ' Set the dialog state
+        dlgPositions.init(dlgPositions.Dlg_Type.REQUEST_ACCOUNT_UPDATES_MULTI)
+        dlgPositions.ShowDialog()
+
+        If dlgPositions.ok Then
+            Call Tws1.reqAccountUpdatesMulti(dlgPositions.id, dlgPositions.account, dlgPositions.modelCode, dlgPositions.ledgerAndNLV)
+        End If
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Cancel Account Updates Multi
+    '--------------------------------------------------------------------------------
+    Private Sub cmdCancelAccountUpdatesMulti_Click(sender As Object, e As EventArgs) Handles cmdCancelAccountUpdatesMulti.Click
+        Dim dlgPositions As New dlgPositions
+
+        ' Set the dialog state
+        dlgPositions.init(dlgPositions.Dlg_Type.CANCEL_ACCOUNT_UPDATES_MULTI)
+        dlgPositions.ShowDialog()
+
+        If dlgPositions.ok Then
+            Call Tws1.cancelAccountUpdatesMulti(dlgPositions.id)
+        End If
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
     ' Clear the form display lists
     '--------------------------------------------------------------------------------
     Private Sub cmdClearForm_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdClearForm.Click
@@ -2025,6 +2150,7 @@ Friend Class dlgMainWnd
 
         ' Clearing info
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  account=" & order.Account)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  modelCode=" & order.ModelCode)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  settlingFirm=" & order.SettlingFirm)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingAccount=" & order.ClearingAccount)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  clearingIntent=" & order.ClearingIntent)
@@ -2260,6 +2386,7 @@ Friend Class dlgMainWnd
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  permId = " & .PermId)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  time = " & .Time)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  acctNumber = " & .AcctNumber)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  modelCode = " & .ModelCode)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & .Exchange)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  side = " & .Side)
             Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  shares = " & .Shares)
@@ -2356,6 +2483,10 @@ Friend Class dlgMainWnd
                 msg = "id=" & e.reqId & " marketDataType = Real-Time"
             Case dlgOrder.MARKET_DATA_TYPE.FROZEN
                 msg = "id=" & e.reqId & " marketDataType = Frozen"
+            Case dlgOrder.MARKET_DATA_TYPE.DELAYED
+                msg = "id=" & e.reqId & " marketDataType = Delayed"
+            Case dlgOrder.MARKET_DATA_TYPE.DELAYED_FROZEN
+                msg = "id=" & e.reqId & " marketDataType = Delayed-Frozen"
             Case Else
                 msg = "id=" & e.reqId & " marketDataType = Unknown"
         End Select
@@ -2488,6 +2619,80 @@ Friend Class dlgMainWnd
         Tws1.disconnect()
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Position Multi
+    '--------------------------------------------------------------------------------
+    Private Sub Tws1_positionMulti(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_positionMultiEvent) Handles Tws1.OnpositionMulti
+        Dim contract As IBApi.Contract
+        contract = e.contract
+
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Position Multi ----")
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "reqId=" & e.reqId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "account=" & e.account)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "modelCode=" & e.modelCode)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
+
+        With contract
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & .ConId)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol=" & .Symbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType=" & .SecType)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lastTradeDate=" & .LastTradeDateOrContractMonth)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  strike=" & .Strike)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  right=" & .Right)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  multiplier=" & .Multiplier)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange=" & .Exchange)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  primaryExchange=" & .PrimaryExch)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency=" & .Currency)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  localSymbol=" & .LocalSymbol)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass=" & .TradingClass)
+        End With
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "position=" & IntMaxStr(e.pos))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "avgCost=" & DblMaxStr(e.avgCost))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Position Multi End ----")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Position Multi End
+    '--------------------------------------------------------------------------------
+    Private Sub Tws1_positionMultiEnd(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_positionMultiEndEvent) Handles Tws1.OnpositionMultiEnd
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "reqId=" & e.reqId & " ==== Position Multi End ==== ")
+
+        ' move into view
+        lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Account Update Multi
+    '--------------------------------------------------------------------------------
+    Private Sub Tws1_accountUpdateMulti(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountUpdateMultiEvent) Handles Tws1.OnaccountUpdateMulti
+
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "reqId=" & e.reqId & " account=" & e.account & " modelCode=" & e.modelCode & " key=" & e.key & " value=" & e.value & " currency=" & e.currency)
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Account Update Multi End
+    '--------------------------------------------------------------------------------
+    Private Sub Tws1_accountUpdateMultiEnd(ByVal sender As Object, ByVal e As AxTWSLib._DTwsEvents_accountUpdateMultiEndEvent) Handles Tws1.OnaccountUpdateMultiEnd
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "reqId=" & e.reqId & " ==== Account Update Multi End ==== ")
+
+        ' move into view
+        lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
+    End Sub
 
     '================================================================================
     ' Private Methods
@@ -2621,5 +2826,30 @@ Friend Class dlgMainWnd
 
     Private Sub Tws1_OnverifyAndAuthCompleted(tws As Tws, p2 As Object) Handles Tws1.OnverifyAndAuthCompleted
         Tws1.StartAPI()
+    End Sub
+
+    Private Sub cmdReqSecDefOptParams_Click(sender As Object, e As EventArgs) Handles cmdReqSecDefOptParams.Click
+        Dim dlg As New dlgSecDefOptParamsReq()
+
+        If dlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Tws1.reqSecDefOptParams(dlg.reqId, dlg.symbol, dlg.exchange, dlg.secType, dlg.conId)
+        End If
+    End Sub
+
+    Private Sub Tws1_OnSecurityDefinitionOptionParameter(tws As Tws, DTWsEvents_securityDefinitionOptionParameterEvent As AxTWSLib._DTWsEvents_securityDefinitionOptionParameterEvent) Handles Tws1.OnSecurityDefinitionOptionParameter
+        Dim displayString As String
+
+        displayString = String.Format("reqId: {0}, underlyingConId: {1}, tradingClass: {2}, multiplier: {3}, expirations: {4}, strikes: {5}",
+            DTWsEvents_securityDefinitionOptionParameterEvent.reqId,
+            DTWsEvents_securityDefinitionOptionParameterEvent.underlyingConId,
+            DTWsEvents_securityDefinitionOptionParameterEvent.tradingClass,
+            DTWsEvents_securityDefinitionOptionParameterEvent.multiplier,
+            String.Join(",", DTWsEvents_securityDefinitionOptionParameterEvent.expirations),
+            String.Join(", ", DTWsEvents_securityDefinitionOptionParameterEvent.strikes))
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, displayString)
+
+        ' move into view
+        lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
     End Sub
 End Class

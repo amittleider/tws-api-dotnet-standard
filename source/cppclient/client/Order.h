@@ -139,9 +139,7 @@ struct Order
 		notHeld = false;
 		solicited = false;
 
-		stopPrice = UNSET_DOUBLE;
 		triggerPrice = UNSET_DOUBLE;
-		trailingAmount = UNSET_DOUBLE;
 		adjustedStopPrice = UNSET_DOUBLE;
 		adjustedStopLimitPrice = UNSET_DOUBLE;
 		adjustedTrailingAmount = UNSET_DOUBLE;
@@ -276,6 +274,9 @@ struct Order
 	bool     notHeld;
 	bool     solicited;
 
+	// models
+	std::string modelCode;
+
 	// order combo legs
 	typedef std::vector<OrderComboLegSPtr> OrderComboLegList;
 	typedef ibapi::shared_ptr<OrderComboLegList> OrderComboLegListSPtr;
@@ -291,10 +292,7 @@ struct Order
 	double referenceChangeAmount;
 	std::string referenceExchangeId;
 	std::string adjustedOrderType;
-	double stopPrice;
 	double triggerPrice;
-	double trailingAmount;
-	int trailingUnit;
 	double adjustedStopPrice;
 	double adjustedStopLimitPrice;
 	double adjustedTrailingAmount;

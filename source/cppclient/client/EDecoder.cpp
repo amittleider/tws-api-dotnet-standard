@@ -13,6 +13,7 @@
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
 #include "EClientMsgSink.h"
+#include <string.h>
 
 EDecoder::EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink) {
     m_pEWrapper = callback;
@@ -369,6 +370,10 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
     DECODE_FIELD( order.faPercentage); // ver 7 field
     DECODE_FIELD( order.faProfile); // ver 7 field
 
+    if( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT ) {
+        DECODE_FIELD( order.modelCode);
+    }
+
     DECODE_FIELD( order.goodTillDate); // ver 8 field
 
     DECODE_FIELD( order.rule80A); // ver 9 field
@@ -615,9 +620,9 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 
 				DECODE_FIELD(conditionType);
 
-				ibapi::shared_ptr<OrderCondition> item = OrderCondition::create((OrderCondition::OrderConditionType)conditionType);
+				ibapi::shared_ptr<OrderCondition> item = ibapi::shared_ptr<OrderCondition>(OrderCondition::create((OrderCondition::OrderConditionType)conditionType));
 
-				if (!item->readExternal(ptr, endPtr))
+				if (!(ptr = item->readExternal(ptr, endPtr)))
 					return 0;
 
 				order.conditions.push_back(item);
@@ -628,10 +633,8 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 		}
 
 		DECODE_FIELD(order.adjustedOrderType);
-		DECODE_FIELD(order.stopPrice);
 		DECODE_FIELD(order.triggerPrice);
-		DECODE_FIELD(order.trailingAmount);
-		DECODE_FIELD(order.trailingUnit);
+		DECODE_FIELD(order.trailStopPrice);
 		DECODE_FIELD(order.lmtPriceOffset);
 		DECODE_FIELD(order.adjustedStopPrice);
 		DECODE_FIELD(order.adjustedStopLimitPrice);
@@ -947,6 +950,9 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
     if( version >= 9) {
         DECODE_FIELD( exec.evRule);
         DECODE_FIELD( exec.evMultiplier);
+    }
+    if( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT) {
+        DECODE_FIELD( exec.modelCode);
     }
 
     m_pEWrapper->execDetails( reqId, contract, exec);
@@ -1499,6 +1505,135 @@ const char* EDecoder::processVerifyAndAuthCompletedMsg(const char* ptr, const ch
     return ptr;
 }
 
+const char* EDecoder::processPositionMultiMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string account;
+    std::string modelCode;
+    double position;
+    double avgCost = 0;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( account);
+
+    // decode contract fields
+    Contract contract;
+    DECODE_FIELD( contract.conId);
+    DECODE_FIELD( contract.symbol);
+    DECODE_FIELD( contract.secType);
+    DECODE_FIELD( contract.lastTradeDateOrContractMonth);
+    DECODE_FIELD( contract.strike);
+    DECODE_FIELD( contract.right);
+    DECODE_FIELD( contract.multiplier);
+    DECODE_FIELD( contract.exchange);
+    DECODE_FIELD( contract.currency);
+    DECODE_FIELD( contract.localSymbol);
+    DECODE_FIELD( contract.tradingClass);
+    DECODE_FIELD( position);
+    DECODE_FIELD( avgCost);
+	DECODE_FIELD( modelCode);
+
+    m_pEWrapper->positionMulti( reqId, account, modelCode, contract, position, avgCost);
+
+    return ptr;
+}
+
+const char* EDecoder::processPositionMultiEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->positionMultiEnd( reqId);
+
+    return ptr;
+}
+
+const char* EDecoder::processAccountUpdateMultiMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+    std::string account;
+    std::string modelCode;
+    std::string key;
+    std::string value;
+    std::string currency;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+    DECODE_FIELD( account);
+    DECODE_FIELD( modelCode);
+    DECODE_FIELD( key);
+    DECODE_FIELD( value);
+    DECODE_FIELD( currency);
+
+    m_pEWrapper->accountUpdateMulti( reqId, account, modelCode, key, value, currency);
+
+    return ptr;
+}
+
+const char* EDecoder::processAccountUpdateMultiEndMsg(const char* ptr, const char* endPtr) {
+    int version;
+    int reqId;
+
+    DECODE_FIELD( version);
+    DECODE_FIELD( reqId);
+
+    m_pEWrapper->accountUpdateMultiEnd( reqId);
+
+    return ptr;
+}
+
+const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr, const char* endPtr) {
+    int reqId;
+	int underlyingConId;
+	std::string tradingClass;
+	std::string multiplier;
+	int expirationsSize, strikesSize;
+	std::set<std::string> expirations;
+	std::set<double> strikes;
+
+    DECODE_FIELD(reqId);
+	DECODE_FIELD(underlyingConId);
+	DECODE_FIELD(tradingClass);
+	DECODE_FIELD(multiplier);
+	DECODE_FIELD(expirationsSize);
+
+	for (int i = 0; i < expirationsSize; i++) {
+		std::string expiration;
+
+		DECODE_FIELD(expiration);
+
+		expirations.insert(expiration);
+	}
+
+	DECODE_FIELD(strikesSize);
+
+	for (int i = 0; i < strikesSize; i++) {
+		double strike;
+
+		DECODE_FIELD(strike);
+
+		strikes.insert(strike);
+	}
+
+	m_pEWrapper->securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+
+    return ptr;
+}
+
+const char* EDecoder::processSecurityDefinitionOptionalParameterEnd(const char* ptr, const char* endPtr) {
+    int reqId;
+
+    DECODE_FIELD(reqId);
+
+    m_pEWrapper->securityDefinitionOptionalParameterEnd(reqId);
+
+    return ptr;
+}
+
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -1755,6 +1890,30 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
         case VERIFY_AND_AUTH_COMPLETED:
             ptr = processVerifyAndAuthCompletedMsg(ptr, endPtr);
             break;
+
+        case POSITION_MULTI:
+            ptr = processPositionMultiMsg(ptr, endPtr);
+            break;
+
+        case POSITION_MULTI_END:
+            ptr = processPositionMultiEndMsg(ptr, endPtr);
+            break;
+
+        case ACCOUNT_UPDATE_MULTI:
+            ptr = processAccountUpdateMultiMsg(ptr, endPtr);
+            break;
+
+        case ACCOUNT_UPDATE_MULTI_END:
+            ptr = processAccountUpdateMultiEndMsg(ptr, endPtr);
+            break;
+
+		case SECURITY_DEFINITION_OPTION_PARAMETER:
+			ptr = processSecurityDefinitionOptionalParameter(ptr, endPtr);
+			break;
+
+		case SECURITY_DEFINITION_OPTION_PARAMETER_END:
+			ptr = processSecurityDefinitionOptionalParameterEnd(ptr, endPtr);
+			break;
 
         default:
             {

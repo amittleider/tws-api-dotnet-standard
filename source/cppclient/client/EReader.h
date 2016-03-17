@@ -22,7 +22,9 @@ class TWSAPIDLLEXP EReader
     std::vector<char> m_buf;
     bool m_needsWriteSelect;
     bool m_isAlive;
+#if defined(IB_WIN32)
     HANDLE m_hReadThread;
+#endif
 	int m_nMaxBufSize;
 
 	void onReceive();
@@ -50,8 +52,7 @@ protected:
 public:
     void processMsgs(void);
     void checkClient();
-
-private:
+	bool putMessageToQueue();
 	void start();
 };
 

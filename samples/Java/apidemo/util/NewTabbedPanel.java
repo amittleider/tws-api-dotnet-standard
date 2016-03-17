@@ -14,6 +14,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -22,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
@@ -52,10 +54,10 @@ public class NewTabbedPanel extends JPanel {
 		m_underline = underline;
 
 		setLayout( new BorderLayout() );
-		m_topPanel.setLayout( new FlowLayout( FlowLayout.LEFT, 0, 5) );
+		m_topPanel.setLayout( new FlowLayout( FlowLayout.LEFT, 0, 15) );
 		
-		add( m_topPanel, BorderLayout.NORTH);
-		add( m_cardPanel);
+		add( new JScrollPane( m_topPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.NORTH);
+		add( m_cardPanel);		
 	}
 
 	public void addTab( final String title, final JComponent tab) {
@@ -291,6 +293,7 @@ public class NewTabbedPanel extends JPanel {
 		if (tab.m_comp instanceof INewTab) {
 			((INewTab)tab.m_comp).closed();
 		}
+		m_topPanel.remove(Arrays.asList(m_topPanel.getComponents()).indexOf(tab.m_button) - 1);
 		m_topPanel.remove( tab.m_button);
 		m_topPanel.repaint();
 		

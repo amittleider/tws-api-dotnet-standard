@@ -2,6 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
+#if defined(IB_WIN32)
 #include "EReaderWMSignal.h"
 
 
@@ -21,3 +22,4 @@ void EReaderWMSignal::waitForSignal() {
     if (GetMessage(&msg, 0, m_msg, m_msg))
         DispatchMessage(&msg);
 }
+#endif
