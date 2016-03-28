@@ -207,6 +207,7 @@ namespace IBSampleApp
             this.label6 = new System.Windows.Forms.Label();
             this.tbStartingPrice = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
             this.adjustStopTab = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
             this.cbAdjustedTrailingAmntUnit = new System.Windows.Forms.ComboBox();
@@ -228,7 +229,6 @@ namespace IBSampleApp
             this.Logic = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.lbAddCondition = new System.Windows.Forms.LinkLabel();
             this.lbRemoveCondition = new System.Windows.Forms.LinkLabel();
-            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
             this.sendOrderButton = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -777,7 +777,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(620, 316);
+            this.extendedOrderTab.Size = new System.Drawing.Size(620, 313);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1145,7 +1145,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(620, 316);
+            this.advisorTab.Size = new System.Drawing.Size(620, 313);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1245,7 +1245,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(620, 316);
+            this.volatilityTab.Size = new System.Drawing.Size(620, 313);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1442,7 +1442,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(620, 316);
+            this.scaleTab.Size = new System.Drawing.Size(620, 313);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1639,7 +1639,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(620, 316);
+            this.algoTab.Size = new System.Drawing.Size(620, 313);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1908,9 +1908,10 @@ namespace IBSampleApp
             this.peg2benchTab.Controls.Add(this.label6);
             this.peg2benchTab.Controls.Add(this.tbStartingPrice);
             this.peg2benchTab.Controls.Add(this.label4);
+            this.peg2benchTab.Controls.Add(this.contractSearchControl1);
             this.peg2benchTab.Location = new System.Drawing.Point(4, 22);
             this.peg2benchTab.Name = "peg2benchTab";
-            this.peg2benchTab.Size = new System.Drawing.Size(620, 316);
+            this.peg2benchTab.Size = new System.Drawing.Size(620, 313);
             this.peg2benchTab.TabIndex = 6;
             this.peg2benchTab.Text = "Pegged to Benchmark";
             // 
@@ -2046,6 +2047,15 @@ namespace IBSampleApp
             this.label4.TabIndex = 0;
             this.label4.Text = "Starting price";
             // 
+            // contractSearchControl1
+            // 
+            this.contractSearchControl1.Contract = null;
+            this.contractSearchControl1.IBClient = null;
+            this.contractSearchControl1.Location = new System.Drawing.Point(149, 32);
+            this.contractSearchControl1.Name = "contractSearchControl1";
+            this.contractSearchControl1.Size = new System.Drawing.Size(206, 13);
+            this.contractSearchControl1.TabIndex = 0;
+            // 
             // adjustStopTab
             // 
             this.adjustStopTab.BackColor = System.Drawing.Color.LightGray;
@@ -2063,7 +2073,7 @@ namespace IBSampleApp
             this.adjustStopTab.Controls.Add(this.label11);
             this.adjustStopTab.Location = new System.Drawing.Point(4, 22);
             this.adjustStopTab.Name = "adjustStopTab";
-            this.adjustStopTab.Size = new System.Drawing.Size(620, 316);
+            this.adjustStopTab.Size = new System.Drawing.Size(620, 313);
             this.adjustStopTab.TabIndex = 7;
             this.adjustStopTab.Text = "Adjustable stops";
             // 
@@ -2186,7 +2196,7 @@ namespace IBSampleApp
             this.tabPage1.Controls.Add(this.lbRemoveCondition);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(620, 316);
+            this.tabPage1.Size = new System.Drawing.Size(620, 313);
             this.tabPage1.TabIndex = 8;
             this.tabPage1.Text = "Conditions";
             // 
@@ -2265,15 +2275,6 @@ namespace IBSampleApp
             this.lbRemoveCondition.TabStop = true;
             this.lbRemoveCondition.Text = "remove";
             this.lbRemoveCondition.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbRemoveCondition_LinkClicked);
-            // 
-            // contractSearchControl1
-            // 
-            this.contractSearchControl1.Contract = null;
-            this.contractSearchControl1.IBClient = null;
-            this.contractSearchControl1.Location = new System.Drawing.Point(0, 0);
-            this.contractSearchControl1.Name = "contractSearchControl1";
-            this.contractSearchControl1.Size = new System.Drawing.Size(206, 13);
-            this.contractSearchControl1.TabIndex = 0;
             // 
             // sendOrderButton
             // 
