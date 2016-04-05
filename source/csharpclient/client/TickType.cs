@@ -8,6 +8,9 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+    * @brief - DOC_TODO
+    */
     public class TickType
     {
         public const int BID_SIZE = 0;

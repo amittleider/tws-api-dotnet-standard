@@ -18,12 +18,16 @@
 const unsigned MAX_ATTEMPTS = 50;
 const unsigned SLEEP_TIME = 10;
 
+/* IMPORTANT: always use your paper trading account. The code below will submit orders as part of the demonstration. */
+/* IB will not be responsible for accidental executions on your live account. */
+/* Any stock or option symbols displayed are for illustrative purposes only and are not intended to portray a recommendation. */
+/* Before contacting our API support team please refer to the available documentation. */
 int main(int argc, char** argv)
 {
 	const char* host = argc > 1 ? argv[1] : "";
 	unsigned int port = argc > 2 ? atoi(argv[2]) : 0;
 	if (port <= 0)
-		port = 7497;
+		port = 7496;
 	const char* connectOptions = argc > 3 ? argv[3] : "";
 	int clientId = 0;
 
@@ -39,13 +43,15 @@ int main(int argc, char** argv)
 		if( connectOptions) {
 			client.setConnectOptions( connectOptions);
 		}
-
+		//! [connect]
 		client.connect( host, port, clientId);
-
+		//! [connect]
+		//! [ereader]
+		//Unlike the C# and Java clients, there is no need to explicitely create an EReader object nor a thread
 		while( client.isConnected()) {
 			client.processMessages();
 		}
-
+		//! [ereader]
 		if( attempt >= MAX_ATTEMPTS) {
 			break;
 		}

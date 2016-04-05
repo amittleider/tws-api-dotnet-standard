@@ -1,0 +1,1123 @@
+ /*! \page csfb CSFB Algorithms
+
+	\section csfb_params CSFB Algorithm Parameters
+	
+	The socket-based APIs support the following CSFB Algo Strategies:
+	
+    @ref Inline
+	
+    @ref Pathfinder
+    
+	@ref Blast
+	
+    @ref Guerrilla
+	
+    @ref Sniper
+
+    @ref Crossfinder
+
+    @ref I_Would
+
+    @ref Float_Guerrilla
+
+    @ref VWAP
+
+    @ref Volume_Inline
+
+    @ref TWAP
+
+    @ref Pre_Post
+
+    @ref Close
+
+    @ref Reserve
+
+    @ref Float
+    
+	@ref Tex
+    
+	@ref LightPool
+    
+	@ref b_18
+    
+	@ref Auction_Algo 
+ 
+	The following table lists all available CSFB algo strategies and parameters supported by the API.
+	
+	\image html csfbalgoparams971.png
+	
+	\subsection Inline
+	
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td>Minimum percentage of volume</td>
+            <td>Integer</td>
+            <td>Range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>Range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Auction</td>
+            <td></td>
+            <td>String</td>
+            <td>"Default", "Include_All", "Include_Open_Only", "Include_Close_Only", "Exclude_All", "Imbalance_Only"</td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+                <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+	</table>
+	
+    \subsection Pathfinder
+    
+    <table>
+        <tr>
+			<th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+	</table>
+	
+	\subsection Blast
+    	
+    <table>
+    	<tr>
+        	<th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+        	<td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+        
+	\subsection Guerrilla
+		
+    <table>            
+        <tr>
+        	<th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+        <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+    	</tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection Sniper
+        
+    <table>         
+        <tr>
+        	<th>Parameter</th>
+            <th>Description</th>
+        	<th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+        
+	\subsection Crossfinder
+	
+    <table>       
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        	<tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+    
+    \subsection I_Would I Would
+
+    <table>
+         <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>   
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection Float_Guerrilla Float Guerrilla
+
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+    		<td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+    </table>
+    
+    \subsection VWAP
+
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+    	<tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>Auction</td>
+            <td></td>
+            <td>String</td>
+            <td>"Default", "Include_All", "Include_Open_Only", "Include_Close_Only", "Exclude_All", "Imbalance_Only"</td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        </table>
+        
+    \subsection Volume_Inline Volume Inline
+    <table>
+    	<tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Auction</td>
+            <td></td>
+            <td>String</td>
+            <td>"Default", "Include_All", "Include_Open_Only", "Include_Close_Only", "Exclude_All", "Imbalance_Only"</td>
+    	</tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        	<tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection TWAP
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+    	<tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>Auction</td>
+            <td></td>
+            <td>String</td>
+            <td>"Default", "Include_All", "Include_Open_Only", "Include_Close_Only", "Exclude_All", "Imbalance_Only"</td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <th></th>
+        </tr>
+    </table>
+        
+    \subsection Pre_Post Pre/Post
+    <table>    
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection Close
+    <table>    
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>    
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+                </tr>
+            </tbody>
+    </table>
+    
+    \subsection Reserve
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>   
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table> 
+    
+    \subsection Float
+        
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>  
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection Tex
+    
+    <table>    
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+        	<td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinPercent</td>
+            <td>Minimum percentage of volume</td>
+            <td>Integer</td>
+            <td>Range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>Range: “0” – “99”</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Auction</td>
+            <td></td>
+            <td>String</td>
+            <td>"Default", "Include_All", "Include_Open_Only", "Include_Close_Only", "Exclude_All", "Imbalance_Only"</td>
+        </tr>
+        <tr>
+            <td>Blockfinder</td>
+            <td>Enables block finding </td>
+            <td>Boolean</td>
+            <td>"1", "0" (for Java "true", "false")</td>
+        </tr>
+        <tr>
+            <td>BlockPrice</td>
+            <td>Price of the block. Cannot violate price of the algo order.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinBlockSize</td>
+            <td>Minimum block quantity</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxBlockSize</td>
+            <td>Maximum block quantity </td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IWouldPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+    </table>
+        
+    \subsection LightPool
+    <table>    
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+    
+    \subsection b_18 10b-18
+    
+    <table>
+    	<tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>        
+        <tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxPercent</td>
+            <td>Maximum percentage volume</td>
+            <td>Integer</td>
+            <td>Range: “0” – “99”</td>
+        </tr>
+    </table>
+    
+    \subsection Auction_Algo Auction Algo
+    
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Syntax/Values</th>
+        </tr>
+        <tr>
+            <td>ExecStyle</td>
+            <td>Execution Style</td>
+            <td>String</td>
+            <td>"Patient", "Normal", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td>Size display for iceberg/reserve</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+    </table>
+
+*/

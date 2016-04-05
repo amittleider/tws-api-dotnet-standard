@@ -1,0 +1,119 @@
+/*! \page open_orders Retrieving currently active orders
+
+	As long as an order is active, it is possible to retrieve it using the TWS API. Orders submitted via the TWS API will always be bound to the client application (i.e. client Id) 
+	they were submitted from meaning only the submitting client will be able to modify the placed order. Three different methods are provided to allow for maximum flexibility. Active orders 
+	will be returned via the @ref IBApi::EWrapper::openOrder and @ref IBApi::EWrapper::orderStatus methods as already described in @ref open_order and @ref order_status sections
+	
+	<b>Note:</b> it is not possible to obtain cancelled or fully filled orders.
+	
+	\section connected_client_orders Connected client's own orders
+	
+	The @ref IBApi::EClient::reqOpenOrders method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the
+	TWS.
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet Program.cs reqopenorders
+		</li>
+		<li>
+		\snippet Testbed.java reqopenorders
+		</li>
+		<li> 
+		\snippet MainModule.vb reqopenorders
+		</li>
+		<li>
+		\snippet TestCppClient.cpp reqopenorders
+		</li>
+	</ul>
+	
+	\section all_api_orders All API submitted orders
+	
+	To obtain those orders created via the TWS API regardless of the submitting client application, make use of the @ref IBApi::EClient::reqAllOpenOrders function. 
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet Program.cs reqallopenorders
+		</li>
+		<li>
+		\snippet Testbed.java reqallopenorders
+		</li>
+		<li> 
+		\snippet MainModule.vb reqallopenorders
+		</li>
+		<li>
+		\snippet TestCppClient.cpp reqallopenorders
+		</li>
+	</ul>
+	
+	\section manually_submitted Manually submitted TWS orders
+	
+	Finally, @ref IBApi::EClient::reqAutoOpenOrders will allow to obtain those orders <b>manually placed</b> using the TWS itself. This method also allows the client application to take over these
+	orders and modify them by setting the autoBind parameter to <b>true</b>. If successfully bound, The orders will be assigned (i.e. bound to) an API order id and as such be eligible for modification.
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet Program.cs reqautoopenorders
+		</li>
+		<li>
+		\snippet Testbed.java reqautoopenorders
+		</li>
+		<li> 
+		\snippet MainModule.vb reqautoopenorders
+		</li>
+		<li>
+		\snippet TestCppClient.cpp reqautoopenorders
+		</li>
+	</ul>
+	
+	<b>Important:</b> only those applications connecting with client Id 0 will be able to take over manually submitted orders
+	
+	Through the TWS' API settings it is possible to configure this method's behaviour to some extent. As shown in the image below, manually placed orders can be given a negative order Id which can 
+	serve to easily tell manual from API submitted orders. The TWS' tooltip elaborates further:
+	
+	\image html tws_autobind.png
+	
+	\section receiving_orders Receiving Active Orders from the TWS
+	
+	Active orders will be delivered via @ref open_order and @ref order_status callbacks. When all orders have been sent to the client application you will receive a @ref IBApi::EWrapper::openOrderEnd event:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+			...
+			\snippet EWrapperImpl.cs openorder
+			...
+			\snippet EWrapperImpl.cs orderstatus
+		   ...
+			\snippet EWrapperImpl.cs openorderend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java openorder
+			...
+			\snippet EWrapperImpl.java orderstatus
+			...
+			\snippet EWrapperImpl.java openorderend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+			...
+			\snippet EWrapperImpl.vb openorder
+			...
+			\snippet EWrapperImpl.vb orderstatus
+		   ...
+			\snippet EWrapperImpl.vb openorderend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp openorder
+			...
+			\snippet TestCppClient.cpp orderstatus
+		   ...
+			\snippet TestCppClient.cpp openorderend
+		</li>
+	</ul>
+	
+	<br><br>
+*/

@@ -1,0 +1,63 @@
+/*! \page ib_bulletins IB Bulletins
+
+	From time to time, IB sends out important <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/gettingstarted/bulletins.htm">News Bulletins</a>, which can 
+	be accessed via the TWS API through the @ref IBApi::EClient::reqNewsBulletins. 
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqnewsbulletins
+		</li>
+		<li>
+			\snippet Testbed.java reqnewsbulletins
+		</li>
+		<li>
+			\snippet MainModule.vb reqnewsbulletins
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqnewsbulletins
+		</li>
+	</ul>
+	
+	Bulletins are delivered via @ref IBApi::EWrapper::updateNewsBulletin whenever there is a new bulletin:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs updatenewsbulletin
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java updatenewsbulletin
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb updatenewsbulletin
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp updatenewsbulletin
+		</li>
+	</ul>
+	
+	In order to stop receiving bulletins you need to cancel the subscription:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs cancelnewsbulletins
+		</li>
+		<li>
+			\snippet Testbed.java cancelnewsbulletins
+		</li>
+		<li>
+			\snippet MainModule.vb cancelnewsbulletins
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelnewsbulletins
+		</li>
+	</ul>
+	
+*/

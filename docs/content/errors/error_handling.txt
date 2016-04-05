@@ -1,0 +1,35 @@
+/*! \page error_handling Error Handling
+
+	Whenever the client application performs a request to the TWS which requires a response from it (i.e. placing an order, requesting market data, subscribing to account updates, etc.),
+	the TWS will produce the desired result <b>as long as the request was made appropriately</b>. When the TWS is unable to process the request properly, it will <b>always</b> return 
+	an error message pointing in the mistake's direction. 
+	
+	Error messages sent by the TWS are handled by the @ref IBApi::EWrapper::error method. The @ref IBApi::EWrapper::error event contains the originating request Id (or the orderId in case the 
+	error was raised when placing an order), a numeric error code and a brief description of it.
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		\snippet EWrapperImpl.cs error
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java error
+		</li>
+		<li>
+		\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+		\snippet EWrapperImpl.vb error	
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp error	
+		</li>
+	</ul>
+	
+	For a list containing all available error messages from the TWS, see \subpage message_codes
+
+*/

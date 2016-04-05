@@ -1,0 +1,7 @@
+/*! \page order_limitations Order Limitations
+
+	Aside from the TWS API's inherent limitation of 50 messages per second implying a maximum of 50 orders per second being sent to the TWS, there are no further API-only limitations. 
+	Interactive Brokers however requires its users to monitor their Order Efficiency Ratio (OER) as detailed in the <a target="_blank" class="linkexternal" href="http://ibkb.interactivebrokers.com/article/1765" >Considerations for Optimizing Order Efficiency</a> IBKB article.
+	
+	Additionally, please note IB allows up to 15 active orders per contract per side per account.
+*/

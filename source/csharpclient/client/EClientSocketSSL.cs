@@ -10,6 +10,9 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+    * @brief Implements a Secure Socket Layer (SSL) on top of the EClientSocket class. 
+    */
     public class EClientSocketSSL : EClientSocket
     {
         public EClientSocketSSL(EWrapper wrapper, EReaderSignal signal) :

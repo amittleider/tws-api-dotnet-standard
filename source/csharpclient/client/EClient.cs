@@ -11,7 +11,7 @@ using System.Linq;
 namespace IBApi
 {
     /**
-     * @class EClientSocket
+     * @class EClient
      * @brief TWS/Gateway client class
      * This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
      */
@@ -48,6 +48,9 @@ namespace IBApi
             this.AsyncEConnect = false;
         }
 
+        /**
+         * @brief Ignore. Used for IB's internal purposes.
+         */
         public void SetConnectOptions(string connectOptions)
         {
             if (IsConnected())
@@ -60,12 +63,18 @@ namespace IBApi
             this.connectOptions = connectOptions;
         }
 
+        /**
+         * @brief Allows to switch between different current (V100+) and previous connection mechanisms.
+         */
         public void DisableUseV100Plus()
         {
             this.useV100Plus = false;
             this.connectOptions = "";
         }
 
+        /**
+         * @brief Reference to the EWrapper implementing object.
+         */
         public EWrapper Wrapper
         {
             get { return wrapper; }
@@ -138,6 +147,9 @@ namespace IBApi
             }
         }
 
+        /**
+         * @brief Initiates the message exchange between the client application and the TWS/IB Gateway
+         */
         public void startApi()
         {
             if (!CheckConnection())
@@ -157,6 +169,7 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos);
         }
 
+        
         public string optionalCapabilities { get; set; }
 
         /**
@@ -524,7 +537,7 @@ namespace IBApi
 
         /**
          * @brief Places an order
-         * @param id the order's unique identifier. Use a sequential id starting with the id received at the nextValidId method.
+         * @param id the order's unique identifier. Use a sequential id starting with the id received at the nextValidId method. If a new order is placed with an order ID less than or equal to the order ID of a previous order an error will occur. 
          * @param contract the order's contract
          * @param order the order
          * @sa nextValidId, reqAllOpenOrders, reqAutoOpenOrders, reqOpenOrders, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus, Order, Contract
@@ -1002,7 +1015,6 @@ namespace IBApi
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
-        //WARN: Have not tested this yet!
         /**
          * @brief Replaces Financial Advisor's settings
          * A Financial Advisor can define three different configurations: 
@@ -1174,7 +1186,7 @@ namespace IBApi
 
         /**
          * @brief Requests contract information.
-         * This method will provide all the contracts matching the contract provided. It can also be used to retrieve complete options and futures chains. This information will be returned at EWrapper:contractDetails
+         * This method will provide all the contracts matching the contract provided. It can also be used to retrieve complete options and futures chains. This information will be returned at EWrapper:contractDetails. Though it is now (in API version > 9.72.12) advised to use reqSecDefOptParams for that purpose. 
          * @param reqId the unique request identifier.
          * @param contract the contract used as sample to query the available contracts. Typically, it will contain the Contract::Symbol, Contract::Currency, Contract::SecType, Contract::Exchange
          * @sa EWrapper::contractDetails
@@ -1525,7 +1537,7 @@ namespace IBApi
 
         /**
          * @brief Requests the next valid order id.
-         * @param numIds deprecate
+         * @param numIds deprecated- this parameter will not affect the value returned to nextValidId
          * @sa EWrapper::nextValidId
          */
         public void reqIds(int numIds)
@@ -1683,7 +1695,7 @@ namespace IBApi
         /**
          * @brief indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data.
          * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.
-         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data.
+         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data. Note: At the present time, only data types 1 and 2 are supported. 
          */
         public void reqMarketDataType(int marketDataType)
         {
@@ -1702,7 +1714,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests the contract's market depth (order book).
+         * @brief Requests the contract's market depth (order book). Note this request must be direct-routed to an exchange and not smart-routed. The number of simultaneous market depth requests allowed in an account is calculated based on a formula that looks at an accounts equity, commissions, and quote booster packs.  
          * @param tickerId the request's identifier
          * @param contract the Contract for which the depth is being requested
          * @param numRows the number of rows on each side of the order book
@@ -1820,7 +1832,7 @@ namespace IBApi
 
         /**
          * @brief Requests real time bars
-         * Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds
+         * Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account. 
          * @param tickerId the request's unique identifier.
          * @param contract the Contract for which the depth is being requested
          * @param barSize currently being ignored
@@ -1979,6 +1991,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyRequest(string apiName, string apiVersion)
         {
             if (!CheckConnection())
@@ -2002,6 +2017,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYREQUEST);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyMessage(string apiData)
         {
             if (!CheckConnection())
@@ -2018,6 +2036,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
         {
             if (!CheckConnection())
@@ -2041,6 +2062,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyAndAuthMessage(string apiData, string xyzResponse)
         {
             if (!CheckConnection())
@@ -2057,6 +2081,10 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE);
         }
 
+        /**
+         * @brief Requests all available Display Groups in TWS
+         * @params requestId is the ID of this request
+         */
         public void queryDisplayGroups(int requestId)
         {
             if (!CheckConnection())
@@ -2073,6 +2101,11 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
         }
 
+        /**
+         * @brief Integrates API client and TWS window grouping. 
+         * @params requestId is the Id chosen for this subscription request
+         * @params groupId is the display group for integration
+         */
         public void subscribeToGroupEvents(int requestId, int groupId)
         {
             if (!CheckConnection())
@@ -2090,6 +2123,15 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
         }
 
+        /**
+         * @brief Updates the contract displayed in a TWS Window Group
+         * @params requestId is the ID chosen for this request
+         * @params contractInfo is an encoded value designating a unique IB contract. Possible values include:
+         * 1. none = empty selection
+         * 2. contractID@exchange - any non-combination contract. Examples 8314@SMART for IBM SMART; 8314@ARCA for IBM ARCA
+         * 3. combo= if any combo is selected
+         * Note: This request from the API does not get a TWS response unless an error occurs. 
+         */
         public void updateDisplayGroup(int requestId, string contractInfo)
         {
             if (!CheckConnection())
@@ -2107,6 +2149,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
         }
 
+        /**
+         * @brief Cancels a TWS Window Group subscription
+         */
         public void unsubscribeFromGroupEvents(int requestId)
         {
             if (!CheckConnection())
@@ -2125,6 +2170,9 @@ namespace IBApi
 
         /**
          * @brief Requests positions for account and/or model
+         * @param requestId - Request's identifier
+         * @param account - If an account Id is provided, only the account's positions belonging to the specified model will be delivered
+         * @params modelCode - The code of the model's positions we are interested in.
          * @sa cancelPositionsMulti, EWrapper::positionMulti, EWrapper::positionMultiEnd
          */
         public void reqPositionsMulti(int requestId, string account, string modelCode)
@@ -2148,6 +2196,7 @@ namespace IBApi
 
         /**
          * @brief Cancels positions request for account and/or model
+         * @param requestId - the identifier of the request to be canceled.
          * @sa reqPositionsMulti
          */
         public void cancelPositionsMulti(int requestId)
@@ -2217,7 +2266,12 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests security definition option parameters
+         * @brief Requests security definition option parameters for viewing a contract's option chain
+         * @params reqId the ID chosen for the request
+         * @params underlyingSymbol 
+         * @params futFopExchange The exchange on which the returned options are trading. Can be set to the empty string "" for all exchanges.
+         * @params underlyingSecType The type of the underlying security, i.e. STK
+         * @params underlyingConId the contract ID of the underlying security
          * @sa EWrapper::secDefOptParams, EWrapper::secDefOptParamsEnd
          */
         public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)

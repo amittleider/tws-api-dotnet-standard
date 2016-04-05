@@ -753,7 +753,7 @@ namespace IBApi
         }
 
         /**
-         * @brief - 
+         * @brief - DOC_TODO
          */
         public int DeltaNeutralConId
         {
@@ -762,7 +762,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralSettlingFirm
         {
@@ -771,7 +771,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralClearingAccount
         {
@@ -780,7 +780,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralClearingIntent
         {
@@ -827,7 +827,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For EFP orders only.
          */
         public double BasisPoints
@@ -837,7 +837,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For EFP orders only.
          */
         public int BasisPointsType
@@ -877,7 +877,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended Scale orders.
          */
         public double ScalePriceAdjustValue
@@ -887,7 +887,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended Scale orders.
          */
         public int ScalePriceAdjustInterval
@@ -897,7 +897,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public double ScaleProfitOffset
@@ -907,7 +907,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public bool ScaleAutoReset
@@ -917,7 +917,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public int ScaleInitPosition
@@ -927,7 +927,7 @@ namespace IBApi
         }
 
         /**
-          * @brief -
+          * @brief - DOC_TODO
           * For extended scale orders.
           */
         public int ScaleInitFillQty
@@ -937,7 +937,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public bool ScaleRandomPercent
@@ -961,7 +961,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * Beta = x for Beta hedge orders, ratio = y for Pair hedge order
          */
         public string HedgeParam
@@ -980,7 +980,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * Institutions only. Indicates the firm which will settle the trade.
          */
         public string SettlingFirm
@@ -1076,6 +1076,9 @@ namespace IBApi
             set { orderComboLegs = value; }
         }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public List<TagValue> OrderMiscOptions
         {
             get { return orderMiscOptions; }
@@ -1313,32 +1316,85 @@ namespace IBApi
             return true;
         }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public bool RandomizeSize { get; set; }
+        /**
+         * @brief - DOC_TODO
+         */
+
         public bool RandomizePrice { get; set; }
 
+        /**
+        * @brief Pegged-to-benchmark orders: this attribute will contain the conId of the contract against which the order will be pegged.
+        */
         public int ReferenceContractId { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: indicates whether the order's pegged price should increase or decreases.
+        */
         public bool IsPeggedChangeAmountDecrease { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: amount by which the order's pegged price should move.
+        */
         public double PeggedChangeAmount { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: the amount the reference contract needs to move to adjust the pegged order.
+        */
         public double ReferenceChangeAmount { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: the exchange against which we want to observe the reference contract.
+        */
         public string ReferenceExchange { get; set; }
-        public List<OrderCondition> Conditions { get; set; }
-
+        
+        /**
+        * @brief Adjusted Stop orders: the parent order will be adjusted to the given type when the adjusted trigger price is penetrated.
+        */
         public string AdjustedOrderType { get; set; }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public double TriggerPrice { get; set; }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public double LmtPriceOffset { get; set; }
 
+        /**
+        * @brief Adjusted Stop orders: specifies the stop price of the adjusted (STP) parent
+        */
         public double AdjustedStopPrice { get; set; }
 
+        /**
+        * @brief Adjusted Stop orders: specifies the stop limit price of the adjusted (STPL LMT) parent
+        */
         public double AdjustedStopLimitPrice { get; set; }
 
+        /**
+        * @brief Adjusted Stop orders: specifies the trailing amount of the adjusted (TRAIL) parent 
+        */
         public double AdjustedTrailingAmount { get; set; }
 
+        /**
+         * @brief Adjusted Stop orders: specifies where the trailing unit is an amount (set to 0) or a percentage (set to 1)
+         */
         public int AdjustableTrailingUnit { get; set; }
 
+        /**
+       * @brief Conditions determining when the order will be activated or canceled 
+       */
+        public List<OrderCondition> Conditions { get; set; }
+        /**
+        * @brief Indicates whether or not conditions will also be valid outside Regular Trading Hours
+        */
         public bool ConditionsIgnoreRth { get; set; }
 
+        /**
+        * @brief Conditions can determine if an order should become active or canceled.
+        */
         public bool ConditionsCancelOrder { get; set; }
+
     }
 }

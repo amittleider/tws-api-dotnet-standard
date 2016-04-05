@@ -1,0 +1,10 @@
+﻿/*! \page algos Algorithms
+
+	Order behaviour can be further enhanced through Interactive Broker's powerful algorithmic strategies. To make use of our variety of algorithms make use of @ref IBApi::Order::AlgoStrategy and
+	@ref IBApi::Order::AlgoParams attributes.
+
+	- \subpage ibalgos
+	- \subpage csfb
+	- \subpage jefferies
+
+*/

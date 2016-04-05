@@ -1,0 +1,100 @@
+/*! \page historical_limitations Historical Data Limitations
+
+	\section pacing_violations Pacing Violations
+	
+	Although Interactive Brokers offers our clients high quality market data, IB is not a specialised market data provider and as such it is forced to put in place severe restrictions
+	to limit traffic which is not directly associated to trading. A <b>Pacing Violation</b> occurs whenever one or more of the following restrictions is not observed:
+	
+	- Making identical historical data requests within 15 seconds.
+	- Making six or more historical data requests for the same Contract, Exchange and Tick Type within two seconds.
+	- Making more than 60 requests within any ten minute period.
+       - Note that when BID_ASK historical data is requested, each request is counted <b>twice</b>.
+	
+	In a nutshell, the information above can simply be put as "do not request too much data too quick".
+	
+	<b>Important:</b> the above limitations apply to all our clients and it is not possible to overcome them. If your trading strategy's market data requirements are not met by our market data services
+	please consider contacting a specialised provider.
+
+	\section hd_step_sizes Step Sizes
+	
+	A step size is defined as the ratio between the historical data request's duration period and its granularity (i.e. bar size). Historical Data requests need to be assembled in such a way
+	that only a few thousand bars are returned at a time. The following table exemplifies this concept:
+	
+	<table>
+		<tr><th>Duration</th><th>Allowed Bar Sizes</th></tr>
+		<tr><td>60 S</td><td>1 sec - 1 mins</td></tr>
+		<tr><td>120 S</td><td>1 sec - 2 mins</td></tr>
+		<tr><td>1800 S (30 mins)</td><td>1 sec - 30 mins</td></tr>
+		<tr><td>3600 S (1 hr)</td><td>5 secs - 1 hr</td></tr>
+		<tr><td>14400 S (4hr)</td><td>10 secs - 3 hrs</td></tr>
+		<tr><td>28800 S (8 hrs)</td><td>30 secs - 8 hrs</td></tr>
+		<tr><td>1 D</td><td>1 min - 1 day</td></tr>
+		<tr><td>2 D</td><td>2 mins - 1 day</td></tr>
+		<tr><td>1 W</td><td>3 mins - 1 week</td></tr>
+		<tr><td>1 M</td><td>30 mins - 1 month</td></tr>
+		<tr><td>1 Y</td><td>1 day - 1 month</td></tr>
+	</table>
+
+	\section hd_availability Data Availability
+	
+	Historical data requests can go back one full calendar year or more, depending on the number of @ref market_lines you are entitled to:
+	
+	<table>           
+        <tr><th>Years of Historical Data</th><th>Lines required</th><th>Required monthly commissions</th><th>Required monthly equity</th><th>Booster packs</th></tr>
+        <tr>
+			<td>One year</td>
+			<td>0 - 499</td>
+			<td>Less than USD 4000</td>
+			<td>Less Then USD 5,000,000</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Two years</td>
+			<td>500 - 749</td>
+			<td>USD 4,000</td>
+			<td>USD 5,000,000</td>
+			<td>4
+			</td>
+		</tr>
+		<tr>
+			<td>Three years</td>
+			<td>750 - 999</td>
+			<td>USD 6,000</td>
+			<td>USD 7,500,000</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>Four years</td>
+			<td>1000 - 1249</td>
+			<td>USD 8,000</td>
+			<td>USD 10,000,000</td>
+			<td>9</td>
+		</tr>
+		<tr>
+			<td>Five years</td>
+			<td>1250 - 1499</td>
+			<td>USD 10,000</td>
+			<td>USD 12,500,000</td>
+			<td>N/A (1)</td>
+		</tr>
+    </table>
+	
+	(1) The maximum number of Quote Booster packs per username is 10.
+		
+	\section non-available_hd Unavailable Historical Data
+	
+	- Tick-by-tick historical data.
+	- Studies and indicators such as Weighted Moving Averages or Bollinger Bands.
+	- Bars which size is 30 seconds or less <b>older than six months</b>
+	- Expired futures data older than two years counting from the future's expiration date.
+	- Continuous futures data
+	- Expired options, FOPs, warrants and structured products.
+	- End of Day (EOD) data for options, FOPs, warrants and structured products.
+	- Bonds and Funds data.	
+		
+	
+	
+	<br><br>
+	
+
+*/

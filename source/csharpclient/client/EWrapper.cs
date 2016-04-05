@@ -17,7 +17,7 @@ namespace IBApi
     public interface EWrapper
     {
         /** @brief Handles errors generated within the API itself.
-         * If an exception is thrown within the API code it will be notified here. Posible cases include errors while reading the information from the socket or even misshandlings at EWrapper's implementing class.
+         * If an exception is thrown within the API code it will be notified here. Possible cases include errors while reading the information from the socket or even mishandling at EWrapper's implementing class.
          * @param e the thrown exception.
          */
         void error(Exception e);
@@ -308,7 +308,6 @@ namespace IBApi
 
         /**
          * @brief Marks the ending of the historical bars reception.
-         * 
          */
        void historicalDataEnd(int reqId, string start, string end);
 
@@ -432,13 +431,45 @@ namespace IBApi
          */
         void receiveFA(int faDataType, string faXmlData);
 
-
+        /**
+        * @brief Deprecated Function.
+        */
         void verifyMessageAPI(string apiData);
+
+        /**
+        * @brief DOC_TODO
+        */
         void verifyCompleted(bool isSuccessful, string errorText);
+
+        /**
+        * @brief DOC_TODO
+        */
         void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
+
+        /**
+        * @brief DOC_TODO
+        */
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
+
+        /**
+        * @brief a one-time response to querying the display groups.
+		* @param reqId the ID of the request
+		* @param It returns a list of integers representing visible Group ID separated by the "|" character, and sorted by most used group first.
+        * @sa EClientSocket::queryDisplayGroups
+		*/
         void displayGroupList(int reqId, string groups);
+
+        /**
+        * @brief call triggered once after receiving the subscription request, and will be sent again if the selected contract in the subscribed * display group has changed.
+		* @param reqId the ID of the request
+		* @param contractInfo 
+		* @sa EClient::subscribeToGroupEvents 
+        */
         void displayGroupUpdated(int reqId, string contractInfo);
+
+        /**
+        * @brief callback signifying completion of successful connection
+        */
         void connectAck();
 
         /**
@@ -467,18 +498,34 @@ namespace IBApi
          * @param key the name of parameter
          * @param value the value of parameter
          * @param currency the currency of parameter
-         * @sa accountUpdateMultiEnd, EClientSocket::reqAccountUpdatesMulti
+         * @sa accountUpdateMultiEnd, reqAccountUpdatesMulti
          */
         void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
 
         /**
          * @brief Indicates all the account updates have been transmitted
-         * @sa accountUpdateMulti, reqAccountUpdatesMulti
+         * @sa EWrapper::accountUpdateMulti, EClientSocket::reqAccountUpdatesMulti
          */
         void accountUpdateMultiEnd(int requestId);
 
-
+		/**
+		* @brief returns the option chain for an underlying on an exchange specified in reqSecDefOptParams
+		* There will be multiple callbacks to securityDefinitionOptionParameter if multiple exchanges are specified in reqSecDefOptParams
+		* @param reqId ID of the request initiating the callback
+		* @param underlyingConId The conID of the underlying security
+		* @param tradingClass the option trading class
+		* @param multiplier the option multiplier
+		* @param expirations a list of the expiries for the options of this underlying on this exchange
+		* @param strikes a list of the possible strikes for options of this underlying on this exchange
+		* @sa reqSecDefOptParams
+		*/
         void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
+		
+		/**
+		* @brief called when all callbacks to securityDefinitionOptionParameter are complete
+		* @param reqId the ID used in the call to securityDefinitionOptionParameter
+		* @sa securityDefinitionOptionParameter, reqSecDefOptParams
+		*/
         void securityDefinitionOptionParameterEnd(int reqId);
     }
 }
