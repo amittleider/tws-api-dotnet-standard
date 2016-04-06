@@ -1,0 +1,63 @@
+/*! \page account_summary Account Summary
+
+	The @ref IBApi::EClient::reqAccountSummary method pulls the information displayed in the TWS' Account Summary window.
+	
+	\section acct_summary_req Requesting
+	
+	Unlike @ref IBApi::EClient::reqAccountUpdates, @ref IBApi::EClient::reqAccountSummary can not only retrieve summarised information for either one or all the managed accounts but also
+	extract only the specified values to be monitored by the client application.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqaaccountsummary
+		</li>
+		<li> 
+			\snippet Testbed.java reqaaccountsummary
+		</li>
+		<li> 
+			\snippet MainModule.vb reqaaccountsummary
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqaaccountsummary
+		</li>
+	</ul>
+	
+	<b>Important:</b> only <b>two</b> active summary subscriptions are allowed at a time!
+	
+	\section acct_summary_rec Receiving
+	
+	Summarised information is delivered via @ref IBApi::EWrapper::accountSummary and @ref IBApi::EWrapper::accountSummaryEnd
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs accountsummary
+			...
+			\snippet EWrapperImpl.cs accountsummaryend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java accountsummary
+			...
+			\snippet EWrapperImpl.java accountsummaryend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb accountsummary
+			...
+			\snippet EWrapperImpl.vb accountsummaryend
+		
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		    ...
+			\snippet TestCppClient.cpp accountsummary
+			...
+			\snippet TestCppClient.cpp accountsummaryend
+		</li>
+	</ul>
+
+*/

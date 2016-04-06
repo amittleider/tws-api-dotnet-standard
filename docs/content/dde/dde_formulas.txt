@@ -1,0 +1,71 @@
+/*! \page dde_reference DDE Formula Reference
+
+	\section dde_rt Real Time Data
+	
+	<table>
+		<tr><th>Attribute</th><th>Description</th></tr>
+		<tr><td>twsuser</td><td>The username with which you logged into the TWS</td></tr>
+		<tr><td>requestId</td><td>The request unique identifier (any positive integer)</td></tr>
+		<tr><td>symbol</td><td>The contract symbol</td></tr>
+		<tr><td>sectype</td><td>The kind of contract</td></tr>
+		<tr><td>exchange</td><td>The exchange from which we want to pull the data from</td></tr>
+		<tr><td>currency</td><td>The contract currency</td></tr>
+	</table>
+	
+	\subsection dde_rt_request Initial Request
+	
+	=S[twsuser]|tik!'id[reqestId]?req?[symbol]_[sectype]_[exchange]_[currency]_~/'
+		
+	\subsection dde_rt_reception Data Reception
+	
+	=S[twsuser]|tik!id[requestId]?bidSize
+
+	=S[twsuser]|tik!id[requestId]?bid
+
+	=S[twsuser]|tik!id[requestId]?ask
+
+	=S[twsuser]|tik!id[requestId]?askSize
+
+	=S[twsuser]|tik!id[requestId]?last
+
+	=S[twsuser]|tik!id[requestId]?lastSize
+
+	=S[twsuser]|tik!id[requestId]?high
+
+	=S[twsuser]|tik!id[requestId]?low
+
+	=S[twsuser]|tik!id[requestId]?volume
+
+	=S[twsuser]|tik!id[requestId]?close
+	
+	=S[twsuser]|tik!id[requestId]?bidImpliedVol
+	
+	\subsection dde_rt_reception_options Option-specific Ticks
+
+	=S[twsuser]|tik!id[requestId]?bidDelta
+
+	=S[twsuser]|tik!id[requestId]?askImpliedVol
+
+	=S[twsuser]|tik!id[requestId]?askDelta
+
+	=S[twsuser]|tik!id[requestId]?lastImpliedVol
+
+	=S[twsuser]|tik!id[requestId]?lastDelta
+
+	=S[twsuser]|tik!id[requestId]?modelVolatility
+
+	=S[twsuser]|tik!id[requestId]?modelDelta
+
+	=S[twsuser]|tik!id[requestId]?modelPrice
+
+	=S[twsuser]|tik!id[requestId]?pvDividend
+
+	=S[twsuser]|tik!id[requestId]?modelGamma
+
+	=S[twsuser]|tik!id[requestId]?modelVega
+
+	=S[twsuser]|tik!id[requestId]?modelTheta
+
+	=S[twsuser]|tik!id[requestId]?modelUndPrice
+
+*/

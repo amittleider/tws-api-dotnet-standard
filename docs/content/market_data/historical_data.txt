@@ -1,0 +1,142 @@
+﻿/*! \page historical_data Historical Data
+
+	When retrieving historical data from the TWS, be mindful of our \subpage historical_limitations and the relevant @ref market_subscriptions
+
+	\section hd_request Requesting
+
+	Historical data is obtained from the the TWS via the @ref IBApi::EClient::reqHistoricalData function. Every request needs:
+	- A unique identifier which will serve to identify the incoming data.
+	- The @ref IBApi::Contract you are interested in.
+	- The request's end date and time. 
+	- The amount of time (or @ref hd_duration) to go back from the request's given end date and time.
+	- The data's granularity or @ref hd_barsize
+	- The type of data to retrieve. See @ref hd_what_to_show
+	- Whether or not to retrieve data generated only within Regular Trading Hours (RTH)
+	- The format in which the incoming bars' date should be presented. Note that for day bars, only yyyyMMdd format is available.
+	
+	For example, making a request with an end date and time of "20160127 23:59:59", a duration string of "3 D" and a bar size of "1 hour" will return three days worth of 1 hour bars data in which the
+	most recent bar will be the closest possible to 20160127 23:59:59.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqhistoricaldata
+		</li>
+		<li>
+			\snippet Testbed.java reqhistoricaldata
+		</li>
+		<li>
+			\snippet MainModule.vb reqhistoricaldata
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqhistoricaldata
+		</li>
+	</ul>
+	
+	\section hd_receive Receiving
+	
+	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. Once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
+	marker will be sent
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs historicaldata
+			...
+			\snippet EWrapperImpl.cs historicaldataend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java historicaldata
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb historicaldata
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp historicaldata
+		</li>
+	</ul>
+	
+	\section hd_duration Valid Duration String units
+	
+	<table>
+		<tr><th>Unit</th><th>Description</th></tr>
+		<tr><td>S</td><td>Seconds</td></tr>
+		<tr><td>D</td><td>Day</td></tr>
+		<tr><td>W</td><td>Week</td></tr>
+		<tr><td>M</td><td>Month</td></tr>
+		<tr><td>Y</td><td>Year</td></tr>
+	</table>
+	
+	\section hd_barsize Valid Bar Sizes
+	
+	<table>
+		<tr><th>Size</th></tr>
+		<tr><td>1 sec</td></tr>
+		<tr><td>5 secs</td></tr>
+		<tr><td>10 secs</td></tr>
+		<tr><td>15 secs</td></tr>
+		<tr><td>30 secs</td></tr>
+		<tr><td>1 min</td></tr>
+		<tr><td>2 mins</td></tr>
+		<tr><td>3 mins</td></tr>
+		<tr><td>5 mins</td></tr>
+		<tr><td>10 mins</td></tr>
+		<tr><td>15 mins</td></tr>
+		<tr><td>20 mins</td></tr>
+		<tr><td>30 mins</td></tr>
+		<tr><td>1 hour</td></tr>
+		<tr><td>2 hours</td></tr>
+		<tr><td>3 hours</td></tr>
+		<tr><td>4 hours</td></tr>
+		<tr><td>8 hours</td></tr>
+		<tr><td>1 day</td></tr>
+		<tr><td>1 week</td></tr>
+		<tr><td>1 month</td></tr>
+	</table>
+	
+	\section hd_what_to_show Historical Data Types (whatToShow)
+	
+	All different kinds of historical data are returned in the form of candlesticks and as such the values return represent the state of the market <b>during the period covered by the candlestick</b>.
+	For instance, it might appear obvious but a TRADES day bar's 'close' value does <b>NOT</b> represent the product's closing price but rather the last traded price registered.
+	
+	<table>
+		<tr><th>Type</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>
+		<tr><td><b>TRADES</b></td><td>First traded price</td><td>Highest traded price</td><td>Lowest traded price</td><td>Last traded price</td><td>Total traded volume</td></tr>
+		<tr><td><b>MIDPOINT</b></td><td>Starting midpoint price</td><td>Highest midpoint price</td><td>Lowest midpoint price</td><td>Last midpoint price</td><td>N/A</td></tr>
+		<tr><td><b>BID</b></td><td>Starting bid price</td><td>Highest bid price</td><td>Lowest bid price</td><td>Last bid price</td><td>N/A</td></tr>
+		<tr><td><b>ASK</b></td><td>Starting ask price</td><td>Highest ask price</td><td>Lowest ask price</td><td>Last ask price</td><td>N/A</td></tr>
+		<tr><td><b>BID_ASK</b></td><td>Time average bid</td><td>Max Ask</td><td>Min Bid</td><td>Time average ask</td><td>N/A</td></tr>
+		<tr><td><b>HISTORICAL_VOLATILITY</b></td><td>Starting volatility</td><td>Highest volatility</td><td>Lowest volatility</td><td>Last volatility</td><td>N/A</td></tr>
+		<tr><td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A</td></tr>
+	</table>
+	
+	\section available_products_hd Available Data per Product
+	
+	<table>
+		<tr><th>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th></tr>
+		<tr><td>Stoks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+		<tr><td>Commodities</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Options</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Futures</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>FOPs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>ETFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+		<tr><td>Warrants</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Structured Products</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>SSFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Forex</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Metals</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Indices</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>Y</td></tr>
+		<tr><td>Bonds</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>Funds</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+	</table> 
+	
+	<br><br>
+
+*/

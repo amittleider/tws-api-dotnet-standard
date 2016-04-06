@@ -1,0 +1,90 @@
+/*! \page option_computations Options Computations
+
+	\section option_greeks Market data related to options
+	
+	The option greek values- delta, gamma, theta, vega- are returned by default following a reqMktData() request for the option. See @ref tick_types 
+	
+	Tick types BID_OPTION_COMPUTATION (#10), ASK_OPTION_COMPUTATION (#11), LAST_OPTION_COMPUTATION (#12), and MODEL_OPTION_COMPUTATION (#13) return all Greeks (delta, gamma, vega, theta), the underlying price and the stock and option reference price when requested. 
+	
+	MODEL_OPTION_COMPUTATION also returns model implied volatility.
+	
+	Note that to receive greek values it is necessary to have market data subscriptions for both the option and the underlying contract. 
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqoptiondatagenticks
+		</li>
+		<li>
+			\snippet Testbed.java reqoptiondatagenticks
+		</li>
+		<li>
+			\snippet MainModule.vb reqoptiondatagenticks
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqoptiondatagenticks
+		</li>
+	</ul>
+	
+	The Implied Volatility of an underlying based on its current option prices is returned in tick 24. See @ref tick_types
+	
+	The IB 30-day volatility is the at-market volatility estimated for a maturity thirty calendar days forward of the current trading day, and is based on option prices from two consecutive expiration months.
+	
+	\section opt_calculations Calculating option prices and historical volatility
+		
+	The implied volatility for an option given its price and the price of the underlying can be calculated with the function @ref IBApi::EClient::calculateImpliedVolatility
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs calculateimpliedvolatility
+		</li>
+		<li>
+			\snippet Testbed.java calculateimpliedvolatility
+		</li>
+		<li>
+			\snippet MainModule.vb calculateimpliedvolatility
+		</li>
+		<li>
+			\snippet TestCppClient.cpp calculateimpliedvolatility
+		</li>
+	</ul>	
+	
+	Alternatively, given the price of the underlying and an implied volatility it is possible to calculate the option price using the function @ref IBApi::EClient::calculateOptionPrice
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs calculateoptionprice
+		</li>
+		<li>
+			\snippet Testbed.java calculateoptionprice
+		</li>
+		<li>
+			\snippet MainModule.vb calculateoptionprice
+		</li>
+		<li>
+			\snippet TestCppClient.cpp calculateoptionprice
+		</li>
+	</ul>
+	
+	After the request, the option specific information will be delivered via the @ref IBApi::EWrapper::tickOptionComputation method:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs tickoptioncomputation
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java tickoptioncomputation
+		</li>
+		<li>
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		    ...
+		    \snippet TestCppClient.cpp tickoptioncomputation
+		</li>
+	</ul>
+
+*/

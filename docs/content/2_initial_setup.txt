@@ -1,0 +1,36 @@
+﻿/*! \page initial_setup Initial Setup
+
+	\section tws The Trader Workstation
+	
+	Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide 
+	from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to.
+
+	\section gateway The IB Gateway
+	
+	The only alternative to the TWS is the IB Gateway. From the TWS API perspective, the IB Gateway and the TWS are identical: both represent nothing but a server to which it can open a
+	socket connection. From the user perspective however the IB Gateway is a lightweight application through which he can only make use of the TWS API. As opposed to the TWS' rich user interface,
+	the IB Gateway does not provide the end user with anything else than the very basic features to handle API connections. On the other hand, the IB Gateway does not need to be restarted
+	every 24 hours and can therefore be used to run indefinitely.
+	
+	<b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonyms.</b>
+	
+	\section enable_api Enable API connections
+		
+	Before any client application can connect to the Trader Workstation, the TWS needs to be configured to listen for incoming API connections on a very specific port. To do this simply access
+	the TWS' API settings via Edit -> Global Configuration -> API -> Settings and make sure the "Enable ActiveX and Socket Clients" option is activated as shown below:
+	
+	\image html enable_socket.png
+	
+	Also important to mention is the "Socket port". By default the TWS will listen on ports <b>7496</b> or <b>7497</b> although this value can be changed to whichever port number as long as
+	the specific port is available. This is particularly important to remember in case multiple TWS are running on the same computer (i.e. live and paper trading). Since 
+	only one application can listen on one port at a time you will need to assign different ports to each running TWS.
+	
+	<b>Important: when running paper and live TWS on the same computer, make sure your client application is connecting to the right TWS!</b>
+		
+	\section read_only Read Only API
+
+	The API Settings dialog allows you to configure the TWS not to accept any orders being sent via the TWS API. This is an additional security measure you can enable when the API client
+	is only intended to request information from the TWS.
+		
+	<br><br>
+*/

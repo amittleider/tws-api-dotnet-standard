@@ -9,6 +9,9 @@ using System.IO;
 
 namespace IBApi
 {
+    /**
+    * @brief Captures incoming messages to the API client and places them into a queue.
+    */
     public class EReader
     {
         EClientSocket eClientSocket;

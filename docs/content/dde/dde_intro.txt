@@ -1,0 +1,14 @@
+/*! \page dde_intro Dynamic Data Exchange
+
+	The Dynamic Data Exchange protocol is a method of inter-process communication developed by Microsoft. Thanks to it, it is possible for the TWS to communicate with other applications such as 
+	MS Excel.
+ 
+	Interactive Brokers does not offer any programming assistance and therefore it is strongly advised to anyone willing to use any of the TWS DDE API to get familiar with 
+	the technologies involved such as the DDE protocol and VBA.
+
+	<b>Important:</b> you will require the 32-bit version of the TWS.
+	
+	- \subpage dde_reference
+	- \subpage dde_realtime_tutorial
+
+*/

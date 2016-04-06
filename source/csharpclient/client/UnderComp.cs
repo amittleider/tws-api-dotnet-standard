@@ -10,8 +10,8 @@ using System.Text;
 namespace IBApi
 {
     /**
-     * @brief Delta-Neutral Underlying Component.
-     */
+    * @brief Delta-Neutral Underlying Component.
+    */
     public class UnderComp
     {
         private int conId;

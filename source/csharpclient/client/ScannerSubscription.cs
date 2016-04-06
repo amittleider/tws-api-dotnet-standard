@@ -15,128 +15,209 @@ namespace IBApi
      */
     public class ScannerSubscription
     {
+        private int numberOfRows = -1;
+        private string instrument;
+        private string locationCode;
+        private string scanCode;
+        private double abovePrice = Double.MaxValue;
+        private double belowPrice = Double.MaxValue;        
+        private int aboveVolume = Int32.MaxValue;
+        private int averageOptionVolumeAbove = Int32.MaxValue;
+        private double marketCapAbove = Double.MaxValue;
+        private double marketCapBelow = Double.MaxValue;
+        private string moodyRatingAbove;
+        private string moodyRatingBelow;
+        private string spRatingAbove;
+        private string spRatingBelow;
+        private string maturityDateAbove;
+        private string maturityDateBelow;
+        private double couponRateAbove = Double.MaxValue;
+        private double couponRateBelow = Double.MaxValue;
+        private string excludeConvertible;
+        private string scannerSettingPairs;
+        private string stockTypeFilter;
+
         /**
-         * @var int numberOfRows
          * @brief The number of rows to be returned for the query
          */
-        private int numberOfRows = -1;
+        public int NumberOfRows
+        {
+            get { return numberOfRows; }
+            set { numberOfRows = value; }
+        }
 
         /**
-         * @var string instrument
          * @brief The instrument's type for the scan. I.e. STK, FUT.HK, etc.
          */
-        private string instrument;
+        public string Instrument
+        {
+            get { return instrument; }
+            set { instrument = value; }
+        }
 
         /**
-         * @var string locationCode
          * @brief The request's location (STK.US, STK.US.MAJOR, etc). 
          */
-        private string locationCode;
+        public string LocationCode
+        {
+            get { return locationCode; }
+            set { locationCode = value; }
+        }
 
         /**
-         * @var string scanCode
          * @brief Same as TWS Market Scanner's "parameters" field, for example: TOP_PERC_GAIN
          */
-        private string scanCode;
+        public string ScanCode
+        {
+            get { return scanCode; }
+            set { scanCode = value; }
+        }
 
         /**
-         * @var double abovePrice
          * @brief Filters out Contracts which price is below this value
          */
-        private double abovePrice = Double.MaxValue;
+        public double AbovePrice
+        {
+            get { return abovePrice; }
+            set { abovePrice = value; }
+        }
 
         /**
-         * @var double belowPrice
          * @brief Filters out contracts which price is above this value.
          */
-        private double belowPrice = Double.MaxValue;
+        public double BelowPrice
+        {
+            get { return belowPrice; }
+            set { belowPrice = value; }
+        }
 
         /**
-         * @var int aboveVolume
          * @brief Filters out Contracts which volume is above this value.
          */
-        private int aboveVolume = Int32.MaxValue;
+        public int AboveVolume
+        {
+            get { return aboveVolume; }
+            set { aboveVolume = value; }
+        }
 
         /**
-         * @var int averageOptionVolumeAbove
          * @brief Filters out Contracts which option volume is above this value.
          */
-        private int averageOptionVolumeAbove = Int32.MaxValue;
+        public int AverageOptionVolumeAbove
+        {
+            get { return averageOptionVolumeAbove; }
+            set { averageOptionVolumeAbove = value; }
+        }
 
         /**
-         * @var double marketCapAbove
          * @brief Filters out Contracts which market cap is above this value.
          */
-        private double marketCapAbove = Double.MaxValue;
+        public double MarketCapAbove
+        {
+            get { return marketCapAbove; }
+            set { marketCapAbove = value; }
+        }
 
         /**
-         * @var double marketCapBelow
          * @brief Filters out Contracts which market cap is below this value.
          */
-        private double marketCapBelow = Double.MaxValue;
+        public double MarketCapBelow
+        {
+            get { return marketCapBelow; }
+            set { marketCapBelow = value; }
+        }
 
         /**
-         * @var string moodyRatingAbove
          * @brief Filters out Contracts which Moody's rating is below this value.
          */
-        private string moodyRatingAbove;
+        public string MoodyRatingAbove
+        {
+            get { return moodyRatingAbove; }
+            set { moodyRatingAbove = value; }
+        }
 
         /**
-         * @var string moodyRatingBelow
          * @brief Filters out Contracts which Moody's rating is above this value.
          */
-        private string moodyRatingBelow;
+        public string MoodyRatingBelow
+        {
+            get { return moodyRatingBelow; }
+            set { moodyRatingBelow = value; }
+        }
 
         /**
-         * @var string spRatingAbove
          * @brief Filters out Contracts with a S&P rating below this value.
          */
-        private string spRatingAbove;
+        public string SpRatingAbove
+        {
+            get { return spRatingAbove; }
+            set { spRatingAbove = value; }
+        }
 
         /**
-         * @var string spRatingBelow
          * @brief Filters out Contracts with a S&P rating above this value.
          */
-        private string spRatingBelow;
+        public string SpRatingBelow
+        {
+            get { return spRatingBelow; }
+            set { spRatingBelow = value; }
+        }
 
         /**
-         * @var string maturityDateAbove
          * @brief Filter out Contracts with a maturity date earlier than this value.
          */
-        private string maturityDateAbove;
+        public string MaturityDateAbove
+        {
+            get { return maturityDateAbove; }
+            set { maturityDateAbove = value; }
+        }
 
         /**
-         * @var string maturityDateBelow
          * @brief Filter out Contracts with a maturity date older than this value.
          */
-        private string maturityDateBelow;
+        public string MaturityDateBelow
+        {
+            get { return maturityDateBelow; }
+            set { maturityDateBelow = value; }
+        }
 
         /**
-         * @var double couponRateAbove
          * @brief Filter out Contracts with a coupon rate lower than this value.
          */
-        private double couponRateAbove = Double.MaxValue;
+        public double CouponRateAbove
+        {
+            get { return couponRateAbove; }
+            set { couponRateAbove = value; }
+        }
 
         /**
-         * @var double couponRateBelow
          * @brief Filter out Contracts with a coupon rate higher than this value.
          */
-        private double couponRateBelow = Double.MaxValue;
+        public double CouponRateBelow
+        {
+            get { return couponRateBelow; }
+            set { couponRateBelow = value; }
+        }
 
         /**
-         * @var string excludeConvertible
          * @brief Filters out Convertible bonds
          */
-        private string excludeConvertible;
+        public string ExcludeConvertible
+        {
+            get { return excludeConvertible; }
+            set { excludeConvertible = value; }
+        }
 
         /**
-         * @var string scannerSettingPairs
          * @brief For example, a pairing "Annual, true" used on the "top Option Implied Vol % Gainers" scan would return annualized volatilities.
          */
-        private string scannerSettingPairs;
+        public string ScannerSettingPairs
+        {
+            get { return scannerSettingPairs; }
+            set { scannerSettingPairs = value; }
+        }
 
         /**
-         * @var string stockTypeFilter
          * @brief -
          *      CORP = Corporation
          *      ADR = American Depositary Receipt
@@ -144,128 +225,6 @@ namespace IBApi
          *      REIT = Real Estate Investment Trust
          *      CEF = Closed End Fund
          */
-        private string stockTypeFilter;
-
-        public int NumberOfRows
-        {
-            get { return numberOfRows; }
-            set { numberOfRows = value; }
-        }
-       
-        public string Instrument
-        {
-            get { return instrument; }
-            set { instrument = value; }
-        }
-
-        public string LocationCode
-        {
-            get { return locationCode; }
-            set { locationCode = value; }
-        }
-
-        public string ScanCode
-        {
-            get { return scanCode; }
-            set { scanCode = value; }
-        }
-
-        public double AbovePrice
-        {
-            get { return abovePrice; }
-            set { abovePrice = value; }
-        }
-
-        public double BelowPrice
-        {
-            get { return belowPrice; }
-            set { belowPrice = value; }
-        }
-
-        public int AboveVolume
-        {
-            get { return aboveVolume; }
-            set { aboveVolume = value; }
-        }
-
-        public int AverageOptionVolumeAbove
-        {
-            get { return averageOptionVolumeAbove; }
-            set { averageOptionVolumeAbove = value; }
-        }
-
-        public double MarketCapAbove
-        {
-            get { return marketCapAbove; }
-            set { marketCapAbove = value; }
-        }
-
-        public double MarketCapBelow
-        {
-            get { return marketCapBelow; }
-            set { marketCapBelow = value; }
-        }
-
-        public string MoodyRatingAbove
-        {
-            get { return moodyRatingAbove; }
-            set { moodyRatingAbove = value; }
-        }
-
-        public string MoodyRatingBelow
-        {
-            get { return moodyRatingBelow; }
-            set { moodyRatingBelow = value; }
-        }
-
-        public string SpRatingAbove
-        {
-            get { return spRatingAbove; }
-            set { spRatingAbove = value; }
-        }
-
-        public string SpRatingBelow
-        {
-            get { return spRatingBelow; }
-            set { spRatingBelow = value; }
-        }
-
-        public string MaturityDateAbove
-        {
-            get { return maturityDateAbove; }
-            set { maturityDateAbove = value; }
-        }
-
-        public string MaturityDateBelow
-        {
-            get { return maturityDateBelow; }
-            set { maturityDateBelow = value; }
-        }
-
-        public double CouponRateAbove
-        {
-            get { return couponRateAbove; }
-            set { couponRateAbove = value; }
-        }
-
-        public double CouponRateBelow
-        {
-            get { return couponRateBelow; }
-            set { couponRateBelow = value; }
-        }
-
-        public string ExcludeConvertible
-        {
-            get { return excludeConvertible; }
-            set { excludeConvertible = value; }
-        }
-
-        public string ScannerSettingPairs
-        {
-            get { return scannerSettingPairs; }
-            set { scannerSettingPairs = value; }
-        }
-
         public string StockTypeFilter
         {
             get { return stockTypeFilter; }

@@ -8,6 +8,10 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+    * @brief Contains all possible errors occurring on the client side. This errors are not sent by the TWS but rather generated as the result of malfunction within the
+    * TWS API client.
+    */
     public class EClientErrors
     {
         public static readonly CodeMsgPair AlreadyConnected = new CodeMsgPair(501, "Already Connected.");
@@ -76,6 +80,9 @@ namespace IBApi
     
     }
 
+/**
+  * @brief associates error code and error message as a pair. 
+  */
     public class CodeMsgPair
     {
         private int code;

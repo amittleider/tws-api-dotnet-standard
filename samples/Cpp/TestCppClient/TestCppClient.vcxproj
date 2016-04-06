@@ -26,7 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -65,7 +65,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -128,11 +128,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AvailableAlgoParams.cpp" />
+    <ClCompile Include="ContractSamples.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="OrderSamples.cpp" />
+    <ClCompile Include="ScannerSubscriptionSamples.cpp" />
     <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="TestCppClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AvailableAlgoParams.h" />
+    <ClInclude Include="ContractSamples.h" />
+    <ClInclude Include="FAMethodSamples.h" />
+    <ClInclude Include="OrderSamples.h" />
+    <ClInclude Include="ScannerSubscriptionSamples.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestCppClient.h" />
   </ItemGroup>

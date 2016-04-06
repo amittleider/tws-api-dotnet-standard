@@ -1,0 +1,92 @@
+﻿/*! \page market_depth Market Depth (Level II)
+
+	Market depth data, also known as level II, represent's an instrument's order book. Via the TWS API it is possible to obtain this information thanks to the @ref IBApi::EClient::reqMarketDepth function.
+	Unlike @ref top_data, market depth data is sent without sampling nor filtering, however we cannot guarantee that every price quoted for a particular security will be displayed when you
+	invoke @ref IBApi::EClient::reqMarketDepth.
+	
+	\section request Requesting
+	
+	The @ref IBApi::EClient::reqMarketDepth method receives a request identifier (or ticker Id) with which to identify the incoming data, the @ref IBApi::Contract for which we want to pull this information
+	and the number of rows or depth level that is required. In case the market depth is smaller than the requested number of rows, the TWS will simply return the available entries.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqmarketdepth
+		</li>
+		<li>
+			\snippet Testbed.java reqmarketdepth
+		</li>
+		<li>
+			\snippet MainModule.vb reqmarketdepth
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmarketdepth
+		</li>
+	</ul>
+	
+	\section receive Receiving
+	
+	Market depth will be returned via the @ref IBApi::EWrapper::updateMktDepth callback. Initially, all requested/available rows will be delivered to the client application. As market moves however
+	these rows will inevitably change. To keep the client's order book consistent, the TWS will send updates not only informing which row is to be updated but also the operation to perform in the 
+	row: insert (0), update (1) or remove (2).
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs updatemktdepth
+		   ...
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java updatemktdepth
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.vb updatemktdepth
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp updatemktdepth
+			...
+		</li>
+	</ul>
+	
+	\section canceling Canceling
+	
+	To cancel an active market depth request simply invoke the @ref IBApi::EClient::cancelMktDepth passing in the request's identifier.
+	
+	<ul id="tab">
+		<li class="active"> 
+		   \snippet Program.cs cancelmktdepth
+		</li>
+		<li>
+			\snippet Testbed.java cancelmktdepth
+		</li>
+		<li>
+			\snippet MainModule.vb cancelmktdepth
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelmktdepth
+		</li>
+	</ul>
+	
+	\section limitations Limitations
+	
+	Given the potentially high amount of data being sent, market depth request's are much more limited. Just as with historical data requests, the amount of active depth requests is related
+	to the amount of market data lines:
+	
+	<table>
+		<tr><th>Number of lines</th><th>Max. Requests</th></tr>
+		<tr><td>0 - 399</td><td>3</td></tr>
+		<tr><td>400 - 499</td><td>4</td></tr>
+		<tr><td>500 - 599</td><td>5</td></tr>
+		<tr><td>600 - 699</td><td>6</td></tr>
+		<tr><td colspan="2">etc...</td></tr>
+		</tr>
+	</table>
+
+*/

@@ -101,7 +101,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief DOC_TODO
          */
         public int ExemptCode
         {
