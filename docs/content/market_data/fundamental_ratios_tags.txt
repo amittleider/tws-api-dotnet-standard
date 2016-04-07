@@ -1,0 +1,9 @@
+/*! \page fundamental_ratios_tags Available Fundamental Ratios
+
+	<table>
+		<tr><th>Tag</th><th>Description</th></tr>
+		<tr><td>NPRICE</td><td>Closing Price. This is the closing price for the issue from the day it last traded. It is also referred to as the Current Price. Note that some issues may not trade every day, and therefore it is possible for this price to come from a date prior to the last business day.</td></tr>
+		<tr><td></td><td></td></tr>
+	</table>
+
+*/

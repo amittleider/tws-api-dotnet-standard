@@ -1,0 +1,11 @@
+/*! \page account_portfolio Account & Portfolio
+
+	The TWS offers a comprehensive overview of your account and portfolio through its Account and Portfolio windows. This information can be obtained via the TWS API through three different
+	kind of requests/operations:
+	
+	- \subpage managed_accounts
+	- \subpage account_updates 
+	- \subpage account_summary 
+	- \subpage positions 
+
+*/

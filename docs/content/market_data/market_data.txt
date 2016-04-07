@@ -1,0 +1,59 @@
+/*! \page market_data Market Data
+
+	It is possible to fetch different kinds market data from the TWS:
+	- \subpage top_data
+	- \subpage market_depth
+	- \subpage historical_data
+	- \subpage realtime_bars
+	
+	\section market_subscriptions Live Data Subscriptions
+	
+	In order to request any kind of market data (i.e. top-of-book, deep-of-book or historical data) it is necessary to be subscribed to the 'instruments' live market data. To subscribe to live market data
+	please log into your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -> Trade Configuration 
+	-> Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.
+	
+	To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.
+	
+	\image html am_market_data_subscription.png
+	
+	Once you have selected the relevant packages, click on the "Continue" button and confirm you have made the right choices in the following screen. 
+	
+	<b>Important: </b> Market Data subscriptions are billable at the full month's rate and will not be pro-rated.
+	
+	\image html am_subscription_confirm.png
+	
+	\section paper_sharing Sharing Market Data Subscriptions
+	
+	Market data subscriptions are done at a <b>TWS username</b> level, not per account. This implies that live market data subscriptions need to be purchased per every live TWS user. The only
+	exception to this rule are paper trading users. To share the market data subscriptions simply access your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a> and navigate to Manage Account -> Settings -> Paper Trading where 
+	you will be presented to the screen below. It will take up to 24 hours until the market data sharing takes effect.
+	
+	\image html am_md_sharing.png
+	
+	<b>Important: </b>since your paper trading market data permissions are bound to your live one, you can only obtain live market data on your paper trading user if;
+	- You have shared the market data subscriptions accordingly as described above.
+	- You are NOT logged in with your live username at the same time on a <b>different</b> computer.
+	
+	\section market_lines Market Data Lines
+	
+	Whenever a user requests an instrument's real time (top-of-book) market data either from within the TWS or through the TWS API, the user is making use of a market data line. Market data
+	lines therefore represent the <b>active</b> market data requests a user has.
+	
+	<b>Example: </b>
+	To clarify this concept further, let us assume a user has a maxTicker Limit of <b>ten</b> market data lines and is already observing the real time data of say <b>five</b> stocks within the TWS itself. When the user connects his 
+	TWS API client application to the TWS, he then requests the real time market data for another <b>different five</b> instruments. At a later point while all 10 requests are still active, the user
+	tries to subscribe to the live real time market data of an eleventh product. Since the user is already making use of ten market data lines (five in the TWS and another five in his client 
+	application), the TWS will respond with an error message telling the client application it has reached the maximum number of simultaneous requests. In order to request the market data
+	of the eleventh product, the user will have to cancel at least one of the currently active subscriptions (either within TWS or from his client program.)
+	
+	By default, every user has a maxTicker Limit of 100 market data lines and as such can obtain the real time market data of up to 100 instruments <b>simultaneously</b>. This limit however can be further extended
+	either through the purchase of quote booster packs or by increasing the equity and/or commissions of the user's account. For further details on how to increment the number of market data lines or how
+	is your market data lines' entitlement calculated, please refer to our website's "Market Data Display" section within the 
+	<a href="https://www.interactivebrokers.com/en/index.php?f=14193" target="_blank" class="linkexternal">Research, News and Market Data</a> page.	
+	
+	<b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and historical data.
+	
+	
+	<br><br>
+
+*/

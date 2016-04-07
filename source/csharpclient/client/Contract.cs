@@ -65,6 +65,9 @@ namespace IBApi
          *      CASH - forex pair
          *      BAG - combo
          *      WAR - warrant
+         *      BOND- bond
+         *      CMDTY- commodity
+         *      NEWS- news
          */
         public string SecType
         {
@@ -73,7 +76,7 @@ namespace IBApi
         }
 
         /**
-        * @brief The contract's expiration date (i.e. Options and Futures)
+        * @brief The contract's expiration date (i.e. Options and Futures). Strings with format YYYYMM will be intrepreted as the Contract Month whereas YYYYMMDD will be interpreted as Last Trading Day.
         */
         public string LastTradeDateOrContractMonth
         {
@@ -91,7 +94,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Either Put or Call (i.e. Options)
+         * @brief Either Put or Call (i.e. Options). Valid values are P, PUT, C, CALL. 
          */
         public string Right
         {

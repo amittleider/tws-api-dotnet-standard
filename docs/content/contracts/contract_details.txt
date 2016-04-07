@@ -1,0 +1,74 @@
+/*! \page contract_details Requesting Contract Details
+
+	@ref IBApi::ContractDetails can be fetched from the TWS via the @ref IBApi::EClient::reqContractDetails function. This method receives a sample @ref IBApi::Contract object which will be used
+	as reference to find all contracts matching its description. This is particularly handy when looking for option chains. Note there is a new function reqSecDefOptParams starting in version 9.72 of the API to perform this function.
+	
+	\section option_chain Obtaining Option Chains
+	
+	The example below shows an "incomplete" option @ref IBApi::Contract with no last trading day, strike nor multiplier defined. In most cases using such a contract would result into a contract 
+	ambiguity error since there are lots of instruments matching the same description. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole option chain from the TWS.
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet ContractSamples.cs optionforquery
+			...
+			\snippet Program.cs reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.java optionforquery
+			...
+			\snippet Testbed.java reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.vb optionforquery
+			...
+			\snippet MainModule.vb reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.cpp optionforquery
+			...
+			\snippet TestCppClient.cpp reqcontractdetails
+		</li>
+	</ul>
+	
+	All returned objects will be delivered via @ref IBApi::EWrapper::contractDetails. Once all contracts have been delivered the @ref IBApi::EWrapper::contractDetailsEnd marker will be triggered
+	to notify it.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+			...
+			\snippet EWrapperImpl.cs contractdetails
+			...
+			\snippet EWrapperImpl.cs contractdetailsend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java contractdetails
+			...
+			\snippet EWrapperImpl.java contractdetailsend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+			...
+			\snippet EWrapperImpl.vb contractdetails
+			...
+			\snippet EWrapperImpl.vb contractdetailsend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp contractdetails
+			...
+			\snippet TestCppClient.cpp contractdetailsend
+		</li>
+	</ul>
+	
+	<b>Important:</b> due to the potentially high amount of data resulting from such queries this request is subject to pacing. Although a request such as the above one will be answered immediately,
+	a similar subsequent one will be kept on hold for one minute. This amount of time will increase if more such requests are performed. To prevent this narrow down the amount of eligible contracts
+	by providing an expiration date specifying at least the year (i.e. 2016) or the year and the month (i.e. 201603 for March 2016).
+	
+	<br></br>
+	
+*/

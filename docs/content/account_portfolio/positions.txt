@@ -1,0 +1,108 @@
+/*! \page positions Positions
+
+	One of the major drawbacks of @ref IBApi::EClient::reqAccountUpdates is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain
+	the positions of all managed accounts. For this purpose @ref IBApi::EClient::reqPositions can be used. Note that this function will not keep an open subscription.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqpositions
+		</li>
+		<li> 
+			\snippet Testbed.java reqpositions
+		</li>
+		<li> 
+			\snippet MainModule.vb reqpositions
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqpositions
+		</li>
+	</ul>
+		
+	After invoking the above, the positions will then be received through the @ref IBApi::EWrapper::position callback. After all positions have been delivered, the @ref IBApi::EWrapper::positionEnd function will be triggered to indicate so.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs position
+			...
+			\snippet EWrapperImpl.cs positionend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java position
+			...
+			\snippet EWrapperImpl.java positionend
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb position
+			...
+			\snippet EWrapperImpl.vb positionend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp position
+			...
+			\snippet TestCppClient.cpp positionend
+		</li>
+	</ul>
+	
+	\section position_multi Models' Positions
+	
+	The function @ref IBApi::EClient::reqPositionsMulti can be used with multiple account structures to subscribe to positions updates for multiple accounts and/or models. The account and model parameters are optional.
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqpositionsmulti
+		</li>
+		<li> 
+			\snippet Testbed.java reqpositionsmulti
+		</li>
+		<li> 
+			\snippet MainModule.vb reqpositionsmulti
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqpositionsmulti
+		</li>
+	</ul>
+	
+	After invoking @ref IBApi::EClient::reqPositionsMulti data will be returned to the @ref IBApi::EWrapper::positionMulti function. After all positions have been delivered, the @ref IBApi::EWrapper::positionMultiEnd function will be triggered.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs positionmulti
+			...
+			\snippet EWrapperImpl.cs positionmultiend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java positionmulti
+			...
+			\snippet EWrapperImpl.java positionmultiend
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb positionmulti
+			...
+			\snippet EWrapperImpl.vb positionmultiend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp positionmulti
+			...
+			\snippet TestCppClient.cpp positionmultiend
+		</li>
+	</ul>
+	
+	
+	
+	
+*/

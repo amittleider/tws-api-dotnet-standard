@@ -5,6 +5,9 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+    * @brief Time condition used in conditional orders to submit or cancel orders at specified time. 
+    */
     public class TimeCondition : OperatorCondition
     {
         const string header = "time";
@@ -26,6 +29,10 @@ namespace IBApi
             return header + base.ToString();
         }
 
+		/**
+        * @brief Time field used in conditional order logic.
+        */
+		
         public string Time { get; set; }
 
         protected override bool TryParse(string cond)

@@ -1,0 +1,31 @@
+﻿/*! \page hedging Hedging
+
+	When buying a contract on a currency other than your base, you can attach an FX order to convert base currency to the currency of the contract to cover the cost of the trade thanks to
+	the TWS API's @ref order_attach mechanism.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet OrderSamples.cs fhedge
+			...
+			\snippet Program.cs hedgesubmit
+		</li>
+		<li>
+			\snippet OrderSamples.java fhedge
+			...
+			\snippet Testbed.java hedgesubmit
+		</li>
+		<li>
+			\snippet OrderSamples.vb fhedge
+			...
+			\snippet Mainmodule.vb hedgesubmit
+		</li>
+		<li>
+			\snippet OrderSamples.cpp fhedge
+			...
+			\snippet TestCppClient.cpp hedgesubmit
+		</li>
+	</ul>
+	
+	
+
+*/

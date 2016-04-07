@@ -9,6 +9,10 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+    * @class TagValue
+    * @brief Convenience class to define key-value pairs
+    */
     public class TagValue
     {
         private string tag;

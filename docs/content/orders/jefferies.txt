@@ -1,0 +1,1254 @@
+/*! \page jefferies Jefferies Algorithms
+
+	\section jefferies_params Jefferies Algorithm Parameters
+	
+	The ActiveX, C++, C# and Java APIs support the following Jefferies algo strategies:
+	
+	\ref v_wap "VWAP"
+	
+	\ref t_wap "TWAP"
+	
+	\ref vol_part "VolPart"
+	
+	\ref blitz_ "Blitz"
+	
+	\ref strike_ "Strike"
+	
+	\ref seek_ "Seek"
+	
+	\ref dark_seek "Darkseek"
+	
+	\ref post_ "Post"
+	
+	\ref multi_scale "MultiScale"
+	
+	\ref operner_ "Operner"
+	
+	\ref finale_ "Finale"
+	
+	\ref portfolio_ "Portfolio"
+	
+	\ref patience_ "Patience"
+	
+	\ref pairs_ratio "Pairs - Ratio"
+	
+	\ref pairs_net_return "Pairs - Net Return"
+	
+	\ref pairs_arb "Pairs - Arb"
+	
+	\ref trader_ "Trader"
+	
+	The following table lists all available Jefferies algo strategies and parameters supported by the API.
+	
+	\image html jeffalgoparams971.png
+	
+	<br>
+	
+	\section v_wap VWAP (VWAP)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>TriggerPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td>Any positive value, no max.</td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+        <tr>
+            <td>IsBuyBack</td>
+            <td>The algo should engage in SEC Rule 10b-18 restrictions for buy back in US securities.</td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section t_wap TWAP (TWAP)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>TradingSession</td>
+            <td>Denotes the trading session for the order.</td>
+            <td>String</td>
+            <td>"DAY", "PRE-OPEN", "AFTER-HOURS"</td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+        <tr>
+            <td>IsBuyBack</td>
+            <td>The algo should engage in SEC Rule 10b-18 restrictions for buy back in US securities.</td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section vol_part VolPart (VOLPART)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>DarkVolumeRate</td>
+            <td>Dark volume limit</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>TradingSession</td>
+            <td>Denotes the trading session for the order.</td>
+            <td>String</td>
+            <td>"DAY", "PRE-OPEN", "AFTER-HOURS"</td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+        <tr>
+            <td>IsBuyBack</td>
+            <td>The algo should engage in SEC Rule 10b-18 restrictions for buy back in US securities.</td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section blitz_ Blitz (BLITZ)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>DisplaySize</td>
+            <td></td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>TradingStyle</td>
+            <td></td>
+            <td>String</td>
+            <td>"Price Improvement", "Opportunistic", "Get-It-Done", "No_Post"</td>
+        </tr>
+        <tr>
+            <td>IsBuyBack</td>
+            <td>The algo should engage in SEC Rule 10b-18 restrictions for buy back in US securities.</td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+        <tr>
+            <td>TradingSession</td>
+            <td>Denotes the trading session for the order.</td>
+            <td>String</td>
+            <td>"DAY", "PRE-OPEN", "AFTER-HOURS"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section strike_ Strike (STRIKE)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Urgency</td>
+            <td></td>
+            <td>String</td>
+            <td>"Passive", "Active", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section seek_ Seek (SEEK)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>Urgency</td>
+            <td></td>
+            <td>String</td>
+            <td>"Passive_Minus", "Passive", "Active", "Active_Plus", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section dark_seek Darkseek (DS)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>Urgency</td>
+            <td></td>
+            <td>String</td>
+            <td>"Passive_Minus", "Passive", "Active", "Active_Plus", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>MinTakeSize</td>
+            <td>Minimum number of share per execution for displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IsBuyBack</td>
+            <td>The algo should engage in SEC Rule 10b-18 restrictions for buy back in US securities.</td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section post_ Post (POST)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinTakeSize</td>
+            <td>Minimum number of share per execution for displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section multi_scale MultiScale (MS)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Algo1</td>
+            <td>The base algo.</td>
+            <td>String</td>
+            <td>"Volume_5%", "Volume_10%", "Volume_15%", "Volume_20%", "Volume_25%", "Volume_30%", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "BLITZ", "VWAP_Day", "Qty_Scale", "Patience"</td>
+        </tr>
+        <tr>
+            <td>MaxQty1</td>
+            <td>Max quantity for the base algo.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Price 2</td>
+            <td>Trigger price for algo 2 if present.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Algo2</td>
+            <td>Underlying algo 2. Must be different than Algo1 or Algo3.</td>
+            <td>String</td>
+            <td>"Volume_5%", "Volume_10%", "Volume_15%", "Volume_20%", "Volume_25%", "Volume_30%", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "BLITZ", "VWAP_Day", "Qty_Scale", "Patience"</td>
+        </tr>
+        <tr>
+            <td>MaxQty2</td>
+            <td>Max quantity for algo 2</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Price3</td>
+            <td>Trigger price for algo 3 if present.</td>
+            <td>String</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Algo3</td>
+            <td>Underlying algo 2. Must be different than Algo1 or Algo2.</td>
+            <td>String</td>
+            <td>"Volume_5%", "Volume_10%", "Volume_15%", "Volume_20%", "Volume_25%", "Volume_30%", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "BLITZ", "VWAP_Day", "Qty_Scale", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section operner_ Operner (OPERNER)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>Relative Limit</td>
+            <td></td>
+            <td>Double</td>
+            <td>Positive and negative values allowed.</td>
+        </tr>
+        <tr>
+            <td>UnitForOpen</td>
+            <td>Defines the unit for the open quantity, either shares or percentage.</td>
+            <td>String</td>
+            <td>Shares must be in round lots. Percentage must be between 1 and 100.</td>
+        </tr>
+        <tr>
+            <td>OpenQty</td>
+            <td>Determines quantity placed into opening auction. Used unit defined in UnitForOpen.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PostOpenStrategy</td>
+            <td></td>
+            <td>String</td>
+            <td>"Volume_5%", "Volume_10%", "Volume_15%", "Volume_20%", "Volume_25%", "Volume_30%", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "BLITZ", "VWAP_Day", "Qty_Scale", "Patience"</td>
+        </tr>
+        <tr>
+            <td>PostOpenLimit</td>
+            <td>Absolute limit price for the Post Open strategy.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PostOpenBenchmark</td>
+            <td></td>
+            <td>String</td>
+            <td>"Inside_NBBO_Price", "Arrival_Price", "PNC", "Open"</td>
+        </tr>
+        <tr>
+            <td>BenchmarkOffset</td>
+            <td>In conjunction with Post Open Benchmark, this sets the relative limit for the strategy.</td>
+            <td>Integer</td>
+            <td>Positive or negative value in basis points set as the relative limit from the post open benchmark.</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section finale_ Finale (TOC)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>Urgency</td>
+            <td></td>
+            <td>String</td>
+            <td>"Passive", "Active", "Aggressive"</td>
+        </tr>
+        <tr>
+            <td>UnitForClose</td>
+            <td>The unit to use when defining the close quantity.</td>
+            <td>String</td>
+            <td>"Shares", "%_of_Order", "%_of_ADV", "%_of_Expected_Close"</td>
+        </tr>
+        <tr>
+            <td>CloseQty</td>
+            <td>The quantity of the closing auction.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+	</table>
+	<br>
+	
+	\section portfolio_ Portfolio (PORT)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PortfolioId</td>
+            <td>User defined ID</td>
+            <td>FixSizeString</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PortfolioLimit</td>
+            <td>Basis points from arrival</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ExcludeAuctions</td>
+            <td>Define auction participation</td>
+            <td>String</td>
+            <td>"Exclude_Both", "Include_Open", "Include_Close", "Include_Both"</td>
+        </tr>
+        <tr>
+            <td>PortfolioUrgency</td>
+            <td></td>
+            <td>String</td>
+            <td>"1", "2", "3", "4", "5"</td>
+        </tr>
+        <tr>
+            <td>Style</td>
+            <td></td>
+            <td>String</td>
+            <td>"Cash_Balance", "Beta_Neutral", "IS", "Dark_Only", "Exec_Balance"</td>
+        </tr>
+        <tr>
+            <td>CompleteByEOD</td>
+            <td></td>
+            <td>String</td>
+            <td>"Yes", "No"</td>
+        </tr>
+        <tr>
+            <td>PriceLimitType</td>
+            <td></td>
+            <td>String</td>
+            <td>"Fixed", "Floating"</td>
+        </tr>
+        <tr>
+            <td>Benchmark</td>
+            <td></td>
+            <td>String</td>
+            <td>"Inside_NBBO_Price", "Arrival_Price", "PNC", "Open"</td>
+        </tr>
+        <tr>
+            <td>BenchmarkOffset</td>
+            <td></td>
+            <td>Integer</td>
+            <td>Positive or Negative value in basis points.</td>
+        </tr>
+        <tr>
+            <td>TrackingIndex</td>
+            <td></td>
+            <td>FixSizeString</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MaxOutPerform</td>
+            <td></td>
+            <td>Integer</td>
+            <td>Positive or Negative value in basis points.</td>
+        </tr>
+        <tr>
+            <td>MinOutPerform</td>
+            <td></td>
+            <td>Integer</td>
+            <td>Positive or Negative value in basis points.</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section patience_ Patience (PATIENCE)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Style</td>
+            <td></td>
+            <td>Boolean</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWPrice</td>
+            <td>Would or Work - The price at which the user is willing to complete the order. Used if no WoW reference is specified.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WowReference</td>
+            <td>Used with WoW price field. If WoW price is not submitted, the Reference price can be submitted for processing.</td>
+            <td>String</td>
+            <td>"Market", "Inside_NBBO_Price", "Arrival Price", "PNC", "Open", "BPS_Arrival", "Price", "OPP", "Midpoint"<br /></td>
+        </tr>
+        <tr>
+            <td>MinTakeSize</td>
+            <td>Minimum number of share per execution for displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>MinFillSize</td>
+            <td>Minimum number of share per execution for non-displayed liquidity. Rounded down to closest lot size.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWOrderPct</td>
+            <td>Max percent of the order on which WoW can work.</td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>WoWMode</td>
+            <td></td>
+            <td>String</td>
+            <td>"BLITZ", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "Volume_10%", "Volume_20%", "Volume_30%","VWAP_Day", "Patience"</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section pairs_ratio Pairs - Ratio (RATIO)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairID</td>
+            <td></td>
+            <td>FixSizeString</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Balance</td>
+            <td></td>
+            <td>String</td>
+            <td>"Share_Balanced", "Cash_Balanced", "Ratio_Balanced"</td>
+        </tr>
+        <tr>
+            <td>ExecutionStyle</td>
+            <td></td>
+            <td>String</td>
+            <td>"Active", "TWAP", "Aggressive", "Custom"</td>
+        </tr>
+        <tr>
+            <td>LegThreshold</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairRatio</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairSpread</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairSpreadOperator</td>
+            <td></td>
+            <td>String</td>
+            <td>&lt;=, &gt;=</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section pairs_net_return Pairs - Net Return (TR)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairID</td>
+            <td></td>
+            <td>FixSizeString</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Balance</td>
+            <td></td>
+            <td>String</td>
+            <td>"Share_Balanced", "Cash_Balanced", "Ratio_Balanced"</td>
+        </tr>
+        <tr>
+            <td>ExecutionStyle</td>
+            <td></td>
+            <td>String</td>
+            <td>"Active", "TWAP", "Aggressive", "Custom"</td>
+        </tr>
+        <tr>
+            <td>LegThreshold</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairBenchmark</td>
+            <td></td>
+            <td>String</td>
+            <td>"PNC", "Open", "Arrival_Price"</td>
+        </tr>
+        <tr>
+            <td>PairSpread</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairSpreadOperator</td>
+            <td></td>
+            <td>String</td>
+            <td>&lt;=, &gt;=</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section pairs_arb Pairs - Arb (ARB)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StartTime</td>
+            <td>Start time</td>
+            <td>Time</td>
+            <td>“9:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>EndTime</td>
+            <td>End time</td>
+            <td>Time</td>
+            <td>“15:00:00 EST”</td>
+        </tr>
+        <tr>
+            <td>MaxVolumeRate</td>
+            <td>Volume limit.</td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ExecutionStyle</td>
+            <td></td>
+            <td>String</td>
+            <td>"Active", "TWAP", "Aggressive", "Custom"</td>
+        </tr>
+        <tr>
+            <td>LegThreshold</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairID</td>
+            <td></td>
+            <td>FixSizeString</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairObjective</td>
+            <td></td>
+            <td>String</td>
+            <td>"Setup", "Unwind", "Reverse"</td>
+        </tr>
+        <tr>
+            <td>PairRatio</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairCash</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairSpread</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>PairSpreadOperator</td>
+            <td></td>
+            <td>String</td>
+            <td>&lt;=, &gt;=</td>
+        </tr>
+	</table>
+	<br>
+	
+	\section trader_ Trader (TRADER)
+	
+	<table>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+			<th>Type</th>
+			<th>Snytax/Values</th>
+		</tr>
+		<tr>
+            <td>StrategyIntent</td>
+            <td></td>
+            <td>String</td>
+            <td>"Volume_5%", "Volume_10%", "Volume_15%", "Volume_20%", "Volume_25%", "Volume_30%", "DARKSeek", "Seek_Passive", "Seek_Active", "Seek_Aggressive", "BLITZ", "VWAP_Day", "Qty_Scale", "Patience"</td>
+        </tr>
+        <tr>
+            <td>ActionType</td>
+            <td></td>
+            <td>String</td>
+            <td>"Halt", "Resume", "Check_Dark", "Take/Hit"</td>
+        </tr>
+        <tr>
+            <td>ActionQty</td>
+            <td></td>
+            <td>Integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ActionPrice</td>
+            <td></td>
+            <td>Double</td>
+            <td></td>
+        </tr>
+	</table>
+	<br>
+	
+	<br><br>
+*/
