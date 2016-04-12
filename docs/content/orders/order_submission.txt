@@ -134,7 +134,7 @@
 	
 	Advanced orders such as @ref bracket_order or @ref hedging involve attaching child orders to a parent. This can be easily done via the @ref IBApi::Order::ParentId attribute by assigning a child 
 	order's @ref IBApi::Order::ParentId to an existing order's @ref IBApi::Order::OrderId. When an order is attached to another, the system will keep the child order 'on hold' until its parent fills. 
-	Once the parent order is completely filled, its children will atomatically become active.
+	Once the parent order is completely filled, its children will automatically become active.
 	
 	<b>Important:</b> When attaching orders and to prevent accidental executions it is a very good idea to make use of the @ref IBApi::Order::Transmit flag as demonstrated in @ref bracket_order
 	

@@ -3,7 +3,7 @@
 	Spread contracts, also known as combos or combinations, combine two or more instruments. To define a combination contract it is required to know the conId of the @ref IBApi::Contract 
 	in question. The conId of an instrument can easily be obtained via the @ref IBApi::EClientSocket::reqContractDetails request.
 	
-	The spread contract's symbol can be either the symbol of one of the contract legs or, for two-legged combinations the symbols of both legs sepparated by a comma as shown in the examples
+	The spread contract's symbol can be either the symbol of one of the contract legs or, for two-legged combinations the symbols of both legs separated by a comma as shown in the examples
 	below.
 	
 	\section bag_stk Stock Spread

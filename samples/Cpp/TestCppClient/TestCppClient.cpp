@@ -277,6 +277,19 @@ void TestCppClient::tickDataOperation()
 	m_pClient->reqMktData(1004, ContractSamples::USStock(), "233,236,258", false, TagValueListSPtr());
 	//! [reqmktdata_genticks]
 
+	//! [reqmktdata_contractnews]
+	m_pClient->reqMktData(1005, ContractSamples::USStock(), "mdoff,292:BZ", false, TagValueListSPtr());
+	m_pClient->reqMktData(1006, ContractSamples::USStock(), "mdoff,292:BT", false, TagValueListSPtr());
+	m_pClient->reqMktData(1007, ContractSamples::USStock(), "mdoff,292:FLY", false, TagValueListSPtr());
+	m_pClient->reqMktData(1008, ContractSamples::USStock(), "mdoff,292:MT", false, TagValueListSPtr());
+	//! [reqmktdata_contractnews]
+	//! [reqmktdata_broadtapenews]
+	m_pClient->reqMktData(1009, ContractSamples::BTbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
+	m_pClient->reqMktData(1010, ContractSamples::BZbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
+	m_pClient->reqMktData(1011, ContractSamples::FLYbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
+	m_pClient->reqMktData(1012, ContractSamples::MTbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
+	//! [reqmktdata_broadtapenews]
+
 	//! [reqoptiondatagenticks]
 	//Requesting data for an option contract will return the greek values
 	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
@@ -391,6 +404,10 @@ void TestCppClient::contractOperations()
 	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(210, ContractSamples::OptionForQuery());
 	//! [reqcontractdetails]
+
+	//! [reqcontractdetailsnews]
+	m_pClient->reqContractDetails(211, ContractSamples::NewsFeedForQuery());
+	//! [reqcontractdetailsnews]
 
 	m_state = ST_CONTRACTOPERATION_ACK;
 }

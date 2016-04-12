@@ -324,4 +324,53 @@ public class ContractSamples {
 		return contract;
 	}
 	
+	public static Contract NewsFeedForQuery() {
+		//! [newsfeedforquery]
+		Contract contract = new Contract();
+		contract.secType("NEWS");
+		contract.exchange("BT"); //Briefing Trader
+		//! [newsfeedforquery]
+		return contract;
+	}
+	
+	public static Contract BTbroadtapeNewsFeed() {
+		//! [newscontractbt]
+		Contract contract = new Contract();
+		contract.symbol("BT:BT_ALL"); //BroadTape All News
+		contract.secType("NEWS");
+		contract.exchange("BT"); //Briefing Trader
+		//! [newscontractbt]
+		return contract;
+	}
+                        
+        public static Contract BZbroadtapeNewsFeed() {
+		//! [newscontractbz]
+		Contract contract = new Contract();
+		contract.symbol("BZ:BZ_ALL"); //BroadTape All News
+		contract.secType("NEWS");
+		contract.exchange("BZ"); //Benzinga Pro
+		//! [newscontractbz]
+		return contract;
+	}
+              
+        public static Contract FLYbroadtapeNewsFeed() {
+		//! [newscontractfly]
+		Contract contract = new Contract();
+		contract.symbol("FLY:FLY_ALL"); //BroadTape All News
+		contract.secType("NEWS");
+		contract.exchange("FLY"); //Fly on the Wall
+		//! [newscontractfly]
+		return contract;
+	}
+	
+        public static Contract MTbroadtapeNewsFeed() {
+		//! [newscontractmt]
+		Contract contract = new Contract();
+		contract.symbol("MT:MT_ALL"); //BroadTape All News
+		contract.secType("NEWS");
+		contract.exchange("MT"); //Midnight Trader
+		//! [newscontractmt]
+		return contract;
+	}
+	
 }

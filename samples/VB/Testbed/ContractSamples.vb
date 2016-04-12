@@ -404,7 +404,56 @@ Namespace Samples
 
         End Function
 
+        Public Shared Function NewsFeedForQuery() As Contract
 
+            '! [newsfeedforquery]
+            Dim contract As Contract = New Contract()
+            contract.SecType = "NEWS"
+            contract.Exchange = "BT" 'Briefing Trader
+            '! [newsfeedforquery]
+            Return contract
+
+        End Function
+
+        Public Shared Function BTbroadtapeNewsFeed() As Contract
+            '! [newscontractbt]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "BT:BT_ALL" 'BroadTape All News
+            contract.SecType = "NEWS"
+            contract.Exchange = "BT" 'Briefing Trader
+            '! [newscontractbt]
+            Return contract
+        End Function
+
+        Public Shared Function BZbroadtapeNewsFeed() As Contract
+            '! [newscontractbz]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "BZ:BZ_ALL" 'BroadTape All News
+            contract.SecType = "NEWS"
+            contract.Exchange = "BZ" 'Benzinga Pro
+            '! [newscontractbz]
+            Return contract
+        End Function
+
+        Public Shared Function FLYbroadtapeNewsFeed() As Contract
+            '! [newscontractfly]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "FLY:FLY_ALL" 'BroadTape All News
+            contract.SecType = "NEWS"
+            contract.Exchange = "FLY" 'Fly On the Wall
+            '! [newscontractfly]
+            Return contract
+        End Function
+
+        Public Shared Function MTbroadtapeNewsFeed() As Contract
+            '! [newscontractmt]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "MT:MT_ALL" 'BroadTape All News
+            contract.SecType = "NEWS"
+            contract.Exchange = "MT" 'Midnight Trader
+            '! [newscontractmt]
+            Return contract
+        End Function
 
     End Class
 

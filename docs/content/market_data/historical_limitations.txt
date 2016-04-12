@@ -79,7 +79,7 @@
 		</tr>
     </table>
 	
-	(1) The maximum number of Quote Booster packs per username is 10.
+	(1) The maximum number of Quote Booster packs per user name is 10.
 		
 	\section non-available_hd Unavailable Historical Data
 	

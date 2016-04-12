@@ -387,3 +387,58 @@ Contract ContractSamples::FutureComboContract(){
 	//! [bagfutcontract]
 	return contract;
 }
+
+
+Contract ContractSamples::NewsFeedForQuery()
+{
+	//! [newsfeedforquery]
+	Contract contract;
+	contract.secType = "NEWS";
+	contract.exchange = "BT"; //Briefing Trader
+	//! [newsfeedforquery]
+	return contract;
+}
+
+Contract ContractSamples::BTbroadtapeNewsFeed()
+{
+	//! [newscontractbt]
+	Contract contract;
+	contract.symbol = "BT:BT_ALL"; //BroadTape All News
+	contract.secType = "NEWS";
+	contract.exchange = "BT"; //Briefing Trader
+	//! [newscontractbt]
+	return contract;
+}
+
+Contract ContractSamples::BZbroadtapeNewsFeed()
+{
+	//! [newscontractbz]
+	Contract contract;
+	contract.symbol = "BZ:BZ_ALL"; //BroadTape All News
+	contract.secType = "NEWS";
+	contract.exchange = "BZ"; //Benzinga Pro
+	//! [newscontractbz]
+	return contract;
+}
+
+Contract ContractSamples::FLYbroadtapeNewsFeed()
+{
+	//! [newscontractfly]
+	Contract contract;
+	contract.symbol = "FLY:FLY_ALL"; //BroadTape All News
+	contract.secType = "NEWS";
+	contract.exchange = "FLY"; //Fly on the Wall
+							   //! [newscontractfly]
+	return contract;
+}
+
+Contract ContractSamples::MTbroadtapeNewsFeed()
+{
+	//! [newscontractmt]
+	Contract contract;
+	contract.symbol = "MT:MT_ALL"; //BroadTape All News
+	contract.secType = "NEWS";
+	contract.exchange = "MT"; //Midnight Trader
+	//! [newscontractmt]
+	return contract;
+}

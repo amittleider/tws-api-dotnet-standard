@@ -59,13 +59,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -77,13 +77,13 @@
             <td>MinPercent</td>
             <td>Minimum percentage of volume</td>
             <td>Integer</td>
-            <td>Range: “0” – “99”</td>
+            <td>Range: 0 - 99</td>
         </tr>
         <tr>
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>Range: “0” – “99”</td>
+            <td>Range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -142,13 +142,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -171,13 +171,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -206,13 +206,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
         <td>ExecStyle</td>
@@ -230,7 +230,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -283,13 +283,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -301,7 +301,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -348,13 +348,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -366,7 +366,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -413,13 +413,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -437,7 +437,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -484,13 +484,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -508,7 +508,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -561,13 +561,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -579,7 +579,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>Auction</td>
@@ -631,13 +631,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -655,7 +655,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -713,13 +713,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
     	<tr>
             <td>ExecStyle</td>
@@ -731,7 +731,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>Auction</td>
@@ -783,13 +783,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -811,13 +811,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
                 </tr>
             </tbody>
     </table>
@@ -834,13 +834,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -852,7 +852,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -899,13 +899,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -917,7 +917,7 @@
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>range: “0” – “99”</td>
+            <td>range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -964,13 +964,13 @@
         	<td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -982,13 +982,13 @@
             <td>MinPercent</td>
             <td>Minimum percentage of volume</td>
             <td>Integer</td>
-            <td>Range: “0” – “99”</td>
+            <td>Range: 0 - 99</td>
         </tr>
         <tr>
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>Range: “0” – “99”</td>
+            <td>Range: 0 - 99</td>
         </tr>
         <tr>
             <td>DisplaySize</td>
@@ -1046,13 +1046,13 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>ExecStyle</td>
@@ -1081,19 +1081,19 @@
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxPercent</td>
             <td>Maximum percentage volume</td>
             <td>Integer</td>
-            <td>Range: “0” – “99”</td>
+            <td>Range: 0 - 99</td>
         </tr>
     </table>
     

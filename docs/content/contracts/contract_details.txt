@@ -3,7 +3,7 @@
 	@ref IBApi::ContractDetails can be fetched from the TWS via the @ref IBApi::EClient::reqContractDetails function. This method receives a sample @ref IBApi::Contract object which will be used
 	as reference to find all contracts matching its description. This is particularly handy when looking for option chains. Note there is a new function reqSecDefOptParams starting in version 9.72 of the API to perform this function.
 	
-	\section option_chain Obtaining Option Chains
+	\section option_chain Obtaining Option Chains 
 	
 	The example below shows an "incomplete" option @ref IBApi::Contract with no last trading day, strike nor multiplier defined. In most cases using such a contract would result into a contract 
 	ambiguity error since there are lots of instruments matching the same description. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole option chain from the TWS.
@@ -28,6 +28,34 @@
 			\snippet ContractSamples.cpp optionforquery
 			...
 			\snippet TestCppClient.cpp reqcontractdetails
+		</li>
+	</ul>
+	
+	\section broadtape_list  Obtaining BroadTape List of News
+	
+	The example below shows an "incomplete" news @ref IBApi::Contract with no symbol or currency defined. In most cases using such a contract would result in an invalid 
+	contract details error since a symbol or localSymbol is required. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole BroadTape news chain from the TWS.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs newsFeedforquery
+			...
+			\snippet Program.cs reqcontractdetailsnews
+		</li>
+		<li> 
+			\snippet ContractSamples.java newsfeedforquery
+			...
+			\snippet Testbed.java reqcontractdetailsnews
+		</li>
+		<li>
+			\snippet ContractSamples.vb newsfeedforquery
+			...
+			\snippet MainModule.vb reqcontractdetailsnews
+		</li>
+		<li>
+			\snippet ContractSamples.cpp newsfeedforquery
+			...
+			\snippet TestCppClient.cpp reqcontractdetailsnews
 		</li>
 	</ul>
 	
