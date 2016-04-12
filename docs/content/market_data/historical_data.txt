@@ -120,7 +120,7 @@
 	
 	<table>
 		<tr><th>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th></tr>
-		<tr><td>Stoks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+		<tr><td>Stocks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
 		<tr><td>Commodities</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
 		<tr><td>Options</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
 		<tr><td>Futures</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>

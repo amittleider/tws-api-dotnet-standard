@@ -4,7 +4,7 @@
 
 	\section audience Audience
 	
-	Our API components are aimed at experienced professional developers willing to enhance the current TWS functionality. Regreatably, Interactive Brokers cannot offer any
+	Our API components are aimed at experienced professional developers willing to enhance the current TWS functionality. Regrettably, Interactive Brokers cannot offer any
 	programming consulting. Before contacting our API support, please always refer to our available documentation, sample applications and recorded webinars.
 	
 	\section how_to_use How to use this guide
@@ -15,9 +15,11 @@
 	
 	\section requirements Requirements
 	
-	* To obtain the TWS API source and sample code, download the <a href="http://interactivebrokers.github.io/" target="_blank">API Components</a>
-	* IB clients willing to make use of the TWS API will require a <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">TWS build</a> equal or above 940.x 
-	* A working knowledge of the programming language our <b>Testbed</b> sample projects are developed in.
+	<ul>
+		<li> To obtain the TWS API source and sample code, download the <a href="http://interactivebrokers.github.io/" target="_blank">API Components</a></li>
+		<li> IB clients willing to make use of the TWS API will require a <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">TWS build</a> equal or above 940.x </li>
+		<li> A working knowledge of the programming language our <b>Testbed</b> sample projects are developed in.</li>
+	</ul>
 	
 	\section limitations Limitations
 	

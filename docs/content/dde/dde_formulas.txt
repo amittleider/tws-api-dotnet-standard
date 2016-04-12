@@ -4,7 +4,7 @@
 	
 	<table>
 		<tr><th>Attribute</th><th>Description</th></tr>
-		<tr><td>twsuser</td><td>The username with which you logged into the TWS</td></tr>
+		<tr><td>twsuser</td><td>The user name with which you logged into the TWS</td></tr>
 		<tr><td>requestId</td><td>The request unique identifier (any positive integer)</td></tr>
 		<tr><td>symbol</td><td>The contract symbol</td></tr>
 		<tr><td>sectype</td><td>The kind of contract</td></tr>

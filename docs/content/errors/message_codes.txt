@@ -130,7 +130,7 @@
 		<tr><th>Code</th><th>TWS message</th><th>Additional notes</th></tr>
 		<tr>
 			<td>100</td><td>Max rate of messages per second has been exceeded.</td>
-			<td>The client application has exceeded the rate of 50 messages/second. The TWS will likely disconnect the client application after this mesage.</td>
+			<td>The client application has exceeded the rate of 50 messages/second. The TWS will likely disconnect the client application after this message.</td>
 		</tr>	
 		<tr>
 			<td>101</td><td>Max number of tickers has been reached.</td>
@@ -179,7 +179,7 @@
 		
 		<tr>
 			<td>111</td><td>The TIF (Tif type) and the order type are incompatible.</td>
-			<td>The time in force specified cannot be used with this order type. Please refer to order tickets in Tws for allowable combinations.</td>
+			<td>The time in force specified cannot be used with this order type. Please refer to order tickets in TWS for allowable combinations.</td>
 		</tr>
 		
 		<tr>
@@ -298,7 +298,7 @@
 			<td>The IDs used in API requests must be integer values.</td>
 		</tr>
 		<tr>
-			<td>144</td><td>Order size does not match total share allocation. To adjust the share allocation, right-click on the order and select “Modify > Share Allocation.”</td>
+			<td>144</td><td>Order size does not match total share allocation. To adjust the share allocation, right-click on the order and select â€œModify > Share Allocation.â€�</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -319,7 +319,7 @@
 		</tr>
 		<tr>
 			<td>151</td><td>This order cannot be transmitted without a user name.</td>
-			<td>In DDE the username is a required field in the place order command. </td>
+			<td>In DDE the user name is a required field in the place order command. </td>
 		</tr>
 		<tr>
 			<td>152</td><td>The "hidden" order attribute may not be specified for this order.</td>
@@ -334,7 +334,7 @@
 			<td>A security was halted for trading when an order was placed.</td>
 		</tr>
 		<tr>
-			<td>155</td><td>A sizeOp order must have a username and account.</td>
+			<td>155</td><td>A sizeOp order must have a user name and account.</td>
 			<td>This error is deprecated.</td>
 		</tr>
 		<tr>
@@ -472,7 +472,7 @@
 		</tr>
 		<tr>
 			<td>316</td><td>Market depth data has been HALTED. Please re-subscribe.</td>
-			<td>You need to resubscribe to start receiving market depth data again.</td>
+			<td>You need to re-subscribe to start receiving market depth data again.</td>
 		</tr>
 		<tr>
 			<td>317</td><td>Market depth data has been RESET. Please empty deep book contents before applying any new entries.</td>
@@ -500,7 +500,7 @@
 		</tr>
 		<tr>
 			<td>324</td><td>Server error when reading a DDE client request (missing information).</td>
-			<td>Make sure that you have specified all thee needed information for your request.</td>
+			<td>Make sure that you have specified all the needed information for your request.</td>
 		</tr>
 		<tr>
 			<td>325</td><td>Discretionary orders are not supported for this combination of exchange and order type.</td>
@@ -839,11 +839,11 @@
 		</tr>
 		<tr>
 			<td>409</td><td>Invalid scale order. You must specify order component size.</td>
-			<td>ScaleInitLevelSize specifed is invalid</td>
+			<td>ScaleInitLevelSize specified is invalid</td>
 		</tr>
 		<tr>
 			<td>410</td><td>Invalid subsequent component size for scale order.</td>
-			<td>ScaleSubsLevelSize specifed is invalid</td>
+			<td>ScaleSubsLevelSize specified is invalid</td>
 		</tr>
 		<tr>
 			<td>411</td><td>The "Outside Regular Trading Hours" flag is not valid for this order.</td>
@@ -871,7 +871,7 @@
 		</tr>
 		<tr>
 			<td>417</td><td>Invalid initial component size for scale order.</td>
-			<td>ScaleInitLevelSize specifed is invalid</td>
+			<td>ScaleInitLevelSize specified is invalid</td>
 		</tr>
 		<tr>
 			<td>418</td><td>Invalid scale order profit offset.</td>
@@ -1023,7 +1023,7 @@
 		</tr>
 		<tr>
 			<td>10006</td><td>Missing parent order.</td>
-			<td>The parent order ID specifed cannot be found</td>
+			<td>The parent order ID specified cannot be found</td>
 		</tr>
 		<tr>
 			<td>10007</td><td>Invalid hedge type.</td>
@@ -1094,7 +1094,7 @@
 			<td>This error is deprecated</td>
 		</tr>
 		<tr>
-			<td>10024</td><td>Invalid don’t start next legin API.</td>
+			<td>10024</td><td>Invalid don't start next legin API.</td>
 			<td>This error is deprecated</td>
 		</tr>
 		<tr>

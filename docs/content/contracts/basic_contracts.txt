@@ -101,7 +101,7 @@
 		</li>
 	</ul>
 	
-	Ocassionally, you can expect to have more than a single future contract for the same underlying expiring on the same month. To rule out the
+	Occasionally, you can expect to have more than a single future contract for the same underlying expiring on the same month. To rule out the
 	ambiguity, the contract's <b>multiplier</b> can be given as shown below:
 	
 	<ul id="tab">

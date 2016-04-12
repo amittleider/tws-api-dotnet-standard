@@ -2,8 +2,6 @@
 
 	Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).
 	
-	<div style="color: #A02200; font-size: 2em;">This site is under construction and as such pending revision and official approval from Interactive Brokers</div><br><br>
-	
 	\image html api_icon_programming.png
 	
 	

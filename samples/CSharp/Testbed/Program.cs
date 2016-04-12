@@ -145,6 +145,19 @@ namespace Samples
             client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, null);
             //! [reqmktdata_genticks]
 
+            //! [reqmktdata_contractnews]
+            client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, null);
+            client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, null);
+            client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, null);
+            client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", false, null);
+            //! [reqmktdata_contractnews]
+            //! [reqmktdata_broadtapenews]
+            client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", false, null);
+            client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", false, null);
+            client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", false, null);
+            client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", false, null);
+            //! [reqmktdata_broadtapenews]
+
             //! [reqoptiondatagenticks]
             //Requesting data for an option contract will return the greek values
             client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), string.Empty, false, null);
@@ -238,6 +251,13 @@ namespace Samples
             //! [reqcontractdetails]
             client.reqContractDetails(210, ContractSamples.OptionForQuery());
             //! [reqcontractdetails]
+        }
+
+        private static void contractNewsFeed(EClientSocket client)
+        {
+            //! [reqcontractdetailsnews]
+            client.reqContractDetails(211, ContractSamples.NewsFeedForQuery());
+            //! [reqcontractdetailsnews]
         }
 
         private static void marketScanners(EClientSocket client)

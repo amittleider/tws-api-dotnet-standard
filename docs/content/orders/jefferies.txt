@@ -2,7 +2,7 @@
 
 	\section jefferies_params Jefferies Algorithm Parameters
 	
-	The ActiveX, C++, C# and Java APIs support the following Jefferies algo strategies:
+	The ActiveX, C++, C# and Java APIs support the following Jefferies Algo strategies:
 	
 	\ref v_wap "VWAP"
 	
@@ -51,19 +51,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -135,19 +135,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -219,19 +219,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -309,19 +309,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -363,19 +363,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -441,19 +441,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -519,19 +519,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -597,19 +597,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -669,19 +669,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Algo1</td>
@@ -735,7 +735,7 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>Relative Limit</td>
@@ -789,13 +789,13 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>Urgency</td>
@@ -825,19 +825,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxVolumeRate</td>
@@ -927,19 +927,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxVolumeRate</td>
@@ -999,19 +999,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxVolumeRate</td>
@@ -1071,19 +1071,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxVolumeRate</td>
@@ -1143,19 +1143,19 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StartTime</td>
             <td>Start time</td>
             <td>Time</td>
-            <td>“9:00:00 EST”</td>
+            <td>9:00:00 EST</td>
         </tr>
         <tr>
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td>“15:00:00 EST”</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>MaxVolumeRate</td>
@@ -1221,7 +1221,7 @@
 			<th>Parameter</th>
 			<th>Description</th>
 			<th>Type</th>
-			<th>Snytax/Values</th>
+			<th>Syntax/Values</th>
 		</tr>
 		<tr>
             <td>StrategyIntent</td>

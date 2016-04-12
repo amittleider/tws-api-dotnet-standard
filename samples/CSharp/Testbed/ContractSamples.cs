@@ -395,5 +395,60 @@ namespace Samples
             //! [bagfutcontract]
             return contract;
         }
+
+        public static Contract NewsFeedForQuery()
+        {
+            //! [newsfeedforquery]
+            Contract contract = new Contract();
+            contract.SecType = "NEWS";
+            contract.Exchange = "BT"; //Briefing Trader
+            //! [newsfeedforquery]
+            return contract;
+        }
+
+        public static Contract BTbroadtapeNewsFeed()
+        {
+            //! [newscontractbt]
+            Contract contract = new Contract();
+            contract.Symbol  = "BT:BT_ALL"; //BroadTape All News
+            contract.SecType = "NEWS";
+            contract.Exchange = "BT"; //Briefing Trader
+            //! [newscontractbt]
+            return contract;
+        }
+
+        public static Contract BZbroadtapeNewsFeed()
+        {
+            //! [newscontractbz]
+            Contract contract = new Contract();
+            contract.Symbol = "BZ:BZ_ALL"; //BroadTape All News
+            contract.SecType = "NEWS";
+            contract.Exchange = "BZ"; //Benzinga Pro
+            //! [newscontractbz]
+            return contract;
+        }
+
+        public static Contract FLYbroadtapeNewsFeed()
+        {
+            //! [newscontractfly]
+            Contract contract = new Contract();
+            contract.Symbol  = "FLY:FLY_ALL"; //BroadTape All News
+            contract.SecType = "NEWS";
+            contract.Exchange = "FLY"; //Fly on the Wall
+           //! [newscontractfly]
+            return contract;
+        }
+
+        public static Contract MTbroadtapeNewsFeed()
+        {
+            //! [newscontractmt]
+            Contract contract = new Contract();
+            contract.Symbol = "MT:MT_ALL"; //BroadTape All News
+            contract.SecType = "NEWS";
+            contract.Exchange = "MT"; //Midnight Trader
+            //! [newscontractmt]
+            return contract;
+        }
+
     }
 }

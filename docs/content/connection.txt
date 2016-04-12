@@ -26,9 +26,9 @@
 	\section connect_ack Acknowledging the connection
 	
 	After the socket connection is established between the TWS and the client, both applications need to exchange important information
-	such as their respective versions and in the case of the client application, its unique client Id. The API connection supports snychronous
-	and asynchronous connection requests. When the client application decides to connect asyncrhonously, it will have to wait for an acknowledgement
-	from the TWS before attempting to send the information described at the beginning of this paragraph. This acknowledgement is received via the 
+	such as their respective versions and in the case of the client application, its unique client Id. The API connection supports synchronous
+	and asynchronous connection requests. When the client application decides to connect asynchronously, it will have to wait for an acknowledgment
+	from the TWS before attempting to send the information described at the beginning of this paragraph. This acknowledgment is received via the 
 	@ref IBApi::EWrapper::connectAck method. When this event is triggered within an asynchronous context, the client application will have to 
 	start the flow of information to the TWS via the @ref IBApi::EClientSocket::startApi method.
 	
@@ -77,7 +77,7 @@
 	</ul>
 	
 	Now it is time to revisit the role of @ref IBApi::EReaderSignal initially introduced in @ref client_socket. As mentioned in the previous paragraph, the EReader's thread will need
-	to be notified whenever there is information ready to be consumed. This is done via the @ref IBApi::EReaderSignal object we initiated within the @ref IBApi::EWrapper's implementator.
+	to be notified whenever there is information ready to be consumed. This is done via the @ref IBApi::EReaderSignal object we initiated within the @ref IBApi::EWrapper's implementor.
 
 	The client application is now ready to work with the Trader Workstation! As soon as the connection has been fully established, you will immediately start receiving
 	events from the TWS such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts
