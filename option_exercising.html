@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Exercising Options</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('option_exercising.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,28 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Exercising Options </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>Options can be exercised or lapsed with the function <a class="el" href="classIBApi_1_1EClient.html#aad70a7b82ad3b5e7ae3e9f0b98dc2a5b">IBApi.EClient.exerciseOptions</a></p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, null, 1);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        <span class="comment">//** Exercising options ***</span></div>
+<div class="line">        client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, <span class="stringliteral">&quot;&quot;</span>, 1);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        <span class="stringliteral">&#39;** Exercising options ***</span></div>
+<div class="line"><span class="stringliteral">        client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, Nothing, 1)</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    <span class="comment">//** Exercising options ***</span></div>
+<div class="line">    m_pClient-&gt;exerciseOptions(5003, ContractSamples::OptionWithTradingClass(), 1, 1, <span class="stringliteral">&quot;&quot;</span>, 1);</div>
+</div><!-- fragment -->  </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Scanner Parameters</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('scanner_parameters.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,55 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Scanner Parameters </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>Scanner parameters can be obtained via IBApi::EClient::reqScannerParameters:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqScannerParameters();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqScannerParameters();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqScannerParameters()</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqScannerParameters();</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>A string containing all available XML-formatted parameters will then be returned via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc">IBApi.EWrapper.scannerParameters</a></p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> scannerParameters(<span class="keywordtype">string</span> xml)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ScannerParameters. &quot;</span>+xml+<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> scannerParameters(String xml) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;ScannerParameters. &quot;</span>+xml+<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::scannerParameters(<span class="keyword">const</span> std::string&amp; xml) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;ScannerParameters. %s\n&quot;</span>, xml.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p><b>Important:</b> remember the TWS API is just an interface to the TWS. If you are having problems defining a scanner, always make sure you can create a similar scanner using the TWS' <a href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm" target="_blank" class="linkexternal">Advanced Market Scanner</a>. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: ExecutionCondition Class Reference</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('classIBApi_1_1ExecutionCondition.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -144,20 +144,69 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="classIBApi_1_1ExecutionCondition-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">ExecutionCondition Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+
+<p>This class represents a condition requiring a specific execution event to be fulfilled. Orders can be activated or canceled if a set of given conditions is met. An <a class="el" href="classIBApi_1_1ExecutionCondition.html" title="This class represents a condition requiring a specific execution event to be fulfilled. Orders can be activated or canceled if a set of given conditions is met. An ExecutionCondition is met whenever a trade occurs on a certain product at the given exchange. ">ExecutionCondition</a> is met whenever a trade occurs on a certain product at the given exchange.  
+ <a href="classIBApi_1_1ExecutionCondition.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for ExecutionCondition:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classIBApi_1_1ExecutionCondition.png" usemap="#ExecutionCondition_map" alt=""/>
+  <map id="ExecutionCondition_map" name="ExecutionCondition_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa73e7c4dd1df5fd5fbf81c7764ee1533"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa73e7c4dd1df5fd5fbf81c7764ee1533"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
+<tr class="separator:aa73e7c4dd1df5fd5fbf81c7764ee1533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa85eff3532ea06e868d1ef939b9d3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afaa85eff3532ea06e868d1ef939b9d3a"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><b>Deserialize</b> (IDecoder inStream)</td></tr>
+<tr class="separator:afaa85eff3532ea06e868d1ef939b9d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa33c127ac3a248d5d5827552e3c8330e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa33c127ac3a248d5d5827552e3c8330e"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><b>Serialize</b> (BinaryWriter outStream)</td></tr>
+<tr class="separator:aa33c127ac3a248d5d5827552e3c8330e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2534f3569de4f45f3a20616c8b2935b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2534f3569de4f45f3a20616c8b2935b8"></a>
+override bool&#160;</td><td class="memItemRight" valign="bottom"><b>TryParse</b> (string cond)</td></tr>
+<tr class="separator:a2534f3569de4f45f3a20616c8b2935b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a529401ecdd1b9f7f8a3b42c25dccdf5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a529401ecdd1b9f7f8a3b42c25dccdf5c"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ExecutionCondition.html#a529401ecdd1b9f7f8a3b42c25dccdf5c">Exchange</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a529401ecdd1b9f7f8a3b42c25dccdf5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchange where the symbol needs to be traded. <br/></td></tr>
+<tr class="separator:a529401ecdd1b9f7f8a3b42c25dccdf5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f83111c0ea37a19fe1dae98e3b67456"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f83111c0ea37a19fe1dae98e3b67456"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ExecutionCondition.html#a4f83111c0ea37a19fe1dae98e3b67456">SecType</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a4f83111c0ea37a19fe1dae98e3b67456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kind of instrument being monitored. <br/></td></tr>
+<tr class="separator:a4f83111c0ea37a19fe1dae98e3b67456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598b75bfd99d152464ba0da8db597986"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a598b75bfd99d152464ba0da8db597986"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ExecutionCondition.html#a598b75bfd99d152464ba0da8db597986">Symbol</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a598b75bfd99d152464ba0da8db597986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instrument's symbol. <br/></td></tr>
+<tr class="separator:a598b75bfd99d152464ba0da8db597986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class represents a condition requiring a specific execution event to be fulfilled. Orders can be activated or canceled if a set of given conditions is met. An <a class="el" href="classIBApi_1_1ExecutionCondition.html" title="This class represents a condition requiring a specific execution event to be fulfilled. Orders can be activated or canceled if a set of given conditions is met. An ExecutionCondition is met whenever a trade occurs on a certain product at the given exchange. ">ExecutionCondition</a> is met whenever a trade occurs on a certain product at the given exchange. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespaceIBApi.html">IBApi</a></li><li class="navelem"><a class="el" href="classIBApi_1_1ExecutionCondition.html">ExecutionCondition</a></li>
     <li class="footer">This website uses cookies. By navigating through it you agree to the use of cookies. Copyright Interactive Brokers 2016 </li>
   </ul>
 </div>

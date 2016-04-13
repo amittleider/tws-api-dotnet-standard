@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Troubleshooting &amp; Support</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('support.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,37 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Troubleshooting &amp; Support </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
+<div class="textblock"><p>When experiencing problems with the TWS API, please make sure to go through our documentation and ensure the TWS API is being correctly. As mentioned in this guide's <a class="el" href="introduction.html">Introduction</a> Interactive Brokers unfortunately cannot offer any programming assistance nor help troubleshooting its clients' code. Below are some suggestions which will hopefully help you troubleshooting your TWS API client application.</p>
+<ul>
+<li><b>Make use of the sample applications</b>: the TWS API provides plenty of sample code demonstrating its capabilities. Any issue on the TWS API will surely manifest on the sample applications as well. If a problem cannot be reproduceable within our sample applications, chances are the problem lies on your implementation. <br/>
+<br/>
+</li>
+<li><b>Refer to the TWS itself</b>: the TWS API is nothing but a communication channel between your client application and the TWS. This implies that if for whatever reason the TWS itself cannot receive or display the information you are trying to request and/or if it is displaying something else than what you expect, the possible issue would lie within the TWS and not on the API. As long as the TWS API is delivering the exact same information as what is shown in the TWS you can rule out any malfunction on it. If you are using the IB Gateway, it is always good idea to try the same with the TWS. <br/>
+<br/>
+</li>
+<li><b>Keep your TWS/IB Gateway up to date</b>: at IB we are constantly introducing new features and iterating over the existing ones. Because of this, we strongly recommend our users to keep their TWS as up to date as possible. In the unlikely event of experiencing problems with the TWS and/or the IB Gateway, please update to the latest available version on our website.</li>
+</ul>
+<h1><a class="anchor" id="tws_logs"></a>
+The TWS log</h1>
+<p>When all the above fail, please contact our Technical Support at the earliest opportunity. In order for us to investigate we will require your TWS/IB Gateway log files showing the anomaly being reported. If the log files are too big to be attached to our support ticketing system or to be sent via email, you can always upload them to a file sharing website and provide the download link.</p>
+<p>The TWS log files are located within the <b>C:/Jts</b> directory and can be easily identified by their name: <b>log.[day].txt</b> where [day] corresponds to the week day when the log file was written (Mon, Tue, Wed, etc). Note that in the IB Gateway's case, the log file is named as <b>ibgateway.[day].log</b>. The TWS will always keep one file per day. When the week is over, the TWS will start over again and create a new log file for the new day. This means that a log file will stay within the Jts directory for at least seven days.</p>
+<p>By default, the TWS is configured to record a minimum amount of information in its log files. This is often not enough for troubleshooting purposes and therefore it is necessary to change the logging level to 'Detail', in particular when using the TWS API since this level will record all messages exchanged between the TWS and the API client application.</p>
+<p>To change your TWS logging level, navigate to your API settings (Edit -&gt; Global Configuration -&gt; API -&gt; Settings) and set the "Logging Level" field to 'Detail' as shown in the image below.</p>
+<p><b>Important:</b> Note that the TWS/IB Gateway log files have to be already set to 'Detail' level before the issue occurs so that it can be recorded correctly when it manifests. However and due to the high amount of information that will be generated under this level, the resulting logs will grow considerably in size. It is therefore recommended to use the 'Detail' level only when troubleshooting and/or tracking a very specific issue.</p>
+<h2><a class="anchor" id="api_logs"></a>
+The API Message Log Files</h2>
+<p>Additionally to the TWS/IB Gateway log files, it is possible to generate API message log files. These logs will only contain the exchanged messages' sequences between the client application and the TWS/IB Gateway. Since this is the only information being recorded, the API message log files are far more compact and therefore easier to handle. The API message log files can be located within the <b>C:/Jts</b> directory just as the TWS ones. Similarly, the logs will be named <b>api.[clientId].[day].log</b> where [clientId] corresponds to the Id the client application used to connect to the TWS and [day] to the week day (i.e. api.123.Thu.log).</p>
+<p>To enable the API message log files, simply check the "Create API message log file" option within the TWS/IB Gateway's API settings dialog.</p>
 <div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
+<img src="tws_detail_log.png" alt="tws_detail_log.png"/>
 </div>
- </div></div><!-- contents -->
+<p><br/>
+<br/>
+ </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

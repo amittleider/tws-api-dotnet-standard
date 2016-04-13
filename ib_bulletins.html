@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: IB Bulletins</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('ib_bulletins.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,73 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">IB Bulletins </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>From time to time, IB sends out important <a href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/gettingstarted/bulletins.htm" target="_blank" class="linkexternal">News Bulletins</a>, which can be accessed via the TWS API through the <a class="el" href="classIBApi_1_1EClient.html#a286458a8be7d3b37f0d94fe61bf717fa">IBApi.EClient.reqNewsBulletins</a>.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqNewsBulletins(<span class="keyword">true</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqNewsBulletins(<span class="keyword">true</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqNewsBulletins(True)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqNewsBulletins(<span class="keyword">true</span>);</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>Bulletins are delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a3286ab81957d224345888153bce59082">IBApi.EWrapper.updateNewsBulletin</a> whenever there is a new bulletin:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateNewsBulletin(<span class="keywordtype">int</span> msgId, <span class="keywordtype">int</span> msgType, String message, String origExchange)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;News Bulletins. &quot;</span>+msgId+<span class="stringliteral">&quot; - Type: &quot;</span>+msgType+<span class="stringliteral">&quot;, Message: &quot;</span>+message+<span class="stringliteral">&quot;, Exchange of Origin: &quot;</span>+origExchange+<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> updateNewsBulletin(<span class="keywordtype">int</span> msgId, <span class="keywordtype">int</span> msgType, String message,</div>
+<div class="line">            String origExchange) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;News Bulletins. &quot;</span>+msgId+<span class="stringliteral">&quot; - Type: &quot;</span>+msgType+<span class="stringliteral">&quot;, Message: &quot;</span>+message+<span class="stringliteral">&quot;, Exchange of Origin: &quot;</span>+origExchange+<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub updateNewsBulletin(msgId As Integer, msgType As Integer, message As String, origExchange As String) Implements IBApi.EWrapper.updateNewsBulletin</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;News Bulletins. &quot;</span> &amp; msgId &amp; <span class="stringliteral">&quot; - Type: &quot;</span> &amp; msgType &amp; <span class="stringliteral">&quot;, Message: &quot;</span> &amp; message &amp; <span class="stringliteral">&quot;, Exchange of Origin: &quot;</span> &amp; origExchange)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::updateNewsBulletin(<span class="keywordtype">int</span> msgId, <span class="keywordtype">int</span> msgType, <span class="keyword">const</span> std::string&amp; newsMessage, <span class="keyword">const</span> std::string&amp; originExch) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;News Bulletins. %d - Type: %d, Message: %s, Exchange of Origin: %s\n&quot;</span>, msgId, msgType, newsMessage.c_str(), originExch.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>In order to stop receiving bulletins you need to cancel the subscription:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.cancelNewsBulletin();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelNewsBulletins();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelNewsBulletin()</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;cancelNewsBulletins();</div>
+</div><!-- fragment -->  </li>
+</ul>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

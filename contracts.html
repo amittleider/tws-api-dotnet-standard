@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Contracts</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('contracts.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,33 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Contracts </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
+<div class="textblock"><h1><a class="anchor" id="Overview"></a>
+Overview</h1>
+<p>An <a class="el" href="classIBApi_1_1Contract.html">IBApi.Contract</a> object represents trading instruments such as a stocks, futures or options.</p>
+<p>Every time a new request that requires a contract (i.e. market data, order placing, etc.) is sent to TWS, the platform will try to match the provided contract object with a single candidate. If there is more than one contract matching the same description, TWS will return an error notifying you there is an ambiguity. In these cases the TWS needs further information to narrow down the list of contracts matching the provided description to a single element.</p>
+<p>The best way of finding a contract’s description is within the TWS itself. Within the TWS, you can easily check a contract’s description either by double clicking it or through the <b>Contract Info -&gt; Description</b> menu, which you access by right-clicking a contract in TWS:</p>
 <div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
+<img src="contract_info_tws.png" alt="contract_info_tws.png"/>
 </div>
- </div></div><!-- contents -->
+<p>The description will then appear:</p>
+<div class="image">
+<img src="contract_description_tws.png" alt="contract_description_tws.png"/>
+</div>
+<p><b>Note: </b> you can see the extended contract details by choosing <b>Contract Info -&gt; Details</b>. This option will open a web page showing all available information on the contract.</p>
+<p>Whenever a contract description is provided via the TWS API, the TWS will try to match the given description to a single contract. This mechanism allows for great flexibility since it gives the possibility to define the same contract in multiple ways.</p>
+<p>The simplest way to define a contract is by providing its symbol, security type, currency and exchange. The vast majority of stocks, CFDs, Indexes or FX pairs can be uniquely defined through these four attributes. More complex contracts such as options and futures require some extra information due to their nature. Below are several examples for different types of instruments.</p>
+<p>See also:</p>
+<ul>
+<li><a class="el" href="contract_details.html">Requesting Contract Details</a></li>
+<li><a class="el" href="basic_contracts.html">Basic Contracts</a></li>
+<li><a class="el" href="spread_contracts.html">Spreads</a></li>
+</ul>
+<p><br/>
+ </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

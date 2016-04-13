@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Error Handling</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('error_handling.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,46 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Error Handling </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>Whenever the client application performs a request to the TWS which requires a response from it (i.e. placing an order, requesting market data, subscribing to account updates, etc.), the TWS will produce the desired result <b>as long as the request was made appropriately</b>. When the TWS is unable to process the request properly, it will <b>always</b> return an error message pointing in the mistake's direction.</p>
+<p>Error messages sent by the TWS are handled by the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a7dfc221702ca65195609213c984729b8">IBApi.EWrapper.error</a> method. The <a class="el" href="interfaceIBApi_1_1EWrapper.html#a7dfc221702ca65195609213c984729b8">IBApi.EWrapper.error</a> event contains the originating request Id (or the orderId in case the error was raised when placing an order), a numeric error code and a brief description of it.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> error(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> errorCode, <span class="keywordtype">string</span> errorMsg)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Error. Id: &quot;</span> + <span class="keywordtype">id</span> + <span class="stringliteral">&quot;, Code: &quot;</span> + errorCode + <span class="stringliteral">&quot;, Msg: &quot;</span> + errorMsg + <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> error(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> errorCode, String errorMsg) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;Error. Id: &quot;</span> + <span class="keywordtype">id</span> + <span class="stringliteral">&quot;, Code: &quot;</span> + errorCode + <span class="stringliteral">&quot;, Msg: &quot;</span> + errorMsg + <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Error - Id [&quot;</span> &amp; <span class="keywordtype">id</span> &amp; <span class="stringliteral">&quot;] ErrorCode [&quot;</span> &amp; errorCode &amp; <span class="stringliteral">&quot;] ErrorMsg [&quot;</span> &amp; errorMsg &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
+<div class="line">        End Sub</div>
+<div class="line"></div>
+<div class="line"></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::error(<span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keyword">const</span> <span class="keywordtype">int</span> errorCode, <span class="keyword">const</span> std::string errorString)</div>
+<div class="line">{</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Error. Id: %d, Code: %d, Msg: %s\n&quot;</span>, <span class="keywordtype">id</span>, errorCode, errorString.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>For a list containing all available error messages from the TWS, see <a class="el" href="message_codes.html">Message Codes</a> </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

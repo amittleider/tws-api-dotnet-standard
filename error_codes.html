@@ -5,64 +5,23 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API: Error Codes</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
 <script>
 $(document).ready(function(){
-		var picked=getCookie("picked");
-		if (picked != "") {
-			if (!$(this).hasClass("active")) {
-				var tabNum = $(this).index();
-				var nthChild = picked;
-				$("ul#tabs li.active").removeClass("active");
-				$(this).addClass("active");
-				$("ul#tab li.active").removeClass("active");
-				$("ul#tab li:nth-child("+nthChild+")").addClass("active");
-				$("ul#tabs li:nth-child("+nthChild+")").addClass("active");
-				setCookie("picked", nthChild, 1);
-			}
-		}
-		$("ul#tabs li").click(function(e){
-			if (!$(this).hasClass("active")) {
-			var tabNum = $(this).index();
-			var nthChild = tabNum+1;
-			$("ul#tabs li.active").removeClass("active");
-			$(this).addClass("active");
-			$("ul#tab li.active").removeClass("active");
-			$("ul#tab li:nth-child("+nthChild+")").addClass("active");
-			setCookie("picked", nthChild, 1);
-		}
+    $("ul#tabs li").click(function(e){
+        if (!$(this).hasClass("active")) {
+            var tabNum = $(this).index();
+            var nthChild = tabNum+1;
+            $("ul#tabs li.active").removeClass("active");
+            $(this).addClass("active");
+            $("ul#tab li.active").removeClass("active");
+            $("ul#tab li:nth-child("+nthChild+")").addClass("active");
+        }
     });
 });
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-} 
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-    }
-    return "";
-} 
-function checkCookie() {
-    var picked=getCookie("picked");
-    if (picked != "") {
-        alert("Welcome again " + picked);
-    }else{
-        //username = prompt("Please enter your name:", "");
-        if (picked != "" && picked != null) {
-            setCookie("picked", 1, 365);
-        }
-    }
-}
 </script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
@@ -85,11 +44,10 @@ function checkCookie() {
 <table cellspacing="0" cellpadding="0" >
  <tbody>
  <tr>
-  <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
+  <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></td>
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
           <img id="MSearchSelect" src="search/mag_sel.png"
@@ -126,7 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('error_codes.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,20 +103,24 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Error Codes </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><table class="doxtable">
+<tr>
+<th>Code</th><th>TWS message</th><th>Description </th></tr>
+<tr>
+<td>100</td><td>Max rate of messages per second has been exceeded.</td><td>The client application has exceeded the rate of 50 messages/second. The TWS will likely disconnect the client application after this mesage. </td></tr>
+<tr>
+<td></td><td></td><td></td></tr>
+</table>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">This website uses cookies. By navigating through it you agree to the use of cookies. Copyright Interactive Brokers 2016 </li>
+    <li class="footer">WARNING: This site is under construction and as such pending revision and official approval from Interactive Brokers - Copyright Interactive Brokers 2016 </li>
   </ul>
 </div>
 </body>
