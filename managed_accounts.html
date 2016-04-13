@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Managed Accounts</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('managed_accounts.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,58 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Managed Accounts </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>A single user name can handle more than one account. As mentioned in the <a class="el" href="connection.html">Connection</a> section, the TWS will automatically send a list of managed accounts once the connection is established. The list can also be fetched via the <a class="el" href="classIBApi_1_1EClient.html#af5dc6607457bc7bca764a49c10de0813">IBApi.EClient.reqManagedAccts</a> method:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqManagedAccts();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqManagedAccts();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqManagedAccts()</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqManagedAccts();</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>The above will result in a comma separated list of account Ids delivered through <a class="el" href="interfaceIBApi_1_1EWrapper.html#abd7e561f313bcc4c860074906199a46c">IBApi.EWrapper.managedAccounts</a></p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> managedAccounts(<span class="keywordtype">string</span> accountsList) </div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Account list: &quot;</span>+accountsList);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> managedAccounts(String accountsList) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;Account list: &quot;</span> +accountsList);</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub managedAccounts(accountsList As String) Implements IBApi.EWrapper.managedAccounts</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ManagedAccounts - AccountsList [&quot;</span> &amp; accountsList &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::managedAccounts( <span class="keyword">const</span> std::string&amp; accountsList) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Account List: %s\n&quot;</span>, accountsList.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p><b>Important: </b>whenever your TWS user name handles more than a single account, you will be forced to specify the account Id to which the order needs to be allocated. Failure to do so will result in the order being rejected since the TWS cannot assign the order to a default account. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

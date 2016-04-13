@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Market Data</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('market_data.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,50 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Market Data </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
+<div class="textblock"><p>It is possible to fetch different kinds market data from the TWS:</p>
+<ul>
+<li><a class="el" href="top_data.html">Top Market Data (Level I)</a></li>
+<li><a class="el" href="market_depth.html">Market Depth (Level II)</a></li>
+<li><a class="el" href="historical_data.html">Historical Data</a></li>
+<li><a class="el" href="realtime_bars.html">Real Time Bars</a></li>
+<li><a class="el" href="news.html">News</a></li>
+</ul>
+<h1><a class="anchor" id="market_subscriptions"></a>
+Live Data Subscriptions</h1>
+<p>In order to request any kind of market data (i.e. top-of-book, deep-of-book or historical data) it is necessary to be subscribed to the 'instruments' live market data. To subscribe to live market data please log into your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -&gt; Trade Configuration -&gt; Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.</p>
+<p>To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.</p>
 <div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
+<img src="am_market_data_subscription.png" alt="am_market_data_subscription.png"/>
 </div>
- </div></div><!-- contents -->
+<p>Once you have selected the relevant packages, click on the "Continue" button and confirm you have made the right choices in the following screen.</p>
+<p><b>Important: </b> Market Data subscriptions are billable at the full month's rate and will not be pro-rated.</p>
+<div class="image">
+<img src="am_subscription_confirm.png" alt="am_subscription_confirm.png"/>
+</div>
+<h1><a class="anchor" id="paper_sharing"></a>
+Sharing Market Data Subscriptions</h1>
+<p>Market data subscriptions are done at a <b>TWS user name</b> level, not per account. This implies that live market data subscriptions need to be purchased per every live TWS user. The only exception to this rule are paper trading users. To share the market data subscriptions simply access your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a> and navigate to Manage Account -&gt; Settings -&gt; Paper Trading where you will be presented to the screen below. It will take up to 24 hours until the market data sharing takes effect.</p>
+<div class="image">
+<img src="am_md_sharing.png" alt="am_md_sharing.png"/>
+</div>
+<p><b>Important: </b>since your paper trading market data permissions are bound to your live one, you can only obtain live market data on your paper trading user if;</p>
+<ul>
+<li>You have shared the market data subscriptions accordingly as described above.</li>
+<li>You are NOT logged in with your live user name at the same time on a <b>different</b> computer.</li>
+</ul>
+<h1><a class="anchor" id="market_lines"></a>
+Market Data Lines</h1>
+<p>Whenever a user requests an instrument's real time (top-of-book) market data either from within the TWS or through the TWS API, the user is making use of a market data line. Market data lines therefore represent the <b>active</b> market data requests a user has.</p>
+<p><b>Example: </b> To clarify this concept further, let us assume a user has a maxTicker Limit of <b>ten</b> market data lines and is already observing the real time data of say <b>five</b> stocks within the TWS itself. When the user connects his TWS API client application to the TWS, he then requests the real time market data for another <b>different five</b> instruments. At a later point while all 10 requests are still active, the user tries to subscribe to the live real time market data of an eleventh product. Since the user is already making use of ten market data lines (five in the TWS and another five in his client application), the TWS will respond with an error message telling the client application it has reached the maximum number of simultaneous requests. In order to request the market data of the eleventh product, the user will have to cancel at least one of the currently active subscriptions (either within TWS or from his client program.)</p>
+<p>By default, every user has a maxTicker Limit of 100 market data lines and as such can obtain the real time market data of up to 100 instruments <b>simultaneously</b>. This limit however can be further extended either through the purchase of quote booster packs or by increasing the equity and/or commissions of the user's account. For further details on how to increment the number of market data lines or how is your market data lines' entitlement calculated, please refer to our website's "Market Data Display" section within the <a href="https://www.interactivebrokers.com/en/index.php?f=14193" target="_blank" class="linkexternal">Research, News and Market Data</a> page.</p>
+<p><b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and historical data.</p>
+<p><br/>
+<br/>
+ </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Financial Advisor</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('financial_advisor.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,62 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Financial Advisor </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+<div class="textblock"><p>Financial Advisor functions allow Financial Advisors to place orders for multiple sub-accounts using order allocation via the API.</p>
+<p>Order allocation methods include <a class="el" href="financial_advisor.html#allocation_methods_groups">Account Group</a> and <a class="el" href="financial_advisor.html#allocation_methods_profiles">Account Profile</a>. Group and Profile order allocation methods for Financial Advisor Accounts can be created directly in TWS: <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/financialadvisors/allocations_and_transfers.htm" target="_blank" class="linkexternal">Allocations and Transfers</a>, or utilize the <a class="el" href="financial_advisor_methods.html#replace_fa_methods">replaceFA() method</a> via the API directly.</p>
+<p>As can be deducted from the methods below, a Group will distribute the order based on inherent properties such as the account's liquidation value or equity whereas a Profile will offer the possibility to assign the allocated proportion based on explicit ratios or percentages.</p>
+<h1><a class="anchor" id="allocation_methods_groups"></a>
+Account Groups Allocation Methods</h1>
+<p><b>EqualQuantity</b></p>
+<p><em>Requires you to specify an order size.</em> This method distributes shares equally between all accounts in the group.</p>
+<p>Example: You transmit an order for 400 shares of stock ABC. If your Account Group includes four accounts, each account receives 100 shares. If your Account Group includes six accounts, each account receives 66 shares, and then 1 share is allocated to each account until all are distributed.</p>
+<p><b>NetLiq</b></p>
+<p><em>Requires you to specify an order size.</em> This method distributes shares based on the net liquidation value of each account. The system calculates ratios based on the Net Liquidation value in each account and allocates shares based on these ratios.</p>
+<p>Example: You transmit an order for 700 shares of stock XYZ. The account group includes three accounts, A, B and C with Net Liquidation values of $25,000, $50,000 and $100,000 respectively. The system calculates a ratio of 1:2:4 and allocates 100 shares to Client A, 200 shares to Client B, and 400 shares to Client C.</p>
+<p><b>AvailableEquity</b></p>
+<p><em>Requires you to specify an order size.</em> This method distributes shares based on the amount of available equity in each account. The system calculates ratios based on the Available Equity in each account and allocates shares based on these ratios.</p>
+<p>Example: You transmit an order for 700 shares of stock XYZ. The account group includes three accounts, A, B and C with available equity in the amounts of $25,000, $50,000 and $100,000 respectively. The system calculates a ratio of 1:2:4 and allocates 100 shares to Client A, 200 shares to Client B, and 400 shares to Client C.</p>
+<p><b>PctChange</b></p>
+<p><em>Do not specify an order size.</em> Since the quantity is calculated by the system, the order size is displayed in the Quantity field after the order is acknowledged. This method increases or decreases an already existing position. Positive percents will increase a position, negative percents will decrease a position.</p>
+<table class="doxtable">
+<tr>
+<th><b>BUY ORDER</b></th><td><em>Positive Percent</em></td><td><em>Negative Percent</em> </td></tr>
+<tr>
+<td>Long Position</td><td>Increases position</td><td>No effect </td></tr>
+<tr>
+<td>Short Position</td><td>No effect</td><td>Decreases position </td></tr>
+<tr>
+<td></td><td></td><td></td></tr>
+<tr>
+<th><b>SELL ORDER</b></th><td><em>Positive Percent</em></td><td><em>Negative Percent</em> </td></tr>
+<tr>
+<td>Long Position</td><td>No effect</td><td>Decreases position </td></tr>
+<tr>
+<td>Short Position</td><td>Increases position</td><td>No effect </td></tr>
+</table>
+<h1><a class="anchor" id="allocation_methods_profiles"></a>
+Account Profiles Allocation Methods</h1>
+<p><b>Percentages</b></p>
+<p>This method will split the total number of shares in the order between listed accounts based on the percentages you indicate. For example, an order for 1000 shares using a profile with four accounts at 25% each would allocate 250 shares to each listed account in the profile.</p>
+<p><b>Financial Ratios</b></p>
+<p>This method calculates the allocation of shares based on the ratios you enter. For example, an order for 1000 shares using a profile with four accounts set to a ratio of 4, 2, 1, 1 would allocate 500, 250, 125 and 125 shares to the listed accounts, respectively.</p>
+<p><b>Shares</b></p>
+<p>This method allocates the absolute number of shares you enter to each account listed. If you use this method, the order size is calculated by adding together the number of shares allocated to each account in the profile.</p>
+<table class="doxtable">
+<caption id="profile_methods_matching" align="bottom">Profile Methods Matching</caption>
+<tr>
+<th>Profile Methods</th><th>Type Number </th></tr>
+<tr>
+<td>Percentages</td><td>Type - 1 </td></tr>
+<tr>
+<td>Financial Ratios</td><td>Type - 2 </td></tr>
+<tr>
+<td>Shares</td><td>Type - 3 </td></tr>
+</table>
+<p>See also <a class="el" href="financial_advisor_methods.html">Financial Advisor Methods and Orders</a> and <a class="el" href="financial_advisor_methods.html#financial_advisor_orders">Financial Advisor Sample Orders</a> </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: Initial Setup</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('initial_setup.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -145,14 +145,31 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">Initial Setup </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
+<div class="textblock"><h1><a class="anchor" id="tws"></a>
+The Trader Workstation</h1>
+<p>Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to.</p>
+<h1><a class="anchor" id="gateway"></a>
+The IB Gateway</h1>
+<p>The only alternative to the TWS is the IB Gateway. From the TWS API perspective, the IB Gateway and the TWS are identical: both represent nothing but a server to which it can open a socket connection. From the user perspective however the IB Gateway is a lightweight application through which he can only make use of the TWS API. As opposed to the TWS' rich user interface, the IB Gateway does not provide the end user with anything else than the very basic features to handle API connections. On the other hand, the IB Gateway does not need to be restarted every 24 hours and can therefore be used to run indefinitely.</p>
+<p><b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonyms.</b></p>
+<h1><a class="anchor" id="enable_api"></a>
+Enable API connections</h1>
+<p>Before any client application can connect to the Trader Workstation, the TWS needs to be configured to listen for incoming API connections on a very specific port. To do this simply access the TWS' API settings via Edit -&gt; Global Configuration -&gt; API -&gt; Settings and make sure the "Enable ActiveX and Socket Clients" option is activated as shown below:</p>
 <div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
+<img src="enable_socket.png" alt="enable_socket.png"/>
 </div>
- </div></div><!-- contents -->
+<p>Also important to mention is the "Socket port". By default the TWS will listen on ports <b>7496</b> or <b>7497</b> although this value can be changed to whichever port number as long as the specific port is available. This is particularly important to remember in case multiple TWS are running on the same computer (i.e. live and paper trading). Since only one application can listen on one port at a time you will need to assign different ports to each running TWS.</p>
+<p><b>Important: when running paper and live TWS on the same computer, make sure your client application is connecting to the right TWS!</b></p>
+<h1><a class="anchor" id="read_only"></a>
+Read Only API</h1>
+<p>The API Settings dialog allows you to configure the TWS not to accept any orders being sent via the TWS API. This is an additional security measure you can enable when the API client is only intended to request information from the TWS.</p>
+<p><br/>
+<br/>
+ </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->

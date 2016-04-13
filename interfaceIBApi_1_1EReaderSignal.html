@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Trader Workstation API</title>
+<title>TWS API v9.72: EReaderSignal Interface Reference</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('interfaceIBApi_1_1EReaderSignal.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -144,20 +144,37 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="interfaceIBApi_1_1EReaderSignal-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Trader Workstation API </div>  </div>
+<div class="title">EReaderSignal Interface Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).</p>
-<div class="image">
-<img src="api_icon_programming.png" alt="api_icon_programming.png"/>
-</div>
- </div></div><!-- contents -->
+
+<p>Notifies the thread reading information from the TWS whenever there are messages ready to be consumed.  
+ <a href="interfaceIBApi_1_1EReaderSignal.html#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a24e6831d25706462ef7fc7051363a647"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24e6831d25706462ef7fc7051363a647"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EReaderSignal.html#a24e6831d25706462ef7fc7051363a647">issueSignal</a> ()</td></tr>
+<tr class="memdesc:a24e6831d25706462ef7fc7051363a647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issues a signal to the consuming thread when there are things to be consumed. <br/></td></tr>
+<tr class="separator:a24e6831d25706462ef7fc7051363a647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94437bdc0ef76930d0e9188ef03547de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94437bdc0ef76930d0e9188ef03547de"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EReaderSignal.html#a94437bdc0ef76930d0e9188ef03547de">waitForSignal</a> ()</td></tr>
+<tr class="memdesc:a94437bdc0ef76930d0e9188ef03547de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the consuming thread waiting until a signal is issued. <br/></td></tr>
+<tr class="separator:a94437bdc0ef76930d0e9188ef03547de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Notifies the thread reading information from the TWS whenever there are messages ready to be consumed. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespaceIBApi.html">IBApi</a></li><li class="navelem"><a class="el" href="interfaceIBApi_1_1EReaderSignal.html">EReaderSignal</a></li>
     <li class="footer">This website uses cookies. By navigating through it you agree to the use of cookies. Copyright Interactive Brokers 2016 </li>
   </ul>
 </div>
