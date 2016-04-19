@@ -1,35 +1,37 @@
-﻿Imports System
+﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
+
 Imports System.Reflection
+Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 
-' General Information about an assembly is controlled through the following 
+' General Information about an assembly is controlled through the following
 ' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
+' associated with an assembly
 
-' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("HelloWorld_VB")> 
+' TODO: Review the values of the assembly attributes
+
+
+<Assembly: AssemblyTitle("")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Timber Hill (Europe) AG")> 
-<Assembly: AssemblyProduct("HelloWorld_VB")> 
-<Assembly: AssemblyCopyright("Copyright © Timber Hill (Europe) AG 2015")> 
+<Assembly: AssemblyCompany("Interactive Brokers")> 
+<Assembly: AssemblyProduct("TWS API")> 
+<Assembly: AssemblyCopyright("(C) Copyright 2005 Interactive Brokers")> 
 <Assembly: AssemblyTrademark("")> 
-
-<Assembly: ComVisible(False)>
-
-'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("01209314-69a5-4fbc-9f88-6e45a1f8a5ab")> 
+<Assembly: AssemblyCulture("")> 
 
 ' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version 
-'      Build Number
-'      Revision
-'
-' You can specify all the values or you can default the Build and Revision Numbers 
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+'	Major version
+'	Minor Version
+'	Revision
+'	Build Number
+
+' You can specify all the values or you can default the Revision and Build Numbers
+' by using the '*' as shown below
+
+
+<Assembly: AssemblyVersion("8.4.0.0")> 
+
+
