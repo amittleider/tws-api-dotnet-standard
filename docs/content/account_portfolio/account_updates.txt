@@ -72,7 +72,8 @@
 	</ul>
 	
 	<b>Important:</b> only one account at a time can be subscribed at a time. Attempting a second subscription without previously cancelling an active one will not yield any error message although
-	it will override the already subscribed account with the new one.
+	it will override the already subscribed account with the new one. With Financial Advisory (FA) account structures there is an alternative way of specifying the account code such that 
+	information is returned for 'All' sub accounts- this is done by appending the letter 'A' to the end of the account number, i.e. reqAccountUpdates(true, "F123456A")
 	
 	\section acct_keys Identifying the Account Keys
 	
