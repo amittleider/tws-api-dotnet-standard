@@ -22,9 +22,12 @@
 	When all the above fail, please contact our Technical Support at the earliest opportunity. In order for us to investigate we will require your TWS/IB Gateway log files showing the anomaly being
 	reported. If the log files are too big to be attached to our support ticketing system or to be sent via email, you can always upload them to a file sharing website and provide the download link.
 	
-	The TWS log files are located within the <b>C:/Jts</b> directory and can be easily identified by their name: <b>log.[day].txt</b> where [day] corresponds to the week day when the log file 
+	With TWS versions up until 955, the TWS log files are located within the <b>C:/Jts</b> directory and can be easily identified by their name: <b>log.[day].txt</b> where [day] corresponds to the week day when the log file 
 	was written (Mon, Tue, Wed, etc). Note that in the IB Gateway's case, the log file is named as <b>ibgateway.[day].log</b>. The TWS will always keep one file per day. When the week is over, 
 	the TWS will start over again and create a new log file for the new day. This means that a log file will stay within the Jts directory for at least seven days.
+	
+	With TWS versions 956 and above, the TWS log file will be kept in the user's individual subdirectory within <b>C:/Jts</b> and the filename will be <b>log.[YYYYMMDD].txt</b> where YYYYMMDD is the year, month, and day the log file was created. 
+	The exact path of the user's subdirectory can be found in TWS using the Ctrl-Alt-U combination.
 	
 	By default, the TWS is configured to record a minimum amount of information in its log files. This is often not enough for troubleshooting purposes and therefore it is necessary to change 
 	the logging level to 'Detail', in particular when using the TWS API since this level will record all messages exchanged between the TWS and the API client application. 

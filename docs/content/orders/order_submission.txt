@@ -4,9 +4,13 @@
   
 	Perhaps the most important event received after successfully connecting to the TWS is the @ref IBApi::EWrapper::nextValidId, which is also triggered after invoking the reqIds method. 
 	As its name indicates, the nextValidId event provides the next valid identifier needed to place an order. This identifier is nothing more than the next number in the sequence. 
-	This means the client application does not have to obtain a new valid identifier every time it needs to submit a new order. It is enough to increase the last value received 
-	from the nextValidId method by one. For example, if the valid identifier for your first API order is 1, the next valid identifier would be 2, and so on. You can always use the 
-	@ref IBApi::EClient::reqIds method in the event that your client application accidentally loses track of this sequence.
+	This means that if there is a single client application submitting orders to an account, it does not have to obtain a new valid identifier every time it needs to submit a new order. 
+	It is enough to increase the last value received from the nextValidId method by one. For example, if the valid identifier for your first API order is 1, the next valid identifier would be 2 and so on.
+	However if there are multiple client applications connected to one account, it is necessary to use an order ID with new orders which is greater than all previous order IDs returned to the client 
+	application in openOrder or orderStatus callbacks. For instance, if the client is set as the Master client, it will automatically receive order status and trade callbacks from orders placed 
+	from other clients. In such a case, any orderID used in placeOrder must be greater than the orderIDs returned in these status callbacks. Alternatively if the function reqAllOpenOrders is 
+	used by a client, subsequent orders placed by that client must have order IDs greater than the order IDs of all orders returned because of that function call. 
+	You can always use the @ref IBApi::EClient::reqIds method in the event that your client application accidentally loses track of this sequence.
 	
 	<ul id="tab">
 		<li class="active">
@@ -140,9 +144,9 @@
 	
 	\section order_margin Checking Margin Requirements
 	
-	It is possible to obtain the margin and commissions information for a given order *before* submitting it by assigning the @ref IBApi::Order::WhatIf flag to true. Placing such an order will result
-	in the order not being actually placed but rather used as a query. The margin and commissions information will be returned via the @ref IBApi::EWrapper::openOrder callback through its
-	@ref IBApi::OrderState object.
+	It is possible to obtain the margin and commissions information for a given order *before* submitting it by assigning the @ref IBApi::Order::WhatIf flag to true. Invoking placeOrder with the whatif 
+	flag set to true will result in the order not being actually placed but rather used as a query. The margin and commissions information will be returned via 
+	the @ref IBApi::EWrapper::openOrder callback through its @ref IBApi::OrderState object.
 	
 	<br><br>
 	

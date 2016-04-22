@@ -363,7 +363,9 @@ namespace Samples
             //Thread.Sleep(1000);
             //BracketSample(client, nextOrderId);
 
-            /*** Placing/modifying an order - remember to ALWAYS increment the nextValidId after placing an order so it can be used for the next one! ***/
+            /*** Placing/modifying an order - remember to ALWAYS increment the nextValidId after placing an order so it can be used for the next one! 
+			Note if there are multiple clients connected to an account, the order ID must also be greater than all order IDs returned for orders to orderStatus and openOrder to this client.
+			***/
             //! [order_submission]
             client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.LimitOrder("SELL", 1, 50));
             //! [order_submission]
