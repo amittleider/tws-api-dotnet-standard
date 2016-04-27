@@ -39,6 +39,8 @@
 		\snippet EWrapperImpl.cs connectack
 		</li>
 		<li>
+		\snippet EWrapperImpl.java ewrapperimpl
+		...
 		\snippet EWrapperImpl.java connectack
 		</li>
 		<li>

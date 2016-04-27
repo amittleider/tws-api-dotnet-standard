@@ -473,20 +473,16 @@ public class OrderSamples {
 		return order;
 	}
 	
+	// ! [oca]
 	public static List<Order> OneCancelsAll(String ocaGroup, List<Order> ocaOrders, int ocaType) {
 		
 		for (Order o : ocaOrders) {
 			o.ocaGroup(ocaGroup);
 			o.ocaType(ocaType);
-			//Same as with Bracket orders. To prevent accidental executions, set all orders' transmit flag to false.
-            //This will tell the TWS not to send the orders, allowing your program to send them all first.
-			o.transmit(false);
 		}
-		
-		//Telling the TWS to transmit the last order in the OCA will also cause the transmission of its predecessors.
-		ocaOrders.get(ocaOrders.size() - 1).transmit(false);
 		return ocaOrders;
 	}
+	// ! [oca]
 	
 	public static Order Volatility(String action, double quantity, double volatilityPercent, int volatilityType) {
 		// ! [volatility]

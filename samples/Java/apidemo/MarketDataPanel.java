@@ -614,8 +614,8 @@ public class MarketDataPanel extends JPanel {
 						public void securityDefinitionOptionalParameterEnd(int reqId) { }
 						
 						@Override
-						public void securityDefinitionOptionalParameter(String exchange, int underlyingConId, String tradingClass, String multiplier,
-								Set<String> expirations, Set<Double> strikes) {
+						public void securityDefinitionOptionalParameter(final String exchange, final int underlyingConId, final String tradingClass, final String multiplier,
+								final Set<String> expirations, final Set<Double> strikes) {
 							SwingUtilities.invokeLater( new Runnable() { @Override public void run() {
 
 								SecDefOptParamsReqResultsPanel resultsPanel = new SecDefOptParamsReqResultsPanel(expirations, strikes);

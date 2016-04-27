@@ -26,6 +26,7 @@
 #include "AvailableAlgoParams.h"
 #include "FAMethodSamples.h"
 #include "CommonDefs.h"
+#include "AccountSummaryTags.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -474,8 +475,20 @@ void TestCppClient::accountOperations()
 	Sleep(2000);
 	/*** Requesting accounts' summary ***/
 	//! [reqaaccountsummary]
-	m_pClient->reqAccountSummary(9001, "All", "AccountType,NetLiquidation,TotalCashValue,SettledCash,AccruedCash,BuyingPower,EquityWithLoanValue,PreviousEquityWithLoanValue,GrossPositionValue,ReqTEquity,ReqTMargin,SMA,InitMarginReq,MaintMarginReq,AvailableFunds,ExcessLiquidity,Cushion,FullInitMarginReq,FullMaintMarginReq,FullAvailableFunds,FullExcessLiquidity,LookAheadNextChange,LookAheadInitMarginReq ,LookAheadMaintMarginReq,LookAheadAvailableFunds,LookAheadExcessLiquidity,HighestSeverity,DayTradesRemaining,Leverage");
+	m_pClient->reqAccountSummary(9001, "All", AccountSummaryTags::getAllTags());
 	//! [reqaaccountsummary]
+	Sleep(2000);
+	//! [reqaaccountsummaryledger]
+	m_pClient->reqAccountSummary(9002, "All", "$LEDGER");
+	//! [reqaaccountsummaryledger]
+	Sleep(2000);
+	//! [reqaaccountsummaryledgercurrency]
+	m_pClient->reqAccountSummary(9003, "All", "$LEDGER:EUR");
+	//! [reqaaccountsummaryledgercurrency]
+	Sleep(2000);
+	//! [reqaaccountsummaryledgerall]
+	m_pClient->reqAccountSummary(9004, "All", "$LEDGER:ALL");
+	//! [reqaaccountsummaryledgerall]
 	Sleep(2000);
 	/*** Subscribing to an account's information. Only one at a time! ***/
 	//! [reqaaccountupdates]
@@ -807,9 +820,9 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
-	//m_state = ST_ACCOUNTOPERATIONS;
+	m_state = ST_ACCOUNTOPERATIONS;
 	//m_state = ST_ORDEROPERATIONS;
-	m_state = ST_OCASAMPLES;
+	//m_state = ST_OCASAMPLES;
 	//m_state = ST_CONDITIONSAMPLES;
 	//m_state = ST_BRACKETSAMPLES;
 	//m_state = ST_HEDGESAMPLES;
