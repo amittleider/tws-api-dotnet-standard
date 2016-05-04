@@ -87,7 +87,7 @@ $extrastylesheet
 
 <!--BEGIN TITLEAREA-->
 <div id="titlearea" style="background-color:black;">
-<table cellspacing="0" cellpadding="0" >
+<table cellspacing="0" cellpadding="0">
  <tbody>
  <tr>
   <!--BEGIN PROJECT_LOGO-->
@@ -107,9 +107,28 @@ $extrastylesheet
    <!--END PROJECT_BRIEF-->
   <!--END !PROJECT_NAME-->
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <!--BEGIN GCS_SEARCHBOX-->
+  <td style="position: absolute; right: 0;">
+   <div id="google-custom-search" align="right" style="vertical-align: top;">
+   <script>
+  (function() {
+    <!--var cx = '016133076310983692125:dhdvrotq8wa';-->
+    var cx = '016133076310983692125:dhdvrotq8wa';
+	var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+	</script>
+	<gcse:search newWindow="false" enableHistory="true"></gcse:search>
+   </div>
+   </td>
+  <!--END !GCS_SEARCHBOX-->
   <!--BEGIN DISABLE_INDEX-->
    <!--BEGIN SEARCHENGINE-->
-   <td>$searchbox</td>
+   <td>$Searchbox</td>
    <!--END SEARCHENGINE-->
   <!--END DISABLE_INDEX-->
  </tr>
