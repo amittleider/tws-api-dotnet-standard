@@ -249,7 +249,7 @@ $(document).ready(function(){initNavTree('account_updates.html','');});
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p><b>Important:</b> only one account at a time can be subscribed at a time. Attempting a second subscription without previously cancelling an active one will not yield any error message although it will override the already subscribed account with the new one.</p>
+<p><b>Important:</b> only one account at a time can be subscribed at a time. Attempting a second subscription without previously cancelling an active one will not yield any error message although it will override the already subscribed account with the new one. With Financial Advisory (FA) account structures there is an alternative way of specifying the account code such that information is returned for 'All' sub accounts- this is done by appending the letter 'A' to the end of the account number, i.e. reqAccountUpdates(true, "F123456A")</p>
 <h1><a class="anchor" id="acct_keys"></a>
 Identifying the Account Keys</h1>
 <p>Account values delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5">IBApi.EWrapper.updateAccountValue</a> can be classified in the following way:</p>

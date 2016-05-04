@@ -238,6 +238,10 @@ $(document).ready(function(){initNavTree('bracket_order.html','');});
 <div class="line">        </div>
 <div class="line">        <span class="keywordflow">return</span> bracketOrder;</div>
 <div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        List&lt;Order&gt; bracket = OrderSamples.BracketOrder(nextOrderId++, <span class="stringliteral">&quot;BUY&quot;</span>, 100, 30, 40, 20);</div>
+<div class="line">        <span class="keywordflow">for</span>(Order o : bracket) {</div>
+<div class="line">            client.placeOrder(o.orderId(), ContractSamples.EuropeanStock(), o);</div>
+<div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">            <span class="stringliteral">&#39;This will be our main Or &quot;parent&quot; order</span></div>

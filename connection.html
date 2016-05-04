@@ -180,7 +180,8 @@ Acknowledging the connection</h1>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    @Override</div>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
 <div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> connectAck() {</div>
 <div class="line">        <span class="keywordflow">if</span> (clientSocket.isAsyncEConnect()) {</div>
 <div class="line">            System.out.println(<span class="stringliteral">&quot;Acknowledging connection&quot;</span>);</div>

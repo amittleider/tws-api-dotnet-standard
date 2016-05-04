@@ -169,9 +169,24 @@ $(document).ready(function(){initNavTree('oca.html','');});
 <div class="line">                client.placeOrder(nextOrderId++, ContractSamples.USStock(), o);</div>
 </div><!-- fragment -->  </li>
 <li>
-<p class="startli"></p>
-<p class="endli"></p>
-</li>
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;Order&gt; OneCancelsAll(String ocaGroup, List&lt;Order&gt; ocaOrders, <span class="keywordtype">int</span> ocaType) {</div>
+<div class="line">        </div>
+<div class="line">        <span class="keywordflow">for</span> (Order o : ocaOrders) {</div>
+<div class="line">            o.ocaGroup(ocaGroup);</div>
+<div class="line">            o.ocaType(ocaType);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> ocaOrders;</div>
+<div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        List&lt;Order&gt; OcaOrders = <span class="keyword">new</span> ArrayList&lt;Order&gt;();</div>
+<div class="line">        OcaOrders.add(OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 10));</div>
+<div class="line">        OcaOrders.add(OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 11));</div>
+<div class="line">        OcaOrders.add(OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 12));</div>
+<div class="line">        OcaOrders = OrderSamples.OneCancelsAll(<span class="stringliteral">&quot;TestOCA_&quot;</span> + nextOrderId, OcaOrders, 2);</div>
+<div class="line">        <span class="keywordflow">for</span> (Order o : OcaOrders) {</div>
+<div class="line">            </div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStock(), o);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
 <li>
 </li>
 <li>
