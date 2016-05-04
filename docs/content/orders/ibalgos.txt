@@ -121,7 +121,7 @@
 		<tr><td>randomizeSize55</td><td>Randomise size by +/- 55%</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>giveUp</td><td>Number associated with the clearing</td><td></td></tr>
 		<tr><td>catchUp</td><td>Catch up in time</td><td>1 (true) or 0 (false)</td></tr>
-		<tr><td>waitOrFill</td><td>Wait for current order to fill before submitting next order</td>1 (true) or 0 (false)<td></td></tr>
+		<tr><td>waitForFill</td><td>Wait for current order to fill before submitting next order</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
 		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
 	</table>

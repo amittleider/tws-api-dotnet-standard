@@ -317,6 +317,19 @@ namespace Samples
             //! [reqaaccountsummary]
             client.reqAccountSummary(9001, "All", AccountSummaryTags.GetAllTags());
             //! [reqaaccountsummary]
+
+            //! [reqaaccountsummaryledger]
+            client.reqAccountSummary(9002, "All", "$LEDGER");
+            //! [reqaaccountsummaryledger]
+            Thread.Sleep(2000);
+            //! [reqaaccountsummaryledgercurrency]
+            client.reqAccountSummary(9003, "All", "$LEDGER:EUR");
+            //! [reqaaccountsummaryledgercurrency]
+            Thread.Sleep(2000);
+            //! [reqaaccountsummaryledgerall]
+            client.reqAccountSummary(9004, "All", "$LEDGER:ALL");
+            //! [reqaaccountsummaryledgerall]
+
             /*** Subscribing to an account's information. Only one at a time! ***/
             Thread.Sleep(2000);
             //! [reqaaccountupdates]

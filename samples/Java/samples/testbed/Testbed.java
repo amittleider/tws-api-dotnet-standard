@@ -240,7 +240,9 @@ public class Testbed {
 	private static void accountOperations(EClientSocket client) throws InterruptedException {
 		
         //client.reqAccountUpdatesMulti(9002, null, "EUstocks", true);
+		//! [reqpositionsmulti]
         client.reqPositionsMulti(9003, "DU74649", "EUstocks");
+      //! [reqpositionsmulti]
         Thread.sleep(10000);
 
         /*** Requesting managed accounts***/
@@ -252,6 +254,19 @@ public class Testbed {
         //! [reqaaccountsummary]
         client.reqAccountSummary(9001, "All", "AccountType,NetLiquidation,TotalCashValue,SettledCash,AccruedCash,BuyingPower,EquityWithLoanValue,PreviousEquityWithLoanValue,GrossPositionValue,ReqTEquity,ReqTMargin,SMA,InitMarginReq,MaintMarginReq,AvailableFunds,ExcessLiquidity,Cushion,FullInitMarginReq,FullMaintMarginReq,FullAvailableFunds,FullExcessLiquidity,LookAheadNextChange,LookAheadInitMarginReq ,LookAheadMaintMarginReq,LookAheadAvailableFunds,LookAheadExcessLiquidity,HighestSeverity,DayTradesRemaining,Leverage");
         //! [reqaaccountsummary]
+        
+      //! [reqaaccountsummaryledger]
+        client.reqAccountSummary(9002, "All", "$LEDGER");
+        //! [reqaaccountsummaryledger]
+        Thread.sleep(2000);
+        //! [reqaaccountsummaryledgercurrency]
+        client.reqAccountSummary(9003, "All", "$LEDGER:EUR");
+        //! [reqaaccountsummaryledgercurrency]
+        Thread.sleep(2000);
+        //! [reqaaccountsummaryledgerall]
+        client.reqAccountSummary(9004, "All", "$LEDGER:ALL");
+        //! [reqaaccountsummaryledgerall]
+        
         /*** Subscribing to an account's information. Only one at a time! ***/
         Thread.sleep(2000);
         //! [reqaaccountupdates]

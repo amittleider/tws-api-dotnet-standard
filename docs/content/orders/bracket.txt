@@ -18,6 +18,8 @@
 		</li>
 		<li>
 			\snippet OrderSamples.java bracket
+			...
+			\snippet Testbed.java bracketsubmit
 		</li>
 		<li>
 			\snippet OrderSamples.vb bracket

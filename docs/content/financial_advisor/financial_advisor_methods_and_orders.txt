@@ -1,4 +1,4 @@
-/*! \page financial_advisor_methods Financial Advisor Methods and Orders
+/*! \page financial_advisor_methods_and_orders Financial Advisor Methods and Orders
 	
 	\section request_fa_methods RequestFA() methods
 	

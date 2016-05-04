@@ -64,6 +64,6 @@
 		<tr><td>Shares</td><td>Type - 3</td></tr>
 	</table>
 	
-	See also \subpage financial_advisor_methods and \subpage financial_advisor_orders
+	See also \subpage financial_advisor_methods_and_orders
 
 */

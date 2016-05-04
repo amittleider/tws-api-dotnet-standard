@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccountSummaryTags.cpp" />
     <ClCompile Include="AvailableAlgoParams.cpp" />
     <ClCompile Include="ContractSamples.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="TestCppClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccountSummaryTags.h" />
     <ClInclude Include="AvailableAlgoParams.h" />
     <ClInclude Include="ContractSamples.h" />
     <ClInclude Include="FAMethodSamples.h" />
