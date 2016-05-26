@@ -66,7 +66,7 @@ var NAVTREE =
         [ "The charts shown by my charting software differ from the ones shown by the TWS", "third_party.html#tp_data_mismatch", null ]
       ] ]
     ] ],
-    [ "Dynamic Data Exchange", "dde_intro.html", "dde_intro" ],
+    [ "Dynamic Data Exchange (DDE)", "dde_intro.html", "dde_intro" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -88,7 +88,7 @@ var NAVTREEINDEX =
 "account_portfolio.html",
 "classIBApi_1_1EClientSocketSSL.html#a63fb97a4eb5b0432eb858ef13a4124a0",
 "csfb.html#Float_Guerrilla",
-"order_conditions.html#volume_condition"
+"oca.html#oca_types"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

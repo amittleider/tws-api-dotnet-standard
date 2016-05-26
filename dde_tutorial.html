@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: DDE Formula Reference</title>
+<title>TWS API v9.72: Tutorial</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -121,116 +121,28 @@ function checkCookie() {
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('dde_reference.html','');});
+$(document).ready(function(){initNavTree('dde_tutorial.html','');});
 </script>
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">DDE Formula Reference </div>  </div>
+<div class="title">Tutorial </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="dde_rt"></a>
-Real Time Data</h1>
-<table class="doxtable">
-<tr>
-<th>Attribute</th><th>Description </th></tr>
-<tr>
-<td>twsuser</td><td>The user name with which you logged into the TWS </td></tr>
-<tr>
-<td>requestId</td><td>The request unique identifier (any positive integer) </td></tr>
-<tr>
-<td>symbol</td><td>The contract symbol </td></tr>
-<tr>
-<td>sectype</td><td>The kind of contract </td></tr>
-<tr>
-<td>exchange</td><td>The exchange from which we want to pull the data from </td></tr>
-<tr>
-<td>currency</td><td>The contract currency </td></tr>
-</table>
-<h2><a class="anchor" id="dde_rt_request"></a>
-Initial Request</h2>
-<p>=S[twsuser]|tik!'id[reqestId]?req?[symbol]_[sectype]_[exchange]_[currency]_~/'</p>
-<h2><a class="anchor" id="dde_rt_reception"></a>
-Data Reception</h2>
-<p>=S[twsuser]|tik!id[requestId]?bidSize</p>
-<p>=S[twsuser]|tik!id[requestId]?bid</p>
-<p>=S[twsuser]|tik!id[requestId]?ask</p>
-<p>=S[twsuser]|tik!id[requestId]?askSize</p>
-<p>=S[twsuser]|tik!id[requestId]?last</p>
-<p>=S[twsuser]|tik!id[requestId]?lastSize</p>
-<p>=S[twsuser]|tik!id[requestId]?high</p>
-<p>=S[twsuser]|tik!id[requestId]?low</p>
-<p>=S[twsuser]|tik!id[requestId]?volume</p>
-<p>=S[twsuser]|tik!id[requestId]?close</p>
-<p>=S[twsuser]|tik!id[requestId]?bidImpliedVol</p>
-<h2><a class="anchor" id="dde_rt_reception_options"></a>
-Option-specific Ticks</h2>
-<p>=S[twsuser]|tik!id[requestId]?bidDelta</p>
-<p>=S[twsuser]|tik!id[requestId]?askImpliedVol</p>
-<p>=S[twsuser]|tik!id[requestId]?askDelta</p>
-<p>=S[twsuser]|tik!id[requestId]?lastImpliedVol</p>
-<p>=S[twsuser]|tik!id[requestId]?lastDelta</p>
-<p>=S[twsuser]|tik!id[requestId]?modelVolatility</p>
-<p>=S[twsuser]|tik!id[requestId]?modelDelta</p>
-<p>=S[twsuser]|tik!id[requestId]?modelPrice</p>
-<p>=S[twsuser]|tik!id[requestId]?pvDividend</p>
-<p>=S[twsuser]|tik!id[requestId]?modelGamma</p>
-<p>=S[twsuser]|tik!id[requestId]?modelVega</p>
-<p>=S[twsuser]|tik!id[requestId]?modelTheta</p>
-<p>=S[twsuser]|tik!id[requestId]?modelUndPrice</p>
-<h1><a class="anchor" id="dde_hst"></a>
-Historical Data</h1>
-<p>In the example <a class="el" href="dde_historical_tutorial.html#dde_hst_receive">Receiving the data</a>, you pulled midpoint historical data for EUR.USD from TWS.</p>
+<div class="textblock"><h1><a class="anchor" id="dde_what_you_will_need"></a>
+What You Will Need</h1>
+<p>This tutorial has been developed using Excel 2010 around the 9.72 version of the TWS API components. This version needs to be downloaded and installed before proceeding. You can download this version from <a href="http://interactivebrokers.github.io/">http://interactivebrokers.github.io/</a>.</p>
+<p>The TWS must be up and running while using the DDE connection to TWS. DDE client connectivity must also be enabled via Edit -&gt; Global Configuration -&gt; API -&gt; Settings: Enable DDE clients as indicated in the picture below:</p>
 <div class="image">
-<img src="dde_hst_understanding.png" alt="dde_hst_understanding.png"/>
+<img src="dde_enabled.png" alt="dde_enabled.png"/>
 </div>
-<p>Most of the formula’s components are self-explanatory with the exception of duration and bar sizes, which require very specific codes as listed below:</p>
-<h2><a class="anchor" id="dde_hst_understanding_duration"></a>
-Duration</h2>
-<table class="doxtable">
-<tr>
-<th><b>Time Unit</b></th><th><b>Formula Abbreviation</b> </th></tr>
-<tr>
-<td>Seconds</td><td>S </td></tr>
-<tr>
-<td>Day</td><td>D </td></tr>
-<tr>
-<td>Week</td><td>W </td></tr>
-<tr>
-<td>Month</td><td>M </td></tr>
-<tr>
-<td>Year</td><td>Y </td></tr>
-</table>
-<h2><a class="anchor" id="dde_hst_understanding_barsize"></a>
-Bar Sizes</h2>
-<table class="doxtable">
-<tr>
-<th><b>Bar Size</b></th><th><b>Formula Parameter</b> </th></tr>
-<tr>
-<td>1 second</td><td>1 </td></tr>
-<tr>
-<td>5 seconds</td><td>2 </td></tr>
-<tr>
-<td>15 seconds</td><td>3 </td></tr>
-<tr>
-<td>30 seconds</td><td>4 </td></tr>
-<tr>
-<td>1 minute</td><td>5 </td></tr>
-<tr>
-<td>2 minutes</td><td>6 </td></tr>
-<tr>
-<td>5 minutes</td><td>7 </td></tr>
-<tr>
-<td>15 minutes</td><td>8 </td></tr>
-<tr>
-<td>30 minutes</td><td>9 </td></tr>
-<tr>
-<td>1 hour</td><td>10 </td></tr>
-<tr>
-<td>1 day</td><td>11 </td></tr>
-</table>
-<p>For available <b>whatToShow</b> parameters and detailed descriptions, please refer to the <a class="el" href="historical_data.html#hd_what_to_show">Historical Data Types (whatToShow)</a>.</p>
-<p>Please also be mindful of the <a class="el" href="historical_limitations.html">Historical Data Limitations</a>.</p>
+<h1><a class="anchor" id="tutorial_topics"></a>
+Tutorial Topics</h1>
+<ul>
+<li><a class="el" href="dde_realtime_tutorial.html">Real Time Data with Excel</a></li>
+<li><a class="el" href="dde_historical_tutorial.html">Historical Data with Excel</a></li>
+<li><a class="el" href="dde_reference.html">DDE Formula Reference</a></li>
+</ul>
 <p><br/>
  </p>
 </div></div><!-- contents -->

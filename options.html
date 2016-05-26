@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('options.html','');});
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> securityDefinitionOptionParameter(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> underlyingConId, <span class="keywordtype">string</span> tradingClass, <span class="keywordtype">string</span> multiplier, HashSet&lt;string&gt; expirations, HashSet&lt;double&gt; strikes)</div>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Security Definition Option Parameter. Reqest: {0}, Undrelying contract id: {1}, Trading class: {2}, Multiplier: {3}, Expirations: {4}, Strikes: {5}&quot;</span>,</div>
-<div class="line">                              reqId, underlyingConId, tradingClass, multiplier, <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, expirations), <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, strikes));</div>
+<div class="line">                              reqId, underlyingConId, tradingClass, multiplier, string.Join(<span class="stringliteral">&quot;, &quot;</span>, expirations), <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, strikes));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>

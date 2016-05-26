@@ -197,6 +197,24 @@ Stocks</h1>
 <div class="line">    contract.exchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p>For certain stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.symbol = <span class="stringliteral">&quot;MSFT&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">    <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">    contract.primaryExchange = <span class="stringliteral">&quot;NASDAQ&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+</ul>
 <h1><a class="anchor" id="ind"></a>
 Indexes</h1>
 <ul id="tab">
