@@ -98,6 +98,19 @@ Contract ContractSamples::USStockAtSmart(){
 	return contract;
 }
 
+Contract ContractSamples::USStockWithPrimaryExch(){
+	//! [stkcontractwithprimary]
+	Contract contract;
+	contract.symbol = "MSFT";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//Specify the Primary Exchange attribute to avoid contract ambiguity
+	contract.primaryExchange = "NASDAQ";
+	//! [stkcontractwithprimary]
+	return contract;
+}
+
 Contract ContractSamples::USOptionContract(){
 	Contract contract;
 	contract.symbol = "GOOG";

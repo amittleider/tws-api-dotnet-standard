@@ -759,7 +759,7 @@ INPUT                   += ./content/fundamentals
 INPUT                   += ./content/bulletins
 INPUT                   += ./content/errors
 INPUT                   += ./content/dde
-INPUT                   += ./content/dde/market_data
+INPUT                   += ./content/dde/tutorial
 INPUT                   += ./content/financial_advisor
 INPUT                   += ./content/display_groups
 

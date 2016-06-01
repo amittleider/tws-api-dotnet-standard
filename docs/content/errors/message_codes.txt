@@ -390,8 +390,15 @@
 			<td>The discretionary field is specified with a number of degrees of precision higher than what is allowed for a specified contract.</td>
 		</tr>
 		<tr>
-			<td>200</td><td>No security definition has been found for the request.</td>
-			<td>The specified contract does not match any in IB's database, usually because of an incorrect or missing parameter.</td>
+			<td rowspan="2">200</td>
+				<td>No security definition has been found for the request.</td>
+				<td>The specified contract does not match any in IB's database, usually because of an incorrect or missing parameter.</td>
+			<tr>
+				<td>The contract description specified for \<Symbol\> is ambiguous</td>
+				<td>Ambiguity may occur when the contract definition provided is not unique.
+					<br><br>For some stocks that has the same Symbol, Currency and Exchange, you need to specify the @ref IBApi::Contract::PrimaryExch attribute to avoid ambiguity. Please refer to a sample stock contract \ref stk "here".
+					<br><br>For futures that has multiple multipliers for the same expiration, You need to specify the @ref IBApi::Contract::Multiplier attribute to avoid ambiguity. Please refer to a sample futures contract \ref fut "here".</td>
+			</tr>
 		</tr>
 		<tr>
 			<td>201</td><td>Order rejected - Reason:</td>

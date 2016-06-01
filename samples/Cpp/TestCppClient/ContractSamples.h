@@ -13,6 +13,7 @@ public:
 	static Contract OptionAtIse();
 	static Contract USStock();
 	static Contract USStockAtSmart();
+	static Contract USStockWithPrimaryExch();
 	static Contract USOptionContract();
 	static Contract OptionAtBox();
 	static Contract NormalOption();

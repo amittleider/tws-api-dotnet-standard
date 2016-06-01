@@ -12,7 +12,6 @@
 	The only solution to this problem is to close other programs using DDE one-by-one to find the culprit. Programs which are known to cause this issue include Google Chrome, Microsoft OneNote, Skype 
 	and Adobe Creative Cloud.
 	
-	- \subpage dde_reference
-	- \subpage dde_realtime_tutorial
+	You can get started by following the \subpage dde_tutorial and learn how to use DDE to communicate with TWS.
 
 */

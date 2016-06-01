@@ -67,5 +67,47 @@
 	=S[twsuser]|tik!id[requestId]?modelTheta
 
 	=S[twsuser]|tik!id[requestId]?modelUndPrice
+	
+	\section dde_hst Historical Data
+	
+	In the example \ref dde_hst_receive, you pulled midpoint historical data for EUR.USD from TWS.
+	 
+	 \image html dde_hst_understanding.png
+	 
+	 Most of the formula’s components are self-explanatory with the exception of duration and bar sizes, which require very specific codes as listed below: 
+	 
+	 \subsection dde_hst_understanding_duration Duration
+	 
+	 <table>
+		<tr><th><b>Time Unit</b></th><th><b>Formula Abbreviation</b></th></tr>
+		<tr><td>Seconds</td><td>S</td></tr>
+		<tr><td>Day</td><td>D</td></tr>
+		<tr><td>Week</td><td>W</td></tr>
+		<tr><td>Month</td><td>M</td></tr>
+		<tr><td>Year</td><td>Y</td></tr>
+	 </table>
+	 
+	 \subsection dde_hst_understanding_barsize Bar Sizes
+	 
+	 <table>
+		<tr><th><b>Bar Size</b></th><th><b>Formula Parameter</b></th></tr>
+		<tr><td>1 second</td><td>1</td></tr>
+		<tr><td>5 seconds</td><td>2</td></tr>
+		<tr><td>15 seconds</td><td>3</td></tr>
+		<tr><td>30 seconds</td><td>4</td></tr>
+		<tr><td>1 minute</td><td>5</td></tr>
+		<tr><td>2 minutes</td><td>6</td></tr>
+		<tr><td>5 minutes</td><td>7</td></tr>
+		<tr><td>15 minutes</td><td>8</td></tr>
+		<tr><td>30 minutes</td><td>9</td></tr>
+		<tr><td>1 hour</td><td>10</td></tr>
+		<tr><td>1 day</td><td>11</td></tr>
+	 </table>
+	 
+	 For available <b>whatToShow</b> parameters and detailed descriptions, please refer to the \ref hd_what_to_show.
+	 
+	 Please also be mindful of the \ref historical_limitations.
+	 
+	 <br>
 
 */

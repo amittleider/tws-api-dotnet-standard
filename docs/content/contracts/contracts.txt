@@ -14,7 +14,7 @@
 	
 	The description will then appear:
 	
-	\image html contract_description_tws.png	
+	\image html contract_description_tws_without_debug.png	
 
 	<b>Note: </b> you can see the extended contract details by choosing <b>Contract Info -> Details</b>. This option will open a web page showing all available information on the contract.
 	

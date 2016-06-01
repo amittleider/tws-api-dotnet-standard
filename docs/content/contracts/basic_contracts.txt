@@ -32,6 +32,23 @@
 		</li>
 	</ul>
 	
+	For certain stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract:
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs stkcontractwithprimary
+		</li>
+		<li>
+			\snippet ContractSamples.java stkcontractwithprimary
+		</li>
+		<li>
+			\snippet ContractSamples.vb stkcontractwithprimary
+		</li>
+		<li>
+		\snippet ContractSamples.cpp stkcontractwithprimary
+		</li>
+	</ul>
+	
 	\section ind Indexes
 	<ul id="tab">
 		<li class="active">
