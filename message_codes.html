@@ -346,7 +346,13 @@ TWS Error Codes</h1>
 <tr>
 <td>168</td><td>Discretionary amount does not conform to the minimum price variation for this contract. </td><td>The discretionary field is specified with a number of degrees of precision higher than what is allowed for a specified contract.  </td></tr>
 <tr>
-<td>200</td><td>No security definition has been found for the request. </td><td>The specified contract does not match any in IB's database, usually because of an incorrect or missing parameter.  </td></tr>
+<td rowspan="2">200 </td><td>No security definition has been found for the request. </td><td>The specified contract does not match any in IB's database, usually because of an incorrect or missing parameter. </td></tr>
+<tr>
+<td>The contract description specified for &lt;Symbol&gt; is ambiguous </td><td>Ambiguity may occur when the contract definition provided is not unique. <br/>
+<br/>
+For some stocks that has the same Symbol, Currency and Exchange, you need to specify the <a class="el" href="classIBApi_1_1Contract.html#ae31aaa76ab07d7ddb72197b4a68aa984">IBApi.Contract.PrimaryExch</a> attribute to avoid ambiguity. Please refer to a sample stock contract <a class="el" href="basic_contracts.html#stk">here</a>. <br/>
+<br/>
+For futures that has multiple multipliers for the same expiration, You need to specify the <a class="el" href="classIBApi_1_1Contract.html#af8c3b969995053ca37a6aea2e94215d2">IBApi.Contract.Multiplier</a> attribute to avoid ambiguity. Please refer to a sample futures contract <a class="el" href="basic_contracts.html#fut">here</a>.   </td></tr>
 <tr>
 <td>201</td><td>Order rejected - Reason: </td><td>An attempted order was rejected by the IB servers.  </td></tr>
 <tr>
