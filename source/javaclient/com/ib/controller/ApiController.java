@@ -6,7 +6,7 @@ package com.ib.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -1019,7 +1019,7 @@ public class ApiController implements EWrapper {
 					int year = Integer.parseInt( date.substring( 0, 4) );
 					int month = Integer.parseInt( date.substring( 4, 6) );
 					int day = Integer.parseInt( date.substring( 6) );
-					longDate = new Date( year - 1900, month - 1, day).getTime() / 1000;
+					longDate = new GregorianCalendar( year - 1900, month - 1, day).getTimeInMillis() / 1000;
 				}
 				else {
 					longDate = Long.parseLong( date);
