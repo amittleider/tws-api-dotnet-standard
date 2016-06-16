@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.lang.UnsupportedOperationException;
 
 class EDecoder implements ObjectInput {
     // incoming msg id's
@@ -1644,60 +1644,60 @@ class EDecoder implements ObjectInput {
     }
 
 	@Override
-	public int skipBytes(int arg0) throws IOException { throw new NotImplementedException(); }
+	public int skipBytes(int arg0) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int readUnsignedShort() throws IOException { throw new NotImplementedException(); }
+	public int readUnsignedShort() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int readUnsignedByte() throws IOException { throw new NotImplementedException(); }
+	public int readUnsignedByte() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
 	public String readUTF() throws IOException { return readStr(); }
 	
 	@Override
-	public short readShort() throws IOException { throw new NotImplementedException(); }
+	public short readShort() throws IOException { throw new UnsupportedOperationException(); }
 		
 	@Override
 	public String readLine() throws IOException { return readStr(); }
 		
 	@Override
-	public void readFully(byte[] arg0, int arg1, int arg2) throws IOException { throw new NotImplementedException(); }
+	public void readFully(byte[] arg0, int arg1, int arg2) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public void readFully(byte[] arg0) throws IOException { throw new NotImplementedException(); }
+	public void readFully(byte[] arg0) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public float readFloat() throws IOException { throw new NotImplementedException(); }
+	public float readFloat() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public char readChar() throws IOException { throw new NotImplementedException(); }
+	public char readChar() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public byte readByte() throws IOException { throw new NotImplementedException(); }
+	public byte readByte() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
 	public boolean readBoolean() throws IOException { return readBoolFromInt(); }
 	
 	@Override
-	public long skip(long arg0) throws IOException { throw new NotImplementedException(); }
+	public long skip(long arg0) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public Object readObject() throws ClassNotFoundException, IOException { throw new NotImplementedException(); }
+	public Object readObject() throws ClassNotFoundException, IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int read(byte[] arg0, int arg1, int arg2) throws IOException { throw new NotImplementedException(); }
+	public int read(byte[] arg0, int arg1, int arg2) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int read(byte[] arg0) throws IOException { throw new NotImplementedException(); }
+	public int read(byte[] arg0) throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int read() throws IOException { throw new NotImplementedException(); }
+	public int read() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public void close() throws IOException { throw new NotImplementedException(); }
+	public void close() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public int available() throws IOException { throw new NotImplementedException(); }
+	public int available() throws IOException { throw new UnsupportedOperationException(); }
 
 }
