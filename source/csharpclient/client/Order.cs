@@ -1086,7 +1086,7 @@ namespace IBApi
             set { orderMiscOptions = value; }
         }
 
-        /*
+        /**
          * @brief for GTC orders.
          */
         public string ActiveStartTime
@@ -1095,7 +1095,7 @@ namespace IBApi
             set { activeStartTime = value; }
         }
 
-        /*
+        /**
         * @brief for GTC orders.
         */
         public string ActiveStopTime
@@ -1104,7 +1104,7 @@ namespace IBApi
             set { activeStopTime = value; }
         }
 
-        /*
+        /**
          * @brief Used for scale orders.
          */
         public string ScaleTable
@@ -1121,6 +1121,11 @@ namespace IBApi
             get { return modelCode; }
             set { modelCode = value; }
         }
+
+        /**
+         * @brief This is a regulartory attribute that applies to all US Commodity (Futures) Exchanges, 
+         * provided to allow client to comply with CFTC Tag 50 Rules
+         */
 
         public string ExtOperator
         {

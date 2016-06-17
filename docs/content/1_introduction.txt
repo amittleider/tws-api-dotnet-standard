@@ -18,6 +18,7 @@
 	<ul>
 		<li> To obtain the TWS API source and sample code, download the <a href="http://interactivebrokers.github.io/" target="_blank">API Components</a></li>
 		<li> IB clients willing to make use of the TWS API will require a <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">TWS build</a> equal or above 940.x </li>
+		<li> Version 9.72 of the API requires a TWS build 952.x or higher
 		<li> A working knowledge of the programming language our <b>Testbed</b> sample projects are developed in.</li>
 	</ul>
 	
@@ -42,7 +43,7 @@
 	If your regular trading account has been approved and funded, you can use your Account Management page to open a 
 	<a href="https://www.interactivebrokers.com/en/software/am/am/manageaccount/papertradingaccount.htm" target="_blank">Paper Trading Account</a> which lets you use the full range of trading 
 	facilities in a simulated environment using real market conditions. Using a Paper Trading Account will allow you not only to get familiar with the TWS API but also to test your trading
-	strategies without risking your capital.
+	strategies without risking your capital. Note the paper trading environment has inherent <a href="https://www.interactivebrokers.com/en/software/am/am/manageaccount/paper_trading_limitations.htm" target="_blank">limitations</a>.
 	
 	\image html linkarrow_external.png Links pointing to sources out of this documentation are indicated it as such
 	

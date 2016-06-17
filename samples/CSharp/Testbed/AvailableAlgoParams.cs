@@ -111,5 +111,13 @@ namespace Samples
         }
         //! [minimpact_params]
 
+        //! [adaptive_params]
+        public static void FillAdaptiveParams(Order baseOrder, string priority)
+        {
+            baseOrder.AlgoStrategy = "Adaptive";
+            baseOrder.AlgoParams = new List<TagValue>();
+            baseOrder.AlgoParams.Add(new TagValue("adaptivePriority", priority));
+        }
+        //! [adaptive_params]
     }
 }

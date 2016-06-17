@@ -357,37 +357,48 @@ public class Testbed {
 		
 		//! [darkice]
 		AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, "09:00:00 CET", "16:00:00 CET", true);
+		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
 		//! [darkice]
 		
 		Thread.sleep(500);
 		
 		//! [ad]
 		AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, true, true, 1, true, true, "09:00:00 CET", "16:00:00 CET");
+		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
 		//! [ad]
 		
 		Thread.sleep(500);
 		
 		//! [twap]
 		AvailableAlgoParams.FillTwapParams(baseOrder, "Marketable", "09:00:00 CET", "16:00:00 CET", true);
+		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
 		//! [twap]
 		
 		Thread.sleep(500);
 		
 		//! [vwap]
 		AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, "09:00:00 CET", "16:00:00 CET", true, true);
+		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
 		//! [vwap]
 		
 		Thread.sleep(500);
 		
 		//! [balanceimpactrisk]
 		AvailableAlgoParams.FillBalanceImpactRiskParams(baseOrder, 0.1, "Aggressive", true);
+		client.placeOrder(nextOrderId++, ContractSamples.USOptionContract(), baseOrder);
 		//! [balanceimpactrisk]
 		
 		Thread.sleep(500);
 		
 		//! [minimpact]
 		AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3);
+		client.placeOrder(nextOrderId++, ContractSamples.USOptionContract(), baseOrder);
 		//! [minimpact]
+		
+		//! [adaptive]
+		AvailableAlgoParams.FillAdaptiveParams(baseOrder, "Normal");
+		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
+		//! [adaptive]		
 		
 	}
 	

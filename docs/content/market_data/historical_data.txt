@@ -114,6 +114,8 @@
 		<tr><td><b>BID_ASK</b></td><td>Time average bid</td><td>Max Ask</td><td>Min Bid</td><td>Time average ask</td><td>N/A</td></tr>
 		<tr><td><b>HISTORICAL_VOLATILITY</b></td><td>Starting volatility</td><td>Highest volatility</td><td>Lowest volatility</td><td>Last volatility</td><td>N/A</td></tr>
 		<tr><td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A</td></tr>
+		<tr><td><b>REBATE_RATE</b></td><td>Starting rebate rate</td><td>Highest rebate rate</td><td>Lowest rebate rate</td><td>Last rebate rate</td><td>N/A</td></tr>
+		<tr><td><b>FREE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A</td></tr>
 	</table>
 	
 	\section available_products_hd Available Data per Product

@@ -32,7 +32,7 @@
 		</li>
 	</ul>
 	
-	For certain stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract:
+	For certain smart-routed stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract. This should be defined as the native exchange of a contract, and is good practice for all stocks:
 	
 	<ul id="tab">
 		<li class="active">
@@ -48,6 +48,8 @@
 		\snippet ContractSamples.cpp stkcontractwithprimary
 		</li>
 	</ul>
+	
+	As an alternative to defining the exchange and primary exchange fields, it is possible to specify the exchange field as "Exchange:Primary Exchange", e.g. "SMART:NASDAQ". The colon ":" or slash "/" separating this fields is known as the "Component Exchange Separator" and defined in the API Settings in Global Configuration. 
 	
 	\section ind Indexes
 	<ul id="tab">
@@ -206,6 +208,78 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp fopcontract
+		</li>
+	</ul>
+	
+	\section Bonds
+	
+	Bonds can be specified by defining the symbol as the CUSIP. The CUSIP requires a separate market data subscription.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.java bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.vb bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bondwithcusip
+		</li>
+	</ul>
+	
+	Bonds can also be defined with the conId and exchange as with any security type. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bond
+		</li>
+		<li>
+			\snippet ContractSamples.java bond
+		</li>
+		<li>
+			\snippet ContractSamples.vb bond
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bond
+		</li>
+	</ul>
+	
+	\section funds Mutual Funds
+	
+	Mutual Funds are supported in the API. Note: Mutual Funds cannot be traded in paper accounts.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp fundcontract
+		</li>
+	</ul>
+	
+	\section Commodities
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.java commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp commoditycontract
 		</li>
 	</ul>
 	

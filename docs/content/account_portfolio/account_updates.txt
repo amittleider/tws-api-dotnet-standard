@@ -2,8 +2,8 @@
 
 	The @ref IBApi::EClient::reqAccountUpdates function creates a subscription to the TWS through which account and portfolio information is delivered. This information is the exact same
 	as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription. Just as with the
-	TWS' Account Window, this information is updated every <b>three</b> minutes.
-		
+	TWS' Account Window, this information is updated every <b>three</b> minutes. 
+	
 	<ul id="tab">
 		<li class="active">
 			\snippet Program.cs reqaaccountupdates
@@ -19,8 +19,7 @@
 		</li>
 	</ul>
 	
-	
-	The resulting account and portfolio information will be delivered via the @ref IBApi::EWrapper::updateAccountValue, @ref IBApi::EWrapper::updatePortfolio, @ref IBApi::EWrapper::updateAccountTime
+	Resulting account and portfolio information will be delivered via the @ref IBApi::EWrapper::updateAccountValue, @ref IBApi::EWrapper::updatePortfolio, @ref IBApi::EWrapper::updateAccountTime
 	and @ref IBApi::EWrapper::accountDownloadEnd
 
 	<ul id="tab">
@@ -70,6 +69,8 @@
 			\snippet TestCppClient.cpp accountdownloadend
 		</li>
 	</ul>
+
+	An important key passed back in @ref IBApi::EWrapper::updateAccountValue after a call to @ref IBApi::EClient::reqAccountUpdates is a boolean value 'accountReady'. If an accountReady value of false is returned that means that the IB server is in the process of resetting at that moment, i.e. the account is 'not ready'. When this occurs subsequent key values returned to IBApi::EWrapper::updateAccountValue in the current update can be out of date or incorrect. 
 	
 	<b>Important:</b> only one account at a time can be subscribed at a time. Attempting a second subscription without previously cancelling an active one will not yield any error message although
 	it will override the already subscribed account with the new one. With Financial Advisory (FA) account structures there is an alternative way of specifying the account code such that 

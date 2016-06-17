@@ -20,7 +20,7 @@
 		<tr><td>Ask Option Computation</td><td>11</td><td>Computed Greeks for the underlying stock price and the option reference price. See @ref option_computations.</td><td>@ref IBApi::EWrapper::tickOptionComputation</td><td>-</td></tr>
 		<tr><td>Last Option Computation</td><td>12</td><td>Computed Greeks for the underlying stock price and the option reference price. See @ref option_computations.</td><td>@ref IBApi::EWrapper::tickOptionComputation</td><td>-</td></tr>
 		<tr><td>Model Option Computation</td><td>13</td><td>Computed Greeks and model's implied volatility for the underlying stock price and the option reference price. See @ref option_computations</td><td>@ref IBApi::EWrapper::tickOptionComputation</td><td>-</td></tr>
-		<tr><td>Open Tick</td><td>14</td><td>Today's opening price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
+		<tr><td>Open Tick</td><td>14</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Low 13 Weeks</td><td>15</td><td>Lowest price for the last 13 weeks.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>165</td></tr>
 		<tr><td>High 13 Weeks</td><td>16</td><td>Highest price for the last 13 weeks.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>165</td></tr>
 		<tr><td>Low 26 Weeks</td><td>17</td><td>Lowest price for the last 26 weeks.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>165</td></tr>
@@ -114,6 +114,10 @@
 	
 	<b>Example: </b>701.28;1;1348075471534;67854;701.46918464;true
 	
+	As volume for US stocks is reported in lots, a volume of 0 reported in RTVolume will typically indicate an odd lot data point (less than 100 shares).
+	
+	It is important to note that while the TWS Time & Sales Window also has information about trade conditions available with data points, this data is not available through the API. So for instance, the 'unreportable' trade status displayed with points in the Time & Sales Window is not available through the API, and that trade data will appear in the API just as any other data point. So an API application needs to exercise caution in implementing conditions based on individual callbacks. 
+	
 	\section ib_dividends IB Dividends
 	
 	This tick type provides four different comma-separated elements:
@@ -124,6 +128,8 @@
 	- The next single dividend amount (0.23 from the example below).
 	
 	<b>Example: </b>0.83,0.92,20130219,0.23
+	
+	To receive dividend information it is necessary to direct-route rather than smart-route market data requests. 
 	
 	\section delayed Delayed Data
 	

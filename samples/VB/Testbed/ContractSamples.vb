@@ -94,6 +94,62 @@ Namespace Samples
             Return Contract
         End Function
 
+        Public Shared Function USStockWithPrimaryExch() As Contract
+            '! [stkcontractwithprimary]
+            Dim Contract As Contract = New Contract
+            Contract.symbol = "MSFT"
+            Contract.secType = "STK"
+            Contract.currency = "USD"
+            Contract.exchange = "SMART"
+            'Specify the Primary Exchange attribute to avoid contract ambiguity
+            Contract.PrimaryExch = "NASDAQ"
+            '! [stkcontractwithprimary]
+            Return Contract
+        End Function
+		
+		Public Shared Function BondWithCusip() As Contract
+			'! [bondwithcusip]
+			Dim Contract As Contract = New Contract
+			' enter CUSIP as symbol
+			contract.symbol= "912828C57"
+			contract.secType = "BOND"
+			contract.exchange = "SMART"
+			contract.currency = "USD"
+			'! [bondwithcusip]
+			Return Contract
+		End Function
+	
+        Public Shared Function Bond() As Contract
+            '! [bond]
+            Dim Contract As Contract = New Contract
+            Contract.conid = 147554578
+            Contract.exchange = "SMART"
+            '! [bond]
+            Return Contract
+        End Function
+	
+        Public Shared Function MutualFund() As Contract
+            '! [fundcontract]
+            Dim Contract As Contract = New Contract
+            Contract.symbol = "VINIX"
+            Contract.secType = "FUND"
+            Contract.exchange = "FUNDSERV"
+            Contract.currency = "USD"
+            '! [fundcontract]
+            Return Contract
+        End Function
+	
+        Public Shared Function Commodity() As Contract
+            '! [commoditycontract]
+            Dim Contract As Contract = New Contract
+            Contract.symbol = "XAUUSD"
+            Contract.secType = "CMDTY"
+            Contract.exchange = "SMART"
+            Contract.currency = "USD"
+            '! [commoditycontract]
+            Return Contract
+        End Function
+		
         Public Shared Function USOptionContract() As Contract
 
             Dim Contract As Contract = New Contract

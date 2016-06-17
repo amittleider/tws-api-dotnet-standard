@@ -5,7 +5,64 @@ import com.ib.client.ComboLeg;
 import com.ib.client.Contract;
 
 public class ContractSamples {
+	
+	public static Contract USStockWithPrimaryExch() {
+		//! [stkcontractwithprimary]
+		Contract contract = new Contract();
+		contract.symbol("MSFT");
+		contract.secType("STK");
+		contract.currency("USD");
+		contract.exchange("SMART");
+		//Specify the Primary Exchange attribute to avoid contract ambiguity
+		contract.primaryExch("NASDAQ");
+		//! [stkcontractwithprimary]
+		return contract;
+	}
 
+	public static Contract BondWithCusip() {
+		//! [bondwithcusip]
+		Contract contract = new Contract();
+		// enter CUSIP as symbol
+		contract.symbol("912828C57");
+		contract.secType("BOND");
+		contract.exchange("SMART");
+		contract.currency("USD");
+		//! [bondwithcusip]
+		return contract;
+	}
+	
+	public static Contract Bond() {
+		//! [bond]
+		Contract contract = new Contract();
+		contract.conid(147554578);
+		contract.exchange("SMART");
+		//! [bond]
+		return contract;
+	}
+	
+	public static Contract MutualFund() {
+		//! [fundcontract]
+		Contract contract = new Contract();
+		contract.symbol("VINIX");
+		contract.secType("FUND");
+		contract.exchange("FUNDSERV");
+		contract.currency("USD");
+		//! [fundcontract]
+		return contract;
+	}
+	
+	public static Contract Commodity() {
+		//! [commoditycontract]
+		Contract contract = new Contract();
+		contract.symbol("XAUUSD");
+		contract.secType("CMDTY");
+		contract.exchange("SMART");
+		contract.currency("USD");
+		//! [commoditycontract]
+		return contract;
+	}
+	
+	
 	public static Contract EurGbpFx() {
 		//! [cashcontract]
 		Contract contract = new Contract();

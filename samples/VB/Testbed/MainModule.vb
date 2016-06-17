@@ -619,6 +619,11 @@ Module MainModule
         AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3)
         client.placeOrder(increment(nextOrderId), ContractSamples.USOptionContract(), baseOrder)
         '! [minimpact]
+
+        '! [adaptive]
+        AvailableAlgoParams.FillAdaptiveParams(baseOrder, "Normal")
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [adaptive]
     End Sub
 
 

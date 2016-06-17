@@ -121,5 +121,14 @@ Namespace Samples
         End Sub
         '! [minimpact_params]
 
+        '! [adaptive_params]
+        Public Shared Sub FillAdaptiveParams(baseOrder As Order, priority As String)
+
+            baseOrder.AlgoStrategy = "Adaptive"
+            baseOrder.AlgoParams = New List(Of TagValue)
+            baseOrder.AlgoParams.Add(New TagValue("adaptivePriority", priority))
+        End Sub
+        '! [adaptive_params]
+
     End Class
 End Namespace

@@ -111,6 +111,49 @@ Contract ContractSamples::USStockWithPrimaryExch(){
 	return contract;
 }
 
+Contract ContractSamples::BondWithCusip() {
+	//! [bondwithcusip]
+	Contract contract;
+	// enter CUSIP as symbol
+	contract.symbol= "912828C57";
+	contract.secType = "BOND";
+	contract.exchange = "SMART";
+	contract.currency = "USD";
+	//! [bondwithcusip]
+	return contract;
+}
+	
+Contract ContractSamples::Bond() {
+	//! [bond]
+	Contract contract;
+	contract.conId = 147554578;
+	contract.exchange = "SMART";
+	//! [bond]
+	return contract;
+}
+	
+Contract ContractSamples::MutualFund() {
+	//! [fundcontract]
+	Contract contract;
+	contract.symbol = "VINIX";
+	contract.secType = "FUND";
+	contract.exchange = "FUNDSERV";
+	contract.currency = "USD";
+	//! [fundcontract]
+	return contract;
+}
+
+Contract ContractSamples::Commodity() {
+	//! [commoditycontract]
+	Contract contract;
+	contract.symbol = "XAUUSD";
+	contract.secType = "CMDTY";
+	contract.exchange = "SMART";
+	contract.currency = "USD";
+	//! [commoditycontract]
+	return contract;
+}
+
 Contract ContractSamples::USOptionContract(){
 	Contract contract;
 	contract.symbol = "GOOG";

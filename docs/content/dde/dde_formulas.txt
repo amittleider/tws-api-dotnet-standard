@@ -108,6 +108,140 @@
 	 
 	 Please also be mindful of the \ref historical_limitations.
 	 
+	 \section dde_contracts Contract Definitions
+	 
+	 The TWS DDE for Excel API lets you retrieve data for any instrument available in TWS. 
+	 So far we have been using the simplest instrument of all: CASH. 
+	 Using slight variations of the same formula, you can define any security type available in TWS.
+	 
+	 \subsection dde_contracts_description How to Find the Definition of a Contract
+	 
+	 The best way of finding a contract’s description is within the TWS itself. 
+	 Within the TWS, you can easily check a contract’s description either by double clicking it or through the <b>Contract Info -> Description</b> menu, which you access by right-clicking a contract in TWS:
+	 
+	 \image html contract_info_tws.png
+	 
+	 The description will then appear:
+	 
+	 \image html contract_description_tws_without_debug.png
+	 
+	 \subsection dde_contracts_formulas Formulas for Different Security Types
+	 
+	 <i>Note:  There are two different request types, i.e. "req1" and "req2", that differentiate in defining contracts with underlying Symbol (req1) or Local Symbol (req2) of the contract. 
+	 While either request type can be used, the Local Symbol is most common for FUT, OPT and FOP. 
+	 
+	 Please find available contract parameters and sample contracts for each security type below:</i>
+
+	<b>FX Pairs</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id1?req?EUR_CASH_IDEALPRO_USD_~/'
+	
+	<b>STK</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id2?req?IBKR_STK_SMART_USD_~/'
+	
+	<b>FUT</b>
+	
+	<b>FUT using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id3?req2?ESZ6_FUT_GLOBEX_USD_~/'
+	
+	<b>FUT using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[multiplier]_[exchange]_[currency]_~_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id3?req?ES_FUT_201612_50_GLOBEX_USD_~_~/'
+	
+	<b>OPT</b>
+	
+	<b>OPT using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id4?req2?C DBK  DEC 16  1300_OPT_DTB_EUR_~/'
+	
+	<i>Note: The format of the option local symbol conforms to the <a href="http://ibkb.interactivebrokers.com/article/972" target="_blank">Option Symbology Initiative (OSI)</a>.</i>
+	
+	<b>OPT using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id4?req?DBK_OPT_20161216_13_C_100_DTB_EUR_~_~/'
+	
+	<b>FOP</b>
+	
+	<b>FOP using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id5?req2?XTZ6 C1100_FOP_GLOBEX_USD_~/'
+	
+	<b>FOP using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_[tradingClass]/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id5?req?EUR_FOP_20161209_1.1_C_125000_GLOBEX_USD_~_XT/'
+	
+	<b>IND</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id6?req?ES_IND_GLOBEX_USD_~/'
+	
+	<b>BAG</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_CMBLGS_[num of legs]_[legId]_[legQuantity]_[legAction]_[legExchange]_[legPrice]...CMBLGS_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id7?req?
+	
+	SPY_BAG_SMART_USD_CMBLGS_2_141149249_1_BUY_SMART_0_141149252_1_SELL_SMART_0_CMBLGS_~/'
+	 
 	 <br>
 
 */

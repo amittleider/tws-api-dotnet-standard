@@ -78,7 +78,7 @@
 		</li>
 	</ul>
 	
-	\section news_bz MidNight Trader
+	\section news_mt Midnight Trader
 	
 	<ul id="tab">
 		<li class="active">

@@ -10,6 +10,14 @@
 
 	\image html dde_enabled.png
 	
+	\section ddedll_error Ddedll.dll Error
+	
+	TWS users running add-on applications in Excel using DDE on a Windows 64-bit operating systems may receive the following error message upon log in or when enabling the DDE client:
+	
+	\image html ddedll_error.png
+	
+	Please follow the instruction <a href="http://ibkb.interactivebrokers.com/article/2155" target="_blank" class="linkexternal">How to fix the error: "Ddedll.dll file missing or out of date"</a> to resolve the error before going forward to Tutorials.
+	
 	\section tutorial_topics Tutorial Topics
 
 	- \subpage dde_realtime_tutorial

@@ -132,3 +132,12 @@ void AvailableAlgoParams::FillMinImpactParams(Order& baseOrder, double maxPctVol
 	baseOrder.algoParams->push_back(tag1);
 }
 //! [minimpact_params]
+
+//! [adaptive_params]
+void AvailableAlgoParams::FillAdaptiveParams(Order& baseOrder, std::string priority){
+	baseOrder.algoStrategy = "Adaptive";
+	baseOrder.algoParams.reset(new TagValueList());
+	TagValueSPtr tag1(new TagValue("adaptivePriority", priority));
+	baseOrder.algoParams->push_back(tag1);
+}
+//! [adaptive_params]
