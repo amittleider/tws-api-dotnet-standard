@@ -169,7 +169,7 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos);
         }
 
-        
+
         public string optionalCapabilities { get; set; }
 
         /**
@@ -979,38 +979,43 @@ namespace IBApi
                 paramsList.AddParameter(order.RandomizePrice);
             }
 
-            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK) 
+            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
             {
-        	   if ( order.OrderType == "PEG BENCH") {
-        		   paramsList.AddParameter(order.ReferenceContractId);
-        		   paramsList.AddParameter(order.IsPeggedChangeAmountDecrease);
-        		   paramsList.AddParameter(order.PeggedChangeAmount);
-        		   paramsList.AddParameter(order.ReferenceChangeAmount);
-        		   paramsList.AddParameter(order.ReferenceExchange);
-        	   }
-        	   
-        	   paramsList.AddParameter(order.Conditions.Count);
+                if (order.OrderType == "PEG BENCH") {
+                    paramsList.AddParameter(order.ReferenceContractId);
+                    paramsList.AddParameter(order.IsPeggedChangeAmountDecrease);
+                    paramsList.AddParameter(order.PeggedChangeAmount);
+                    paramsList.AddParameter(order.ReferenceChangeAmount);
+                    paramsList.AddParameter(order.ReferenceExchange);
+                }
 
-               if (order.Conditions.Count > 0)
-               {
-                   foreach (OrderCondition item in order.Conditions)
-                   {
-                       paramsList.AddParameter((int)item.Type);
-                       item.Serialize(paramsList);
-                   }
+                paramsList.AddParameter(order.Conditions.Count);
 
-                   paramsList.AddParameter(order.ConditionsIgnoreRth);
-                   paramsList.AddParameter(order.ConditionsCancelOrder);
-               }
-        	   
-        	   paramsList.AddParameter(order.AdjustedOrderType);
-        	   paramsList.AddParameter(order.TriggerPrice);
-        	   paramsList.AddParameter(order.LmtPriceOffset);
-        	   paramsList.AddParameter(order.AdjustedStopPrice);
-        	   paramsList.AddParameter(order.AdjustedStopLimitPrice);
-        	   paramsList.AddParameter(order.AdjustedTrailingAmount);
-        	   paramsList.AddParameter(order.AdjustableTrailingUnit);
-           }
+                if (order.Conditions.Count > 0)
+                {
+                    foreach (OrderCondition item in order.Conditions)
+                    {
+                        paramsList.AddParameter((int)item.Type);
+                        item.Serialize(paramsList);
+                    }
+
+                    paramsList.AddParameter(order.ConditionsIgnoreRth);
+                    paramsList.AddParameter(order.ConditionsCancelOrder);
+                }
+
+                paramsList.AddParameter(order.AdjustedOrderType);
+                paramsList.AddParameter(order.TriggerPrice);
+                paramsList.AddParameter(order.LmtPriceOffset);
+                paramsList.AddParameter(order.AdjustedStopPrice);
+                paramsList.AddParameter(order.AdjustedStopLimitPrice);
+                paramsList.AddParameter(order.AdjustedTrailingAmount);
+                paramsList.AddParameter(order.AdjustableTrailingUnit);
+            }
+
+            if (serverVersion >= MinServerVer.EXT_OPERATOR)
+            {
+                paramsList.AddParameter(order.ExtOperator);
+            }
 
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
@@ -2670,6 +2675,13 @@ namespace IBApi
                         "  It does not support scaleTable, activeStartTime nor activeStopTime parameters.");
                     return false;
                 }
+            }
+
+            if (serverVersion < MinServerVer.EXT_OPERATOR && !IsEmpty(order.ExtOperator))
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support extOperator parameter");
+
+                return false;
             }
 
             return true;

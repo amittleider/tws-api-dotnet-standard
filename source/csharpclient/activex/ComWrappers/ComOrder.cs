@@ -348,5 +348,6 @@ namespace TWSLib
         }
 
         string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
+        string TWSLib.IOrder.extOperator { get { return data.ExtOperator; } set { data.ExtOperator = value; } }
     }
 }

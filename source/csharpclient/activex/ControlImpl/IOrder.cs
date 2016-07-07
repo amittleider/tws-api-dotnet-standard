@@ -285,5 +285,8 @@ namespace TWSLib
 
         [DispId(165)]
         string modelCode { get; set; }
+
+        [DispId(166)]
+        string extOperator { get; set; }
     }
 }
