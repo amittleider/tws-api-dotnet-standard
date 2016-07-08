@@ -220,9 +220,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
     protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 103;
     protected static final int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
+    protected static final int MIN_SERVER_VER_EXT_OPERATOR = 105;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_EXT_OPERATOR; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -1364,6 +1365,12 @@ public abstract class EClient {
                 return;
             }
         }
+        
+        if (m_serverVersion < MIN_SERVER_VER_EXT_OPERATOR && !IsEmpty(order.extOperator()) ) {
+        	error(id, EClientErrors.UPDATE_TWS, " It does not support ext operator");
+        }
+
+
 
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
@@ -1753,6 +1760,10 @@ public abstract class EClient {
         	   b.send(order.adjustedStopLimitPrice());
         	   b.send(order.adjustedTrailingAmount());
         	   b.send(order.adjustableTrailingUnit());
+           }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_EXT_OPERATOR) {
+        	   b.send(order.extOperator());
            }
            
            closeAndSend(b);

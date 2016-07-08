@@ -169,6 +169,7 @@ namespace IBApi
         private List<TagValue> orderMiscOptions = new List<TagValue>();
         private bool solicited;
         private string modelCode;
+        private string extOperator;
 
         /**
          * @brief The API client's order id.
@@ -1121,6 +1122,12 @@ namespace IBApi
             set { modelCode = value; }
         }
 
+        public string ExtOperator
+        {
+            get { return extOperator; }
+            set { extOperator = value; }
+        }
+
         public Order()
         {
             lmtPrice = Double.MaxValue;
@@ -1178,6 +1185,7 @@ namespace IBApi
             AdjustedStopPrice = double.MaxValue;
             AdjustedStopLimitPrice = double.MaxValue;
             AdjustedTrailingAmount = double.MaxValue;
+            ExtOperator = EMPTY_STR;
         }
 
         public override bool Equals(Object p_other)
@@ -1292,7 +1300,8 @@ namespace IBApi
                 Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
                 Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
                 Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0 ||
-                Util.StringCompare(ModelCode, l_theOther.ModelCode) != 0)
+                Util.StringCompare(ModelCode, l_theOther.ModelCode) != 0 ||
+                Util.StringCompare(ExtOperator, l_theOther.ExtOperator) != 0)
             {
                 return false;
             }

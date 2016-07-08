@@ -144,6 +144,7 @@ struct Order
 		adjustedStopLimitPrice = UNSET_DOUBLE;
 		adjustedTrailingAmount = UNSET_DOUBLE;
 		lmtPriceOffset = UNSET_DOUBLE;
+		extOperator = "";
 	}
 
 	// order identifier
@@ -302,6 +303,9 @@ struct Order
 	std::vector<ibapi::shared_ptr<OrderCondition>> conditions;
 	bool conditionsCancelOrder;
 	bool conditionsIgnoreRth;
+
+	// ext operator
+	std::string extOperator;
 
 public:
 

@@ -379,6 +379,7 @@ public class TicketDlg extends JDialog {
 		final UpperField m_discretionaryAmt = new UpperField();
 		final UpperField m_nbboPriceCap = new UpperField();
 		final UpperField m_algoId = new UpperField();
+		final UpperField m_extOperator = new UpperField();
 
 		final TCombo<OcaType> m_ocaType = new TCombo<OcaType>( OcaType.values() );
 		final TCombo<Rule80A> m_rule80A = new TCombo<Rule80A>( Rule80A.values() );
@@ -417,6 +418,7 @@ public class TicketDlg extends JDialog {
 			top.add( "Algo Id", m_algoId);
 			top.add( "OCA group and type", m_ocaGroup, m_ocaType);
 			top.add( "Hedge type and param" , m_hedgeType, m_hedgeParam);
+			top.add("Ext operator", m_extOperator);
 			
 			VerticalPanel left = new VerticalPanel();
 			left.add( "Not held", m_notHeld);
@@ -470,6 +472,7 @@ public class TicketDlg extends JDialog {
 			m_optOutSmartRouting.setSelected( m_order.optOutSmartRouting() );
 			m_algoId.setText( m_order.algoId() );
 			m_transmit.setSelected( true);
+			m_extOperator.setText(m_order.extOperator());
 		}
 		
 		void onOK() {
@@ -499,6 +502,7 @@ public class TicketDlg extends JDialog {
 			m_order.optOutSmartRouting( m_optOutSmartRouting.isSelected() );
 			m_order.algoId( m_algoId.getText() );
 			m_order.transmit( m_transmit.isSelected() );
+			m_order.extOperator(m_extOperator .getText());
 		}
 	}
 	

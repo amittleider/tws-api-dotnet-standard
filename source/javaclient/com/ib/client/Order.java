@@ -189,6 +189,7 @@ public class Order {
     
     // models
     private String m_modelCode;
+	private String m_extOperator;
 	
 	// getters
     public Action action()              { return Action.get(m_action); }
@@ -313,6 +314,7 @@ public class Order {
 	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
 	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
     public String modelCode() { return m_modelCode; }
+    public String extOperator() { return m_extOperator; }
 	
 	// setters
 	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
@@ -438,6 +440,7 @@ public class Order {
 	public void conditions(ArrayList<OrderCondition> v) { m_conditions = v; }
 	public void conditionsIgnoreRth(boolean v) { m_conditionsIgnoreRth = v; }
 	public void conditionsCancelOrder(boolean v) { m_conditionsCancelOrder = v; }
+	public void extOperator(String v) { m_extOperator = v; }
 
     public Order() {
         m_activeStartTime = EMPTY_STR;
@@ -469,6 +472,7 @@ public class Order {
         m_solicited = false;
         m_randomizeSize = false;
         m_randomizePrice = false;
+        m_extOperator = EMPTY_STR;
     }
 
     public ArrayList<TagValue> algoParams() { 
@@ -596,7 +600,8 @@ public class Order {
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
         	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
         	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0 ||
-        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0) {
+        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0 || 
+        	Util.StringCompare(m_extOperator, l_theOther.m_extOperator) != 0) {
         	return false;
         }
 

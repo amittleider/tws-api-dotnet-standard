@@ -1499,6 +1499,14 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_EXT_OPERATOR) {
+		if( !order.extOperator.empty()) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support ext operator parameter");
+			return;
+		}
+	}
+
 	std::stringstream msg;
 	prepareBuffer( msg);
 
@@ -1884,6 +1892,9 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		ENCODE_FIELD(order.adjustableTrailingUnit);
 	}
 
+	if( m_serverVersion >= MIN_SERVER_VER_EXT_OPERATOR) {
+		ENCODE_FIELD( order.extOperator);
+	}
 
 	closeAndSend( msg.str());
 }
