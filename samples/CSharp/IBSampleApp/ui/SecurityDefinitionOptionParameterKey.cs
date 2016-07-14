@@ -8,12 +8,14 @@ namespace IBSampleApp.ui
 {
     class SecDefOptParamKey
     {
+        string exchange;
         private int underlyingConId;
         private string tradingClass;
         private string multiplier;
 
-        public SecDefOptParamKey(int underlyingConId, string tradingClass, string multiplier)
+        public SecDefOptParamKey(string exchange, int underlyingConId, string tradingClass, string multiplier)
         {
+            this.exchange = exchange;
             this.underlyingConId = underlyingConId;
             this.tradingClass = tradingClass;
             this.multiplier = multiplier;
@@ -31,12 +33,12 @@ namespace IBSampleApp.ui
 
         public override int GetHashCode()
         {
-            return underlyingConId + tradingClass.GetHashCode() + multiplier.GetHashCode();
+            return exchange.GetHashCode() + underlyingConId + tradingClass.GetHashCode() + multiplier.GetHashCode();
         }
 
         public override string ToString()
         {
-            return underlyingConId + " " + tradingClass + " " + multiplier;
+            return exchange + " " + underlyingConId + " " + tradingClass + " " + multiplier;
         }
     }
 }

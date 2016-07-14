@@ -669,14 +669,14 @@ namespace IBSampleApp
                 tmp(reqId);
         }
 
-        public event Action<int, int, string, string, HashSet<string>, HashSet<double>> SecurityDefinitionOptionParameter;
+        public event Action<int, string, int, string, string, HashSet<string>, HashSet<double>> SecurityDefinitionOptionParameter;
 
-        void EWrapper.securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        void EWrapper.securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
             var tmp = SecurityDefinitionOptionParameter;
 
             if (tmp != null)
-                tmp(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+                tmp(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
         }
 
         public event Action<int> SecurityDefinitionOptionParameterEnd;

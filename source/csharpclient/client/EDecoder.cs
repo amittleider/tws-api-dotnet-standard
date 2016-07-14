@@ -358,6 +358,7 @@ namespace IBApi
         private void SecurityDefinitionOptionParameterEvent()
         {
             int reqId = ReadInt();
+            string exchange = ReadString();
             int underlyingConId = ReadInt();
             string tradingClass = ReadString();
             string multiplier = ReadString();
@@ -377,7 +378,7 @@ namespace IBApi
                 strikes.Add(ReadDouble());
             }
 
-            eWrapper.securityDefinitionOptionParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+            eWrapper.securityDefinitionOptionParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
         }
 
         private void DisplayGroupUpdatedEvent()

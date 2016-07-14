@@ -1587,6 +1587,7 @@ const char* EDecoder::processAccountUpdateMultiEndMsg(const char* ptr, const cha
 
 const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr, const char* endPtr) {
     int reqId;
+	std::string exchange;
 	int underlyingConId;
 	std::string tradingClass;
 	std::string multiplier;
@@ -1595,6 +1596,7 @@ const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr
 	std::set<double> strikes;
 
     DECODE_FIELD(reqId);
+	DECODE_FIELD(exchange);
 	DECODE_FIELD(underlyingConId);
 	DECODE_FIELD(tradingClass);
 	DECODE_FIELD(multiplier);
@@ -1618,7 +1620,7 @@ const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr
 		strikes.insert(strike);
 	}
 
-	m_pEWrapper->securityDefinitionOptionalParameter(reqId, underlyingConId, tradingClass, multiplier, expirations, strikes);
+	m_pEWrapper->securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
 
     return ptr;
 }

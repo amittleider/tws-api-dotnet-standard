@@ -145,7 +145,7 @@ namespace TWSLib
         [DispId(122)]
         void accountUpdateMultiEnd(int requestId);
         [DispId(123)]
-        void securityDefinitionOptionParameterDelegate(int reqId, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
         [DispId(124)]
         void securityDefinitionOptionParameterEndDelegate(int reqId);
 
