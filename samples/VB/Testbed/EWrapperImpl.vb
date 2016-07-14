@@ -358,7 +358,7 @@ Namespace Samples
         End Sub
 
         '! [securityDefinitionOptionParameter]
-        Public Sub securityDefinitionOptionParameter(reqId As Integer, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter
+        Public Sub securityDefinitionOptionParameter(reqId As Integer, exchange As String, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter
             Console.WriteLine("securityDefinitionOptionParameter: " & reqId & " tradingClass: " & tradingClass & " multiplier: ")
         End Sub
         '! [securityDefinitionOptionParameter]

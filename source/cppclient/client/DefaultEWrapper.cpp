@@ -70,7 +70,7 @@ void DefaultEWrapper::positionMulti( int reqId, const std::string& account,const
 void DefaultEWrapper::positionMultiEnd( int reqId) { }
 void DefaultEWrapper::accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency) { }
 void DefaultEWrapper::accountUpdateMultiEnd( int reqId) { }
-void DefaultEWrapper::securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) { }
+void DefaultEWrapper::securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) { }
 void DefaultEWrapper::securityDefinitionOptionalParameterEnd(int reqId) { }
 
 

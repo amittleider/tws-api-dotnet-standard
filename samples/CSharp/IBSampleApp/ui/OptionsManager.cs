@@ -104,7 +104,7 @@ namespace IBSampleApp.ui
             {
                 SecurityDefinitionOptionParameterMessage secDefOptParamMsg = (SecurityDefinitionOptionParameterMessage)message;
 
-                var key = new SecDefOptParamKey(secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
+                var key = new SecDefOptParamKey(secDefOptParamMsg.Exchange, secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
 
                 if (!secDefOptParamGroups.ContainsKey(key))
                 {

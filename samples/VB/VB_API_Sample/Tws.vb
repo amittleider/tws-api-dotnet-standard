@@ -546,10 +546,11 @@ Friend Class Tws
 
     End Sub
 
-    Public Sub securityDefinitionOptionParameter(reqId As Integer, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter
+    Public Sub securityDefinitionOptionParameter(reqId As Integer, exchange As String, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter
         InvokeIfRequired(Sub()
                              RaiseEvent OnSecurityDefinitionOptionParameter(Me, New AxTWSLib._DTWsEvents_securityDefinitionOptionParameterEvent With {
                                                                             .reqId = reqId,
+                                                                            .exchange = exchange,
                                                                             .underlyingConId = underlyingConId,
                                                                             .tradingClass = tradingClass,
                                                                             .multiplier = multiplier,

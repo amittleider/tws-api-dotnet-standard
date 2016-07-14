@@ -1144,7 +1144,7 @@ void TestCppClient::accountUpdateMultiEnd( int reqId) {
 //! [accountupdatemultiend]
 
 //! [securityDefinitionOptionParameter]
-void TestCppClient::securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) {
+void TestCppClient::securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) {
 	printf("Security Definition Optional Parameter. Request: %d, Trading Class: %s, Multiplier: %s\n", reqId, tradingClass.c_str(), multiplier.c_str());
 }
 //! [securityDefinitionOptionParameter]

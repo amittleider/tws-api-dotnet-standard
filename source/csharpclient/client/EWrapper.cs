@@ -519,7 +519,7 @@ namespace IBApi
 		* @param strikes a list of the possible strikes for options of this underlying on this exchange
 		* @sa reqSecDefOptParams
 		*/
-        void securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
+        void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
 		
 		/**
 		* @brief called when all callbacks to securityDefinitionOptionParameter are complete

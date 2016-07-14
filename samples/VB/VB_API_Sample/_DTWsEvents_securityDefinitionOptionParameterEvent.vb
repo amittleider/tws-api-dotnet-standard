@@ -5,6 +5,8 @@ Namespace AxTWSLib
 
         Property reqId As Integer
 
+        Property exchange As String
+
         Property underlyingConId As Integer
 
         Property tradingClass As String

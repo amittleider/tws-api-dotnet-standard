@@ -1077,7 +1077,7 @@ namespace TWSLib
 
         public delegate void accountUpdateMultiEndDelegate(int requestId);
 
-        public delegate void securityDefinitionOptionParameterDelegate(int reqId, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        public delegate void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
 
         public delegate void securityDefinitionOptionParameterEndDelegate(int reqId);
 
@@ -1874,11 +1874,11 @@ namespace TWSLib
                 InvokeIfRequired(t_accountUpdateMultiEnd, requestId);
         }
 
-        void EWrapper.securityDefinitionOptionParameter(int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        void EWrapper.securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
             var t_securityDefinitionOptionParameter = this.securityDefinitionOptionParameter;
             if (t_securityDefinitionOptionParameter != null)
-                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, underlyingConId, tradingClass, multiplier, new ArrayList(expirations.ToArray()), new ArrayList(strikes.ToArray()));
+                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, exchange, underlyingConId, tradingClass, multiplier, new ArrayList(expirations.ToArray()), new ArrayList(strikes.ToArray()));
         }
 
         void EWrapper.securityDefinitionOptionParameterEnd(int reqId)
