@@ -17,7 +17,7 @@
 #include "OrderSamples.h"
 #include "ScannerSubscription.h"
 #include "ScannerSubscriptionSamples.h"
-#include "ExecutionCondition.h"
+#include "executioncondition.h"
 #include "PriceCondition.h"
 #include "MarginCondition.h"
 #include "PercentChangeCondition.h"
