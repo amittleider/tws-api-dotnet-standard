@@ -231,6 +231,78 @@ Bar Sizes</h2>
 </table>
 <p>For available <b>whatToShow</b> parameters and detailed descriptions, please refer to the <a class="el" href="historical_data.html#hd_what_to_show">Historical Data Types (whatToShow)</a>.</p>
 <p>Please also be mindful of the <a class="el" href="historical_limitations.html">Historical Data Limitations</a>.</p>
+<h1><a class="anchor" id="dde_contracts"></a>
+Contract Definitions</h1>
+<p>The TWS DDE for Excel API lets you retrieve data for any instrument available in TWS. So far we have been using the simplest instrument of all: CASH. Using slight variations of the same formula, you can define any security type available in TWS.</p>
+<h2><a class="anchor" id="dde_contracts_description"></a>
+How to Find the Definition of a Contract</h2>
+<p>The best way of finding a contract’s description is within the TWS itself. Within the TWS, you can easily check a contract’s description either by double clicking it or through the <b>Contract Info -&gt; Description</b> menu, which you access by right-clicking a contract in TWS:</p>
+<div class="image">
+<img src="contract_info_tws.png" alt="contract_info_tws.png"/>
+</div>
+<p>The description will then appear:</p>
+<div class="image">
+<img src="contract_description_tws_without_debug.png" alt="contract_description_tws_without_debug.png"/>
+</div>
+<h2><a class="anchor" id="dde_contracts_formulas"></a>
+Formulas for Different Security Types</h2>
+<p><em>Note: There are two different request types, i.e. "req1" and "req2", that differentiate in defining contracts with underlying Symbol (req1) or Local Symbol (req2) of the contract. While either request type can be used, the Local Symbol is most common for FUT, OPT and FOP.</em></p>
+<p><em> Please find available contract parameters and sample contracts for each security type below:</em></p>
+<p><b>FX Pairs</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id1?req?EUR_CASH_IDEALPRO_USD_~/'</p>
+<p><b>STK</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id2?req?IBKR_STK_SMART_USD_~/'</p>
+<p><b>FUT</b></p>
+<p><b>FUT using the contract’s local symbol</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id3?req2?ESZ6_FUT_GLOBEX_USD_~/'</p>
+<p><b>FUT using underlying’s symbol, multiplier and expiration date</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[multiplier]_[exchange]_[currency]_~_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id3?req?ES_FUT_201612_50_GLOBEX_USD_~_~/'</p>
+<p><b>OPT</b></p>
+<p><b>OPT using the contract’s local symbol</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id4?req2?C DBK DEC 16 1300_OPT_DTB_EUR_~/'</p>
+<p><em>Note: The format of the option local symbol conforms to the <a href="http://ibkb.interactivebrokers.com/article/972" target="_blank">Option Symbology Initiative (OSI)</a>.</em></p>
+<p><b>OPT using underlying’s symbol, multiplier and expiration date</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id4?req?DBK_OPT_20161216_13_C_100_DTB_EUR_~_~/'</p>
+<p><b>FOP</b></p>
+<p><b>FOP using the contract’s local symbol</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id5?req2?XTZ6 C1100_FOP_GLOBEX_USD_~/'</p>
+<p><b>FOP using underlying’s symbol, multiplier and expiration date</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_[tradingClass]/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id5?req?EUR_FOP_20161209_1.1_C_125000_GLOBEX_USD_~_XT/'</p>
+<p><b>IND</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id6?req?ES_IND_GLOBEX_USD_~/'</p>
+<p><b>BAG</b></p>
+<p><em>Formula</em></p>
+<p>=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_CMBLGS_[num of legs]_[legId]_[legQuantity]_[legAction]_[legExchange]_[legPrice]...CMBLGS_~/'</p>
+<p><em>Example</em></p>
+<p>=Ssample123|tik!'id7?req?</p>
+<p>SPY_BAG_SMART_USD_CMBLGS_2_141149249_1_BUY_SMART_0_141149252_1_SELL_SMART_0_CMBLGS_~/'</p>
 <p><br/>
  </p>
 </div></div><!-- contents -->

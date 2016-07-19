@@ -260,6 +260,7 @@ DarkIce</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillDarkIceParams(Order baseOrder, <span class="keywordtype">int</span> displaySize, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;DarkIce&quot;</span>);</div>
@@ -354,6 +355,7 @@ Accumulate/Distribute</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAccumulateDistributeParams(Order baseOrder, <span class="keywordtype">int</span> componentSize, <span class="keywordtype">int</span> timeBetweenOrders, <span class="keywordtype">boolean</span> randomizeTime20, <span class="keywordtype">boolean</span> randomizeSize55,</div>
 <div class="line">            <span class="keywordtype">int</span> giveUp, <span class="keywordtype">boolean</span> catchUp, <span class="keywordtype">boolean</span> waitOrFill, String startTime, String endTime) {</div>
 <div class="line">        </div>
@@ -453,6 +455,7 @@ TWAP</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTwapParams(Order baseOrder, String strategyType, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Twap&quot;</span>);</div>
@@ -537,6 +540,7 @@ VWAP</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillVwapParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime, <span class="keywordtype">boolean</span> noTakeLiq) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Vwap&quot;</span>);</div>
@@ -619,6 +623,7 @@ Balance Impact Risk</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillBalanceImpactRiskParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="keyword">true</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USOptionContract(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillBalanceImpactRiskParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String riskAversion, <span class="keywordtype">boolean</span> forceCompletion) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;BalanceImpactRisk&quot;</span>);</div>
@@ -683,6 +688,7 @@ Minimise Impact</h1>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USOptionContract(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillMinImpactParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;BalanceImpactRisk&quot;</span>);</div>
@@ -710,6 +716,64 @@ Minimise Impact</h1>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;MinImpact&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, std::to_string(maxPctVol)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="adaptive"></a>
+Adaptive Algo</h1>
+<p>The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>adaptivePriority </td><td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order. </td><td>Critical &gt; Urgent &gt; Normal &gt; Patient  </td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, <span class="keywordtype">string</span> priority)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, String priority) {</div>
+<div class="line"></div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Adaptive&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
+<div class="line"></div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillAdaptiveParams(baseOrder As Order, priority As String)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority))</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillAdaptiveParams(Order&amp; baseOrder, std::string priority){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>

@@ -169,7 +169,7 @@ Stocks</h1>
 <div class="line">            contract.Symbol = <span class="stringliteral">&quot;IBKR&quot;</span>;</div>
 <div class="line">            contract.SecType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
 <div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
-<div class="line">            <span class="comment">//In the API side, NASDAQ is always defined as ISLAND</span></div>
+<div class="line">            <span class="comment">//In the API side, NASDAQ is always defined as ISLAND in the exchange field</span></div>
 <div class="line">            contract.Exchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -197,14 +197,35 @@ Stocks</h1>
 <div class="line">    contract.exchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>For certain stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract:</p>
+<p>For certain smart-routed stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract. This should be defined as the native exchange of a contract, and is good practice for all stocks:</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;MSFT&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">            <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">            contract.PrimaryExch = <span class="stringliteral">&quot;NASDAQ&quot;</span>;</div>
+</div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;MSFT&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;STK&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
+<div class="line">        <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">        contract.primaryExch(<span class="stringliteral">&quot;NASDAQ&quot;</span>);</div>
+</div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">            Dim Contract As Contract = New Contract</div>
+<div class="line">            Contract.symbol = <span class="stringliteral">&quot;MSFT&quot;</span></div>
+<div class="line">            Contract.secType = <span class="stringliteral">&quot;STK&quot;</span></div>
+<div class="line">            Contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+<div class="line">            Contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line">            <span class="stringliteral">&#39;Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line"><span class="stringliteral">            Contract.PrimaryExch = &quot;NASDAQ&quot;</span></div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Contract contract;</div>
 <div class="line">    contract.symbol = <span class="stringliteral">&quot;MSFT&quot;</span>;</div>
@@ -215,6 +236,7 @@ Stocks</h1>
 <div class="line">    contract.primaryExchange = <span class="stringliteral">&quot;NASDAQ&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p>As an alternative to defining the exchange and primary exchange fields, it is possible to specify the exchange field as "Exchange:Primary Exchange", e.g. "SMART:NASDAQ". The colon ":" or slash "/" separating this fields is known as the "Component Exchange Separator" and defined in the API Settings in Global Configuration.</p>
 <h1><a class="anchor" id="ind"></a>
 Indexes</h1>
 <ul id="tab">
@@ -568,6 +590,131 @@ Futures on Options</h1>
 <div class="line">    contract.strike = 1810;</div>
 <div class="line">    contract.right = <span class="stringliteral">&quot;C&quot;</span>;</div>
 <div class="line">    contract.multiplier = <span class="stringliteral">&quot;50&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="Bonds"></a>
+Bonds</h1>
+<p>Bonds can be specified by defining the symbol as the CUSIP. The CUSIP requires a separate market data subscription.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            <span class="comment">// enter CUSIP as symbol</span></div>
+<div class="line">            contract.Symbol= <span class="stringliteral">&quot;912828C57&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BOND&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        <span class="comment">// enter CUSIP as symbol</span></div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;912828C57&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;BOND&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim Contract As Contract = New Contract</div>
+<div class="line">            <span class="stringliteral">&#39; enter CUSIP as symbol</span></div>
+<div class="line"><span class="stringliteral">            contract.symbol= &quot;912828C57&quot;</span></div>
+<div class="line"><span class="stringliteral">            contract.secType = &quot;BOND&quot;</span></div>
+<div class="line"><span class="stringliteral">            contract.exchange = &quot;SMART&quot;</span></div>
+<div class="line"><span class="stringliteral">            contract.currency = &quot;USD&quot;</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    <span class="comment">// enter CUSIP as symbol</span></div>
+<div class="line">    contract.symbol= <span class="stringliteral">&quot;912828C57&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;BOND&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>Bonds can also be defined with the conId and exchange as with any security type.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.ConId = 147554578;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.conid(147554578);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim Contract As Contract = New Contract</div>
+<div class="line">            Contract.conid = 147554578</div>
+<div class="line">            Contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.conId = 147554578;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="funds"></a>
+Mutual Funds</h1>
+<p>Mutual Funds are supported in the API. Note: Mutual Funds cannot be traded in paper accounts.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;VINIX&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;FUND&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;FUNDSERV&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;VINIX&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;FUND&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;FUNDSERV&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim Contract As Contract = New Contract</div>
+<div class="line">            Contract.symbol = <span class="stringliteral">&quot;VINIX&quot;</span></div>
+<div class="line">            Contract.secType = <span class="stringliteral">&quot;FUND&quot;</span></div>
+<div class="line">            Contract.exchange = <span class="stringliteral">&quot;FUNDSERV&quot;</span></div>
+<div class="line">            Contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.symbol = <span class="stringliteral">&quot;VINIX&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;FUND&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;FUNDSERV&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="Commodities"></a>
+Commodities</h1>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;XAUUSD&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;CMDTY&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;XAUUSD&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;CMDTY&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim Contract As Contract = New Contract</div>
+<div class="line">            Contract.symbol = <span class="stringliteral">&quot;XAUUSD&quot;</span></div>
+<div class="line">            Contract.secType = <span class="stringliteral">&quot;CMDTY&quot;</span></div>
+<div class="line">            Contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line">            Contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.symbol = <span class="stringliteral">&quot;XAUUSD&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;CMDTY&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

@@ -7,7 +7,8 @@ var algos =
       [ "TWAP", "ibalgos.html#twap", null ],
       [ "VWAP", "ibalgos.html#vwap", null ],
       [ "Balance Impact Risk", "ibalgos.html#balanceimpact", null ],
-      [ "Minimise Impact", "ibalgos.html#minimpact", null ]
+      [ "Minimise Impact", "ibalgos.html#minimpact", null ],
+      [ "Adaptive Algo", "ibalgos.html#adaptive", null ]
     ] ],
     [ "CSFB Algorithms", "csfb.html", [
       [ "CSFB Algorithm Parameters", "csfb.html#csfb_params", [

@@ -138,8 +138,13 @@ $(document).ready(function(){initNavTree('market_data.html','');});
 <li><a class="el" href="news.html">News</a></li>
 </ul>
 <h1><a class="anchor" id="market_subscriptions"></a>
-Live Data Subscriptions</h1>
-<p>In order to request any kind of market data (i.e. top-of-book, deep-of-book or historical data) it is necessary to be subscribed to the 'instruments' live market data. To subscribe to live market data please log into your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -&gt; Trade Configuration -&gt; Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.</p>
+Live Market Data</h1>
+<p>In order to receive any kind of API market data (top-of-book, depth-of-book, or historical) it is necessary have live market data for the requested instruments in TWS. For many contracts, delayed data will be available in TWS, but to receive any data through the API its necessary for live market data to be available. This requires:</p>
+<p>(1) trading permissions for the specified instruments</p>
+<p>(2) a funded account (except with forex and bonds), and</p>
+<p>(3) market data subscriptions for the specified username</p>
+<p>To subscribe to live market data:</p>
+<p>Login to your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -&gt; Trade Configuration -&gt; Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.</p>
 <p>To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.</p>
 <div class="image">
 <img src="am_market_data_subscription.png" alt="am_market_data_subscription.png"/>

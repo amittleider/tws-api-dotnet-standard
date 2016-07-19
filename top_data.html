@@ -162,6 +162,8 @@ Requesting</h1>
 <h1><a class="anchor" id="md_receive"></a>
 Receiving</h1>
 <p>After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement these methods to manipulate the data relayed back to the client. Notice how the <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a> methods contain the request id with which the response can be mapped to its originating request.</p>
+<p>When <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">IBApi::EWrapper::tickPrice</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a> are reported as -1, this indicates that there is not data currently available. Most commonly this occurs when requesting data from markets that are closed.</p>
+<p>Following every <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">IBApi::EWrapper::tickPrice</a> callback there will be a <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a>. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a> value.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
@@ -312,6 +314,8 @@ Snapshots</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p>Snapshots can only be used with default tick types, i.e. no generic ticks can be specified.</p>
+<p>It is important to note that snapshot requests will only return data fields which have changed within an 11 second interval. If it is necessary for an API client to receive a certain data field, it is better to subscribe to market data until that field has been returned and then cancel the market data request.</p>
 <h1><a class="anchor" id="genticks"></a>
 Generic Ticks</h1>
 <p>The most common tick types are delivered automatically after a successful market data request. There are however other tick types available by explicit request: the generic tick types. When invoking <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3">IBApi.EClient.reqMktData</a>, specific generic ticks can be requested via the <b>genericTickList</b> parameter of the function:</p>
