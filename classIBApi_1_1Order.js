@@ -43,6 +43,7 @@ var classIBApi_1_1Order =
     [ "DisplaySize", "classIBApi_1_1Order.html#a87316898d4e44f4537555f5999088457", null ],
     [ "ETradeOnly", "classIBApi_1_1Order.html#acf7d37ea31f6d733e9616ecadbb81a64", null ],
     [ "ExemptCode", "classIBApi_1_1Order.html#a7da1a8a1d588259cecb1367adeb03d17", null ],
+    [ "ExtOperator", "classIBApi_1_1Order.html#a4f1ee7e600df1c65f25a5bd4d84467cb", null ],
     [ "FaGroup", "classIBApi_1_1Order.html#a15c0b93f51d0e3791a669abb9932aa1e", null ],
     [ "FaMethod", "classIBApi_1_1Order.html#a6d3a08135f6b8e8486250d418bf38d2b", null ],
     [ "FaPercentage", "classIBApi_1_1Order.html#ab25af3fc2d87ea758ee456d6911825ee", null ],

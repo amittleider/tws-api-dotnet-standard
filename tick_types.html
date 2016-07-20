@@ -162,7 +162,7 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Model Option Computation</td><td>13</td><td>Computed Greeks and model's implied volatility for the underlying stock price and the option reference price. See <a class="el" href="option_computations.html">Options Computations</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3">IBApi.EWrapper.tickOptionComputation</a></td><td>- </td></tr>
 <tr>
-<td>Open Tick</td><td>14</td><td>Today's opening price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Open Tick</td><td>14</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Low 13 Weeks</td><td>15</td><td>Lowest price for the last 13 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
@@ -318,6 +318,8 @@ Shortable</h1>
 RT Volume</h1>
 <p>The RT Volume tick type corresponds to the TWS' Time &amp; Sales window and contains the last trade's price, size and time along with current day's total traded volume, Volume Weighted Average Price (VWAP) and whether or not the trade was filled by a single market maker.</p>
 <p><b>Example: </b>701.28;1;1348075471534;67854;701.46918464;true</p>
+<p>As volume for US stocks is reported in lots, a volume of 0 reported in RTVolume will typically indicate an odd lot data point (less than 100 shares).</p>
+<p>It is important to note that while the TWS Time &amp; Sales Window also has information about trade conditions available with data points, this data is not available through the API. So for instance, the 'unreportable' trade status displayed with points in the Time &amp; Sales Window is not available through the API, and that trade data will appear in the API just as any other data point. So an API application needs to exercise caution in implementing conditions based on individual callbacks.</p>
 <h1><a class="anchor" id="ib_dividends"></a>
 IB Dividends</h1>
 <p>This tick type provides four different comma-separated elements:</p>
@@ -328,6 +330,7 @@ IB Dividends</h1>
 <li>The next single dividend amount (0.23 from the example below).</li>
 </ul>
 <p><b>Example: </b>0.83,0.92,20130219,0.23</p>
+<p>To receive dividend information it is necessary to direct-route rather than smart-route market data requests.</p>
 <h1><a class="anchor" id="delayed"></a>
 Delayed Data</h1>
 <p>Delayed Data support through the API is in development and will be made available in a futures version of TWS.</p>

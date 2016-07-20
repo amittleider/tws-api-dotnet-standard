@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('historical_data.html','');});
 <div class="title">Historical Data </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>When retrieving historical data from the TWS, be mindful of our <a class="el" href="historical_limitations.html">Historical Data Limitations</a> and the relevant <a class="el" href="market_data.html#market_subscriptions">Live Data Subscriptions</a></p>
+<div class="textblock"><p>When retrieving historical data from the TWS, be mindful of our <a class="el" href="historical_limitations.html">Historical Data Limitations</a> and the relevant <a class="el" href="market_data.html#market_subscriptions">Live Market Data</a></p>
 <h1><a class="anchor" id="hd_request"></a>
 Requesting</h1>
 <p>Historical data is obtained from the the TWS via the <a class="el" href="classIBApi_1_1EClient.html#a72fc193c4d50f738b6092a174988f093">IBApi.EClient.reqHistoricalData</a> function. Every request needs:</p>
@@ -306,6 +306,10 @@ Historical Data Types (whatToShow)</h1>
 <td><b>HISTORICAL_VOLATILITY</b></td><td>Starting volatility</td><td>Highest volatility</td><td>Lowest volatility</td><td>Last volatility</td><td>N/A </td></tr>
 <tr>
 <td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A </td></tr>
+<tr>
+<td><b>REBATE_RATE</b></td><td>Starting rebate rate</td><td>Highest rebate rate</td><td>Lowest rebate rate</td><td>Last rebate rate</td><td>N/A </td></tr>
+<tr>
+<td><b>FREE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A </td></tr>
 </table>
 <h1><a class="anchor" id="available_products_hd"></a>
 Available Data per Product</h1>

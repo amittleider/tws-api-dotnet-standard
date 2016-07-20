@@ -142,10 +142,10 @@ $(document).ready(function(){initNavTree('options.html','');});
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqSecDefOptParams(0, <span class="stringliteral">&quot;IBM&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;STK&quot;</span>, 8314);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> securityDefinitionOptionParameter(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> underlyingConId, <span class="keywordtype">string</span> tradingClass, <span class="keywordtype">string</span> multiplier, HashSet&lt;string&gt; expirations, HashSet&lt;double&gt; strikes)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> securityDefinitionOptionParameter(<span class="keywordtype">int</span> reqId, <span class="keywordtype">string</span> exchange, <span class="keywordtype">int</span> underlyingConId, <span class="keywordtype">string</span> tradingClass, <span class="keywordtype">string</span> multiplier, HashSet&lt;string&gt; expirations, HashSet&lt;double&gt; strikes)</div>
 <div class="line">        {</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Security Definition Option Parameter. Reqest: {0}, Undrelying contract id: {1}, Trading class: {2}, Multiplier: {3}, Expirations: {4}, Strikes: {5}&quot;</span>,</div>
-<div class="line">                              reqId, underlyingConId, tradingClass, multiplier, string.Join(<span class="stringliteral">&quot;, &quot;</span>, expirations), <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, strikes));</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Security Definition Option Parameter. Reqest: {0}, Exchange: {1}, Undrelying contract id: {2}, Trading class: {3}, Multiplier: {4}, Expirations: {5}, Strikes: {6}&quot;</span>,</div>
+<div class="line">                              reqId, exchange, underlyingConId, tradingClass, multiplier, <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, expirations), <span class="keywordtype">string</span>.Join(<span class="stringliteral">&quot;, &quot;</span>, strikes));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -159,13 +159,13 @@ $(document).ready(function(){initNavTree('options.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqSecDefOptParams(0, <span class="stringliteral">&quot;IBM&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;STK&quot;</span>, 8314)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub securityDefinitionOptionParameter(reqId As Integer, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub securityDefinitionOptionParameter(reqId As Integer, exchange As String, underlyingConId As Integer, tradingClass As String, multiplier As String, expirations As HashSet(Of String), strikes As HashSet(Of Double)) Implements EWrapper.securityDefinitionOptionParameter</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;securityDefinitionOptionParameter: &quot;</span> &amp; reqId &amp; <span class="stringliteral">&quot; tradingClass: &quot;</span> &amp; tradingClass &amp; <span class="stringliteral">&quot; multiplier: &quot;</span>)</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqSecDefOptParams(0, <span class="stringliteral">&quot;IBM&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;STK&quot;</span>, 8314);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::securityDefinitionOptionalParameter(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> underlyingConId, <span class="keyword">const</span> std::string&amp; tradingClass, <span class="keyword">const</span> std::string&amp; multiplier, std::set&lt;std::string&gt; expirations, std::set&lt;double&gt; strikes) {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::securityDefinitionOptionalParameter(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::string&amp; exchange, <span class="keywordtype">int</span> underlyingConId, <span class="keyword">const</span> std::string&amp; tradingClass, <span class="keyword">const</span> std::string&amp; multiplier, std::set&lt;std::string&gt; expirations, std::set&lt;double&gt; strikes) {</div>
 <div class="line">    printf(<span class="stringliteral">&quot;Security Definition Optional Parameter. Request: %d, Trading Class: %s, Multiplier: %s\n&quot;</span>, reqId, tradingClass.c_str(), multiplier.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>

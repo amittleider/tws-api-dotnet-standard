@@ -147,7 +147,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0dd0ca408b9ef70181cec1e5ac938039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Errors sent by the TWS are received here.  <a href="#a0dd0ca408b9ef70181cec1e5ac938039">More...</a><br/></td></tr>
 <tr class="separator:a0dd0ca408b9ef70181cec1e5ac938039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2">currentTime</a> (long time)</td></tr>
-<tr class="memdesc:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Server's current time This method will receive IB server's system time resulting after the invokation of reqCurrentTime.  <a href="#a7004c6c027c90ecdc1f5c68759e37fd2">More...</a><br/></td></tr>
+<tr class="memdesc:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime.  <a href="#a7004c6c027c90ecdc1f5c68759e37fd2">More...</a><br/></td></tr>
 <tr class="separator:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff4ae3269d7b13dd1ca989a8d5ca1ced"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">tickPrice</a> (int tickerId, int field, double price, int canAutoExecute)</td></tr>
 <tr class="memdesc:aff4ae3269d7b13dd1ca989a8d5ca1ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Market data tick price callback. Handles all price related ticks.  <a href="#aff4ae3269d7b13dd1ca989a8d5ca1ced">More...</a><br/></td></tr>
@@ -312,9 +312,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:aeb5dd139597e26edd978b300ccd0450b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b">accountUpdateMultiEnd</a> (int requestId)</td></tr>
 <tr class="memdesc:aeb5dd139597e26edd978b300ccd0450b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates all the account updates have been transmitted.  <a href="#aeb5dd139597e26edd978b300ccd0450b">More...</a><br/></td></tr>
 <tr class="separator:aeb5dd139597e26edd978b300ccd0450b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac430fe1452276e5061546dfc35d651b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aac430fe1452276e5061546dfc35d651b">securityDefinitionOptionParameter</a> (int reqId, int underlyingConId, string tradingClass, string multiplier, HashSet&lt; string &gt; expirations, HashSet&lt; double &gt; strikes)</td></tr>
-<tr class="memdesc:aac430fe1452276e5061546dfc35d651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the option chain for an underlying on an exchange specified in reqSecDefOptParams There will be multiple callbacks to securityDefinitionOptionParameter if multiple exchanges are specified in reqSecDefOptParams  <a href="#aac430fe1452276e5061546dfc35d651b">More...</a><br/></td></tr>
-<tr class="separator:aac430fe1452276e5061546dfc35d651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a427bd0b9892e9f737c63b2f3e326f73d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a427bd0b9892e9f737c63b2f3e326f73d">securityDefinitionOptionParameter</a> (int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet&lt; string &gt; expirations, HashSet&lt; double &gt; strikes)</td></tr>
+<tr class="memdesc:a427bd0b9892e9f737c63b2f3e326f73d"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the option chain for an underlying on an exchange specified in reqSecDefOptParams There will be multiple callbacks to securityDefinitionOptionParameter if multiple exchanges are specified in reqSecDefOptParams  <a href="#a427bd0b9892e9f737c63b2f3e326f73d">More...</a><br/></td></tr>
+<tr class="separator:a427bd0b9892e9f737c63b2f3e326f73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a106ab51807e85efc9f76f55b34df079d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a106ab51807e85efc9f76f55b34df079d">securityDefinitionOptionParameterEnd</a> (int reqId)</td></tr>
 <tr class="memdesc:a106ab51807e85efc9f76f55b34df079d"><td class="mdescLeft">&#160;</td><td class="mdescRight">called when all callbacks to securityDefinitionOptionParameter are complete  <a href="#a106ab51807e85efc9f76f55b34df079d">More...</a><br/></td></tr>
 <tr class="separator:a106ab51807e85efc9f76f55b34df079d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -395,7 +395,38 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   <table class="params">
     <tr><td class="paramname">reqId</td><td>the request's unique identifier. </td></tr>
     <tr><td class="paramname">account</td><td>the account id </td></tr>
-    <tr><td class="paramname">tag</td><td>the account's attribute being received. </td></tr>
+    <tr><td class="paramname">tag</td><td>the account's attribute being received.<ul>
+<li>AccountType — Identifies the IB account structure</li>
+<li>NetLiquidation — The basis for determining the price of the assets in your account. Total cash value + stock value + options value + bond value</li>
+<li>TotalCashValue — Total cash balance recognized at the time of trade + futures PNL</li>
+<li>SettledCash — Cash recognized at the time of settlement - purchases at the time of trade - commissions - taxes - fees</li>
+<li>AccruedCash — Total accrued cash value of stock, commodities and securities</li>
+<li>BuyingPower — Buying power serves as a measurement of the dollar value of securities that one may purchase in a securities account without depositing additional funds</li>
+<li>EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions. Cash + stocks + bonds + mutual funds</li>
+<li>PreviousEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day</li>
+<li>GrossPositionValue — The sum of the absolute value of all stock and equity option positions</li>
+<li>RegTEquity — Regulation T equity for universal account</li>
+<li>RegTMargin — Regulation T margin for universal account</li>
+<li>SMA — Special Memorandum Account: Line of credit created when the market value of securities in a Regulation T account increase in value</li>
+<li>InitMarginReq — Initial Margin requirement of whole portfolio</li>
+<li>MaintMarginReq — Maintenance Margin requirement of whole portfolio</li>
+<li>AvailableFunds — This value tells what you have available for trading</li>
+<li>ExcessLiquidity — This value shows your margin cushion, before liquidation</li>
+<li>Cushion — Excess liquidity as a percentage of net liquidation value</li>
+<li>FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits</li>
+<li>FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits</li>
+<li>LookAheadNextChange — Time when look-ahead values take effect</li>
+<li>LookAheadInitMarginReq — Initial Margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadMaintMarginReq — Maintenance Margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadAvailableFunds — This value reflects your available funds at the next margin change</li>
+<li>LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change</li>
+<li>HighestSeverity — A measure of how close the account is to liquidation</li>
+<li>DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.</li>
+<li>Leverage — GrossPositionValue / NetLiquidation </li>
+</ul>
+</td></tr>
     <tr><td class="paramname">value</td><td>the account's attribute's value. </td></tr>
     <tr><td class="paramname">currency</td><td>the currency on which the value is expressed. </td></tr>
   </table>
@@ -490,7 +521,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b" title="Indicates all the account updates have been transmitted. ">accountUpdateMultiEnd</a>, reqAccountUpdatesMulti </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b" title="Indicates all the account updates have been transmitted. ">accountUpdateMultiEnd</a>, <a class="el" href="classIBApi_1_1EClient.html#a7233f67c6c69f3057994b6b97a366dfb" title="Requests account updates for account and/or model. ">EClient::reqAccountUpdatesMulti</a> </dd></dl>
 
 </div>
 </div>
@@ -625,8 +656,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
       </table>
 </div><div class="memdoc">
 
-<p>Server's current time This method will receive IB server's system time resulting after the invokation of reqCurrentTime. </p>
-<dl class="section see"><dt>See Also</dt><dd>reqCurrentTime() </dd></dl>
+<p>Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime. </p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ad1ecfd4fb31841ce5817e0c32f44b639" title="Requests the server&#39;s current time. ">EClient::reqCurrentTime</a> </dd></dl>
 
 </div>
 </div>
@@ -1327,7 +1358,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 </div><div class="memdoc">
 
 <p>Indicates all the positions have been transmitted. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6" title="provides the portfolio&#39;s open positions. ">position</a>, reqPositions </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6" title="provides the portfolio&#39;s open positions. ">position</a>, <a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e" title="Requests all positions from all accounts. ">EClient::reqPositions</a> </dd></dl>
 
 </div>
 </div>
@@ -1409,7 +1440,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 </div><div class="memdoc">
 
 <p>Indicates all the positions have been transmitted. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#afecadbe206c341b3e89c117790e42e87" title="provides the portfolio&#39;s open positions. ">positionMulti</a>, reqPositionsMulti </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#afecadbe206c341b3e89c117790e42e87" title="provides the portfolio&#39;s open positions. ">positionMulti</a>, <a class="el" href="classIBApi_1_1EClient.html#a4fa2744c3459f9f6cf695980267608c3" title="Requests positions for account and/or model. ">EClient::reqPositionsMulti</a> </dd></dl>
 
 </div>
 </div>
@@ -1494,7 +1525,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a644a8d918f3108a3817e8672b9782e67" title="Requests real time bars Currently, only 5 seconds bars are provided. This request ius suject to the s...">EClientSocket::reqRealTimeBars</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a644a8d918f3108a3817e8672b9782e67" title="Requests real time bars Currently, only 5 seconds bars are provided. This request is subject to the s...">EClientSocket::reqRealTimeBars</a> </dd></dl>
 
 </div>
 </div>
@@ -1631,7 +1662,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc" title="provides the xml-formatted parameters available to create a market scanner. ">scannerParameters</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461" title="provides the data resulting from the market scanner request. ">scannerData</a>, <a class="el" href="classIBApi_1_1EClientSocket.html" title="TWS/Gateway client class This client class contains all the available methods to communicate with IB...">EClientSocket</a>&gt;&gt;reqScannerSubscription </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc" title="provides the xml-formatted parameters available to create a market scanner. ">scannerParameters</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461" title="provides the data resulting from the market scanner request. ">scannerData</a>, <a class="el" href="classIBApi_1_1EClient.html#a13dd1287f67c6873b3e8b85d6c19f885" title="Starts a subscription to market scan results based on the provided parameters. ">EClientSocket::reqScannerSubscription</a> </dd></dl>
 
 </div>
 </div>
@@ -1660,7 +1691,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
-<a class="anchor" id="aac430fe1452276e5061546dfc35d651b"></a>
+<a class="anchor" id="a427bd0b9892e9f737c63b2f3e326f73d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1669,6 +1700,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>exchange</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1720,7 +1757,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>reqSecDefOptParams </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain  reqId the ID ch...">EClient::reqSecDefOptParams</a> </dd></dl>
 
 </div>
 </div>
@@ -1745,7 +1782,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#aac430fe1452276e5061546dfc35d651b" title="returns the option chain for an underlying on an exchange specified in reqSecDefOptParams There will ...">securityDefinitionOptionParameter</a>, reqSecDefOptParams </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a427bd0b9892e9f737c63b2f3e326f73d" title="returns the option chain for an underlying on an exchange specified in reqSecDefOptParams There will ...">securityDefinitionOptionParameter</a>, <a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain  reqId the ID ch...">EClient::reqSecDefOptParams</a> </dd></dl>
 
 </div>
 </div>
@@ -1948,6 +1985,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 </div><div class="memdoc">
 
 <p>Receive's option specific market data. This method is called when the market in an option or its underlier moves. TWS’s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tickerId</td><td>the request's unique identifier. </td></tr>
+    <tr><td class="paramname">field</td><td>Specifies the type of option computation. Pass the field value into TickType.getField(int tickType) to retrieve the field description. For example, a field value of 13 will map to modelOptComp, etc. 10 = Bid 11 = Ask 12 = Last </td></tr>
+    <tr><td class="paramname">impliedVolatility</td><td>the implied volatility calculated by the TWS option modeler, using the specified tick type value. </td></tr>
+    <tr><td class="paramname">delta</td><td>the option delta value. </td></tr>
+    <tr><td class="paramname">optPrice</td><td>the option price. </td></tr>
+    <tr><td class="paramname">pwDividend</td><td>the present value of dividends expected on the option's underlying. </td></tr>
+    <tr><td class="paramname">gamma</td><td>the option gamma value. </td></tr>
+    <tr><td class="paramname">vega</td><td>the option vega value. </td></tr>
+    <tr><td class="paramname">theta</td><td>the option theta value. </td></tr>
+    <tr><td class="paramname">undPrice</td><td>the price of the underlying. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
@@ -2041,9 +2093,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>reqMarketData() </dd>
-<dd>
-TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
 </div>
@@ -2154,7 +2204,121 @@ TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1
 <p>Receives the subscribed account's information. Only one account can be subscribed at a time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>the value being updated. </td></tr>
+    <tr><td class="paramname">key</td><td>the value being updated.<ul>
+<li>AccountCode — The account ID number</li>
+<li>AccountOrGroup — "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration</li>
+<li>AccountReady — For internal use only</li>
+<li>AccountType — Identifies the IB account structure</li>
+<li>AccruedCash — Total accrued cash value of stock, commodities and securities</li>
+<li>AccruedCash-C — Reflects the current's month accrued debit and credit interest to date, updated daily in commodity segment</li>
+<li>AccruedCash-S — Reflects the current's month accrued debit and credit interest to date, updated daily in security segment</li>
+<li>AccruedDividend — Total portfolio value of dividends accrued</li>
+<li>AccruedDividend-C — Dividends accrued but not paid in commodity segment</li>
+<li>AccruedDividend-S — Dividends accrued but not paid in security segment</li>
+<li>AvailableFunds — This value tells what you have available for trading</li>
+<li>AvailableFunds-C — Net Liquidation Value - Initial Margin</li>
+<li>AvailableFunds-S — Equity with Loan Value - Initial Margin</li>
+<li>Billable — Total portfolio value of treasury bills</li>
+<li>Billable-C — Value of treasury bills in commodity segment</li>
+<li>Billable-S — Value of treasury bills in security segment</li>
+<li>BuyingPower — Cash Account: Minimum (Equity with Loan Value, Previous Day Equity with Loan Value)-Initial Margin, Standard Margin Account: Minimum (Equity with Loan Value, Previous Day Equity with Loan Value) - Initial Margin *4</li>
+<li>CashBalance — Cash recognized at the time of trade + futures PNL</li>
+<li>CorporateBondValue — Value of non-Government bonds such as corporate bonds and municipal bonds</li>
+<li>Currency — Open positions are grouped by currency</li>
+<li>Cushion — Excess liquidity as a percentage of net liquidation value</li>
+<li>DayTradesRemaining — Number of Open/Close trades one could do before Pattern Day Trading is detected</li>
+<li>DayTradesRemainingT+1 — Number of Open/Close trades one could do tomorrow before Pattern Day Trading is detected</li>
+<li>DayTradesRemainingT+2 — Number of Open/Close trades one could do two days from today before Pattern Day Trading is detected</li>
+<li>DayTradesRemainingT+3 — Number of Open/Close trades one could do three days from today before Pattern Day Trading is detected</li>
+<li>DayTradesRemainingT+4 — Number of Open/Close trades one could do four days from today before Pattern Day Trading is detected</li>
+<li>EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions</li>
+<li>EquityWithLoanValue-C — Cash account: Total cash value + commodities option value - futures maintenance margin requirement + minimum (0, futures PNL) Margin account: Total cash value + commodities option value - futures maintenance margin requirement</li>
+<li>EquityWithLoanValue-S — Cash account: Settled Cash Margin Account: Total cash value + stock value + bond value + (non-U.S. &amp; Canada securities options value)</li>
+<li>ExcessLiquidity — This value shows your margin cushion, before liquidation</li>
+<li>ExcessLiquidity-C — Equity with Loan Value - Maintenance Margin</li>
+<li>ExcessLiquidity-S — Net Liquidation Value - Maintenance Margin</li>
+<li>ExchangeRate — The exchange rate of the currency to your base currency</li>
+<li>FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits</li>
+<li>FullAvailableFunds-C — Net Liquidation Value - Full Initial Margin</li>
+<li>FullAvailableFunds-S — Equity with Loan Value - Full Initial Margin</li>
+<li>FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits</li>
+<li>FullExcessLiquidity-C — Net Liquidation Value - Full Maintenance Margin</li>
+<li>FullExcessLiquidity-S — Equity with Loan Value - Full Maintenance Margin</li>
+<li>FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullInitMarginReq-C — Initial Margin of commodity segment's portfolio with no discounts or intraday credits</li>
+<li>FullInitMarginReq-S — Initial Margin of security segment's portfolio with no discounts or intraday credits</li>
+<li>FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullMaintMarginReq-C — Maintenance Margin of commodity segment's portfolio with no discounts or intraday credits</li>
+<li>FullMaintMarginReq-S — Maintenance Margin of security segment's portfolio with no discounts or intraday credits</li>
+<li>FundValue — Value of funds value (money market funds + mutual funds)</li>
+<li>FutureOptionValue — Real-time market-to-market value of futures options</li>
+<li>FuturesPNL — Real-time changes in futures value since last settlement</li>
+<li>FxCashBalance — Cash balance in related IB-UKL account</li>
+<li>GrossPositionValue — Gross Position Value in securities segment</li>
+<li>GrossPositionValue-S — Long Stock Value + Short Stock Value + Long Option Value + Short Option Value</li>
+<li>IndianStockHaircut — Margin rule for IB-IN accounts</li>
+<li>InitMarginReq — Initial Margin requirement of whole portfolio</li>
+<li>InitMarginReq-C — Initial Margin of the commodity segment in base currency</li>
+<li>InitMarginReq-S — Initial Margin of the security segment in base currency</li>
+<li>IssuerOptionValue — Real-time mark-to-market value of Issued Option</li>
+<li>Leverage-S — GrossPositionValue / NetLiquidation in security segment</li>
+<li>LookAheadNextChange — Time when look-ahead values take effect</li>
+<li>LookAheadAvailableFunds — This value reflects your available funds at the next margin change</li>
+<li>LookAheadAvailableFunds-C — Net Liquidation Value - look ahead Initial Margin</li>
+<li>LookAheadAvailableFunds-S — Equity with Loan Value - look ahead Initial Margin</li>
+<li>LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change</li>
+<li>LookAheadExcessLiquidity-C — Net Liquidation Value - look ahead Maintenance Margin</li>
+<li>LookAheadExcessLiquidity-S — Equity with Loan Value - look ahead Maintenance Margin</li>
+<li>LookAheadInitMarginReq — Initial margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadInitMarginReq-C — Initial margin requirement as of next period's margin change in the base currency of the account</li>
+<li>LookAheadInitMarginReq-S — Initial margin requirement as of next period's margin change in the base currency of the account</li>
+<li>LookAheadMaintMarginReq — Maintenance margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadMaintMarginReq-C — Maintenance margin requirement as of next period's margin change in the base currency of the account</li>
+<li>LookAheadMaintMarginReq-S — Maintenance margin requirement as of next period's margin change in the base currency of the account</li>
+<li>MaintMarginReq — Maintenance Margin requirement of whole portfolio</li>
+<li>MaintMarginReq-C — Maintenance Margin for the commodity segment</li>
+<li>MaintMarginReq-S — Maintenance Margin for the security segment</li>
+<li>MoneyMarketFundValue — Market value of money market funds excluding mutual funds</li>
+<li>MutualFundValue — Market value of mutual funds excluding money market funds</li>
+<li>NetDividend — The sum of the Dividend Payable/Receivable Values for the securities and commodities segments of the account</li>
+<li>NetLiquidation — The basis for determining the price of the assets in your account</li>
+<li>NetLiquidation-C — Total cash value + futures PNL + commodities options value</li>
+<li>NetLiquidation-S — Total cash value + stock value + securities options value + bond value</li>
+<li>NetLiquidationByCurrency — Net liquidation for individual currencies</li>
+<li>OptionMarketValue — Real-time mark-to-market value of options</li>
+<li>PASharesValue — Personal Account shares value of whole portfolio</li>
+<li>PASharesValue-C — Personal Account shares value in commodity segment</li>
+<li>PASharesValue-S — Personal Account shares value in security segment</li>
+<li>PostExpirationExcess — Total projected "at expiration" excess liquidity</li>
+<li>PostExpirationExcess-C — Provides a projected "at expiration" excess liquidity based on the soon-to expire contracts in your portfolio in commodity segment</li>
+<li>PostExpirationExcess-S — Provides a projected "at expiration" excess liquidity based on the soon-to expire contracts in your portfolio in security segment</li>
+<li>PostExpirationMargin — Total projected "at expiration" margin</li>
+<li>PostExpirationMargin-C — Provides a projected "at expiration" margin value based on the soon-to expire contracts in your portfolio in commodity segment</li>
+<li>PostExpirationMargin-S — Provides a projected "at expiration" margin value based on the soon-to expire contracts in your portfolio in security segment</li>
+<li>PreviousDayEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day in securities segment</li>
+<li>PreviousDayEquityWithLoanValue-S — IMarginable Equity with Loan value as of 16:00 ET the previous day</li>
+<li>RealCurrency — Open positions are grouped by currency</li>
+<li>RealizedPnL — Shows your profit on closed positions, which is the difference between your entry execution cost and exit execution costs, or (execution price + commissions to open the positions) - (execution price + commissions to close the position)</li>
+<li>RegTEquity — Regulation T equity for universal account</li>
+<li>RegTEquity-S — Regulation T equity for security segment</li>
+<li>RegTMargin — Regulation T margin for universal account</li>
+<li>RegTMargin-S — Regulation T margin for security segment</li>
+<li>SMA — Line of credit created when the market value of securities in a Regulation T account increase in value</li>
+<li>SMA-S — Regulation T Special Memorandum Account balance for security segment</li>
+<li>SegmentTitle — Account segment name</li>
+<li>StockMarketValue — Real-time mark-to-market value of stock</li>
+<li>TBondValue — Value of treasury bonds</li>
+<li>TBillValue — Value of treasury bills</li>
+<li>TotalCashBalance — Total Cash Balance including Future PNL</li>
+<li>TotalCashValue — Total cash value of stock, commodities and securities</li>
+<li>TotalCashValue-C — CashBalance in commodity segment</li>
+<li>TotalCashValue-S — CashBalance in security segment</li>
+<li>TradingType-S — Account Type</li>
+<li>UnrealizedPnL — The difference between the current market value of your open positions and the average cost, or Value - Average Cost</li>
+<li>WarrantValue — Value of warrants</li>
+<li>WhatIfPMEnabled — To check projected margin requirements under Portfolio Margin model </li>
+</ul>
+</td></tr>
     <tr><td class="paramname">value</td><td>up-to-date value </td></tr>
     <tr><td class="paramname">currency</td><td>the currency on which the value is expressed. </td></tr>
     <tr><td class="paramname">accountName</td><td>the account </td></tr>

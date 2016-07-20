@@ -1,6 +1,7 @@
 var dde_tutorial =
 [
     [ "What You Will Need", "dde_tutorial.html#dde_what_you_will_need", null ],
+    [ "Ddedll.dll Error", "dde_tutorial.html#ddedll_error", null ],
     [ "Tutorial Topics", "dde_tutorial.html#tutorial_topics", null ],
     [ "Real Time Data with Excel", "dde_realtime_tutorial.html", [
       [ "Requisites", "dde_realtime_tutorial.html#dde_rt_requisites", null ],
@@ -21,6 +22,10 @@ var dde_tutorial =
       [ "Historical Data", "dde_reference.html#dde_hst", [
         [ "Duration", "dde_reference.html#dde_hst_understanding_duration", null ],
         [ "Bar Sizes", "dde_reference.html#dde_hst_understanding_barsize", null ]
+      ] ],
+      [ "Contract Definitions", "dde_reference.html#dde_contracts", [
+        [ "How to Find the Definition of a Contract", "dde_reference.html#dde_contracts_description", null ],
+        [ "Formulas for Different Security Types", "dde_reference.html#dde_contracts_formulas", null ]
       ] ]
     ] ]
 ];

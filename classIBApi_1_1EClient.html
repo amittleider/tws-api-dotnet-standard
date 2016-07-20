@@ -136,7 +136,7 @@ $(document).ready(function(){initNavTree('classIBApi_1_1EClient.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.  
+<p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to thirty-two clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.  
  <a href="classIBApi_1_1EClient.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for EClient:</div>
@@ -231,7 +231,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a298083eaed0207ac8d3e69894dd81c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the FA configuration A Financial Advisor can define three different configurations:  <a href="#a298083eaed0207ac8d3e69894dd81c82">More...</a><br/></td></tr>
 <tr class="separator:a298083eaed0207ac8d3e69894dd81c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e0d55d36cd416639b97ee6e47a86fe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a3e0d55d36cd416639b97ee6e47a86fe9">reqAccountSummary</a> (int reqId, string group, string tags)</td></tr>
-<tr class="memdesc:a3e0d55d36cd416639b97ee6e47a86fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests a specific account's summary. This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at <a class="el" href="interfaceIBApi_1_1EWrapper.html#acd761f48771f61dd0fb9e9a7d88d4f04" title="Receives the account information. This method will receive the account information just as it appears...">EWrapper::accountSummary</a>.  <a href="#a3e0d55d36cd416639b97ee6e47a86fe9">More...</a><br/></td></tr>
+<tr class="memdesc:a3e0d55d36cd416639b97ee6e47a86fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests a specific account's summary. This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at <a class="el" href="interfaceIBApi_1_1EWrapper.html#acd761f48771f61dd0fb9e9a7d88d4f04" title="Receives the account information. This method will receive the account information just as it appears...">EWrapper::accountSummary</a> <a href="https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm">https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm</a>.  <a href="#a3e0d55d36cd416639b97ee6e47a86fe9">More...</a><br/></td></tr>
 <tr class="separator:a3e0d55d36cd416639b97ee6e47a86fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea1b0d9b6b85a4e0b18caf13a51f837f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">reqAccountUpdates</a> (bool subscribe, string acctCode)</td></tr>
 <tr class="memdesc:aea1b0d9b6b85a4e0b18caf13a51f837f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to an specific account's information and portfolio Through this method, a single account's subscription can be started/stopped. As a result from the subscription, the account's information, portfolio and last update time will be received at <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5" title="Receives the subscribed account&#39;s information. Only one account can be subscribed at a time...">EWrapper::updateAccountValue</a>, EWrapper::updateAccountPortfolio, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0f2fa798304a0cf101d57453f48c55f0" title="Receives the last time on which the account was updated. ">EWrapper::updateAccountTime</a> respectively. Only one account can be subscribed at a time. A second subscription request for another account when the previous one is still active will cause the first one to be canceled in favour of the second one. Consider user reqPositions if you want to retrieve all your accounts' portfolios directly.  <a href="#aea1b0d9b6b85a4e0b18caf13a51f837f">More...</a><br/></td></tr>
@@ -285,7 +285,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ab262cf5601e57d6612d3df5e821fca9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests all positions from all accounts.  <a href="#ab262cf5601e57d6612d3df5e821fca9e">More...</a><br/></td></tr>
 <tr class="separator:ab262cf5601e57d6612d3df5e821fca9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a644a8d918f3108a3817e8672b9782e67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a644a8d918f3108a3817e8672b9782e67">reqRealTimeBars</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, int barSize, string whatToShow, bool useRTH, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt; realTimeBarsOptions)</td></tr>
-<tr class="memdesc:a644a8d918f3108a3817e8672b9782e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests real time bars Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account.  <a href="#a644a8d918f3108a3817e8672b9782e67">More...</a><br/></td></tr>
+<tr class="memdesc:a644a8d918f3108a3817e8672b9782e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests real time bars Currently, only 5 seconds bars are provided. This request is subject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account.  <a href="#a644a8d918f3108a3817e8672b9782e67">More...</a><br/></td></tr>
 <tr class="separator:a644a8d918f3108a3817e8672b9782e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5839736a34d827f8db87f536a73ae970"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970">reqScannerParameters</a> ()</td></tr>
 <tr class="memdesc:a5839736a34d827f8db87f536a73ae970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests all possible parameters which can be used for a scanner subscription.  <a href="#a5839736a34d827f8db87f536a73ae970">More...</a><br/></td></tr>
@@ -467,7 +467,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <tr class="separator:aacf95fe1db1afe29b687a4fa78ef4609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host. </p>
+<div class="textblock"><p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to thirty-two clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6019980df10f825dcba782d8992da1c1"></a>
 <div class="memitem">
@@ -494,7 +494,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">wrapper</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html" title="This interface&#39;s methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every EClientSocket method call will result in at least one event delivered here. ">EWrapper</a>'s implementating class instance. Every message being delivered by IB to the API client will be forwarded to the <a class="el" href="interfaceIBApi_1_1EWrapper.html" title="This interface&#39;s methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every EClientSocket method call will result in at least one event delivered here. ">EWrapper</a>'s implementating class. </td></tr>
+    <tr><td class="paramname">wrapper</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html" title="This interface&#39;s methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every EClientSocket method call will result in at least one event delivered here. ">EWrapper</a>'s implementing class instance. Every message being delivered by IB to the API client will be forwarded to the <a class="el" href="interfaceIBApi_1_1EWrapper.html" title="This interface&#39;s methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every EClientSocket method call will result in at least one event delivered here. ">EWrapper</a>'s implementing class. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1036,7 +1036,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a644a8d918f3108a3817e8672b9782e67" title="Requests real time bars Currently, only 5 seconds bars are provided. This request ius suject to the s...">reqRealTimeBars</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a644a8d918f3108a3817e8672b9782e67" title="Requests real time bars Currently, only 5 seconds bars are provided. This request is subject to the s...">reqRealTimeBars</a> </dd></dl>
 
 </div>
 </div>
@@ -1243,7 +1243,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>nextValidId, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all open orders submitted by any API client as well as those directly placed in the TWS...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id) ...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order. ">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders included those placed directly...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="classIBApi_1_1Order.html" title="The order&#39;s description. ">Order</a>, <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a09c07727efd297e438690ab42838d332" title="Receives next valid order id. ">EWrapper::nextValidId</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all open orders submitted by any API client as well as those directly placed in the TWS...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id) ...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order. ">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders included those placed directly...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="classIBApi_1_1Order.html" title="The order&#39;s description. ">Order</a>, <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> </dd></dl>
 
 </div>
 </div>
@@ -1334,40 +1334,44 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </table>
 </div><div class="memdoc">
 
-<p>Requests a specific account's summary. This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at <a class="el" href="interfaceIBApi_1_1EWrapper.html#acd761f48771f61dd0fb9e9a7d88d4f04" title="Receives the account information. This method will receive the account information just as it appears...">EWrapper::accountSummary</a>. </p>
+<p>Requests a specific account's summary. This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at <a class="el" href="interfaceIBApi_1_1EWrapper.html#acd761f48771f61dd0fb9e9a7d88d4f04" title="Receives the account information. This method will receive the account information just as it appears...">EWrapper::accountSummary</a> <a href="https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm">https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reqId</td><td>the unique request idntifier. </td></tr>
-    <tr><td class="paramname">group</td><td>set to "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration.  tags a comma separated list with the desired tags:<ul>
-<li>AccountType</li>
-<li>NetLiquidation,</li>
-<li>TotalCashValue — Total cash including futures pnl</li>
-<li>SettledCash — For cash accounts, this is the same as TotalCashValue</li>
-<li>AccruedCash — Net accrued interest</li>
-<li>BuyingPower — The maximum amount of marginable US stocks the account can buy</li>
-<li>EquityWithLoanValue — Cash + stocks + bonds + mutual funds</li>
-<li>PreviousEquityWithLoanValue,</li>
+    <tr><td class="paramname">reqId</td><td>the unique request identifier. </td></tr>
+    <tr><td class="paramname">group</td><td>set to "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration. </td></tr>
+    <tr><td class="paramname">tags</td><td>a comma separated list with the desired tags:<ul>
+<li>AccountType — Identifies the IB account structure</li>
+<li>NetLiquidation — The basis for determining the price of the assets in your account. Total cash value + stock value + options value + bond value</li>
+<li>TotalCashValue — Total cash balance recognized at the time of trade + futures PNL</li>
+<li>SettledCash — Cash recognized at the time of settlement - purchases at the time of trade - commissions - taxes - fees</li>
+<li>AccruedCash — Total accrued cash value of stock, commodities and securities</li>
+<li>BuyingPower — Buying power serves as a measurement of the dollar value of securities that one may purchase in a securities account without depositing additional funds</li>
+<li>EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions. Cash + stocks + bonds + mutual funds</li>
+<li>PreviousEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day</li>
 <li>GrossPositionValue — The sum of the absolute value of all stock and equity option positions</li>
-<li>RegTEquity,</li>
-<li>RegTMargin,</li>
-<li>SMA — Special Memorandum Account</li>
-<li>InitMarginReq,</li>
-<li>MaintMarginReq,</li>
-<li>AvailableFunds,</li>
-<li>ExcessLiquidity,</li>
+<li>RegTEquity — Regulation T equity for universal account</li>
+<li>RegTMargin — Regulation T margin for universal account</li>
+<li>SMA — Special Memorandum Account: Line of credit created when the market value of securities in a Regulation T account increase in value</li>
+<li>InitMarginReq — Initial Margin requirement of whole portfolio</li>
+<li>MaintMarginReq — Maintenance Margin requirement of whole portfolio</li>
+<li>AvailableFunds — This value tells what you have available for trading</li>
+<li>ExcessLiquidity — This value shows your margin cushion, before liquidation</li>
 <li>Cushion — Excess liquidity as a percentage of net liquidation value</li>
-<li>FullInitMarginReq,</li>
-<li>FullMaintMarginReq,</li>
-<li>FullAvailableFunds,</li>
-<li>FullExcessLiquidity,</li>
+<li>FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits</li>
+<li>FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits</li>
+<li>FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits</li>
 <li>LookAheadNextChange — Time when look-ahead values take effect</li>
-<li>LookAheadInitMarginReq,</li>
-<li>LookAheadMaintMarginReq,</li>
-<li>LookAheadAvailableFunds,</li>
-<li>LookAheadExcessLiquidity,</li>
+<li>LookAheadInitMarginReq — Initial Margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadMaintMarginReq — Maintenance Margin requirement of whole portfolio as of next period's margin change</li>
+<li>LookAheadAvailableFunds — This value reflects your available funds at the next margin change</li>
+<li>LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change</li>
 <li>HighestSeverity — A measure of how close the account is to liquidation</li>
 <li>DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.</li>
-<li>Leverage — GrossPositionValue / NetLiquidation </li>
+<li>Leverage — GrossPositionValue / NetLiquidation</li>
+<li>$LEDGER — Single flag to relay all cash balance tags*, only in base currency.</li>
+<li>$LEDGER:CURRENCY — Single flag to relay all cash balance tags*, only in the specified currency.</li>
+<li>$LEDGER:ALL — Single flag to relay all cash balance tags* in all currencies. </li>
 </ul>
 </td></tr>
   </table>
@@ -1417,7 +1421,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e" title="Requests all positions from all accounts. ">reqPositions</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5" title="Receives the subscribed account&#39;s information. Only one account can be subscribed at a time...">EWrapper::updateAccountValue</a>, EWrapper::updateAccountPortfolio, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0f2fa798304a0cf101d57453f48c55f0" title="Receives the last time on which the account was updated. ">EWrapper::updateAccountTime</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e" title="Requests all positions from all accounts. ">reqPositions</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5" title="Receives the subscribed account&#39;s information. Only one account can be subscribed at a time...">EWrapper::updateAccountValue</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a4351084fa82b4bb13baf4e70107e22e9" title="Receives the subscribed account&#39;s portfolio. This function will receive only the portfolio of the sub...">EWrapper::updatePortfolio</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0f2fa798304a0cf101d57453f48c55f0" title="Receives the last time on which the account was updated. ">EWrapper::updateAccountTime</a> </dd></dl>
 
 </div>
 </div>
@@ -1466,7 +1470,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests account updates for account and/or model. </p>
-<dl class="section see"><dt>See Also</dt><dd>cancelAcountUpdatesMulti, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae9114b5146bb8f32796f9b9d21569d7c" title="provides the account updates. ">EWrapper::accountUpdateMulti</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b" title="Indicates all the account updates have been transmitted. ">EWrapper::accountUpdateMultiEnd</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aff0d1003f82436d8bd1ba2e5a1cf09d5" title="Cancels account updates request for account and/or model. ">cancelAccountUpdatesMulti</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae9114b5146bb8f32796f9b9d21569d7c" title="provides the account updates. ">EWrapper::accountUpdateMulti</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b" title="Indicates all the account updates have been transmitted. ">EWrapper::accountUpdateMultiEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -1492,7 +1496,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests all open orders submitted by any API client as well as those directly placed in the TWS. The existing orders will be received via the openOrder and orderStatus events. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id) ...">reqOpenOrders</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id) ...">reqOpenOrders</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -1565,11 +1569,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td>the unique request identifier. </td></tr>
-    <tr><td class="paramname">contract</td><td>the contract used as sample to query the available contracts. Typically, it will contain the <a class="el" href="classIBApi_1_1Contract.html#a598b75bfd99d152464ba0da8db597986" title="The underlying&#39;s asset symbol. ">Contract::Symbol</a>, <a class="el" href="classIBApi_1_1Contract.html#a467a3f862c9a75cc0ad246ba386411a3" title="The underlying&#39;s cuurrency. ">Contract::Currency</a>, <a class="el" href="classIBApi_1_1Contract.html#a4f83111c0ea37a19fe1dae98e3b67456" title="The security&#39;s type: STK - stock OPT - option FUT - future IND - index FOP - future on an option CASH...">Contract::SecType</a>, <a class="el" href="classIBApi_1_1Contract.html#a529401ecdd1b9f7f8a3b42c25dccdf5c" title="The destination exchange. ">Contract::Exchange</a> </td></tr>
+    <tr><td class="paramname">contract</td><td>the contract used as sample to query the available contracts. Typically, it will contain the <a class="el" href="classIBApi_1_1Contract.html#a598b75bfd99d152464ba0da8db597986" title="The underlying&#39;s asset symbol. ">Contract::Symbol</a>, <a class="el" href="classIBApi_1_1Contract.html#a467a3f862c9a75cc0ad246ba386411a3" title="The underlying&#39;s cuurrency. ">Contract::Currency</a>, <a class="el" href="classIBApi_1_1Contract.html#a4f83111c0ea37a19fe1dae98e3b67456" title="The security&#39;s type: STK - stock (or ETF) OPT - option FUT - future IND - index FOP - futures option ...">Contract::SecType</a>, <a class="el" href="classIBApi_1_1Contract.html#a529401ecdd1b9f7f8a3b42c25dccdf5c" title="The destination exchange. ">Contract::Exchange</a> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1b767810613c700b5bb1056a836da0bc" title="receives the full contract&#39;s definitons This method will return all contracts matching the requested ...">EWrapper::contractDetails</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1b767810613c700b5bb1056a836da0bc" title="receives the full contract&#39;s definitons This method will return all contracts matching the requested ...">EWrapper::contractDetails</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a4e9466339bac7149c2fdb48cda0dd088" title="After all contracts matching the request were returned, this method will mark the end of their recept...">EWrapper::contractDetailsEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -1595,7 +1599,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests the server's current time. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2" title="Server&#39;s current time This method will receive IB server&#39;s system time resulting after the invokation...">EWrapper::currentTime</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2" title="Server&#39;s current time. This method will receive IB server&#39;s system time resulting after the invokatio...">EWrapper::currentTime</a> </dd></dl>
 
 </div>
 </div>
@@ -1847,10 +1851,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <li>ASK</li>
 <li>BID_ASK</li>
 <li>HISTORICAL_VOLATILITY</li>
-<li>OPTION_IMPLIED_VOLATILITY </li>
+<li>OPTION_IMPLIED_VOLATILITY</li>
+<li>FREE_RATE</li>
+<li>REBATE_RATE </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">useRTH</td><td>set to 0 to obtain the data which was also generated ourside of the Regular Trading Hours, set to 1 to obtain only the RTH data </td></tr>
+    <tr><td class="paramname">useRTH</td><td>set to 0 to obtain the data which was also generated outside of the Regular Trading Hours, set to 1 to obtain only the RTH data </td></tr>
     <tr><td class="paramname">formatDate</td><td>set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds </td></tr>
   </table>
   </dd>
@@ -2083,7 +2089,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#af443a1cd993aee33ce67deb7bc39e484" title="Cancels a RT Market Data request. ">cancelMktData</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">EWrapper::tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">EWrapper::tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">EWrapper::tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">EWrapper::tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">EWrapper::tickGeneric</a>, EWrapper::tickOption, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">EWrapper::tickSnapshotEnd</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#af443a1cd993aee33ce67deb7bc39e484" title="Cancels a RT Market Data request. ">cancelMktData</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">EWrapper::tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">EWrapper::tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">EWrapper::tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">EWrapper::tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">EWrapper::tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">EWrapper::tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">EWrapper::tickSnapshotEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -2116,7 +2122,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>cancelNewsBulletins, EWrapper::updateNewsBulletins </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ae734ca3d50bb6ce3ddb666d9babc0d6e" title="Cancels IB&#39;s news bulletin subscription. ">cancelNewsBulletin</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a3286ab81957d224345888153bce59082" title="provides IB&#39;s bulletins ">EWrapper::updateNewsBulletin</a> </dd></dl>
 
 </div>
 </div>
@@ -2142,7 +2148,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests all open orders places by this specific API client (identified by the API client id) </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all open orders submitted by any API client as well as those directly placed in the TWS...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places an order. ">placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order. ">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders included those placed directly...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all open orders submitted by any API client as well as those directly placed in the TWS...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests all order placed on the TWS directly. Only the orders created after this request has been ma...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places an order. ">placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order. ">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders included those placed directly...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -2278,7 +2284,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </table>
 </div><div class="memdoc">
 
-<p>Requests real time bars Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account. </p>
+<p>Requests real time bars Currently, only 5 seconds bars are provided. This request is subject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tickerId</td><td>the request's unique identifier. </td></tr>
@@ -2295,7 +2301,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a472bdf9a30d1079e03400d8d38cfb634" title="Cancels Real Time Bars&#39; subscription. ">cancelRealTimeBars</a>, EWrapper::realTimeBar </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a472bdf9a30d1079e03400d8d38cfb634" title="Cancels Real Time Bars&#39; subscription. ">cancelRealTimeBars</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ac23fa61ac0221a489ecd4566d1b320fe" title="updates the real time 5 seconds bars ">EWrapper::realtimeBar</a> </dd></dl>
 
 </div>
 </div>
@@ -2426,7 +2432,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests security definition option parameters for viewing a contract's option chain  reqId the ID chosen for the request  underlyingSymbol  futFopExchange The exchange on which the returned options are trading. Can be set to the empty string "" for all exchanges.  underlyingSecType The type of the underlying security, i.e. STK  underlyingConId the contract ID of the underlying security. </p>
-<dl class="section see"><dt>See Also</dt><dd>EWrapper::secDefOptParams, EWrapper::secDefOptParamsEnd </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a427bd0b9892e9f737c63b2f3e326f73d" title="returns the option chain for an underlying on an exchange specified in reqSecDefOptParams There will ...">EWrapper::securityDefinitionOptionParameter</a> </dd></dl>
 
 </div>
 </div>

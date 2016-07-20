@@ -38,7 +38,7 @@ var interfaceIBApi_1_1EWrapper =
     [ "scannerData", "interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461", null ],
     [ "scannerDataEnd", "interfaceIBApi_1_1EWrapper.html#a54d829186800287ac87c77a6a38a1917", null ],
     [ "scannerParameters", "interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc", null ],
-    [ "securityDefinitionOptionParameter", "interfaceIBApi_1_1EWrapper.html#aac430fe1452276e5061546dfc35d651b", null ],
+    [ "securityDefinitionOptionParameter", "interfaceIBApi_1_1EWrapper.html#a427bd0b9892e9f737c63b2f3e326f73d", null ],
     [ "securityDefinitionOptionParameterEnd", "interfaceIBApi_1_1EWrapper.html#a106ab51807e85efc9f76f55b34df079d", null ],
     [ "tickEFP", "interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc", null ],
     [ "tickGeneric", "interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26", null ],

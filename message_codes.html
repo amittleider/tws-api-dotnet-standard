@@ -174,6 +174,8 @@ Warning Message Codes</h1>
 <td>2109</td><td>Order Event Warning: Attribute "Outside Regular Trading Hours" is ignored based on the order type and destination. PlaceOrder is now processed.</td><td></td></tr>
 <tr>
 <td>2110</td><td>Connectivity between TWS and server is broken. It will be restored automatically.</td><td></td></tr>
+<tr>
+<td>2137</td><td>Cross Side Warning</td><td>This warning message occurs in TWS version 955 and higher. It occurs when an order will change the position in an account from long to short or from short to long. To bypass the warning, a new feature has been added to IB Gateway 956 (or higher) and TWS 957 (or higher) so that once can go to Global Configuration &gt; Messages and disable the "Cross Side Warning".  </td></tr>
 </table>
 <h1><a class="anchor" id="client_codes"></a>
 Client Error Codes</h1>
@@ -468,7 +470,7 @@ For futures that has multiple multipliers for the same expiration, You need to s
 <tr>
 <td>353</td><td>Short sale slot value of 1 requires no location be specified. </td><td>You do not need to specify designatedLocation for your order.  </td></tr>
 <tr>
-<td>354</td><td>Not subscribed to requested market data. </td><td>You do not have the correct market data subscription for your request. For further details please refer to <a class="el" href="market_data.html">Market Data</a>.  </td></tr>
+<td>354</td><td>Not subscribed to requested market data. </td><td>You do not have live market data available in your account for the specified instruments. For further details please refer to <a class="el" href="market_data.html">Market Data</a>.  </td></tr>
 <tr>
 <td>355</td><td>Order size does not conform to market rule. </td><td>Check order size parameters for the specified contract from the TWS Contract Details.  </td></tr>
 <tr>
@@ -670,7 +672,7 @@ For futures that has multiple multipliers for the same expiration, You need to s
 <tr>
 <td>10005</td><td>Read-only models. </td><td></td></tr>
 <tr>
-<td>10006</td><td>Missing parent order. </td><td>The parent order ID specified cannot be found  </td></tr>
+<td>10006</td><td>Missing parent order. </td><td>The parent order ID specified cannot be found. In some cases this can occur with bracket orders if the child order is placed immediately after the parent order; a brief pause of 50 ms or less will be necessary before the child order is transmitted to TWS/IBG.  </td></tr>
 <tr>
 <td>10007</td><td>Invalid hedge type. </td><td></td></tr>
 <tr>
