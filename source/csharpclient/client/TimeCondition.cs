@@ -29,10 +29,10 @@ namespace IBApi
             return header + base.ToString();
         }
 
-		/**
-        * @brief Time field used in conditional order logic.
+        /**
+        * @brief Time field used in conditional order logic. Valid format: YYYYMMDD HH:MM:SS
         */
-		
+
         public string Time { get; set; }
 
         protected override bool TryParse(string cond)

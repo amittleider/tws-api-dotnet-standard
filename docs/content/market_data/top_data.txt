@@ -35,6 +35,10 @@
    these methods to manipulate the data relayed back to the client. Notice how the @ref IBApi::EWrapper::tickPrice and @ref IBApi::EWrapper::tickSize methods contain the request id with
    which the response can be mapped to its originating request.
    
+   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is not data currently available. Most commonly this occurs when requesting data from markets that are closed.
+   
+   Following every IBApi::EWrapper::tickPrice callback there will be a IBApi::EWrapper::tickSize. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive IBApi::EWrapper::tickSize value. 
+   
    <ul id="tab">
 		<li class="active"> 
 			\snippet EWrapperImpl.cs ewrapperimpl
@@ -142,6 +146,10 @@
 			\snippet TestCppClient.cpp ticksnapshotend
 		</li>
 	</ul>
+	
+	Snapshots can only be used with default tick types, i.e. no generic ticks can be specified. 
+	
+	It is important to note that snapshot requests will only return data fields which have changed within an 11 second interval. If it is necessary for an API client to receive a certain data field, it is better to subscribe to market data until that field has been returned and then cancel the market data request. 
 	
 	\section genticks Generic Ticks
 	The most common tick types are delivered automatically after a successful market data request. There are however other tick types available by explicit request: the generic tick types. 

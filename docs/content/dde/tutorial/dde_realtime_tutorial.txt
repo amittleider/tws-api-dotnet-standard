@@ -23,7 +23,9 @@
 	
 	=Ssample123|tik!'id1?req?EUR_CASH_IDEALPRO_USD_~/'
 	
-	Note that sample123 will have to be replaced with the exact same user name entered when logging into the TWS. This applies for all subsequent DDE links shown in this guide.
+	Note that sample123 will have to be replaced with the exact same user name entered when logging into the TWS. This applies for all subsequent DDE links shown in this guide. 
+	
+	For more contract definition samples via DDE, please refer to \ref dde_contracts_description .
 
 	If the above formula is copied into any cell of a spreadsheet, the cell should automatically display 0 on it.
 	

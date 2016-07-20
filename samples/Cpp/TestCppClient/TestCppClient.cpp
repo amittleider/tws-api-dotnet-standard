@@ -1,7 +1,14 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
+
+#ifdef _WIN32
+# include <Windows.h>
+# define sleep( seconds) Sleep( seconds * 1000);
+#else
+# include <unistd.h>
+#endif
 
 #include "TestCppClient.h"
 
@@ -264,7 +271,7 @@ void TestCppClient::reqCurrentTime()
 void TestCppClient::tickDataOperation()
 {
 	/*** Requesting real time market data ***/
-    Sleep(1000);
+    sleep(1);
     //! [reqmktdata]
 	m_pClient->reqMktData(1001, ContractSamples::StockComboContract(), "", false, TagValueListSPtr());
 	m_pClient->reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), "", false, TagValueListSPtr());
@@ -296,7 +303,7 @@ void TestCppClient::tickDataOperation()
 	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
 	//! [reqoptiondatagenticks]
 
-	Sleep(1000);
+	sleep(1);
 	/*** Canceling the market data subscription ***/
 	//! [cancelmktdata]
 	m_pClient->cancelMktData(1001);
@@ -313,7 +320,7 @@ void TestCppClient::marketDepthOperations()
 	//! [reqmarketdepth]
 	m_pClient->reqMktDepth(2001, ContractSamples::EurGbpFx(), 5, TagValueListSPtr());
 	//! [reqmarketdepth]
-	Sleep(2000);
+	sleep(2);
 	/*** Canceling the Deep Book request ***/
 	//! [cancelmktdepth]
 	m_pClient->cancelMktDepth(2001);
@@ -328,7 +335,7 @@ void TestCppClient::realTimeBars()
 	//! [reqrealtimebars]
 	m_pClient->reqRealTimeBars(3001, ContractSamples::EurGbpFx(), 5, "MIDPOINT", true, TagValueListSPtr());
 	//! [reqrealtimebars]
-	Sleep(2000);
+	sleep(2);
 	/*** Canceling real time bars ***/
     //! [cancelrealtimebars]
 	m_pClient->cancelRealTimeBars(3001);
@@ -362,7 +369,7 @@ void TestCppClient::historicalDataRequests()
 	m_pClient->reqHistoricalData(4001, ContractSamples::EurGbpFx(), queryTime, "1 M", "1 day", "MIDPOINT", 1, 1, TagValueListSPtr());
 	m_pClient->reqHistoricalData(4002, ContractSamples::EuropeanStock(), queryTime, "10 D", "1 min", "TRADES", 1, 1, TagValueListSPtr());
 	//! [reqhistoricaldata]
-	Sleep(2000);
+	sleep(2);
 	/*** Canceling historical data requests ***/
 	m_pClient->cancelHistoricalData(4001);
 	m_pClient->cancelHistoricalData(4002);
@@ -401,7 +408,7 @@ void TestCppClient::optionsOperations()
 void TestCppClient::contractOperations()
 {
 	m_pClient->reqContractDetails(209, ContractSamples::EurGbpFx());
-	Sleep(2000);
+	sleep(2);
 	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(210, ContractSamples::OptionForQuery());
 	//! [reqcontractdetails]
@@ -419,14 +426,14 @@ void TestCppClient::marketScanners()
 	//! [reqscannerparameters]
 	m_pClient->reqScannerParameters();
 	//! [reqscannerparameters]
-	Sleep(2000);
+	sleep(2);
 
 	/*** Triggering a scanner subscription ***/
 	//! [reqscannersubscription]
 	m_pClient->reqScannerSubscription(7001, ScannerSubscriptionSamples::HotUSStkByVolume(), TagValueListSPtr());
 	//! [reqscannersubscription]
 
-	Sleep(2000);
+	sleep(2);
 	/*** Canceling the scanner subscription ***/
 	//! [cancelscannersubscription]
 	m_pClient->cancelScannerSubscription(7001);
@@ -441,7 +448,7 @@ void TestCppClient::reutersFundamentals()
 	//! [reqfundamentaldata]
 	m_pClient->reqFundamentalData(8001, ContractSamples::USStock(), "ReportsFinSummary");
 	//! [reqfundamentaldata]
-	Sleep(2000);
+	sleep(2);
 
 	/*** Canceling fundamentals request ***/
 	//! [cancelfundamentaldata]
@@ -457,7 +464,7 @@ void TestCppClient::bulletins()
 	//! [reqnewsbulletins]
 	m_pClient->reqNewsBulletins(true);
 	//! [reqnewsbulletins]
-	Sleep(2000);
+	sleep(2);
 	/*** Canceling IB's news bulletins ***/
 	//! [cancelnewsbulletins]
 	m_pClient->cancelNewsBulletins();
@@ -472,34 +479,34 @@ void TestCppClient::accountOperations()
 	//! [reqmanagedaccts]
 	m_pClient->reqManagedAccts();
 	//! [reqmanagedaccts]
-	Sleep(2000);
+	sleep(2);
 	/*** Requesting accounts' summary ***/
 	//! [reqaaccountsummary]
 	m_pClient->reqAccountSummary(9001, "All", AccountSummaryTags::getAllTags());
 	//! [reqaaccountsummary]
-	Sleep(2000);
+	sleep(2);
 	//! [reqaaccountsummaryledger]
 	m_pClient->reqAccountSummary(9002, "All", "$LEDGER");
 	//! [reqaaccountsummaryledger]
-	Sleep(2000);
+	sleep(2);
 	//! [reqaaccountsummaryledgercurrency]
 	m_pClient->reqAccountSummary(9003, "All", "$LEDGER:EUR");
 	//! [reqaaccountsummaryledgercurrency]
-	Sleep(2000);
+	sleep(2);
 	//! [reqaaccountsummaryledgerall]
 	m_pClient->reqAccountSummary(9004, "All", "$LEDGER:ALL");
 	//! [reqaaccountsummaryledgerall]
-	Sleep(2000);
+	sleep(2);
 	/*** Subscribing to an account's information. Only one at a time! ***/
 	//! [reqaaccountupdates]
 	m_pClient->reqAccountUpdates(true, "DU242650");
 	//! [reqaaccountupdates]
-	Sleep(2000);
+	sleep(2);
 
 	//! [reqaaccountupdatesmulti]
 	m_pClient->reqAccountUpdatessMulti(9002, "U150462", "EUstocks", true);
 	//! [reqaaccountupdatesmulti]
-	Sleep(2000);
+	sleep(2);
 
 	/*** Requesting all accounts' positions. ***/
 	//! [reqpositions]
@@ -691,6 +698,11 @@ void TestCppClient::testAlgoSamples(){
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [minimpact]
 
+	//! [adaptive]
+	AvailableAlgoParams::FillAdaptiveParams(baseOrder, "Normal");
+	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+	//! [adaptive]
+
 	m_state = ST_TESTALGOSAMPLES_ACK;
 }
 
@@ -702,7 +714,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderOneAccount.account = "DU119915";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), faOrderOneAccount);
 	//! [faorderoneaccount]
-	Sleep(1000);
+	sleep(1);
 
 	//! [faordergroupequalquantity]
 	Order faOrderGroupEQ = OrderSamples::LimitOrder("SELL", 200, 2000);
@@ -710,7 +722,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderGroupEQ.faMethod = "EqualQuantity";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::SimpleFuture(), faOrderGroupEQ);
 	//! [faordergroupequalquantity]
-	Sleep(1000);
+	sleep(1);
 
 	//! [faordergrouppctchange]
 	Order faOrderGroupPC;
@@ -722,7 +734,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderGroupPC.faPercentage = "100";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::EurGbpFx(), faOrderGroupPC);
 	//! [faordergrouppctchange]
-	Sleep(1000);
+	sleep(1);
 
 	//! [faorderprofile]
 	Order faOrderProfile = OrderSamples::LimitOrder("BUY", 200, 100);
@@ -773,19 +785,19 @@ void TestCppClient::testDisplayGroups(){
 	m_pClient->queryDisplayGroups(9001);
 	//! [querydisplaygroups]
 
-	Sleep(500);
+	sleep(1);
 
 	//! [subscribetogroupevents]
 	m_pClient->subscribeToGroupEvents(9002, 1);
 	//! [subscribetogroupevents]
 
-	Sleep(500);
+	sleep(1);
 
 	//! [updatedisplaygroup]
 	m_pClient->updateDisplayGroup(9002, "8314@SMART");
 	//! [updatedisplaygroup]
 
-	Sleep(500);
+	sleep(1);
 
 	//! [subscribefromgroupevents]
 	m_pClient->unsubscribeFromGroupEvents(9002);

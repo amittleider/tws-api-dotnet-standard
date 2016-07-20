@@ -85,6 +85,49 @@ namespace Samples
             return contract;
         }
 
+		public static Contract BondWithCusip() {
+			//! [bondwithcusip]
+			Contract contract = new Contract();
+			// enter CUSIP as symbol
+			contract.Symbol= "912828C57";
+			contract.SecType = "BOND";
+			contract.Exchange = "SMART";
+			contract.Currency = "USD";
+			//! [bondwithcusip]
+			return contract;
+		}
+	
+		public static Contract Bond() {
+			//! [bond]
+			Contract contract = new Contract();
+			contract.ConId = 147554578;
+			contract.Exchange = "SMART";
+			//! [bond]
+			return contract;
+		}
+	
+		public static Contract MutualFund() {
+			//! [fundcontract]
+			Contract contract = new Contract();
+			contract.Symbol = "VINIX";
+			contract.SecType = "FUND";
+			contract.Exchange = "FUNDSERV";
+			contract.Currency = "USD";
+			//! [fundcontract]
+			return contract;
+		}
+	
+		public static Contract Commodity() {
+			//! [commoditycontract]
+			Contract contract = new Contract();
+			contract.Symbol = "XAUUSD";
+			contract.SecType = "CMDTY";
+			contract.Exchange = "SMART";
+			contract.Currency = "USD";
+			//! [commoditycontract]
+			return contract;
+		}
+		
         public static Contract USStock()
         {
             //! [stkcontract]
@@ -92,12 +135,26 @@ namespace Samples
             contract.Symbol = "IBKR";
             contract.SecType = "STK";
             contract.Currency = "USD";
-            //In the API side, NASDAQ is always defined as ISLAND
+            //In the API side, NASDAQ is always defined as ISLAND in the exchange field
             contract.Exchange = "ISLAND";
             //! [stkcontract]
             return contract;
         }
 
+		public static Contract USStockWithPrimaryExch() {
+			//! [stkcontractwithprimary]
+			Contract contract = new Contract();
+			contract.Symbol = "MSFT";
+			contract.SecType = "STK";
+			contract.Currency = "USD";
+			contract.Exchange = "SMART";
+			//Specify the Primary Exchange attribute to avoid contract ambiguity
+            contract.PrimaryExch = "NASDAQ";
+			//! [stkcontractwithprimary]
+			return contract;
+		}
+		
+		
         public static Contract USStockAtSmart()
         {
             Contract contract = new Contract();

@@ -107,7 +107,7 @@ namespace Samples
             /**********************/
             /*** Order handling ***/
             /**********************/
-            //orderOperations(client, nextValidId);
+            orderOperations(client, nextValidId);
 
             /************************************/
             /*** Financial Advisor Exclusive Operations ***/
@@ -464,7 +464,7 @@ namespace Samples
             //client.placeOrder(lmtParent.OrderId, ContractSamples.EuropeanStock(), lmtParent);
             //Attached TRAIL adjusted can only be attached to LMT parent orders.
             //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008));
-            //TestAlgoSamples(client, nextOrderId);
+            TestAlgoSamples(client, nextOrderId);
             Thread.Sleep(30000);
             /*** Cancel all orders for all accounts ***/
             //client.reqGlobalCancel();
@@ -591,6 +591,11 @@ namespace Samples
             AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3);
             client.placeOrder(nextOrderId++, ContractSamples.USOptionContract(), baseOrder);
             //! [minimpact]
+
+            //! [adaptive]
+            AvailableAlgoParams.FillAdaptiveParams(baseOrder, "Normal");
+            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
+            //! [adaptive]
         }
 
         private static void financialAdvisorOperations(EClientSocket client)

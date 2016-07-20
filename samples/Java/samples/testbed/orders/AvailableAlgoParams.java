@@ -1,6 +1,7 @@
 package samples.testbed.orders;
 
 import java.util.ArrayList;
+
 import com.ib.client.Order;
 import com.ib.client.TagValue;
 
@@ -114,5 +115,14 @@ public class AvailableAlgoParams {
 		
 	}
 	//! [minimpact_params]
+	
+	//! [adaptive_params]
+	public static void FillAdaptiveParams(Order baseOrder, String priority) {
 
+		baseOrder.algoStrategy("Adaptive");
+		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams().add(new TagValue("adaptivePriority", priority));
+
+	}
+	//! [adaptive_params]	
 }

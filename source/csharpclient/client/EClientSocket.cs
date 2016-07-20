@@ -63,7 +63,7 @@ namespace IBApi
         }
 
         /**
-        * @brief DOC_TODO
+        * Creates socket connection to TWS/IBG. This earlier version of eConnect does not have extraAuth parameter.
         */
         public void eConnect(string host, int port, int clientId)
         {
@@ -76,7 +76,7 @@ namespace IBApi
         }
 
         /**
-        * @brief DOC_TODO
+        * @brief Creates socket connection to TWS/IBG.
         */
         public void eConnect(string host, int port, int clientId, bool extraAuth)
         {
@@ -156,7 +156,7 @@ namespace IBApi
         }
 
         /**
-        * @brief DOC_TODO
+        * @brief Redirects connection to different host. 
         */
         public void redirect(string host)
         {

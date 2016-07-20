@@ -7,10 +7,19 @@
 	- \subpage realtime_bars
 	- \subpage news
 	
-	\section market_subscriptions Live Data Subscriptions
+	\section market_subscriptions Live Market Data
 	
-	In order to request any kind of market data (i.e. top-of-book, deep-of-book or historical data) it is necessary to be subscribed to the 'instruments' live market data. To subscribe to live market data
-	please log into your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -> Trade Configuration 
+	In order to receive any kind of API market data (top-of-book, depth-of-book, or historical) it is necessary have live market data for the requested instruments in TWS. For many contracts, delayed data will be available in TWS, but to receive any data through the API its necessary for live market data to be available. This requires: 
+	
+	(1) trading permissions for the specified instruments 
+	
+	(2) a funded account (except with forex and bonds), and 
+	
+	(3) market data subscriptions for the specified username
+	
+	To subscribe to live market data:
+	
+	Login to your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -> Trade Configuration 
 	-> Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.
 	
 	To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.

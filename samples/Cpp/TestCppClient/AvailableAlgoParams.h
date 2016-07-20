@@ -18,6 +18,7 @@ public:
             int giveUp, bool catchUp, bool waitOrFill, std::string startTime, std::string endTime);
 	static void FillBalanceImpactRiskParams(Order& baseOrder, double maxPctVol, std::string riskAversion, bool forceCompletion);
 	static void FillMinImpactParams(Order& baseOrder, double maxPctVol);
+	static void FillAdaptiveParams(Order& baseOrder, std::string priority);
 };
 
 #endif

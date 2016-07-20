@@ -19,7 +19,7 @@ namespace IBApi
         private double price;
 
         /**
-         * @brief
+         * @brief The unique contract identifier specifying the security. Used for Delta-Neutral Combo contracts.
          */
         public int ConId
         {
@@ -28,7 +28,7 @@ namespace IBApi
         }
 
         /**
-        * @brief
+        * @brief The underlying stock or future delta. Used for Delta-Neutral Combo contracts.
         */
         public double Delta
         {
@@ -37,7 +37,7 @@ namespace IBApi
         }
 
         /**
-        * @brief
+        * @brief The price of the underlying. Used for Delta-Neutral Combo contracts.
         */
         public double Price
         {

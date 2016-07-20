@@ -92,6 +92,10 @@
 		<tr>
 			<td>2110</td><td>Connectivity between TWS and server is broken. It will be restored automatically.</td><td></td>
 		</tr>
+			<tr>
+			<td>2137</td><td>Cross Side Warning</td><td>This warning message occurs in TWS version 955 and higher. It occurs when an order will change the position in an account from long to short or from short to long. 
+			To bypass the warning, a new feature has been added to IB Gateway 956 (or higher) and TWS 957 (or higher) so that once can go to Global Configuration > Messages and disable the "Cross Side Warning".</td>
+		</tr>
 	</table>
 	
 	\section client_codes Client Error Codes
@@ -627,7 +631,7 @@
 		</tr>
 		<tr>
 			<td>354</td><td>Not subscribed to requested market data.</td>
-			<td>You do not have the correct market data subscription for your request. For further details please refer to @ref market_data.</td>
+			<td>You do not have live market data available in your account for the specified instruments. For further details please refer to @ref market_data.</td>
 		</tr>
 		<tr>
 			<td>355</td><td>Order size does not conform to market rule.</td>
@@ -1030,7 +1034,7 @@
 		</tr>
 		<tr>
 			<td>10006</td><td>Missing parent order.</td>
-			<td>The parent order ID specified cannot be found</td>
+			<td>The parent order ID specified cannot be found. In some cases this can occur with bracket orders if the child order is placed immediately after the parent order; a brief pause of 50 ms or less will be necessary before the child order is transmitted to TWS/IBG.</td>
 		</tr>
 		<tr>
 			<td>10007</td><td>Invalid hedge type.</td>

@@ -14,6 +14,10 @@ public:
 	static Contract USStock();
 	static Contract USStockAtSmart();
 	static Contract USStockWithPrimaryExch();
+	static Contract BondWithCusip();
+	static Contract Bond();
+	static Contract MutualFund();
+	static Contract Commodity();
 	static Contract USOptionContract();
 	static Contract OptionAtBox();
 	static Contract NormalOption();

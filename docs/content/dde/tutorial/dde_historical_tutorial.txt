@@ -82,5 +82,7 @@
 	 
 	 To understand the formulas' syntax, please refer to the \ref dde_hst section from the \ref dde_reference page.
 	 
+	 For more contract definition samples via DDE, please refer to \ref dde_contracts_description .
+	 
 	<br>
 */

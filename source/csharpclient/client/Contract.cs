@@ -37,7 +37,7 @@ namespace IBApi
 
 
         /**
-        * @brief The unique contract's identifier
+        * @brief The unique IB contract identifier
         */
         public int ConId
         {
@@ -57,18 +57,19 @@ namespace IBApi
 
         /**
          * @brief The security's type:
-         *      STK - stock
+         *      STK - stock (or ETF)
          *      OPT - option
          *      FUT - future
          *      IND - index
-         *      FOP - future on an option
+         *      FOP - futures option
          *      CASH - forex pair
          *      BAG - combo
          *      WAR - warrant
          *      BOND- bond
          *      CMDTY- commodity
          *      NEWS- news
-         */
+         *		FUND- mutual fund
+		 */
         public string SecType
         {
             get { return secType; }
@@ -76,7 +77,7 @@ namespace IBApi
         }
 
         /**
-        * @brief The contract's expiration date (i.e. Options and Futures). Strings with format YYYYMM will be intrepreted as the Contract Month whereas YYYYMMDD will be interpreted as Last Trading Day.
+        * @brief The contract's last trading day or contract month (for Options and Futures). Strings with format YYYYMM will be interpreted as the Contract Month whereas YYYYMMDD will be interpreted as Last Trading Day.
         */
         public string LastTradeDateOrContractMonth
         {

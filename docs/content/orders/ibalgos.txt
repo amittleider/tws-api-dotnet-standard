@@ -353,6 +353,54 @@
 			\snippet AvailableAlgoParams.cpp minimpact_params
 		</li>
 	</ul>
+	
+	\section adaptive Adaptive Algo
+	
+	The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. 
+	Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr>
+			<td>adaptivePriority</td>
+			<td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order.</td>
+			<td>Critical > Urgent > Normal > Patient</td>
+		</tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs adaptive
+			...
+			\snippet AvailableAlgoParams.cs adaptive_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java adaptive
+			...
+			\snippet AvailableAlgoParams.java adaptive_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb adaptive
+			...
+			\snippet AvailableAlgoParams.vb adaptive_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp adaptive
+			...
+			\snippet AvailableAlgoParams.cpp adaptive_params
+		</li>
+	</ul>
+	
 	<br><br>
 
 */

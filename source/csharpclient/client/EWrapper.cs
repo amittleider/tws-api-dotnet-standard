@@ -38,9 +38,8 @@ namespace IBApi
         void error(int id, int errorCode, string errorMsg);
 
         /**
-         * @brief Server's current time
-         * This method will receive IB server's system time resulting after the invokation of reqCurrentTime
-         * @sa reqCurrentTime()
+         * @brief Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime
+         * @sa EClient::reqCurrentTime
          */
         void currentTime(long time);
 
@@ -61,7 +60,6 @@ namespace IBApi
          * @param tickerId the request's unique identifier.
          * @param field the type of size being received (i.e. bid size)
          * @param size the actual size.
-         * @see reqMarketData()
          * @sa TickType, tickPrice, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickSize(int tickerId, int field, int size);
@@ -110,6 +108,19 @@ namespace IBApi
         /**
          * @brief Receive's option specific market data.
          * This method is called when the market in an option or its underlier moves. TWS’s option model volatilities, prices, and deltas, along with the present value of dividends expected on that options underlier are received.
+         * @param tickerId the request's unique identifier.
+         * @param field Specifies the type of option computation. Pass the field value into TickType.getField(int tickType) to retrieve the field description. For example, a field value of 13 will map to modelOptComp, etc.
+         *      10 = Bid
+         *      11 = Ask
+         *      12 = Last
+         * @param impliedVolatility the implied volatility calculated by the TWS option modeler, using the specified tick type value.
+         * @param delta the option delta value.
+         * @param optPrice the option price.
+         * @param pwDividend the present value of dividends expected on the option's underlying.
+         * @param gamma the option gamma value.
+         * @param vega the option vega value.
+         * @param theta the option theta value.
+         * @param undPrice the price of the underlying.
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickString, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
@@ -145,6 +156,35 @@ namespace IBApi
          * @param reqId the request's unique identifier.
          * @param account the account id
          * @param tag the account's attribute being received.
+         *      - AccountType — Identifies the IB account structure
+         *      - NetLiquidation — The basis for determining the price of the assets in your account. Total cash value + stock value + options value + bond value
+         *      - TotalCashValue — Total cash balance recognized at the time of trade + futures PNL
+         *      - SettledCash — Cash recognized at the time of settlement - purchases at the time of trade - commissions - taxes - fees
+         *      - AccruedCash — Total accrued cash value of stock, commodities and securities
+         *      - BuyingPower — Buying power serves as a measurement of the dollar value of securities that one may purchase in a securities account without depositing additional funds
+         *      - EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions. Cash + stocks + bonds + mutual funds
+         *      - PreviousEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day
+         *      - GrossPositionValue — The sum of the absolute value of all stock and equity option positions
+         *      - RegTEquity — Regulation T equity for universal account
+         *      - RegTMargin — Regulation T margin for universal account
+         *      - SMA — Special Memorandum Account: Line of credit created when the market value of securities in a Regulation T account increase in value
+         *      - InitMarginReq — Initial Margin requirement of whole portfolio
+         *      - MaintMarginReq — Maintenance Margin requirement of whole portfolio
+         *      - AvailableFunds — This value tells what you have available for trading
+         *      - ExcessLiquidity — This value shows your margin cushion, before liquidation
+         *      - Cushion — Excess liquidity as a percentage of net liquidation value
+         *      - FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits
+         *      - FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits
+         *      - FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits
+         *      - FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits
+         *      - LookAheadNextChange — Time when look-ahead values take effect
+         *      - LookAheadInitMarginReq — Initial Margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadMaintMarginReq — Maintenance Margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadAvailableFunds — This value reflects your available funds at the next margin change
+         *      - LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change
+         *      - HighestSeverity — A measure of how close the account is to liquidation
+         *      - DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
+         *      - Leverage — GrossPositionValue / NetLiquidation
          * @param value the account's attribute's value.
          * @param currency the currency on which the value is expressed.
          * @sa accountSummaryEnd, EClientSocket::reqAccountSummary
@@ -170,6 +210,118 @@ namespace IBApi
          * @brief Receives the subscribed account's information.
          * Only one account can be subscribed at a time.
          * @param key the value being updated.
+         *      - AccountCode — The account ID number
+         *      - AccountOrGroup — "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration
+         *      - AccountReady — For internal use only
+         *      - AccountType — Identifies the IB account structure
+         *      - AccruedCash — Total accrued cash value of stock, commodities and securities
+         *      - AccruedCash-C — Reflects the current's month accrued debit and credit interest to date, updated daily in commodity segment
+         *      - AccruedCash-S — Reflects the current's month accrued debit and credit interest to date, updated daily in security segment
+         *      - AccruedDividend — Total portfolio value of dividends accrued
+         *      - AccruedDividend-C — Dividends accrued but not paid in commodity segment
+         *      - AccruedDividend-S — Dividends accrued but not paid in security segment
+         *      - AvailableFunds — This value tells what you have available for trading
+         *      - AvailableFunds-C — Net Liquidation Value - Initial Margin
+         *      - AvailableFunds-S — Equity with Loan Value - Initial Margin
+         *      - Billable — Total portfolio value of treasury bills
+         *      - Billable-C — Value of treasury bills in commodity segment
+         *      - Billable-S — Value of treasury bills in security segment
+         *      - BuyingPower — Cash Account: Minimum (Equity with Loan Value, Previous Day Equity with Loan Value)-Initial Margin, Standard Margin Account: Minimum (Equity with Loan Value, Previous Day Equity with Loan Value) - Initial Margin *4
+         *      - CashBalance — Cash recognized at the time of trade + futures PNL
+         *      - CorporateBondValue — Value of non-Government bonds such as corporate bonds and municipal bonds
+         *      - Currency — Open positions are grouped by currency
+         *      - Cushion — Excess liquidity as a percentage of net liquidation value
+         *      - DayTradesRemaining — Number of Open/Close trades one could do before Pattern Day Trading is detected
+         *      - DayTradesRemainingT+1 — Number of Open/Close trades one could do tomorrow before Pattern Day Trading is detected
+         *      - DayTradesRemainingT+2 — Number of Open/Close trades one could do two days from today before Pattern Day Trading is detected
+         *      - DayTradesRemainingT+3 — Number of Open/Close trades one could do three days from today before Pattern Day Trading is detected
+         *      - DayTradesRemainingT+4 — Number of Open/Close trades one could do four days from today before Pattern Day Trading is detected
+         *      - EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions
+         *      - EquityWithLoanValue-C — Cash account: Total cash value + commodities option value - futures maintenance margin requirement + minimum (0, futures PNL) Margin account: Total cash value + commodities option value - futures maintenance margin requirement
+         *      - EquityWithLoanValue-S — Cash account: Settled Cash Margin Account: Total cash value + stock value + bond value + (non-U.S. & Canada securities options value)
+         *      - ExcessLiquidity — This value shows your margin cushion, before liquidation
+         *      - ExcessLiquidity-C — Equity with Loan Value - Maintenance Margin
+         *      - ExcessLiquidity-S — Net Liquidation Value - Maintenance Margin
+         *      - ExchangeRate — The exchange rate of the currency to your base currency
+         *      - FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits
+         *      - FullAvailableFunds-C — Net Liquidation Value - Full Initial Margin
+         *      - FullAvailableFunds-S — Equity with Loan Value - Full Initial Margin
+         *      - FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits
+         *      - FullExcessLiquidity-C — Net Liquidation Value - Full Maintenance Margin
+         *      - FullExcessLiquidity-S — Equity with Loan Value - Full Maintenance Margin
+         *      - FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits
+         *      - FullInitMarginReq-C — Initial Margin of commodity segment's portfolio with no discounts or intraday credits
+         *      - FullInitMarginReq-S — Initial Margin of security segment's portfolio with no discounts or intraday credits
+         *      - FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits
+         *      - FullMaintMarginReq-C — Maintenance Margin of commodity segment's portfolio with no discounts or intraday credits
+         *      - FullMaintMarginReq-S — Maintenance Margin of security segment's portfolio with no discounts or intraday credits
+         *      - FundValue — Value of funds value (money market funds + mutual funds)
+         *      - FutureOptionValue — Real-time market-to-market value of futures options
+         *      - FuturesPNL — Real-time changes in futures value since last settlement
+         *      - FxCashBalance — Cash balance in related IB-UKL account
+         *      - GrossPositionValue — Gross Position Value in securities segment
+         *      - GrossPositionValue-S — Long Stock Value + Short Stock Value + Long Option Value + Short Option Value
+         *      - IndianStockHaircut — Margin rule for IB-IN accounts
+         *      - InitMarginReq — Initial Margin requirement of whole portfolio
+         *      - InitMarginReq-C — Initial Margin of the commodity segment in base currency
+         *      - InitMarginReq-S — Initial Margin of the security segment in base currency
+         *      - IssuerOptionValue — Real-time mark-to-market value of Issued Option
+         *      - Leverage-S — GrossPositionValue / NetLiquidation in security segment
+         *      - LookAheadNextChange — Time when look-ahead values take effect
+         *      - LookAheadAvailableFunds — This value reflects your available funds at the next margin change
+         *      - LookAheadAvailableFunds-C — Net Liquidation Value - look ahead Initial Margin
+         *      - LookAheadAvailableFunds-S — Equity with Loan Value - look ahead Initial Margin
+         *      - LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change
+         *      - LookAheadExcessLiquidity-C — Net Liquidation Value - look ahead Maintenance Margin
+         *      - LookAheadExcessLiquidity-S — Equity with Loan Value - look ahead Maintenance Margin
+         *      - LookAheadInitMarginReq — Initial margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadInitMarginReq-C — Initial margin requirement as of next period's margin change in the base currency of the account
+         *      - LookAheadInitMarginReq-S — Initial margin requirement as of next period's margin change in the base currency of the account
+         *      - LookAheadMaintMarginReq — Maintenance margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadMaintMarginReq-C — Maintenance margin requirement as of next period's margin change in the base currency of the account
+         *      - LookAheadMaintMarginReq-S — Maintenance margin requirement as of next period's margin change in the base currency of the account
+         *      - MaintMarginReq — Maintenance Margin requirement of whole portfolio
+         *      - MaintMarginReq-C — Maintenance Margin for the commodity segment 
+         *      - MaintMarginReq-S — Maintenance Margin for the security segment 
+         *      - MoneyMarketFundValue — Market value of money market funds excluding mutual funds
+         *      - MutualFundValue — Market value of mutual funds excluding money market funds
+         *      - NetDividend — The sum of the Dividend Payable/Receivable Values for the securities and commodities segments of the account
+         *      - NetLiquidation — The basis for determining the price of the assets in your account
+         *      - NetLiquidation-C — Total cash value + futures PNL + commodities options value
+         *      - NetLiquidation-S — Total cash value + stock value + securities options value + bond value
+         *      - NetLiquidationByCurrency — Net liquidation for individual currencies
+         *      - OptionMarketValue — Real-time mark-to-market value of options
+         *      - PASharesValue — Personal Account shares value of whole portfolio
+         *      - PASharesValue-C — Personal Account shares value in commodity segment
+         *      - PASharesValue-S — Personal Account shares value in security segment
+         *      - PostExpirationExcess — Total projected "at expiration" excess liquidity
+         *      - PostExpirationExcess-C — Provides a projected "at expiration" excess liquidity based on the soon-to expire contracts in your portfolio in commodity segment
+         *      - PostExpirationExcess-S — Provides a projected "at expiration" excess liquidity based on the soon-to expire contracts in your portfolio in security segment
+         *      - PostExpirationMargin — Total projected "at expiration" margin
+         *      - PostExpirationMargin-C — Provides a projected "at expiration" margin value based on the soon-to expire contracts in your portfolio in commodity segment
+         *      - PostExpirationMargin-S — Provides a projected "at expiration" margin value based on the soon-to expire contracts in your portfolio in security segment
+         *      - PreviousDayEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day in securities segment
+         *      - PreviousDayEquityWithLoanValue-S — IMarginable Equity with Loan value as of 16:00 ET the previous day
+         *      - RealCurrency — Open positions are grouped by currency
+         *      - RealizedPnL — Shows your profit on closed positions, which is the difference between your entry execution cost and exit execution costs, or (execution price + commissions to open the positions) - (execution price + commissions to close the position)
+         *      - RegTEquity — Regulation T equity for universal account 
+         *      - RegTEquity-S — Regulation T equity for security segment
+         *      - RegTMargin — Regulation T margin for universal account
+         *      - RegTMargin-S — Regulation T margin for security segment
+         *      - SMA — Line of credit created when the market value of securities in a Regulation T account increase in value
+         *      - SMA-S — Regulation T Special Memorandum Account balance for security segment
+         *      - SegmentTitle — Account segment name
+         *      - StockMarketValue — Real-time mark-to-market value of stock
+         *      - TBondValue — Value of treasury bonds
+         *      - TBillValue — Value of treasury bills
+         *      - TotalCashBalance — Total Cash Balance including Future PNL
+         *      - TotalCashValue — Total cash value of stock, commodities and securities
+         *      - TotalCashValue-C — CashBalance in commodity segment
+         *      - TotalCashValue-S — CashBalance in security segment 
+         *      - TradingType-S — Account Type
+         *      - UnrealizedPnL — The difference between the current market value of your open positions and the average cost, or Value - Average Cost
+         *      - WarrantValue — Value of warrants
+         *      - WhatIfPMEnabled — To check projected margin requirements under Portfolio Margin model
          * @param value up-to-date value
          * @param currency the currency on which the value is expressed.
          * @param accountName the account
@@ -374,7 +526,7 @@ namespace IBApi
 
         /**
          * @brief Indicates all the positions have been transmitted.
-         * @sa position, reqPositions
+         * @sa position, EClient::reqPositions
          */
         void positionEnd();
 
@@ -416,7 +568,7 @@ namespace IBApi
         /**
          * @brief Indicates the scanner data reception has terminated.
          * @param reqId the request's identifier
-         * @sa scannerParameters, scannerData, EClientSocket>>reqScannerSubscription
+         * @sa scannerParameters, scannerData, EClientSocket::reqScannerSubscription
          */
         void scannerDataEnd(int reqId);
 
@@ -486,7 +638,7 @@ namespace IBApi
 
         /**
          * @brief Indicates all the positions have been transmitted.
-         * @sa positionMulti, reqPositionsMulti
+         * @sa positionMulti, EClient::reqPositionsMulti
          */
         void positionMultiEnd(int requestId);
 
@@ -498,7 +650,7 @@ namespace IBApi
          * @param key the name of parameter
          * @param value the value of parameter
          * @param currency the currency of parameter
-         * @sa accountUpdateMultiEnd, reqAccountUpdatesMulti
+         * @sa accountUpdateMultiEnd, EClient::reqAccountUpdatesMulti
          */
         void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
 
@@ -517,14 +669,14 @@ namespace IBApi
 		* @param multiplier the option multiplier
 		* @param expirations a list of the expiries for the options of this underlying on this exchange
 		* @param strikes a list of the possible strikes for options of this underlying on this exchange
-		* @sa reqSecDefOptParams
+		* @sa EClient::reqSecDefOptParams
 		*/
         void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
 		
 		/**
 		* @brief called when all callbacks to securityDefinitionOptionParameter are complete
 		* @param reqId the ID used in the call to securityDefinitionOptionParameter
-		* @sa securityDefinitionOptionParameter, reqSecDefOptParams
+		* @sa securityDefinitionOptionParameter, EClient::reqSecDefOptParams
 		*/
         void securityDefinitionOptionParameterEnd(int reqId);
     }
