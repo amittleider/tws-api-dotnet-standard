@@ -168,6 +168,8 @@ namespace IBApi
         private List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
         private List<TagValue> orderMiscOptions = new List<TagValue>();
         private bool solicited;
+        private string modelCode;
+        private string extOperator;
 
         /**
          * @brief The API client's order id.
@@ -752,7 +754,7 @@ namespace IBApi
         }
 
         /**
-         * @brief - 
+         * @brief - DOC_TODO
          */
         public int DeltaNeutralConId
         {
@@ -761,7 +763,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralSettlingFirm
         {
@@ -770,7 +772,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralClearingAccount
         {
@@ -779,7 +781,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          */
         public string DeltaNeutralClearingIntent
         {
@@ -826,7 +828,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For EFP orders only.
          */
         public double BasisPoints
@@ -836,7 +838,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For EFP orders only.
          */
         public int BasisPointsType
@@ -876,7 +878,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended Scale orders.
          */
         public double ScalePriceAdjustValue
@@ -886,7 +888,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended Scale orders.
          */
         public int ScalePriceAdjustInterval
@@ -896,7 +898,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public double ScaleProfitOffset
@@ -906,7 +908,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public bool ScaleAutoReset
@@ -916,7 +918,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public int ScaleInitPosition
@@ -926,7 +928,7 @@ namespace IBApi
         }
 
         /**
-          * @brief -
+          * @brief - DOC_TODO
           * For extended scale orders.
           */
         public int ScaleInitFillQty
@@ -936,7 +938,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * For extended scale orders.
          */
         public bool ScaleRandomPercent
@@ -960,7 +962,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * Beta = x for Beta hedge orders, ratio = y for Pair hedge order
          */
         public string HedgeParam
@@ -979,7 +981,7 @@ namespace IBApi
         }
 
         /**
-         * @brief -
+         * @brief - DOC_TODO
          * Institutions only. Indicates the firm which will settle the trade.
          */
         public string SettlingFirm
@@ -1075,13 +1077,16 @@ namespace IBApi
             set { orderComboLegs = value; }
         }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public List<TagValue> OrderMiscOptions
         {
             get { return orderMiscOptions; }
             set { orderMiscOptions = value; }
         }
 
-        /*
+        /**
          * @brief for GTC orders.
          */
         public string ActiveStartTime
@@ -1090,7 +1095,7 @@ namespace IBApi
             set { activeStartTime = value; }
         }
 
-        /*
+        /**
         * @brief for GTC orders.
         */
         public string ActiveStopTime
@@ -1099,13 +1104,33 @@ namespace IBApi
             set { activeStopTime = value; }
         }
 
-        /*
+        /**
          * @brief Used for scale orders.
          */
         public string ScaleTable
         {
             get { return scaleTable; }
             set { scaleTable = value; }
+        }
+
+        /**
+         * @brief model code
+         */
+        public string ModelCode
+        {
+            get { return modelCode; }
+            set { modelCode = value; }
+        }
+
+        /**
+         * @brief This is a regulartory attribute that applies to all US Commodity (Futures) Exchanges, 
+         * provided to allow client to comply with CFTC Tag 50 Rules
+         */
+
+        public string ExtOperator
+        {
+            get { return extOperator; }
+            set { extOperator = value; }
         }
 
         public Order()
@@ -1159,6 +1184,13 @@ namespace IBApi
             scaleTable = EMPTY_STR;
             whatIf = false;
             notHeld = false;
+            Conditions = new List<OrderCondition>();
+            TriggerPrice = double.MaxValue;
+            LmtPriceOffset = double.MaxValue;
+            AdjustedStopPrice = double.MaxValue;
+            AdjustedStopLimitPrice = double.MaxValue;
+            AdjustedTrailingAmount = double.MaxValue;
+            ExtOperator = EMPTY_STR;
         }
 
         public override bool Equals(Object p_other)
@@ -1235,7 +1267,9 @@ namespace IBApi
                 ExemptCode != l_theOther.ExemptCode ||
                 RandomizePrice != l_theOther.RandomizePrice ||
                 RandomizeSize != l_theOther.RandomizeSize ||
-                Solicited != l_theOther.Solicited)
+                Solicited != l_theOther.Solicited ||
+                ConditionsIgnoreRth != l_theOther.ConditionsIgnoreRth ||
+                ConditionsCancelOrder != l_theOther.ConditionsCancelOrder)
             {
                 return false;
             }
@@ -1270,7 +1304,9 @@ namespace IBApi
                 Util.StringCompare(ClearingIntent, l_theOther.ClearingIntent) != 0 ||
                 Util.StringCompare(AlgoStrategy, l_theOther.AlgoStrategy) != 0 ||
                 Util.StringCompare(AlgoId, l_theOther.AlgoId) != 0 ||
-                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0)
+                Util.StringCompare(ScaleTable, l_theOther.ScaleTable) != 0 ||
+                Util.StringCompare(ModelCode, l_theOther.ModelCode) != 0 ||
+                Util.StringCompare(ExtOperator, l_theOther.ExtOperator) != 0)
             {
                 return false;
             }
@@ -1294,7 +1330,85 @@ namespace IBApi
             return true;
         }
 
+        /**
+         * @brief - DOC_TODO
+         */
         public bool RandomizeSize { get; set; }
+        /**
+         * @brief - DOC_TODO
+         */
+
         public bool RandomizePrice { get; set; }
+
+        /**
+        * @brief Pegged-to-benchmark orders: this attribute will contain the conId of the contract against which the order will be pegged.
+        */
+        public int ReferenceContractId { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: indicates whether the order's pegged price should increase or decreases.
+        */
+        public bool IsPeggedChangeAmountDecrease { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: amount by which the order's pegged price should move.
+        */
+        public double PeggedChangeAmount { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: the amount the reference contract needs to move to adjust the pegged order.
+        */
+        public double ReferenceChangeAmount { get; set; }
+        /**
+        * @brief Pegged-to-benchmark orders: the exchange against which we want to observe the reference contract.
+        */
+        public string ReferenceExchange { get; set; }
+        
+        /**
+        * @brief Adjusted Stop orders: the parent order will be adjusted to the given type when the adjusted trigger price is penetrated.
+        */
+        public string AdjustedOrderType { get; set; }
+
+        /**
+         * @brief - DOC_TODO
+         */
+        public double TriggerPrice { get; set; }
+
+        /**
+         * @brief - DOC_TODO
+         */
+        public double LmtPriceOffset { get; set; }
+
+        /**
+        * @brief Adjusted Stop orders: specifies the stop price of the adjusted (STP) parent
+        */
+        public double AdjustedStopPrice { get; set; }
+
+        /**
+        * @brief Adjusted Stop orders: specifies the stop limit price of the adjusted (STPL LMT) parent
+        */
+        public double AdjustedStopLimitPrice { get; set; }
+
+        /**
+        * @brief Adjusted Stop orders: specifies the trailing amount of the adjusted (TRAIL) parent 
+        */
+        public double AdjustedTrailingAmount { get; set; }
+
+        /**
+         * @brief Adjusted Stop orders: specifies where the trailing unit is an amount (set to 0) or a percentage (set to 1)
+         */
+        public int AdjustableTrailingUnit { get; set; }
+
+        /**
+       * @brief Conditions determining when the order will be activated or canceled 
+       */
+        public List<OrderCondition> Conditions { get; set; }
+        /**
+        * @brief Indicates whether or not conditions will also be valid outside Regular Trading Hours
+        */
+        public bool ConditionsIgnoreRth { get; set; }
+
+        /**
+        * @brief Conditions can determine if an order should become active or canceled.
+        */
+        public bool ConditionsCancelOrder { get; set; }
+
     }
 }

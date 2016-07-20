@@ -1,0 +1,138 @@
+<!-- HTML header for doxygen 1.8.4-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen $doxygenversion"/>
+<!--BEGIN PROJECT_NAME--><title>$projectname: $title</title><!--END PROJECT_NAME-->
+<!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
+<script type="text/javascript" src="$relpath^jquery.js"></script>
+<script type="text/javascript" src="$relpath^dynsections.js"></script>
+<link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
+
+<script>
+
+$(document).ready(function(){
+		var picked=getCookie("picked");
+		if (picked != "") {
+			if (!$(this).hasClass("active")) {
+				var tabNum = $(this).index();
+				var nthChild = picked;
+				$("ul#tabs li.active").removeClass("active");
+				$(this).addClass("active");
+				$("ul#tab li.active").removeClass("active");
+				$("ul#tab li:nth-child("+nthChild+")").addClass("active");
+				$("ul#tabs li:nth-child("+nthChild+")").addClass("active");
+				setCookie("picked", nthChild, 1);
+			}
+		}
+		
+		
+		$("ul#tabs li").click(function(e){
+			if (!$(this).hasClass("active")) {
+			var tabNum = $(this).index();
+			var nthChild = tabNum+1;
+			$("ul#tabs li.active").removeClass("active");
+			$(this).addClass("active");
+			$("ul#tab li.active").removeClass("active");
+			$("ul#tab li:nth-child("+nthChild+")").addClass("active");
+			setCookie("picked", nthChild, 1);
+		}
+    });
+});
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+} 
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+} 
+
+function checkCookie() {
+    var picked=getCookie("picked");
+    if (picked != "") {
+        alert("Welcome again " + picked);
+    }else{
+        //username = prompt("Please enter your name:", "");
+        if (picked != "" && picked != null) {
+            setCookie("picked", 1, 365);
+        }
+    }
+}
+
+
+
+</script>
+
+$treeview
+$search
+$mathjax
+<link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
+$extrastylesheet
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+
+<!--BEGIN TITLEAREA-->
+<div id="titlearea" style="background-color:black;">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr>
+  <!--BEGIN PROJECT_LOGO-->
+  <td id="projectlogo"><img alt="Logo" src="$relpath^$projectlogo"/></a></td>
+  <!--END PROJECT_LOGO-->
+  <!--BEGIN PROJECT_NAME-->
+  <td style="padding: 0 0 0 1em;">
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+  </td>
+  <!--END PROJECT_NAME-->
+
+  <!--BEGIN !PROJECT_NAME-->
+   <!--BEGIN PROJECT_BRIEF-->
+    <td style="padding-left: 0.5em;">
+    <div id="projectbrief">$projectbrief</div>
+    </td>
+   <!--END PROJECT_BRIEF-->
+  <!--END !PROJECT_NAME-->
+  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <!--BEGIN GCS_SEARCHBOX-->
+  <td style="position: absolute; right: 0;">
+   <div id="google-custom-search" align="right" style="vertical-align: top;">
+   <script>
+  (function() {
+    var cx = '002885114636493240026:q6smajphkxq';
+	var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+	</script>
+	<gcse:search newWindow="false" enableHistory="true"></gcse:search>
+   </div>
+   </td>
+  <!--END !GCS_SEARCHBOX-->
+  <!--BEGIN DISABLE_INDEX-->
+   <!--BEGIN SEARCHENGINE-->
+   <td>$Searchbox</td>
+   <!--END SEARCHENGINE-->
+  <!--END DISABLE_INDEX-->
+ </tr>
+ </tbody>
+</table>
+</div>
+<!--END TITLEAREA-->
+<!-- end header part -->

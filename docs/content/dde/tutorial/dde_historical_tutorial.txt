@@ -1,0 +1,88 @@
+/*! \page dde_historical_tutorial Historical Data with Excel
+
+	In the previous tutorial, we showed you how to request real time quotes from TWS using the DDE TWS API. 
+	In this tutorial, we will show you how to request historical data from TWS, although the process for doing so is slightly more complicated. 
+	You will need to add some simple Visual Basic (VBA) code to your Excel worksheet to obtain the data.
+	
+	\section dde_hst_requisites Requisites
+	
+	Please make sure you have already acquired \ref dde_what_you_will_need before going forward in this tutorial.
+	
+	\section dde_hst_prepare Preparing the request
+	
+	Just as with real time data, historical data requests need first to ask the TWS to “prepare” the data we are interested in. The TWS needs to know not only the specific instrument but also:
+
+     - The ending date and time from which we want to collect the data, formatted as: <b>yyyymmdd hh:mm:ss</b>.
+     - The time duration comprising the data from the ending date going back in time.
+     - The bar size (IB provides historical data in open, high, low and close bar data format).
+     - The type of data (i.e. MIDPOINT, TRADES, etc.).
+     - Whether we want data generated during regular trading session or not.
+     - The date format in which each bar’s time and date will be presented.
+
+	The formula to be used for historical data requests is:
+
+	<b>=[twsuser]|hist!'id[requestId]?req?[symbol]_[type]_[exchange]_[currency]_~/[yyyymmdd]singleSpace[HH]singleColon[mm]singleColon[ss]_[duration amount]singleSpace[duration unit]_[bar size]_[rth only?]_[what to show]_[date format]'</b>
+	
+	<table>
+		<tr><th><b>Attribute</b></th><th><b>Description</b></th></tr>
+		<tr><td>twsuser</td><td>The username with which you logged into TWS.</td></tr>
+		<tr><td>requestId</td><td>The request’s unique identifier (any positive integer).</td></tr>
+		<tr><td>symbol</td><td>The instrument’s symbol.</td></tr>
+		<tr><td>type</td><td>The type of instrument.</td></tr>
+		<tr><td>exchange</td><td>The instrument’s exchange.</td></tr>
+		<tr><td>currency</td><td>The instrument’s currency (USD).</td></tr>
+		<tr><td>yyyymmdd hh:mm:ss</td><td>End date for the historical data query.</td></tr>
+		<tr><td>duration amount</td><td>The number of time units for the duration time.</td></tr>
+		<tr><td>duration unit</td><td>The duration's time unit.</td></tr>
+		<tr><td>bar size</td><td>The bar size.</td></tr>
+		<tr><td>rth only</td><td>Set to 1 to obtain only data generated during regular trading hours (RTH), or set to 0 to get all data generated during and outside of of RTH.</td></tr>
+		<tr><td>what to show</td><td>The type of data: MIDPOINT, TRADES, BID, ASK, etc.</td></tr>
+		<tr><td>data format</td><td>Set to 1 to format the resulting bars’ date as yyyymmss hh:mm:ss. Set to 2 to express the resulting bars’ time as the number of seconds since 1970.</td></tr>
+	</table>
+	
+	\subsection how_to_handle_spaces_and_colons How to Handle Spaces and Colons in the Formula
+	
+	Our DDE links cannot contain certain special characters such as spaces or colons, but you will need to use these characters in your DDE formula. To overcome this limitation, we have provided keywords that you can use in place of the actual special character: singleSpace and singleColon. For example, if you want to specify an end date and time such as March 2, 2015 at 23:59:59 in the format specified above, you would then enter:
+
+	<b>20150302 23:59:59</b>
+
+	This translates into:
+
+	20150302<b>singleSpace</b>23<b>singleColon</b>59<b>singleColon</b>59
+
+	This applies to all cases in which you need spaces or colons in the DDE formula. This is particularly important when describing futures or options contracts because you can then use their local symbols, which often include spaces. For example, the DBK futures contract expiring on May 2015 has a local symbol <b>DBKG MAY 15</b> which you would provide as:
+
+	DBKG<b>singleSpace</b>MAY<b>singleSpace</b>15
+	
+	\subsection enter_hst_request Enter the Historical Data Request
+	
+	Let's continue with our historical data request. As an example, try to pull MIDPOINT historical data for the EUR.USD currency pair prior to February 27th 2015 at 23:59:59 in thirty minutes bars (9), for a duration of one day (1 D). 
+	The correct formula for this request is:
+
+	=S<b>sample123</b>|hist!'id<b>4</b>?req?<b>EUR_CASH_IDEALPRO_USD_~</b>/<b>20150227</b>singleSpace<b>23</b>singleColon<b>59</b>singleColon<b>59</b>_<b>1</b>singleSpace<b>D</b>_<b>9</b>_<b>MIDPOINT</b>_<b>1</b>_<b>1</b>'
+
+	Copy the above formula into an empty cell in your Excel worksheet. Notice that the cell displays PROCESSING, which, if everything proceeds without error, will change into RECEIVED”:
+	
+	\image html dde_hst_prepare.png
+	
+	At this point, you have just told TWS that you want our EUR.USD historical data and TWS replied that the data has been received from the server and is ready to be viewed.
+
+	This is where the process becomes slightly complicated because, unlike real time market data, where each incoming price is obtained using a very specific formula, you will not fetch each bar one by one with a formula (this is quite fortunate since we could be expecting hundreds of bars!). 
+	Instead, you will read all the bars together using a single DDE request and then display them in your worksheet with the help of some VBA code. For purposes of simplicity, we will keep the coding to minimum.
+
+	In the next steps, we will briefly describe how to add a button to a spreadsheet for the sake of completeness but remember that it is out of the scope of IB's support to provide any assistance on using Excel.
+	
+	\section dde_hst_receive Receiving the data
+	
+	 - \subpage dde_hst_receive_add_a_button
+	
+	 - \subpage dde_hst_receive_add_the_code
+	 
+	 \section dde_hst_understanding Understanding the Formula
+	 
+	 To understand the formulas' syntax, please refer to the \ref dde_hst section from the \ref dde_reference page.
+	 
+	 For more contract definition samples via DDE, please refer to \ref dde_contracts_description .
+	 
+	<br>
+*/

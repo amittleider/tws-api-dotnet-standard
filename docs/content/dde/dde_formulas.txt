@@ -1,0 +1,247 @@
+/*! \page dde_reference DDE Formula Reference
+
+	\section dde_rt Real Time Data
+	
+	<table>
+		<tr><th>Attribute</th><th>Description</th></tr>
+		<tr><td>twsuser</td><td>The user name with which you logged into the TWS</td></tr>
+		<tr><td>requestId</td><td>The request unique identifier (any positive integer)</td></tr>
+		<tr><td>symbol</td><td>The contract symbol</td></tr>
+		<tr><td>sectype</td><td>The kind of contract</td></tr>
+		<tr><td>exchange</td><td>The exchange from which we want to pull the data from</td></tr>
+		<tr><td>currency</td><td>The contract currency</td></tr>
+	</table>
+	
+	\subsection dde_rt_request Initial Request
+	
+	=S[twsuser]|tik!'id[reqestId]?req?[symbol]_[sectype]_[exchange]_[currency]_~/'
+		
+	\subsection dde_rt_reception Data Reception
+	
+	=S[twsuser]|tik!id[requestId]?bidSize
+
+	=S[twsuser]|tik!id[requestId]?bid
+
+	=S[twsuser]|tik!id[requestId]?ask
+
+	=S[twsuser]|tik!id[requestId]?askSize
+
+	=S[twsuser]|tik!id[requestId]?last
+
+	=S[twsuser]|tik!id[requestId]?lastSize
+
+	=S[twsuser]|tik!id[requestId]?high
+
+	=S[twsuser]|tik!id[requestId]?low
+
+	=S[twsuser]|tik!id[requestId]?volume
+
+	=S[twsuser]|tik!id[requestId]?close
+	
+	=S[twsuser]|tik!id[requestId]?bidImpliedVol
+	
+	\subsection dde_rt_reception_options Option-specific Ticks
+
+	=S[twsuser]|tik!id[requestId]?bidDelta
+
+	=S[twsuser]|tik!id[requestId]?askImpliedVol
+
+	=S[twsuser]|tik!id[requestId]?askDelta
+
+	=S[twsuser]|tik!id[requestId]?lastImpliedVol
+
+	=S[twsuser]|tik!id[requestId]?lastDelta
+
+	=S[twsuser]|tik!id[requestId]?modelVolatility
+
+	=S[twsuser]|tik!id[requestId]?modelDelta
+
+	=S[twsuser]|tik!id[requestId]?modelPrice
+
+	=S[twsuser]|tik!id[requestId]?pvDividend
+
+	=S[twsuser]|tik!id[requestId]?modelGamma
+
+	=S[twsuser]|tik!id[requestId]?modelVega
+
+	=S[twsuser]|tik!id[requestId]?modelTheta
+
+	=S[twsuser]|tik!id[requestId]?modelUndPrice
+	
+	\section dde_hst Historical Data
+	
+	In the example \ref dde_hst_receive, you pulled midpoint historical data for EUR.USD from TWS.
+	 
+	 \image html dde_hst_understanding.png
+	 
+	 Most of the formula’s components are self-explanatory with the exception of duration and bar sizes, which require very specific codes as listed below: 
+	 
+	 \subsection dde_hst_understanding_duration Duration
+	 
+	 <table>
+		<tr><th><b>Time Unit</b></th><th><b>Formula Abbreviation</b></th></tr>
+		<tr><td>Seconds</td><td>S</td></tr>
+		<tr><td>Day</td><td>D</td></tr>
+		<tr><td>Week</td><td>W</td></tr>
+		<tr><td>Month</td><td>M</td></tr>
+		<tr><td>Year</td><td>Y</td></tr>
+	 </table>
+	 
+	 \subsection dde_hst_understanding_barsize Bar Sizes
+	 
+	 <table>
+		<tr><th><b>Bar Size</b></th><th><b>Formula Parameter</b></th></tr>
+		<tr><td>1 second</td><td>1</td></tr>
+		<tr><td>5 seconds</td><td>2</td></tr>
+		<tr><td>15 seconds</td><td>3</td></tr>
+		<tr><td>30 seconds</td><td>4</td></tr>
+		<tr><td>1 minute</td><td>5</td></tr>
+		<tr><td>2 minutes</td><td>6</td></tr>
+		<tr><td>5 minutes</td><td>7</td></tr>
+		<tr><td>15 minutes</td><td>8</td></tr>
+		<tr><td>30 minutes</td><td>9</td></tr>
+		<tr><td>1 hour</td><td>10</td></tr>
+		<tr><td>1 day</td><td>11</td></tr>
+	 </table>
+	 
+	 For available <b>whatToShow</b> parameters and detailed descriptions, please refer to the \ref hd_what_to_show.
+	 
+	 Please also be mindful of the \ref historical_limitations.
+	 
+	 \section dde_contracts Contract Definitions
+	 
+	 The TWS DDE for Excel API lets you retrieve data for any instrument available in TWS. 
+	 So far we have been using the simplest instrument of all: CASH. 
+	 Using slight variations of the same formula, you can define any security type available in TWS.
+	 
+	 \subsection dde_contracts_description How to Find the Definition of a Contract
+	 
+	 The best way of finding a contract’s description is within the TWS itself. 
+	 Within the TWS, you can easily check a contract’s description either by double clicking it or through the <b>Contract Info -> Description</b> menu, which you access by right-clicking a contract in TWS:
+	 
+	 \image html contract_info_tws.png
+	 
+	 The description will then appear:
+	 
+	 \image html contract_description_tws_without_debug.png
+	 
+	 \subsection dde_contracts_formulas Formulas for Different Security Types
+	 
+	 <i>Note:  There are two different request types, i.e. "req1" and "req2", that differentiate in defining contracts with underlying Symbol (req1) or Local Symbol (req2) of the contract. 
+	 While either request type can be used, the Local Symbol is most common for FUT, OPT and FOP. 
+	 
+	 Please find available contract parameters and sample contracts for each security type below:</i>
+
+	<b>FX Pairs</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id1?req?EUR_CASH_IDEALPRO_USD_~/'
+	
+	<b>STK</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id2?req?IBKR_STK_SMART_USD_~/'
+	
+	<b>FUT</b>
+	
+	<b>FUT using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id3?req2?ESZ6_FUT_GLOBEX_USD_~/'
+	
+	<b>FUT using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[multiplier]_[exchange]_[currency]_~_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id3?req?ES_FUT_201612_50_GLOBEX_USD_~_~/'
+	
+	<b>OPT</b>
+	
+	<b>OPT using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id4?req2?C DBK  DEC 16  1300_OPT_DTB_EUR_~/'
+	
+	<i>Note: The format of the option local symbol conforms to the <a href="http://ibkb.interactivebrokers.com/article/972" target="_blank">Option Symbology Initiative (OSI)</a>.</i>
+	
+	<b>OPT using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id4?req?DBK_OPT_20161216_13_C_100_DTB_EUR_~_~/'
+	
+	<b>FOP</b>
+	
+	<b>FOP using the contract’s local symbol</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req2?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id5?req2?XTZ6 C1100_FOP_GLOBEX_USD_~/'
+	
+	<b>FOP using underlying’s symbol, multiplier and expiration date</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_[tradingClass]/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id5?req?EUR_FOP_20161209_1.1_C_125000_GLOBEX_USD_~_XT/'
+	
+	<b>IND</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id6?req?ES_IND_GLOBEX_USD_~/'
+	
+	<b>BAG</b>
+	
+	<i>Formula</i>
+	
+	=S[twsuser]|tik!'id[reqId]?req?[symbol]_[SecType]_[exchange]_[currency]_CMBLGS_[num of legs]_[legId]_[legQuantity]_[legAction]_[legExchange]_[legPrice]...CMBLGS_~/'
+	
+	<i>Example</i>
+	
+	=Ssample123|tik!'id7?req?
+	
+	SPY_BAG_SMART_USD_CMBLGS_2_141149249_1_BUY_SMART_0_141149252_1_SELL_SMART_0_CMBLGS_~/'
+	 
+	 <br>
+
+*/

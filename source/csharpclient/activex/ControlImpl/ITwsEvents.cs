@@ -2,6 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -130,10 +131,23 @@ namespace TWSLib
         [DispId(115)]
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
         [DispId(116)]
-        void historicalDataEnd(int reqId, string start, string end);
+        void historicalDataEnd(int reqId, string startDate, string endDate);
         [DispId(117)]
         void bondContractDetailsEx(int reqId, IContractDetails contractDetails);
         [DispId(118)]
         void connectAck();
+        [DispId(119)]
+        void positionMulti(int requestId, string account, string modelCode, IContract contract, double position, double avgCost);
+        [DispId(120)]
+        void positionMultiEnd(int requestId);
+        [DispId(121)]
+        void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency);
+        [DispId(122)]
+        void accountUpdateMultiEnd(int requestId);
+        [DispId(123)]
+        void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        [DispId(124)]
+        void securityDefinitionOptionParameterEndDelegate(int reqId);
+
     }
 }

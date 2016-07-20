@@ -1,6 +1,7 @@
 ﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using IBSampleApp.types;
+using IBSampleApp.ui;
 namespace IBSampleApp
 {
     partial class OrderDialog
@@ -33,9 +34,11 @@ namespace IBSampleApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderDialog));
             this.contractSymbol = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.conditionsTab = new System.Windows.Forms.TabControl();
             this.orderContractTab = new System.Windows.Forms.TabPage();
             this.baseGroup = new System.Windows.Forms.GroupBox();
+            this.modelCode = new System.Windows.Forms.TextBox();
+            this.modelCodeLabel = new System.Windows.Forms.Label();
             this.timeInForce = new System.Windows.Forms.ComboBox();
             this.auxPrice = new System.Windows.Forms.TextBox();
             this.lmtPrice = new System.Windows.Forms.TextBox();
@@ -53,6 +56,8 @@ namespace IBSampleApp
             this.actionLabel = new System.Windows.Forms.Label();
             this.accountLabel = new System.Windows.Forms.Label();
             this.contractGroup = new System.Windows.Forms.GroupBox();
+            this.orderPrimExchLabel = new System.Windows.Forms.Label();
+            this.contractPrimaryExch = new System.Windows.Forms.TextBox();
             this.orderLocalSymbol = new System.Windows.Forms.Label();
             this.orderCurrencyLabel = new System.Windows.Forms.Label();
             this.orderExchangeLabel = new System.Windows.Forms.Label();
@@ -186,15 +191,51 @@ namespace IBSampleApp
             this.startTimeLabel = new System.Windows.Forms.Label();
             this.algoStrategy = new System.Windows.Forms.ComboBox();
             this.algoStrategyLabel = new System.Windows.Forms.Label();
+            this.peg2benchTab = new System.Windows.Forms.TabPage();
+            this.pgdStockRangeLower = new System.Windows.Forms.TextBox();
+            this.pgdStockRangeUpper = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cbPeggedChangeType = new System.Windows.Forms.ComboBox();
+            this.tbReferenceChangeAmount = new System.Windows.Forms.TextBox();
+            this.tbPeggedChangeAmount = new System.Windows.Forms.TextBox();
+            this.tbStartingReferencePrice = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbStartingPrice = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
+            this.adjustStopTab = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cbAdjustedTrailingAmntUnit = new System.Windows.Forms.ComboBox();
+            this.tbAdjustedTrailingAmnt = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbAdjustedStopLimitPrice = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbAdjustedStopPrice = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbTriggerPrice = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbAdjustedOrderType = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ignoreRth = new System.Windows.Forms.CheckBox();
+            this.cancelOrder = new System.Windows.Forms.ComboBox();
+            this.conditionList = new System.Windows.Forms.DataGridView();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Logic = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.lbAddCondition = new System.Windows.Forms.LinkLabel();
+            this.lbRemoveCondition = new System.Windows.Forms.LinkLabel();
             this.sendOrderButton = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.checkMarginButton = new System.Windows.Forms.Button();
             this.closeOrderDialogButton = new System.Windows.Forms.Button();
-            this.orderPrimExchLabel = new System.Windows.Forms.Label();
-            this.contractPrimaryExch = new System.Windows.Forms.TextBox();
-            this.tabControl1.SuspendLayout();
+            this.conditionsTab.SuspendLayout();
             this.orderContractTab.SuspendLayout();
             this.baseGroup.SuspendLayout();
             this.contractGroup.SuspendLayout();
@@ -203,6 +244,10 @@ namespace IBSampleApp
             this.volatilityTab.SuspendLayout();
             this.scaleTab.SuspendLayout();
             this.algoTab.SuspendLayout();
+            this.peg2benchTab.SuspendLayout();
+            this.adjustStopTab.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.conditionList)).BeginInit();
             this.SuspendLayout();
             // 
             // contractSymbol
@@ -213,19 +258,25 @@ namespace IBSampleApp
             this.contractSymbol.TabIndex = 0;
             this.contractSymbol.Text = "EUR";
             // 
-            // tabControl1
+            // conditionsTab
             // 
-            this.tabControl1.Controls.Add(this.orderContractTab);
-            this.tabControl1.Controls.Add(this.extendedOrderTab);
-            this.tabControl1.Controls.Add(this.advisorTab);
-            this.tabControl1.Controls.Add(this.volatilityTab);
-            this.tabControl1.Controls.Add(this.scaleTab);
-            this.tabControl1.Controls.Add(this.algoTab);
-            this.tabControl1.Location = new System.Drawing.Point(1, 1);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(605, 288);
-            this.tabControl1.TabIndex = 1;
+            this.conditionsTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.conditionsTab.Controls.Add(this.orderContractTab);
+            this.conditionsTab.Controls.Add(this.extendedOrderTab);
+            this.conditionsTab.Controls.Add(this.advisorTab);
+            this.conditionsTab.Controls.Add(this.volatilityTab);
+            this.conditionsTab.Controls.Add(this.scaleTab);
+            this.conditionsTab.Controls.Add(this.algoTab);
+            this.conditionsTab.Controls.Add(this.peg2benchTab);
+            this.conditionsTab.Controls.Add(this.adjustStopTab);
+            this.conditionsTab.Controls.Add(this.tabPage1);
+            this.conditionsTab.Location = new System.Drawing.Point(1, 1);
+            this.conditionsTab.Name = "conditionsTab";
+            this.conditionsTab.SelectedIndex = 0;
+            this.conditionsTab.Size = new System.Drawing.Size(628, 339);
+            this.conditionsTab.TabIndex = 1;
             // 
             // orderContractTab
             // 
@@ -235,12 +286,17 @@ namespace IBSampleApp
             this.orderContractTab.Location = new System.Drawing.Point(4, 22);
             this.orderContractTab.Name = "orderContractTab";
             this.orderContractTab.Padding = new System.Windows.Forms.Padding(3);
-            this.orderContractTab.Size = new System.Drawing.Size(597, 262);
+            this.orderContractTab.Size = new System.Drawing.Size(620, 313);
             this.orderContractTab.TabIndex = 0;
             this.orderContractTab.Text = "Basic Order";
             // 
             // baseGroup
             // 
+            this.baseGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.baseGroup.Controls.Add(this.modelCode);
+            this.baseGroup.Controls.Add(this.modelCodeLabel);
             this.baseGroup.Controls.Add(this.timeInForce);
             this.baseGroup.Controls.Add(this.auxPrice);
             this.baseGroup.Controls.Add(this.lmtPrice);
@@ -259,10 +315,26 @@ namespace IBSampleApp
             this.baseGroup.Controls.Add(this.accountLabel);
             this.baseGroup.Location = new System.Drawing.Point(362, 6);
             this.baseGroup.Name = "baseGroup";
-            this.baseGroup.Size = new System.Drawing.Size(206, 250);
+            this.baseGroup.Size = new System.Drawing.Size(242, 278);
             this.baseGroup.TabIndex = 15;
             this.baseGroup.TabStop = false;
             this.baseGroup.Text = "Order Base Attributes";
+            // 
+            // modelCode
+            // 
+            this.modelCode.Location = new System.Drawing.Point(121, 54);
+            this.modelCode.Name = "modelCode";
+            this.modelCode.Size = new System.Drawing.Size(89, 20);
+            this.modelCode.TabIndex = 21;
+            // 
+            // modelCodeLabel
+            // 
+            this.modelCodeLabel.AutoSize = true;
+            this.modelCodeLabel.Location = new System.Drawing.Point(13, 61);
+            this.modelCodeLabel.Name = "modelCodeLabel";
+            this.modelCodeLabel.Size = new System.Drawing.Size(64, 13);
+            this.modelCodeLabel.TabIndex = 20;
+            this.modelCodeLabel.Text = "Model Code";
             // 
             // timeInForce
             // 
@@ -278,7 +350,7 @@ namespace IBSampleApp
             "FOK",
             "GTX",
             "DTC"});
-            this.timeInForce.Location = new System.Drawing.Point(80, 212);
+            this.timeInForce.Location = new System.Drawing.Point(121, 242);
             this.timeInForce.Name = "timeInForce";
             this.timeInForce.Size = new System.Drawing.Size(89, 21);
             this.timeInForce.TabIndex = 15;
@@ -286,14 +358,14 @@ namespace IBSampleApp
             // 
             // auxPrice
             // 
-            this.auxPrice.Location = new System.Drawing.Point(80, 186);
+            this.auxPrice.Location = new System.Drawing.Point(121, 216);
             this.auxPrice.Name = "auxPrice";
             this.auxPrice.Size = new System.Drawing.Size(89, 20);
             this.auxPrice.TabIndex = 14;
             // 
             // lmtPrice
             // 
-            this.lmtPrice.Location = new System.Drawing.Point(80, 160);
+            this.lmtPrice.Location = new System.Drawing.Point(121, 190);
             this.lmtPrice.Name = "lmtPrice";
             this.lmtPrice.Size = new System.Drawing.Size(89, 20);
             this.lmtPrice.TabIndex = 13;
@@ -335,7 +407,7 @@ namespace IBSampleApp
             "TRAIL REL + MKT",
             "VOL",
             "VWAP"});
-            this.orderType.Location = new System.Drawing.Point(80, 133);
+            this.orderType.Location = new System.Drawing.Point(121, 163);
             this.orderType.Name = "orderType";
             this.orderType.Size = new System.Drawing.Size(115, 21);
             this.orderType.TabIndex = 12;
@@ -343,14 +415,14 @@ namespace IBSampleApp
             // 
             // displaySize
             // 
-            this.displaySize.Location = new System.Drawing.Point(80, 107);
+            this.displaySize.Location = new System.Drawing.Point(121, 137);
             this.displaySize.Name = "displaySize";
             this.displaySize.Size = new System.Drawing.Size(89, 20);
             this.displaySize.TabIndex = 11;
             // 
             // quantity
             // 
-            this.quantity.Location = new System.Drawing.Point(80, 81);
+            this.quantity.Location = new System.Drawing.Point(121, 111);
             this.quantity.Name = "quantity";
             this.quantity.Size = new System.Drawing.Size(89, 20);
             this.quantity.TabIndex = 10;
@@ -363,7 +435,7 @@ namespace IBSampleApp
             "BUY",
             "SELL",
             "SSHORT"});
-            this.action.Location = new System.Drawing.Point(80, 51);
+            this.action.Location = new System.Drawing.Point(121, 81);
             this.action.Name = "action";
             this.action.Size = new System.Drawing.Size(89, 21);
             this.action.TabIndex = 9;
@@ -372,7 +444,7 @@ namespace IBSampleApp
             // timeInForceLabel
             // 
             this.timeInForceLabel.AutoSize = true;
-            this.timeInForceLabel.Location = new System.Drawing.Point(6, 209);
+            this.timeInForceLabel.Location = new System.Drawing.Point(13, 245);
             this.timeInForceLabel.Name = "timeInForceLabel";
             this.timeInForceLabel.Size = new System.Drawing.Size(68, 13);
             this.timeInForceLabel.TabIndex = 8;
@@ -381,7 +453,7 @@ namespace IBSampleApp
             // auxPriceLabel
             // 
             this.auxPriceLabel.AutoSize = true;
-            this.auxPriceLabel.Location = new System.Drawing.Point(19, 183);
+            this.auxPriceLabel.Location = new System.Drawing.Point(13, 219);
             this.auxPriceLabel.Name = "auxPriceLabel";
             this.auxPriceLabel.Size = new System.Drawing.Size(55, 13);
             this.auxPriceLabel.TabIndex = 7;
@@ -390,7 +462,7 @@ namespace IBSampleApp
             // account
             // 
             this.account.FormattingEnabled = true;
-            this.account.Location = new System.Drawing.Point(80, 24);
+            this.account.Location = new System.Drawing.Point(121, 25);
             this.account.Name = "account";
             this.account.Size = new System.Drawing.Size(89, 21);
             this.account.TabIndex = 6;
@@ -398,7 +470,7 @@ namespace IBSampleApp
             // limitPriceLabel
             // 
             this.limitPriceLabel.AutoSize = true;
-            this.limitPriceLabel.Location = new System.Drawing.Point(19, 157);
+            this.limitPriceLabel.Location = new System.Drawing.Point(13, 191);
             this.limitPriceLabel.Name = "limitPriceLabel";
             this.limitPriceLabel.Size = new System.Drawing.Size(55, 13);
             this.limitPriceLabel.TabIndex = 5;
@@ -407,7 +479,7 @@ namespace IBSampleApp
             // orderTypeLabel
             // 
             this.orderTypeLabel.AutoSize = true;
-            this.orderTypeLabel.Location = new System.Drawing.Point(14, 130);
+            this.orderTypeLabel.Location = new System.Drawing.Point(13, 166);
             this.orderTypeLabel.Name = "orderTypeLabel";
             this.orderTypeLabel.Size = new System.Drawing.Size(60, 13);
             this.orderTypeLabel.TabIndex = 4;
@@ -416,7 +488,7 @@ namespace IBSampleApp
             // displaySizeLabel
             // 
             this.displaySizeLabel.AutoSize = true;
-            this.displaySizeLabel.Location = new System.Drawing.Point(10, 104);
+            this.displaySizeLabel.Location = new System.Drawing.Point(13, 140);
             this.displaySizeLabel.Name = "displaySizeLabel";
             this.displaySizeLabel.Size = new System.Drawing.Size(64, 13);
             this.displaySizeLabel.TabIndex = 3;
@@ -425,7 +497,7 @@ namespace IBSampleApp
             // quantityLabel
             // 
             this.quantityLabel.AutoSize = true;
-            this.quantityLabel.Location = new System.Drawing.Point(28, 81);
+            this.quantityLabel.Location = new System.Drawing.Point(13, 114);
             this.quantityLabel.Name = "quantityLabel";
             this.quantityLabel.Size = new System.Drawing.Size(46, 13);
             this.quantityLabel.TabIndex = 2;
@@ -434,7 +506,7 @@ namespace IBSampleApp
             // actionLabel
             // 
             this.actionLabel.AutoSize = true;
-            this.actionLabel.Location = new System.Drawing.Point(37, 54);
+            this.actionLabel.Location = new System.Drawing.Point(13, 90);
             this.actionLabel.Name = "actionLabel";
             this.actionLabel.Size = new System.Drawing.Size(37, 13);
             this.actionLabel.TabIndex = 1;
@@ -443,7 +515,7 @@ namespace IBSampleApp
             // accountLabel
             // 
             this.accountLabel.AutoSize = true;
-            this.accountLabel.Location = new System.Drawing.Point(27, 25);
+            this.accountLabel.Location = new System.Drawing.Point(13, 33);
             this.accountLabel.Name = "accountLabel";
             this.accountLabel.Size = new System.Drawing.Size(47, 13);
             this.accountLabel.TabIndex = 0;
@@ -451,6 +523,9 @@ namespace IBSampleApp
             // 
             // contractGroup
             // 
+            this.contractGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.contractGroup.Controls.Add(this.orderPrimExchLabel);
             this.contractGroup.Controls.Add(this.contractPrimaryExch);
             this.contractGroup.Controls.Add(this.orderLocalSymbol);
@@ -473,15 +548,31 @@ namespace IBSampleApp
             this.contractGroup.Controls.Add(this.contractExchange);
             this.contractGroup.Location = new System.Drawing.Point(6, 6);
             this.contractGroup.Name = "contractGroup";
-            this.contractGroup.Size = new System.Drawing.Size(350, 250);
+            this.contractGroup.Size = new System.Drawing.Size(350, 278);
             this.contractGroup.TabIndex = 14;
             this.contractGroup.TabStop = false;
             this.contractGroup.Text = "Contract";
             // 
+            // orderPrimExchLabel
+            // 
+            this.orderPrimExchLabel.AutoSize = true;
+            this.orderPrimExchLabel.Location = new System.Drawing.Point(5, 163);
+            this.orderPrimExchLabel.Name = "orderPrimExchLabel";
+            this.orderPrimExchLabel.Size = new System.Drawing.Size(71, 13);
+            this.orderPrimExchLabel.TabIndex = 18;
+            this.orderPrimExchLabel.Text = "Primary Exch.";
+            // 
+            // contractPrimaryExch
+            // 
+            this.contractPrimaryExch.Location = new System.Drawing.Point(82, 160);
+            this.contractPrimaryExch.Name = "contractPrimaryExch";
+            this.contractPrimaryExch.Size = new System.Drawing.Size(71, 20);
+            this.contractPrimaryExch.TabIndex = 17;
+            // 
             // orderLocalSymbol
             // 
             this.orderLocalSymbol.AutoSize = true;
-            this.orderLocalSymbol.Location = new System.Drawing.Point(6, 130);
+            this.orderLocalSymbol.Location = new System.Drawing.Point(7, 133);
             this.orderLocalSymbol.Name = "orderLocalSymbol";
             this.orderLocalSymbol.Size = new System.Drawing.Size(70, 13);
             this.orderLocalSymbol.TabIndex = 16;
@@ -490,7 +581,7 @@ namespace IBSampleApp
             // orderCurrencyLabel
             // 
             this.orderCurrencyLabel.AutoSize = true;
-            this.orderCurrencyLabel.Location = new System.Drawing.Point(27, 103);
+            this.orderCurrencyLabel.Location = new System.Drawing.Point(27, 106);
             this.orderCurrencyLabel.Name = "orderCurrencyLabel";
             this.orderCurrencyLabel.Size = new System.Drawing.Size(49, 13);
             this.orderCurrencyLabel.TabIndex = 15;
@@ -499,7 +590,7 @@ namespace IBSampleApp
             // orderExchangeLabel
             // 
             this.orderExchangeLabel.AutoSize = true;
-            this.orderExchangeLabel.Location = new System.Drawing.Point(21, 77);
+            this.orderExchangeLabel.Location = new System.Drawing.Point(21, 80);
             this.orderExchangeLabel.Name = "orderExchangeLabel";
             this.orderExchangeLabel.Size = new System.Drawing.Size(55, 13);
             this.orderExchangeLabel.TabIndex = 14;
@@ -508,7 +599,7 @@ namespace IBSampleApp
             // orderSymbolLabel
             // 
             this.orderSymbolLabel.AutoSize = true;
-            this.orderSymbolLabel.Location = new System.Drawing.Point(35, 24);
+            this.orderSymbolLabel.Location = new System.Drawing.Point(35, 27);
             this.orderSymbolLabel.Name = "orderSymbolLabel";
             this.orderSymbolLabel.Size = new System.Drawing.Size(41, 13);
             this.orderSymbolLabel.TabIndex = 0;
@@ -517,7 +608,7 @@ namespace IBSampleApp
             // orderMultiplierLabel
             // 
             this.orderMultiplierLabel.AutoSize = true;
-            this.orderMultiplierLabel.Location = new System.Drawing.Point(216, 108);
+            this.orderMultiplierLabel.Location = new System.Drawing.Point(219, 112);
             this.orderMultiplierLabel.Name = "orderMultiplierLabel";
             this.orderMultiplierLabel.Size = new System.Drawing.Size(48, 13);
             this.orderMultiplierLabel.TabIndex = 13;
@@ -526,7 +617,7 @@ namespace IBSampleApp
             // orderRightLabel
             // 
             this.orderRightLabel.AutoSize = true;
-            this.orderRightLabel.Location = new System.Drawing.Point(216, 85);
+            this.orderRightLabel.Location = new System.Drawing.Point(222, 85);
             this.orderRightLabel.Name = "orderRightLabel";
             this.orderRightLabel.Size = new System.Drawing.Size(45, 13);
             this.orderRightLabel.TabIndex = 12;
@@ -566,7 +657,7 @@ namespace IBSampleApp
             // orderStrikeLabel
             // 
             this.orderStrikeLabel.AutoSize = true;
-            this.orderStrikeLabel.Location = new System.Drawing.Point(226, 55);
+            this.orderStrikeLabel.Location = new System.Drawing.Point(233, 57);
             this.orderStrikeLabel.Name = "orderStrikeLabel";
             this.orderStrikeLabel.Size = new System.Drawing.Size(34, 13);
             this.orderStrikeLabel.TabIndex = 11;
@@ -597,7 +688,7 @@ namespace IBSampleApp
             // orderSecTypeLabel
             // 
             this.orderSecTypeLabel.AutoSize = true;
-            this.orderSecTypeLabel.Location = new System.Drawing.Point(26, 50);
+            this.orderSecTypeLabel.Location = new System.Drawing.Point(26, 55);
             this.orderSecTypeLabel.Name = "orderSecTypeLabel";
             this.orderSecTypeLabel.Size = new System.Drawing.Size(50, 13);
             this.orderSecTypeLabel.TabIndex = 9;
@@ -686,7 +777,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(597, 262);
+            this.extendedOrderTab.Size = new System.Drawing.Size(620, 313);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1054,7 +1145,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(597, 262);
+            this.advisorTab.Size = new System.Drawing.Size(620, 313);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1154,7 +1245,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(597, 262);
+            this.volatilityTab.Size = new System.Drawing.Size(620, 313);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1351,7 +1442,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(597, 262);
+            this.scaleTab.Size = new System.Drawing.Size(620, 313);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1548,7 +1639,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(597, 262);
+            this.algoTab.Size = new System.Drawing.Size(620, 313);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1799,9 +1890,396 @@ namespace IBSampleApp
             this.algoStrategyLabel.TabIndex = 0;
             this.algoStrategyLabel.Text = "Algo strategy";
             // 
+            // peg2benchTab
+            // 
+            this.peg2benchTab.BackColor = System.Drawing.Color.LightGray;
+            this.peg2benchTab.Controls.Add(this.pgdStockRangeLower);
+            this.peg2benchTab.Controls.Add(this.pgdStockRangeUpper);
+            this.peg2benchTab.Controls.Add(this.label20);
+            this.peg2benchTab.Controls.Add(this.label21);
+            this.peg2benchTab.Controls.Add(this.cbPeggedChangeType);
+            this.peg2benchTab.Controls.Add(this.tbReferenceChangeAmount);
+            this.peg2benchTab.Controls.Add(this.tbPeggedChangeAmount);
+            this.peg2benchTab.Controls.Add(this.tbStartingReferencePrice);
+            this.peg2benchTab.Controls.Add(this.label10);
+            this.peg2benchTab.Controls.Add(this.label9);
+            this.peg2benchTab.Controls.Add(this.label8);
+            this.peg2benchTab.Controls.Add(this.label7);
+            this.peg2benchTab.Controls.Add(this.label6);
+            this.peg2benchTab.Controls.Add(this.tbStartingPrice);
+            this.peg2benchTab.Controls.Add(this.label4);
+            this.peg2benchTab.Controls.Add(this.contractSearchControl1);
+            this.peg2benchTab.Location = new System.Drawing.Point(4, 22);
+            this.peg2benchTab.Name = "peg2benchTab";
+            this.peg2benchTab.Size = new System.Drawing.Size(620, 313);
+            this.peg2benchTab.TabIndex = 6;
+            this.peg2benchTab.Text = "Pegged to Benchmark";
+            // 
+            // pgdStockRangeLower
+            // 
+            this.pgdStockRangeLower.Location = new System.Drawing.Point(149, 185);
+            this.pgdStockRangeLower.Name = "pgdStockRangeLower";
+            this.pgdStockRangeLower.Size = new System.Drawing.Size(206, 20);
+            this.pgdStockRangeLower.TabIndex = 20;
+            // 
+            // pgdStockRangeUpper
+            // 
+            this.pgdStockRangeUpper.Location = new System.Drawing.Point(149, 159);
+            this.pgdStockRangeUpper.Name = "pgdStockRangeUpper";
+            this.pgdStockRangeUpper.Size = new System.Drawing.Size(206, 20);
+            this.pgdStockRangeUpper.TabIndex = 19;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(7, 188);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(99, 13);
+            this.label20.TabIndex = 18;
+            this.label20.Text = "Stock range - lower";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(7, 162);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(101, 13);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "Stock range - upper";
+            // 
+            // cbPeggedChangeType
+            // 
+            this.cbPeggedChangeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPeggedChangeType.FormattingEnabled = true;
+            this.cbPeggedChangeType.Items.AddRange(new object[] {
+            "Increase",
+            "Decrease"});
+            this.cbPeggedChangeType.Location = new System.Drawing.Point(149, 107);
+            this.cbPeggedChangeType.Name = "cbPeggedChangeType";
+            this.cbPeggedChangeType.Size = new System.Drawing.Size(208, 21);
+            this.cbPeggedChangeType.TabIndex = 10;
+            // 
+            // tbReferenceChangeAmount
+            // 
+            this.tbReferenceChangeAmount.Location = new System.Drawing.Point(149, 133);
+            this.tbReferenceChangeAmount.Name = "tbReferenceChangeAmount";
+            this.tbReferenceChangeAmount.Size = new System.Drawing.Size(208, 20);
+            this.tbReferenceChangeAmount.TabIndex = 9;
+            // 
+            // tbPeggedChangeAmount
+            // 
+            this.tbPeggedChangeAmount.Location = new System.Drawing.Point(149, 81);
+            this.tbPeggedChangeAmount.Name = "tbPeggedChangeAmount";
+            this.tbPeggedChangeAmount.Size = new System.Drawing.Size(208, 20);
+            this.tbPeggedChangeAmount.TabIndex = 8;
+            // 
+            // tbStartingReferencePrice
+            // 
+            this.tbStartingReferencePrice.Location = new System.Drawing.Point(149, 55);
+            this.tbStartingReferencePrice.Name = "tbStartingReferencePrice";
+            this.tbStartingReferencePrice.Size = new System.Drawing.Size(208, 20);
+            this.tbStartingReferencePrice.TabIndex = 7;
+            // 
+            // label10
+            // 
+            this.label10.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 136);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(134, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Reference change amount";
+            // 
+            // label9
+            // 
+            this.label9.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 110);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(106, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Pegged change type";
+            // 
+            // label8
+            // 
+            this.label8.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 84);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(121, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Pegged change amount";
+            // 
+            // label7
+            // 
+            this.label7.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(117, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Starting reference price";
+            // 
+            // label6
+            // 
+            this.label6.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(99, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Reference contract";
+            // 
+            // tbStartingPrice
+            // 
+            this.tbStartingPrice.Location = new System.Drawing.Point(149, 3);
+            this.tbStartingPrice.Name = "tbStartingPrice";
+            this.tbStartingPrice.Size = new System.Drawing.Size(208, 20);
+            this.tbStartingPrice.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Starting price";
+            // 
+            // contractSearchControl1
+            // 
+            this.contractSearchControl1.Contract = null;
+            this.contractSearchControl1.IBClient = null;
+            this.contractSearchControl1.Location = new System.Drawing.Point(149, 32);
+            this.contractSearchControl1.Name = "contractSearchControl1";
+            this.contractSearchControl1.Size = new System.Drawing.Size(206, 13);
+            this.contractSearchControl1.TabIndex = 0;
+            // 
+            // adjustStopTab
+            // 
+            this.adjustStopTab.BackColor = System.Drawing.Color.LightGray;
+            this.adjustStopTab.Controls.Add(this.label16);
+            this.adjustStopTab.Controls.Add(this.cbAdjustedTrailingAmntUnit);
+            this.adjustStopTab.Controls.Add(this.tbAdjustedTrailingAmnt);
+            this.adjustStopTab.Controls.Add(this.label15);
+            this.adjustStopTab.Controls.Add(this.tbAdjustedStopLimitPrice);
+            this.adjustStopTab.Controls.Add(this.label14);
+            this.adjustStopTab.Controls.Add(this.tbAdjustedStopPrice);
+            this.adjustStopTab.Controls.Add(this.label13);
+            this.adjustStopTab.Controls.Add(this.tbTriggerPrice);
+            this.adjustStopTab.Controls.Add(this.label12);
+            this.adjustStopTab.Controls.Add(this.cbAdjustedOrderType);
+            this.adjustStopTab.Controls.Add(this.label11);
+            this.adjustStopTab.Location = new System.Drawing.Point(4, 22);
+            this.adjustStopTab.Name = "adjustStopTab";
+            this.adjustStopTab.Size = new System.Drawing.Size(620, 313);
+            this.adjustStopTab.TabIndex = 7;
+            this.adjustStopTab.Text = "Adjustable stops";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(14, 137);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(139, 13);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "Adjusted trailing amount unit";
+            // 
+            // cbAdjustedTrailingAmntUnit
+            // 
+            this.cbAdjustedTrailingAmntUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAdjustedTrailingAmntUnit.FormattingEnabled = true;
+            this.cbAdjustedTrailingAmntUnit.Items.AddRange(new object[] {
+            "amonunt",
+            "%"});
+            this.cbAdjustedTrailingAmntUnit.Location = new System.Drawing.Point(163, 134);
+            this.cbAdjustedTrailingAmntUnit.Name = "cbAdjustedTrailingAmntUnit";
+            this.cbAdjustedTrailingAmntUnit.Size = new System.Drawing.Size(121, 21);
+            this.cbAdjustedTrailingAmntUnit.TabIndex = 7;
+            // 
+            // tbAdjustedTrailingAmnt
+            // 
+            this.tbAdjustedTrailingAmnt.Location = new System.Drawing.Point(163, 108);
+            this.tbAdjustedTrailingAmnt.Name = "tbAdjustedTrailingAmnt";
+            this.tbAdjustedTrailingAmnt.Size = new System.Drawing.Size(121, 20);
+            this.tbAdjustedTrailingAmnt.TabIndex = 6;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(14, 111);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(119, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Adjusted trailing amount";
+            // 
+            // tbAdjustedStopLimitPrice
+            // 
+            this.tbAdjustedStopLimitPrice.Location = new System.Drawing.Point(163, 82);
+            this.tbAdjustedStopLimitPrice.Name = "tbAdjustedStopLimitPrice";
+            this.tbAdjustedStopLimitPrice.Size = new System.Drawing.Size(121, 20);
+            this.tbAdjustedStopLimitPrice.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(14, 85);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(115, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Adusted stop limit price";
+            // 
+            // tbAdjustedStopPrice
+            // 
+            this.tbAdjustedStopPrice.Location = new System.Drawing.Point(163, 56);
+            this.tbAdjustedStopPrice.Name = "tbAdjustedStopPrice";
+            this.tbAdjustedStopPrice.Size = new System.Drawing.Size(121, 20);
+            this.tbAdjustedStopPrice.TabIndex = 4;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 59);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(97, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Adjusted stop price";
+            // 
+            // tbTriggerPrice
+            // 
+            this.tbTriggerPrice.Location = new System.Drawing.Point(163, 30);
+            this.tbTriggerPrice.Name = "tbTriggerPrice";
+            this.tbTriggerPrice.Size = new System.Drawing.Size(121, 20);
+            this.tbTriggerPrice.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 6);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Adjust to order type";
+            // 
+            // cbAdjustedOrderType
+            // 
+            this.cbAdjustedOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAdjustedOrderType.FormattingEnabled = true;
+            this.cbAdjustedOrderType.Items.AddRange(new object[] {
+            "",
+            "STP",
+            "STP LMT",
+            "TRAIL",
+            "TRAIL LIMIT"});
+            this.cbAdjustedOrderType.Location = new System.Drawing.Point(163, 3);
+            this.cbAdjustedOrderType.Name = "cbAdjustedOrderType";
+            this.cbAdjustedOrderType.Size = new System.Drawing.Size(121, 21);
+            this.cbAdjustedOrderType.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(14, 33);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Trigger price";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage1.Controls.Add(this.ignoreRth);
+            this.tabPage1.Controls.Add(this.cancelOrder);
+            this.tabPage1.Controls.Add(this.conditionList);
+            this.tabPage1.Controls.Add(this.lbAddCondition);
+            this.tabPage1.Controls.Add(this.lbRemoveCondition);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(620, 313);
+            this.tabPage1.TabIndex = 8;
+            this.tabPage1.Text = "Conditions";
+            // 
+            // ignoreRth
+            // 
+            this.ignoreRth.AutoSize = true;
+            this.ignoreRth.Location = new System.Drawing.Point(134, 293);
+            this.ignoreRth.Name = "ignoreRth";
+            this.ignoreRth.Size = new System.Drawing.Size(402, 17);
+            this.ignoreRth.TabIndex = 13;
+            this.ignoreRth.Text = "Allow condition to be satisfied and activate order outside of regular trading hou" +
+    "rs";
+            this.ignoreRth.UseVisualStyleBackColor = true;
+            // 
+            // cancelOrder
+            // 
+            this.cancelOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cancelOrder.FormattingEnabled = true;
+            this.cancelOrder.Items.AddRange(new object[] {
+            "Submit order",
+            "Cancel order"});
+            this.cancelOrder.Location = new System.Drawing.Point(7, 289);
+            this.cancelOrder.Name = "cancelOrder";
+            this.cancelOrder.Size = new System.Drawing.Size(121, 21);
+            this.cancelOrder.TabIndex = 4;
+            // 
+            // conditionList
+            // 
+            this.conditionList.AllowUserToAddRows = false;
+            this.conditionList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.conditionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.conditionList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Description,
+            this.Logic});
+            this.conditionList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.conditionList.Location = new System.Drawing.Point(0, 0);
+            this.conditionList.Name = "conditionList";
+            this.conditionList.Size = new System.Drawing.Size(620, 283);
+            this.conditionList.TabIndex = 3;
+            this.conditionList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditionList_CellDoubleClick);
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            this.Description.Width = 85;
+            // 
+            // Logic
+            // 
+            this.Logic.HeaderText = "Logic";
+            this.Logic.Items.AddRange(new object[] {
+            "and",
+            "or"});
+            this.Logic.Name = "Logic";
+            this.Logic.Width = 39;
+            // 
+            // lbAddCondition
+            // 
+            this.lbAddCondition.AutoSize = true;
+            this.lbAddCondition.Location = new System.Drawing.Point(542, 294);
+            this.lbAddCondition.Name = "lbAddCondition";
+            this.lbAddCondition.Size = new System.Drawing.Size(25, 13);
+            this.lbAddCondition.TabIndex = 1;
+            this.lbAddCondition.TabStop = true;
+            this.lbAddCondition.Text = "add";
+            this.lbAddCondition.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbAddCondition_LinkClicked);
+            // 
+            // lbRemoveCondition
+            // 
+            this.lbRemoveCondition.AutoSize = true;
+            this.lbRemoveCondition.Location = new System.Drawing.Point(573, 294);
+            this.lbRemoveCondition.Name = "lbRemoveCondition";
+            this.lbRemoveCondition.Size = new System.Drawing.Size(42, 13);
+            this.lbRemoveCondition.TabIndex = 2;
+            this.lbRemoveCondition.TabStop = true;
+            this.lbRemoveCondition.Text = "remove";
+            this.lbRemoveCondition.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbRemoveCondition_LinkClicked);
+            // 
             // sendOrderButton
             // 
-            this.sendOrderButton.Location = new System.Drawing.Point(12, 295);
+            this.sendOrderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendOrderButton.Location = new System.Drawing.Point(12, 374);
             this.sendOrderButton.Name = "sendOrderButton";
             this.sendOrderButton.Size = new System.Drawing.Size(75, 23);
             this.sendOrderButton.TabIndex = 2;
@@ -1835,7 +2313,8 @@ namespace IBSampleApp
             // 
             // checkMarginButton
             // 
-            this.checkMarginButton.Location = new System.Drawing.Point(93, 295);
+            this.checkMarginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkMarginButton.Location = new System.Drawing.Point(93, 374);
             this.checkMarginButton.Name = "checkMarginButton";
             this.checkMarginButton.Size = new System.Drawing.Size(87, 23);
             this.checkMarginButton.TabIndex = 11;
@@ -1845,7 +2324,8 @@ namespace IBSampleApp
             // 
             // closeOrderDialogButton
             // 
-            this.closeOrderDialogButton.Location = new System.Drawing.Point(527, 295);
+            this.closeOrderDialogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 374);
             this.closeOrderDialogButton.Name = "closeOrderDialogButton";
             this.closeOrderDialogButton.Size = new System.Drawing.Size(75, 23);
             this.closeOrderDialogButton.TabIndex = 12;
@@ -1853,39 +2333,24 @@ namespace IBSampleApp
             this.closeOrderDialogButton.UseVisualStyleBackColor = true;
             this.closeOrderDialogButton.Click += new System.EventHandler(this.closeOrderDialogButton_Click);
             // 
-            // orderPrimExchLabel
-            // 
-            this.orderPrimExchLabel.AutoSize = true;
-            this.orderPrimExchLabel.Location = new System.Drawing.Point(6, 160);
-            this.orderPrimExchLabel.Name = "orderPrimExchLabel";
-            this.orderPrimExchLabel.Size = new System.Drawing.Size(71, 13);
-            this.orderPrimExchLabel.TabIndex = 18;
-            this.orderPrimExchLabel.Text = "Primary Exch.";
-            // 
-            // contractPrimaryExch
-            // 
-            this.contractPrimaryExch.Location = new System.Drawing.Point(82, 160);
-            this.contractPrimaryExch.Name = "contractPrimaryExch";
-            this.contractPrimaryExch.Size = new System.Drawing.Size(71, 20);
-            this.contractPrimaryExch.TabIndex = 17;
-            // 
             // OrderDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(618, 323);
+            this.ClientSize = new System.Drawing.Size(641, 402);
             this.ControlBox = false;
             this.Controls.Add(this.closeOrderDialogButton);
             this.Controls.Add(this.checkMarginButton);
             this.Controls.Add(this.sendOrderButton);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.conditionsTab);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.textBox7);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OrderDialog";
             this.Text = "Order";
-            this.tabControl1.ResumeLayout(false);
+            this.conditionsTab.ResumeLayout(false);
             this.orderContractTab.ResumeLayout(false);
             this.baseGroup.ResumeLayout(false);
             this.baseGroup.PerformLayout();
@@ -1901,6 +2366,13 @@ namespace IBSampleApp
             this.scaleTab.PerformLayout();
             this.algoTab.ResumeLayout(false);
             this.algoTab.PerformLayout();
+            this.peg2benchTab.ResumeLayout(false);
+            this.peg2benchTab.PerformLayout();
+            this.adjustStopTab.ResumeLayout(false);
+            this.adjustStopTab.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.conditionList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1909,7 +2381,7 @@ namespace IBSampleApp
         #endregion
 
         
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl conditionsTab;
         private System.Windows.Forms.TabPage orderContractTab;
         private System.Windows.Forms.TabPage extendedOrderTab;
         private System.Windows.Forms.Button sendOrderButton;
@@ -2073,6 +2545,48 @@ namespace IBSampleApp
         private System.Windows.Forms.Button closeOrderDialogButton;
         private System.Windows.Forms.Label orderPrimExchLabel;
         private System.Windows.Forms.TextBox contractPrimaryExch;
+        private System.Windows.Forms.TabPage peg2benchTab;
+        private System.Windows.Forms.TextBox tbReferenceChangeAmount;
+        private System.Windows.Forms.TextBox tbPeggedChangeAmount;
+        private System.Windows.Forms.TextBox tbStartingReferencePrice;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbStartingPrice;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbPeggedChangeType;
+        private System.Windows.Forms.TabPage adjustStopTab;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cbAdjustedTrailingAmntUnit;
+        private System.Windows.Forms.TextBox tbAdjustedTrailingAmnt;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbAdjustedStopLimitPrice;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tbAdjustedStopPrice;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbTriggerPrice;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cbAdjustedOrderType;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.LinkLabel lbAddCondition;
+        private System.Windows.Forms.LinkLabel lbRemoveCondition;
+        private ui.ContractSearchControl contractSearchControl1;
+        private System.Windows.Forms.DataGridView conditionList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isConjunctionConnectionDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Logic;
+        private System.Windows.Forms.ComboBox cancelOrder;
+        private System.Windows.Forms.CheckBox ignoreRth;
+        private System.Windows.Forms.TextBox pgdStockRangeLower;
+        private System.Windows.Forms.TextBox pgdStockRangeUpper;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox modelCode;
+        private System.Windows.Forms.Label modelCodeLabel;
         
     }
 }

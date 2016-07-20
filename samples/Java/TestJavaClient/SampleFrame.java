@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -50,6 +50,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private NewsBulletinDlg m_newsBulletinDlg = new NewsBulletinDlg(this);
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
+	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
 
     private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
     private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
@@ -81,6 +82,55 @@ class SampleFrame extends JFrame implements EWrapper {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
     	m_groupsDlg = new GroupsDlg(this, m_client);
+    }
+    
+    interface ContractDetailsCallback {
+    	void onContractDetails(ContractDetails contractDetails);
+    	void onContractDetailsEnd();
+    	void onError(int errorCode, String errorMsg);
+    }
+    
+    HashMap<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<Integer, ContractDetailsCallback>(); 
+    
+    public ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
+    	final ArrayList<ContractDetails> rval = new ArrayList<ContractDetails>();    	
+    	int reqId = m_orderDlg.m_id;
+    	final Object sync = new Object();
+    	final boolean[] done = new boolean[] { false };
+    	
+    	m_callbackMap.put(reqId, new ContractDetailsCallback() {
+			
+			@Override
+			public void onError(int errorCode, String errorMsg) {
+				done[0] = true;
+				synchronized (sync) {
+					sync.notifyAll();
+				}
+			}
+			
+			@Override
+			public void onContractDetailsEnd() {
+				done[0] = true;
+				synchronized (sync) {
+					sync.notifyAll();
+				}
+			}
+			
+			@Override
+			public void onContractDetails(ContractDetails contractDetails) {
+				rval.add(contractDetails);
+			}
+		});
+    	
+		m_client.reqContractDetails(reqId, contract);   
+		
+		while (!done[0]) {
+			synchronized (sync) {
+				sync.wait();
+			}
+		}
+    	
+    	return rval;
     }
 
     private JPanel createButtonPanel() {
@@ -320,6 +370,36 @@ class SampleFrame extends JFrame implements EWrapper {
                 onCancelAccountSummary();
             }
         });
+        JButton butRequestPositionsMulti = new JButton( "Request Positions Multi");
+        butRequestPositionsMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestPositionsMulti();
+            }
+        });
+        JButton butCancelPositionsMulti = new JButton( "Cancel Positions Multi");
+        butCancelPositionsMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onCancelPositionsMulti();
+            }
+        });
+        JButton butRequestAccountUpdatesMulti = new JButton( "Request Account Updates Multi");
+        butRequestAccountUpdatesMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestAccountUpdatesMulti();
+            }
+        });
+        JButton butCancelAccountUpdatesMulti = new JButton( "Cancel Account Updates Multi");
+        butCancelAccountUpdatesMulti.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onCancelAccountUpdatesMulti();
+            }
+        });
+        JButton butRequestSecurityDefinitionOptionParameters = new JButton( "Request Security Definition Option Parameters");
+        butRequestSecurityDefinitionOptionParameters.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestSecurityDefinitionOptionParameters();
+            }
+        });
         JButton butGroups = new JButton( "Groups");
         butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -387,6 +467,11 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelPositions ) ;
         buttonPanel.add( butRequestAccountSummary ) ;
         buttonPanel.add( butCancelAccountSummary ) ;
+        buttonPanel.add( butRequestPositionsMulti ) ;
+        buttonPanel.add( butCancelPositionsMulti ) ;
+        buttonPanel.add( butRequestAccountUpdatesMulti ) ;
+        buttonPanel.add( butCancelAccountUpdatesMulti ) ;
+        buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
         buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
@@ -395,6 +480,21 @@ class SampleFrame extends JFrame implements EWrapper {
 
         return buttonPanel;
     }
+
+	protected void onRequestSecurityDefinitionOptionParameters() {
+		m_secDefOptParamsReq.setModal(true);
+		m_secDefOptParamsReq.setVisible(true);
+		
+		String underlyingSymbol = m_secDefOptParamsReq.underlyingSymbol();
+		String futFopExchange = m_secDefOptParamsReq.futFopExchange();
+//		String currency = m_secDefOptParamsReq.currency();
+		String underlyingSecType = m_secDefOptParamsReq.underlyingSecType();
+		int underlyingConId = m_secDefOptParamsReq.underlyingConId();		
+		
+		if (m_secDefOptParamsReq.isOK()) {
+			m_client.reqSecDefOptParams(m_secDefOptParamsReq.id(), underlyingSymbol, futFopExchange,/* currency,*/ underlyingSecType, underlyingConId);
+		}
+	}
 
 	void onConnect() {
         m_bIsFAAccount = false;
@@ -423,6 +523,9 @@ class SampleFrame extends JFrame implements EWrapper {
         new Thread() {
         	public void run() {
         		processMessages();
+        		
+        		int i = 0;
+        		System.out.println(i);
         	}
         }.start();
     }
@@ -432,16 +535,7 @@ class SampleFrame extends JFrame implements EWrapper {
 		while (m_client.isConnected()) {
 			m_signal.waitForSignal();
 				try {
-					javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								m_reader.processMsgs();
-							} catch (IOException e) {
-								error(e);
-							}
-						}
-					});
+					m_reader.processMsgs();
 				} catch (Exception e) {
 					error(e);
 				}
@@ -885,6 +979,46 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
+    void onRequestPositionsMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // request positions multi
+            m_client.reqPositionsMulti( dlg.m_retId, dlg.m_retAccount, dlg.m_retModelCode);
+        }
+    }
+
+    void onCancelPositionsMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // cancel positions multi
+            m_client.cancelPositionsMulti( dlg.m_retId);
+        }
+    }
+
+    void onRequestAccountUpdatesMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // request account updates multi
+            m_client.reqAccountUpdatesMulti( dlg.m_retId, dlg.m_retAccount, dlg.m_retModelCode, dlg.m_retLedgerAndNLV);
+        }
+    }
+
+    void onCancelAccountUpdatesMulti() {
+        PositionsDlg dlg = new PositionsDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // cancel account updates multi
+            m_client.cancelAccountUpdatesMulti( dlg.m_retId);
+        }
+    }
+    
     void onGroups() {
 
         m_groupsDlg.setVisible(true);
@@ -964,12 +1098,20 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void contractDetails(int reqId, ContractDetails contractDetails) {
+    	if (m_callbackMap.containsKey(reqId)) {
+    		m_callbackMap.get(reqId).onContractDetails(contractDetails);
+    	}
+    	
     	String msg = EWrapperMsgGenerator.contractDetails( reqId, contractDetails);
     	m_TWS.add(msg);
     }
 
 	public void contractDetailsEnd(int reqId) {
-		String msg = EWrapperMsgGenerator.contractDetailsEnd(reqId);
+    	if (m_callbackMap.containsKey(reqId)) {
+    		m_callbackMap.get(reqId).onContractDetailsEnd();
+    	}
+    	
+    	String msg = EWrapperMsgGenerator.contractDetailsEnd(reqId);
 		m_TWS.add(msg);
 	}
 
@@ -1048,6 +1190,15 @@ class SampleFrame extends JFrame implements EWrapper {
 
     public void error( int id, int errorCode, String errorMsg) {
         // received error
+    	if (m_callbackMap.containsKey(id)) {
+    		m_callbackMap.get(id).onError(errorCode, errorMsg);    		
+    	}
+    	else if (id == -1) {
+    		for (ContractDetailsCallback callback : m_callbackMap.values()) {
+    			callback.onError(errorCode, errorMsg);
+    		}
+    	}
+    	
     	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg);
         m_errors.add( msg);
         for (int ctr=0; ctr < faErrorCodes.length; ctr++) {
@@ -1244,6 +1395,7 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.hedgeType(srcOrder.getHedgeType());
         destOrder.hedgeParam(srcOrder.hedgeParam());
         destOrder.account(srcOrder.account());
+        destOrder.modelCode(srcOrder.modelCode());
         destOrder.settlingFirm(srcOrder.settlingFirm());
         destOrder.clearingAccount(srcOrder.clearingAccount());
         destOrder.clearingIntent(srcOrder.clearingIntent());
@@ -1271,7 +1423,27 @@ class SampleFrame extends JFrame implements EWrapper {
         String msg = EWrapperMsgGenerator.accountSummaryEnd(reqId);
         m_TWS.add(msg);
     }
-    
+
+    public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+        String msg = EWrapperMsgGenerator.positionMulti(reqId, account, modelCode, contract, pos, avgCost);
+        m_TWS.add(msg);
+    }
+
+    public void positionMultiEnd( int reqId) {
+        String msg = EWrapperMsgGenerator.positionMultiEnd(reqId);
+        m_TWS.add(msg);
+    }
+
+    public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+        String msg = EWrapperMsgGenerator.accountUpdateMulti(reqId, account, modelCode, key, value, currency);
+        m_TWS.add(msg);
+    }
+
+    public void accountUpdateMultiEnd( int reqId) {
+        String msg = EWrapperMsgGenerator.accountUpdateMultiEnd(reqId);
+        m_TWS.add(msg);
+    }
+
     public void verifyMessageAPI( String apiData) { /* Empty */ }
     public void verifyCompleted( boolean isSuccessful, String errorText) { /* Empty */ }
     public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) { /* Empty */ }
@@ -1288,6 +1460,17 @@ class SampleFrame extends JFrame implements EWrapper {
 	public void connectAck() {
 		if (m_client.isAsyncEConnect())
 			m_client.startAPI();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		String msg = EWrapperMsgGenerator.securityDefinitionOptionalParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);		
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
 	}
     
 }

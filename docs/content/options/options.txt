@@ -1,0 +1,37 @@
+/*! \page options Options
+	The API can return the greek values in real time for options, as well as calculate the implied volatility given a hypothetical price or calculate the hypothetical price given an implied volatility. 
+	- \subpage option_computations
+
+	There is specific functionality to exercise or lapse options. 
+
+	- \subpage option_exercising
+
+	The option chain for a given security can be returned using the function reqContractDetails. See the Contract Details page.
+	
+	Starting in version 9.72 of the API there is a function named reqSecDefOptParams designed specifically to retrieve the option chain for a security which is not as restricted by the pacing limitations. 
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqsecdefoptparams
+			...
+			\snippet EWrapperImpl.cs securityDefinitionOptionParameter
+		</li>
+		<li>
+			\snippet Testbed.java reqsecdefoptparams
+			...
+			\snippet EWrapperImpl.java securityDefinitionOptionParameter
+		</li>
+		<li>
+			\snippet MainModule.vb reqsecdefoptparams
+			...
+			\snippet EWrapperImpl.vb securityDefinitionOptionParameter
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqsecdefoptparams
+			...
+			\snippet TestCppClient.cpp securityDefinitionOptionParameter
+		</li>
+	</ul>
+	
+	
+*/

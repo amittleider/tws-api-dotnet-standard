@@ -1,0 +1,35 @@
+﻿/*! \page contracts Contracts
+
+	\section Overview
+	An @ref IBApi::Contract object represents trading instruments such as a stocks, futures or options. 
+	
+	Every time a new request that requires a contract (i.e. market data, order placing, etc.) is sent to TWS, the platform will try to match the provided contract object 
+	with a single candidate. If there is more than one contract matching the same description, TWS will return an error notifying you there is an ambiguity. In these cases 
+	the TWS needs further information to narrow down the list of contracts matching the provided description to a single element.
+
+	The best way of finding a contract’s description is within the TWS itself. Within the TWS, you can easily check a contract’s description either by double clicking it or 
+	through the <b>Contract Info -> Description</b> menu, which you access by right-clicking a contract in TWS:
+
+	\image html contract_info_tws.png
+	
+	The description will then appear:
+	
+	\image html contract_description_tws_without_debug.png	
+
+	<b>Note: </b> you can see the extended contract details by choosing <b>Contract Info -> Details</b>. This option will open a web page showing all available information on the contract.
+	
+	Whenever a contract description is provided via the TWS API, the TWS will try to match the given description to a single contract. This mechanism allows for great flexibility since it gives
+	the possibility to define the same contract in multiple ways. 
+	
+	The simplest way to define a contract is by providing its symbol, security type, currency and exchange. The vast majority of stocks, CFDs, Indexes or FX pairs can be uniquely defined through 
+	these four attributes. More complex contracts such as options and futures require some extra information due to their nature. Below are several examples for different types of instruments.
+	
+	See also:
+	
+	- \subpage contract_details
+	- \subpage basic_contracts
+	- \subpage spread_contracts
+	
+	<br>
+  
+*/

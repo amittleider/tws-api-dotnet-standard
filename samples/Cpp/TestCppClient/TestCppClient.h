@@ -10,13 +10,54 @@
 #include "EReader.h"
 
 #include <memory>
+#include <vector>
 
 class EClientSocket;
 
 enum State {
 	ST_CONNECT,
-	ST_PLACEORDER,
-	ST_PLACEORDER_ACK,
+	ST_TICKDATAOPERATION,
+	ST_TICKDATAOPERATION_ACK,
+	ST_MARKETDEPTHOPERATION,
+	ST_MARKETDEPTHOPERATION_ACK,
+	ST_REALTIMEBARS,
+	ST_REALTIMEBARS_ACK,
+	ST_MARKETDATATYPE,
+	ST_MARKETDATATYPE_ACK,
+	ST_HISTORICALDATAREQUESTS,
+	ST_HISTORICALDATAREQUESTS_ACK,
+	ST_OPTIONSOPERATIONS,
+	ST_OPTIONSOPERATIONS_ACK,
+	ST_CONTRACTOPERATION,
+	ST_CONTRACTOPERATION_ACK,
+	ST_MARKETSCANNERS,
+	ST_MARKETSCANNERS_ACK,
+	ST_REUTERSFUNDAMENTALS,
+	ST_REUTERSFUNDAMENTALS_ACK,
+	ST_BULLETINS,
+	ST_BULLETINS_ACK,
+	ST_ACCOUNTOPERATIONS,
+	ST_ACCOUNTOPERATIONS_ACK,
+	ST_ORDEROPERATIONS,
+	ST_ORDEROPERATIONS_ACK,
+	ST_OCASAMPLES,
+	ST_OCASAMPLES_ACK,
+	ST_CONDITIONSAMPLES,
+	ST_CONDITIONSAMPLES_ACK,
+	ST_BRACKETSAMPLES,
+	ST_BRACKETSAMPLES_ACK,
+	ST_HEDGESAMPLES,
+	ST_HEDGESAMPLES_ACK,
+	ST_TESTALGOSAMPLES,
+	ST_TESTALGOSAMPLES_ACK,
+	ST_FAORDERSAMPLES,
+	ST_FAORDERSAMPLES_ACK,
+	ST_FAOPERATIONS,
+	ST_FAOPERATIONS_ACK,
+	ST_DISPLAYGROUPS,
+	ST_DISPLAYGROUPS_ACK,
+	ST_MISCELANEOUS,
+	ST_MISCELANEOUS_ACK,
 	ST_CANCELORDER,
 	ST_CANCELORDER_ACK,
 	ST_PING,
@@ -24,9 +65,10 @@ enum State {
 	ST_IDLE
 };
 
-
+//! [ewrapperimpl]
 class TestCppClient : public EWrapper
 {
+//! [ewrapperimpl]
 public:
 
 	TestCppClient();
@@ -42,10 +84,29 @@ public:
 	bool isConnected() const;
 
 private:
+	void tickDataOperation();
+	void marketDepthOperations();
+	void realTimeBars();
+	void marketDataType();
+	void historicalDataRequests();
+	void optionsOperations();
+	void accountOperations();
+	void orderOperations();
+	void ocaSamples();
+	void conditionSamples();
+	void bracketSample();
+	void hedgeSample();
+	void contractOperations();
+	void marketScanners();
+	void reutersFundamentals();
+	void bulletins();
+	void testAlgoSamples();
+	void financialAdvisorOrderSamples();
+	void financialAdvisorOperations();
+	void testDisplayGroups();
+	void miscelaneous();
 
 	void reqCurrentTime();
-	void placeOrder();
-	void cancelOrder();
 
 public:
 	// events
@@ -111,16 +172,23 @@ public:
 	void displayGroupList( int reqId, const std::string& groups);
 	void displayGroupUpdated( int reqId, const std::string& contractInfo);
     void connectAck();
+	void positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost);
+	void positionMultiEnd( int reqId);
+	void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency);
+	void accountUpdateMultiEnd( int reqId);
+    void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
+    void securityDefinitionOptionalParameterEnd(int reqId);
 
 private:
-
+	//! [socket_declare]
 	EClientSocket * const m_pClient;
+	EReaderOSSignal m_osSignal;
+	//! [socket_declare]
 	State m_state;
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
 	EReader *m_pReader;
-	EReaderOSSignal m_osSignal;
     bool m_extraAuth;
 };
 

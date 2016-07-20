@@ -10,6 +10,11 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+     * @class EClientSocket
+     * @brief TWS/Gateway client class
+     * This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
+     */
     public class EClientSocket : EClient,  EClientMsgSink
     {
         private int port;
@@ -57,6 +62,9 @@ namespace IBApi
                 startApi();
         }
 
+        /**
+        * Creates socket connection to TWS/IBG. This earlier version of eConnect does not have extraAuth parameter.
+        */
         public void eConnect(string host, int port, int clientId)
         {
             eConnect(host, port, clientId, false);
@@ -67,6 +75,9 @@ namespace IBApi
             return new TcpClient(host, port).GetStream();
         }
 
+        /**
+        * @brief Creates socket connection to TWS/IBG.
+        */
         public void eConnect(string host, int port, int clientId, bool extraAuth)
         {
             if (isConnected)
@@ -144,6 +155,9 @@ namespace IBApi
             socketTransport.Send(new EMessage(buf.ToArray()));
         }
 
+        /**
+        * @brief Redirects connection to different host. 
+        */
         public void redirect(string host)
         {
             if (!allowRedirect)

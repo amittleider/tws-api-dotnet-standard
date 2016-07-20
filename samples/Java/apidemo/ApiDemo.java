@@ -19,13 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.IConnectionConfiguration;
-import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
-import apidemo.util.NewLookAndFeel;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Types.NewsType;
 import com.ib.controller.ApiConnection.ILogger;
 import com.ib.controller.ApiController;
@@ -34,9 +27,16 @@ import com.ib.controller.ApiController.IConnectionHandler;
 import com.ib.controller.ApiController.ITimeHandler;
 import com.ib.controller.Formats;
 
+import apidemo.util.HtmlButton;
+import apidemo.util.IConnectionConfiguration;
+import apidemo.util.IConnectionConfiguration.DefaultConnectionConfiguration;
+import apidemo.util.NewLookAndFeel;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.VerticalPanel;
+
 public class ApiDemo implements IConnectionHandler {
 	static { NewLookAndFeel.register(); }
-	static ApiDemo INSTANCE;
+	public static ApiDemo INSTANCE;
 
 	private final IConnectionConfiguration m_connectionConfiguration;
 	private final JTextArea m_inLog = new JTextArea();
@@ -44,7 +44,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final Logger m_inLogger = new Logger( m_inLog);
 	private final Logger m_outLogger = new Logger( m_outLog);
 	private ApiController m_controller;
-	private final ArrayList<String> m_acctList = new ArrayList<String>();
+	private final ArrayList<String> m_acctList = new ArrayList<>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
 	private final ConnectionPanel m_connectionPanel;
@@ -52,6 +52,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final ContractInfoPanel m_contractInfoPanel = new ContractInfoPanel();
 	private final TradingPanel m_tradingPanel = new TradingPanel();
 	private final AccountInfoPanel m_acctInfoPanel = new AccountInfoPanel();
+	private final AccountPositionsMultiPanel m_acctPosMultiPanel = new AccountPositionsMultiPanel();
 	private final OptionsPanel m_optionsPanel = new OptionsPanel();
 	private final AdvisorPanel m_advisorPanel = new AdvisorPanel();
 	private final ComboPanel m_comboPanel = new ComboPanel();
@@ -90,6 +91,7 @@ public class ApiDemo implements IConnectionHandler {
 		m_tabbedPanel.addTab( "Market Data", m_mktDataPanel);
 		m_tabbedPanel.addTab( "Trading", m_tradingPanel);
 		m_tabbedPanel.addTab( "Account Info", m_acctInfoPanel);
+		m_tabbedPanel.addTab( "Acct/Pos Multi", m_acctPosMultiPanel);
 		m_tabbedPanel.addTab( "Options", m_optionsPanel);
 		m_tabbedPanel.addTab( "Combos", m_comboPanel);
 		m_tabbedPanel.addTab( "Contract Info", m_contractInfoPanel);
@@ -178,6 +180,10 @@ public class ApiDemo implements IConnectionHandler {
 		private final JTextField m_connectOptionsTF = new JTextField( m_connectionConfiguration.getDefaultConnectOptions(), 30);
 		private final JTextField m_clientId = new JTextField("0", 7);
 		private final JLabel m_status = new JLabel("Disconnected");
+		private final JLabel m_defaultPortNumberLabel = new JLabel("<html>Live Trading ports:<b> TWS: 7496; IB Gateway: 4001.</b><br>"
+			    + "Simulated Trading ports for new installations of "
+				+ "version 954.1 or newer: "
+				+ "<b>TWS: 7497; IB Gateway: 4002</b></html>");
 		
 		public ConnectionPanel() {
 			HtmlButton connect = new HtmlButton("Connect") {
@@ -199,6 +205,7 @@ public class ApiDemo implements IConnectionHandler {
 			if ( m_connectionConfiguration.getDefaultConnectOptions() != null ) {
 				p1.add( "Connect options", m_connectOptionsTF);
 			}
+			p1.add( "", m_defaultPortNumberLabel);
 			
 			JPanel p2 = new VerticalPanel();
 			p2.add( connect);

@@ -1,0 +1,22 @@
+/*! \page option_exercising Exercising Options
+
+	Options can be exercised or lapsed with the function @ref IBApi::EClient::exerciseOptions
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs exercise_options
+		</li>
+		<li>
+			\snippet Testbed.java exercise_options
+		</li>
+		<li>
+			\snippet MainModule.vb exercise_options
+		</li>
+		<li>
+			\snippet TestCppClient.cpp exercise_options
+		</li>
+	</ul>
+	
+	
+
+*/

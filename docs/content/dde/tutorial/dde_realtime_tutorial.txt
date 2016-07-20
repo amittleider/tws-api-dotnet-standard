@@ -1,0 +1,100 @@
+/*! \page dde_realtime_tutorial Real Time Data with Excel
+
+	One of the most common inquiries we receive at Interactive Brokers is about export data from the TWS into Excel. Since the TWS does not have functionality to export intra-day, 
+	customers are often directed at the TWS API and its Excel sheets in particular. Customers, however, need to be aware of the fact that the distributed 
+	sheets are not tools to be used on a daily basis. All our sample applications are merely a demonstration of the API capabilities aimed at experienced programmers who will in turn use 
+	them as a reference to develop more complex and robust systems.
+
+	It is possible to view live quotes for multiple products updating real time within Excel. Requests via the TWS DDE API are nothing but Excel formulas (DDE data links) 
+	each of them serving a very specific purpose. Market Data retrieval requires at least two different DDE links: one to start the market data subscription and another one which will 
+	be receiving the specific tick type.
+
+	This document is a brief tutorial explaining the process behind market data retrieval through MS Excel via the TWS DDE API. All the VBA code is kept to a 
+	minimum and its purpose is merely illustrative.
+	
+	\section dde_rt_requisites Requisites
+	
+	Please make sure you have already acquired \ref dde_what_you_will_need before going forward in this tutorial.
+	
+	\section dde_rt_prepare Preparing the request
+	
+	The formula to start the request will need to provide the TWS with enough information so that the TWS can unambiguously identify which instrument we are interested in. As a first example, 
+	we will request FX market data (EUR.USD). The resulting formula will therefore be:
+	
+	=Ssample123|tik!'id1?req?EUR_CASH_IDEALPRO_USD_~/'
+	
+	Note that sample123 will have to be replaced with the exact same user name entered when logging into the TWS. This applies for all subsequent DDE links shown in this guide. 
+	
+	For more contract definition samples via DDE, please refer to \ref dde_contracts_description .
+
+	If the above formula is copied into any cell of a spreadsheet, the cell should automatically display 0 on it.
+	
+	\image html dde_rt_prepare.png
+	
+	After we have done this, the TWS will be aware that a DDE link is requesting EUR.USD data.
+	
+	\section dde_rt_receive Receiving the data
+	
+	Once the TWS recognizes our DDE link trying to pull EUR.USD data, we can proceed to read it. We are currently interested in knowing the bid price of the EUR.USD FX pair, therefore we 
+	need to make use of:
+
+	=Ssample123|tik!id1?bid
+
+	Pasting the above formula into the same sheet will have a more exciting result:
+	
+	\image html dde_rt_receive.png
+
+	The value displayed on cell D2 is the exact same value the TWS displays for the EUR.USD bid price (at the moment of writing this document) and will keep updating as long as the request is active.
+	
+	\section dde_rt_understanding Understanding the Formulas
+	
+	As it was already mentioned, the first formula will ask the TWS to open a DDE channel through which we can obtain EUR.USD data while the second one is merely pulling the bid price for it. To 
+	understand the formulas' syntax refer to the @ref dde_rt section from the @ref dde_reference page.
+	
+	\section obtain_last_error_msg Obtain the Last Available Error
+	
+	Unfortunately things do not always work as expected. The slightest error in the DDE link or the contract description that you provide will prevent you from receiving the market data from TWS. The first and most obvious step in solving this problem is to make sure that your DDE links are correct and contain no spelling errors or typographical errors such as unwanted spaces or characters.
+
+	If the formula is correct but you are still not able to see any data, you can ask the TWS about any errors generated in response to your request. In most cases, TWS will be able to point us in the right direction.
+
+	TWS can only remember the most recent error. This is very important to remember because your Excel spreadsheet will often have many active requests with multiple possibilities for errors. Be sure that all previous requests are working as expected before creating a new one. This will help identify any problem.
+
+	There are three formulas that you need to use. Enter each formula into its own cell in your Excel worksheet:
+	
+	<table>
+		<tr><th><b>Formula</b></th><th><b>Description</b></th></tr>
+		<tr><td>=S[twsuser]|err!id</td><td>Obtains the failed request’s unique ID.</td></tr>
+		<tr><td>=S[twsuser]|err!errorCode</td><td>The error code.</td></tr>
+		<tr><td>=S[twsuser]|err!errorMsg</td><td>The description of the error.</td></tr>
+	</table>
+	
+	Let's look at an example. In the following figure, the real time data request formula’s symbol has been intentionally modified to EUE instead of EUR. 
+	We've entered the three error formulas into three separate cells. We will receive an error for that request (the request ID is 1), along with the error code and description (No security definition has been found for the request). 
+	This error means that the contract for which we are requesting data cannot be found. In other words, the description of the contract in the DDE link is wrong.
+	
+	\image html dde_error_display.png
+	
+	Once you know what caused the error, you should clear the error formulas first, and then correct the original DDE link. 
+	When you do this, you will notice that the error formulas will return a 0 value:
+	
+	\image html dde_error_fixed.png	
+	
+	\subsection dde_error_clear Why is it important to first clear the error formula before correcting our request?
+	
+	We mentioned earlier on that TWS will hold the last available error message of the last failed request. 
+	This implies that TWS will remember that, as in our example, the request identified with id X, has an error associated to it. 
+	It is very tempting to simply correct the typo in our request. 
+	However, this will create an “orphan” error in TWS and this "Can't find EId" error will also be sent to your Excel worksheet, as shown in the following image. 
+	This orphan error is basically TWS saying “I cannot find an error for this request.”
+	
+	\image html dde_error_orphan.png
+	
+	You might think that you can easily ignore this error. 
+	Imagine, however, that you have many DDE links in your Excel worksheet and one of them resulted in a “no security definition has been found” error. 
+	Later, another link in your sheet causes the “Can’t find EId” error to appear. You will only be able to see the last error, which is not really telling you much about why your Excel worksheet is not working as you expect. 
+	While this logic applies to all errors, this last error can be particularly misleading.
+	
+	<b>REMEMBER: Be sure that all of your previous requests are working as expected before moving to the next one.</b>
+	
+	<br>
+*/

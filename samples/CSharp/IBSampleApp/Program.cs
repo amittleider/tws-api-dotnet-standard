@@ -21,7 +21,7 @@ namespace IBSampleApp
             Application.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new IBSampleApp());
+            Application.Run(new IBSampleAppDialog());
         }
     }
 }

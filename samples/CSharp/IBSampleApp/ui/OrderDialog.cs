@@ -21,13 +21,59 @@ namespace IBSampleApp
         private MarginDialog marginDialog;
         private OrderManager orderManager;
         private int orderId;
+        private BindingSource orderBindingSource = new BindingSource();
 
         public OrderDialog(OrderManager orderManager)
         {
             InitializeComponent();
             InitialiseDropDowns();
+
             this.orderManager = orderManager;
             marginDialog = new MarginDialog();
+            contractSearchControl1.IBClient = orderManager.IBClient;
+            conditionList.CellFormatting += conditionList_CellFormatting;
+            conditionList.DataSource = orderBindingSource;
+            conditionList.AutoGenerateColumns = false;
+            conditionList.CellParsing += conditionList_CellParsing;
+            orderBindingSource.DataSource = new List<OrderCondition>();
+            cancelOrder.SelectedIndex = 0;
+        }
+
+        void conditionList_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                e.ParsingApplied = false;
+
+                return;
+            }
+
+            (orderBindingSource[e.RowIndex] as OrderCondition).IsConjunctionConnection = e.Value.ToString().Equals("and", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        void conditionList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (orderBindingSource.Count <= e.RowIndex)
+                return;
+
+            OrderCondition obj = orderBindingSource[e.RowIndex] as OrderCondition;
+
+            e.FormattingApplied = true;
+
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    e.Value = obj.ToString();
+                    break;
+
+                case 1:
+                    e.Value = obj.IsConjunctionConnection ? "and" : "or";
+                    break;
+
+                default:
+                    e.FormattingApplied = false;
+                    break;
+            }
         }
 
         public Order CurrentOrder
@@ -36,7 +82,7 @@ namespace IBSampleApp
         }
 
         private void sendOrderButton_Click(object sender, EventArgs e)
-        {            
+        {
             Contract contract = GetOrderContract();
             Order order = GetOrder();
             orderManager.PlaceOrder(contract, order);
@@ -137,7 +183,7 @@ namespace IBSampleApp
             contract.Currency = contractCurrency.Text;
             contract.Exchange = contractExchange.Text;
             contract.LastTradeDateOrContractMonth = contractLastTradeDateOrContractMonth.Text;
-            if(!contractStrike.Text.Equals(""))
+            if (!contractStrike.Text.Equals(""))
                 contract.Strike = Double.Parse(contractStrike.Text);
             if (!contractRight.Text.Equals("") || !contractRight.Text.Equals("None"))
                 contract.Right = (string)((IBType)contractRight.SelectedItem).Value;
@@ -165,25 +211,88 @@ namespace IBSampleApp
                 order.OrderId = orderId;
             order.Action = action.Text;
             order.OrderType = orderType.Text;
-            if(!lmtPrice.Text.Equals(""))
+            if (!lmtPrice.Text.Equals(""))
                 order.LmtPrice = Double.Parse(lmtPrice.Text);
-            if(!quantity.Text.Equals(""))
+            if (!quantity.Text.Equals(""))
                 order.TotalQuantity = Double.Parse(quantity.Text);
             order.Account = account.Text;
+            order.ModelCode = modelCode.Text;
             order.Tif = timeInForce.Text;
             if (!auxPrice.Text.Equals(""))
                 order.AuxPrice = Double.Parse(auxPrice.Text);
             if (!displaySize.Text.Equals(""))
                 order.DisplaySize = Int32.Parse(displaySize.Text);
-            order = GetExtendedOrderAttributes(order);
-            order = GetAdvisorAttributes(order);
-            order = GetVolatilityAttributes(order);
-            order = GetScaleAttributes(order);
-            order = GetAlgoAttributes(order);
+
+            FillExtendedOrderAttributes(order);
+            FillAdvisorAttributes(order);
+            FillVolatilityAttributes(order);
+            FillScaleAttributes(order);
+            FillAlgoAttributes(order);
+            FillPegToBench(order);
+            FillAdjustedStops(order);
+            FillConditions(order);
+
             return order;
         }
 
-        private Order GetExtendedOrderAttributes(Order order)
+        private void FillConditions(Order order)
+        {
+            order.Conditions = orderBindingSource.DataSource as List<OrderCondition>;
+            order.ConditionsIgnoreRth = ignoreRth.Checked;
+            order.ConditionsCancelOrder = cancelOrder.SelectedIndex == 1;
+        }
+
+        private void FillAdjustedStops(Order order)
+        {
+            if (cbAdjustedOrderType.SelectedIndex > 0)
+                order.AdjustedOrderType = cbAdjustedOrderType.Text;
+
+            if (!string.IsNullOrWhiteSpace(tbTriggerPrice.Text))
+                order.TriggerPrice = double.Parse(tbTriggerPrice.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbAdjustedStopPrice.Text))
+                order.AdjustedStopPrice = double.Parse(tbAdjustedStopPrice.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbAdjustedStopLimitPrice.Text))
+                order.AdjustedStopLimitPrice = double.Parse(tbAdjustedStopLimitPrice.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbAdjustedTrailingAmnt.Text))
+                order.AdjustedTrailingAmount = double.Parse(tbAdjustedTrailingAmnt.Text);
+
+            order.AdjustableTrailingUnit = (cbAdjustedTrailingAmntUnit.SelectedItem as TrailingAmountUnit).Val;
+            order.LmtPriceOffset = order.LmtPrice - order.AuxPrice;
+        }
+
+        private void FillPegToBench(Order order)
+        {
+            if (!string.IsNullOrWhiteSpace(tbStartingPrice.Text))
+                order.StartingPrice = double.Parse(tbStartingPrice.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbStartingReferencePrice.Text))
+                order.StockRefPrice = double.Parse(tbStartingReferencePrice.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbPeggedChangeAmount.Text))
+                order.PeggedChangeAmount = double.Parse(tbPeggedChangeAmount.Text);
+
+            if (!string.IsNullOrWhiteSpace(tbReferenceChangeAmount.Text))
+                order.ReferenceChangeAmount = double.Parse(tbReferenceChangeAmount.Text);
+
+            if (!string.IsNullOrWhiteSpace(pgdStockRangeLower.Text))
+                order.StockRangeLower = double.Parse(pgdStockRangeLower.Text);
+
+            if (!string.IsNullOrWhiteSpace(pgdStockRangeUpper.Text))
+                order.StockRangeUpper = double.Parse(pgdStockRangeUpper.Text);
+
+            order.IsPeggedChangeAmountDecrease = cbPeggedChangeType.SelectedIndex == 1;
+
+            if (contractSearchControl1.Contract != null)
+            {
+                order.ReferenceContractId = contractSearchControl1.Contract.ConId;
+                order.ReferenceExchange = contractSearchControl1.Contract.Exchange;
+            }
+        }
+
+        private void FillExtendedOrderAttributes(Order order)
         {
             order.OrderRef = orderReference.Text;
             if (!minQty.Text.Equals(""))
@@ -193,7 +302,7 @@ namespace IBSampleApp
             order.Rule80A = (string)((IBType)rule80A.SelectedItem).Value;
             order.TriggerMethod = (int)((IBType)triggerMethod.SelectedItem).Value;
 
-            if(!percentOffset.Text.Equals(""))
+            if (!percentOffset.Text.Equals(""))
                 order.PercentOffset = Double.Parse(percentOffset.Text);
             if (!trailStopPrice.Text.Equals(""))
                 order.TrailStopPrice = Double.Parse(trailStopPrice.Text);
@@ -208,7 +317,7 @@ namespace IBSampleApp
             order.OcaType = (int)((IBType)ocaType.SelectedItem).Value;
             order.HedgeType = (string)((IBType)hedgeType.SelectedItem).Value;
             order.HedgeParam = hedgeParam.Text;
-                        
+
             order.NotHeld = notHeld.Checked;
             order.BlockOrder = block.Checked;
             order.SweepToFill = sweepToFill.Checked;
@@ -220,22 +329,20 @@ namespace IBSampleApp
             order.FirmQuoteOnly = firmQuote.Checked;
             order.OptOutSmartRouting = optOutSmart.Checked;
             order.Transmit = transmit.Checked;
-
-            return order;
         }
 
-        private Order GetVolatilityAttributes(Order order)
+        private void FillVolatilityAttributes(Order order)
         {
-            if(!volatility.Text.Equals(""))
+            if (!volatility.Text.Equals(""))
                 order.Volatility = Double.Parse(volatility.Text);
             order.VolatilityType = (int)((IBType)volatilityType.SelectedItem).Value;
-            if(continuousUpdate.Checked)
+            if (continuousUpdate.Checked)
                 order.ContinuousUpdate = 1;
             else
                 order.ContinuousUpdate = 0;
             order.ReferencePriceType = (int)((IBType)optionReferencePrice.SelectedItem).Value;
-            
-            if(!deltaNeutralOrderType.Text.Equals("None"))
+
+            if (!deltaNeutralOrderType.Text.Equals("None"))
                 order.DeltaNeutralOrderType = deltaNeutralOrderType.Text;
 
             if (!deltaNeutralAuxPrice.Text.Equals(""))
@@ -246,25 +353,23 @@ namespace IBSampleApp
                 order.StockRangeLower = Double.Parse(stockRangeLower.Text);
             if (!stockRangeUpper.Text.Equals(""))
                 order.StockRangeUpper = Double.Parse(stockRangeUpper.Text);
-            return order;
         }
 
-        private Order GetAdvisorAttributes(Order order)
+        private void FillAdvisorAttributes(Order order)
         {
             order.FaGroup = faGroup.Text;
             order.FaPercentage = faPercentage.Text;
             order.FaMethod = (string)((IBType)faMethod.SelectedItem).Value;
             order.FaProfile = faProfile.Text;
-            return order;
         }
 
-        private Order GetScaleAttributes(Order order)
+        private void FillScaleAttributes(Order order)
         {
-            if(!initialLevelSize.Text.Equals(""))
+            if (!initialLevelSize.Text.Equals(""))
                 order.ScaleInitLevelSize = Int32.Parse(initialLevelSize.Text);
             if (!subsequentLevelSize.Text.Equals(""))
                 order.ScaleSubsLevelSize = Int32.Parse(subsequentLevelSize.Text);
-            if(!priceIncrement.Text.Equals(""))
+            if (!priceIncrement.Text.Equals(""))
                 order.ScalePriceIncrement = Double.Parse(priceIncrement.Text);
             if (!priceAdjustValue.Text.Equals(""))
                 order.ScalePriceAdjustValue = Double.Parse(priceAdjustValue.Text);
@@ -279,14 +384,12 @@ namespace IBSampleApp
 
             order.ScaleAutoReset = autoReset.Checked;
             order.ScaleRandomPercent = randomiseSize.Checked;
-            
-            return order;
         }
 
-        private Order GetAlgoAttributes(Order order)
+        private void FillAlgoAttributes(Order order)
         {
             if (algoStrategy.Text.Equals("") || algoStrategy.Text.Equals("None"))
-                return order;
+                return;
             List<TagValue> algoParams = new List<TagValue>();
             algoParams.Add(new TagValue("startTime", startTime.Text));
             algoParams.Add(new TagValue("endTime", endTime.Text));
@@ -330,25 +433,56 @@ namespace IBSampleApp
                 algoParams.Add(new TagValue("noTakeLiq", noTakeLiq.Text));
             }
             order.AlgoParams = algoParams;
-            return order;
         }
 
-        public void SetOrder(Order order)
+        public async void SetOrder(Order order)
         {
             orderId = order.OrderId;
             action.Text = order.Action;
             orderType.Text = order.OrderType;
-            lmtPrice.Text = order.LmtPrice.ToString();
-            quantity.Text = order.TotalQuantity.ToString();
+            lmtPrice.Text = doubleToStr(order.LmtPrice);
+            quantity.Text = doubleToStr(order.TotalQuantity);
             account.Text = order.Account;
+            modelCode.Text = order.ModelCode;
             timeInForce.Text = order.Tif;
-            auxPrice.Text = order.AuxPrice.ToString();
+            auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();
+
             //order = GetExtendedOrderAttributes(order);
             //order = GetAdvisorAttributes(order);
             //order = GetVolatilityAttributes(order);
             //order = GetScaleAttributes(order);
             //order = GetAlgoAttributes(order);
+
+            var c = await orderManager.IBClient.ResolveContractAsync(order.ReferenceContractId, order.ReferenceExchange);
+
+            contractSearchControl1.Contract = c;
+
+            if (order.OrderType == "PEG BENCH")
+            {
+                tbStartingPrice.Text = doubleToStr(order.StartingPrice);
+                tbStartingReferencePrice.Text = doubleToStr(order.StockRefPrice);
+                tbPeggedChangeAmount.Text = doubleToStr(order.PeggedChangeAmount);
+                cbPeggedChangeType.SelectedIndex = order.IsPeggedChangeAmountDecrease ? 1 : 0;
+                tbReferenceChangeAmount.Text = doubleToStr(order.ReferenceChangeAmount);
+                pgdStockRangeUpper.Text = doubleToStr(order.StockRangeUpper);
+                pgdStockRangeLower.Text = doubleToStr(order.StockRangeLower);
+            }
+
+            cbAdjustedOrderType.Text = order.AdjustedOrderType;
+            tbTriggerPrice.Text = doubleToStr(order.TriggerPrice);
+            tbAdjustedStopPrice.Text = doubleToStr(order.AdjustedStopPrice);
+            tbAdjustedStopLimitPrice.Text = doubleToStr(order.AdjustedStopLimitPrice);
+            tbAdjustedTrailingAmnt.Text = doubleToStr(order.AdjustedTrailingAmount);
+            cbAdjustedTrailingAmntUnit.SelectedItem = (TrailingAmountUnit)order.AdjustableTrailingUnit;
+            orderBindingSource.DataSource = order.Conditions;
+            ignoreRth.Checked = order.ConditionsIgnoreRth;
+            cancelOrder.SelectedIndex = order.ConditionsCancelOrder ? 1 : 0;
+        }
+
+        string doubleToStr(double val)
+        {
+            return val != double.MaxValue ? val.ToString() : "";
         }
 
         private void EnableVWap()
@@ -401,7 +535,7 @@ namespace IBSampleApp
             rule80A.Items.AddRange(Rule80A.GetAll());
             rule80A.SelectedIndex = 0;
 
-            triggerMethod.Items.AddRange(TriggerMethod.GetAll());
+            triggerMethod.Items.AddRange(IBSampleApp.types.TriggerMethod.GetAll());
             triggerMethod.SelectedIndex = 0;
 
             faMethod.Items.AddRange(FaMethod.GetAll());
@@ -421,6 +555,85 @@ namespace IBSampleApp
 
             contractRight.Items.AddRange(ContractRight.GetAll());
             contractRight.SelectedIndex = 0;
+
+            cbPeggedChangeType.SelectedIndex = 0;
+            cbAdjustedOrderType.SelectedIndex = 0;
+            cbAdjustedTrailingAmntUnit.Items[0] = TrailingAmountUnit.amnt;
+            cbAdjustedTrailingAmntUnit.Items[1] = TrailingAmountUnit.percent;
+            cbAdjustedTrailingAmntUnit.SelectedIndex = 0;
+        }
+
+        class TrailingAmountUnit
+        {
+            public int Val { get; private set; }
+            string txt;
+
+            public override string ToString()
+            {
+                return txt;
+            }
+
+            private TrailingAmountUnit(int value, string text)
+            {
+                Val = value;
+                txt = text;
+            }
+
+            public static explicit operator TrailingAmountUnit(int val)
+            {
+                if (val == 0)
+                    return amnt;
+
+                if (val == 100)
+                    return percent;
+
+                return null;
+            }
+
+            public static TrailingAmountUnit amnt = new TrailingAmountUnit(0, "amount"), percent = new TrailingAmountUnit(100, "%");
+        }
+
+        private void lbAddCondition_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var dlg = new ConditionDialog(null, orderManager.IBClient);
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                orderBindingSource.Add(dlg.Condition);
+            }
+        }
+
+        private OrderCondition selectedCondition
+        {
+            get
+            {
+                if (conditionList.SelectedCells.Count == 0 || conditionList.SelectedCells[0].RowIndex == -1)
+                    return null;
+
+                return orderBindingSource[conditionList.SelectedCells[0].RowIndex] as OrderCondition;
+            }
+
+            set
+            {
+                if (conditionList.SelectedCells.Count > 0 && conditionList.SelectedCells[0].RowIndex != -1)
+                    orderBindingSource[conditionList.SelectedCells[0].RowIndex] = value;
+            }
+        }
+
+        private void lbRemoveCondition_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            orderBindingSource.Remove(selectedCondition);
+        }
+
+        private void conditionList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                var dlg = new ConditionDialog(selectedCondition, orderManager.IBClient);
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                    selectedCondition = dlg.Condition;
+            }
         }
     }
 }

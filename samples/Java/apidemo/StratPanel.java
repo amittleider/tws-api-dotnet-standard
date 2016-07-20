@@ -17,14 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
-import apidemo.OrdersPanel.OrdersModel;
-import apidemo.util.HtmlButton;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.VerticalPanel.BorderPanel;
-import apidemo.util.VerticalPanel.HorzPanel;
-import apidemo.util.VerticalPanel.StackPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DurationUnit;
@@ -32,6 +24,14 @@ import com.ib.client.Types.WhatToShow;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.Bar;
+
+import apidemo.OrdersPanel.OrdersModel;
+import apidemo.util.HtmlButton;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.VerticalPanel.BorderPanel;
+import apidemo.util.VerticalPanel.HorzPanel;
+import apidemo.util.VerticalPanel.StackPanel;
 
 
 public class StratPanel extends StackPanel implements IHistoricalDataHandler, IRealTimeBarHandler {

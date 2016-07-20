@@ -168,15 +168,16 @@ const int UNSUBSCRIBE_FROM_GROUP_EVENTS = 70;
 const int START_API                     = 71;
 const int VERIFY_AND_AUTH_REQUEST       = 72;
 const int VERIFY_AND_AUTH_MESSAGE       = 73;
+const int REQ_POSITIONS_MULTI           = 74;
+const int CANCEL_POSITIONS_MULTI        = 75;
+const int REQ_ACCOUNT_UPDATES_MULTI     = 76;
+const int CANCEL_ACCOUNT_UPDATES_MULTI  = 77;
+const int REQ_SEC_DEF_OPT_PARAMS		= 78;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
-
-
-#define ENCODE_FIELD(x) EncodeField(msg, x);
-#define ENCODE_FIELD_MAX(x) EncodeFieldMax(msg, x);
 
 ///////////////////////////////////////////////////////////
 // encoders
@@ -360,7 +361,7 @@ void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 11;
@@ -452,7 +453,7 @@ void EClient::cancelMktData(TickerId tickerId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -488,7 +489,7 @@ void EClient::reqMktDepth( TickerId tickerId, const Contract& contract, int numR
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 5;
@@ -552,7 +553,7 @@ void EClient::cancelMktDepth( TickerId tickerId)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -590,7 +591,7 @@ void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 6;
@@ -678,7 +679,7 @@ void EClient::cancelHistoricalData(TickerId tickerId)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -715,7 +716,7 @@ void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 3;
@@ -780,7 +781,7 @@ void EClient::cancelRealTimeBars(TickerId tickerId)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -808,7 +809,7 @@ void EClient::reqScannerParameters()
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -836,7 +837,7 @@ void EClient::reqScannerSubscription(int tickerId,
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 4;
@@ -900,7 +901,7 @@ void EClient::cancelScannerSubscription(int tickerId)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -935,7 +936,7 @@ void EClient::reqFundamentalData(TickerId reqId, const Contract& contract,
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -974,7 +975,7 @@ void EClient::cancelFundamentalData( TickerId reqId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1008,7 +1009,7 @@ void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contrac
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -1053,7 +1054,7 @@ void EClient::cancelCalculateImpliedVolatility(TickerId reqId) {
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1087,7 +1088,7 @@ void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, dou
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -1132,7 +1133,7 @@ void EClient::cancelCalculateOptionPrice(TickerId reqId) {
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1180,7 +1181,7 @@ void EClient::reqContractDetails( int reqId, const Contract& contract)
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 8;
@@ -1250,7 +1251,7 @@ void EClient::reqCurrentTime()
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1490,7 +1491,23 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
-	std::ostringstream msg;
+	if (m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		if( !order.modelCode.empty()) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support model code parameter.");
+			return;
+		}
+	}
+
+	if (m_serverVersion < MIN_SERVER_VER_EXT_OPERATOR) {
+		if( !order.extOperator.empty()) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support ext operator parameter");
+			return;
+		}
+	}
+
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
@@ -1648,6 +1665,10 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	ENCODE_FIELD( order.faMethod); // srv v13 and above
 	ENCODE_FIELD( order.faPercentage); // srv v13 and above
 	ENCODE_FIELD( order.faProfile); // srv v13 and above
+
+	if (m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT) {
+		ENCODE_FIELD( order.modelCode);
+	}
 
 	// institutional short saleslot data (srv v18 and above)
 	ENCODE_FIELD( order.shortSaleSlot);      // 0 for retail, 1 or 2 for institutions
@@ -1841,6 +1862,40 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
         ENCODE_FIELD(order.randomizePrice);
     }
 
+	if (m_serverVersion >= MIN_SERVER_VER_PEGGED_TO_BENCHMARK) {
+		if (order.orderType == "PEG BENCH") {
+			ENCODE_FIELD(order.referenceContractId);
+			ENCODE_FIELD(order.isPeggedChangeAmountDecrease);
+			ENCODE_FIELD(order.peggedChangeAmount);
+			ENCODE_FIELD(order.referenceChangeAmount);
+			ENCODE_FIELD(order.referenceExchangeId);
+		}
+
+		ENCODE_FIELD(order.conditions.size());
+
+		if (order.conditions.size() > 0) {
+			for (ibapi::shared_ptr<OrderCondition> item : order.conditions) {
+				ENCODE_FIELD(item->type());
+				item->writeExternal(msg);
+			}
+
+			ENCODE_FIELD(order.conditionsIgnoreRth);
+			ENCODE_FIELD(order.conditionsCancelOrder);
+		}
+
+		ENCODE_FIELD(order.adjustedOrderType);
+		ENCODE_FIELD(order.triggerPrice);
+		ENCODE_FIELD(order.lmtPriceOffset);
+		ENCODE_FIELD(order.adjustedStopPrice);
+		ENCODE_FIELD(order.adjustedStopLimitPrice);
+		ENCODE_FIELD(order.adjustedTrailingAmount);
+		ENCODE_FIELD(order.adjustableTrailingUnit);
+	}
+
+	if( m_serverVersion >= MIN_SERVER_VER_EXT_OPERATOR) {
+		ENCODE_FIELD( order.extOperator);
+	}
+
 	closeAndSend( msg.str());
 }
 
@@ -1855,7 +1910,7 @@ void EClient::cancelOrder( OrderId id)
 	const int VERSION = 1;
 
 	// send cancel order msg
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	ENCODE_FIELD( CANCEL_ORDER);
@@ -1873,7 +1928,7 @@ void EClient::reqAccountUpdates(bool subscribe, const std::string& acctCode)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -1897,7 +1952,7 @@ void EClient::reqOpenOrders()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1917,7 +1972,7 @@ void EClient::reqAutoOpenOrders(bool bAutoBind)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1938,7 +1993,7 @@ void EClient::reqAllOpenOrders()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -1960,7 +2015,7 @@ void EClient::reqExecutions(int reqId, const ExecutionFilter& filter)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 3;
@@ -1993,7 +2048,7 @@ void EClient::reqIds( int numIds)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2014,7 +2069,7 @@ void EClient::reqNewsBulletins(bool allMsgs)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2035,7 +2090,7 @@ void EClient::cancelNewsBulletins()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2055,7 +2110,7 @@ void EClient::setServerLogLevel(int logLevel)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2076,7 +2131,7 @@ void EClient::reqManagedAccts()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2103,7 +2158,7 @@ void EClient::requestFA(faDataType pFaDataType)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2129,7 +2184,7 @@ void EClient::replaceFA(faDataType pFaDataType, const std::string& cxml)
 	//	return;
 	//}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2168,7 +2223,7 @@ void EClient::exerciseOptions( TickerId tickerId, const Contract& contract,
 		}
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 2;
@@ -2215,7 +2270,7 @@ void EClient::reqGlobalCancel()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2241,7 +2296,7 @@ void EClient::reqMarketDataType( int marketDataType)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2279,7 +2334,7 @@ void EClient::reqPositions()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2304,7 +2359,7 @@ void EClient::cancelPositions()
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2329,7 +2384,7 @@ void EClient::reqAccountSummary( int reqId, const std::string& groupName, const 
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2357,7 +2412,7 @@ void EClient::cancelAccountSummary( int reqId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2389,7 +2444,7 @@ void EClient::verifyRequest(const std::string& apiName, const std::string& apiVe
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2416,7 +2471,7 @@ void EClient::verifyMessage(const std::string& apiData)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2448,7 +2503,7 @@ void EClient::verifyAndAuthRequest(const std::string& apiName, const std::string
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2476,7 +2531,7 @@ void EClient::verifyAndAuthMessage(const std::string& apiData, const std::string
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2503,7 +2558,7 @@ void EClient::queryDisplayGroups( int reqId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2529,7 +2584,7 @@ void EClient::subscribeToGroupEvents( int reqId, int groupId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2556,7 +2611,7 @@ void EClient::updateDisplayGroup( int reqId, const std::string& contractInfo)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2579,13 +2634,13 @@ void EClient::startApi()
 
     if( m_serverVersion >= 3) {
         if( m_serverVersion < MIN_SERVER_VER_LINKING) {
-            std::ostringstream msg;
+            std::stringstream msg;
             ENCODE_FIELD( m_clientId);
             bufferedSend( msg.str());
         }
         else
         {
-            std::ostringstream msg;
+            std::stringstream msg;
             prepareBuffer( msg);
 
             const int VERSION = 2;
@@ -2616,7 +2671,7 @@ void EClient::unsubscribeFromGroupEvents( int reqId)
 		return;
 	}
 
-	std::ostringstream msg;
+	std::stringstream msg;
 	prepareBuffer( msg);
 
 	const int VERSION = 1;
@@ -2626,6 +2681,143 @@ void EClient::unsubscribeFromGroupEvents( int reqId)
 	ENCODE_FIELD( reqId);
 
 	closeAndSend( msg.str());
+}
+
+void EClient::reqPositionsMulti( int reqId, const std::string& account, const std::string& modelCode)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support positions multi request.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( REQ_POSITIONS_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+	ENCODE_FIELD( account);
+	ENCODE_FIELD( modelCode);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::cancelPositionsMulti( int reqId)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support positions multi cancellation.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( CANCEL_POSITIONS_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support account updates multi request.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( REQ_ACCOUNT_UPDATES_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+	ENCODE_FIELD( account);
+	ENCODE_FIELD( modelCode);
+	ENCODE_FIELD( ledgerAndNLV);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::cancelAccountUpdatesMulti( int reqId)
+{
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_MODELS_SUPPORT) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support account updates multi cancellation.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer( msg);
+
+	const int VERSION = 1;
+
+	ENCODE_FIELD( CANCEL_ACCOUNT_UPDATES_MULTI);
+	ENCODE_FIELD( VERSION);
+	ENCODE_FIELD( reqId);
+
+	closeAndSend( msg.str());
+}
+
+void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId)
+{
+		// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support security definiton option requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+
+	ENCODE_FIELD(REQ_SEC_DEF_OPT_PARAMS);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(underlyingSymbol); 
+    ENCODE_FIELD(futFopExchange);
+    ENCODE_FIELD(underlyingSecType);
+    ENCODE_FIELD(underlyingConId);
+
+	closeAndSend(msg.str());
 }
 
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
@@ -2731,7 +2923,7 @@ int EClient::sendConnectRequest()
     int rval;
 
 	// send client version
-	std::ostringstream msg;
+	std::stringstream msg;
 	if( m_useV100Plus) {
 		msg.write( API_SIGN, sizeof(API_SIGN));
 		prepareBufferImpl( msg);

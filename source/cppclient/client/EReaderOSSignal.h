@@ -2,7 +2,7 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
-#include "ereadersignal.h"
+#include "EReaderSignal.h"
 #include "StdAfx.h"
 
 #if !defined(INFINITE)

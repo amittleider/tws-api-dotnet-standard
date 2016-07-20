@@ -12,14 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import com.ib.controller.AccountSummaryTag;
+import com.ib.controller.ApiController.IAccountSummaryHandler;
+import com.ib.controller.Formats;
+
 import apidemo.AccountInfoPanel.Table;
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.VerticalPanel;
-
-import com.ib.controller.AccountSummaryTag;
-import com.ib.controller.ApiController.IAccountSummaryHandler;
-import com.ib.controller.Formats;
 
 
 public class AccountSummaryPanel extends NewTabPanel {

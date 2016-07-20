@@ -1,0 +1,37 @@
+/*! \page bracket_order Bracket Orders
+
+	<a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=583">Bracket Orders</a> are designed to help limit your loss and lock in a profit by "bracketing" 
+	an order with two opposite-side orders. A BUY order is bracketed by a high-side sell limit order and a low-side sell stop order. A SELL order is bracketed by a high-side buy stop 
+	order and a low side buy limit order. Note how bracket orders make use of the TWS API's @ref order_attach mechanism.
+		
+	One key thing to keep in mind is to handle the order transmission accurately. Since a Bracket consists of three orders, there is always a risk that at least one of the orders gets filled before
+	the entire bracket is sent. To avoid it, make use of the @ref IBApi::Order::Transmit flag. When this flag is set to 'false', the TWS will receive the order but it will not send (transmit) it 
+	to the servers. In the example below, the first (parent) and second (takeProfit) orders will be send to the TWS but not transmitted to the servers. When the last child order (stopLoss) is
+	sent however and given that its @ref IBApi::Order::Transmit flag is set to true, the TWS will interpret this as a signal to transmit not only its parent order but also the rest of siblings, 
+	removing the risks of an accidental execution.
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet OrderSamples.cs bracket
+			...
+			\snippet Program.cs bracketsubmit
+		</li>
+		<li>
+			\snippet OrderSamples.java bracket
+			...
+			\snippet Testbed.java bracketsubmit
+		</li>
+		<li>
+			\snippet OrderSamples.vb bracket
+			...
+			\snippet MainModule.vb bracketsubmit
+		</li>
+		<li>
+			\snippet OrderSamples.cpp bracket
+			...
+			\snippet TestCppClient.cpp bracketsubmit
+		</li>
+	</ul>
+		
+	<br><br>
+*/

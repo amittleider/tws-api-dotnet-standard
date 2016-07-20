@@ -12,7 +12,7 @@ using System.Net;
 
 namespace IBApi
 {
-    class EDecoder
+    class EDecoder : IDecoder
     {
         private EClientMsgSink eClientMsgSink;
         private EWrapper eWrapper;
@@ -308,6 +308,36 @@ namespace IBApi
                         VerifyAndAuthCompletedEvent();
                         break;
                     }
+                case IncomingMessage.PositionMulti:
+                    {
+                        PositionMultiEvent();
+                        break;
+                    }
+                case IncomingMessage.PositionMultiEnd:
+                    {
+                        PositionMultiEndEvent();
+                        break;
+                    }
+                case IncomingMessage.AccountUpdateMulti:
+                    {
+                        AccountUpdateMultiEvent();
+                        break;
+                    }
+                case IncomingMessage.AccountUpdateMultiEnd:
+                    {
+                        AccountUpdateMultiEndEvent();
+                        break;
+                    }
+                case IncomingMessage.SecurityDefinitionOptionParameter:
+                    {
+                        SecurityDefinitionOptionParameterEvent();
+                        break;
+                    }
+                case IncomingMessage.SecurityDefinitionOptionParameterEnd:
+                    {
+                        SecurityDefinitionOptionParameterEndEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -316,6 +346,39 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void SecurityDefinitionOptionParameterEndEvent()
+        {
+            int reqId = ReadInt();
+
+            eWrapper.securityDefinitionOptionParameterEnd(reqId);
+        }
+
+        private void SecurityDefinitionOptionParameterEvent()
+        {
+            int reqId = ReadInt();
+            string exchange = ReadString();
+            int underlyingConId = ReadInt();
+            string tradingClass = ReadString();
+            string multiplier = ReadString();
+            int expirationsSize = ReadInt();
+            HashSet<string> expirations = new HashSet<string>();
+            HashSet<double> strikes = new HashSet<double>();
+
+            for (int i = 0; i < expirationsSize; i++)
+            {
+                expirations.Add(ReadString());
+            }
+
+            int strikesSize = ReadInt();
+
+            for (int i = 0; i < strikesSize; i++)
+            {
+                strikes.Add(ReadDouble());
+            }
+
+            eWrapper.securityDefinitionOptionParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
         }
 
         private void DisplayGroupUpdatedEvent()
@@ -878,6 +941,11 @@ namespace IBApi
                 order.FaProfile = ReadString();
             }
 
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
+            {
+                order.ModelCode = ReadString();
+            }
+
             if (msgVersion >= 8)
             {
                 order.GoodTillDate = ReadString();
@@ -1146,6 +1214,44 @@ namespace IBApi
                 order.RandomizePrice = ReadBoolFromInt();
             }
 
+            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
+            {
+                if (order.OrderType == "PEG BENCH")
+                {
+                    order.ReferenceContractId = ReadInt();
+                    order.IsPeggedChangeAmountDecrease = ReadBoolFromInt();
+                    order.PeggedChangeAmount = ReadDoubleMax();
+                    order.ReferenceChangeAmount = ReadDoubleMax();
+                    order.ReferenceExchange = ReadString();
+                }
+
+                int nConditions = ReadInt();
+
+                if (nConditions > 0)
+                {
+                    for (int i = 0; i < nConditions; i++)
+                    {
+                        OrderConditionType orderConditionType = (OrderConditionType)ReadInt();
+                        OrderCondition condition = OrderCondition.Create(orderConditionType);
+
+                        condition.Deserialize(this);
+                        order.Conditions.Add(condition);
+                    }
+
+                    order.ConditionsIgnoreRth = ReadBoolFromInt();
+                    order.ConditionsCancelOrder = ReadBoolFromInt();
+                }
+
+                order.AdjustedOrderType = ReadString();
+                order.TriggerPrice = ReadDoubleMax();
+                order.TrailStopPrice = ReadDoubleMax();
+                order.LmtPriceOffset = ReadDoubleMax();
+                order.AdjustedStopPrice = ReadDoubleMax();
+                order.AdjustedStopLimitPrice = ReadDoubleMax();
+                order.AdjustedTrailingAmount = ReadDoubleMax();
+                order.AdjustableTrailingUnit = ReadInt();
+            }
+
             eWrapper.openOrder(order.OrderId, contract, order, orderState);
         }
 
@@ -1296,6 +1402,11 @@ namespace IBApi
                 exec.EvRule = ReadString();
                 exec.EvMultiplier = ReadDouble();
             }
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
+            {
+                exec.ModelCode = ReadString();
+            }
+
             eWrapper.execDetails(requestId, contract, exec);
         }
 
@@ -1506,8 +1617,56 @@ namespace IBApi
             eWrapper.receiveFA(faDataType, faData);
         }
 
+        private void PositionMultiEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            string account = ReadString();
+            Contract contract = new Contract();
+            contract.ConId = ReadInt();
+            contract.Symbol = ReadString();
+            contract.SecType = ReadString();
+            contract.LastTradeDateOrContractMonth = ReadString();
+            contract.Strike = ReadDouble();
+            contract.Right = ReadString();
+            contract.Multiplier = ReadString();
+            contract.Exchange = ReadString();
+            contract.Currency = ReadString();
+            contract.LocalSymbol = ReadString();
+            contract.TradingClass = ReadString();
+            var pos = ReadDouble();
+            double avgCost = ReadDouble();
+            string modelCode = ReadString();
+            eWrapper.positionMulti(requestId, account, modelCode, contract, pos, avgCost);
+        }
 
-        protected double ReadDouble()
+        private void PositionMultiEndEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            eWrapper.positionMultiEnd(requestId);
+        }
+
+        private void AccountUpdateMultiEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            string account = ReadString();
+            string modelCode = ReadString();
+            string key = ReadString();
+            string value = ReadString();
+            string currency = ReadString();
+            eWrapper.accountUpdateMulti(requestId, account, modelCode, key, value, currency);
+        }
+
+        private void AccountUpdateMultiEndEvent()
+        {
+            int msgVersion = ReadInt();
+            int requestId = ReadInt();
+            eWrapper.accountUpdateMultiEnd(requestId);
+        }
+
+        public double ReadDouble()
         {
             string doubleAsstring = ReadString();
             if (string.IsNullOrEmpty(doubleAsstring) ||
@@ -1518,13 +1677,13 @@ namespace IBApi
             else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected double ReadDoubleMax()
+        public double ReadDoubleMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        protected long ReadLong()
+        public long ReadLong()
         {
             string longAsstring = ReadString();
             if (string.IsNullOrEmpty(longAsstring) ||
@@ -1535,7 +1694,7 @@ namespace IBApi
             else return Int64.Parse(longAsstring);
         }
 
-        protected int ReadInt()
+        public int ReadInt()
         {
             string intAsstring = ReadString();
             if (string.IsNullOrEmpty(intAsstring) ||
@@ -1546,19 +1705,19 @@ namespace IBApi
             else return Int32.Parse(intAsstring);
         }
 
-        protected int ReadIntMax()
+        public int ReadIntMax()
         {
             string str = ReadString();
             return (str == null || str.Length == 0) ? Int32.MaxValue : Int32.Parse(str);
         }
 
-        protected bool ReadBoolFromInt()
+        public bool ReadBoolFromInt()
         {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
         }
 
-        protected string ReadString()
+        public string ReadString()
         {
             byte b = dataReader.ReadByte();
 

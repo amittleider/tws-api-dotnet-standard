@@ -1,0 +1,1127 @@
+/*! \page message_codes Message Codes
+
+	The TWS uses the @ref IBApi::EWrapper::error method not only to deliver errors but also warnings or informative messages. This is done mostly for simplicity's sake. Below is a table with all the
+	messages which can be sent by the TWS/IB Gateway. All messages delivered by the TWS are usually accompanied by a brief but meaningful description pointing in the direction of the problem.
+	
+	\section system_codes System Message Codes
+	
+	Remember that the TWS API simply connects to a running TWS/IB Gateway which most of times will be running on your local network if not in the same host as the client application. It is your
+	responsibility to provide reliable connectivity between the TWS and your client application.
+	
+	The messages in the table below are not a consequence of any action performed by the client application. They are notifications about the connectivity status between the TWS and itself and
+	our servers. Your client application must pay special attention to them and handle the situation accordingly. You are very likely to loose connectivity to our servers at least once a day
+	due to our daily server maintenance downtime as clearly detailed in our 
+	<a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/?f=%2Fen%2Fsoftware%2FsystemStatus.php">Current System Status</a> page. Note that after the system reset,
+	the TWS/IB Gateway will automatically reconnect to our servers and you can resume your operations normally.
+	
+	<b>Important:</b> during a reset period, there may be an interruption in the ability to log in or manage orders. Existing orders (native types) will operate normally although execution reports 
+	and simulated orders will be delayed until the reset is complete. It is not recommended to operate during the scheduled reset times.
+	
+	<table>
+		<tr><th>Code</th><th>TWS message</th><th>Additional notes</th></tr>
+		<tr><td>1100</td><td>Connectivity between IB and the TWS has been lost.</td><td>Your TWS/IB Gateway has been disconnected from IB servers.</td></tr>
+		<tr>
+			<td>1101</td><td>Connectivity between IB and TWS has been restored- data lost.*</td>
+			<td>The TWS/IB Gateway has successfully reconnected to IB's servers. Your market data requests have been lost and need to be re-submitted.</td>
+		</tr>
+		<tr>
+			<td>1102</td><td>Connectivity between IB and TWS has been restored- data maintained.</td>
+			<td>The TWS/IB Gateway has successfully reconnected to IB's servers. Your market data requests have been recovered and there is no need for you to re-submit them.</td>
+		</tr>
+		<tr>
+			<td>1300</td><td>TWS socket port has been reset and this connection is being dropped. Please reconnect on the new port - <port_num></td><td></td>
+		</tr>
+	</table>
+	
+	\section warning_codes Warning Message Codes
+	
+	<table>
+		<tr><th>Code</th><th>TWS message</th><th>Additional notes</th></tr>
+		<tr>
+			<td>2100</td><td>New account data requested from TWS.  API client has been unsubscribed from account data.</td>
+			<td>
+				The TWS only allows one @ref IBApi::EClient::reqAccountUpdates request at a time. If the client application attempts to subscribe to a second account without
+				canceling the previous subscription, the new request will override the old one and the TWS will send this message notifying so.
+			</td>
+		</tr>
+		<tr>
+			<td>2101</td><td>Unable to subscribe to account as the following clients are subscribed to a different account.</td>
+			<td>
+				If a client application invokes @ref IBApi::EClient::reqAccountUpdates when there is an active subscription <b>started by a different client</b>, the TWS will
+				reject the new subscription request with this message.
+			</td>
+		</tr>
+		<tr>
+			<td>2102</td><td>Unable to modify this order as it is still being processed.</td>
+			<td>
+				If you attempt to modify an order before it gets processed by the system, the modification will be rejected. Wait until the order has been fully processed before 
+				modifying it. See @ref order_submission for further details.
+			</td>
+		</tr>
+		<tr>
+			<td>2103</td><td>A market data farm is disconnected.</td><td></td>
+		</tr>
+		<tr>
+			<td>2104</td><td>Market data farm connection is OK</td>
+			<td>It is perfectly normal to receive this message shortly after connecting to the TWS/IB Gateway. You can safely ignore this message.</td>
+		</tr>
+		<tr>
+			<td>2105</td><td>A historical data farm is disconnected.</td><td></td>
+		</tr>
+		<tr>
+			<td>2106</td><td>A historical data farm is connected.</td>
+			<td>It is perfectly normal to receive this message shortly after connecting to the TWS/IB Gateway. You can safely ignore this message.</td>
+		</tr>
+		<tr>
+			<td>2107</td><td>A historical data farm connection has become inactive but should be available upon demand.</td>
+			<td>
+				Whenever a connection to our data farms is not needed, it will become dormant. There is nothing abnormal nor wrong with your client application nor with the TWS. 
+				You can safely ignore this message.
+			</td>
+		</tr>
+		<tr>
+			<td>2108</td><td>A market data farm connection has become inactive but should be available upon demand.</td>
+			<td>
+				Whenever a connection to our data farms is not needed, it will become dormant. There is nothing abnormal nor wrong with your client application nor with the TWS. 
+				You can safely ignore this message.
+			</td>
+		</tr>
+		<tr>
+			<td>2109</td><td>Order Event Warning: Attribute "Outside Regular Trading Hours" is ignored based on the order type and destination. PlaceOrder is now processed.</td><td></td>
+		</tr>
+		<tr>
+			<td>2110</td><td>Connectivity between TWS and server is broken. It will be restored automatically.</td><td></td>
+		</tr>
+			<tr>
+			<td>2137</td><td>Cross Side Warning</td><td>This warning message occurs in TWS version 955 and higher. It occurs when an order will change the position in an account from long to short or from short to long. 
+			To bypass the warning, a new feature has been added to IB Gateway 956 (or higher) and TWS 957 (or higher) so that once can go to Global Configuration > Messages and disable the "Cross Side Warning".</td>
+		</tr>
+	</table>
+	
+	\section client_codes Client Error Codes
+	
+	Client errors are those occurring purely on the TWS API client code and as such they are never sent by the TWS. They are mostly errors happening when validating messages before these
+	are sent to the TWS and you are unlikely to receive the vast majority of them. As such only a small list of these errors is documented below. To see all available errors of this type
+	please refer to the @ref IBApi::EClientErrors class.
+	
+	<table>
+		<tr><th>Code</th><th>Message</th><th>Additional notes</th></tr>
+		<tr>
+			<td>501</td><td>Already Connected.</td><td>Your client application is already connected to the TWS.</td>
+		</tr>
+		<tr>
+			<td>502</td>
+			<td> Couldn't connect to TWS. Confirm that "Enable ActiveX and Socket Clients" is enabled and connection port is the same as "Socket Port" on the TWS "Edit->Global Configuration...->API->Settings" menu.</td>
+			<td>
+				When you receive this error message it is either because you have not enabled API connectivity in the TWS and/or you are trying to connect on the wrong port. Refer to the
+				TWS' API Settings as explained in the error message. See also @ref connection
+			</td>
+		</tr>
+		<tr>
+			<td>503</td><td>The TWS is out of date and must be upgraded.</td><td></td>
+		</tr>
+		<tr>
+			<td>504</td><td>Not connected.</td>
+			<td>
+				You are trying to perform a request without properly connecting and/or after connection to the TWS has been broken probably due to an unhandled exception within your client application.
+			</td>
+		</tr>
+	</table>
+	
+	\section error_codes TWS Error Codes
+	
+	<table>
+		<tr><th>Code</th><th>TWS message</th><th>Additional notes</th></tr>
+		<tr>
+			<td>100</td><td>Max rate of messages per second has been exceeded.</td>
+			<td>The client application has exceeded the rate of 50 messages/second. The TWS will likely disconnect the client application after this message.</td>
+		</tr>	
+		<tr>
+			<td>101</td><td>Max number of tickers has been reached.</td>
+			<td>The current number of active market data subscriptions in TWS and the API altogether has been exceeded. This number is calculated based on a formula which is based on the equity, commissions, and quote booster packs in an account. Active lines can be checked in Tws using the Ctrl-Alt-= combination</td>
+		</tr>
+
+		<tr>
+			<td>102</td><td>Duplicate ticker ID.</td>
+			<td>A market data request used a ticker ID which is already in use by an active request.</td>
+		</tr>
+		
+		<tr>
+			<td>103</td><td>Duplicate order ID.</td>
+			<td>An order was placed with an order ID that is less than or equal to the order ID of a previous order from this client </td>
+		</tr>
+		
+		<tr>
+			<td>104</td><td>Can't modify a filled order.</td>
+			<td> An attempt was made to modify an order which has already been filled by the system.</td>
+		</tr>
+		
+		<tr>
+			<td>105</td><td>Order being modified does not match original order.</td>
+			<td> An order was placed with an order ID of a currently open order but basic parameters differed (aside from quantity or price fields)</td>
+		</tr>
+		
+		<tr>
+			<td>106</td><td>Can't transmit order ID:</td>
+			<td> </td>
+		</tr>
+		
+		<tr>
+			<td>107</td><td>Cannot transmit incomplete order.</td>
+			<td>Order is missing a required field.</td>
+		</tr>
+		
+		<tr>
+			<td>109</td><td>Price is out of the range defined by the Percentage setting at order defaults frame. The order will not be transmitted.</td>
+			<td>Price entered is outside the range of prices set in TWS or IB Gateway Order Precautionary Settings</td>
+		</tr>
+		
+		<tr>
+			<td>110</td><td>The price does not conform to the minimum price variation for this contract.</td>
+			<td>An entered price field has more digits of precision than is allowed for this particular contract. Minimum increment information can be found on the IB Contracts and Securities Search page.</td>
+		</tr>
+		
+		<tr>
+			<td>111</td><td>The TIF (Tif type) and the order type are incompatible.</td>
+			<td>The time in force specified cannot be used with this order type. Please refer to order tickets in TWS for allowable combinations.</td>
+		</tr>
+		
+		<tr>
+			<td>113</td><td>The Tif option should be set to DAY for MOC and LOC orders.</td>
+			<td>Market-on-close or Limit-on-close orders should be sent with time in force set to 'DAY' </td>
+		</tr>
+		
+		<tr>
+			<td>114</td><td>Relative orders are valid for stocks only.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		
+		<tr>
+			<td>115</td><td>Relative orders for US stocks can only be submitted to SMART, SMART_ECN, INSTINET, or PRIMEX.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		
+		<tr>
+			<td>116</td><td>The order cannot be transmitted to a dead exchange.</td>
+			<td>Exchange field is invalid.</td>
+		</tr>
+		<tr>
+			<td>117</td><td>The block order size must be at least 50.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>118</td><td>VWAP orders must be routed through the VWAP exchange.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>119</td><td>Only VWAP orders may be placed on the VWAP exchange.</td>
+			<td>When an order is routed to the VWAP exchange, the type of the order must be defined as 'VWAP'.</td>
+		</tr>
+		<tr>
+			<td>120</td><td>It is too late to place a VWAP order for today.</td>
+			<td>The cutoff has passed for the current day to place VWAP orders.</td>
+		</tr>	
+		<tr>
+			<td>121</td><td>Invalid BD flag for the order. Check "Destination" and "BD" flag.</td>
+			<td>This error is deprecated.</td>
+		</tr>
+		<tr>
+			<td>122</td><td>No request tag has been found for order:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>123</td><td>No record is available for conid:</td>
+			<td>The specified contract ID cannot be found. This error is deprecated.</td>
+		</tr>		
+		<tr>
+			<td>124</td><td>No market rule is available for conid:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>125</td><td>Buy price must be the same as the best asking price.</td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td>126</td><td>Sell price must be the same as the best bidding price.</td>
+			<td></td>
+		</tr>	
+		<tr>
+			<td>129</td><td>VWAP orders must be submitted at least three minutes before the start time.</td>
+			<td>The start time specified in the VWAP order is less than 3 minutes after when it is placed.</td>
+		</tr>	
+		<tr>
+			<td>131</td><td>The sweep-to-fill flag and display size are only valid for US stocks routed through SMART, and will be ignored.</td>
+			<td></td>
+		</tr>	
+		<tr>
+			<td>132</td><td>This order cannot be transmitted without a clearing account.</td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td>133</td><td>Submit new order failed.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>134</td><td>Modify order failed.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>135</td><td>Can't find order with ID =</td>
+			<td>An attempt was made to cancel an order not currently in the system.</td>
+		</tr>
+		<tr>
+			<td>136</td><td>This order cannot be cancelled.</td>
+			<td>An attempt was made to cancel an order than cannot be cancelled, for instance because </td>
+		</tr>
+		<tr>
+			<td>137</td><td>VWAP orders can only be cancelled up to three minutes before the start time.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>138</td><td>Could not parse ticker request:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>139</td><td>Parsing error:</td>
+			<td>Error in command syntax generated parsing error.</td>
+		</tr>
+		<tr>
+			<td>140</td><td>The size value should be an integer:</td>
+			<td>The size field in the Order class has an invalid type.</td>
+		</tr>
+		<tr>
+			<td>141</td><td>The price value should be a double:</td>
+			<td>A price field in the Order type has an invalid type.</td>
+		</tr>
+		<tr>
+			<td>142</td><td>Institutional customer account does not have account info</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>143</td><td>Requested ID is not an integer number.</td>
+			<td>The IDs used in API requests must be integer values.</td>
+		</tr>
+		<tr>
+			<td>144</td><td>Order size does not match total share allocation. To adjust the share allocation, right-click on the order and select â€œModify > Share Allocation.â€�</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>145</td><td>Error in validating entry fields -</td>
+			<td>An error occurred with the syntax of a request field.</td>
+		</tr>
+		<tr>
+			<td>146</td><td>Invalid trigger method.</td>
+			<td>The trigger method specified for a method such as stop or trail stop was not one of the allowable methods.</td>
+		</tr>
+		<tr>
+			<td>147</td><td>The conditional contract info is incomplete.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>148</td><td>A conditional order can only be submitted when the order type is set to limit or market.</td>
+			<td>This error is deprecated.</td>
+		</tr>
+		<tr>
+			<td>151</td><td>This order cannot be transmitted without a user name.</td>
+			<td>In DDE the user name is a required field in the place order command. </td>
+		</tr>
+		<tr>
+			<td>152</td><td>The "hidden" order attribute may not be specified for this order.</td>
+			<td>The order in question cannot be placed as a hidden order. See- https://www.interactivebrokers.com/en/index.php?f=596</td>
+		</tr>
+		<tr>
+			<td>153</td><td>EFPs can only be limit orders.</td>
+			<td>This error is deprecated.</td>
+		</tr>
+		<tr>
+			<td>154</td><td>Orders cannot be transmitted for a halted security.</td>
+			<td>A security was halted for trading when an order was placed.</td>
+		</tr>
+		<tr>
+			<td>155</td><td>A sizeOp order must have a user name and account.</td>
+			<td>This error is deprecated.</td>
+		</tr>
+		<tr>
+			<td>156</td><td>A SizeOp order must go to IBSX</td>
+			<td>This error is deprecated.</td>
+		</tr>
+		<tr>
+			<td>157</td><td>An order can be EITHER Iceberg or Discretionary. Please remove either the Discretionary amount or the Display size.</td>
+			<td>In the Order class extended attributes the fields 'Iceberg' and 'Discretionary' cannot </td>
+		</tr>
+		<tr>
+			<td>158</td><td>You must specify an offset amount or a percent offset value.</td>
+			<td>TRAIL and TRAIL STOP orders must have an absolute offset amount or offset percentage specified.</td>
+		</tr>
+		<tr>
+			<td>159</td><td>The percent offset value must be between 0% and 100%.</td>
+			<td>A percent offset value was specified outside the allowable range of 0% and 100%.</td>
+		</tr>
+		<tr>
+			<td>160</td><td>The size value cannot be zero.</td>
+			<td>The size of an order must be a positive quantity.</td>
+		</tr>
+		<tr>
+			<td>161</td><td>Cancel attempted when order is not in a cancellable state. Order permId =</td>
+			<td>An attempt was made to cancel an order not active at the time.</td>
+		</tr>
+		<tr>
+			<td>162</td><td>Historical market data Service error message.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>163</td><td>The price specified would violate the percentage constraint specified in the default order settings.</td>
+			<td>The order price entered is outside the allowable range specified in the Order Precautionary Settings of TWS or IB Gateway</td>
+		</tr>
+		<tr>
+			<td>164</td><td>There is no market data to check price percent violations.</td>
+			<td>No market data is available for the specified contract to determine whether the specified price is outside the price percent precautionary order setting.</td>
+		</tr>
+		<tr>
+			<td>165</td><td>Historical market Data Service query message.</td>
+			<td>There was an issue with a historical data request, such is no such data in IB's database. Note this message is not specific to the API.</td>
+		</tr>
+		<tr>
+			<td>166</td><td>HMDS Expired Contract Violation.</td>
+			<td>Historical data is not available for the specified expired contract.</td>
+		</tr>
+		<tr>
+			<td>167</td><td>VWAP order time must be in the future.</td>
+			<td>The start time of a VWAP order has already passed.</td>
+		</tr>
+		<tr>
+			<td>168</td><td>Discretionary amount does not conform to the minimum price variation for this contract.</td>
+			<td>The discretionary field is specified with a number of degrees of precision higher than what is allowed for a specified contract.</td>
+		</tr>
+		<tr>
+			<td rowspan="2">200</td>
+				<td>No security definition has been found for the request.</td>
+				<td>The specified contract does not match any in IB's database, usually because of an incorrect or missing parameter.</td>
+			<tr>
+				<td>The contract description specified for \<Symbol\> is ambiguous</td>
+				<td>Ambiguity may occur when the contract definition provided is not unique.
+					<br><br>For some stocks that has the same Symbol, Currency and Exchange, you need to specify the @ref IBApi::Contract::PrimaryExch attribute to avoid ambiguity. Please refer to a sample stock contract \ref stk "here".
+					<br><br>For futures that has multiple multipliers for the same expiration, You need to specify the @ref IBApi::Contract::Multiplier attribute to avoid ambiguity. Please refer to a sample futures contract \ref fut "here".</td>
+			</tr>
+		</tr>
+		<tr>
+			<td>201</td><td>Order rejected - Reason:</td>
+			<td>An attempted order was rejected by the IB servers.</td>
+		</tr>
+		<tr>
+			<td>202</td><td>Order cancelled - Reason:</td>
+			<td>An active order on the IB server was cancelled</td>
+		</tr>
+		<tr>
+			<td>203</td><td>The security <security> is not available or allowed for this account.</td>
+			<td>The specified security has a trading restriction with a specific account.</td>
+		</tr>
+		<tr>
+			<td>300</td><td>Can't find EId with ticker Id:</td>
+			<td>An attempt was made to cancel market data for a ticker ID that was not associated with a current subscription. With the DDE API this occurs by clearing the spreadsheet cell.</td>
+		</tr>
+		<tr>
+			<td>301</td><td>Invalid ticker action:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>302</td><td>Error parsing stop ticker string:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>303</td><td>Invalid action:</td>
+			<td>An action field in an order was specified with value other than BUY, SELL, SSLONG, SSHORT</td>
+		</tr>
+		<tr>
+			<td>304</td><td>Invalid account value action:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>305</td><td>Request parsing error, the request has been ignored.</td>
+			<td>The syntax of a DDE request is invalid.</td>
+		</tr>
+		<tr>
+			<td>306</td><td>Error processing DDE request:</td>
+			<td>An issue with a DDE request prevented it from processing.</td>
+		</tr>
+		<tr>
+			<td>307</td><td>Invalid request topic:</td>
+			<td>The 'topic' field in a DDE request is invalid.</td>
+		</tr>
+		<tr>
+			<td>308</td><td>Unable to create the 'API' page in TWS as the maximum number of pages already exists.</td>
+			<td>An order placed from the API will automatically open a new page in classic TWS, however there are already the maximum number of pages open.</td>
+		</tr>
+		<tr>
+			<td>309</td><td>Max number (3) of market depth requests has been reached. Note:  TWS currently limits users to a maximum of 3 distinct market depth requests. This same restriction applies to API clients, however API clients may make multiple market depth requests for the same security.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>310</td><td>Can't find the subscribed market depth with tickerId:</td>
+			<td>An attempt was made to cancel market depth for a ticker not currently active.</td>
+		</tr>
+		<tr>
+			<td>311</td><td>The origin is invalid.</td>
+			<td>The origin field specified in the Order class is invalid. </td>
+		</tr>
+		<tr>
+			<td>312</td><td>The combo details are invalid.</td>
+			<td>Combination contract specified has invalid parameters.</td>
+		</tr>
+		<tr>
+			<td>313</td><td>The combo details for leg '<leg number>' are invalid.</td>
+			<td>A combo leg was not defined correctly.</td>
+		</tr>
+ 	
+		<tr>
+			<td>314</td><td>Security type 'BAG' requires combo leg details.</td>
+			<td>When specifying security type as 'BAG' make sure to also add combo legs with details.</td>
+		</tr>
+		<tr>
+			<td>315</td><td>Stock combo legs are restricted to SMART order routing.</td>
+			<td>Make sure to specify 'SMART' as an exchange when using stock combo contracts.</td>
+		</tr>
+		<tr>
+			<td>316</td><td>Market depth data has been HALTED. Please re-subscribe.</td>
+			<td>You need to re-subscribe to start receiving market depth data again.</td>
+		</tr>
+		<tr>
+			<td>317</td><td>Market depth data has been RESET. Please empty deep book contents before applying any new entries.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>319</td><td>Invalid log level <log level></td>
+			<td>Make sure that you are setting a log level to a value in range of 1 to 5.</td>
+		</tr>
+		<tr>
+			<td>320</td><td>Server error when reading an API client request.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>321</td><td>Server error when validating an API client request.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>322</td><td>Server error when processing an API client request.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>323</td><td>Server error: cause - %s</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>324</td><td>Server error when reading a DDE client request (missing information).</td>
+			<td>Make sure that you have specified all the needed information for your request.</td>
+		</tr>
+		<tr>
+			<td>325</td><td>Discretionary orders are not supported for this combination of exchange and order type.</td>
+			<td>Make sure that you are specifying a valid combination of exchange and order type for the discretionary order.</td>
+		</tr>
+		<tr>
+			<td>326</td><td>Unable to connect as the client id is already in use. Retry with a unique client id.</td>
+			<td>Another client application is already connected with the specified client id.</td>
+		</tr>
+		<tr>
+			<td>327</td><td>Only API connections with clientId set to 0 can set the auto bind TWS orders property.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>328</td><td>Trailing stop orders can be attached to limit or stop-limit orders only.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>329</td><td>Order modify failed. Cannot change to the new order type.</td>
+			<td>You are not allowed to modify initial order type to the specific order type you are using.</td>
+		</tr>
+		<tr>
+			<td>330</td><td>Only FA or STL customers can request managed accounts list.</td>
+			<td>Make sure that your account type is either FA or STL.</td>
+		</tr>
+		<tr>
+			<td>331</td><td>Internal error. FA or STL does not have any managed accounts.</td>
+			<td>You do not have any managed accounts.</td>
+		</tr>
+		<tr>
+			<td>332</td><td>The account codes for the order profile are invalid.</td>
+			<td>You need to check that the account codes you specified for your request are valid.</td>
+		</tr>
+		<tr>
+			<td>333</td><td>Invalid share allocation syntax.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>334</td><td>Invalid Good Till Date order</td>
+			<td>Check you order settings.</td>
+		</tr>
+		<tr>
+			<td>335</td><td>Invalid delta: The delta must be between 0 and 100.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>336</td><td>The time or time zone is invalid. The correct format is hh:mm:ss xxx where xxx is an optionally specified time-zone. E.g.: 15:59:00 EST Note that there is a space between the time and the time zone. If no time zone is specified, local time is assumed.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>337</td><td>The date, time, or time-zone entered is invalid. The correct format is yyyymmdd hh:mm:ss xxx where yyyymmdd and xxx are optional. E.g.: 20031126 15:59:00 ESTNote that there is a space between the date and time, and between the time and time-zone.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>338</td><td>Good After Time orders are currently disabled on this exchange.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>339</td><td>Futures spread are no longer supported. Please use combos instead.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>340</td><td>Invalid improvement amount for box auction strategy.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>341</td><td>Invalid delta. Valid values are from 1 to 100. You can set the delta from the "Pegged to Stock" section of the Order Ticket Panel, or by selecting Page/Layout from the main menu and adding the Delta column.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>342</td><td>Pegged order is not supported on this exchange.</td>
+			<td>You can review all order types and supported exchanges on the <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.co.uk/en/index.php?f=4985">Order Types and Algos</a> page.</td>
+		</tr>
+		<tr>
+			<td>343</td><td>The date, time, or time-zone entered is invalid. The correct format is yyyymmdd hh:mm:ss xxx</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>344</td><td>The account logged into is not a financial advisor account.</td>
+			<td>You are trying to perform an action that is only available for the financial advisor account.</td>
+		</tr>
+		<tr>
+			<td>345</td><td>Generic combo is not supported for FA advisor account.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>346</td><td>Not an institutional account or an away clearing account.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>347</td><td>Short sale slot value must be 1 (broker holds shares) or 2 (delivered from elsewhere).</td>
+			<td>Make sure that your slot value is either 1 or 2.</td>
+		</tr>
+		<tr>
+			<td>348</td><td>Order not a short sale -- type must be SSHORT to specify short sale slot.</td>
+			<td>Make sure that the action you specified is 'SSHORT'.</td>
+		</tr>
+		<tr>
+			<td>349</td><td>Generic combo does not support "Good After" attribute.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>350</td><td>Minimum quantity is not supported for best combo order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>351</td><td>The "Regular Trading Hours only" flag is not valid for this order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>352</td><td>Short sale slot value of 2 (delivered from elsewhere) requires location.</td>
+			<td>You need to specify designatedLocation for your order.</td>
+		</tr>
+		<tr>
+			<td>353</td><td>Short sale slot value of 1 requires no location be specified.</td>
+			<td>You do not need to specify designatedLocation for your order.</td>
+		</tr>
+		<tr>
+			<td>354</td><td>Not subscribed to requested market data.</td>
+			<td>You do not have live market data available in your account for the specified instruments. For further details please refer to @ref market_data.</td>
+		</tr>
+		<tr>
+			<td>355</td><td>Order size does not conform to market rule.</td>
+			<td>Check order size parameters for the specified contract from the TWS Contract Details.</td>
+		</tr>
+		<tr>
+			<td>356</td><td>Smart-combo order does not support OCA group.</td>
+			<td>Remove OCA group from your order.</td>
+		</tr>
+		<tr>
+			<td>357</td><td>Your client version is out of date.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>358</td><td>Smart combo child order not supported.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>359</td><td>Combo order only supports reduce on fill without block(OCA).</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>360</td><td>No whatif check support for smart combo order.</td>
+			<td>Pre-trade commissions and margin information is not available for this type of order.</td>
+		</tr>
+		<tr>
+			<td>361</td><td>Invalid trigger price.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>362</td><td>Invalid adjusted stop price.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>363</td><td>Invalid adjusted stop limit price.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>364</td><td>Invalid adjusted trailing amount.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>365</td><td>No scanner subscription found for ticker id:</td>
+			<td>Scanner market data subscription request with this ticker id has either been cancelled or is not found.</td>
+		</tr>
+		<tr>
+			<td>366</td><td>No historical data query found for ticker id:</td>
+			<td>Historical market data request with this ticker id has either been cancelled or is not found.</td>
+		</tr>
+		<tr>
+			<td>367</td><td>Volatility type if set must be 1 or 2 for VOL orders. Do not set it for other order types.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>368</td><td>Reference Price Type must be 1 or 2 for dynamic volatility management. Do not set it for non-VOL orders.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>369</td><td>Volatility orders are only valid for US options.</td>
+			<td>Make sure that you are placing an order for US OPT contract.</td>
+		</tr>
+		<tr>
+			<td>370</td><td>Dynamic Volatility orders must be SMART routed, or trade on a Price Improvement Exchange.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>371</td><td>VOL order requires positive floating point value for volatility. Do not set it for other order types.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>372</td><td>Cannot set dynamic VOL attribute on non-VOL order.</td>
+			<td>Make sure that your order type is 'VOL'.</td>
+		</tr>
+		<tr>
+			<td>373</td><td>Can only set stock range attribute on VOL or RELATIVE TO STOCK order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>374</td><td>If both are set, the lower stock range attribute must be less than the upper stock range attribute.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>375</td><td>Stock range attributes cannot be negative.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>376</td><td>The order is not eligible for continuous update. The option must trade on a cheap-to-reroute exchange.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>377</td><td>Must specify valid delta hedge order aux. price.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>378</td><td>Delta hedge order type requires delta hedge aux. price to be specified.</td>
+			<td>Make sure your order has delta attribute.</td>
+		</tr>
+		<tr>
+			<td>379</td><td>Delta hedge order type requires that no delta hedge aux. price be specified.</td>
+			<td>Make sure you do not specify aux. delta hedge price.</td>
+		</tr>
+		<tr>
+			<td>380</td><td>This order type is not allowed for delta hedge orders.</td>
+			<td>Limit, Market or Relative orders are supported.</td>
+		</tr>
+		<tr>
+			<td>381</td><td>Your DDE.dll needs to be upgraded.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>382</td><td>The price specified violates the number of ticks constraint specified in the default order settings.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>383</td><td>The size specified violates the size constraint specified in the default order settings.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>384</td><td>Invalid DDE array request.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>385</td><td>Duplicate ticker ID for API scanner subscription.</td>
+			<td>Make sure you are using a unique ticker ID for your new scanner subscription.</td>
+		</tr>
+		<tr>
+			<td>386</td><td>Duplicate ticker ID for API historical data query.</td>
+			<td>Make sure you are using a unique ticker ID for your new historical market data query.</td>
+		</tr>
+		<tr>
+			<td>387</td><td>Unsupported order type for this exchange and security type.</td>
+			<td>You can review all order types and supported exchanges on the <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.co.uk/en/index.php?f=4985">Order Types and Algos</a> page.</td>
+		</tr>
+		<tr>
+			<td>388</td><td>Order size is smaller than the minimum requirement.</td>
+			<td>Check order size parameters for the specified contract from the TWS Contract Details.</td>
+		</tr>
+		<tr>
+			<td>389</td><td>Supplied routed order ID is not unique.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>390</td><td>Supplied routed order ID is invalid.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>391</td><td>The time or time-zone entered is invalid. The correct format is hh:mm:ss xxx</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>392</td><td>Invalid order: contract expired.</td>
+			<td>You can not place an order for the expired contract.</td>
+		</tr>
+		<tr>
+			<td>393</td><td>Short sale slot may be specified for delta hedge orders only.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>394</td><td>Invalid Process Time: must be integer number of milliseconds between 100 and 2000.  Found:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>395</td><td>Due to system problems, orders with OCA groups are currently not being accepted.</td>
+			<td>Check TWS bulletins for more information.</td>
+		</tr>
+		<tr>
+			<td>396</td><td>Due to system problems, application is currently accepting only Market and Limit orders for this contract.</td>
+			<td>Check TWS bulletins for more information.</td>
+		</tr>
+		<tr>
+			<td>397</td><td>Due to system problems, application is currently accepting only Market and Limit orders for this contract.</td>
+			<td></td>
+		</tr>
+			<tr><td>398</td><td>< > cannot be used as a condition trigger.</td>
+			<td>Please make sure that you specify a valid condition</td>
+		</tr>
+		<tr>
+			<td>399</td><td>Order message error</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>400</td><td>Algo order error.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>401</td><td>Length restriction.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>402</td><td>Conditions are not allowed for this contract.</td>
+			<td>Condition order type does not support for this contract</td>
+		</tr>
+		<tr>
+			<td>403</td><td>Invalid stop price.</td>
+			<td>The Stop Price you specified for the order is invalid for the contract</td>
+		</tr>
+			<tr><td>404</td><td>Shares for this order are not immediately available for short sale. The order will be held while we attempt to locate the shares.</td>
+			<td>You order is held by the TWS because you are trying to sell a contract but you do not have any long position and the market does not have short sale available. 
+			You order will be transmitted once there is short sale available on the market</td>
+		</tr>
+		<tr>
+			<td>405</td><td>The child order quantity should be equivalent to the parent order size.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>406</td><td>The currency < > is not allowed.</td>
+			<td>Please specify a valid currency</td>
+		</tr>
+		<tr>
+			<td>407</td><td>The symbol should contain valid non-unicode characters only.</td>
+			<td>Please check your contract Symbol</td>
+		</tr>
+		<tr>
+			<td>408</td><td>Invalid scale order increment.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>409</td><td>Invalid scale order. You must specify order component size.</td>
+			<td>ScaleInitLevelSize specified is invalid</td>
+		</tr>
+		<tr>
+			<td>410</td><td>Invalid subsequent component size for scale order.</td>
+			<td>ScaleSubsLevelSize specified is invalid</td>
+		</tr>
+		<tr>
+			<td>411</td><td>The "Outside Regular Trading Hours" flag is not valid for this order.</td>
+			<td>Trading outside of regular trading hours is not available for this security</td>
+		</tr>
+		<tr>
+			<td>412</td><td>The contract is not available for trading.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>413</td><td>What-if order should have the transmit flag set to true.</td>
+			<td>You need to set @ref IBApi::Order::Transmit to TRUE</td>
+		</tr>
+		<tr>
+			<td>414</td><td>Snapshot market data subscription is not applicable to generic ticks.</td>
+			<td>You must leave Generic Tick List to be empty when requesting snapshot market data</td>
+		</tr>
+		<tr>
+			<td>415</td><td>Wait until previous RFQ finishes and try again.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>416</td><td>RFQ is not applicable for the contract. Order ID:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>417</td><td>Invalid initial component size for scale order.</td>
+			<td>ScaleInitLevelSize specified is invalid</td>
+		</tr>
+		<tr>
+			<td>418</td><td>Invalid scale order profit offset.</td>
+			<td>ScaleProfitOffset specified is invalid</td>
+		</tr>
+		<tr>
+			<td>419</td><td>Missing initial component size for scale order.</td>
+			<td>You need to specify the ScaleInitLevelSize</td>
+		</tr>
+		<tr>
+			<td>420</td><td>Invalid real-time query.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>421</td><td>Invalid route.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>422</td><td>The account and clearing attributes on this order may not be changed.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>423</td><td>Cross order RFQ has been expired. THI committed size is no longer available. Please open order dialog and verify liquidity allocation.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>424</td><td>FA Order requires allocation to be specified.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>425</td><td>FA Order requires per-account manual allocations because there is no common clearing instruction. Please use order dialog Adviser tab to enter the allocation.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>426</td><td>None of the accounts have enough shares.</td>
+			<td>You are not able to enter short position with Cash Account</td>
+		</tr>
+		<tr>
+			<td>427</td><td>Mutual Fund order requires monetary value to be specified.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>428</td><td>Mutual Fund Sell order requires shares to be specified.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>429</td><td>Delta neutral orders are only supported for combos (BAG security type).</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>430</td><td>We are sorry, but fundamentals data for the security specified is not available.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>431</td><td>What to show field is missing or incorrect.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>432</td><td>Commission must not be negative.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>433</td><td>Invalid "Restore size after taking profit" for multiple account allocation scale order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>434</td><td>The order size cannot be zero.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>435</td><td>You must specify an account.</td>
+			<td>The function you invoked only works on a single account</td>
+		</tr>
+		<tr>
+			<td>436</td><td>You must specify an allocation (either a single account, group, or profile).</td>
+			<td>When you try to place an order with a Financial Advisor account, you must specify the order to be routed to either a single account, a group, or a profile. </td>
+		</tr>
+		<tr>
+			<td>437</td><td>Order can have only one flag Outside RTH or Allow PreOpen.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>438</td><td>The application is now locked.</td>
+			<td>This error is deprecated. </td>
+		</tr>
+		<tr>
+			<td>439</td><td>Order processing failed. Algorithm definition not found.</td>
+			<td>Please double check your specification for @ref IBApi::Order::AlgoStrategy and @ref IBApi::Order::AlgoParams</td>
+		</tr>
+		<tr>
+			<td>440</td><td>Order modify failed. Algorithm cannot be modified.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>441</td><td>Algo attributes validation failed:</td>
+			<td>Please double check your specification for @ref IBApi::Order::AlgoStrategy and @ref IBApi::Order::AlgoParams</td>
+		</tr>
+		<tr>
+			<td>442</td><td>Specified algorithm is not allowed for this order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>443</td><td>Order processing failed. Unknown algo attribute.</td>
+			<td>Specification for @ref IBApi::Order::AlgoParams is incorrect</td>
+		</tr>
+		<tr>
+			<td>444</td><td>Volatility Combo order is not yet acknowledged. Cannot submit changes at this time.</td>
+			<td>The order is not in a state that is able to be modified</td>
+		</tr>
+		<tr>
+			<td>445</td><td>The RFQ for this order is no longer valid.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>446</td><td>Missing scale order profit offset.</td>
+			<td>ScaleProfitOffset is not properly specified</td>
+		</tr>
+		<tr>
+			<td>447</td><td>Missing scale price adjustment amount or interval.</td>
+			<td>ScalePriceAdjustValue or ScalePriceAdjustInterval is not specified properly</td>
+		</tr>
+		<tr>
+			<td>448</td><td>Invalid scale price adjustment interval.</td>
+			<td>ScalePriceAdjustInterval specified is invalid</td>
+		</tr>
+		<tr>
+			<td>449</td><td>Unexpected scale price adjustment amount or interval.</td>
+			<td>ScalePriceAdjustValue or ScalePriceAdjustInterval specified is invalid</td>
+		</tr>
+		<tr>
+			<td>10000</td><td>Cross currency combo error.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10001</td><td>Cross currency vol error.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10002</td><td>Invalid non-guaranteed legs.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10003</td><td>IBSX not allowed.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10005</td><td>Read-only models.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10006</td><td>Missing parent order.</td>
+			<td>The parent order ID specified cannot be found. In some cases this can occur with bracket orders if the child order is placed immediately after the parent order; a brief pause of 50 ms or less will be necessary before the child order is transmitted to TWS/IBG.</td>
+		</tr>
+		<tr>
+			<td>10007</td><td>Invalid hedge type.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10008</td><td>Invalid beta value.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10009</td><td>Invalid hedge ratio.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10010</td><td>Invalid delta hedge order.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10011</td><td>Currency is not supported for Smart combo.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10012</td><td>Invalid allocation percentage</td>
+			<td>FaPercentage specified is not valid</td>
+		</tr>
+		<tr>
+			<td>10013</td><td>Smart routing API error (Smart routing opt-out required).</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10014</td><td>PctChange limits.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10015</td><td>Trading is not allowed in the API.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10016</td><td>Contract is not visible.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10017</td><td>Contracts are not visible.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10018</td><td>Orders use EV warning.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10019</td><td>Trades use EV warning.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>10020</td><td>Display size should be smaller than order size./td>
+			<td>The display size should be smaller than the total quantity</td>
+		</tr>
+		<tr>
+			<td>10021</td><td>Invalid leg2 to Mkt Offset API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10022</td><td>Invalid Leg Prio API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10023</td><td>Invalid combo display size API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10024</td><td>Invalid don't start next legin API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10025</td><td>Invalid leg2 to Mkt time1 API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10026</td><td>Invalid leg2 to Mkt time2 API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		<tr>
+			<td>10027</td><td>Invalid combo routing tag API.</td>
+			<td>This error is deprecated</td>
+		</tr>
+		
+		
+	</table>
+
+*/

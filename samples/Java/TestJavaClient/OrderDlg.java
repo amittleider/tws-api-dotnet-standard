@@ -25,10 +25,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.ContractLookuper;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.TagValue;
+
+import apidemo.AdjustedPanel;
+import apidemo.ConditionsPanel;
+import apidemo.OnOKPanel;
+import apidemo.PegBenchPanel;
 
 public class OrderDlg extends JDialog {
     final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";
@@ -101,6 +108,9 @@ public class OrderDlg extends JDialog {
     private JButton 	m_btnAlgoParams = new JButton( "Algo Params");
     private JButton 	m_btnSmartComboRoutingParams = new JButton( "Smart Combo Routing Params");
     private JButton 	m_btnOptions = new JButton( "Options");
+    private JButton		m_btnConditions = new JButton("Conditions");
+    private JButton		m_btnPeg2Bench = new JButton("Pegged to benchmark");
+    private JButton		m_btnAdjStop = new JButton("Adjustable stops");
 
     private JButton 	m_ok = new JButton( "OK");
     private JButton 	m_cancel = new JButton( "Cancel");
@@ -191,7 +201,7 @@ public class OrderDlg extends JDialog {
         addGBComponent(pOrderDetails, m_totalQuantity, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Order Type"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_orderType, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
-        addGBComponent(pOrderDetails, new JLabel( "Lmt Price / Option Price / Volatility"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
+        addGBComponent(pOrderDetails, new JLabel( "Lmt Price / Option Price / Stop Price / Volatility"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_lmtPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Aux Price / Underlying Price"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_auxPrice, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
@@ -275,9 +285,16 @@ public class OrderDlg extends JDialog {
         pOrderButtonPanel.add( m_btnUnderComp);
         pOrderButtonPanel.add( m_btnAlgoParams);
         pOrderButtonPanel.add( m_btnSmartComboRoutingParams);
-        pOrderButtonPanel.add( m_btnOptions);
 
         pMidPanel.add( pOrderButtonPanel, BorderLayout.CENTER);
+        
+        JPanel pOrderButtonPanel2 = new JPanel();
+        pOrderButtonPanel2.add( m_btnOptions);
+        pOrderButtonPanel2.add( m_btnConditions);
+        pOrderButtonPanel2.add( m_btnPeg2Bench);
+        pOrderButtonPanel2.add( m_btnAdjStop);
+
+        pMidPanel.add( pOrderButtonPanel2, BorderLayout.CENTER);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
@@ -285,6 +302,24 @@ public class OrderDlg extends JDialog {
         buttonPanel.add( m_cancel);
 
         // create action listeners
+        m_btnPeg2Bench.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnPeg2Bench();
+			}
+		});
+        m_btnAdjStop.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnAdjStop();
+			}
+		});
+        m_btnConditions.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onBtnConditions();
+			}
+		});
         m_sharesAlloc.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onSharesAlloc();
@@ -343,7 +378,71 @@ public class OrderDlg extends JDialog {
         pack();
     }
 
-    private static String pad( int val) {
+    protected void onBtnAdjStop() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new AdjustedPanel((JDialog)param, m_order);
+			} 
+		});
+	}
+    
+	protected void onBtnPeg2Bench() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new PegBenchPanel((JDialog)param, m_order, new ContractLookuper() {					
+					@Override
+					public ArrayList<ContractDetails> lookupContract(Contract contract) {
+						try {
+							return m_parent.lookupContract(contract);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						return new ArrayList<ContractDetails>();
+					}
+				});
+			} 
+		});
+	}
+
+	
+	protected void onBtnConditions() {
+		showModalPanelDialog(new CallableWithParam() {@Override
+			public Object call(Object param) {
+				return new ConditionsPanel((JDialog)param, m_order,  new ContractLookuper() {					
+					@Override
+					public ArrayList<ContractDetails> lookupContract(Contract contract) {
+						try {
+							return m_parent.lookupContract(contract);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						return new ArrayList<ContractDetails>();
+					}
+				});
+			} 
+		});
+	}	
+	
+	interface CallableWithParam {
+		Object call(Object param);
+	}
+	
+	private void showModalPanelDialog(CallableWithParam panelCreator) {
+		JDialog dialog = new JDialog();
+		OnOKPanel panel = (OnOKPanel)panelCreator.call(dialog);
+    	
+    	dialog.add(panel);
+    	dialog.pack();
+    	dialog.setModal(true);
+    	dialog.setVisible(true);
+    	panel.onOK();
+	}
+    
+	private static String pad( int val) {
         return val < 10 ? "0" + val : "" + val;
     }
 

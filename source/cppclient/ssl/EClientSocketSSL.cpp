@@ -16,6 +16,7 @@
 
 #include <string.h>
 #include <assert.h>
+#include <ostream>
 
 const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
@@ -29,7 +30,14 @@ void EClientSocketSSL::lockingFunc(int mode, int type, const char *file, int lin
 }
 
 unsigned long EClientSocketSSL::thIdFunc() {
+#if defined(IB_POSIX)
+    return syscall(SYS_gettid);
+#elif defined(IB_WIN32)
     return GetCurrentThreadId();
+#else
+#   error "Not implemented on this platform"
+#endif
+
 }
 
 ///////////////////////////////////////////////////////////
@@ -101,6 +109,7 @@ ESocketSSL *EClientSocketSSL::getTransport() {
 }
 
 void EClientSocketSSL::ImportRootCertificatesFromWindowsCertStore() {
+#if defined(IB_WIN32)
     auto store = CertOpenSystemStore(0, "ROOT");
     auto osslStore = SSL_CTX_get_cert_store(m_pCTX);
 
@@ -116,6 +125,7 @@ void EClientSocketSSL::ImportRootCertificatesFromWindowsCertStore() {
 
 
     CertCloseStore(store, 0);
+#endif
 }
 
 
@@ -359,7 +369,13 @@ bool EClientSocketSSL::handleSSLError(int &ret_code) {
         return true;
 
 	case SSL_ERROR_SYSCALL:
+#if defined(IB_POSIX)
+		ret_code = errno;
+#elif defined(IB_WIN32)
 		ret_code = GetLastError();
+#else
+#   error "Not implemented on this platform"
+#endif
 		return true;
     }
 
@@ -367,6 +383,7 @@ bool EClientSocketSSL::handleSSLError(int &ret_code) {
 }
 
 bool EClientSocketSSL::handleSocketErrorInternal(int hr) {
+#if defined(IB_WIN32)
 	if (hr != 0) {
 		LPTSTR buf;
 
@@ -377,6 +394,7 @@ bool EClientSocketSSL::handleSocketErrorInternal(int hr) {
 
 		return false;
 	}
+#endif
 
     	// no error
 	if( errno == 0)

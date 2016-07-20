@@ -15,15 +15,15 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.VerticalPanel;
-
 import com.ib.client.Contract;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
 import com.ib.controller.ApiController.ILiveOrderHandler;
+
+import apidemo.util.HtmlButton;
+import apidemo.util.VerticalPanel;
 
 public class OrdersPanel extends JPanel {
 	private OrdersModel m_model = new OrdersModel();
@@ -221,7 +221,7 @@ public class OrdersPanel extends JPanel {
 		}
 		
 		@Override public int getColumnCount() {
-			return 8;
+			return 9;
 		}
 		
 		@Override public String getColumnName(int col) {
@@ -230,10 +230,11 @@ public class OrdersPanel extends JPanel {
 				case 1: return "Client ID";
 				case 2: return "Order ID";
 				case 3: return "Account";
-				case 4: return "Action";
-				case 5: return "Quantity";
-				case 6: return "Contract";
-				case 7: return "Status";
+				case 4: return "ModelCode";
+				case 5: return "Action";
+				case 6: return "Quantity";
+				case 7: return "Contract";
+				case 8: return "Status";
 				default: return null;
 			}
 		}
@@ -246,10 +247,11 @@ public class OrdersPanel extends JPanel {
 				case 1: return order.clientId();
 				case 2: return order.orderId();
 				case 3: return order.account();
-				case 4: return order.action();
-				case 5: return order.totalQuantity();
-				case 6: return fullOrder.m_contract.description();
-				case 7: return fullOrder.m_state.status();
+				case 4: return order.modelCode();
+				case 5: return order.action();
+				case 6: return order.totalQuantity();
+				case 7: return fullOrder.m_contract.description();
+				case 8: return fullOrder.m_state.status();
 				default: return null;
 			}
 		}

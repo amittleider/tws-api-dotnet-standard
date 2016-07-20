@@ -1,0 +1,141 @@
+/*! \page account_updates Account Updates
+
+	The @ref IBApi::EClient::reqAccountUpdates function creates a subscription to the TWS through which account and portfolio information is delivered. This information is the exact same
+	as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription. Just as with the
+	TWS' Account Window, this information is updated every <b>three</b> minutes. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqaaccountupdates
+		</li>
+		<li> 
+			\snippet Testbed.java reqaaccountupdates
+		</li>
+		<li> 
+			\snippet MainModule.vb reqaaccountupdates
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqaaccountupdates
+		</li>
+	</ul>
+	
+	Resulting account and portfolio information will be delivered via the @ref IBApi::EWrapper::updateAccountValue, @ref IBApi::EWrapper::updatePortfolio, @ref IBApi::EWrapper::updateAccountTime
+	and @ref IBApi::EWrapper::accountDownloadEnd
+
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs updateaccountvalue
+			...
+			\snippet EWrapperImpl.cs updateportfolio
+			...
+			\snippet EWrapperImpl.cs updateaccounttime
+			...
+			\snippet EWrapperImpl.cs accountdownloadend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java updateaccountvalue
+			...
+			\snippet EWrapperImpl.java updateportfolio
+			...
+			\snippet EWrapperImpl.java updateaccounttime
+			...
+			\snippet EWrapperImpl.java accountdownloadend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb updateaccountvalue
+			...
+			\snippet EWrapperImpl.vb updateportfolio
+			...
+			\snippet EWrapperImpl.vb updateaccounttime
+			...
+			\snippet EWrapperImpl.vb accountdownloadend
+		
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		    ...
+			\snippet TestCppClient.cpp updateaccountvalue
+			...
+			\snippet TestCppClient.cpp updateportfolio
+			...
+			\snippet TestCppClient.cpp updateaccounttime
+			...
+			\snippet TestCppClient.cpp accountdownloadend
+		</li>
+	</ul>
+
+	An important key passed back in @ref IBApi::EWrapper::updateAccountValue after a call to @ref IBApi::EClient::reqAccountUpdates is a boolean value 'accountReady'. If an accountReady value of false is returned that means that the IB server is in the process of resetting at that moment, i.e. the account is 'not ready'. When this occurs subsequent key values returned to IBApi::EWrapper::updateAccountValue in the current update can be out of date or incorrect. 
+	
+	<b>Important:</b> only one account at a time can be subscribed at a time. Attempting a second subscription without previously cancelling an active one will not yield any error message although
+	it will override the already subscribed account with the new one. With Financial Advisory (FA) account structures there is an alternative way of specifying the account code such that 
+	information is returned for 'All' sub accounts- this is done by appending the letter 'A' to the end of the account number, i.e. reqAccountUpdates(true, "F123456A")
+	
+	\section acct_keys Identifying the Account Keys
+	
+	Account values delivered via @ref IBApi::EWrapper::updateAccountValue can be classified in the following way:
+	
+	- Commodities: suffixed by a "-C"
+	- Securities: suffixed by a "-S"
+	- Totals: no suffix
+	
+	For further information, please refer to <a href="https://institutions.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/the_account_window.htm" target="_blank" class="linkexternal">the Account Window.</a>
+	
+	\section acct_updates_multi Models
+	
+	The @ref IBApi::EClient::reqAccountUpdatesMulti can be used with multiple account structures to subscribe to updates in real time for multiple accounts and/or models. As with @ref IBApi::EClient::reqAccountUpdates this information is the exact same as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription.
+		
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqaaccountupdatesmulti
+		</li>
+		<li> 
+			\snippet Testbed.java reqaaccountupdatesmulti
+		</li>
+		<li> 
+			\snippet MainModule.vb reqaaccountupdatesmulti
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqaaccountupdatesmulti
+		</li>
+	</ul>
+	
+	The resulting account and portfolio information will be delivered via the @ref IBApi::EWrapper::accountUpdateMulti and @ref IBApi::EWrapper::accountUpdateMultiEnd
+
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs accountupdatemulti
+			...
+			\snippet EWrapperImpl.cs accountupdatemultiend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java accountupdatemulti
+			...
+			\snippet EWrapperImpl.java accountupdatemultiend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb accountupdatemulti
+			...
+			\snippet EWrapperImpl.vb accountupdatemultiend
+		
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		    ...
+			\snippet TestCppClient.cpp accountupdatemulti
+			...
+			\snippet TestCppClient.cpp accountupdatemultiend
+		</li>
+	</ul>
+*/

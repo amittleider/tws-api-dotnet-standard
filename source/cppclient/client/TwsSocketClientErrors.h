@@ -22,7 +22,11 @@ public:
 };
 
 static const CodeMsgPair ALREADY_CONNECTED(501,	"Already connected.");
-static const CodeMsgPair CONNECT_FAIL(502, "Couldn't connect to TWS.  Confirm that \"Enable ActiveX and Socket Clients\" is enabled on the TWS \"Configure->API\" menu.");
+static const CodeMsgPair CONNECT_FAIL(502, "Couldn't connect to TWS. Confirm that \"Enable ActiveX and Socket Clients\" "
+											"is enabled and connection port is the same as \"Socket Port\" on the "
+											"TWS \"Edit->Global Configuration...->API->Settings\" menu. Live Trading ports: "
+											"TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations "
+											"of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002");
 static const CodeMsgPair UPDATE_TWS(503, "The TWS is out of date and must be upgraded.");
 static const CodeMsgPair NOT_CONNECTED(504, "Not connected");
 static const CodeMsgPair UNKNOWN_ID(505, "Fatal Error: Unknown message id.");

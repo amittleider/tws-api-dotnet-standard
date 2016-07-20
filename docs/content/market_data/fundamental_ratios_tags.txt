@@ -1,0 +1,230 @@
+/*! \page fundamental_ratios_tags Available Fundamental Ratios
+
+	<table>
+		<tr><th>Tag</th><th>Description</th></tr>
+		<tr>
+            <td>NPRICE</td>
+            <td><b>Closing Price</b>
+                <p> This is the closing price for the issue from the day it last traded. It is also referred to as the Current Price. Note that some issues may not trade every day, and therefore it is possible for this price to come from a date prior to the last business day.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>Three_Year_TTM_<br />Growth</td>
+            <td>3 year trailing twelve months growth.</td>
+        </tr>
+        <tr>
+            <td>TTM_over_TTM</td>
+            <td>Trailing twelve months over trailing twelve months.</td>
+        </tr>
+        <tr>
+            <td>NHIG</td>
+            <td><b>High Price</b>
+                <br> This price is the highest price the stock traded at in the last 12 months. This could be an intra-day high.</td>
+        </tr>
+        <tr>
+            <td>NLOW</td>
+            <td><b>Low Price</b>
+                <br> This price is the lowest price the stock traded at in the last 12 months. This could be an intra-day low.</td>
+        </tr>
+        <tr>
+            <td>PDATE</td>
+            <td><b>Pricing date</b>
+                <br> The pricing date is the date at which the issue was last priced.</td>
+        </tr>
+        <tr>
+            <td>VOL10DAVG</td>
+            <td><b>Volume</b>
+                <br> This is the daily average of the cumulative trading volume for the last ten days.</td>
+        </tr>
+        <tr>
+            <td>MKTCAP</td>
+            <td><b>Market capitalization</b>
+                <br> This value is calculated by multiplying the current Price by the current number of shares outstanding.</td>
+        </tr>
+        <tr>
+            <td>TTMEPSXCLX</td>
+            <td><b>EPS excluding extraordinary items</b>
+                <br /> This is the Adjusted Income Available to Common Stockholders for the trailing twelve months divided by the trailing twelve month Diluted Weighted Average Shares Outstanding.</td>
+        </tr>
+        <tr>
+            <td>AEPSNORM</td>
+            <td><b>EPS Normalized</b>
+                <br> This is the Normalized Income Available to Common Stockholders for the most recent annual period divided by the same period's Diluted Weighted Average Shares Outstanding.</td>
+        </tr>
+        <tr>
+            <td>TTMREVPS</td>
+            <td>
+                <p><b>Revenue/share</b>
+                    <br> This value is the trailing twelve month Total Revenue divided by the Average Diluted Shares Outstanding for the trailing twelve months.</p>
+                <p><i><b>Note:</b><br>Most banks and insurance companies do not report revenues when they announce their preliminary quarterly financial results in the press. When this happens, the trailing twelve month values will not be available (NA).</i></p>
+            </td>
+        </tr>
+        <tr>
+            <td>QBVPS</td>
+            <td><b>Book value (Common Equity) per share</b>
+                <br> This is defined as the Common Shareholder's Equity divided by the Shares Outstanding at the end of the most recent interim period. Book Value is the Total Shareholder's Equity minus Preferred Stock and Redeemable Preferred Stock.</td>
+        </tr>
+        <tr>
+            <td>QTANBVPS</td>
+            <td><b>Book value (tangible) per share</b>
+                <br> This is the interim Tangible Book Value divided by the Shares Outstanding at the end of the most recent interim period. Tangible Book Value is the Book Value minus Goodwill and Intangible Assets for the same period.</td>
+        </tr>
+        <tr>
+            <td>QCSHPS</td>
+            <td>
+                <p><b>Cash per share</b>
+                    <br>This is the Total Cash plus Short Term Investments divided by the Shares Outstanding at the end of the most recent interim period.</p>
+                <p><i><b>Note:</b><br>This does NOT include cash equivalents that may be reported under long term assets.</i></p>
+            </td>
+        </tr>
+        <tr>
+            <td>TTMCFSHR</td>
+            <td><b>Cash Flow per share</b>
+                <br> This value is the trailing twelve month Cash Flow divided by the trailing twelve month Average Shares Outstanding. Cash Flow is defined as the sum of Income After Taxes minus Preferred Dividends and General Partner Distributions plus Depreciation, Depletion and Amortization.</td>
+        </tr>
+        <tr>
+            <td>TTMDIVSHR</td>
+            <td><b>Dividends per share</b>
+                <br> This is the sum of the Cash Dividends per share paid to common stockholders during the last trailing twelve month period.</td>
+        </tr>
+        <tr>
+            <td>IAD</td>
+            <td><b>Dividend rate</b>
+                <br> This value is the total of the expected dividend payments over the next twelve months. It is generally the most recent cash dividend paid or declared multiplied by the dividend payment frequency, plus any recurring extra dividends.</td>
+        </tr>
+        <tr>
+            <td>PEEXCLXOR</td>
+            <td><b>P/E excluding extraordinary items<br /></b> This ratio is calculated by dividing the current Price by the sum of the Diluted Earnings Per Share from continuing operations BEFORE Extraordinary Items and Accounting Changes over the last four interim periods.</td>
+        </tr>
+        <tr>
+            <td>APENORM</td>
+            <td><b>P/E Normalized</b>
+                <br> This is the Current Price divided by the latest annual Normalized Earnings Per Share value.</td>
+        </tr>
+        <tr>
+            <td>TMPR2REV</td>
+            <td><b>Price to sales</b>
+                <br> This is the current Price divided by the Sales Per Share for the trailing twelve months. If there is a preliminary earnings announcement for an interim period that has recently ended, the revenue (sales) values from this announcement will be used in calculating the trailing twelve month revenue per share. NOTE: Most Banks and Finance companies do not report revenues when they announce their preliminary interim financial results in the press. When this happens, the trailing twelve month values will not be available (NA) until the complete interim filing is released.</td>
+        </tr>
+        <tr>
+            <td>PR2TANBK</td>
+            <td><b>Price to Tangible Book</b>
+                <br> This is the Current Price divided by the latest annual Tangible Book Value Per Share. Tangible Book Value Per Share is defined as Book Value minus Goodwill and Intangible Assets divided by the Shares Outstanding at the end of the fiscal period.</td>
+        </tr>
+        <tr>
+            <td>TTMPRCFPS</td>
+            <td><b>Price to Cash Flow per share</b>
+                <br> This is the current Price divided by Cash Flow Per Share for the trailing twelve months. Cash Flow is defined as Income After Taxes minus Preferred Dividends and General Partner Distributions plus Depreciation, Depletion and Amortization.</td>
+        </tr>
+        <tr>
+            <td>PRICE2BK</td>
+            <td><b>Price to Book</b>
+                <br> This is the Current Price divided by the latest interim period Book Value Per Share.</td>
+        </tr>
+        <tr>
+            <td>QCURRATIO</td>
+            <td><b>Current ratio</b>
+                <br> This is the ratio of Total Current Assets for the most recent interim period divided by Total Current Liabilities for the same period. NOTE: This item is Not Available (NA) for Banks, Insurance companies and other companies that do not distinguish between current and long term assets and liabilities.</td>
+        </tr>
+        <tr>
+            <td>QQUICKRATI</td>
+            <td><b>Quick ratio</b>
+                <br> Also known as the Acid Test Ratio, this ratio is defined as Cash plus Short Term Investments plus Accounts Receivable for the most recent interim period divided by the Total Current Liabilities for the same period. NOTE: This item is Not Available (NA) for Banks, Insurance companies and other companies that do not distinguish between current and long term assets and liabilities.</td>
+        </tr>
+        <tr>
+            <td>QLTD2EQ</td>
+            <td><b>LT debt/equity</b>
+                <br> This ratio is the Total Long Term Debt for the most recent interim period divided by Total Shareholder Equity for the same period.</td>
+        </tr>
+        <tr>
+            <td>QTOTD2EQ</td>
+            <td><b>Total debt/total equity</b>
+                <br> This ratio is Total Debt for the most recent interim period divided by Total Shareholder Equity for the same period. NOTE: This is Not Meaningful (NM) for banks.</td>
+        </tr>
+        <tr>
+            <td>TTMPAYRAT</td>
+            <td><b>Payout ratio<br /></b> This ratio is the percentage of the Primary/Basic Earnings Per Share Excluding Extraordinary Items paid to common stockholders in the form of cash dividends during the trailing twelve months.</td>
+        </tr>
+        <tr>
+            <td>TTMREV</td>
+            <td><b>Revenue</b>&#160;<br />This is the sum of all revenue (sales) reported for all operating divisions for the most recent TTM period. NOTE: Most banks and Insurance companies do not report revenues when they announce their preliminary quarterly financial results in the press. When this happens, the quarterly value will not be available (NA).</td>
+        </tr>
+        <tr>
+            <td>TTMEBITD</td>
+            <td><b>EBITD<br /></b> Earnings Before Interest, Taxes, Depreciation and Amortization (EBITDA) is EBIT for the trailing twelve months plus the same period's Depreciation and Amortization expenses (from the Statement of Cash Flows). NOTE: This item is only available for Industrial and Utility companies.</td>
+        </tr>
+        <tr>
+            <td>TTMEBT</td>
+            <td><b>Earnings before taxes<br /></b> Also known as Pretax Income and Earnings Before Taxes, this is Total Revenue for the most recent TTM period minus Total Expenses plus Non-operating Income (Expenses) for the same period.</td>
+        </tr>
+        <tr>
+            <td>TTMNIAC</td>
+            <td><b>Net Income available to common<br /></b> This is the trailing twelve month dollar amount accruing to common shareholders for dividends and retained earnings. Income Available to Common Shareholders is calculated as trailing twelve month Income After Taxes plus Minority Interest and Equity in Affiliates plus Preferred Dividends, General Partner Distributions and US GAAP Adjustments. NOTE: Any adjustment that is negative (ie. Preferred Stock Dividends) would be subtracted from Income After Taxes.</td>
+        </tr>
+        <tr>
+            <td>AEBTNORM</td>
+            <td><b>Earnings before taxes Normalized<br /></b> This is the Income Before Tax number excluding the impact of all unusual/one-time/special charges items for the most recent annual period.</td>
+        </tr>
+        <tr>
+            <td>ANIACNORM</td>
+            <td><b>Net Income Available to Common, Normalized<br /></b> This is the annual dollar amount accruing to common shareholders for dividends and retained earnings excluding the impact of all unusual/one-time/special charges items.</td>
+        </tr>
+        <tr>
+            <td>TTMGROSMGN</td>
+            <td><b>Gross Margin<br /></b> This value measures the percent of revenue left after paying all direct production expenses. It is calculated as the trailing 12 months Total Revenue minus the trailing 12 months Cost of Goods Sold divided by the trailing 12 months Total Revenue and multiplied by 100. NOTE: This item is only available for Industrial and Utility companies.</td>
+        </tr>
+        <tr>
+            <td>TTMNPMGN</td>
+            <td><b>Net Profit Margin %<br /></b> Also known as Return on Sales, this value is the Income After Taxes for the trailing twelve months divided by Total Revenue for the same period and is expressed as a percentage. NOTE: Most Banks and Finance companies do not report revenues when they announce their preliminary quarterly financial results in the press. When this happens, the trailing twelve month value will not be available (NA).</td>
+        </tr>
+        <tr>
+            <td>TTMOPMGN</td>
+            <td><b>Operating margin<br /></b> This value measures the percent of revenues remaining after paying all operating expenses. It is calculated as the trailing 12 months Operating Income divided by the trailing 12 months Total Revenue, multiplied by 100. Operating Income is defined as Total Revenue minus Total Operating Expenses.</td>
+        </tr>
+        <tr>
+            <td>APTMGNPCT</td>
+            <td><b>Pretax margin<br /></b> This value represents Income Before Taxes for the most recent fiscal year expressed as a percent of Total Revenue for the most recent fiscal year.</td>
+        </tr>
+        <tr>
+            <td>TTMROAPCT</td>
+            <td><b>Return on average assets<br /></b> This value is the Income After Taxes for the trailing twelve months divided by the Average Total Assets, expressed as a percentage. Average Total Assets is calculated by adding the Total Assets for the 5 most recent quarters and dividing by 5.</td>
+        </tr>
+        <tr>
+            <td>TTMROEPCT</td>
+            <td><b>Return on average equity<br /></b> This value is the Income Available to Common Stockholders for the trailing twelve months divided by the Average Common Equity and is expressed as a percentage. Average Common Equity is calculated by adding the Common Equity for the 5 most recent quarters and dividing by 5.</td>
+        </tr>
+        <tr>
+            <td>TTMROIPCT</td>
+            <td><b>Return on investment<br /></b> This value is the trailing twelve month Income After Taxes divided by the average Total Long Term Debt, Other Long Term Liabilities and Shareholders Equity, expressed as a percentage.</td>
+        </tr>
+        <tr>
+            <td>REVCHNGYR</td>
+            <td><b>Revenue Change %<br /></b> This value is calculated as the most recent interim period Sales minus the Sales for the same interim period 1 year ago divided by the Sales for the same interim period one year ago, multiplied by 100.</td>
+        </tr>
+        <tr>
+            <td>TTMREVCHG</td>
+            <td><b>Revenue Change %<br /></b> This is the percent change in the trailing twelve month Sales as compared to the same trailing twelve month period one year ago. It is calculated as the trailing twelve month Sales minus the trailing twelve month Sales one year ago divided by the trailing twelve month Sales one year ago, multiplied by 100.</td>
+        </tr>
+        <tr>
+            <td>REVTRENDGR</td>
+            <td><b>Revenue growth rate<br /></b> The Five Year Revenue Growth Rate is the annual compounded growth rate of Revenues over the last 5 years.</td>
+        </tr>
+        <tr>
+            <td>EPSCHNGYR</td>
+            <td><b>EPS Change %<br /></b> This value is calculated as the most recent interim period EPS minus the EPS for the same interim period 1 year ago divided by the EPS for the same interim period one year ago, multiplied by 100. NOTE: EPS must be positive for both periods. If either EPS value is negative, the result in Not Meaningful (NM).</td>
+        </tr>
+        <tr>
+            <td>TTMEPSCHG</td>
+            <td><b>EPS Change %<br /></b> This is the percent change in the trailing twelve month EPS as compared to the same trailing twelve month period one year ago. It is calculated as the trailing twelve month EPS minus the trailing twelve month EPS one year ago divided by the trailing twelve month EPS one year ago, multiplied by 100. NOTE: If either value has a negative value, the resulting value will be Not Meaningful (NM).</td>
+        </tr>
+        <tr>
+            <td>EPSTRENDGR</td>
+            <td><b>EPS growth rate<br /></b> This growth rate is the compound annual growth rate of Earnings Per Share Excluding Extraordinary Items and Discontinued Operations over the last 5 years. NOTE: If the value for either the most recent year or the oldest year is zero or negative, the growth rate cannot be calculated and a 'NA' (Not Available) code will be used.</td>
+        </tr>
+        <tr>
+            <td>DIVGRPCT</td>
+            <td><b>Growth rate % - dividend<br /></b> The Dividend Growth Rate is the compound annual growth rate in dividends per share. DIVGR% is calculated for 3 years whenever 4 years of dividends are available.</td>
+        </tr>
+	</table>
+
+*/

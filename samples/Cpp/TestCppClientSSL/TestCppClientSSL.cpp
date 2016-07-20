@@ -278,3 +278,9 @@ void TestCppClient::verifyAndAuthCompleted( bool isSuccessful, const std::string
 
 void TestCppClient::displayGroupList( int reqId, const std::string& groups) {}
 void TestCppClient::displayGroupUpdated( int reqId, const std::string& contractInfo) {}
+void TestCppClient::positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost) {}
+void TestCppClient::positionMultiEnd( int reqId) {}
+void TestCppClient::accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency) {}
+void TestCppClient::accountUpdateMultiEnd( int reqId) {}
+void TestCppClient::securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) {}
+void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {}

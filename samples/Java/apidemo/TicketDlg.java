@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.JCheckBox;
@@ -19,16 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import apidemo.util.HtmlButton;
-import apidemo.util.NewTabbedPanel;
-import apidemo.util.TCombo;
-import apidemo.util.UpperField;
-import apidemo.util.Util;
-import apidemo.util.VerticalPanel;
-import apidemo.util.VerticalPanel.HorzPanel;
-import apidemo.util.VerticalPanel.StackPanel;
-
 import com.ib.client.Contract;
+import com.ib.client.ContractDetails;
+import com.ib.client.ContractLookuper;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
@@ -48,10 +42,19 @@ import com.ib.client.Types.TriggerMethod;
 import com.ib.client.Types.VolatilityType;
 import com.ib.controller.ApiController.IOrderHandler;
 
+import apidemo.util.HtmlButton;
+import apidemo.util.NewTabbedPanel;
+import apidemo.util.TCombo;
+import apidemo.util.UpperField;
+import apidemo.util.Util;
+import apidemo.util.VerticalPanel;
+import apidemo.util.VerticalPanel.HorzPanel;
+import apidemo.util.VerticalPanel.StackPanel;
+
 public class TicketDlg extends JDialog {
 	private boolean m_editContract;
 	private final Contract m_contract;
-	private final Order m_order;
+	final Order m_order;
 	private final ContractPanel m_contractPanel;
 	private final OrderPanel m_orderPanel;
 	private final AdvisorTicketPanel m_advisorPanel;
@@ -60,6 +63,9 @@ public class TicketDlg extends JDialog {
 	private final ComboTicketPanel m_comboPanel;
 	private final AlgoPanel m_algoPanel;
 	private final ScalePanel m_scalePanel;
+	private final PegBenchPanel m_pegBenchPanel;
+	private final AdjustedPanel m_adjustedPanel;
+	private final ConditionsPanel m_conditionPanel;
 	
 	public TicketDlg(Contract contract, Order order) {
 		super( ApiDemo.INSTANCE.frame());
@@ -79,13 +85,26 @@ public class TicketDlg extends JDialog {
 		m_order = order;
 		
 		m_contractPanel = new ContractPanel( m_contract);
-		m_orderPanel = new OrderPanel();
+		m_pegBenchPanel = new PegBenchPanel(this, m_order, new ContractLookuper() {
+			@Override
+			public ArrayList<ContractDetails> lookupContract(Contract contract) {
+				return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), contract);
+			}
+		});
 		m_advisorPanel = new AdvisorTicketPanel();
 		m_attribTicketPanel = new MiscTicketPanel();
 		m_volPanel = new VolatilityTicketPanel();
 		m_comboPanel = new ComboTicketPanel();
 		m_algoPanel = new AlgoPanel();
 		m_scalePanel = new ScalePanel();
+		m_orderPanel = new OrderPanel();
+		m_adjustedPanel = new AdjustedPanel(this, m_order);
+		m_conditionPanel = new ConditionsPanel(this, m_order, new ContractLookuper() {
+			@Override
+			public ArrayList<ContractDetails> lookupContract(Contract contract) {
+				return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), contract);
+			}
+		});
 		
 		HtmlButton transmitOrder = new HtmlButton( "Transmit Order") {
 			@Override public void actionPerformed() {
@@ -110,6 +129,8 @@ public class TicketDlg extends JDialog {
 			tabbedPanel.addTab( "Contract", m_contractPanel);
 		}
 		tabbedPanel.addTab( "Order", m_orderPanel);
+		tabbedPanel.addTab("Pegged to benchmark", m_pegBenchPanel);
+		tabbedPanel.addTab("Adjustable stops", m_adjustedPanel);
 		tabbedPanel.addTab( "Misc", m_attribTicketPanel);
 		tabbedPanel.addTab( "Advisor", m_advisorPanel);
 		tabbedPanel.addTab( "Volatility", m_volPanel);
@@ -118,6 +139,7 @@ public class TicketDlg extends JDialog {
 		}
 		tabbedPanel.addTab( "Scale", m_scalePanel);
 		tabbedPanel.addTab( "IB Algo", m_algoPanel);
+		tabbedPanel.addTab("Conditions", m_conditionPanel);
 		
 		JPanel buts = new JPanel( new FlowLayout( FlowLayout.CENTER, 15, 5));
 		buts.add( transmitOrder);		
@@ -218,11 +240,41 @@ public class TicketDlg extends JDialog {
 		if (m_contract.isCombo() ) {
 			m_comboPanel.onOK();
 		}
+		m_pegBenchPanel.onOK();
+		m_adjustedPanel.onOK();
+		m_conditionPanel.onOK();
+	}
+	
+	enum AmntUnit {
+		Amnt("amnt", 0),
+		Percent("%", 100);
+		
+		String m_text;
+		int m_val;
+		
+		AmntUnit(String txt, int v) {
+			m_text = txt;
+			m_val = v;
+		}
+		
+		public static AmntUnit fromInt(int i) {
+			for (AmntUnit v : AmntUnit.values())
+				if (v.m_val == i)
+					return v;
+			
+			return Amnt;
+		}
+
+		@Override
+		public String toString() {
+			return m_text;
+		}
 	}
 
 	class OrderPanel extends VerticalPanel {
 		final TCombo<String> m_account = new TCombo<String>( ApiDemo.INSTANCE.accountList().toArray(new String[0]) );
 		final TCombo<Action> m_action = new TCombo<Action>( Action.values() );
+		final JTextField m_modelCode = new JTextField();
 		final UpperField m_quantity = new UpperField( "100");
 		final UpperField m_displaySize = new UpperField();
 		final TCombo<OrderType> m_orderType = new TCombo<OrderType>( OrderType.values() ); 
@@ -230,11 +282,14 @@ public class TicketDlg extends JDialog {
 		final UpperField m_auxPrice = new UpperField();
 		final TCombo<TimeInForce> m_tif = new TCombo<TimeInForce>( TimeInForce.values() );
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
+		final UpperField m_lmtPriceOffset = new UpperField();
+		final UpperField m_triggerPrice = new UpperField();
 
 		OrderPanel() {
 			m_orderType.removeItemAt( 0); // remove None
 			
 			m_account.setSelectedItem( m_order.account() != null ? m_order.account() : ApiDemo.INSTANCE.accountList().get( 0) ); 
+			m_modelCode.setText( m_order.modelCode() );
 			m_action.setSelectedItem( m_order.action() );
 			m_quantity.setText( m_order.totalQuantity());
 			m_displaySize.setText( m_order.displaySize());
@@ -243,13 +298,19 @@ public class TicketDlg extends JDialog {
 			m_auxPrice.setText( m_order.auxPrice());
 			m_tif.setSelectedItem( m_order.tif());
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
+			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
+			m_triggerPrice.setText(m_order.triggerPrice());
 			
 			add( "Account", m_account);
+			m_modelCode.setColumns(7);
+			add( "Model code", m_modelCode);
 			add( "Action", m_action);
 			add( "Quantity", m_quantity);
 			add( "Display size", m_displaySize);
 			add( "Order type", m_orderType);
 			add( "Limit price", m_lmtPrice);
+			add("Limit price offset", m_lmtPriceOffset);
+			add("Trigger price", m_triggerPrice);
 			add( "Aux price", m_auxPrice);
 			add( "Time-in-force", m_tif);
 			if (m_contract.isCombo() ) {
@@ -259,6 +320,7 @@ public class TicketDlg extends JDialog {
 		
 		private void onOK() {
 			m_order.account( m_account.getText().toUpperCase() );
+			m_order.modelCode( m_modelCode.getText().trim() );
 			m_order.action( m_action.getSelectedItem() );
 			m_order.totalQuantity( m_quantity.getDouble() );
 			m_order.displaySize( m_displaySize.getInt() );
@@ -266,6 +328,9 @@ public class TicketDlg extends JDialog {
 			m_order.lmtPrice( m_lmtPrice.getDouble() );
 			m_order.auxPrice( m_auxPrice.getDouble() );
 			m_order.tif( m_tif.getSelectedItem() );
+			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
+			m_order.triggerPrice(m_triggerPrice.getDouble());
+			
 			if (m_contract.isCombo() ) {
 				TagValue tv = new TagValue( ComboParam.NonGuaranteed.toString(), m_nonGuaranteed.isSelected() ? "1" : "0");
 				m_order.smartComboRoutingParams().add( tv);
@@ -314,6 +379,7 @@ public class TicketDlg extends JDialog {
 		final UpperField m_discretionaryAmt = new UpperField();
 		final UpperField m_nbboPriceCap = new UpperField();
 		final UpperField m_algoId = new UpperField();
+		final UpperField m_extOperator = new UpperField();
 
 		final TCombo<OcaType> m_ocaType = new TCombo<OcaType>( OcaType.values() );
 		final TCombo<Rule80A> m_rule80A = new TCombo<Rule80A>( Rule80A.values() );
@@ -352,6 +418,7 @@ public class TicketDlg extends JDialog {
 			top.add( "Algo Id", m_algoId);
 			top.add( "OCA group and type", m_ocaGroup, m_ocaType);
 			top.add( "Hedge type and param" , m_hedgeType, m_hedgeParam);
+			top.add("Ext operator", m_extOperator);
 			
 			VerticalPanel left = new VerticalPanel();
 			left.add( "Not held", m_notHeld);
@@ -405,6 +472,7 @@ public class TicketDlg extends JDialog {
 			m_optOutSmartRouting.setSelected( m_order.optOutSmartRouting() );
 			m_algoId.setText( m_order.algoId() );
 			m_transmit.setSelected( true);
+			m_extOperator.setText(m_order.extOperator());
 		}
 		
 		void onOK() {
@@ -434,6 +502,7 @@ public class TicketDlg extends JDialog {
 			m_order.optOutSmartRouting( m_optOutSmartRouting.isSelected() );
 			m_order.algoId( m_algoId.getText() );
 			m_order.transmit( m_transmit.isSelected() );
+			m_order.extOperator(m_extOperator .getText());
 		}
 	}
 	

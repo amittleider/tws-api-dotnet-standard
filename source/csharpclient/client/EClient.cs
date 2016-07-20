@@ -11,9 +11,9 @@ using System.Linq;
 namespace IBApi
 {
     /**
-     * @class EClientSocket
+     * @class EClient
      * @brief TWS/Gateway client class
-     * This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
+     * This client class contains all the available methods to communicate with IB. Up to thirty-two clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
      */
     public abstract class EClient
     {
@@ -35,7 +35,7 @@ namespace IBApi
 
         /**
          * @brief Constructor
-         * @param wrapper EWrapper's implementating class instance. Every message being delivered by IB to the API client will be forwarded to the EWrapper's implementating class.
+         * @param wrapper EWrapper's implementing class instance. Every message being delivered by IB to the API client will be forwarded to the EWrapper's implementing class.
          * @sa EWrapper
          */
         public EClient(EWrapper wrapper)
@@ -48,6 +48,9 @@ namespace IBApi
             this.AsyncEConnect = false;
         }
 
+        /**
+         * @brief Ignore. Used for IB's internal purposes.
+         */
         public void SetConnectOptions(string connectOptions)
         {
             if (IsConnected())
@@ -60,12 +63,18 @@ namespace IBApi
             this.connectOptions = connectOptions;
         }
 
+        /**
+         * @brief Allows to switch between different current (V100+) and previous connection mechanisms.
+         */
         public void DisableUseV100Plus()
         {
             this.useV100Plus = false;
             this.connectOptions = "";
         }
 
+        /**
+         * @brief Reference to the EWrapper implementing object.
+         */
         public EWrapper Wrapper
         {
             get { return wrapper; }
@@ -94,7 +103,7 @@ namespace IBApi
 
         /**
          * @brief Establishes a connection to the designated Host.
-         * After establishing a connection succesfully, the Host will provide the next valid order id, server's current time, managed accounts and open orders among others depending on the Host version.
+         * After establishing a connection successfully, the Host will provide the next valid order id, server's current time, managed accounts and open orders among others depending on the Host version.
          * @param host the Host's IP address. Leave blank for localhost.
          * @param port the Host's port. 7496 by default for the TWS, 4001 by default on the Gateway.
          * @param clientId Every API client program requires a unique id which can be any integer. Note that up to eight clients can be connected simultaneously to a single Host.
@@ -138,6 +147,9 @@ namespace IBApi
             }
         }
 
+        /**
+         * @brief Initiates the message exchange between the client application and the TWS/IB Gateway
+         */
         public void startApi()
         {
             if (!CheckConnection())
@@ -156,6 +168,7 @@ namespace IBApi
 
             CloseAndSend(paramsList, lengthPos);
         }
+
 
         public string optionalCapabilities { get; set; }
 
@@ -187,7 +200,7 @@ namespace IBApi
 
             if (tcpStream != null)
                 tcpStream.Close();
- 
+
             wrapper.connectionClosed();
         }
 
@@ -524,10 +537,10 @@ namespace IBApi
 
         /**
          * @brief Places an order
-         * @param id the order's unique identifier. Use a sequential id starting with the id received at the nextValidId method.
+         * @param id the order's unique identifier. Use a sequential id starting with the id received at the nextValidId method. If a new order is placed with an order ID less than or equal to the order ID of a previous order an error will occur. 
          * @param contract the order's contract
          * @param order the order
-         * @sa nextValidId, reqAllOpenOrders, reqAutoOpenOrders, reqOpenOrders, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus, Order, Contract
+         * @sa EWrapper::nextValidId, reqAllOpenOrders, reqAutoOpenOrders, reqOpenOrders, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus, Order, Contract
          */
         public void placeOrder(int id, Contract contract, Order order)
         {
@@ -740,6 +753,12 @@ namespace IBApi
                 paramsList.AddParameter(order.FaPercentage);
                 paramsList.AddParameter(order.FaProfile);
             }
+
+            if (serverVersion >= MinServerVer.MODELS_SUPPORT)
+            {
+                paramsList.AddParameter(order.ModelCode);
+            }
+
             if (serverVersion >= 18)
             { // institutional short sale slot fields.
                 paramsList.AddParameter(order.ShortSaleSlot);      // 0 only for retail, 1 or 2 only for institution.
@@ -960,10 +979,47 @@ namespace IBApi
                 paramsList.AddParameter(order.RandomizePrice);
             }
 
+            if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
+            {
+                if (order.OrderType == "PEG BENCH") {
+                    paramsList.AddParameter(order.ReferenceContractId);
+                    paramsList.AddParameter(order.IsPeggedChangeAmountDecrease);
+                    paramsList.AddParameter(order.PeggedChangeAmount);
+                    paramsList.AddParameter(order.ReferenceChangeAmount);
+                    paramsList.AddParameter(order.ReferenceExchange);
+                }
+
+                paramsList.AddParameter(order.Conditions.Count);
+
+                if (order.Conditions.Count > 0)
+                {
+                    foreach (OrderCondition item in order.Conditions)
+                    {
+                        paramsList.AddParameter((int)item.Type);
+                        item.Serialize(paramsList);
+                    }
+
+                    paramsList.AddParameter(order.ConditionsIgnoreRth);
+                    paramsList.AddParameter(order.ConditionsCancelOrder);
+                }
+
+                paramsList.AddParameter(order.AdjustedOrderType);
+                paramsList.AddParameter(order.TriggerPrice);
+                paramsList.AddParameter(order.LmtPriceOffset);
+                paramsList.AddParameter(order.AdjustedStopPrice);
+                paramsList.AddParameter(order.AdjustedStopLimitPrice);
+                paramsList.AddParameter(order.AdjustedTrailingAmount);
+                paramsList.AddParameter(order.AdjustableTrailingUnit);
+            }
+
+            if (serverVersion >= MinServerVer.EXT_OPERATOR)
+            {
+                paramsList.AddParameter(order.ExtOperator);
+            }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
-        //WARN: Have not tested this yet!
         /**
          * @brief Replaces Financial Advisor's settings
          * A Financial Advisor can define three different configurations: 
@@ -1017,38 +1073,42 @@ namespace IBApi
         /**
          * @brief Requests a specific account's summary.
          * This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at EWrapper::accountSummary
-         * @param reqId the unique request idntifier.
+		 * https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm
+         * @param reqId the unique request identifier.
          * @param group set to "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration.
-         * @params tags a comma separated list with the desired tags:
-         *      - AccountType
-         *      - NetLiquidation,
-         *      - TotalCashValue — Total cash including futures pnl
-         *      - SettledCash — For cash accounts, this is the same as TotalCashValue
-         *      - AccruedCash — Net accrued interest
-         *      - BuyingPower — The maximum amount of marginable US stocks the account can buy
-         *      - EquityWithLoanValue — Cash + stocks + bonds + mutual funds
-         *      - PreviousEquityWithLoanValue,
+         * @param tags a comma separated list with the desired tags:
+         *      - AccountType — Identifies the IB account structure
+         *      - NetLiquidation — The basis for determining the price of the assets in your account. Total cash value + stock value + options value + bond value
+         *      - TotalCashValue — Total cash balance recognized at the time of trade + futures PNL
+         *      - SettledCash — Cash recognized at the time of settlement - purchases at the time of trade - commissions - taxes - fees
+         *      - AccruedCash — Total accrued cash value of stock, commodities and securities
+         *      - BuyingPower — Buying power serves as a measurement of the dollar value of securities that one may purchase in a securities account without depositing additional funds
+         *      - EquityWithLoanValue — Forms the basis for determining whether a client has the necessary assets to either initiate or maintain security positions. Cash + stocks + bonds + mutual funds
+         *      - PreviousEquityWithLoanValue — Marginable Equity with Loan value as of 16:00 ET the previous day
          *      - GrossPositionValue — The sum of the absolute value of all stock and equity option positions
-         *      - RegTEquity,
-         *      - RegTMargin,
-         *      - SMA — Special Memorandum Account
-         *      - InitMarginReq,
-         *      - MaintMarginReq,
-         *      - AvailableFunds,
-         *      - ExcessLiquidity,
+         *      - RegTEquity — Regulation T equity for universal account
+         *      - RegTMargin — Regulation T margin for universal account
+         *      - SMA — Special Memorandum Account: Line of credit created when the market value of securities in a Regulation T account increase in value
+         *      - InitMarginReq — Initial Margin requirement of whole portfolio
+         *      - MaintMarginReq — Maintenance Margin requirement of whole portfolio
+         *      - AvailableFunds — This value tells what you have available for trading
+         *      - ExcessLiquidity — This value shows your margin cushion, before liquidation
          *      - Cushion — Excess liquidity as a percentage of net liquidation value
-         *      - FullInitMarginReq,
-         *      - FullMaintMarginReq,
-         *      - FullAvailableFunds,
-         *      - FullExcessLiquidity,
+         *      - FullInitMarginReq — Initial Margin of whole portfolio with no discounts or intraday credits
+         *      - FullMaintMarginReq — Maintenance Margin of whole portfolio with no discounts or intraday credits
+         *      - FullAvailableFunds — Available funds of whole portfolio with no discounts or intraday credits
+         *      - FullExcessLiquidity — Excess liquidity of whole portfolio with no discounts or intraday credits
          *      - LookAheadNextChange — Time when look-ahead values take effect
-         *      - LookAheadInitMarginReq,
-         *      - LookAheadMaintMarginReq,
-         *      - LookAheadAvailableFunds,
-         *      - LookAheadExcessLiquidity,
+         *      - LookAheadInitMarginReq — Initial Margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadMaintMarginReq — Maintenance Margin requirement of whole portfolio as of next period's margin change
+         *      - LookAheadAvailableFunds — This value reflects your available funds at the next margin change
+         *      - LookAheadExcessLiquidity — This value reflects your excess liquidity at the next margin change
          *      - HighestSeverity — A measure of how close the account is to liquidation
          *      - DayTradesRemaining — The Number of Open/Close trades a user could put on before Pattern Day Trading is detected. A value of "-1" means that the user can put on unlimited day trades.
          *      - Leverage — GrossPositionValue / NetLiquidation
+         *      - $LEDGER — Single flag to relay all cash balance tags*, only in base currency.
+         *      - $LEDGER:CURRENCY — Single flag to relay all cash balance tags*, only in the specified currency.
+         *      - $LEDGER:ALL — Single flag to relay all cash balance tags* in all currencies.
          * @sa cancelAccountSummary, EWrapper::accountSummary, EWrapper::accountSummaryEnd
          */
         public void reqAccountSummary(int reqId, string group, string tags)
@@ -1078,7 +1138,7 @@ namespace IBApi
          * Only one account can be subscribed at a time. A second subscription request for another account when the previous one is still active will cause the first one to be canceled in favour of the second one. Consider user reqPositions if you want to retrieve all your accounts' portfolios directly.
          * @param subscribe set to true to start the subscription and to false to stop it.
          * @param acctCode the account id (i.e. U123456) for which the information is requested.
-         * @sa reqPositions, EWrapper::updateAccountValue, EWrapper::updateAccountPortfolio, EWrapper::updateAccountTime
+         * @sa reqPositions, EWrapper::updateAccountValue, EWrapper::updatePortfolio, EWrapper::updateAccountTime
          */
         public void reqAccountUpdates(bool subscribe, string acctCode)
         {
@@ -1098,7 +1158,7 @@ namespace IBApi
 
         /**
          * @brief Requests all open orders submitted by any API client as well as those directly placed in the TWS. The existing orders will be received via the openOrder and orderStatus events.
-         * @sa reqAutoOpenOrders, reqOpenOrders, EWrapper::openOrder, EWrapper::orderStatus
+         * @sa reqAutoOpenOrders, reqOpenOrders, EWrapper::openOrder, EWrapper::orderStatus, EWrapper::openOrderEnd
          */
         public void reqAllOpenOrders()
         {
@@ -1135,10 +1195,10 @@ namespace IBApi
 
         /**
          * @brief Requests contract information.
-         * This method will provide all the contracts matching the contract provided. It can also be used to retrieve complete options and futures chains. This information will be returned at EWrapper:contractDetails
+         * This method will provide all the contracts matching the contract provided. It can also be used to retrieve complete options and futures chains. This information will be returned at EWrapper:contractDetails. Though it is now (in API version > 9.72.12) advised to use reqSecDefOptParams for that purpose. 
          * @param reqId the unique request identifier.
          * @param contract the contract used as sample to query the available contracts. Typically, it will contain the Contract::Symbol, Contract::Currency, Contract::SecType, Contract::Exchange
-         * @sa EWrapper::contractDetails
+         * @sa EWrapper::contractDetails, EWrapper::contractDetailsEnd
          */
         public void reqContractDetails(int reqId, Contract contract)
         {
@@ -1203,7 +1263,7 @@ namespace IBApi
                     paramsList.AddParameter(contract.Exchange);
                 }
             }
-            
+
             paramsList.AddParameter(contract.Currency);
             paramsList.AddParameter(contract.LocalSymbol);
             if (serverVersion >= MinServerVer.TRADING_CLASS)
@@ -1399,7 +1459,9 @@ namespace IBApi
          *      - BID_ASK
          *      - HISTORICAL_VOLATILITY
          *      - OPTION_IMPLIED_VOLATILITY
-         * @param useRTH set to 0 to obtain the data which was also generated ourside of the Regular Trading Hours, set to 1 to obtain only the RTH data
+         *      - FREE_RATE
+         *      - REBATE_RATE
+         * @param useRTH set to 0 to obtain the data which was also generated outside of the Regular Trading Hours, set to 1 to obtain only the RTH data
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
          * @sa EWrapper::historicalData
          */
@@ -1486,7 +1548,7 @@ namespace IBApi
 
         /**
          * @brief Requests the next valid order id.
-         * @param numIds deprecate
+         * @param numIds deprecated- this parameter will not affect the value returned to nextValidId
          * @sa EWrapper::nextValidId
          */
         public void reqIds(int numIds)
@@ -1542,7 +1604,7 @@ namespace IBApi
          *      - 411 	Realtime Historical Volatility 
          *      - 456 	IBDividends
          * @param snapshot when set to true, it will provide a single snapshot of the available data. Set to false if you want to receive continuous updates.
-         * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOption, EWrapper::tickSnapshotEnd
+         * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOptionComputation, EWrapper::tickSnapshotEnd
          */
         public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, List<TagValue> mktDataOptions)
         {
@@ -1642,9 +1704,9 @@ namespace IBApi
         }
 
         /**
-         * @brief indicates the TWS to switch to "frozen" market data.
+         * @brief indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data.
          * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.
-         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data.
+         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data. Note: At the present time, only data types 1 and 2 are supported. 
          */
         public void reqMarketDataType(int marketDataType)
         {
@@ -1663,7 +1725,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests the contract's market depth (order book).
+         * @brief Requests the contract's market depth (order book). Note this request must be direct-routed to an exchange and not smart-routed. The number of simultaneous market depth requests allowed in an account is calculated based on a formula that looks at an accounts equity, commissions, and quote booster packs.  
          * @param tickerId the request's identifier
          * @param contract the Contract for which the depth is being requested
          * @param numRows the number of rows on each side of the order book
@@ -1725,7 +1787,7 @@ namespace IBApi
         /**
          * @brief Subscribes to IB's News Bulletins
          * @param allMessages if set to true, will return all the existing bulletins for the current day, set to false to receive only the new bulletins.
-         * @sa cancelNewsBulletins, EWrapper::updateNewsBulletins
+         * @sa cancelNewsBulletin, EWrapper::updateNewsBulletin
          */
         public void reqNewsBulletins(bool allMessages)
         {
@@ -1744,7 +1806,7 @@ namespace IBApi
 
         /**
          * @brief Requests all open orders places by this specific API client (identified by the API client id)
-         * @sa reqAllOpenOrders, reqAutoOpenOrders, placeOrder, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus
+         * @sa reqAllOpenOrders, reqAutoOpenOrders, placeOrder, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus, EWrapper::openOrderEnd
          */
         public void reqOpenOrders()
         {
@@ -1781,7 +1843,7 @@ namespace IBApi
 
         /**
          * @brief Requests real time bars
-         * Currently, only 5 seconds bars are provided. This request ius suject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds
+         * Currently, only 5 seconds bars are provided. This request is subject to the same pacing as any historical data request: no more than 60 API queries in more than 600 seconds. Real time bars subscriptions are also included in the calculation of the number of Level 1 market data subscriptions allowed in an account. 
          * @param tickerId the request's unique identifier.
          * @param contract the Contract for which the depth is being requested
          * @param barSize currently being ignored
@@ -1791,7 +1853,7 @@ namespace IBApi
          *      - BID
          *      - ASK
          * @param useRTH set to 0 to obtain the data which was also generated ourside of the Regular Trading Hours, set to 1 to obtain only the RTH data
-         * @sa cancelRealTimeBars, EWrapper::realTimeBar
+         * @sa cancelRealTimeBars, EWrapper::realtimeBar
          */
         public void reqRealTimeBars(int tickerId, Contract contract, int barSize, string whatToShow, bool useRTH, List<TagValue> realTimeBarsOptions)
         {
@@ -1940,6 +2002,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SERVER_LOG_LEVEL);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyRequest(string apiName, string apiVersion)
         {
             if (!CheckConnection())
@@ -1963,6 +2028,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYREQUEST);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyMessage(string apiData)
         {
             if (!CheckConnection())
@@ -1979,6 +2047,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYMESSAGE);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
         {
             if (!CheckConnection())
@@ -2002,6 +2073,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHREQUEST);
         }
 
+        /**
+         * @brief For IB's internal purpose. Allows to provide means of verification between the TWS and third party programs.
+         */
         public void verifyAndAuthMessage(string apiData, string xyzResponse)
         {
             if (!CheckConnection())
@@ -2018,6 +2092,10 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_VERIFYANDAUTHMESSAGE);
         }
 
+        /**
+         * @brief Requests all available Display Groups in TWS
+         * @params requestId is the ID of this request
+         */
         public void queryDisplayGroups(int requestId)
         {
             if (!CheckConnection())
@@ -2034,6 +2112,11 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_QUERYDISPLAYGROUPS);
         }
 
+        /**
+         * @brief Integrates API client and TWS window grouping. 
+         * @params requestId is the Id chosen for this subscription request
+         * @params groupId is the display group for integration
+         */
         public void subscribeToGroupEvents(int requestId, int groupId)
         {
             if (!CheckConnection())
@@ -2051,6 +2134,15 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_SUBSCRIBETOGROUPEVENTS);
         }
 
+        /**
+         * @brief Updates the contract displayed in a TWS Window Group
+         * @params requestId is the ID chosen for this request
+         * @params contractInfo is an encoded value designating a unique IB contract. Possible values include:
+         * 1. none = empty selection
+         * 2. contractID@exchange - any non-combination contract. Examples 8314@SMART for IBM SMART; 8314@ARCA for IBM ARCA
+         * 3. combo= if any combo is selected
+         * Note: This request from the API does not get a TWS response unless an error occurs. 
+         */
         public void updateDisplayGroup(int requestId, string contractInfo)
         {
             if (!CheckConnection())
@@ -2068,6 +2160,9 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UPDATEDISPLAYGROUP);
         }
 
+        /**
+         * @brief Cancels a TWS Window Group subscription
+         */
         public void unsubscribeFromGroupEvents(int requestId)
         {
             if (!CheckConnection())
@@ -2082,6 +2177,133 @@ namespace IBApi
             paramsList.AddParameter(VERSION);
             paramsList.AddParameter(requestId);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS);
+        }
+
+        /**
+         * @brief Requests positions for account and/or model
+         * @param requestId - Request's identifier
+         * @param account - If an account Id is provided, only the account's positions belonging to the specified model will be delivered
+         * @params modelCode - The code of the model's positions we are interested in.
+         * @sa cancelPositionsMulti, EWrapper::positionMulti, EWrapper::positionMultiEnd
+         */
+        public void reqPositionsMulti(int requestId, string account, string modelCode)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support positions multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Cancels positions request for account and/or model
+         * @param requestId - the identifier of the request to be canceled.
+         * @sa reqPositionsMulti
+         */
+        public void cancelPositionsMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support positions multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelPositionsMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANPOSITIONSMULTI);
+        }
+
+        /**
+         * @brief Requests account updates for account and/or model
+         * @sa cancelAccountUpdatesMulti, EWrapper::accountUpdateMulti, EWrapper::accountUpdateMultiEnd
+         */
+        public void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
+        {
+            if (!CheckConnection())
+                return;
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT, " It does not support account updates multi requests."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            paramsList.AddParameter(ledgerAndNLV);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQACCOUNTUPDATESMULTI);
+        }
+
+        /**
+         * @brief Cancels account updates request for account and/or model
+         * @sa reqAccountUpdatesMulti
+         */
+        public void cancelAccountUpdatesMulti(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MODELS_SUPPORT,
+                " It does not support account updates multi cancellation."))
+                return;
+
+            const int VERSION = 1;
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelAccountUpdatesMulti);
+            paramsList.AddParameter(VERSION);
+            paramsList.AddParameter(requestId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANACCOUNTUPDATESMULTI);
+        }
+
+        /**
+         * @brief Requests security definition option parameters for viewing a contract's option chain
+         * @params reqId the ID chosen for the request
+         * @params underlyingSymbol 
+         * @params futFopExchange The exchange on which the returned options are trading. Can be set to the empty string "" for all exchanges.
+         * @params underlyingSecType The type of the underlying security, i.e. STK
+         * @params underlyingConId the contract ID of the underlying security
+         * @sa EWrapper::securityDefinitionOptionParameter
+         */
+        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.SEC_DEF_OPT_PARAMS_REQ,
+                " It does not support security definition option parameters."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestSecurityDefinitionOptionalParameters);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(underlyingSymbol);
+            paramsList.AddParameter(futFopExchange);
+            paramsList.AddParameter(underlyingSecType);
+            paramsList.AddParameter(underlyingConId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS);
         }
 
         protected bool CheckServerVersion(int requiredVersion)
@@ -2459,6 +2681,13 @@ namespace IBApi
                         "  It does not support scaleTable, activeStartTime nor activeStopTime parameters.");
                     return false;
                 }
+            }
+
+            if (serverVersion < MinServerVer.EXT_OPERATOR && !IsEmpty(order.ExtOperator))
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support extOperator parameter");
+
+                return false;
             }
 
             return true;

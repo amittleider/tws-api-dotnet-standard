@@ -11,9 +11,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
-import apidemo.util.HtmlButton;
-
 import com.ib.client.Contract;
+
+import apidemo.util.HtmlButton;
 
 
 class ContractDlg extends JDialog {
@@ -51,7 +51,7 @@ class ContractDlg extends JDialog {
     	pack();
     }
 
-	private void onOK() {
+	public void onOK() {
 		m_contractPanel.onOK();
 		setVisible( false);
 	}

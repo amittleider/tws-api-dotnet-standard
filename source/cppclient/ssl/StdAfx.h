@@ -16,6 +16,8 @@
 #else
 
 #include <unistd.h> // defines _POSIX_THREADS, @see http://bit.ly/1pWJ8KQ#tag_13_80_03_02
+#include <sys/syscall.h>
+#include <sys/types.h>
 
 #if defined(_POSIX_THREADS) && (_POSIX_THREADS > 0)
     #include <pthread.h>

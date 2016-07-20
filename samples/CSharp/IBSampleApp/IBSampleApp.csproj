@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IBSampleApp</RootNamespace>
     <AssemblyName>IBSampleApp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
@@ -26,6 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -35,6 +37,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,6 +61,10 @@
     <Compile Include="messages\ConnectionStatusMessage.cs" />
     <Compile Include="messages\ContractDetailsEndMessage.cs" />
     <Compile Include="messages\ContractDetailsMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiMessage.cs" />
+    <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiEndMessage.cs" />
+    <Compile Include="messages\PositionMultiMessage.cs" />
     <Compile Include="messages\DeepBookMessage.cs" />
     <Compile Include="messages\ExecutionMessage.cs" />
     <Compile Include="messages\FundamentalsMessage.cs" />
@@ -87,7 +94,25 @@
     <Compile Include="ui\ComboContractResults.Designer.cs">
       <DependentUpon>ComboContractResults.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\ConditionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\ConditionDialog.Designer.cs">
+      <DependentUpon>ConditionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ui\ContractManager.cs" />
+    <Compile Include="ui\ContractSearchControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ui\ContractSearchControl.Designer.cs">
+      <DependentUpon>ContractSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ui\ContractSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\ContractSearchDialog.Designer.cs">
+      <DependentUpon>ContractSearchDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ui\MarginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +126,7 @@
     <Compile Include="ui\OrderDialog.Designer.cs">
       <DependentUpon>OrderDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\AcctPosMultiManager.cs" />
     <Compile Include="ui\DataManager.cs" />
     <Compile Include="ui\DeepBookManager.cs" />
     <Compile Include="backend\IBClient.cs" />
@@ -123,10 +149,22 @@
     <Compile Include="ui\OrderManager.cs" />
     <Compile Include="ui\RealTimeBarsManager.cs" />
     <Compile Include="ui\ScannerManager.cs" />
+    <Compile Include="messages\SecurityDefinitionOptionParameterEndMessage.cs" />
+    <Compile Include="messages\SecurityDefinitionOptionParameterMessage.cs" />
+    <Compile Include="ui\SecurityDefinitionOptionParameterKey.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">
       <DependentUpon>ComboContractResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ui\ConditionDialog.resx">
+      <DependentUpon>ConditionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ui\ContractSearchControl.resx">
+      <DependentUpon>ContractSearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ui\ContractSearchDialog.resx">
+      <DependentUpon>ContractSearchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ui\IBSampleApp.resx">
       <DependentUpon>IBSampleApp.cs</DependentUpon>
@@ -140,6 +178,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ui\MarginDialog.resx">
       <DependentUpon>MarginDialog.cs</DependentUpon>
@@ -147,6 +186,8 @@
     <EmbeddedResource Include="ui\OrderDialog.resx">
       <DependentUpon>OrderDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\IBApi.Order.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

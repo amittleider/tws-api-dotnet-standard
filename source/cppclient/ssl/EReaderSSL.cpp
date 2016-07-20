@@ -3,7 +3,7 @@
 
 #include "StdAfx.h"
 #include "../client/shared_ptr.h"
-#include "../client/contract.h"
+#include "../client/Contract.h"
 #include "../client/EDecoder.h"
 #include "../client/EMutex.h"
 #include "EReaderSSL.h"
@@ -15,7 +15,7 @@
 
 #define IN_BUF_SIZE_DEFAULT 8192
 
-DefaultEWrapper defaultWrapper;
+static DefaultEWrapper defaultWrapper;
 
 EReaderSSL::EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal)
 	: processMsgsDecoder_(clientSocket->EClient::serverVersion(), clientSocket->getWrapper(), clientSocket)
@@ -32,7 +32,9 @@ EReaderSSL::EReaderSSL(EClientSocketSSL *clientSocket, EReaderSignal *signal)
 EReaderSSL::~EReaderSSL(void) {
     m_isAlive = false;
 
+#if defined(IB_WIN32)
     WaitForSingleObject(m_hReadThread, INFINITE);
+#endif
 }
 
 void EReaderSSL::checkClient() {
@@ -82,7 +84,7 @@ void EReaderSSL::readToQueue() {
 			break;
 
 		m_csMsgQueue.Enter();
-		m_msgQueue.push_back(shared_ptr<EMessage>(msg));
+		m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
 		m_csMsgQueue.Leave();
 		m_pEReaderSignal->issueSignal();
 
@@ -236,16 +238,16 @@ EMessage * EReaderSSL::readSingleMsg() {
 	}
 }
 
-shared_ptr<EMessage> EReaderSSL::getMsg(void) {
+ibapi::shared_ptr<EMessage> EReaderSSL::getMsg(void) {
 	m_csMsgQueue.Enter();
 
 	if (m_msgQueue.size() == 0) {
 		m_csMsgQueue.Leave();
 
-		return shared_ptr<EMessage>();
+		return ibapi::shared_ptr<EMessage>();
 	}
 
-	shared_ptr<EMessage> msg = m_msgQueue.front();
+	ibapi::shared_ptr<EMessage> msg = m_msgQueue.front();
 
 	m_msgQueue.pop_front();
 	m_csMsgQueue.Leave();
@@ -258,7 +260,7 @@ void EReaderSSL::processMsgs(void) {
 	m_pClientSocket->onSend();
 	checkClient();
 
-	shared_ptr<EMessage> msg = getMsg();
+	ibapi::shared_ptr<EMessage> msg = getMsg();
 
 	if (!msg.get())
 		return;

@@ -134,6 +134,11 @@ public:
 	void subscribeToGroupEvents( int reqId, int groupId);
 	void updateDisplayGroup( int reqId, const std::string& contractInfo);
 	void unsubscribeFromGroupEvents( int reqId);
+	void reqPositionsMulti( int reqId, const std::string& account, const std::string& modelCode);
+	void cancelPositionsMulti( int reqId);
+	void reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV);
+	void cancelAccountUpdatesMulti( int reqId);
+	void reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId);
 
 private:
 
@@ -161,7 +166,7 @@ private:
 public:
 	void startApi();
 
-private:
+
 	// encoders
 	template<class T> static void EncodeField(std::ostream&, T);
 
@@ -170,6 +175,7 @@ private:
 	static void EncodeFieldMax(std::ostream& os, double);
 
 	// socket state
+private:
 	virtual bool isSocketOK() const = 0;
 
 protected:
@@ -210,5 +216,9 @@ protected:
 
 template<> void EClient::EncodeField<bool>(std::ostream& os, bool);
 template<> void EClient::EncodeField<double>(std::ostream& os, double);
+
+#define ENCODE_FIELD(x) EClient::EncodeField(msg, x);
+#define ENCODE_FIELD_MAX(x) EClient::EncodeFieldMax(msg, x);
+
 
 #endif

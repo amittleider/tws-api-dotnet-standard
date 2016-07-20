@@ -59,5 +59,10 @@ namespace IBApi
         StartApi = 71,
         VerifyAndAuthRequest = 72,
         VerifyAndAuthMessage = 73,
+        RequestPositionsMulti = 74,
+        CancelPositionsMulti = 75,
+        RequestAccountUpdatesMulti = 76,
+        CancelAccountUpdatesMulti = 77,
+        RequestSecurityDefinitionOptionalParameters = 78,
     }
 }
