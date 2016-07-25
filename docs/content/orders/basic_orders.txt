@@ -685,6 +685,8 @@
 	 and a market order is submitted when the stop price is hit. This technique is designed to allow an investor to specify a limit on the 
 	 maximum possible loss, without setting a limit on the maximum possible gain. "Buy" trailing stop orders are the mirror image of sell 
 	 trailing stop orders, and are most appropriate for use in falling markets.
+	 
+	 Note that Trailing Stop orders can have the trailing amount specified as a percent, as in the example below, or as an absolute amount which is specified in the auxPrice field. 
 	<ul>
 		<li>Products: CFD, CASH, FOP, FUT, OPT, STK, WAR</li>
 		<li><a target="_blank" class="linkexternal" href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=trail">Supported exchanges</a></li>
@@ -713,6 +715,8 @@
 	 limit offset respectively, but if the stock price falls, the stop price remains unchanged, and when the stop price is hit a limit order 
 	 is submitted at the last calculated limit price. A "Buy" trailing stop limit order is the mirror image of a sell trailing stop limit, 
 	 and is generally used in falling markets.
+	 
+	 Note that Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field. 
 	<ul>
 		<li>Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR</li>
 		<li><a target="_blank" class="linkexternal" href="">Supported exchanges</a></li>

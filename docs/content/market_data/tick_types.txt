@@ -53,7 +53,7 @@
 		<tr><td>Close EFP Computation</td><td>44</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
 		<tr><td>Last Timestamp</td><td>45</td><td>Time of the last trade (in UNIX time).</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>
 		<tr><td>Shortable</td><td>46</td><td>Describes the level of difficulty with which the contract can be sold short. See @ref shortable</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>236</td></tr>
-		<tr><td>Fundamental Ratios</td><td>47</td><td>Provides the available Reuter's Fundamental Ratios. See \subpage fundamental_ratios_tags.</td><td>@ref IBApi::EWrapper::tickString</td><td>258</td></tr>
+		<tr><td>Fundamental Ratios</td><td>47</td><td>Provides the available Reuter's Fundamental Ratios. See \subpage fundamental_ratios_tags. <br><br><i>Note: For some tags the value returned may be -99999.99. This is Reuters' way of indicating data is not available for that tag for the company.</i></td><td>@ref IBApi::EWrapper::tickString</td><td>258</td></tr>
 		<tr><td>RT Volume (Time & Sales)</td><td>48</td><td>Last trade details. See @ref rt_volume</td><td>@ref IBApi::EWrapper::tickString</td><td>233</td></tr>
 		<tr><td>Halted</td><td>49</td><td>Indicates if a contract is halted. See @ref halted.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>-</td></tr>
 		<tr><td>Bid Yield</td><td>50</td><td>Implied yield of the bond if it is purchased at the current bid.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>

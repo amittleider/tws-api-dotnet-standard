@@ -106,7 +106,7 @@ Contract ContractSamples::USStockWithPrimaryExch(){
 	contract.currency = "USD";
 	contract.exchange = "SMART";
 	//Specify the Primary Exchange attribute to avoid contract ambiguity
-	contract.primaryExchange = "NASDAQ";
+	contract.primaryExchange = "ISLAND";
 	//! [stkcontractwithprimary]
 	return contract;
 }

@@ -14,7 +14,7 @@ public class ContractSamples {
 		contract.currency("USD");
 		contract.exchange("SMART");
 		//Specify the Primary Exchange attribute to avoid contract ambiguity
-		contract.primaryExch("NASDAQ");
+		contract.primaryExch("ISLAND");
 		//! [stkcontractwithprimary]
 		return contract;
 	}

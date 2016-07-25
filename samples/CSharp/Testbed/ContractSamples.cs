@@ -149,7 +149,7 @@ namespace Samples
 			contract.Currency = "USD";
 			contract.Exchange = "SMART";
 			//Specify the Primary Exchange attribute to avoid contract ambiguity
-            contract.PrimaryExch = "NASDAQ";
+            contract.PrimaryExch = "ISLAND";
 			//! [stkcontractwithprimary]
 			return contract;
 		}

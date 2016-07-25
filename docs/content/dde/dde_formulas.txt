@@ -132,6 +132,7 @@
 	 
 	 Please find available contract parameters and sample contracts for each security type below:</i>
 
+	 
 	<b>FX Pairs</b>
 	
 	<i>Formula</i>
@@ -211,7 +212,7 @@
 	=Ssample123|tik!'id5?req2?XTZ6 C1100_FOP_GLOBEX_USD_~/'
 	
 	<b>FOP using underlying’s symbol, multiplier and expiration date</b>
-	
+
 	<i>Formula</i>
 	
 	=S[twsuser]|tik!'id[reqId]?req?[underlying_symbol]_[SecType]_[expiry]_[strike]_[P/C]_[multiplier]_[exchange]_[currency]_~_[tradingClass]/'
