@@ -129,7 +129,9 @@ $(document).ready(function(){initNavTree('hedging.html','');});
 <div class="title">Hedging </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>When buying a contract on a currency other than your base, you can attach an FX order to convert base currency to the currency of the contract to cover the cost of the trade thanks to the TWS API's <a class="el" href="order_submission.html#order_attach">Attaching Orders</a> mechanism.</p>
+<div class="textblock"><p>Hedging orders are similar to Bracket Orders. With hedging order, a child order is submitted only on execution of the parent. Orders can be hedged by an attached forex trade, Beta hedge, or Pair Trade, just as in TWS:</p>
+<p><a href="https://www.interactivebrokers.com/en/software/tws/attachedordertop.htm" target="_blank" class="linkexternal">Hedging Orders in TWS</a></p>
+<p>For an example of a forex hedge, when buying a contract on a currency other than your base, you can attach an FX order to convert base currency to the currency of the contract to cover the cost of the trade thanks to the TWS API's <a class="el" href="order_submission.html#order_attach">Attaching Orders</a> mechanism.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> Order MarketFHedge(<span class="keywordtype">int</span> parentOrderId, <span class="keywordtype">string</span> action)</div>
@@ -206,6 +208,7 @@ $(document).ready(function(){initNavTree('hedging.html','');});
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::EurGbpFx(), hedge);</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p>Note that in some cases it will be necessary to include a small delay of 50 ms or less after placing the parent order for processing, before placing the child order. Otherwise the error "10006: Missing parent order" will be triggered. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

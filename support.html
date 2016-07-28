@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('support.html','');});
 <div class="contents">
 <div class="textblock"><p>When experiencing problems with the TWS API, please make sure to go through our documentation and ensure the TWS API is being correctly. As mentioned in this guide's <a class="el" href="introduction.html">Introduction</a> Interactive Brokers unfortunately cannot offer any programming assistance nor help troubleshooting its clients' code. Below are some suggestions which will hopefully help you troubleshooting your TWS API client application.</p>
 <ul>
-<li><b>Make use of the sample applications</b>: the TWS API provides plenty of sample code demonstrating its capabilities. Any issue on the TWS API will surely manifest on the sample applications as well. If a problem cannot be reproduceable within our sample applications, chances are the problem lies on your implementation. <br/>
+<li><b>Make use of the sample applications</b>: the TWS API provides plenty of sample code demonstrating its capabilities. Any issue on the TWS API will surely manifest on the sample applications as well. If a problem cannot be reproducible within our sample applications, chances are the problem lies on your implementation. <br/>
 <br/>
 </li>
 <li><b>Refer to the TWS itself</b>: the TWS API is nothing but a communication channel between your client application and the TWS. This implies that if for whatever reason the TWS itself cannot receive or display the information you are trying to request and/or if it is displaying something else than what you expect, the possible issue would lie within the TWS and not on the API. As long as the TWS API is delivering the exact same information as what is shown in the TWS you can rule out any malfunction on it. If you are using the IB Gateway, it is always good idea to try the same with the TWS. <br/>
@@ -139,21 +139,67 @@ $(document).ready(function(){initNavTree('support.html','');});
 </li>
 <li><b>Keep your TWS/IB Gateway up to date</b>: at IB we are constantly introducing new features and iterating over the existing ones. Because of this, we strongly recommend our users to keep their TWS as up to date as possible. In the unlikely event of experiencing problems with the TWS and/or the IB Gateway, please update to the latest available version on our website.</li>
 </ul>
+<p><br/>
+</p>
 <h1><a class="anchor" id="tws_logs"></a>
-The TWS log</h1>
-<p>When all the above fail, please contact our Technical Support at the earliest opportunity. In order for us to investigate we will require your TWS/IB Gateway log files showing the anomaly being reported. If the log files are too big to be attached to our support ticketing system or to be sent via email, you can always upload them to a file sharing website and provide the download link.</p>
-<p>With TWS versions up until 955, the TWS log files are located within the <b>C:/Jts</b> directory and can be easily identified by their name: <b>log.[day].txt</b> where [day] corresponds to the week day when the log file was written (Mon, Tue, Wed, etc). Note that in the IB Gateway's case, the log file is named as <b>ibgateway.[day].log</b>. The TWS will always keep one file per day. When the week is over, the TWS will start over again and create a new log file for the new day. This means that a log file will stay within the Jts directory for at least seven days.</p>
-<p>With TWS versions 956 and above, the TWS log file will be kept in the user's individual subdirectory within <b>C:/Jts</b> and the filename will be <b>log.[YYYYMMDD].txt</b> where YYYYMMDD is the year, month, and day the log file was created. The exact path of the user's subdirectory can be found in TWS using the Ctrl-Alt-U combination.</p>
-<p>By default, the TWS is configured to record a minimum amount of information in its log files. This is often not enough for troubleshooting purposes and therefore it is necessary to change the logging level to 'Detail', in particular when using the TWS API since this level will record all messages exchanged between the TWS and the API client application.</p>
-<p>To change your TWS logging level, navigate to your API settings (Edit -&gt; Global Configuration -&gt; API -&gt; Settings) and set the "Logging Level" field to 'Detail' as shown in the image below.</p>
-<p><b>Important:</b> Note that the TWS/IB Gateway log files have to be already set to 'Detail' level before the issue occurs so that it can be recorded correctly when it manifests. However and due to the high amount of information that will be generated under this level, the resulting logs will grow considerably in size. It is therefore recommended to use the 'Detail' level only when troubleshooting and/or tracking a very specific issue.</p>
-<h2><a class="anchor" id="api_logs"></a>
-The API Message Log Files</h2>
-<p>Additionally to the TWS/IB Gateway log files, it is possible to generate API message log files. These logs will only contain the exchanged messages' sequences between the client application and the TWS/IB Gateway. Since this is the only information being recorded, the API message log files are far more compact and therefore easier to handle. The API message log files can be located within the <b>C:/Jts</b> directory just as the TWS ones. Similarly, the logs will be named <b>api.[clientId].[day].log</b> where [clientId] corresponds to the Id the client application used to connect to the TWS and [day] to the week day (i.e. api.123.Thu.log).</p>
-<p>To enable the API message log files, simply check the "Create API message log file" option within the TWS/IB Gateway's API settings dialog.</p>
+TWS/IBG Logs</h1>
+<p>When all the above fail, please contact our Technical Support at the earliest opportunity. In order for us to investigate we will require your Trader Workstation (TWS) or IB Gateway (IBG) Detailed Log File showing the anomaly being reported.</p>
+<h2><a class="anchor" id="logging_level"></a>
+Logging Level</h2>
+<p>The Logging Level must be set to 'Detail' for troubleshooting the API.</p>
+<p><b>Steps to set Logging Level to Detail</b></p>
+<p>TWS:</p>
+<ul>
+<li>Navigate to File/Edit → Global Configuration → API → Settings</li>
+<li>Set <em>Logging Level</em> to <em>Detail</em></li>
+</ul>
 <div class="image">
-<img src="tws_detail_log.png" alt="tws_detail_log.png"/>
+<img src="logging_detail.png" alt="logging_detail.png"/>
 </div>
+<p>IB Gateway:</p>
+<ul>
+<li>Navigate to Configure → Settings → API → Settings</li>
+<li>Set <em>Logging Level</em> to <em>Detail</em></li>
+</ul>
+<p>Click <a class="el" href="logs.html#logging_level_details">Here</a> for more details.</p>
+<h2><a class="anchor" id="api_logs"></a>
+API Log Files</h2>
+<p>In addition to the TWS/IB Gateway log files, it is possible to generate a different type of log file- the API message log files.</p>
+<p><b>Steps to enable creating API log file</b></p>
+<p>TWS:</p>
+<ul>
+<li>Navigate to File/Edit → Global Configuration → API → Settings</li>
+<li>Check the box <em>Create API message log file</em></li>
+</ul>
+<div class="image">
+<img src="enable_api_log.png" alt="enable_api_log.png"/>
+</div>
+<p>IB Gateway:</p>
+<ul>
+<li>Navigate to Configure → Settings → API → Settings</li>
+<li>Check the box <em>Create API message log file</em></li>
+</ul>
+<h2><a class="anchor" id="log_files"></a>
+Log file locations</h2>
+<p>The path and filename of the relevant TWS or IBG log file depends on the version of the software. From within the program the version can be found by navigating to Help -&gt; About Trader Workstation (or About IB Gateway). The version number is the number next to the word 'Build'. For information about the location of the log file for a specific software build please click the applicable link below.</p>
+<p><a class="el" href="logs.html">Log File Locations</a></p>
+<ul>
+<li><a class="el" href="logs.html#tws_952">TWS and IBG logs: versions less than 956</a> <br/>
+<br/>
+</li>
+<li><a class="el" href="logs.html#tws_956">TWS logs: versions starting with 956</a> <br/>
+<br/>
+</li>
+<li><a class="el" href="logs.html#ibg_956">IBG logs: versions 956 and above</a> <br/>
+<br/>
+</li>
+</ul>
+<p>To find the location of API log file, please click <a class="el" href="logs.html#api_log">Here</a>.</p>
+<h2><a class="anchor" id="uploading_logs"></a>
+How to Upload Log Files to API Support</h2>
+<ul>
+<li>If a log file has been set to the correct Logging Level (for TWS/IBG logs) and captures the problematic issue, it may be requested by the API Support group. If the log is 2MB or smaller it is best to attach to a ticket in the Message Center. Larger files of up to 15 MB can be emailed as an attachment. And if the file is larger than 15 MB it will have to be compressed as a zip file before being emailed in order to be accepted by the server.</li>
+</ul>
 <p><br/>
 <br/>
  </p>

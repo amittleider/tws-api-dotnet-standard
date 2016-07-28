@@ -45,11 +45,7 @@ var NAVTREE =
       [ "Unsubscribe From Group Events", "display_groups.html#unsubscribe_from_group_events", null ]
     ] ],
     [ "Error Handling", "error_handling.html", "error_handling" ],
-    [ "Troubleshooting & Support", "support.html", [
-      [ "The TWS log", "support.html#tws_logs", [
-        [ "The API Message Log Files", "support.html#api_logs", null ]
-      ] ]
-    ] ],
+    [ "Troubleshooting & Support", "support.html", "support" ],
     [ "Third Party Software", "third_party.html", [
       [ "Frequently Asked Questions", "third_party.html#third_party_faq", [
         [ "How to connect a 3rd party platform to Interactive Brokers' Trader Workstation", "third_party.html#tp_faq_connect", null ],
@@ -88,7 +84,7 @@ var NAVTREEINDEX =
 "account_portfolio.html",
 "classIBApi_1_1EClientSocket.html#ae88f2c8c05758ef7718269691a9d424b",
 "csfb.html#Blast",
-"namespaceIBApi.html"
+"market_scanners.html#scanner_examples"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
