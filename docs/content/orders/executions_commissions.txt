@@ -79,7 +79,7 @@
 		</li>
 	</ul>
 	
-	<b>Important:</b> only those executions occurring since the last <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/?f=%2Fen%2Fsoftware%2FsystemStatus.php">server restart</a> will be delivered. Older executions will not be available via the TWS API.
+	<b>Important:</b> only those executions occurring since the last <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/?f=%2Fen%2Fsoftware%2FsystemStatus.php">IB server restart</a> for that particular account will be delivered. Older executions will generally not be available via the TWS API.
 	
 	<br><br>
 	

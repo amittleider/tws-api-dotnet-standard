@@ -19,7 +19,7 @@
 	
 	<table>
 		<tr><th>Code</th><th>TWS message</th><th>Additional notes</th></tr>
-		<tr><td>1100</td><td>Connectivity between IB and the TWS has been lost.</td><td>Your TWS/IB Gateway has been disconnected from IB servers.</td></tr>
+		<tr><td>1100</td><td>Connectivity between IB and the TWS has been lost.</td><td>Your TWS/IB Gateway has been disconnected from IB servers. This can occur because of an internet connectivity issue, a nightly reset of the IB servers, or a competing session.</td></tr>
 		<tr>
 			<td>1101</td><td>Connectivity between IB and TWS has been restored- data lost.*</td>
 			<td>The TWS/IB Gateway has successfully reconnected to IB's servers. Your market data requests have been lost and need to be re-submitted.</td>
@@ -29,7 +29,7 @@
 			<td>The TWS/IB Gateway has successfully reconnected to IB's servers. Your market data requests have been recovered and there is no need for you to re-submit them.</td>
 		</tr>
 		<tr>
-			<td>1300</td><td>TWS socket port has been reset and this connection is being dropped. Please reconnect on the new port - <port_num></td><td></td>
+			<td>1300</td><td>TWS socket port has been reset and this connection is being dropped. Please reconnect on the new port - <port_num></td><td>The port number in the TWS/IBG settings has been changed during an active API connection.</td>
 		</tr>
 	</table>
 	

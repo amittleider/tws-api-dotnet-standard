@@ -207,6 +207,8 @@ namespace IBApi
         /**
          * @brief Identifies the side.
          * Possible values are BUY, SELL, SSHORT
+         * SSHORT is only supported for institutional account configured with Long/Short account segments or clearing with a separate account.
+         * For general account types, a SELL order will be able to enter a short position automatically if the order quantity is larger than your current long position.
          */
         public string Action
         {

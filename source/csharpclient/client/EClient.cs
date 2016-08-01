@@ -91,7 +91,8 @@ namespace IBApi
         }
 
         /**
-         * @brief Notifies whether or not the API client is connected to the Host.
+         * @brief Notifies whether or not a socket connection exists between the API client and the Host.
+		 * Note this does not check the connection between TWS/IBG and the IB server.
          * @returns true if connection has been established, false if it has not.
          */
         public bool IsConnected()
