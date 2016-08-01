@@ -65,6 +65,8 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_CANPOSITIONSMULTI = new CodeMsgPair(554, "Cancel Positions Multi Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQACCOUNTUPDATESMULTI = new CodeMsgPair(555, "Request Account Updates Multi Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANACCOUNTUPDATESMULTI = new CodeMsgPair(556, "Cancel Account Updates Multi Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQSECDEFOPTPARAMS = new CodeMsgPair(557, "Request Security Definition Option Params Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQSOFTDOLLARTIERS = new CodeMsgPair(558, "Request Soft Dollar Tiers Sending Error - ");
 
     public EClientErrors() {
     }

@@ -17,6 +17,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.SoftDollarTier;
 
 public class Test implements EWrapper {
 	EJavaSignal m_signal = new EJavaSignal();
@@ -249,5 +250,9 @@ public class Test implements EWrapper {
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
 		System.out.println("done");
+	}
+
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 	}
 }

@@ -27,6 +27,7 @@ import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
 import com.ib.client.OrderType;
+import com.ib.client.SoftDollarTier;
 import com.ib.client.TagValue;
 import com.ib.client.Types.Action;
 import com.ib.client.Types.AlgoParam;
@@ -41,6 +42,7 @@ import com.ib.client.Types.TimeInForce;
 import com.ib.client.Types.TriggerMethod;
 import com.ib.client.Types.VolatilityType;
 import com.ib.controller.ApiController.IOrderHandler;
+import com.ib.controller.ApiController.ISoftDollarTiersReqHandler;
 
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
@@ -380,6 +382,7 @@ public class TicketDlg extends JDialog {
 		final UpperField m_nbboPriceCap = new UpperField();
 		final UpperField m_algoId = new UpperField();
 		final UpperField m_extOperator = new UpperField();
+		final TCombo<SoftDollarTier> m_softDollarTiers = new TCombo<SoftDollarTier>();
 
 		final TCombo<OcaType> m_ocaType = new TCombo<OcaType>( OcaType.values() );
 		final TCombo<Rule80A> m_rule80A = new TCombo<Rule80A>( Rule80A.values() );
@@ -419,6 +422,7 @@ public class TicketDlg extends JDialog {
 			top.add( "OCA group and type", m_ocaGroup, m_ocaType);
 			top.add( "Hedge type and param" , m_hedgeType, m_hedgeParam);
 			top.add("Ext operator", m_extOperator);
+			top.add("Soft dollar tier", m_softDollarTiers);
 			
 			VerticalPanel left = new VerticalPanel();
 			left.add( "Not held", m_notHeld);
@@ -473,6 +477,23 @@ public class TicketDlg extends JDialog {
 			m_algoId.setText( m_order.algoId() );
 			m_transmit.setSelected( true);
 			m_extOperator.setText(m_order.extOperator());
+			m_softDollarTiers.removeAllItems();
+			
+			ApiDemo.INSTANCE.controller().reqSoftDollarTiers(new ISoftDollarTiersReqHandler() {
+
+				@Override
+				public void softDollarTiers(SoftDollarTier[] tiers) {
+					m_softDollarTiers.invalidate();					
+
+					for (SoftDollarTier tier : tiers) {
+						m_softDollarTiers.addItem(tier);
+					}
+					
+					m_softDollarTiers.setSelectedItem(m_order.softDollarTier());				
+				}
+				
+			});			
+
 		}
 		
 		void onOK() {
@@ -503,6 +524,7 @@ public class TicketDlg extends JDialog {
 			m_order.algoId( m_algoId.getText() );
 			m_order.transmit( m_transmit.isSelected() );
 			m_order.extOperator(m_extOperator .getText());
+			m_order.softDollarTier(m_softDollarTiers.getSelectedItem());
 		}
 	}
 	

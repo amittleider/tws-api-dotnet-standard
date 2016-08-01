@@ -172,6 +172,8 @@ public abstract class EClient {
     private static final int REQ_ACCOUNT_UPDATES_MULTI = 76;
     private static final int CANCEL_ACCOUNT_UPDATES_MULTI = 77;
     private static final int REQ_SEC_DEF_OPT_PARAMS     = 78;
+    private static final int REQ_SOFT_DOLLAR_TIERS     = 79;
+    
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -221,9 +223,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_MODELS_SUPPORT = 103;
     protected static final int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
     protected static final int MIN_SERVER_VER_EXT_OPERATOR = 105;
+    protected static final int MIN_SERVER_VER_SOFT_DOLLAR_TIER = 106;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_EXT_OPERATOR; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_SOFT_DOLLAR_TIER; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -1370,7 +1373,10 @@ public abstract class EClient {
         	error(id, EClientErrors.UPDATE_TWS, " It does not support ext operator");
         }
 
-
+        if (m_serverVersion < MIN_SERVER_VER_SOFT_DOLLAR_TIER && !IsEmpty(order.extOperator()) ) {
+        	error(id, EClientErrors.UPDATE_TWS, " It does not support soft dollar tier");
+        }
+        
 
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
@@ -1765,6 +1771,13 @@ public abstract class EClient {
            if (m_serverVersion >= MIN_SERVER_VER_EXT_OPERATOR) {
         	   b.send(order.extOperator());
            }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
+        	   SoftDollarTier tier = order.softDollarTier();
+        	   
+        	   b.send(tier.name());
+        	   b.send(tier.value());
+           }           
            
            closeAndSend(b);
         }
@@ -2538,7 +2551,32 @@ public abstract class EClient {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQPOSITIONS, e.toString());
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS, e.toString());
+        }
+	}
+	
+	public void reqSoftDollarTiers(int reqId) {
+		if (!isConnected()) {
+			notConnected();
+			return;
+		}
+		
+        if (m_serverVersion < MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support soft dollar tier requests.");
+            return;
+        }
+        
+        Builder b = prepareBuffer();
+        
+        b.send(REQ_SOFT_DOLLAR_TIERS);
+        b.send(reqId);
+        
+        try {
+        	closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQSOFTDOLLARTIERS, e.toString());
         }
 	}
 

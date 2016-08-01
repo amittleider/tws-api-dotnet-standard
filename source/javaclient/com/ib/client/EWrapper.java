@@ -75,5 +75,6 @@ public interface EWrapper {
     void accountUpdateMultiEnd( int reqId);
     void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass, String multiplier, Set<String> expirations, Set<Double> strikes);
     void securityDefinitionOptionalParameterEnd(int reqId);
+	void softDollarTiers(int reqId, SoftDollarTier[] tiers);
 }
 
