@@ -665,7 +665,7 @@ Order OrderSamples::LimitOrderForComboWithLegPrices(std::string action, double q
 	order.orderType = "LMT";
 	order.totalQuantity = quantity;
 	order.orderComboLegs.reset(new Order::OrderComboLegList());
-	for(int i = 0; i < legprices.size(); i++){
+	for(unsigned int i = 0; i < legprices.size(); i++){
 		OrderComboLegSPtr comboLeg(new OrderComboLeg());
 		comboLeg->price = legprices[i];
 		order.orderComboLegs->push_back(comboLeg);
