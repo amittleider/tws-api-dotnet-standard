@@ -31,5 +31,6 @@
 	</ul>
 	
 	Note that in some cases it will be necessary to include a small delay of 50 ms or less after placing the parent order for processing, before placing the child order. Otherwise the error "10006: Missing parent order" will be triggered. 
-
+	
+	<br><br>
 */

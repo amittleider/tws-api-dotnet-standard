@@ -444,6 +444,32 @@ Contract ContractSamples::FutureComboContract(){
 	return contract;
 }
 
+Contract ContractSamples::InterCmdtyFuturesContract(){
+	//! [intcmdfutcontract]
+	Contract contract;
+	contract.symbol = "CL.BZ";
+	contract.secType = "BAG";
+	contract.currency = "USD";
+	contract.exchange = "NYMEX";
+
+	ComboLegSPtr leg1(new ComboLeg);
+	leg1->conId = 47207310; //CL Dec'16 @NYMEX
+	leg1->action = "BUY";
+	leg1->ratio = 1;
+	leg1->exchange = "NYMEX";
+
+	ComboLegSPtr leg2(new ComboLeg);
+	leg2->conId = 47195961; //BZ Dec'16 @NYMEX
+	leg2->action = "SELL";
+	leg2->ratio = 1;
+	leg2->exchange = "NYMEX";
+
+	contract.comboLegs.reset(new Contract::ComboLegList());
+	contract.comboLegs->push_back(leg1);
+	contract.comboLegs->push_back(leg2);
+	//! [intcmdfutcontract]
+	return contract;
+}
 
 Contract ContractSamples::NewsFeedForQuery()
 {

@@ -1,5 +1,7 @@
 /*! \page positions Positions
 
+	\section position_request Requesting
+
 	One of the major drawbacks of @ref IBApi::EClient::reqAccountUpdates is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain
 	the positions of all managed accounts. For this purpose @ref IBApi::EClient::reqPositions can be used. Note that this function will not keep an open subscription.
 	
@@ -17,7 +19,9 @@
 			\snippet TestCppClient.cpp reqpositions
 		</li>
 	</ul>
-		
+	
+	\section position_receive Receiving
+	
 	After invoking the above, the positions will then be received through the @ref IBApi::EWrapper::position callback. After all positions have been delivered, the @ref IBApi::EWrapper::positionEnd function will be triggered to indicate so.
 	
 	<ul id="tab">
@@ -48,6 +52,25 @@
 			\snippet TestCppClient.cpp position
 			...
 			\snippet TestCppClient.cpp positionend
+		</li>
+	</ul>
+	
+	\section position_cancel Cancelling
+	
+	Once the subscription to positions is no longer needed, it can be cancelled via the IBApi::EClient::cancelPositions method:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs cancelpositions
+		</li>
+		<li> 
+			\snippet Testbed.java cancelpositions
+		</li>
+		<li> 
+			\snippet MainModule.vb cancelpositions
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp cancelpositions
 		</li>
 	</ul>
 	
@@ -102,7 +125,7 @@
 		</li>
 	</ul>
 	
-	
+	<br><br>
 	
 	
 */

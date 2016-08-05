@@ -16,6 +16,7 @@
 	- @ref tp_faq_connect
 	- @ref tp_support
 	- @ref tp_ping_pong
+	- @ref tp_bypass_warning
 	- @ref tp_data
 	- @ref tp_data_sharing
 	- @ref tp_pacing_violation
@@ -51,6 +52,14 @@
 	In case of a malfunction on Interactive Broker's side, clear and concise technical information needs to be provided including evidence of the malfunction in the form of TWS or API message log 
 	files as detailed in @ref tws_logs section of this guide. Collecting all the needed information is not a trivial process and might require a very detailed knowledge of our API. To
 	prevent being caught in between support teams, please request your third party vendor to contact us directly via email to api@interactivebrokers.com with as much information as possible.
+	
+	\subsection tp_bypass_warning TWS generates warning messages that block my orders being automatically transmitted
+	
+	There are precautionary settings in TWS that are designed to be a order safety check. TWS would usually generate a pop-up warning dialogue, or sent back an error message via the API, when there is any violation to the pre-define precautionary settings in <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/configuretws/define_precautionary_settings.htm" target="_blank" class="linkexternal">TWS Presets</a>. 
+	
+	For users who uses a third party software to place orders but also receives data feed from a different vendor other than IB, TWS would also generate a default warning <i>"You are trying to submit an order without having market data for this instrument"</i> on receiving orders from third party. The checked order will not be transmitted automatically unless user click "Transmit" button of the order in TWS. 
+	
+	TWS precautions can be bypassed by navigating to <i>File/Edit → Global Configuration → API → Precautions</i>, and check the box <i>"Bypass Order Precautions for API Orders"</i>. Once this is done, API orders placed from a third party software will not be checked by TWS precautions.
 	
 	\subsection tp_data I cannot see any market data in my third party program
 	

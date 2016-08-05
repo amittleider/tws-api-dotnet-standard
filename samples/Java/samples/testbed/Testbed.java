@@ -266,12 +266,24 @@ public class Testbed {
         //! [reqaaccountsummaryledgerall]
         client.reqAccountSummary(9004, "All", "$LEDGER:ALL");
         //! [reqaaccountsummaryledgerall]
+		
+		//! [cancelaaccountsummary]
+		client.cancelAccountSummary(9001);
+		client.cancelAccountSummary(9002);
+		client.cancelAccountSummary(9003);
+		client.cancelAccountSummary(9004);
+		//! [cancelaaccountsummary]
         
         /*** Subscribing to an account's information. Only one at a time! ***/
         Thread.sleep(2000);
         //! [reqaaccountupdates]
         client.reqAccountUpdates(true, "U150462");
         //! [reqaaccountupdates]
+		Thread.sleep(2000);
+		//! [cancelaaccountupdates]
+		client.reqAccountUpdates(false, "U150462");
+		//! [cancelaaccountupdates]
+		
         //! [reqaaccountupdatesmulti]
         client.reqAccountUpdatesMulti(9002, "U150462", "EUstocks", true);
         //! [reqaaccountupdatesmulti]
@@ -280,7 +292,10 @@ public class Testbed {
         //! [reqpositions]
         client.reqPositions();
         //! [reqpositions]
-
+		Thread.sleep(2000);
+		//! [cancelpositions]
+		client.cancelPositions();
+		//! [cancelpositions]
     }
 	
 	private static void conditionSamples(EClientSocket client, int nextOrderId) {

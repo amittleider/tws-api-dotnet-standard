@@ -1,7 +1,6 @@
-/*! \page reuters_fundamentals Reuters Fundamentals
+/*! \page reuters_fundamentals Fundamental Data
 
-	Reuters Fundamentals data for stocks can be accessed via the TWS API through the @ref IBApi::EClient::reqFundamentalData. Note, that there must be a subscription to 
-	Reuters Fundamentals set up in <a target="_blank" class="linkexternal" href="http://xavierib.github.io/twsapidocs/market_data.html#market_subscriptions">Account Management</a> before you can receive this data.
+	Reuters Fundamental data for stocks and the Wall Street Events Horizon Calendar can be accessed via the TWS API through the @ref IBApi::EClient::reqFundamentalData. For the "CalendarReport" it is necessary to have the Wall Street Horizon subscription activated first in <a target="_blank" class="linkexternal" href="http://interactivebrokers.github.io/tws-api/market_data.html#market_subscriptions">Account Management</a>. The other report types require the Reuters Fundamentals subscription but this is freely available and will be activated in most accounts by default. 
 		
 	<ul id="tab">
 		<li class="active"> 
@@ -68,11 +67,14 @@
 	<table>
 		<tr><th>Report Type</th><th>Description</th></tr>
 		<tr><td>ReportsFinSummary</td><td>Financial summary</td></tr>
+		<tr><td>ReportsOwnership</td><td>Company's ownership <i>(Can be large in size)</i></td></tr>
 		<tr><td>ReportSnapshot</td><td>Company's financial overview</td></tr>
-		<tr><td>ReportRatios</td><td>Financial Ratios</td></tr>
 		<tr><td>ReportsFinStatements</td><td>Financial Statements</td></tr>
 		<tr><td>RESC</td><td>Analyst Estimates</td></tr>
 		<tr><td>CalendarReport</td><td>Company's calendar</td></tr>
 	</table>
 	
+	<i>Fundamental Ratios data can be acquired by requesting generic tick type 258 with @ref IBApi::EClient::reqMktData. See both \ref tick_types and \ref fundamental_ratios_tags.</i>
+	
+	<br><br>
 */

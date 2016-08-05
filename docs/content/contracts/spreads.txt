@@ -55,6 +55,26 @@
 		</li>
 	</ul>
 	
+	\section bag_intcmdfut Inter-Commodity Futures
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp intcmdfutcontract
+		</li>
+	</ul>
+	
+	<i>Please be mindful of the fact that Inter-commodity Futures contracts are spread contracts offered by the exchange directly, and the contract definition is different from regular combo contracts. 
+	Please make sure all the contract attributes are specified in accordance with \ref Overview "TWS Contract Description" page. </i>
+	
 	<br><br>
 
 */

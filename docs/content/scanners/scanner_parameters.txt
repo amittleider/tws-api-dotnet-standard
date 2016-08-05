@@ -44,4 +44,6 @@
 	
 	<b>Important:</b> remember the TWS API is just an interface to the TWS. If you are having problems defining a scanner, always make sure you can create a similar scanner using the TWS' 
 	<a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm">Advanced Market Scanner</a>.
+	
+	<br><br>
 */

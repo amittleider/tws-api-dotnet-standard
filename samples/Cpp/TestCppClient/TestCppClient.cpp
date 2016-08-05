@@ -497,10 +497,21 @@ void TestCppClient::accountOperations()
 	m_pClient->reqAccountSummary(9004, "All", "$LEDGER:ALL");
 	//! [reqaaccountsummaryledgerall]
 	sleep(2);
+	//! [cancelaaccountsummary]
+	m_pClient->cancelAccountSummary(9001);
+	m_pClient->cancelAccountSummary(9002);
+	m_pClient->cancelAccountSummary(9003);
+	m_pClient->cancelAccountSummary(9004);
+	//! [cancelaaccountsummary]
+	sleep(2);
 	/*** Subscribing to an account's information. Only one at a time! ***/
 	//! [reqaaccountupdates]
-	m_pClient->reqAccountUpdates(true, "DU242650");
+	m_pClient->reqAccountUpdates(true, "U150462");
 	//! [reqaaccountupdates]
+	sleep(2);
+	//! [cancelaaccountupdates]
+	m_pClient->reqAccountUpdates(false, "U150462");
+	//! [cancelaaccountupdates]
 	sleep(2);
 
 	//! [reqaaccountupdatesmulti]
@@ -512,6 +523,10 @@ void TestCppClient::accountOperations()
 	//! [reqpositions]
 	m_pClient->reqPositions();
 	//! [reqpositions]
+	sleep(2);
+	//! [cancelpositions]
+	m_pClient->cancelPositions();
+	//! [cancelpositions]
 
 	//! [reqpositionsmulti]
 	m_pClient->reqPositionsMulti(9003, "U150462", "EUstocks");

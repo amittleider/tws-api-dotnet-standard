@@ -381,6 +381,38 @@ public class ContractSamples {
 		return contract;
 	}
 	
+	public static Contract InterCmdtyFuturesContract() {
+		//! [intcmdfutcontract]
+		Contract contract = new Contract();
+		contract.symbol("CL.BZ");
+		contract.secType("BAG");
+		contract.currency("USD");
+		contract.exchange("NYMEX");
+		
+		ComboLeg leg1 = new ComboLeg();
+		ComboLeg leg2 = new ComboLeg();
+
+		ArrayList<ComboLeg> addAllLegs = new ArrayList<ComboLeg>();
+
+		leg1.conid(47207310); //CL Dec'16 @NYMEX
+		leg1.ratio(1);
+		leg1.action("BUY");
+		leg1.exchange("NYMEX");
+
+		leg2.conid(47195961); //BZ Dec'16 @NYMEX
+		leg2.ratio(1);
+		leg2.action("SELL");
+		leg2.exchange("NYMEX");
+
+		addAllLegs.add(leg1);
+		addAllLegs.add(leg2);
+		
+		contract.comboLegs(addAllLegs);
+		//! [intcmdfutcontract]
+				
+		return contract;
+	}
+	
 	public static Contract NewsFeedForQuery() {
 		//! [newsfeedforquery]
 		Contract contract = new Contract();

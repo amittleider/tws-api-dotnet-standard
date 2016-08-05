@@ -453,6 +453,34 @@ namespace Samples
             return contract;
         }
 
+        public static Contract InterCmdtyFuturesContract()
+        {
+            //! [intcmdfutcontract]
+            Contract contract = new Contract();
+            contract.Symbol = "CL.BZ";
+            contract.SecType = "BAG";
+            contract.Currency = "USD";
+            contract.Exchange = "NYMEX";
+
+            ComboLeg leg1 = new ComboLeg();
+            leg1.ConId = 47207310; //CL Dec'16 @NYMEX
+            leg1.Ratio = 1;
+            leg1.Action = "BUY";
+            leg1.Exchange = "NYMEX";
+
+            ComboLeg leg2 = new ComboLeg();
+            leg2.ConId = 47195961; //BZ Dec'16 @NYMEX
+            leg2.Ratio = 1;
+            leg2.Action = "SELL";
+            leg2.Exchange = "NYMEX";
+
+            contract.ComboLegs = new List<ComboLeg>();
+            contract.ComboLegs.Add(leg1);
+            contract.ComboLegs.Add(leg2);
+            //! [intcmdfutcontract]
+            return contract;
+        }
+
         public static Contract NewsFeedForQuery()
         {
             //! [newsfeedforquery]

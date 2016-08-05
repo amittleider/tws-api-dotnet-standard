@@ -460,6 +460,35 @@ Namespace Samples
 
         End Function
 
+        Public Shared Function InterCmdtyFuturesContract() As Contract
+
+            '! [intcmdfutcontract]
+            Dim contract As Contract = New Contract
+            contract.Symbol = "CL.BZ"
+            contract.SecType = "BAG"
+            contract.Currency = "USD"
+            contract.Exchange = "NYMEX"
+
+            Dim leg1 As ComboLeg = New ComboLeg
+            leg1.ConId = 47207310 ' CL Dec'16 @NYMEX
+            leg1.Ratio = 1
+            leg1.Action = "BUY"
+            leg1.Exchange = "NYMEX"
+
+            Dim leg2 As ComboLeg = New ComboLeg
+            leg2.ConId = 47195961 ' BZ Dec'16 @NYMEX
+            leg2.Ratio = 1
+            leg2.Action = "SELL"
+            leg2.Exchange = "NYMEX"
+
+            contract.ComboLegs = New List(Of ComboLeg)
+            contract.ComboLegs.Add(leg1)
+            contract.ComboLegs.Add(leg2)
+            '! [intcmdfutcontract]
+            Return contract
+
+        End Function
+
         Public Shared Function NewsFeedForQuery() As Contract
 
             '! [newsfeedforquery]

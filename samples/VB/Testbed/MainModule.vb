@@ -357,12 +357,23 @@ Module MainModule
         client.reqAccountSummary(9004, "All", "$LEDGER:ALL")
         '! [reqaaccountsummaryledgerall]
 
+        Thread.Sleep(2000)
+        '! [cancelaaccountsummary]
+        client.cancelAccountSummary(9001)
+        client.cancelAccountSummary(9002)
+        client.cancelAccountSummary(9003)
+        client.cancelAccountSummary(9004)
+        '! [cancelaaccountsummary]
 
         '** Subscribing to an account's information. Only one at a time! ***
         Thread.Sleep(2000)
         '! [reqaaccountupdates]
         client.reqAccountUpdates(True, "U150462")
         '! [reqaaccountupdates]
+        Thread.Sleep(2000)
+        '! [cancelaaccountupdates]
+        client.reqAccountUpdates(False, "U150462")
+        '! [cancelaaccountupdates]
 
         '! [reqaaccountupdatesmulti]
         client.reqAccountUpdatesMulti(9002, "U150462", "EUstocks", True)
@@ -373,6 +384,10 @@ Module MainModule
         '! [reqpositions]
         client.reqPositions()
         '! [reqpositions]
+        Thread.Sleep(2000)
+        '! [cancelpositions]
+        client.cancelPositions()
+        '! [cancelpositions]
 
     End Sub
 
