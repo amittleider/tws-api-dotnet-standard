@@ -37,7 +37,7 @@ namespace IBApi
 
             if (serverVersion == 0)
             {
-                ProcessConnectAck(buf);
+                ProcessConnectAck();
 
                 return nDecodedLen;
             }            
@@ -45,7 +45,7 @@ namespace IBApi
             return ProcessIncomingMessage(ReadInt()) ? nDecodedLen : -1;
         }
 
-        private void ProcessConnectAck(byte[] buf)
+        private void ProcessConnectAck()
         {
             serverVersion = ReadInt();
 
