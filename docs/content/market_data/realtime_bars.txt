@@ -66,4 +66,6 @@
 			\snippet TestCppClient.cpp cancelrealtimebars
 		</li>
 	</ul>
+	
+	<br><br>
 */

@@ -39,6 +39,8 @@
 	
 	\section adjusted_stop_trail Adjusted to Trail
 	
+	Orders which adjust to trailing stop orders have not yet been implemented in the API. 
+	
 	<ul id="tab">
 		<li class="active">
 		 \snippet OrderSamples.cs adjustable_trail
@@ -53,5 +55,7 @@
 		\snippet OrderSamples.cpp adjustable_trail
 		</li>
 	</ul>
+	
+	<br><br>
 
 */

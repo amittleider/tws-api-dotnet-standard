@@ -84,5 +84,5 @@
 	 
 	 For more contract definition samples via DDE, please refer to \ref dde_contracts_description .
 	 
-	<br>
+	<br><br>
 */

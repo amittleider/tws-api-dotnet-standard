@@ -76,6 +76,10 @@
 	
 	- If a log file has been set to the correct Logging Level (for TWS/IBG logs) and captures the problematic issue, it may be requested by the API Support group. If the log is 2MB or smaller it is best to attach to a ticket in the Message Center. Larger files of up to 15 MB can be emailed as an attachment. And if the file is larger than 15 MB it will have to be compressed as a zip file before being emailed in order to be accepted by the server.
 	
+	\subsection uploading_logs Uploading Log Files to API Support
+	
+	If a log file has been set to the correct Logging Level (for TWS/IBG logs) and captures the problematic issue, it may be requested by the API Support group. If the log is 2MB or smaller it is best to attach to a ticket in the Message Center. Larger files of up to 15 MB can be emailed as an attachment. And if the file is larger than 15 MB it will have to be compressed as a zip file before being emailed in order to be accepted by the server.
+	
 	<br><br>
 
 */

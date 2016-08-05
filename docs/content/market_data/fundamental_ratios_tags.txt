@@ -5,6 +5,8 @@
 	- For older data, it is feasible you may receive less tags (refer to LATESTADATE tag).
 	- A tag with the value of -99999.99 is an indicator from Reuter's that data is not available for that security.
 	
+	<i>Also see \ref reuters_fundamentals for requesting other fundamental data type using @ref IBApi::EClient::reqFundamentalData.</i>
+	
 	See below for all available tag values:
 
 	<table>
@@ -115,5 +117,6 @@
 			<tr><td>YIELD</td><td><b>Dividend Yield</b><br/>This value is the current percentage dividend yield based on the present cash dividend rate. It is calculated  as the Indicated Annual Dividend divided by the Current Price, multiplied by 100.</td></tr>
 			<tr><td>YLD5YAVG</td><td><b>Dividend Yield - 5 Yr. Avg.</b><br/>This value is the average of the dividend yield over the last 60 months. </td></tr>
 	</table>
-
+	
+	<br><br>
 */

@@ -1460,8 +1460,8 @@ namespace IBApi
          *      - BID_ASK
          *      - HISTORICAL_VOLATILITY
          *      - OPTION_IMPLIED_VOLATILITY
-         *      - FREE_RATE
-         *      - REBATE_RATE
+         *	    - FREE_RATE
+         *	    - REBATE_RATE
          * @param useRTH set to 0 to obtain the data which was also generated outside of the Regular Trading Hours, set to 1 to obtain only the RTH data
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
          * @sa EWrapper::historicalData
