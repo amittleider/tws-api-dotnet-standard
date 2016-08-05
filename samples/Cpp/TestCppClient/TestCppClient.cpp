@@ -46,9 +46,9 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 ///////////////////////////////////////////////////////////
 // member funcs
 //! [socket_init]
-TestCppClient::TestCppClient() : 
-      m_pClient(new EClientSocket(this, &m_osSignal))
-    , m_osSignal(2000)//2-seconds timeout
+TestCppClient::TestCppClient() :
+      m_osSignal(2000)//2-seconds timeout
+    , m_pClient(new EClientSocket(this, &m_osSignal))
 	, m_state(ST_CONNECT)
 	, m_sleepDeadline(0)
 	, m_orderId(0)
