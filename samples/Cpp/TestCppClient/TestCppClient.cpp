@@ -46,7 +46,7 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 ///////////////////////////////////////////////////////////
 // member funcs
 //! [socket_init]
-TestCppClient::TestCppClient() : 
+TestCppClient::TestCppClient() :
       m_osSignal(2000)//2-seconds timeout
     , m_pClient(new EClientSocket(this, &m_osSignal))
 	, m_state(ST_CONNECT)
@@ -584,7 +584,7 @@ void TestCppClient::ocaSamples()
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 10));
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 11));
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 12));
-	for(int i = 0; i < ocaOrders.size(); i++){
+	for(unsigned int i = 0; i < ocaOrders.size(); i++){
 		OrderSamples::OneCancelsAll("TestOca", ocaOrders[i], 2);
 		m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), ocaOrders[i]);
 	}
@@ -1073,7 +1073,7 @@ void TestCppClient::marketDataType(TickerId reqId, int marketDataType) {
 
 //! [commissionreport]
 void TestCppClient::commissionReport( const CommissionReport& commissionReport) {
-	printf( "CommissionReport. %s - %ld %s RPNL %g\n", commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);
+	printf( "CommissionReport. %s - %g %s RPNL %g\n", commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);
 }
 //! [commissionreport]
 
