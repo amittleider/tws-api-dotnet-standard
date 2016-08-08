@@ -90,6 +90,8 @@ namespace IBApi
         public const int DELAYED_VOLUME = 74;
         public const int DELAYED_CLOSE = 75;
         public const int DELAYED_OPEN = 76;
+        public const int RT_TRD_VOLUME = 77;
+        public const int CREDITMAN_MARK_PRICE = 78;
 
         public static String getField( int tickType) {
             switch( tickType) {
