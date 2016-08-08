@@ -604,6 +604,7 @@ ReplaceFA() methods</h1>
 Financial Advisor Sample Orders</h1>
 <p>Financial Advisor users can invoke <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c">IBApi.EClient.placeOrder</a> function while specifying corresponding Financial Advisor Fields in the <a class="el" href="classIBApi_1_1Order.html">IBApi.Order</a> object.</p>
 <p><b>Place an Order for a Single Managed Account</b></p>
+<p>In linked accounts (not Financial Advisor accounts) it is necessary to specify an account number in the Order 'account' field with every order placed.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order faOrderOneAccount = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100);</div>

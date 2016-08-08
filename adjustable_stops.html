@@ -258,79 +258,20 @@ Adjusted to Stop Limit</h1>
 </ul>
 <h1><a class="anchor" id="adjusted_stop_trail"></a>
 Adjusted to Trail</h1>
+<p>Orders which adjust to trailing stop orders have not yet been implemented in the API.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Attached order is a conventional STP order</span></div>
-<div class="line">            Order order = Stop(parent.Action.Equals(<span class="stringliteral">&quot;BUY&quot;</span>) ? <span class="stringliteral">&quot;SELL&quot;</span> : <span class="stringliteral">&quot;BUY&quot;</span>, parent.TotalQuantity, attachedOrderStopPrice);</div>
-<div class="line">            order.ParentId = parent.OrderId;</div>
-<div class="line">            <span class="comment">//When trigger price is penetrated</span></div>
-<div class="line">            order.TriggerPrice = triggerPrice;</div>
-<div class="line">            <span class="comment">//The parent order will be turned into a TRAIL order</span></div>
-<div class="line">            order.AdjustedOrderType = <span class="stringliteral">&quot;TRAIL&quot;</span>;</div>
-<div class="line">            <span class="comment">//With a stop price of...</span></div>
-<div class="line">            order.AdjustedStopPrice = adjustedStopPrice;</div>
-<div class="line">            <span class="comment">//traling by and amount (0) or a percent (1)...</span></div>
-<div class="line">            order.AdjustableTrailingUnit = trailUnit;</div>
-<div class="line">            <span class="comment">//of...</span></div>
-<div class="line">            order.AdjustedTrailingAmount = adjustedTrailAmount;</div>
-</div><!-- fragment -->  </li>
+<div class="fragment"></div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        Order order = <span class="keyword">new</span> Order();</div>
-<div class="line">        <span class="comment">//Attached order is a conventional STP order</span></div>
-<div class="line">        order.action(parent.action().equals(<span class="stringliteral">&quot;BUY&quot;</span>) ? <span class="stringliteral">&quot;SELL&quot;</span> : <span class="stringliteral">&quot;BUY&quot;</span>);</div>
-<div class="line">        order.totalQuantity(parent.totalQuantity());</div>
-<div class="line">        order.auxPrice(attachedOrderStopPrice);</div>
-<div class="line">        order.parentId(parent.orderId());</div>
-<div class="line">        <span class="comment">//When trigger price is penetrated</span></div>
-<div class="line">        order.triggerPrice(triggerPrice);</div>
-<div class="line">        <span class="comment">//The parent order will be turned into a TRAIL order</span></div>
-<div class="line">        order.adjustedOrderType(OrderType.TRAIL);</div>
-<div class="line">        <span class="comment">//With a stop price of...</span></div>
-<div class="line">        order.adjustedStopPrice(adjustStopPrice);</div>
-<div class="line">        <span class="comment">//traling by and amount (0) or a percent (1)...</span></div>
-<div class="line">        order.adjustableTrailingUnit(trailUnit);</div>
-<div class="line">        <span class="comment">//of...</span></div>
-<div class="line">        order.adjustedTrailingAmount(adjustedTrailAmount);</div>
-</div><!-- fragment -->  </li>
+<div class="fragment"></div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">            <span class="stringliteral">&#39;Attached order Is a conventional STP order</span></div>
-<div class="line"><span class="stringliteral">            Dim action As String = &quot;BUY&quot;</span></div>
-<div class="line"><span class="stringliteral">            If (parent.Action.Equals(&quot;BUY&quot;)) Then</span></div>
-<div class="line"><span class="stringliteral">                action = &quot;SELL&quot;</span></div>
-<div class="line"><span class="stringliteral">            End If</span></div>
-<div class="line"><span class="stringliteral">            Dim order As Order = StopOrder(action, parent.TotalQuantity, attachedOrderStopPrice)</span></div>
-<div class="line"><span class="stringliteral">            order.ParentId = parent.OrderId</span></div>
-<div class="line"><span class="stringliteral">            &#39;</span>When trigger price Is penetrated</div>
-<div class="line">            order.TriggerPrice = triggerPrice</div>
-<div class="line">            <span class="stringliteral">&#39;The parent order will be turned into a TRAIL order</span></div>
-<div class="line"><span class="stringliteral">            order.AdjustedOrderType = &quot;TRAIL&quot;</span></div>
-<div class="line"><span class="stringliteral">            &#39;</span>With a stop price of...</div>
-<div class="line">            order.AdjustedStopPrice = adjustedStopPrice</div>
-<div class="line">            <span class="stringliteral">&#39;traling by And amount (0) Or a percent (1)...</span></div>
-<div class="line"><span class="stringliteral">            order.AdjustableTrailingUnit = trailUnit</span></div>
-<div class="line"><span class="stringliteral">            &#39;</span>of...</div>
-<div class="line">            order.AdjustedTrailingAmount = adjustedTrailAmount</div>
-</div><!-- fragment -->  </li>
+<div class="fragment"></div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    <span class="comment">//Attached order is a conventional STP order</span></div>
-<div class="line">    Order order;</div>
-<div class="line">    order.action = (parent.action == <span class="stringliteral">&quot;BUY&quot;</span>) ? <span class="stringliteral">&quot;SELL&quot;</span>: <span class="stringliteral">&quot;BUY&quot;</span>;</div>
-<div class="line">    order.orderType = <span class="stringliteral">&quot;STP&quot;</span>;</div>
-<div class="line">    order.totalQuantity = parent.totalQuantity;</div>
-<div class="line">    order.auxPrice = attachedOrderStopPrice;</div>
-<div class="line">    order.parentId = parent.orderId;</div>
-<div class="line">    <span class="comment">//When trigger price is penetrated</span></div>
-<div class="line">    order.triggerPrice = triggerPrice;</div>
-<div class="line">    <span class="comment">//The parent order will be turned into a TRAIL order</span></div>
-<div class="line">    order.adjustedOrderType = <span class="stringliteral">&quot;TRAIL&quot;</span>;</div>
-<div class="line">    <span class="comment">//With a stop price of...</span></div>
-<div class="line">    order.adjustedStopPrice = adjustStopPrice;</div>
-<div class="line">    <span class="comment">//traling by and amount (0) or a percent (1)...</span></div>
-<div class="line">    order.adjustableTrailingUnit = trailUnit;</div>
-<div class="line">    <span class="comment">//of...</span></div>
-<div class="line">    order.adjustedTrailingAmount = adjustedTrailAmount;</div>
-</div><!-- fragment -->  </li>
+<div class="fragment"></div><!-- fragment -->  </li>
 </ul>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

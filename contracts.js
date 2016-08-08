@@ -20,6 +20,7 @@ var contracts =
     [ "Spreads", "spread_contracts.html", [
       [ "Stock Spread", "spread_contracts.html#bag_stk", null ],
       [ "Futures Spread", "spread_contracts.html#bag_fut", null ],
-      [ "Options Spread", "spread_contracts.html#bag_opt", null ]
+      [ "Options Spread", "spread_contracts.html#bag_opt", null ],
+      [ "Inter-Commodity Futures", "spread_contracts.html#bag_intcmdfut", null ]
     ] ]
 ];

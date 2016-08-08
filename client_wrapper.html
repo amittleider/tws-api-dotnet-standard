@@ -181,9 +181,9 @@ The EClientSocket class</h1>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    EClientSocket * <span class="keyword">const</span> m_pClient;</div>
-<div class="line">    EReaderOSSignal m_osSignal;</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">TestCppClient::TestCppClient() : </div>
+<div class="fragment"><div class="line">    EReaderOSSignal m_osSignal;</div>
+<div class="line">    EClientSocket * <span class="keyword">const</span> m_pClient;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">TestCppClient::TestCppClient() :</div>
 <div class="line">      m_osSignal(2000)<span class="comment">//2-seconds timeout</span></div>
 <div class="line">    , m_pClient(new EClientSocket(this, &amp;m_osSignal))</div>
 <div class="line">    , m_state(ST_CONNECT)</div>

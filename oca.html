@@ -179,7 +179,7 @@ $(document).ready(function(){initNavTree('oca.html','');});
 <div class="line">    ocaOrders.push_back(OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 10));</div>
 <div class="line">    ocaOrders.push_back(OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 11));</div>
 <div class="line">    ocaOrders.push_back(OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1, 12));</div>
-<div class="line">    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; ocaOrders.size(); i++){</div>
+<div class="line">    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; ocaOrders.size(); i++){</div>
 <div class="line">        OrderSamples::OneCancelsAll(<span class="stringliteral">&quot;TestOca&quot;</span>, ocaOrders[i], 2);</div>
 <div class="line">        m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStock(), ocaOrders[i]);</div>
 <div class="line">    }</div>

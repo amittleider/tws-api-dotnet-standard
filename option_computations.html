@@ -223,10 +223,13 @@ Calculating option prices and historical volatility</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType, <span class="keywordtype">double</span> impliedVol, <span class="keywordtype">double</span> delta,</div>
 <div class="line">                                          <span class="keywordtype">double</span> optPrice, <span class="keywordtype">double</span> pvDividend,</div>
 <div class="line">                                          <span class="keywordtype">double</span> gamma, <span class="keywordtype">double</span> vega, <span class="keywordtype">double</span> theta, <span class="keywordtype">double</span> undPrice) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;TickOptionComputation. Ticker Id: %d, Type: %d, ImpliedVolatility: %g, Delta: %g, OptionPrice: %d, pvDividend: %g, Gamma: %g, Vega: %g, Theta: %g, Underlying Price: %g\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;TickOptionComputation. Ticker Id: %ld, Type: %d, ImpliedVolatility: %g, Delta: %g, OptionPrice: %g, pvDividend: %g, Gamma: %g, Vega: %g, Theta: %g, Underlying Price: %g\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

@@ -15,7 +15,9 @@ var NAVTREE =
       [ "The Trader Workstation", "initial_setup.html#tws", null ],
       [ "The IB Gateway", "initial_setup.html#gateway", null ],
       [ "Enable API connections", "initial_setup.html#enable_api", null ],
-      [ "Read Only API", "initial_setup.html#read_only", null ]
+      [ "Read Only API", "initial_setup.html#read_only", null ],
+      [ "Installing the API source", "initial_setup.html#install", null ],
+      [ "Changing the installed API version", "initial_setup.html#changing", null ]
     ] ],
     [ "Introducing EWrapper and EClientSocket", "client_wrapper.html", [
       [ "Implementing the EWrapper interface", "client_wrapper.html#ewrapper_impl", null ],
@@ -34,7 +36,7 @@ var NAVTREE =
     [ "Account & Portfolio", "account_portfolio.html", "account_portfolio" ],
     [ "Market Scanners", "market_scanners.html", "market_scanners" ],
     [ "Financial Advisor", "financial_advisor.html", "financial_advisor" ],
-    [ "Reuters Fundamentals", "reuters_fundamentals.html", [
+    [ "Fundamental Data", "reuters_fundamentals.html", [
       [ "Report Types", "reuters_fundamentals.html#report_type", null ]
     ] ],
     [ "IB Bulletins", "ib_bulletins.html", null ],
@@ -51,6 +53,7 @@ var NAVTREE =
         [ "How to connect a 3rd party platform to Interactive Brokers' Trader Workstation", "third_party.html#tp_faq_connect", null ],
         [ "Where to get support for a third party software connecting to the TWS.", "third_party.html#tp_support", null ],
         [ "My program's vendor did not find any issue on its side and asked me to contact Interactive Brokers directly.", "third_party.html#tp_ping_pong", null ],
+        [ "TWS generates warning messages that block my orders being automatically transmitted", "third_party.html#tp_bypass_warning", null ],
         [ "I cannot see any market data in my third party program", "third_party.html#tp_data", null ],
         [ "I do have the Live Data Subscriptions I need but when using my paper trading user name I am still unable to obtain it.", "third_party.html#tp_data_sharing", null ],
         [ "I am obtaining a message saying \"Historical data request pacing violation\"", "third_party.html#tp_pacing_violation", null ],
@@ -82,9 +85,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClientSocket.html#ae88f2c8c05758ef7718269691a9d424b",
-"csfb.html#Blast",
-"market_scanners.html#scanner_examples"
+"classIBApi_1_1EClientSocket.html#a4d0cb0e9dee74db6b2a96df0d03ade13",
+"contracts.html",
+"market_depth.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

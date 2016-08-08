@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Reuters Fundamentals</title>
+<title>TWS API v9.72: Fundamental Data</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,10 +126,10 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Reuters Fundamentals </div>  </div>
+<div class="title">Fundamental Data </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Reuters Fundamentals data for stocks can be accessed via the TWS API through the <a class="el" href="classIBApi_1_1EClient.html#abba7df6f72f5516cae4c05c9144a89ee">IBApi.EClient.reqFundamentalData</a>. Note, that there must be a subscription to Reuters Fundamentals set up in <a href="http://xavierib.github.io/twsapidocs/market_data.html#market_subscriptions" target="_blank" class="linkexternal">Account Management</a> before you can receive this data.</p>
+<div class="textblock"><p>Reuters Fundamental data for stocks and the Wall Street Events Horizon Calendar can be accessed via the TWS API through the <a class="el" href="classIBApi_1_1EClient.html#abba7df6f72f5516cae4c05c9144a89ee">IBApi.EClient.reqFundamentalData</a>. For the "CalendarReport" it is necessary to have the Wall Street Horizon subscription activated first in <a href="http://interactivebrokers.github.io/tws-api/market_data.html#market_subscriptions" target="_blank" class="linkexternal">Account Management</a>. The other report types require the Reuters Fundamentals subscription but this is freely available and will be activated in most accounts by default.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqFundamentalData(8001, ContractSamples.USStock(), <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>, null);</div>
@@ -173,7 +173,7 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::fundamentalData(TickerId reqId, <span class="keyword">const</span> std::string&amp; data) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;FundamentalData. ReqId: %d, %s\n&quot;</span>, reqId, data.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;FundamentalData. ReqId: %ld, %s\n&quot;</span>, reqId, data.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -201,9 +201,9 @@ Report Types</h1>
 <tr>
 <td>ReportsFinSummary</td><td>Financial summary </td></tr>
 <tr>
-<td>ReportSnapshot</td><td>Company's financial overview </td></tr>
+<td>ReportsOwnership</td><td>Company's ownership <em>(Can be large in size)</em> </td></tr>
 <tr>
-<td>ReportRatios</td><td>Financial Ratios </td></tr>
+<td>ReportSnapshot</td><td>Company's financial overview </td></tr>
 <tr>
 <td>ReportsFinStatements</td><td>Financial Statements </td></tr>
 <tr>
@@ -211,6 +211,10 @@ Report Types</h1>
 <tr>
 <td>CalendarReport</td><td>Company's calendar </td></tr>
 </table>
+<p><em>Fundamental Ratios data can be acquired by requesting generic tick type 258 with <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3">IBApi.EClient.reqMktData</a>. See both <a class="el" href="tick_types.html">Available Tick Types</a> and <a class="el" href="fundamental_ratios_tags.html">Available Fundamental Ratios</a>.</em></p>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
