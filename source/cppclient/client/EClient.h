@@ -13,6 +13,9 @@
 #include "CommonDefs.h"
 #include "TagValue.h"
 
+namespace ibapi {
+namespace client_constants {
+
 /////////////////////////////////////////////////////////////////////////////////
 // SOCKET CLIENT VERSION CHANGE LOG : Incremented when the format of incomming
 //                                    server responses change
@@ -164,6 +167,9 @@ const int REQ_SEC_DEF_OPT_PARAMS		= 78;
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
 const int EXCHANGE_AVAIL_MSG    = 2;    // control message specifing that an exchange is available for trading
 const int EXCHANGE_UNAVAIL_MSG  = 3;    // control message specifing that an exchange is unavailable for trading
+
+} // namespace client_constants
+} // namespace ibapi
 
 struct Contract;
 struct Order;
