@@ -27,6 +27,8 @@
 #include <string.h>
 #include <assert.h>
 
+using namespace ibapi::client_constants;
+
 ///////////////////////////////////////////////////////////
 // encoders
 template<class T>
