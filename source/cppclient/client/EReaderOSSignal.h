@@ -4,6 +4,7 @@
 #pragma once
 #include "EReaderSignal.h"
 #include "StdAfx.h"
+#include <stdexcept>
 
 #if !defined(INFINITE)
 #define INFINITE ((unsigned long)-1)
