@@ -92,6 +92,7 @@ namespace IBApi
         public const int DELAYED_OPEN = 76;
         public const int RT_TRD_VOLUME = 77;
         public const int CREDITMAN_MARK_PRICE = 78;
+        public const int CREDITMAN_SLOW_MARK_PRICE = 79;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -172,6 +173,10 @@ namespace IBApi
                 case DELAYED_VOLUME:              return "delayedVolume";
                 case DELAYED_CLOSE:               return "delayedClose";
                 case DELAYED_OPEN:                return "delayedOpen";
+                case RT_TRD_VOLUME: return "rtTrdVolume";
+                case CREDITMAN_MARK_PRICE: return "creditmanMarkPrice";
+                case CREDITMAN_SLOW_MARK_PRICE: return "creditmanSlowMarkPrice";
+
                 default:                          return "unknown";
             }
         }
