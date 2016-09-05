@@ -2,6 +2,6 @@
 
 	Modification of an open order through the API can be achieved by the same client which placed the original order. In the case of orders placed manually in TWS, the order can be modified by the client with ID 0. 
 	
-	To modify an order, simply call the @ref IBApi::EClient::placeOrder function again with the same parameters used to place the original order, except for the changed paramter. This includes the @ref IBApi::Order::OrderId, which must match the @ref IBApi::Order::OrderId of the original. It is not generally recommended to try to change order parameters other than the order price and order size. To change other paramters, it might be preferably to cancel the original order and place a new one. 
+	To modify an order, simply call the @ref IBApi::EClient::placeOrder function again with the same parameters used to place the original order, except for the changed parameter. This includes the @ref IBApi::Order::OrderId, which must match the @ref IBApi::Order::OrderId of the original. It is not generally recommended to try to change order parameters other than the order price and order size. To change other parameters, it might be preferable to cancel the original order and place a new order. 
 	
 */

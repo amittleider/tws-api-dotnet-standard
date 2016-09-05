@@ -46,7 +46,7 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 ///////////////////////////////////////////////////////////
 // member funcs
 //! [socket_init]
-TestCppClient::TestCppClient() : 
+TestCppClient::TestCppClient() :
       m_osSignal(2000)//2-seconds timeout
     , m_pClient(new EClientSocket(this, &m_osSignal))
 	, m_state(ST_CONNECT)
@@ -584,7 +584,7 @@ void TestCppClient::ocaSamples()
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 10));
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 11));
 	ocaOrders.push_back(OrderSamples::LimitOrder("BUY", 1, 12));
-	for(int i = 0; i < ocaOrders.size(); i++){
+	for(unsigned int i = 0; i < ocaOrders.size(); i++){
 		OrderSamples::OneCancelsAll("TestOca", ocaOrders[i], 2);
 		m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), ocaOrders[i]);
 	}
@@ -819,7 +819,7 @@ void TestCppClient::miscelaneous()
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
-	printf("Next Valid Id: %d\n", orderId);
+	printf("Next Valid Id: %ld\n", orderId);
 	m_orderId = orderId;
 	//! [nextvalidid]
 
@@ -870,13 +870,13 @@ void TestCppClient::error(const int id, const int errorCode, const std::string e
 
 //! [tickprice]
 void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {
-	printf( "Tick Price. Ticker Id: %d, Field: %d, Price: %g, CanAutoExecute: %d\n", tickerId, (int)field, price);
+	printf( "Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d\n", tickerId, (int)field, price, canAutoExecute);
 }
 //! [tickprice]
 
 //! [ticksize]
 void TestCppClient::tickSize( TickerId tickerId, TickType field, int size) {
-	printf( "Tick Size. Ticker Id: %d, Field: %d, Size: %d\n", tickerId, (int)field, size);
+	printf( "Tick Size. Ticker Id: %ld, Field: %d, Size: %d\n", tickerId, (int)field, size);
 }
 //! [ticksize]
 
@@ -884,38 +884,38 @@ void TestCppClient::tickSize( TickerId tickerId, TickType field, int size) {
 void TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
                                           double optPrice, double pvDividend,
                                           double gamma, double vega, double theta, double undPrice) {
-	printf( "TickOptionComputation. Ticker Id: %d, Type: %d, ImpliedVolatility: %g, Delta: %g, OptionPrice: %d, pvDividend: %g, Gamma: %g, Vega: %g, Theta: %g, Underlying Price: %g\n", tickerId, (int)tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+	printf( "TickOptionComputation. Ticker Id: %ld, Type: %d, ImpliedVolatility: %g, Delta: %g, OptionPrice: %g, pvDividend: %g, Gamma: %g, Vega: %g, Theta: %g, Underlying Price: %g\n", tickerId, (int)tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
 }
 //! [tickoptioncomputation]
 
 //! [tickgeneric]
 void TestCppClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {
-	printf( "Tick Generic. Ticker Id: %d, Type: %d, Value: %s\n", tickerId, (int)tickType, value);
+	printf( "Tick Generic. Ticker Id: %ld, Type: %d, Value: %g\n", tickerId, (int)tickType, value);
 }
 //! [tickgeneric]
 
 //! [tickstring]
 void TestCppClient::tickString(TickerId tickerId, TickType tickType, const std::string& value) {
-	printf( "Tick String. Ticker Id: %d, Type: %d, Value: %s\n", tickerId, (int)tickType, value.c_str());
+	printf( "Tick String. Ticker Id: %ld, Type: %d, Value: %s\n", tickerId, (int)tickType, value.c_str());
 }
 //! [tickstring]
 
 void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
                             double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
-	printf( "TickEFP. %d, Type: %d, BasisPoints: %d, FormattedBasisPoints: %s, Total Dividends: %d, HoldDays: %d, Future Last Trade Date: %s, Dividend Impact: %d, Dividends To Last Trade Date: %d\n", tickerId, (int)tickType, basisPoints, formattedBasisPoints.c_str(), totalDividends, holdDays, futureLastTradeDate.c_str(), dividendImpact, dividendsToLastTradeDate);
+	printf( "TickEFP. %ld, Type: %d, BasisPoints: %g, FormattedBasisPoints: %s, Total Dividends: %g, HoldDays: %d, Future Last Trade Date: %s, Dividend Impact: %g, Dividends To Last Trade Date: %g\n", tickerId, (int)tickType, basisPoints, formattedBasisPoints.c_str(), totalDividends, holdDays, futureLastTradeDate.c_str(), dividendImpact, dividendsToLastTradeDate);
 }
 
 //! [orderstatus]
 void TestCppClient::orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
 		double lastFillPrice, int clientId, const std::string& whyHeld){
-	printf("OrderStatus. Id: %d, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str());
+	printf("OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str());
 }
 //! [orderstatus]
 
 //! [openorder]
 void TestCppClient::openOrder( OrderId orderId, const Contract& contract, const Order& order, const OrderState& ostate) {
-	printf( "OpenOrder. ID: %d, %s, %s @ %s: %s, %s, %g, %s\n", orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, ostate.status.c_str());
+	printf( "OpenOrder. ID: %ld, %s, %s @ %s: %s, %s, %g, %s\n", orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, ostate.status.c_str());
 }
 //! [openorder]
 
@@ -959,7 +959,7 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %d @ %s, Trading Hours: %s, Liquidation Hours: %s\n", reqId, contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str());
+	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquidation Hours: %s\n", reqId, contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str());
 }
 //! [contractdetails]
 
@@ -975,7 +975,7 @@ void TestCppClient::contractDetailsEnd( int reqId) {
 
 //! [execdetails]
 void TestCppClient::execDetails( int reqId, const Contract& contract, const Execution& execution) {
-	printf( "ExecDetails. ReqId: %d - %s, %s, %s - %s, %d, %d\n", reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares);
+	printf( "ExecDetails. ReqId: %d - %s, %s, %s - %s, %ld, %g\n", reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares);
 }
 //! [execdetails]
 
@@ -988,13 +988,13 @@ void TestCppClient::execDetailsEnd( int reqId) {
 //! [updatemktdepth]
 void TestCppClient::updateMktDepth(TickerId id, int position, int operation, int side,
                                    double price, int size) {
-	printf( "UpdateMarketDepth. %d - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n", id, position, operation, side, price, size);
+	printf( "UpdateMarketDepth. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n", id, position, operation, side, price, size);
 }
 //! [updatemktdepth]
 
 void TestCppClient::updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
                                      int side, double price, int size) {
-	printf( "UpdateMarketDepthL2. %d - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n", id, position, operation, side, price, size);
+	printf( "UpdateMarketDepthL2. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n", id, position, operation, side, price, size);
 }
 
 //! [updatenewsbulletin]
@@ -1018,7 +1018,7 @@ void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {
 //! [historicaldata]
 void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
                                    double low, double close, int volume, int barCount, double WAP, int hasGaps) {
-	printf( "HistoricalData. ReqId: %d - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n", reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);
+	printf( "HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n", reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);
 }
 //! [historicaldata]
 
@@ -1045,18 +1045,18 @@ void TestCppClient::scannerDataEnd(int reqId) {
 //! [realtimebar]
 void TestCppClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
                                 long volume, double wap, int count) {
-	printf( "RealTimeBars. %d - Time: %l, Open: %g, High: %g, Low: %g, Close: %g, Volume: %l, Count: %d, WAP: %g\n", reqId, time, open, high, low, close, volume, count, wap);
+	printf( "RealTimeBars. %ld - Time: %ld, Open: %g, High: %g, Low: %g, Close: %g, Volume: %ld, Count: %d, WAP: %g\n", reqId, time, open, high, low, close, volume, count, wap);
 }
 //! [realtimebar]
 
 //! [fundamentaldata]
 void TestCppClient::fundamentalData(TickerId reqId, const std::string& data) {
-	printf( "FundamentalData. ReqId: %d, %s\n", reqId, data.c_str());
+	printf( "FundamentalData. ReqId: %ld, %s\n", reqId, data.c_str());
 }
 //! [fundamentaldata]
 
 void TestCppClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {
-	printf( "DeltaNeutralValidation. %d, ConId: %d, Delta: %d, Price: %d\n", reqId, underComp.conId, underComp.delta, underComp.price);
+	printf( "DeltaNeutralValidation. %d, ConId: %ld, Delta: %g, Price: %g\n", reqId, underComp.conId, underComp.delta, underComp.price);
 }
 
 //! [ticksnapshotend]
@@ -1067,13 +1067,13 @@ void TestCppClient::tickSnapshotEnd(int reqId) {
 
 //! [marketdatatype]
 void TestCppClient::marketDataType(TickerId reqId, int marketDataType) {
-	printf( "MarketDataType. ReqId: %d, Type: %d\n", reqId, marketDataType);
+	printf( "MarketDataType. ReqId: %ld, Type: %d\n", reqId, marketDataType);
 }
 //! [marketdatatype]
 
 //! [commissionreport]
 void TestCppClient::commissionReport( const CommissionReport& commissionReport) {
-	printf( "CommissionReport. %s - %d %s RPNL %d\n", commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);
+	printf( "CommissionReport. %s - %g %s RPNL %g\n", commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);
 }
 //! [commissionreport]
 

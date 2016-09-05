@@ -102,7 +102,7 @@ Namespace Samples
             Contract.currency = "USD"
             Contract.exchange = "SMART"
             'Specify the Primary Exchange attribute to avoid contract ambiguity
-            Contract.PrimaryExch = "NASDAQ"
+            Contract.PrimaryExch = "ISLAND"
             '! [stkcontractwithprimary]
             Return Contract
         End Function

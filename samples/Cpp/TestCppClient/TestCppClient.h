@@ -181,8 +181,8 @@ public:
 
 private:
 	//! [socket_declare]
-	EClientSocket * const m_pClient;
 	EReaderOSSignal m_osSignal;
+	EClientSocket * const m_pClient;
 	//! [socket_declare]
 	State m_state;
 	time_t m_sleepDeadline;

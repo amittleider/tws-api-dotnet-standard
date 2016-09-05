@@ -620,7 +620,7 @@ Order OrderSamples::ComboLimitOrder(std::string action, double quantity, double 
 	order.orderType = "LMT";
 	order.totalQuantity = quantity;
 	order.lmtPrice = limitPrice;
-	if(nonGuaranteed = true){
+	if(nonGuaranteed){
 		TagValueSPtr tag1(new TagValue("NonGuaranteed", "1"));
 		order.smartComboRoutingParams.reset(new TagValueList());
 		order.smartComboRoutingParams->push_back(tag1);
@@ -642,7 +642,7 @@ Order OrderSamples::ComboMarketOrder(std::string action, double quantity, bool n
 	order.action = action;
 	order.orderType = "MKT";
 	order.totalQuantity = quantity;
-	if(nonGuaranteed = true){
+	if(nonGuaranteed){
 		TagValueSPtr tag1(new TagValue("NonGuaranteed", "1"));
 		order.smartComboRoutingParams.reset(new TagValueList());
 		order.smartComboRoutingParams->push_back(tag1);
@@ -665,12 +665,12 @@ Order OrderSamples::LimitOrderForComboWithLegPrices(std::string action, double q
 	order.orderType = "LMT";
 	order.totalQuantity = quantity;
 	order.orderComboLegs.reset(new Order::OrderComboLegList());
-	for(int i = 0; i < legprices.size(); i++){
+	for(unsigned int i = 0; i < legprices.size(); i++){
 		OrderComboLegSPtr comboLeg(new OrderComboLeg());
 		comboLeg->price = legprices[i];
 		order.orderComboLegs->push_back(comboLeg);
 	}
-	if(nonGuaranteed = true){
+	if(nonGuaranteed){
 		TagValueSPtr tag1(new TagValue("NonGuaranteed", "1"));
 		order.smartComboRoutingParams.reset(new TagValueList());
 		order.smartComboRoutingParams->push_back(tag1);
@@ -693,7 +693,7 @@ Order OrderSamples::RelativeLimitOrder(std::string action, double quantity, doub
 	order.totalQuantity = quantity;
 	order.orderType = "Rel + LMT";
 	order.lmtPrice = limitPrice;
-	if(nonGuaranteed = true){
+	if(nonGuaranteed){
 		TagValueSPtr tag1(new TagValue("NonGuaranteed", "1"));
 		order.smartComboRoutingParams.reset(new TagValueList());
 		order.smartComboRoutingParams->push_back(tag1);
@@ -715,7 +715,7 @@ Order OrderSamples::RelativeMarketCombo(std::string action, double quantity, boo
 	order.action = action;
 	order.totalQuantity = quantity;
 	order.orderType = "Rel + MKT";
-	if(nonGuaranteed = true){
+	if(nonGuaranteed){
 		TagValueSPtr tag1(new TagValue("NonGuaranteed", "1"));
 		order.smartComboRoutingParams.reset(new TagValueList());
 		order.smartComboRoutingParams->push_back(tag1);

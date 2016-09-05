@@ -78,6 +78,9 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				DELAYED_VOLUME,
 				DELAYED_CLOSE,
 				DELAYED_OPEN,
+				RT_TRD_VOLUME,
+				CREDITMAN_MARK_PRICE,
+				CREDITMAN_SLOW_MARK_PRICE,
 				NOT_SET };
 
 inline bool isPrice( TickType tickType) {

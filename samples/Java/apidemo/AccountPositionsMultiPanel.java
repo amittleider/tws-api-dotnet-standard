@@ -97,7 +97,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 		}
 	
 		private class PositionsResultsPanel extends NewTabPanel implements IPositionMultiHandler {
-			HashMap<Integer,PositionRow> m_map = new HashMap<Integer,PositionRow>();
+			HashMap<String,PositionRow> m_map = new HashMap<String,PositionRow>();
 			ArrayList<PositionRow> m_list = new ArrayList<PositionRow>();
 			PositionsModel m_model = new PositionsModel();
 
@@ -112,7 +112,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 
 			@Override
 			public void positionMulti(String account, String modelCode, Contract contract, double pos, double avgCost) {
-				Integer key = contract.conid();
+				String key = contract.conid() + "_" + account + "_" + modelCode;
 				PositionRow row = m_map.get( key);
 				if (row == null) {
 					row = new PositionRow();
