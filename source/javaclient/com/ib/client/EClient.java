@@ -1373,7 +1373,8 @@ public abstract class EClient {
         	error(id, EClientErrors.UPDATE_TWS, " It does not support ext operator");
         }
 
-        if (m_serverVersion < MIN_SERVER_VER_SOFT_DOLLAR_TIER && !IsEmpty(order.extOperator()) ) {
+        if (m_serverVersion < MIN_SERVER_VER_SOFT_DOLLAR_TIER && 
+        		(!IsEmpty(order.softDollarTier().name()) || !IsEmpty(order.softDollarTier().value()))) {
         	error(id, EClientErrors.UPDATE_TWS, " It does not support soft dollar tier");
         }
         

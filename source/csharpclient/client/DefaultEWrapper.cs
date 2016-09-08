@@ -237,5 +237,9 @@ namespace IBApi
         public void securityDefinitionOptionParameterEnd(int reqId)
         {
         }
+
+        public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
+        {
+        }
     }
 }

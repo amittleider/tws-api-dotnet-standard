@@ -54,11 +54,12 @@ namespace IBSampleApp
         AccountUpdateMultiEnd = 74,
         SecurityDefinitionOptionParameter = 75,
         SecurityDefinitionOptionParameterEnd = 76,
+        SoftDollarTiers = 77,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one
         HistoricalDataEnd = -HistoricalData,
         ScannerDataEnd = -ScannerData,
 
-        ConnectionStatus = 100
+        ConnectionStatus = 100,
     }
 }

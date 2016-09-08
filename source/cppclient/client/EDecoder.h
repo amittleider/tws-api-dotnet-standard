@@ -55,12 +55,13 @@ const int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
 const int MIN_SERVER_VER_MODELS_SUPPORT         = 103;
 const int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
 const int MIN_SERVER_VER_EXT_OPERATOR	        = 105;
+const int MIN_SERVER_VER_SOFT_DOLLAR_TIER		= 106;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_EXT_OPERATOR;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_SOFT_DOLLAR_TIER;
 
 
 // incoming msg id's
@@ -115,6 +116,7 @@ const int ACCOUNT_UPDATE_MULTI      = 73;
 const int ACCOUNT_UPDATE_MULTI_END  = 74;
 const int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
 const int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
+const int SOFT_DOLLAR_TIERS = 77;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -213,8 +215,9 @@ class TWSAPIDLLEXP EDecoder
     const char* processPositionMultiEndMsg(const char* ptr, const char* endPtr);
     const char* processAccountUpdateMultiMsg(const char* ptr, const char* endPtr);
     const char* processAccountUpdateMultiEndMsg(const char* ptr, const char* endPtr);
-	const char* processSecurityDefinitionOptionalParameter(const char* ptr, const char* endPtr);
-	const char* processSecurityDefinitionOptionalParameterEnd(const char* ptr, const char* endPtr);
+	const char* processSecurityDefinitionOptionalParameterMsg(const char* ptr, const char* endPtr);
+	const char* processSecurityDefinitionOptionalParameterEndMsg(const char* ptr, const char* endPtr);
+	const char* processSoftDollarTiersMsg(const char* ptr, const char* endPtr);
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 

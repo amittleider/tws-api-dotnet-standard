@@ -642,6 +642,16 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 		DECODE_FIELD(order.adjustableTrailingUnit);
 	}
 
+	if (m_serverVersion >= MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
+		std::string name, value, displayName;
+
+		DECODE_FIELD(name);
+		DECODE_FIELD(value);
+		DECODE_FIELD(displayName);
+
+		order.softDollarTier = SoftDollarTier(name, value, displayName);
+	}
+
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
 
     return ptr;
@@ -1585,7 +1595,7 @@ const char* EDecoder::processAccountUpdateMultiEndMsg(const char* ptr, const cha
     return ptr;
 }
 
-const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr, const char* endPtr) {
+const char* EDecoder::processSecurityDefinitionOptionalParameterMsg(const char* ptr, const char* endPtr) {
     int reqId;
 	std::string exchange;
 	int underlyingConId;
@@ -1625,7 +1635,7 @@ const char* EDecoder::processSecurityDefinitionOptionalParameter(const char* ptr
     return ptr;
 }
 
-const char* EDecoder::processSecurityDefinitionOptionalParameterEnd(const char* ptr, const char* endPtr) {
+const char* EDecoder::processSecurityDefinitionOptionalParameterEndMsg(const char* ptr, const char* endPtr) {
     int reqId;
 
     DECODE_FIELD(reqId);
@@ -1633,6 +1643,31 @@ const char* EDecoder::processSecurityDefinitionOptionalParameterEnd(const char* 
     m_pEWrapper->securityDefinitionOptionalParameterEnd(reqId);
 
     return ptr;
+}
+
+const char* EDecoder::processSoftDollarTiersMsg(const char* ptr, const char* endPtr) 
+{
+	int reqId;
+	int nTiers;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(nTiers);
+
+	std::vector<SoftDollarTier> tiers(nTiers); 
+		
+	for (int i = 0; i < nTiers; i++) {
+		std::string name, value, dislplayName;
+
+		DECODE_FIELD(name);
+		DECODE_FIELD(value);
+		DECODE_FIELD(dislplayName);
+
+		tiers[i] = SoftDollarTier(name, value, value); 
+	}
+		
+	m_pEWrapper->softDollarTiers(reqId, tiers);
+
+	return ptr;
 }
 
 
@@ -1910,11 +1945,15 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
             break;
 
 		case SECURITY_DEFINITION_OPTION_PARAMETER:
-			ptr = processSecurityDefinitionOptionalParameter(ptr, endPtr);
+			ptr = processSecurityDefinitionOptionalParameterMsg(ptr, endPtr);
 			break;
 
 		case SECURITY_DEFINITION_OPTION_PARAMETER_END:
-			ptr = processSecurityDefinitionOptionalParameterEnd(ptr, endPtr);
+			ptr = processSecurityDefinitionOptionalParameterEndMsg(ptr, endPtr);
+			break;
+
+		case SOFT_DOLLAR_TIERS:
+			ptr = processSoftDollarTiersMsg(ptr, endPtr);
 			break;
 
         default:

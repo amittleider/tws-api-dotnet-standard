@@ -679,5 +679,7 @@ namespace IBApi
 		* @sa securityDefinitionOptionParameter, EClient::reqSecDefOptParams
 		*/
         void securityDefinitionOptionParameterEnd(int reqId);
+
+        void softDollarTiers(int reqId, SoftDollarTier[] tiers);
     }
 }

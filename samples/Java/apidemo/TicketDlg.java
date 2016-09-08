@@ -484,12 +484,12 @@ public class TicketDlg extends JDialog {
 				@Override
 				public void softDollarTiers(SoftDollarTier[] tiers) {
 					m_softDollarTiers.invalidate();					
-
+					m_softDollarTiers.removeAllItems();
+					m_softDollarTiers.addItem(new SoftDollarTier("", "", ""));
+					
 					for (SoftDollarTier tier : tiers) {
 						m_softDollarTiers.addItem(tier);
 					}
-					
-					m_softDollarTiers.setSelectedItem(m_order.softDollarTier());				
 				}
 				
 			});			

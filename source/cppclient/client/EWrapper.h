@@ -6,6 +6,7 @@
 #define ewrapper_def
 
 #include "CommonDefs.h"
+#include "SoftDollarTier.h"
 #include <string>
 #include <set>
 
@@ -168,6 +169,7 @@ public:
    virtual void accountUpdateMultiEnd( int reqId) = 0;
    virtual void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) = 0;
    virtual void securityDefinitionOptionalParameterEnd(int reqId) = 0;
+   virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) = 0;
 };
 
 

@@ -4,7 +4,6 @@
 package com.ib.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.ib.client.Types.Action;
 import com.ib.client.Types.AlgoStrategy;
@@ -16,7 +15,6 @@ import com.ib.client.Types.Rule80A;
 import com.ib.client.Types.TimeInForce;
 import com.ib.client.Types.TriggerMethod;
 import com.ib.client.Types.VolatilityType;
-import com.ib.controller.ApiController.ISecDefOptParamsReqHandler;
 
 public class Order {
     final public static int 	CUSTOMER = 0;
@@ -478,7 +476,7 @@ public class Order {
         m_randomizeSize = false;
         m_randomizePrice = false;
         m_extOperator = EMPTY_STR;
-        m_softDollarTier = new SoftDollarTier(EMPTY_STR, EMPTY_STR);
+        m_softDollarTier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
     }
 
     public ArrayList<TagValue> algoParams() { 

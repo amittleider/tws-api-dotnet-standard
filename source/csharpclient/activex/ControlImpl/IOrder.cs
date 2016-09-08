@@ -288,5 +288,8 @@ namespace TWSLib
 
         [DispId(166)]
         string extOperator { get; set; }
+
+        [DispId(167)]
+        ComSoftDollarTier tier { get; }
     }
 }

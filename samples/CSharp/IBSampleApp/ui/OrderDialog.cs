@@ -111,7 +111,15 @@ namespace IBSampleApp
                 case MessageType.OpenOrder:
                     HandleOpenOrder((OpenOrderMessage)message);
                     break;
+                case MessageType.SoftDollarTiers:
+                    HandleSoftDollarTiers((SoftDollarTiersMessage)message);
+                    break;
             }
+        }
+
+        private void HandleSoftDollarTiers(SoftDollarTiersMessage softDollarTiersMessage)
+        {
+            softDollarTier.Items.AddRange(softDollarTiersMessage.Tiers);
         }
 
         private void HandleOpenOrder(OpenOrderMessage openOrderMessage)
@@ -329,6 +337,7 @@ namespace IBSampleApp
             order.FirmQuoteOnly = firmQuote.Checked;
             order.OptOutSmartRouting = optOutSmart.Checked;
             order.Transmit = transmit.Checked;
+            order.Tier = softDollarTier.SelectedItem as SoftDollarTier ?? new SoftDollarTier("", "", "");
         }
 
         private void FillVolatilityAttributes(Order order)
@@ -561,6 +570,16 @@ namespace IBSampleApp
             cbAdjustedTrailingAmntUnit.Items[0] = TrailingAmountUnit.amnt;
             cbAdjustedTrailingAmntUnit.Items[1] = TrailingAmountUnit.percent;
             cbAdjustedTrailingAmntUnit.SelectedIndex = 0;
+        }
+
+        int reqId = 0;
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            if (orderManager != null && orderManager.IBClient != null && orderManager.IBClient.ClientSocket != null && orderManager.IBClient.ClientSocket.IsConnected())
+                orderManager.IBClient.ClientSocket.reqSoftDollarTiers(reqId++);
         }
 
         class TrailingAmountUnit

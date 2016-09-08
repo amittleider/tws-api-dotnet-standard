@@ -381,7 +381,7 @@ class EDecoder implements ObjectInput {
 		SoftDollarTier[] tiers = new SoftDollarTier[nTiers]; 
 		
 		for (int i = 0; i < nTiers; i++) {
-			tiers[i] = new SoftDollarTier(readStr(), readStr()); 
+			tiers[i] = new SoftDollarTier(readStr(), readStr(), readStr()); 
 		}
 		
 		m_EWrapper.softDollarTiers(reqId, tiers);
@@ -1237,7 +1237,7 @@ class EDecoder implements ObjectInput {
 		}
 		
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
-			order.softDollarTier(new SoftDollarTier(readStr(), readStr()));
+			order.softDollarTier(new SoftDollarTier(readStr(), readStr(), readStr()));
 		}
 
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);

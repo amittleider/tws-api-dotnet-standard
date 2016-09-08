@@ -235,6 +235,8 @@ namespace IBSampleApp
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.checkMarginButton = new System.Windows.Forms.Button();
             this.closeOrderDialogButton = new System.Windows.Forms.Button();
+            this.softDollarTier = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.conditionsTab.SuspendLayout();
             this.orderContractTab.SuspendLayout();
             this.baseGroup.SuspendLayout();
@@ -735,6 +737,8 @@ namespace IBSampleApp
             // extendedOrderTab
             // 
             this.extendedOrderTab.BackColor = System.Drawing.Color.LightGray;
+            this.extendedOrderTab.Controls.Add(this.label17);
+            this.extendedOrderTab.Controls.Add(this.softDollarTier);
             this.extendedOrderTab.Controls.Add(this.nbboPriceCapLabel);
             this.extendedOrderTab.Controls.Add(this.trailingPercentLabel);
             this.extendedOrderTab.Controls.Add(this.transmit);
@@ -793,7 +797,7 @@ namespace IBSampleApp
             // trailingPercentLabel
             // 
             this.trailingPercentLabel.AutoSize = true;
-            this.trailingPercentLabel.Location = new System.Drawing.Point(33, 220);
+            this.trailingPercentLabel.Location = new System.Drawing.Point(26, 220);
             this.trailingPercentLabel.Name = "trailingPercentLabel";
             this.trailingPercentLabel.Size = new System.Drawing.Size(80, 13);
             this.trailingPercentLabel.TabIndex = 38;
@@ -2333,6 +2337,23 @@ namespace IBSampleApp
             this.closeOrderDialogButton.UseVisualStyleBackColor = true;
             this.closeOrderDialogButton.Click += new System.EventHandler(this.closeOrderDialogButton_Click);
             // 
+            // softDollarTier
+            // 
+            this.softDollarTier.FormattingEnabled = true;
+            this.softDollarTier.Location = new System.Drawing.Point(112, 246);
+            this.softDollarTier.Name = "softDollarTier";
+            this.softDollarTier.Size = new System.Drawing.Size(110, 21);
+            this.softDollarTier.TabIndex = 41;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(35, 249);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(71, 13);
+            this.label17.TabIndex = 42;
+            this.label17.Text = "Soft dollar tier";
+            // 
             // OrderDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2587,6 +2608,8 @@ namespace IBSampleApp
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox modelCode;
         private System.Windows.Forms.Label modelCodeLabel;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox softDollarTier;
         
     }
 }

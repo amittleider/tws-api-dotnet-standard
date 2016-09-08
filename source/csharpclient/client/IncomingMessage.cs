@@ -62,6 +62,6 @@ namespace IBApi
         public const int AccountUpdateMultiEnd = 74;
         public const int SecurityDefinitionOptionParameter = 75;
         public const int SecurityDefinitionOptionParameterEnd = 76;
-
+        public const int SoftDollarTier = 77;
     }
 }
