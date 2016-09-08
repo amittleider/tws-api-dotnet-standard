@@ -178,13 +178,20 @@ void EReader::onReceive() {
 }
 
 bool EReader::bufferedRead(char *buf, int size) {
-	while (m_buf.size() < size)
-		if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
-			return false;
+	while (size > 0) {
+		while (m_buf.size() < size && m_buf.size() < m_nMaxBufSize)
+			if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
+				return false;
 
-	std::copy(m_buf.begin(), m_buf.begin() + size, buf);
-	std::copy(m_buf.begin() + size, m_buf.end(), m_buf.begin());
-	m_buf.resize(m_buf.size() - size);
+		int nBytes = min(m_nMaxBufSize, size);
+
+		std::copy(m_buf.begin(), m_buf.begin() + nBytes, buf);
+		std::copy(m_buf.begin() + nBytes, m_buf.end(), m_buf.begin());
+		m_buf.resize(m_buf.size() - nBytes);
+
+		size -= nBytes;
+		buf += nBytes;
+	}
 
 	return true;
 }
