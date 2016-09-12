@@ -65,5 +65,7 @@
 	</table>
 	
 	See also \subpage financial_advisor_methods_and_orders
+	
+	<br><br>
 
 */

@@ -112,5 +112,7 @@
 	</ul>
 	
 	See also \subpage scanner_parameters
+	
+	<br><br>
 
 */

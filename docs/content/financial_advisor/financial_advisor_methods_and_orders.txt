@@ -197,6 +197,8 @@
 	
 	<b>Place an Order for a Single Managed Account</b>
 	
+	In linked accounts (not Financial Advisor accounts) it is necessary to specify an account number in the Order 'account' field with every order placed. 
+	
 	<ul id="tab">
 		<li class="active">
 			\snippet Program.cs faorderoneaccount

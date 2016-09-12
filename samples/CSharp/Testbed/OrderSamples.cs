@@ -891,28 +891,6 @@ namespace Samples
             return order;
         }
 
-        public static Order AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustedStopPrice, 
-            double adjustedTrailAmount, int trailUnit)
-        {
-            //! [adjustable_trail]
-            //Attached order is a conventional STP order
-            Order order = Stop(parent.Action.Equals("BUY") ? "SELL" : "BUY", parent.TotalQuantity, attachedOrderStopPrice);
-            order.ParentId = parent.OrderId;
-            //When trigger price is penetrated
-            order.TriggerPrice = triggerPrice;
-            //The parent order will be turned into a TRAIL order
-            order.AdjustedOrderType = "TRAIL";
-            //With a stop price of...
-            order.AdjustedStopPrice = adjustedStopPrice;
-            //traling by and amount (0) or a percent (1)...
-            order.AdjustableTrailingUnit = trailUnit;
-            //of...
-            order.AdjustedTrailingAmount = adjustedTrailAmount;
-            //! [adjustable_trail]        
-            return order;
-        }
-        
-
         public static PriceCondition PriceCondition(int conId, string exchange, double price, bool isMore, bool isConjunction)
         {
             //! [price_condition]

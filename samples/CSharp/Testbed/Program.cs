@@ -107,7 +107,7 @@ namespace Samples
             /**********************/
             /*** Order handling ***/
             /**********************/
-            orderOperations(client, nextValidId);
+            //orderOperations(client, nextValidId);
 
             /************************************/
             /*** Financial Advisor Exclusive Operations ***/
@@ -122,7 +122,7 @@ namespace Samples
             /********************/
             /*** Linking ***/
             /********************/
-            linkingOperations(client);
+            //linkingOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -330,11 +330,22 @@ namespace Samples
             client.reqAccountSummary(9004, "All", "$LEDGER:ALL");
             //! [reqaaccountsummaryledgerall]
 
+            //! [cancelaaccountsummary]
+            client.cancelAccountSummary(9001);
+            client.cancelAccountSummary(9002);
+            client.cancelAccountSummary(9003);
+            client.cancelAccountSummary(9004);
+            //! [cancelaaccountsummary]
+
             /*** Subscribing to an account's information. Only one at a time! ***/
             Thread.Sleep(2000);
             //! [reqaaccountupdates]
             client.reqAccountUpdates(true, "U150462");
             //! [reqaaccountupdates]
+            Thread.Sleep(2000);
+            //! [cancelaaccountupdates]
+            client.reqAccountUpdates(false, "U150462");
+            //! [cancelaaccountupdates]
 
             //! [reqaaccountupdatesmulti]
             client.reqAccountUpdatesMulti(9002, "U150462", "EUstocks", true);
@@ -345,6 +356,10 @@ namespace Samples
             //! [reqpositions]
             client.reqPositions();
             //! [reqpositions]
+            Thread.Sleep(2000);
+            //! [cancelpositions]
+            client.cancelPositions();
+            //! [cancelpositions]
 
             //! [reqpositionsmulti]
             client.reqPositionsMulti(9003, "DU74649", "EUstocks");

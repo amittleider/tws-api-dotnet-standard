@@ -1,8 +1,8 @@
 /*! \page account_summary Account Summary
 
-	The @ref IBApi::EClient::reqAccountSummary method pulls the information displayed in the TWS' Account Summary window.
-	
 	\section acct_summary_req Requesting
+
+	The @ref IBApi::EClient::reqAccountSummary method pulls the information displayed in the TWS' Account Summary window.
 	
 	Unlike @ref IBApi::EClient::reqAccountUpdates, @ref IBApi::EClient::reqAccountSummary can not only retrieve summarised information for either one or all the managed accounts but also
 	extract only the specified values to be monitored by the client application.
@@ -121,6 +121,25 @@
 			\snippet TestCppClient.cpp accountsummary
 			...
 			\snippet TestCppClient.cpp accountsummaryend
+		</li>
+	</ul>
+	
+	\section acct_summary_cancel Cancelling
+	
+	Once the subscription to account summary is no longer needed, it can be cancelled via the IBApi::EClient::cancelAccountSummary method:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs cancelaaccountsummary
+		</li>
+		<li> 
+			\snippet Testbed.java cancelaaccountsummary
+		</li>
+		<li> 
+			\snippet MainModule.vb cancelaaccountsummary
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp cancelaaccountsummary
 		</li>
 	</ul>
 

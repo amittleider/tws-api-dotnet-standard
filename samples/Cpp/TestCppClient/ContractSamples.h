@@ -34,6 +34,7 @@ public:
 	static Contract StockComboContract();
 	static Contract FutureComboContract();
 	static Contract OptionComboContract();
+	static Contract InterCmdtyFuturesContract();
 	static Contract NewsFeedForQuery();
 	static Contract BTbroadtapeNewsFeed();
 	static Contract BZbroadtapeNewsFeed();

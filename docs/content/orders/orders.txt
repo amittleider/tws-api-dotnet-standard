@@ -1,6 +1,6 @@
 ﻿/*! \page orders Orders
 
-  \section Overview
+  \section order_overview Overview
     
   Through the TWS API it is possible to define most orders already available within the TWS.
   

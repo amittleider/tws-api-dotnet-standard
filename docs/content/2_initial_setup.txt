@@ -32,5 +32,25 @@
 	The API Settings dialogue allows you to configure the TWS not to accept any orders being sent via the TWS API. This is enabled by default and is an additional security measure you can enable when the API client
 	is only intended to request information from the TWS. Note that no information about orders will be available to the API when read-only mode is enabled. 
 		
+	\section install Installing the API source
+	
+	The API itself can be downloaded and installed from:
+	
+	http://interactivebrokers.github.io/
+	
+	Many third party applications already have their own version of the API which is installed in the process of installing the third party application. If using a third party product, it should first be verified if the API must be separately installed and what version of the API is needed- many third party products are only compatible with a specific API version. 
+	
+	The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. It is important that the API installs to the C: drive, as otherwise API applications may not be able to find the associated files. 
+	
+	\section changing Changing the installed API version
+	
+	If a different version of the API is required than the one currently installed on the system, there are a couple additional steps needed in the uninstallation of the previously installed API version:
+	
+	1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual
+	
+	2) Locate the file "C:\Windows\SysWOW32\TwsSocketClient.dll". Delete this file.
+	
+	3) Restart the computer before installing a different API version.
+		
 	<br><br>
 */
