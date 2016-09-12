@@ -218,7 +218,7 @@ Receiving</h1>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalData(TickerId reqId, <span class="keyword">const</span> std::string&amp; date, <span class="keywordtype">double</span> open, <span class="keywordtype">double</span> high,</div>
 <div class="line">                                   <span class="keywordtype">double</span> low, <span class="keywordtype">double</span> close, <span class="keywordtype">int</span> volume, <span class="keywordtype">int</span> barCount, <span class="keywordtype">double</span> WAP, <span class="keywordtype">int</span> hasGaps) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;HistoricalData. ReqId: %d - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n&quot;</span>, reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n&quot;</span>, reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>

@@ -224,16 +224,16 @@ Receiving</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::tickPrice( TickerId tickerId, TickType field, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> canAutoExecute) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;Tick Price. Ticker Id: %d, Field: %d, Price: %g, CanAutoExecute: %d\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)field, price);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)field, price, canAutoExecute);</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::tickSize( TickerId tickerId, TickType field, <span class="keywordtype">int</span> size) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;Tick Size. Ticker Id: %d, Field: %d, Size: %d\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)field, size);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Tick Size. Ticker Id: %ld, Field: %d, Size: %d\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)field, size);</div>
 <div class="line">}</div>
 </div><!-- fragment --> .... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::tickString(TickerId tickerId, TickType tickType, <span class="keyword">const</span> std::string&amp; value) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;Tick String. Ticker Id: %d, Type: %d, Value: %s\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, value.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Tick String. Ticker Id: %ld, Type: %d, Value: %s\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, value.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment --> .... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::tickGeneric(TickerId tickerId, TickType tickType, <span class="keywordtype">double</span> value) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;Tick Generic. Ticker Id: %d, Type: %d, Value: %s\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, value);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Tick Generic. Ticker Id: %ld, Type: %d, Value: %g\n&quot;</span>, tickerId, (<span class="keywordtype">int</span>)tickType, value);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -387,7 +387,7 @@ Real Time Market Data Types</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::marketDataType(TickerId reqId, <span class="keywordtype">int</span> marketDataType) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;MarketDataType. ReqId: %d, Type: %d\n&quot;</span>, reqId, marketDataType);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;MarketDataType. ReqId: %ld, Type: %d\n&quot;</span>, reqId, marketDataType);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>

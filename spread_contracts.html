@@ -431,6 +431,107 @@ Options Spread</h1>
 <div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
 </div><!-- fragment -->  </li>
 </ul>
+<h1><a class="anchor" id="bag_intcmdfut"></a>
+Inter-Commodity Futures</h1>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;CL.BZ&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg1.ConId = 47207310; <span class="comment">//CL Dec&#39;16 @NYMEX</span></div>
+<div class="line">            leg1.Ratio = 1;</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">            leg2.ConId = 47195961; <span class="comment">//BZ Dec&#39;16 @NYMEX</span></div>
+<div class="line">            leg2.Ratio = 1;</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = <span class="keyword">new</span> List&lt;ComboLeg&gt;();</div>
+<div class="line">            contract.ComboLegs.Add(leg1);</div>
+<div class="line">            contract.ComboLegs.Add(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;CL.BZ&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;BAG&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;NYMEX&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        ComboLeg leg1 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line">        ComboLeg leg2 = <span class="keyword">new</span> ComboLeg();</div>
+<div class="line"></div>
+<div class="line">        ArrayList&lt;ComboLeg&gt; addAllLegs = <span class="keyword">new</span> ArrayList&lt;ComboLeg&gt;();</div>
+<div class="line"></div>
+<div class="line">        leg1.conid(47207310); <span class="comment">//CL Dec&#39;16 @NYMEX</span></div>
+<div class="line">        leg1.ratio(1);</div>
+<div class="line">        leg1.action(<span class="stringliteral">&quot;BUY&quot;</span>);</div>
+<div class="line">        leg1.exchange(<span class="stringliteral">&quot;NYMEX&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">        leg2.conid(47195961); <span class="comment">//BZ Dec&#39;16 @NYMEX</span></div>
+<div class="line">        leg2.ratio(1);</div>
+<div class="line">        leg2.action(<span class="stringliteral">&quot;SELL&quot;</span>);</div>
+<div class="line">        leg2.exchange(<span class="stringliteral">&quot;NYMEX&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">        addAllLegs.add(leg1);</div>
+<div class="line">        addAllLegs.add(leg2);</div>
+<div class="line">        </div>
+<div class="line">        contract.comboLegs(addAllLegs);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim contract As Contract = New Contract</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;CL.BZ&quot;</span></div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;BAG&quot;</span></div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"></div>
+<div class="line">            Dim leg1 As ComboLeg = New ComboLeg</div>
+<div class="line">            leg1.ConId = 47207310 <span class="stringliteral">&#39; CL Dec&#39;</span>16 @NYMEX</div>
+<div class="line">            leg1.Ratio = 1</div>
+<div class="line">            leg1.Action = <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line">            leg1.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"></div>
+<div class="line">            Dim leg2 As ComboLeg = New ComboLeg</div>
+<div class="line">            leg2.ConId = 47195961 <span class="stringliteral">&#39; BZ Dec&#39;</span>16 @NYMEX</div>
+<div class="line">            leg2.Ratio = 1</div>
+<div class="line">            leg2.Action = <span class="stringliteral">&quot;SELL&quot;</span></div>
+<div class="line">            leg2.Exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"></div>
+<div class="line">            contract.ComboLegs = New List(Of ComboLeg)</div>
+<div class="line">            contract.ComboLegs.Add(leg1)</div>
+<div class="line">            contract.ComboLegs.Add(leg2)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.symbol = <span class="stringliteral">&quot;CL.BZ&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;BAG&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">    ComboLegSPtr leg1(<span class="keyword">new</span> ComboLeg);</div>
+<div class="line">    leg1-&gt;conId = 47207310; <span class="comment">//CL Dec&#39;16 @NYMEX</span></div>
+<div class="line">    leg1-&gt;action = <span class="stringliteral">&quot;BUY&quot;</span>;</div>
+<div class="line">    leg1-&gt;ratio = 1;</div>
+<div class="line">    leg1-&gt;exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">    ComboLegSPtr leg2(<span class="keyword">new</span> ComboLeg);</div>
+<div class="line">    leg2-&gt;conId = 47195961; <span class="comment">//BZ Dec&#39;16 @NYMEX</span></div>
+<div class="line">    leg2-&gt;action = <span class="stringliteral">&quot;SELL&quot;</span>;</div>
+<div class="line">    leg2-&gt;ratio = 1;</div>
+<div class="line">    leg2-&gt;exchange = <span class="stringliteral">&quot;NYMEX&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">    contract.comboLegs.reset(<span class="keyword">new</span> Contract::ComboLegList());</div>
+<div class="line">    contract.comboLegs-&gt;push_back(leg1);</div>
+<div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p><em>Please be mindful of the fact that Inter-commodity Futures contracts are spread contracts offered by the exchange directly, and the contract definition is different from regular combo contracts. Please make sure all the contract attributes are specified in accordance with <a class="el" href="contracts.html#Overview">TWS Contract Description</a> page. </em></p>
 <p><br/>
 <br/>
  </p>

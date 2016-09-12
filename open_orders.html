@@ -249,12 +249,12 @@ Receiving Active Orders from the TWS</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrder( OrderId orderId, <span class="keyword">const</span> Contract&amp; contract, <span class="keyword">const</span> Order&amp; order, <span class="keyword">const</span> OrderState&amp; ostate) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;OpenOrder. ID: %d, %s, %s @ %s: %s, %s, %g, %s\n&quot;</span>, orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, ostate.status.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;OpenOrder. ID: %ld, %s, %s @ %s: %s, %s, %g, %s\n&quot;</span>, orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, ostate.status.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::orderStatus(OrderId orderId, <span class="keyword">const</span> std::string&amp; status, <span class="keywordtype">double</span> filled,</div>
 <div class="line">        <span class="keywordtype">double</span> remaining, <span class="keywordtype">double</span> avgFillPrice, <span class="keywordtype">int</span> permId, <span class="keywordtype">int</span> parentId,</div>
 <div class="line">        <span class="keywordtype">double</span> lastFillPrice, <span class="keywordtype">int</span> clientId, <span class="keyword">const</span> std::string&amp; whyHeld){</div>
-<div class="line">    printf(<span class="stringliteral">&quot;OrderStatus. Id: %d, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s\n&quot;</span>, orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s\n&quot;</span>, orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrderEnd() {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;OpenOrderEnd\n&quot;</span>);</div>

@@ -169,10 +169,10 @@ $(document).ready(function(){initNavTree('executions_commissions.html','');});
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::execDetails( <span class="keywordtype">int</span> reqId, <span class="keyword">const</span> Contract&amp; contract, <span class="keyword">const</span> Execution&amp; execution) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;ExecDetails. ReqId: %d - %s, %s, %s - %s, %d, %d\n&quot;</span>, reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;ExecDetails. ReqId: %d - %s, %s, %s - %s, %ld, %g\n&quot;</span>, reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares);</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::commissionReport( <span class="keyword">const</span> CommissionReport&amp; commissionReport) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;CommissionReport. %s - %d %s RPNL %d\n&quot;</span>, commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;CommissionReport. %s - %g %s RPNL %g\n&quot;</span>, commissionReport.execId.c_str(), commissionReport.commission, commissionReport.currency.c_str(), commissionReport.realizedPNL);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>

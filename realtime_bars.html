@@ -180,7 +180,7 @@ Receiving</h1>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::realtimeBar(TickerId reqId, <span class="keywordtype">long</span> time, <span class="keywordtype">double</span> open, <span class="keywordtype">double</span> high, <span class="keywordtype">double</span> low, <span class="keywordtype">double</span> close,</div>
 <div class="line">                                <span class="keywordtype">long</span> volume, <span class="keywordtype">double</span> wap, <span class="keywordtype">int</span> count) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;RealTimeBars. %d - Time: %l, Open: %g, High: %g, Low: %g, Close: %g, Volume: %l, Count: %d, WAP: %g\n&quot;</span>, reqId, time, open, high, low, close, volume, count, wap);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;RealTimeBars. %ld - Time: %ld, Open: %g, High: %g, Low: %g, Close: %g, Volume: %ld, Count: %d, WAP: %g\n&quot;</span>, reqId, time, open, high, low, close, volume, count, wap);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -201,6 +201,9 @@ Canceling</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelRealTimeBars(3001);</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

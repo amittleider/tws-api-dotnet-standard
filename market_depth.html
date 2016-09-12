@@ -180,7 +180,7 @@ Receiving</h1>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::updateMktDepth(TickerId <span class="keywordtype">id</span>, <span class="keywordtype">int</span> position, <span class="keywordtype">int</span> operation, <span class="keywordtype">int</span> side,</div>
 <div class="line">                                   <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;UpdateMarketDepth. %d - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n&quot;</span>, <span class="keywordtype">id</span>, position, operation, side, price, size);</div>
+<div class="line">    printf( <span class="stringliteral">&quot;UpdateMarketDepth. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n&quot;</span>, <span class="keywordtype">id</span>, position, operation, side, price, size);</div>
 <div class="line">}</div>
 </div><!-- fragment --> ...  </li>
 </ul>
@@ -203,7 +203,7 @@ Canceling</h1>
 </ul>
 <h1><a class="anchor" id="limitations"></a>
 Limitations</h1>
-<p>Given the potentially high amount of data being sent, market depth request's are much more limited. Just as with historical data requests, the amount of active depth requests is related to the amount of market data lines:</p>
+<p>Given the potentially high amount of data being sent, market depth request's are much more limited. Just as with historical data requests, the amount of active depth requests is related to the amount of market data lines, with a minimum of three and maximum of 60:</p>
 <table class="doxtable">
 <tr>
 <th>Number of lines</th><th>Max. Requests </th></tr>
@@ -218,6 +218,9 @@ Limitations</h1>
 <tr>
 <td colspan="2">etc...  </td></tr>
 </table>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

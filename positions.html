@@ -129,7 +129,9 @@ $(document).ready(function(){initNavTree('positions.html','');});
 <div class="title">Positions </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>One of the major drawbacks of <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain the positions of all managed accounts. For this purpose <a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e">IBApi.EClient.reqPositions</a> can be used. Note that this function will not keep an open subscription.</p>
+<div class="textblock"><h1><a class="anchor" id="position_request"></a>
+Requesting</h1>
+<p>One of the major drawbacks of <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain the positions of all managed accounts. For this purpose <a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e">IBApi.EClient.reqPositions</a> can be used. Note that this function will not keep an open subscription.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqPositions();</div>
@@ -144,6 +146,8 @@ $(document).ready(function(){initNavTree('positions.html','');});
 <div class="fragment"><div class="line">    m_pClient-&gt;reqPositions();</div>
 </div><!-- fragment -->  </li>
 </ul>
+<h1><a class="anchor" id="position_receive"></a>
+Receiving</h1>
 <p>After invoking the above, the positions will then be received through the <a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6">IBApi.EWrapper.position</a> callback. After all positions have been delivered, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#acf1bebfc1b29cbeff32da7d53aec0971">IBApi.EWrapper.positionEnd</a> function will be triggered to indicate so.</p>
 <ul id="tab">
 <li class="active">
@@ -190,6 +194,23 @@ $(document).ready(function(){initNavTree('positions.html','');});
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::positionEnd() {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;PositionEnd\n&quot;</span>);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="position_cancel"></a>
+Cancelling</h1>
+<p>Once the subscription to positions is no longer needed, it can be cancelled via the <a class="el" href="classIBApi_1_1EClient.html#ab2159a39733d8967928317524875aa62" title="Cancels all account&#39;s positions request. ">IBApi::EClient::cancelPositions</a> method:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.cancelPositions();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPositions();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPositions()</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;cancelPositions();</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="position_multi"></a>
@@ -256,6 +277,9 @@ Models' Positions</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
