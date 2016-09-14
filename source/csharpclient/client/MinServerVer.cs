@@ -65,5 +65,6 @@ namespace IBApi
         public const int MODELS_SUPPORT = 103;
         public const int SEC_DEF_OPT_PARAMS_REQ = 104;
         public const int EXT_OPERATOR = 105;
+        public const int SOFT_DOLLAR_TIER = 106;
     }
 }

@@ -1181,3 +1181,13 @@ void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {
 	printf("Security Definition Optional Parameter End. Request: %d\n", reqId);
 }
 //! [securityDefinitionOptionParameterEnd]
+
+//! [softDollarTiers]
+void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {
+	printf("Soft dollar tiers (%d):", tiers.size());
+
+	for (int i = 0; i < tiers.size(); i++) {
+		printf("%s\n", tiers[0].displayName());
+	}
+}
+//! [softDollarTiers]

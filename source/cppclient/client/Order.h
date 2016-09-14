@@ -7,6 +7,7 @@
 
 #include "TagValue.h"
 #include "OrderCondition.h"
+#include "SoftDollarTier.h"
 
 #include <float.h>
 #include <limits.h>
@@ -42,7 +43,8 @@ typedef ibapi::shared_ptr<OrderComboLeg> OrderComboLegSPtr;
 
 struct Order
 {
-	Order()
+	Order() :
+		softDollarTier("", "", "")
 	{
 		// order identifier
 		orderId  = 0;
@@ -306,6 +308,8 @@ struct Order
 
 	// ext operator
 	std::string extOperator;
+
+	SoftDollarTier softDollarTier;
 
 public:
 

@@ -369,6 +369,14 @@ Namespace Samples
         End Sub
         '! [securityDefinitionOptionParameterEnd]
 
+        Public Sub softDollarTiers(reqid As Integer, tiers As SoftDollarTier()) Implements EWrapper.softDollarTiers
+            Console.WriteLine("Soft Dollar Tiers:")
+
+            For Each tier In tiers
+                Console.WriteLine(tier.DisplayName)
+            Next
+        End Sub
+
     End Class
 
 End Namespace

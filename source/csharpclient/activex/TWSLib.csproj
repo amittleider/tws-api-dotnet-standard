@@ -159,6 +159,9 @@
     <Compile Include="..\client\ScannerSubscription.cs">
       <Link>CSharpAPI\ScannerSubscription.cs</Link>
     </Compile>
+    <Compile Include="..\client\SoftDollarTier.cs">
+      <Link>CSharpAPI\SoftDollarTier.cs</Link>
+    </Compile>
     <Compile Include="..\client\TagValue.cs">
       <Link>CSharpAPI\TagValue.cs</Link>
     </Compile>
@@ -188,6 +191,7 @@
     <Compile Include="ComWrappers\comOrderComboLeg.cs" />
     <Compile Include="ComWrappers\comOrderState.cs" />
     <Compile Include="ComWrappers\comScannerSubscription.cs" />
+    <Compile Include="ComWrappers\ComSoftDollarTier.cs" />
     <Compile Include="ComWrappers\ComTagValue.cs" />
     <Compile Include="ComWrappers\comUnderComp.cs" />
     <Compile Include="ComWrappers\ComWrapper.cs" />

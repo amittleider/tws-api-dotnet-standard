@@ -349,5 +349,6 @@ namespace TWSLib
 
         string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
         string TWSLib.IOrder.extOperator { get { return data.ExtOperator; } set { data.ExtOperator = value; } }
+        TWSLib.ComSoftDollarTier IOrder.tier { get { return new TWSLib.ComSoftDollarTier(data); } }
     }
 }

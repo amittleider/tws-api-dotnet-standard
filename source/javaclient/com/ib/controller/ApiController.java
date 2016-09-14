@@ -27,6 +27,7 @@ import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
 import com.ib.client.ScannerSubscription;
+import com.ib.client.SoftDollarTier;
 import com.ib.client.TagValue;
 import com.ib.client.TickType;
 import com.ib.client.Types.BarSize;
@@ -72,6 +73,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, IPositionMultiHandler> m_positionMultiMap = new HashMap<Integer, IPositionMultiHandler>();
 	private final HashMap<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<Integer, IAccountUpdateMultiHandler>();
 	private final HashMap<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<Integer, ISecDefOptParamsReqHandler>();
+	private final HashMap<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1310,5 +1312,30 @@ public class ApiController implements EWrapper {
 		if (handler != null) {
 			handler.securityDefinitionOptionalParameterEnd(reqId);
 		}		
+	}
+	
+
+	public interface ISoftDollarTiersReqHandler {
+		void softDollarTiers(SoftDollarTier[] tiers);
+	}
+	
+	public void reqSoftDollarTiers(ISoftDollarTiersReqHandler handler) {
+		if (!checkConnection())
+			return;
+
+    	int reqId = m_reqId++;
+    	
+		m_softDollarTiersReqMap.put(reqId, handler);		
+		m_client.reqSoftDollarTiers(reqId);
+		sendEOM();
+	}
+	
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		ISoftDollarTiersReqHandler handler = m_softDollarTiersReqMap.get(reqId);
+		
+		if (handler != null) {
+			handler.softDollarTiers(tiers);
+		}
 	}
 }

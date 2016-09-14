@@ -13,6 +13,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.SoftDollarTier;
 import com.ib.client.TickType;
 
 //! [ewrapperimpl]
@@ -431,6 +432,14 @@ public class EWrapperImpl implements EWrapper {
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		for (SoftDollarTier tier : tiers) {
+			System.out.print("tier: " + tier + ", ");
+		}
+		
+		System.out.println();
 	}
 
 }

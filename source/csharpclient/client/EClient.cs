@@ -1018,6 +1018,12 @@ namespace IBApi
                 paramsList.AddParameter(order.ExtOperator);
             }
 
+            if (serverVersion >= MinServerVer.SOFT_DOLLAR_TIER)
+            {
+                paramsList.AddParameter(order.Tier.Name);
+                paramsList.AddParameter(order.Tier.Value);
+            }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
@@ -2307,6 +2313,23 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSECDEFOPTPARAMS);
         }
 
+        public void reqSoftDollarTiers(int reqId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.SOFT_DOLLAR_TIER,
+                " It does not support soft dollar tier."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestSoftDollarTiers);
+            paramsList.AddParameter(reqId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSOFTDOLLARTIERS);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");
@@ -2692,7 +2715,7 @@ namespace IBApi
             }
 
             return true;
-        }
+        }        
 
         private bool IsEmpty(string str)
         {

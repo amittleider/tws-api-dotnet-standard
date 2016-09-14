@@ -365,5 +365,11 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

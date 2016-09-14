@@ -1357,6 +1357,17 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_SOFT_DOLLAR_TIER) 
+	{
+		if (!order.softDollarTier.name().empty() || !order.softDollarTier.val().empty())
+		{
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				" It does not support soft dollar tier");
+			return;
+		}
+	}
+
+
 	std::stringstream msg;
 	prepareBuffer( msg);
 
@@ -1744,6 +1755,11 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 
 	if( m_serverVersion >= MIN_SERVER_VER_EXT_OPERATOR) {
 		ENCODE_FIELD( order.extOperator);
+	}
+
+	if (m_serverVersion >= MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
+		ENCODE_FIELD(order.softDollarTier.name());
+		ENCODE_FIELD(order.softDollarTier.val());
 	}
 
 	closeAndSend( msg.str());
@@ -2666,6 +2682,23 @@ void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol,
     ENCODE_FIELD(futFopExchange);
     ENCODE_FIELD(underlyingSecType);
     ENCODE_FIELD(underlyingConId);
+
+	closeAndSend(msg.str());
+}
+
+void EClient::reqSoftDollarTiers(int reqId)
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+
+	ENCODE_FIELD(REQ_SOFT_DOLLAR_TIERS);
+    ENCODE_FIELD(reqId);
 
 	closeAndSend(msg.str());
 }

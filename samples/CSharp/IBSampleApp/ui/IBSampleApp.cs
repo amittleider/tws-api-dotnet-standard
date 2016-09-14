@@ -153,6 +153,7 @@ namespace IBSampleApp
             ibClient.AccountUpdateMultiEnd += (reqId) => HandleMessage(new AccountUpdateMultiEndMessage(reqId));
             ibClient.SecurityDefinitionOptionParameter += (reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes) => HandleMessage(new SecurityDefinitionOptionParameterMessage(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes));
             ibClient.SecurityDefinitionOptionParameterEnd += (reqId) => HandleMessage(new SecurityDefinitionOptionParameterEndMessage(reqId));
+            ibClient.SoftDollarTiers += (reqId, tiers) => HandleMessage(new SoftDollarTiersMessage(reqId, tiers));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -350,20 +351,8 @@ namespace IBSampleApp
                         break;
                     }
                 case MessageType.PositionMulti:
-                    {
-                        acctPosMultiManager.UpdateUI(message);
-                        break;
-                    }
                 case MessageType.AccountUpdateMulti:
-                    {
-                        acctPosMultiManager.UpdateUI(message);
-                        break;
-                    }
                 case MessageType.PositionMultiEnd:
-                    {
-                        acctPosMultiManager.UpdateUI(message);
-                        break;
-                    }
                 case MessageType.AccountUpdateMultiEnd:
                     {
                         acctPosMultiManager.UpdateUI(message);
@@ -376,7 +365,11 @@ namespace IBSampleApp
                         optionsManager.UpdateUI(message);
                         break;
                     }
-
+                case MessageType.SoftDollarTiers:
+                    {
+                        orderManager.UpdateUI(message);
+                        break;
+                    }
 
                 default:
                     {

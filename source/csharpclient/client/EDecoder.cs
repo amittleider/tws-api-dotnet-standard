@@ -338,6 +338,11 @@ namespace IBApi
                         SecurityDefinitionOptionParameterEndEvent();
                         break;
                     }
+                case IncomingMessage.SoftDollarTier:
+                    {
+                        SoftDollarTierEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -346,6 +351,20 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void SoftDollarTierEvent()
+        {
+            int reqId = ReadInt();
+            int nTiers = ReadInt();
+            SoftDollarTier[] tiers = new SoftDollarTier[nTiers];
+
+            for (int i = 0; i < nTiers; i++)
+            {
+                tiers[i] = new SoftDollarTier(ReadString(), ReadString(), ReadString());
+            }
+
+            eWrapper.softDollarTiers(reqId, tiers);
         }
 
         private void SecurityDefinitionOptionParameterEndEvent()
@@ -1249,7 +1268,12 @@ namespace IBApi
                 order.AdjustedStopPrice = ReadDoubleMax();
                 order.AdjustedStopLimitPrice = ReadDoubleMax();
                 order.AdjustedTrailingAmount = ReadDoubleMax();
-                order.AdjustableTrailingUnit = ReadInt();
+                order.AdjustableTrailingUnit = ReadInt();                
+            }
+
+            if (serverVersion >= MinServerVer.SOFT_DOLLAR_TIER)
+            {
+                order.Tier = new SoftDollarTier(ReadString(), ReadString(), ReadString());
             }
 
             eWrapper.openOrder(order.OrderId, contract, order, orderState);

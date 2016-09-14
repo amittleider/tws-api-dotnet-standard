@@ -1193,6 +1193,7 @@ namespace IBApi
             AdjustedStopLimitPrice = double.MaxValue;
             AdjustedTrailingAmount = double.MaxValue;
             ExtOperator = EMPTY_STR;
+            Tier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
         }
 
         public override bool Equals(Object p_other)
@@ -1271,7 +1272,8 @@ namespace IBApi
                 RandomizeSize != l_theOther.RandomizeSize ||
                 Solicited != l_theOther.Solicited ||
                 ConditionsIgnoreRth != l_theOther.ConditionsIgnoreRth ||
-                ConditionsCancelOrder != l_theOther.ConditionsCancelOrder)
+                ConditionsCancelOrder != l_theOther.ConditionsCancelOrder ||
+                Tier != l_theOther.Tier)
             {
                 return false;
             }
@@ -1412,5 +1414,7 @@ namespace IBApi
         */
         public bool ConditionsCancelOrder { get; set; }
 
+
+        public SoftDollarTier Tier { get; set; }
     }
 }

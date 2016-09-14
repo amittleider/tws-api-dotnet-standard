@@ -31,11 +31,25 @@ public class VerticalPanel extends JPanel {
 		public int wid() {
 			return getComponent( 0).getPreferredSize().width;
 		}
+		
+		public int wid2() {
+			return getComponentCount() > 1 ? getComponent(1).getPreferredSize().width : 0;
+		}
 
 		public void wid( int i) {
 			Dimension d = getComponent( 0).getPreferredSize();
 			d.width = i;
 			getComponent( 0).setPreferredSize( d);
+		}
+		
+		public void wid2(int i) {
+			if (getComponentCount() < 2) {
+				return;
+			}
+			
+			Dimension d = getComponent(1).getPreferredSize();
+			d.width = i;
+			getComponent(1).setPreferredSize( d);
 		}
 	}
 
@@ -72,6 +86,10 @@ public class VerticalPanel extends JPanel {
 	public void add( int index, Component... comps) {
 		super.add( new FlowPanel( comps), index);
 
+		recalculateChildSizes();
+	}
+
+	public void recalculateChildSizes() {
 		int max = 0;
 		for (int i = 0; i < getComponentCount(); i++) {
 			FlowPanel comp = (FlowPanel)getComponent( i);
@@ -81,6 +99,17 @@ public class VerticalPanel extends JPanel {
 		for (int i = 0; i < getComponentCount(); i++) {
 			FlowPanel comp = (FlowPanel)getComponent( i);
 			comp.wid( max);
+		}
+		
+		max = 0;
+		for (int i = 0; i < getComponentCount(); i++) {
+			FlowPanel comp = (FlowPanel)getComponent( i);
+			max = Math.max( comp.wid2(), max);
+		}
+
+		for (int i = 0; i < getComponentCount(); i++) {
+			FlowPanel comp = (FlowPanel)getComponent( i);
+			comp.wid2( max);
 		}
 	}
 

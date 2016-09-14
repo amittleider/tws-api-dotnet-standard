@@ -72,7 +72,15 @@ namespace IBSampleApp.ui
                 case MessageType.CommissionsReport:
                     HandleCommissionMessage((CommissionMessage)message);
                     break;
+                case MessageType.SoftDollarTiers:
+                    HandleSoftDollarTiers(message);
+                    break;
             }
+        }
+
+        private void HandleSoftDollarTiers(IBMessage softDollarTiersMessage)
+        {
+            orderDialog.HandleIncomingMessage(softDollarTiersMessage);
         }
 
         public void OpenOrderDialog()

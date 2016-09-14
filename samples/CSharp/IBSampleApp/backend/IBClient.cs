@@ -623,7 +623,7 @@ namespace IBSampleApp
         }
 
 
-        public void connectAck()
+        void EWrapper.connectAck()
         {
             if (ClientSocket.AsyncEConnect)
                 ClientSocket.startApi();
@@ -687,6 +687,16 @@ namespace IBSampleApp
 
             if (tmp != null)
                 tmp(reqId);
+        }
+
+        public event Action<int, SoftDollarTier[]> SoftDollarTiers;
+
+        void EWrapper.softDollarTiers(int reqId, SoftDollarTier[] tiers)
+        {
+            var tmp = SoftDollarTiers;
+
+            if (tmp != null)
+                tmp(reqId, tiers);
         }
     }
 }

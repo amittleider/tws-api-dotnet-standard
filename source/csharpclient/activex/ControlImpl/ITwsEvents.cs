@@ -148,6 +148,7 @@ namespace TWSLib
         void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
         [DispId(124)]
         void securityDefinitionOptionParameterEndDelegate(int reqId);
-
+        [DispId(125)]
+        void softDollarTiersDelegate(int reqid);
     }
 }

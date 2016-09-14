@@ -21,6 +21,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.SoftDollarTier;
 
 
 public class SimpleWrapper implements EWrapper {
@@ -388,6 +389,12 @@ public class SimpleWrapper implements EWrapper {
 
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		// TODO Auto-generated method stub
 		
 	}

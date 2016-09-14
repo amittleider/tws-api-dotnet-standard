@@ -337,6 +337,8 @@ namespace TWSLib
         string ConditionsToString([MarshalAs(UnmanagedType.IDispatch)] object oConditions);
         [DispId(213)]
         void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId);
+        [DispId(214)]
+        void reqSoftDollarTiers(int reqId);
 
         #endregion
     }

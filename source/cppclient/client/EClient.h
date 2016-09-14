@@ -162,6 +162,7 @@ const int CANCEL_POSITIONS_MULTI        = 75;
 const int REQ_ACCOUNT_UPDATES_MULTI     = 76;
 const int CANCEL_ACCOUNT_UPDATES_MULTI  = 77;
 const int REQ_SEC_DEF_OPT_PARAMS		= 78;
+const int REQ_SOFT_DOLLAR_TIERS			= 79;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -297,6 +298,7 @@ public:
 	void reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV);
 	void cancelAccountUpdatesMulti( int reqId);
 	void reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId);
+	void reqSoftDollarTiers(int reqId);
 
 private:
 

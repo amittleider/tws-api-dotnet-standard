@@ -65,6 +65,7 @@ class EDecoder implements ObjectInput {
     static final int ACCOUNT_UPDATE_MULTI_END = 74;
     static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
     static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
+    static final int SOFT_DOLLAR_TIERS = 77;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -353,11 +354,15 @@ class EDecoder implements ObjectInput {
             }
             
             case SECURITY_DEFINITION_OPTION_PARAMETER:
-            	processSecurityDefinitionOptionalParameter();
+            	processSecurityDefinitionOptionalParameterMsg();
             	break;
             	
             case SECURITY_DEFINITION_OPTION_PARAMETER_END:
-            	processSecurityDefinitionOptionalParameterEnd();
+            	processSecurityDefinitionOptionalParameterEndMsg();
+            	break;
+            	
+            case SOFT_DOLLAR_TIERS:
+            	processSoftDollarTiersMsg();
             	break;
 
             default: {
@@ -370,13 +375,25 @@ class EDecoder implements ObjectInput {
         return m_messageReader.msgLength();
     }
 
-	private void processSecurityDefinitionOptionalParameterEnd() throws IOException {
+	private void processSoftDollarTiersMsg() throws IOException {
+		int reqId = readInt();
+		int nTiers = readInt();
+		SoftDollarTier[] tiers = new SoftDollarTier[nTiers]; 
+		
+		for (int i = 0; i < nTiers; i++) {
+			tiers[i] = new SoftDollarTier(readStr(), readStr(), readStr()); 
+		}
+		
+		m_EWrapper.softDollarTiers(reqId, tiers);
+	}
+
+	private void processSecurityDefinitionOptionalParameterEndMsg() throws IOException {
 		int reqId = readInt();
 		
 		m_EWrapper.securityDefinitionOptionalParameterEnd(reqId);
 	}
 
-	private void processSecurityDefinitionOptionalParameter() throws IOException {
+	private void processSecurityDefinitionOptionalParameterMsg() throws IOException {
 		int reqId = readInt();	
 		String exchange = readStr();
 		int underlyingConId = readInt();
@@ -1217,6 +1234,10 @@ class EDecoder implements ObjectInput {
 			order.adjustedStopLimitPrice(readDoubleMax());
 			order.adjustedTrailingAmount(readDoubleMax());
 			order.adjustableTrailingUnit(readInt());
+		}
+		
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
+			order.softDollarTier(new SoftDollarTier(readStr(), readStr(), readStr()));
 		}
 
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);

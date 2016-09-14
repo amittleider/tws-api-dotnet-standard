@@ -177,6 +177,7 @@
     <ClCompile Include="OrderCondition.cpp" />
     <ClCompile Include="PercentChangeCondition.cpp" />
     <ClCompile Include="PriceCondition.cpp" />
+    <ClCompile Include="SoftDollarTier.cpp" />
     <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="TimeCondition.cpp" />
     <ClCompile Include="VolumeCondition.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="PercentChangeCondition.h" />
     <ClInclude Include="PriceCondition.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SoftDollarTier.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="CommissionReport.h" />
     <ClInclude Include="CommonDefs.h" />

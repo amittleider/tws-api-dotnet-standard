@@ -419,5 +419,16 @@ namespace Samples
                 ClientSocket.startApi();
         }
         //! [connectack]
+
+
+        public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
+        {
+            Console.WriteLine("Soft Dollar Tiers:");
+
+            foreach (var tier in tiers)
+            {
+                Console.WriteLine(tier.DisplayName);
+            }
+        }
     }
 }

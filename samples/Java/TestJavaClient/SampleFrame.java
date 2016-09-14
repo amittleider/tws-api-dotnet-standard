@@ -30,6 +30,7 @@ import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
+import com.ib.client.SoftDollarTier;
 import com.ib.client.TagValue;
 
 class SampleFrame extends JFrame implements EWrapper {
@@ -1471,6 +1472,10 @@ class SampleFrame extends JFrame implements EWrapper {
 
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
+	}
+
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 	}
     
 }
