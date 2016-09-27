@@ -9,7 +9,7 @@ class DefaultEWrapper implements EWrapper {
 
 	@Override
 	public void tickPrice(int tickerId, int field, double price,
-			int canAutoExecute) {
+			TickAttr attribs) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -18,7 +18,8 @@ namespace IBApi
         public const int FaProfiles = 2;
         public const int FaAliases = 3;
         public const int MinVersion = 100;
-        public const int MaxVersion = MinServerVer.REQ_MATCHING_SYMBOLS;
+
+        public const int MaxVersion = MinServerVer.PAST_LIMIT;
         public const int MaxMsgSize = 0x00FFFFFF;
     }
 }

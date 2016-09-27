@@ -16,7 +16,7 @@ namespace TWSLib
     public interface ITwsEvents
     {
         [DispId(1)]
-        void tickPrice(int id, int tickType, double price, int canAutoExecute);
+        void tickPrice(int id, int tickType, double price, bool canAutoExecute, bool pastLimit);
         [DispId(2)]
         void tickSize(int id, int tickType, int size);
         [DispId(3)]

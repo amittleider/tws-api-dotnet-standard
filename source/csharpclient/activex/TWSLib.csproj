@@ -45,6 +45,9 @@
     <Compile Include="..\client\AccountSummaryTags.cs">
       <Link>CSharpAPI\AccountSummaryTags.cs</Link>
     </Compile>
+    <Compile Include="..\client\BitMask.cs">
+      <Link>CSharpAPI\BitMask.cs</Link>
+    </Compile>
     <Compile Include="..\client\ComboLeg.cs">
       <Link>CSharpAPI\ComboLeg.cs</Link>
     </Compile>
@@ -170,6 +173,9 @@
     </Compile>
     <Compile Include="..\client\TagValue.cs">
       <Link>CSharpAPI\TagValue.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TickAttrib.cs">
+      <Link>CSharpAPI\TickAttrib.cs</Link>
     </Compile>
     <Compile Include="..\client\TickType.cs">
       <Link>CSharpAPI\TickType.cs</Link>

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountSummaryTags.cs" />
+    <Compile Include="BitMask.cs" />
     <Compile Include="ComboLeg.cs" />
     <Compile Include="CommissionReport.cs" />
     <Compile Include="Constants.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="ScannerSubscription.cs" />
     <Compile Include="SoftDollarTier.cs" />
     <Compile Include="TagValue.cs" />
+    <Compile Include="TickAttrib.cs" />
     <Compile Include="TickType.cs" />
     <Compile Include="TimeCondition.cs" />
     <Compile Include="UnderComp.cs" />

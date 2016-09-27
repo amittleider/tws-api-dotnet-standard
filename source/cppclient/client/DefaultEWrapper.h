@@ -8,7 +8,7 @@ class TWSAPIDLLEXP DefaultEWrapper :
     public EWrapper
 {
 public:
-   virtual void tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute);
+   virtual void tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attribs);
    virtual void tickSize( TickerId tickerId, TickType field, int size);
    virtual void tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
 	   double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);

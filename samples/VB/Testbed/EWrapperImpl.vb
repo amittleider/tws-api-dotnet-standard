@@ -278,7 +278,7 @@ Namespace Samples
         '! [tickoptioncomputation]
 
         '! [tickprice]
-        Public Sub tickPrice(tickerId As Integer, field As Integer, price As Double, canAutoExecute As Integer) Implements IBApi.EWrapper.tickPrice
+        Public Sub tickPrice(tickerId As Integer, field As Integer, price As Double, attribs As TickAttrib) Implements IBApi.EWrapper.tickPrice
             Console.WriteLine("TickPrice - TickerId [" & CStr(tickerId) & "] Field [" & TickType.getField(field) & "] Price [" & CStr(price) & "]")
         End Sub
         '! [tickprice]
