@@ -171,14 +171,14 @@ namespace IBSampleApp
                 tmp(time);
         }
 
-        public event Action<int, int, double, int> TickPrice;
+        public event Action<int, int, double, TickAttrib> TickPrice;
 
-        void EWrapper.tickPrice(int tickerId, int field, double price, int canAutoExecute)
+        void EWrapper.tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
             var tmp = TickPrice;
 
             if (tmp != null)
-                tmp(tickerId, field, price, canAutoExecute);
+                tmp(tickerId, field, price, attribs);
         }
 
         public event Action<int, int, int> TickSize;

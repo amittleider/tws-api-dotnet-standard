@@ -1659,11 +1659,14 @@ Friend Class dlgMainWnd
         Dim mktDataStr As String
 
         mktDataStr = "id=" & eventArgs.id & " " & m_utils.getField(eventArgs.tickType) & "=" & eventArgs.price
-        If (eventArgs.canAutoExecute <> 0) Then
+        If (eventArgs.attribs.CanAutoExecute <> 0) Then
             mktDataStr = mktDataStr & " canAutoExecute"
         Else
             mktDataStr = mktDataStr & " noAutoExecute"
         End If
+
+        mktDataStr = mktDataStr & " " & eventArgs.attribs.PastLimit
+
         Call m_utils.addListItem(Utils.List_Types.MKT_DATA, mktDataStr)
 
         ' move into view

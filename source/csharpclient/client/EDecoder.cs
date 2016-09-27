@@ -40,7 +40,7 @@ namespace IBApi
                 ProcessConnectAck();
 
                 return nDecodedLen;
-            }            
+            }
 
             return ProcessIncomingMessage(ReadInt()) ? nDecodedLen : -1;
         }
@@ -491,13 +491,29 @@ namespace IBApi
             int tickType = ReadInt();
             double price = ReadDouble();
             int size = 0;
+            
             if (msgVersion >= 2)
                 size = ReadInt();
-            int canAutoExecute = 0;
-            if (msgVersion >= 3)
-                canAutoExecute = ReadInt();
 
-            eWrapper.tickPrice(requestId, tickType, price, canAutoExecute);
+            TickAttrib attr = new TickAttrib();
+
+            if (msgVersion >= 3)
+            {
+                int attrMask = ReadInt();
+
+                attr.CanAutoExecute = attrMask == 1;
+
+                if (serverVersion >= MinServerVer.PAST_LIMIT)
+                {
+                    BitMask mask = new BitMask(attrMask);
+
+                    attr.CanAutoExecute = mask[0];
+                    attr.PastLimit = mask[1];
+                }
+            }
+
+
+            eWrapper.tickPrice(requestId, tickType, price, attr);
 
             if (msgVersion >= 2)
             {
@@ -1291,7 +1307,7 @@ namespace IBApi
                 order.AdjustedStopPrice = ReadDoubleMax();
                 order.AdjustedStopLimitPrice = ReadDoubleMax();
                 order.AdjustedTrailingAmount = ReadDoubleMax();
-                order.AdjustableTrailingUnit = ReadInt();                
+                order.AdjustableTrailingUnit = ReadInt();
             }
 
             if (serverVersion >= MinServerVer.SOFT_DOLLAR_TIER)

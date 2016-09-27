@@ -15,6 +15,7 @@ import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
+import com.ib.client.TickAttr;
 import com.ib.client.TickType;
 
 //! [ewrapperimpl]
@@ -47,8 +48,9 @@ public class EWrapperImpl implements EWrapper {
 	
 	 //! [tickprice]
 	@Override
-	public void tickPrice(int tickerId, int field, double price, int canAutoExecute) {
-		System.out.println("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+canAutoExecute);
+	public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
+		System.out.println("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+ attribs.canAutoExecute()
+		+ ", pastLimit: " + attribs.pastLimit());
 	}
 	//! [tickprice]
 	
