@@ -3,7 +3,9 @@
 
 #include "StdAfx.h"
 #include "EReaderOSSignal.h"
-
+#if defined(IB_POSIX)
+#include <sys/time.h>
+#endif
 
 #define MS_IN_SEC 1000
 
@@ -60,7 +62,9 @@ void EReaderOSSignal::waitForSignal() {
     }
     else {
 		struct timespec ts;
-		ts.tv_sec = m_waitTimeout/MS_IN_SEC;
+		struct timeval tv;
+		gettimeofday(&tv, NULL);
+		ts.tv_sec = tv.tv_sec+m_waitTimeout/MS_IN_SEC;
 		ts.tv_nsec = (m_waitTimeout%MS_IN_SEC)*1000/*us/ms*/*1000/*ns/us*/;
 		pthread_cond_timedwait(&m_evMsgs, &m_mutex, &ts);
     }
