@@ -1188,7 +1188,7 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 
 	for (int i = 0; i < tiers.size(); i++) {
 //! [softDollarTiers]
-		printf("%s\n", tiers[0].displayName());
+		printf("%s\n", tiers[0].displayName().c_str());
 	}
 }
 //! [softDollarTiers]
