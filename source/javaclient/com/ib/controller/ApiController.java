@@ -1021,7 +1021,7 @@ public class ApiController implements EWrapper {
 					int year = Integer.parseInt( date.substring( 0, 4) );
 					int month = Integer.parseInt( date.substring( 4, 6) );
 					int day = Integer.parseInt( date.substring( 6) );
-					longDate = new GregorianCalendar( year - 1900, month - 1, day).getTimeInMillis() / 1000;
+					longDate = new GregorianCalendar( year, month - 1, day).getTimeInMillis() / 1000;
 				}
 				else {
 					longDate = Long.parseLong( date);
