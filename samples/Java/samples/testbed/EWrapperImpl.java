@@ -197,11 +197,15 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("UpdateMarketDepth. "+tickerId+" - Position: "+position+", Operation: "+operation+", Side: "+side+", Price: "+price+", Size: "+size+"");
 	}
 	//! [updatemktdepth]
+	
+	//! [updatemktdepthl2]
 	@Override
 	public void updateMktDepthL2(int tickerId, int position,
 			String marketMaker, int operation, int side, double price, int size) {
-		System.out.println("updateMktDepthL2");
+		System.out.println("UpdateMarketDepthL2. "+tickerId+" - Position: "+position+", Operation: "+operation+", Side: "+side+", Price: "+price+", Size: "+size+"");
 	}
+	//! [updatemktdepthl2]
+	
 	//! [updatenewsbulletin]
 	@Override
 	public void updateNewsBulletin(int msgId, int msgType, String message,
@@ -433,13 +437,16 @@ public class EWrapperImpl implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+        
+        //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		for (SoftDollarTier tier : tiers) {
-			System.out.print("tier: " + tier + ", ");
+			System.out.print("tier: " + tier.toString() + ", ");
 		}
 		
 		System.out.println();
 	}
+        //! [softDollarTiers]
 
 }

@@ -420,7 +420,7 @@ namespace Samples
         }
         //! [connectack]
 
-
+        //! [softDollarTiers]
         public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
         {
             Console.WriteLine("Soft Dollar Tiers:");
@@ -430,5 +430,6 @@ namespace Samples
                 Console.WriteLine(tier.DisplayName);
             }
         }
+        //! [softDollarTiers]
     }
 }

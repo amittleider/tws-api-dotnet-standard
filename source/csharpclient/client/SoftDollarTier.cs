@@ -5,10 +5,25 @@ using System.Text;
 
 namespace IBApi
 {
+    /**
+     * @class SoftDollarTier
+     * @brief A container for storing Soft Dollar Tier information
+     */
     public class SoftDollarTier
     {
+        /**
+         * @brief The name of the Soft Dollar Tier
+         */
         public string Name { get; private set; }
+
+        /**
+         * @brief The value of the Soft Dollar Tier
+         */
         public string Value { get; private set; }
+
+        /**
+         * @brief The display name of the Soft Dollar Tier
+         */
         public string DisplayName { get; private set; }
 
         public SoftDollarTier(string name, string value, string displayName)

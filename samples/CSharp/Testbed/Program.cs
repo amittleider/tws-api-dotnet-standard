@@ -575,7 +575,8 @@ namespace Samples
             Thread.Sleep(500);
 
             //! [ad]
-            AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, true, true, 1, true, true, "09:00:00 CET", "16:00:00 CET");
+			// The Time Zone in "startTime" and "endTime" attributes is ignored and always defaulted to GMT
+            AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, true, true, 1, true, true, "20161010-12:00:00 GMT", "20161010-16:00:00 GMT");
             client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
             //! [ad]
 
@@ -644,6 +645,10 @@ namespace Samples
             //! [replacefatwoprofiles]
             client.replaceFA(Constants.FaProfiles, FaAllocationSamples.FaTwoProfiles);
             //! [replacefatwoprofiles]
+
+            //! [reqSoftDollarTiers]
+            client.reqSoftDollarTiers(4001);
+            //! [reqSoftDollarTiers]
         }
 
         private static void miscelaneous(EClientSocket client)

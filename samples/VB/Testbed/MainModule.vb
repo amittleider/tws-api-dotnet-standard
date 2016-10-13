@@ -603,7 +603,8 @@ Module MainModule
         Thread.Sleep(500)
 
         '! [ad]
-        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, True, True, 1, True, True, "09:00:00 CET", "16:00:00 CET")
+        ' The Time Zone in "startTime" and "endTime" attributes is ignored and always defaulted to GMT
+        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, True, True, 1, True, True, "20161010-12:00:00 GMT", "20161010-16:00:00 GMT")
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [ad]
 
@@ -674,6 +675,10 @@ Module MainModule
         ''! [replacefatwoprofiles]
         client.replaceFA(Constants.FaProfiles, FaAllocationSamples.FaTwoProfiles)
         ''! [replacefatwoprofiles]
+
+        ''! [reqSoftDollarTiers]
+        client.reqSoftDollarTiers(4001)
+        ''! [reqSoftDollarTiers]
     End Sub
 
     Private Sub miscellaneous(client As EClientSocket)

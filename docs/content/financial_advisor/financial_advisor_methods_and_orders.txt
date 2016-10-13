@@ -71,6 +71,8 @@
 			\snippet EWrapperImpl.java receivefa
 		</li>
 		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+			...
 			\snippet EWrapperImpl.vb receivefa
 		</li>
 		<li> 
@@ -264,6 +266,56 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp faorderprofile
+		</li>
+	</ul>
+	
+	\section soft_dollar_tiers Soft Dollar Tiers
+	
+	Starting from API version 9.72.18 or higher and TWS Build 959 or higher, Financial Advisors, Hedge Fund and Mutual Fund are able to utilize the Soft Dollar Tiers feature via the API. 
+	
+	<b> Request Soft Dollar Tiers</b>
+	
+	The @ref IBApi::EClient::reqSoftDollarTiers function can be called to manually request current Soft Dollar Tiers structure from TWS. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqSoftDollarTiers
+		</li>
+		<li> 
+			\snippet Testbed.java reqSoftDollarTiers
+		</li>
+		<li> 
+			\snippet MainModule.vb reqSoftDollarTiers
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqSoftDollarTiers
+		</li>
+	</ul>
+	
+	<b> Receive Soft Dollar Tiers</b>
+	
+	The @ref IBApi::EWrapper::softDollarTiers call back function is triggered for returning Soft Dollar Tiers Value, Name and Display Name. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs softDollarTiers
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java softDollarTiers
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+			...
+			\snippet EWrapperImpl.vb softDollarTiers
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp softDollarTiers
 		</li>
 	</ul>
 	
