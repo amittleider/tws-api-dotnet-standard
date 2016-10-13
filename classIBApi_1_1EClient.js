@@ -64,6 +64,7 @@ var classIBApi_1_1EClient =
     [ "reqScannerParameters", "classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970", null ],
     [ "reqScannerSubscription", "classIBApi_1_1EClient.html#a13dd1287f67c6873b3e8b85d6c19f885", null ],
     [ "reqSecDefOptParams", "classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690", null ],
+    [ "reqSoftDollarTiers", "classIBApi_1_1EClient.html#a3a187b45bb69f801b1c67bdf3fb66a88", null ],
     [ "requestFA", "classIBApi_1_1EClient.html#a298083eaed0207ac8d3e69894dd81c82", null ],
     [ "SendCancelRequest", "classIBApi_1_1EClient.html#a363dc73d72694879dd2272c7f8f8cefc", null ],
     [ "SendCancelRequest", "classIBApi_1_1EClient.html#ae2792a3462ea5feda140de6b870a7775", null ],

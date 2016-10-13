@@ -1,5 +1,16 @@
 var NAVTREEINDEX3 =
 {
+"logs.html":[16,1],
+"logs.html#api_log":[16,1,0],
+"logs.html#log_locations":[16,1,1],
+"logs.html#logging_level_details":[16,1,0,0],
+"logs.html#tws_952":[16,1,1,0],
+"logs.html#tws_956":[16,1,1,1],
+"managed_accounts.html":[9,0],
+"market_data.html":[7],
+"market_data.html#market_lines":[7,2],
+"market_data.html#market_subscriptions":[7,0],
+"market_data.html#paper_sharing":[7,1],
 "market_depth.html":[7,4],
 "market_depth.html#canceling":[7,4,2],
 "market_depth.html#limitations":[7,4,3],

@@ -197,7 +197,9 @@ ReceiveFA() methods</h1>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        Public Sub receiveFA(faDataType As Integer, faXmlData As String) Implements IBApi.EWrapper.receiveFA</div>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub receiveFA(faDataType As Integer, faXmlData As String) Implements IBApi.EWrapper.receiveFA</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Receing FA: &quot;</span> &amp; faDataType &amp; <span class="stringliteral">&quot; - &quot;</span> &amp; faXmlData)</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
@@ -717,6 +719,75 @@ Financial Advisor Sample Orders</h1>
 <div class="fragment"><div class="line">    Order faOrderProfile = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
 <div class="line">    faOrderProfile.faProfile = <span class="stringliteral">&quot;Percent_60_40&quot;</span>;</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::EuropeanStock(), faOrderProfile);</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="soft_dollar_tiers"></a>
+Soft Dollar Tiers</h1>
+<p>Starting from API version 9.72.18 or higher and TWS Build 959 or higher, Financial Advisors, Hedge Fund and Mutual Fund are able to utilize the Soft Dollar Tiers feature via the API.</p>
+<p><b> Request Soft Dollar Tiers</b></p>
+<p>The <a class="el" href="classIBApi_1_1EClient.html#a3a187b45bb69f801b1c67bdf3fb66a88">IBApi.EClient.reqSoftDollarTiers</a> function can be called to manually request current Soft Dollar Tiers structure from TWS.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqSoftDollarTiers(4001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">                client.reqSoftDollarTiers(4001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqSoftDollarTiers(4001)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqSoftDollarTiers(4001);</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p><b> Receive Soft Dollar Tiers</b></p>
+<p>The <a class="el" href="interfaceIBApi_1_1EWrapper.html#a522a5d8dc187a2b7bb79c57621c6239a">IBApi.EWrapper.softDollarTiers</a> call back function is triggered for returning Soft Dollar Tiers Value, Name and Display Name.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
+<div class="line">    {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> softDollarTiers(<span class="keywordtype">int</span> reqId, SoftDollarTier[] tiers)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Soft Dollar Tiers:&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">            <span class="keywordflow">foreach</span> (var tier <span class="keywordflow">in</span> tiers)</div>
+<div class="line">            {</div>
+<div class="line">                Console.WriteLine(tier.DisplayName);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> softDollarTiers(<span class="keywordtype">int</span> reqId, SoftDollarTier[] tiers) {</div>
+<div class="line">        <span class="keywordflow">for</span> (SoftDollarTier tier : tiers) {</div>
+<div class="line">            System.out.print(<span class="stringliteral">&quot;tier: &quot;</span> + tier.toString() + <span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        System.out.println();</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
+<div class="line">        Implements EWrapper</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub softDollarTiers(reqid As Integer, tiers As SoftDollarTier()) Implements EWrapper.softDollarTiers</div>
+<div class="line">            Console.WriteLine(&quot;Soft Dollar Tiers:&quot;)</div>
+<div class="line"></div>
+<div class="line">            For Each tier In tiers</div>
+<div class="line">                Console.WriteLine(tier.DisplayName)</div>
+<div class="line">            Next</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
+<div class="line">{</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::softDollarTiers(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;SoftDollarTier&gt; &amp;tiers) {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Soft dollar tiers (%d):&quot;</span>, tiers.size());</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tiers.size(); i++) {</div>
+<div class="line">        printf(<span class="stringliteral">&quot;%s\n&quot;</span>, tiers[i].displayName().c_str());</div>
+<div class="line">    }</div>
+<div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

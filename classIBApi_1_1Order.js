@@ -104,6 +104,7 @@ var classIBApi_1_1Order =
     [ "StockRangeUpper", "classIBApi_1_1Order.html#ad20733800e5dc40758b9d7f07dccb4ab", null ],
     [ "StockRefPrice", "classIBApi_1_1Order.html#a9466f0d1ac7b06c54f4fb811becf1766", null ],
     [ "SweepToFill", "classIBApi_1_1Order.html#ae7242331ac2ff093f65c333cde2b229b", null ],
+    [ "Tier", "classIBApi_1_1Order.html#af1bf1b78e94fdb2c153478dc41fc4ede", null ],
     [ "Tif", "classIBApi_1_1Order.html#a6b82712a718127487631727db08f67d4", null ],
     [ "TotalQuantity", "classIBApi_1_1Order.html#a372e99b524e834f7bda387c68cd22e0f", null ],
     [ "TrailingPercent", "classIBApi_1_1Order.html#ab6dd5e6425dcafecaf83c03d97688b92", null ],

@@ -11,9 +11,8 @@ var support =
         [ "Additional notes on the TWS/IBG Logging Level", "logs.html#logging_level_details", null ]
       ] ],
       [ "Locations of TWS and IBG log files", "logs.html#log_locations", [
-        [ "TWS and IBG logs: versions less than 956", "logs.html#tws_952", null ],
-        [ "TWS logs: versions starting with 956", "logs.html#tws_956", null ],
-        [ "IBG logs: versions 956 and above", "logs.html#ibg_956", null ]
+        [ "Build 956 or below", "logs.html#tws_952", null ],
+        [ "Build 956 or higher", "logs.html#tws_956", null ]
       ] ]
     ] ]
 ];

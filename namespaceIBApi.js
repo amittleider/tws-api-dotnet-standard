@@ -22,6 +22,7 @@ var namespaceIBApi =
     [ "PercentChangeCondition", "classIBApi_1_1PercentChangeCondition.html", "classIBApi_1_1PercentChangeCondition" ],
     [ "PriceCondition", "classIBApi_1_1PriceCondition.html", "classIBApi_1_1PriceCondition" ],
     [ "ScannerSubscription", "classIBApi_1_1ScannerSubscription.html", "classIBApi_1_1ScannerSubscription" ],
+    [ "SoftDollarTier", "classIBApi_1_1SoftDollarTier.html", "classIBApi_1_1SoftDollarTier" ],
     [ "TagValue", "classIBApi_1_1TagValue.html", "classIBApi_1_1TagValue" ],
     [ "TimeCondition", "classIBApi_1_1TimeCondition.html", "classIBApi_1_1TimeCondition" ],
     [ "UnderComp", "classIBApi_1_1UnderComp.html", "classIBApi_1_1UnderComp" ],

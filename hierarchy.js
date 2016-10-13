@@ -35,6 +35,7 @@ var hierarchy =
     ] ],
     [ "OrderState", "classIBApi_1_1OrderState.html", null ],
     [ "ScannerSubscription", "classIBApi_1_1ScannerSubscription.html", null ],
+    [ "SoftDollarTier", "classIBApi_1_1SoftDollarTier.html", null ],
     [ "TagValue", "classIBApi_1_1TagValue.html", null ],
     [ "UnderComp", "classIBApi_1_1UnderComp.html", null ]
 ];

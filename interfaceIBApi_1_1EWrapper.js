@@ -40,6 +40,7 @@ var interfaceIBApi_1_1EWrapper =
     [ "scannerParameters", "interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc", null ],
     [ "securityDefinitionOptionParameter", "interfaceIBApi_1_1EWrapper.html#a427bd0b9892e9f737c63b2f3e326f73d", null ],
     [ "securityDefinitionOptionParameterEnd", "interfaceIBApi_1_1EWrapper.html#a106ab51807e85efc9f76f55b34df079d", null ],
+    [ "softDollarTiers", "interfaceIBApi_1_1EWrapper.html#a522a5d8dc187a2b7bb79c57621c6239a", null ],
     [ "tickEFP", "interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc", null ],
     [ "tickGeneric", "interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26", null ],
     [ "tickOptionComputation", "interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3", null ],
