@@ -24,19 +24,17 @@
 	
 	<br>
 	
-	\subsection tws_952	TWS and IBG logs: versions less than 956 
+	\subsection tws_952	Build 956 or below 
 	
 	- The log files are located within the <b>C:/Jts</b> (or IBJts on Mac/Linux) directory and can be easily identified by their name: TWS logs will be <b>log.[day].txt</b>, and IBG logs will be <b>ibgateway.[day].log</b>, where [day] corresponds to the week day when the log file 
 	was written (Mon, Tue, Wed, etc). There will be one log file per session of TWS or IBG, meaning that for TWS there will be one file per day. When the week is over, 
 	the TWS will start over again and overwrite the log file for that day. This means that a log file that is not explicitly backed up will stay within the C:\Jts directory for at least seven days.
 	
-	\subsection tws_956	TWS logs: versions starting with 956
+	\subsection tws_956	Build 956 or higher
 	
-	- TWS log files from sessions before the current day will be kept in a user-specific subdirectory within <b>C:/Jts</b>. The path of a user's subdirectory can be found when TWS is running and logged-in with that user by pressing the "Ctrl-Alt-U" combination. The filename for TWS logs from previous sessions will be <b>log.[YYYYMMDD].txt</b> where YYYYMMDD is the year, month, and day the log file was created. The filename for the current day will simply be <b>tws.log</b>.
-	
-	\subsection ibg_956	IBG logs: versions 956 and above
-	
-	- The log files will be found in the C:/Jts (IBJts on Mac/Linux) directory and follow the naming convention <b>ibgateway.[YYYYMMDD].log</b> for previous sessions, and <b>ibgateway.log</b> for the current IBG session. 
+	- TWS and IB Gateway log files will be kept in a user-specific subdirectory within <b>C:/Jts</b> (or IBJts on Mac/Linux). The path of a user's subdirectory can be found when TWS/IB Gateway is running and logged-in with that user by pressing the "Ctrl-Alt-U" combination. 
+	The filename for TWS logs from previous sessions will be <b>tws.[YYYYMMDD].log</b> where YYYYMMDD is the year, month, and day the log file was created. The filename for the current day will simply be <b>tws.log</b>. 
+	Similarly, IB Gateway log files from previous sessions will be named in format of <b>ibgateway.[YYYYMMDD].log</b>. The filename for the current day will simply be <b>ibgateway.log</b>.
 	
 	<br><br>
 

@@ -785,6 +785,7 @@ INPUT                  += ../source/csharpclient/client/OrderState.cs
 INPUT                  += ../source/csharpclient/client/PercentChangeCondition.cs
 INPUT                  += ../source/csharpclient/client/PriceCondition.cs
 INPUT                  += ../source/csharpclient/client/ScannerSubscription.cs
+INPUT                  += ../source/csharpclient/client/SoftDollarTier.cs
 INPUT                  += ../source/csharpclient/client/TagValue.cs
 INPUT                  += ../source/csharpclient/client/TimeCondition.cs
 INPUT                  += ../source/csharpclient/client/UnderComp.cs

@@ -86,7 +86,7 @@ Namespace Samples
 
         '! [ad_params]
         Public Shared Sub FillAccumulateDistributeParams(baseOrder As Order, componentSize As Integer, timeBetweenOrders As Integer, randomizeTime20 As Boolean, randomizeSize55 As Boolean,
-            giveUp As Integer, catchUp As Boolean, waitOrFill As Boolean, startTime As String, endTime As String)
+            giveUp As Integer, catchUp As Boolean, waitForFill As Boolean, startTime As String, endTime As String)
 
             baseOrder.AlgoStrategy = "AD"
             baseOrder.AlgoParams = New List(Of TagValue)
@@ -96,7 +96,7 @@ Namespace Samples
             baseOrder.AlgoParams.Add(New TagValue("randomizeSize55", BooleantoString(randomizeSize55)))
             baseOrder.AlgoParams.Add(New TagValue("giveUp", giveUp.ToString()))
             baseOrder.AlgoParams.Add(New TagValue("catchUp", BooleantoString(catchUp)))
-            baseOrder.AlgoParams.Add(New TagValue("waitOrFill", BooleantoString(waitOrFill)))
+            baseOrder.AlgoParams.Add(New TagValue("waitForFill", BooleantoString(waitForFill)))
             baseOrder.AlgoParams.Add(New TagValue("startTime", startTime))
             baseOrder.AlgoParams.Add(New TagValue("endTime", endTime))
         End Sub

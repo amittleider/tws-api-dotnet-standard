@@ -89,7 +89,7 @@ void AvailableAlgoParams::FillVwapParams(Order& baseOrder, double maxPctVol, std
 
 //! [ad_params]
 void AvailableAlgoParams::FillAccumulateDistributeParams(Order& baseOrder, int componentSize, int timeBetweenOrders, bool randomizeTime20, bool randomizeSize55,
-	int giveUp, bool catchUp, bool waitOrFill, std::string startTime, std::string endTime){
+	int giveUp, bool catchUp, bool waitForFill, std::string startTime, std::string endTime){
 	baseOrder.algoStrategy = "AD";
 	baseOrder.algoParams.reset(new TagValueList());
 	TagValueSPtr tag1(new TagValue("componentSize", std::to_string(componentSize)));
@@ -98,8 +98,9 @@ void AvailableAlgoParams::FillAccumulateDistributeParams(Order& baseOrder, int c
 	TagValueSPtr tag4(new TagValue("randomizeSize55", randomizeSize55 ? "1" : "0"));
 	TagValueSPtr tag5(new TagValue("giveUp", std::to_string(giveUp)));
 	TagValueSPtr tag6(new TagValue("catchUp", catchUp ? "1" : "0"));
-	TagValueSPtr tag7(new TagValue("startTime", startTime));
-	TagValueSPtr tag8(new TagValue("endTime", endTime));
+	TagValueSPtr tag7(new TagValue("waitForFill", waitForFill ? "1" : "0"));
+	TagValueSPtr tag8(new TagValue("startTime", startTime));
+	TagValueSPtr tag9(new TagValue("endTime", endTime));
 	baseOrder.algoParams->push_back(tag1);
 	baseOrder.algoParams->push_back(tag2);
 	baseOrder.algoParams->push_back(tag3);
@@ -108,6 +109,7 @@ void AvailableAlgoParams::FillAccumulateDistributeParams(Order& baseOrder, int c
 	baseOrder.algoParams->push_back(tag6);
 	baseOrder.algoParams->push_back(tag7);
 	baseOrder.algoParams->push_back(tag8);
+	baseOrder.algoParams->push_back(tag9);
 }
 //! [ad_params]
 

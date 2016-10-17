@@ -68,8 +68,6 @@
 	
 	- @ref tws_956 <br><br>
 	
-	- @ref ibg_956 <br><br>
-	
 	To find the location of API log file, please click @ref api_log "Here".
 	
 	\subsection uploading_logs How to Upload Log Files to API Support

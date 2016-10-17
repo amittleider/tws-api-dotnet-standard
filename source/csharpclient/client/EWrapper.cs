@@ -680,6 +680,12 @@ namespace IBApi
 		*/
         void securityDefinitionOptionParameterEnd(int reqId);
 
+        /**
+        * @brief called when receives Soft Dollar Tier configuration information
+        * @param reqId The request ID used in the call to EClient::reqSoftDollarTiers
+        * @param tiers Stores a list of SoftDollarTier that contains all Soft Dollar Tiers information
+        * @sa EClient::reqSoftDollarTiers
+        */
         void softDollarTiers(int reqId, SoftDollarTier[] tiers);
     }
 }
