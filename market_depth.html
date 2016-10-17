@@ -149,7 +149,8 @@ Requesting</h1>
 </ul>
 <h1><a class="anchor" id="receive"></a>
 Receiving</h1>
-<p>Market depth will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a> callback. Initially, all requested/available rows will be delivered to the client application. As market moves however these rows will inevitably change. To keep the client's order book consistent, the TWS will send updates not only informing which row is to be updated but also the operation to perform in the row: insert (0), update (1) or remove (2).</p>
+<p>Market depth will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a> callback. The two functions differentiate in that, for exchanges have additional Market Makers than itself, market depth data will be relayed back through <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, otherwise <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. For example, ARCA only has ARCA itself as Market Maker. Therefore when requesting market depth data from ARCA, the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. On the other hand, exchange like ISLAND (ECN for NASDAQ) has additional Market Makers, such as Timberhill, so the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, where the Market Maker information is directly available as a parameter of the call back function.</p>
+<p>Initially, all requested/available rows will be delivered to the client application. As market moves however these rows will inevitably change. To keep the client's order book consistent, the TWS will send updates not only informing which row is to be updated but also the operation to perform in the row: insert (0), update (1) or remove (2).</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
@@ -158,13 +159,22 @@ Receiving</h1>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span> + tickerId + <span class="stringliteral">&quot; - Position: &quot;</span> + position + <span class="stringliteral">&quot;, Operation: &quot;</span> + operation + <span class="stringliteral">&quot;, Side: &quot;</span> + side + <span class="stringliteral">&quot;, Price: &quot;</span> + price + <span class="stringliteral">&quot;, Size&quot;</span> + size);</div>
 <div class="line">        }</div>
-</div><!-- fragment --> ...  </li>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateMktDepthL2(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> position, <span class="keywordtype">string</span> marketMaker, <span class="keywordtype">int</span> operation, <span class="keywordtype">int</span> side, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span> + tickerId + <span class="stringliteral">&quot; - Position: &quot;</span> + position + <span class="stringliteral">&quot;, Operation: &quot;</span> + operation + <span class="stringliteral">&quot;, Side: &quot;</span> + side + <span class="stringliteral">&quot;, Price: &quot;</span> + price + <span class="stringliteral">&quot;, Size&quot;</span> + size);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl <span class="keyword">implements</span> EWrapper {</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
 <div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> updateMktDepth(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> position, <span class="keywordtype">int</span> operation,</div>
 <div class="line">            <span class="keywordtype">int</span> side, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size) {</div>
 <div class="line">        System.out.println(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span>+tickerId+<span class="stringliteral">&quot; - Position: &quot;</span>+position+<span class="stringliteral">&quot;, Operation: &quot;</span>+operation+<span class="stringliteral">&quot;, Side: &quot;</span>+side+<span class="stringliteral">&quot;, Price: &quot;</span>+price+<span class="stringliteral">&quot;, Size: &quot;</span>+size+<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> updateMktDepthL2(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">int</span> position,</div>
+<div class="line">            String marketMaker, <span class="keywordtype">int</span> operation, <span class="keywordtype">int</span> side, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span>+tickerId+<span class="stringliteral">&quot; - Position: &quot;</span>+position+<span class="stringliteral">&quot;, Operation: &quot;</span>+operation+<span class="stringliteral">&quot;, Side: &quot;</span>+side+<span class="stringliteral">&quot;, Price: &quot;</span>+price+<span class="stringliteral">&quot;, Size: &quot;</span>+size+<span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -174,6 +184,10 @@ Receiving</h1>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span> &amp; CStr(tickerId) &amp; <span class="stringliteral">&quot; - Position: &quot;</span> &amp; CStr(position) &amp; <span class="stringliteral">&quot;, Operation: &quot;</span> &amp; CStr(operation) &amp; <span class="stringliteral">&quot;, Side: &quot;</span> &amp; CStr(side) &amp;</div>
 <div class="line">                          <span class="stringliteral">&quot;, Price: &quot;</span> &amp; CStr(price) &amp; <span class="stringliteral">&quot;, Size&quot;</span> &amp; CStr(size))</div>
 <div class="line">        End Sub</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub updateMktDepthL2(tickerId As Integer, position As Integer, marketMaker As String, operation As Integer, side As Integer, price As Double, size As Integer) Implements IBApi.EWrapper.updateMktDepthL2</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span> &amp; tickerId &amp; <span class="stringliteral">&quot; - Position: &quot;</span> &amp; position &amp; <span class="stringliteral">&quot;, Operation: &quot;</span> &amp; operation &amp; <span class="stringliteral">&quot;, Side: &quot;</span> &amp; side &amp;</div>
+<div class="line">                          <span class="stringliteral">&quot;, Price: &quot;</span> &amp; price &amp; <span class="stringliteral">&quot;, Size&quot;</span> &amp; size)</div>
+<div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
@@ -182,7 +196,11 @@ Receiving</h1>
 <div class="line">                                   <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;UpdateMarketDepth. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n&quot;</span>, <span class="keywordtype">id</span>, position, operation, side, price, size);</div>
 <div class="line">}</div>
-</div><!-- fragment --> ...  </li>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::updateMktDepthL2(TickerId <span class="keywordtype">id</span>, <span class="keywordtype">int</span> position, std::string marketMaker, <span class="keywordtype">int</span> operation,</div>
+<div class="line">                                     <span class="keywordtype">int</span> side, <span class="keywordtype">double</span> price, <span class="keywordtype">int</span> size) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;UpdateMarketDepthL2. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n&quot;</span>, <span class="keywordtype">id</span>, position, operation, side, price, size);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="canceling"></a>
 Canceling</h1>

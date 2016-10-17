@@ -85,9 +85,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClientSocket.html#a4d0cb0e9dee74db6b2a96df0d03ade13",
-"contracts.html",
-"market_depth.html"
+"classIBApi_1_1EClientSocket.html#a315a7f7a34afc504d84c4f0ca462d924",
+"client_wrapper.html#client_socket",
+"logs.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

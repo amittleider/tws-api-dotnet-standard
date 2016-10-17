@@ -334,10 +334,11 @@ Accumulate/Distribute</h1>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            <span class="comment">// The Time Zone in &quot;startTime&quot; and &quot;endTime&quot; attributes is ignored and always defaulted to GMT</span></div>
+<div class="line">            AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;20161010-12:00:00 GMT&quot;</span>, <span class="stringliteral">&quot;20161010-16:00:00 GMT&quot;</span>);</div>
 <div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAccumulateDistributeParams(Order baseOrder, <span class="keywordtype">int</span> componentSize, <span class="keywordtype">int</span> timeBetweenOrders, <span class="keywordtype">bool</span> randomizeTime20, <span class="keywordtype">bool</span> randomizeSize55,</div>
-<div class="line">            <span class="keywordtype">int</span> giveUp, <span class="keywordtype">bool</span> catchUp, <span class="keywordtype">bool</span> waitOrFill, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime)</div>
+<div class="line">            <span class="keywordtype">int</span> giveUp, <span class="keywordtype">bool</span> catchUp, <span class="keywordtype">bool</span> waitForFill, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime)</div>
 <div class="line">        {</div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;AD&quot;</span>;</div>
 <div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
@@ -347,17 +348,18 @@ Accumulate/Distribute</h1>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;randomizeSize55&quot;</span>, randomizeSize55 ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;giveUp&quot;</span>, giveUp.ToString()));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;catchUp&quot;</span>, catchUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
-<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;waitOrFill&quot;</span>, waitOrFill ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;waitForFill&quot;</span>, waitForFill ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="comment">// The Time Zone in &quot;startTime&quot; and &quot;endTime&quot; attributes is ignored and always defaulted to GMT</span></div>
+<div class="line">        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;20161010-12:00:00 GMT&quot;</span>, <span class="stringliteral">&quot;20161010-16:00:00 GMT&quot;</span>);</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAccumulateDistributeParams(Order baseOrder, <span class="keywordtype">int</span> componentSize, <span class="keywordtype">int</span> timeBetweenOrders, <span class="keywordtype">boolean</span> randomizeTime20, <span class="keywordtype">boolean</span> randomizeSize55,</div>
-<div class="line">            <span class="keywordtype">int</span> giveUp, <span class="keywordtype">boolean</span> catchUp, <span class="keywordtype">boolean</span> waitOrFill, String startTime, String endTime) {</div>
+<div class="line">            <span class="keywordtype">int</span> giveUp, <span class="keywordtype">boolean</span> catchUp, <span class="keywordtype">boolean</span> waitForFill, String startTime, String endTime) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;AD&quot;</span>);</div>
 <div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
@@ -367,7 +369,7 @@ Accumulate/Distribute</h1>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;randomizeSize55&quot;</span>, randomizeSize55 ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;giveUp&quot;</span>, String.valueOf(giveUp)));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;catchUp&quot;</span>, catchUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
-<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;waitOrFill&quot;</span>, waitOrFill ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;waitForFill&quot;</span>, waitForFill ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        </div>
@@ -375,10 +377,11 @@ Accumulate/Distribute</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, True, True, 1, True, True, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>)</div>
-<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="stringliteral">&#39; The Time Zone in &quot;startTime&quot; and &quot;endTime&quot; attributes is ignored and always defaulted to GMT</span></div>
+<div class="line"><span class="stringliteral">        AvailableAlgoParams.FillAccumulateDistributeParams(baseOrder, 10, 60, True, True, 1, True, True, &quot;20161010-12:00:00 GMT&quot;, &quot;20161010-16:00:00 GMT&quot;)</span></div>
+<div class="line"><span class="stringliteral">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</span></div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillAccumulateDistributeParams(baseOrder As Order, componentSize As Integer, timeBetweenOrders As Integer, randomizeTime20 As Boolean, randomizeSize55 As Boolean,</div>
-<div class="line">            giveUp As Integer, catchUp As Boolean, waitOrFill As Boolean, startTime As String, endTime As String)</div>
+<div class="line">            giveUp As Integer, catchUp As Boolean, waitForFill As Boolean, startTime As String, endTime As String)</div>
 <div class="line"></div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;AD&quot;</span></div>
 <div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
@@ -388,17 +391,18 @@ Accumulate/Distribute</h1>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;randomizeSize55&quot;</span>, BooleantoString(randomizeSize55)))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;giveUp&quot;</span>, giveUp.ToString()))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;catchUp&quot;</span>, BooleantoString(catchUp)))</div>
-<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;waitOrFill&quot;</span>, BooleantoString(waitOrFill)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;waitForFill&quot;</span>, BooleantoString(waitForFill)))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="comment">// The Time Zone in &quot;startTime&quot; and &quot;endTime&quot; attributes is ignored and always defaulted to GMT</span></div>
+<div class="line">    AvailableAlgoParams::FillAccumulateDistributeParams(baseOrder, 10, 60, <span class="keyword">true</span>, <span class="keyword">true</span>, 1, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;20161010-12:00:00 GMT&quot;</span>, <span class="stringliteral">&quot;20161010-16:00:00 GMT&quot;</span>);</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillAccumulateDistributeParams(Order&amp; baseOrder, <span class="keywordtype">int</span> componentSize, <span class="keywordtype">int</span> timeBetweenOrders, <span class="keywordtype">bool</span> randomizeTime20, <span class="keywordtype">bool</span> randomizeSize55,</div>
-<div class="line">    <span class="keywordtype">int</span> giveUp, <span class="keywordtype">bool</span> catchUp, <span class="keywordtype">bool</span> waitOrFill, std::string startTime, std::string endTime){</div>
+<div class="line">    <span class="keywordtype">int</span> giveUp, <span class="keywordtype">bool</span> catchUp, <span class="keywordtype">bool</span> waitForFill, std::string startTime, std::string endTime){</div>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;AD&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;componentSize&quot;</span>, std::to_string(componentSize)));</div>
@@ -407,8 +411,9 @@ Accumulate/Distribute</h1>
 <div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;randomizeSize55&quot;</span>, randomizeSize55 ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;giveUp&quot;</span>, std::to_string(giveUp)));</div>
 <div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;catchUp&quot;</span>, catchUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
-<div class="line">    TagValueSPtr tag7(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
-<div class="line">    TagValueSPtr tag8(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">    TagValueSPtr tag7(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;waitForFill&quot;</span>, waitForFill ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag8(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag9(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
@@ -417,6 +422,7 @@ Accumulate/Distribute</h1>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag7);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag8);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag9);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
