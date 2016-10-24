@@ -244,6 +244,7 @@ void TestCppClient::processMessages() {
 
 	m_pReader->checkClient();
 	m_osSignal.waitForSignal();
+	errno = 0;
 	m_pReader->processMsgs();
 }
 
