@@ -699,7 +699,7 @@ class EDecoder implements ObjectInput {
 		    exec.liquidation(readInt());
 		}
 		if (version >= 6) {
-			exec.cumQty(readInt());
+			exec.cumQty(readDouble());
 			exec.avgPrice(readDouble());
 		}
 		if (version >= 8) {

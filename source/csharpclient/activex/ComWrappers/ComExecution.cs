@@ -122,9 +122,9 @@ namespace TWSLib
          * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public int CumQty
+        public double CumQty
         {
-            get { return data != null ? data.CumQty : default(int); }
+            get { return data != null ? data.CumQty : default(double); }
             set { if (data != null) data.CumQty = value; }
         }
 
@@ -251,7 +251,7 @@ namespace TWSLib
             get { return Liquidation; }
         }
 
-        int TWSLib.IExecution.cumQty
+        double TWSLib.IExecution.cumQty
         {
             get { return CumQty; }
         }

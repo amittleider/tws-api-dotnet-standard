@@ -1414,7 +1414,7 @@ namespace IBApi
             }
             if (msgVersion >= 6)
             {
-                exec.CumQty = ReadInt();
+                exec.CumQty = ReadDouble();
                 exec.AvgPrice = ReadDouble();
             }
             if (msgVersion >= 8)

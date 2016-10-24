@@ -15,7 +15,7 @@ public class Execution {
     private double 	m_price;
     private int		m_permId;
     private int     m_liquidation;
-    private int		m_cumQty;
+    private double	m_cumQty;
     private double	m_avgPrice;
     private String  m_orderRef;
     private String 	m_evRule;
@@ -34,7 +34,7 @@ public class Execution {
     public double price()        { return m_price; }
     public int permId()          { return m_permId; }
     public int liquidation()     { return m_liquidation; }
-    public int cumQty()          { return m_cumQty; }
+    public double cumQty()          { return m_cumQty; }
     public double avgPrice()     { return m_avgPrice; }
     public String orderRef()     { return m_orderRef; }
     public String evRule()       { return m_evRule; }
@@ -53,7 +53,7 @@ public class Execution {
     public void price(double price)               { m_price = price; }
     public void permId(int permId)                { m_permId = permId; }
     public void liquidation(int liquidation)      { m_liquidation = liquidation; }
-    public void cumQty(int cumQty)                { m_cumQty = cumQty; }
+    public void cumQty(double cumQty)             { m_cumQty = cumQty; }
     public void avgPrice(double avgPrice)         { m_avgPrice = avgPrice; }
     public void orderRef(String orderRef)         { m_orderRef = orderRef; }
     public void evRule(String evRule)             { m_evRule = evRule; }
