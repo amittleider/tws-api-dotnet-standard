@@ -614,6 +614,17 @@ public class EWrapperMsgGenerator {
         return sb.toString();
     }
 
+    static public String familyCodes(FamilyCode[] familyCodes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("==== Family Codes Begin (total=" + familyCodes.length + ") ====\n");
+        for (int i = 0; i < familyCodes.length; i++) {
+            sb.append("Family Code [" + i + "] - accountID: " + familyCodes[i].accountID() + ", familyCode: " + familyCodes[i].familyCodeStr() + "\n");
+        }
+        sb.append("==== Family Codes End (total=" + familyCodes.length + ") ====\n");
+
+        return sb.toString();
+    }
+    
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 

@@ -57,6 +57,7 @@ const int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
 const int MIN_SERVER_VER_EXT_OPERATOR	        = 105;
 const int MIN_SERVER_VER_SOFT_DOLLAR_TIER		= 106;
 const int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS	= 107;
+const int MIN_SERVER_VER_REQ_FAMILY_CODES		= 108;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
@@ -119,6 +120,7 @@ const int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
 const int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
 const int SOFT_DOLLAR_TIERS = 77;
 const int SYMBOL_SAMPLES = 78;
+const int FAMILY_CODES = 79;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -221,6 +223,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processSecurityDefinitionOptionalParameterEndMsg(const char* ptr, const char* endPtr);
 	const char* processSoftDollarTiersMsg(const char* ptr, const char* endPtr);
 	const char* processSymbolSamplesMsg(const char* ptr, const char* endPtr);
+	const char* processFamilyCodesMsg(const char* ptr, const char* endPtr);
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 

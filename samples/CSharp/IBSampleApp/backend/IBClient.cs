@@ -709,5 +709,15 @@ namespace IBSampleApp
                 tmp(reqId, contractDescriptions);
         }
 
+        public event Action<FamilyCode[]> FamilyCodes;
+
+        void EWrapper.familyCodes(FamilyCode[] familyCodes)
+        {
+            var tmp = FamilyCodes;
+
+            if (tmp != null)
+                tmp(familyCodes);
+        }
+
     }
 }

@@ -348,6 +348,11 @@ namespace IBApi
                         SymbolSamplesEvent();
                         break;
                     }
+                case IncomingMessage.FamilyCodes:
+                    {
+                        FamilyCodesEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -356,6 +361,24 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void FamilyCodesEvent()
+        {
+            FamilyCode[] familyCodes = new FamilyCode[0];
+            int nFamilyCodes = ReadInt();
+
+            if (nFamilyCodes > 0)
+            {
+                Array.Resize(ref familyCodes, nFamilyCodes);
+
+                for (int i = 0; i < nFamilyCodes; ++i)
+                {
+                    familyCodes[i] = new FamilyCode(ReadString(), ReadString());
+                }
+            }
+
+            eWrapper.familyCodes(familyCodes);
         }
 
         private void SymbolSamplesEvent()

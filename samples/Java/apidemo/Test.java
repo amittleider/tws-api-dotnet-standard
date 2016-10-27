@@ -16,6 +16,7 @@ import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
+import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -259,5 +260,9 @@ public class Test implements EWrapper {
 
     @Override
     public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+    }
+
+    @Override
+    public void familyCodes(FamilyCode[] familyCodes) {
     }
 }

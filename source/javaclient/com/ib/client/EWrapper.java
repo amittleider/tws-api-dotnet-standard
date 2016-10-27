@@ -77,5 +77,6 @@ public interface EWrapper {
     void securityDefinitionOptionalParameterEnd(int reqId);
 	void softDollarTiers(int reqId, SoftDollarTier[] tiers);
     void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
+    void familyCodes(FamilyCode[] familyCodes);
 }
 

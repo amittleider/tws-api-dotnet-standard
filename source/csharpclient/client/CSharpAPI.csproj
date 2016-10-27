@@ -57,6 +57,7 @@
     <Compile Include="ContractCondition.cs" />
     <Compile Include="ContractDescription.cs" />
     <Compile Include="ContractDetails.cs" />
+    <Compile Include="FamilyCode.cs" />
     <Compile Include="DefaultEWrapper.cs" />
     <Compile Include="EClientErrors.cs" />
     <Compile Include="EClientException.cs" />

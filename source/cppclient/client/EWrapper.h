@@ -7,6 +7,7 @@
 
 #include "CommonDefs.h"
 #include "SoftDollarTier.h"
+#include "FamilyCode.h"
 #include <string>
 #include <set>
 
@@ -172,6 +173,7 @@ public:
    virtual void securityDefinitionOptionalParameterEnd(int reqId) = 0;
    virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) = 0;
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) = 0;
+   virtual void familyCodes(const std::vector<FamilyCode> &familyCodes) = 0;
 };
 
 

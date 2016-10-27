@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -459,6 +459,12 @@ namespace IBSampleApp
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.familyCodesTab = new System.Windows.Forms.TabPage();
+            this.familyCodesGrid = new System.Windows.Forms.DataGridView();
+            this.familyCodesGridColumnAccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.familyCodesGridColumnFamilyCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.requestFamilyCodes = new System.Windows.Forms.Button();
+            this.clearFamilyCodes = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -541,6 +547,8 @@ namespace IBSampleApp
             this.tabControl2.SuspendLayout();
             this.messagesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).BeginInit();
+            this.familyCodesTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.familyCodesGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -730,14 +738,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -883,27 +891,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea9.AxisX.MajorGrid.Enabled = false;
-            chartArea9.AxisX.MajorTickMark.Enabled = false;
-            chartArea9.AxisY.IsStartedFromZero = false;
-            chartArea9.Name = "ChartArea1";
-            chartArea9.Position.Auto = false;
-            chartArea9.Position.Height = 100F;
-            chartArea9.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea9);
-            legend9.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend9);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series9.IsVisibleInLegend = false;
-            series9.IsXValueIndexed = true;
-            series9.Legend = "Legend1";
-            series9.Name = "Series1";
-            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series9.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series9);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
             this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -1010,26 +1018,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea10.AxisX.MajorGrid.Enabled = false;
-            chartArea10.AxisX.MajorTickMark.Enabled = false;
-            chartArea10.AxisY.IsStartedFromZero = false;
-            chartArea10.Name = "ChartArea1";
-            chartArea10.Position.Auto = false;
-            chartArea10.Position.Height = 100F;
-            chartArea10.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea10);
-            legend10.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend10);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend2);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series10.IsVisibleInLegend = false;
-            series10.Legend = "Legend1";
-            series10.Name = "Series1";
-            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series10.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series10);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series2);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -2332,6 +2340,7 @@ namespace IBSampleApp
             this.tabControl1.Controls.Add(this.accSummaryTab);
             this.tabControl1.Controls.Add(this.accUpdatesTab);
             this.tabControl1.Controls.Add(this.positionsTab);
+            this.tabControl1.Controls.Add(this.familyCodesTab);
             this.tabControl1.Location = new System.Drawing.Point(6, 30);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -3381,6 +3390,16 @@ namespace IBSampleApp
             this.listViewOptionParams.TabIndex = 0;
             this.listViewOptionParams.UseCompatibleStateImageBehavior = false;
             this.listViewOptionParams.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Expirations";
+            this.columnHeader1.Width = 141;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Strikes";
+            this.columnHeader2.Width = 71;
             // 
             // symbolSamplesTabContractInfo
             // 
@@ -4678,15 +4697,66 @@ namespace IBSampleApp
             this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
             // 
-            // columnHeader1
+            // familyCodesTab
             // 
-            this.columnHeader1.Text = "Expirations";
-            this.columnHeader1.Width = 141;
+            this.familyCodesTab.BackColor = System.Drawing.Color.LightGray;
+            this.familyCodesTab.Controls.Add(this.clearFamilyCodes);
+            this.familyCodesTab.Controls.Add(this.requestFamilyCodes);
+            this.familyCodesTab.Controls.Add(this.familyCodesGrid);
+            this.familyCodesTab.Location = new System.Drawing.Point(4, 22);
+            this.familyCodesTab.Name = "familyCodesTab";
+            this.familyCodesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.familyCodesTab.Size = new System.Drawing.Size(1228, 398);
+            this.familyCodesTab.TabIndex = 3;
+            this.familyCodesTab.Text = "Family Codes";
             // 
-            // columnHeader2
+            // familyCodesGrid
             // 
-            this.columnHeader2.Text = "Strikes";
-            this.columnHeader2.Width = 71;
+            this.familyCodesGrid.AllowUserToAddRows = false;
+            this.familyCodesGrid.AllowUserToDeleteRows = false;
+            this.familyCodesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.familyCodesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.familyCodesGridColumnAccountID,
+            this.familyCodesGridColumnFamilyCode});
+            this.familyCodesGrid.Location = new System.Drawing.Point(6, 6);
+            this.familyCodesGrid.Name = "familyCodesGrid";
+            this.familyCodesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.familyCodesGrid.Size = new System.Drawing.Size(497, 366);
+            this.familyCodesGrid.TabIndex = 1;
+            // 
+            // familyCodesGridColumnAccountID
+            // 
+            this.familyCodesGridColumnAccountID.HeaderText = "Account ID";
+            this.familyCodesGridColumnAccountID.Name = "familyCodesGridColumnAccountID";
+            this.familyCodesGridColumnAccountID.ReadOnly = true;
+            this.familyCodesGridColumnAccountID.Width = 150;
+            // 
+            // familyCodesGridColumnFamilyCode
+            // 
+            this.familyCodesGridColumnFamilyCode.HeaderText = "Family Code";
+            this.familyCodesGridColumnFamilyCode.Name = "familyCodesGridColumnFamilyCode";
+            this.familyCodesGridColumnFamilyCode.ReadOnly = true;
+            this.familyCodesGridColumnFamilyCode.Width = 300;
+            // 
+            // requestFamilyCodes
+            // 
+            this.requestFamilyCodes.Location = new System.Drawing.Point(509, 6);
+            this.requestFamilyCodes.Name = "requestFamilyCodes";
+            this.requestFamilyCodes.Size = new System.Drawing.Size(141, 23);
+            this.requestFamilyCodes.TabIndex = 2;
+            this.requestFamilyCodes.Text = "Request Family  Codes";
+            this.requestFamilyCodes.UseVisualStyleBackColor = true;
+            this.requestFamilyCodes.Click += new System.EventHandler(this.requestFamilyCodes_Click);
+            // 
+            // clearFamilyCodes
+            // 
+            this.clearFamilyCodes.Location = new System.Drawing.Point(509, 35);
+            this.clearFamilyCodes.Name = "clearFamilyCodes";
+            this.clearFamilyCodes.Size = new System.Drawing.Size(141, 23);
+            this.clearFamilyCodes.TabIndex = 3;
+            this.clearFamilyCodes.Text = "Clear Family Codes";
+            this.clearFamilyCodes.UseVisualStyleBackColor = true;
+            this.clearFamilyCodes.Click += new System.EventHandler(this.clearFamilyCodes_Click);
             // 
             // IBSampleAppDialog
             // 
@@ -4816,6 +4886,8 @@ namespace IBSampleApp
             this.messagesTab.ResumeLayout(false);
             this.messagesTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).EndInit();
+            this.familyCodesTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.familyCodesGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5239,6 +5311,12 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.TabPage familyCodesTab;
+        private System.Windows.Forms.Button requestFamilyCodes;
+        private System.Windows.Forms.DataGridView familyCodesGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyCodesGridColumnAccountID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyCodesGridColumnFamilyCode;
+        private System.Windows.Forms.Button clearFamilyCodes;
     }
 }
 

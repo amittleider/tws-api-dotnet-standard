@@ -101,6 +101,7 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdCancelAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
     Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
+    Friend WithEvents cmdFamilyCodes As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -158,6 +159,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
         Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
+        Me.cmdFamilyCodes = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -184,7 +186,7 @@ Friend Class dlgMainWnd
         Me.cmdFinancialAdvisor.Name = "cmdFinancialAdvisor"
         Me.cmdFinancialAdvisor.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdFinancialAdvisor.Size = New System.Drawing.Size(134, 21)
-        Me.cmdFinancialAdvisor.TabIndex = 33
+        Me.cmdFinancialAdvisor.TabIndex = 34
         Me.cmdFinancialAdvisor.Text = "Financial Advisor"
         Me.cmdFinancialAdvisor.UseVisualStyleBackColor = False
         '
@@ -198,7 +200,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAccts.Name = "cmdReqAccts"
         Me.cmdReqAccts.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqAccts.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAccts.TabIndex = 32
+        Me.cmdReqAccts.TabIndex = 33
         Me.cmdReqAccts.Text = "Req Accounts"
         Me.cmdReqAccts.UseVisualStyleBackColor = False
         '
@@ -212,7 +214,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAllOpenOrders.Name = "cmdReqAllOpenOrders"
         Me.cmdReqAllOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqAllOpenOrders.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAllOpenOrders.TabIndex = 25
+        Me.cmdReqAllOpenOrders.TabIndex = 26
         Me.cmdReqAllOpenOrders.Text = "Req All Open Orders"
         Me.cmdReqAllOpenOrders.UseVisualStyleBackColor = False
         '
@@ -226,7 +228,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAutoOpenOrders.Name = "cmdReqAutoOpenOrders"
         Me.cmdReqAutoOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqAutoOpenOrders.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAutoOpenOrders.TabIndex = 26
+        Me.cmdReqAutoOpenOrders.TabIndex = 27
         Me.cmdReqAutoOpenOrders.Text = "Req Auto Open Orders"
         Me.cmdReqAutoOpenOrders.UseVisualStyleBackColor = False
         '
@@ -240,7 +242,7 @@ Friend Class dlgMainWnd
         Me.cmdServerLogLevel.Name = "cmdServerLogLevel"
         Me.cmdServerLogLevel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdServerLogLevel.Size = New System.Drawing.Size(134, 21)
-        Me.cmdServerLogLevel.TabIndex = 31
+        Me.cmdServerLogLevel.TabIndex = 32
         Me.cmdServerLogLevel.Text = "Log Configuration..."
         Me.cmdServerLogLevel.UseVisualStyleBackColor = False
         '
@@ -254,7 +256,7 @@ Friend Class dlgMainWnd
         Me.cmdReqNews.Name = "cmdReqNews"
         Me.cmdReqNews.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqNews.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqNews.TabIndex = 30
+        Me.cmdReqNews.TabIndex = 31
         Me.cmdReqNews.Text = "Req News Bulletins..."
         Me.cmdReqNews.UseVisualStyleBackColor = False
         '
@@ -268,7 +270,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAcctData.Name = "cmdReqAcctData"
         Me.cmdReqAcctData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqAcctData.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAcctData.TabIndex = 27
+        Me.cmdReqAcctData.TabIndex = 28
         Me.cmdReqAcctData.Text = "Req Acct Data..."
         Me.cmdReqAcctData.UseVisualStyleBackColor = False
         '
@@ -282,7 +284,7 @@ Friend Class dlgMainWnd
         Me.cmdReqExecutions.Name = "cmdReqExecutions"
         Me.cmdReqExecutions.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqExecutions.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqExecutions.TabIndex = 28
+        Me.cmdReqExecutions.TabIndex = 29
         Me.cmdReqExecutions.Text = "Req Executions..."
         Me.cmdReqExecutions.UseVisualStyleBackColor = False
         '
@@ -296,7 +298,7 @@ Friend Class dlgMainWnd
         Me.cmdReqIds.Name = "cmdReqIds"
         Me.cmdReqIds.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqIds.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqIds.TabIndex = 29
+        Me.cmdReqIds.TabIndex = 30
         Me.cmdReqIds.Text = "Req Next Id..."
         Me.cmdReqIds.UseVisualStyleBackColor = False
         '
@@ -310,7 +312,7 @@ Friend Class dlgMainWnd
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 51
+        Me.cmdClearForm.TabIndex = 54
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = False
         '
@@ -324,7 +326,7 @@ Friend Class dlgMainWnd
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 52
+        Me.cmdClose.TabIndex = 55
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
@@ -394,7 +396,7 @@ Friend Class dlgMainWnd
         Me.cmdPlaceOrder.Name = "cmdPlaceOrder"
         Me.cmdPlaceOrder.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdPlaceOrder.Size = New System.Drawing.Size(134, 21)
-        Me.cmdPlaceOrder.TabIndex = 19
+        Me.cmdPlaceOrder.TabIndex = 20
         Me.cmdPlaceOrder.Text = "Place Order..."
         Me.cmdPlaceOrder.UseVisualStyleBackColor = False
         '
@@ -408,7 +410,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelOrder.Name = "cmdCancelOrder"
         Me.cmdCancelOrder.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancelOrder.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelOrder.TabIndex = 20
+        Me.cmdCancelOrder.TabIndex = 21
         Me.cmdCancelOrder.Text = "Cancel Order..."
         Me.cmdCancelOrder.UseVisualStyleBackColor = False
         '
@@ -422,7 +424,7 @@ Friend Class dlgMainWnd
         Me.cmdExtendedOrderAtribs.Name = "cmdExtendedOrderAtribs"
         Me.cmdExtendedOrderAtribs.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdExtendedOrderAtribs.Size = New System.Drawing.Size(134, 21)
-        Me.cmdExtendedOrderAtribs.TabIndex = 22
+        Me.cmdExtendedOrderAtribs.TabIndex = 23
         Me.cmdExtendedOrderAtribs.Text = "Extended..."
         Me.cmdExtendedOrderAtribs.UseVisualStyleBackColor = False
         '
@@ -436,7 +438,7 @@ Friend Class dlgMainWnd
         Me.cmdReqContractData.Name = "cmdReqContractData"
         Me.cmdReqContractData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqContractData.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqContractData.TabIndex = 23
+        Me.cmdReqContractData.TabIndex = 24
         Me.cmdReqContractData.Text = "Req Contract Data..."
         Me.cmdReqContractData.UseVisualStyleBackColor = False
         '
@@ -450,7 +452,7 @@ Friend Class dlgMainWnd
         Me.cmdReqOpenOrders.Name = "cmdReqOpenOrders"
         Me.cmdReqOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqOpenOrders.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqOpenOrders.TabIndex = 24
+        Me.cmdReqOpenOrders.TabIndex = 25
         Me.cmdReqOpenOrders.Text = "Req Open Orders"
         Me.cmdReqOpenOrders.UseVisualStyleBackColor = False
         '
@@ -480,7 +482,7 @@ Friend Class dlgMainWnd
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 172)
-        Me.lstErrors.TabIndex = 50
+        Me.lstErrors.TabIndex = 53
         '
         'lstServerResponses
         '
@@ -494,7 +496,7 @@ Friend Class dlgMainWnd
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 172)
-        Me.lstServerResponses.TabIndex = 48
+        Me.lstServerResponses.TabIndex = 51
         '
         'lstMktData
         '
@@ -508,7 +510,7 @@ Friend Class dlgMainWnd
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 158)
-        Me.lstMktData.TabIndex = 46
+        Me.lstMktData.TabIndex = 49
         '
         'Label3
         '
@@ -520,7 +522,7 @@ Friend Class dlgMainWnd
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 49
+        Me.Label3.TabIndex = 52
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -533,7 +535,7 @@ Friend Class dlgMainWnd
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 47
+        Me.Label2.TabIndex = 50
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -546,7 +548,7 @@ Friend Class dlgMainWnd
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 45
+        Me.Label1.TabIndex = 48
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -559,7 +561,7 @@ Friend Class dlgMainWnd
         Me.cmdExerciseOptions.Name = "cmdExerciseOptions"
         Me.cmdExerciseOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdExerciseOptions.Size = New System.Drawing.Size(134, 21)
-        Me.cmdExerciseOptions.TabIndex = 21
+        Me.cmdExerciseOptions.TabIndex = 22
         Me.cmdExerciseOptions.Text = "Exercise Options..."
         Me.cmdExerciseOptions.UseVisualStyleBackColor = False
         '
@@ -688,7 +690,7 @@ Friend Class dlgMainWnd
         Me.cmdReqGlobalCancel.Location = New System.Drawing.Point(684, 437)
         Me.cmdReqGlobalCancel.Name = "cmdReqGlobalCancel"
         Me.cmdReqGlobalCancel.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqGlobalCancel.TabIndex = 34
+        Me.cmdReqGlobalCancel.TabIndex = 35
         Me.cmdReqGlobalCancel.Text = "Global Cancel"
         Me.cmdReqGlobalCancel.UseVisualStyleBackColor = True
         '
@@ -697,7 +699,7 @@ Friend Class dlgMainWnd
         Me.cmdReqMarketDataType.Location = New System.Drawing.Point(544, 464)
         Me.cmdReqMarketDataType.Name = "cmdReqMarketDataType"
         Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 36)
-        Me.cmdReqMarketDataType.TabIndex = 35
+        Me.cmdReqMarketDataType.TabIndex = 36
         Me.cmdReqMarketDataType.Text = "Req Mkt Data Type"
         Me.cmdReqMarketDataType.UseVisualStyleBackColor = True
         '
@@ -720,7 +722,7 @@ Friend Class dlgMainWnd
         Me.cmdReqPositions.Location = New System.Drawing.Point(544, 506)
         Me.cmdReqPositions.Name = "cmdReqPositions"
         Me.cmdReqPositions.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqPositions.TabIndex = 36
+        Me.cmdReqPositions.TabIndex = 38
         Me.cmdReqPositions.Text = "Req Positions"
         Me.cmdReqPositions.UseVisualStyleBackColor = True
         '
@@ -729,7 +731,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 532)
         Me.cmdReqAccountSummary.Name = "cmdReqAccountSummary"
         Me.cmdReqAccountSummary.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAccountSummary.TabIndex = 38
+        Me.cmdReqAccountSummary.TabIndex = 40
         Me.cmdReqAccountSummary.Text = "Req Acct Summary"
         Me.cmdReqAccountSummary.UseVisualStyleBackColor = True
         '
@@ -738,7 +740,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 533)
         Me.cmdCancelAccountSummary.Name = "cmdCancelAccountSummary"
         Me.cmdCancelAccountSummary.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelAccountSummary.TabIndex = 39
+        Me.cmdCancelAccountSummary.TabIndex = 41
         Me.cmdCancelAccountSummary.Text = "Cancel Acct Summary"
         Me.cmdCancelAccountSummary.UseVisualStyleBackColor = True
         '
@@ -747,7 +749,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 506)
         Me.cmdCancelPositions.Name = "cmdCancelPositions"
         Me.cmdCancelPositions.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelPositions.TabIndex = 37
+        Me.cmdCancelPositions.TabIndex = 39
         Me.cmdCancelPositions.Text = "Cancel Positions"
         Me.cmdCancelPositions.UseVisualStyleBackColor = True
         '
@@ -756,7 +758,7 @@ Friend Class dlgMainWnd
         Me.cmdGroups.Location = New System.Drawing.Point(545, 560)
         Me.cmdGroups.Name = "cmdGroups"
         Me.cmdGroups.Size = New System.Drawing.Size(133, 21)
-        Me.cmdGroups.TabIndex = 40
+        Me.cmdGroups.TabIndex = 42
         Me.cmdGroups.Text = "Groups"
         Me.cmdGroups.UseVisualStyleBackColor = True
         '
@@ -783,7 +785,7 @@ Friend Class dlgMainWnd
         Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 587)
         Me.cmdReqPositionsMulti.Name = "cmdReqPositionsMulti"
         Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqPositionsMulti.TabIndex = 41
+        Me.cmdReqPositionsMulti.TabIndex = 44
         Me.cmdReqPositionsMulti.Text = "Req Positions Multi"
         Me.cmdReqPositionsMulti.UseVisualStyleBackColor = True
         '
@@ -792,7 +794,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 587)
         Me.cmdCancelPositionsMulti.Name = "cmdCancelPositionsMulti"
         Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelPositionsMulti.TabIndex = 42
+        Me.cmdCancelPositionsMulti.TabIndex = 45
         Me.cmdCancelPositionsMulti.Text = "Cancel Positions Multi"
         Me.cmdCancelPositionsMulti.UseVisualStyleBackColor = True
         '
@@ -801,7 +803,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 614)
         Me.cmdReqAccountUpdatesMulti.Name = "cmdReqAccountUpdatesMulti"
         Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAccountUpdatesMulti.TabIndex = 43
+        Me.cmdReqAccountUpdatesMulti.TabIndex = 46
         Me.cmdReqAccountUpdatesMulti.Text = "Req Acct Upd Multi"
         Me.cmdReqAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
@@ -810,7 +812,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 614)
         Me.cmdCancelAccountUpdatesMulti.Name = "cmdCancelAccountUpdatesMulti"
         Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelAccountUpdatesMulti.TabIndex = 44
+        Me.cmdCancelAccountUpdatesMulti.TabIndex = 47
         Me.cmdCancelAccountUpdatesMulti.Text = "Cancel Acct Upd Multi"
         Me.cmdCancelAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
@@ -819,7 +821,7 @@ Friend Class dlgMainWnd
         Me.cmdReqSecDefOptParams.Location = New System.Drawing.Point(683, 464)
         Me.cmdReqSecDefOptParams.Name = "cmdReqSecDefOptParams"
         Me.cmdReqSecDefOptParams.Size = New System.Drawing.Size(134, 36)
-        Me.cmdReqSecDefOptParams.TabIndex = 53
+        Me.cmdReqSecDefOptParams.TabIndex = 37
         Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
         Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
         '
@@ -828,15 +830,25 @@ Friend Class dlgMainWnd
         Me.cmdReqMatchingSymbols.Location = New System.Drawing.Point(684, 221)
         Me.cmdReqMatchingSymbols.Name = "cmdReqMatchingSymbols"
         Me.cmdReqMatchingSymbols.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqMatchingSymbols.TabIndex = 54
+        Me.cmdReqMatchingSymbols.TabIndex = 19
         Me.cmdReqMatchingSymbols.Text = "Req Matching Symbols"
         Me.cmdReqMatchingSymbols.UseVisualStyleBackColor = True
+        '
+        'cmdFamilyCodes
+        '
+        Me.cmdFamilyCodes.Location = New System.Drawing.Point(683, 562)
+        Me.cmdFamilyCodes.Name = "cmdFamilyCodes"
+        Me.cmdFamilyCodes.Size = New System.Drawing.Size(133, 21)
+        Me.cmdFamilyCodes.TabIndex = 43
+        Me.cmdFamilyCodes.Text = "Req Family Codes"
+        Me.cmdFamilyCodes.UseVisualStyleBackColor = True
         '
         'dlgMainWnd
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(823, 659)
+        Me.Controls.Add(Me.cmdFamilyCodes)
         Me.Controls.Add(Me.cmdReqMatchingSymbols)
         Me.Controls.Add(Me.cmdReqSecDefOptParams)
         Me.Controls.Add(Me.cmdCancelAccountUpdatesMulti)
@@ -2910,4 +2922,25 @@ Friend Class dlgMainWnd
         ' move into view
         lstServerResponses.TopIndex = offset
     End Sub
+
+    Private Sub cmdFamilyCodes_Click(sender As Object, e As EventArgs) Handles cmdFamilyCodes.Click
+        Call Tws1.reqFamilyCodes()
+    End Sub
+
+    Private Sub Tws1_OnFamilyCodes(tws As Tws, DTwsEvents_familyCodesEvent As AxTWSLib._DTWsEvents_familyCodesEvent) Handles Tws1.OnFamilyCodes
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Family Codes Begin (total=" & DTwsEvents_familyCodesEvent.familyCodes.Length & ") ====")
+        Dim count As Integer = 0
+        For Each familyCode As FamilyCode In DTwsEvents_familyCodesEvent.familyCodes
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Family Code (" & count & ") - accountID=" & familyCode.AccountID & " familyCode=" & familyCode.FamilyCodeStr)
+            count += 1
+        Next
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Family Codes End (total=" & DTwsEvents_familyCodesEvent.familyCodes.Length & ") ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+    End Sub
+
 End Class

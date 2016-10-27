@@ -2357,6 +2357,26 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMATCHINGSYMBOLS);
         }
 
+        /**
+        * @brief Requests family codes
+        * @sa EWrapper::familyCodes
+        */
+        public void reqFamilyCodes()
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_FAMILY_CODES,
+                " It does not support family codes requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestFamilyCodes);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFAMILYCODES);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");

@@ -577,6 +577,14 @@ Friend Class Tws
                          End Sub)
     End Sub
 
+    Public Sub familyCodes(familyCodes() As FamilyCode) Implements EWrapper.familyCodes
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnFamilyCodes(Me, New AxTWSLib._DTWsEvents_familyCodesEvent With {
+                                                          .familyCodes = familyCodes
+                                                        })
+                         End Sub)
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
@@ -822,6 +830,10 @@ Friend Class Tws
         socket.reqMatchingSymbols(reqId, pattern)
     End Sub
 
+    Sub reqFamilyCodes()
+        socket.reqFamilyCodes()
+    End Sub
+
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
     Event OnErrMsg(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_errMsgEvent)
     Event OnConnectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
@@ -876,6 +888,7 @@ Friend Class Tws
     Event OnverifyAndAuthCompleted(tws As Tws, DTwsEvents_verifyAndAuthCompletedEvent As AxTWSLib._DTwsEvents_verifyAndAuthCompletedEvent)
     Event OnverifyAndAuthMessageAPI(tws As Tws, DTwsEvents_verifyAndAuthMessageAPIEvent As AxTWSLib._DTwsEvents_verifyAndAuthMessageAPIEvent)
     Event OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTwsEvents_symbolSamplesEvent)
+    Event OnFamilyCodes(tws As Tws, DTwsEvents_familyCodesEvent As AxTWSLib._DTWsEvents_familyCodesEvent)
 
 
 End Class

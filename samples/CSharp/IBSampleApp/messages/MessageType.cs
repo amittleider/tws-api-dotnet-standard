@@ -56,6 +56,7 @@ namespace IBSampleApp
         SecurityDefinitionOptionParameterEnd = 76,
         SoftDollarTiers = 77,
         SymbolSamples = 78,
+        FamilyCodes = 79,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one
         HistoricalDataEnd = -HistoricalData,

@@ -12,6 +12,7 @@ import com.ib.client.EJavaSignal;
 import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
+import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -469,4 +470,16 @@ public class EWrapperImpl implements EWrapper {
         System.out.println();
     }
     //! [symbolSamples]
+    
+    //! [familyCodes]
+    @Override
+    public void familyCodes(FamilyCode[] familyCodes) {
+        for (FamilyCode fc : familyCodes) {
+            System.out.print("Family Code. AccountID: " + fc.accountID() + ", FamilyCode: " + fc.familyCodeStr());
+        }
+
+        System.out.println();
+    }
+    //! [familyCodes]
+    
 }

@@ -225,6 +225,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_SYMBOLSAMPLES_ACK:
 			break;
+		case ST_FAMILYCODES:
+			reqFamilyCodes();
+			break;
+		case ST_FAMILYCODES_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -850,6 +855,14 @@ void TestCppClient::reqMatchingSymbols()
 	m_state = ST_SYMBOLSAMPLES_ACK;
 }
 
+void TestCppClient::reqFamilyCodes()
+{
+	/*** Request TWS' family codes ***/
+	m_pClient->reqFamilyCodes();
+
+	m_state = ST_FAMILYCODES_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -877,7 +890,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAOPERATIONS;
 	//m_state = ST_DISPLAYGROUPS;
 	//m_state = ST_MISCELANEOUS;
-	m_state = ST_SYMBOLSAMPLES;
+	//m_state = ST_SYMBOLSAMPLES;
+	m_state = ST_FAMILYCODES;
 	//m_state = ST_PING;
 }
 
@@ -1231,3 +1245,14 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 	}
 }
 //! [symbolSamples]
+
+//! [familyCodes]
+void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
+	printf("Family codes (%d):\n", familyCodes.size());
+
+	for (int i = 0; i < familyCodes.size(); i++) {
+//! [familyCodes]
+		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
+	}
+}
+//! [familyCodes]

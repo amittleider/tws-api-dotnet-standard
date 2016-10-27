@@ -27,13 +27,14 @@ namespace IBSampleApp.ui
         private DataGridView accountValueGrid;
         private DataGridView accountPortfolioGrid;
         private DataGridView positionsGrid;
+        private DataGridView familyCodesGrid;
 
         private bool accountSummaryRequestActive = false;
         private bool accountUpdateRequestActive = false;
         private string currentAccountSubscribedToTupdate;
 
         public AccountManager(IBClient ibClient, ComboBox accountSelector, DataGridView accountSummaryGrid, DataGridView accountValueGrid,
-            DataGridView accountPortfolioGrid, DataGridView positionsGrid)
+            DataGridView accountPortfolioGrid, DataGridView positionsGrid, DataGridView familyCodesGrid)
         {
             IbClient = ibClient;
             AccountSelector = accountSelector;
@@ -41,6 +42,7 @@ namespace IBSampleApp.ui
             AccountValueGrid = accountValueGrid;
             AccountPortfolioGrid = accountPortfolioGrid;
             PositionsGrid = positionsGrid;
+            FamilyCodesGrid = familyCodesGrid;
         }
 
         public void UpdateUI(IBMessage message)
@@ -63,6 +65,9 @@ namespace IBSampleApp.ui
                     break;
                 case MessageType.Position:
                     HandlePosition((PositionMessage)message);
+                    break;
+                case MessageType.FamilyCodes:
+                    HandleFamilyCodes((FamilyCodesMessage)message);
                     break;
                 case MessageType.PositionEnd:
                     break;
@@ -156,6 +161,17 @@ namespace IBSampleApp.ui
             positionsGrid[3, positionsGrid.Rows.Count - 1].Value = positionMessage.AverageCost;
         }
 
+        public void HandleFamilyCodes(FamilyCodesMessage familyCodesMessage)
+        {
+            familyCodesGrid.Rows.Clear();
+            for (int i = 0; i < familyCodesMessage.FamilyCodes.Length; i++)
+            {
+                familyCodesGrid.Rows.Add(1);
+                familyCodesGrid[0, familyCodesGrid.Rows.Count - 1].Value = familyCodesMessage.FamilyCodes[i].AccountID;
+                familyCodesGrid[1, familyCodesGrid.Rows.Count - 1].Value = familyCodesMessage.FamilyCodes[i].FamilyCodeStr;
+            }
+        }
+
         public void RequestAccountSummary()
         {
             if (!accountSummaryRequestActive)
@@ -192,7 +208,17 @@ namespace IBSampleApp.ui
         {
             ibClient.ClientSocket.reqPositions();
         }
-        
+
+        public void RequestFamilyCodes()
+        {
+            ibClient.ClientSocket.reqFamilyCodes();
+        }
+
+        public void ClearFamilyCodes()
+        {
+            familyCodesGrid.Rows.Clear();
+        }
+
         public List<string> ManagedAccounts
         {
             get { return managedAccounts; }
@@ -237,6 +263,12 @@ namespace IBSampleApp.ui
         {
             get { return positionsGrid; }
             set { positionsGrid = value; }
+        }
+
+        public DataGridView FamilyCodesGrid
+        {
+            get { return familyCodesGrid; }
+            set { familyCodesGrid = value; }
         }
 
         public IBClient IbClient

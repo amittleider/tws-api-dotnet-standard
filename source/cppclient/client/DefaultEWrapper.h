@@ -78,5 +78,6 @@ public:
    virtual void securityDefinitionOptionalParameterEnd(int reqId);
    virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
+   virtual void familyCodes(const std::vector<FamilyCode> &familyCodes);
 };
 

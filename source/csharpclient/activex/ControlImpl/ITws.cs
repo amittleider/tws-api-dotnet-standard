@@ -341,6 +341,8 @@ namespace TWSLib
         void reqSoftDollarTiers(int reqId);
         [DispId(215)]
         void reqMatchingSymbols(int reqId, string pattern);
+        [DispId(216)]
+        void reqFamilyCodes();
 
         #endregion
     }

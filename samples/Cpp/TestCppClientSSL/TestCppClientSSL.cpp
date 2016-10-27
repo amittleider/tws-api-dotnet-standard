@@ -286,3 +286,4 @@ void TestCppClient::securityDefinitionOptionalParameter(int reqId, const std::st
 void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {}
 void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {}
 void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {}
+void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {}

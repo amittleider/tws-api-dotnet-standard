@@ -59,7 +59,7 @@ namespace IBSampleApp
             realTimeBarManager = new RealTimeBarsManager(ibClient, rtBarsChart, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
-            accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
+            accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid, familyCodesGrid);
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
@@ -159,6 +159,7 @@ namespace IBSampleApp
             ibClient.SecurityDefinitionOptionParameterEnd += (reqId) => HandleMessage(new SecurityDefinitionOptionParameterEndMessage(reqId));
             ibClient.SoftDollarTiers += (reqId, tiers) => HandleMessage(new SoftDollarTiersMessage(reqId, tiers));
             ibClient.SymbolSamples += (reqId, contractDescriptions) => HandleMessage(new SymbolSamplesMessage(reqId, contractDescriptions));
+            ibClient.FamilyCodes += (familyCodes) => HandleMessage(new FamilyCodesMessage(familyCodes));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -329,6 +330,7 @@ namespace IBSampleApp
                 case MessageType.AccountValue:
                 case MessageType.Position:
                 case MessageType.PositionEnd:
+                case MessageType.FamilyCodes:
                     {
                         accountManager.UpdateUI(message);
                         break;
@@ -936,6 +938,16 @@ namespace IBSampleApp
             symbolSamplesManagerContractInfo.Clear();
             symbolSamplesManagerData.AddRequest(symbol_TMD_MDT.Text);
             ShowTab(marketData_MDT, symbolSamplesTabData);
+        }
+
+        private void requestFamilyCodes_Click(object sender, EventArgs e)
+        {
+            accountManager.RequestFamilyCodes();
+        }
+
+        private void clearFamilyCodes_Click(object sender, EventArgs e)
+        {
+            accountManager.ClearFamilyCodes();
         }
     }
 }

@@ -24,6 +24,7 @@ import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
+import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
@@ -76,6 +77,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<Integer, ISecDefOptParamsReqHandler>();
 	private final HashMap<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
 	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<Integer, ISymbolSamplesHandler>();
+	private final ConcurrentHashSet<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<IFamilyCodesHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1362,6 +1364,27 @@ public class ApiController implements EWrapper {
 
         if (handler != null) {
             handler.symbolSamples(contractDescriptions);
+        }
+        recEOM();
+    }
+
+    public interface IFamilyCodesHandler {
+        void familyCodes(FamilyCode[] familyCodes);
+    }
+
+    public void reqFamilyCodes(IFamilyCodesHandler handler) {
+        if (!checkConnection())
+            return;
+
+        m_familyCodesHandlers.add(handler);
+        m_client.reqFamilyCodes();
+        sendEOM();
+    }
+
+    @Override
+    public void familyCodes(FamilyCode[] familyCodes) {
+        for( IFamilyCodesHandler handler : m_familyCodesHandlers) {
+            handler.familyCodes(familyCodes);
         }
         recEOM();
     }

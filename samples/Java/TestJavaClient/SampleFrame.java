@@ -29,6 +29,7 @@ import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
+import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -408,6 +409,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onRequestMatchingSymbols();
             }
         });
+        JButton butRequestFamilyCodes = new JButton( "Request Family Codes");
+        butRequestFamilyCodes.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestFamilyCodes();
+            }
+        });
         JButton butGroups = new JButton( "Groups");
         butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -481,6 +488,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelAccountUpdatesMulti ) ;
         buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
         buttonPanel.add( butRequestMatchingSymbols ) ;
+        buttonPanel.add( butRequestFamilyCodes ) ;
         buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
@@ -1047,7 +1055,12 @@ class SampleFrame extends JFrame implements EWrapper {
         // request matching symbols
         m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
     }
-    
+
+    void onRequestFamilyCodes() {
+        // request family codes
+        m_client.reqFamilyCodes();
+    }
+
     public void tickPrice( int tickerId, int field, double price, int canAutoExecute) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);
@@ -1501,6 +1514,12 @@ class SampleFrame extends JFrame implements EWrapper {
     @Override
     public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
         String msg = EWrapperMsgGenerator.symbolSamples(reqId, contractDescriptions);
+        m_TWS.add(msg);
+    }
+
+    @Override
+    public void familyCodes(FamilyCode[] familyCodes) {
+        String msg = EWrapperMsgGenerator.familyCodes(familyCodes);
         m_TWS.add(msg);
     }
 

@@ -74,5 +74,6 @@ void DefaultEWrapper::securityDefinitionOptionalParameter(int reqId, const std::
 void DefaultEWrapper::securityDefinitionOptionalParameterEnd(int reqId) { }
 void DefaultEWrapper::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) { }
 void DefaultEWrapper::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) { }
+void DefaultEWrapper::familyCodes(const std::vector<FamilyCode> &familyCodes) { }
 
 

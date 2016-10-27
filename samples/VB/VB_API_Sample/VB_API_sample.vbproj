@@ -170,6 +170,7 @@
     <Compile Include="_DTwsEvents_errMsgEvent.vb" />
     <Compile Include="_DTwsEvents_execDetailsEndEvent.vb" />
     <Compile Include="_DTwsEvents_execDetailsExEvent.vb" />
+    <Compile Include="_DTwsEvents_familyCodesEvent.vb" />
     <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
     <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
     <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
