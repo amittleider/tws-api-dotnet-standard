@@ -31,7 +31,7 @@ struct Execution
 	long		clientId;
 	long		orderId;
 	int			liquidation;
-	int			cumQty;
+	double			cumQty;
 	double		avgPrice;
 	std::string	orderRef;
 	std::string	evRule;

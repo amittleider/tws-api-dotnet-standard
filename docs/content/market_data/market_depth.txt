@@ -26,7 +26,10 @@
 	
 	\section receive Receiving
 	
-	Market depth will be returned via the @ref IBApi::EWrapper::updateMktDepth callback. Initially, all requested/available rows will be delivered to the client application. As market moves however
+	Market depth will be returned via the @ref IBApi::EWrapper::updateMktDepth and @ref IBApi::EWrapper::updateMktDepthL2 callback. The two functions differentiate in that, for exchanges have additional Market Makers than itself, market depth data will be relayed back through @ref IBApi::EWrapper::updateMktDepthL2, otherwise @ref IBApi::EWrapper::updateMktDepth. 
+	For example, ARCA only has ARCA itself as Market Maker. Therefore when requesting market depth data from ARCA, the data will be relayed back via @ref IBApi::EWrapper::updateMktDepth. On the other hand, exchange like ISLAND (ECN for NASDAQ) has additional Market Makers, such as Timberhill, so the data will be relayed back via @ref IBApi::EWrapper::updateMktDepthL2, where the Market Maker information is directly available as a parameter of the call back function.
+	
+	Initially, all requested/available rows will be delivered to the client application. As market moves however
 	these rows will inevitably change. To keep the client's order book consistent, the TWS will send updates not only informing which row is to be updated but also the operation to perform in the 
 	row: insert (0), update (1) or remove (2).
 	
@@ -36,22 +39,28 @@
 		   ...
 		   \snippet EWrapperImpl.cs updatemktdepth
 		   ...
+		   \snippet EWrapperImpl.cs updatemktdepthl2
 		</li>
 		<li>
 			\snippet EWrapperImpl.java ewrapperimpl
 			...
 			\snippet EWrapperImpl.java updatemktdepth
+			...
+			\snippet EWrapperImpl.java updatemktdepthl2
 		</li>
 		<li>
 			\snippet EWrapperImpl.vb ewrapperimpl
 		   ...
 		   \snippet EWrapperImpl.vb updatemktdepth
+		   ...
+		   \snippet EWrapperImpl.vb updatemktdepthl2
 		</li>
 		<li>
 			\snippet TestCppClient.h ewrapperimpl
 			...
 			\snippet TestCppClient.cpp updatemktdepth
 			...
+			\snippet TestCppClient.cpp updatemktdepthl2
 		</li>
 	</ul>
 	

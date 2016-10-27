@@ -1414,7 +1414,9 @@ namespace IBApi
         */
         public bool ConditionsCancelOrder { get; set; }
 
-
+        /**
+        * @brief Define the Soft Dollar Tier used for the order. Only provided for registered professional advisors and hedge and mutual funds.
+        */
         public SoftDollarTier Tier { get; set; }
     }
 }

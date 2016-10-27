@@ -77,7 +77,7 @@ public class AvailableAlgoParams {
 	
 	//! [ad_params]
 	public static void FillAccumulateDistributeParams(Order baseOrder, int componentSize, int timeBetweenOrders, boolean randomizeTime20, boolean randomizeSize55,
-            int giveUp, boolean catchUp, boolean waitOrFill, String startTime, String endTime) {
+            int giveUp, boolean catchUp, boolean waitForFill, String startTime, String endTime) {
 		
 		baseOrder.algoStrategy("AD");
 		baseOrder.algoParams(new ArrayList<TagValue>());
@@ -87,7 +87,7 @@ public class AvailableAlgoParams {
 		baseOrder.algoParams().add(new TagValue("randomizeSize55", randomizeSize55 ? "1" : "0"));
 		baseOrder.algoParams().add(new TagValue("giveUp", String.valueOf(giveUp)));
 		baseOrder.algoParams().add(new TagValue("catchUp", catchUp ? "1" : "0"));
-		baseOrder.algoParams().add(new TagValue("waitOrFill", waitOrFill ? "1" : "0"));
+		baseOrder.algoParams().add(new TagValue("waitForFill", waitForFill ? "1" : "0"));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
 		baseOrder.algoParams().add(new TagValue("endTime", endTime));
 		

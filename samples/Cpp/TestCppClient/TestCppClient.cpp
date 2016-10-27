@@ -244,6 +244,7 @@ void TestCppClient::processMessages() {
 
 	m_pReader->checkClient();
 	m_osSignal.waitForSignal();
+	errno = 0;
 	m_pReader->processMsgs();
 }
 
@@ -689,7 +690,8 @@ void TestCppClient::testAlgoSamples(){
 	//! [darkice]
 
 	//! [ad]
-	AvailableAlgoParams::FillAccumulateDistributeParams(baseOrder, 10, 60, true, true, 1, true, true, "09:00:00 CET", "16:00:00 CET");
+	// The Time Zone in "startTime" and "endTime" attributes is ignored and always defaulted to GMT
+	AvailableAlgoParams::FillAccumulateDistributeParams(baseOrder, 10, 60, true, true, 1, true, true, "20161010-12:00:00 GMT", "20161010-16:00:00 GMT");
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [ad]
 
@@ -791,6 +793,10 @@ void TestCppClient::financialAdvisorOperations()
 	//! [replacefatwoprofiles]
 	m_pClient->replaceFA(faDataType::PROFILES, FAMethodSamples::FATwoProfiles());
 	//! [replacefatwoprofiles]
+
+	//! [reqSoftDollarTiers]
+	m_pClient->reqSoftDollarTiers(4001);
+	//! [reqSoftDollarTiers]
 
 	m_state = ST_FAOPERATIONS_ACK;
 }
@@ -1007,10 +1013,12 @@ void TestCppClient::updateMktDepth(TickerId id, int position, int operation, int
 }
 //! [updatemktdepth]
 
+//! [updatemktdepthl2]
 void TestCppClient::updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
                                      int side, double price, int size) {
 	printf( "UpdateMarketDepthL2. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n", id, position, operation, side, price, size);
 }
+//! [updatemktdepthl2]
 
 //! [updatenewsbulletin]
 void TestCppClient::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) {
@@ -1187,7 +1195,7 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 	printf("Soft dollar tiers (%d):", tiers.size());
 
 	for (int i = 0; i < tiers.size(); i++) {
-		printf("%s\n", tiers[0].displayName());
+		printf("%s\n", tiers[i].displayName().c_str());
 	}
 }
 //! [softDollarTiers]

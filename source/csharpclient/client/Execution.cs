@@ -27,7 +27,7 @@ namespace IBApi
         private double price;
         private int permId;
         private int liquidation;
-        private int cumQty;
+        private double cumQty;
         private double avgPrice;
         private string orderRef;
         private string evRule;
@@ -138,7 +138,7 @@ namespace IBApi
          * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public int CumQty
+        public double CumQty
         {
             get { return cumQty; }
             set { cumQty = value; }
@@ -208,7 +208,7 @@ namespace IBApi
 
         public Execution(int orderId, int clientId, String execId, String time,
                           String acctNumber, String exchange, String side, double shares,
-                          double price, int permId, int liquidation, int cumQty,
+                          double price, int permId, int liquidation, double cumQty,
                           double avgPrice, String orderRef, String evRule, double evMultiplier,
                           String modelCode)
         {

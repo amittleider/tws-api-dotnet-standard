@@ -34,7 +34,7 @@ namespace TWSLib
         [DispId(11)]
         int liquidation { get; }
         [DispId(12)]
-        int cumQty { get; }
+        double cumQty { get; }
         [DispId(13)]
         double avgPrice { get; }
         [DispId(14)]

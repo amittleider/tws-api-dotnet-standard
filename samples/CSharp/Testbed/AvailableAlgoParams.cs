@@ -75,7 +75,7 @@ namespace Samples
 
         //! [ad_params]
         public static void FillAccumulateDistributeParams(Order baseOrder, int componentSize, int timeBetweenOrders, bool randomizeTime20, bool randomizeSize55,
-            int giveUp, bool catchUp, bool waitOrFill, string startTime, string endTime)
+            int giveUp, bool catchUp, bool waitForFill, string startTime, string endTime)
         {
             baseOrder.AlgoStrategy = "AD";
             baseOrder.AlgoParams = new List<TagValue>();
@@ -85,7 +85,7 @@ namespace Samples
             baseOrder.AlgoParams.Add(new TagValue("randomizeSize55", randomizeSize55 ? "1" : "0"));
             baseOrder.AlgoParams.Add(new TagValue("giveUp", giveUp.ToString()));
             baseOrder.AlgoParams.Add(new TagValue("catchUp", catchUp ? "1" : "0"));
-            baseOrder.AlgoParams.Add(new TagValue("waitOrFill", waitOrFill ? "1" : "0"));
+            baseOrder.AlgoParams.Add(new TagValue("waitForFill", waitForFill ? "1" : "0"));
             baseOrder.AlgoParams.Add(new TagValue("startTime", startTime));
             baseOrder.AlgoParams.Add(new TagValue("endTime", endTime));
         }

@@ -3,7 +3,9 @@
 
 #include "StdAfx.h"
 #include "EReaderOSSignal.h"
-
+#if defined(IB_POSIX)
+#include <sys/time.h>
+#endif
 
 #define MS_IN_SEC 1000
 
@@ -16,6 +18,7 @@ EReaderOSSignal::EReaderOSSignal(unsigned long waitTimeout) throw (std::runtime_
     int rc1 = pthread_mutex_init(&m_mutex, NULL);
     int rc2 = pthread_cond_init(&m_evMsgs, NULL);
     ok = rc1 == 0 && rc2 == 0;
+    open = false; 
 #elif defined(IB_WIN32)
 	m_evMsgs = CreateEvent(0, false, false, 0);
     ok = (NULL != m_evMsgs);
@@ -43,6 +46,7 @@ EReaderOSSignal::~EReaderOSSignal(void)
 void EReaderOSSignal::issueSignal() {
 #if defined(IB_POSIX)
     pthread_mutex_lock(&m_mutex);
+    open = true;
     pthread_cond_signal(&m_evMsgs);
     pthread_mutex_unlock(&m_mutex);
 #elif defined(IB_WIN32)
@@ -54,16 +58,21 @@ void EReaderOSSignal::issueSignal() {
 
 void EReaderOSSignal::waitForSignal() {
 #if defined(IB_POSIX)
-    pthread_mutex_lock(&m_mutex);
-    if ( m_waitTimeout == INFINITE ) {
+    pthread_mutex_lock(&m_mutex); 
+    if (!open) {
+	if ( m_waitTimeout == INFINITE ) {
 		pthread_cond_wait(&m_evMsgs, &m_mutex);
-    }
-    else {
+	}
+	else {
 		struct timespec ts;
-		ts.tv_sec = m_waitTimeout/MS_IN_SEC;
+		struct timeval tv;
+		gettimeofday(&tv, NULL);
+		ts.tv_sec = tv.tv_sec+m_waitTimeout/MS_IN_SEC;
 		ts.tv_nsec = (m_waitTimeout%MS_IN_SEC)*1000/*us/ms*/*1000/*ns/us*/;
 		pthread_cond_timedwait(&m_evMsgs, &m_mutex, &ts);
+	}
     }
+    open = false;
     pthread_mutex_unlock(&m_mutex);
 #elif defined(IB_WIN32)
 	WaitForSingleObject(m_evMsgs, m_waitTimeout);
