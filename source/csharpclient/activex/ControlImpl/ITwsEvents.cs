@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using IBApi;
 
 namespace TWSLib
 {
@@ -150,5 +151,7 @@ namespace TWSLib
         void securityDefinitionOptionParameterEndDelegate(int reqId);
         [DispId(125)]
         void softDollarTiersDelegate(int reqid);
+        [DispId(126)]
+        void symbolSamples(int reqId, IContractDescriptionList contractDescriptions);
     }
 }

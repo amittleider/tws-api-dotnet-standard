@@ -90,6 +90,7 @@ inline bool isPrice( TickType tickType) {
 
 struct Contract;
 struct ContractDetails;
+struct ContractDescription;
 struct Order;
 struct OrderState;
 struct Execution;
@@ -170,6 +171,7 @@ public:
    virtual void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) = 0;
    virtual void securityDefinitionOptionalParameterEnd(int reqId) = 0;
    virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) = 0;
+   virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) = 0;
 };
 
 

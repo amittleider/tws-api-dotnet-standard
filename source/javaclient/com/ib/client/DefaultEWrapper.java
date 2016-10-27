@@ -371,5 +371,11 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -188,6 +188,7 @@
     <Compile Include="_DTwsEvents_scannerParametersEvent.vb" />
     <Compile Include="_DTwsEvents_securityDefinitionOptionParameterEnd.vb" />
     <Compile Include="_DTWsEvents_securityDefinitionOptionParameterEvent.vb" />
+    <Compile Include="_DTwsEvents_symbolSamplesEvent.vb" />
     <Compile Include="_DTwsEvents_tickEFPEvent.vb" />
     <Compile Include="_DTwsEvents_tickGenericEvent.vb" />
     <Compile Include="_DTwsEvents_tickOptionComputationEvent.vb" />

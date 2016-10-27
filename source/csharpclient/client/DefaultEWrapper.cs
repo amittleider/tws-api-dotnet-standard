@@ -241,5 +241,9 @@ namespace IBApi
         public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
         {
         }
+
+        public void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        {
+        }
     }
 }

@@ -687,5 +687,12 @@ namespace IBApi
         * @sa EClient::reqSoftDollarTiers
         */
         void softDollarTiers(int reqId, SoftDollarTier[] tiers);
+
+        /**
+        * @brief returns array of sample contract descriptions
+        * @param ContractDescription[]
+        * @sa EClient::reqMatchingSymbols
+        */
+        void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
     }
 }

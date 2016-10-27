@@ -117,6 +117,8 @@ public:
 	void accountUpdateMultiEnd( int reqId);
     void securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
     void securityDefinitionOptionalParameterEnd(int reqId);
+	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
+	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 
 private:
 

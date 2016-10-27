@@ -698,5 +698,16 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(reqId, tiers);
         }
+
+        public event Action<int, ContractDescription[]> SymbolSamples;
+
+        void EWrapper.symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        {
+            var tmp = SymbolSamples;
+
+            if (tmp != null)
+                tmp(reqId, contractDescriptions);
+        }
+
     }
 }

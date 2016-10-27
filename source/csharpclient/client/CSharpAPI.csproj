@@ -55,6 +55,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="ContractCondition.cs" />
+    <Compile Include="ContractDescription.cs" />
     <Compile Include="ContractDetails.cs" />
     <Compile Include="DefaultEWrapper.cs" />
     <Compile Include="EClientErrors.cs" />

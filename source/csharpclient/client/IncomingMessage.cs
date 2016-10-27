@@ -63,5 +63,6 @@ namespace IBApi
         public const int SecurityDefinitionOptionParameter = 75;
         public const int SecurityDefinitionOptionParameterEnd = 76;
         public const int SoftDollarTier = 77;
+        public const int SymbolSamples = 78;
     }
 }

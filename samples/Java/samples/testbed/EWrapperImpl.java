@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
+import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
@@ -449,4 +450,23 @@ public class EWrapperImpl implements EWrapper {
 	}
         //! [softDollarTiers]
 
+    //! [symbolSamples]
+    @Override
+    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+        System.out.println("Contract Descriptions. Request: " + reqId + "\n");
+        for (ContractDescription  cd : contractDescriptions) {
+            Contract c = cd.contract();
+            StringBuilder derivativeSecTypesSB = new StringBuilder();
+            for (String str : cd.derivativeSecTypes()) {
+                derivativeSecTypesSB.append(str);
+                derivativeSecTypesSB.append(",");
+            }
+            System.out.print("Contract. ConId: " + c.conid() + ", Symbol: " + c.symbol() + ", SecType: " + c.secType() + 
+                    ", PrimaryExch: " + c.primaryExch() + ", Currency: " + c.currency() + 
+                    ", DerivativeSecTypes:[" + derivativeSecTypesSB.toString() + "]");
+        }
+
+        System.out.println();
+    }
+    //! [symbolSamples]
 }

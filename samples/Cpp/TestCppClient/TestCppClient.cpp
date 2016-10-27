@@ -220,6 +220,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_MISCELANEOUS_ACK:
 			break;
+		case ST_SYMBOLSAMPLES:
+			reqMatchingSymbols();
+			break;
+		case ST_SYMBOLSAMPLES_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -837,6 +842,14 @@ void TestCppClient::miscelaneous()
 	m_state = ST_MISCELANEOUS_ACK;
 }
 
+void TestCppClient::reqMatchingSymbols()
+{
+	/*** Request TWS' mathing symbols ***/
+	m_pClient->reqMatchingSymbols(11001, "IB");
+
+	m_state = ST_SYMBOLSAMPLES_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -853,7 +866,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
-	m_state = ST_ACCOUNTOPERATIONS;
+	//m_state = ST_ACCOUNTOPERATIONS;
 	//m_state = ST_ORDEROPERATIONS;
 	//m_state = ST_OCASAMPLES;
 	//m_state = ST_CONDITIONSAMPLES;
@@ -864,6 +877,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAOPERATIONS;
 	//m_state = ST_DISPLAYGROUPS;
 	//m_state = ST_MISCELANEOUS;
+	m_state = ST_SYMBOLSAMPLES;
 	//m_state = ST_PING;
 }
 
@@ -1199,3 +1213,21 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 	}
 }
 //! [softDollarTiers]
+
+//! [symbolSamples]
+void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {
+	printf("Contract descriptions (%d) reqId:\n", contractDescriptions.size(), reqId);
+
+	for (int i = 0; i < contractDescriptions.size(); i++) {
+//! [symbolSamples]
+		Contract contract = contractDescriptions[i].contract;
+		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
+		printf("Contract: %d %s %s %s %s, ", contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
+		printf("Derivative Sec-types (%d):", derivativeSecTypes.size());
+		for (int j = 0; j < derivativeSecTypes.size(); j++) {
+			printf(" %s", derivativeSecTypes[j].c_str());
+		}
+		printf("\n");
+	}
+}
+//! [symbolSamples]

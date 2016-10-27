@@ -34,6 +34,8 @@ namespace IBSampleApp
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
         private AcctPosMultiManager acctPosMultiManager;
+        private SymbolSamplesManager symbolSamplesManagerData;
+        private SymbolSamplesManager symbolSamplesManagerContractInfo;
 
         protected IBClient ibClient;
 
@@ -62,6 +64,8 @@ namespace IBSampleApp
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
+            symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
+            symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -154,6 +158,7 @@ namespace IBSampleApp
             ibClient.SecurityDefinitionOptionParameter += (reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes) => HandleMessage(new SecurityDefinitionOptionParameterMessage(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes));
             ibClient.SecurityDefinitionOptionParameterEnd += (reqId) => HandleMessage(new SecurityDefinitionOptionParameterEndMessage(reqId));
             ibClient.SoftDollarTiers += (reqId, tiers) => HandleMessage(new SoftDollarTiersMessage(reqId, tiers));
+            ibClient.SymbolSamples += (reqId, contractDescriptions) => HandleMessage(new SymbolSamplesMessage(reqId, contractDescriptions));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -368,6 +373,18 @@ namespace IBSampleApp
                 case MessageType.SoftDollarTiers:
                     {
                         orderManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.SymbolSamples:
+                    {
+                        if (symbolSamplesManagerData.isActive())
+                        {
+                            symbolSamplesManagerData.UpdateUI(message);
+                        }
+                        if (symbolSamplesManagerContractInfo.isActive())
+                        {
+                            symbolSamplesManagerContractInfo.UpdateUI(message);
+                        }
                         break;
                     }
 
@@ -902,6 +919,23 @@ namespace IBSampleApp
             optionsManager.SecurityDefinitionOptionParametersRequest(symbol, exchange, secType, conId);
             ShowTab(contractInfoTab, optionParametersPage);
         }
-        
+
+        private void requestMatchingSymbolsContractInfo_Click(object sender, EventArgs e)
+        {
+            symbolSamplesManagerData.unsetActive();
+            symbolSamplesManagerContractInfo.setActive();
+            symbolSamplesManagerData.Clear();
+            symbolSamplesManagerContractInfo.AddRequest(conDetSymbol.Text);
+            ShowTab(contractInfoTab, symbolSamplesTabContractInfo);
+        }
+
+        private void requestMatchingSymbolsData_Click(object sender, EventArgs e)
+        {
+            symbolSamplesManagerContractInfo.unsetActive();
+            symbolSamplesManagerData.setActive();
+            symbolSamplesManagerContractInfo.Clear();
+            symbolSamplesManagerData.AddRequest(symbol_TMD_MDT.Text);
+            ShowTab(marketData_MDT, symbolSamplesTabData);
+        }
     }
 }

@@ -100,6 +100,7 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdReqAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdCancelAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
+    Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -156,6 +157,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdCancelAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
+        Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -821,11 +823,21 @@ Friend Class dlgMainWnd
         Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
         Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
         '
+        'cmdReqMatchingSymbols
+        '
+        Me.cmdReqMatchingSymbols.Location = New System.Drawing.Point(684, 221)
+        Me.cmdReqMatchingSymbols.Name = "cmdReqMatchingSymbols"
+        Me.cmdReqMatchingSymbols.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMatchingSymbols.TabIndex = 54
+        Me.cmdReqMatchingSymbols.Text = "Req Matching Symbols"
+        Me.cmdReqMatchingSymbols.UseVisualStyleBackColor = True
+        '
         'dlgMainWnd
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(823, 659)
+        Me.Controls.Add(Me.cmdReqMatchingSymbols)
         Me.Controls.Add(Me.cmdReqSecDefOptParams)
         Me.Controls.Add(Me.cmdCancelAccountUpdatesMulti)
         Me.Controls.Add(Me.cmdReqAccountUpdatesMulti)
@@ -2852,5 +2864,50 @@ Friend Class dlgMainWnd
 
         ' move into view
         lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
+    End Sub
+
+    Private Sub cmdReqMatchingSymbols_Click(sender As Object, e As EventArgs) Handles cmdReqMatchingSymbols.Click
+        ' Set the dialog state
+        m_dlgOrder.init((dlgOrder.Dlg_Type.REQ_MATCHING_SYMBOLS), _
+        m_contractInfo, m_orderInfo, m_underComp, Nothing, Me)
+
+        m_dlgOrder.ShowDialog()
+
+        If m_dlgOrder.ok Then
+            Call Tws1.reqMatchingSymbols(m_dlgOrder.orderId, m_contractInfo.Symbol)
+        End If
+    End Sub
+
+    Private Sub Tws1_OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTWsEvents_symbolSamplesEvent) Handles Tws1.OnSymbolSamples
+
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Dim displayString As String = ""
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Symbol Samples (total=" & DTwsEvents_symbolSamplesEvent.contractDescriptions.Length & ") reqId=" & DTwsEvents_symbolSamplesEvent.reqId & " ====")
+        Dim count As Integer = 0
+        For Each cd As ContractDescription In DTwsEvents_symbolSamplesEvent.contractDescriptions
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Contract Description (" & count & ") ----")
+            With cd.Contract
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "conId=" & .ConId)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "symbol=" & .Symbol)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "secType=" & .SecType)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "primExch=" & .PrimaryExch)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "currency=" & .Currency)
+            End With
+
+            displayString = "derivative secTypes="
+            For Each derivativeSecType As String In cd.DerivativeSecTypes
+                displayString += (derivativeSecType & " ")
+            Next
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, displayString)
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Contract Description End (" & count & ") ----")
+            count += 1
+        Next
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Symbol Samples End (total=" & DTwsEvents_symbolSamplesEvent.contractDescriptions.Length & ") reqId=" & DTwsEvents_symbolSamplesEvent.reqId & " ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
     End Sub
 End Class

@@ -339,6 +339,8 @@ namespace TWSLib
         void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId);
         [DispId(214)]
         void reqSoftDollarTiers(int reqId);
+        [DispId(215)]
+        void reqMatchingSymbols(int reqId, string pattern);
 
         #endregion
     }

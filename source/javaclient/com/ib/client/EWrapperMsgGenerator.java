@@ -592,6 +592,28 @@ public class EWrapperMsgGenerator {
 		return msg;
 	}
 
+    static public String symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("==== Contract Descriptions Begin (total=" + contractDescriptions.length + ") reqId: " + reqId + " ====\n");
+        for (int i = 0; i < contractDescriptions.length; i++) {
+            sb.append("---- Contract Description Begin (" + i + ") ----\n");
+            sb.append("conId: " + contractDescriptions[i].contract().conid() + "\n");
+            sb.append("symbol: " + contractDescriptions[i].contract().symbol() + "\n");
+            sb.append("secType: " + contractDescriptions[i].contract().secType() + "\n");
+            sb.append("primaryExch: " + contractDescriptions[i].contract().primaryExch() + "\n");
+            sb.append("currency: " + contractDescriptions[i].contract().currency() + "\n");
+            sb.append("derivativeSecTypes (total=" + contractDescriptions[i].derivativeSecTypes().length + "): ");
+            for (int j = 0; j < contractDescriptions[i].derivativeSecTypes().length; j++){
+                sb.append(contractDescriptions[i].derivativeSecTypes()[j] + " ");
+            }
+            sb.append("\n");
+            sb.append("---- Contract Description End (" + i + ") ----\n");
+        }
+        sb.append("==== Contract Descriptions End (total=" + contractDescriptions.length + ") reqId: " + reqId + " ====\n");
+
+        return sb.toString();
+    }
+
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 

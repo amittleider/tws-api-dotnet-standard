@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
+import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
@@ -401,6 +402,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onRequestSecurityDefinitionOptionParameters();
             }
         });
+        JButton butRequestMatchingSymbols = new JButton( "Request Mathing Symbols");
+        butRequestMatchingSymbols.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestMatchingSymbols();
+            }
+        });
         JButton butGroups = new JButton( "Groups");
         butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -473,6 +480,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butRequestAccountUpdatesMulti ) ;
         buttonPanel.add( butCancelAccountUpdatesMulti ) ;
         buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
+        buttonPanel.add( butRequestMatchingSymbols ) ;
         buttonPanel.add( butGroups ) ;
 
         buttonPanel.add( new JPanel() );
@@ -1028,6 +1036,18 @@ class SampleFrame extends JFrame implements EWrapper {
 //        }
     }
     
+    void onRequestMatchingSymbols() {
+        // run m_orderDlg
+        m_orderDlg.init("Options", false);
+        m_orderDlg.show();
+        if( !m_orderDlg.m_rc ) {
+            return;
+        }
+
+        // request matching symbols
+        m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
+    }
+    
     public void tickPrice( int tickerId, int field, double price, int canAutoExecute) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);
@@ -1477,5 +1497,11 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 	}
-    
+
+    @Override
+    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+        String msg = EWrapperMsgGenerator.symbolSamples(reqId, contractDescriptions);
+        m_TWS.add(msg);
+    }
+
 }
