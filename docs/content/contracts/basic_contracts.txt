@@ -1,0 +1,288 @@
+/*! \page basic_contracts Basic Contracts 
+
+	\section cash FX Pairs
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs cashcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java cashcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb cashcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp cashcontract
+		</li>
+	</ul>
+	
+	\section stk Stocks
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs stkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java stkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb stkcontract
+		</li>
+		<li>
+		\snippet ContractSamples.cpp stkcontract
+		</li>
+	</ul>
+	
+	For certain smart-routed stock contracts that have the same <b>symbol</b>, <b>currency</b> and <b>exchange</b>, you would also need to specify the <b>primary exchange</b> attribute to uniquely define the contract. This should be defined as the native exchange of a contract, and is good practice for all stocks:
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs stkcontractwithprimary
+		</li>
+		<li>
+			\snippet ContractSamples.java stkcontractwithprimary
+		</li>
+		<li>
+			\snippet ContractSamples.vb stkcontractwithprimary
+		</li>
+		<li>
+		\snippet ContractSamples.cpp stkcontractwithprimary
+		</li>
+	</ul>
+	
+	As an alternative to defining the exchange and primary exchange fields, it is possible to specify the exchange field as "Exchange:Primary Exchange", e.g. "SMART:NASDAQ". The colon ":" or slash "/" separating this fields is known as the "Component Exchange Separator" and defined in the API Settings in Global Configuration. 
+	
+	\section ind Indexes
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs indcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java indcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb indcontract
+		</li>
+		<li>
+		\snippet ContractSamples.cpp indcontract
+		</li>
+	</ul>
+	
+	\section cfd CFDs
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs cfdcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java cfdcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb cfdcontract
+		</li>
+		<li>
+		\snippet ContractSamples.cpp cfdcontract
+		</li>
+	</ul>
+	
+	\section fut Futures
+
+	A Future contract by definition requires an expiration date and its <b>underlying's</b> symbol:
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs futcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java futcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb futcontract
+		</li>
+		<li>
+		\snippet ContractSamples.cpp futcontract
+		</li>
+	</ul>
+	
+	Although the expiration and underlying symbol can be replaced with the contract's own symbol, also known as <b>local symbol</b> (named as Symbol within the TWS' Contract Description dialog):
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs futcontract_local_symbol
+		</li>
+		<li>
+			\snippet ContractSamples.java futcontract_local_symbol
+		</li>
+		<li>
+			\snippet ContractSamples.vb futcontract_local_symbol
+		</li>
+		<li>
+		\snippet ContractSamples.cpp futcontract_local_symbol
+		</li>
+	</ul>
+	
+	Occasionally, you can expect to have more than a single future contract for the same underlying expiring on the same month. To rule out the
+	ambiguity, the contract's <b>multiplier</b> can be given as shown below:
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs futcontract_multiplier
+		</li>
+		<li>
+			\snippet ContractSamples.java futcontract_multiplier
+		</li>
+		<li>
+			\snippet ContractSamples.vb futcontract_multiplier
+		</li>
+		<li>
+		\snippet ContractSamples.cpp futcontract_multiplier
+		</li>
+	</ul>
+
+	\section opt Options
+	
+	Options, like futures, also require an expiration date plus a <b>strike</b> and a <b>multiplier</b>:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs optcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java optcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb optcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp optcontract
+		</li>
+	</ul>
+	
+	It is not unusual to find many option contracts with an almost identical description (i.e. underlying symbol, strike, last trading date, multiplier, etc.).
+	Adding more details such as the <b>trading class</b> will help:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs optcontract_tradingclass
+		</li>
+		<li>
+			\snippet ContractSamples.java optcontract_tradingclass
+		</li>
+		<li>
+			\snippet ContractSamples.vb optcontract_tradingclass
+		</li>
+		<li>
+			\snippet ContractSamples.cpp optcontract_tradingclass
+		</li>
+	</ul>
+	
+	Using the contract's own symbol (local symbol in the API side) instead of its underlying can greatly simplify an option's description
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs optcontract_localsymbol
+		</li>
+		<li>
+			\snippet ContractSamples.java optcontract_localsymbol
+		</li>
+		<li>
+			\snippet ContractSamples.vb optcontract_localsymbol
+		</li>
+		<li>
+			\snippet ContractSamples.cpp optcontract_localsymbol
+		</li>
+	</ul>
+	
+	\section fop Futures on Options
+	
+	Futures on options follow the same rules as conventional option contracts:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs fopcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java fopcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb fopcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp fopcontract
+		</li>
+	</ul>
+	
+	\section Bonds
+	
+	Bonds can be specified by defining the symbol as the CUSIP. The CUSIP requires a separate market data subscription.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.java bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.vb bondwithcusip
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bondwithcusip
+		</li>
+	</ul>
+	
+	Bonds can also be defined with the conId and exchange as with any security type. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bond
+		</li>
+		<li>
+			\snippet ContractSamples.java bond
+		</li>
+		<li>
+			\snippet ContractSamples.vb bond
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bond
+		</li>
+	</ul>
+	
+	\section funds Mutual Funds
+	
+	Mutual Funds are supported in the API. Note: Mutual Funds cannot be traded in paper accounts.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb fundcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp fundcontract
+		</li>
+	</ul>
+	
+	\section Commodities
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.java commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp commoditycontract
+		</li>
+	</ul>
+	
+	<br><br>
+
+*/

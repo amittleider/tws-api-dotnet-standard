@@ -1,0 +1,106 @@
+﻿/*! \page connection Connection
+
+	A TCP connection between your API client application and the TWS needs to be established via the @ref IBApi::EClient::eConnect function. The TWS can be considered 
+	like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to <b>32 different client applications</b> simultaneously 
+	each of them identified by a unique client Id.
+		
+	\section connect Connecting
+	
+	Once our two main objects have been created, the client application can then connect via the @ref IBApi::EClientSocket object:
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet Program.cs connect
+		</li>
+		<li>
+		\snippet Testbed.java connect
+		</li>
+		<li>
+		\snippet MainModule.vb connect
+		</li>
+		<li>
+		\snippet Main.cpp connect
+		</li>
+	</ul>
+	
+	\section connect_ack Acknowledging the connection
+	
+	After the socket connection is established between the TWS and the client, both applications need to exchange important information
+	such as their respective versions and in the case of the client application, its unique client Id. The API connection supports synchronous
+	and asynchronous connection requests. When the client application decides to connect asynchronously, it will have to wait for an acknowledgment
+	from the TWS before attempting to send the information described at the beginning of this paragraph. This acknowledgment is received via the 
+	@ref IBApi::EWrapper::connectAck method. When this event is triggered within an asynchronous context, the client application will have to 
+	start the flow of information to the TWS via the @ref IBApi::EClientSocket::startApi method.
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		\snippet EWrapperImpl.cs connectack
+		</li>
+		<li>
+		\snippet EWrapperImpl.java ewrapperimpl
+		...
+		\snippet EWrapperImpl.java connectack
+		</li>
+		<li>
+		\snippet EWrapperImpl.vb connectack
+		</li>
+		<li>
+		\snippet TestCppClient.h ewrapperimpl
+		   ...
+		\snippet TestCppClient.cpp connectack
+		</li>
+	</ul>
+	
+	Note: all our sample code connects synchronously to the TWS.
+	
+	\section ereader Consuming TWS data
+	
+	The final step on this procedure is to consume the incoming data within a separate execution thread. The class in charge of reading and parsing the raw messages from
+	the TWS is the @ref IBApi::EReader class. Internally, whenever there are messages ready to be consumed by the EReader object, a signal will be issued to this reading thread
+	indicating so. The process is better illustrated through an example:
+	
+	<ul id="tab">
+		<li class="active"> 
+		\snippet Program.cs ereader
+		</li>
+		<li>
+		\snippet Testbed.java ereader
+		</li>
+		<li> 
+		\snippet MainModule.vb ereader
+		...
+		\snippet MainModule.vb ereader_thread
+		</li>
+		<li>
+		\snippet Main.cpp ereader
+		</li>
+	</ul>
+	
+	Now it is time to revisit the role of @ref IBApi::EReaderSignal initially introduced in @ref client_socket. As mentioned in the previous paragraph, the EReader's thread will need
+	to be notified whenever there is information ready to be consumed. This is done via the @ref IBApi::EReaderSignal object we initiated within the @ref IBApi::EWrapper's implementor.
+
+	The client application is now ready to work with the Trader Workstation! As soon as the connection has been fully established, you will immediately start receiving
+	events from the TWS such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts
+	
+	\section accept_connections Accepting the connection on the TWS side.
+	
+	To prevent unwanted connections by default, the TWS is not configured to automatically accept any incoming connection request. Whenever a client application tries to
+	connect to the TWS and the TWS is not configured to accept incoming connection requests from the host the client application is in, a prompt window will appear
+	requiring the user to accept the connection attempt:
+	
+	\image html conn_prompt.png
+	
+	To prevent the TWS from asking the end user to accept the connection, it is possible to configure it to automatically accept the connection from a trusted IP address
+	and/or the local machine. This can easily be done via the TWS API settings:
+	
+	\image html tws_allow_connections.png
+	
+	<b>Note:</b> you have to make sure the connection has been fully established before attempting to do any requests to the TWS. Failure to do so will result in the TWS
+	closing the connection. The safest way to prevent this situation is simply to wait until one of @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts
+	events is triggered before attempting to request anything from the TWS.
+	
+	<br><br>
+
+*/

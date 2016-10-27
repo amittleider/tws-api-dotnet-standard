@@ -24,10 +24,13 @@ public class ExtOrdDlg extends JDialog {
     public boolean 		m_rc;
 
     private JTextField 	m_tif = new JTextField( "DAY");
+    private JTextField 	m_activeStartTime = new JTextField();
+    private JTextField 	m_activeStopTime = new JTextField();
     private JTextField 	m_ocaGroup = new JTextField();
     private JTextField 	m_ocaType = new JTextField("0");
 
     private JTextField 	m_account = new JTextField();
+    private JTextField 	m_modelCode = new JTextField();
     private JTextField  m_settlingFirm = new JTextField();
     private JTextField  m_clearingAccount = new JTextField();
     private JTextField  m_clearingIntent = new JTextField();
@@ -89,10 +92,14 @@ public class ExtOrdDlg extends JDialog {
     private JTextField 	m_scaleInitPosition = new JTextField();
     private JTextField 	m_scaleInitFillQty = new JTextField();
     private JCheckBox   m_scaleRandomPercent = new JCheckBox("SCALE: Random Percent", false);
+    private JTextField 	m_scaleTable = new JTextField();
 
     private JTextField 	m_hedgeType = new JTextField();
     private JTextField 	m_hedgeParam = new JTextField();
     private JCheckBox   m_optOutSmartRoutingCheckBox = new JCheckBox("Opting out of SMART routing", false);
+	private JCheckBox 	m_solicited = new JCheckBox("Solicited", false);
+	private JCheckBox 	m_randomizeSize = new JCheckBox("Randomize size", false);
+	private JCheckBox 	m_randomizePrice = new JCheckBox("Randomize price", false);
 
     private JButton 	m_ok = new JButton( "OK");
     private JButton 	m_cancel = new JButton( "Cancel");
@@ -103,10 +110,14 @@ public class ExtOrdDlg extends JDialog {
         setTitle( "Sample");
 
         // create extended order attributes panel
-        JPanel extOrderDetailsPanel = new JPanel( new GridLayout( 0, 4, 5, 5) );
+        JPanel extOrderDetailsPanel = new JPanel( new GridLayout( 0, 6, 5, 5) );
         extOrderDetailsPanel.setBorder( BorderFactory.createTitledBorder( "Extended Order Info") );
         extOrderDetailsPanel.add( new JLabel( "TIF") );
         extOrderDetailsPanel.add( m_tif);
+        extOrderDetailsPanel.add(new JLabel("Active Start Time"));
+        extOrderDetailsPanel.add(m_activeStartTime);
+        extOrderDetailsPanel.add(new JLabel("Active Stop Time"));
+        extOrderDetailsPanel.add(m_activeStopTime);
         extOrderDetailsPanel.add( new JLabel( "OCA Group") );
         extOrderDetailsPanel.add( m_ocaGroup);
         extOrderDetailsPanel.add( new JLabel( "OCA Type") );
@@ -114,6 +125,8 @@ public class ExtOrdDlg extends JDialog {
 
         extOrderDetailsPanel.add( new JLabel( "Account") );
         extOrderDetailsPanel.add( m_account);
+        extOrderDetailsPanel.add( new JLabel( "Model Code") );
+        extOrderDetailsPanel.add( m_modelCode);
         extOrderDetailsPanel.add(new JLabel("Settling Firm"));
         extOrderDetailsPanel.add(m_settlingFirm);
         extOrderDetailsPanel.add(new JLabel("Clearing Account"));
@@ -236,12 +249,17 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_scaleInitFillQty);
         extOrderDetailsPanel.add(m_scaleRandomPercent);
         extOrderDetailsPanel.add( new JLabel(""));
+        extOrderDetailsPanel.add(new JLabel("SCALE: Scale Table"));
+        extOrderDetailsPanel.add(m_scaleTable);
 
         extOrderDetailsPanel.add(new JLabel("HEDGE: Type"));
         extOrderDetailsPanel.add(m_hedgeType);
         extOrderDetailsPanel.add(new JLabel("HEDGE: Param"));
         extOrderDetailsPanel.add(m_hedgeParam);
         extOrderDetailsPanel.add(m_optOutSmartRoutingCheckBox) ;
+        extOrderDetailsPanel.add(m_solicited);
+        extOrderDetailsPanel.add(m_randomizeSize);
+        extOrderDetailsPanel.add(m_randomizePrice);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
@@ -275,75 +293,82 @@ public class ExtOrdDlg extends JDialog {
 
         try {
             // set extended order fields
-            m_order.m_tif = m_tif.getText().trim();
-            m_order.m_ocaGroup = m_ocaGroup.getText().trim();
-            m_order.m_ocaType = parseInt( m_ocaType);
+            m_order.tif(m_tif.getText().trim());
+            m_order.activeStartTime(m_activeStartTime.getText().trim());
+            m_order.activeStopTime(m_activeStopTime.getText().trim());
+            m_order.ocaGroup(m_ocaGroup.getText().trim());
+            m_order.ocaType(parseInt(m_ocaType));
 
-            m_order.m_account = m_account.getText().trim();
-            m_order.m_settlingFirm = m_settlingFirm.getText().trim();
-            m_order.m_clearingAccount = m_clearingAccount.getText().trim();
-            m_order.m_clearingIntent = m_clearingIntent.getText().trim();
+            m_order.account(m_account.getText().trim());
+            m_order.modelCode(m_modelCode.getText().trim());
+            m_order.settlingFirm(m_settlingFirm.getText().trim());
+            m_order.clearingAccount(m_clearingAccount.getText().trim());
+            m_order.clearingIntent(m_clearingIntent.getText().trim());
 
-            m_order.m_openClose = m_openClose.getText().trim();
-            m_order.m_origin = parseInt( m_origin );
-            m_order.m_orderRef = m_orderRef.getText().trim();
-            m_order.m_parentId = parseInt( m_parentId);
-            m_order.m_transmit = parseInt(m_transmit) != 0;
-            m_order.m_blockOrder = parseInt(m_blockOrder) != 0;
-            m_order.m_sweepToFill = parseInt(m_sweepToFill) != 0;
-            m_order.m_displaySize = parseInt( m_displaySize);
-            m_order.m_triggerMethod = parseInt( m_triggerMethod);
-            m_order.m_outsideRth = parseInt(m_outsideRth) != 0;
-            m_order.m_hidden = parseInt(m_hidden) != 0;
-            m_order.m_discretionaryAmt = parseDouble( m_discretionaryAmt);
-            m_order.m_shortSaleSlot = parseInt( m_shortSaleSlot );
-            m_order.m_designatedLocation = m_designatedLocation.getText().trim();
-            m_order.m_exemptCode = Integer.parseInt(m_exemptCode.getText().length() != 0 ? m_exemptCode.getText() : "-1");
-            m_order.m_rule80A = m_rule80A.getText().trim();
-            m_order.m_allOrNone = parseInt(m_allOrNone) != 0;
-            m_order.m_minQty = parseMaxInt(m_minQty);
-            m_order.m_overridePercentageConstraints =
-                parseInt(m_overridePercentageConstraints) != 0;
-            m_order.m_percentOffset = parseMaxDouble(m_percentOffset);
-            m_order.m_eTradeOnly = parseInt(m_eTradeOnly) != 0;
-            m_order.m_firmQuoteOnly = parseInt(m_firmQuoteOnly) != 0;
-            m_order.m_nbboPriceCap = parseMaxDouble(m_nbboPriceCap);
-            m_order.m_optOutSmartRouting = m_optOutSmartRoutingCheckBox.isSelected();
-            m_order.m_auctionStrategy = parseInt(m_auctionStrategy);
-            m_order.m_startingPrice = parseMaxDouble(m_startingPrice);
-            m_order.m_stockRefPrice = parseMaxDouble(m_stockRefPrice);
-            m_order.m_delta = parseMaxDouble(m_delta);
-            m_order.m_stockRangeLower = parseMaxDouble(m_BOXstockRangeLower);
-            m_order.m_stockRangeUpper = parseMaxDouble(m_BOXstockRangeUpper);
-            m_order.m_volatility = parseMaxDouble(m_VOLVolatility);
-            m_order.m_volatilityType = parseMaxInt(m_VOLVolatilityType);
-            m_order.m_deltaNeutralOrderType = m_VOLDeltaNeutralOrderType.getText().trim();
-            m_order.m_deltaNeutralAuxPrice = parseMaxDouble(m_VOLDeltaNeutralAuxPrice);
-            m_order.m_deltaNeutralConId = parseInt(m_VOLDeltaNeutralConId);
-            m_order.m_deltaNeutralSettlingFirm = m_VOLDeltaNeutralSettlingFirm.getText().trim();
-            m_order.m_deltaNeutralClearingAccount = m_VOLDeltaNeutralClearingAccount.getText().trim();
-            m_order.m_deltaNeutralClearingIntent = m_VOLDeltaNeutralClearingIntent.getText().trim();
-            m_order.m_deltaNeutralOpenClose = m_VOLDeltaNeutralOpenClose.getText().trim();
-            m_order.m_deltaNeutralShortSale = m_VOLDeltaNeutralShortSale.isSelected();
-            m_order.m_deltaNeutralShortSaleSlot = parseInt(m_VOLDeltaNeutralShortSaleSlot);
-            m_order.m_deltaNeutralDesignatedLocation = m_VOLDeltaNeutralDesignatedLocation.getText().trim();
-            m_order.m_continuousUpdate = parseInt(m_VOLContinuousUpdate);
-            m_order.m_referencePriceType = parseMaxInt(m_VOLReferencePriceType);
-            m_order.m_trailStopPrice = parseMaxDouble(m_trailStopPrice);
-            m_order.m_trailingPercent = parseMaxDouble(m_trailingPercent);
+            m_order.openClose(m_openClose.getText().trim());
+            m_order.origin(parseInt( m_origin ));
+            m_order.orderRef(m_orderRef.getText().trim());
+            m_order.parentId(parseInt( m_parentId));
+            m_order.transmit(parseInt(m_transmit) != 0);
+            m_order.blockOrder(parseInt(m_blockOrder) != 0);
+            m_order.sweepToFill(parseInt(m_sweepToFill) != 0);
+            m_order.displaySize(parseInt( m_displaySize));
+            m_order.triggerMethod(parseInt( m_triggerMethod));
+            m_order.outsideRth(parseInt(m_outsideRth) != 0);
+            m_order.hidden(parseInt(m_hidden) != 0);
+            m_order.discretionaryAmt(parseDouble( m_discretionaryAmt));
+            m_order.shortSaleSlot(parseInt( m_shortSaleSlot ));
+            m_order.designatedLocation(m_designatedLocation.getText().trim());
+            m_order.exemptCode(Integer.parseInt(m_exemptCode.getText().length() != 0 ? m_exemptCode.getText() : "-1"));
+            m_order.rule80A(m_rule80A.getText().trim());
+            m_order.allOrNone(parseInt(m_allOrNone) != 0);
+            m_order.minQty(parseMaxInt(m_minQty));
+            m_order.overridePercentageConstraints(parseInt(m_overridePercentageConstraints) != 0);
+            m_order.percentOffset(parseMaxDouble(m_percentOffset));
+            m_order.eTradeOnly(parseInt(m_eTradeOnly) != 0);
+            m_order.firmQuoteOnly(parseInt(m_firmQuoteOnly) != 0);
+            m_order.nbboPriceCap(parseMaxDouble(m_nbboPriceCap));
+            m_order.optOutSmartRouting(m_optOutSmartRoutingCheckBox.isSelected());
+            m_order.solicited(m_solicited.isSelected());
+            m_order.auctionStrategy(parseInt(m_auctionStrategy));
+            m_order.startingPrice(parseMaxDouble(m_startingPrice));
+            m_order.stockRefPrice(parseMaxDouble(m_stockRefPrice));
+            m_order.delta(parseMaxDouble(m_delta));
+            m_order.stockRangeLower(parseMaxDouble(m_BOXstockRangeLower));
+            m_order.stockRangeUpper(parseMaxDouble(m_BOXstockRangeUpper));
+            m_order.volatility(parseMaxDouble(m_VOLVolatility));
+            m_order.volatilityType(parseMaxInt(m_VOLVolatilityType));
+            m_order.deltaNeutralOrderType(m_VOLDeltaNeutralOrderType.getText().trim());
+            m_order.deltaNeutralAuxPrice(parseMaxDouble(m_VOLDeltaNeutralAuxPrice));
+            m_order.deltaNeutralConId(parseInt(m_VOLDeltaNeutralConId));
+            m_order.deltaNeutralSettlingFirm(m_VOLDeltaNeutralSettlingFirm.getText().trim());
+            m_order.deltaNeutralClearingAccount(m_VOLDeltaNeutralClearingAccount.getText().trim());
+            m_order.deltaNeutralClearingIntent(m_VOLDeltaNeutralClearingIntent.getText().trim());
+            m_order.deltaNeutralOpenClose(m_VOLDeltaNeutralOpenClose.getText().trim());
+            m_order.deltaNeutralShortSale(m_VOLDeltaNeutralShortSale.isSelected());
+            m_order.deltaNeutralShortSaleSlot(parseInt(m_VOLDeltaNeutralShortSaleSlot));
+            m_order.deltaNeutralDesignatedLocation(m_VOLDeltaNeutralDesignatedLocation.getText().trim());
+            m_order.continuousUpdate(parseInt(m_VOLContinuousUpdate));
+            m_order.referencePriceType(parseMaxInt(m_VOLReferencePriceType));
+            m_order.trailStopPrice(parseMaxDouble(m_trailStopPrice));
+            m_order.trailingPercent(parseMaxDouble(m_trailingPercent));
 
-            m_order.m_scaleInitLevelSize = parseMaxInt(m_scaleInitLevelSize);
-            m_order.m_scaleSubsLevelSize = parseMaxInt(m_scaleSubsLevelSize);
-            m_order.m_scalePriceIncrement = parseMaxDouble(m_scalePriceIncrement);
-            m_order.m_scalePriceAdjustValue = parseMaxDouble(m_scalePriceAdjustValue);
-            m_order.m_scalePriceAdjustInterval = parseMaxInt(m_scalePriceAdjustInterval);
-            m_order.m_scaleProfitOffset = parseMaxDouble(m_scaleProfitOffset);
-            m_order.m_scaleAutoReset = m_scaleAutoReset.isSelected();
-            m_order.m_scaleInitPosition = parseMaxInt(m_scaleInitPosition);
-            m_order.m_scaleInitFillQty = parseMaxInt(m_scaleInitFillQty);
-            m_order.m_scaleRandomPercent = m_scaleRandomPercent.isSelected();
-            m_order.m_hedgeType = m_hedgeType.getText().trim();
-            m_order.m_hedgeParam = m_hedgeParam.getText().trim();
+            m_order.scaleInitLevelSize(parseMaxInt(m_scaleInitLevelSize));
+            m_order.scaleSubsLevelSize(parseMaxInt(m_scaleSubsLevelSize));
+            m_order.scalePriceIncrement(parseMaxDouble(m_scalePriceIncrement));
+            m_order.scalePriceAdjustValue(parseMaxDouble(m_scalePriceAdjustValue));
+            m_order.scalePriceAdjustInterval(parseMaxInt(m_scalePriceAdjustInterval));
+            m_order.scaleProfitOffset(parseMaxDouble(m_scaleProfitOffset));
+            m_order.scaleAutoReset(m_scaleAutoReset.isSelected());
+            m_order.scaleInitPosition(parseMaxInt(m_scaleInitPosition));
+            m_order.scaleInitFillQty(parseMaxInt(m_scaleInitFillQty));
+            m_order.scaleRandomPercent(m_scaleRandomPercent.isSelected());
+            m_order.scaleTable(m_scaleTable.getText().trim());
+            m_order.hedgeType(m_hedgeType.getText().trim());
+            m_order.hedgeParam(m_hedgeParam.getText().trim());
+            
+            m_order.randomizePrice(m_randomizePrice.isSelected());
+            m_order.randomizeSize(m_randomizeSize.isSelected());
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
@@ -354,44 +379,36 @@ public class ExtOrdDlg extends JDialog {
         setVisible( false);
     }
 
-    private int parseMaxInt(JTextField textField) {
+    private static int parseMaxInt(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return Integer.MAX_VALUE;
-            }
-        else {
-            return Integer.parseInt(text);
         }
+        return Integer.parseInt(text);
     }
 
-    private double parseMaxDouble(JTextField textField) {
+    private static double parseMaxDouble(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return Double.MAX_VALUE;
-            }
-        else {
-            return Double.parseDouble(text);
         }
+        return Double.parseDouble(text);
     }
 
-    private int parseInt(JTextField textField) {
+    private static int parseInt(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return 0;
-            }
-        else {
-            return Integer.parseInt(text);
         }
+        return Integer.parseInt(text);
     }
 
-    private double parseDouble(JTextField textField) {
+    private static double parseDouble(JTextField textField) {
         String text = textField.getText().trim();
         if (text.length() == 0) {
             return 0;
-            }
-        else {
-            return Double.parseDouble(text);
         }
+        return Double.parseDouble(text);
     }
 
     void onCancel() {

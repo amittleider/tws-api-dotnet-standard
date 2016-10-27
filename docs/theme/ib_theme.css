@@ -1,0 +1,124 @@
+/*This stylesheet contains the additions and overrides to the standard doxygen stylesheet*/
+
+/*XABIER ADDED*/
+/*Links section*/
+a {
+	color: #A02200;
+}
+.contents a:visited {
+	color: #A02424;
+}
+
+a:hover {
+	color: #660000;
+	text-decoration: none;
+}
+
+a.linkexternal, a:link.linkexternal, a:visited.linkexternal, a:hover.linkexternal, a:active.linkexternal, a:focus.linkexternal {
+	padding:0px 14px 0px 0px; 
+	background:transparent url(linkarrow_external.png) no-repeat top right;
+}
+
+ul#tabs {
+  list-style-type: none;
+  padding: 0;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 0px;
+	margin-left: 0px;
+  text-align: center;
+}
+ul#tabs li {
+  display: inline-block;
+  background-color: #6D1800;
+  border-bottom: solid 5px #A02200;
+  padding: 5px 20px;
+  margin-bottom: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+ul#tabs li:hover {
+  background-color: #A02200;
+}
+ul#tabs li.active {
+  background-color: #A02200;
+}
+ul#tab {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul#tab li {
+  display: none;
+}
+ul#tab li.active {
+  display: block;
+}
+
+/*OVERRIDING DEFAULTS*/
+#nav-tree {
+	background-image:none;
+	background-repeat:repeat-x;
+	background-color: #242424;
+	-webkit-overflow-scrolling : touch;
+}
+#nav-tree a {
+	color: #C7C7C7;
+}
+
+#nav-tree a:hover {
+	color: white;
+	background-image:none;
+	background-color: #333333;
+}
+
+#nav-tree .selected {
+	background-image:none;
+	background-color: #A02200;
+}
+#nav-tree .selected  a:hover{
+	background-image:none;
+	background-color: #A02200;
+}
+.tablist a {
+  display: block;
+  padding: 0 20px;
+  font-weight: bold;
+  background-image:url('tab_s.png');
+  background-repeat:no-repeat;
+  background-position:right;
+  color: #200202;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  outline: none;
+}
+
+#side-nav {
+	bottom: 50px;
+	position: fixed;
+	overflow: hidden;
+}
+.ui-resizable-e {
+	background-image:none;
+	background-color: #e7e7e7;
+	width: 1px;
+}
+
+.navpath ul {
+	background-image:none;
+	border-top: solid 1px #C7C7C7;
+	border-right: none;border-left: none;border-bottom: none;
+	background-color: #242424;
+}
+
+/*Bottom navigation stuff*/
+.navpath li.footer {
+	color:#C7C7C7;
+}
+.navpath li.navelem a {
+	color: #C7C7C7;
+	text-shadow: none;
+}
+.navpath li.navelem a:hover{
+	color:white;
+}

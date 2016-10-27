@@ -1,0 +1,80 @@
+/*! \page reuters_fundamentals Fundamental Data
+
+	Reuters Fundamental data for stocks and the Wall Street Events Horizon Calendar can be accessed via the TWS API through the @ref IBApi::EClient::reqFundamentalData. For the "CalendarReport" it is necessary to have the Wall Street Horizon subscription activated first in <a target="_blank" class="linkexternal" href="http://interactivebrokers.github.io/tws-api/market_data.html#market_subscriptions">Account Management</a>. The other report types require the Reuters Fundamentals subscription but this is freely available and will be activated in most accounts by default. 
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqfundamentaldata
+		</li>
+		<li>
+			\snippet Testbed.java reqfundamentaldata
+		</li>
+		<li>
+			\snippet MainModule.vb reqfundamentaldata
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqfundamentaldata
+		</li>
+	</ul>
+	
+	Note how a string attribute specifies the requested report type. In the example above the request was made for the financial summary. See @ref report_type at the bottom of this page 
+	for the rest report types available.
+	
+	Results are delivered via @ref IBApi::EWrapper::fundamentalData in form of an XML report:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs fundamentaldata
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java fundamentaldata
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb fundamentaldata
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp fundamentaldata
+		</li>
+	</ul>
+	
+	The @ref IBApi::EClient::reqFundamentalData request can be cancelled via @ref::IBApi::EClient::cancelFundamentalData:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs cancelfundamentaldata
+		</li>
+		<li>
+			\snippet Testbed.java cancelfundamentaldata
+		</li>
+		<li>
+			\snippet MainModule.vb cancelfundamentaldata
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelfundamentaldata
+		</li>
+	</ul>
+	
+	\section report_type Report Types
+	
+	<table>
+		<tr><th>Report Type</th><th>Description</th></tr>
+		<tr><td>ReportsFinSummary</td><td>Financial summary</td></tr>
+		<tr><td>ReportsOwnership</td><td>Company's ownership <i>(Can be large in size)</i></td></tr>
+		<tr><td>ReportSnapshot</td><td>Company's financial overview</td></tr>
+		<tr><td>ReportsFinStatements</td><td>Financial Statements</td></tr>
+		<tr><td>RESC</td><td>Analyst Estimates</td></tr>
+		<tr><td>CalendarReport</td><td>Company's calendar</td></tr>
+	</table>
+	
+	<i>Fundamental Ratios data can be acquired by requesting generic tick type 258 with @ref IBApi::EClient::reqMktData. See both \ref tick_types and \ref fundamental_ratios_tags.</i>
+	
+	<br><br>
+*/

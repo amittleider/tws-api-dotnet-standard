@@ -5,9 +5,11 @@ package com.ib.client;
 
 
 public class OrderComboLeg {
+    private double m_price; // price per leg
 
-    public double m_price; // price per leg
-
+    public double price()       { return m_price; }
+    public void price(double v) { m_price = v; }
+    
     public OrderComboLeg() {
         m_price = Double.MAX_VALUE;
     }
@@ -16,6 +18,7 @@ public class OrderComboLeg {
         m_price = p_price;
     }
 
+    @Override
     public boolean equals(Object p_other) {
         if ( this == p_other ) {
             return true;
@@ -29,7 +32,6 @@ public class OrderComboLeg {
         if (m_price != l_theOther.m_price) {
         	return false;
         }
-
         return true;
     }
 }

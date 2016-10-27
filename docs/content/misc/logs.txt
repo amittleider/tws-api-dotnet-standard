@@ -1,0 +1,44 @@
+/*! \page logs Log File Locations
+	
+	\section api_log Location of API Log Files
+	
+	- These logs will only contain the exchanged messages' sequences between the client application and
+	the TWS/IB Gateway. Since this is the only information being recorded, the API message log files are far more compact and therefore easier to handle; however they do not contain as much diagnostic information as TWS/IBG logs. The API message log files will be created
+	within the <b>C:/Jts</b> (or IBJts on Mac/Linux) directory just as the TWS ones. These logs will be named <b>api.[clientId].[day].log</b> where [clientId] corresponds to the Id the client application used to
+	connect to the TWS and [day] to the week day (i.e. api.123.Thu.log). <br><br>
+	
+	- To enable the API message log files, simply check the "Create API message log file" option within the TWS/IB Gateway's API settings dialogue. There is also a setting "Include market data in API log file" which will cause real time API market data to be captured in the API log when troubleshooting market data issues. 
+	
+	<br>
+	
+	\subsection logging_level_details Additional notes on the TWS/IBG Logging Level 
+	
+	- By default, the Logging Level is set to 'Error'. This records a minimum amount of diagnostic information. To capture API messages it is necessary to change the Logging Level to 'Detail'. Note the 'Logging Level' (like all TWS/IBG settings) is saved separately for different users and for TWS and IBG. <br><br>
+
+	- <b>Important:</b> Note that the TWS/IB Gateway log files have to be already set to 'Detail' level before the issue occurs so that it can be recorded correctly when it manifests. However due to the high amount of information that will be generated under this level, the resulting logs can grow considerably in size. It is therefore recommended to use the 'Detail' level only 
+	when troubleshooting and/or tracking a very specific issue. This can also be done from the API client itself using the @ref IBApi::EClient::setServerLogLevel function. Some third party applications, such as NinjaTrader, are configured to invoke this function to set the TWS Logging Level every time they connect, and so to set the TWS Log to 'Detail' this will have to be done from within the API client program.
+		
+	<br>
+	
+	\section log_locations Locations of TWS and IBG log files 
+	
+	<br>
+	
+	\subsection tws_952	TWS and IBG logs: versions less than 956 
+	
+	- The log files are located within the <b>C:/Jts</b> (or IBJts on Mac/Linux) directory and can be easily identified by their name: TWS logs will be <b>log.[day].txt</b>, and IBG logs will be <b>ibgateway.[day].log</b>, where [day] corresponds to the week day when the log file 
+	was written (Mon, Tue, Wed, etc). There will be one log file per session of TWS or IBG, meaning that for TWS there will be one file per day. When the week is over, 
+	the TWS will start over again and overwrite the log file for that day. This means that a log file that is not explicitly backed up will stay within the C:\Jts directory for at least seven days.
+	
+	\subsection tws_956	TWS logs: versions starting with 956
+	
+	- TWS log files from sessions before the current day will be kept in a user-specific subdirectory within <b>C:/Jts</b>. The path of a user's subdirectory can be found when TWS is running and logged-in with that user by pressing the "Ctrl-Alt-U" combination. The filename for TWS logs from previous sessions will be <b>log.[YYYYMMDD].txt</b> where YYYYMMDD is the year, month, and day the log file was created. The filename for the current day will simply be <b>tws.log</b>.
+	
+	\subsection ibg_956	IBG logs: versions 956 and above
+	
+	- The log files will be found in the C:/Jts (IBJts on Mac/Linux) directory and follow the naming convention <b>ibgateway.[YYYYMMDD].log</b> for previous sessions, and <b>ibgateway.log</b> for the current IBG session. 
+	
+	<br><br>
+
+
+*/

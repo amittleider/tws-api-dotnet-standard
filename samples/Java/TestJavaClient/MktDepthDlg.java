@@ -22,7 +22,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import com.ib.client.EClientSocket;
+import com.ib.client.EClient;
 
 public class MktDepthDlg extends JDialog {
     final static int OPERATION_INSERT 		= 0;
@@ -36,7 +36,7 @@ public class MktDepthDlg extends JDialog {
     private JButton 		m_close = new JButton( "Close");
     private MktDepthModel 	m_bidModel = new MktDepthModel();
     private MktDepthModel 	m_askModel = new MktDepthModel();
-    private EClientSocket 	m_client;
+    private EClient 	m_client;
     private int			  	m_id;
 
     public MktDepthDlg(String title, JFrame parent) {
@@ -75,7 +75,7 @@ public class MktDepthDlg extends JDialog {
         reset();
     }
 
-    void setParams( EClientSocket client, int id) {
+    void setParams( EClient client, int id) {
         m_client = client;
         m_id = id;
         reset();
@@ -167,7 +167,7 @@ class MktDepthModel extends AbstractTableModel {
     }
 
     synchronized public MktDepthTableRow getOrderAt(int orderPosition) {
-        return (MktDepthTableRow)getIteratorAt(orderPosition).next();
+        return getIteratorAt(orderPosition).next();
     }
 
     synchronized public ListIterator<MktDepthTableRow> getIteratorAt(int orderPosition) {
@@ -181,14 +181,14 @@ class MktDepthModel extends AbstractTableModel {
         MktDepthTableRow	tmpRow = null;
 
         if (baseRow > 0) {
-            tmpRow = (MktDepthTableRow)m_allData.get(baseRow - 1);
+            tmpRow = m_allData.get(baseRow - 1);
             cumSize = tmpRow.m_cumSize;
             totalPrice = tmpRow.m_price * cumSize;
         }
 
         for (int ctr = baseRow ; ctr < m_allData.size() ; ctr++)
         {
-            tmpRow = (MktDepthTableRow) m_allData.get(ctr);
+            tmpRow = m_allData.get(ctr);
             cumSize += tmpRow.m_size;
             totalPrice += (tmpRow.m_price * tmpRow.m_size);
             tmpRow.m_cumSize = cumSize;
@@ -215,7 +215,7 @@ class MktDepthModel extends AbstractTableModel {
         if (r >= m_allData.size()) {
             return null;
         }
-        return ((MktDepthTableRow)m_allData.get(r)).getValue(c);
+        return m_allData.get(r).getValue(c);
     }
 
     public boolean isCellEditable(int r, int c) {

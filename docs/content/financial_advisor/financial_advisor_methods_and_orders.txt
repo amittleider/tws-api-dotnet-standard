@@ -1,0 +1,271 @@
+/*! \page financial_advisor_methods_and_orders Financial Advisor Methods and Orders
+	
+	\section request_fa_methods RequestFA() methods
+	
+	The @ref IBApi::EClient::requestFA function allows Financial Advisor to manually request current allocation configuration data from TWS. 
+	
+	<b>Request Account Aliases</b>
+	
+	<ul id="tab">
+		<li class="active">
+		   \snippet Program.cs requestfaaliases
+		</li>
+		<li> 
+			\snippet Testbed.java requestfaaliases
+		</li>
+		<li> 
+			\snippet MainModule.vb requestfaaliases
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp requestfaaliases
+		</li>
+	</ul>
+	
+	<b>Request FA Groups</b>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs requestfagroups
+		</li>
+		<li> 
+			\snippet Testbed.java requestfagroups
+		</li>
+		<li> 
+			\snippet MainModule.vb requestfagroups
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp requestfagroups
+		</li>
+	</ul>
+	
+	<b>Request FA Profiles</b>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs requestfaprofiles
+		</li>
+		<li> 
+			\snippet Testbed.java requestfaprofiles
+		</li>
+		<li> 
+			\snippet MainModule.vb requestfaprofiles
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp requestfaprofiles
+		</li>
+	</ul>
+	
+	\section receive_fa_methods ReceiveFA() methods
+	
+	The resulting FA allocation configuration will be delivered via the @ref IBApi::EWrapper::receiveFA. The event includes an XML string containing the requested information.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs receivefa
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java receivefa
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb receivefa
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp receivefa
+		</li>
+	</ul>
+	
+	\section replace_fa_methods ReplaceFA() methods
+	
+	The @ref IBApi::EClient::replaceFA function can be called to replace the previous FA configuration in TWS by passing in a FULL XML string that contains all allocation information.
+	
+	<b>Replace Account Groups Configuration</b>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet FaAllocationSamples.cs faonegroup
+		   ...
+		   \snippet Program.cs replacefaonegroup
+		</li>
+		<li> 
+			\snippet FAMethodSamples.java faonegroup
+			...
+			\snippet Testbed.java replacefaonegroup
+		</li>
+		<li> 
+
+			\snippet MainModule.vb faonegroup
+			...
+			\snippet MainModule.vb replacefaonegroup
+		</li>
+		<li> 
+			\snippet FAMethodSamples.h faonegroup
+			...
+			\snippet TestCppClient.cpp replacefaonegroup
+		</li>
+	</ul>
+	
+	<em><b>Note:</b> The above command will replace any previous FA group configuration in TWS with one 'Group_Equal_Quantity' group allocation.</em>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet FaAllocationSamples.cs fatwogroups
+		   ...
+		   \snippet Program.cs replacefatwogroups
+		</li>
+		<li> 
+			\snippet FAMethodSamples.java fatwogroups
+			...
+			\snippet Testbed.java replacefatwogroups
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.vb fatwogroups
+			...
+			\snippet FaAllocationSamples.vb replacefatwogroups
+		</li>
+		<li> 
+			\snippet FAMethodSamples.h fatwogroups
+			...
+			\snippet TestCppClient.cpp replacefatwogroups
+		</li>
+	</ul>
+	
+	<em><b>Note:</b> The above command will add another 'Group_Pct_Change' group allocation to the previous FA configuration.</em>
+	
+	<b>Replace Account Profiles Configuration</b>
+	
+	You can find the corresponding type number for profile allocation in the \ref profile_methods_matching "Profile Methods Matching" table.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet FaAllocationSamples.cs faoneprofile
+		   ...
+		   \snippet Program.cs replacefaoneprofile
+		</li>
+		<li> 
+			\snippet FAMethodSamples.java faoneprofile
+			...
+			\snippet Testbed.java replacefaoneprofile
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.vb faoneprofile
+			...
+			\snippet FaAllocationSamples.vb replacefaoneprofile
+		</li>
+		<li> 
+			\snippet FAMethodSamples.h faoneprofile
+			...
+			\snippet TestCppClient.cpp replacefaoneprofile
+		</li>
+	</ul>
+	
+	<em><b>Note:</b> The above command will replace any previous FA profile configuration in TWS with one 'Percent_60_40' profile allocation</em>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet FaAllocationSamples.cs fatwoprofiles
+		   ...
+		   \snippet Program.cs replacefatwoprofiles
+		</li>
+		<li> 
+			\snippet FAMethodSamples.java fatwoprofiles
+			...
+			\snippet Testbed.java replacefatwoprofiles
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.vb fatwoprofiles
+			...
+			\snippet FaAllocationSamples.vb replacefatwoprofiles
+		</li>
+		<li> 
+			\snippet FAMethodSamples.h fatwoprofiles
+			...
+			\snippet TestCppClient.cpp replacefatwoprofiles
+		</li>
+	</ul>
+	
+	<em><b>Note:</b> The above command will add another 'Group_Pct_Change' group allocation to the previous FA configuration</em>
+	
+	\section financial_advisor_orders Financial Advisor Sample Orders
+	
+	Financial Advisor users can invoke @ref IBApi::EClient::placeOrder function while specifying corresponding Financial Advisor Fields in the @ref IBApi::Order object.
+	
+	<b>Place an Order for a Single Managed Account</b>
+	
+	In linked accounts (not Financial Advisor accounts) it is necessary to specify an account number in the Order 'account' field with every order placed. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs faorderoneaccount
+		</li>
+		<li>
+			\snippet Testbed.java faorderoneaccount
+		</li>
+		<li> 
+			\snippet MainModule.vb faorderoneaccount
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp faorderoneaccount
+		</li>
+	</ul>
+	
+	<b>Place an Order for an Account Group</b>
+	
+	For <em>EqualQuantity</em>, <em>NetLqi</em> and <em>AvailableEquity</em> allocation methods, you need to specify the @ref IBApi::Order::FaGroup and @ref IBApi::Order::FaMethod parameters.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs faordergroupequalquantity
+		</li>
+		<li> 
+			\snippet Testbed.java faordergroupequalquantity
+		</li>
+		<li> 
+			\snippet MainModule.vb faordergroupequalquantity
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp faordergroupequalquantity
+		</li>
+	</ul>
+	
+	For <em>PctChange</em> allocation methods, you should <b>NOT</b> specify the order size but you need to specify @ref IBApi::Order::FaPercentage parameter.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs faordergrouppctchange
+		</li>
+		<li> 
+			\snippet Testbed.java faordergrouppctchange
+		</li>
+		<li> 
+			\snippet MainModule.vb faordergrouppctchange
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp faordergrouppctchange
+		</li>
+	</ul>
+	
+	<b>Place an Order for an Account Profile</b>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs faorderprofile
+		</li>
+		<li> 
+			\snippet Testbed.java faorderprofile
+		</li>
+		<li> 
+			\snippet MainModule.vb faorderprofile
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp faorderprofile
+		</li>
+	</ul>
+	
+	<br><br>
+*/

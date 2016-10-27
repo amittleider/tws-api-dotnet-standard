@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ib.client.ScannerSubscription;
+import com.ib.client.TagValue;
 
 public class ScannerDlg extends JDialog {
     public static final int NO_SELECTION = 0;
@@ -28,6 +30,7 @@ public class ScannerDlg extends JDialog {
     public int          m_userSelection = NO_SELECTION;
     public int 			m_id;
     public ScannerSubscription m_subscription = new ScannerSubscription();
+    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
 
     private JTextField m_Id = new JTextField( "0");
     private JTextField m_numberOfRows = new JTextField("10");
@@ -55,14 +58,17 @@ public class ScannerDlg extends JDialog {
     private JButton 	m_requestParameters = new JButton( "Request Parameters");
     private JButton 	m_subscribe = new JButton( "Subscribe");
     private JButton 	m_cancel = new JButton( "Cancel Subscription");
-    private SampleFrame m_parent;
+    private JButton 	m_options = new JButton( "Options");
 
-    private static final int COL1_WIDTH = 30 ;
-    private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
+    private static final int COL1_WIDTH = 30;
+    private static final int COL2_WIDTH = 100 - COL1_WIDTH;
 
+    ArrayList<TagValue> scannerSubscriptionOptions() {
+    	return m_scannerSubscriptionOptions;
+    }
+    
     private static void addGBComponent(IBGridBagPanel panel, Component comp,
-                                       GridBagConstraints gbc, int weightx, int gridwidth)
-    {
+                                       GridBagConstraints gbc, int weightx, int gridwidth) {
       gbc.weightx = weightx;
       gbc.gridwidth = gridwidth;
       panel.setConstraints(comp, gbc);
@@ -72,21 +78,20 @@ public class ScannerDlg extends JDialog {
     public ScannerDlg( SampleFrame owner) {
         super( owner, true);
 
-        m_parent = owner;
         setTitle( "Sample");
 
-        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints() ;
-        gbc.fill = gbc.BOTH ;
-        gbc.anchor = gbc.CENTER ;
-        gbc.weighty = 100 ;
-        gbc.fill = GridBagConstraints.BOTH ;
-        gbc.gridheight = 1 ;
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weighty = 100;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridheight = 1;
         // create id panel
         IBGridBagPanel pId = new IBGridBagPanel();
         pId.setBorder( BorderFactory.createTitledBorder( "Message Id") );
 
-        addGBComponent(pId, new JLabel( "Id"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
-        addGBComponent(pId, m_Id, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
+        addGBComponent(pId, new JLabel( "Id"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE);
+        addGBComponent(pId, m_Id, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
 
         // create contract panel
         IBGridBagPanel pSubscriptionDetails = new IBGridBagPanel();
@@ -139,6 +144,7 @@ public class ScannerDlg extends JDialog {
         buttonPanel.add( m_requestParameters);
         buttonPanel.add( m_subscribe);
         buttonPanel.add( m_cancel);
+        buttonPanel.add( m_options);
 
         m_requestParameters.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -155,6 +161,11 @@ public class ScannerDlg extends JDialog {
                 onCancelSubscription();
             }
         });
+        m_options.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onOptions();
+            }
+        });
 
         // create top panel
         JPanel topPanel = new JPanel();
@@ -169,11 +180,7 @@ public class ScannerDlg extends JDialog {
         pack();
     }
 
-    private static String pad( int val) {
-        return val < 10 ? "0" + val : "" + val;
-    }
-
-    private double parseDouble(JTextField textfield) {
+    private static double parseDouble(JTextField textfield) {
         try {
             return Double.parseDouble(textfield.getText().trim());
         }
@@ -182,7 +189,7 @@ public class ScannerDlg extends JDialog {
         }
     }
 
-    private int parseInt(JTextField textfield) {
+    private static int parseInt(JTextField textfield) {
         try {
             return Integer.parseInt(textfield.getText().trim());
         }
@@ -190,7 +197,6 @@ public class ScannerDlg extends JDialog {
             return Integer.MAX_VALUE;
         }
     }
-
 
     void onSubscribe() {
         m_userSelection = NO_SELECTION;
@@ -242,6 +248,15 @@ public class ScannerDlg extends JDialog {
         setVisible( false);
     }
 
+    void onOptions() {
+        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Scanner Subscription Options", m_scannerSubscriptionOptions, this);
+
+        // show smart combo routing params dialog
+        smartComboRoutingParamsDlg.setVisible( true);
+        
+        m_scannerSubscriptionOptions = smartComboRoutingParamsDlg.smartComboRoutingParams();
+    }
+    
     public void show() {
         m_userSelection = NO_SELECTION;
         super.show();

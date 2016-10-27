@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44541143-0CA2-43A9-92A6-ACC174CE7061}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWSLib</RootNamespace>
+    <AssemblyName>TWSLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\client\AccountSummaryTags.cs">
+      <Link>CSharpAPI\AccountSummaryTags.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ComboLeg.cs">
+      <Link>CSharpAPI\ComboLeg.cs</Link>
+    </Compile>
+    <Compile Include="..\client\CommissionReport.cs">
+      <Link>CSharpAPI\CommissionReport.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Constants.cs">
+      <Link>CSharpAPI\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Contract.cs">
+      <Link>CSharpAPI\Contract.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ContractCondition.cs">
+      <Link>CSharpAPI\ContractCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ContractDetails.cs">
+      <Link>CSharpAPI\ContractDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\client\DefaultEWrapper.cs">
+      <Link>CSharpAPI\DefaultEWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClient.cs">
+      <Link>CSharpAPI\EClient.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientErrors.cs">
+      <Link>CSharpAPI\EClientErrors.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientException.cs">
+      <Link>CSharpAPI\EClientException.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientMsgSink.cs">
+      <Link>CSharpAPI\EClientMsgSink.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EClientSocket.cs">
+      <Link>CSharpAPI\EClientSocket.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EDecoder.cs">
+      <Link>CSharpAPI\EDecoder.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EMessage.cs">
+      <Link>CSharpAPI\EMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReader.cs">
+      <Link>CSharpAPI\EReader.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReaderMonitorSignal.cs">
+      <Link>CSharpAPI\EReaderMonitorSignal.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EReaderSignal.cs">
+      <Link>CSharpAPI\EReaderSignal.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ESocket.cs">
+      <Link>CSharpAPI\ESocket.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ETransport.cs">
+      <Link>CSharpAPI\ETransport.cs</Link>
+    </Compile>
+    <Compile Include="..\client\EWrapper.cs">
+      <Link>CSharpAPI\EWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Execution.cs">
+      <Link>CSharpAPI\Execution.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ExecutionCondition.cs">
+      <Link>CSharpAPI\ExecutionCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ExecutionFilter.cs">
+      <Link>CSharpAPI\ExecutionFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\client\IBParamsList.cs">
+      <Link>CSharpAPI\IBParamsList.cs</Link>
+    </Compile>
+    <Compile Include="..\client\IDecoder.cs">
+      <Link>CSharpAPI\IDecoder.cs</Link>
+    </Compile>
+    <Compile Include="..\client\IncomingMessage.cs">
+      <Link>CSharpAPI\IncomingMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MarginCondition.cs">
+      <Link>CSharpAPI\MarginCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MessageValidator.cs">
+      <Link>CSharpAPI\MessageValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\client\MinServerVer.cs">
+      <Link>CSharpAPI\MinServerVer.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OperatorCondition.cs">
+      <Link>CSharpAPI\OperatorCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Order.cs">
+      <Link>CSharpAPI\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OrderComboLeg.cs">
+      <Link>CSharpAPI\OrderComboLeg.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OrderCondition.cs">
+      <Link>CSharpAPI\OrderCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OrderState.cs">
+      <Link>CSharpAPI\OrderState.cs</Link>
+    </Compile>
+    <Compile Include="..\client\OutgoingMessages.cs">
+      <Link>CSharpAPI\OutgoingMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\client\PercentChangeCondition.cs">
+      <Link>CSharpAPI\PercentChangeCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\PriceCondition.cs">
+      <Link>CSharpAPI\PriceCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\ScannerSubscription.cs">
+      <Link>CSharpAPI\ScannerSubscription.cs</Link>
+    </Compile>
+    <Compile Include="..\client\SoftDollarTier.cs">
+      <Link>CSharpAPI\SoftDollarTier.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TagValue.cs">
+      <Link>CSharpAPI\TagValue.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TickType.cs">
+      <Link>CSharpAPI\TickType.cs</Link>
+    </Compile>
+    <Compile Include="..\client\TimeCondition.cs">
+      <Link>CSharpAPI\TimeCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\client\UnderComp.cs">
+      <Link>CSharpAPI\UnderComp.cs</Link>
+    </Compile>
+    <Compile Include="..\client\Util.cs">
+      <Link>CSharpAPI\Util.cs</Link>
+    </Compile>
+    <Compile Include="..\client\VolumeCondition.cs">
+      <Link>CSharpAPI\VolumeCondition.cs</Link>
+    </Compile>
+    <Compile Include="ComWrappers\comComboLeg.cs" />
+    <Compile Include="ComWrappers\comCommissionReport.cs" />
+    <Compile Include="ComWrappers\comContract.cs" />
+    <Compile Include="ComWrappers\comContractDetails.cs" />
+    <Compile Include="ComWrappers\comExecution.cs" />
+    <Compile Include="ComWrappers\comExecutionFilter.cs" />
+    <Compile Include="ComWrappers\ComList.cs" />
+    <Compile Include="ComWrappers\comOrder.cs" />
+    <Compile Include="ComWrappers\comOrderComboLeg.cs" />
+    <Compile Include="ComWrappers\comOrderState.cs" />
+    <Compile Include="ComWrappers\comScannerSubscription.cs" />
+    <Compile Include="ComWrappers\ComSoftDollarTier.cs" />
+    <Compile Include="ComWrappers\ComTagValue.cs" />
+    <Compile Include="ComWrappers\comUnderComp.cs" />
+    <Compile Include="ComWrappers\ComWrapper.cs" />
+    <Compile Include="ControlImpl\IComboLeg.cs" />
+    <Compile Include="ControlImpl\IComboLegList.cs" />
+    <Compile Include="ControlImpl\ICommissionReport.cs" />
+    <Compile Include="ControlImpl\IContract.cs" />
+    <Compile Include="ControlImpl\IContractDetails.cs" />
+    <Compile Include="ControlImpl\IExecution.cs" />
+    <Compile Include="ControlImpl\IExecutionFilter.cs" />
+    <Compile Include="ControlImpl\IOrder.cs" />
+    <Compile Include="ControlImpl\IOrderComboLeg.cs" />
+    <Compile Include="ControlImpl\IOrderComboLegList.cs" />
+    <Compile Include="ControlImpl\IOrderState.cs" />
+    <Compile Include="ControlImpl\IScannerSubscription.cs" />
+    <Compile Include="ControlImpl\ITagValue.cs" />
+    <Compile Include="ControlImpl\ITagValueList.cs" />
+    <Compile Include="ControlImpl\ITws.cs" />
+    <Compile Include="ControlImpl\ITwsEvents.cs" />
+    <Compile Include="ControlImpl\IUnderComp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ControlImpl\Tws.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

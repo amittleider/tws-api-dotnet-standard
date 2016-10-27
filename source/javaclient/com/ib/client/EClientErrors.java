@@ -5,16 +5,22 @@ package com.ib.client;
 
 
 public class EClientErrors {
-    static final int NO_VALID_ID = -1;
-
+    public static final int NO_VALID_ID = -1;
     static final CodeMsgPair ALREADY_CONNECTED = new CodeMsgPair(501, "Already connected.");
-    static final CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, "Couldn't connect to TWS.  Confirm that \"Enable ActiveX and Socket Clients\" is enabled on the TWS \"Configure->API\" menu.");
-    static final CodeMsgPair UPDATE_TWS = new CodeMsgPair(503, "The TWS is out of date and must be upgraded.");
-    static final CodeMsgPair NOT_CONNECTED = new CodeMsgPair(504, "Not connected");
-    static final CodeMsgPair UNKNOWN_ID = new CodeMsgPair(505,	"Fatal Error: Unknown message id.");
+    static final CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, "Couldn't connect to TWS. Confirm that \"Enable ActiveX and Socket Clients\" "
+    		+ "is enabled and connection port is the same as \"Socket Port\" on the TWS \"Edit->Global Configuration...->API->Settings\" menu. "
+    		+ "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations of version 954.1 or newer: "
+    		+ "TWS: 7497; IB Gateway: 4002");
+    public static final CodeMsgPair UPDATE_TWS = new CodeMsgPair(503, "The TWS is out of date and must be upgraded.");
+    public static final CodeMsgPair NOT_CONNECTED = new CodeMsgPair(504, "Not connected");
+    static final CodeMsgPair UNKNOWN_ID = new CodeMsgPair(505, "Fatal Error: Unknown message id.");
+    static final CodeMsgPair UNSUPPORTED_VERSION = new CodeMsgPair(506, "Unsupported Version");
+    static final CodeMsgPair BAD_LENGTH = new CodeMsgPair(507, "Bad Message Length");
+    static final CodeMsgPair BAD_MESSAGE = new CodeMsgPair(508, "Bad Message");
+    static final CodeMsgPair FAIL_SEND = new CodeMsgPair(509, "Failed to send message - "); // generic message; all future messages should use this
     static final CodeMsgPair FAIL_SEND_REQMKT = new CodeMsgPair(510, "Request Market Data Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANMKT = new CodeMsgPair(511, "Cancel Market Data Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_ORDER = new CodeMsgPair(512,	"Order Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_ORDER = new CodeMsgPair(512, "Order Sending Error - ");
     static final CodeMsgPair FAIL_SEND_ACCT = new CodeMsgPair(513, "Account Update Request Sending Error -");
     static final CodeMsgPair FAIL_SEND_EXEC = new CodeMsgPair(514, "Request For Executions Sending Error -");
     static final CodeMsgPair FAIL_SEND_CORDER = new CodeMsgPair(515, "Cancel Order Sending Error -");
@@ -46,30 +52,36 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_CANPOSITIONS = new CodeMsgPair(541, "Cancel Positions Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQACCOUNTDATA = new CodeMsgPair(542, "Request Account Data Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANACCOUNTDATA = new CodeMsgPair(543, "Cancel Account Data Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_VERIFYREQUEST = new CodeMsgPair(544, "Verify Request Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_VERIFYMESSAGE = new CodeMsgPair(545, "Verify Message Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_QUERYDISPLAYGROUPS = new CodeMsgPair(546, "Query Display Groups Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_SUBSCRIBETOGROUPEVENTS = new CodeMsgPair(547, "Subscribe To Group Events Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_UPDATEDISPLAYGROUP = new CodeMsgPair(548, "Update Display Group Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS = new CodeMsgPair(549, "Unsubscribe From Group Events Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_STARTAPI = new CodeMsgPair(550, "Start API Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_VERIFYANDAUTHREQUEST = new CodeMsgPair(551, "Verify And Auth Request Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_VERIFYANDAUTHMESSAGE = new CodeMsgPair(552, "Verify And Auth Message Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQPOSITIONSMULTI = new CodeMsgPair(553, "Request Positions Multi Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_CANPOSITIONSMULTI = new CodeMsgPair(554, "Cancel Positions Multi Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQACCOUNTUPDATESMULTI = new CodeMsgPair(555, "Request Account Updates Multi Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_CANACCOUNTUPDATESMULTI = new CodeMsgPair(556, "Cancel Account Updates Multi Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQSECDEFOPTPARAMS = new CodeMsgPair(557, "Request Security Definition Option Params Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQSOFTDOLLARTIERS = new CodeMsgPair(558, "Request Soft Dollar Tiers Sending Error - ");
 
     public EClientErrors() {
     }
 
     static public class CodeMsgPair {
 
-        ///////////////////////////////////////////////////////////////////
-        // Public members
-        ///////////////////////////////////////////////////////////////////
-        int 	m_errorCode;
-        String 	m_errorMsg;
+        // members vars
+        int m_errorCode;
+        String m_errorMsg;
 
-        ///////////////////////////////////////////////////////////////////
         // Get/Set methods
-        ///////////////////////////////////////////////////////////////////
         public int code()    { return m_errorCode; }
         public String msg()  { return m_errorMsg; }
 
-        ///////////////////////////////////////////////////////////////////
-        // Constructors
-        ///////////////////////////////////////////////////////////////////
-        /**
-        *
-        */
+        /** Constructor */
         public CodeMsgPair(int i, String errString) {
             m_errorCode = i;
             m_errorMsg = errString;

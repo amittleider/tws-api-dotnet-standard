@@ -1,0 +1,80 @@
+/*! \page spread_contracts Spreads
+
+	Spread contracts, also known as combos or combinations, combine two or more instruments. To define a combination contract it is required to know the conId of the @ref IBApi::Contract 
+	in question. The conId of an instrument can easily be obtained via the @ref IBApi::EClientSocket::reqContractDetails request.
+	
+	The spread contract's symbol can be either the symbol of one of the contract legs or, for two-legged combinations the symbols of both legs separated by a comma as shown in the examples
+	below.
+	
+	\section bag_stk Stock Spread
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bagstkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java bagstkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb bagstkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bagstkcontract
+		</li>
+	</ul>
+	
+	\section bag_fut Futures Spread
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bagfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java bagfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb bagfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bagfutcontract
+		</li>
+	</ul>
+	
+	\section bag_opt Options Spread
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs bagoptcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java bagoptcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb bagoptcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp bagoptcontract
+		</li>
+	</ul>
+	
+	\section bag_intcmdfut Inter-Commodity Futures
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.java intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.cpp intcmdfutcontract
+		</li>
+	</ul>
+	
+	<i>Please be mindful of the fact that Inter-commodity Futures contracts are spread contracts offered by the exchange directly, and the contract definition is different from regular combo contracts. 
+	Please make sure all the contract attributes are specified in accordance with \ref Overview "TWS Contract Description" page. </i>
+	
+	<br><br>
+
+*/

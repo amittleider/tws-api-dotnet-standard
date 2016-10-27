@@ -1,0 +1,30 @@
+/*! \page dde_tutorial Tutorial
+
+	\section dde_what_you_will_need What You Will Need
+	
+	This tutorial has been developed using Excel 2010 around the 9.72 version of the TWS API components. This version needs to be downloaded and installed before proceeding. You can 
+	download this version from http://interactivebrokers.github.io/.  
+
+	The TWS must be up and running while using the DDE connection to TWS. DDE client connectivity must also be enabled via Edit -> Global Configuration -> API -> Settings: Enable DDE clients 
+	as indicated in the picture below:
+
+	\image html dde_enabled.png
+	
+	\section ddedll_error Ddedll.dll Error
+	
+	TWS users running add-on applications in Excel using DDE on a Windows 64-bit operating systems may receive the following error message upon log in or when enabling the DDE client:
+	
+	\image html ddedll_error.png
+	
+	Please follow the instruction <a href="http://ibkb.interactivebrokers.com/article/2155" target="_blank" class="linkexternal">How to fix the error: "Ddedll.dll file missing or out of date"</a> to resolve the error before going forward to Tutorials.
+	
+	\section tutorial_topics Tutorial Topics
+
+	- \subpage dde_realtime_tutorial
+	
+	- \subpage dde_historical_tutorial
+	
+	- \subpage dde_reference
+	
+	<br>
+*/

@@ -8,16 +8,20 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
+import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
-import com.ib.client.UnderComp;
+import com.ib.client.SoftDollarTier;
 
 
 public class SimpleWrapper implements EWrapper {
@@ -25,7 +29,8 @@ public class SimpleWrapper implements EWrapper {
 	private final static SimpleDateFormat m_df = new SimpleDateFormat("HH:mm:ss"); 
 
 	// main client
-	private EClientSocket m_client = new EClientSocket(this);
+	private EJavaSignal m_signal = new EJavaSignal();
+	private EClientSocket m_client = new EClientSocket(this, m_signal);
 
 	// utils
 	private long ts;
@@ -47,7 +52,34 @@ public class SimpleWrapper implements EWrapper {
 	public void connect(int clientId) {
 		String host = System.getProperty("jts.host");
 		host = host != null ? host : "";
-		m_client.eConnect(host, 7496, clientId);	
+		m_client.eConnect(host, 7497, clientId);
+		
+        final EReader reader = new EReader(m_client, m_signal);
+        
+        reader.start();
+       
+		new Thread() {
+			public void run() {
+				while (m_client.isConnected()) {
+					m_signal.waitForSignal();
+					try {
+						javax.swing.SwingUtilities
+								.invokeAndWait(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											reader.processMsgs();
+										} catch (IOException e) {
+											error(e);
+										}
+									}
+								});
+					} catch (Exception e) {
+						error(e);
+					}
+				}
+			}
+		}.start();
 	}
 
 	public void disconnect() {
@@ -106,11 +138,11 @@ public class SimpleWrapper implements EWrapper {
 
 	public void tickEFP(int tickerId, int tickType, double basisPoints,
 			String formattedBasisPoints, double impliedFuture, int holdDays,
-			String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
 		logIn("tickEFP");
 	}
 
-	public void orderStatus(int orderId, String status, int filled, int remaining,
+	public void orderStatus(int orderId, String status, double filled, double remaining,
 			double avgFillPrice, int permId, int parentId, double lastFillPrice,
 			int clientId, String whyHeld) {
 		logIn("orderStatus");    	
@@ -128,7 +160,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("updateAccountValue");
 	}
 
-	public void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+	public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
 			double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
 		logIn("updatePortfolio");
 	}
@@ -217,7 +249,7 @@ public class SimpleWrapper implements EWrapper {
 		logIn("fundamentalData");    	
 	}
 
-	public void deltaNeutralValidation(int reqId, UnderComp underComp) {
+	public void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
 		logIn("deltaNeutralValidation");    	
 	}
 
@@ -230,7 +262,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	
-	public void position(String account, Contract contract, int pos) {
+	public void position(String account, Contract contract, double pos, double avgCost) {
 		logIn("position");
 	}
 	
@@ -245,7 +277,47 @@ public class SimpleWrapper implements EWrapper {
 	public void accountSummaryEnd( int reqId) {
 		logIn("accountSummaryEnd");
 	}
+
+	public void verifyMessageAPI( String apiData) {
+		logIn("verifyMessageAPI");
+	}
+
+	public void verifyCompleted( boolean isSuccessful, String errorText){
+		logIn("verifyCompleted");
+	}
+
+	public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {
+		logIn("verifyAndAuthMessageAPI");
+	}
+
+	public void verifyAndAuthCompleted( boolean isSuccessful, String errorText){
+		logIn("verifyAndAuthCompleted");
+	}
+
+	public void displayGroupList( int reqId, String groups){
+		logIn("displayGroupList");
+	}
+
+	public void displayGroupUpdated( int reqId, String contractInfo){
+		logIn("displayGroupUpdated");
+	}
+
+	public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+		logIn("positionMulti");
+	}
 	
+	public void positionMultiEnd( int reqId) {
+		logIn("positionMultiEnd");
+	}
+	
+	public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+		logIn("accountUpdateMulti");
+	}
+
+	public void accountUpdateMultiEnd( int reqId) {
+		logIn("accountUpdateMultiEnd");
+	}
+
 	/* ***************************************************************
 	 * Helpers
 	 *****************************************************************/
@@ -302,5 +374,28 @@ public class SimpleWrapper implements EWrapper {
 				ut.disconnect();
 			}
 		});			    	
+	}
+	
+	public void connectAck() {
+		m_client.startAPI();
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void securityDefinitionOptionalParameterEnd(int reqId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		// TODO Auto-generated method stub
+		
 	}
 }

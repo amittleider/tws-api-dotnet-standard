@@ -1,0 +1,86 @@
+/*! \page executions_commissions Executions and Commissions
+
+	When an order is filled either fully or partially, the @ref IBApi::EWrapper::execDetails and @ref IBApi::EWrapper::commissionReport events will deliver @ref IBApi::Execution and
+	@ref IBApi::CommissionReport objects. This allows to obtain the full picture of the order's execution and the resulting commissions.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs execdetails
+			...
+			\snippet EWrapperImpl.cs commissionreport
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java execdetails
+			...
+			\snippet EWrapperImpl.java commissionreport
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb execdetails
+			...
+			\snippet EWrapperImpl.vb commissionreport 
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp execdetails
+			...
+			\snippet TestCppClient.cpp commissionreport 
+		</li>
+	</ul>
+	
+	\section execution_request Requesting Executions
+	
+	@ref IBApi::Execution and @ref IBApi::CommissionReport can be requested on demand via the @ref IBApi::EClient::reqExecutions method which receives a @ref IBApi::ExecutionFilter object as parameter
+	to obtain only those executions matching the given criteria. An empty @ref IBApi::ExecutionFilter object can be passed to obtain all previous executions.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqexecutions
+		</li>
+		<li> 
+			\snippet Testbed.java reqexecutions
+		</li>
+		<li> 
+			\snippet MainModule.vb reqexecutions
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqexecutions
+		</li>
+	</ul>
+	
+	Once all matching executions have been delivered, an @ref IBApi::EWrapper::execDetailsEnd event will be triggered.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs execdetailsend
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java execdetailsend
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb execdetailsend
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp execdetailsend
+		</li>
+	</ul>
+	
+	<b>Important:</b> only those executions occurring since the last <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/?f=%2Fen%2Fsoftware%2FsystemStatus.php">IB server restart</a> for that particular account will be delivered. Older executions will generally not be available via the TWS API.
+	
+	<br><br>
+	
+*/

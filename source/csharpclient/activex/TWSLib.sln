@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWSLib", "TWSLib.csproj", "{44541143-0CA2-43A9-92A6-ACC174CE7061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderConditionsParsingTestProject", "..\..\..\tests\OrderConditionsParsingTestProject\OrderConditionsParsingTestProject.csproj", "{B1A560A9-6E30-4ACD-83FA-7166CF483030}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{44541143-0CA2-43A9-92A6-ACC174CE7061}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B1A560A9-6E30-4ACD-83FA-7166CF483030}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

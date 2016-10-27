@@ -1,0 +1,118 @@
+/*! \page market_scanners Market Scanners
+
+	The TWS' <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm">Advanced Market Scanner</a> can 
+	be accessed via the TWS API through the @ref IBApi::EClient::reqScannerSubscription. 
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqscannersubscription
+		</li>
+		<li>
+			\snippet Testbed.java reqscannersubscription
+		</li>
+		<li>
+			\snippet MainModule.vb reqscannersubscription
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqscannersubscription
+		</li>
+	</ul>
+	
+	Note how a @ref IBApi::ScannerSubscription object containing the scanner's criteria needs to be defined. See @ref scanner_examples at the bottom of this page.
+	
+	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs scannerdata 
+			...
+			\snippet EWrapperImpl.cs scannerdataend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java scannerdata
+			...
+			\snippet EWrapperImpl.java scannerdataend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb scannerdata 
+			...
+			\snippet EWrapperImpl.vb scannerdataend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp scannerdata 
+			...
+			\snippet TestCppClient.cpp scannerdataend
+		</li>
+	</ul>
+	
+	Since the @ref IBApi::EClient::reqScannerSubscription request keeps a subscription open you will keep receiving periodic updates until the request is cancelled via @ref::IBApi::EClient::cancelScannerSubscription:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs cancelscannersubscription
+		</li>
+		<li>
+			\snippet Testbed.java cancelscannersubscription
+		</li>
+		<li>
+			\snippet MainModule.vb cancelscannersubscription
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelscannersubscription
+		</li>
+	</ul>
+	
+	\section scanner_examples Market Scanner Examples
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet ScannerSubscriptionSamples.cs hotusvolume
+			...
+			\snippet ScannerSubscriptionSamples.cs toppercentgaineribis
+			...
+			\snippet ScannerSubscriptionSamples.cs mostactivefutsoffex
+			...
+			\snippet ScannerSubscriptionSamples.cs highoptvolume
+		</li>
+		<li>
+			\snippet ScannerSubscriptionSamples.java hotusvolume
+			...
+			\snippet ScannerSubscriptionSamples.java toppercentgaineribis
+			...
+			\snippet ScannerSubscriptionSamples.java mostactivefutsoffex
+			...
+			\snippet ScannerSubscriptionSamples.java highoptvolume
+		</li>
+		<li>
+			\snippet ScannerSubscriptionSamples.vb hotusvolume
+			...
+			\snippet ScannerSubscriptionSamples.vb toppercentgaineribis
+			...
+			\snippet ScannerSubscriptionSamples.vb mostactivefutsoffex
+			...
+			\snippet ScannerSubscriptionSamples.vb highoptvolume
+		</li>
+		<li>
+			\snippet ScannerSubscriptionSamples.cpp hotusvolume
+			...
+			\snippet ScannerSubscriptionSamples.cpp toppercentgaineribis
+			...
+			\snippet ScannerSubscriptionSamples.cpp mostactivefutsoffex
+			...
+			\snippet ScannerSubscriptionSamples.cpp highoptvolume
+		</li>
+	</ul>
+	
+	See also \subpage scanner_parameters
+	
+	<br><br>
+
+*/

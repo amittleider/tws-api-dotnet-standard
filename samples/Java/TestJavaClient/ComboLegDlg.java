@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,16 +23,14 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.ComboLeg;
 import com.ib.client.OrderComboLeg;
-import com.ib.client.Contract;
 
 public class ComboLegDlg extends JDialog {
-
     //private static String 	BUY = "BUY";
     //private static String 	SELL = "SELL";
     //private static String 	SSHORT = "SSHORT";
 
-	private Vector          m_comboLegs;
-	private Vector          m_orderComboLegs;
+	private ArrayList<ComboLeg>      m_comboLegs;
+	private ArrayList<OrderComboLeg> m_orderComboLegs;
 
     private JTextField 		m_conId = new JTextField( "0");
     private JTextField 		m_ratio = new JTextField( "0");
@@ -55,7 +53,7 @@ public class ComboLegDlg extends JDialog {
 
     public ComboLegModel comboLegModel() { return m_comboLegsModel; }
 
-    public ComboLegDlg( Vector<ComboLeg> comboLegs, Vector<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
+    public ComboLegDlg( ArrayList<ComboLeg> comboLegs, ArrayList<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
         super( owner, true);
 
         m_comboLegs = comboLegs;
@@ -185,12 +183,11 @@ public class ComboLegDlg extends JDialog {
         setVisible( false);
     }
 
-
     void reportError( String msg, Exception e) {
         Main.inform( this, msg + " --" + e);
     }
 
-    private void centerOnOwner( Window window) {
+    private static void centerOnOwner( Window window) {
         Window owner = window.getOwner();
         if( owner == null) {
             return;
@@ -202,39 +199,33 @@ public class ComboLegDlg extends JDialog {
         window.setLocation( x, y);
     }
 
-    private double parseStringToMaxDouble(String value) {
+    private static double parseStringToMaxDouble(String value) {
         if (value.trim().length() == 0) {
             return Double.MAX_VALUE;
-            }
-        else {
-            return Double.parseDouble(value);
         }
+        return Double.parseDouble(value);
     }
-
 }
 
 class ComboLegModel extends AbstractTableModel {
-    private Vector  m_comboLegData = new Vector();
-    private Vector  m_orderComboLegData = new Vector();
+    private ArrayList<ComboLeg> m_comboLegData = new ArrayList<ComboLeg>();
+    private ArrayList<OrderComboLeg> m_orderComboLegData = new ArrayList<OrderComboLeg>();
 
-    synchronized public void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg)
-    {
+    synchronized public void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg) {
         m_comboLegData.add( comboLeg);
         m_orderComboLegData.add( orderComboLeg);
         fireTableDataChanged();
     }
 
-    synchronized public void removeComboLeg( int index)
-    {
+    synchronized public void removeComboLeg( int index) {
         m_comboLegData.remove(index);
         m_orderComboLegData.remove(index);
         fireTableDataChanged();
     }
 
-    synchronized public void removeComboLeg( ComboLeg comboLeg)
-    {
+    synchronized public void removeComboLeg( ComboLeg comboLeg) {
         for ( int i=0; i < m_comboLegData.size(); i++ ) {
-                if ( comboLeg.equals( (ComboLeg)m_comboLegData.get(i)) ) {
+                if ( comboLeg.equals( m_comboLegData.get(i)) ) {
                         m_comboLegData.remove(i);
                         m_orderComboLegData.remove(i);
                         break;
@@ -244,8 +235,8 @@ class ComboLegModel extends AbstractTableModel {
     }
 
     synchronized public void reset() {
-        m_comboLegData.removeAllElements();
-        m_orderComboLegData.removeAllElements();
+        m_comboLegData.clear();
+        m_orderComboLegData.clear();
 		fireTableDataChanged();
     }
 
@@ -263,27 +254,26 @@ class ComboLegModel extends AbstractTableModel {
 
         switch (c) {
             case 0:
-                return Integer.toString(comboLeg.m_conId);
+                return Integer.toString(comboLeg.conid());
             case 1:
-                return Integer.toString(comboLeg.m_ratio);
+                return Integer.toString(comboLeg.ratio());
             case 2:
-                return comboLeg.m_action;
+                return comboLeg.action();
             case 3:
-                return comboLeg.m_exchange;
+                return comboLeg.exchange();
             case 4:
-                return Integer.toString(comboLeg.m_openClose);
+                return Integer.toString(comboLeg.getOpenClose());
             case 5:
-               return Integer.toString(comboLeg.m_shortSaleSlot);
+               return Integer.toString(comboLeg.shortSaleSlot());
             case 6:
-               return comboLeg.m_designatedLocation;
+               return comboLeg.designatedLocation();
             case 7:
-                return Integer.toString(comboLeg.m_exemptCode);
+                return Integer.toString(comboLeg.exemptCode());
             case 8:
-                return parseMaxDoubleToString(orderComboLeg.m_price);
+                return parseMaxDoubleToString(orderComboLeg.price());
             default:
                 return "";
         }
-
     }
 
     public boolean isCellEditable(int r, int c) {
@@ -315,17 +305,15 @@ class ComboLegModel extends AbstractTableModel {
         }
     }
 
-    public Vector comboLegData() {
+    public ArrayList<ComboLeg> comboLegData() {
         return m_comboLegData;
     }
 
-    public Vector orderComboLegData() {
+    public ArrayList<OrderComboLeg> orderComboLegData() {
         return m_orderComboLegData;
     }
 
-    private String parseMaxDoubleToString(double value) {
+    private static String parseMaxDoubleToString(double value) {
         return value == Double.MAX_VALUE ? "" : String.valueOf(value);
     }
-
-
 }

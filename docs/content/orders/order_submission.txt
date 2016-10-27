@@ -1,0 +1,169 @@
+/*! \page order_submission Placing Orders
+
+	\section next_valid_id The Next Valid Identifier
+  
+	Perhaps the most important event received after successfully connecting to the TWS is the @ref IBApi::EWrapper::nextValidId, which is also triggered after invoking the @ref IBApi::EClient::reqIds method. 
+	As its name indicates, the nextValidId event provides the next valid identifier needed to place an order. This identifier is nothing more than the next number in the sequence. 
+	This means that if there is a single client application submitting orders to an account, it does not have to obtain a new valid identifier every time it needs to submit a new order. 
+	It is enough to increase the last value received from the nextValidId method by one. For example, if the valid identifier for your first API order is 1, the next valid identifier would be 2 and so on.
+	
+	
+	However if there are multiple client applications connected to one account, it is necessary to use an order ID with new orders which is greater than all previous order IDs returned to the client 
+	application in openOrder or orderStatus callbacks. For instance, if the client is set as the Master client, it will automatically receive order status and trade callbacks from orders placed 
+	from other clients. In such a case, any orderID used in placeOrder must be greater than the orderIDs returned in these status callbacks. Alternatively if the function reqAllOpenOrders is 
+	used by a client, subsequent orders placed by that client must have order IDs greater than the order IDs of all orders returned because of that function call. 
+	You can always use the @ref IBApi::EClient::reqIds method in the event that your client application loses track of the sequence.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqids
+		</li>
+		<li>
+			\snippet Testbed.java reqids
+		</li>
+		<li>
+			\snippet MainModule.vb reqids
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqids
+		</li>
+	</ul>
+	
+	The above will result in @ref IBApi::EWrapper::nextValidId callback being invoked:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs nextvalidid
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java nextvalidid
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb nextvalidid
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp nextvalidid
+		</li>
+	</ul>
+	
+	<b>The next valid identifier is persistent between TWS sessions.</b>
+
+	If necessary, you can reset the order ID sequence within the API Settings dialogue. Note however that the order sequence Id can only be reset if there are no active orders.
+
+	\image html order_id_reset.png
+
+	\section submission Order Submission
+	
+	Orders are submitted via the @ref IBApi::EClient::placeOrder method. From the snippet below, note how a variable holding the nextValidId is incremented automatically:
+  
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs order_submission
+		</li>
+		<li> 
+			\snippet Testbed.java order_submission
+		</li>
+		<li> 
+			\snippet MainModule.vb order_submission
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp order_submission
+		</li>
+	</ul>
+
+	Immediately after the order was submitted correctly, the TWS will start sending events concerning the order's activity via @ref IBApi::EWrapper::openOrder and @ref IBApi::EWrapper::orderStatus
+	
+	\section open_order The openOrder method
+	
+	The @ref IBApi::EWrapper::openOrder method delivers an @ref IBApi::Order object representing the open order within the system. Additionally, an @ref IBApi::OrderState object containing margin
+	and commission information about this particular order.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs openorder 
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java openorder
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb openorder 
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp openorder
+		</li>
+	</ul>
+	
+	\section order_status The orderStatus method
+	 
+	The @ref IBApi::EWrapper::orderStatus method contains all relevant information on the current status of the order execution-wise (i.e. amount filled and pending, filling price, etc.).
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs orderstatus 
+		</li>
+		<li> 
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java orderstatus
+		</li>
+		<li> 
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb orderstatus 
+		</li>
+		<li> 
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp orderstatus
+		</li>
+	</ul>
+	
+	There are several different categories a client might fall into which determine the orderStatus messages it receives:
+	
+	->Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.
+	
+	->The master client (set in TWS/IBG) will receive order status messages for all clients. 
+	
+	->Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS. 
+	
+	Other important points concerning @ref IBApi::EWrapper::orderStatus:
+	
+	->Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange. 
+	
+	->There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the @ref IBApi::EWrapper::execDetails function in addition to @ref IBApi::EWrapper::orderStatus.
+	
+	\section order_attach Attaching Orders
+	
+	Advanced orders such as @ref bracket_order or @ref hedging involve attaching child orders to a parent. This can be easily done via the @ref IBApi::Order::ParentId attribute by assigning a child 
+	order's @ref IBApi::Order::ParentId to an existing order's @ref IBApi::Order::OrderId. When an order is attached to another, the system will keep the child order 'on hold' until its parent fills. 
+	Once the parent order is completely filled, its children will automatically become active.
+	
+	<b>Important:</b> When attaching orders and to prevent accidental executions it is a very good idea to make use of the @ref IBApi::Order::Transmit flag as demonstrated in @ref bracket_order
+	
+	\section order_margin Checking Margin Requirements
+	
+	It is possible to obtain the margin and commissions information for a given order *before* submitting it by assigning the @ref IBApi::Order::WhatIf flag to true. Invoking placeOrder with the whatif 
+	flag set to true will result in the order not being actually placed but rather used as a query. The margin and commissions information will be returned via 
+	the @ref IBApi::EWrapper::openOrder callback through its @ref IBApi::OrderState object.
+	
+	<br><br>
+	
+*/

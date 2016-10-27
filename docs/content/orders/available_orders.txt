@@ -1,0 +1,7 @@
+/*! \page available_orders Available Orders
+
+	- \subpage basic_orders	
+	- \subpage advanced_orders
+	
+	<br><br>
+*/

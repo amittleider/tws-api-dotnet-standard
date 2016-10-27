@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.Contract;
@@ -58,7 +59,7 @@ public class AccountDlg extends JDialog {
         timePanel.add(m_close);
 
         m_updateTime.setEditable(false);
-        m_updateTime.setHorizontalAlignment(JTextField.CENTER);
+        m_updateTime.setHorizontalAlignment(SwingConstants.CENTER);
         m_updateTime.setPreferredSize(new Dimension(80, 26));
         m_close.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
@@ -77,7 +78,7 @@ public class AccountDlg extends JDialog {
         m_acctValueModel.updateAccountValue(key, value, currency, accountName);
     }
 
-    void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+    void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
     		double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
        m_portfolioModel.updatePortfolio(contract, position, marketPrice, marketValue,
           averageCost, unrealizedPNL, realizedPNL, accountName);
@@ -137,15 +138,15 @@ public class AccountDlg extends JDialog {
 
 
 class PortfolioTable extends AbstractTableModel {
-    Vector m_allData = new Vector();
+    Vector<PortfolioTableRow> m_allData = new Vector<PortfolioTableRow>();
 
-    void updatePortfolio(Contract contract, int position, double marketPrice, double marketValue,
+    void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
                          double averageCost, double unrealizedPNL, double realizedPNL, String accountName) {
          PortfolioTableRow newData =
          new PortfolioTableRow(contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName);
          int size = m_allData.size();
          for ( int i = 0; i < size; i++ ) {
-             PortfolioTableRow test = (PortfolioTableRow)m_allData.get(i);
+             PortfolioTableRow test = m_allData.get(i);
              if ( test.m_contract.equals(newData.m_contract) ) {
                  if ( newData.m_position == 0 )
                      m_allData.remove(i);
@@ -170,11 +171,11 @@ class PortfolioTable extends AbstractTableModel {
     }
 
     public int getColumnCount() {
-        return 13;
+        return 18;
     }
 
     public Object getValueAt(int r, int c) {
-        return ((PortfolioTableRow) m_allData.get(r)).getValue(c);
+        return m_allData.get(r).getValue(c);
     }
 
     public boolean isCellEditable(int r, int c) {
@@ -184,34 +185,40 @@ class PortfolioTable extends AbstractTableModel {
     public String getColumnName(int c) {
         switch(c) {
             case 0:
-                return "Symbol";
+                return "ConId";
             case 1:
-                return "SecType";
+                return "Symbol";
             case 2:
-                return "Expiry";
+                return "SecType";
             case 3:
-                return "Strike";
+                return "Last trade date";
             case 4:
-                return "Right";
+                return "Strike";
             case 5:
-            	return "Multiplier";
+                return "Right";
             case 6:
-            	return "Exchange";
+            	return "Multiplier";
             case 7:
-                return "Currency";
+            	return "Exchange";
             case 8:
-                return "Position";
+                return "Currency";
             case 9:
-                return "Market Price";
+                return "Local Symbol";
             case 10:
-                return "Market Value";
+                return "Trading Class";
             case 11:
-                return "Average Cost";
+                return "Position";
             case 12:
-                return "Unrealized P&L";
+                return "Market Price";
             case 13:
-                return "Realized P&L";
+                return "Market Value";
             case 14:
+                return "Average Cost";
+            case 15:
+                return "Unrealized P&L";
+            case 16:
+                return "Realized P&L";
+            case 17:
                 return "Account Name";
             default:
                 return null;
@@ -220,7 +227,7 @@ class PortfolioTable extends AbstractTableModel {
 
     class PortfolioTableRow {
         Contract m_contract;
-        int      m_position;
+        double      m_position;
         double   m_marketPrice;
         double   m_marketValue;
         double   m_averageCost;
@@ -228,7 +235,7 @@ class PortfolioTable extends AbstractTableModel {
         double   m_realizedPNL;
         String   m_accountName;
 
-        PortfolioTableRow( Contract contract, int position, double marketPrice,
+        PortfolioTableRow( Contract contract, double position, double marketPrice,
             double marketValue, double averageCost, double unrealizedPNL,
             double realizedPNL, String accountName) {
             m_contract = contract;
@@ -244,34 +251,40 @@ class PortfolioTable extends AbstractTableModel {
         Object getValue(int c) {
             switch(c) {
                 case 0:
-                    return m_contract.m_symbol;
+                    return m_contract.conid();
                 case 1:
-                    return m_contract.m_secType;
+                    return m_contract.symbol();
                 case 2:
-                    return m_contract.m_expiry;
+                    return m_contract.secType();
                 case 3:
-                    return m_contract.m_expiry == null ? null : "" + m_contract.m_strike;
+                    return m_contract.lastTradeDateOrContractMonth();
                 case 4:
-                    return (m_contract.m_right != null && m_contract.m_right.equals("???")) ? null : m_contract.m_right;
+                    return m_contract.lastTradeDateOrContractMonth() == null ? null : "" + m_contract.strike();
                 case 5:
-                	return m_contract.m_multiplier;
+                    return (m_contract.getRight() != null && m_contract.getRight().equals("???")) ? null : m_contract.getRight();
                 case 6:
-                	return (m_contract.m_primaryExch != null ? m_contract.m_primaryExch : "");
+                	return m_contract.multiplier();
                 case 7:
-                    return m_contract.m_currency;
+                	return (m_contract.primaryExch() != null ? m_contract.primaryExch() : "");
                 case 8:
-                    return "" + m_position;
+                    return m_contract.currency();
                 case 9:
-                    return "" + m_marketPrice;
+                    return (m_contract.localSymbol() != null ? m_contract.localSymbol() : "");
                 case 10:
-                    return "" + m_marketValue;
+                    return (m_contract.tradingClass() != null ? m_contract.tradingClass() : "");
                 case 11:
-                    return "" + m_averageCost;
+                    return "" + m_position;
                 case 12:
-                    return "" + m_unrealizedPNL;
+                    return "" + m_marketPrice;
                 case 13:
-                    return "" + m_realizedPNL;
+                    return "" + m_marketValue;
                 case 14:
+                    return "" + m_averageCost;
+                case 15:
+                    return "" + m_unrealizedPNL;
+                case 16:
+                    return "" + m_realizedPNL;
+                case 17:
                     return m_accountName;
                 default:
                     return null;
@@ -281,13 +294,13 @@ class PortfolioTable extends AbstractTableModel {
 }
 
 class AcctValueModel extends AbstractTableModel {
-    Vector m_allData = new Vector();
+    Vector<AccountTableRow> m_allData = new Vector<AccountTableRow>();
 
     void updateAccountValue(String key, String val, String currency, String accountName) {
          AccountTableRow newData = new AccountTableRow(key, val, currency, accountName);
          int size = m_allData.size();
          for ( int i = 0; i < size; i++ ) {
-             AccountTableRow test = (AccountTableRow)m_allData.get(i);
+             AccountTableRow test = m_allData.get(i);
                if (test.m_key != null &&
                    test.m_key.equals(newData.m_key) &&
                    test.m_currency != null &&
@@ -315,7 +328,7 @@ class AcctValueModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int r, int c) {
-        return ((AccountTableRow)m_allData.get(r)).getValue(c);
+        return m_allData.get(r).getValue(c);
     }
 
 

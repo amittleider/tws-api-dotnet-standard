@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,22 +25,14 @@ import com.ib.client.Order;
 import com.ib.client.TagValue;
 
 public class AlgoParamsDlg extends JDialog {
-
 	private Order m_order;
-
     private JTextField 		m_algoStrategy = new JTextField( "");
-
-	private Vector          m_algoParams;
-
     private JTextField 		m_tag = new JTextField( "");
     private JTextField 		m_value = new JTextField( "");
-
     private JButton 		m_addParam = new JButton( "Add");
     private JButton	 	    m_removeParam = new JButton( "Remove");
-
     private JButton 		m_ok = new JButton( "OK");
     private JButton	 	    m_cancel = new JButton( "Cancel");
-
     private AlgoParamModel 	m_paramModel = new AlgoParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
     private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
@@ -57,14 +49,14 @@ public class AlgoParamsDlg extends JDialog {
         JPanel pAlgoPanel = new JPanel( new GridLayout( 0, 2, 10, 10) );
         pAlgoPanel.setBorder( BorderFactory.createTitledBorder( "Algorithm") );
         pAlgoPanel.add( new JLabel( "Strategy:") );
-        m_algoStrategy.setText(m_order.m_algoStrategy);
+        m_algoStrategy.setText(m_order.getAlgoStrategy());
         pAlgoPanel.add(m_algoStrategy);
 
         // create algo params panel
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
         pParamList.setBorder( BorderFactory.createTitledBorder( "Parameters") );
 
-        Vector algoParams = m_order.m_algoParams;
+        ArrayList<TagValue> algoParams = m_order.algoParams();
         if (algoParams != null) {
         	m_paramModel.algoParams().addAll(algoParams);
         }
@@ -151,11 +143,10 @@ public class AlgoParamsDlg extends JDialog {
     }
 
     void onOk() {
+    	m_order.algoStrategy(m_algoStrategy.getText());
 
-    	m_order.m_algoStrategy = m_algoStrategy.getText();
-
-    	Vector algoParams = m_paramModel.algoParams();
-    	m_order.m_algoParams = algoParams.isEmpty() ? null : algoParams;
+    	ArrayList<TagValue> algoParams = m_paramModel.algoParams();
+    	m_order.algoParams(algoParams.isEmpty() ? null : algoParams);
 
         setVisible( false);
     }
@@ -164,12 +155,11 @@ public class AlgoParamsDlg extends JDialog {
         setVisible( false);
     }
 
-
     void reportError( String msg, Exception e) {
         Main.inform( this, msg + " --" + e);
     }
 
-    private void centerOnOwner( Window window) {
+    private static void centerOnOwner( Window window) {
         Window owner = window.getOwner();
         if( owner == null) {
             return;
@@ -183,23 +173,20 @@ public class AlgoParamsDlg extends JDialog {
 }
 
 class AlgoParamModel extends AbstractTableModel {
+    private ArrayList<TagValue> m_allData = new ArrayList<TagValue>();
 
-    private Vector  m_allData = new Vector();
-
-    synchronized public void addParam( TagValue tagValue)
-    {
+    synchronized public void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
         fireTableDataChanged();
     }
 
-    synchronized public void removeParam( int index)
-    {
+    synchronized public void removeParam( int index) {
         m_allData.remove( index);
         fireTableDataChanged();
     }
 
     synchronized public void reset() {
-        m_allData.removeAllElements();
+        m_allData.clear();
 		fireTableDataChanged();
     }
 
@@ -212,7 +199,7 @@ class AlgoParamModel extends AbstractTableModel {
     }
 
     synchronized public Object getValueAt(int r, int c) {
-        TagValue tagValue = (TagValue)m_allData.get(r);
+        TagValue tagValue = m_allData.get(r);
 
         switch (c) {
             case 0:
@@ -222,7 +209,6 @@ class AlgoParamModel extends AbstractTableModel {
             default:
                 return "";
         }
-
     }
 
     public boolean isCellEditable(int r, int c) {
@@ -240,7 +226,7 @@ class AlgoParamModel extends AbstractTableModel {
         }
     }
 
-    public Vector algoParams() {
+    public ArrayList<TagValue> algoParams() {
         return m_allData;
     }
 }

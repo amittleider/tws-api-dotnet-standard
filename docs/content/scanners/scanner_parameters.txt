@@ -1,0 +1,49 @@
+/*! \page scanner_parameters Scanner Parameters
+
+	Scanner parameters can be obtained via @ref IBApi::EClient::reqScannerParameters:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqscannerparameters
+		</li>
+		<li>
+			\snippet Testbed.java reqscannerparameters
+		</li>
+		<li>
+			\snippet MainModule.vb reqscannerparameters
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqscannerparameters
+		</li>
+	</ul>
+
+	A string containing all available XML-formatted parameters will then be returned via @ref IBApi::EWrapper::scannerParameters
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs scannerparameters
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java scannerparameters
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb scannerparameters
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp scannerparameters
+		</li>
+	</ul>
+	
+	<b>Important:</b> remember the TWS API is just an interface to the TWS. If you are having problems defining a scanner, always make sure you can create a similar scanner using the TWS' 
+	<a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm">Advanced Market Scanner</a>.
+	
+	<br><br>
+*/

@@ -4,10 +4,11 @@
 package com.ib.client;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
+import java.util.Set;
 
-public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
+public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
     public static final String FINANCIAL_ADVISOR = "FA:";
     
@@ -45,15 +46,15 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     
     static public String tickEFP(int tickerId, int tickType, double basisPoints,
 			String formattedBasisPoints, double impliedFuture, int holdDays,
-			String futureExpiry, double dividendImpact, double dividendsToExpiry) {
+			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
     	return "id=" + tickerId + "  " + TickType.getField(tickType)
 		+ ": basisPoints = " + basisPoints + "/" + formattedBasisPoints
 		+ " impliedFuture = " + impliedFuture + " holdDays = " + holdDays +
-		" futureExpiry = " + futureExpiry + " dividendImpact = " + dividendImpact +
-		" dividends to expiry = "	+ dividendsToExpiry;
+		" futureLastTradeDate = " + futureLastTradeDate + " dividendImpact = " + dividendImpact +
+		" dividends to expiry = "	+ dividendsToLastTradeDate;
     }
     
-    static public String orderStatus( int orderId, String status, int filled, int remaining,
+    static public String orderStatus( int orderId, String status, double filled, double remaining,
             double avgFillPrice, int permId, int parentId, double lastFillPrice,
             int clientId, String whyHeld) {
     	return "order status: orderId=" + orderId + " clientId=" + clientId + " permId=" + permId +
@@ -64,133 +65,146 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     
     static public String openOrder( int orderId, Contract contract, Order order, OrderState orderState) {
         String msg = "open order: orderId=" + orderId +
-        " action=" + order.m_action +
-        " quantity=" + order.m_totalQuantity +
-        " symbol=" + contract.m_symbol +
-        " exchange=" + contract.m_exchange +
-        " secType=" + contract.m_secType +
-        " type=" + order.m_orderType +
-        " lmtPrice=" + Util.DoubleMaxString(order.m_lmtPrice) +
-        " auxPrice=" + Util.DoubleMaxString(order.m_auxPrice) +
-        " TIF=" + order.m_tif +
-        " localSymbol=" + contract.m_localSymbol +
-        " client Id=" + order.m_clientId +
-        " parent Id=" + order.m_parentId +
-        " permId=" + order.m_permId +
-        " outsideRth=" + order.m_outsideRth +
-        " hidden=" + order.m_hidden +
-        " discretionaryAmt=" + order.m_discretionaryAmt +
-        " displaySize=" + order.m_displaySize +
-        " triggerMethod=" + order.m_triggerMethod +
-        " goodAfterTime=" + order.m_goodAfterTime +
-        " goodTillDate=" + order.m_goodTillDate +
-        " faGroup=" + order.m_faGroup +
-        " faMethod=" + order.m_faMethod +
-        " faPercentage=" + order.m_faPercentage +
-        " faProfile=" + order.m_faProfile +
-        " shortSaleSlot=" + order.m_shortSaleSlot +
-        " designatedLocation=" + order.m_designatedLocation +
-        " exemptCode=" + order.m_exemptCode +
-        " ocaGroup=" + order.m_ocaGroup +
-        " ocaType=" + order.m_ocaType +
-        " rule80A=" + order.m_rule80A +
-        " allOrNone=" + order.m_allOrNone +
-        " minQty=" + Util.IntMaxString(order.m_minQty) +
-        " percentOffset=" + Util.DoubleMaxString(order.m_percentOffset) +
-        " eTradeOnly=" + order.m_eTradeOnly +
-        " firmQuoteOnly=" + order.m_firmQuoteOnly +
-        " nbboPriceCap=" + Util.DoubleMaxString(order.m_nbboPriceCap) +
-        " optOutSmartRouting=" + order.m_optOutSmartRouting +
-        " auctionStrategy=" + order.m_auctionStrategy +
-        " startingPrice=" + Util.DoubleMaxString(order.m_startingPrice) +
-        " stockRefPrice=" + Util.DoubleMaxString(order.m_stockRefPrice) +
-        " delta=" + Util.DoubleMaxString(order.m_delta) +
-        " stockRangeLower=" + Util.DoubleMaxString(order.m_stockRangeLower) +
-        " stockRangeUpper=" + Util.DoubleMaxString(order.m_stockRangeUpper) +
-        " volatility=" + Util.DoubleMaxString(order.m_volatility) +
-        " volatilityType=" + order.m_volatilityType +
-        " deltaNeutralOrderType=" + order.m_deltaNeutralOrderType +
-        " deltaNeutralAuxPrice=" + Util.DoubleMaxString(order.m_deltaNeutralAuxPrice) +
-        " deltaNeutralConId=" + order.m_deltaNeutralConId +
-        " deltaNeutralSettlingFirm=" + order.m_deltaNeutralSettlingFirm +
-        " deltaNeutralClearingAccount=" + order.m_deltaNeutralClearingAccount +
-        " deltaNeutralClearingIntent=" + order.m_deltaNeutralClearingIntent +
-        " deltaNeutralOpenClose=" + order.m_deltaNeutralOpenClose +
-        " deltaNeutralShortSale=" + order.m_deltaNeutralShortSale +
-        " deltaNeutralShortSaleSlot=" + order.m_deltaNeutralShortSaleSlot +
-        " deltaNeutralDesignatedLocation=" + order.m_deltaNeutralDesignatedLocation +
-        " continuousUpdate=" + order.m_continuousUpdate +
-        " referencePriceType=" + order.m_referencePriceType +
-        " trailStopPrice=" + Util.DoubleMaxString(order.m_trailStopPrice) +
-        " trailingPercent=" + Util.DoubleMaxString(order.m_trailingPercent) +
-        " scaleInitLevelSize=" + Util.IntMaxString(order.m_scaleInitLevelSize) +
-        " scaleSubsLevelSize=" + Util.IntMaxString(order.m_scaleSubsLevelSize) +
-        " scalePriceIncrement=" + Util.DoubleMaxString(order.m_scalePriceIncrement) +
-        " scalePriceAdjustValue=" + Util.DoubleMaxString(order.m_scalePriceAdjustValue) +
-        " scalePriceAdjustInterval=" + Util.IntMaxString(order.m_scalePriceAdjustInterval) +
-        " scaleProfitOffset=" + Util.DoubleMaxString(order.m_scaleProfitOffset) +
-        " scaleAutoReset=" + order.m_scaleAutoReset +
-        " scaleInitPosition=" + Util.IntMaxString(order.m_scaleInitPosition) +
-        " scaleInitFillQty=" + Util.IntMaxString(order.m_scaleInitFillQty) +
-        " scaleRandomPercent=" + order.m_scaleRandomPercent +
-        " hedgeType=" + order.m_hedgeType +
-        " hedgeParam=" + order.m_hedgeParam +
-        " account=" + order.m_account +
-        " settlingFirm=" + order.m_settlingFirm +
-        " clearingAccount=" + order.m_clearingAccount +
-        " clearingIntent=" + order.m_clearingIntent +
-        " notHeld=" + order.m_notHeld +
-        " whatIf=" + order.m_whatIf
-        ;
+        " action=" + order.getAction() +
+        " quantity=" + order.totalQuantity() +
+        " conid=" + contract.conid() + 
+        " symbol=" + contract.symbol() + 
+        " secType=" + contract.getSecType() + 
+        " lastTradeDate=" + contract.lastTradeDateOrContractMonth() + 
+        " strike=" + contract.strike() + 
+        " right=" + contract.getRight() + 
+        " multiplier=" + contract.multiplier() + 
+        " exchange=" + contract.exchange() + 
+        " primaryExch=" + contract.primaryExch() + 
+        " currency=" + contract.currency() + 
+        " localSymbol=" + contract.localSymbol() + 
+        " tradingClass=" + contract.tradingClass() + 
+        " type=" + order.getOrderType() +
+        " lmtPrice=" + Util.DoubleMaxString(order.lmtPrice()) +
+        " auxPrice=" + Util.DoubleMaxString(order.auxPrice()) +
+        " TIF=" + order.getTif() +
+        " localSymbol=" + contract.localSymbol() +
+        " client Id=" + order.clientId() +
+        " parent Id=" + order.parentId() +
+        " permId=" + order.permId() +
+        " outsideRth=" + order.outsideRth() +
+        " hidden=" + order.hidden() +
+        " discretionaryAmt=" + order.discretionaryAmt() +
+        " displaySize=" + order.displaySize() +
+        " triggerMethod=" + order.getTriggerMethod() +
+        " goodAfterTime=" + order.goodAfterTime() +
+        " goodTillDate=" + order.goodTillDate() +
+        " faGroup=" + order.faGroup() +
+        " faMethod=" + order.getFaMethod() +
+        " faPercentage=" + order.faPercentage() +
+        " faProfile=" + order.faProfile() +
+        " shortSaleSlot=" + order.shortSaleSlot() +
+        " designatedLocation=" + order.designatedLocation() +
+        " exemptCode=" + order.exemptCode() +
+        " ocaGroup=" + order.ocaGroup() +
+        " ocaType=" + order.getOcaType() +
+        " rule80A=" + order.getRule80A() +
+        " allOrNone=" + order.allOrNone() +
+        " minQty=" + Util.IntMaxString(order.minQty()) +
+        " percentOffset=" + Util.DoubleMaxString(order.percentOffset()) +
+        " eTradeOnly=" + order.eTradeOnly() +
+        " firmQuoteOnly=" + order.firmQuoteOnly() +
+        " nbboPriceCap=" + Util.DoubleMaxString(order.nbboPriceCap()) +
+        " optOutSmartRouting=" + order.optOutSmartRouting() +
+        " auctionStrategy=" + order.auctionStrategy() +
+        " startingPrice=" + Util.DoubleMaxString(order.startingPrice()) +
+        " stockRefPrice=" + Util.DoubleMaxString(order.stockRefPrice()) +
+        " delta=" + Util.DoubleMaxString(order.delta()) +
+        " stockRangeLower=" + Util.DoubleMaxString(order.stockRangeLower()) +
+        " stockRangeUpper=" + Util.DoubleMaxString(order.stockRangeUpper()) +
+        " volatility=" + Util.DoubleMaxString(order.volatility()) +
+        " volatilityType=" + order.getVolatilityType() +
+        " deltaNeutralOrderType=" + order.getDeltaNeutralOrderType() +
+        " deltaNeutralAuxPrice=" + Util.DoubleMaxString(order.deltaNeutralAuxPrice()) +
+        " deltaNeutralConId=" + order.deltaNeutralConId() +
+        " deltaNeutralSettlingFirm=" + order.deltaNeutralSettlingFirm() +
+        " deltaNeutralClearingAccount=" + order.deltaNeutralClearingAccount() +
+        " deltaNeutralClearingIntent=" + order.deltaNeutralClearingIntent() +
+        " deltaNeutralOpenClose=" + order.deltaNeutralOpenClose() +
+        " deltaNeutralShortSale=" + order.deltaNeutralShortSale() +
+        " deltaNeutralShortSaleSlot=" + order.deltaNeutralShortSaleSlot() +
+        " deltaNeutralDesignatedLocation=" + order.deltaNeutralDesignatedLocation() +
+        " continuousUpdate=" + order.continuousUpdate() +
+        " referencePriceType=" + order.getReferencePriceType() +
+        " trailStopPrice=" + Util.DoubleMaxString(order.trailStopPrice()) +
+        " trailingPercent=" + Util.DoubleMaxString(order.trailingPercent()) +
+        " scaleInitLevelSize=" + Util.IntMaxString(order.scaleInitLevelSize()) +
+        " scaleSubsLevelSize=" + Util.IntMaxString(order.scaleSubsLevelSize()) +
+        " scalePriceIncrement=" + Util.DoubleMaxString(order.scalePriceIncrement()) +
+        " scalePriceAdjustValue=" + Util.DoubleMaxString(order.scalePriceAdjustValue()) +
+        " scalePriceAdjustInterval=" + Util.IntMaxString(order.scalePriceAdjustInterval()) +
+        " scaleProfitOffset=" + Util.DoubleMaxString(order.scaleProfitOffset()) +
+        " scaleAutoReset=" + order.scaleAutoReset() +
+        " scaleInitPosition=" + Util.IntMaxString(order.scaleInitPosition()) +
+        " scaleInitFillQty=" + Util.IntMaxString(order.scaleInitFillQty()) +
+        " scaleRandomPercent=" + order.scaleRandomPercent() +
+        " hedgeType=" + order.getHedgeType() +
+        " hedgeParam=" + order.hedgeParam() +
+        " account=" + order.account() +
+        " modelCode = " + order.modelCode() +
+        " settlingFirm=" + order.settlingFirm() +
+        " clearingAccount=" + order.clearingAccount() +
+        " clearingIntent=" + order.clearingIntent() +
+        " notHeld=" + order.notHeld() +
+        " whatIf=" + order.whatIf() +
+        " solicited=" + order.solicited() +
+        " randomize size=" + order.randomizeSize() +
+        " randomize price=" + order.randomizePrice();
+        
 
-        if ("BAG".equals(contract.m_secType)) {
-        	if (contract.m_comboLegsDescrip != null) {
-        		msg += " comboLegsDescrip=" + contract.m_comboLegsDescrip;
+        if ("BAG".equals(contract.getSecType())) {
+        	if (contract.comboLegsDescrip() != null) {
+        		msg += " comboLegsDescrip=" + contract.comboLegsDescrip();
         	}
         	
            	msg += " comboLegs={";
-            if (contract.m_comboLegs != null) {
-            	for (int i = 0; i < contract.m_comboLegs.size(); ++i) {
-            		ComboLeg comboLeg = (ComboLeg)contract.m_comboLegs.get(i);
+            if (contract.comboLegs() != null) {
+            	for (int i = 0; i < contract.comboLegs().size(); ++i) {
+            		ComboLeg comboLeg = contract.comboLegs().get(i);
             		msg += " leg " + (i+1) + ": "; 
-            		msg += "conId=" +  comboLeg.m_conId;
-            		msg += " ratio=" +  comboLeg.m_ratio;
-            		msg += " action=" +  comboLeg.m_action;
-            		msg += " exchange=" +  comboLeg.m_exchange;
-            		msg += " openClose=" +  comboLeg.m_openClose;
-            		msg += " shortSaleSlot=" +  comboLeg.m_shortSaleSlot;
-            		msg += " designatedLocation=" +  comboLeg.m_designatedLocation;
-            		msg += " exemptCode=" +  comboLeg.m_exemptCode;
-            		if (order.m_orderComboLegs != null && contract.m_comboLegs.size() == order.m_orderComboLegs.size()) {
-            			OrderComboLeg orderComboLeg = (OrderComboLeg)order.m_orderComboLegs.get(i);
-            			msg += " price=" +  Util.DoubleMaxString(orderComboLeg.m_price);
+            		msg += "conId=" +  comboLeg.conid();
+            		msg += " ratio=" +  comboLeg.ratio();
+            		msg += " action=" +  comboLeg.getAction();
+            		msg += " exchange=" +  comboLeg.exchange();
+            		msg += " openClose=" +  comboLeg.getOpenClose();
+            		msg += " shortSaleSlot=" +  comboLeg.shortSaleSlot();
+            		msg += " designatedLocation=" +  comboLeg.designatedLocation();
+            		msg += " exemptCode=" +  comboLeg.exemptCode();
+            		if (order.orderComboLegs() != null && contract.comboLegs().size() == order.orderComboLegs().size()) {
+            			OrderComboLeg orderComboLeg = order.orderComboLegs().get(i);
+            			msg += " price=" +  Util.DoubleMaxString(orderComboLeg.price());
             		}
             		msg += ";";
             	}
             }
            	msg += "}";
            	
-        	if (order.m_basisPoints != Double.MAX_VALUE) {
-        		msg += " basisPoints=" + Util.DoubleMaxString(order.m_basisPoints);
-        		msg += " basisPointsType=" + Util.IntMaxString(order.m_basisPointsType);
+        	if (order.basisPoints() != Double.MAX_VALUE) {
+        		msg += " basisPoints=" + Util.DoubleMaxString(order.basisPoints());
+        		msg += " basisPointsType=" + Util.IntMaxString(order.basisPointsType());
         	}
         }
         
-    	if (contract.m_underComp != null) {
-    		UnderComp underComp = contract.m_underComp;
+    	if (contract.underComp() != null) {
+    		DeltaNeutralContract underComp = contract.underComp();
     		msg +=
-    			" underComp.conId =" + underComp.m_conId +
-    			" underComp.delta =" + underComp.m_delta +
-    			" underComp.price =" + underComp.m_price ;
+    			" underComp.conId =" + underComp.conid() +
+    			" underComp.delta =" + underComp.delta() +
+    			" underComp.price =" + underComp.price();
     	}
     	
-    	if (!Util.StringIsEmpty(order.m_algoStrategy)) {
-    		msg += " algoStrategy=" + order.m_algoStrategy;
+        if (!Util.StringIsEmpty(order.getAlgoStrategy())) {
+    		msg += " algoStrategy=" + order.getAlgoStrategy();
     		msg += " algoParams={";
-    		if (order.m_algoParams != null) {
-    			Vector algoParams = order.m_algoParams;
+    		if (order.algoParams() != null) {
+    			ArrayList<TagValue> algoParams = order.algoParams();
     			for (int i = 0; i < algoParams.size(); ++i) {
-    				TagValue param = (TagValue)algoParams.elementAt(i);
+    				TagValue param = algoParams.get(i);
     				if (i > 0) {
     					msg += ",";
     				}
@@ -200,12 +214,12 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     		msg += "}";
     	}
     	
-        if ("BAG".equals(contract.m_secType)) {
+        if ("BAG".equals(contract.getSecType())) {
         	msg += " smartComboRoutingParams={";
-        	if (order.m_smartComboRoutingParams != null) {
-        		Vector smartComboRoutingParams = order.m_smartComboRoutingParams;
+        	if (order.smartComboRoutingParams() != null) {
+        		ArrayList<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
         		for (int i = 0; i < smartComboRoutingParams.size(); ++i) {
-        			TagValue param = (TagValue)smartComboRoutingParams.elementAt(i);
+        			TagValue param = smartComboRoutingParams.get(i);
         			if (i > 0) {
         				msg += ",";
         			}
@@ -216,15 +230,15 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
         }
     
         String orderStateMsg =
-        	" status=" + orderState.m_status
-        	+ " initMargin=" + orderState.m_initMargin
-        	+ " maintMargin=" + orderState.m_maintMargin
-        	+ " equityWithLoan=" + orderState.m_equityWithLoan
-        	+ " commission=" + Util.DoubleMaxString(orderState.m_commission)
-        	+ " minCommission=" + Util.DoubleMaxString(orderState.m_minCommission)
-        	+ " maxCommission=" + Util.DoubleMaxString(orderState.m_maxCommission)
-        	+ " commissionCurrency=" + orderState.m_commissionCurrency
-        	+ " warningText=" + orderState.m_warningText
+        	" status=" + orderState.getStatus()
+        	+ " initMargin=" + orderState.initMargin()
+        	+ " maintMargin=" + orderState.maintMargin()
+        	+ " equityWithLoan=" + orderState.equityWithLoan()
+        	+ " commission=" + Util.DoubleMaxString(orderState.commission())
+        	+ " minCommission=" + Util.DoubleMaxString(orderState.minCommission())
+        	+ " maxCommission=" + Util.DoubleMaxString(orderState.maxCommission())
+        	+ " commissionCurrency=" + orderState.commissionCurrency()
+        	+ " warningText=" + orderState.warningText()
 		;
 
         return msg + orderStateMsg;
@@ -260,7 +274,7 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     }
     
     static public String contractDetails(int reqId, ContractDetails contractDetails) {
-    	Contract contract = contractDetails.m_summary;
+    	Contract contract = contractDetails.contract();
     	String msg = "reqId = " + reqId + " ===================================\n"
     		+ " ---- Contract Details begin ----\n"
     		+ contractMsg(contract) + contractDetailsMsg(contractDetails)
@@ -269,74 +283,74 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     }
     
     private static String contractDetailsMsg(ContractDetails contractDetails) {
-    	String msg = "marketName = " + contractDetails.m_marketName + "\n"
-        + "tradingClass = " + contractDetails.m_tradingClass + "\n"
-        + "minTick = " + contractDetails.m_minTick + "\n"
-        + "price magnifier = " + contractDetails.m_priceMagnifier + "\n"
-        + "orderTypes = " + contractDetails.m_orderTypes + "\n"
-        + "validExchanges = " + contractDetails.m_validExchanges + "\n"
-        + "underConId = " + contractDetails.m_underConId + "\n"
-        + "longName = " + contractDetails.m_longName + "\n"
-        + "contractMonth = " + contractDetails.m_contractMonth + "\n"
-        + "industry = " + contractDetails.m_industry + "\n"
-        + "category = " + contractDetails.m_category + "\n"
-        + "subcategory = " + contractDetails.m_subcategory + "\n"
-        + "timeZoneId = " + contractDetails.m_timeZoneId + "\n"
-        + "tradingHours = " + contractDetails.m_tradingHours + "\n"
-        + "liquidHours = " + contractDetails.m_liquidHours + "\n"
-        + "evRule = " + contractDetails.m_evRule + "\n"
-        + "evMultiplier = " + contractDetails.m_evMultiplier + "\n"
+    	String msg = "marketName = " + contractDetails.marketName() + "\n"
+        + "minTick = " + contractDetails.minTick() + "\n"
+        + "price magnifier = " + contractDetails.priceMagnifier() + "\n"
+        + "orderTypes = " + contractDetails.orderTypes() + "\n"
+        + "validExchanges = " + contractDetails.validExchanges() + "\n"
+        + "underConId = " + contractDetails.underConid() + "\n"
+        + "longName = " + contractDetails.longName() + "\n"
+        + "contractMonth = " + contractDetails.contractMonth() + "\n"
+        + "industry = " + contractDetails.industry() + "\n"
+        + "category = " + contractDetails.category() + "\n"
+        + "subcategory = " + contractDetails.subcategory() + "\n"
+        + "timeZoneId = " + contractDetails.timeZoneId() + "\n"
+        + "tradingHours = " + contractDetails.tradingHours() + "\n"
+        + "liquidHours = " + contractDetails.liquidHours() + "\n"
+        + "evRule = " + contractDetails.evRule() + "\n"
+        + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + contractDetailsSecIdList(contractDetails);
     	return msg;
     }
     
 	static public String contractMsg(Contract contract) {
-    	String msg = "conid = " + contract.m_conId + "\n"
-        + "symbol = " + contract.m_symbol + "\n"
-        + "secType = " + contract.m_secType + "\n"
-        + "expiry = " + contract.m_expiry + "\n"
-        + "strike = " + contract.m_strike + "\n"
-        + "right = " + contract.m_right + "\n"
-        + "multiplier = " + contract.m_multiplier + "\n"
-        + "exchange = " + contract.m_exchange + "\n"
-        + "primaryExch = " + contract.m_primaryExch + "\n"
-        + "currency = " + contract.m_currency + "\n"
-        + "localSymbol = " + contract.m_localSymbol + "\n";
+    	String msg = "conid = " + contract.conid() + "\n"
+        + "symbol = " + contract.symbol() + "\n"
+        + "secType = " + contract.getSecType() + "\n"
+        + "lastTradeDate = " + contract.lastTradeDateOrContractMonth() + "\n"
+        + "strike = " + contract.strike() + "\n"
+        + "right = " + contract.getRight() + "\n"
+        + "multiplier = " + contract.multiplier() + "\n"
+        + "exchange = " + contract.exchange() + "\n"
+        + "primaryExch = " + contract.primaryExch() + "\n"
+        + "currency = " + contract.currency() + "\n"
+        + "localSymbol = " + contract.localSymbol() + "\n"
+        + "tradingClass = " + contract.tradingClass() + "\n";
     	return msg;
     }
 	
     static public String bondContractDetails(int reqId, ContractDetails contractDetails) {
-        Contract contract = contractDetails.m_summary;
+        Contract contract = contractDetails.contract();
         String msg = "reqId = " + reqId + " ===================================\n"	
         + " ---- Bond Contract Details begin ----\n"
-        + "symbol = " + contract.m_symbol + "\n"
-        + "secType = " + contract.m_secType + "\n"
-        + "cusip = " + contractDetails.m_cusip + "\n"
-        + "coupon = " + contractDetails.m_coupon + "\n"
-        + "maturity = " + contractDetails.m_maturity + "\n"
-        + "issueDate = " + contractDetails.m_issueDate + "\n"
-        + "ratings = " + contractDetails.m_ratings + "\n"
-        + "bondType = " + contractDetails.m_bondType + "\n"
-        + "couponType = " + contractDetails.m_couponType + "\n"
-        + "convertible = " + contractDetails.m_convertible + "\n"
-        + "callable = " + contractDetails.m_callable + "\n"
-        + "putable = " + contractDetails.m_putable + "\n"
-        + "descAppend = " + contractDetails.m_descAppend + "\n"
-        + "exchange = " + contract.m_exchange + "\n"
-        + "currency = " + contract.m_currency + "\n"
-        + "marketName = " + contractDetails.m_marketName + "\n"
-        + "tradingClass = " + contractDetails.m_tradingClass + "\n"
-        + "conid = " + contract.m_conId + "\n"
-        + "minTick = " + contractDetails.m_minTick + "\n"
-        + "orderTypes = " + contractDetails.m_orderTypes + "\n"
-        + "validExchanges = " + contractDetails.m_validExchanges + "\n"
-        + "nextOptionDate = " + contractDetails.m_nextOptionDate + "\n"
-        + "nextOptionType = " + contractDetails.m_nextOptionType + "\n"
-        + "nextOptionPartial = " + contractDetails.m_nextOptionPartial + "\n"
-        + "notes = " + contractDetails.m_notes + "\n"
-        + "longName = " + contractDetails.m_longName + "\n"
-        + "evRule = " + contractDetails.m_evRule + "\n"
-        + "evMultiplier = " + contractDetails.m_evMultiplier + "\n"
+        + "symbol = " + contract.symbol() + "\n"
+        + "secType = " + contract.getSecType() + "\n"
+        + "cusip = " + contractDetails.cusip() + "\n"
+        + "coupon = " + contractDetails.coupon() + "\n"
+        + "maturity = " + contractDetails.maturity() + "\n"
+        + "issueDate = " + contractDetails.issueDate() + "\n"
+        + "ratings = " + contractDetails.ratings() + "\n"
+        + "bondType = " + contractDetails.bondType() + "\n"
+        + "couponType = " + contractDetails.couponType() + "\n"
+        + "convertible = " + contractDetails.convertible() + "\n"
+        + "callable = " + contractDetails.callable() + "\n"
+        + "putable = " + contractDetails.putable() + "\n"
+        + "descAppend = " + contractDetails.descAppend() + "\n"
+        + "exchange = " + contract.exchange() + "\n"
+        + "currency = " + contract.currency() + "\n"
+        + "marketName = " + contractDetails.marketName() + "\n"
+        + "tradingClass = " + contract.tradingClass() + "\n"
+        + "conid = " + contract.conid() + "\n"
+        + "minTick = " + contractDetails.minTick() + "\n"
+        + "orderTypes = " + contractDetails.orderTypes() + "\n"
+        + "validExchanges = " + contractDetails.validExchanges() + "\n"
+        + "nextOptionDate = " + contractDetails.nextOptionDate() + "\n"
+        + "nextOptionType = " + contractDetails.nextOptionType() + "\n"
+        + "nextOptionPartial = " + contractDetails.nextOptionPartial() + "\n"
+        + "notes = " + contractDetails.notes() + "\n"
+        + "longName = " + contractDetails.longName() + "\n"
+        + "evRule = " + contractDetails.evRule() + "\n"
+        + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + contractDetailsSecIdList(contractDetails)
         + " ---- Bond Contract Details End ----\n";
         return msg;
@@ -344,10 +358,10 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     
     static public String contractDetailsSecIdList(ContractDetails contractDetails) {
         String msg = "secIdList={";
-        if (contractDetails.m_secIdList != null) {
-            Vector secIdList = contractDetails.m_secIdList;
+        if (contractDetails.secIdList() != null) {
+            ArrayList<TagValue> secIdList = contractDetails.secIdList();
             for (int i = 0; i < secIdList.size(); ++i) {
-                TagValue param = (TagValue)secIdList.elementAt(i);
+                TagValue param = secIdList.get(i);
                 if (i > 0) {
                     msg += ",";
                 }
@@ -365,31 +379,24 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     static public String execDetails( int reqId, Contract contract, Execution execution) {
         String msg = " ---- Execution Details begin ----\n"
         + "reqId = " + reqId + "\n"
-        + "orderId = " + execution.m_orderId + "\n"
-        + "clientId = " + execution.m_clientId + "\n"
-        + "symbol = " + contract.m_symbol + "\n"
-        + "secType = " + contract.m_secType + "\n"
-        + "expiry = " + contract.m_expiry + "\n"
-        + "strike = " + contract.m_strike + "\n"
-        + "right = " + contract.m_right + "\n"
-        + "multiplier = " + contract.m_multiplier + "\n"
-        + "contractExchange = " + contract.m_exchange + "\n"
-        + "currency = " + contract.m_currency + "\n"
-        + "localSymbol = " + contract.m_localSymbol + "\n"
-        + "execId = " + execution.m_execId + "\n"
-        + "time = " + execution.m_time + "\n"
-        + "acctNumber = " + execution.m_acctNumber + "\n"
-        + "executionExchange = " + execution.m_exchange + "\n"
-        + "side = " + execution.m_side + "\n"
-        + "shares = " + execution.m_shares + "\n"
-        + "price = " + execution.m_price + "\n"
-        + "permId = " + execution.m_permId + "\n"
-        + "liquidation = " + execution.m_liquidation + "\n"
-        + "cumQty = " + execution.m_cumQty + "\n"
-        + "avgPrice = " + execution.m_avgPrice + "\n"
-        + "orderRef = " + execution.m_orderRef + "\n"
-        + "evRule = " + execution.m_evRule + "\n"
-        + "evMultiplier = " + execution.m_evMultiplier + "\n"
+        + "orderId = " + execution.orderId() + "\n"
+        + "clientId = " + execution.clientId() + "\n"
+        + contractMsg(contract)
+        + "execId = " + execution.execId() + "\n"
+        + "time = " + execution.time() + "\n"
+        + "acctNumber = " + execution.acctNumber() + "\n"
+        + "executionExchange = " + execution.exchange() + "\n"
+        + "side = " + execution.side() + "\n"
+        + "shares = " + execution.shares() + "\n"
+        + "price = " + execution.price() + "\n"
+        + "permId = " + execution.permId() + "\n"
+        + "liquidation = " + execution.liquidation() + "\n"
+        + "cumQty = " + execution.cumQty() + "\n"
+        + "avgPrice = " + execution.avgPrice() + "\n"
+        + "orderRef = " + execution.orderRef() + "\n"
+        + "evRule = " + execution.evRule() + "\n"
+        + "evMultiplier = " + execution.evMultiplier() + "\n"
+        + "modelCode = " + execution.modelCode() + "\n"
         + " ---- Execution Details end ----\n";
         return msg;
     }
@@ -417,7 +424,7 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     }
     
     static public String receiveFA(int faDataType, String xml) {
-    	return FINANCIAL_ADVISOR + " " + EClientSocket.faMsgTypeName(faDataType) + " " + xml;
+    	return FINANCIAL_ADVISOR + " " + EClient.faMsgTypeName(faDataType) + " " + xml;
     }
     
     static public String historicalData(int reqId, String date, double open, double high, double low,
@@ -453,19 +460,19 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     static public String scannerData(int reqId, int rank, ContractDetails contractDetails,
     								 String distance, String benchmark, String projection,
     								 String legsStr) {
-        Contract contract = contractDetails.m_summary;
+        Contract contract = contractDetails.contract();
     	return "id = " + reqId +
         " rank=" + rank +
-        " symbol=" + contract.m_symbol +
-        " secType=" + contract.m_secType +
-        " expiry=" + contract.m_expiry +
-        " strike=" + contract.m_strike +
-        " right=" + contract.m_right +
-        " exchange=" + contract.m_exchange +
-        " currency=" + contract.m_currency +
-        " localSymbol=" + contract.m_localSymbol +
-        " marketName=" + contractDetails.m_marketName +
-        " tradingClass=" + contractDetails.m_tradingClass +
+        " symbol=" + contract.symbol() +
+        " secType=" + contract.getSecType() +
+        " lastTradeDate=" + contract.lastTradeDateOrContractMonth() +
+        " strike=" + contract.strike() +
+        " right=" + contract.getRight() +
+        " exchange=" + contract.exchange() +
+        " currency=" + contract.currency() +
+        " localSymbol=" + contract.localSymbol() +
+        " marketName=" + contractDetails.marketName() +
+        " tradingClass=" + contract.tradingClass() +
         " distance=" + distance +
         " benchmark=" + benchmark +
         " projection=" + projection +
@@ -485,11 +492,11 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
 		return "id  = " + reqId + " len = " + data.length() + '\n' + data;
     }
     
-    static public String deltaNeutralValidation(int reqId, UnderComp underComp) {
+    static public String deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
     	return "id = " + reqId
-    	+ " underComp.conId =" + underComp.m_conId
-    	+ " underComp.delta =" + underComp.m_delta
-    	+ " underComp.price =" + underComp.m_price;
+    	+ " underComp.conId =" + underComp.conid()
+    	+ " underComp.delta =" + underComp.delta()
+    	+ " underComp.price =" + underComp.price();
     }
     static public String tickSnapshotEnd(int tickerId) {
     	return "id=" + tickerId + " =============== end ===============";
@@ -510,20 +517,12 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
         return msg;
     }
     
-    static public String position( String account, Contract contract, int position) {
+    static public String position( String account, Contract contract, double pos, double avgCost) {
         String msg = " ---- Position begin ----\n"
         + "account = " + account + "\n"
-        + "conId = " + contract.m_conId + "\n"
-        + "symbol = " + contract.m_symbol + "\n"
-        + "secType = " + contract.m_secType + "\n"
-        + "expiry = " + contract.m_expiry + "\n"
-        + "strike = " + contract.m_strike + "\n"
-        + "right = " + contract.m_right + "\n"
-        + "multiplier = " + contract.m_multiplier + "\n"
-        + "contractExchange = " + contract.m_exchange + "\n"
-        + "currency = " + contract.m_currency + "\n"
-        + "localSymbol = " + contract.m_localSymbol + "\n"
-        + "position = " + Util.IntMaxString(position) + "\n"
+        + contractMsg(contract)
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
+        + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
         + " ---- Position end ----\n";
         return msg;
     }    
@@ -547,4 +546,65 @@ public class EWrapperMsgGenerator extends AnyWrapperMsgGenerator {
     	return "id=" + reqId + " =============== end ===============";
     }
 
+    static public String positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
+        String msg = " ---- Position begin ----\n"
+        + "id = " + reqId + "\n"
+        + "account = " + account + "\n"
+        + "modelCode = " + modelCode + "\n"
+        + contractMsg(contract)
+        + "position = " + Util.DoubleMaxString(pos) + "\n"
+        + "avgCost = " + Util.DoubleMaxString(avgCost) + "\n"
+        + " ---- Position end ----\n";
+        return msg;
+    }    
+
+    static public String positionMultiEnd( int reqId) {
+        return "id = " + reqId + " =============== end ===============";
+    }
+
+    static public String accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency) {
+        String msg = " id = " + reqId + " account = " + account + " modelCode = " + modelCode + 
+        		" key = " + key + " value = " + value + " currency = " + currency;
+        return msg;
+    }
+
+    static public String accountUpdateMultiEnd( int reqId) {
+    	return "id = " + reqId + " =============== end ===============";
+    }    
+
+	public static String securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+			String multiplier, Set<String> expirations, Set<Double> strikes) {
+		String expirationsStr = "";
+		
+		for (String expiration : expirations) {
+			expirationsStr += expiration + ", ";			
+		}
+		
+		String strikesStr = "";
+		
+		for (Double strike : strikes) {
+			strikesStr += strike + ", ";
+		}
+		
+		String msg = " id = " + reqId + "exchange = " + exchange + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
+			multiplier + " expirations: " + expirationsStr + " strikes: " + strikesStr;
+
+		return msg;
+	}
+
+    public static String error( Exception ex) { return "Error - " + ex;}
+    public static String error( String str) { return str;}
+
+	public static String error(int id, int errorCode, String errorMsg) {
+		String err = Integer.toString(id);
+        err += " | ";
+        err += Integer.toString(errorCode);
+        err += " | ";
+        err += errorMsg;
+        return err;
+	}
+
+	public static String connectionClosed() {
+		return "Connection Closed";
+	}
 }
