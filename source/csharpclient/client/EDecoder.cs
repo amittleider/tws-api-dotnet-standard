@@ -1600,13 +1600,13 @@ namespace IBApi
 
         private void ScannerDataEvent()
         {
-            ContractDetails conDet = new ContractDetails();
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             int numberOfElements = ReadInt();
             for (int i = 0; i < numberOfElements; i++)
             {
                 int rank = ReadInt();
+                ContractDetails conDet = new ContractDetails();
                 if (msgVersion >= 3)
                     conDet.Summary.ConId = ReadInt();
                 conDet.Summary.Symbol = ReadString();
