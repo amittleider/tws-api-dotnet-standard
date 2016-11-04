@@ -242,10 +242,6 @@ namespace IBApi
         {
         }
 
-        public void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
-        {
-        }
-
         public void familyCodes(FamilyCode[] familyCodes)
         {
         }

@@ -100,7 +100,6 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdReqAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdCancelAccountUpdatesMulti As System.Windows.Forms.Button
     Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
-    Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
     Friend WithEvents cmdFamilyCodes As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
@@ -158,7 +157,6 @@ Friend Class dlgMainWnd
         Me.cmdReqAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdCancelAccountUpdatesMulti = New System.Windows.Forms.Button()
         Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
-        Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
         Me.cmdFamilyCodes = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
@@ -312,7 +310,7 @@ Friend Class dlgMainWnd
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 54
+        Me.cmdClearForm.TabIndex = 53
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = False
         '
@@ -326,7 +324,7 @@ Friend Class dlgMainWnd
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 55
+        Me.cmdClose.TabIndex = 54
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
@@ -482,7 +480,7 @@ Friend Class dlgMainWnd
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 172)
-        Me.lstErrors.TabIndex = 53
+        Me.lstErrors.TabIndex = 52
         '
         'lstServerResponses
         '
@@ -496,7 +494,7 @@ Friend Class dlgMainWnd
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 172)
-        Me.lstServerResponses.TabIndex = 51
+        Me.lstServerResponses.TabIndex = 50
         '
         'lstMktData
         '
@@ -510,7 +508,7 @@ Friend Class dlgMainWnd
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 158)
-        Me.lstMktData.TabIndex = 49
+        Me.lstMktData.TabIndex = 48
         '
         'Label3
         '
@@ -522,7 +520,7 @@ Friend Class dlgMainWnd
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 52
+        Me.Label3.TabIndex = 51
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -535,7 +533,7 @@ Friend Class dlgMainWnd
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 50
+        Me.Label2.TabIndex = 49
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -548,7 +546,7 @@ Friend Class dlgMainWnd
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 48
+        Me.Label1.TabIndex = 47
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -785,7 +783,7 @@ Friend Class dlgMainWnd
         Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 587)
         Me.cmdReqPositionsMulti.Name = "cmdReqPositionsMulti"
         Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqPositionsMulti.TabIndex = 44
+        Me.cmdReqPositionsMulti.TabIndex = 43
         Me.cmdReqPositionsMulti.Text = "Req Positions Multi"
         Me.cmdReqPositionsMulti.UseVisualStyleBackColor = True
         '
@@ -794,7 +792,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 587)
         Me.cmdCancelPositionsMulti.Name = "cmdCancelPositionsMulti"
         Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelPositionsMulti.TabIndex = 45
+        Me.cmdCancelPositionsMulti.TabIndex = 44
         Me.cmdCancelPositionsMulti.Text = "Cancel Positions Multi"
         Me.cmdCancelPositionsMulti.UseVisualStyleBackColor = True
         '
@@ -803,7 +801,7 @@ Friend Class dlgMainWnd
         Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 614)
         Me.cmdReqAccountUpdatesMulti.Name = "cmdReqAccountUpdatesMulti"
         Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqAccountUpdatesMulti.TabIndex = 46
+        Me.cmdReqAccountUpdatesMulti.TabIndex = 45
         Me.cmdReqAccountUpdatesMulti.Text = "Req Acct Upd Multi"
         Me.cmdReqAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
@@ -812,7 +810,7 @@ Friend Class dlgMainWnd
         Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 614)
         Me.cmdCancelAccountUpdatesMulti.Name = "cmdCancelAccountUpdatesMulti"
         Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelAccountUpdatesMulti.TabIndex = 47
+        Me.cmdCancelAccountUpdatesMulti.TabIndex = 46
         Me.cmdCancelAccountUpdatesMulti.Text = "Cancel Acct Upd Multi"
         Me.cmdCancelAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
@@ -825,21 +823,12 @@ Friend Class dlgMainWnd
         Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
         Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
         '
-        'cmdReqMatchingSymbols
-        '
-        Me.cmdReqMatchingSymbols.Location = New System.Drawing.Point(684, 221)
-        Me.cmdReqMatchingSymbols.Name = "cmdReqMatchingSymbols"
-        Me.cmdReqMatchingSymbols.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqMatchingSymbols.TabIndex = 19
-        Me.cmdReqMatchingSymbols.Text = "Req Matching Symbols"
-        Me.cmdReqMatchingSymbols.UseVisualStyleBackColor = True
-        '
         'cmdFamilyCodes
         '
-        Me.cmdFamilyCodes.Location = New System.Drawing.Point(683, 562)
+        Me.cmdFamilyCodes.Location = New System.Drawing.Point(685, 221)
         Me.cmdFamilyCodes.Name = "cmdFamilyCodes"
         Me.cmdFamilyCodes.Size = New System.Drawing.Size(133, 21)
-        Me.cmdFamilyCodes.TabIndex = 43
+        Me.cmdFamilyCodes.TabIndex = 19
         Me.cmdFamilyCodes.Text = "Req Family Codes"
         Me.cmdFamilyCodes.UseVisualStyleBackColor = True
         '
@@ -849,7 +838,6 @@ Friend Class dlgMainWnd
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(823, 659)
         Me.Controls.Add(Me.cmdFamilyCodes)
-        Me.Controls.Add(Me.cmdReqMatchingSymbols)
         Me.Controls.Add(Me.cmdReqSecDefOptParams)
         Me.Controls.Add(Me.cmdCancelAccountUpdatesMulti)
         Me.Controls.Add(Me.cmdReqAccountUpdatesMulti)
@@ -2876,51 +2864,6 @@ Friend Class dlgMainWnd
 
         ' move into view
         lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
-    End Sub
-
-    Private Sub cmdReqMatchingSymbols_Click(sender As Object, e As EventArgs) Handles cmdReqMatchingSymbols.Click
-        ' Set the dialog state
-        m_dlgOrder.init((dlgOrder.Dlg_Type.REQ_MATCHING_SYMBOLS), _
-        m_contractInfo, m_orderInfo, m_underComp, Nothing, Me)
-
-        m_dlgOrder.ShowDialog()
-
-        If m_dlgOrder.ok Then
-            Call Tws1.reqMatchingSymbols(m_dlgOrder.orderId, m_contractInfo.Symbol)
-        End If
-    End Sub
-
-    Private Sub Tws1_OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTWsEvents_symbolSamplesEvent) Handles Tws1.OnSymbolSamples
-
-        Dim offset As Long
-        offset = lstServerResponses.Items.Count
-
-        Dim displayString As String = ""
-
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Symbol Samples (total=" & DTwsEvents_symbolSamplesEvent.contractDescriptions.Length & ") reqId=" & DTwsEvents_symbolSamplesEvent.reqId & " ====")
-        Dim count As Integer = 0
-        For Each cd As ContractDescription In DTwsEvents_symbolSamplesEvent.contractDescriptions
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Contract Description (" & count & ") ----")
-            With cd.Contract
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "conId=" & .ConId)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "symbol=" & .Symbol)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "secType=" & .SecType)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "primExch=" & .PrimaryExch)
-                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "currency=" & .Currency)
-            End With
-
-            displayString = "derivative secTypes="
-            For Each derivativeSecType As String In cd.DerivativeSecTypes
-                displayString += (derivativeSecType & " ")
-            Next
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, displayString)
-            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Contract Description End (" & count & ") ----")
-            count += 1
-        Next
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Symbol Samples End (total=" & DTwsEvents_symbolSamplesEvent.contractDescriptions.Length & ") reqId=" & DTwsEvents_symbolSamplesEvent.reqId & " ====")
-
-        ' move into view
-        lstServerResponses.TopIndex = offset
     End Sub
 
     Private Sub cmdFamilyCodes_Click(sender As Object, e As EventArgs) Handles cmdFamilyCodes.Click

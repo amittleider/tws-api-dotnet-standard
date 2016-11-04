@@ -1738,16 +1738,6 @@ namespace TWSLib
                 InvokeIfRequired(t_softdollarTiers, reqId, tiers);
         }
 
-        public delegate void symbolSamplesDelegate(int reqId, IContractDescriptionList contractDescriptions);
-        public event symbolSamplesDelegate symbolSamples;
-        void EWrapper.symbolSamples(int reqId, ContractDescription[] contractDescriptions)
-        {
-            var t_symbolSamples = this.symbolSamples;
-
-            if (t_symbolSamples != null)
-                InvokeIfRequired(t_symbolSamples, reqId, ContractDescriptionsArrayToIContractDescriptionList(contractDescriptions));
-        }
-
         public delegate void familyCodesDelegate(IFamilyCodeList familyCodes);
         public event familyCodesDelegate familyCodes;
         void EWrapper.familyCodes(FamilyCode[] familyCodes)
@@ -1756,14 +1746,6 @@ namespace TWSLib
 
             if (t_familyCodes != null)
                 InvokeIfRequired(t_familyCodes, familyCodes.Length > 0 ? new ComFamilyCodeList(familyCodes) : null);
-        }
-
-        private static IContractDescriptionList ContractDescriptionsArrayToIContractDescriptionList(ContractDescription[] contractDescriptions)
-        {
-            if (contractDescriptions.Length <= 0)
-                return null;
-
-            return new ComContractDescriptionList(contractDescriptions);
         }
 
         #endregion
@@ -1873,11 +1855,6 @@ namespace TWSLib
         public void reqSoftDollarTiers(int reqId)
         {
             socket.reqSoftDollarTiers(reqId);
-        }
-
-        public void reqMatchingSymbols(int reqId, string pattern)
-        {
-            socket.reqMatchingSymbols(reqId, pattern);
         }
 
         public void reqFamilyCodes()

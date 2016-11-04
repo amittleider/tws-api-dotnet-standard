@@ -699,16 +699,6 @@ namespace IBSampleApp
                 tmp(reqId, tiers);
         }
 
-        public event Action<int, ContractDescription[]> SymbolSamples;
-
-        void EWrapper.symbolSamples(int reqId, ContractDescription[] contractDescriptions)
-        {
-            var tmp = SymbolSamples;
-
-            if (tmp != null)
-                tmp(reqId, contractDescriptions);
-        }
-
         public event Action<FamilyCode[]> FamilyCodes;
 
         void EWrapper.familyCodes(FamilyCode[] familyCodes)

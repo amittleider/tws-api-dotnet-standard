@@ -152,8 +152,6 @@ namespace TWSLib
         [DispId(125)]
         void softDollarTiersDelegate(int reqid);
         [DispId(126)]
-        void symbolSamples(int reqId, IContractDescriptionList contractDescriptions);
-        [DispId(127)]
         void familyCodes(IFamilyCodeList familyCodes);
     }
 }

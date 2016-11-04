@@ -66,8 +66,7 @@ class EDecoder implements ObjectInput {
     static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
     static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
     static final int SOFT_DOLLAR_TIERS = 77;
-    static final int SYMBOL_SAMPLES = 78;
-    static final int FAMILY_CODES = 79;
+    static final int FAMILY_CODES = 78;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -367,10 +366,6 @@ class EDecoder implements ObjectInput {
             	processSoftDollarTiersMsg();
             	break;
 
-            case SYMBOL_SAMPLES:
-                processSymbolSamplesMsg();
-                break;
-
             case FAMILY_CODES:
                 processFamilyCodesMsg();
                 break;
@@ -399,43 +394,6 @@ class EDecoder implements ObjectInput {
         }
 
         m_EWrapper.familyCodes(familyCodes);
-    }
-
-    private void processSymbolSamplesMsg() throws IOException {
-        int reqId = readInt();
-        ContractDescription[] contractDescriptions = new ContractDescription[0];
-        int nContractDescriptions = readInt();
-
-        if (nContractDescriptions > 0){
-            contractDescriptions = new ContractDescription[nContractDescriptions];
-
-            for (int i = 0; i < nContractDescriptions; i++)
-            {
-                // read contract fields
-                Contract contract = new Contract();
-                contract.conid(readInt());
-                contract.symbol(readStr());
-                contract.secType(readStr());
-                contract.primaryExch(readStr());
-                contract.currency(readStr());
-
-                // read derivative sec types list
-                int nDerivativeSecTypes = readInt();
-                if (nDerivativeSecTypes <= 0)
-                    continue;
-
-                String[] derivativeSecTypes = new String[nDerivativeSecTypes];
-                for (int j = 0; j < nDerivativeSecTypes; j++)
-                {
-                    derivativeSecTypes[j] = readStr();
-                }
-
-                ContractDescription contractDescription = new ContractDescription(contract, derivativeSecTypes);
-                contractDescriptions[i] = contractDescription;
-            }
-        }
-
-        m_EWrapper.symbolSamples(reqId, contractDescriptions);
     }
 
 	private void processSoftDollarTiersMsg() throws IOException {

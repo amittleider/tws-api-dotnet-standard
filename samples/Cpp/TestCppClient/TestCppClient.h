@@ -60,8 +60,6 @@ enum State {
 	ST_MISCELANEOUS_ACK,
 	ST_CANCELORDER,
 	ST_CANCELORDER_ACK,
-	ST_SYMBOLSAMPLES,
-	ST_SYMBOLSAMPLES_ACK,
 	ST_FAMILYCODES,
 	ST_FAMILYCODES_ACK,
 	ST_PING,
@@ -109,7 +107,6 @@ private:
 	void financialAdvisorOperations();
 	void testDisplayGroups();
 	void miscelaneous();
-	void reqMatchingSymbols();
 	void reqFamilyCodes();
 
 	void reqCurrentTime();
@@ -185,7 +182,6 @@ public:
     void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
     void securityDefinitionOptionalParameterEnd(int reqId);
 	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
-	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 	void familyCodes(const std::vector<FamilyCode> &familyCodes);
 
 private:

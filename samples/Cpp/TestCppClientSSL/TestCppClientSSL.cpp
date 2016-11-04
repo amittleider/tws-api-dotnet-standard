@@ -285,5 +285,4 @@ void TestCppClient::accountUpdateMultiEnd( int reqId) {}
 void TestCppClient::securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) {}
 void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {}
 void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {}
-void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {}
 void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {}

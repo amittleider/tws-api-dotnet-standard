@@ -164,13 +164,6 @@ struct ContractDetails
 	std::string	notes;
 };
 
-struct ContractDescription
-{
-	Contract contract;
-	typedef std::vector<std::string> DerivativeSecTypesList;
-	DerivativeSecTypesList derivativeSecTypes;
-};
-
 inline void
 Contract::CloneComboLegs(ComboLegListSPtr& dst, const ComboLegListSPtr& src)
 {

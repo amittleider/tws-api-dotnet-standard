@@ -14,7 +14,6 @@ import java.util.StringTokenizer;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientErrors;
@@ -76,7 +75,6 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<Integer, IAccountUpdateMultiHandler>();
 	private final HashMap<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<Integer, ISecDefOptParamsReqHandler>();
 	private final HashMap<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
-	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<Integer, ISymbolSamplesHandler>();
 	private final ConcurrentHashSet<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<IFamilyCodesHandler>();
 	private boolean m_connected = false;
 
@@ -1342,31 +1340,6 @@ public class ApiController implements EWrapper {
 			handler.softDollarTiers(tiers);
 		}
 	}
-
-    public interface ISymbolSamplesHandler {
-        void symbolSamples(ContractDescription[] contractDescriptions);
-    }
-
-    public void reqMatchingSymbols(String pattern, ISymbolSamplesHandler handler) {
-        if (!checkConnection())
-            return;
-        
-        int reqId = m_reqId++;
-
-        m_symbolSamplesHandlerMap.put(reqId, handler);
-        m_client.reqMatchingSymbols(reqId, pattern);
-        sendEOM();
-    }
-
-    @Override
-    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
-        ISymbolSamplesHandler handler = m_symbolSamplesHandlerMap.get(reqId);
-
-        if (handler != null) {
-            handler.symbolSamples(contractDescriptions);
-        }
-        recEOM();
-    }
 
     public interface IFamilyCodesHandler {
         void familyCodes(FamilyCode[] familyCodes);

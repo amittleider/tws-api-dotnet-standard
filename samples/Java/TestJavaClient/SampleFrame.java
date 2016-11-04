@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
@@ -403,22 +402,16 @@ class SampleFrame extends JFrame implements EWrapper {
                 onRequestSecurityDefinitionOptionParameters();
             }
         });
-        JButton butRequestMatchingSymbols = new JButton( "Request Mathing Symbols");
-        butRequestMatchingSymbols.addActionListener( new ActionListener() {
+        JButton butGroups = new JButton( "Groups");
+        butGroups.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
-                onRequestMatchingSymbols();
+                onGroups();
             }
         });
         JButton butRequestFamilyCodes = new JButton( "Request Family Codes");
         butRequestFamilyCodes.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onRequestFamilyCodes();
-            }
-        });
-        JButton butGroups = new JButton( "Groups");
-        butGroups.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onGroups();
             }
         });
 
@@ -487,9 +480,8 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butRequestAccountUpdatesMulti ) ;
         buttonPanel.add( butCancelAccountUpdatesMulti ) ;
         buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
-        buttonPanel.add( butRequestMatchingSymbols ) ;
-        buttonPanel.add( butRequestFamilyCodes ) ;
         buttonPanel.add( butGroups ) ;
+        buttonPanel.add( butRequestFamilyCodes ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -1044,18 +1036,6 @@ class SampleFrame extends JFrame implements EWrapper {
 //        }
     }
     
-    void onRequestMatchingSymbols() {
-        // run m_orderDlg
-        m_orderDlg.init("Options", false);
-        m_orderDlg.show();
-        if( !m_orderDlg.m_rc ) {
-            return;
-        }
-
-        // request matching symbols
-        m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
-    }
-
     void onRequestFamilyCodes() {
         // request family codes
         m_client.reqFamilyCodes();
@@ -1510,12 +1490,6 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 	}
-
-    @Override
-    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
-        String msg = EWrapperMsgGenerator.symbolSamples(reqId, contractDescriptions);
-        m_TWS.add(msg);
-    }
 
     @Override
     public void familyCodes(FamilyCode[] familyCodes) {

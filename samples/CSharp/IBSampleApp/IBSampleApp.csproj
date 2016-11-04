@@ -82,7 +82,6 @@
     <Compile Include="messages\ScannerMessage.cs" />
     <Compile Include="messages\AccountValueMessage.cs" />
     <Compile Include="messages\ScannerParametersMessage.cs" />
-    <Compile Include="messages\SymbolSamplesMessage.cs" />
     <Compile Include="messages\TickOptionMessage.cs" />
     <Compile Include="messages\UpdateAccountTimeMessage.cs" />
     <Compile Include="messages\UpdatePortfolioMessage.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="ui\ContractSearchDialog.Designer.cs">
       <DependentUpon>ContractSearchDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ui\SymbolSamplesManager.cs" />
     <Compile Include="ui\MarginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
