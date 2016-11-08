@@ -62,7 +62,7 @@ const int MIN_SERVER_VER_REQ_FAMILY_CODES		= 107;
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_SOFT_DOLLAR_TIER;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_FAMILY_CODES;
 
 
 // incoming msg id's

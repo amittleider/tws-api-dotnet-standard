@@ -227,7 +227,7 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_FAMILY_CODES = 107;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_SOFT_DOLLAR_TIER; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_FAMILY_CODES; // ditto
 
 
     protected EReaderSignal m_signal;
