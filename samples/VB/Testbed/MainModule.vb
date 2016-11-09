@@ -389,6 +389,11 @@ Module MainModule
         client.cancelPositions()
         '! [cancelpositions]
 
+        Thread.Sleep(2000)
+        ''! [reqFamilyCodes]
+        client.reqFamilyCodes()
+        ''! [reqFamilyCodes]
+
     End Sub
 
     Private Sub orderOperations(client As EClientSocket, nextOrderId As Integer)

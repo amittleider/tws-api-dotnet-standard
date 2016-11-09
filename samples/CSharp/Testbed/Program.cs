@@ -364,6 +364,10 @@ namespace Samples
             //! [reqpositionsmulti]
             client.reqPositionsMulti(9003, "DU74649", "EUstocks");
             //! [reqpositionsmulti]
+
+            //! [reqFamilyCodes]
+            client.reqFamilyCodes();
+            //! [reqFamilyCodes]
         }
 
         private static void orderOperations(EClientSocket client, int nextOrderId)
