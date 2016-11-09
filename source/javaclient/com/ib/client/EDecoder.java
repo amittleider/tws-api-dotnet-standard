@@ -861,12 +861,12 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processScannerDataMsg() throws IOException {
-		ContractDetails contract = new ContractDetails();
 		int version = readInt();
 		int tickerId = readInt();
 		int numberOfElements = readInt();
 		for (int ctr=0; ctr < numberOfElements; ctr++) {
 		    int rank = readInt();
+		    ContractDetails contract = new ContractDetails();
 		    if (version >= 3) {
 		    	contract.contract().conid(readInt());
 		    }
