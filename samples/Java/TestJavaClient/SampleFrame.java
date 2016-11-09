@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -57,6 +59,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
 	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
+	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
 
     private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
     private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
@@ -430,6 +433,13 @@ class SampleFrame extends JFrame implements EWrapper {
                 onReqMktDepthExchanges();
             }
         });
+        
+        JButton butReqSmartComponents = new JButton( "Req Smart Components");
+        butReqSmartComponents.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onReqSmartComponents();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -500,6 +510,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butRequestFamilyCodes ) ;
         buttonPanel.add( butRequestMatchingSymbols ) ;
         buttonPanel.add( butReqMktDepthExchanges ) ;
+        buttonPanel.add(butReqSmartComponents);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -507,6 +518,18 @@ class SampleFrame extends JFrame implements EWrapper {
 
         return buttonPanel;
     }
+
+	protected void onReqSmartComponents() {
+		m_smartComponentsParamsReq.setModal(true);
+		m_smartComponentsParamsReq.setVisible(true);
+		
+		int id = m_smartComponentsParamsReq.id();
+		String bboExchange = m_smartComponentsParamsReq.BBOExchange();
+		
+		if (m_smartComponentsParamsReq.isOK()) {
+			m_client.reqSmartComponents(id, bboExchange);
+		}
+	}
 
 	protected void onReqMktDepthExchanges() {
 		m_client.reqMktDepthExchanges();
@@ -596,7 +619,7 @@ class SampleFrame extends JFrame implements EWrapper {
         
         // req mkt data
         m_client.reqMktData( m_orderDlg.m_id, m_orderDlg.m_contract,
-        		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData, m_mktDataOptions);
+        		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData, m_orderDlg.m_reqSnapshotMktData, m_mktDataOptions);
     }
 
     void onReqRealTimeBars() {
@@ -1551,6 +1574,9 @@ class SampleFrame extends JFrame implements EWrapper {
 
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		String msg = EWrapperMsgGenerator.softDollarTiers(tiers);
+		
+		m_TWS.add(msg);
 	}
 
     @Override
@@ -1576,4 +1602,19 @@ class SampleFrame extends JFrame implements EWrapper {
 		String msg = EWrapperMsgGenerator.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
 		m_TWS.add(msg);
 	}
+
+	@Override
+	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		String msg = EWrapperMsgGenerator.smartComponents(reqId, theMap);
+		
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		String msg = EWrapperMsgGenerator.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+		
+		m_tickers.add(msg);
+	}
+
 }

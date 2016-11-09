@@ -120,6 +120,7 @@
       <DependentUpon>ContractSearchDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ui\NewsManager.cs" />
+    <Compile Include="ui\SmartComponentsMessage.cs" />
     <Compile Include="ui\SymbolSamplesManager.cs" />
     <Compile Include="ui\MarginDialog.cs">
       <SubType>Form</SubType>
@@ -161,6 +162,7 @@
     <Compile Include="messages\SecurityDefinitionOptionParameterMessage.cs" />
     <Compile Include="ui\SecurityDefinitionOptionParameterKey.cs" />
     <Compile Include="messages\SoftDollarTiersMessage.cs" />
+    <Compile Include="ui\TickReqParamsMessage.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">

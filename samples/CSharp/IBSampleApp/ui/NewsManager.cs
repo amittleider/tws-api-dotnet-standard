@@ -57,7 +57,7 @@ namespace IBSampleApp.ui
                 TickNewsGrid.Visible = true;
 
             ClearTickNews();
-            ibClient.ClientSocket.reqMktData(TICK_NEWS_ID, contract, "mdoff,292", false, new List<TagValue>());
+            ibClient.ClientSocket.reqMktData(TICK_NEWS_ID, contract, "mdoff,292", false, false, new List<TagValue>());
         }
 
         public void ClearTickNews()

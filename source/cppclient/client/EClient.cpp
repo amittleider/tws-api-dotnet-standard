@@ -173,7 +173,7 @@ int EClient::bufferedSend(const std::string& msg) {
 }
 
 void EClient::reqMktData(TickerId tickerId, const Contract& contract,
-								   const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions)
+								   const std::string& genericTicks, bool snapshot, bool regulatorySnaphsot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -276,6 +276,10 @@ void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 
 	ENCODE_FIELD( genericTicks); // srv v31 and above
 	ENCODE_FIELD( snapshot); // srv v35 and above
+
+	if (m_serverVersion >= MIN_SERVER_VER_REQ_SMART_COMPONENTS) {
+		ENCODE_FIELD(regulatorySnaphsot);
+	}
 
 	// send mktDataOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
@@ -2778,6 +2782,29 @@ void EClient::reqMktDepthExchanges()
 	prepareBuffer(msg);
 
 	ENCODE_FIELD(REQ_MKT_DEPTH_EXCHANGES);
+
+	closeAndSend(msg.str());
+}
+
+void EClient::reqSmartComponents(int reqId, std::string bboExchange) 
+{
+	if (!isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if (m_serverVersion < MIN_SERVER_VER_REQ_SMART_COMPONENTS) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support smart components request.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_SMART_COMPONENTS);
+	ENCODE_FIELD(reqId);
+	ENCODE_FIELD(bboExchange);
 
 	closeAndSend(msg.str());
 }

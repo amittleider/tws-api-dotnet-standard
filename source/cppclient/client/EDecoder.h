@@ -1,9 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
 
 #include "Contract.h"
+
 
 
 //const int MIN_SERVER_VER_REAL_TIME_BARS       = 34;
@@ -63,12 +64,13 @@ const int MIN_SERVER_VER_MD_SIZE_MULTIPLIER		= 110;
 const int MIN_SERVER_VER_CASH_QTY				= 111;
 const int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
 const int MIN_SERVER_VER_TICK_NEWS				= 113;
+const int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_TICK_NEWS;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_SMART_COMPONENTS;
 
 
 // incoming msg id's
@@ -127,6 +129,8 @@ const int SOFT_DOLLAR_TIERS = 77;
 const int FAMILY_CODES = 78;
 const int SYMBOL_SAMPLES = 79;
 const int MKT_DEPTH_EXCHANGES = 80;
+const int TICK_REQ_PARAMS = 81;
+const int SMART_COMPONENTS = 82;
 const int TICK_NEWS = 84;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
@@ -159,6 +163,13 @@ struct ScanData {
 };
 
 } // end of anonymous namespace
+
+///////////////////////////////////////////////////////////
+// utility funcs
+static inline std::string errMsg(std::exception e) {
+	// return the error associated with this exception
+	return std::string(e.what());
+}
 
 class EWrapper;
 class EClient;
@@ -226,6 +237,9 @@ class TWSAPIDLLEXP EDecoder
 	const char* processSymbolSamplesMsg(const char* ptr, const char* endPtr);
 	const char* processMktDepthExchangesMsg(const char* ptr, const char* endPtr);
 	const char* processTickNewsMsg(const char* ptr, const char* endPtr);
+	const char* processTickReqParamsMsg(const char* ptr, const char* endPtr);
+	const char* processSmartComponentsMsg(const char* ptr, const char* endPtr);
+
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 
@@ -238,6 +252,7 @@ public:
 	static bool DecodeField(long&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(double&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
+	static bool DecodeField(char&, const char*& ptr, const char* endPtr);
 
     static bool DecodeFieldTime(time_t&, const char*& ptr, const char* endPtr);
 

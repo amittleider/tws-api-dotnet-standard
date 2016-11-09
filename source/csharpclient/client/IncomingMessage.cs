@@ -66,6 +66,8 @@ namespace IBApi
         public const int FamilyCodes = 78;
         public const int SymbolSamples = 79;
         public const int MktDepthExchanges = 80;
+        public const int TickReqParams = 81;
+        public const int SmartComponents = 82;
         public const int TickNews = 84;
     }
 }

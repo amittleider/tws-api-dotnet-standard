@@ -1,4 +1,5 @@
 ﻿Imports IBApi
+Imports System.Text
 
 Namespace Samples
 
@@ -18,6 +19,17 @@ Namespace Samples
             socketClient = New EClientSocket(Me, eReaderSignal)
         End Sub
         '! [socket_init]
+
+        Private _bboExchange As String
+
+        Public Property BboExchange As String
+            Get
+                Return _bboExchange
+            End Get
+            Private Set(value As String)
+                _bboExchange = value
+            End Set
+        End Property
 
         Function serverVersion() As Integer
             serverVersion = socketClient.ServerVersion
@@ -423,6 +435,30 @@ Namespace Samples
             Console.WriteLine("Tick News. Ticker Id: " & tickerId & ", Time Stamp: " & timeStamp & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline & ", Extra Data: " & extraData)
         End Sub
         '! [tickNews]
+
+        '! [smartComponents]
+        Public Sub smartComponents(reqId As Integer, theMap As Dictionary(Of Integer, KeyValuePair(Of String, Char))) Implements EWrapper.smartComponents
+            Dim sb As New StringBuilder
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ===={2}", theMap.Count, reqId, Environment.NewLine)
+
+            For Each item In theMap
+                sb.AppendFormat("bit number: {0}, exchange: {1}, exchange letter: {2}{3}", item.Key, item.Value.Key, item.Value.Value, Environment.NewLine)
+            Next
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ===={2}", theMap.Count, reqId, Environment.NewLine)
+
+            Console.WriteLine(sb)
+        End Sub
+        '! [smartComponents]
+
+        '! [tickReqParams]
+        Public Sub tickReqParams(tickerId As Integer, minTick As Double, bboExchange As String, snapshotPermissions As Integer) Implements EWrapper.tickReqParams
+            Console.WriteLine("id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, minTick, bboExchange, snapshotPermissions)
+
+            Me.BboExchange = bboExchange
+        End Sub
+        '! [tickReqParams]
 
     End Class
 

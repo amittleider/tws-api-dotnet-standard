@@ -58,6 +58,8 @@ namespace IBSampleApp
         FamilyCodes = 78,
         SymbolSamples = 79,
         MktDepthExchanges = 80,
+        TickReqParams = 81,
+        SmartComponents = 82,
         TickNews = 84,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one

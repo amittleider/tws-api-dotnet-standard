@@ -137,10 +137,26 @@ Module MainModule
         '** News operations ***
         '*******************
         'newsOperations(client)
+        '***********************
+        '*** Smart components ***
+        '***********************
+        'smartComponents(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
         Thread.Sleep(500000)
+    End Sub
+
+    Private Sub smartComponents(client As EClientSocket)
+
+        client.reqMktData(13001, ContractSamples.USStockAtSmart(), "", False, False, Nothing)
+
+        While String.IsNullOrWhiteSpace(wrapperImpl.BboExchange)
+            Thread.Sleep(1000)
+        End While
+
+        client.cancelMktData(13001)
+        client.reqSmartComponents(13002, wrapperImpl.BboExchange)
     End Sub
 
     Private Sub tickDataOperations(client As EClientSocket)
@@ -148,34 +164,34 @@ Module MainModule
         ' Requesting real time market data 
         ' Thread.Sleep(1000) 
         ' [reqmktdata]
-        client.reqMktData(1001, ContractSamples.StockComboContract(), String.Empty, False, Nothing)
-        client.reqMktData(1002, ContractSamples.FuturesOnOptions(), String.Empty, False, Nothing)
+        client.reqMktData(1001, ContractSamples.StockComboContract(), String.Empty, False, False, Nothing)
+        client.reqMktData(1002, ContractSamples.FuturesOnOptions(), String.Empty, False, False, Nothing)
         ' [reqmktdata]
         ' [reqmktdata_snapshot]
-        client.reqMktData(1003, ContractSamples.FutureComboContract(), String.Empty, True, Nothing)
+        client.reqMktData(1003, ContractSamples.FutureComboContract(), String.Empty, True, False, Nothing)
         ' [reqmktdata_snapshot]
 
         '! [reqmktdata_genticks]
         'Requesting RTVolume (Time & Sales), shortable And Fundamental Ratios generic ticks
-        client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", False, Nothing)
+        client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", False, False, Nothing)
         '! [reqmktdata_genticks]
 
         '! [reqmktdata_contractnews]
-        client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", False, Nothing)
-        client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", False, Nothing)
-        client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", False, Nothing)
-        client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", False, Nothing)
+        client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", False, False, Nothing)
+        client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", False, False, Nothing)
+        client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", False, False, Nothing)
+        client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", False, False, Nothing)
         '! [reqmktdata_contractnews]
         '! [reqmktdata_broadtapenews]
-        client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", False, Nothing)
-        client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", False, Nothing)
-        client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", False, Nothing)
-        client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", False, Nothing)
+        client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", False, False, Nothing)
+        client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", False, False, Nothing)
+        client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", False, False, Nothing)
+        client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", False, False, Nothing)
         '! [reqmktdata_broadtapenews]
 
         '! [reqoptiondatagenticks]
         'Requesting data for an option contract will return the greek values
-        client.reqMktData(1005, ContractSamples.USOptionContract(), String.Empty, False, Nothing)
+        client.reqMktData(1005, ContractSamples.USOptionContract(), String.Empty, False, False, Nothing)
         '! [reqoptiondatagenticks]
 
         Thread.Sleep(10000)
@@ -540,7 +556,7 @@ Module MainModule
 
         ' Requesting news ticks
         ' [reqNewsTicks]
-        client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", False, Nothing)
+        client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", False, False, Nothing)
         ' [reqNewsTicks]
 
         Thread.Sleep(10000)

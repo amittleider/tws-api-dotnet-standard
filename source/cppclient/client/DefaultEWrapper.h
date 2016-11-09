@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -82,5 +82,7 @@ public:
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
    virtual void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
    virtual void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
+   virtual void smartComponents(int reqId, SmartComponentsMap theMap);
+   virtual void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 };
 

@@ -4,6 +4,8 @@
 package apidemo;
 
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 import java.util.Set;
 
 import com.ib.client.*;
@@ -314,5 +316,17 @@ public class Test implements EWrapper {
 	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline,
 			String extraData) {
 		System.out.println(EWrapperMsgGenerator.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData));
+	}
+
+	@Override
+	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		// TODO Auto-generated method stub
+		
 	}
 }

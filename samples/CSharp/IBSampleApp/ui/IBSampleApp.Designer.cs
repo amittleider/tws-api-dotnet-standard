@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -119,8 +119,18 @@ namespace IBSampleApp
             this.symbolSamplesPrimExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolSamplesCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolSamplesDerivativeSecTypes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.smartComponentsTabPage = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.dataGridViewSmartComponents = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataResults_MDT = new System.Windows.Forms.TabControl();
             this.topMktData_MDT = new System.Windows.Forms.TabPage();
+            this.ReqSmartComponents_Button = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.bboExchange_comboBox = new System.Windows.Forms.ComboBox();
             this.groupBoxMarketDataType_MDT = new System.Windows.Forms.GroupBox();
             this.comboBoxMarketDataType_MDT = new System.Windows.Forms.ComboBox();
             this.deepBookGroupBox = new System.Windows.Forms.GroupBox();
@@ -558,8 +568,11 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.mktDepthExchangesGrid_MDT)).BeginInit();
             this.symbolSamplesTabData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.symbolSamplesDataGridData)).BeginInit();
+            this.smartComponentsTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSmartComponents)).BeginInit();
             this.dataResults_MDT.SuspendLayout();
             this.topMktData_MDT.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBoxMarketDataType_MDT.SuspendLayout();
             this.deepBookGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -681,6 +694,7 @@ namespace IBSampleApp
             this.marketData_MDT.Controls.Add(this.scannerParamsTab);
             this.marketData_MDT.Controls.Add(this.mktDepthExchanges_MDT);
             this.marketData_MDT.Controls.Add(this.symbolSamplesTabData);
+            this.marketData_MDT.Controls.Add(this.smartComponentsTabPage);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 210);
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
@@ -705,10 +719,10 @@ namespace IBSampleApp
             this.closeMketDataTab.AutoSize = true;
             this.closeMketDataTab.Location = new System.Drawing.Point(6, 3);
             this.closeMketDataTab.Name = "closeMketDataTab";
-            this.closeMketDataTab.Size = new System.Drawing.Size(31, 13);
+            this.closeMketDataTab.Size = new System.Drawing.Size(33, 13);
             this.closeMketDataTab.TabIndex = 1;
             this.closeMketDataTab.TabStop = true;
-            this.closeMketDataTab.Text = "Clear";
+            this.closeMketDataTab.Text = "Close";
             this.closeMketDataTab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeMketDataTab_LinkClicked);
             // 
             // marketDataGrid_MDT
@@ -862,14 +876,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -1015,27 +1029,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            chartArea7.AxisX.MajorGrid.Enabled = false;
+            chartArea7.AxisX.MajorTickMark.Enabled = false;
+            chartArea7.AxisY.IsStartedFromZero = false;
+            chartArea7.Name = "ChartArea1";
+            chartArea7.Position.Auto = false;
+            chartArea7.Position.Height = 100F;
+            chartArea7.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend7);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series7.IsVisibleInLegend = false;
+            series7.IsXValueIndexed = true;
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series7.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series7);
             this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -1142,26 +1156,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend2);
+            chartArea8.AxisX.MajorGrid.Enabled = false;
+            chartArea8.AxisX.MajorTickMark.Enabled = false;
+            chartArea8.AxisY.IsStartedFromZero = false;
+            chartArea8.Name = "ChartArea1";
+            chartArea8.Position.Auto = false;
+            chartArea8.Position.Height = 100F;
+            chartArea8.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend8);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series8.IsVisibleInLegend = false;
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series8.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series8);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -1411,6 +1425,67 @@ namespace IBSampleApp
             this.symbolSamplesDerivativeSecTypes.ReadOnly = true;
             this.symbolSamplesDerivativeSecTypes.Width = 200;
             // 
+            // smartComponentsTabPage
+            // 
+            this.smartComponentsTabPage.BackColor = System.Drawing.Color.LightGray;
+            this.smartComponentsTabPage.Controls.Add(this.linkLabel1);
+            this.smartComponentsTabPage.Controls.Add(this.dataGridViewSmartComponents);
+            this.smartComponentsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.smartComponentsTabPage.Name = "smartComponentsTabPage";
+            this.smartComponentsTabPage.Size = new System.Drawing.Size(1234, 209);
+            this.smartComponentsTabPage.TabIndex = 6;
+            this.smartComponentsTabPage.Text = "Smart Components";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 4);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(31, 13);
+            this.linkLabel1.TabIndex = 3;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Clear";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // dataGridViewSmartComponents
+            // 
+            this.dataGridViewSmartComponents.AllowUserToAddRows = false;
+            this.dataGridViewSmartComponents.AllowUserToDeleteRows = false;
+            this.dataGridViewSmartComponents.AllowUserToOrderColumns = true;
+            this.dataGridViewSmartComponents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewSmartComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSmartComponents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn25,
+            this.dataGridViewTextBoxColumn26,
+            this.dataGridViewTextBoxColumn27});
+            this.dataGridViewSmartComponents.Location = new System.Drawing.Point(5, 20);
+            this.dataGridViewSmartComponents.Name = "dataGridViewSmartComponents";
+            this.dataGridViewSmartComponents.ReadOnly = true;
+            this.dataGridViewSmartComponents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewSmartComponents.Size = new System.Drawing.Size(1225, 184);
+            this.dataGridViewSmartComponents.TabIndex = 2;
+            // 
+            // dataGridViewTextBoxColumn25
+            // 
+            this.dataGridViewTextBoxColumn25.HeaderText = "Bit number";
+            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dataGridViewTextBoxColumn25.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.HeaderText = "Exchange";
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn27
+            // 
+            this.dataGridViewTextBoxColumn27.HeaderText = "Exchange single-letter abbrevation";
+            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            this.dataGridViewTextBoxColumn27.ReadOnly = true;
+            this.dataGridViewTextBoxColumn27.Width = 200;
+            // 
             // dataResults_MDT
             // 
             this.dataResults_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1426,6 +1501,8 @@ namespace IBSampleApp
             // topMktData_MDT
             // 
             this.topMktData_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.topMktData_MDT.Controls.Add(this.ReqSmartComponents_Button);
+            this.topMktData_MDT.Controls.Add(this.groupBox6);
             this.topMktData_MDT.Controls.Add(this.groupBoxMarketDataType_MDT);
             this.topMktData_MDT.Controls.Add(this.deepBookGroupBox);
             this.topMktData_MDT.Controls.Add(this.groupBox2);
@@ -1436,6 +1513,46 @@ namespace IBSampleApp
             this.topMktData_MDT.Size = new System.Drawing.Size(1230, 200);
             this.topMktData_MDT.TabIndex = 0;
             this.topMktData_MDT.Text = "Market Data";
+            // 
+            // ReqSmartComponents_Button
+            // 
+            this.ReqSmartComponents_Button.Enabled = false;
+            this.ReqSmartComponents_Button.Location = new System.Drawing.Point(1062, 152);
+            this.ReqSmartComponents_Button.Name = "ReqSmartComponents_Button";
+            this.ReqSmartComponents_Button.Size = new System.Drawing.Size(75, 23);
+            this.ReqSmartComponents_Button.TabIndex = 2;
+            this.ReqSmartComponents_Button.Text = "Request";
+            this.ReqSmartComponents_Button.UseVisualStyleBackColor = true;
+            this.ReqSmartComponents_Button.Click += new System.EventHandler(this.ReqSmartComponents_Button_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.bboExchange_comboBox);
+            this.groupBox6.Location = new System.Drawing.Point(1048, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(176, 149);
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Smart Components";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "BBO Exchange:";
+            // 
+            // bboExchange_comboBox
+            // 
+            this.bboExchange_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bboExchange_comboBox.FormattingEnabled = true;
+            this.bboExchange_comboBox.Location = new System.Drawing.Point(6, 37);
+            this.bboExchange_comboBox.Name = "bboExchange_comboBox";
+            this.bboExchange_comboBox.Size = new System.Drawing.Size(121, 21);
+            this.bboExchange_comboBox.TabIndex = 0;
             // 
             // groupBoxMarketDataType_MDT
             // 
@@ -5524,8 +5641,13 @@ namespace IBSampleApp
             this.symbolSamplesTabData.ResumeLayout(false);
             this.symbolSamplesTabData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.symbolSamplesDataGridData)).EndInit();
+            this.smartComponentsTabPage.ResumeLayout(false);
+            this.smartComponentsTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSmartComponents)).EndInit();
             this.dataResults_MDT.ResumeLayout(false);
             this.topMktData_MDT.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBoxMarketDataType_MDT.ResumeLayout(false);
             this.deepBookGroupBox.ResumeLayout(false);
             this.deepBookGroupBox.PerformLayout();
@@ -5645,29 +5767,6 @@ namespace IBSampleApp
         private System.Windows.Forms.TabPage accountInfoTab;
         private System.Windows.Forms.Label status_label_CT;
         private System.Windows.Forms.Label status_CT;
-        private System.Windows.Forms.TabControl marketData_MDT;
-        private System.Windows.Forms.TabPage topMarketDataTab_MDT;
-        private System.Windows.Forms.DataGridView marketDataGrid_MDT;
-        private System.Windows.Forms.LinkLabel closeMketDataTab;
-        private System.Windows.Forms.TabPage deepBookTab_MDT;
-        private System.Windows.Forms.DataGridView deepBookGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookMaker;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn askBookPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn askBookSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn askBookMaker;
-        private System.Windows.Forms.LinkLabel closeDeepBookLink;
-        private System.Windows.Forms.TabPage historicalDataTab;
-        private System.Windows.Forms.DataGridView barsGrid;
-        private System.Windows.Forms.DataVisualization.Charting.Chart historicalChart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdOpen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdHigh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdLow;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdClose;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hdWap;
         private System.Windows.Forms.TabControl dataResults_MDT;
         private System.Windows.Forms.TabPage topMktData_MDT;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -5702,18 +5801,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox hdRequest_TimeUnit;
         private System.Windows.Forms.TabPage marketScanner_MDT;
-        private System.Windows.Forms.LinkLabel histDataTabClose_MDT;
-        private System.Windows.Forms.TabPage rtBarsTab_MDT;
-        private System.Windows.Forms.DataGridView rtBarsGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataVisualization.Charting.Chart rtBarsChart;
-        private System.Windows.Forms.LinkLabel rtBarsCloseLink;
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.Label scanNumRows_label;
         private System.Windows.Forms.Label scanStockType_label;
@@ -5725,18 +5812,9 @@ namespace IBSampleApp
         private System.Windows.Forms.ComboBox scanInstrument;
         private System.Windows.Forms.ComboBox scanCode;
         private System.Windows.Forms.Button scannerRequest_Button;
-        private System.Windows.Forms.TabPage scannerTab;
-        private System.Windows.Forms.DataGridView scannerGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanRank;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanContract;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanDistance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanBenchmark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanProjection;
-        private System.Windows.Forms.DataGridViewTextBoxColumn scanLegStr;
         private System.Windows.Forms.TextBox messageBox;
         private System.Windows.Forms.LinkLabel messageBoxClear_link;
         private System.Windows.Forms.ComboBox scanLocation;
-        private System.Windows.Forms.LinkLabel scannerTab_link;
         private System.Windows.Forms.DataGridView liveOrdersGrid;
         private System.Windows.Forms.GroupBox executionsGroup;
         private System.Windows.Forms.GroupBox liveOrdersGroup;
@@ -5943,8 +6021,6 @@ namespace IBSampleApp
         private System.Windows.Forms.CheckBox contractMDRTH;
         private System.Windows.Forms.Label primaryExchLabel;
         private System.Windows.Forms.TextBox primaryExchange;
-        private System.Windows.Forms.TabPage scannerParamsTab;
-        private System.Windows.Forms.TextBox scannerParamsOutput;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button scannerParamsRequest_button;
         private System.Windows.Forms.GroupBox execFilterGroup;
@@ -6002,12 +6078,6 @@ namespace IBSampleApp
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button ReqMktDepthExchanges_Button;
-        private System.Windows.Forms.TabPage mktDepthExchanges_MDT;
-        private System.Windows.Forms.LinkLabel clearMktDepthExchanges_Button;
-        private System.Windows.Forms.DataGridView mktDepthExchangesGrid_MDT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_Exchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_SecType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_IsL2;
         private System.Windows.Forms.TabPage familyCodesTab;
         private System.Windows.Forms.Button requestFamilyCodes;
         private System.Windows.Forms.DataGridView familyCodesGrid;
@@ -6026,18 +6096,9 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn cashQtyColumn;
         private System.Windows.Forms.Button requestMatchingSymbolsCD;
         private System.Windows.Forms.Button requestMatchingSymbolsMD;
-        private System.Windows.Forms.TabPage symbolSamplesTabData;
-        private System.Windows.Forms.DataGridView symbolSamplesDataGridData;
         private System.Windows.Forms.TabPage symbolSamplesTabContractInfo;
         private System.Windows.Forms.DataGridView symbolSamplesDataGridContractInfo;
-        private System.Windows.Forms.LinkLabel clearSymbolSamplesMarketData;
         private System.Windows.Forms.LinkLabel clearSymbolSamplesContractInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesConId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesSecType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesPrimExch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesCurrency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesDerivativeSecTypes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
@@ -6088,19 +6149,6 @@ namespace IBSampleApp
         private System.Windows.Forms.ComboBox comboBoxMarketDataType_CDT;
         private System.Windows.Forms.GroupBox groupBoxMarketDataType_MDT;
         private System.Windows.Forms.ComboBox comboBoxMarketDataType_MDT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn marketDataContract;
-        private System.Windows.Forms.DataGridViewTextBoxColumn marketDataTypeTickerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bidSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bidPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn askPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn askSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastTickerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn volume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn closeTickerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn openTickerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn highTickerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lowTickerColumn;
         private System.Windows.Forms.TabPage newsTab;
         private System.Windows.Forms.TabControl tabControlNews;
         private System.Windows.Forms.TabControl tabControlNewsResults;
@@ -6126,6 +6174,90 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksExtraData;
         private System.Windows.Forms.LinkLabel linkLabelNewsTicksClear;
         private System.Windows.Forms.Button buttonCancelNewsTicks;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.ComboBox bboExchange_comboBox;
+        private System.Windows.Forms.Button ReqSmartComponents_Button;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TabControl marketData_MDT;
+        private System.Windows.Forms.TabPage topMarketDataTab_MDT;
+        private System.Windows.Forms.LinkLabel closeMketDataTab;
+        private System.Windows.Forms.DataGridView marketDataGrid_MDT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn marketDataContract;
+        private System.Windows.Forms.DataGridViewTextBoxColumn marketDataTypeTickerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bidSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bidPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastTickerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn volume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn closeTickerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn openTickerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn highTickerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lowTickerColumn;
+        private System.Windows.Forms.TabPage deepBookTab_MDT;
+        private System.Windows.Forms.LinkLabel closeDeepBookLink;
+        private System.Windows.Forms.DataGridView deepBookGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookMaker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bidBookPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askBookPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askBookSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn askBookMaker;
+        private System.Windows.Forms.TabPage historicalDataTab;
+        private System.Windows.Forms.LinkLabel histDataTabClose_MDT;
+        private System.Windows.Forms.DataGridView barsGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdOpen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdHigh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdLow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdClose;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hdWap;
+        private System.Windows.Forms.DataVisualization.Charting.Chart historicalChart;
+        private System.Windows.Forms.TabPage rtBarsTab_MDT;
+        private System.Windows.Forms.LinkLabel rtBarsCloseLink;
+        private System.Windows.Forms.DataGridView rtBarsGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataVisualization.Charting.Chart rtBarsChart;
+        private System.Windows.Forms.TabPage scannerTab;
+        private System.Windows.Forms.LinkLabel scannerTab_link;
+        private System.Windows.Forms.DataGridView scannerGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanRank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanContract;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanDistance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanBenchmark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanProjection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn scanLegStr;
+        private System.Windows.Forms.TabPage scannerParamsTab;
+        private System.Windows.Forms.TextBox scannerParamsOutput;
+        private System.Windows.Forms.TabPage mktDepthExchanges_MDT;
+        private System.Windows.Forms.DataGridView mktDepthExchangesGrid_MDT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_Exchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_SecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_IsL2;
+        private System.Windows.Forms.LinkLabel clearMktDepthExchanges_Button;
+        private System.Windows.Forms.TabPage symbolSamplesTabData;
+        private System.Windows.Forms.LinkLabel clearSymbolSamplesMarketData;
+        private System.Windows.Forms.DataGridView symbolSamplesDataGridData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesConId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesSecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesPrimExch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolSamplesDerivativeSecTypes;
+        private System.Windows.Forms.TabPage smartComponentsTabPage;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.DataGridView dataGridViewSmartComponents;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
     }
 }
 

@@ -740,5 +740,24 @@ namespace IBSampleApp
                 tmp(tickerId, timeStamp, providerCode, articleId, headline, extraData);
         }
 
+        public event Action<int, Dictionary<int, KeyValuePair<string, char>>> SmartComponents;
+
+        public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        {
+            var tmp = SmartComponents;
+
+            if (tmp != null)
+                tmp(reqId, theMap);
+        }
+
+        public event Action<int, double, string, int> TickReqParams;
+
+        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            var tmp = TickReqParams;
+
+            if (tmp != null)
+                tmp(tickerId, minTick, bboExchange, snapshotPermissions);
+        }
     }
 }

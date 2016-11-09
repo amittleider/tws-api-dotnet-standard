@@ -100,6 +100,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
     Friend WithEvents cmdReqMktDepthExchanges As System.Windows.Forms.Button
     Friend WithEvents cmdReqNewsTicks As System.Windows.Forms.Button
+    Friend WithEvents cmdReqSmartComponents As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -160,6 +161,7 @@ Friend Class MainForm
         Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
         Me.cmdReqMktDepthExchanges = New System.Windows.Forms.Button()
         Me.cmdReqNewsTicks = New System.Windows.Forms.Button()
+        Me.cmdReqSmartComponents = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -864,11 +866,21 @@ Friend Class MainForm
         Me.cmdReqNewsTicks.Text = "Req News Ticks"
         Me.cmdReqNewsTicks.UseVisualStyleBackColor = True
         '
+        'cmdReqSmartComponents
+        '
+        Me.cmdReqSmartComponents.Location = New System.Drawing.Point(545, 668)
+        Me.cmdReqSmartComponents.Name = "cmdReqSmartComponents"
+        Me.cmdReqSmartComponents.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqSmartComponents.TabIndex = 58
+        Me.cmdReqSmartComponents.Text = "Req Smart Components"
+        Me.cmdReqSmartComponents.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqSmartComponents)
         Me.Controls.Add(Me.cmdReqNewsTicks)
         Me.Controls.Add(Me.cmdReqMktDepthExchanges)
         Me.Controls.Add(Me.cmdFamilyCodes)
@@ -1099,7 +1111,7 @@ Friend Class MainForm
 
         If m_dlgOrder.ok Then
             m_api.reqMktData(m_dlgOrder.orderId, m_contractInfo,
-                    m_dlgOrder.genericTickTags, m_dlgOrder.snapshotMktData, m_mktDataOptions)
+                    m_dlgOrder.genericTickTags, m_dlgOrder.snapshotMktData, m_dlgOrder.regulatorySnapshotMktData, m_mktDataOptions)
         End If
     End Sub
 
@@ -1731,7 +1743,16 @@ Friend Class MainForm
 
         If m_dlgOrder.ok Then
             m_api.reqMktData(m_dlgOrder.orderId, m_contractInfo,
-                    "mdoff,292", False, m_mktDataOptions)
+                    "mdoff,292", False, False, m_mktDataOptions)
+        End If
+    End Sub
+
+
+    Private Sub cmdReqSmartComponents_Click(sender As Object, e As EventArgs) Handles cmdReqSmartComponents.Click
+        Dim dlg = New dlgSmartComponents
+
+        If dlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.reqSmartComponents(CInt(dlg.txtReqId.Text), dlg.txtBBOExchange.Text)
         End If
     End Sub
 
@@ -2878,6 +2899,28 @@ Friend Class MainForm
         ' move into view
         lstServerResponses.TopIndex = offset
     End Sub
+
+    Private Sub Api_TickReqParams(sender As Object, e As TickReqParamsEventArgs) Handles m_apiEvents.TickReqParams
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Tick Req Params Begin ----")
+        m_utils.addListItem(Utils.ListType.ServerResponses, "tickerId=" & e.tickerId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "minTick=" & e.minTick)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "bboExchange=" & e.bboExchange)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "snapshotPermissions=" & e.snapshotPermissions)
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Tick Req Params End ----")
+    End Sub
+
+    Private Sub Api_SmartComponents(sender As ApiEventSource, e As SmartComponentsEventArgs) Handles m_apiEvents.SmartComponents
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Smart Components Begin ----")
+
+        For Each item In e.theMap
+            m_utils.addListItem(Utils.ListType.ServerResponses, "bitNumber=" & item.Key)
+            m_utils.addListItem(Utils.ListType.ServerResponses, "Exchange=" & item.Value.Key)
+            m_utils.addListItem(Utils.ListType.ServerResponses, "Exchange letter=" & item.Value.Value)
+        Next
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Smart Components End ----")
+    End Sub
+
 
 #End Region
 

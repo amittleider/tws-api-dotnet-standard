@@ -55,7 +55,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final AccountPositionsMultiPanel m_acctPosMultiPanel = new AccountPositionsMultiPanel();
 	private final OptionsPanel m_optionsPanel = new OptionsPanel();
 	private final AdvisorPanel m_advisorPanel = new AdvisorPanel();
-	private final ComboPanel m_comboPanel = new ComboPanel();
+	private final ComboPanel m_comboPanel = new ComboPanel(m_mktDataPanel);
 	private final StratPanel m_stratPanel = new StratPanel();
 	private final NewsPanel m_newsPanel = new NewsPanel();
 	private final JTextArea m_msg = new JTextArea();

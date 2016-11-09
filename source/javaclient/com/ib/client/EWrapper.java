@@ -3,6 +3,8 @@
 
 package com.ib.client;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 import java.util.Set;
 
 public interface EWrapper {
@@ -81,5 +83,7 @@ public interface EWrapper {
 	void historicalDataEnd(int reqId, String startDateStr, String endDateStr);
     void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
     void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData);
+	void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap);
+	void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions);
 }
 

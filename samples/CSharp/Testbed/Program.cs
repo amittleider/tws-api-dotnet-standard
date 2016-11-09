@@ -16,7 +16,8 @@ namespace Samples
         /* Before contacting our API support team please refer to the available documentation. */
         public static int Main(string[] args)
         {
-            EWrapperImpl testImpl = new EWrapperImpl();
+            testImpl = new EWrapperImpl();
+
             EClientSocket clientSocket = testImpl.ClientSocket;
             EReaderSignal readerSignal = testImpl.Signal;
             //! [connect]
@@ -38,6 +39,8 @@ namespace Samples
             clientSocket.eDisconnect();
             return 0;
         }
+
+        static EWrapperImpl testImpl;
 
         /*****************************************************************/
         /* Below are few quick-to-test examples on the IB API functions grouped by functionality. Uncomment the relevant methods. */
@@ -129,10 +132,27 @@ namespace Samples
             /***********************/
             //newsOperations(client);
 
+            /***********************/
+            /*** Smart components ***/
+            /***********************/
+            //smartComponents(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void smartComponents(EClientSocket client)
+        {
+            client.reqMktData(13001, ContractSamples.USStockAtSmart(), "", false, false, null);
+
+            while (string.IsNullOrWhiteSpace(testImpl.BboExchange))
+            {
+                Thread.Sleep(1000);
+            }
+
+            client.cancelMktData(13001);
+            client.reqSmartComponents(13002, testImpl.BboExchange);
         }
 
         private static void tickDataOperations(EClientSocket client)
@@ -140,33 +160,33 @@ namespace Samples
             /*** Requesting real time market data ***/
             //Thread.Sleep(1000);
             //! [reqmktdata]
-            client.reqMktData(1001, ContractSamples.StockComboContract(), string.Empty, false, null);
+            client.reqMktData(1001, ContractSamples.StockComboContract(), string.Empty, false, false, null);
             //! [reqmktdata]
             //! [reqmktdata_snapshot]
-            client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, true, null);
+            client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, true, false, null);
             //! [reqmktdata_snapshot]
 
             //! [reqmktdata_genticks]
             //Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
-            client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, null);
+            client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, false, null);
             //! [reqmktdata_genticks]
 
             //! [reqmktdata_contractnews]
-            client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, null);
-            client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, null);
-            client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, null);
-            client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", false, null);
+            client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, false, null);
+            client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, false, null);
+            client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, false, null);
+            client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", false, false, null);
             //! [reqmktdata_contractnews]
             //! [reqmktdata_broadtapenews]
-            client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", false, null);
-            client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", false, null);
-            client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", false, null);
-            client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", false, null);
+            client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+            client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+            client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+            client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", false, false, null);
             //! [reqmktdata_broadtapenews]
 
             //! [reqoptiondatagenticks]
             //Requesting data for an option contract will return the greek values
-            client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), string.Empty, false, null);
+            client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), string.Empty, false, false, null);
             //! [reqoptiondatagenticks]
 
             Thread.Sleep(10000);
@@ -514,7 +534,7 @@ namespace Samples
         {
             /*** Requesting news ticks ***/
             //! [reqNewsTicks]
-            client.reqMktData(12001, ContractSamples.USStockAtSmart(), "mdoff,292", false, null);
+            client.reqMktData(12001, ContractSamples.USStockAtSmart(), "mdoff,292", false, false, null);
             //! [reqNewsTicks]
 
             Thread.Sleep(5000);

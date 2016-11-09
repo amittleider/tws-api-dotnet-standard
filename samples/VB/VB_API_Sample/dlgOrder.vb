@@ -9,6 +9,7 @@ Imports System.Collections.Generic
 Friend Class dlgOrder
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
+
     Public Sub New()
         MyBase.New()
         If m_vb6FormDefInstance Is Nothing Then
@@ -133,6 +134,7 @@ Friend Class dlgOrder
     Friend WithEvents cmdConditions As System.Windows.Forms.Button
     Public WithEvents txtCashQty As System.Windows.Forms.TextBox
     Public WithEvents labelCashQty As System.Windows.Forms.Label
+    Friend WithEvents chkRegulatorySnapshotMktData As System.Windows.Forms.CheckBox
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
@@ -227,6 +229,7 @@ Friend Class dlgOrder
         Me.labelMarketDataType = New System.Windows.Forms.Label()
         Me.frameMarketDataType = New System.Windows.Forms.GroupBox()
         Me.cmbMarketDataType = New System.Windows.Forms.ComboBox()
+        Me.chkRegulatorySnapshotMktData = New System.Windows.Forms.CheckBox()
         Me.Frame1.SuspendLayout()
         Me.frameTickerDesc.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -934,6 +937,7 @@ Friend Class dlgOrder
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Gainsboro
+        Me.GroupBox1.Controls.Add(Me.chkRegulatorySnapshotMktData)
         Me.GroupBox1.Controls.Add(Me.chkSnapshotMktData)
         Me.GroupBox1.Controls.Add(Me.txtGenericTickTags)
         Me.GroupBox1.Controls.Add(Me.Label22)
@@ -1579,6 +1583,17 @@ Friend Class dlgOrder
         Me.cmbMarketDataType.Size = New System.Drawing.Size(120, 22)
         Me.cmbMarketDataType.TabIndex = 1
         '
+        'chkRegulatorySnapshotMktData
+        '
+        Me.chkRegulatorySnapshotMktData.AutoSize = True
+        Me.chkRegulatorySnapshotMktData.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.chkRegulatorySnapshotMktData.Location = New System.Drawing.Point(89, 41)
+        Me.chkRegulatorySnapshotMktData.Name = "chkRegulatorySnapshotMktData"
+        Me.chkRegulatorySnapshotMktData.Size = New System.Drawing.Size(127, 18)
+        Me.chkRegulatorySnapshotMktData.TabIndex = 3
+        Me.chkRegulatorySnapshotMktData.Text = "Regulatory Snapshot"
+        Me.chkRegulatorySnapshotMktData.UseVisualStyleBackColor = True
+        '
         'dlgOrder
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
@@ -1690,6 +1705,7 @@ Friend Class dlgOrder
 
     Private m_genericTickTags As String
     Private m_snapshotMktData As Boolean
+    Private m_regulatorySnapshotMktData As Boolean
 
     Private m_numRows As Integer
 
@@ -1834,6 +1850,12 @@ Friend Class dlgOrder
         End Get
     End Property
 
+    Public ReadOnly Property regulatorySnapshotMktData() As Boolean
+        Get
+            regulatorySnapshotMktData = m_regulatorySnapshotMktData
+        End Get
+    End Property
+
     Public ReadOnly Property marketDataType() As Integer
         Get
             marketDataType = m_marketDataType
@@ -1939,7 +1961,8 @@ Friend Class dlgOrder
         m_orderInfo.FaProfile = m_faProfile
 
         m_genericTickTags = txtGenericTickTags.Text
-        m_snapshotMktData = chkSnapshotMktData.CheckState
+        m_snapshotMktData = chkSnapshotMktData.Checked
+        m_regulatorySnapshotMktData = chkRegulatorySnapshotMktData.Checked
 
         m_numRows = CInt(txtNumRows.Text)
 

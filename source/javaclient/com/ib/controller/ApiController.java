@@ -4,10 +4,14 @@
 package com.ib.controller;
 
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -83,6 +87,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<Integer, ISymbolSamplesHandler>();
 	private final ConcurrentHashSet<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<IMktDepthExchangesHandler>();
 	private final HashMap<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<Integer, ITickNewsHandler>();
+	private final HashMap<Integer, ISmartComponentsHandler> m_smartComponentsHanlder = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -471,6 +476,7 @@ public class ApiController implements EWrapper {
 		void tickString(TickType tickType, String value);
 		void tickSnapshotEnd();
 		void marketDataType(int marketDataType);
+		void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions);
 	}
 
 	public interface IEfpHandler extends ITopMktDataHandler {
@@ -492,37 +498,39 @@ public class ApiController implements EWrapper {
 		}
 		@Override public void marketDataType(int marketDataType) {
 		}
+		@Override public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		}
 	}
 
-    public void reqTopMktData(Contract contract, String genericTickList, boolean snapshot, ITopMktDataHandler handler) {
+    public void reqTopMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, ITopMktDataHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, Collections.<TagValue>emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
-    public void reqOptionMktData(Contract contract, String genericTickList, boolean snapshot, IOptHandler handler) {
+    public void reqOptionMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, IOptHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_optionCompMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, Collections.<TagValue>emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
-    public void reqEfpMktData(Contract contract, String genericTickList, boolean snapshot, IEfpHandler handler) {
+    public void reqEfpMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, IEfpHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_efpMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, Collections.<TagValue>emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.<TagValue>emptyList() );
 		sendEOM();
     }
 
@@ -1421,7 +1429,7 @@ public class ApiController implements EWrapper {
 			handler.historicalDataEnd();
 		}
 	}
-	
+
 	public interface IMktDepthExchangesHandler {
 		void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
 	}
@@ -1435,7 +1443,6 @@ public class ApiController implements EWrapper {
 		sendEOM();
 	}
 
-	
 	@Override
 	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 		for( IMktDepthExchangesHandler handler : m_mktDepthExchangesHandlers) {
@@ -1443,7 +1450,7 @@ public class ApiController implements EWrapper {
 		}
 		recEOM();
 	}
-
+	
 	public interface ITickNewsHandler {
 		void tickNews(long timeStamp, String providerCode, String articleId, String headline, String extraData);
 	}
@@ -1455,7 +1462,7 @@ public class ApiController implements EWrapper {
 		int tickerId = m_reqId++;
 
 		m_tickNewsHandlerMap.put(tickerId, handler);
-		m_client.reqMktData(tickerId, contract, "mdoff,292", false, Collections.<TagValue>emptyList());
+		m_client.reqMktData(tickerId, contract, "mdoff,292", false, false, Collections.<TagValue>emptyList());
 		sendEOM();
 	}
 
@@ -1469,4 +1476,35 @@ public class ApiController implements EWrapper {
 		recEOM();
 	}
 
+	public interface ISmartComponentsHandler {
+		
+		void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap);
+		
+	}
+
+	@Override
+	public void smartComponents(int reqId, Map<Integer, AbstractMap.SimpleEntry<String, Character>> theMap) {
+		ISmartComponentsHandler handler = m_smartComponentsHanlder.get(reqId);
+		
+		if (handler != null) {
+			handler.smartComponents(reqId, theMap);
+		}
+	}
+	
+	public void reqSmartComponents(String bboExchange, ISmartComponentsHandler handler) {
+		int reqId = m_reqId++;
+		
+		m_smartComponentsHanlder.put(reqId, handler);
+		m_client.reqSmartComponents(reqId, bboExchange);
+		sendEOM();
+	}
+
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		ITopMktDataHandler handler = m_topMktDataMap.get(tickerId);
+		
+		if (handler != null) {
+			handler.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+		}
+	}
 }
