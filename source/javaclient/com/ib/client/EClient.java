@@ -173,7 +173,7 @@ public abstract class EClient {
     private static final int CANCEL_ACCOUNT_UPDATES_MULTI = 77;
     private static final int REQ_SEC_DEF_OPT_PARAMS     = 78;
     private static final int REQ_SOFT_DOLLAR_TIERS     = 79;
-    
+    private static final int REQ_FAMILY_CODES = 80;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -224,9 +224,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
     protected static final int MIN_SERVER_VER_EXT_OPERATOR = 105;
     protected static final int MIN_SERVER_VER_SOFT_DOLLAR_TIER = 106;
+    protected static final int MIN_SERVER_VER_REQ_FAMILY_CODES = 107;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_SOFT_DOLLAR_TIER; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_FAMILY_CODES; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -3034,7 +3035,32 @@ public abstract class EClient {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_UNSUBSCRIBEFROMGROUPEVENTS, e.toString());
         }
     }	
-	
+
+    public synchronized void reqFamilyCodes() {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_REQ_FAMILY_CODES) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support family codes request.");
+            return;
+        }
+
+        Builder b = prepareBuffer();
+
+        b.send( REQ_FAMILY_CODES);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQFAMILYCODES, e.toString());
+        }
+    }
+
     /** @deprecated, never called. */
     protected synchronized void error( String err) {
         m_eWrapper.error( err);

@@ -241,5 +241,10 @@ namespace IBApi
         public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
         {
         }
+
+        public void familyCodes(FamilyCode[] familyCodes)
+        {
+        }
+
     }
 }

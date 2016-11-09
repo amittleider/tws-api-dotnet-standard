@@ -66,6 +66,7 @@ class EDecoder implements ObjectInput {
     static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
     static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
     static final int SOFT_DOLLAR_TIERS = 77;
+    static final int FAMILY_CODES = 78;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -365,6 +366,10 @@ class EDecoder implements ObjectInput {
             	processSoftDollarTiersMsg();
             	break;
 
+            case FAMILY_CODES:
+                processFamilyCodesMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -373,6 +378,22 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processFamilyCodesMsg() throws IOException {
+        FamilyCode[] familyCodes = new FamilyCode[0];
+        int nFamilyCodes = readInt();
+
+        if (nFamilyCodes > 0) {
+            familyCodes = new FamilyCode[nFamilyCodes];
+
+            for (int i = 0; i < nFamilyCodes; i++)
+            {
+                familyCodes[i] = new FamilyCode(readStr(), readStr());
+            }
+        }
+
+        m_EWrapper.familyCodes(familyCodes);
     }
 
 	private void processSoftDollarTiersMsg() throws IOException {

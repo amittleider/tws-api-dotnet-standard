@@ -371,5 +371,11 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void familyCodes(FamilyCode[] familyCodes) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

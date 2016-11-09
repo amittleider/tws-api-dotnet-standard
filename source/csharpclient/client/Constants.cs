@@ -18,7 +18,7 @@ namespace IBApi
         public const int FaProfiles = 2;
         public const int FaAliases = 3;
         public const int MinVersion = 100;
-        public const int MaxVersion = MinServerVer.SOFT_DOLLAR_TIER;
+        public const int MaxVersion = MinServerVer.REQ_FAMILY_CODES;
         public const int MaxMsgSize = 0x00FFFFFF;
     }
 }

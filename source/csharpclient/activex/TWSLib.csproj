@@ -114,6 +114,9 @@
     <Compile Include="..\client\ExecutionFilter.cs">
       <Link>CSharpAPI\ExecutionFilter.cs</Link>
     </Compile>
+    <Compile Include="..\client\FamilyCode.cs">
+      <Link>CSharpAPI\FamilyCode.cs</Link>
+    </Compile>
     <Compile Include="..\client\IBParamsList.cs">
       <Link>CSharpAPI\IBParamsList.cs</Link>
     </Compile>
@@ -195,6 +198,9 @@
     <Compile Include="ComWrappers\ComTagValue.cs" />
     <Compile Include="ComWrappers\comUnderComp.cs" />
     <Compile Include="ComWrappers\ComWrapper.cs" />
+    <Compile Include="ComWrappers\ComFamilyCode.cs" />
+    <Compile Include="ControlImpl\IFamilyCodeList.cs" />
+    <Compile Include="ControlImpl\IFamilyCode.cs" />
     <Compile Include="ControlImpl\IComboLeg.cs" />
     <Compile Include="ControlImpl\IComboLegList.cs" />
     <Compile Include="ControlImpl\ICommissionReport.cs" />

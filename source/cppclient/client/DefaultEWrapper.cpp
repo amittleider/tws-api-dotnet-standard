@@ -73,5 +73,6 @@ void DefaultEWrapper::accountUpdateMultiEnd( int reqId) { }
 void DefaultEWrapper::securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes) { }
 void DefaultEWrapper::securityDefinitionOptionalParameterEnd(int reqId) { }
 void DefaultEWrapper::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) { }
+void DefaultEWrapper::familyCodes(const std::vector<FamilyCode> &familyCodes) { }
 
 

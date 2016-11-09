@@ -698,5 +698,16 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(reqId, tiers);
         }
+
+        public event Action<FamilyCode[]> FamilyCodes;
+
+        void EWrapper.familyCodes(FamilyCode[] familyCodes)
+        {
+            var tmp = FamilyCodes;
+
+            if (tmp != null)
+                tmp(familyCodes);
+        }
+
     }
 }

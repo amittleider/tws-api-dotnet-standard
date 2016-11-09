@@ -1587,6 +1587,7 @@ Friend Class dlgOrder
         REQ_MARKET_DATA_TYPE
         REQ_FUNDAMENTAL_DATA
         CANCEL_FUNDAMENTAL_DATA
+        REQ_MATCHING_SYMBOLS
     End Enum
 
     Public Enum MARKET_DATA_TYPE
@@ -1973,7 +1974,8 @@ Friend Class dlgOrder
            dlgType = Dlg_Type.CANCEL_REAL_TIME_BARS_DLG Or _
            dlgType = Dlg_Type.CANCEL_CALCULATE_IMPLIED_VOLATILITY Or _
            dlgType = Dlg_Type.CANCEL_CALCULATE_OPTION_PRICE Or _
-           dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE Then
+           dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE Or _
+           dlgType = Dlg_Type.REQ_MATCHING_SYMBOLS Then
             txtConId.Enabled = False
             txtSymbol.Enabled = False
             txtSecType.Enabled = False
@@ -2031,6 +2033,14 @@ Friend Class dlgOrder
         Else
             txtSecIdType.Enabled = False
             txtSecId.Enabled = False
+        End If
+
+        If dlgType = Dlg_Type.REQ_MATCHING_SYMBOLS Then
+            txtSymbol.Enabled = True
+            txtConId.Enabled = False
+            cmdConditions.Enabled = False
+            cmdAdjustStop.Enabled = False
+            cmdPegBench.Enabled = False
         End If
 
         If dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE Then
@@ -2096,6 +2106,7 @@ Friend Class dlgOrder
         m_arrDlgTitles.Add("Request Market Data Type")
         m_arrDlgTitles.Add("Request Fundamental Data")
         m_arrDlgTitles.Add("Cancel Fundamental Data")
+        m_arrDlgTitles.Add("Request Matching Symbols")
 
         cmbMarketDataType.Items.Clear()
         cmbMarketDataType.Items.Add(("Real-Time"))

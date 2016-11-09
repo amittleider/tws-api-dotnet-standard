@@ -220,6 +220,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_MISCELANEOUS_ACK:
 			break;
+		case ST_FAMILYCODES:
+			reqFamilyCodes();
+			break;
+		case ST_FAMILYCODES_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -837,6 +842,14 @@ void TestCppClient::miscelaneous()
 	m_state = ST_MISCELANEOUS_ACK;
 }
 
+void TestCppClient::reqFamilyCodes()
+{
+	/*** Request TWS' family codes ***/
+	m_pClient->reqFamilyCodes();
+
+	m_state = ST_FAMILYCODES_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -853,7 +866,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
-	m_state = ST_ACCOUNTOPERATIONS;
+	//m_state = ST_ACCOUNTOPERATIONS;
 	//m_state = ST_ORDEROPERATIONS;
 	//m_state = ST_OCASAMPLES;
 	//m_state = ST_CONDITIONSAMPLES;
@@ -864,6 +877,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAOPERATIONS;
 	//m_state = ST_DISPLAYGROUPS;
 	//m_state = ST_MISCELANEOUS;
+	m_state = ST_FAMILYCODES;
 	//m_state = ST_PING;
 }
 
@@ -1199,3 +1213,14 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 	}
 }
 //! [softDollarTiers]
+
+//! [familyCodes]
+void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
+	printf("Family codes (%d):\n", familyCodes.size());
+
+	for (int i = 0; i < familyCodes.size(); i++) {
+//! [familyCodes]
+		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
+	}
+}
+//! [familyCodes]

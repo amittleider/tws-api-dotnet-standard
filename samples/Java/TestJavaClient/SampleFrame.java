@@ -28,6 +28,7 @@ import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
+import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -407,6 +408,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onGroups();
             }
         });
+        JButton butRequestFamilyCodes = new JButton( "Request Family Codes");
+        butRequestFamilyCodes.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestFamilyCodes();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -474,6 +481,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butCancelAccountUpdatesMulti ) ;
         buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
         buttonPanel.add( butGroups ) ;
+        buttonPanel.add( butRequestFamilyCodes ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -1028,6 +1036,11 @@ class SampleFrame extends JFrame implements EWrapper {
 //        }
     }
     
+    void onRequestFamilyCodes() {
+        // request family codes
+        m_client.reqFamilyCodes();
+    }
+
     public void tickPrice( int tickerId, int field, double price, int canAutoExecute) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);
@@ -1477,5 +1490,11 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 	}
-    
+
+    @Override
+    public void familyCodes(FamilyCode[] familyCodes) {
+        String msg = EWrapperMsgGenerator.familyCodes(familyCodes);
+        m_TWS.add(msg);
+    }
+
 }

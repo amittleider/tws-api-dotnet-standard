@@ -9,6 +9,7 @@
 #include "Contract.h"
 #include "OrderState.h"
 #include "Execution.h"
+#include "FamilyCode.h"
 #include "CommissionReport.h"
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
@@ -1670,6 +1671,25 @@ const char* EDecoder::processSoftDollarTiersMsg(const char* ptr, const char* end
 	return ptr;
 }
 
+const char* EDecoder::processFamilyCodesMsg(const char* ptr, const char* endPtr) 
+{
+	typedef std::vector<FamilyCode> FamilyCodeList;
+	FamilyCodeList familyCodes;
+	int nFamilyCodes = 0;
+	DECODE_FIELD( nFamilyCodes);
+
+	if (nFamilyCodes > 0) {
+		familyCodes.resize(nFamilyCodes);
+		for( int i = 0; i < nFamilyCodes; ++i) {
+			DECODE_FIELD( familyCodes[i].accountID);
+			DECODE_FIELD( familyCodes[i].familyCodeStr);
+		}
+	}
+
+	m_pEWrapper->familyCodes(familyCodes);
+
+	return ptr;
+}
 
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
@@ -1954,6 +1974,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case SOFT_DOLLAR_TIERS:
 			ptr = processSoftDollarTiersMsg(ptr, endPtr);
+			break;
+
+		case FAMILY_CODES:
+			ptr = processFamilyCodesMsg(ptr, endPtr);
 			break;
 
         default:

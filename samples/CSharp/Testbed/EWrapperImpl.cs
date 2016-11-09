@@ -431,5 +431,18 @@ namespace Samples
             }
         }
         //! [softDollarTiers]
+
+        //! [familyCodes]
+        public void familyCodes(FamilyCode[] familyCodes)
+        {
+            Console.WriteLine("Family Codes:");
+
+            foreach (var familyCode in familyCodes)
+            {
+                Console.WriteLine("Account ID: {0}, Family Code Str: {1}", familyCode.AccountID, familyCode.FamilyCodeStr);
+            }
+        }
+        //! [familyCodes]
+
     }
 }

@@ -687,5 +687,13 @@ namespace IBApi
         * @sa EClient::reqSoftDollarTiers
         */
         void softDollarTiers(int reqId, SoftDollarTier[] tiers);
+
+        /**
+        * @brief returns array of family codes
+        * @param FamilyCode[]
+        * @sa EClient::reqFamilyCodes
+        */
+        void familyCodes(FamilyCode[] familyCodes);
+
     }
 }

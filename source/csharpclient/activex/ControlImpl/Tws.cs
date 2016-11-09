@@ -1738,6 +1738,16 @@ namespace TWSLib
                 InvokeIfRequired(t_softdollarTiers, reqId, tiers);
         }
 
+        public delegate void familyCodesDelegate(IFamilyCodeList familyCodes);
+        public event familyCodesDelegate familyCodes;
+        void EWrapper.familyCodes(FamilyCode[] familyCodes)
+        {
+            var t_familyCodes = this.familyCodes;
+
+            if (t_familyCodes != null)
+                InvokeIfRequired(t_familyCodes, familyCodes.Length > 0 ? new ComFamilyCodeList(familyCodes) : null);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1845,6 +1855,11 @@ namespace TWSLib
         public void reqSoftDollarTiers(int reqId)
         {
             socket.reqSoftDollarTiers(reqId);
+        }
+
+        public void reqFamilyCodes()
+        {
+            socket.reqFamilyCodes();
         }
 
         public ArrayList ParseConditions(string str)

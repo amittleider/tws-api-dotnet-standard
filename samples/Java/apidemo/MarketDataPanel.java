@@ -67,7 +67,7 @@ public class MarketDataPanel extends JPanel {
 		add( m_requestPanel, BorderLayout.NORTH);
 		add( m_resultsPanel);
 	}
-	
+
 	private class TopRequestPanel extends JPanel {
 		final ContractPanel m_contractPanel = new ContractPanel(m_contract);
 		

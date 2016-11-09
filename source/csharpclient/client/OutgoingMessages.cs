@@ -65,5 +65,6 @@ namespace IBApi
         CancelAccountUpdatesMulti = 77,
         RequestSecurityDefinitionOptionalParameters = 78,
         RequestSoftDollarTiers = 79,
+        RequestFamilyCodes = 80,
     }
 }

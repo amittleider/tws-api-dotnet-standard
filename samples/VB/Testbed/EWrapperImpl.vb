@@ -379,6 +379,16 @@ Namespace Samples
         End Sub
         '! [softDollarTiers]
 
+        '! [familyCodes]
+        Public Sub familyCodes(familyCodes As FamilyCode()) Implements EWrapper.familyCodes
+            Console.WriteLine("Family Codes:")
+
+            For Each familyCode In familyCodes
+                Console.WriteLine("Account ID: " & familyCode.AccountID & " Family Code Str: " & familyCode.FamilyCodeStr)
+            Next
+        End Sub
+        '! [familyCodes]
+
     End Class
 
 End Namespace

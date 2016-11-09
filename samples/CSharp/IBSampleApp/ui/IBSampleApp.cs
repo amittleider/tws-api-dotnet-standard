@@ -57,7 +57,7 @@ namespace IBSampleApp
             realTimeBarManager = new RealTimeBarsManager(ibClient, rtBarsChart, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
-            accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
+            accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid, familyCodesGrid);
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
@@ -154,6 +154,7 @@ namespace IBSampleApp
             ibClient.SecurityDefinitionOptionParameter += (reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes) => HandleMessage(new SecurityDefinitionOptionParameterMessage(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes));
             ibClient.SecurityDefinitionOptionParameterEnd += (reqId) => HandleMessage(new SecurityDefinitionOptionParameterEndMessage(reqId));
             ibClient.SoftDollarTiers += (reqId, tiers) => HandleMessage(new SoftDollarTiersMessage(reqId, tiers));
+            ibClient.FamilyCodes += (familyCodes) => HandleMessage(new FamilyCodesMessage(familyCodes));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -324,6 +325,7 @@ namespace IBSampleApp
                 case MessageType.AccountValue:
                 case MessageType.Position:
                 case MessageType.PositionEnd:
+                case MessageType.FamilyCodes:
                     {
                         accountManager.UpdateUI(message);
                         break;
@@ -902,6 +904,15 @@ namespace IBSampleApp
             optionsManager.SecurityDefinitionOptionParametersRequest(symbol, exchange, secType, conId);
             ShowTab(contractInfoTab, optionParametersPage);
         }
-        
+
+        private void requestFamilyCodes_Click(object sender, EventArgs e)
+        {
+            accountManager.RequestFamilyCodes();
+        }
+
+        private void clearFamilyCodes_Click(object sender, EventArgs e)
+        {
+            accountManager.ClearFamilyCodes();
+        }
     }
 }

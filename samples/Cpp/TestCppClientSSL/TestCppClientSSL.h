@@ -115,8 +115,10 @@ public:
 	void positionMultiEnd( int reqId);
 	void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency);
 	void accountUpdateMultiEnd( int reqId);
-    void securityDefinitionOptionalParameter(int reqId, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
-    void securityDefinitionOptionalParameterEnd(int reqId);
+	void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
+	void securityDefinitionOptionalParameterEnd(int reqId);
+	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
+	void familyCodes(const std::vector<FamilyCode> &familyCodes);
 
 private:
 
