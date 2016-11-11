@@ -23,6 +23,8 @@
 		</li>
 	</ul>
 	
+	<b>Note:</b> EFPs are simply defined as a bag contract of stock and corresponding SSF with a ratio of 100:1. 
+	
 	\section bag_fut Futures Spread
 	<ul id="tab">
 		<li class="active">

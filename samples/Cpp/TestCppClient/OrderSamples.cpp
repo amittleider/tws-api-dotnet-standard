@@ -863,6 +863,29 @@ Order OrderSamples::AttachAdjustableToStopLimit(Order parent, double attachedOrd
 	return order;
 }
 
+Order OrderSamples::AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice, double adjustedTrailAmount, int trailUnit){
+	//! [adjustable_trail]
+	//Attached order is a conventional STP order
+	Order order;
+	order.action = (parent.action == "BUY") ? "SELL": "BUY";
+	order.orderType = "STP";
+	order.totalQuantity = parent.totalQuantity;
+	order.auxPrice = attachedOrderStopPrice;
+	order.parentId = parent.orderId;
+	//When trigger price is penetrated
+	order.triggerPrice = triggerPrice;
+	//The parent order will be turned into a TRAIL order
+	order.adjustedOrderType = "TRAIL";
+	//With a stop price of...
+	order.adjustedStopPrice = adjustStopPrice;
+	//traling by and amount (0) or a percent (1)...
+	order.adjustableTrailingUnit = trailUnit;
+	//of...
+	order.adjustedTrailingAmount = adjustedTrailAmount;
+	//! [adjustable_trail]
+	return order;
+}
+
 OrderCondition* OrderSamples::Price_Condition(int conId, std::string exchange, double price, bool isMore, bool isConjunction){
 	//! [price_condition]
 	//Conditions have to be created via the OrderCondition.Create 

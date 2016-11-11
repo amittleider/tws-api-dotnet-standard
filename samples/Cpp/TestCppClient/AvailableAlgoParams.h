@@ -9,16 +9,23 @@ struct Order;
 class AvailableAlgoParams {
 public:
 	static void FillArrivalPriceParams(Order& baseOrder, double maxPctVol, std::string riskAversion, std::string startTime, std::string endTime, 
-            bool forceCompletion, bool allowPastTime);
-	static void FillDarkIceParams(Order& baseOrder, int displaySize, std::string startTime, std::string endTime, bool allowPastEndTime);
-	static void FillPctVolParams(Order& baseOrder, double pctVol, std::string startTime, std::string endTime, bool noTakeLiq);
-	static void FillTwapParams(Order& baseOrder, std::string strategyType, std::string startTime, std::string endTime, bool allowPastEndTime);
-	static void FillVwapParams(Order& baseOrder, double maxPctVol, std::string startTime, std::string endTime, bool allowPastEndTime, bool noTakeLiq);
+            bool forceCompletion, bool allowPastTime, double monetaryValue);
+	static void FillDarkIceParams(Order& baseOrder, int displaySize, std::string startTime, std::string endTime, bool allowPastEndTime, double monetaryValue);
+	static void FillPctVolParams(Order& baseOrder, double pctVol, std::string startTime, std::string endTime, bool noTakeLiq, double monetaryValue);
+	static void FillTwapParams(Order& baseOrder, std::string strategyType, std::string startTime, std::string endTime, bool allowPastEndTime, double monetaryValue);
+	static void FillVwapParams(Order& baseOrder, double maxPctVol, std::string startTime, std::string endTime, bool allowPastEndTime, bool noTakeLiq, bool speedUp, double monetaryValue);
 	static void FillAccumulateDistributeParams(Order& baseOrder, int componentSize, int timeBetweenOrders, bool randomizeTime20, bool randomizeSize55,
             int giveUp, bool catchUp, bool waitForFill, std::string startTime, std::string endTime);
 	static void FillBalanceImpactRiskParams(Order& baseOrder, double maxPctVol, std::string riskAversion, bool forceCompletion);
 	static void FillMinImpactParams(Order& baseOrder, double maxPctVol);
 	static void FillAdaptiveParams(Order& baseOrder, std::string priority);
+	static void FillClosePriceParams(Order& baseOrder, double maxPctVol, std::string riskAversion, std::string startTime, bool forceCompletion, double monetaryValue);
+	static void FillPriceVariantPctVolParams(Order baseOrder, double pctVol, double deltaPctVol, double minPctVol4Px, 
+			double maxPctVol4Px, std::string startTime, std::string endTime, bool noTakeLiq, double monetaryValue);
+	static void FillSizeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, 
+			std::string startTime, std::string endTime, bool noTakeLiq, double monetaryValue);
+	static void FillTimeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, std::string startTime, 
+			std::string endTime, boolean noTakeLiq, double monetaryValue);
 };
 
 #endif

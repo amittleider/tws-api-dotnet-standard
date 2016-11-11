@@ -731,12 +731,12 @@ void TestCppClient::testAlgoSamples(){
 	//! [algo_base_order]
 
 	//! [arrivalpx]
-	AvailableAlgoParams::FillArrivalPriceParams(baseOrder, 0.1, "Aggressive", "09:00:00 CET", "16:00:00 CET", true, true);
+	AvailableAlgoParams::FillArrivalPriceParams(baseOrder, 0.1, "Aggressive", "09:00:00 CET", "16:00:00 CET", true, true, 100000);
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [arrivalpx]
 
 	//! [darkice]
-	AvailableAlgoParams::FillDarkIceParams(baseOrder, 10, "09:00:00 CET", "16:00:00 CET", true);
+	AvailableAlgoParams::FillDarkIceParams(baseOrder, 10, "09:00:00 CET", "16:00:00 CET", true, 100000);
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [darkice]
 
@@ -747,7 +747,7 @@ void TestCppClient::testAlgoSamples(){
 	//! [ad]
 
 	//! [twap]
-	AvailableAlgoParams::FillTwapParams(baseOrder, "Marketable", "09:00:00 CET", "16:00:00 CET", true);
+	AvailableAlgoParams::FillTwapParams(baseOrder, "Marketable", "09:00:00 CET", "16:00:00 CET", true, 100000);
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [twap]
 
@@ -771,6 +771,31 @@ void TestCppClient::testAlgoSamples(){
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
 	//! [adaptive]
 
+	//! [closepx]
+    AvailableAlgoParams::FillClosePriceParams(baseOrder, 0.5, "Neutral", "12:00:00 EST", true, 100000);
+    m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+    //! [closepx]
+    
+    //! [pctvol]
+    AvailableAlgoParams::FillPctVolParams(baseOrder, 0.5, "12:00:00 EST", "14:00:00 EST", true, 100000);
+    m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+    //! [pctvol]               
+    
+    //! [pctvolpx]
+    AvailableAlgoParams::FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, "12:00:00 EST", "14:00:00 EST", true, 100000);
+    m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+    //! [pctvolpx]
+    
+    //! [pctvolsz]
+    AvailableAlgoParams::FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", true, 100000);
+    m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+    //! [pctvolsz]
+    
+    //! [pctvoltm]
+    AvailableAlgoParams::FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", true, 100000);
+    m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
+    //! [pctvoltm]
+	
 	m_state = ST_TESTALGOSAMPLES_ACK;
 }
 

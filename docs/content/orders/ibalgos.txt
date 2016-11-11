@@ -1,5 +1,52 @@
 /*! \page ibalgos IB Algorithms
-
+	
+	\section adaptive Adaptive Algo
+	
+	The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. 
+	Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr>
+			<td>adaptivePriority</td>
+			<td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order.</td>
+			<td>Critical > Urgent > Normal > Patient</td>
+		</tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs adaptive
+			...
+			\snippet AvailableAlgoParams.cs adaptive_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java adaptive
+			...
+			\snippet AvailableAlgoParams.java adaptive_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb adaptive
+			...
+			\snippet AvailableAlgoParams.vb adaptive_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp adaptive
+			...
+			\snippet AvailableAlgoParams.cpp adaptive_params
+		</li>
+	</ul>
+	
 	\section arrivalprice ArrivalPrice
 	
 	The <a href="https://www.interactivebrokers.com/en/index.php?f=1122" target="_blank" class="linkexternal">Arrival Price</a> algorithmic order type will attempt to achieve, over 
@@ -14,10 +61,11 @@
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>maxPctVol</td><td>Maximum percentage of ADV</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive</td></tr>
-		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
-		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
 		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
 	
 	<br>
@@ -54,6 +102,54 @@
 		</li>
 	</ul>
 	
+	\section closepx Close Price
+	
+	Investors submitting market or limit orders into the closing auction may adversely affect the closing price, especially when the size of the order is large relative to the average close auction volume. 
+	In order to help investors attempting to execute towards the end of the trading session we have developed the <a href="https://www.interactivebrokers.com/en/index.php?f=19749" target="_blank" class="linkexternal">Close Price</a> algo Strategy. 
+	This algo breaks down large order amounts and determines the timing of order entry so that it will continuously execute in order to minimize slippage. The start and pace of execution are determined by the user who assigns a level of market risk and specifies the target percentage of volume, while the algo considers the prior volatility of the stock.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr><td>maxPctVol</td><td>Maximum percentage of ADV</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs closepx
+			...
+			\snippet AvailableAlgoParams.cs closepx_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java closepx
+			...
+			\snippet AvailableAlgoParams.java closepx_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb closepx
+			...
+			\snippet AvailableAlgoParams.vb closepx_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp closepx
+			...
+			\snippet AvailableAlgoParams.cpp closepx_params
+		</li>
+	</ul>
+	
 	\section darkice DarkIce
 	
 	The <a href="https://www.interactivebrokers.com/en/index.php?f=3123" target="_blank" class="linkexternal">Dark Ice</a> order type develops the concept of privacy adopted by orders such 
@@ -66,9 +162,10 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>displaySize</td><td>Order size to be displayed</td><td></td></tr>
-		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
 		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
 	
 	<br>
@@ -159,6 +256,55 @@
 		</li>
 	</ul>
 	
+	\section pctvol Percentage of Volume
+	
+	The <a href="https://www.interactivebrokers.com/en/index.php?f=1123" target="_blank" class="linkexternal">Percent of Volume </a> algo can limit the contribution of orders to overall average daily volume in order to minimize impact. 
+	Clients can set a value between 1-50% to control their participation between stated start and end times. Order quantity and volume distribution over the day is determined using the target percent of volume you entered along with continuously updated volume forecasts calculated from TWS market data. 
+	In addition, the algo can be set to avoid taking liquidity, which may help avoid liquidity-taker fees and could result in liquidity-adding rebates. By checking the Attempt to never take liquidity box, the algo is discouraged from hitting the bid or lifting the offer if possible. 
+	However, this may also result in greater deviations from the benchmark, and in partial fills, since the posted bid/offer may not always get hit as the price moves up/down. IB will use best efforts not to take liquidity when this box is checked, however, there will be times that it cannot be avoided.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr><td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs pctvol
+			...
+			\snippet AvailableAlgoParams.cs pctvol_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java pctvol
+			...
+			\snippet AvailableAlgoParams.java pctvol_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb pctvol
+			...
+			\snippet AvailableAlgoParams.vb pctvol_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp pctvol
+			...
+			\snippet AvailableAlgoParams.cpp pctvol_params
+		</li>
+	</ul>
+	
 	\section twap TWAP
 	
 	The <a href="https://www.interactivebrokers.com/en/index.php?f=1125" target="_blank" class="linkexternal">TWAP</a> algo aims to achieve the time-weighted average price calculated from 
@@ -171,9 +317,10 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>strategyType</td><td>Trade strategy</td><td>Marketable, Matching, Midpoint, Matching Same Side, Matching Last</td></tr>
-		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
 		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
 	
 	<br>
@@ -208,6 +355,152 @@
 			\snippet AvailableAlgoParams.cpp twap_params
 		</li>
 	</ul>
+	
+	\section pctvolpx Price Variant Percentage of Volume Strategy
+	
+	<a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse03" target="_blank" class="linkexternal">Price Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies over time depending on the market price of the security. 
+	This algo allows you to buy more aggressively when the price is low and be more passive as the price increases, and just the opposite for sell orders. The order quantity and volume distribution over the time during which the order is active is determined using the target percent of volume you entered along with continuously updated volume forecasts calculated from TWS market data.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr><td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>deltaPctVol</td><td>Target Percentage Change Rate</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>minPctVol4Px</td><td>Minimum Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>maxPctVol4Px</td><td>Maximum Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs pctvolpx
+			...
+			\snippet AvailableAlgoParams.cs pctvolpx_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java pctvolpx
+			...
+			\snippet AvailableAlgoParams.java pctvolpx_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb pctvolpx
+			...
+			\snippet AvailableAlgoParams.vb pctvolpx_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp pctvolpx
+			...
+			\snippet AvailableAlgoParams.cpp pctvolpx_params
+		</li>
+	</ul>
+	
+	\section pctvolsz Size Variant Percentage of Volume Strategy
+	
+	<a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse02" target="_blank" class="linkexternal">Size Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies over time depending on the remaining size of the order. 
+	Define the target percent rate at the start time (Initial Participation Rate) and at the end time (Terminal Participation Rate), and the algo calculates the participation rate over time between the two based on the remaining order size. This allows the order to be more aggressive initially and less aggressive toward the end, or vice versa. 
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr><td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs pctvolsz
+			...
+			\snippet AvailableAlgoParams.cs pctvolsz_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java pctvolsz
+			...
+			\snippet AvailableAlgoParams.java pctvolsz_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb pctvolsz
+			...
+			\snippet AvailableAlgoParams.vb pctvolsz_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp pctvolsz
+			...
+			\snippet AvailableAlgoParams.cpp pctvolsz_params
+		</li>
+	</ul>
+	
+	\section pctvoltm Time Variant Percentage of Volume Strategy
+	
+	<a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse01" target="_blank" class="linkexternal">Time Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies with time. 
+	Define the target percent rate at the start time and at the end time, and the algo calculates the participation rate over time between the two. This allows the order to be more aggressive initially and less aggressive toward the end, or vice versa.
+	
+	<table>
+		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
+		<tr><td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+	</table>
+	
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs algo_base_order
+			...
+			\snippet Program.cs pctvoltm
+			...
+			\snippet AvailableAlgoParams.cs pctvoltm_params
+		</li>
+		<li>
+			\snippet Testbed.java algo_base_order
+			...
+			\snippet Testbed.java pctvoltm
+			...
+			\snippet AvailableAlgoParams.java pctvoltm_params
+		</li>
+		<li>
+			\snippet MainModule.vb algo_base_order
+			...
+			\snippet MainModule.vb pctvoltm
+			...
+			\snippet AvailableAlgoParams.vb pctvoltm_params
+		</li>
+		<li>
+			\snippet TestCppClient.cpp algo_base_order
+			...
+			\snippet TestCppClient.cpp pctvoltm
+			...
+			\snippet AvailableAlgoParams.cpp pctvoltm_params
+		</li>
+	</ul>
 		
 	\section vwap VWAP
 	
@@ -225,10 +518,12 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>maxPctVol</td><td>Maximum percentage of average daily volume</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
-		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
 		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>speedUp</td><td>Compensate for the decreased fill rate due to presence of limit price</td><td>1 (true) or 0 (false)</td></tr>
+		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
 	
 	<br>
@@ -275,7 +570,6 @@
 		<tr><td>maxPctVol</td><td>Maximum percentage of average daily volume</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive</td></tr>
 		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
-		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 	</table>
 	
 	<br>
@@ -351,53 +645,6 @@
 			\snippet TestCppClient.cpp minimpact
 			...
 			\snippet AvailableAlgoParams.cpp minimpact_params
-		</li>
-	</ul>
-	
-	\section adaptive Adaptive Algo
-	
-	The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. 
-	Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.
-	
-	<table>
-		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
-		<tr>
-			<td>adaptivePriority</td>
-			<td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order.</td>
-			<td>Critical > Urgent > Normal > Patient</td>
-		</tr>
-	</table>
-	
-	<br>
-	
-	<ul id="tab">
-		<li class="active">
-			\snippet Program.cs algo_base_order
-			...
-			\snippet Program.cs adaptive
-			...
-			\snippet AvailableAlgoParams.cs adaptive_params
-		</li>
-		<li>
-			\snippet Testbed.java algo_base_order
-			...
-			\snippet Testbed.java adaptive
-			...
-			\snippet AvailableAlgoParams.java adaptive_params
-		</li>
-		<li>
-			\snippet MainModule.vb algo_base_order
-			...
-			\snippet MainModule.vb adaptive
-			...
-			\snippet AvailableAlgoParams.vb adaptive_params
-		</li>
-		<li>
-			\snippet TestCppClient.cpp algo_base_order
-			...
-			\snippet TestCppClient.cpp adaptive
-			...
-			\snippet AvailableAlgoParams.cpp adaptive_params
 		</li>
 	</ul>
 	

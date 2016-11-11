@@ -49,16 +49,22 @@
 			\snippet EWrapperImpl.java ewrapperimpl
 			...
 			\snippet EWrapperImpl.java historicaldata
+			...
+			\snippet EWrapperImpl.java historicaldataend
 		</li>
 		<li>
 			\snippet EWrapperImpl.vb ewrapperimpl
-		   ...
+		    ...
 			\snippet EWrapperImpl.vb historicaldata
+			...
+			\snippet EWrapperImpl.vb historicaldataend
 		</li>
 		<li>
 			\snippet TestCppClient.h ewrapperimpl
 			...
 			\snippet TestCppClient.cpp historicaldata
+			...
+			\snippet TestCppClient.cpp historicaldataend
 		</li>
 	</ul>
 	

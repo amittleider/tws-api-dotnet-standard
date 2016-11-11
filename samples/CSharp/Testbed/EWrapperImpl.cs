@@ -335,7 +335,7 @@ namespace Samples
         //! [historicaldataend]
         public virtual void historicalDataEnd(int reqId, string startDate, string endDate)
         {
-            Console.WriteLine("Historical data end - "+reqId+" from "+startDate+" to "+endDate);
+            Console.WriteLine("HistoricalDataEnd - "+reqId+" from "+startDate+" to "+endDate);
         }
         //! [historicaldataend]
 

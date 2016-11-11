@@ -32,10 +32,10 @@
    \section md_receive Receiving
    
    After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement 
-   these methods to manipulate the data relayed back to the client. Notice how the @ref IBApi::EWrapper::tickPrice and @ref IBApi::EWrapper::tickSize methods contain the request id with
+   these methods to manipulate the data relayed back to the client. Notice how market data callbacks such as @ref IBApi::EWrapper::tickPrice and @ref IBApi::EWrapper::tickSize methods contain the request id with
    which the response can be mapped to its originating request.
    
-   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is not data currently available. Most commonly this occurs when requesting data from markets that are closed.
+   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is no data currently available. Most commonly this occurs when requesting data from markets that are closed. To receive frozen quotes (the last available bid/ask recorded by the sytem) invoke the function @ref IBApi::EClient::reqMarketDataType with argument 2. Frozen data is exclusive to default tick types, \ref genticks are not available.
    
    Following every IBApi::EWrapper::tickPrice callback there will be a IBApi::EWrapper::tickSize. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive IBApi::EWrapper::tickSize value. 
    
@@ -44,7 +44,9 @@
 			\snippet EWrapperImpl.cs ewrapperimpl
 		   ...
 		   \snippet EWrapperImpl.cs tickprice
-		   ...
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit appears starting in API version 9.72.19 but is not yet implemented and reserved for future use.
+		   
 		   \snippet EWrapperImpl.cs ticksize
 		   ....
 		   \snippet EWrapperImpl.cs tickstring
@@ -105,9 +107,9 @@
 	</ul>
 	
 	\section md_snapshot Snapshots
-	It is possible to simply obtain the current state of the market once rather than keeping an open subscription. By invoking the IBApi::EClient::reqMktData function 
+	It is possible to simply obtain the current state of the market once rather than keeping an open subscription which streams data continuously. By invoking the IBApi::EClient::reqMktData function 
 	passing in <b>true</b> for the snapshot parameter, the client application will receive the currently available market data once before a @ref IBApi::EWrapper::tickSnapshotEnd
-	event is sent:
+	event is sent. Snapshot requests can only be made for the default tick types; no generic ticks can be specified. It is important to note that a snapshot request will only return available data over an 11 second span, so in many cases values for all default ticks will not be returned. However snapshots are allowed a higher rate limit than the normal 50 messages per second limitation of other EClientSocket functions.
 	<h4>Snapshot request:</h4>
 	<ul id="tab">
 		<li class="active"> 
@@ -146,11 +148,7 @@
 			\snippet TestCppClient.cpp ticksnapshotend
 		</li>
 	</ul>
-	
-	Snapshots can only be used with default tick types, i.e. no generic ticks can be specified. 
-	
-	It is important to note that snapshot requests will only return data fields which have changed within an 11 second interval. If it is necessary for an API client to receive a certain data field, it is better to subscribe to market data until that field has been returned and then cancel the market data request. 
-	
+		
 	\section genticks Generic Ticks
 	The most common tick types are delivered automatically after a successful market data request. There are however other tick types available by explicit request: the generic tick types. 
 	When invoking @ref IBApi::EClient::reqMktData, specific generic ticks can be requested via the <b>genericTickList</b> parameter of the function:
@@ -172,11 +170,29 @@
 	
 	For a list of available tick types please refer to \subpage tick_types
 	
-	\section market_data_type Real Time Market Data Types
+	\section market_data_type Market Data Types
 	
-	The API can receive frozen market data from Trader Workstation via the @ref IBApi::EClient::reqMarketDataType. Frozen market data is the last data recorded in our system. During normal trading 
-	hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the 
-	next trading day, market data will automatically switch back to real-time market data.
+	The API can request Live, Frozen, Delayed and Delayed Frozen market data from Trader Workstation by switching market data type via the @ref IBApi::EClient::reqMarketDataType before requesting market data. 
+	
+	<table>
+		<tr><th>Market Data Type</th><th>ID</th><th>Description</th></tr>
+		<tr><td>Live</td><td>1</td><td>Live market data is streaming data relayed back in real time. Market data subscriptions are required to receive live market data. </td></tr>
+		<tr><td>Frozen</td><td>2</td>
+			<td>
+				Frozen market data is the last data recorded at market close. In TWS, Frozen data is displayed in gray numbers. When you set market data type to Frozen, you are telling TWS to automatically switch to frozen market data after market close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data. 
+	
+				Note: Requesting live market data after market close will receive -1 for tick price and 0 for tick size. Set market data type to Frozen to receive frozen data instead.
+			</td>
+		</tr>
+		<tr><td>Delayed</td><td>3</td>
+			<td>
+				Free delayed data is 15 minutes delayed. In TWS, Delayed data is displayed in brown background. When you set market data type to Delayed, you are telling TWS to automatically switch to delayed market data if you do not have data subscription. Live data will still be returned automatically when available. 
+		
+				Note: TWS Build 962 or higher is required and API version 9.72.19 or higher is suggested.
+			</td>
+		</tr>
+		<tr><td>Delayed Frozen</td><td>4</td><td>Currently not available via the API.</td></tr>
+	</table>
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -193,8 +209,8 @@
 		</li>
 	</ul>
 	
-	After invoking @ref IBApi::EClient::reqMarketDataType to fetch frozen data, subsequent @req IBApi::EClient::reqMktData requests will trigger @ref IBApi::EWrapper::marketDataType as part of the
-	resulting events to indicate the kind of data being returned.
+	After invoking @ref IBApi::EClient::reqMarketDataType to fetch frozen or delayed data, subsequent @req IBApi::EClient::reqMktData requests will trigger @ref IBApi::EWrapper::marketDataType as one of the
+	resulting events to indicate the data type (2 or 3) of the returned data.
 	
 	<ul id="tab">
 		<li class="active">
@@ -218,6 +234,8 @@
 			\snippet TestCppClient.cpp marketdatatype
 		</li>
 	</ul>
+	
+	After invoking @ref IBApi::EClient::reqMarketDataType to fetch delayed data, subsequent @req IBApi::EClient::reqMktData requests that relays back delayed data will trigger error message <i>"Requested market data is not subscribed. Displaying delayed market data..."</i> via @ref IBApi::EWrapper::error. 
 	
 	<br><br>
 	
