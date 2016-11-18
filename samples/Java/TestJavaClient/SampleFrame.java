@@ -1274,12 +1274,6 @@ class SampleFrame extends JFrame implements EWrapper {
         String msg = EWrapperMsgGenerator.historicalData(reqId, date, open, high, low, close, volume, count, WAP, hasGaps);
     	m_tickers.add( msg );
     }
-    
-    public void historicalDataEnd(int reqId, String startDate, String endDate) {
-    	String msg = EWrapperMsgGenerator.historicalDataEnd(reqId, startDate, endDate);
-    	m_tickers.add( msg );
-    }
-    
 	public void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double wap, int count) {
 		String msg = EWrapperMsgGenerator.realtimeBar(reqId, time, open, high, low, close, volume, wap, count);
         m_tickers.add( msg );

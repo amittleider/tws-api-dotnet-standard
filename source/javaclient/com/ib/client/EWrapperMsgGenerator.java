@@ -440,12 +440,6 @@ public class EWrapperMsgGenerator {
         " WAP=" + WAP +
         " hasGaps=" + hasGaps;
     }
-    static public String historicalDataEnd(int reqId, String startDate, String endDate) {
-    	return "id=" + reqId +
-    			" start date = " + startDate +
-    			" end date=" + endDate;
-    }
-    
 	public static String realtimeBar(int reqId, long time, double open,
 			double high, double low, double close, long volume, double wap, int count) {
         return "id=" + reqId +

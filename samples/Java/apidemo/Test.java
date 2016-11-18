@@ -260,8 +260,4 @@ public class Test implements EWrapper {
     @Override
     public void familyCodes(FamilyCode[] familyCodes) {
     }
-
-	@Override
-	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
-	}
 }
