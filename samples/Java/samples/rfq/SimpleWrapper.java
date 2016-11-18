@@ -23,7 +23,6 @@ import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
-import com.ib.client.TickAttr;
 
 
 public class SimpleWrapper implements EWrapper {
@@ -112,7 +111,7 @@ public class SimpleWrapper implements EWrapper {
 	 * EWrapper
 	 *****************************************************************/
 
-	public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
+	public void tickPrice(int tickerId, int field, double price, int canAutoExecute) {
 		logIn("tickPrice");
 	}
 

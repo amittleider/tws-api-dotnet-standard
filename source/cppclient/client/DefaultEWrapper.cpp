@@ -4,7 +4,7 @@
 #include "StdAfx.h"
 #include "DefaultEWrapper.h"
 
-void DefaultEWrapper::tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attribs) { }
+void DefaultEWrapper::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) { }
 void DefaultEWrapper::tickSize( TickerId tickerId, TickType field, int size) { }
 void DefaultEWrapper::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
 	   double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) { }

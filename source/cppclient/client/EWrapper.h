@@ -8,7 +8,6 @@
 #include "CommonDefs.h"
 #include "SoftDollarTier.h"
 #include "FamilyCode.h"
-#include "TickAttrib.h"
 #include <string>
 #include <set>
 
@@ -104,7 +103,7 @@ class EWrapper
 public:
    virtual ~EWrapper() {};
 
-   virtual void tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attrib) = 0;
+   virtual void tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) = 0;
    virtual void tickSize( TickerId tickerId, TickType field, int size) = 0;
    virtual void tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
 	   double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) = 0;

@@ -27,7 +27,6 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
-import com.ib.client.TickAttr;
 import com.ib.client.TickType;
 import com.ib.client.Types.Right;
 import com.ib.client.Types.SecType;
@@ -119,7 +118,7 @@ public class OptionChainsPanel extends JPanel {
 		Timer m_timer = new Timer( 800, this);
 	    JLabel m_labUnderPrice = new JLabel();
 	    TopMktDataAdapter m_stockListener = new TopMktDataAdapter() {
-            @Override public void tickPrice(TickType tickType, double price, TickAttr attribs) {
+            @Override public void tickPrice(TickType tickType, double price, int canAutoExecute) {
                 if (tickType == TickType.LAST) {
                     m_labUnderPrice.setText( "" + price);
                 }
@@ -277,7 +276,7 @@ public class OptionChainsPanel extends JPanel {
 					m_c = contract;
 				}
 		
-				@Override public void tickPrice(TickType tickType, double price, TickAttr attribs) {
+				@Override public void tickPrice(TickType tickType, double price, int canAutoExecute) {
 					switch( tickType) {
 						case BID:
 							m_bid = price;

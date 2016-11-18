@@ -4,7 +4,6 @@
 #include "StdAfx.h"
 #include <assert.h>
 #include <string>
-#include <bitset>
 #include "EWrapper.h"
 #include "Order.h"
 #include "Contract.h"
@@ -30,28 +29,17 @@ const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
     double price;
 
     int size;
-    int attrMask;
+    int canAutoExecute;
 
     DECODE_FIELD( version);
     DECODE_FIELD( tickerId);
     DECODE_FIELD( tickTypeInt);
     DECODE_FIELD( price);
+
     DECODE_FIELD( size); // ver 2 field
-    DECODE_FIELD( attrMask); // ver 3 field
+    DECODE_FIELD( canAutoExecute); // ver 3 field
 
-	TickAttrib attrib;
-
-	attrib.canAutoExecute = attrMask == 1;
-
-	if (m_serverVersion >= MIN_SERVER_VER_PAST_LIMIT)
-	{
-		std::bitset<32> mask(attrMask);
-
-		attrib.canAutoExecute = mask[0];
-		attrib.pastLimit = mask[1];
-	}
-
-    m_pEWrapper->tickPrice( tickerId, (TickType)tickTypeInt, price, attrib);
+    m_pEWrapper->tickPrice( tickerId, (TickType)tickTypeInt, price, canAutoExecute);
 
     // process ver 2 fields
     {

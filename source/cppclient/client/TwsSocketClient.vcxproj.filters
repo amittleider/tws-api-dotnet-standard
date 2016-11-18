@@ -207,7 +207,7 @@
     <ClInclude Include="SoftDollarTier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TickAttrib.h">
+    <ClInclude Include="FamilyCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

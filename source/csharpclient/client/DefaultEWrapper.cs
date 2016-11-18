@@ -25,7 +25,7 @@ namespace IBApi
         {
         }
 
-        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
+        public virtual void tickPrice(int tickerId, int field, double price, int canAutoExecute)
         {
         }
 

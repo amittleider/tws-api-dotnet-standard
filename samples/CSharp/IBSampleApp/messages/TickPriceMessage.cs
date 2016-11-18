@@ -1,5 +1,4 @@
-﻿using IBApi;
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -11,19 +10,18 @@ namespace IBSampleApp.messages
     public class TickPriceMessage : MarketDataMessage
     {
         private double price;
-        private TickAttrib attribs;
+        private int canAutoExecute;
 
-        public TickPriceMessage(int requestId, int field, double price, TickAttrib attribs)
-            : base(MessageType.TickPrice, requestId, field)
+        public TickPriceMessage(int requestId, int field, double price, int canAutoExecute) : base(MessageType.TickPrice, requestId, field)
         {
             this.price = price;
-            this.attribs = attribs;
+            this.canAutoExecute = canAutoExecute;
         }
 
-        public TickAttrib Attribs
+        public int CanAutoExecute
         {
-            get { return attribs; }
-            set { attribs = value; }
+            get { return canAutoExecute; }
+            set { canAutoExecute = value; }
         }
         public double Price
         {

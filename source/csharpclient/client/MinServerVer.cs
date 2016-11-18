@@ -67,6 +67,5 @@ namespace IBApi
         public const int EXT_OPERATOR = 105;
         public const int SOFT_DOLLAR_TIER = 106;
         public const int REQ_FAMILY_CODES = 107;
-        public const int PAST_LIMIT = 109;
     }
 }
