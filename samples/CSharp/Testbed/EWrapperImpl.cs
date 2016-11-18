@@ -444,5 +444,25 @@ namespace Samples
         }
         //! [familyCodes]
 
+        //! [symbolSamples]
+        public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) 
+        {
+            string derivSecTypes;
+            Console.WriteLine("Symbol Samples. Request Id: {0}", reqId);
+
+            foreach (var contractDescription in contractDescriptions)
+            {
+                derivSecTypes = "";
+                foreach (var derivSecType in contractDescription.DerivativeSecTypes)
+                {
+                    derivSecTypes += derivSecType;
+                    derivSecTypes += " ";
+                }
+                Console.WriteLine("Contract: conId - {0}, symbol - {1}, secType - {2}, primExchange - {3}, currency - {4}, derivativeSecTypes - {5}", 
+                    contractDescription.Contract.ConId, contractDescription.Contract.Symbol, contractDescription.Contract.SecType, 
+                    contractDescription.Contract.PrimaryExch, contractDescription.Contract.Currency, derivSecTypes);
+            }
+        }
+        //! [symbolSamples]
     }
 }

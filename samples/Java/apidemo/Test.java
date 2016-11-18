@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
+import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.EClientSocket;
@@ -259,5 +260,9 @@ public class Test implements EWrapper {
 
     @Override
     public void familyCodes(FamilyCode[] familyCodes) {
+    }
+
+    @Override
+    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
     }
 }

@@ -62,6 +62,8 @@ enum State {
 	ST_CANCELORDER_ACK,
 	ST_FAMILYCODES,
 	ST_FAMILYCODES_ACK,
+	ST_SYMBOLSAMPLES,
+	ST_SYMBOLSAMPLES_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -108,6 +110,7 @@ private:
 	void testDisplayGroups();
 	void miscelaneous();
 	void reqFamilyCodes();
+	void reqMatchingSymbols();
 
 	void reqCurrentTime();
 
@@ -183,6 +186,7 @@ public:
     void securityDefinitionOptionalParameterEnd(int reqId);
 	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
 	void familyCodes(const std::vector<FamilyCode> &familyCodes);
+	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 
 private:
 	//! [socket_declare]

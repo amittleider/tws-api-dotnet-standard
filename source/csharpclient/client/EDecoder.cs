@@ -348,6 +348,11 @@ namespace IBApi
                         FamilyCodesEvent();
                         break;
                     }
+                case IncomingMessage.SymbolSamples:
+                    {
+                        SymbolSamplesEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -356,6 +361,46 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void SymbolSamplesEvent()
+        {
+            int reqId = ReadInt();
+            ContractDescription[] contractDescriptions = new ContractDescription[0];
+            int nContractDescriptions = ReadInt();
+
+            if (nContractDescriptions > 0)
+            {
+                Array.Resize(ref contractDescriptions, nContractDescriptions);
+
+                for (int i = 0; i < nContractDescriptions; ++i)
+                {
+                    // read contract fields
+                    Contract contract = new Contract();
+                    contract.ConId = ReadInt();
+                    contract.Symbol = ReadString();
+                    contract.SecType = ReadString();
+                    contract.PrimaryExch = ReadString();
+                    contract.Currency = ReadString();
+
+                    // read derivative sec types list
+                    string[] derivativeSecTypes = new string[0];
+                    int nDerivativeSecTypes = ReadInt();
+                    if (nDerivativeSecTypes > 0)
+                    {
+                        Array.Resize(ref derivativeSecTypes, nDerivativeSecTypes);
+                        for (int j = 0; j < nDerivativeSecTypes; ++j)
+                        {
+                            derivativeSecTypes[j] = ReadString();
+                        }
+                    }
+
+                    ContractDescription contractDescription = new ContractDescription(contract, derivativeSecTypes);
+                    contractDescriptions[i] = contractDescription;
+                }
+            }
+
+            eWrapper.symbolSamples(reqId, contractDescriptions);
         }
 
         private void FamilyCodesEvent()

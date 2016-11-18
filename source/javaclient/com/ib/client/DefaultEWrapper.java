@@ -378,4 +378,10 @@ class DefaultEWrapper implements EWrapper {
 		
 	}
 	
+	@Override
+	public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

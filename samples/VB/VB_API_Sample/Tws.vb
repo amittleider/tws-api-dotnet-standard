@@ -576,6 +576,15 @@ Friend Class Tws
                          End Sub)
     End Sub
 
+    Public Sub symbolSamples(reqId As Integer, contractDescriptions() As ContractDescription) Implements EWrapper.symbolSamples
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnSymbolSamples(Me, New AxTWSLib._DTWsEvents_symbolSamplesEvent With {
+                                                        .reqId = reqId,
+                                                        .contractDescriptions = contractDescriptions
+                                                        })
+                         End Sub)
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
@@ -821,6 +830,10 @@ Friend Class Tws
         socket.reqFamilyCodes()
     End Sub
 
+    Sub reqMatchingSymbols(reqId As Integer, pattern As String)
+        socket.reqMatchingSymbols(reqId, pattern)
+    End Sub
+
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
     Event OnErrMsg(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_errMsgEvent)
     Event OnConnectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
@@ -875,6 +888,7 @@ Friend Class Tws
     Event OnverifyAndAuthCompleted(tws As Tws, DTwsEvents_verifyAndAuthCompletedEvent As AxTWSLib._DTwsEvents_verifyAndAuthCompletedEvent)
     Event OnverifyAndAuthMessageAPI(tws As Tws, DTwsEvents_verifyAndAuthMessageAPIEvent As AxTWSLib._DTwsEvents_verifyAndAuthMessageAPIEvent)
     Event OnFamilyCodes(tws As Tws, DTwsEvents_familyCodesEvent As AxTWSLib._DTWsEvents_familyCodesEvent)
+    Event OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTwsEvents_symbolSamplesEvent)
 
 
 End Class

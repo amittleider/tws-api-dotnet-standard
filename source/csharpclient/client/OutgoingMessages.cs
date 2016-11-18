@@ -66,5 +66,6 @@ namespace IBApi
         RequestSecurityDefinitionOptionalParameters = 78,
         RequestSoftDollarTiers = 79,
         RequestFamilyCodes = 80,
+        RequestMatchingSymbols = 81,
     }
 }

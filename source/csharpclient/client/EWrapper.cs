@@ -695,5 +695,11 @@ namespace IBApi
         */
         void familyCodes(FamilyCode[] familyCodes);
 
+        /**
+        * @brief returns array of sample contract descriptions
+        * @param ContractDescription[]
+        * @sa EClient::reqMatchingSymbols
+        */
+        void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
     }
 }

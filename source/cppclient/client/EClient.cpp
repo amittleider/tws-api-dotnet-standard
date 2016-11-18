@@ -2725,6 +2725,29 @@ void EClient::reqFamilyCodes()
 	closeAndSend(msg.str());
 }
 
+void EClient::reqMatchingSymbols(int reqId, const std::string& pattern)
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_MATCHING_SYMBOLS) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support matching symbols requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_MATCHING_SYMBOLS);
+	ENCODE_FIELD(reqId);
+	ENCODE_FIELD(pattern);
+
+	closeAndSend(msg.str());
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);

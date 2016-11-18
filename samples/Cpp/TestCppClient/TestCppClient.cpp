@@ -225,6 +225,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_FAMILYCODES_ACK:
 			break;
+		case ST_SYMBOLSAMPLES:
+			reqMatchingSymbols();
+			break;
+		case ST_SYMBOLSAMPLES_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -850,6 +855,14 @@ void TestCppClient::reqFamilyCodes()
 	m_state = ST_FAMILYCODES_ACK;
 }
 
+void TestCppClient::reqMatchingSymbols()
+{
+	/*** Request TWS' mathing symbols ***/
+	m_pClient->reqMatchingSymbols(11001, "IBM");
+
+	m_state = ST_SYMBOLSAMPLES_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -877,7 +890,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAOPERATIONS;
 	//m_state = ST_DISPLAYGROUPS;
 	//m_state = ST_MISCELANEOUS;
-	m_state = ST_FAMILYCODES;
+	//m_state = ST_FAMILYCODES;
+	m_state = ST_SYMBOLSAMPLES;
 	//m_state = ST_PING;
 }
 
@@ -1224,3 +1238,21 @@ void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
 	}
 }
 //! [familyCodes]
+
+//! [symbolSamples]
+void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {
+	printf("Symbol Samples (total=%d) reqId: %d\n", contractDescriptions.size(), reqId);
+
+	for (int i = 0; i < contractDescriptions.size(); i++) {
+//! [symbolSamples]
+		Contract contract = contractDescriptions[i].contract;
+		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
+		printf("Contract (%d): %d %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
+		printf("Derivative Sec-types (%d):", derivativeSecTypes.size());
+		for (int j = 0; j < derivativeSecTypes.size(); j++) {
+			printf(" %s", derivativeSecTypes[j].c_str());
+		}
+		printf("\n");
+	}
+}
+//! [symbolSamples]

@@ -2354,6 +2354,29 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFAMILYCODES);
         }
 
+         /**
+         * @brief Requests matching symbols (implements 'google-like' suggestions as user starts typing symbol or contract name)
+         * @params pattern - user typed string pattern
+         * @sa EWrapper::symbolSamples
+         */
+        public void reqMatchingSymbols(int reqId, string pattern)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_MATCHING_SYMBOLS,
+                " It does not support mathing symbols requests."))
+                return;
+            
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestMatchingSymbols);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(pattern);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMATCHINGSYMBOLS);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");
