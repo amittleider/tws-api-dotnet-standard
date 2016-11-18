@@ -625,9 +625,10 @@ class EDecoder implements ObjectInput {
 	private void processHistoricalDataMsg() throws IOException {
 		int version = readInt();
 		  int reqId = readInt();
-		  String startDateStr;
-		  String endDateStr;
-		  String completedIndicator = "finished";
+		  String startDateStr = "";
+		  String endDateStr = "";
+		  String completedIndicator = "finished";		 
+		  
 		  if (version >= 2) {
 			  startDateStr = readStr();
 			  endDateStr = readStr();
@@ -652,7 +653,7 @@ class EDecoder implements ObjectInput {
 		                            Boolean.valueOf(hasGaps).booleanValue());
 		  }
 		  // send end of dataset marker
-		  m_EWrapper.historicalData(reqId, completedIndicator, -1, -1, -1, -1, -1, -1, -1, false);
+		  m_EWrapper.historicalDataEnd(reqId, startDateStr, endDateStr);
 	}
 
 	private void processReceiveFaMsg() throws IOException {

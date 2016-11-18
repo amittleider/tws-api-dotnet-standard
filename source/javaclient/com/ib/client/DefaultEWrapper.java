@@ -377,6 +377,12 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	@Override
 	public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
