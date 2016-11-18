@@ -1388,4 +1388,13 @@ public class ApiController implements EWrapper {
         }
         recEOM();
     }
+
+	@Override
+	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
+		IHistoricalDataHandler handler = m_historicalDataMap.get(reqId);
+		
+		if (handler != null) {
+			handler.historicalDataEnd();
+		}
+	}
 }

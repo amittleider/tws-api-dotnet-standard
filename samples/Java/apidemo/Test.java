@@ -265,4 +265,8 @@ public class Test implements EWrapper {
     @Override
     public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
     }
+
+	@Override
+	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
+	}
 }

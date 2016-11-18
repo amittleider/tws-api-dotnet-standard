@@ -239,6 +239,14 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [historicaldata]
 	
+	//! [historicaldataend]
+	@Override
+	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
+		System.out.println("HistoricalData. "+reqId+" - Start Date: "+startDateStr+", End Date: "+endDateStr);
+	}
+	//! [historicaldataend]
+	
+	
 	//! [scannerparameters]
 	@Override
 	public void scannerParameters(String xml) {

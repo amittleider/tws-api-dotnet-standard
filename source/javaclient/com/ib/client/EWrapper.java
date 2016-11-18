@@ -78,5 +78,6 @@ public interface EWrapper {
 	void softDollarTiers(int reqId, SoftDollarTier[] tiers);
     void familyCodes(FamilyCode[] familyCodes);
     void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
+	void historicalDataEnd(int reqId, String startDateStr, String endDateStr);
 }
 
