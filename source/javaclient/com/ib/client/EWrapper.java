@@ -9,7 +9,7 @@ public interface EWrapper {
     ///////////////////////////////////////////////////////////////////////
     // Interface methods
     ///////////////////////////////////////////////////////////////////////
-    void tickPrice( int tickerId, int field, double price, int canAutoExecute);
+    void tickPrice( int tickerId, int field, double price, TickAttr attrib);
     void tickSize( int tickerId, int field, int size);
     void tickOptionComputation( int tickerId, int field, double impliedVol,
     		double delta, double optPrice, double pvDividend,

@@ -52,7 +52,7 @@ namespace IBApi
          * @param canAutoExecute Specifies whether the price tick is available for automatic execution (1) or not (0).
          * @sa TickType, tickSize, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
-        void tickPrice(int tickerId, int field, double price, int canAutoExecute);
+        void tickPrice(int tickerId, int field, double price, TickAttrib attribs);
 
         /**
          * @brief Market data tick size callback.

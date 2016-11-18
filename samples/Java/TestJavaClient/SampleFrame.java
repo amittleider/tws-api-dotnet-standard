@@ -33,6 +33,7 @@ import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
 import com.ib.client.TagValue;
+import com.ib.client.TickAttr;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
@@ -1041,9 +1042,9 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqFamilyCodes();
     }
 
-    public void tickPrice( int tickerId, int field, double price, int canAutoExecute) {
+    public void tickPrice( int tickerId, int field, double price, TickAttr attribs) {
         // received price tick
-    	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, canAutoExecute);
+    	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, attribs);
         m_tickers.add( msg );
     }
 

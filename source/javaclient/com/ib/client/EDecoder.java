@@ -1528,14 +1528,27 @@ class EDecoder implements ObjectInput {
 		int tickType = readInt();
 		double price = readDouble();
 		int size = 0;
+		TickAttr attribs = new TickAttr();
+		
 		if( version >= 2) {
 		    size = readInt();
 		}
-		int canAutoExecute = 0;
-		if (version >= 3) {
-		    canAutoExecute = readInt();
+		
+		if (version >= 3) {		
+			int attrMask = readInt();			
+
+			attribs.canAutoExecute(attrMask == 1);
+			
+			if (m_serverVersion >= EClient.MIN_SERVER_VER_PAST_LIMIT) {
+				BitMask mask = new BitMask(attrMask);
+				
+				attribs.canAutoExecute(mask.get(0));
+				attribs.pastLimit(mask.get(1));
+			}
 		}
-		m_EWrapper.tickPrice( tickerId, tickType, price, canAutoExecute);
+
+		
+		m_EWrapper.tickPrice( tickerId, tickType, price, attribs);
 
 		if( version >= 2) {
 		    int sizeTickType = -1 ; // not a tick

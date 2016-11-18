@@ -12,9 +12,9 @@ public class EWrapperMsgGenerator {
     public static final String SCANNER_PARAMETERS = "SCANNER PARAMETERS:";
     public static final String FINANCIAL_ADVISOR = "FA:";
     
-	static public String tickPrice( int tickerId, int field, double price, int canAutoExecute) {
+	static public String tickPrice( int tickerId, int field, double price, TickAttr attribs) {
     	return "id=" + tickerId + "  " + TickType.getField( field) + "=" + price + " " + 
-        ((canAutoExecute != 0) ? " canAutoExecute" : " noAutoExecute");
+        (attribs.canAutoExecute() ? " canAutoExecute" : " noAutoExecute") + " pastLimit = " + attribs.pastLimit();
     }
 	
     static public String tickSize( int tickerId, int field, int size) {
