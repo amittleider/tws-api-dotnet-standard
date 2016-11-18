@@ -31,6 +31,7 @@ import com.ib.client.OrderStatus;
 import com.ib.client.ScannerSubscription;
 import com.ib.client.SoftDollarTier;
 import com.ib.client.TagValue;
+import com.ib.client.TickAttr;
 import com.ib.client.TickType;
 import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DeepSide;
@@ -459,7 +460,7 @@ public class ApiController implements EWrapper {
 
 	// ---------------------------------------- Top Market Data handling ----------------------------------------
 	public interface ITopMktDataHandler {
-		void tickPrice(TickType tickType, double price, int canAutoExecute);
+		void tickPrice(TickType tickType, double price, TickAttr attribs);
 		void tickSize(TickType tickType, int size);
 		void tickString(TickType tickType, String value);
 		void tickSnapshotEnd();
@@ -475,7 +476,7 @@ public class ApiController implements EWrapper {
 	}
 
 	public static class TopMktDataAdapter implements ITopMktDataHandler {
-		@Override public void tickPrice(TickType tickType, double price, int canAutoExecute) {
+		@Override public void tickPrice(TickType tickType, double price, TickAttr attribs) {
 		}
 		@Override public void tickSize(TickType tickType, int size) {
 		}
@@ -551,10 +552,10 @@ public class ApiController implements EWrapper {
 		sendEOM();
 	}
 
-	@Override public void tickPrice(int reqId, int tickType, double price, int canAutoExecute) {
+	@Override public void tickPrice(int reqId, int tickType, double price, TickAttr attribs) {
 		ITopMktDataHandler handler = m_topMktDataMap.get( reqId);
 		if (handler != null) {
-			handler.tickPrice( TickType.get( tickType), price, canAutoExecute);
+			handler.tickPrice( TickType.get( tickType), price, attribs);
 		}
 		recEOM();
 	}
@@ -562,7 +563,7 @@ public class ApiController implements EWrapper {
 	@Override public void tickGeneric(int reqId, int tickType, double value) {
 		ITopMktDataHandler handler = m_topMktDataMap.get( reqId);
 		if (handler != null) {
-			handler.tickPrice( TickType.get( tickType), value, 0);
+			handler.tickPrice( TickType.get( tickType), value, new TickAttr());
 		}
 		recEOM();
 	}

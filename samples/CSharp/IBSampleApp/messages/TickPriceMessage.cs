@@ -4,24 +4,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IBApi;
 
 namespace IBSampleApp.messages
 {
     public class TickPriceMessage : MarketDataMessage
     {
         private double price;
-        private int canAutoExecute;
+        private TickAttrib attribs;
 
-        public TickPriceMessage(int requestId, int field, double price, int canAutoExecute) : base(MessageType.TickPrice, requestId, field)
+        public TickPriceMessage(int requestId, int field, double price, TickAttrib attribs)
+            : base(MessageType.TickPrice, requestId, field)
         {
             this.price = price;
-            this.canAutoExecute = canAutoExecute;
+            this.attribs = attribs;
         }
 
-        public int CanAutoExecute
+        public TickAttrib Attribs
         {
-            get { return canAutoExecute; }
-            set { canAutoExecute = value; }
+            get { return attribs; }
+            set { attribs = value; }
         }
         public double Price
         {
