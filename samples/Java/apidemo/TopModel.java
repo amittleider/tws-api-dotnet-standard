@@ -15,7 +15,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import com.ib.client.Contract;
-import com.ib.client.TickAttr;
 import com.ib.client.TickType;
 import com.ib.client.Types.MktDataType;
 import com.ib.controller.ApiController.TopMktDataAdapter;
@@ -113,7 +112,7 @@ class TopModel extends AbstractTableModel {
 			return m_close == 0	? null : fmtPct( (m_last - m_close) / m_close);
 		}
 
-		@Override public void tickPrice( TickType tickType, double price, TickAttr attribs) {
+		@Override public void tickPrice( TickType tickType, double price, int canAutoExecute) {
 			switch( tickType) {
 				case BID:
 					m_bid = price;

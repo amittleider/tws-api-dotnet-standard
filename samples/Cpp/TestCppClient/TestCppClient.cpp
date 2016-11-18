@@ -857,7 +857,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-	m_state = ST_TICKDATAOPERATION;
+	//m_state = ST_TICKDATAOPERATION;
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
@@ -877,7 +877,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAOPERATIONS;
 	//m_state = ST_DISPLAYGROUPS;
 	//m_state = ST_MISCELANEOUS;
-	//m_state = ST_FAMILYCODES;
+	m_state = ST_FAMILYCODES;
 	//m_state = ST_PING;
 }
 
@@ -904,8 +904,8 @@ void TestCppClient::error(const int id, const int errorCode, const std::string e
 //! [error]
 
 //! [tickprice]
-void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attribs) {
-	printf( "Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d\n, PastLimit: %d\n", tickerId, (int)field, price, attribs.canAutoExecute, attribs.pastLimit);
+void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {
+	printf( "Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d\n", tickerId, (int)field, price, canAutoExecute);
 }
 //! [tickprice]
 

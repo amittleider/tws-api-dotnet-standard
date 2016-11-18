@@ -67,9 +67,9 @@ namespace Samples
         }
 
         //! [tickprice]
-        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs) 
+        public virtual void tickPrice(int tickerId, int field, double price, int canAutoExecute) 
         {
-            Console.WriteLine("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+attribs.CanAutoExecute + ", PastLimit" + attribs.PastLimit);
+            Console.WriteLine("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+canAutoExecute);
         }
         //! [tickprice]
         

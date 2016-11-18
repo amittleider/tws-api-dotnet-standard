@@ -19,7 +19,6 @@ import com.ib.client.FamilyCode;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
-import com.ib.client.TickAttr;
 
 public class Test implements EWrapper {
 	EJavaSignal m_signal = new EJavaSignal();
@@ -85,7 +84,7 @@ public class Test implements EWrapper {
 	@Override public void error(String str) {
 	}
 
-	@Override public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
+	@Override public void tickPrice(int tickerId, int field, double price, int canAutoExecute) {
 	}
 
 	@Override public void tickSize(int tickerId, int field, int size) {

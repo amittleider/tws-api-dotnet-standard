@@ -946,13 +946,13 @@ namespace TWSLib
 
         #region events
 
-        public delegate void tickPriceDelegate(int id, int tickType, double price, bool canAutoExecute, bool pastLimit);
+        public delegate void tickPriceDelegate(int id, int tickType, double price, int canAutoExecute);
         public event tickPriceDelegate tickPrice;
-        void EWrapper.tickPrice(int tickerId, int field, double price, TickAttrib attribs)
+        void EWrapper.tickPrice(int tickerId, int field, double price, int canAutoExecute)
         {
             var t_tickPrice = this.tickPrice;
             if (t_tickPrice != null)
-                InvokeIfRequired(t_tickPrice, tickerId, field, price, attribs.CanAutoExecute, attribs.PastLimit);
+                InvokeIfRequired(t_tickPrice, tickerId, field, price, canAutoExecute);
         }
 
         public delegate void tickSizeDelegate(int id, int tickType, int size);
