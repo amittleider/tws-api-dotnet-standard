@@ -271,6 +271,11 @@ Module MainModule
         '! [reqcontractdetailsnews]
         client.reqContractDetails(211, ContractSamples.NewsFeedForQuery())
         '! [reqcontractdetailsnews]
+
+        Thread.Sleep(2000)
+        ''! [reqMatchingSymbols]
+        client.reqMatchingSymbols(202, "IB")
+        ''! [reqMatchingSymbols]
     End Sub
 
     Private Sub marketScanners(client As EClientSocket)

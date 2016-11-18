@@ -60,6 +60,9 @@
     <Compile Include="..\client\ContractCondition.cs">
       <Link>CSharpAPI\ContractCondition.cs</Link>
     </Compile>
+    <Compile Include="..\client\ContractDescription.cs">
+      <Link>CSharpAPI\ContractDescription.cs</Link>
+    </Compile>
     <Compile Include="..\client\ContractDetails.cs">
       <Link>CSharpAPI\ContractDetails.cs</Link>
     </Compile>
@@ -186,9 +189,11 @@
     <Compile Include="ComWrappers\comComboLeg.cs" />
     <Compile Include="ComWrappers\comCommissionReport.cs" />
     <Compile Include="ComWrappers\comContract.cs" />
+    <Compile Include="ComWrappers\ComContractDescription.cs" />
     <Compile Include="ComWrappers\comContractDetails.cs" />
     <Compile Include="ComWrappers\comExecution.cs" />
     <Compile Include="ComWrappers\comExecutionFilter.cs" />
+    <Compile Include="ComWrappers\ComFamilyCode.cs" />
     <Compile Include="ComWrappers\ComList.cs" />
     <Compile Include="ComWrappers\comOrder.cs" />
     <Compile Include="ComWrappers\comOrderComboLeg.cs" />
@@ -198,16 +203,17 @@
     <Compile Include="ComWrappers\ComTagValue.cs" />
     <Compile Include="ComWrappers\comUnderComp.cs" />
     <Compile Include="ComWrappers\ComWrapper.cs" />
-    <Compile Include="ComWrappers\ComFamilyCode.cs" />
-    <Compile Include="ControlImpl\IFamilyCodeList.cs" />
-    <Compile Include="ControlImpl\IFamilyCode.cs" />
     <Compile Include="ControlImpl\IComboLeg.cs" />
     <Compile Include="ControlImpl\IComboLegList.cs" />
     <Compile Include="ControlImpl\ICommissionReport.cs" />
     <Compile Include="ControlImpl\IContract.cs" />
+    <Compile Include="ControlImpl\IContractDescription.cs" />
+    <Compile Include="ControlImpl\IContractDescriptionList.cs" />
     <Compile Include="ControlImpl\IContractDetails.cs" />
     <Compile Include="ControlImpl\IExecution.cs" />
     <Compile Include="ControlImpl\IExecutionFilter.cs" />
+    <Compile Include="ControlImpl\IFamilyCodeList.cs" />
+    <Compile Include="ControlImpl\IFamilyCode.cs" />
     <Compile Include="ControlImpl\IOrder.cs" />
     <Compile Include="ControlImpl\IOrderComboLeg.cs" />
     <Compile Include="ControlImpl\IOrderComboLegList.cs" />

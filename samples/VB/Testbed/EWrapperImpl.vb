@@ -389,6 +389,25 @@ Namespace Samples
         End Sub
         '! [familyCodes]
 
+        '! [symbolSamples]
+        Public Sub symbolSamples(reqId As Integer, contractDescriptions As ContractDescription()) Implements EWrapper.symbolSamples
+            Dim derivSecTypes As String
+
+            Console.WriteLine("Symbol Samples. Request Id: " & reqId)
+
+            For Each contractDescription In contractDescriptions
+                derivSecTypes = ""
+                For Each derivSecType In contractDescription.DerivativeSecTypes
+                    derivSecTypes += derivSecType
+                    derivSecTypes += " "
+                Next
+                Console.WriteLine("Contract: conId - " & contractDescription.Contract.ConId & ", symbol - " & contractDescription.Contract.Symbol &
+                                  ", secType -" & contractDescription.Contract.SecType & ", primExchange - " & contractDescription.Contract.PrimaryExch &
+                                  ", currency - " & contractDescription.Contract.Currency & ", derivativeSecTypes - " & derivSecTypes)
+            Next
+        End Sub
+        '! [symbolSamples]
+
     End Class
 
 End Namespace

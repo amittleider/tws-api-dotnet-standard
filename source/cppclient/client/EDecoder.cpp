@@ -1691,6 +1691,44 @@ const char* EDecoder::processFamilyCodesMsg(const char* ptr, const char* endPtr)
 	return ptr;
 }
 
+const char* EDecoder::processSymbolSamplesMsg(const char* ptr, const char* endPtr) 
+{
+	int reqId;
+	typedef std::vector<ContractDescription> ContractDescriptionList;
+	ContractDescriptionList contractDescriptions;
+	int nContractDescriptions = 0;
+	DECODE_FIELD( reqId);
+	DECODE_FIELD( nContractDescriptions);
+
+	if (nContractDescriptions > 0) {
+		contractDescriptions.resize(nContractDescriptions);
+		for( int i = 0; i < nContractDescriptions; ++i) {
+			ContractDescription& contractDescription = contractDescriptions[i];
+			Contract& contract = contractDescription.contract;
+			DECODE_FIELD( contract.conId);
+			DECODE_FIELD( contract.symbol);
+			DECODE_FIELD( contract.secType);
+			DECODE_FIELD( contract.primaryExchange);
+			DECODE_FIELD( contract.currency);
+
+			int nDerivativeSecTypes = 0;
+			DECODE_FIELD(nDerivativeSecTypes);
+			if (nDerivativeSecTypes <= 0)
+				continue;
+
+			ContractDescription::DerivativeSecTypesList& derivativeSecTypes = contractDescription.derivativeSecTypes;
+			derivativeSecTypes.resize(nDerivativeSecTypes);
+			for (int j = 0; j < nDerivativeSecTypes; ++j){
+				DECODE_FIELD( derivativeSecTypes[j]);
+			}
+		}
+	}
+
+	m_pEWrapper->symbolSamples(reqId, contractDescriptions);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -1978,6 +2016,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case FAMILY_CODES:
 			ptr = processFamilyCodesMsg(ptr, endPtr);
+			break;
+
+		case SYMBOL_SAMPLES:
+			ptr = processSymbolSamplesMsg(ptr, endPtr);
 			break;
 
         default:

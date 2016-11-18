@@ -246,5 +246,8 @@ namespace IBApi
         {
         }
 
+        public void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        {
+        }
     }
 }

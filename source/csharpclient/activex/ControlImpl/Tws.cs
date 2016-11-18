@@ -1748,6 +1748,24 @@ namespace TWSLib
                 InvokeIfRequired(t_familyCodes, familyCodes.Length > 0 ? new ComFamilyCodeList(familyCodes) : null);
         }
 
+        public delegate void symbolSamplesDelegate(int reqId, IContractDescriptionList contractDescriptions);
+        public event symbolSamplesDelegate symbolSamples;
+        void EWrapper.symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        {
+            var t_symbolSamples = this.symbolSamples;
+
+            if (t_symbolSamples != null)
+                InvokeIfRequired(t_symbolSamples, reqId, ContractDescriptionsArrayToIContractDescriptionList(contractDescriptions));
+        }
+
+        private static IContractDescriptionList ContractDescriptionsArrayToIContractDescriptionList(ContractDescription[] contractDescriptions)
+        {
+            if (contractDescriptions.Length <= 0)
+                return null;
+
+            return new ComContractDescriptionList(contractDescriptions);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1860,6 +1878,11 @@ namespace TWSLib
         public void reqFamilyCodes()
         {
             socket.reqFamilyCodes();
+        }
+
+        public void reqMatchingSymbols(int reqId, string pattern)
+        {
+            socket.reqMatchingSymbols(reqId, pattern);
         }
 
         public ArrayList ParseConditions(string str)

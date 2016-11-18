@@ -119,6 +119,7 @@ public:
 	void securityDefinitionOptionalParameterEnd(int reqId);
 	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
 	void familyCodes(const std::vector<FamilyCode> &familyCodes);
+	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 
 private:
 

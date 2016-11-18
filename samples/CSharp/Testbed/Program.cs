@@ -251,6 +251,11 @@ namespace Samples
             //! [reqcontractdetails]
             client.reqContractDetails(210, ContractSamples.OptionForQuery());
             //! [reqcontractdetails]
+
+            Thread.Sleep(2000);
+            //! [reqMatchingSymbols]
+            client.reqMatchingSymbols(211, "IB");
+            //! [reqMatchingSymbols]
         }
 
         private static void contractNewsFeed(EClientSocket client)
