@@ -177,6 +177,15 @@ namespace TWSLib
         }
 
         /**
+        * @brief Lot Size
+        */
+        public int LotSize
+        {
+            get { return data != null ? data.LotSize : default(int); }
+            set { if (data != null) data.LotSize = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -498,6 +507,11 @@ namespace TWSLib
         double TWSLib.IContractDetails.evMultiplier
         {
             get { return EvMultiplier; }
+        }
+
+        int TWSLib.IContractDetails.lotSize
+        {
+            get { return LotSize; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

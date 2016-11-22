@@ -6,6 +6,8 @@ class Contract;
 
 class ContractSamples {
 public:
+	static Contract IBMBond();
+	static Contract IBKRStk();
 	static Contract EurGbpFx();
 	static Contract Index();
 	static Contract CFD();

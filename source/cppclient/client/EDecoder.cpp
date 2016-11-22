@@ -798,6 +798,9 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
     DECODE_FIELD( contract.summary.tradingClass);
     DECODE_FIELD( contract.summary.conId);
     DECODE_FIELD( contract.minTick);
+    if (m_serverVersion >= MIN_SERVER_VER_LOT_SIZE) {
+        DECODE_FIELD( contract.lotSize);
+    }
     DECODE_FIELD( contract.summary.multiplier);
     DECODE_FIELD( contract.orderTypes);
     DECODE_FIELD( contract.validExchanges);
@@ -872,6 +875,9 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
     DECODE_FIELD( contract.summary.tradingClass);
     DECODE_FIELD( contract.summary.conId);
     DECODE_FIELD( contract.minTick);
+    if (m_serverVersion >= MIN_SERVER_VER_LOT_SIZE) {
+        DECODE_FIELD( contract.lotSize);
+    }
     DECODE_FIELD( contract.orderTypes);
     DECODE_FIELD( contract.validExchanges);
     DECODE_FIELD( contract.nextOptionDate); // ver 2 field

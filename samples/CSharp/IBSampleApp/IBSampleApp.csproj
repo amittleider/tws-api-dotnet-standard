@@ -63,6 +63,7 @@
     <Compile Include="messages\ContractDetailsMessage.cs" />
     <Compile Include="messages\AccountUpdateMultiMessage.cs" />
     <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
+    <Compile Include="messages\BondContractDetailsMessage.cs" />
     <Compile Include="messages\FamilyCodesMessage.cs" />
     <Compile Include="messages\PositionMultiEndMessage.cs" />
     <Compile Include="messages\PositionMultiMessage.cs" />

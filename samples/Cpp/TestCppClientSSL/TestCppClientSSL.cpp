@@ -216,7 +216,7 @@ void TestCppClient::error(const int id, const int errorCode, const std::string e
 		disconnect();
 }
 
-void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, int canAutoExecute) {}
+void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attrib) {};
 void TestCppClient::tickSize( TickerId tickerId, TickType field, int size) {}
 void TestCppClient::tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
                                           double optPrice, double pvDividend,

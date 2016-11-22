@@ -16,6 +16,7 @@ namespace IBSampleApp.ui
         private IBClient ibClient;
         private TextBox fundamentals;
         private DataGridView contractDetailsGrid;
+        private DataGridView bondContractDetailsGrid;
         private ComboContractResults comboContractResults;
 
         public const int CONTRACT_ID_BASE = 60000000;
@@ -26,12 +27,13 @@ namespace IBSampleApp.ui
 
         private bool contractRequestActive = false;
         private bool fundamentalsRequestActive = false;
-        
-        public ContractManager(IBClient ibClient, TextBox fundamentalsOutput, DataGridView contractDetailsGrid)
+
+        public ContractManager(IBClient ibClient, TextBox fundamentalsOutput, DataGridView contractDetailsGrid, DataGridView bondContractDetailsGrid)
         {
             IbClient = ibClient;
             Fundamentals = fundamentalsOutput;
             ContractDetailsGrid = contractDetailsGrid;
+            BondContractDetailsGrid = bondContractDetailsGrid;
             comboContractResults = new ComboContractResults();
 
         }
@@ -40,6 +42,9 @@ namespace IBSampleApp.ui
         {
             switch (message.Type)
             {
+                case MessageType.BondContractData:
+                    HandleBondContractMessage((BondContractDetailsMessage)message);
+                    break;
                 case MessageType.ContractData:
                     if (isComboLegRequest)
                         comboContractResults.UpdateUI((ContractDetailsMessage)message);
@@ -63,6 +68,39 @@ namespace IBSampleApp.ui
             IsComboLegRequest = false;
         }
 
+        public void HandleBondContractMessage(BondContractDetailsMessage bondContractDetailsMessage)
+        {
+            BondContractDetailsGrid.Rows.Add(1);
+
+            BondContractDetailsGrid[0, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Summary.ConId;
+            BondContractDetailsGrid[1, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Summary.Symbol;
+            BondContractDetailsGrid[2, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Summary.Exchange;
+            BondContractDetailsGrid[3, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Summary.Currency;
+            BondContractDetailsGrid[4, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Summary.TradingClass;
+            BondContractDetailsGrid[5, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.MarketName;
+            BondContractDetailsGrid[6, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.MinTick;
+            BondContractDetailsGrid[7, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.OrderTypes;
+            BondContractDetailsGrid[8, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.ValidExchanges;
+            BondContractDetailsGrid[9, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.LongName;
+            BondContractDetailsGrid[10, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.LotSize;
+            BondContractDetailsGrid[11, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Cusip;
+            BondContractDetailsGrid[12, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Ratings;
+            BondContractDetailsGrid[13, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.DescAppend;
+            BondContractDetailsGrid[14, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.BondType;
+            BondContractDetailsGrid[15, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.CouponType;
+            BondContractDetailsGrid[16, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Callable;
+            BondContractDetailsGrid[17, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Putable;
+            BondContractDetailsGrid[18, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Coupon;
+            BondContractDetailsGrid[19, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Convertible;
+            BondContractDetailsGrid[20, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Maturity;
+            BondContractDetailsGrid[21, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.IssueDate;
+            BondContractDetailsGrid[22, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionDate;
+            BondContractDetailsGrid[23, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionType;
+            BondContractDetailsGrid[24, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionPartial;
+            BondContractDetailsGrid[25, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Notes;
+        }
+
+
         public void HandleContractMessage(ContractDetailsMessage contractDetailsMessage)
         {
             ContractDetailsGrid.Rows.Add(1);
@@ -77,6 +115,7 @@ namespace IBSampleApp.ui
             ContractDetailsGrid[8, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.Strike;
             ContractDetailsGrid[9, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.Right;
             ContractDetailsGrid[10, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.ConId;
+            ContractDetailsGrid[11, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.LotSize;
         }
 
         public void HandleRequestError(int requestId)
@@ -101,6 +140,7 @@ namespace IBSampleApp.ui
             if (!contractRequestActive)
             {
                 contractDetailsGrid.Rows.Clear();
+                bondContractDetailsGrid.Rows.Clear();
                 ibClient.ClientSocket.reqContractDetails(CONTRACT_DETAILS_ID, contract);
             }
         }
@@ -142,6 +182,12 @@ namespace IBSampleApp.ui
         {
             get { return contractDetailsGrid; }
             set { contractDetailsGrid = value; }
+        }
+
+        public DataGridView BondContractDetailsGrid
+        {
+            get { return bondContractDetailsGrid; }
+            set { bondContractDetailsGrid = value; }
         }
 
         public bool IsComboLegRequest

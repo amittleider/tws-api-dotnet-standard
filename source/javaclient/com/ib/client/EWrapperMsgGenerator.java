@@ -299,6 +299,7 @@ public class EWrapperMsgGenerator {
         + "liquidHours = " + contractDetails.liquidHours() + "\n"
         + "evRule = " + contractDetails.evRule() + "\n"
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
+        + "lotSize = " + contractDetails.lotSize() + "\n"
         + contractDetailsSecIdList(contractDetails);
     	return msg;
     }
@@ -351,6 +352,7 @@ public class EWrapperMsgGenerator {
         + "longName = " + contractDetails.longName() + "\n"
         + "evRule = " + contractDetails.evRule() + "\n"
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
+        + "lotSize = " + contractDetails.lotSize() + "\n"
         + contractDetailsSecIdList(contractDetails)
         + " ---- Bond Contract Details End ----\n";
         return msg;

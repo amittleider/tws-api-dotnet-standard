@@ -228,10 +228,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_FAMILY_CODES = 107;
     protected static final int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS = 108;
     protected static final int MIN_SERVER_VER_PAST_LIMIT = 109;
+    protected static final int MIN_SERVER_VER_LOT_SIZE = 110;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-
-    public static final int MAX_VERSION = MIN_SERVER_VER_PAST_LIMIT; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_LOT_SIZE; // ditto
 
 
     protected EReaderSignal m_signal;

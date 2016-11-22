@@ -797,6 +797,10 @@ namespace IBApi
             contract.Summary.TradingClass = ReadString();
             contract.Summary.ConId = ReadInt();
             contract.MinTick = ReadDouble();
+            if (serverVersion >= MinServerVer.LOT_SIZE)
+            {
+                contract.LotSize = ReadInt();
+            }
             contract.OrderTypes = ReadString();
             contract.ValidExchanges = ReadString();
             if (msgVersion >= 2)
@@ -830,6 +834,7 @@ namespace IBApi
                     }
                 }
             }
+
             eWrapper.bondContractDetails(requestId, contract);
         }
 
@@ -1388,6 +1393,10 @@ namespace IBApi
             contract.Summary.TradingClass = ReadString();
             contract.Summary.ConId = ReadInt();
             contract.MinTick = ReadDouble();
+            if (serverVersion >= MinServerVer.LOT_SIZE)
+            {
+                contract.LotSize = ReadInt();
+            }
             contract.Summary.Multiplier = ReadString();
             contract.OrderTypes = ReadString();
             contract.ValidExchanges = ReadString();

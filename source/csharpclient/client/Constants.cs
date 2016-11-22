@@ -19,7 +19,7 @@ namespace IBApi
         public const int FaAliases = 3;
         public const int MinVersion = 100;
 
-        public const int MaxVersion = MinServerVer.PAST_LIMIT;
+        public const int MaxVersion = MinServerVer.LOT_SIZE;
         public const int MaxMsgSize = 0x00FFFFFF;
     }
 }

@@ -22,6 +22,28 @@
 	/*
      * Usually, the easiest way to define a Stock/CASH contract is through these four attributes.
      */
+Contract ContractSamples::IBMBond(){
+	//! [IBM bond contract]
+	Contract contract;
+	contract.symbol = "IBM";
+	contract.secType = "BOND";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [IBM bond contract]
+	return contract;
+}
+
+Contract ContractSamples::IBKRStk(){
+	//! [IBKR contract]
+	Contract contract;
+	contract.symbol = "IBKR";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [IBKR contract]
+	return contract;
+}
+
 Contract ContractSamples::EurGbpFx(){
 	//! [cashcontract]
 	Contract contract;
