@@ -2000,6 +2000,7 @@ Friend Class dlgMainWnd
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.EvRule)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.EvMultiplier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lotSize = " & contractDetails.LotSize)
 
         If (contract.SecType = "BOND") Then
 
@@ -2944,5 +2945,79 @@ Friend Class dlgMainWnd
 
         ' move into view
         lstServerResponses.TopIndex = offset
+    End Sub    
+
+    Private Sub Tws1_OnBondContractDetails(tws As Tws, DTwsEvents_bondContractDetailsEvent As AxTWSLib._DTwsEvents_bondContractDetailsEvent) Handles Tws1.OnBondContractDetails
+        Dim reqId As Long
+        reqId = DTwsEvents_bondContractDetailsEvent.reqId
+
+        Dim contractDetails As IBApi.ContractDetails
+        contractDetails = DTwsEvents_bondContractDetailsEvent.contractDetails
+
+        Dim contract As IBApi.Contract
+        contract = contractDetails.Summary
+
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "reqId = " & reqId & " ===================================")
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Bond Contract Details Begin ----")
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId = " & contract.ConId)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  symbol = " & contract.Symbol)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secType = " & contract.SecType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  exchange = " & contract.Exchange)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  currency = " & contract.Currency)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  tradingClass = " & contract.TradingClass)
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract Details:")
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  marketName = " & contractDetails.MarketName)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  minTick = " & contractDetails.MinTick)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderTypes = " & contractDetails.OrderTypes)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  validExchanges = " & contractDetails.ValidExchanges)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  longName = " & contractDetails.LongName)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.EvRule)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.EvMultiplier)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lotSize = " & contractDetails.LotSize)
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Bond Details:")
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cusip = " & contractDetails.Cusip)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  ratings = " & contractDetails.Ratings)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  descAppend = " & contractDetails.DescAppend)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  bondType = " & contractDetails.BondType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  couponType = " & contractDetails.CouponType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  callable = " & contractDetails.Callable)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  putable = " & contractDetails.Putable)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  coupon = " & contractDetails.Coupon)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  convertible = " & contractDetails.Convertible)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  maturity = " & contractDetails.Maturity)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  issueDate = " & contractDetails.IssueDate)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionDate = " & contractDetails.NextOptionDate)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionType = " & contractDetails.NextOptionType)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  nextOptionPartial = " & contractDetails.NextOptionPartial)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  notes = " & contractDetails.Notes)
+
+        ' CUSIP/ISIN/etc.
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  secIdList={")
+        Dim secIdList As List(Of IBApi.TagValue)
+        secIdList = contractDetails.SecIdList
+        If (Not secIdList Is Nothing) Then
+            Dim secIdListCount As Long
+            secIdListCount = secIdList.Count
+            Dim iLoop As Long
+            For iLoop = 0 To secIdListCount - 1
+                Dim param As IBApi.TagValue
+                param = secIdList.Item(iLoop)
+                Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "    " & param.Tag & "=" & param.Value)
+            Next iLoop
+        End If
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Bond Contract Details End ----")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
     End Sub
+
 End Class

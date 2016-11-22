@@ -49,7 +49,7 @@ private:
 
 public:
 	// events
-	void tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute);
+	void tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attrib);
 	void tickSize(TickerId tickerId, TickType field, int size);
 	void tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
 		double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);

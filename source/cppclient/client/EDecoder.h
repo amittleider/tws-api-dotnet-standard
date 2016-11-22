@@ -59,12 +59,13 @@ const int MIN_SERVER_VER_SOFT_DOLLAR_TIER		= 106;
 const int MIN_SERVER_VER_REQ_FAMILY_CODES		= 107;
 const int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS	= 108;
 const int MIN_SERVER_VER_PAST_LIMIT				= 109;
+const int MIN_SERVER_VER_LOT_SIZE				= 110;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_PAST_LIMIT;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_LOT_SIZE;
 
 
 // incoming msg id's

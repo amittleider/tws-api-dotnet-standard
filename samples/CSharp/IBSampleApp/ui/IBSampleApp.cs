@@ -60,7 +60,7 @@ namespace IBSampleApp
             scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid, familyCodesGrid);
-            contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
+            contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid, bondContractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
@@ -143,7 +143,7 @@ namespace IBSampleApp
             
             ibClient.ScannerDataEnd += reqId => addTextToBox("ScannerDataEnd. " + reqId + "\r\n");
             ibClient.ReceiveFA += (faDataType, faXmlData) => HandleMessage(new AdvisorDataMessage(faDataType, faXmlData));
-            ibClient.BondContractDetails += (requestId, contractDetails) => addTextToBox("Receiving bond contract details.");
+            ibClient.BondContractDetails += (requestId, contractDetails) => HandleMessage(new BondContractDetailsMessage(requestId, contractDetails));
             ibClient.VerifyMessageAPI += apiData => addTextToBox("verifyMessageAPI: " + apiData);
             ibClient.VerifyCompleted += (isSuccessful, errorText) => addTextToBox("verifyCompleted. IsSuccessfule: " + isSuccessful + " - Error: " + errorText);
             ibClient.VerifyAndAuthMessageAPI += (apiData, xyzChallenge) => addTextToBox("verifyAndAuthMessageAPI: " + apiData + " " + xyzChallenge);
@@ -344,6 +344,11 @@ namespace IBSampleApp
                 case MessageType.ContractData:
                     {
                         HandleContractDataMessage((ContractDetailsMessage)message);
+                        break;
+                    }
+                case MessageType.BondContractData:
+                    {
+                        contractManager.UpdateUI(message);
                         break;
                     }
                 case MessageType.FundamentalData:
@@ -721,8 +726,15 @@ namespace IBSampleApp
 
         private void searchContractDetails_Click(object sender, EventArgs e)
         {
-            ShowTab(contractInfoTab, contractDetailsPage);
             Contract contract = GetConDetContract();
+            if (contract.SecType.Equals("BOND"))
+            {
+                ShowTab(contractInfoTab, bondContractDetailsPage);
+            }
+            else
+            {
+                ShowTab(contractInfoTab, contractDetailsPage);
+            }
             searchContractDetails.Enabled = false;
             contractManager.RequestContractDetails(contract);
         }

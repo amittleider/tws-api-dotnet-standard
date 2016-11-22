@@ -542,7 +542,13 @@ Friend Class Tws
                          End Sub)
     End Sub
 
-    Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
+    Public Sub bondContractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnBondContractDetails(Me, New AxTWSLib._DTwsEvents_bondContractDetailsEvent With {
+                                                                 .reqId = reqId,
+                                                                  .contractDetails = contractDetails
+                                                                 })
+                         End Sub)
 
     End Sub
 
@@ -889,6 +895,7 @@ Friend Class Tws
     Event OnverifyAndAuthMessageAPI(tws As Tws, DTwsEvents_verifyAndAuthMessageAPIEvent As AxTWSLib._DTwsEvents_verifyAndAuthMessageAPIEvent)
     Event OnFamilyCodes(tws As Tws, DTwsEvents_familyCodesEvent As AxTWSLib._DTWsEvents_familyCodesEvent)
     Event OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTwsEvents_symbolSamplesEvent)
+    Event OnBondContractDetails(tws As Tws, DTwsEvents_bondContractDetailsEvent As AxTWSLib._DTwsEvents_bondContractDetailsEvent)
 
 
 End Class

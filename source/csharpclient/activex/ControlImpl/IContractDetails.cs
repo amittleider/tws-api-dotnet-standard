@@ -82,5 +82,7 @@ namespace TWSLib
         string evRule { get; }
         [DispId(36)]
         double evMultiplier { get; }
+        [DispId(37)]
+        int lotSize { get; }
     }
 }
