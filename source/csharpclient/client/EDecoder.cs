@@ -1365,6 +1365,11 @@ namespace IBApi
                 order.Tier = new SoftDollarTier(ReadString(), ReadString(), ReadString());
             }
 
+            if (serverVersion >= MinServerVer.CASH_QTY)
+            {
+                order.CashQty = ReadDoubleMax();
+            }
+
             eWrapper.openOrder(order.OrderId, contract, order, orderState);
         }
 

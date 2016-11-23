@@ -229,9 +229,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS = 108;
     protected static final int MIN_SERVER_VER_PAST_LIMIT = 109;
     protected static final int MIN_SERVER_VER_LOT_SIZE = 110;
+    protected static final int MIN_SERVER_VER_CASH_QTY = 111;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_LOT_SIZE; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_CASH_QTY; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -1384,6 +1385,14 @@ public abstract class EClient {
         }
         
 
+        if (m_serverVersion < MIN_SERVER_VER_CASH_QTY) {
+            if (order.cashQty() != Double.MAX_VALUE) {
+                error(id, EClientErrors.UPDATE_TWS,
+                    " It does not support cash quantity parameter");
+                return;
+            }
+        }
+
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
         // send place order msg
@@ -1784,6 +1793,10 @@ public abstract class EClient {
         	   b.send(tier.name());
         	   b.send(tier.value());
            }           
+
+           if (m_serverVersion >= MIN_SERVER_VER_CASH_QTY) {
+               b.sendMax(order.cashQty());
+           }
            
            closeAndSend(b);
         }

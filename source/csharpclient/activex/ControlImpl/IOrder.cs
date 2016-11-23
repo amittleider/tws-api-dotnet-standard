@@ -291,5 +291,8 @@ namespace TWSLib
 
         [DispId(167)]
         ComSoftDollarTier tier { get; }
+
+        [DispId(168)]
+        double cashQty { get; set; }
     }
 }

@@ -94,6 +94,7 @@ public class OrderDlg extends JDialog {
     private JTextField 	m_auxPrice = new JTextField( "0");
     private JTextField 	m_goodAfterTime = new JTextField();
     private JTextField 	m_goodTillDate = new JTextField();
+    private JTextField 	m_cashQty = new JTextField();
     private JTextField 	m_marketDepthRowTextField = new JTextField( "20");
     private JTextField  m_genericTicksTextField = new JTextField(ALL_GENERIC_TICK_TAGS);
     private JCheckBox   m_snapshotMktDataTextField = new JCheckBox("Snapshot", false);
@@ -209,6 +210,8 @@ public class OrderDlg extends JDialog {
         addGBComponent(pOrderDetails, m_goodAfterTime, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         addGBComponent(pOrderDetails, new JLabel( "Good Till Date"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
         addGBComponent(pOrderDetails, m_goodTillDate, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
+        addGBComponent(pOrderDetails, new JLabel( "Cash Quantity"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE );
+        addGBComponent(pOrderDetails, m_cashQty, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
 
         // create marketDepth panel
         IBGridBagPanel pMarketDepth = new IBGridBagPanel();
@@ -539,6 +542,7 @@ public class OrderDlg extends JDialog {
             m_order.auxPrice(parseStringToMaxDouble( m_auxPrice.getText()));
             m_order.goodAfterTime(m_goodAfterTime.getText());
             m_order.goodTillDate(m_goodTillDate.getText());
+            m_order.cashQty(parseStringToMaxDouble( m_cashQty.getText() ));
 
             m_order.faGroup(m_faGroup);
             m_order.faProfile(m_faProfile);

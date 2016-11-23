@@ -147,6 +147,9 @@ struct Order
 		adjustedTrailingAmount = UNSET_DOUBLE;
 		lmtPriceOffset = UNSET_DOUBLE;
 		extOperator = "";
+
+		// native cash quantity
+		cashQty = UNSET_DOUBLE;
 	}
 
 	// order identifier
@@ -310,6 +313,9 @@ struct Order
 	std::string extOperator;
 
 	SoftDollarTier softDollarTier;
+
+	// native cash quantity
+	double cashQty;
 
 public:
 

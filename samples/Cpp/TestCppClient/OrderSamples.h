@@ -27,6 +27,7 @@ public:
 	static Order Block(std::string action, double quantity, double price);
 	static Order BoxTop(std::string action, double quantity);
 	static Order LimitOrder(std::string action, double quantity, double limitPrice);
+	static Order LimitOrderWithCashQty(std::string action, double quantity, double limitPrice, double cashQty);
 	static Order LimitIfTouched(std::string action, double quantity, double limitPrice, double triggerPrice);
 	static Order LimitOnClose(std::string action, double quantity, double limitPrice);
 	static Order LimitOnOpen(std::string action, double quantity, double limitPrice);

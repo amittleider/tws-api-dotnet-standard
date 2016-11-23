@@ -230,6 +230,8 @@ namespace IBSampleApp
                 order.AuxPrice = Double.Parse(auxPrice.Text);
             if (!displaySize.Text.Equals(""))
                 order.DisplaySize = Int32.Parse(displaySize.Text);
+            if (!cashQty.Text.Equals(""))
+                order.CashQty = Double.Parse(cashQty.Text);
 
             FillExtendedOrderAttributes(order);
             FillAdvisorAttributes(order);
@@ -456,6 +458,7 @@ namespace IBSampleApp
             timeInForce.Text = order.Tif;
             auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();
+            cashQty.Text = doubleToStr(order.CashQty);
 
             //order = GetExtendedOrderAttributes(order);
             //order = GetAdvisorAttributes(order);

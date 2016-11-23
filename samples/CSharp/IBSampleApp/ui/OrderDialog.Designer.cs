@@ -37,6 +37,8 @@ namespace IBSampleApp
             this.conditionsTab = new System.Windows.Forms.TabControl();
             this.orderContractTab = new System.Windows.Forms.TabPage();
             this.baseGroup = new System.Windows.Forms.GroupBox();
+            this.cashQty = new System.Windows.Forms.TextBox();
+            this.cashQtyLabel = new System.Windows.Forms.Label();
             this.modelCode = new System.Windows.Forms.TextBox();
             this.modelCodeLabel = new System.Windows.Forms.Label();
             this.timeInForce = new System.Windows.Forms.ComboBox();
@@ -277,7 +279,7 @@ namespace IBSampleApp
             this.conditionsTab.Location = new System.Drawing.Point(1, 1);
             this.conditionsTab.Name = "conditionsTab";
             this.conditionsTab.SelectedIndex = 0;
-            this.conditionsTab.Size = new System.Drawing.Size(628, 339);
+            this.conditionsTab.Size = new System.Drawing.Size(628, 363);
             this.conditionsTab.TabIndex = 1;
             // 
             // orderContractTab
@@ -288,7 +290,7 @@ namespace IBSampleApp
             this.orderContractTab.Location = new System.Drawing.Point(4, 22);
             this.orderContractTab.Name = "orderContractTab";
             this.orderContractTab.Padding = new System.Windows.Forms.Padding(3);
-            this.orderContractTab.Size = new System.Drawing.Size(620, 313);
+            this.orderContractTab.Size = new System.Drawing.Size(620, 337);
             this.orderContractTab.TabIndex = 0;
             this.orderContractTab.Text = "Basic Order";
             // 
@@ -297,6 +299,8 @@ namespace IBSampleApp
             this.baseGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.baseGroup.Controls.Add(this.cashQty);
+            this.baseGroup.Controls.Add(this.cashQtyLabel);
             this.baseGroup.Controls.Add(this.modelCode);
             this.baseGroup.Controls.Add(this.modelCodeLabel);
             this.baseGroup.Controls.Add(this.timeInForce);
@@ -317,10 +321,26 @@ namespace IBSampleApp
             this.baseGroup.Controls.Add(this.accountLabel);
             this.baseGroup.Location = new System.Drawing.Point(362, 6);
             this.baseGroup.Name = "baseGroup";
-            this.baseGroup.Size = new System.Drawing.Size(242, 278);
+            this.baseGroup.Size = new System.Drawing.Size(242, 302);
             this.baseGroup.TabIndex = 15;
             this.baseGroup.TabStop = false;
             this.baseGroup.Text = "Order Base Attributes";
+            // 
+            // cashQty
+            // 
+            this.cashQty.Location = new System.Drawing.Point(121, 269);
+            this.cashQty.Name = "cashQty";
+            this.cashQty.Size = new System.Drawing.Size(89, 20);
+            this.cashQty.TabIndex = 23;
+            // 
+            // cashQtyLabel
+            // 
+            this.cashQtyLabel.AutoSize = true;
+            this.cashQtyLabel.Location = new System.Drawing.Point(14, 272);
+            this.cashQtyLabel.Name = "cashQtyLabel";
+            this.cashQtyLabel.Size = new System.Drawing.Size(50, 13);
+            this.cashQtyLabel.TabIndex = 22;
+            this.cashQtyLabel.Text = "Cash Qty";
             // 
             // modelCode
             // 
@@ -550,7 +570,7 @@ namespace IBSampleApp
             this.contractGroup.Controls.Add(this.contractExchange);
             this.contractGroup.Location = new System.Drawing.Point(6, 6);
             this.contractGroup.Name = "contractGroup";
-            this.contractGroup.Size = new System.Drawing.Size(350, 278);
+            this.contractGroup.Size = new System.Drawing.Size(350, 302);
             this.contractGroup.TabIndex = 14;
             this.contractGroup.TabStop = false;
             this.contractGroup.Text = "Contract";
@@ -781,7 +801,7 @@ namespace IBSampleApp
             this.extendedOrderTab.Location = new System.Drawing.Point(4, 22);
             this.extendedOrderTab.Name = "extendedOrderTab";
             this.extendedOrderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.extendedOrderTab.Size = new System.Drawing.Size(620, 313);
+            this.extendedOrderTab.Size = new System.Drawing.Size(620, 337);
             this.extendedOrderTab.TabIndex = 1;
             this.extendedOrderTab.Text = "Extended Attributes";
             // 
@@ -1149,7 +1169,7 @@ namespace IBSampleApp
             this.advisorTab.Location = new System.Drawing.Point(4, 22);
             this.advisorTab.Name = "advisorTab";
             this.advisorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advisorTab.Size = new System.Drawing.Size(620, 313);
+            this.advisorTab.Size = new System.Drawing.Size(620, 337);
             this.advisorTab.TabIndex = 2;
             this.advisorTab.Text = "Advisor";
             // 
@@ -1249,7 +1269,7 @@ namespace IBSampleApp
             this.volatilityTab.Location = new System.Drawing.Point(4, 22);
             this.volatilityTab.Name = "volatilityTab";
             this.volatilityTab.Padding = new System.Windows.Forms.Padding(3);
-            this.volatilityTab.Size = new System.Drawing.Size(620, 313);
+            this.volatilityTab.Size = new System.Drawing.Size(620, 337);
             this.volatilityTab.TabIndex = 3;
             this.volatilityTab.Text = "Volatility";
             // 
@@ -1446,7 +1466,7 @@ namespace IBSampleApp
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(620, 313);
+            this.scaleTab.Size = new System.Drawing.Size(620, 337);
             this.scaleTab.TabIndex = 4;
             this.scaleTab.Text = "Scale";
             // 
@@ -1643,7 +1663,7 @@ namespace IBSampleApp
             this.algoTab.Location = new System.Drawing.Point(4, 22);
             this.algoTab.Name = "algoTab";
             this.algoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.algoTab.Size = new System.Drawing.Size(620, 313);
+            this.algoTab.Size = new System.Drawing.Size(620, 337);
             this.algoTab.TabIndex = 5;
             this.algoTab.Text = "IB Algo";
             // 
@@ -1915,7 +1935,7 @@ namespace IBSampleApp
             this.peg2benchTab.Controls.Add(this.contractSearchControl1);
             this.peg2benchTab.Location = new System.Drawing.Point(4, 22);
             this.peg2benchTab.Name = "peg2benchTab";
-            this.peg2benchTab.Size = new System.Drawing.Size(620, 313);
+            this.peg2benchTab.Size = new System.Drawing.Size(620, 337);
             this.peg2benchTab.TabIndex = 6;
             this.peg2benchTab.Text = "Pegged to Benchmark";
             // 
@@ -2077,7 +2097,7 @@ namespace IBSampleApp
             this.adjustStopTab.Controls.Add(this.label11);
             this.adjustStopTab.Location = new System.Drawing.Point(4, 22);
             this.adjustStopTab.Name = "adjustStopTab";
-            this.adjustStopTab.Size = new System.Drawing.Size(620, 313);
+            this.adjustStopTab.Size = new System.Drawing.Size(620, 337);
             this.adjustStopTab.TabIndex = 7;
             this.adjustStopTab.Text = "Adjustable stops";
             // 
@@ -2200,7 +2220,7 @@ namespace IBSampleApp
             this.tabPage1.Controls.Add(this.lbRemoveCondition);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(620, 313);
+            this.tabPage1.Size = new System.Drawing.Size(620, 337);
             this.tabPage1.TabIndex = 8;
             this.tabPage1.Text = "Conditions";
             // 
@@ -2283,7 +2303,7 @@ namespace IBSampleApp
             // sendOrderButton
             // 
             this.sendOrderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendOrderButton.Location = new System.Drawing.Point(12, 374);
+            this.sendOrderButton.Location = new System.Drawing.Point(12, 398);
             this.sendOrderButton.Name = "sendOrderButton";
             this.sendOrderButton.Size = new System.Drawing.Size(75, 23);
             this.sendOrderButton.TabIndex = 2;
@@ -2318,7 +2338,7 @@ namespace IBSampleApp
             // checkMarginButton
             // 
             this.checkMarginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkMarginButton.Location = new System.Drawing.Point(93, 374);
+            this.checkMarginButton.Location = new System.Drawing.Point(93, 398);
             this.checkMarginButton.Name = "checkMarginButton";
             this.checkMarginButton.Size = new System.Drawing.Size(87, 23);
             this.checkMarginButton.TabIndex = 11;
@@ -2329,7 +2349,7 @@ namespace IBSampleApp
             // closeOrderDialogButton
             // 
             this.closeOrderDialogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 374);
+            this.closeOrderDialogButton.Location = new System.Drawing.Point(554, 398);
             this.closeOrderDialogButton.Name = "closeOrderDialogButton";
             this.closeOrderDialogButton.Size = new System.Drawing.Size(75, 23);
             this.closeOrderDialogButton.TabIndex = 12;
@@ -2358,7 +2378,7 @@ namespace IBSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 402);
+            this.ClientSize = new System.Drawing.Size(641, 426);
             this.ControlBox = false;
             this.Controls.Add(this.closeOrderDialogButton);
             this.Controls.Add(this.checkMarginButton);
@@ -2610,6 +2630,8 @@ namespace IBSampleApp
         private System.Windows.Forms.Label modelCodeLabel;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox softDollarTier;
+        private System.Windows.Forms.TextBox cashQty;
+        private System.Windows.Forms.Label cashQtyLabel;
         
     }
 }

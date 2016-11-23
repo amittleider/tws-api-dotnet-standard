@@ -2082,6 +2082,7 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  orderType=" & order.OrderType)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lmtPrice=" & DblMaxStr(order.LmtPrice))
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  auxPrice=" & DblMaxStr(order.AuxPrice))
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cashQty=" & DblMaxStr(order.CashQty))
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Contract:")
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  conId=" & contract.ConId)

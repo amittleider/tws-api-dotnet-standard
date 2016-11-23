@@ -1311,6 +1311,10 @@ class EDecoder implements ObjectInput {
 			order.softDollarTier(new SoftDollarTier(readStr(), readStr(), readStr()));
 		}
 
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_CASH_QTY) {
+			order.cashQty(readDoubleMax());
+		}
+		
 		m_EWrapper.openOrder( order.orderId(), contract, order, orderState);
 	}
 
