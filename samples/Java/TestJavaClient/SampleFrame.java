@@ -515,6 +515,8 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
 	void onConnect() {
+		if(m_client.isConnected())
+			return;
         m_bIsFAAccount = false;
         // get connection parameters
         ConnectDlg dlg = new ConnectDlg( this);
