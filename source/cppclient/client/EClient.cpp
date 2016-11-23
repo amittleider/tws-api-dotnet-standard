@@ -1368,6 +1368,14 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
+	if (m_serverVersion < MIN_SERVER_VER_CASH_QTY) {
+		if (order.cashQty != UNSET_DOUBLE) {
+			m_pEWrapper->error( id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+				"  It does not support cash quantity parameter");
+			return;
+		}
+	}
+
 
 	std::stringstream msg;
 	prepareBuffer( msg);
@@ -1761,6 +1769,10 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	if (m_serverVersion >= MIN_SERVER_VER_SOFT_DOLLAR_TIER) {
 		ENCODE_FIELD(order.softDollarTier.name());
 		ENCODE_FIELD(order.softDollarTier.val());
+	}
+
+	if (m_serverVersion >= MIN_SERVER_VER_CASH_QTY) {
+		ENCODE_FIELD_MAX( order.cashQty);
 	}
 
 	closeAndSend( msg.str());

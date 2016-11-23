@@ -221,7 +221,7 @@ public class OrdersPanel extends JPanel {
 		}
 		
 		@Override public int getColumnCount() {
-			return 9;
+			return 10;
 		}
 		
 		@Override public String getColumnName(int col) {
@@ -233,8 +233,9 @@ public class OrdersPanel extends JPanel {
 				case 4: return "ModelCode";
 				case 5: return "Action";
 				case 6: return "Quantity";
-				case 7: return "Contract";
-				case 8: return "Status";
+				case 7: return "Cash Qty";
+				case 8: return "Contract";
+				case 9: return "Status";
 				default: return null;
 			}
 		}
@@ -250,8 +251,9 @@ public class OrdersPanel extends JPanel {
 				case 4: return order.modelCode();
 				case 5: return order.action();
 				case 6: return order.totalQuantity();
-				case 7: return fullOrder.m_contract.description();
-				case 8: return fullOrder.m_state.status();
+				case 7: return (order.cashQty() == Double.MAX_VALUE) ? "" : String.valueOf(order.cashQty());
+				case 8: return fullOrder.m_contract.description();
+				case 9: return fullOrder.m_state.status();
 				default: return null;
 			}
 		}

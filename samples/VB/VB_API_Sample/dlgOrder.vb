@@ -131,6 +131,8 @@ Friend Class dlgOrder
     Friend WithEvents cmdPegBench As System.Windows.Forms.Button
     Friend WithEvents cmdAdjustStop As System.Windows.Forms.Button
     Friend WithEvents cmdConditions As System.Windows.Forms.Button
+    Public WithEvents txtCashQty As System.Windows.Forms.TextBox
+    Public WithEvents labelCashQty As System.Windows.Forms.Label
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
@@ -215,6 +217,8 @@ Friend Class dlgOrder
         Me.cmdUnderComp = New System.Windows.Forms.Button()
         Me.cmdAlgoParams = New System.Windows.Forms.Button()
         Me.frameOrderDesc = New System.Windows.Forms.GroupBox()
+        Me.txtCashQty = New System.Windows.Forms.TextBox()
+        Me.labelCashQty = New System.Windows.Forms.Label()
         Me.cmdPegBench = New System.Windows.Forms.Button()
         Me.cmdAdjustStop = New System.Windows.Forms.Button()
         Me.cmdConditions = New System.Windows.Forms.Button()
@@ -250,7 +254,7 @@ Friend Class dlgOrder
         Me.Frame1.Controls.Add(Me.Label25)
         Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Frame1.Location = New System.Drawing.Point(234, 465)
+        Me.Frame1.Location = New System.Drawing.Point(234, 485)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Frame1.Size = New System.Drawing.Size(232, 220)
@@ -432,7 +436,7 @@ Friend Class dlgOrder
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(232, 751)
+        Me.cmdCancel.Location = New System.Drawing.Point(232, 777)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -446,7 +450,7 @@ Friend Class dlgOrder
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(151, 751)
+        Me.cmdOk.Location = New System.Drawing.Point(151, 777)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -1149,11 +1153,11 @@ Friend Class dlgOrder
         Me.cmdSetShareAllocation.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdSetShareAllocation.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSetShareAllocation.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdSetShareAllocation.Location = New System.Drawing.Point(17, 228)
+        Me.cmdSetShareAllocation.Location = New System.Drawing.Point(17, 262)
         Me.cmdSetShareAllocation.Name = "cmdSetShareAllocation"
         Me.cmdSetShareAllocation.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdSetShareAllocation.Size = New System.Drawing.Size(99, 25)
-        Me.cmdSetShareAllocation.TabIndex = 14
+        Me.cmdSetShareAllocation.TabIndex = 16
         Me.cmdSetShareAllocation.Text = "FA Alloc"
         Me.cmdSetShareAllocation.UseVisualStyleBackColor = False
         '
@@ -1316,11 +1320,11 @@ Friend Class dlgOrder
         Me.cmdAddCmboLegs.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdAddCmboLegs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdAddCmboLegs.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdAddCmboLegs.Location = New System.Drawing.Point(122, 228)
+        Me.cmdAddCmboLegs.Location = New System.Drawing.Point(122, 262)
         Me.cmdAddCmboLegs.Name = "cmdAddCmboLegs"
         Me.cmdAddCmboLegs.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdAddCmboLegs.Size = New System.Drawing.Size(99, 25)
-        Me.cmdAddCmboLegs.TabIndex = 15
+        Me.cmdAddCmboLegs.TabIndex = 17
         Me.cmdAddCmboLegs.Text = "Combo Legs"
         Me.cmdAddCmboLegs.UseVisualStyleBackColor = False
         '
@@ -1358,11 +1362,11 @@ Friend Class dlgOrder
         Me.cmdUnderComp.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdUnderComp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdUnderComp.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdUnderComp.Location = New System.Drawing.Point(17, 264)
+        Me.cmdUnderComp.Location = New System.Drawing.Point(17, 298)
         Me.cmdUnderComp.Name = "cmdUnderComp"
         Me.cmdUnderComp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdUnderComp.Size = New System.Drawing.Size(99, 25)
-        Me.cmdUnderComp.TabIndex = 16
+        Me.cmdUnderComp.TabIndex = 18
         Me.cmdUnderComp.Text = "Delta Neutral"
         Me.cmdUnderComp.UseVisualStyleBackColor = False
         '
@@ -1372,17 +1376,19 @@ Friend Class dlgOrder
         Me.cmdAlgoParams.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdAlgoParams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdAlgoParams.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdAlgoParams.Location = New System.Drawing.Point(122, 264)
+        Me.cmdAlgoParams.Location = New System.Drawing.Point(122, 298)
         Me.cmdAlgoParams.Name = "cmdAlgoParams"
         Me.cmdAlgoParams.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdAlgoParams.Size = New System.Drawing.Size(99, 25)
-        Me.cmdAlgoParams.TabIndex = 17
+        Me.cmdAlgoParams.TabIndex = 19
         Me.cmdAlgoParams.Text = "Algo Params"
         Me.cmdAlgoParams.UseVisualStyleBackColor = False
         '
         'frameOrderDesc
         '
         Me.frameOrderDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameOrderDesc.Controls.Add(Me.txtCashQty)
+        Me.frameOrderDesc.Controls.Add(Me.labelCashQty)
         Me.frameOrderDesc.Controls.Add(Me.cmdPegBench)
         Me.frameOrderDesc.Controls.Add(Me.cmdAdjustStop)
         Me.frameOrderDesc.Controls.Add(Me.cmdConditions)
@@ -1411,45 +1417,72 @@ Friend Class dlgOrder
         Me.frameOrderDesc.Location = New System.Drawing.Point(232, 48)
         Me.frameOrderDesc.Name = "frameOrderDesc"
         Me.frameOrderDesc.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.frameOrderDesc.Size = New System.Drawing.Size(232, 398)
+        Me.frameOrderDesc.Size = New System.Drawing.Size(232, 431)
         Me.frameOrderDesc.TabIndex = 5
         Me.frameOrderDesc.TabStop = False
         Me.frameOrderDesc.Text = "Order Description"
         '
+        'txtCashQty
+        '
+        Me.txtCashQty.AcceptsReturn = True
+        Me.txtCashQty.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCashQty.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtCashQty.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCashQty.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtCashQty.Location = New System.Drawing.Point(112, 221)
+        Me.txtCashQty.MaxLength = 0
+        Me.txtCashQty.Name = "txtCashQty"
+        Me.txtCashQty.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtCashQty.Size = New System.Drawing.Size(112, 20)
+        Me.txtCashQty.TabIndex = 15
+        '
+        'labelCashQty
+        '
+        Me.labelCashQty.BackColor = System.Drawing.SystemColors.Control
+        Me.labelCashQty.Cursor = System.Windows.Forms.Cursors.Default
+        Me.labelCashQty.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelCashQty.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.labelCashQty.Location = New System.Drawing.Point(14, 224)
+        Me.labelCashQty.Name = "labelCashQty"
+        Me.labelCashQty.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.labelCashQty.Size = New System.Drawing.Size(89, 20)
+        Me.labelCashQty.TabIndex = 14
+        Me.labelCashQty.Text = "Cash Qty"
+        '
         'cmdPegBench
         '
-        Me.cmdPegBench.Location = New System.Drawing.Point(63, 362)
+        Me.cmdPegBench.Location = New System.Drawing.Point(63, 396)
         Me.cmdPegBench.Name = "cmdPegBench"
         Me.cmdPegBench.Size = New System.Drawing.Size(125, 25)
-        Me.cmdPegBench.TabIndex = 22
+        Me.cmdPegBench.TabIndex = 24
         Me.cmdPegBench.Text = "Pegged to benchmark"
         Me.cmdPegBench.UseVisualStyleBackColor = True
         '
         'cmdAdjustStop
         '
-        Me.cmdAdjustStop.Location = New System.Drawing.Point(122, 331)
+        Me.cmdAdjustStop.Location = New System.Drawing.Point(122, 365)
         Me.cmdAdjustStop.Name = "cmdAdjustStop"
         Me.cmdAdjustStop.Size = New System.Drawing.Size(99, 25)
-        Me.cmdAdjustStop.TabIndex = 21
+        Me.cmdAdjustStop.TabIndex = 23
         Me.cmdAdjustStop.Text = "Adjustable stops"
         Me.cmdAdjustStop.UseVisualStyleBackColor = True
         '
         'cmdConditions
         '
-        Me.cmdConditions.Location = New System.Drawing.Point(17, 331)
+        Me.cmdConditions.Location = New System.Drawing.Point(17, 365)
         Me.cmdConditions.Name = "cmdConditions"
         Me.cmdConditions.Size = New System.Drawing.Size(99, 25)
-        Me.cmdConditions.TabIndex = 20
+        Me.cmdConditions.TabIndex = 22
         Me.cmdConditions.Text = "Conditions"
         Me.cmdConditions.UseVisualStyleBackColor = True
         '
         'cmdOptions
         '
         Me.cmdOptions.Enabled = False
-        Me.cmdOptions.Location = New System.Drawing.Point(122, 301)
+        Me.cmdOptions.Location = New System.Drawing.Point(122, 335)
         Me.cmdOptions.Name = "cmdOptions"
         Me.cmdOptions.Size = New System.Drawing.Size(99, 25)
-        Me.cmdOptions.TabIndex = 19
+        Me.cmdOptions.TabIndex = 21
         Me.cmdOptions.Text = "Options"
         Me.cmdOptions.UseVisualStyleBackColor = True
         '
@@ -1459,11 +1492,11 @@ Friend Class dlgOrder
         Me.cmdSmartComboRoutingParams.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdSmartComboRoutingParams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSmartComboRoutingParams.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdSmartComboRoutingParams.Location = New System.Drawing.Point(17, 301)
+        Me.cmdSmartComboRoutingParams.Location = New System.Drawing.Point(17, 335)
         Me.cmdSmartComboRoutingParams.Name = "cmdSmartComboRoutingParams"
         Me.cmdSmartComboRoutingParams.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdSmartComboRoutingParams.Size = New System.Drawing.Size(99, 25)
-        Me.cmdSmartComboRoutingParams.TabIndex = 18
+        Me.cmdSmartComboRoutingParams.TabIndex = 20
         Me.cmdSmartComboRoutingParams.Text = "Cmb Rou Params"
         Me.cmdSmartComboRoutingParams.UseVisualStyleBackColor = False
         '
@@ -1487,7 +1520,7 @@ Friend Class dlgOrder
         Me.frameMarketDataType.Controls.Add(Me.labelMarketDataType)
         Me.frameMarketDataType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.frameMarketDataType.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.frameMarketDataType.Location = New System.Drawing.Point(234, 691)
+        Me.frameMarketDataType.Location = New System.Drawing.Point(234, 718)
         Me.frameMarketDataType.Name = "frameMarketDataType"
         Me.frameMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.frameMarketDataType.Size = New System.Drawing.Size(228, 52)
@@ -1508,7 +1541,7 @@ Friend Class dlgOrder
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(474, 782)
+        Me.ClientSize = New System.Drawing.Size(474, 808)
         Me.Controls.Add(Me.frameMarketDataType)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox2)
@@ -1854,6 +1887,7 @@ Friend Class dlgOrder
         m_orderInfo.OrderType = txtOrderType.Text
         m_orderInfo.LmtPrice = dval(txtLmtPrice.Text)
         m_orderInfo.AuxPrice = dval(txtAuxPrice.Text)
+        m_orderInfo.CashQty = dval(txtCashQty.Text)
 
         m_orderInfo.GoodAfterTime = tGAT.Text
         m_orderInfo.GoodTillDate = tGTD.Text
@@ -2012,6 +2046,7 @@ Friend Class dlgOrder
             txtAuxPrice.Enabled = True
             tGAT.Enabled = True
             tGTD.Enabled = True
+            txtCashQty.Enabled = True
         Else
             txtAction.Enabled = False
             txtQuantity.Enabled = False
@@ -2020,6 +2055,7 @@ Friend Class dlgOrder
             txtAuxPrice.Enabled = False
             tGAT.Enabled = False
             tGTD.Enabled = False
+            txtCashQty.Enabled = False
         End If
 
         If dlgType = Dlg_Type.CALCULATE_IMPLIED_VOLATILITY Or dlgType = Dlg_Type.CALCULATE_OPTION_PRICE Then

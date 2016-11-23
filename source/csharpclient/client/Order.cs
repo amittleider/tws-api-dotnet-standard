@@ -170,6 +170,8 @@ namespace IBApi
         private bool solicited;
         private string modelCode;
         private string extOperator;
+        // native cash quantity
+        private double cashQty;
 
         /**
          * @brief The API client's order id.
@@ -1135,6 +1137,15 @@ namespace IBApi
             set { extOperator = value; }
         }
 
+        /**
+         * @brief The native cash quantity
+         */
+        public double CashQty
+        {
+            get { return cashQty; }
+            set { cashQty = value; }
+        }
+
         public Order()
         {
             lmtPrice = Double.MaxValue;
@@ -1194,6 +1205,7 @@ namespace IBApi
             AdjustedTrailingAmount = double.MaxValue;
             ExtOperator = EMPTY_STR;
             Tier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
+            cashQty = Double.MaxValue;
         }
 
         public override bool Equals(Object p_other)
@@ -1273,7 +1285,8 @@ namespace IBApi
                 Solicited != l_theOther.Solicited ||
                 ConditionsIgnoreRth != l_theOther.ConditionsIgnoreRth ||
                 ConditionsCancelOrder != l_theOther.ConditionsCancelOrder ||
-                Tier != l_theOther.Tier)
+                Tier != l_theOther.Tier ||
+                CashQty != l_theOther.CashQty)
             {
                 return false;
             }

@@ -67,6 +67,7 @@ public class EWrapperMsgGenerator {
         String msg = "open order: orderId=" + orderId +
         " action=" + order.getAction() +
         " quantity=" + order.totalQuantity() +
+        " cashQty=" + Util.DoubleMaxString(order.cashQty()) +
         " conid=" + contract.conid() + 
         " symbol=" + contract.symbol() + 
         " secType=" + contract.getSecType() + 

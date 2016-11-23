@@ -278,6 +278,7 @@ public class TicketDlg extends JDialog {
 		final TCombo<Action> m_action = new TCombo<Action>( Action.values() );
 		final JTextField m_modelCode = new JTextField();
 		final UpperField m_quantity = new UpperField( "100");
+		final UpperField m_cashQty = new UpperField();
 		final UpperField m_displaySize = new UpperField();
 		final TCombo<OrderType> m_orderType = new TCombo<OrderType>( OrderType.values() ); 
 		final UpperField m_lmtPrice = new UpperField( "200");
@@ -294,6 +295,7 @@ public class TicketDlg extends JDialog {
 			m_modelCode.setText( m_order.modelCode() );
 			m_action.setSelectedItem( m_order.action() );
 			m_quantity.setText( m_order.totalQuantity());
+			m_cashQty.setText( m_order.cashQty());
 			m_displaySize.setText( m_order.displaySize());
 			m_orderType.setSelectedItem( m_order.orderType() );
 			m_lmtPrice.setText( m_order.lmtPrice());
@@ -308,6 +310,7 @@ public class TicketDlg extends JDialog {
 			add( "Model code", m_modelCode);
 			add( "Action", m_action);
 			add( "Quantity", m_quantity);
+			add( "Cash Qty", m_cashQty);
 			add( "Display size", m_displaySize);
 			add( "Order type", m_orderType);
 			add( "Limit price", m_lmtPrice);
@@ -325,6 +328,7 @@ public class TicketDlg extends JDialog {
 			m_order.modelCode( m_modelCode.getText().trim() );
 			m_order.action( m_action.getSelectedItem() );
 			m_order.totalQuantity( m_quantity.getDouble() );
+			m_order.cashQty( m_cashQty.getDouble() );
 			m_order.displaySize( m_displaySize.getInt() );
 			m_order.orderType( m_orderType.getSelectedItem() );
 			m_order.lmtPrice( m_lmtPrice.getDouble() );

@@ -237,6 +237,7 @@ namespace IBSampleApp.ui
             liveOrdersGrid[6, rowIndex].Value = orderMessage.Order.TotalQuantity;
             liveOrdersGrid[7, rowIndex].Value = orderMessage.Contract.Symbol+" "+orderMessage.Contract.SecType+" "+orderMessage.Contract.Exchange;
             liveOrdersGrid[8, rowIndex].Value = orderMessage.OrderState.Status;
+            liveOrdersGrid[9, rowIndex].Value = (orderMessage.Order.CashQty != Double.MaxValue ? orderMessage.Order.CashQty.ToString() : "");
         }
     }
 }

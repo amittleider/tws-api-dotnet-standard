@@ -454,6 +454,16 @@ namespace IBSampleApp
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.permIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contractColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashQtyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clearSymbolSamplesMarketData = new System.Windows.Forms.LinkLabel();
             this.clearSymbolSamplesContractInfo = new System.Windows.Forms.LinkLabel();
             this.symbolSamplesConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -2252,7 +2262,8 @@ namespace IBSampleApp
             this.actionColumn,
             this.quantityColumn,
             this.contractColumn,
-            this.statusColumn});
+            this.statusColumn,
+            this.cashQtyColumn});
             this.liveOrdersGrid.Location = new System.Drawing.Point(6, 19);
             this.liveOrdersGrid.Name = "liveOrdersGrid";
             this.liveOrdersGrid.ReadOnly = true;
@@ -4726,6 +4737,67 @@ namespace IBSampleApp
             this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
             // 
+            // permIdColumn
+            // 
+            this.permIdColumn.HeaderText = "Perm ID";
+            this.permIdColumn.Name = "permIdColumn";
+            this.permIdColumn.ReadOnly = true;
+            // 
+            // clientIdColumn
+            // 
+            this.clientIdColumn.HeaderText = "Client ID";
+            this.clientIdColumn.Name = "clientIdColumn";
+            this.clientIdColumn.ReadOnly = true;
+            // 
+            // orderIdColumn
+            // 
+            this.orderIdColumn.HeaderText = "Order ID";
+            this.orderIdColumn.Name = "orderIdColumn";
+            this.orderIdColumn.ReadOnly = true;
+            // 
+            // accountColumn
+            // 
+            this.accountColumn.HeaderText = "Account";
+            this.accountColumn.Name = "accountColumn";
+            this.accountColumn.ReadOnly = true;
+            // 
+            // modelCodeColumn
+            // 
+            this.modelCodeColumn.HeaderText = "Model Code";
+            this.modelCodeColumn.Name = "modelCodeColumn";
+            this.modelCodeColumn.ReadOnly = true;
+            // 
+            // actionColumn
+            // 
+            this.actionColumn.HeaderText = "Action";
+            this.actionColumn.Name = "actionColumn";
+            this.actionColumn.ReadOnly = true;
+            // 
+            // quantityColumn
+            // 
+            this.quantityColumn.HeaderText = "Quantity";
+            this.quantityColumn.Name = "quantityColumn";
+            this.quantityColumn.ReadOnly = true;
+            // 
+            // contractColumn
+            // 
+            this.contractColumn.HeaderText = "Contract";
+            this.contractColumn.Name = "contractColumn";
+            this.contractColumn.ReadOnly = true;
+            this.contractColumn.Width = 120;
+            // 
+            // statusColumn
+            // 
+            this.statusColumn.HeaderText = "Status";
+            this.statusColumn.Name = "statusColumn";
+            this.statusColumn.ReadOnly = true;
+            // 
+            // cashQtyColumn
+            // 
+            this.cashQtyColumn.HeaderText = "Cash Qty";
+            this.cashQtyColumn.Name = "cashQtyColumn";
+            this.cashQtyColumn.ReadOnly = true;
+            // 
             // clearSymbolSamplesMarketData
             // 
             this.clearSymbolSamplesMarketData.AutoSize = true;
@@ -5259,14 +5331,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Button refreshOrdersButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button cancelOrdersButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clientIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actionColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contractColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
         private System.Windows.Forms.Button clientOrdersButton;
         private System.Windows.Forms.Button globalCancelButton;
         private System.Windows.Forms.Label accountSelectorLabel;
@@ -5532,7 +5596,6 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn avgCostPositionsMulti;
         private System.Windows.Forms.Button buttonRequestAccountUpdatesMulti;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeColumn;
         private System.Windows.Forms.Button buttonCancelPositionsMulti;
         private System.Windows.Forms.Button buttonCancelAccountUpdatesMulti;
         private System.Windows.Forms.GroupBox groupBox5;
@@ -5549,6 +5612,16 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn familyCodesGridColumnAccountID;
         private System.Windows.Forms.DataGridViewTextBoxColumn familyCodesGridColumnFamilyCode;
         private System.Windows.Forms.Button clearFamilyCodes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clientIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orderIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modelCodeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn actionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contractColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cashQtyColumn;
         private System.Windows.Forms.Button requestMatchingSymbolsCD;
         private System.Windows.Forms.Button requestMatchingSymbolsMD;
         private System.Windows.Forms.TabPage symbolSamplesTabData;

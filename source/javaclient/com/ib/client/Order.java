@@ -193,6 +193,9 @@ public class Order {
 	private String m_extOperator;
 	private SoftDollarTier m_softDollarTier;
 	
+	// native cash quantity
+	private double m_cashQty = Double.MAX_VALUE;
+
 	// getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
@@ -318,6 +321,7 @@ public class Order {
     public String modelCode() { return m_modelCode; }
     public String extOperator() { return m_extOperator; }
     public SoftDollarTier softDollarTier() { return m_softDollarTier; }
+    public double cashQty() { return m_cashQty; }
 	// setters
 	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
     public void account(String v)               { m_account = v; }
@@ -444,6 +448,7 @@ public class Order {
 	public void conditionsCancelOrder(boolean v) { m_conditionsCancelOrder = v; }
 	public void extOperator(String v) { m_extOperator = v; }
 	public void softDollarTier(SoftDollarTier v) { m_softDollarTier = v; }
+	public void cashQty(double v) { m_cashQty = v; }
 
     public Order() {
         m_activeStartTime = EMPTY_STR;
@@ -569,7 +574,8 @@ public class Order {
         	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
         	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
         	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset ||
-        	m_softDollarTier.equals(l_theOther.m_softDollarTier)) {
+        	m_softDollarTier.equals(l_theOther.m_softDollarTier) ||
+        	m_cashQty != l_theOther.m_cashQty) {
         	return false;
         }
 

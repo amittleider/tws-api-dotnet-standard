@@ -665,6 +665,10 @@ const char* EDecoder::processOpenOrderMsg(const char* ptr, const char* endPtr) {
 		order.softDollarTier = SoftDollarTier(name, value, displayName);
 	}
 
+	if (m_serverVersion >= MIN_SERVER_VER_CASH_QTY) {
+		DECODE_FIELD_MAX(order.cashQty);
+	}
+
     m_pEWrapper->openOrder( (OrderId)order.orderId, contract, order, orderState);
 
     return ptr;

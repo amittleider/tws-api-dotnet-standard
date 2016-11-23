@@ -1024,6 +1024,11 @@ namespace IBApi
                 paramsList.AddParameter(order.Tier.Value);
             }
 
+            if (serverVersion >= MinServerVer.CASH_QTY)
+            {
+                paramsList.AddParameterMax(order.CashQty);
+            }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
@@ -2757,6 +2762,13 @@ namespace IBApi
             if (serverVersion < MinServerVer.EXT_OPERATOR && !IsEmpty(order.ExtOperator))
             {
                 ReportError(id, EClientErrors.UPDATE_TWS, " It does not support extOperator parameter");
+
+                return false;
+            }
+
+            if (serverVersion < MinServerVer.CASH_QTY && order.CashQty != Double.MaxValue)
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support cashQty parameter");
 
                 return false;
             }
