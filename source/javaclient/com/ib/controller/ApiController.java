@@ -122,9 +122,11 @@ public class ApiController implements EWrapper {
 	}
 
 	public void connect( String host, int port, int clientId, String connectionOpts ) {
-		m_client.eConnect(host, port, clientId);
-		startMsgProcessingThread();
-        sendEOM();
+		if(!m_client.isConnected()){
+			m_client.eConnect(host, port, clientId);
+			startMsgProcessingThread();
+	        sendEOM();
+		}
     }
 
 	public void disconnect() {
