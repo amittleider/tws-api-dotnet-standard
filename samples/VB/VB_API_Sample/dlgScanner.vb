@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 
 Imports System.Collections.Generic
@@ -28,7 +28,7 @@ Friend Class dlgScanner
         InitializeComponent()
     End Sub
     'Form overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+    Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()
@@ -93,58 +93,58 @@ Friend Class dlgScanner
     Friend WithEvents cmdOptions As System.Windows.Forms.Button
     Public WithEvents txtStockTypeFilter As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.cmdCancelSubscription = New System.Windows.Forms.Button
-        Me.cmdSubscribe = New System.Windows.Forms.Button
-        Me.cmdRequestParameters = New System.Windows.Forms.Button
-        Me.txtReqId = New System.Windows.Forms.TextBox
-        Me.frameTickerDesc = New System.Windows.Forms.GroupBox
-        Me.txtStockTypeFilter = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.txtAverageOptionVolumeAbove = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtScannerSettingPairs = New System.Windows.Forms.TextBox
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtNumberOfRows = New System.Windows.Forms.TextBox
-        Me.txtInstrument = New System.Windows.Forms.TextBox
-        Me.txtLocationCode = New System.Windows.Forms.TextBox
-        Me.txtScanCode = New System.Windows.Forms.TextBox
-        Me.txtAboveVolume = New System.Windows.Forms.TextBox
-        Me.txtMarketCapBelow = New System.Windows.Forms.TextBox
-        Me.txtMoodyRatingAbove = New System.Windows.Forms.TextBox
-        Me.txtAbovePrice = New System.Windows.Forms.TextBox
-        Me.TxtMarketCapAbove = New System.Windows.Forms.TextBox
-        Me.txtBelowPrice = New System.Windows.Forms.TextBox
-        Me.txtMoodyRatingBelow = New System.Windows.Forms.TextBox
-        Me.txtSpRatingAbove = New System.Windows.Forms.TextBox
-        Me.txtMaturityDateBelow = New System.Windows.Forms.TextBox
-        Me.txtCouponRateBelow = New System.Windows.Forms.TextBox
-        Me.txtExcludeConvertibles = New System.Windows.Forms.TextBox
-        Me.txtSpRatingBelow = New System.Windows.Forms.TextBox
-        Me.txtCouponRateAbove = New System.Windows.Forms.TextBox
-        Me.txtMaturityDateAbove = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Frame1 = New System.Windows.Forms.GroupBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cmdOptions = New System.Windows.Forms.Button
+        Me.cmdCancelSubscription = New System.Windows.Forms.Button()
+        Me.cmdSubscribe = New System.Windows.Forms.Button()
+        Me.cmdRequestParameters = New System.Windows.Forms.Button()
+        Me.txtReqId = New System.Windows.Forms.TextBox()
+        Me.frameTickerDesc = New System.Windows.Forms.GroupBox()
+        Me.txtStockTypeFilter = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtAverageOptionVolumeAbove = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtScannerSettingPairs = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtNumberOfRows = New System.Windows.Forms.TextBox()
+        Me.txtInstrument = New System.Windows.Forms.TextBox()
+        Me.txtLocationCode = New System.Windows.Forms.TextBox()
+        Me.txtScanCode = New System.Windows.Forms.TextBox()
+        Me.txtAboveVolume = New System.Windows.Forms.TextBox()
+        Me.txtMarketCapBelow = New System.Windows.Forms.TextBox()
+        Me.txtMoodyRatingAbove = New System.Windows.Forms.TextBox()
+        Me.txtAbovePrice = New System.Windows.Forms.TextBox()
+        Me.TxtMarketCapAbove = New System.Windows.Forms.TextBox()
+        Me.txtBelowPrice = New System.Windows.Forms.TextBox()
+        Me.txtMoodyRatingBelow = New System.Windows.Forms.TextBox()
+        Me.txtSpRatingAbove = New System.Windows.Forms.TextBox()
+        Me.txtMaturityDateBelow = New System.Windows.Forms.TextBox()
+        Me.txtCouponRateBelow = New System.Windows.Forms.TextBox()
+        Me.txtExcludeConvertibles = New System.Windows.Forms.TextBox()
+        Me.txtSpRatingBelow = New System.Windows.Forms.TextBox()
+        Me.txtCouponRateAbove = New System.Windows.Forms.TextBox()
+        Me.txtMaturityDateAbove = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Frame1 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmdOptions = New System.Windows.Forms.Button()
         Me.frameTickerDesc.SuspendLayout()
         Me.Frame1.SuspendLayout()
         Me.SuspendLayout()
@@ -161,7 +161,7 @@ Friend Class dlgScanner
         Me.cmdCancelSubscription.Size = New System.Drawing.Size(113, 25)
         Me.cmdCancelSubscription.TabIndex = 5
         Me.cmdCancelSubscription.Text = "Cancel Subscription"
-        Me.cmdCancelSubscription.UseVisualStyleBackColor = False
+        Me.cmdCancelSubscription.UseVisualStyleBackColor = True
         '
         'cmdSubscribe
         '
@@ -175,7 +175,7 @@ Friend Class dlgScanner
         Me.cmdSubscribe.Size = New System.Drawing.Size(78, 25)
         Me.cmdSubscribe.TabIndex = 4
         Me.cmdSubscribe.Text = "Subscribe"
-        Me.cmdSubscribe.UseVisualStyleBackColor = False
+        Me.cmdSubscribe.UseVisualStyleBackColor = True
         '
         'cmdRequestParameters
         '
@@ -189,12 +189,13 @@ Friend Class dlgScanner
         Me.cmdRequestParameters.Size = New System.Drawing.Size(121, 25)
         Me.cmdRequestParameters.TabIndex = 3
         Me.cmdRequestParameters.Text = "Request Parameters"
-        Me.cmdRequestParameters.UseVisualStyleBackColor = False
+        Me.cmdRequestParameters.UseVisualStyleBackColor = True
         '
         'txtReqId
         '
         Me.txtReqId.AcceptsReturn = True
         Me.txtReqId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReqId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtReqId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReqId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -202,13 +203,13 @@ Friend Class dlgScanner
         Me.txtReqId.MaxLength = 0
         Me.txtReqId.Name = "txtReqId"
         Me.txtReqId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReqId.Size = New System.Drawing.Size(185, 20)
+        Me.txtReqId.Size = New System.Drawing.Size(185, 13)
         Me.txtReqId.TabIndex = 1
         Me.txtReqId.Text = "0"
         '
         'frameTickerDesc
         '
-        Me.frameTickerDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameTickerDesc.BackColor = System.Drawing.Color.Gainsboro
         Me.frameTickerDesc.Controls.Add(Me.txtStockTypeFilter)
         Me.frameTickerDesc.Controls.Add(Me.Label22)
         Me.frameTickerDesc.Controls.Add(Me.txtAverageOptionVolumeAbove)
@@ -265,6 +266,7 @@ Friend Class dlgScanner
         '
         Me.txtStockTypeFilter.AcceptsReturn = True
         Me.txtStockTypeFilter.BackColor = System.Drawing.SystemColors.Window
+        Me.txtStockTypeFilter.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtStockTypeFilter.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtStockTypeFilter.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStockTypeFilter.ForeColor = System.Drawing.SystemColors.WindowText
@@ -272,19 +274,19 @@ Friend Class dlgScanner
         Me.txtStockTypeFilter.MaxLength = 0
         Me.txtStockTypeFilter.Name = "txtStockTypeFilter"
         Me.txtStockTypeFilter.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStockTypeFilter.Size = New System.Drawing.Size(185, 20)
+        Me.txtStockTypeFilter.Size = New System.Drawing.Size(185, 13)
         Me.txtStockTypeFilter.TabIndex = 41
         '
         'Label22
         '
-        Me.Label22.BackColor = System.Drawing.SystemColors.Control
+        Me.Label22.BackColor = System.Drawing.Color.Gainsboro
         Me.Label22.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label22.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label22.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label22.Location = New System.Drawing.Point(16, 487)
         Me.Label22.Name = "Label22"
         Me.Label22.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label22.Size = New System.Drawing.Size(113, 13)
+        Me.Label22.Size = New System.Drawing.Size(113, 17)
         Me.Label22.TabIndex = 40
         Me.Label22.Text = "Stock Type Filter"
         '
@@ -292,6 +294,7 @@ Friend Class dlgScanner
         '
         Me.txtAverageOptionVolumeAbove.AcceptsReturn = True
         Me.txtAverageOptionVolumeAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAverageOptionVolumeAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAverageOptionVolumeAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAverageOptionVolumeAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAverageOptionVolumeAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -299,20 +302,20 @@ Friend Class dlgScanner
         Me.txtAverageOptionVolumeAbove.MaxLength = 0
         Me.txtAverageOptionVolumeAbove.Name = "txtAverageOptionVolumeAbove"
         Me.txtAverageOptionVolumeAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAverageOptionVolumeAbove.Size = New System.Drawing.Size(185, 20)
+        Me.txtAverageOptionVolumeAbove.Size = New System.Drawing.Size(185, 13)
         Me.txtAverageOptionVolumeAbove.TabIndex = 15
         Me.txtAverageOptionVolumeAbove.Text = "0"
         '
         'Label21
         '
-        Me.Label21.BackColor = System.Drawing.SystemColors.Control
+        Me.Label21.BackColor = System.Drawing.Color.Gainsboro
         Me.Label21.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label21.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label21.Location = New System.Drawing.Point(16, 188)
         Me.Label21.Name = "Label21"
         Me.Label21.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label21.Size = New System.Drawing.Size(160, 13)
+        Me.Label21.Size = New System.Drawing.Size(160, 17)
         Me.Label21.TabIndex = 14
         Me.Label21.Text = "Average Option Volume Above"
         '
@@ -320,6 +323,7 @@ Friend Class dlgScanner
         '
         Me.txtScannerSettingPairs.AcceptsReturn = True
         Me.txtScannerSettingPairs.BackColor = System.Drawing.SystemColors.Window
+        Me.txtScannerSettingPairs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtScannerSettingPairs.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtScannerSettingPairs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtScannerSettingPairs.ForeColor = System.Drawing.SystemColors.WindowText
@@ -327,20 +331,20 @@ Friend Class dlgScanner
         Me.txtScannerSettingPairs.MaxLength = 0
         Me.txtScannerSettingPairs.Name = "txtScannerSettingPairs"
         Me.txtScannerSettingPairs.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtScannerSettingPairs.Size = New System.Drawing.Size(185, 20)
+        Me.txtScannerSettingPairs.Size = New System.Drawing.Size(185, 13)
         Me.txtScannerSettingPairs.TabIndex = 39
         Me.txtScannerSettingPairs.Text = "Annual,true"
         '
         'Label20
         '
-        Me.Label20.BackColor = System.Drawing.SystemColors.Control
+        Me.Label20.BackColor = System.Drawing.Color.Gainsboro
         Me.Label20.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label20.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label20.Location = New System.Drawing.Point(16, 464)
         Me.Label20.Name = "Label20"
         Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label20.Size = New System.Drawing.Size(113, 13)
+        Me.Label20.Size = New System.Drawing.Size(113, 17)
         Me.Label20.TabIndex = 38
         Me.Label20.Text = "Scanner Setting Pairs"
         '
@@ -348,6 +352,7 @@ Friend Class dlgScanner
         '
         Me.txtNumberOfRows.AcceptsReturn = True
         Me.txtNumberOfRows.BackColor = System.Drawing.SystemColors.Window
+        Me.txtNumberOfRows.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtNumberOfRows.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtNumberOfRows.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNumberOfRows.ForeColor = System.Drawing.SystemColors.WindowText
@@ -355,7 +360,7 @@ Friend Class dlgScanner
         Me.txtNumberOfRows.MaxLength = 0
         Me.txtNumberOfRows.Name = "txtNumberOfRows"
         Me.txtNumberOfRows.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtNumberOfRows.Size = New System.Drawing.Size(185, 20)
+        Me.txtNumberOfRows.Size = New System.Drawing.Size(185, 13)
         Me.txtNumberOfRows.TabIndex = 1
         Me.txtNumberOfRows.Text = "10"
         '
@@ -363,6 +368,7 @@ Friend Class dlgScanner
         '
         Me.txtInstrument.AcceptsReturn = True
         Me.txtInstrument.BackColor = System.Drawing.SystemColors.Window
+        Me.txtInstrument.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtInstrument.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtInstrument.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtInstrument.ForeColor = System.Drawing.SystemColors.WindowText
@@ -370,7 +376,7 @@ Friend Class dlgScanner
         Me.txtInstrument.MaxLength = 0
         Me.txtInstrument.Name = "txtInstrument"
         Me.txtInstrument.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtInstrument.Size = New System.Drawing.Size(185, 20)
+        Me.txtInstrument.Size = New System.Drawing.Size(185, 13)
         Me.txtInstrument.TabIndex = 3
         Me.txtInstrument.Text = "STK"
         '
@@ -378,6 +384,7 @@ Friend Class dlgScanner
         '
         Me.txtLocationCode.AcceptsReturn = True
         Me.txtLocationCode.BackColor = System.Drawing.SystemColors.Window
+        Me.txtLocationCode.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtLocationCode.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtLocationCode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLocationCode.ForeColor = System.Drawing.SystemColors.WindowText
@@ -385,7 +392,7 @@ Friend Class dlgScanner
         Me.txtLocationCode.MaxLength = 0
         Me.txtLocationCode.Name = "txtLocationCode"
         Me.txtLocationCode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLocationCode.Size = New System.Drawing.Size(185, 20)
+        Me.txtLocationCode.Size = New System.Drawing.Size(185, 13)
         Me.txtLocationCode.TabIndex = 5
         Me.txtLocationCode.Text = "STK.US.MAJOR"
         '
@@ -393,6 +400,7 @@ Friend Class dlgScanner
         '
         Me.txtScanCode.AcceptsReturn = True
         Me.txtScanCode.BackColor = System.Drawing.SystemColors.Window
+        Me.txtScanCode.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtScanCode.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtScanCode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtScanCode.ForeColor = System.Drawing.SystemColors.WindowText
@@ -400,7 +408,7 @@ Friend Class dlgScanner
         Me.txtScanCode.MaxLength = 0
         Me.txtScanCode.Name = "txtScanCode"
         Me.txtScanCode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtScanCode.Size = New System.Drawing.Size(185, 20)
+        Me.txtScanCode.Size = New System.Drawing.Size(185, 13)
         Me.txtScanCode.TabIndex = 7
         Me.txtScanCode.Text = "TOP_PERC_GAIN"
         '
@@ -408,6 +416,7 @@ Friend Class dlgScanner
         '
         Me.txtAboveVolume.AcceptsReturn = True
         Me.txtAboveVolume.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAboveVolume.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAboveVolume.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAboveVolume.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAboveVolume.ForeColor = System.Drawing.SystemColors.WindowText
@@ -415,7 +424,7 @@ Friend Class dlgScanner
         Me.txtAboveVolume.MaxLength = 0
         Me.txtAboveVolume.Name = "txtAboveVolume"
         Me.txtAboveVolume.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAboveVolume.Size = New System.Drawing.Size(185, 20)
+        Me.txtAboveVolume.Size = New System.Drawing.Size(185, 13)
         Me.txtAboveVolume.TabIndex = 13
         Me.txtAboveVolume.Text = "0"
         '
@@ -423,6 +432,7 @@ Friend Class dlgScanner
         '
         Me.txtMarketCapBelow.AcceptsReturn = True
         Me.txtMarketCapBelow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMarketCapBelow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtMarketCapBelow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtMarketCapBelow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMarketCapBelow.ForeColor = System.Drawing.SystemColors.WindowText
@@ -430,13 +440,14 @@ Friend Class dlgScanner
         Me.txtMarketCapBelow.MaxLength = 0
         Me.txtMarketCapBelow.Name = "txtMarketCapBelow"
         Me.txtMarketCapBelow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMarketCapBelow.Size = New System.Drawing.Size(185, 20)
+        Me.txtMarketCapBelow.Size = New System.Drawing.Size(185, 13)
         Me.txtMarketCapBelow.TabIndex = 19
         '
         'txtMoodyRatingAbove
         '
         Me.txtMoodyRatingAbove.AcceptsReturn = True
         Me.txtMoodyRatingAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMoodyRatingAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtMoodyRatingAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtMoodyRatingAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMoodyRatingAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -444,13 +455,14 @@ Friend Class dlgScanner
         Me.txtMoodyRatingAbove.MaxLength = 0
         Me.txtMoodyRatingAbove.Name = "txtMoodyRatingAbove"
         Me.txtMoodyRatingAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMoodyRatingAbove.Size = New System.Drawing.Size(185, 20)
+        Me.txtMoodyRatingAbove.Size = New System.Drawing.Size(185, 13)
         Me.txtMoodyRatingAbove.TabIndex = 21
         '
         'txtAbovePrice
         '
         Me.txtAbovePrice.AcceptsReturn = True
         Me.txtAbovePrice.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAbovePrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAbovePrice.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAbovePrice.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAbovePrice.ForeColor = System.Drawing.SystemColors.WindowText
@@ -458,7 +470,7 @@ Friend Class dlgScanner
         Me.txtAbovePrice.MaxLength = 0
         Me.txtAbovePrice.Name = "txtAbovePrice"
         Me.txtAbovePrice.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAbovePrice.Size = New System.Drawing.Size(185, 20)
+        Me.txtAbovePrice.Size = New System.Drawing.Size(185, 13)
         Me.txtAbovePrice.TabIndex = 9
         Me.txtAbovePrice.Text = "3"
         '
@@ -466,6 +478,7 @@ Friend Class dlgScanner
         '
         Me.TxtMarketCapAbove.AcceptsReturn = True
         Me.TxtMarketCapAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.TxtMarketCapAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TxtMarketCapAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TxtMarketCapAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtMarketCapAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -473,7 +486,7 @@ Friend Class dlgScanner
         Me.TxtMarketCapAbove.MaxLength = 0
         Me.TxtMarketCapAbove.Name = "TxtMarketCapAbove"
         Me.TxtMarketCapAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TxtMarketCapAbove.Size = New System.Drawing.Size(185, 20)
+        Me.TxtMarketCapAbove.Size = New System.Drawing.Size(185, 13)
         Me.TxtMarketCapAbove.TabIndex = 17
         Me.TxtMarketCapAbove.Text = "100000000"
         '
@@ -481,6 +494,7 @@ Friend Class dlgScanner
         '
         Me.txtBelowPrice.AcceptsReturn = True
         Me.txtBelowPrice.BackColor = System.Drawing.SystemColors.Window
+        Me.txtBelowPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtBelowPrice.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtBelowPrice.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBelowPrice.ForeColor = System.Drawing.SystemColors.WindowText
@@ -488,13 +502,14 @@ Friend Class dlgScanner
         Me.txtBelowPrice.MaxLength = 0
         Me.txtBelowPrice.Name = "txtBelowPrice"
         Me.txtBelowPrice.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBelowPrice.Size = New System.Drawing.Size(185, 20)
+        Me.txtBelowPrice.Size = New System.Drawing.Size(185, 13)
         Me.txtBelowPrice.TabIndex = 11
         '
         'txtMoodyRatingBelow
         '
         Me.txtMoodyRatingBelow.AcceptsReturn = True
         Me.txtMoodyRatingBelow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMoodyRatingBelow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtMoodyRatingBelow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtMoodyRatingBelow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMoodyRatingBelow.ForeColor = System.Drawing.SystemColors.WindowText
@@ -502,13 +517,14 @@ Friend Class dlgScanner
         Me.txtMoodyRatingBelow.MaxLength = 0
         Me.txtMoodyRatingBelow.Name = "txtMoodyRatingBelow"
         Me.txtMoodyRatingBelow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMoodyRatingBelow.Size = New System.Drawing.Size(185, 20)
+        Me.txtMoodyRatingBelow.Size = New System.Drawing.Size(185, 13)
         Me.txtMoodyRatingBelow.TabIndex = 23
         '
         'txtSpRatingAbove
         '
         Me.txtSpRatingAbove.AcceptsReturn = True
         Me.txtSpRatingAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSpRatingAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSpRatingAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSpRatingAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSpRatingAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -516,13 +532,14 @@ Friend Class dlgScanner
         Me.txtSpRatingAbove.MaxLength = 0
         Me.txtSpRatingAbove.Name = "txtSpRatingAbove"
         Me.txtSpRatingAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSpRatingAbove.Size = New System.Drawing.Size(185, 20)
+        Me.txtSpRatingAbove.Size = New System.Drawing.Size(185, 13)
         Me.txtSpRatingAbove.TabIndex = 25
         '
         'txtMaturityDateBelow
         '
         Me.txtMaturityDateBelow.AcceptsReturn = True
         Me.txtMaturityDateBelow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMaturityDateBelow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtMaturityDateBelow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtMaturityDateBelow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMaturityDateBelow.ForeColor = System.Drawing.SystemColors.WindowText
@@ -530,13 +547,14 @@ Friend Class dlgScanner
         Me.txtMaturityDateBelow.MaxLength = 0
         Me.txtMaturityDateBelow.Name = "txtMaturityDateBelow"
         Me.txtMaturityDateBelow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMaturityDateBelow.Size = New System.Drawing.Size(185, 20)
+        Me.txtMaturityDateBelow.Size = New System.Drawing.Size(185, 13)
         Me.txtMaturityDateBelow.TabIndex = 31
         '
         'txtCouponRateBelow
         '
         Me.txtCouponRateBelow.AcceptsReturn = True
         Me.txtCouponRateBelow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCouponRateBelow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCouponRateBelow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCouponRateBelow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCouponRateBelow.ForeColor = System.Drawing.SystemColors.WindowText
@@ -544,13 +562,14 @@ Friend Class dlgScanner
         Me.txtCouponRateBelow.MaxLength = 0
         Me.txtCouponRateBelow.Name = "txtCouponRateBelow"
         Me.txtCouponRateBelow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtCouponRateBelow.Size = New System.Drawing.Size(185, 20)
+        Me.txtCouponRateBelow.Size = New System.Drawing.Size(185, 13)
         Me.txtCouponRateBelow.TabIndex = 35
         '
         'txtExcludeConvertibles
         '
         Me.txtExcludeConvertibles.AcceptsReturn = True
         Me.txtExcludeConvertibles.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExcludeConvertibles.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExcludeConvertibles.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExcludeConvertibles.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExcludeConvertibles.ForeColor = System.Drawing.SystemColors.WindowText
@@ -558,7 +577,7 @@ Friend Class dlgScanner
         Me.txtExcludeConvertibles.MaxLength = 0
         Me.txtExcludeConvertibles.Name = "txtExcludeConvertibles"
         Me.txtExcludeConvertibles.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExcludeConvertibles.Size = New System.Drawing.Size(185, 20)
+        Me.txtExcludeConvertibles.Size = New System.Drawing.Size(185, 13)
         Me.txtExcludeConvertibles.TabIndex = 37
         Me.txtExcludeConvertibles.Text = "0"
         '
@@ -566,6 +585,7 @@ Friend Class dlgScanner
         '
         Me.txtSpRatingBelow.AcceptsReturn = True
         Me.txtSpRatingBelow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSpRatingBelow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSpRatingBelow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSpRatingBelow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSpRatingBelow.ForeColor = System.Drawing.SystemColors.WindowText
@@ -573,13 +593,14 @@ Friend Class dlgScanner
         Me.txtSpRatingBelow.MaxLength = 0
         Me.txtSpRatingBelow.Name = "txtSpRatingBelow"
         Me.txtSpRatingBelow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSpRatingBelow.Size = New System.Drawing.Size(185, 20)
+        Me.txtSpRatingBelow.Size = New System.Drawing.Size(185, 13)
         Me.txtSpRatingBelow.TabIndex = 27
         '
         'txtCouponRateAbove
         '
         Me.txtCouponRateAbove.AcceptsReturn = True
         Me.txtCouponRateAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCouponRateAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCouponRateAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCouponRateAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCouponRateAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -587,13 +608,14 @@ Friend Class dlgScanner
         Me.txtCouponRateAbove.MaxLength = 0
         Me.txtCouponRateAbove.Name = "txtCouponRateAbove"
         Me.txtCouponRateAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtCouponRateAbove.Size = New System.Drawing.Size(185, 20)
+        Me.txtCouponRateAbove.Size = New System.Drawing.Size(185, 13)
         Me.txtCouponRateAbove.TabIndex = 33
         '
         'txtMaturityDateAbove
         '
         Me.txtMaturityDateAbove.AcceptsReturn = True
         Me.txtMaturityDateAbove.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMaturityDateAbove.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtMaturityDateAbove.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtMaturityDateAbove.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMaturityDateAbove.ForeColor = System.Drawing.SystemColors.WindowText
@@ -601,260 +623,260 @@ Friend Class dlgScanner
         Me.txtMaturityDateAbove.MaxLength = 0
         Me.txtMaturityDateAbove.Name = "txtMaturityDateAbove"
         Me.txtMaturityDateAbove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtMaturityDateAbove.Size = New System.Drawing.Size(185, 20)
+        Me.txtMaturityDateAbove.Size = New System.Drawing.Size(185, 13)
         Me.txtMaturityDateAbove.TabIndex = 29
         '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.BackColor = System.Drawing.Color.Gainsboro
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label2.Location = New System.Drawing.Point(16, 27)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label2.Size = New System.Drawing.Size(113, 13)
+        Me.Label2.Size = New System.Drawing.Size(113, 17)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Number of Rows"
         '
         'Label19
         '
-        Me.Label19.BackColor = System.Drawing.SystemColors.Control
+        Me.Label19.BackColor = System.Drawing.Color.Gainsboro
         Me.Label19.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label19.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label19.Location = New System.Drawing.Point(16, 280)
         Me.Label19.Name = "Label19"
         Me.Label19.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label19.Size = New System.Drawing.Size(129, 13)
+        Me.Label19.Size = New System.Drawing.Size(129, 17)
         Me.Label19.TabIndex = 22
         Me.Label19.Text = "Moody Rating Below"
         '
         'Label16
         '
-        Me.Label16.BackColor = System.Drawing.SystemColors.Control
+        Me.Label16.BackColor = System.Drawing.Color.Gainsboro
         Me.Label16.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label16.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label16.Location = New System.Drawing.Point(16, 303)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label16.Size = New System.Drawing.Size(113, 13)
+        Me.Label16.Size = New System.Drawing.Size(113, 17)
         Me.Label16.TabIndex = 24
         Me.Label16.Text = "S and P Rating Above"
         '
         'Label15
         '
-        Me.Label15.BackColor = System.Drawing.SystemColors.Control
+        Me.Label15.BackColor = System.Drawing.Color.Gainsboro
         Me.Label15.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label15.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label15.Location = New System.Drawing.Point(16, 372)
         Me.Label15.Name = "Label15"
         Me.Label15.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label15.Size = New System.Drawing.Size(113, 13)
+        Me.Label15.Size = New System.Drawing.Size(113, 17)
         Me.Label15.TabIndex = 30
         Me.Label15.Text = "Maturity Date Below"
         '
         'Label14
         '
-        Me.Label14.BackColor = System.Drawing.SystemColors.Control
+        Me.Label14.BackColor = System.Drawing.Color.Gainsboro
         Me.Label14.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label14.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label14.Location = New System.Drawing.Point(16, 418)
         Me.Label14.Name = "Label14"
         Me.Label14.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label14.Size = New System.Drawing.Size(105, 13)
+        Me.Label14.Size = New System.Drawing.Size(105, 17)
         Me.Label14.TabIndex = 34
         Me.Label14.Text = "Coupon Rate Below"
         '
         'Label13
         '
-        Me.Label13.BackColor = System.Drawing.SystemColors.Control
+        Me.Label13.BackColor = System.Drawing.Color.Gainsboro
         Me.Label13.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label13.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label13.Location = New System.Drawing.Point(16, 441)
         Me.Label13.Name = "Label13"
         Me.Label13.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label13.Size = New System.Drawing.Size(113, 13)
+        Me.Label13.Size = New System.Drawing.Size(113, 17)
         Me.Label13.TabIndex = 36
         Me.Label13.Text = "Exclude Convertibles"
         '
         'Label12
         '
-        Me.Label12.BackColor = System.Drawing.SystemColors.Control
+        Me.Label12.BackColor = System.Drawing.Color.Gainsboro
         Me.Label12.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label12.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label12.Location = New System.Drawing.Point(16, 326)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label12.Size = New System.Drawing.Size(113, 13)
+        Me.Label12.Size = New System.Drawing.Size(113, 17)
         Me.Label12.TabIndex = 26
         Me.Label12.Text = "S and P Rating Below"
         '
         'Label11
         '
-        Me.Label11.BackColor = System.Drawing.SystemColors.Control
+        Me.Label11.BackColor = System.Drawing.Color.Gainsboro
         Me.Label11.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label11.Location = New System.Drawing.Point(16, 395)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label11.Size = New System.Drawing.Size(97, 13)
+        Me.Label11.Size = New System.Drawing.Size(97, 17)
         Me.Label11.TabIndex = 32
         Me.Label11.Text = "Coupon Rate Above"
         '
         'Label10
         '
-        Me.Label10.BackColor = System.Drawing.SystemColors.Control
+        Me.Label10.BackColor = System.Drawing.Color.Gainsboro
         Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label10.Location = New System.Drawing.Point(16, 349)
         Me.Label10.Name = "Label10"
         Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label10.Size = New System.Drawing.Size(113, 13)
+        Me.Label10.Size = New System.Drawing.Size(113, 17)
         Me.Label10.TabIndex = 28
         Me.Label10.Text = "Maturity Date Above"
         '
         'Label3
         '
-        Me.Label3.BackColor = System.Drawing.SystemColors.Control
+        Me.Label3.BackColor = System.Drawing.Color.Gainsboro
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label3.Location = New System.Drawing.Point(16, 50)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label3.Size = New System.Drawing.Size(113, 13)
+        Me.Label3.Size = New System.Drawing.Size(113, 17)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Instrument"
         '
         'Label4
         '
-        Me.Label4.BackColor = System.Drawing.SystemColors.Control
+        Me.Label4.BackColor = System.Drawing.Color.Gainsboro
         Me.Label4.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label4.Location = New System.Drawing.Point(16, 73)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label4.Size = New System.Drawing.Size(73, 13)
+        Me.Label4.Size = New System.Drawing.Size(73, 17)
         Me.Label4.TabIndex = 4
         Me.Label4.Text = "Location Code"
         '
         'Label5
         '
-        Me.Label5.BackColor = System.Drawing.SystemColors.Control
+        Me.Label5.BackColor = System.Drawing.Color.Gainsboro
         Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label5.Location = New System.Drawing.Point(16, 96)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label5.Size = New System.Drawing.Size(73, 13)
+        Me.Label5.Size = New System.Drawing.Size(73, 17)
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "Scan Code"
         '
         'Label6
         '
-        Me.Label6.BackColor = System.Drawing.SystemColors.Control
+        Me.Label6.BackColor = System.Drawing.Color.Gainsboro
         Me.Label6.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label6.Location = New System.Drawing.Point(16, 165)
         Me.Label6.Name = "Label6"
         Me.Label6.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label6.Size = New System.Drawing.Size(88, 13)
+        Me.Label6.Size = New System.Drawing.Size(88, 17)
         Me.Label6.TabIndex = 12
         Me.Label6.Text = "Above Volume"
         '
         'Label7
         '
-        Me.Label7.BackColor = System.Drawing.SystemColors.Control
+        Me.Label7.BackColor = System.Drawing.Color.Gainsboro
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label7.Location = New System.Drawing.Point(16, 234)
         Me.Label7.Name = "Label7"
         Me.Label7.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label7.Size = New System.Drawing.Size(105, 13)
+        Me.Label7.Size = New System.Drawing.Size(105, 17)
         Me.Label7.TabIndex = 18
         Me.Label7.Text = "Market Cap Below"
         '
         'Label8
         '
-        Me.Label8.BackColor = System.Drawing.SystemColors.Control
+        Me.Label8.BackColor = System.Drawing.Color.Gainsboro
         Me.Label8.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label8.Location = New System.Drawing.Point(16, 257)
         Me.Label8.Name = "Label8"
         Me.Label8.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label8.Size = New System.Drawing.Size(113, 13)
+        Me.Label8.Size = New System.Drawing.Size(113, 17)
         Me.Label8.TabIndex = 20
         Me.Label8.Text = "Moody Rating Above"
         '
         'Label9
         '
-        Me.Label9.BackColor = System.Drawing.SystemColors.Control
+        Me.Label9.BackColor = System.Drawing.Color.Gainsboro
         Me.Label9.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label9.Location = New System.Drawing.Point(16, 119)
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label9.Size = New System.Drawing.Size(73, 13)
+        Me.Label9.Size = New System.Drawing.Size(73, 17)
         Me.Label9.TabIndex = 8
         Me.Label9.Text = "Above Price"
         '
         'Label17
         '
-        Me.Label17.BackColor = System.Drawing.SystemColors.Control
+        Me.Label17.BackColor = System.Drawing.Color.Gainsboro
         Me.Label17.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label17.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label17.Location = New System.Drawing.Point(16, 211)
         Me.Label17.Name = "Label17"
         Me.Label17.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label17.Size = New System.Drawing.Size(97, 13)
+        Me.Label17.Size = New System.Drawing.Size(97, 17)
         Me.Label17.TabIndex = 16
         Me.Label17.Text = "Market Cap Above"
         '
         'Label18
         '
-        Me.Label18.BackColor = System.Drawing.SystemColors.Control
+        Me.Label18.BackColor = System.Drawing.Color.Gainsboro
         Me.Label18.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label18.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label18.Location = New System.Drawing.Point(16, 142)
         Me.Label18.Name = "Label18"
         Me.Label18.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label18.Size = New System.Drawing.Size(73, 13)
+        Me.Label18.Size = New System.Drawing.Size(73, 17)
         Me.Label18.TabIndex = 10
         Me.Label18.Text = "Below Price"
         '
         'Frame1
         '
-        Me.Frame1.BackColor = System.Drawing.SystemColors.Control
+        Me.Frame1.BackColor = System.Drawing.Color.Gainsboro
         Me.Frame1.Controls.Add(Me.Label1)
         Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Frame1.Location = New System.Drawing.Point(8, 8)
+        Me.Frame1.Location = New System.Drawing.Point(0, 8)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Frame1.Size = New System.Drawing.Size(385, 41)
+        Me.Frame1.Size = New System.Drawing.Size(393, 41)
         Me.Frame1.TabIndex = 0
         Me.Frame1.TabStop = False
         Me.Frame1.Text = "Message Id"
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
@@ -877,7 +899,7 @@ Friend Class dlgScanner
         'dlgScanner
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(395, 605)
         Me.Controls.Add(Me.cmdOptions)
         Me.Controls.Add(Me.cmdCancelSubscription)
@@ -918,7 +940,7 @@ Friend Class dlgScanner
     End Property
 #End Region
     Private m_subscription As IBApi.ScannerSubscription
-    Private m_mainWnd As dlgMainWnd
+    Private m_mainWnd As MainForm
 
     Private m_id As Integer
     Private m_ok As Boolean
@@ -927,7 +949,7 @@ Friend Class dlgScanner
     ' ========================================================
     ' Public Methods
     ' ========================================================
-    Public Sub init(ByRef mainWin As System.Windows.Forms.Form)
+    Public Sub init(mainWin As System.Windows.Forms.Form)
         m_ok = False
         m_mainWnd = mainWin
         m_subscription = New IBApi.ScannerSubscription
@@ -941,26 +963,26 @@ Friend Class dlgScanner
         Hide()
     End Sub
 
-    Private Sub cmdRequestParameters_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRequestParameters.Click
-        Call m_mainWnd.requestScannerParameters()
+    Private Sub cmdRequestParameters_Click(sender As Object, e As EventArgs) Handles cmdRequestParameters.Click
+        m_mainWnd.Api.reqScannerParameters()
         Hide()
     End Sub
 
-    Private Sub cmdCancelSubscription_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancelSubscription.Click
-        Call populateSubscription()
-        Call m_mainWnd.cancelScannerSubscription(m_id)
+    Private Sub cmdCancelSubscription_Click(sender As Object, e As EventArgs) Handles cmdCancelSubscription.Click
+        populateSubscription()
+        m_mainWnd.Api.cancelScannerSubscription(m_id)
         Hide()
     End Sub
 
-    Private Sub cmdSubscribe_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSubscribe.Click
-        Call populateSubscription()
-        Call m_mainWnd.scannerSubscription(m_id, m_subscription, m_scannerSubscriptionOptions)
+    Private Sub cmdSubscribe_Click(sender As Object, e As EventArgs) Handles cmdSubscribe.Click
+        populateSubscription()
+        m_mainWnd.Api.reqScannerSubscription(m_id, m_subscription, m_scannerSubscriptionOptions)
         Hide()
     End Sub
 
-    Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
+    Private Sub cmdOptions_Click(sender As System.Object, e As System.EventArgs) Handles cmdOptions.Click
         Dim dlg As New dlgSmartComboRoutingParams
-        dlg.init(m_scannerSubscriptionOptions, m_mainWnd.Tws1, "Scanner Subscription Options")
+        dlg.init(m_scannerSubscriptionOptions, "Scanner Subscription Options")
         Dim res As DialogResult
         res = dlg.ShowDialog()
         If res = DialogResult.OK Then
@@ -995,7 +1017,7 @@ Friend Class dlgScanner
         End With
     End Sub
 
-    Private Function numFromText(ByRef textStr As String) As Double
+    Private Function numFromText(textStr As String) As Double
         If textStr = "" Then
             numFromText = -1
         Else

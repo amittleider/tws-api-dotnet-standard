@@ -114,15 +114,18 @@ Partial Class dlgCondition
         Me.tabControl1.Controls.Add(Me.tabPage4)
         Me.tabControl1.Controls.Add(Me.tabPage5)
         Me.tabControl1.Controls.Add(Me.tabPage6)
-        Me.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabControl1.Location = New System.Drawing.Point(0, 0)
+        Me.tabControl1.HotTrack = True
+        Me.tabControl1.Location = New System.Drawing.Point(-4, 0)
+        Me.tabControl1.Margin = New System.Windows.Forms.Padding(0)
         Me.tabControl1.Name = "tabControl1"
+        Me.tabControl1.Padding = New System.Drawing.Point(0, 0)
         Me.tabControl1.SelectedIndex = 0
-        Me.tabControl1.Size = New System.Drawing.Size(309, 216)
+        Me.tabControl1.Size = New System.Drawing.Size(318, 220)
         Me.tabControl1.TabIndex = 1
         '
         'conditionTypePage
         '
+        Me.conditionTypePage.BackColor = System.Drawing.Color.Gainsboro
         Me.conditionTypePage.Controls.Add(Me.btnNext)
         Me.conditionTypePage.Controls.Add(Me.percentRb)
         Me.conditionTypePage.Controls.Add(Me.volumeRb)
@@ -130,13 +133,13 @@ Partial Class dlgCondition
         Me.conditionTypePage.Controls.Add(Me.tradeRb)
         Me.conditionTypePage.Controls.Add(Me.marginRb)
         Me.conditionTypePage.Controls.Add(Me.priceRb)
+        Me.conditionTypePage.ForeColor = System.Drawing.SystemColors.ControlText
         Me.conditionTypePage.Location = New System.Drawing.Point(4, 22)
         Me.conditionTypePage.Name = "conditionTypePage"
         Me.conditionTypePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.conditionTypePage.Size = New System.Drawing.Size(301, 190)
+        Me.conditionTypePage.Size = New System.Drawing.Size(310, 194)
         Me.conditionTypePage.TabIndex = 0
         Me.conditionTypePage.Text = "Condition type"
-        Me.conditionTypePage.UseVisualStyleBackColor = True
         '
         'btnNext
         '
@@ -211,23 +214,23 @@ Partial Class dlgCondition
         '
         'conditionPage
         '
+        Me.conditionPage.BackColor = System.Drawing.Color.Gainsboro
         Me.conditionPage.Controls.Add(Me.conditionPanel)
         Me.conditionPage.Controls.Add(Me.back)
         Me.conditionPage.Controls.Add(Me.apply)
         Me.conditionPage.Location = New System.Drawing.Point(4, 22)
         Me.conditionPage.Name = "conditionPage"
         Me.conditionPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.conditionPage.Size = New System.Drawing.Size(301, 190)
+        Me.conditionPage.Size = New System.Drawing.Size(310, 194)
         Me.conditionPage.TabIndex = 1
         Me.conditionPage.Text = "Condition"
-        Me.conditionPage.UseVisualStyleBackColor = True
         '
         'conditionPanel
         '
         Me.conditionPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.conditionPanel.Location = New System.Drawing.Point(3, 3)
         Me.conditionPanel.Name = "conditionPanel"
-        Me.conditionPanel.Size = New System.Drawing.Size(295, 150)
+        Me.conditionPanel.Size = New System.Drawing.Size(304, 150)
         Me.conditionPanel.TabIndex = 3
         '
         'back
@@ -252,13 +255,13 @@ Partial Class dlgCondition
         '
         'tabPage1
         '
+        Me.tabPage1.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage1.Controls.Add(Me.pricePanel)
         Me.tabPage1.Location = New System.Drawing.Point(4, 22)
         Me.tabPage1.Name = "tabPage1"
-        Me.tabPage1.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage1.Size = New System.Drawing.Size(310, 194)
         Me.tabPage1.TabIndex = 2
         Me.tabPage1.Text = "Price"
-        Me.tabPage1.UseVisualStyleBackColor = True
         '
         'pricePanel
         '
@@ -275,7 +278,7 @@ Partial Class dlgCondition
         Me.pricePanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.pricePanel.Location = New System.Drawing.Point(0, 0)
         Me.pricePanel.Name = "pricePanel"
-        Me.pricePanel.Size = New System.Drawing.Size(301, 140)
+        Me.pricePanel.Size = New System.Drawing.Size(310, 140)
         Me.pricePanel.TabIndex = 0
         '
         'Label15
@@ -289,24 +292,27 @@ Partial Class dlgCondition
         '
         'priceConExch
         '
+        Me.priceConExch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.priceConExch.Location = New System.Drawing.Point(124, 32)
         Me.priceConExch.Name = "priceConExch"
-        Me.priceConExch.Size = New System.Drawing.Size(156, 20)
+        Me.priceConExch.Size = New System.Drawing.Size(156, 13)
         Me.priceConExch.TabIndex = 20
         '
         'priceConId
         '
+        Me.priceConId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.priceConId.Location = New System.Drawing.Point(124, 6)
         Me.priceConId.Name = "priceConId"
-        Me.priceConId.Size = New System.Drawing.Size(156, 20)
+        Me.priceConId.Size = New System.Drawing.Size(156, 13)
         Me.priceConId.TabIndex = 19
         '
         'priceMethod
         '
         Me.priceMethod.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.priceMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.priceMethod.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.priceMethod.FormattingEnabled = True
-        Me.priceMethod.Location = New System.Drawing.Point(124, 60)
+        Me.priceMethod.Location = New System.Drawing.Point(133, 60)
         Me.priceMethod.Name = "priceMethod"
         Me.priceMethod.Size = New System.Drawing.Size(156, 21)
         Me.priceMethod.TabIndex = 18
@@ -315,7 +321,7 @@ Partial Class dlgCondition
         '
         Me.label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label4.AutoSize = True
-        Me.label4.Location = New System.Drawing.Point(8, 116)
+        Me.label4.Location = New System.Drawing.Point(17, 116)
         Me.label4.Name = "label4"
         Me.label4.Size = New System.Drawing.Size(31, 13)
         Me.label4.TabIndex = 16
@@ -325,7 +331,7 @@ Partial Class dlgCondition
         '
         Me.label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label3.AutoSize = True
-        Me.label3.Location = New System.Drawing.Point(8, 89)
+        Me.label3.Location = New System.Drawing.Point(17, 89)
         Me.label3.Name = "label3"
         Me.label3.Size = New System.Drawing.Size(48, 13)
         Me.label3.TabIndex = 15
@@ -335,7 +341,7 @@ Partial Class dlgCondition
         '
         Me.label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label2.AutoSize = True
-        Me.label2.Location = New System.Drawing.Point(8, 63)
+        Me.label2.Location = New System.Drawing.Point(17, 63)
         Me.label2.Name = "label2"
         Me.label2.Size = New System.Drawing.Size(43, 13)
         Me.label2.TabIndex = 1
@@ -345,9 +351,10 @@ Partial Class dlgCondition
         '
         Me.priceOperator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.priceOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.priceOperator.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.priceOperator.FormattingEnabled = True
         Me.priceOperator.Items.AddRange(New Object() {"<=", ">="})
-        Me.priceOperator.Location = New System.Drawing.Point(124, 86)
+        Me.priceOperator.Location = New System.Drawing.Point(133, 86)
         Me.priceOperator.Name = "priceOperator"
         Me.priceOperator.Size = New System.Drawing.Size(156, 21)
         Me.priceOperator.TabIndex = 4
@@ -355,9 +362,10 @@ Partial Class dlgCondition
         'price
         '
         Me.price.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.price.Location = New System.Drawing.Point(124, 113)
+        Me.price.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.price.Location = New System.Drawing.Point(133, 113)
         Me.price.Name = "price"
-        Me.price.Size = New System.Drawing.Size(156, 20)
+        Me.price.Size = New System.Drawing.Size(156, 13)
         Me.price.TabIndex = 5
         '
         'label1
@@ -371,13 +379,13 @@ Partial Class dlgCondition
         '
         'tabPage2
         '
+        Me.tabPage2.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage2.Controls.Add(Me.marginPanel)
         Me.tabPage2.Location = New System.Drawing.Point(4, 22)
         Me.tabPage2.Name = "tabPage2"
-        Me.tabPage2.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage2.Size = New System.Drawing.Size(310, 194)
         Me.tabPage2.TabIndex = 3
         Me.tabPage2.Text = "Margin"
-        Me.tabPage2.UseVisualStyleBackColor = True
         '
         'marginPanel
         '
@@ -388,12 +396,13 @@ Partial Class dlgCondition
         Me.marginPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.marginPanel.Location = New System.Drawing.Point(0, 0)
         Me.marginPanel.Name = "marginPanel"
-        Me.marginPanel.Size = New System.Drawing.Size(301, 190)
+        Me.marginPanel.Size = New System.Drawing.Size(310, 194)
         Me.marginPanel.TabIndex = 4
         '
         'marginOperator
         '
         Me.marginOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.marginOperator.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.marginOperator.FormattingEnabled = True
         Me.marginOperator.Items.AddRange(New Object() {"<=", ">="})
         Me.marginOperator.Location = New System.Drawing.Point(76, 26)
@@ -403,9 +412,10 @@ Partial Class dlgCondition
         '
         'marginCushion
         '
+        Me.marginCushion.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.marginCushion.Location = New System.Drawing.Point(76, 53)
         Me.marginCushion.Name = "marginCushion"
-        Me.marginCushion.Size = New System.Drawing.Size(209, 20)
+        Me.marginCushion.Size = New System.Drawing.Size(209, 13)
         Me.marginCushion.TabIndex = 1
         '
         'label5
@@ -428,13 +438,13 @@ Partial Class dlgCondition
         '
         'tabPage3
         '
+        Me.tabPage3.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage3.Controls.Add(Me.tradePanel)
         Me.tabPage3.Location = New System.Drawing.Point(4, 22)
         Me.tabPage3.Name = "tabPage3"
-        Me.tabPage3.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage3.Size = New System.Drawing.Size(310, 194)
         Me.tabPage3.TabIndex = 4
         Me.tabPage3.Text = "Trade"
-        Me.tabPage3.UseVisualStyleBackColor = True
         '
         'tradePanel
         '
@@ -447,7 +457,7 @@ Partial Class dlgCondition
         Me.tradePanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.tradePanel.Location = New System.Drawing.Point(0, 0)
         Me.tradePanel.Name = "tradePanel"
-        Me.tradePanel.Size = New System.Drawing.Size(301, 106)
+        Me.tradePanel.Size = New System.Drawing.Size(310, 106)
         Me.tradePanel.TabIndex = 0
         '
         'label9
@@ -479,34 +489,37 @@ Partial Class dlgCondition
         '
         'tradeType
         '
+        Me.tradeType.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tradeType.Location = New System.Drawing.Point(71, 67)
         Me.tradeType.Name = "tradeType"
-        Me.tradeType.Size = New System.Drawing.Size(214, 20)
+        Me.tradeType.Size = New System.Drawing.Size(214, 13)
         Me.tradeType.TabIndex = 2
         '
         'tradeExchange
         '
+        Me.tradeExchange.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tradeExchange.Location = New System.Drawing.Point(71, 41)
         Me.tradeExchange.Name = "tradeExchange"
-        Me.tradeExchange.Size = New System.Drawing.Size(214, 20)
+        Me.tradeExchange.Size = New System.Drawing.Size(214, 13)
         Me.tradeExchange.TabIndex = 1
         '
         'tradeUnderlying
         '
+        Me.tradeUnderlying.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tradeUnderlying.Location = New System.Drawing.Point(71, 15)
         Me.tradeUnderlying.Name = "tradeUnderlying"
-        Me.tradeUnderlying.Size = New System.Drawing.Size(214, 20)
+        Me.tradeUnderlying.Size = New System.Drawing.Size(214, 13)
         Me.tradeUnderlying.TabIndex = 0
         '
         'tabPage4
         '
+        Me.tabPage4.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage4.Controls.Add(Me.timePanel)
         Me.tabPage4.Location = New System.Drawing.Point(4, 22)
         Me.tabPage4.Name = "tabPage4"
-        Me.tabPage4.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage4.Size = New System.Drawing.Size(310, 194)
         Me.tabPage4.TabIndex = 5
         Me.tabPage4.Text = "Time"
-        Me.tabPage4.UseVisualStyleBackColor = True
         '
         'timePanel
         '
@@ -517,7 +530,7 @@ Partial Class dlgCondition
         Me.timePanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.timePanel.Location = New System.Drawing.Point(0, 0)
         Me.timePanel.Name = "timePanel"
-        Me.timePanel.Size = New System.Drawing.Size(301, 100)
+        Me.timePanel.Size = New System.Drawing.Size(310, 100)
         Me.timePanel.TabIndex = 10
         '
         'label11
@@ -540,14 +553,16 @@ Partial Class dlgCondition
         '
         'time
         '
+        Me.time.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.time.Location = New System.Drawing.Point(77, 52)
         Me.time.Name = "time"
-        Me.time.Size = New System.Drawing.Size(209, 20)
+        Me.time.Size = New System.Drawing.Size(209, 13)
         Me.time.TabIndex = 6
         '
         'timeOperator
         '
         Me.timeOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.timeOperator.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.timeOperator.FormattingEnabled = True
         Me.timeOperator.Items.AddRange(New Object() {"<=", ">="})
         Me.timeOperator.Location = New System.Drawing.Point(77, 25)
@@ -557,13 +572,13 @@ Partial Class dlgCondition
         '
         'tabPage5
         '
+        Me.tabPage5.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage5.Controls.Add(Me.volumePanel)
         Me.tabPage5.Location = New System.Drawing.Point(4, 22)
         Me.tabPage5.Name = "tabPage5"
-        Me.tabPage5.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage5.Size = New System.Drawing.Size(310, 194)
         Me.tabPage5.TabIndex = 6
         Me.tabPage5.Text = "Volume"
-        Me.tabPage5.UseVisualStyleBackColor = True
         '
         'volumePanel
         '
@@ -578,7 +593,7 @@ Partial Class dlgCondition
         Me.volumePanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.volumePanel.Location = New System.Drawing.Point(0, 0)
         Me.volumePanel.Name = "volumePanel"
-        Me.volumePanel.Size = New System.Drawing.Size(301, 125)
+        Me.volumePanel.Size = New System.Drawing.Size(310, 125)
         Me.volumePanel.TabIndex = 26
         '
         'Label18
@@ -592,16 +607,18 @@ Partial Class dlgCondition
         '
         'volumeConExch
         '
+        Me.volumeConExch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.volumeConExch.Location = New System.Drawing.Point(126, 29)
         Me.volumeConExch.Name = "volumeConExch"
-        Me.volumeConExch.Size = New System.Drawing.Size(156, 20)
+        Me.volumeConExch.Size = New System.Drawing.Size(156, 13)
         Me.volumeConExch.TabIndex = 27
         '
         'volumeConId
         '
+        Me.volumeConId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.volumeConId.Location = New System.Drawing.Point(126, 3)
         Me.volumeConId.Name = "volumeConId"
-        Me.volumeConId.Size = New System.Drawing.Size(156, 20)
+        Me.volumeConId.Size = New System.Drawing.Size(156, 13)
         Me.volumeConId.TabIndex = 26
         '
         'Label19
@@ -616,18 +633,20 @@ Partial Class dlgCondition
         'volume
         '
         Me.volume.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.volume.Location = New System.Drawing.Point(126, 82)
+        Me.volume.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.volume.Location = New System.Drawing.Point(135, 82)
         Me.volume.Name = "volume"
-        Me.volume.Size = New System.Drawing.Size(156, 20)
+        Me.volume.Size = New System.Drawing.Size(156, 13)
         Me.volume.TabIndex = 22
         '
         'volumeOperator
         '
         Me.volumeOperator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.volumeOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.volumeOperator.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.volumeOperator.FormattingEnabled = True
         Me.volumeOperator.Items.AddRange(New Object() {"<=", ">="})
-        Me.volumeOperator.Location = New System.Drawing.Point(126, 55)
+        Me.volumeOperator.Location = New System.Drawing.Point(135, 55)
         Me.volumeOperator.Name = "volumeOperator"
         Me.volumeOperator.Size = New System.Drawing.Size(156, 21)
         Me.volumeOperator.TabIndex = 21
@@ -636,7 +655,7 @@ Partial Class dlgCondition
         '
         Me.label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label17.AutoSize = True
-        Me.label17.Location = New System.Drawing.Point(8, 58)
+        Me.label17.Location = New System.Drawing.Point(17, 58)
         Me.label17.Name = "label17"
         Me.label17.Size = New System.Drawing.Size(48, 13)
         Me.label17.TabIndex = 23
@@ -646,7 +665,7 @@ Partial Class dlgCondition
         '
         Me.label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label16.AutoSize = True
-        Me.label16.Location = New System.Drawing.Point(8, 85)
+        Me.label16.Location = New System.Drawing.Point(17, 85)
         Me.label16.Name = "label16"
         Me.label16.Size = New System.Drawing.Size(42, 13)
         Me.label16.TabIndex = 24
@@ -654,13 +673,13 @@ Partial Class dlgCondition
         '
         'tabPage6
         '
+        Me.tabPage6.BackColor = System.Drawing.Color.Gainsboro
         Me.tabPage6.Controls.Add(Me.percentPanel)
         Me.tabPage6.Location = New System.Drawing.Point(4, 22)
         Me.tabPage6.Name = "tabPage6"
-        Me.tabPage6.Size = New System.Drawing.Size(301, 190)
+        Me.tabPage6.Size = New System.Drawing.Size(310, 194)
         Me.tabPage6.TabIndex = 7
         Me.tabPage6.Text = "Percent"
-        Me.tabPage6.UseVisualStyleBackColor = True
         '
         'percentPanel
         '
@@ -672,10 +691,10 @@ Partial Class dlgCondition
         Me.percentPanel.Controls.Add(Me.percentOperator)
         Me.percentPanel.Controls.Add(Me.label13)
         Me.percentPanel.Controls.Add(Me.label12)
-        Me.percentPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.percentPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.percentPanel.Location = New System.Drawing.Point(0, 0)
         Me.percentPanel.Name = "percentPanel"
-        Me.percentPanel.Size = New System.Drawing.Size(301, 128)
+        Me.percentPanel.Size = New System.Drawing.Size(310, 194)
         Me.percentPanel.TabIndex = 32
         '
         'Label14
@@ -689,16 +708,18 @@ Partial Class dlgCondition
         '
         'percentConExch
         '
+        Me.percentConExch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.percentConExch.Location = New System.Drawing.Point(126, 29)
         Me.percentConExch.Name = "percentConExch"
-        Me.percentConExch.Size = New System.Drawing.Size(156, 20)
+        Me.percentConExch.Size = New System.Drawing.Size(156, 13)
         Me.percentConExch.TabIndex = 33
         '
         'percentConId
         '
+        Me.percentConId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.percentConId.Location = New System.Drawing.Point(126, 3)
         Me.percentConId.Name = "percentConId"
-        Me.percentConId.Size = New System.Drawing.Size(156, 20)
+        Me.percentConId.Size = New System.Drawing.Size(156, 13)
         Me.percentConId.TabIndex = 32
         '
         'Label20
@@ -713,18 +734,20 @@ Partial Class dlgCondition
         'percent
         '
         Me.percent.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.percent.Location = New System.Drawing.Point(126, 86)
+        Me.percent.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.percent.Location = New System.Drawing.Point(135, 88)
         Me.percent.Name = "percent"
-        Me.percent.Size = New System.Drawing.Size(156, 20)
+        Me.percent.Size = New System.Drawing.Size(156, 13)
         Me.percent.TabIndex = 28
         '
         'percentOperator
         '
         Me.percentOperator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.percentOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.percentOperator.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.percentOperator.FormattingEnabled = True
         Me.percentOperator.Items.AddRange(New Object() {"<=", ">="})
-        Me.percentOperator.Location = New System.Drawing.Point(126, 59)
+        Me.percentOperator.Location = New System.Drawing.Point(135, 61)
         Me.percentOperator.Name = "percentOperator"
         Me.percentOperator.Size = New System.Drawing.Size(156, 21)
         Me.percentOperator.TabIndex = 27
@@ -733,7 +756,7 @@ Partial Class dlgCondition
         '
         Me.label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label13.AutoSize = True
-        Me.label13.Location = New System.Drawing.Point(8, 62)
+        Me.label13.Location = New System.Drawing.Point(19, 64)
         Me.label13.Name = "label13"
         Me.label13.Size = New System.Drawing.Size(48, 13)
         Me.label13.TabIndex = 29
@@ -743,7 +766,7 @@ Partial Class dlgCondition
         '
         Me.label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.label12.AutoSize = True
-        Me.label12.Location = New System.Drawing.Point(8, 89)
+        Me.label12.Location = New System.Drawing.Point(19, 88)
         Me.label12.Name = "label12"
         Me.label12.Size = New System.Drawing.Size(101, 13)
         Me.label12.TabIndex = 30
@@ -755,6 +778,7 @@ Partial Class dlgCondition
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(309, 216)
         Me.Controls.Add(Me.tabControl1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "dlgCondition"
         Me.Text = "dlgCondition"
         Me.tabControl1.ResumeLayout(False)

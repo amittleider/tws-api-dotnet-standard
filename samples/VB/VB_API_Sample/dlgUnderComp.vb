@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 Imports System.Windows.Forms
@@ -13,7 +13,7 @@ Public Class dlgUnderComp
     ' ===============================================================================
     ' Public Methods
     ' ===============================================================================
-    Public Sub init(ByVal underComp As IBApi.UnderComp)
+    Public Sub init(underComp As IBApi.UnderComp)
 
         m_underComp = underComp
 
@@ -28,7 +28,7 @@ Public Class dlgUnderComp
     ' ========================================================
     ' Button Events
     ' ========================================================
-    Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOk.Click
+    Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
 
         With m_underComp
             .conId = txtConId.Text
@@ -43,7 +43,7 @@ Public Class dlgUnderComp
 
     End Sub
 
-    Private Sub cmdReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdReset.Click
+    Private Sub cmdReset_Click(sender As System.Object, e As System.EventArgs) Handles cmdReset.Click
 
         With m_underComp
             .conId = 0
@@ -58,7 +58,7 @@ Public Class dlgUnderComp
 
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
 
         m_underComp = Nothing
 

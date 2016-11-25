@@ -44,6 +44,7 @@ Partial Class dlgPegBench
         '
         Me.cbPeggedChangeType.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbPeggedChangeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbPeggedChangeType.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbPeggedChangeType.FormattingEnabled = True
         Me.cbPeggedChangeType.Items.AddRange(New Object() {"Increase", "Decrease"})
         Me.cbPeggedChangeType.Location = New System.Drawing.Point(167, 137)
@@ -54,25 +55,28 @@ Partial Class dlgPegBench
         'tbReferenceChangeAmount
         '
         Me.tbReferenceChangeAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbReferenceChangeAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbReferenceChangeAmount.Location = New System.Drawing.Point(167, 163)
         Me.tbReferenceChangeAmount.Name = "tbReferenceChangeAmount"
-        Me.tbReferenceChangeAmount.Size = New System.Drawing.Size(195, 20)
+        Me.tbReferenceChangeAmount.Size = New System.Drawing.Size(195, 13)
         Me.tbReferenceChangeAmount.TabIndex = 20
         '
         'tbPeggedChangeAmount
         '
         Me.tbPeggedChangeAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbPeggedChangeAmount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbPeggedChangeAmount.Location = New System.Drawing.Point(167, 111)
         Me.tbPeggedChangeAmount.Name = "tbPeggedChangeAmount"
-        Me.tbPeggedChangeAmount.Size = New System.Drawing.Size(195, 20)
+        Me.tbPeggedChangeAmount.Size = New System.Drawing.Size(195, 13)
         Me.tbPeggedChangeAmount.TabIndex = 19
         '
         'tbStartingReferencePrice
         '
         Me.tbStartingReferencePrice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbStartingReferencePrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbStartingReferencePrice.Location = New System.Drawing.Point(167, 85)
         Me.tbStartingReferencePrice.Name = "tbStartingReferencePrice"
-        Me.tbStartingReferencePrice.Size = New System.Drawing.Size(195, 20)
+        Me.tbStartingReferencePrice.Size = New System.Drawing.Size(195, 13)
         Me.tbStartingReferencePrice.TabIndex = 18
         '
         'label10
@@ -131,9 +135,10 @@ Partial Class dlgPegBench
         '
         'tbStartingPrice
         '
+        Me.tbStartingPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbStartingPrice.Location = New System.Drawing.Point(167, 6)
         Me.tbStartingPrice.Name = "tbStartingPrice"
-        Me.tbStartingPrice.Size = New System.Drawing.Size(195, 20)
+        Me.tbStartingPrice.Size = New System.Drawing.Size(195, 13)
         Me.tbStartingPrice.TabIndex = 12
         '
         'label4
@@ -168,16 +173,18 @@ Partial Class dlgPegBench
         '
         'tbReferenceContractId
         '
+        Me.tbReferenceContractId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbReferenceContractId.Location = New System.Drawing.Point(167, 32)
         Me.tbReferenceContractId.Name = "tbReferenceContractId"
-        Me.tbReferenceContractId.Size = New System.Drawing.Size(195, 20)
+        Me.tbReferenceContractId.Size = New System.Drawing.Size(195, 13)
         Me.tbReferenceContractId.TabIndex = 24
         '
         'tbReferenceContractExchange
         '
+        Me.tbReferenceContractExchange.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbReferenceContractExchange.Location = New System.Drawing.Point(167, 58)
         Me.tbReferenceContractExchange.Name = "tbReferenceContractExchange"
-        Me.tbReferenceContractExchange.Size = New System.Drawing.Size(195, 20)
+        Me.tbReferenceContractExchange.Size = New System.Drawing.Size(195, 13)
         Me.tbReferenceContractExchange.TabIndex = 25
         '
         'Label1
@@ -194,6 +201,7 @@ Partial Class dlgPegBench
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(377, 237)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tbReferenceContractExchange)

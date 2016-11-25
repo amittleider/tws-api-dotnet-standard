@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
@@ -22,24 +22,24 @@ Partial Class dlgUnderComp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
-        Me.cmdOk = New System.Windows.Forms.Button
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdReset = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtConId = New System.Windows.Forms.TextBox
-        Me.txtDelta = New System.Windows.Forms.TextBox
-        Me.txtPrice = New System.Windows.Forms.TextBox
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.txtDelta = New System.Windows.Forms.TextBox()
+        Me.cmdOk = New System.Windows.Forms.Button()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdReset = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtConId = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34!))
@@ -61,6 +61,24 @@ Partial Class dlgUnderComp
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(293, 115)
         Me.TableLayoutPanel1.TabIndex = 0
+        '
+        'txtPrice
+        '
+        Me.txtPrice.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtPrice.Location = New System.Drawing.Point(100, 89)
+        Me.txtPrice.Name = "txtPrice"
+        Me.txtPrice.Size = New System.Drawing.Size(91, 13)
+        Me.txtPrice.TabIndex = 2
+        '
+        'txtDelta
+        '
+        Me.txtDelta.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtDelta.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtDelta.Location = New System.Drawing.Point(100, 50)
+        Me.txtDelta.Name = "txtDelta"
+        Me.txtDelta.Size = New System.Drawing.Size(91, 13)
+        Me.txtDelta.TabIndex = 1
         '
         'cmdOk
         '
@@ -95,6 +113,7 @@ Partial Class dlgUnderComp
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(19, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(59, 13)
@@ -124,31 +143,17 @@ Partial Class dlgUnderComp
         'txtConId
         '
         Me.txtConId.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtConId.Location = New System.Drawing.Point(100, 9)
+        Me.txtConId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtConId.Location = New System.Drawing.Point(100, 12)
         Me.txtConId.Name = "txtConId"
-        Me.txtConId.Size = New System.Drawing.Size(91, 20)
+        Me.txtConId.Size = New System.Drawing.Size(91, 13)
         Me.txtConId.TabIndex = 0
-        '
-        'txtDelta
-        '
-        Me.txtDelta.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtDelta.Location = New System.Drawing.Point(100, 47)
-        Me.txtDelta.Name = "txtDelta"
-        Me.txtDelta.Size = New System.Drawing.Size(91, 20)
-        Me.txtDelta.TabIndex = 1
-        '
-        'txtPrice
-        '
-        Me.txtPrice.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtPrice.Location = New System.Drawing.Point(100, 85)
-        Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.Size = New System.Drawing.Size(91, 20)
-        Me.txtPrice.TabIndex = 2
         '
         'dlgUnderComp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(317, 139)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

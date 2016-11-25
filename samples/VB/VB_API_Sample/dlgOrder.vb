@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 
 Imports System.Collections.Generic
@@ -29,7 +29,7 @@ Friend Class dlgOrder
         Form_Initialize_Renamed()
     End Sub
     'Form overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+    Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()
@@ -239,7 +239,7 @@ Friend Class dlgOrder
         '
         'Frame1
         '
-        Me.Frame1.BackColor = System.Drawing.SystemColors.Control
+        Me.Frame1.BackColor = System.Drawing.Color.Gainsboro
         Me.Frame1.Controls.Add(Me.txtEndDateTime)
         Me.Frame1.Controls.Add(Me.Label24)
         Me.Frame1.Controls.Add(Me.txtBarSizeSetting)
@@ -253,7 +253,7 @@ Friend Class dlgOrder
         Me.Frame1.Controls.Add(Me.Label19)
         Me.Frame1.Controls.Add(Me.Label25)
         Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Frame1.ForeColor = System.Drawing.SystemColors.Highlight
         Me.Frame1.Location = New System.Drawing.Point(234, 485)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -266,6 +266,7 @@ Friend Class dlgOrder
         '
         Me.txtEndDateTime.AcceptsReturn = True
         Me.txtEndDateTime.BackColor = System.Drawing.SystemColors.Window
+        Me.txtEndDateTime.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtEndDateTime.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtEndDateTime.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtEndDateTime.ForeColor = System.Drawing.SystemColors.WindowText
@@ -273,20 +274,20 @@ Friend Class dlgOrder
         Me.txtEndDateTime.MaxLength = 0
         Me.txtEndDateTime.Name = "txtEndDateTime"
         Me.txtEndDateTime.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtEndDateTime.Size = New System.Drawing.Size(120, 20)
+        Me.txtEndDateTime.Size = New System.Drawing.Size(120, 13)
         Me.txtEndDateTime.TabIndex = 1
         Me.txtEndDateTime.Text = "YYYYMMDD hh:mm:ss [TMZ]"
         '
         'Label24
         '
-        Me.Label24.BackColor = System.Drawing.SystemColors.Control
+        Me.Label24.BackColor = System.Drawing.Color.Gainsboro
         Me.Label24.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label24.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label24.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label24.Location = New System.Drawing.Point(13, 24)
+        Me.Label24.Location = New System.Drawing.Point(11, 21)
         Me.Label24.Name = "Label24"
         Me.Label24.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label24.Size = New System.Drawing.Size(80, 20)
+        Me.Label24.Size = New System.Drawing.Size(80, 17)
         Me.Label24.TabIndex = 0
         Me.Label24.Text = "End Date/Time"
         '
@@ -294,6 +295,7 @@ Friend Class dlgOrder
         '
         Me.txtBarSizeSetting.AcceptsReturn = True
         Me.txtBarSizeSetting.BackColor = System.Drawing.SystemColors.Window
+        Me.txtBarSizeSetting.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtBarSizeSetting.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtBarSizeSetting.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBarSizeSetting.ForeColor = System.Drawing.SystemColors.WindowText
@@ -301,20 +303,20 @@ Friend Class dlgOrder
         Me.txtBarSizeSetting.MaxLength = 0
         Me.txtBarSizeSetting.Name = "txtBarSizeSetting"
         Me.txtBarSizeSetting.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtBarSizeSetting.Size = New System.Drawing.Size(120, 20)
+        Me.txtBarSizeSetting.Size = New System.Drawing.Size(120, 13)
         Me.txtBarSizeSetting.TabIndex = 5
         Me.txtBarSizeSetting.Text = "1 day"
         '
         'Label23
         '
-        Me.Label23.BackColor = System.Drawing.SystemColors.Control
+        Me.Label23.BackColor = System.Drawing.Color.Gainsboro
         Me.Label23.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label23.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label23.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label23.Location = New System.Drawing.Point(13, 84)
+        Me.Label23.Location = New System.Drawing.Point(11, 81)
         Me.Label23.Name = "Label23"
         Me.Label23.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label23.Size = New System.Drawing.Size(80, 20)
+        Me.Label23.Size = New System.Drawing.Size(80, 17)
         Me.Label23.TabIndex = 4
         Me.Label23.Text = "Bar Size"
         '
@@ -322,14 +324,15 @@ Friend Class dlgOrder
         '
         Me.txtFormatDate.AcceptsReturn = True
         Me.txtFormatDate.BackColor = System.Drawing.SystemColors.Window
+        Me.txtFormatDate.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtFormatDate.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtFormatDate.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFormatDate.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtFormatDate.Location = New System.Drawing.Point(104, 171)
+        Me.txtFormatDate.Location = New System.Drawing.Point(104, 178)
         Me.txtFormatDate.MaxLength = 0
         Me.txtFormatDate.Name = "txtFormatDate"
         Me.txtFormatDate.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtFormatDate.Size = New System.Drawing.Size(120, 20)
+        Me.txtFormatDate.Size = New System.Drawing.Size(120, 13)
         Me.txtFormatDate.TabIndex = 11
         Me.txtFormatDate.Text = "1"
         '
@@ -337,6 +340,7 @@ Friend Class dlgOrder
         '
         Me.txtUseRTH.AcceptsReturn = True
         Me.txtUseRTH.BackColor = System.Drawing.SystemColors.Window
+        Me.txtUseRTH.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtUseRTH.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtUseRTH.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUseRTH.ForeColor = System.Drawing.SystemColors.WindowText
@@ -344,7 +348,7 @@ Friend Class dlgOrder
         Me.txtUseRTH.MaxLength = 0
         Me.txtUseRTH.Name = "txtUseRTH"
         Me.txtUseRTH.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtUseRTH.Size = New System.Drawing.Size(120, 20)
+        Me.txtUseRTH.Size = New System.Drawing.Size(120, 13)
         Me.txtUseRTH.TabIndex = 9
         Me.txtUseRTH.Text = "1"
         '
@@ -352,14 +356,15 @@ Friend Class dlgOrder
         '
         Me.txtWhatToShow.AcceptsReturn = True
         Me.txtWhatToShow.BackColor = System.Drawing.SystemColors.Window
+        Me.txtWhatToShow.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtWhatToShow.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtWhatToShow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtWhatToShow.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtWhatToShow.Location = New System.Drawing.Point(104, 111)
+        Me.txtWhatToShow.Location = New System.Drawing.Point(104, 110)
         Me.txtWhatToShow.MaxLength = 0
         Me.txtWhatToShow.Name = "txtWhatToShow"
         Me.txtWhatToShow.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtWhatToShow.Size = New System.Drawing.Size(120, 20)
+        Me.txtWhatToShow.Size = New System.Drawing.Size(120, 13)
         Me.txtWhatToShow.TabIndex = 7
         Me.txtWhatToShow.Text = "TRADES"
         '
@@ -367,24 +372,25 @@ Friend Class dlgOrder
         '
         Me.txtDuration.AcceptsReturn = True
         Me.txtDuration.BackColor = System.Drawing.SystemColors.Window
+        Me.txtDuration.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtDuration.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtDuration.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDuration.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtDuration.Location = New System.Drawing.Point(104, 51)
+        Me.txtDuration.Location = New System.Drawing.Point(102, 49)
         Me.txtDuration.MaxLength = 0
         Me.txtDuration.Name = "txtDuration"
         Me.txtDuration.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtDuration.Size = New System.Drawing.Size(120, 20)
+        Me.txtDuration.Size = New System.Drawing.Size(120, 13)
         Me.txtDuration.TabIndex = 3
         Me.txtDuration.Text = "1 M"
         '
         'Label21
         '
-        Me.Label21.BackColor = System.Drawing.SystemColors.Control
+        Me.Label21.BackColor = System.Drawing.Color.Gainsboro
         Me.Label21.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label21.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label21.Location = New System.Drawing.Point(14, 178)
+        Me.Label21.Location = New System.Drawing.Point(12, 178)
         Me.Label21.Name = "Label21"
         Me.Label21.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label21.Size = New System.Drawing.Size(80, 33)
@@ -393,40 +399,40 @@ Friend Class dlgOrder
         '
         'Label20
         '
-        Me.Label20.BackColor = System.Drawing.SystemColors.Control
+        Me.Label20.BackColor = System.Drawing.Color.Gainsboro
         Me.Label20.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label20.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label20.Location = New System.Drawing.Point(13, 134)
+        Me.Label20.Location = New System.Drawing.Point(12, 141)
         Me.Label20.Name = "Label20"
         Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label20.Size = New System.Drawing.Size(80, 44)
+        Me.Label20.Size = New System.Drawing.Size(86, 37)
         Me.Label20.TabIndex = 8
         Me.Label20.Text = "Regular Trading Hours (1 or 0)"
         '
         'Label19
         '
-        Me.Label19.BackColor = System.Drawing.SystemColors.Control
+        Me.Label19.BackColor = System.Drawing.Color.Gainsboro
         Me.Label19.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label19.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label19.Location = New System.Drawing.Point(13, 114)
+        Me.Label19.Location = New System.Drawing.Point(13, 110)
         Me.Label19.Name = "Label19"
         Me.Label19.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label19.Size = New System.Drawing.Size(80, 20)
+        Me.Label19.Size = New System.Drawing.Size(80, 17)
         Me.Label19.TabIndex = 6
         Me.Label19.Text = "What To Show"
         '
         'Label25
         '
-        Me.Label25.BackColor = System.Drawing.SystemColors.Control
+        Me.Label25.BackColor = System.Drawing.Color.Gainsboro
         Me.Label25.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label25.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label25.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label25.Location = New System.Drawing.Point(13, 54)
+        Me.Label25.Location = New System.Drawing.Point(12, 49)
         Me.Label25.Name = "Label25"
         Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label25.Size = New System.Drawing.Size(80, 20)
+        Me.Label25.Size = New System.Drawing.Size(80, 17)
         Me.Label25.TabIndex = 2
         Me.Label25.Text = "Duration"
         '
@@ -442,7 +448,7 @@ Friend Class dlgOrder
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
         Me.cmdCancel.TabIndex = 9
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = False
+        Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'cmdOk
         '
@@ -456,11 +462,11 @@ Friend Class dlgOrder
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
         Me.cmdOk.TabIndex = 8
         Me.cmdOk.Text = "Ok"
-        Me.cmdOk.UseVisualStyleBackColor = False
+        Me.cmdOk.UseVisualStyleBackColor = True
         '
         'frameTickerDesc
         '
-        Me.frameTickerDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameTickerDesc.BackColor = System.Drawing.Color.Gainsboro
         Me.frameTickerDesc.Controls.Add(Me.txtTradingClass)
         Me.frameTickerDesc.Controls.Add(Me.Label8)
         Me.frameTickerDesc.Controls.Add(Me.txtSecId)
@@ -492,7 +498,7 @@ Friend Class dlgOrder
         Me.frameTickerDesc.Controls.Add(Me.Label57)
         Me.frameTickerDesc.Controls.Add(Me.Label58)
         Me.frameTickerDesc.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.frameTickerDesc.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.frameTickerDesc.ForeColor = System.Drawing.SystemColors.Highlight
         Me.frameTickerDesc.Location = New System.Drawing.Point(8, 48)
         Me.frameTickerDesc.Name = "frameTickerDesc"
         Me.frameTickerDesc.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -505,6 +511,7 @@ Friend Class dlgOrder
         '
         Me.txtTradingClass.AcceptsReturn = True
         Me.txtTradingClass.BackColor = System.Drawing.SystemColors.Window
+        Me.txtTradingClass.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTradingClass.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtTradingClass.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTradingClass.ForeColor = System.Drawing.SystemColors.WindowText
@@ -512,16 +519,16 @@ Friend Class dlgOrder
         Me.txtTradingClass.MaxLength = 0
         Me.txtTradingClass.Name = "txtTradingClass"
         Me.txtTradingClass.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTradingClass.Size = New System.Drawing.Size(88, 20)
+        Me.txtTradingClass.Size = New System.Drawing.Size(88, 13)
         Me.txtTradingClass.TabIndex = 23
         '
         'Label8
         '
-        Me.Label8.BackColor = System.Drawing.SystemColors.Control
+        Me.Label8.BackColor = System.Drawing.Color.Gainsboro
         Me.Label8.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label8.Location = New System.Drawing.Point(8, 339)
+        Me.Label8.Location = New System.Drawing.Point(8, 336)
         Me.Label8.Name = "Label8"
         Me.Label8.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label8.Size = New System.Drawing.Size(73, 17)
@@ -530,22 +537,25 @@ Friend Class dlgOrder
         '
         'txtSecId
         '
+        Me.txtSecId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSecId.Location = New System.Drawing.Point(120, 423)
         Me.txtSecId.Name = "txtSecId"
-        Me.txtSecId.Size = New System.Drawing.Size(85, 20)
+        Me.txtSecId.Size = New System.Drawing.Size(85, 13)
         Me.txtSecId.TabIndex = 29
         '
         'txtSecIdType
         '
+        Me.txtSecIdType.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSecIdType.Location = New System.Drawing.Point(120, 395)
         Me.txtSecIdType.Name = "txtSecIdType"
-        Me.txtSecIdType.Size = New System.Drawing.Size(86, 20)
+        Me.txtSecIdType.Size = New System.Drawing.Size(86, 13)
         Me.txtSecIdType.TabIndex = 27
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 425)
+        Me.Label7.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label7.Location = New System.Drawing.Point(8, 423)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(37, 14)
         Me.Label7.TabIndex = 28
@@ -554,7 +564,8 @@ Friend Class dlgOrder
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(7, 397)
+        Me.Label6.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label6.Location = New System.Drawing.Point(8, 395)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(63, 14)
         Me.Label6.TabIndex = 26
@@ -562,11 +573,11 @@ Friend Class dlgOrder
         '
         'Label3
         '
-        Me.Label3.BackColor = System.Drawing.SystemColors.Control
+        Me.Label3.BackColor = System.Drawing.Color.Gainsboro
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label3.Location = New System.Drawing.Point(8, 22)
+        Me.Label3.Location = New System.Drawing.Point(8, 15)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(73, 17)
@@ -577,6 +588,7 @@ Friend Class dlgOrder
         '
         Me.txtConId.AcceptsReturn = True
         Me.txtConId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtConId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtConId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtConId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtConId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -584,7 +596,7 @@ Friend Class dlgOrder
         Me.txtConId.MaxLength = 0
         Me.txtConId.Name = "txtConId"
         Me.txtConId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtConId.Size = New System.Drawing.Size(88, 20)
+        Me.txtConId.Size = New System.Drawing.Size(88, 13)
         Me.txtConId.TabIndex = 1
         Me.txtConId.Text = "0"
         '
@@ -592,6 +604,7 @@ Friend Class dlgOrder
         '
         Me.txtIncludeExpired.AcceptsReturn = True
         Me.txtIncludeExpired.BackColor = System.Drawing.SystemColors.Window
+        Me.txtIncludeExpired.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncludeExpired.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtIncludeExpired.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIncludeExpired.ForeColor = System.Drawing.SystemColors.WindowText
@@ -599,17 +612,17 @@ Friend Class dlgOrder
         Me.txtIncludeExpired.MaxLength = 0
         Me.txtIncludeExpired.Name = "txtIncludeExpired"
         Me.txtIncludeExpired.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtIncludeExpired.Size = New System.Drawing.Size(88, 20)
+        Me.txtIncludeExpired.Size = New System.Drawing.Size(88, 13)
         Me.txtIncludeExpired.TabIndex = 25
         Me.txtIncludeExpired.Text = "0"
         '
         'Label39
         '
-        Me.Label39.BackColor = System.Drawing.SystemColors.Control
+        Me.Label39.BackColor = System.Drawing.Color.Gainsboro
         Me.Label39.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label39.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label39.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label39.Location = New System.Drawing.Point(7, 371)
+        Me.Label39.Location = New System.Drawing.Point(8, 366)
         Me.Label39.Name = "Label39"
         Me.Label39.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label39.Size = New System.Drawing.Size(88, 17)
@@ -618,11 +631,11 @@ Friend Class dlgOrder
         '
         'Label4
         '
-        Me.Label4.BackColor = System.Drawing.SystemColors.Control
+        Me.Label4.BackColor = System.Drawing.Color.Gainsboro
         Me.Label4.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label4.Location = New System.Drawing.Point(8, 101)
+        Me.Label4.Location = New System.Drawing.Point(8, 103)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label4.Size = New System.Drawing.Size(96, 32)
@@ -633,6 +646,7 @@ Friend Class dlgOrder
         '
         Me.TextMultiplier.AcceptsReturn = True
         Me.TextMultiplier.BackColor = System.Drawing.SystemColors.Window
+        Me.TextMultiplier.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextMultiplier.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TextMultiplier.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextMultiplier.ForeColor = System.Drawing.SystemColors.WindowText
@@ -640,13 +654,14 @@ Friend Class dlgOrder
         Me.TextMultiplier.MaxLength = 0
         Me.TextMultiplier.Name = "TextMultiplier"
         Me.TextMultiplier.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TextMultiplier.Size = New System.Drawing.Size(88, 20)
+        Me.TextMultiplier.Size = New System.Drawing.Size(88, 13)
         Me.TextMultiplier.TabIndex = 13
         '
         'TxtPrimaryExchange
         '
         Me.TxtPrimaryExchange.AcceptsReturn = True
         Me.TxtPrimaryExchange.BackColor = System.Drawing.SystemColors.Window
+        Me.TxtPrimaryExchange.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TxtPrimaryExchange.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TxtPrimaryExchange.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TxtPrimaryExchange.ForeColor = System.Drawing.SystemColors.WindowText
@@ -654,7 +669,7 @@ Friend Class dlgOrder
         Me.TxtPrimaryExchange.MaxLength = 0
         Me.TxtPrimaryExchange.Name = "TxtPrimaryExchange"
         Me.TxtPrimaryExchange.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TxtPrimaryExchange.Size = New System.Drawing.Size(88, 20)
+        Me.TxtPrimaryExchange.Size = New System.Drawing.Size(88, 13)
         Me.TxtPrimaryExchange.TabIndex = 17
         Me.TxtPrimaryExchange.Text = "ISLAND"
         '
@@ -662,6 +677,7 @@ Friend Class dlgOrder
         '
         Me.txtRight.AcceptsReturn = True
         Me.txtRight.BackColor = System.Drawing.SystemColors.Window
+        Me.txtRight.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtRight.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRight.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRight.ForeColor = System.Drawing.SystemColors.WindowText
@@ -669,13 +685,14 @@ Friend Class dlgOrder
         Me.txtRight.MaxLength = 0
         Me.txtRight.Name = "txtRight"
         Me.txtRight.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRight.Size = New System.Drawing.Size(88, 20)
+        Me.txtRight.Size = New System.Drawing.Size(88, 13)
         Me.txtRight.TabIndex = 11
         '
         'txtLocalSymbol
         '
         Me.txtLocalSymbol.AcceptsReturn = True
         Me.txtLocalSymbol.BackColor = System.Drawing.SystemColors.Window
+        Me.txtLocalSymbol.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtLocalSymbol.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtLocalSymbol.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLocalSymbol.ForeColor = System.Drawing.SystemColors.WindowText
@@ -683,13 +700,14 @@ Friend Class dlgOrder
         Me.txtLocalSymbol.MaxLength = 0
         Me.txtLocalSymbol.Name = "txtLocalSymbol"
         Me.txtLocalSymbol.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLocalSymbol.Size = New System.Drawing.Size(88, 20)
+        Me.txtLocalSymbol.Size = New System.Drawing.Size(88, 13)
         Me.txtLocalSymbol.TabIndex = 21
         '
         'txtCurrency
         '
         Me.txtCurrency.AcceptsReturn = True
         Me.txtCurrency.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCurrency.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCurrency.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCurrency.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCurrency.ForeColor = System.Drawing.SystemColors.WindowText
@@ -697,7 +715,7 @@ Friend Class dlgOrder
         Me.txtCurrency.MaxLength = 0
         Me.txtCurrency.Name = "txtCurrency"
         Me.txtCurrency.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtCurrency.Size = New System.Drawing.Size(88, 20)
+        Me.txtCurrency.Size = New System.Drawing.Size(88, 13)
         Me.txtCurrency.TabIndex = 19
         Me.txtCurrency.Text = "USD"
         '
@@ -705,6 +723,7 @@ Friend Class dlgOrder
         '
         Me.txtExchange.AcceptsReturn = True
         Me.txtExchange.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExchange.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExchange.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExchange.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExchange.ForeColor = System.Drawing.SystemColors.WindowText
@@ -712,7 +731,7 @@ Friend Class dlgOrder
         Me.txtExchange.MaxLength = 0
         Me.txtExchange.Name = "txtExchange"
         Me.txtExchange.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExchange.Size = New System.Drawing.Size(88, 20)
+        Me.txtExchange.Size = New System.Drawing.Size(88, 13)
         Me.txtExchange.TabIndex = 15
         Me.txtExchange.Text = "SMART"
         '
@@ -720,6 +739,7 @@ Friend Class dlgOrder
         '
         Me.txtStrike.AcceptsReturn = True
         Me.txtStrike.BackColor = System.Drawing.SystemColors.Window
+        Me.txtStrike.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtStrike.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtStrike.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStrike.ForeColor = System.Drawing.SystemColors.WindowText
@@ -727,7 +747,7 @@ Friend Class dlgOrder
         Me.txtStrike.MaxLength = 0
         Me.txtStrike.Name = "txtStrike"
         Me.txtStrike.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStrike.Size = New System.Drawing.Size(88, 20)
+        Me.txtStrike.Size = New System.Drawing.Size(88, 13)
         Me.txtStrike.TabIndex = 9
         Me.txtStrike.Text = "0"
         '
@@ -735,6 +755,7 @@ Friend Class dlgOrder
         '
         Me.txtLastTradeDateOrContractMonth.AcceptsReturn = True
         Me.txtLastTradeDateOrContractMonth.BackColor = System.Drawing.SystemColors.Window
+        Me.txtLastTradeDateOrContractMonth.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtLastTradeDateOrContractMonth.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtLastTradeDateOrContractMonth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLastTradeDateOrContractMonth.ForeColor = System.Drawing.SystemColors.WindowText
@@ -742,13 +763,14 @@ Friend Class dlgOrder
         Me.txtLastTradeDateOrContractMonth.MaxLength = 0
         Me.txtLastTradeDateOrContractMonth.Name = "txtLastTradeDateOrContractMonth"
         Me.txtLastTradeDateOrContractMonth.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLastTradeDateOrContractMonth.Size = New System.Drawing.Size(88, 20)
+        Me.txtLastTradeDateOrContractMonth.Size = New System.Drawing.Size(88, 13)
         Me.txtLastTradeDateOrContractMonth.TabIndex = 7
         '
         'txtSecType
         '
         Me.txtSecType.AcceptsReturn = True
         Me.txtSecType.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSecType.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSecType.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSecType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSecType.ForeColor = System.Drawing.SystemColors.WindowText
@@ -756,7 +778,7 @@ Friend Class dlgOrder
         Me.txtSecType.MaxLength = 0
         Me.txtSecType.Name = "txtSecType"
         Me.txtSecType.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSecType.Size = New System.Drawing.Size(88, 20)
+        Me.txtSecType.Size = New System.Drawing.Size(88, 13)
         Me.txtSecType.TabIndex = 5
         Me.txtSecType.Text = "STK"
         '
@@ -764,6 +786,7 @@ Friend Class dlgOrder
         '
         Me.txtSymbol.AcceptsReturn = True
         Me.txtSymbol.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSymbol.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSymbol.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSymbol.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSymbol.ForeColor = System.Drawing.SystemColors.WindowText
@@ -771,17 +794,17 @@ Friend Class dlgOrder
         Me.txtSymbol.MaxLength = 0
         Me.txtSymbol.Name = "txtSymbol"
         Me.txtSymbol.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSymbol.Size = New System.Drawing.Size(88, 20)
+        Me.txtSymbol.Size = New System.Drawing.Size(88, 13)
         Me.txtSymbol.TabIndex = 3
         Me.txtSymbol.Text = "QQQQ"
         '
         'Label5
         '
-        Me.Label5.BackColor = System.Drawing.SystemColors.Control
+        Me.Label5.BackColor = System.Drawing.Color.Gainsboro
         Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label5.Location = New System.Drawing.Point(7, 138)
+        Me.Label5.Location = New System.Drawing.Point(8, 134)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label5.Size = New System.Drawing.Size(73, 17)
@@ -790,11 +813,11 @@ Friend Class dlgOrder
         '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.BackColor = System.Drawing.Color.Gainsboro
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(7, 50)
+        Me.Label2.Location = New System.Drawing.Point(8, 43)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(73, 17)
@@ -803,11 +826,11 @@ Friend Class dlgOrder
         '
         'Label37
         '
-        Me.Label37.BackColor = System.Drawing.SystemColors.Control
+        Me.Label37.BackColor = System.Drawing.Color.Gainsboro
         Me.Label37.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label37.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label37.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label37.Location = New System.Drawing.Point(7, 79)
+        Me.Label37.Location = New System.Drawing.Point(8, 72)
         Me.Label37.Name = "Label37"
         Me.Label37.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label37.Size = New System.Drawing.Size(73, 17)
@@ -816,11 +839,11 @@ Friend Class dlgOrder
         '
         'Label53
         '
-        Me.Label53.BackColor = System.Drawing.SystemColors.Control
+        Me.Label53.BackColor = System.Drawing.Color.Gainsboro
         Me.Label53.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label53.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label53.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label53.Location = New System.Drawing.Point(8, 196)
+        Me.Label53.Location = New System.Drawing.Point(8, 192)
         Me.Label53.Name = "Label53"
         Me.Label53.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label53.Size = New System.Drawing.Size(73, 17)
@@ -829,11 +852,11 @@ Friend Class dlgOrder
         '
         'Label54
         '
-        Me.Label54.BackColor = System.Drawing.SystemColors.Control
+        Me.Label54.BackColor = System.Drawing.Color.Gainsboro
         Me.Label54.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label54.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label54.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label54.Location = New System.Drawing.Point(7, 254)
+        Me.Label54.Location = New System.Drawing.Point(8, 249)
         Me.Label54.Name = "Label54"
         Me.Label54.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label54.Size = New System.Drawing.Size(97, 17)
@@ -842,11 +865,11 @@ Friend Class dlgOrder
         '
         'Label55
         '
-        Me.Label55.BackColor = System.Drawing.SystemColors.Control
+        Me.Label55.BackColor = System.Drawing.Color.Gainsboro
         Me.Label55.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label55.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label55.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label55.Location = New System.Drawing.Point(8, 167)
+        Me.Label55.Location = New System.Drawing.Point(8, 159)
         Me.Label55.Name = "Label55"
         Me.Label55.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label55.Size = New System.Drawing.Size(73, 17)
@@ -855,11 +878,11 @@ Friend Class dlgOrder
         '
         'Label56
         '
-        Me.Label56.BackColor = System.Drawing.SystemColors.Control
+        Me.Label56.BackColor = System.Drawing.Color.Gainsboro
         Me.Label56.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label56.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label56.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label56.Location = New System.Drawing.Point(8, 311)
+        Me.Label56.Location = New System.Drawing.Point(8, 306)
         Me.Label56.Name = "Label56"
         Me.Label56.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label56.Size = New System.Drawing.Size(73, 17)
@@ -868,11 +891,11 @@ Friend Class dlgOrder
         '
         'Label57
         '
-        Me.Label57.BackColor = System.Drawing.SystemColors.Control
+        Me.Label57.BackColor = System.Drawing.Color.Gainsboro
         Me.Label57.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label57.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label57.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label57.Location = New System.Drawing.Point(8, 282)
+        Me.Label57.Location = New System.Drawing.Point(8, 277)
         Me.Label57.Name = "Label57"
         Me.Label57.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label57.Size = New System.Drawing.Size(73, 17)
@@ -881,11 +904,11 @@ Friend Class dlgOrder
         '
         'Label58
         '
-        Me.Label58.BackColor = System.Drawing.SystemColors.Control
+        Me.Label58.BackColor = System.Drawing.Color.Gainsboro
         Me.Label58.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label58.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label58.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label58.Location = New System.Drawing.Point(8, 224)
+        Me.Label58.Location = New System.Drawing.Point(8, 220)
         Me.Label58.Name = "Label58"
         Me.Label58.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label58.Size = New System.Drawing.Size(73, 17)
@@ -896,6 +919,7 @@ Friend Class dlgOrder
         '
         Me.txtReqId.AcceptsReturn = True
         Me.txtReqId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReqId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtReqId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReqId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -903,18 +927,18 @@ Friend Class dlgOrder
         Me.txtReqId.MaxLength = 0
         Me.txtReqId.Name = "txtReqId"
         Me.txtReqId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReqId.Size = New System.Drawing.Size(105, 20)
+        Me.txtReqId.Size = New System.Drawing.Size(105, 13)
         Me.txtReqId.TabIndex = 1
         Me.txtReqId.Text = "0"
         '
         'GroupBox1
         '
-        Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.BackColor = System.Drawing.Color.Gainsboro
         Me.GroupBox1.Controls.Add(Me.chkSnapshotMktData)
         Me.GroupBox1.Controls.Add(Me.txtGenericTickTags)
         Me.GroupBox1.Controls.Add(Me.Label22)
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox1.ForeColor = System.Drawing.SystemColors.Highlight
         Me.GroupBox1.Location = New System.Drawing.Point(8, 576)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -926,6 +950,7 @@ Friend Class dlgOrder
         'chkSnapshotMktData
         '
         Me.chkSnapshotMktData.AutoSize = True
+        Me.chkSnapshotMktData.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkSnapshotMktData.Location = New System.Drawing.Point(11, 41)
         Me.chkSnapshotMktData.Name = "chkSnapshotMktData"
         Me.chkSnapshotMktData.Size = New System.Drawing.Size(72, 18)
@@ -937,6 +962,7 @@ Friend Class dlgOrder
         '
         Me.txtGenericTickTags.AcceptsReturn = True
         Me.txtGenericTickTags.BackColor = System.Drawing.SystemColors.Window
+        Me.txtGenericTickTags.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtGenericTickTags.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtGenericTickTags.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtGenericTickTags.ForeColor = System.Drawing.SystemColors.WindowText
@@ -944,26 +970,26 @@ Friend Class dlgOrder
         Me.txtGenericTickTags.MaxLength = 0
         Me.txtGenericTickTags.Name = "txtGenericTickTags"
         Me.txtGenericTickTags.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtGenericTickTags.Size = New System.Drawing.Size(88, 20)
+        Me.txtGenericTickTags.Size = New System.Drawing.Size(88, 13)
         Me.txtGenericTickTags.TabIndex = 1
         Me.txtGenericTickTags.Text = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318"
         '
         'Label22
         '
-        Me.Label22.BackColor = System.Drawing.SystemColors.Control
+        Me.Label22.BackColor = System.Drawing.Color.Gainsboro
         Me.Label22.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label22.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label22.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label22.Location = New System.Drawing.Point(8, 22)
+        Me.Label22.Location = New System.Drawing.Point(8, 20)
         Me.Label22.Name = "Label22"
         Me.Label22.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label22.Size = New System.Drawing.Size(96, 16)
+        Me.Label22.Size = New System.Drawing.Size(96, 17)
         Me.Label22.TabIndex = 0
         Me.Label22.Text = "Generic Tick Tags"
         '
         'GroupBox2
         '
-        Me.GroupBox2.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox2.BackColor = System.Drawing.Color.Gainsboro
         Me.GroupBox2.Controls.Add(Me.txtExerciseOverride)
         Me.GroupBox2.Controls.Add(Me.Label36)
         Me.GroupBox2.Controls.Add(Me.txtExerciseQuantity)
@@ -971,7 +997,7 @@ Friend Class dlgOrder
         Me.GroupBox2.Controls.Add(Me.txtExerciseAction)
         Me.GroupBox2.Controls.Add(Me.Label30)
         Me.GroupBox2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox2.ForeColor = System.Drawing.SystemColors.Highlight
         Me.GroupBox2.Location = New System.Drawing.Point(8, 646)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -984,6 +1010,7 @@ Friend Class dlgOrder
         '
         Me.txtExerciseOverride.AcceptsReturn = True
         Me.txtExerciseOverride.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExerciseOverride.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExerciseOverride.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExerciseOverride.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExerciseOverride.ForeColor = System.Drawing.SystemColors.WindowText
@@ -991,20 +1018,20 @@ Friend Class dlgOrder
         Me.txtExerciseOverride.MaxLength = 0
         Me.txtExerciseOverride.Name = "txtExerciseOverride"
         Me.txtExerciseOverride.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExerciseOverride.Size = New System.Drawing.Size(88, 20)
+        Me.txtExerciseOverride.Size = New System.Drawing.Size(88, 13)
         Me.txtExerciseOverride.TabIndex = 5
         Me.txtExerciseOverride.Text = "0"
         '
         'Label36
         '
-        Me.Label36.BackColor = System.Drawing.SystemColors.Control
+        Me.Label36.BackColor = System.Drawing.Color.Gainsboro
         Me.Label36.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label36.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label36.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label36.Location = New System.Drawing.Point(8, 72)
+        Me.Label36.Location = New System.Drawing.Point(8, 71)
         Me.Label36.Name = "Label36"
         Me.Label36.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label36.Size = New System.Drawing.Size(88, 16)
+        Me.Label36.Size = New System.Drawing.Size(88, 17)
         Me.Label36.TabIndex = 4
         Me.Label36.Text = "Override (0 or 1)"
         '
@@ -1012,6 +1039,7 @@ Friend Class dlgOrder
         '
         Me.txtExerciseQuantity.AcceptsReturn = True
         Me.txtExerciseQuantity.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExerciseQuantity.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExerciseQuantity.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExerciseQuantity.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExerciseQuantity.ForeColor = System.Drawing.SystemColors.WindowText
@@ -1019,20 +1047,20 @@ Friend Class dlgOrder
         Me.txtExerciseQuantity.MaxLength = 0
         Me.txtExerciseQuantity.Name = "txtExerciseQuantity"
         Me.txtExerciseQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExerciseQuantity.Size = New System.Drawing.Size(88, 20)
+        Me.txtExerciseQuantity.Size = New System.Drawing.Size(88, 13)
         Me.txtExerciseQuantity.TabIndex = 3
         Me.txtExerciseQuantity.Text = "1"
         '
         'Label35
         '
-        Me.Label35.BackColor = System.Drawing.SystemColors.Control
+        Me.Label35.BackColor = System.Drawing.Color.Gainsboro
         Me.Label35.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label35.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label35.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label35.Location = New System.Drawing.Point(8, 48)
+        Me.Label35.Location = New System.Drawing.Point(8, 45)
         Me.Label35.Name = "Label35"
         Me.Label35.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label35.Size = New System.Drawing.Size(108, 24)
+        Me.Label35.Size = New System.Drawing.Size(108, 17)
         Me.Label35.TabIndex = 2
         Me.Label35.Text = "Number of Contracts"
         '
@@ -1040,6 +1068,7 @@ Friend Class dlgOrder
         '
         Me.txtExerciseAction.AcceptsReturn = True
         Me.txtExerciseAction.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExerciseAction.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExerciseAction.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExerciseAction.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExerciseAction.ForeColor = System.Drawing.SystemColors.WindowText
@@ -1047,30 +1076,30 @@ Friend Class dlgOrder
         Me.txtExerciseAction.MaxLength = 0
         Me.txtExerciseAction.Name = "txtExerciseAction"
         Me.txtExerciseAction.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExerciseAction.Size = New System.Drawing.Size(88, 20)
+        Me.txtExerciseAction.Size = New System.Drawing.Size(88, 13)
         Me.txtExerciseAction.TabIndex = 1
         Me.txtExerciseAction.Text = "1"
         '
         'Label30
         '
-        Me.Label30.BackColor = System.Drawing.SystemColors.Control
+        Me.Label30.BackColor = System.Drawing.Color.Gainsboro
         Me.Label30.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label30.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label30.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label30.Location = New System.Drawing.Point(7, 22)
+        Me.Label30.Location = New System.Drawing.Point(8, 17)
         Me.Label30.Name = "Label30"
         Me.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label30.Size = New System.Drawing.Size(88, 16)
+        Me.Label30.Size = New System.Drawing.Size(88, 17)
         Me.Label30.TabIndex = 0
         Me.Label30.Text = "Action (1 or 2)"
         '
         'GroupBox3
         '
-        Me.GroupBox3.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox3.BackColor = System.Drawing.Color.Gainsboro
         Me.GroupBox3.Controls.Add(Me.Label38)
         Me.GroupBox3.Controls.Add(Me.txtReqId)
         Me.GroupBox3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox3.ForeColor = System.Drawing.SystemColors.Highlight
         Me.GroupBox3.Location = New System.Drawing.Point(8, 0)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1080,7 +1109,7 @@ Friend Class dlgOrder
         '
         'Label38
         '
-        Me.Label38.BackColor = System.Drawing.SystemColors.Control
+        Me.Label38.BackColor = System.Drawing.Color.Gainsboro
         Me.Label38.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label38.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label38.ForeColor = System.Drawing.SystemColors.ControlText
@@ -1093,11 +1122,11 @@ Friend Class dlgOrder
         '
         'GroupBox4
         '
-        Me.GroupBox4.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox4.BackColor = System.Drawing.Color.Gainsboro
         Me.GroupBox4.Controls.Add(Me.txtNumRows)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox4.ForeColor = System.Drawing.SystemColors.Highlight
         Me.GroupBox4.Location = New System.Drawing.Point(8, 515)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1110,6 +1139,7 @@ Friend Class dlgOrder
         '
         Me.txtNumRows.AcceptsReturn = True
         Me.txtNumRows.BackColor = System.Drawing.SystemColors.Window
+        Me.txtNumRows.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtNumRows.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtNumRows.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNumRows.ForeColor = System.Drawing.SystemColors.WindowText
@@ -1117,17 +1147,17 @@ Friend Class dlgOrder
         Me.txtNumRows.MaxLength = 0
         Me.txtNumRows.Name = "txtNumRows"
         Me.txtNumRows.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtNumRows.Size = New System.Drawing.Size(88, 20)
+        Me.txtNumRows.Size = New System.Drawing.Size(88, 13)
         Me.txtNumRows.TabIndex = 1
         Me.txtNumRows.Text = "20"
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label1.Location = New System.Drawing.Point(8, 22)
+        Me.Label1.Location = New System.Drawing.Point(8, 16)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(96, 30)
@@ -1136,14 +1166,14 @@ Friend Class dlgOrder
         '
         'Label27
         '
-        Me.Label27.BackColor = System.Drawing.SystemColors.Control
+        Me.Label27.BackColor = System.Drawing.Color.Gainsboro
         Me.Label27.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label27.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label27.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label27.Location = New System.Drawing.Point(13, 82)
         Me.Label27.Name = "Label27"
         Me.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label27.Size = New System.Drawing.Size(89, 20)
+        Me.Label27.Size = New System.Drawing.Size(89, 17)
         Me.Label27.TabIndex = 4
         Me.Label27.Text = "Order Type"
         '
@@ -1159,37 +1189,37 @@ Friend Class dlgOrder
         Me.cmdSetShareAllocation.Size = New System.Drawing.Size(99, 25)
         Me.cmdSetShareAllocation.TabIndex = 16
         Me.cmdSetShareAllocation.Text = "FA Alloc"
-        Me.cmdSetShareAllocation.UseVisualStyleBackColor = False
+        Me.cmdSetShareAllocation.UseVisualStyleBackColor = True
         '
         'Label10
         '
-        Me.Label10.BackColor = System.Drawing.SystemColors.Control
+        Me.Label10.BackColor = System.Drawing.Color.Gainsboro
         Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label10.Location = New System.Drawing.Point(13, 27)
+        Me.Label10.Location = New System.Drawing.Point(13, 19)
         Me.Label10.Name = "Label10"
         Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label10.Size = New System.Drawing.Size(89, 20)
+        Me.Label10.Size = New System.Drawing.Size(89, 17)
         Me.Label10.TabIndex = 0
         Me.Label10.Text = "Action"
         '
         'Label11
         '
-        Me.Label11.BackColor = System.Drawing.SystemColors.Control
+        Me.Label11.BackColor = System.Drawing.Color.Gainsboro
         Me.Label11.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label11.Location = New System.Drawing.Point(13, 54)
+        Me.Label11.Location = New System.Drawing.Point(14, 47)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label11.Size = New System.Drawing.Size(89, 20)
+        Me.Label11.Size = New System.Drawing.Size(89, 17)
         Me.Label11.TabIndex = 2
         Me.Label11.Text = "Quantity"
         '
         'Label13
         '
-        Me.Label13.BackColor = System.Drawing.SystemColors.Control
+        Me.Label13.BackColor = System.Drawing.Color.Gainsboro
         Me.Label13.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label13.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlText
@@ -1202,40 +1232,40 @@ Friend Class dlgOrder
         '
         'Label14
         '
-        Me.Label14.BackColor = System.Drawing.SystemColors.Control
+        Me.Label14.BackColor = System.Drawing.Color.Gainsboro
         Me.Label14.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label14.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label14.Location = New System.Drawing.Point(13, 138)
+        Me.Label14.Location = New System.Drawing.Point(13, 134)
         Me.Label14.Name = "Label14"
         Me.Label14.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label14.Size = New System.Drawing.Size(89, 20)
+        Me.Label14.Size = New System.Drawing.Size(89, 17)
         Me.Label14.TabIndex = 8
         Me.Label14.Text = "Aux/Under Price"
         '
         'Label15
         '
-        Me.Label15.BackColor = System.Drawing.SystemColors.Control
+        Me.Label15.BackColor = System.Drawing.Color.Gainsboro
         Me.Label15.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label15.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label15.Location = New System.Drawing.Point(13, 195)
+        Me.Label15.Location = New System.Drawing.Point(14, 191)
         Me.Label15.Name = "Label15"
         Me.Label15.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label15.Size = New System.Drawing.Size(89, 20)
+        Me.Label15.Size = New System.Drawing.Size(89, 17)
         Me.Label15.TabIndex = 12
         Me.Label15.Text = "Good Till Date"
         '
         'Label16
         '
-        Me.Label16.BackColor = System.Drawing.SystemColors.Control
+        Me.Label16.BackColor = System.Drawing.Color.Gainsboro
         Me.Label16.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label16.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label16.Location = New System.Drawing.Point(13, 167)
+        Me.Label16.Location = New System.Drawing.Point(14, 163)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label16.Size = New System.Drawing.Size(89, 20)
+        Me.Label16.Size = New System.Drawing.Size(89, 17)
         Me.Label16.TabIndex = 10
         Me.Label16.Text = "Good After Time"
         '
@@ -1243,14 +1273,15 @@ Friend Class dlgOrder
         '
         Me.txtAction.AcceptsReturn = True
         Me.txtAction.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAction.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAction.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAction.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAction.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtAction.Location = New System.Drawing.Point(112, 24)
+        Me.txtAction.Location = New System.Drawing.Point(114, 19)
         Me.txtAction.MaxLength = 0
         Me.txtAction.Name = "txtAction"
         Me.txtAction.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAction.Size = New System.Drawing.Size(112, 20)
+        Me.txtAction.Size = New System.Drawing.Size(112, 13)
         Me.txtAction.TabIndex = 1
         Me.txtAction.Text = "BUY"
         '
@@ -1258,14 +1289,15 @@ Friend Class dlgOrder
         '
         Me.txtQuantity.AcceptsReturn = True
         Me.txtQuantity.BackColor = System.Drawing.SystemColors.Window
+        Me.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtQuantity.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtQuantity.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtQuantity.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtQuantity.Location = New System.Drawing.Point(112, 51)
+        Me.txtQuantity.Location = New System.Drawing.Point(112, 47)
         Me.txtQuantity.MaxLength = 0
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtQuantity.Size = New System.Drawing.Size(112, 20)
+        Me.txtQuantity.Size = New System.Drawing.Size(112, 13)
         Me.txtQuantity.TabIndex = 3
         Me.txtQuantity.Text = "10"
         '
@@ -1273,6 +1305,7 @@ Friend Class dlgOrder
         '
         Me.txtOrderType.AcceptsReturn = True
         Me.txtOrderType.BackColor = System.Drawing.SystemColors.Window
+        Me.txtOrderType.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOrderType.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtOrderType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOrderType.ForeColor = System.Drawing.SystemColors.WindowText
@@ -1280,7 +1313,7 @@ Friend Class dlgOrder
         Me.txtOrderType.MaxLength = 0
         Me.txtOrderType.Name = "txtOrderType"
         Me.txtOrderType.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtOrderType.Size = New System.Drawing.Size(112, 20)
+        Me.txtOrderType.Size = New System.Drawing.Size(112, 13)
         Me.txtOrderType.TabIndex = 5
         Me.txtOrderType.Text = "LMT"
         '
@@ -1288,14 +1321,15 @@ Friend Class dlgOrder
         '
         Me.txtLmtPrice.AcceptsReturn = True
         Me.txtLmtPrice.BackColor = System.Drawing.SystemColors.Window
+        Me.txtLmtPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtLmtPrice.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtLmtPrice.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLmtPrice.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtLmtPrice.Location = New System.Drawing.Point(112, 107)
+        Me.txtLmtPrice.Location = New System.Drawing.Point(112, 104)
         Me.txtLmtPrice.MaxLength = 0
         Me.txtLmtPrice.Name = "txtLmtPrice"
         Me.txtLmtPrice.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLmtPrice.Size = New System.Drawing.Size(112, 20)
+        Me.txtLmtPrice.Size = New System.Drawing.Size(112, 13)
         Me.txtLmtPrice.TabIndex = 7
         Me.txtLmtPrice.Text = "40"
         '
@@ -1303,14 +1337,15 @@ Friend Class dlgOrder
         '
         Me.txtAuxPrice.AcceptsReturn = True
         Me.txtAuxPrice.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAuxPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAuxPrice.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAuxPrice.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAuxPrice.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtAuxPrice.Location = New System.Drawing.Point(112, 135)
+        Me.txtAuxPrice.Location = New System.Drawing.Point(114, 134)
         Me.txtAuxPrice.MaxLength = 0
         Me.txtAuxPrice.Name = "txtAuxPrice"
         Me.txtAuxPrice.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAuxPrice.Size = New System.Drawing.Size(112, 20)
+        Me.txtAuxPrice.Size = New System.Drawing.Size(112, 13)
         Me.txtAuxPrice.TabIndex = 9
         Me.txtAuxPrice.Text = "0"
         '
@@ -1326,12 +1361,13 @@ Friend Class dlgOrder
         Me.cmdAddCmboLegs.Size = New System.Drawing.Size(99, 25)
         Me.cmdAddCmboLegs.TabIndex = 17
         Me.cmdAddCmboLegs.Text = "Combo Legs"
-        Me.cmdAddCmboLegs.UseVisualStyleBackColor = False
+        Me.cmdAddCmboLegs.UseVisualStyleBackColor = True
         '
         'tGTD
         '
         Me.tGTD.AcceptsReturn = True
         Me.tGTD.BackColor = System.Drawing.SystemColors.Window
+        Me.tGTD.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tGTD.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.tGTD.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tGTD.ForeColor = System.Drawing.SystemColors.WindowText
@@ -1339,21 +1375,22 @@ Friend Class dlgOrder
         Me.tGTD.MaxLength = 0
         Me.tGTD.Name = "tGTD"
         Me.tGTD.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.tGTD.Size = New System.Drawing.Size(112, 20)
+        Me.tGTD.Size = New System.Drawing.Size(112, 13)
         Me.tGTD.TabIndex = 13
         '
         'tGAT
         '
         Me.tGAT.AcceptsReturn = True
         Me.tGAT.BackColor = System.Drawing.SystemColors.Window
+        Me.tGAT.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tGAT.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.tGAT.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tGAT.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.tGAT.Location = New System.Drawing.Point(112, 164)
+        Me.tGAT.Location = New System.Drawing.Point(112, 163)
         Me.tGAT.MaxLength = 0
         Me.tGAT.Name = "tGAT"
         Me.tGAT.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.tGAT.Size = New System.Drawing.Size(112, 20)
+        Me.tGAT.Size = New System.Drawing.Size(112, 13)
         Me.tGAT.TabIndex = 11
         '
         'cmdUnderComp
@@ -1368,7 +1405,7 @@ Friend Class dlgOrder
         Me.cmdUnderComp.Size = New System.Drawing.Size(99, 25)
         Me.cmdUnderComp.TabIndex = 18
         Me.cmdUnderComp.Text = "Delta Neutral"
-        Me.cmdUnderComp.UseVisualStyleBackColor = False
+        Me.cmdUnderComp.UseVisualStyleBackColor = True
         '
         'cmdAlgoParams
         '
@@ -1382,11 +1419,11 @@ Friend Class dlgOrder
         Me.cmdAlgoParams.Size = New System.Drawing.Size(99, 25)
         Me.cmdAlgoParams.TabIndex = 19
         Me.cmdAlgoParams.Text = "Algo Params"
-        Me.cmdAlgoParams.UseVisualStyleBackColor = False
+        Me.cmdAlgoParams.UseVisualStyleBackColor = True
         '
         'frameOrderDesc
         '
-        Me.frameOrderDesc.BackColor = System.Drawing.SystemColors.Control
+        Me.frameOrderDesc.BackColor = System.Drawing.Color.Gainsboro
         Me.frameOrderDesc.Controls.Add(Me.txtCashQty)
         Me.frameOrderDesc.Controls.Add(Me.labelCashQty)
         Me.frameOrderDesc.Controls.Add(Me.cmdPegBench)
@@ -1413,7 +1450,7 @@ Friend Class dlgOrder
         Me.frameOrderDesc.Controls.Add(Me.cmdSetShareAllocation)
         Me.frameOrderDesc.Controls.Add(Me.Label27)
         Me.frameOrderDesc.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.frameOrderDesc.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.frameOrderDesc.ForeColor = System.Drawing.SystemColors.Highlight
         Me.frameOrderDesc.Location = New System.Drawing.Point(232, 48)
         Me.frameOrderDesc.Name = "frameOrderDesc"
         Me.frameOrderDesc.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1426,31 +1463,33 @@ Friend Class dlgOrder
         '
         Me.txtCashQty.AcceptsReturn = True
         Me.txtCashQty.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCashQty.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCashQty.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCashQty.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCashQty.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtCashQty.Location = New System.Drawing.Point(112, 221)
+        Me.txtCashQty.Location = New System.Drawing.Point(112, 220)
         Me.txtCashQty.MaxLength = 0
         Me.txtCashQty.Name = "txtCashQty"
         Me.txtCashQty.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtCashQty.Size = New System.Drawing.Size(112, 20)
+        Me.txtCashQty.Size = New System.Drawing.Size(112, 13)
         Me.txtCashQty.TabIndex = 15
         '
         'labelCashQty
         '
-        Me.labelCashQty.BackColor = System.Drawing.SystemColors.Control
+        Me.labelCashQty.BackColor = System.Drawing.Color.Gainsboro
         Me.labelCashQty.Cursor = System.Windows.Forms.Cursors.Default
         Me.labelCashQty.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelCashQty.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.labelCashQty.Location = New System.Drawing.Point(14, 224)
+        Me.labelCashQty.Location = New System.Drawing.Point(14, 220)
         Me.labelCashQty.Name = "labelCashQty"
         Me.labelCashQty.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.labelCashQty.Size = New System.Drawing.Size(89, 20)
+        Me.labelCashQty.Size = New System.Drawing.Size(89, 17)
         Me.labelCashQty.TabIndex = 14
         Me.labelCashQty.Text = "Cash Qty"
         '
         'cmdPegBench
         '
+        Me.cmdPegBench.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdPegBench.Location = New System.Drawing.Point(63, 396)
         Me.cmdPegBench.Name = "cmdPegBench"
         Me.cmdPegBench.Size = New System.Drawing.Size(125, 25)
@@ -1460,6 +1499,7 @@ Friend Class dlgOrder
         '
         'cmdAdjustStop
         '
+        Me.cmdAdjustStop.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdAdjustStop.Location = New System.Drawing.Point(122, 365)
         Me.cmdAdjustStop.Name = "cmdAdjustStop"
         Me.cmdAdjustStop.Size = New System.Drawing.Size(99, 25)
@@ -1469,6 +1509,7 @@ Friend Class dlgOrder
         '
         'cmdConditions
         '
+        Me.cmdConditions.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdConditions.Location = New System.Drawing.Point(17, 365)
         Me.cmdConditions.Name = "cmdConditions"
         Me.cmdConditions.Size = New System.Drawing.Size(99, 25)
@@ -1479,6 +1520,7 @@ Friend Class dlgOrder
         'cmdOptions
         '
         Me.cmdOptions.Enabled = False
+        Me.cmdOptions.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOptions.Location = New System.Drawing.Point(122, 335)
         Me.cmdOptions.Name = "cmdOptions"
         Me.cmdOptions.Size = New System.Drawing.Size(99, 25)
@@ -1498,15 +1540,15 @@ Friend Class dlgOrder
         Me.cmdSmartComboRoutingParams.Size = New System.Drawing.Size(99, 25)
         Me.cmdSmartComboRoutingParams.TabIndex = 20
         Me.cmdSmartComboRoutingParams.Text = "Cmb Rou Params"
-        Me.cmdSmartComboRoutingParams.UseVisualStyleBackColor = False
+        Me.cmdSmartComboRoutingParams.UseVisualStyleBackColor = True
         '
         'labelMarketDataType
         '
-        Me.labelMarketDataType.BackColor = System.Drawing.SystemColors.Control
+        Me.labelMarketDataType.BackColor = System.Drawing.Color.Gainsboro
         Me.labelMarketDataType.Cursor = System.Windows.Forms.Cursors.Default
         Me.labelMarketDataType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelMarketDataType.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.labelMarketDataType.Location = New System.Drawing.Point(8, 22)
+        Me.labelMarketDataType.Location = New System.Drawing.Point(11, 21)
         Me.labelMarketDataType.Name = "labelMarketDataType"
         Me.labelMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.labelMarketDataType.Size = New System.Drawing.Size(96, 17)
@@ -1515,11 +1557,11 @@ Friend Class dlgOrder
         '
         'frameMarketDataType
         '
-        Me.frameMarketDataType.BackColor = System.Drawing.SystemColors.Control
+        Me.frameMarketDataType.BackColor = System.Drawing.Color.Gainsboro
         Me.frameMarketDataType.Controls.Add(Me.cmbMarketDataType)
         Me.frameMarketDataType.Controls.Add(Me.labelMarketDataType)
         Me.frameMarketDataType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.frameMarketDataType.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.frameMarketDataType.ForeColor = System.Drawing.SystemColors.Highlight
         Me.frameMarketDataType.Location = New System.Drawing.Point(234, 718)
         Me.frameMarketDataType.Name = "frameMarketDataType"
         Me.frameMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1540,7 +1582,7 @@ Friend Class dlgOrder
         'dlgOrder
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(474, 808)
         Me.Controls.Add(Me.frameMarketDataType)
         Me.Controls.Add(Me.GroupBox4)
@@ -1594,47 +1636,47 @@ Friend Class dlgOrder
             End If
             DefInstance = m_vb6FormDefInstance
         End Get
-        Set(ByVal value As dlgOrder)
+        Set(value As dlgOrder)
             m_vb6FormDefInstance = value
         End Set
     End Property
 #End Region
     ' Enums
-    Public Enum Dlg_Type
-        REQ_MKT_DATA_DLG = 1
-        CANCEL_MKT_DATA_DLG
-        REQ_MKT_DEPTH_DLG
-        CANCEL_MKT_DEPTH_DLG
-        PLACE_ORDER_DLG
-        CANCEL_ORDER_DLG
-        REQ_CONTRACT_DETAILS_DLG
-        REQ_HISTORICAL_DATA
-        EXERCISE_OPTIONS
-        CANCEL_HIST_DATA_DLG
-        REQ_REAL_TIME_BARS_DLG
-        CANCEL_REAL_TIME_BARS_DLG
-        CALCULATE_IMPLIED_VOLATILITY
-        CALCULATE_OPTION_PRICE
-        CANCEL_CALCULATE_IMPLIED_VOLATILITY
-        CANCEL_CALCULATE_OPTION_PRICE
-        REQ_MARKET_DATA_TYPE
-        REQ_FUNDAMENTAL_DATA
-        CANCEL_FUNDAMENTAL_DATA
-        REQ_MATCHING_SYMBOLS
+    Friend Enum DialogType
+        RequestMarketData = 1
+        CancelMarketData
+        RequestMarketDepth
+        CancelMarketDepth
+        PlaceOrder
+        CancelOrder
+        RequestContractDetails
+        RequestHistoricalData
+        ExerciseOptions
+        CancelHistoricalData
+        RequestRealtimeBars
+        CancelRealtimeBars
+        CalculateImpliedVolatility
+        CalculateOptionPrice
+        CancelCalculateImpliedVolatility
+        CancelCalculateOptionPrice
+        RequestMarketDataType
+        RequestFundamentalData
+        CancelFundamentalData
+        RequestMatchingSymbols
     End Enum
 
-    Public Enum MARKET_DATA_TYPE
-        REALTIME = 1
-        FROZEN = 2
-        DELAYED = 3
-        DELAYED_FROZEN = 4
+    Friend Enum MarketDataTypes
+        Realtime = 1
+        Frozen = 2
+        Delayed = 3
+        DelayedFrozen = 4
     End Enum
 
 
     ' ========================================================
     ' Member variables
     ' ========================================================
-    Private m_mainWnd As dlgMainWnd
+    Private m_mainWnd As MainForm
     Private m_arrDlgTitles As New Collection
 
     Private m_orderId As Integer
@@ -1681,7 +1723,7 @@ Friend Class dlgOrder
         Get
             histBarSizeSetting = m_barSizeSetting
         End Get
-        Set(ByVal Value As String)
+        Set(Value As String)
             m_barSizeSetting = Value
             txtBarSizeSetting.Text = m_barSizeSetting
         End Set
@@ -1690,7 +1732,7 @@ Friend Class dlgOrder
         Get
             genericTickTags = m_genericTickTags
         End Get
-        Set(ByVal Value As String)
+        Set(Value As String)
             m_genericTickTags = Value
             txtGenericTickTags.Text = m_genericTickTags
         End Set
@@ -1699,7 +1741,7 @@ Friend Class dlgOrder
         Get
             histEndDateTime = m_endDateTime
         End Get
-        Set(ByVal Value As String)
+        Set(Value As String)
             m_endDateTime = Value
             txtEndDateTime.Text = m_endDateTime
         End Set
@@ -1708,7 +1750,7 @@ Friend Class dlgOrder
         Get
             histDuration = m_duration
         End Get
-        Set(ByVal Value As String)
+        Set(Value As String)
             m_duration = Value
             txtDuration.Text = m_duration
         End Set
@@ -1717,7 +1759,7 @@ Friend Class dlgOrder
         Get
             formatDate = m_formatDate
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_formatDate = Value
             txtFormatDate.Text = m_formatDate
         End Set
@@ -1726,7 +1768,7 @@ Friend Class dlgOrder
         Get
             whatToShow = m_whatToShow
         End Get
-        Set(ByVal Value As String)
+        Set(Value As String)
             m_whatToShow = Value
             txtWhatToShow.Text = m_whatToShow
         End Set
@@ -1735,7 +1777,7 @@ Friend Class dlgOrder
         Get
             useRTH = m_useRTH
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_useRTH = Value
             txtUseRTH.Text = CStr(m_useRTH)
         End Set
@@ -1744,7 +1786,7 @@ Friend Class dlgOrder
         Get
             orderId = m_orderId
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_orderId = Value
             txtReqId.Text = CStr(m_orderId)
         End Set
@@ -1753,7 +1795,7 @@ Friend Class dlgOrder
         Get
             exerciseAction = m_exerciseAction
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_exerciseAction = Value
             txtExerciseAction.Text = CStr(m_exerciseAction)
         End Set
@@ -1762,7 +1804,7 @@ Friend Class dlgOrder
         Get
             exerciseQuantity = m_exerciseQuantity
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_exerciseQuantity = Value
             txtExerciseQuantity.Text = CStr(m_exerciseQuantity)
         End Set
@@ -1771,7 +1813,7 @@ Friend Class dlgOrder
         Get
             exerciseOverride = m_exerciseOverride
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_exerciseOverride = Value
             txtExerciseOverride.Text = CStr(m_exerciseOverride)
         End Set
@@ -1780,7 +1822,7 @@ Friend Class dlgOrder
         Get
             numRows = m_numRows
         End Get
-        Set(ByVal Value As Integer)
+        Set(Value As Integer)
             m_numRows = Value
             txtNumRows.Text = CStr(m_numRows)
         End Set
@@ -1791,6 +1833,7 @@ Friend Class dlgOrder
             snapshotMktData = m_snapshotMktData
         End Get
     End Property
+
     Public ReadOnly Property marketDataType() As Integer
         Get
             marketDataType = m_marketDataType
@@ -1805,11 +1848,11 @@ Friend Class dlgOrder
     ' ========================================================
     ' Button Events
     ' ========================================================
-    Private Sub cmdAddCmboLegs_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddCmboLegs.Click
+    Private Sub cmdAddCmboLegs_Click(sender As Object, e As EventArgs) Handles cmdAddCmboLegs.Click
 
         Dim dlgComboLegs As New dlgComboOrderLegs
 
-        dlgComboLegs.Init(m_contractInfo.ComboLegs, m_orderInfo.OrderComboLegs, m_mainWnd.Tws1)
+        dlgComboLegs.Init(m_contractInfo.ComboLegs, m_orderInfo.OrderComboLegs)
         dlgComboLegs.ShowDialog()
 
         If dlgComboLegs.ok Then
@@ -1821,19 +1864,18 @@ Friend Class dlgOrder
 
     End Sub
 
-    Private Sub cmdAlgoParams_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdAlgoParams.Click
+    Private Sub cmdAlgoParams_Click(sender As Object, e As System.EventArgs) Handles cmdAlgoParams.Click
         Dim dlg As New dlgAlgoParams
 
-        dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams, m_mainWnd.Tws1)
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
+        dlg.init(m_orderInfo.AlgoStrategy, m_orderInfo.AlgoParams)
+        Dim res = dlg.ShowDialog()
         If res = DialogResult.OK Then
             m_orderInfo.AlgoStrategy = dlg.algoStrategy
             m_orderInfo.AlgoParams = dlg.algoParams
         End If
     End Sub
 
-    Private Sub cmdSetShareAllocation_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSetShareAllocation.Click
+    Private Sub cmdSetShareAllocation_Click(sender As Object, e As EventArgs) Handles cmdSetShareAllocation.Click
         Dim dlg As New dlgSharesAlloc
 
         With dlg
@@ -1848,13 +1890,12 @@ Friend Class dlgOrder
         End With
     End Sub
 
-    Private Sub cmdUnderComp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdUnderComp.Click
+    Private Sub cmdUnderComp_Click(sender As Object, e As EventArgs) Handles cmdUnderComp.Click
         Dim dlg As New dlgUnderComp
 
         With dlg
             .init(m_underComp)
-            Dim res As DialogResult
-            res = .ShowDialog()
+            Dim res = .ShowDialog()
             Select Case res
                 Case DialogResult.OK : m_contractInfo.UnderComp = m_underComp
                 Case DialogResult.Abort : m_contractInfo.UnderComp = Nothing
@@ -1862,7 +1903,7 @@ Friend Class dlgOrder
         End With
     End Sub
 
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
+    Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
         ' Move UI data into member fields
         m_orderId = CInt(txtReqId.Text)
 
@@ -1920,7 +1961,8 @@ Friend Class dlgOrder
         m_orderInfo = Nothing
         Hide()
     End Sub
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+
+    Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
         m_ok = False
         m_contractInfo = Nothing
         m_orderInfo = Nothing
@@ -1933,10 +1975,10 @@ Friend Class dlgOrder
     '--------------------------------------------------------------------------------
     ' Sets the dialog field and button states based on the dialog type
     '--------------------------------------------------------------------------------
-    Public Sub init(ByRef dlgType As Dlg_Type, ByVal contractInfo As IBApi.Contract, _
-        ByVal orderInfo As IBApi.Order, ByVal underComp As IBApi.UnderComp, _
-        ByVal options As List(Of IBApi.TagValue), _
-        ByVal mainWin As System.Windows.Forms.Form)
+    Public Sub init(dlgType As DialogType, contractInfo As IBApi.Contract,
+        orderInfo As IBApi.Order, underComp As IBApi.UnderComp,
+        options As List(Of IBApi.TagValue),
+        mainWin As System.Windows.Forms.Form)
         m_ok = False
 
         m_contractInfo = contractInfo
@@ -1944,72 +1986,72 @@ Friend Class dlgOrder
         m_underComp = underComp
         m_options = options
 
-        m_mainWnd = dlgMainWnd.DefInstance
+        m_mainWnd = MainForm.DefInstance
         Text = m_arrDlgTitles.Item(dlgType)
 
-        cmdSetShareAllocation.Enabled = (m_mainWnd.isFAAccount() And dlgType = Dlg_Type.PLACE_ORDER_DLG)
-        cmdAddCmboLegs.Enabled = _
-            (dlgType = Dlg_Type.PLACE_ORDER_DLG Or _
-            dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-            dlgType = Dlg_Type.REQ_MKT_DATA_DLG)
+        cmdSetShareAllocation.Enabled = (m_mainWnd.IsFAAccount() And dlgType = DialogType.PlaceOrder)
+        cmdAddCmboLegs.Enabled =
+            (dlgType = DialogType.PlaceOrder Or
+            dlgType = DialogType.RequestHistoricalData Or
+            dlgType = DialogType.RequestMarketData)
 
-        cmdUnderComp.Enabled = _
-            (dlgType = Dlg_Type.PLACE_ORDER_DLG Or _
-            dlgType = Dlg_Type.REQ_MKT_DATA_DLG)
+        cmdUnderComp.Enabled =
+            (dlgType = DialogType.PlaceOrder Or
+            dlgType = DialogType.RequestMarketData)
 
-        cmdAlgoParams.Enabled = _
-            (dlgType = Dlg_Type.PLACE_ORDER_DLG)
+        cmdAlgoParams.Enabled =
+            (dlgType = DialogType.PlaceOrder)
 
-        cmdSmartComboRoutingParams.Enabled = _
-            (dlgType = Dlg_Type.PLACE_ORDER_DLG)
+        cmdSmartComboRoutingParams.Enabled =
+            (dlgType = DialogType.PlaceOrder)
 
-        cmdOptions.Enabled = _
-            (dlgType = Dlg_Type.PLACE_ORDER_DLG Or _
-            dlgType = Dlg_Type.REQ_MKT_DATA_DLG Or _
-            dlgType = Dlg_Type.REQ_MKT_DEPTH_DLG Or _
-            dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-            dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG)
+        cmdOptions.Enabled =
+            (dlgType = DialogType.PlaceOrder Or
+            dlgType = DialogType.RequestMarketData Or
+            dlgType = DialogType.RequestMarketDepth Or
+            dlgType = DialogType.RequestHistoricalData Or
+            dlgType = DialogType.RequestRealtimeBars)
 
-        If Not (dlgType = Dlg_Type.PLACE_ORDER_DLG Or _
-            dlgType = Dlg_Type.REQ_MKT_DATA_DLG Or _
-            dlgType = Dlg_Type.REQ_MKT_DEPTH_DLG Or _
-            dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-            dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG) Then
+        If Not (dlgType = DialogType.PlaceOrder Or
+            dlgType = DialogType.RequestMarketData Or
+            dlgType = DialogType.RequestMarketDepth Or
+            dlgType = DialogType.RequestHistoricalData Or
+            dlgType = DialogType.RequestRealtimeBars) Then
             cmdOptions.Text = "Options"
         End If
 
         txtReqId.Enabled = True
-        txtBarSizeSetting.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-                            dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG)
-        txtDuration.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA)
-        txtEndDateTime.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA)
-        txtWhatToShow.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-                                 dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG Or _
-                                 dlgType = Dlg_Type.REQ_FUNDAMENTAL_DATA)
-        txtUseRTH.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-                             dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG)
-        txtFormatDate.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA)
-        txtGenericTickTags.Enabled = (dlgType = Dlg_Type.REQ_MKT_DATA_DLG)
-        chkSnapshotMktData.Enabled = (dlgType = Dlg_Type.REQ_MKT_DATA_DLG)
-        txtNumRows.Enabled = (dlgType = Dlg_Type.REQ_MKT_DEPTH_DLG)
-        txtExerciseAction.Enabled = (dlgType = Dlg_Type.EXERCISE_OPTIONS)
-        txtExerciseQuantity.Enabled = (dlgType = Dlg_Type.EXERCISE_OPTIONS)
-        txtExerciseOverride.Enabled = (dlgType = Dlg_Type.EXERCISE_OPTIONS)
-        txtIncludeExpired.Enabled = (dlgType = Dlg_Type.REQ_HISTORICAL_DATA Or _
-                                     dlgType = Dlg_Type.REQ_CONTRACT_DETAILS_DLG)
+        txtBarSizeSetting.Enabled = (dlgType = DialogType.RequestHistoricalData Or
+                            dlgType = DialogType.RequestRealtimeBars)
+        txtDuration.Enabled = (dlgType = DialogType.RequestHistoricalData)
+        txtEndDateTime.Enabled = (dlgType = DialogType.RequestHistoricalData)
+        txtWhatToShow.Enabled = (dlgType = DialogType.RequestHistoricalData Or
+                                 dlgType = DialogType.RequestRealtimeBars Or
+                                 dlgType = DialogType.RequestFundamentalData)
+        txtUseRTH.Enabled = (dlgType = DialogType.RequestHistoricalData Or
+                             dlgType = DialogType.RequestRealtimeBars)
+        txtFormatDate.Enabled = (dlgType = DialogType.RequestHistoricalData)
+        txtGenericTickTags.Enabled = (dlgType = DialogType.RequestMarketData)
+        chkSnapshotMktData.Enabled = (dlgType = DialogType.RequestMarketData)
+        txtNumRows.Enabled = (dlgType = DialogType.RequestMarketDepth)
+        txtExerciseAction.Enabled = (dlgType = DialogType.ExerciseOptions)
+        txtExerciseQuantity.Enabled = (dlgType = DialogType.ExerciseOptions)
+        txtExerciseOverride.Enabled = (dlgType = DialogType.ExerciseOptions)
+        txtIncludeExpired.Enabled = (dlgType = DialogType.RequestHistoricalData Or
+                                     dlgType = DialogType.RequestContractDetails)
 
-        cmbMarketDataType.Enabled = (dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE)
+        cmbMarketDataType.Enabled = (dlgType = DialogType.RequestMarketDataType)
 
         ' enable or disable contract fields
-        If dlgType = Dlg_Type.CANCEL_MKT_DATA_DLG Or _
-           dlgType = Dlg_Type.CANCEL_MKT_DEPTH_DLG Or _
-           dlgType = Dlg_Type.CANCEL_ORDER_DLG Or _
-           dlgType = Dlg_Type.CANCEL_HIST_DATA_DLG Or _
-           dlgType = Dlg_Type.CANCEL_REAL_TIME_BARS_DLG Or _
-           dlgType = Dlg_Type.CANCEL_CALCULATE_IMPLIED_VOLATILITY Or _
-           dlgType = Dlg_Type.CANCEL_CALCULATE_OPTION_PRICE Or _
-           dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE Or _
-           dlgType = Dlg_Type.REQ_MATCHING_SYMBOLS Then
+        If dlgType = DialogType.CancelMarketData Or
+           dlgType = DialogType.CancelMarketDepth Or
+           dlgType = DialogType.CancelOrder Or
+           dlgType = DialogType.CancelHistoricalData Or
+           dlgType = DialogType.CancelRealtimeBars Or
+           dlgType = DialogType.CancelCalculateImpliedVolatility Or
+           dlgType = DialogType.CancelCalculateOptionPrice Or
+           dlgType = DialogType.RequestMarketDataType Or
+           dlgType = DialogType.RequestMatchingSymbols Then
             txtConId.Enabled = False
             txtSymbol.Enabled = False
             txtSecType.Enabled = False
@@ -2038,7 +2080,7 @@ Friend Class dlgOrder
         End If
 
         ' enable or disable order fields
-        If dlgType = Dlg_Type.PLACE_ORDER_DLG Then
+        If dlgType = DialogType.PlaceOrder Then
             txtAction.Enabled = True
             txtQuantity.Enabled = True
             txtOrderType.Enabled = True
@@ -2058,12 +2100,12 @@ Friend Class dlgOrder
             txtCashQty.Enabled = False
         End If
 
-        If dlgType = Dlg_Type.CALCULATE_IMPLIED_VOLATILITY Or dlgType = Dlg_Type.CALCULATE_OPTION_PRICE Then
+        If dlgType = DialogType.CalculateImpliedVolatility Or dlgType = DialogType.CalculateOptionPrice Then
             txtLmtPrice.Enabled = True
             txtAuxPrice.Enabled = True
         End If
 
-        If dlgType = Dlg_Type.PLACE_ORDER_DLG Or dlgType = Dlg_Type.REQ_CONTRACT_DETAILS_DLG Then
+        If dlgType = DialogType.PlaceOrder Or dlgType = DialogType.RequestContractDetails Then
             txtSecIdType.Enabled = True
             txtSecId.Enabled = True
         Else
@@ -2071,7 +2113,7 @@ Friend Class dlgOrder
             txtSecId.Enabled = False
         End If
 
-        If dlgType = Dlg_Type.REQ_MATCHING_SYMBOLS Then
+        If dlgType = DialogType.RequestMatchingSymbols Then
             txtSymbol.Enabled = True
             txtConId.Enabled = False
             cmdConditions.Enabled = False
@@ -2079,7 +2121,7 @@ Friend Class dlgOrder
             cmdPegBench.Enabled = False
         End If
 
-        If dlgType = Dlg_Type.REQ_MARKET_DATA_TYPE Then
+        If dlgType = DialogType.RequestMarketDataType Then
             cmbMarketDataType.Enabled = True
             txtReqId.Enabled = False
             txtConId.Enabled = False
@@ -2087,27 +2129,27 @@ Friend Class dlgOrder
             cmdSmartComboRoutingParams.Enabled = False
         End If
 
-        If dlgType = Dlg_Type.PLACE_ORDER_DLG Then
+        If dlgType = DialogType.PlaceOrder Then
             m_optionsDlgTitle = "Order Misc Options"
             cmdOptions.Text = "Ord Misc Options"
         End If
 
-        If dlgType = Dlg_Type.REQ_HISTORICAL_DATA Then
+        If dlgType = DialogType.RequestHistoricalData Then
             m_optionsDlgTitle = "Chart Options"
             cmdOptions.Text = "Chart Options"
         End If
 
-        If dlgType = Dlg_Type.REQ_MKT_DATA_DLG Then
+        If dlgType = DialogType.RequestMarketData Then
             m_optionsDlgTitle = "Market Data Options"
             cmdOptions.Text = "Mkt Data Options"
         End If
 
-        If dlgType = Dlg_Type.REQ_MKT_DEPTH_DLG Then
+        If dlgType = DialogType.RequestMarketDepth Then
             m_optionsDlgTitle = "Market Depth Options"
             cmdOptions.Text = "Mkt Depth Opts"
         End If
 
-        If dlgType = Dlg_Type.REQ_REAL_TIME_BARS_DLG Then
+        If dlgType = DialogType.RequestRealtimeBars Then
             m_optionsDlgTitle = "Real Time Bars Options"
             cmdOptions.Text = "RTB Options"
         End If
@@ -2145,32 +2187,30 @@ Friend Class dlgOrder
         m_arrDlgTitles.Add("Request Matching Symbols")
 
         cmbMarketDataType.Items.Clear()
-        cmbMarketDataType.Items.Add(("Real-Time"))
-        cmbMarketDataType.Items.Add(("Frozen"))
-        cmbMarketDataType.Items.Add(("Delayed"))
-        cmbMarketDataType.Items.Add(("Delayed-Frozen"))
-        cmbMarketDataType.SelectedIndex = MARKET_DATA_TYPE.REALTIME - 1
+        Dim index = cmbMarketDataType.Items.Add("Real-Time")
+        cmbMarketDataType.Items.Add("Frozen")
+        cmbMarketDataType.Items.Add("Delayed")
+        cmbMarketDataType.Items.Add("Delayed-Frozen")
+        cmbMarketDataType.SelectedIndex = index
 
     End Sub
 
-    Private Sub cmdSmartComboRoutingParams_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSmartComboRoutingParams.Click
+    Private Sub cmdSmartComboRoutingParams_Click(sender As System.Object, e As System.EventArgs) Handles cmdSmartComboRoutingParams.Click
         Dim dlg As New dlgSmartComboRoutingParams
 
-        dlg.init(m_orderInfo.SmartComboRoutingParams, m_mainWnd.Tws1, "Smart Combo Routing Params")
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
+        dlg.init(m_orderInfo.SmartComboRoutingParams, "Smart Combo Routing Params")
+        Dim res = dlg.ShowDialog()
         If res = DialogResult.OK Then
             m_orderInfo.SmartComboRoutingParams = dlg.smartComboRoutingParams
         End If
 
     End Sub
 
-    Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
+    Private Sub cmdOptions_Click(sender As System.Object, e As System.EventArgs) Handles cmdOptions.Click
         Dim dlg As New dlgSmartComboRoutingParams
 
-        dlg.init(m_options, m_mainWnd.Tws1, m_optionsDlgTitle)
-        Dim res As DialogResult
-        res = dlg.ShowDialog()
+        dlg.init(m_options, m_optionsDlgTitle)
+        Dim res = dlg.ShowDialog()
         If res = DialogResult.OK Then
             m_options = dlg.smartComboRoutingParams
         End If
@@ -2178,7 +2218,7 @@ Friend Class dlgOrder
     End Sub
 
 
-    Private Function dval(ByVal text As String) As Double
+    Private Function dval(text As String) As Double
         If Len(text) = 0 Then
             dval = Double.MaxValue
         Else
@@ -2187,20 +2227,17 @@ Friend Class dlgOrder
     End Function
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles cmdPegBench.Click
-        Dim dlg As New dlgPegBench(m_orderInfo)
-
+        Dim dlg = New dlgPegBench(m_orderInfo)
         dlg.ShowDialog()
     End Sub
 
     Private Sub cmdConditions_Click(sender As Object, e As EventArgs) Handles cmdConditions.Click
-        Dim dlg As New dlgConditions(m_orderInfo)
-
+        Dim dlg = New dlgConditions(m_orderInfo)
         dlg.ShowDialog()
     End Sub
 
     Private Sub cmdAdjustStop_Click(sender As Object, e As EventArgs) Handles cmdAdjustStop.Click
-        Dim dlg As New dlgAdjustStop(m_orderInfo)
-
+        Dim dlg = New dlgAdjustStop(m_orderInfo)
         dlg.ShowDialog()
     End Sub
 End Class

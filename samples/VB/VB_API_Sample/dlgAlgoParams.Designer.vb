@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
@@ -84,7 +84,9 @@ Partial Class dlgAlgoParams
         '
         'frmAlgorithm
         '
+        Me.frmAlgorithm.BackColor = System.Drawing.Color.Gainsboro
         Me.frmAlgorithm.Controls.Add(Me.TableLayoutPanel4)
+        Me.frmAlgorithm.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.frmAlgorithm.Location = New System.Drawing.Point(16, 7)
         Me.frmAlgorithm.Name = "frmAlgorithm"
         Me.frmAlgorithm.Size = New System.Drawing.Size(251, 74)
@@ -113,6 +115,7 @@ Partial Class dlgAlgoParams
         '
         Me.lblStrategy.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.lblStrategy.AutoSize = True
+        Me.lblStrategy.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblStrategy.Location = New System.Drawing.Point(3, 13)
         Me.lblStrategy.Name = "lblStrategy"
         Me.lblStrategy.Size = New System.Drawing.Size(49, 13)
@@ -122,9 +125,10 @@ Partial Class dlgAlgoParams
         'txtStrategy
         '
         Me.txtStrategy.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtStrategy.Location = New System.Drawing.Point(64, 9)
+        Me.txtStrategy.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtStrategy.Location = New System.Drawing.Point(64, 13)
         Me.txtStrategy.Name = "txtStrategy"
-        Me.txtStrategy.Size = New System.Drawing.Size(154, 20)
+        Me.txtStrategy.Size = New System.Drawing.Size(154, 13)
         Me.txtStrategy.TabIndex = 0
         '
         'frmParameters
@@ -132,6 +136,7 @@ Partial Class dlgAlgoParams
         Me.frmParameters.Controls.Add(Me.TableLayoutPanel3)
         Me.frmParameters.Controls.Add(Me.TableLayoutPanel2)
         Me.frmParameters.Controls.Add(Me.grdParams)
+        Me.frmParameters.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.frmParameters.Location = New System.Drawing.Point(18, 87)
         Me.frmParameters.Name = "frmParameters"
         Me.frmParameters.Size = New System.Drawing.Size(249, 331)
@@ -157,6 +162,7 @@ Partial Class dlgAlgoParams
         'cmdAddParam
         '
         Me.cmdAddParam.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdAddParam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdAddParam.Location = New System.Drawing.Point(3, 3)
         Me.cmdAddParam.Name = "cmdAddParam"
         Me.cmdAddParam.Size = New System.Drawing.Size(67, 23)
@@ -166,6 +172,7 @@ Partial Class dlgAlgoParams
         'cmdRemoveParam
         '
         Me.cmdRemoveParam.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.cmdRemoveParam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdRemoveParam.Location = New System.Drawing.Point(76, 3)
         Me.cmdRemoveParam.Name = "cmdRemoveParam"
         Me.cmdRemoveParam.Size = New System.Drawing.Size(67, 23)
@@ -195,15 +202,17 @@ Partial Class dlgAlgoParams
         'txtValue
         '
         Me.txtValue.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtValue.Location = New System.Drawing.Point(63, 43)
+        Me.txtValue.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtValue.Location = New System.Drawing.Point(63, 47)
         Me.txtValue.Name = "txtValue"
-        Me.txtValue.Size = New System.Drawing.Size(156, 20)
+        Me.txtValue.Size = New System.Drawing.Size(156, 13)
         Me.txtValue.TabIndex = 1
         '
         'lblParam
         '
         Me.lblParam.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.lblParam.AutoSize = True
+        Me.lblParam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblParam.Location = New System.Drawing.Point(8, 11)
         Me.lblParam.Name = "lblParam"
         Me.lblParam.Size = New System.Drawing.Size(40, 13)
@@ -214,6 +223,7 @@ Partial Class dlgAlgoParams
         '
         Me.lblValue.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.lblValue.AutoSize = True
+        Me.lblValue.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblValue.Location = New System.Drawing.Point(9, 47)
         Me.lblValue.Name = "lblValue"
         Me.lblValue.Size = New System.Drawing.Size(37, 13)
@@ -223,13 +233,15 @@ Partial Class dlgAlgoParams
         'txtParam
         '
         Me.txtParam.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtParam.Location = New System.Drawing.Point(64, 7)
+        Me.txtParam.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtParam.Location = New System.Drawing.Point(64, 11)
         Me.txtParam.Name = "txtParam"
-        Me.txtParam.Size = New System.Drawing.Size(154, 20)
+        Me.txtParam.Size = New System.Drawing.Size(154, 13)
         Me.txtParam.TabIndex = 0
         '
         'grdParams
         '
+        Me.grdParams.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.grdParams.FullRowSelect = True
         Me.grdParams.Location = New System.Drawing.Point(11, 19)
         Me.grdParams.Name = "grdParams"
@@ -242,6 +254,7 @@ Partial Class dlgAlgoParams
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(284, 466)
         Me.Controls.Add(Me.frmParameters)
         Me.Controls.Add(Me.frmAlgorithm)
