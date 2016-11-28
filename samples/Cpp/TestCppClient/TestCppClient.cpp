@@ -3,13 +3,6 @@
 
 #include "StdAfx.h"
 
-#ifdef _WIN32
-# include <Windows.h>
-# define sleep( seconds) Sleep( seconds * 1000);
-#else
-# include <unistd.h>
-#endif
-
 #include "TestCppClient.h"
 
 #include "EClientSocket.h"
@@ -36,6 +29,7 @@
 #include "AccountSummaryTags.h"
 
 #include <stdio.h>
+#include <chrono>
 #include <iostream>
 #include <thread>
 #include <ctime>
@@ -282,7 +276,7 @@ void TestCppClient::reqCurrentTime()
 void TestCppClient::tickDataOperation()
 {
 	/*** Requesting real time market data ***/
-    sleep(1);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     //! [reqmktdata]
 	m_pClient->reqMktData(1001, ContractSamples::StockComboContract(), "", false, TagValueListSPtr());
 	m_pClient->reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), "", false, TagValueListSPtr());
@@ -314,7 +308,7 @@ void TestCppClient::tickDataOperation()
 	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
 	//! [reqoptiondatagenticks]
 
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	/*** Canceling the market data subscription ***/
 	//! [cancelmktdata]
 	m_pClient->cancelMktData(1001);
@@ -331,7 +325,7 @@ void TestCppClient::marketDepthOperations()
 	//! [reqmarketdepth]
 	m_pClient->reqMktDepth(2001, ContractSamples::EurGbpFx(), 5, TagValueListSPtr());
 	//! [reqmarketdepth]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling the Deep Book request ***/
 	//! [cancelmktdepth]
 	m_pClient->cancelMktDepth(2001);
@@ -346,7 +340,7 @@ void TestCppClient::realTimeBars()
 	//! [reqrealtimebars]
 	m_pClient->reqRealTimeBars(3001, ContractSamples::EurGbpFx(), 5, "MIDPOINT", true, TagValueListSPtr());
 	//! [reqrealtimebars]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling real time bars ***/
     //! [cancelrealtimebars]
 	m_pClient->cancelRealTimeBars(3001);
@@ -380,7 +374,7 @@ void TestCppClient::historicalDataRequests()
 	m_pClient->reqHistoricalData(4001, ContractSamples::EurGbpFx(), queryTime, "1 M", "1 day", "MIDPOINT", 1, 1, TagValueListSPtr());
 	m_pClient->reqHistoricalData(4002, ContractSamples::EuropeanStock(), queryTime, "10 D", "1 min", "TRADES", 1, 1, TagValueListSPtr());
 	//! [reqhistoricaldata]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling historical data requests ***/
 	m_pClient->cancelHistoricalData(4001);
 	m_pClient->cancelHistoricalData(4002);
@@ -419,7 +413,7 @@ void TestCppClient::optionsOperations()
 void TestCppClient::contractOperations()
 {
 	m_pClient->reqContractDetails(209, ContractSamples::EurGbpFx());
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(210, ContractSamples::OptionForQuery());
 	//! [reqcontractdetails]
@@ -445,14 +439,14 @@ void TestCppClient::marketScanners()
 	//! [reqscannerparameters]
 	m_pClient->reqScannerParameters();
 	//! [reqscannerparameters]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	/*** Triggering a scanner subscription ***/
 	//! [reqscannersubscription]
 	m_pClient->reqScannerSubscription(7001, ScannerSubscriptionSamples::HotUSStkByVolume(), TagValueListSPtr());
 	//! [reqscannersubscription]
 
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling the scanner subscription ***/
 	//! [cancelscannersubscription]
 	m_pClient->cancelScannerSubscription(7001);
@@ -467,7 +461,7 @@ void TestCppClient::reutersFundamentals()
 	//! [reqfundamentaldata]
 	m_pClient->reqFundamentalData(8001, ContractSamples::USStock(), "ReportsFinSummary");
 	//! [reqfundamentaldata]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	/*** Canceling fundamentals request ***/
 	//! [cancelfundamentaldata]
@@ -483,7 +477,7 @@ void TestCppClient::bulletins()
 	//! [reqnewsbulletins]
 	m_pClient->reqNewsBulletins(true);
 	//! [reqnewsbulletins]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling IB's news bulletins ***/
 	//! [cancelnewsbulletins]
 	m_pClient->cancelNewsBulletins();
@@ -498,51 +492,51 @@ void TestCppClient::accountOperations()
 	//! [reqmanagedaccts]
 	m_pClient->reqManagedAccts();
 	//! [reqmanagedaccts]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Requesting accounts' summary ***/
 	//! [reqaaccountsummary]
 	m_pClient->reqAccountSummary(9001, "All", AccountSummaryTags::getAllTags());
 	//! [reqaaccountsummary]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [reqaaccountsummaryledger]
 	m_pClient->reqAccountSummary(9002, "All", "$LEDGER");
 	//! [reqaaccountsummaryledger]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [reqaaccountsummaryledgercurrency]
 	m_pClient->reqAccountSummary(9003, "All", "$LEDGER:EUR");
 	//! [reqaaccountsummaryledgercurrency]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [reqaaccountsummaryledgerall]
 	m_pClient->reqAccountSummary(9004, "All", "$LEDGER:ALL");
 	//! [reqaaccountsummaryledgerall]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [cancelaaccountsummary]
 	m_pClient->cancelAccountSummary(9001);
 	m_pClient->cancelAccountSummary(9002);
 	m_pClient->cancelAccountSummary(9003);
 	m_pClient->cancelAccountSummary(9004);
 	//! [cancelaaccountsummary]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Subscribing to an account's information. Only one at a time! ***/
 	//! [reqaaccountupdates]
 	m_pClient->reqAccountUpdates(true, "U150462");
 	//! [reqaaccountupdates]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [cancelaaccountupdates]
 	m_pClient->reqAccountUpdates(false, "U150462");
 	//! [cancelaaccountupdates]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	//! [reqaaccountupdatesmulti]
 	m_pClient->reqAccountUpdatessMulti(9002, "U150462", "EUstocks", true);
 	//! [reqaaccountupdatesmulti]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	/*** Requesting all accounts' positions. ***/
 	//! [reqpositions]
 	m_pClient->reqPositions();
 	//! [reqpositions]
-	sleep(2);
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [cancelpositions]
 	m_pClient->cancelPositions();
 	//! [cancelpositions]
@@ -603,7 +597,7 @@ void TestCppClient::orderOperations()
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), OrderSamples::LimitOrderWithCashQty("BUY", 1, 30, 5000));
 	//! [place order with cashQty]
 
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	/*** Cancel all orders for all accounts ***/
 	m_pClient->reqGlobalCancel();
@@ -755,7 +749,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderOneAccount.account = "DU119915";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), faOrderOneAccount);
 	//! [faorderoneaccount]
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [faordergroupequalquantity]
 	Order faOrderGroupEQ = OrderSamples::LimitOrder("SELL", 200, 2000);
@@ -763,7 +757,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderGroupEQ.faMethod = "EqualQuantity";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::SimpleFuture(), faOrderGroupEQ);
 	//! [faordergroupequalquantity]
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [faordergrouppctchange]
 	Order faOrderGroupPC;
@@ -775,7 +769,7 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderGroupPC.faPercentage = "100";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::EurGbpFx(), faOrderGroupPC);
 	//! [faordergrouppctchange]
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [faorderprofile]
 	Order faOrderProfile = OrderSamples::LimitOrder("BUY", 200, 100);
@@ -830,19 +824,19 @@ void TestCppClient::testDisplayGroups(){
 	m_pClient->queryDisplayGroups(9001);
 	//! [querydisplaygroups]
 
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [subscribetogroupevents]
 	m_pClient->subscribeToGroupEvents(9002, 1);
 	//! [subscribetogroupevents]
 
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [updatedisplaygroup]
 	m_pClient->updateDisplayGroup(9002, "8314@SMART");
 	//! [updatedisplaygroup]
 
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	//! [subscribefromgroupevents]
 	m_pClient->unsubscribeFromGroupEvents(9002);
