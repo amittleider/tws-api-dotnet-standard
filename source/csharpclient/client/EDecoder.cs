@@ -1566,14 +1566,15 @@ namespace IBApi
             int requestId = ReadInt();
             string startDateStr = "";
             string endDateStr = "";
-            string completedIndicator = "finished";
+
             if (msgVersion >= 2)
             {
                 startDateStr = ReadString();
                 endDateStr = ReadString();
-                completedIndicator += "-" + startDateStr + "-" + endDateStr;
             }
+
             int itemCount = ReadInt();
+            
             for (int ctr = 0; ctr < itemCount; ctr++)
             {
                 string date = ReadString();
@@ -1585,10 +1586,12 @@ namespace IBApi
                 double WAP = ReadDouble();
                 string hasGaps = ReadString();
                 int barCount = -1;
+                
                 if (msgVersion >= 3)
                 {
                     barCount = ReadInt();
                 }
+
                 eWrapper.historicalData(requestId, date, open, high, low,
                                         close, volume, barCount, WAP,
                                         Boolean.Parse(hasGaps));

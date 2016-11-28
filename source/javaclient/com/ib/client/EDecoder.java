@@ -627,12 +627,10 @@ class EDecoder implements ObjectInput {
 		  int reqId = readInt();
 		  String startDateStr = "";
 		  String endDateStr = "";
-		  String completedIndicator = "finished";		 
 		  
 		  if (version >= 2) {
 			  startDateStr = readStr();
 			  endDateStr = readStr();
-			  completedIndicator += "-" + startDateStr + "-" + endDateStr;
 		  }
 		  int itemCount = readInt();
 		  for (int ctr = 0; ctr < itemCount; ctr++) {
