@@ -2804,11 +2804,16 @@ namespace IBApi
             return IPAddress.NetworkToHostOrder(new BinaryReader(tcpStream).ReadInt32());
         }
 
-        public byte[] ReadByteArray(int msgSize)
+        public byte[] ReadAtLeastNBytes(int msgSize)
         {
             var buf = new byte[msgSize];
 
             return buf.Take(tcpStream.Read(buf, 0, msgSize)).ToArray();
+        }
+
+        public byte[] ReadByteArray(int msgSize)
+        {
+            return new BinaryReader(tcpStream).ReadBytes(msgSize);
         }
 
         public bool AsyncEConnect { get; set; }
