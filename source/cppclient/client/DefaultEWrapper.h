@@ -46,6 +46,7 @@ public:
    virtual void receiveFA(faDataType pFaDataType, const std::string& cxml);
    virtual void historicalData(TickerId reqId, const std::string& date, double open, double high, 
 	   double low, double close, int volume, int barCount, double WAP, int hasGaps);
+   virtual void historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr);
    virtual void scannerParameters(const std::string& xml);
    virtual void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
 	   const std::string& distance, const std::string& benchmark, const std::string& projection,

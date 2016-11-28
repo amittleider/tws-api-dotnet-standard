@@ -252,6 +252,9 @@ void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {
 void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
                                    double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
 void TestCppClient::scannerParameters(const std::string& xml) {}
+void TestCppClient::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { 
+	printf("HistoricalDataEnd. ReqId: %ld - Start Date: %s, End Date: %s", reqId, startDateStr, endDateStr);
+}
 void TestCppClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
                                 const std::string& distance, const std::string& benchmark, const std::string& projection,
                                 const std::string& legsStr) {}

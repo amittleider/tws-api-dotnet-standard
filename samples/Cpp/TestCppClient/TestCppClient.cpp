@@ -1087,6 +1087,12 @@ void TestCppClient::historicalData(TickerId reqId, const std::string& date, doub
 }
 //! [historicaldata]
 
+//! [historicaldata]
+void TestCppClient::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { 
+	printf("HistoricalDataEnd. ReqId: %ld - Start Date: %s, End Date: %s", reqId, startDateStr, endDateStr);
+}
+//! [historicaldata]
+
 //! [scannerparameters]
 void TestCppClient::scannerParameters(const std::string& xml) {
 	printf( "ScannerParameters. %s\n", xml.c_str());

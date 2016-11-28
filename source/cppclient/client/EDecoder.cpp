@@ -1130,8 +1130,7 @@ const char* EDecoder::processHistoricalDataMsg(const char* ptr, const char* endP
     }
 
     // send end of dataset marker
-    std::string finishedStr = std::string("finished-") + startDateStr + "-" + endDateStr;
-    m_pEWrapper->historicalData( reqId, finishedStr, -1, -1, -1, -1, -1, -1, -1, 0);
+    m_pEWrapper->historicalDataEnd( reqId, startDateStr, endDateStr);
 
     return ptr;
 }
