@@ -189,7 +189,7 @@ class TWSAPIDLLEXP EClient
 public:
 
 	explicit EClient(EWrapper *ptr, ETransport *pTransport);
-	~EClient();
+	virtual ~EClient();
 
 	virtual void eDisconnect() = 0;
 
