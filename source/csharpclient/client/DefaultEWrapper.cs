@@ -209,44 +209,44 @@ namespace IBApi
         {
         }
 
-        public void connectAck()
+        public virtual void connectAck()
         {            
         }
 
-        public void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        public virtual void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
         {
         }
 
-        public void positionMultiEnd(int requestId)
+        public virtual void positionMultiEnd(int requestId)
         {
         }
 
-        public void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
+        public virtual void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
         {
         }
 
-        public void accountUpdateMultiEnd(int requestId)
+        public virtual void accountUpdateMultiEnd(int requestId)
         {
         }
 
 
-        public void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        public virtual void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
         }
 
-        public void securityDefinitionOptionParameterEnd(int reqId)
+        public virtual void securityDefinitionOptionParameterEnd(int reqId)
         {
         }
 
-        public void softDollarTiers(int reqId, SoftDollarTier[] tiers)
+        public virtual void softDollarTiers(int reqId, SoftDollarTier[] tiers)
         {
         }
 
-        public void familyCodes(FamilyCode[] familyCodes)
+        public virtual void familyCodes(FamilyCode[] familyCodes)
         {
         }
 
-        public void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        public virtual void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
         {
         }
     }
