@@ -18,6 +18,7 @@ private:
 	bool m_isConjunctionConnection;
 
 public:
+	virtual ~OrderCondition() {}
 	virtual const char* readExternal(const char* ptr, const char* endPtr);
 	virtual void writeExternal(std::ostream &out) const;
 
