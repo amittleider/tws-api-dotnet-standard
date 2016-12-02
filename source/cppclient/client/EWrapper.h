@@ -7,6 +7,7 @@
 
 #include "CommonDefs.h"
 #include "SoftDollarTier.h"
+#include "DepthMktDataDescription.h"
 #include "FamilyCode.h"
 #include "TickAttrib.h"
 #include <string>
@@ -176,6 +177,7 @@ public:
    virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) = 0;
    virtual void familyCodes(const std::vector<FamilyCode> &familyCodes) = 0;
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) = 0;
+   virtual void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) = 0;
 };
 
 

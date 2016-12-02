@@ -65,6 +65,7 @@
     <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
     <Compile Include="messages\BondContractDetailsMessage.cs" />
     <Compile Include="messages\FamilyCodesMessage.cs" />
+    <Compile Include="messages\MktDepthExchangesMessage.cs" />
     <Compile Include="messages\PositionMultiEndMessage.cs" />
     <Compile Include="messages\PositionMultiMessage.cs" />
     <Compile Include="messages\DeepBookMessage.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="messages\SecurityDefinitionOptionParameterEndMessage.cs" />
     <Compile Include="messages\SecurityDefinitionOptionParameterMessage.cs" />
     <Compile Include="ui\SecurityDefinitionOptionParameterKey.cs" />
-    <Compile Include="ui\SoftDollarTiersMessage.cs" />
+    <Compile Include="messages\SoftDollarTiersMessage.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">

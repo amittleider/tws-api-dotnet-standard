@@ -2760,6 +2760,28 @@ void EClient::reqMatchingSymbols(int reqId, const std::string& pattern)
 	closeAndSend(msg.str());
 }
 
+void EClient::reqMktDepthExchanges()
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support market depth exchanges requests.");
+		return;
+	}
+
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_MKT_DEPTH_EXCHANGES);
+
+	closeAndSend(msg.str());
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);

@@ -2382,6 +2382,26 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMATCHINGSYMBOLS);
         }
 
+        /**
+         * @brief Requests venues with market depth data available
+         * @sa EWrapper::mktDepthExchanges
+         */
+        public void reqMktDepthExchanges()
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_MKT_DEPTH_EXCHANGES,
+                " It does not support market depth exchanges requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestMktDepthExchanges);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTHEXCHANGES);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");

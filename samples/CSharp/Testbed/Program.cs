@@ -183,6 +183,12 @@ namespace Samples
             //! [cancelmktdepth]
             client.cancelMktDepth(2001);
             //! [cancelmktdepth]
+
+            /*** Requesting Market Depth Exchanges ***/
+            Thread.Sleep(2000);
+            //! [reqMktDepthExchanges]
+            client.reqMktDepthExchanges();
+            //! [reqMktDepthExchanges]
         }
 
         private static void realTimeBars(EClientSocket client)

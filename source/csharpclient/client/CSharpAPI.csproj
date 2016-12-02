@@ -58,7 +58,7 @@
     <Compile Include="ContractCondition.cs" />
     <Compile Include="ContractDescription.cs" />
     <Compile Include="ContractDetails.cs" />
-    <Compile Include="FamilyCode.cs" />
+    <Compile Include="DepthMktDataDescription.cs" />
     <Compile Include="DefaultEWrapper.cs" />
     <Compile Include="EClientErrors.cs" />
     <Compile Include="EClientException.cs" />
@@ -77,6 +77,7 @@
     <Compile Include="Execution.cs" />
     <Compile Include="ExecutionCondition.cs" />
     <Compile Include="ExecutionFilter.cs" />
+    <Compile Include="FamilyCode.cs" />
     <Compile Include="IBParamsList.cs" />
     <Compile Include="IDecoder.cs" />
     <Compile Include="IncomingMessage.cs" />

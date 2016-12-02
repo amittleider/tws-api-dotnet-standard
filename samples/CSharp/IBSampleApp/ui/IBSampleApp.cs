@@ -54,7 +54,7 @@ namespace IBSampleApp
             InitializeComponent();
             ibClient = new IBClient(signal);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
-            deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
+            deepBookManager = new DeepBookManager(ibClient, deepBookGrid, mktDepthExchangesGrid_MDT);
             historicalDataManager = new HistoricalDataManager(ibClient, historicalChart, barsGrid);
             realTimeBarManager = new RealTimeBarsManager(ibClient, rtBarsChart, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
@@ -160,6 +160,7 @@ namespace IBSampleApp
             ibClient.SoftDollarTiers += (reqId, tiers) => HandleMessage(new SoftDollarTiersMessage(reqId, tiers));
             ibClient.FamilyCodes += (familyCodes) => HandleMessage(new FamilyCodesMessage(familyCodes));
             ibClient.SymbolSamples += (reqId, contractDescriptions) => HandleMessage(new SymbolSamplesMessage(reqId, contractDescriptions));
+            ibClient.MktDepthExchanges += (depthMktDataDescriptions) => HandleMessage(new MktDepthExchangesMessage(depthMktDataDescriptions));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -392,6 +393,11 @@ namespace IBSampleApp
                         {
                             symbolSamplesManagerContractInfo.UpdateUI(message);
                         }
+                        break;
+                    }
+                case MessageType.MktDepthExchanges:
+                    {
+                        deepBookManager.HandleMktDepthExchangesMessage(message);
                         break;
                     }
 
@@ -971,5 +977,17 @@ namespace IBSampleApp
         {
             symbolSamplesManagerData.Clear();
         }
+
+        private void ReqMktDepthExchanges_Button_Click(object sender, EventArgs e)
+        {
+            deepBookManager.ReqMktDepthExchanges();
+            ShowTab(marketData_MDT, mktDepthExchanges_MDT);
+        }
+
+        private void ClearMktDepthExchanges_Button_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            deepBookManager.ClearMktDepthExchanges();
+        }
+
     }
 }

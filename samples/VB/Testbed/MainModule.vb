@@ -196,6 +196,12 @@ Module MainModule
         '! [cancelmktdepth]
         client.cancelMktDepth(2001)
         '! [cancelmktdepth]
+
+        '** Requesting Market Depth Exchanges ***
+        Thread.Sleep(2000)
+        '! [reqMktDepthExchanges]
+        client.reqMktDepthExchanges()
+        '! [reqMktDepthExchanges]
     End Sub
 
     Private Sub realTimeBars(client As EClientSocket)

@@ -102,6 +102,7 @@ Friend Class dlgMainWnd
     Friend WithEvents cmdReqSecDefOptParams As System.Windows.Forms.Button
     Friend WithEvents cmdFamilyCodes As System.Windows.Forms.Button
     Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
+    Friend WithEvents cmdReqMktDepthExchanges As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -160,6 +161,7 @@ Friend Class dlgMainWnd
         Me.cmdReqSecDefOptParams = New System.Windows.Forms.Button()
         Me.cmdFamilyCodes = New System.Windows.Forms.Button()
         Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
+        Me.cmdReqMktDepthExchanges = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -308,11 +310,11 @@ Friend Class dlgMainWnd
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(282, 622)
+        Me.cmdClearForm.Location = New System.Drawing.Point(280, 632)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 54
+        Me.cmdClearForm.TabIndex = 55
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = False
         '
@@ -322,11 +324,11 @@ Friend Class dlgMainWnd
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(386, 622)
+        Me.cmdClose.Location = New System.Drawing.Point(384, 632)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 55
+        Me.cmdClose.TabIndex = 56
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
@@ -482,7 +484,7 @@ Friend Class dlgMainWnd
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 172)
-        Me.lstErrors.TabIndex = 53
+        Me.lstErrors.TabIndex = 54
         '
         'lstServerResponses
         '
@@ -496,7 +498,7 @@ Friend Class dlgMainWnd
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 172)
-        Me.lstServerResponses.TabIndex = 51
+        Me.lstServerResponses.TabIndex = 52
         '
         'lstMktData
         '
@@ -510,7 +512,7 @@ Friend Class dlgMainWnd
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 158)
-        Me.lstMktData.TabIndex = 49
+        Me.lstMktData.TabIndex = 50
         '
         'Label3
         '
@@ -522,7 +524,7 @@ Friend Class dlgMainWnd
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 52
+        Me.Label3.TabIndex = 53
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -535,7 +537,7 @@ Friend Class dlgMainWnd
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 50
+        Me.Label2.TabIndex = 51
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -548,7 +550,7 @@ Friend Class dlgMainWnd
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 48
+        Me.Label1.TabIndex = 49
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -843,11 +845,21 @@ Friend Class dlgMainWnd
         Me.cmdReqMatchingSymbols.Text = "Req Matching Symbols"
         Me.cmdReqMatchingSymbols.UseVisualStyleBackColor = True
         '
+        'cmdReqMktDepthExchanges
+        '
+        Me.cmdReqMktDepthExchanges.Location = New System.Drawing.Point(545, 641)
+        Me.cmdReqMktDepthExchanges.Name = "cmdReqMktDepthExchanges"
+        Me.cmdReqMktDepthExchanges.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMktDepthExchanges.TabIndex = 48
+        Me.cmdReqMktDepthExchanges.Text = "Req Mkt Depth Exch"
+        Me.cmdReqMktDepthExchanges.UseVisualStyleBackColor = True
+        '
         'dlgMainWnd
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(823, 659)
+        Me.ClientSize = New System.Drawing.Size(828, 669)
+        Me.Controls.Add(Me.cmdReqMktDepthExchanges)
         Me.Controls.Add(Me.cmdFamilyCodes)
         Me.Controls.Add(Me.cmdReqMatchingSymbols)
         Me.Controls.Add(Me.cmdReqSecDefOptParams)
@@ -1590,6 +1602,13 @@ Friend Class dlgMainWnd
             Call Tws1.cancelAccountUpdatesMulti(dlgPositions.id)
         End If
 
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Request Market Depth Exchanges
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqMktDepthExchanges_Click(sender As Object, e As EventArgs) Handles cmdReqMktDepthExchanges.Click
+        Call Tws1.reqMktDepthExchanges()
     End Sub
 
     '--------------------------------------------------------------------------------
@@ -3016,6 +3035,22 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  }")
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ---- Bond Contract Details End ----")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+    End Sub
+
+    Private Sub Tws1_OnMktDepthExchanges(tws As Tws, DTwsEvents_mktDepthExchanges As AxTWSLib._DTwsEvents_mktDepthExchangesEvent) Handles Tws1.OnMktDepthExchanges
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Market Depth Exchanges Begin (total=" & DTwsEvents_mktDepthExchanges.depthMktDataDescriptions.Length & ") ====")
+        Dim count As Integer = 0
+        For Each depthMktDataDescription As DepthMktDataDescription In DTwsEvents_mktDepthExchanges.depthMktDataDescriptions
+            Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Depth Market Data Description (" & count & ") - exchange=" & depthMktDataDescription.Exchange & " secType=" & depthMktDataDescription.SecType & " isL2=" & depthMktDataDescription.IsL2)
+            count += 1
+        Next
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, " ==== Market Depth Exchanges End (total=" & DTwsEvents_mktDepthExchanges.depthMktDataDescriptions.Length & ") ====")
 
         ' move into view
         lstServerResponses.TopIndex = offset

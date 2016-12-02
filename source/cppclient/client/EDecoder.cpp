@@ -1750,6 +1750,27 @@ const char* EDecoder::processSymbolSamplesMsg(const char* ptr, const char* endPt
 	return ptr;
 }
 
+const char* EDecoder::processMktDepthExchangesMsg(const char* ptr, const char* endPtr) 
+{
+	typedef std::vector<DepthMktDataDescription> DepthMktDataDescriptionList;
+	DepthMktDataDescriptionList depthMktDataDescriptions;
+	int nDepthMktDataDescriptions = 0;
+	DECODE_FIELD( nDepthMktDataDescriptions);
+
+	if (nDepthMktDataDescriptions > 0) {
+		depthMktDataDescriptions.resize(nDepthMktDataDescriptions);
+		for( int i = 0; i < nDepthMktDataDescriptions; ++i) {
+			DECODE_FIELD( depthMktDataDescriptions[i].exchange);
+			DECODE_FIELD( depthMktDataDescriptions[i].secType);
+			DECODE_FIELD( depthMktDataDescriptions[i].isL2);
+		}
+	}
+
+	m_pEWrapper->mktDepthExchanges(depthMktDataDescriptions);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2041,6 +2062,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case SYMBOL_SAMPLES:
 			ptr = processSymbolSamplesMsg(ptr, endPtr);
+			break;
+
+		case MKT_DEPTH_EXCHANGES:
+			ptr = processMktDepthExchangesMsg(ptr, endPtr);
 			break;
 
         default:

@@ -207,6 +207,12 @@
     <ClInclude Include="SoftDollarTier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DepthMktDataDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FamilyCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="TickAttrib.h">
       <Filter>Header Files</Filter>
     </ClInclude>

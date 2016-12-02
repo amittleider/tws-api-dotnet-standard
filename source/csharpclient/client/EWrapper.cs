@@ -701,5 +701,13 @@ namespace IBApi
         * @sa EClient::reqMatchingSymbols
         */
         void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
+
+        /**
+        * @brief called when receives Depth Market Data Descriptions
+        * @param descriptions Stores a list of DepthMktDataDescriprion
+        * @sa EClient::reqMktDepthExchanges
+        */
+        void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
+
     }
 }

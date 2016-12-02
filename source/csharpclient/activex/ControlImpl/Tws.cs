@@ -1766,6 +1766,16 @@ namespace TWSLib
             return new ComContractDescriptionList(contractDescriptions);
         }
 
+        public delegate void mktDepthExchangesDelegate(IDepthMktDataDescriptionList depthMktDataDescriptions);
+        public event mktDepthExchangesDelegate mktDepthExchanges;
+        void EWrapper.mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)
+        {
+            var t_mktDepthExchanges = this.mktDepthExchanges;
+
+            if (t_mktDepthExchanges != null)
+                InvokeIfRequired(t_mktDepthExchanges, depthMktDataDescriptions.Length > 0 ? new ComDepthMktDataDescriptionList(depthMktDataDescriptions) : null);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1883,6 +1893,11 @@ namespace TWSLib
         public void reqMatchingSymbols(int reqId, string pattern)
         {
             socket.reqMatchingSymbols(reqId, pattern);
+        }
+
+        public void reqMktDepthExchanges()
+        {
+            socket.reqMktDepthExchanges();
         }
 
         public ArrayList ParseConditions(string str)

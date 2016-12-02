@@ -224,6 +224,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_SYMBOLSAMPLES_ACK:
 			break;
+		case ST_REQMKTDEPTHEXCHANGES:
+			reqMktDepthExchanges();
+			break;
+		case ST_REQMKTDEPTHEXCHANGES_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -871,6 +876,14 @@ void TestCppClient::reqMatchingSymbols()
 	m_state = ST_SYMBOLSAMPLES_ACK;
 }
 
+void TestCppClient::reqMktDepthExchanges()
+{
+	/*** Request TWS' market depth exchanges ***/
+	m_pClient->reqMktDepthExchanges();
+
+	m_state = ST_REQMKTDEPTHEXCHANGES_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -888,7 +901,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
 	//m_state = ST_ACCOUNTOPERATIONS;
-	m_state = ST_ORDEROPERATIONS;
+	//m_state = ST_ORDEROPERATIONS;
 	//m_state = ST_OCASAMPLES;
 	//m_state = ST_CONDITIONSAMPLES;
 	//m_state = ST_BRACKETSAMPLES;
@@ -900,6 +913,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MISCELANEOUS;
 	//m_state = ST_FAMILYCODES;
 	//m_state = ST_SYMBOLSAMPLES;
+	m_state = ST_REQMKTDEPTHEXCHANGES;
 	//m_state = ST_PING;
 }
 
@@ -1270,3 +1284,15 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 	}
 }
 //! [symbolSamples]
+
+//! [mktDepthExchanges]
+void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) {
+	printf("Mkt Depth Exchanges (%d):\n", depthMktDataDescriptions.size());
+
+	for (int i = 0; i < depthMktDataDescriptions.size(); i++) {
+//! [mktDepthExchanges]
+		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n", i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? "true" : "false");
+	}
+}
+//! [mktDepthExchanges]
+

@@ -408,6 +408,16 @@ Namespace Samples
         End Sub
         '! [symbolSamples]
 
+        '! [mktDepthExchanges]
+        Public Sub mktDepthExchanges(depthMktDataDescriptions As DepthMktDataDescription()) Implements EWrapper.mktDepthExchanges
+            Console.WriteLine("Market Depth Exchanges:")
+
+            For Each depthMktDataDescription In depthMktDataDescriptions
+                Console.WriteLine("Depth Market Data Descriprion. Exchange: " & depthMktDataDescription.Exchange & " Security Type: " & depthMktDataDescription.SecType & " Is L2: " & depthMktDataDescription.IsL2)
+            Next
+        End Sub
+        '! [mktDepthExchanges]
+
     End Class
 
 End Namespace

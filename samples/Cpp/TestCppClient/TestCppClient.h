@@ -64,6 +64,8 @@ enum State {
 	ST_FAMILYCODES_ACK,
 	ST_SYMBOLSAMPLES,
 	ST_SYMBOLSAMPLES_ACK,
+	ST_REQMKTDEPTHEXCHANGES,
+	ST_REQMKTDEPTHEXCHANGES_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -111,6 +113,7 @@ private:
 	void miscelaneous();
 	void reqFamilyCodes();
 	void reqMatchingSymbols();
+	void reqMktDepthExchanges();
 
 	void reqCurrentTime();
 
@@ -188,6 +191,7 @@ public:
 	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
 	void familyCodes(const std::vector<FamilyCode> &familyCodes);
 	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
+	void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
 
 private:
 	//! [socket_declare]

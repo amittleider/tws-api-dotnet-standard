@@ -61,12 +61,13 @@ const int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS	= 108;
 const int MIN_SERVER_VER_PAST_LIMIT				= 109;
 const int MIN_SERVER_VER_LOT_SIZE				= 110;
 const int MIN_SERVER_VER_CASH_QTY				= 111;
+const int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_CASH_QTY;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES;
 
 
 // incoming msg id's
@@ -124,6 +125,7 @@ const int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
 const int SOFT_DOLLAR_TIERS = 77;
 const int FAMILY_CODES = 78;
 const int SYMBOL_SAMPLES = 79;
+const int MKT_DEPTH_EXCHANGES = 80;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -227,6 +229,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processSoftDollarTiersMsg(const char* ptr, const char* endPtr);
 	const char* processFamilyCodesMsg(const char* ptr, const char* endPtr);
 	const char* processSymbolSamplesMsg(const char* ptr, const char* endPtr);
+	const char* processMktDepthExchangesMsg(const char* ptr, const char* endPtr);
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 

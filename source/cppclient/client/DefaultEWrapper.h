@@ -80,5 +80,6 @@ public:
    virtual void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
    virtual void familyCodes(const std::vector<FamilyCode> &familyCodes);
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
+   virtual void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
 };
 

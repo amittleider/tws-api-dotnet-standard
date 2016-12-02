@@ -353,6 +353,11 @@ namespace IBApi
                         SymbolSamplesEvent();
                         break;
                     }
+                case IncomingMessage.MktDepthExchanges:
+                    {
+                        MktDepthExchangesEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -419,6 +424,24 @@ namespace IBApi
             }
 
             eWrapper.familyCodes(familyCodes);
+        }
+
+        private void MktDepthExchangesEvent()
+        {
+            DepthMktDataDescription[] depthMktDataDescriptions = new DepthMktDataDescription[0];
+            int nDescriptions = ReadInt();
+
+            if (nDescriptions > 0)
+            {
+                Array.Resize(ref depthMktDataDescriptions, nDescriptions);
+
+                for (int i = 0; i < nDescriptions; i++)
+                {
+                    depthMktDataDescriptions[i] = new DepthMktDataDescription(ReadString(), ReadString(), ReadBoolFromInt());
+                }
+            }
+
+            eWrapper.mktDepthExchanges(depthMktDataDescriptions);
         }
 
         private void SoftDollarTierEvent()

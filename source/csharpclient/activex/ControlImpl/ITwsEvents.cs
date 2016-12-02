@@ -155,5 +155,7 @@ namespace TWSLib
         void familyCodes(IFamilyCodeList familyCodes);
         [DispId(127)]
         void symbolSamples(int reqId, IContractDescriptionList contractDescriptions);
+        [DispId(128)]
+        void mktDepthExchanges(IDepthMktDataDescriptionList depthMktDataDescriptions);
     }
 }

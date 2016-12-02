@@ -67,5 +67,6 @@ namespace IBApi
         RequestSoftDollarTiers = 79,
         RequestFamilyCodes = 80,
         RequestMatchingSymbols = 81,
+        RequestMktDepthExchanges = 82,
     }
 }
