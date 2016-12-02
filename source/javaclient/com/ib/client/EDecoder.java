@@ -68,6 +68,7 @@ class EDecoder implements ObjectInput {
     static final int SOFT_DOLLAR_TIERS = 77;
     static final int FAMILY_CODES = 78;
     static final int SYMBOL_SAMPLES = 79;
+    static final int MKT_DEPTH_EXCHANGES = 80;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -375,6 +376,10 @@ class EDecoder implements ObjectInput {
                 processSymbolSamplesMsg();
                 break;
 
+            case MKT_DEPTH_EXCHANGES:
+                processMktDepthExchangesMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -383,6 +388,22 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processMktDepthExchangesMsg() throws IOException {
+        DepthMktDataDescription[] depthMktDataDescriptions = new DepthMktDataDescription[0];
+        int nDepthMktDataDescriptions = readInt();
+
+        if (nDepthMktDataDescriptions > 0) {
+            depthMktDataDescriptions = new DepthMktDataDescription[nDepthMktDataDescriptions];
+
+            for (int i = 0; i < nDepthMktDataDescriptions; i++)
+            {
+                depthMktDataDescriptions[i] = new DepthMktDataDescription(readStr(), readStr(), readBoolFromInt());
+            }
+        }
+
+        m_EWrapper.mktDepthExchanges(depthMktDataDescriptions);
     }
 
     private void processSymbolSamplesMsg() throws IOException {

@@ -634,6 +634,17 @@ public class EWrapperMsgGenerator {
         return sb.toString();
     }
 
+	static public String mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("==== Market Depth Exchanges Begin (total=" + depthMktDataDescriptions.length + ") ====\n");
+		for (int i = 0; i < depthMktDataDescriptions.length; i++) {
+			sb.append("Depth Market Data Description [" + i + "] - exchange: " + depthMktDataDescriptions[i].exchange() 
+					+ ", secType: " + depthMktDataDescriptions[i].secType() + ", isL2: " + depthMktDataDescriptions[i].isL2() + "\n");
+		}
+		sb.append("==== Market Depth Exchanges End (total=" + depthMktDataDescriptions.length + ") ====\n");
+		return sb.toString();
+	}
+	
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 

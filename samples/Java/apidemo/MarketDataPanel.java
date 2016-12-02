@@ -65,6 +65,7 @@ public class MarketDataPanel extends JPanel {
 		m_requestPanel.addTab( "Market Scanner", new ScannerRequestPanel() );
 		m_requestPanel.addTab("Security defininition optional parameters", new SecDefOptParamsPanel());
 		m_requestPanel.addTab( "Matching Symbols", new RequestMatchingSymbolsPanel());
+		m_requestPanel.addTab( "Market Depth Exchanges", new MktDepthExchangesPanel() );
 		
 		setLayout( new BorderLayout() );
 		add( m_requestPanel, BorderLayout.NORTH);

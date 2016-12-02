@@ -177,6 +177,7 @@
     <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
     <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
     <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
+    <Compile Include="_DTwsEvents_mktDepthExchangesEvent.vb" />
     <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
     <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
     <Compile Include="_DTwsEvents_orderStatusEvent.vb" />

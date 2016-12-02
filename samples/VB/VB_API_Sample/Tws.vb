@@ -591,6 +591,14 @@ Friend Class Tws
                          End Sub)
     End Sub
 
+    Public Sub mktDepthExchanges(depthMktDataDescriptions() As DepthMktDataDescription) Implements EWrapper.mktDepthExchanges
+        InvokeIfRequired(Sub()
+                             RaiseEvent OnMktDepthExchanges(Me, New AxTWSLib._DTwsEvents_mktDepthExchangesEvent With {
+                                                          .depthMktDataDescriptions = depthMktDataDescriptions
+                                                          })
+                         End Sub)
+    End Sub
+
 #End Region
 
     Sub reqScannerParameters()
@@ -840,6 +848,10 @@ Friend Class Tws
         socket.reqMatchingSymbols(reqId, pattern)
     End Sub
 
+    Sub reqMktDepthExchanges()
+        socket.reqMktDepthExchanges()
+    End Sub
+
     Event OnNextValidId(ByVal sender As Object, ByVal eventArgs As AxTWSLib._DTwsEvents_nextValidIdEvent)
     Event OnErrMsg(ByVal eventSender As System.Object, ByVal eventArgs As AxTWSLib._DTwsEvents_errMsgEvent)
     Event OnConnectionClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs)
@@ -896,6 +908,6 @@ Friend Class Tws
     Event OnFamilyCodes(tws As Tws, DTwsEvents_familyCodesEvent As AxTWSLib._DTWsEvents_familyCodesEvent)
     Event OnSymbolSamples(tws As Tws, DTwsEvents_symbolSamplesEvent As AxTWSLib._DTwsEvents_symbolSamplesEvent)
     Event OnBondContractDetails(tws As Tws, DTwsEvents_bondContractDetailsEvent As AxTWSLib._DTwsEvents_bondContractDetailsEvent)
-
+    Event OnMktDepthExchanges(tws As Tws, DTwsEvents_mktDepthExchanges As AxTWSLib._DTwsEvents_mktDepthExchangesEvent)
 
 End Class

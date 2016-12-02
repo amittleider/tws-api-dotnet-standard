@@ -79,5 +79,6 @@ public interface EWrapper {
     void familyCodes(FamilyCode[] familyCodes);
     void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
 	void historicalDataEnd(int reqId, String startDateStr, String endDateStr);
+    void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
 }
 

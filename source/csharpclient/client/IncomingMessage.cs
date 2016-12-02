@@ -65,5 +65,6 @@ namespace IBApi
         public const int SoftDollarTier = 77;
         public const int FamilyCodes = 78;
         public const int SymbolSamples = 79;
+        public const int MktDepthExchanges = 80;
     }
 }

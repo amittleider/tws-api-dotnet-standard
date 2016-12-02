@@ -454,6 +454,13 @@ namespace IBSampleApp
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.ReqMktDepthExchanges_Button = new System.Windows.Forms.Button();
+            this.mktDepthExchanges_MDT = new System.Windows.Forms.TabPage();
+            this.clearMktDepthExchanges_Button = new System.Windows.Forms.LinkLabel();
+            this.mktDepthExchangesGrid_MDT = new System.Windows.Forms.DataGridView();
+            this.mktDepthExchangesColumn_Exchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_SecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_IsL2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.permIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -592,6 +599,8 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).BeginInit();
             this.bondContractDetailsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bondContractDetailsGrid)).BeginInit();
+            this.mktDepthExchanges_MDT.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mktDepthExchangesGrid_MDT)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -635,6 +644,7 @@ namespace IBSampleApp
             this.marketData_MDT.Controls.Add(this.rtBarsTab_MDT);
             this.marketData_MDT.Controls.Add(this.scannerTab);
             this.marketData_MDT.Controls.Add(this.scannerParamsTab);
+            this.marketData_MDT.Controls.Add(this.mktDepthExchanges_MDT);
             this.marketData_MDT.Controls.Add(this.symbolSamplesTabData);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 210);
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
@@ -1249,6 +1259,7 @@ namespace IBSampleApp
             // 
             // deepBookGroupBox
             // 
+            this.deepBookGroupBox.Controls.Add(this.ReqMktDepthExchanges_Button);
             this.deepBookGroupBox.Controls.Add(this.deepBookEntries);
             this.deepBookGroupBox.Controls.Add(this.deepBookEntriesLabel);
             this.deepBookGroupBox.Controls.Add(this.deepBook_Button);
@@ -4737,6 +4748,76 @@ namespace IBSampleApp
             this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
             // 
+            // ReqMktDepthExchanges_Button
+            // 
+            this.ReqMktDepthExchanges_Button.Location = new System.Drawing.Point(14, 144);
+            this.ReqMktDepthExchanges_Button.Name = "ReqMktDepthExchanges_Button";
+            this.ReqMktDepthExchanges_Button.Size = new System.Drawing.Size(82, 23);
+            this.ReqMktDepthExchanges_Button.TabIndex = 58;
+            this.ReqMktDepthExchanges_Button.Text = "Exchanges";
+            this.ReqMktDepthExchanges_Button.UseVisualStyleBackColor = true;
+            this.ReqMktDepthExchanges_Button.Click += new System.EventHandler(this.ReqMktDepthExchanges_Button_Click);
+            // 
+            // mktDepthExchanges_MDT
+            // 
+            this.mktDepthExchanges_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.mktDepthExchanges_MDT.Controls.Add(this.mktDepthExchangesGrid_MDT);
+            this.mktDepthExchanges_MDT.Controls.Add(this.clearMktDepthExchanges_Button);
+            this.mktDepthExchanges_MDT.Location = new System.Drawing.Point(4, 22);
+            this.mktDepthExchanges_MDT.Name = "mktDepthExchanges_MDT";
+            this.mktDepthExchanges_MDT.Size = new System.Drawing.Size(1234, 209);
+            this.mktDepthExchanges_MDT.TabIndex = 5;
+            this.mktDepthExchanges_MDT.Text = "Mkt Depth Exchanges";
+            // 
+            // clearMktDepthExchanges_Button
+            // 
+            this.clearMktDepthExchanges_Button.AutoSize = true;
+            this.clearMktDepthExchanges_Button.Location = new System.Drawing.Point(2, 3);
+            this.clearMktDepthExchanges_Button.Name = "clearMktDepthExchanges_Button";
+            this.clearMktDepthExchanges_Button.Size = new System.Drawing.Size(31, 13);
+            this.clearMktDepthExchanges_Button.TabIndex = 2;
+            this.clearMktDepthExchanges_Button.TabStop = true;
+            this.clearMktDepthExchanges_Button.Text = "Clear";
+            this.clearMktDepthExchanges_Button.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ClearMktDepthExchanges_Button_LinkClicked);
+            // 
+            // mktDepthExchangesGrid_MDT
+            // 
+            this.mktDepthExchangesGrid_MDT.AllowUserToAddRows = false;
+            this.mktDepthExchangesGrid_MDT.AllowUserToDeleteRows = false;
+            this.mktDepthExchangesGrid_MDT.AllowUserToOrderColumns = true;
+            this.mktDepthExchangesGrid_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mktDepthExchangesGrid_MDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mktDepthExchangesGrid_MDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.mktDepthExchangesColumn_Exchange,
+            this.mktDepthExchangesColumn_SecType,
+            this.mktDepthExchangesColumn_IsL2});
+            this.mktDepthExchangesGrid_MDT.Location = new System.Drawing.Point(5, 19);
+            this.mktDepthExchangesGrid_MDT.Name = "mktDepthExchangesGrid_MDT";
+            this.mktDepthExchangesGrid_MDT.ReadOnly = true;
+            this.mktDepthExchangesGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.mktDepthExchangesGrid_MDT.Size = new System.Drawing.Size(455, 184);
+            this.mktDepthExchangesGrid_MDT.TabIndex = 3;
+            // 
+            // mktDepthExchangesColumn_Exchange
+            // 
+            this.mktDepthExchangesColumn_Exchange.HeaderText = "Exchange";
+            this.mktDepthExchangesColumn_Exchange.Name = "mktDepthExchangesColumn_Exchange";
+            this.mktDepthExchangesColumn_Exchange.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_SecType
+            //
+            this.mktDepthExchangesColumn_SecType.HeaderText = "SecType";
+            this.mktDepthExchangesColumn_SecType.Name = "mktDepthExchangesColumn_SecType";
+            this.mktDepthExchangesColumn_SecType.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_IsL2
+            // 
+            this.mktDepthExchangesColumn_IsL2.HeaderText = "IsL2";
+            this.mktDepthExchangesColumn_IsL2.Name = "mktDepthExchangesColumn_IsL2";
+            this.mktDepthExchangesColumn_IsL2.ReadOnly = true;
+            //
             // permIdColumn
             // 
             this.permIdColumn.HeaderText = "Perm ID";
@@ -5209,6 +5290,9 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.ib_banner)).EndInit();
             this.bondContractDetailsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bondContractDetailsGrid)).EndInit();
+            this.mktDepthExchanges_MDT.ResumeLayout(false);
+            this.mktDepthExchanges_MDT.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mktDepthExchangesGrid_MDT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5606,6 +5690,13 @@ namespace IBSampleApp
         private System.Windows.Forms.ListView listViewOptionParams;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button ReqMktDepthExchanges_Button;
+        private System.Windows.Forms.TabPage mktDepthExchanges_MDT;
+        private System.Windows.Forms.LinkLabel clearMktDepthExchanges_Button;
+        private System.Windows.Forms.DataGridView mktDepthExchangesGrid_MDT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_Exchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_SecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_IsL2;
         private System.Windows.Forms.TabPage familyCodesTab;
         private System.Windows.Forms.Button requestFamilyCodes;
         private System.Windows.Forms.DataGridView familyCodesGrid;

@@ -23,6 +23,7 @@ import com.ib.client.Contract;
 import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
+import com.ib.client.DepthMktDataDescription;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
@@ -422,6 +423,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onRequestMatchingSymbols();
             }
         });
+        JButton butReqMktDepthExchanges = new JButton( "Req Mkt Depth Exchanges");
+        butReqMktDepthExchanges.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onReqMktDepthExchanges();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -491,6 +498,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butGroups ) ;
         buttonPanel.add( butRequestFamilyCodes ) ;
         buttonPanel.add( butRequestMatchingSymbols ) ;
+        buttonPanel.add( butReqMktDepthExchanges ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -498,6 +506,10 @@ class SampleFrame extends JFrame implements EWrapper {
 
         return buttonPanel;
     }
+
+	protected void onReqMktDepthExchanges() {
+		m_client.reqMktDepthExchanges();
+	}
 
 	protected void onRequestSecurityDefinitionOptionParameters() {
 		m_secDefOptParamsReq.setModal(true);
@@ -1532,4 +1544,9 @@ class SampleFrame extends JFrame implements EWrapper {
         m_TWS.add(msg);
     }
 
+	@Override
+	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		String msg = EWrapperMsgGenerator.mktDepthExchanges(depthMktDataDescriptions);
+		m_TWS.add(msg);
+	}
 }

@@ -17,6 +17,7 @@ import com.ib.client.Contract;
 import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
+import com.ib.client.DepthMktDataDescription;
 import com.ib.client.EClientErrors;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
@@ -79,6 +80,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
 	private final ConcurrentHashSet<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<IFamilyCodesHandler>();
 	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<Integer, ISymbolSamplesHandler>();
+	private final ConcurrentHashSet<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<IMktDepthExchangesHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1400,4 +1402,27 @@ public class ApiController implements EWrapper {
 			handler.historicalDataEnd();
 		}
 	}
+	
+	public interface IMktDepthExchangesHandler {
+		void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
+	}
+
+	public void reqMktDepthExchanges(IMktDepthExchangesHandler handler) {
+		if (!checkConnection())
+			return;
+
+		m_mktDepthExchangesHandlers.add(handler);
+		m_client.reqMktDepthExchanges();
+		sendEOM();
+	}
+
+	
+	@Override
+	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		for( IMktDepthExchangesHandler handler : m_mktDepthExchangesHandlers) {
+			handler.mktDepthExchanges(depthMktDataDescriptions);
+		}
+		recEOM();
+	}
+
 }

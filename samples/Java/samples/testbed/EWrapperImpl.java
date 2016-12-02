@@ -7,6 +7,7 @@ import com.ib.client.Contract;
 import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
+import com.ib.client.DepthMktDataDescription;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReaderSignal;
@@ -449,8 +450,8 @@ public class EWrapperImpl implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
-        
-        //! [softDollarTiers]
+    
+    //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		for (SoftDollarTier tier : tiers) {
@@ -459,7 +460,7 @@ public class EWrapperImpl implements EWrapper {
 		
 		System.out.println();
 	}
-        //! [softDollarTiers]
+    //! [softDollarTiers]
 
     //! [familyCodes]
     @Override
@@ -491,4 +492,14 @@ public class EWrapperImpl implements EWrapper {
         System.out.println();
     }
     //! [symbolSamples]
+
+	//! [mktDepthExchanges]
+	@Override
+	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions) {
+			System.out.println("Depth Mkt Data Description. Exchange: " + depthMktDataDescription.exchange() 
+			+ ", SecType: " + depthMktDataDescription.secType() + ", isL2: " + depthMktDataDescription.isL2());
+		}
+	}
+	//! [mktDepthExchanges]
 }

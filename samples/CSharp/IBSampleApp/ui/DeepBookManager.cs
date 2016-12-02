@@ -25,10 +25,13 @@ namespace IBSampleApp.ui
         private const int ASK_PRICE_IDX = 3;
         private const int ASK_SIZE_IDX = 4;
         private const int ASK_MAKER_IDX = 5;
+
+        private DataGridView mktDepthExchangesGrid;
+
         
-        public DeepBookManager(IBClient client, DataGridView dataGrid) : base(client, dataGrid)
+        public DeepBookManager(IBClient client, DataGridView dataGrid, DataGridView mktDepthExchangesGrid) : base(client, dataGrid)
         {
-            
+            MktDepthExchangesGrid = mktDepthExchangesGrid;
         }
         
         public void AddRequest(Contract contract, int numEntries)
@@ -89,5 +92,37 @@ namespace IBSampleApp.ui
         {
             return numRows + position;
         }
+
+        public void ReqMktDepthExchanges()
+        {
+            ibClient.ClientSocket.reqMktDepthExchanges();
+        }
+
+        public void ClearMktDepthExchanges()
+        {
+            mktDepthExchangesGrid.Rows.Clear();
+        }
+
+        public void HandleMktDepthExchangesMessage(IBMessage message)
+        {
+            mktDepthExchangesGrid.Rows.Clear();
+
+            MktDepthExchangesMessage mktDepthExchangesMessage = (MktDepthExchangesMessage)message;
+
+            for (int i = 0; i < mktDepthExchangesMessage.Descriptions.Length; i++)
+            {
+                MktDepthExchangesGrid.Rows.Add(1);
+                MktDepthExchangesGrid[0, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].Exchange;
+                MktDepthExchangesGrid[1, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].SecType;
+                MktDepthExchangesGrid[2, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].IsL2 ? "Yes" : "No";
+            }
+        }
+
+        public DataGridView MktDepthExchangesGrid
+        {
+            get { return mktDepthExchangesGrid; }
+            set { mktDepthExchangesGrid = value; }
+        }
+
     }
 }

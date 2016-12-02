@@ -464,5 +464,18 @@ namespace Samples
             }
         }
         //! [symbolSamples]
+
+        //! [mktDepthExchanges]
+        public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)
+        {
+            Console.WriteLine("Market Depth Exchanges:");
+
+            foreach (var depthMktDataDescription in depthMktDataDescriptions)
+            {
+                Console.WriteLine("Depth Market Data Description: Exchange: {0}, Security Type: {1}, Is L2: {2}", depthMktDataDescription.Exchange, depthMktDataDescription.SecType, depthMktDataDescription.IsL2);
+            }
+        }
+        //! [familyCodes]
+
     }
 }

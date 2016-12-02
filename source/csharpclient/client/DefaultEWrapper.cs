@@ -249,5 +249,10 @@ namespace IBApi
         public virtual void symbolSamples(int reqId, ContractDescription[] contractDescriptions)
         {
         }
+
+        public virtual void mktDepthExchanges(DepthMktDataDescription[] descriptions)
+        {
+        }
+
     }
 }

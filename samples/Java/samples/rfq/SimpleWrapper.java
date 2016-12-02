@@ -15,6 +15,7 @@ import com.ib.client.Contract;
 import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
 import com.ib.client.DeltaNeutralContract;
+import com.ib.client.DepthMktDataDescription;
 import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReader;
@@ -419,4 +420,9 @@ public class SimpleWrapper implements EWrapper {
 		
 	}
 
+	@Override
+	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -191,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContractCondition.h" />
+    <ClInclude Include="DepthMktDataDescription.h" />
     <ClInclude Include="EClientMsgSink.h" />
     <ClInclude Include="EMutex.h" />
     <ClInclude Include="DefaultEWrapper.h" />

@@ -389,5 +389,10 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+		// TODO Auto-generated method stub
+		
+	}
 }

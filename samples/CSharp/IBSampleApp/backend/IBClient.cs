@@ -719,5 +719,15 @@ namespace IBSampleApp
                 tmp(reqId, contractDescriptions);
         }
 
+
+        public event Action<DepthMktDataDescription[]> MktDepthExchanges;
+
+        void EWrapper.mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)
+        {
+            var tmp = MktDepthExchanges;
+
+            if (tmp != null)
+                tmp(depthMktDataDescriptions);
+        }
     }
 }

@@ -343,6 +343,8 @@ namespace TWSLib
         void reqFamilyCodes();
         [DispId(216)]
         void reqMatchingSymbols(int reqId, string pattern);
+        [DispId(217)]
+        void reqMktDepthExchanges();
 
         #endregion
     }
