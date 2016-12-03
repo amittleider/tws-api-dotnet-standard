@@ -9,7 +9,7 @@
 #include "EReaderOSSignal.h"
 
 class EClientSocket;
-class EReaderSignal;
+struct EReaderSignal;
 class EMessage;
 
 class TWSAPIDLLEXP EReader

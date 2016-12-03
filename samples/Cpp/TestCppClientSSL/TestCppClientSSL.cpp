@@ -74,9 +74,8 @@ void TestCppClient::setConnectOptions(const std::string& connectOptions)
 }
 
 void TestCppClient::processMessages() {
-	fd_set readSet, writeSet, errorSet;
 
-	struct timeval tval;
+    struct timeval tval;
 	tval.tv_usec = 0;
 	tval.tv_sec = 0;
 

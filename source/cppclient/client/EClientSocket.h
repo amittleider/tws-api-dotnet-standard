@@ -10,7 +10,7 @@
 #include "ESocket.h"
 
 class EWrapper;
-class EReaderSignal;
+struct EReaderSignal;
 
 class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
 {

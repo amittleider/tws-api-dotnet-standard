@@ -2,7 +2,7 @@
 #ifndef CONTRACTSAMPLE
 #define CONTRACTSAMPLE
 
-class Contract;
+struct Contract;
 
 class ContractSamples {
 public:

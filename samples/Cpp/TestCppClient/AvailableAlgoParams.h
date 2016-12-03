@@ -4,7 +4,7 @@
 
 #include <string>
 
-class Order;
+struct Order;
 
 class AvailableAlgoParams {
 public:
