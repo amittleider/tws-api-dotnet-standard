@@ -97,8 +97,6 @@ void TestCppClient::setConnectOptions(const std::string& connectOptions)
 }
 
 void TestCppClient::processMessages() {
-	fd_set readSet, writeSet, errorSet;
-
 	struct timeval tval;
 	tval.tv_usec = 0;
 	tval.tv_sec = 0;
@@ -1095,11 +1093,11 @@ void TestCppClient::historicalData(TickerId reqId, const std::string& date, doub
 }
 //! [historicaldata]
 
-//! [historicaldata]
+//! [historicaldataend]
 void TestCppClient::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { 
-	printf("HistoricalDataEnd. ReqId: %ld - Start Date: %s, End Date: %s", reqId, startDateStr, endDateStr);
+	std::cout << "HistoricalDataEnd. ReqId: " << reqId << " - Start Date: " << startDateStr << ", End Date: " << endDateStr << std::endl;	
 }
-//! [historicaldata]
+//! [historicaldataend]
 
 //! [scannerparameters]
 void TestCppClient::scannerParameters(const std::string& xml) {
@@ -1248,9 +1246,9 @@ void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {
 
 //! [softDollarTiers]
 void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {
-	printf("Soft dollar tiers (%d):", tiers.size());
+	printf("Soft dollar tiers (%lu):", tiers.size());
 
-	for (int i = 0; i < tiers.size(); i++) {
+	for (unsigned int i = 0; i < tiers.size(); i++) {
 		printf("%s\n", tiers[i].displayName().c_str());
 	}
 }
@@ -1258,9 +1256,9 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 
 //! [familyCodes]
 void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
-	printf("Family codes (%d):\n", familyCodes.size());
+	printf("Family codes (%lu):\n", familyCodes.size());
 
-	for (int i = 0; i < familyCodes.size(); i++) {
+	for (unsigned int i = 0; i < familyCodes.size(); i++) {
 //! [familyCodes]
 		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
 	}
@@ -1269,15 +1267,15 @@ void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
 
 //! [symbolSamples]
 void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {
-	printf("Symbol Samples (total=%d) reqId: %d\n", contractDescriptions.size(), reqId);
+	printf("Symbol Samples (total=%lu) reqId: %d\n", contractDescriptions.size(), reqId);
 
-	for (int i = 0; i < contractDescriptions.size(); i++) {
+	for (unsigned int i = 0; i < contractDescriptions.size(); i++) {
 //! [symbolSamples]
 		Contract contract = contractDescriptions[i].contract;
 		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
-		printf("Contract (%d): %d %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
-		printf("Derivative Sec-types (%d):", derivativeSecTypes.size());
-		for (int j = 0; j < derivativeSecTypes.size(); j++) {
+		printf("Contract (%u): %ld %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
+		printf("Derivative Sec-types (%lu):", derivativeSecTypes.size());
+		for (unsigned int j = 0; j < derivativeSecTypes.size(); j++) {
 			printf(" %s", derivativeSecTypes[j].c_str());
 		}
 		printf("\n");
@@ -1287,9 +1285,9 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 
 //! [mktDepthExchanges]
 void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) {
-	printf("Mkt Depth Exchanges (%d):\n", depthMktDataDescriptions.size());
+	printf("Mkt Depth Exchanges (%lu):\n", depthMktDataDescriptions.size());
 
-	for (int i = 0; i < depthMktDataDescriptions.size(); i++) {
+	for (unsigned int i = 0; i < depthMktDataDescriptions.size(); i++) {
 //! [mktDepthExchanges]
 		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n", i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? "true" : "false");
 	}

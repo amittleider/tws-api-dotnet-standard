@@ -69,7 +69,7 @@ DWORD WINAPI EReader::readToQueueThread(LPVOID lpParam)
 }
 
 void EReader::readToQueue() {
-	EMessage *msg = 0;
+	//EMessage *msg = 0;
 
 	while (m_isAlive) {
 		if (m_buf.size() == 0 && !processNonBlockingSelect() && m_pClientSocket->isSocketOK())
@@ -177,13 +177,13 @@ void EReader::onReceive() {
  	m_buf.resize(nRes + nOffset);	
 }
 
-bool EReader::bufferedRead(char *buf, int size) {
+bool EReader::bufferedRead(char *buf, unsigned int size) {
 	while (size > 0) {
 		while (m_buf.size() < size && m_buf.size() < m_nMaxBufSize)
 			if (!processNonBlockingSelect() && !m_pClientSocket->isSocketOK())
 				return false;
 
-		int nBytes = (std::min)(m_nMaxBufSize, size);
+		int nBytes = (std::min<unsigned int>)(m_nMaxBufSize, size);
 
 		std::copy(m_buf.begin(), m_buf.begin() + nBytes, buf);
 		std::copy(m_buf.begin() + nBytes, m_buf.end(), m_buf.begin());

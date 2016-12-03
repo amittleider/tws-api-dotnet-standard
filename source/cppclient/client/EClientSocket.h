@@ -10,7 +10,7 @@
 #include "ESocket.h"
 
 class EWrapper;
-class EReaderSignal;
+struct EReaderSignal;
 
 class TWSAPIDLLEXP EClientSocket : public EClient, public EClientMsgSink
 {
@@ -64,7 +64,7 @@ private:
 //EClientMsgSink implementation
 public:
     void serverVersion(int version, const char *time);
-    void redirect(const char *host, int port);    
+    void redirect(const char *host, unsigned int port);    
 };
 
 #endif

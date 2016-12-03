@@ -5,7 +5,7 @@
 #include <vector>
 #include "shared_ptr.h"
 
-class Order;
+struct Order;
 class OrderCondition;
 
 class OrderSamples {

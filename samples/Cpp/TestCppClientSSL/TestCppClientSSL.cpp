@@ -12,6 +12,7 @@
 #include "Order.h"
 
 #include <stdio.h>
+#include <iostream>
 
 const int PING_DEADLINE = 2; // seconds
 const int SLEEP_BETWEEN_PINGS = 30; // seconds
@@ -73,9 +74,8 @@ void TestCppClient::setConnectOptions(const std::string& connectOptions)
 }
 
 void TestCppClient::processMessages() {
-	fd_set readSet, writeSet, errorSet;
 
-	struct timeval tval;
+    struct timeval tval;
 	tval.tv_usec = 0;
 	tval.tv_sec = 0;
 
@@ -253,7 +253,7 @@ void TestCppClient::historicalData(TickerId reqId, const std::string& date, doub
                                    double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
 void TestCppClient::scannerParameters(const std::string& xml) {}
 void TestCppClient::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { 
-	printf("HistoricalDataEnd. ReqId: %ld - Start Date: %s, End Date: %s", reqId, startDateStr, endDateStr);
+	std::cout << "HistoricalDataEnd. ReqId: " << reqId << " - Start Date: " << startDateStr << ", End Date: " << endDateStr << std::endl;	
 }
 void TestCppClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
                                 const std::string& distance, const std::string& benchmark, const std::string& projection,

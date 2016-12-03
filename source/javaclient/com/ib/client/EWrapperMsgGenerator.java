@@ -253,7 +253,7 @@ public class EWrapperMsgGenerator {
     	return "updateAccountValue: " + key + " " + value + " " + currency + " " + accountName;
     }
     
-    static public String updatePortfolio(Contract contract, int position, double marketPrice,
+    static public String updatePortfolio(Contract contract, double position, double marketPrice,
     									 double marketValue, double averageCost, double unrealizedPNL,
     									 double realizedPNL, String accountName) {
     	String msg = "updatePortfolio: "
@@ -601,7 +601,22 @@ public class EWrapperMsgGenerator {
 		return msg;
 	}
 
-    static public String familyCodes(FamilyCode[] familyCodes) {
+	static public String securityDefinitionOptionalParameterEnd( int reqId) {
+		return "id = " + reqId + " =============== end ===============";
+	}
+
+	static public String softDollarTiers(int reqId, SoftDollarTier[] tiers) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("==== Soft Dollar Tiers Begin (total=" + tiers.length + ") reqId: " +  reqId + " ====\n");
+		for (int i = 0; i < tiers.length; i++) {
+			sb.append("Soft Dollar Tier [" + i + "] - name: " + tiers[i].name() + ", value: " + tiers[i].value() +  "\n");
+		}
+		sb.append("==== Soft Dollar Tiers End (total=" + tiers.length + ") ====\n");
+
+		return sb.toString();
+	}
+
+	static public String familyCodes(FamilyCode[] familyCodes) {
         StringBuilder sb = new StringBuilder();
         sb.append("==== Family Codes Begin (total=" + familyCodes.length + ") ====\n");
         for (int i = 0; i < familyCodes.length; i++) {
