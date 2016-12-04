@@ -17,7 +17,9 @@
 #include <string.h>
 #include <assert.h>
 #include <ostream>
+#if defined(IB_POSIX)
 #include <pthread.h>
+#endif
 
 const int MIN_SERVER_VER_SUPPORTED    = 38; //all supported server versions are defined in EDecoder.h
 
