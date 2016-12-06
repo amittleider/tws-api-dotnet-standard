@@ -79,12 +79,12 @@ void EClient::EncodeFieldMax(std::ostream& os, double doubleValue)
 // member funcs
 EClient::EClient( EWrapper *ptr, ETransport *pTransport)
 	: m_pEWrapper(ptr)
+	, m_transport(pTransport)
 	, m_clientId(-1)
 	, m_connState(CS_DISCONNECTED)
 	, m_extraAuth(false)
 	, m_serverVersion(0)
 	, m_useV100Plus(true)
-    , m_transport(pTransport)
 {
 }
 

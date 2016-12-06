@@ -160,7 +160,7 @@ struct ScanData {
 
 ///////////////////////////////////////////////////////////
 // utility funcs
-static std::string errMsg(std::exception e) {
+static inline std::string errMsg(std::exception e) {
 	// return the error associated with this exception
 	return std::string(e.what());
 }

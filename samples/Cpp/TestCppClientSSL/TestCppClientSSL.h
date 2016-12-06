@@ -124,14 +124,14 @@ public:
 	void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
 
 private:
-
-	EClientSocketSSL * const m_pClient;
+    EReaderOSSignal m_osSignal;
+    EClientSocketSSL * const m_pClient;
 	State m_state;
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
 	EReaderSSL *m_pReader;
-	EReaderOSSignal m_osSignal;
+	
     bool m_extraAuth;
 };
 
