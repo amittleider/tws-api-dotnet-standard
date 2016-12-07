@@ -43,7 +43,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 	}
 	
 	private class RequestPanel extends JPanel {
-		protected UpperField m_account = new UpperField();
+		protected JTextField m_account = new JTextField();
 		protected JTextField m_modelCode = new JTextField();
 		final JCheckBox m_ledgerAndNLV = new JCheckBox();
 		
@@ -89,7 +89,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 
 		protected void onRequestPositionsMulti() {
 			PositionsResultsPanel panel = new PositionsResultsPanel();
-			String account = m_requestPanel.m_account.getText().trim().toUpperCase();
+			String account = m_requestPanel.m_account.getText().trim();
 			String modelCode = m_requestPanel.m_modelCode.getText().trim();
 			ApiDemo.INSTANCE.controller().reqPositionsMulti(account, modelCode, panel);
 			m_resultsPanel.addTab( "Positions " + (!(account == null || account.isEmpty()) ? (" A:" + account) : "") 
@@ -131,7 +131,8 @@ public class AccountPositionsMultiPanel extends JPanel {
 			public void positionMultiEnd() {
 				m_model.fireTableDataChanged();
 				m_complete = true;
-				
+				revalidate();
+				repaint();
 			}
 			
 			/** Called when the tab is first visited. */
@@ -219,7 +220,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 
 		protected void onRequestAccountUpdatesMulti() {
 			AccountUpdatesResultsPanel panel = new AccountUpdatesResultsPanel();
-			String account = m_requestPanel.m_account.getText().trim().toUpperCase();
+			String account = m_requestPanel.m_account.getText().trim();
 			String modelCode = m_requestPanel.m_modelCode.getText().trim();
 			boolean ledgerAndNLV = m_requestPanel.m_ledgerAndNLV.isSelected();
 			ApiDemo.INSTANCE.controller().reqAccountUpdatesMulti(account, modelCode, ledgerAndNLV, panel);
@@ -262,7 +263,8 @@ public class AccountPositionsMultiPanel extends JPanel {
 			public void accountUpdateMultiEnd() {
 				m_model.fireTableDataChanged();
 				m_complete = true;
-				
+				revalidate();
+				repaint();
 			}
 			
 			/** Called when the tab is first visited. */
