@@ -41,7 +41,7 @@ Partial Class dlgConditions
         Me.ignoreRth.Name = "ignoreRth"
         Me.ignoreRth.Size = New System.Drawing.Size(402, 17)
         Me.ignoreRth.TabIndex = 18
-        Me.ignoreRth.Text = "Allow condition to be satisfied and activate order outside of regular trading hou" & _
+        Me.ignoreRth.Text = "Allow condition to be satisfied and activate order outside of regular trading hou" &
     "rs"
         Me.ignoreRth.UseVisualStyleBackColor = True
         '
@@ -125,6 +125,7 @@ Partial Class dlgConditions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(670, 313)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)

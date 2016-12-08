@@ -1,7 +1,6 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
 Option Explicit On
 Friend Class dlgConnect
 	Inherits System.Windows.Forms.Form
@@ -25,7 +24,7 @@ Friend Class dlgConnect
 		InitializeComponent()
 	End Sub
 	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+	Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
 				components.Dispose()
@@ -79,7 +78,7 @@ Friend Class dlgConnect
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
         Me.cmdOk.TabIndex = 3
         Me.cmdOk.Text = "Ok"
-        Me.cmdOk.UseVisualStyleBackColor = False
+        Me.cmdOk.UseVisualStyleBackColor = True
         '
         'cmdCancel
         '
@@ -94,12 +93,13 @@ Friend Class dlgConnect
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
         Me.cmdCancel.TabIndex = 4
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = False
+        Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'txtPort
         '
         Me.txtPort.AcceptsReturn = True
         Me.txtPort.BackColor = System.Drawing.SystemColors.Window
+        Me.txtPort.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtPort.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtPort.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPort.ForeColor = System.Drawing.SystemColors.WindowText
@@ -107,7 +107,7 @@ Friend Class dlgConnect
         Me.txtPort.MaxLength = 0
         Me.txtPort.Name = "txtPort"
         Me.txtPort.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtPort.Size = New System.Drawing.Size(241, 20)
+        Me.txtPort.Size = New System.Drawing.Size(241, 13)
         Me.txtPort.TabIndex = 1
         Me.txtPort.Text = "7496"
         '
@@ -115,6 +115,7 @@ Friend Class dlgConnect
         '
         Me.txtClientId.AcceptsReturn = True
         Me.txtClientId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtClientId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtClientId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtClientId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtClientId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -122,7 +123,7 @@ Friend Class dlgConnect
         Me.txtClientId.MaxLength = 0
         Me.txtClientId.Name = "txtClientId"
         Me.txtClientId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtClientId.Size = New System.Drawing.Size(241, 20)
+        Me.txtClientId.Size = New System.Drawing.Size(241, 13)
         Me.txtClientId.TabIndex = 2
         Me.txtClientId.Text = "0"
         '
@@ -130,6 +131,7 @@ Friend Class dlgConnect
         '
         Me.txtHostIP.AcceptsReturn = True
         Me.txtHostIP.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHostIP.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtHostIP.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtHostIP.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtHostIP.ForeColor = System.Drawing.SystemColors.WindowText
@@ -137,12 +139,12 @@ Friend Class dlgConnect
         Me.txtHostIP.MaxLength = 0
         Me.txtHostIP.Name = "txtHostIP"
         Me.txtHostIP.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtHostIP.Size = New System.Drawing.Size(241, 20)
+        Me.txtHostIP.Size = New System.Drawing.Size(241, 13)
         Me.txtHostIP.TabIndex = 0
         '
         'Label3
         '
-        Me.Label3.BackColor = System.Drawing.SystemColors.Control
+        Me.Label3.BackColor = System.Drawing.Color.Gainsboro
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
@@ -155,7 +157,7 @@ Friend Class dlgConnect
         '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.BackColor = System.Drawing.Color.Gainsboro
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
@@ -168,7 +170,7 @@ Friend Class dlgConnect
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
@@ -183,6 +185,7 @@ Friend Class dlgConnect
         '
         Me.txtOptCapts.AcceptsReturn = True
         Me.txtOptCapts.BackColor = System.Drawing.SystemColors.Window
+        Me.txtOptCapts.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOptCapts.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtOptCapts.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOptCapts.ForeColor = System.Drawing.SystemColors.WindowText
@@ -190,12 +193,12 @@ Friend Class dlgConnect
         Me.txtOptCapts.MaxLength = 0
         Me.txtOptCapts.Name = "txtOptCapts"
         Me.txtOptCapts.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtOptCapts.Size = New System.Drawing.Size(241, 20)
+        Me.txtOptCapts.Size = New System.Drawing.Size(241, 13)
         Me.txtOptCapts.TabIndex = 8
         '
         'Label4
         '
-        Me.Label4.BackColor = System.Drawing.SystemColors.Control
+        Me.Label4.BackColor = System.Drawing.Color.Gainsboro
         Me.Label4.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
@@ -208,7 +211,7 @@ Friend Class dlgConnect
         '
         'Label5
         '
-        Me.Label5.BackColor = System.Drawing.SystemColors.Control
+        Me.Label5.BackColor = System.Drawing.Color.Gainsboro
         Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
@@ -217,13 +220,13 @@ Friend Class dlgConnect
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label5.Size = New System.Drawing.Size(252, 60)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " & _
+        Me.Label5.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " &
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002"
         '
         'dlgConnect
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(280, 348)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.txtOptCapts)
@@ -251,9 +254,9 @@ Friend Class dlgConnect
         Me.PerformLayout()
 
     End Sub
-#End Region 
+#End Region
 #Region "Upgrade Support "
-	Private Shared m_vb6FormDefInstance As dlgConnect
+    Private Shared m_vb6FormDefInstance As dlgConnect
 	Private Shared m_InitializingDefInstance As Boolean
 	Public Shared Property DefInstance() As dlgConnect
 		Get
@@ -268,12 +271,13 @@ Friend Class dlgConnect
 			m_vb6FormDefInstance = Value
 		End Set
 	End Property
-#End Region 
-	
-	' ===============================================================================
-	' Private Members
-	' ===============================================================================
-	Private m_hostIP As String
+#End Region
+
+    ' ===============================================================================
+    ' Private Members
+    ' ===============================================================================
+
+    Private m_hostIP As String
 	Private m_port As Integer
 	Private m_clientId As Integer
     Private m_ok As Boolean = False
@@ -315,7 +319,7 @@ Friend Class dlgConnect
 	' ========================================================
 	' Button Events
 	' ========================================================
-	Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+	Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOK.Click
 		m_hostIP = txtHostIP.Text
 		m_port = CInt(txtPort.Text)
 		m_clientId = CInt(txtClientId.Text)
@@ -325,7 +329,7 @@ Friend Class dlgConnect
         Close()
 	End Sub
 	
-	Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+	Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
 		m_ok = False
         Close()
 	End Sub

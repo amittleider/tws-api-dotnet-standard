@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 Friend Class dlgAccountSummary
     Inherits System.Windows.Forms.Form
@@ -26,7 +26,7 @@ Friend Class dlgAccountSummary
         Form_Initialize_Renamed()
     End Sub
     'Form overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+    Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()
@@ -49,22 +49,23 @@ Friend Class dlgAccountSummary
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.txtGroupName = New System.Windows.Forms.TextBox
-        Me.txtTags = New System.Windows.Forms.TextBox
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOk = New System.Windows.Forms.Button
-        Me.lblGroupName = New System.Windows.Forms.Label
-        Me.lblTags = New System.Windows.Forms.Label
-        Me.txtReqId = New System.Windows.Forms.TextBox
-        Me.lblReqId = New System.Windows.Forms.Label
+        Me.txtGroupName = New System.Windows.Forms.TextBox()
+        Me.txtTags = New System.Windows.Forms.TextBox()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdOk = New System.Windows.Forms.Button()
+        Me.lblGroupName = New System.Windows.Forms.Label()
+        Me.lblTags = New System.Windows.Forms.Label()
+        Me.txtReqId = New System.Windows.Forms.TextBox()
+        Me.lblReqId = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtGroupName
         '
         Me.txtGroupName.AcceptsReturn = True
         Me.txtGroupName.BackColor = System.Drawing.SystemColors.Window
+        Me.txtGroupName.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtGroupName.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtGroupName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtGroupName.ForeColor = System.Drawing.SystemColors.WindowText
@@ -72,7 +73,7 @@ Friend Class dlgAccountSummary
         Me.txtGroupName.MaxLength = 0
         Me.txtGroupName.Name = "txtGroupName"
         Me.txtGroupName.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtGroupName.Size = New System.Drawing.Size(97, 20)
+        Me.txtGroupName.Size = New System.Drawing.Size(97, 13)
         Me.txtGroupName.TabIndex = 2
         Me.txtGroupName.Text = "All"
         '
@@ -80,6 +81,7 @@ Friend Class dlgAccountSummary
         '
         Me.txtTags.AcceptsReturn = True
         Me.txtTags.BackColor = System.Drawing.SystemColors.Window
+        Me.txtTags.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtTags.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtTags.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTags.ForeColor = System.Drawing.SystemColors.WindowText
@@ -87,7 +89,7 @@ Friend Class dlgAccountSummary
         Me.txtTags.MaxLength = 0
         Me.txtTags.Name = "txtTags"
         Me.txtTags.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtTags.Size = New System.Drawing.Size(97, 20)
+        Me.txtTags.Size = New System.Drawing.Size(97, 13)
         Me.txtTags.TabIndex = 3
         Me.txtTags.Text = "AccruedCash,BuyingPower,NetLiquidation"
         '
@@ -103,7 +105,7 @@ Friend Class dlgAccountSummary
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
         Me.cmdCancel.TabIndex = 1
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = False
+        Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'cmdOk
         '
@@ -117,11 +119,11 @@ Friend Class dlgAccountSummary
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
         Me.cmdOk.TabIndex = 0
         Me.cmdOk.Text = "Ok"
-        Me.cmdOk.UseVisualStyleBackColor = False
+        Me.cmdOk.UseVisualStyleBackColor = True
         '
         'lblGroupName
         '
-        Me.lblGroupName.BackColor = System.Drawing.SystemColors.Control
+        Me.lblGroupName.BackColor = System.Drawing.Color.Gainsboro
         Me.lblGroupName.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblGroupName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGroupName.ForeColor = System.Drawing.SystemColors.ControlText
@@ -134,7 +136,7 @@ Friend Class dlgAccountSummary
         '
         'lblTags
         '
-        Me.lblTags.BackColor = System.Drawing.SystemColors.Control
+        Me.lblTags.BackColor = System.Drawing.Color.Gainsboro
         Me.lblTags.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblTags.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTags.ForeColor = System.Drawing.SystemColors.ControlText
@@ -149,6 +151,7 @@ Friend Class dlgAccountSummary
         '
         Me.txtReqId.AcceptsReturn = True
         Me.txtReqId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReqId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtReqId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReqId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -156,13 +159,13 @@ Friend Class dlgAccountSummary
         Me.txtReqId.MaxLength = 0
         Me.txtReqId.Name = "txtReqId"
         Me.txtReqId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReqId.Size = New System.Drawing.Size(97, 20)
+        Me.txtReqId.Size = New System.Drawing.Size(97, 13)
         Me.txtReqId.TabIndex = 1
         Me.txtReqId.Text = "0"
         '
         'lblReqId
         '
-        Me.lblReqId.BackColor = System.Drawing.SystemColors.Control
+        Me.lblReqId.BackColor = System.Drawing.Color.Gainsboro
         Me.lblReqId.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblReqId.ForeColor = System.Drawing.SystemColors.ControlText
@@ -176,7 +179,7 @@ Friend Class dlgAccountSummary
         'dlgAccountSummary
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(237, 118)
         Me.Controls.Add(Me.lblReqId)
         Me.Controls.Add(Me.txtReqId)
@@ -214,7 +217,7 @@ Friend Class dlgAccountSummary
             End If
             DefInstance = m_vb6FormDefInstance
         End Get
-        Set(ByVal value As dlgAccountSummary)
+        Set(value As dlgAccountSummary)
             m_vb6FormDefInstance = value
         End Set
     End Property
@@ -261,7 +264,7 @@ Friend Class dlgAccountSummary
     ' ========================================================
     ' Button Events
     ' ========================================================
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
+    Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
 
         m_reqId = Text2Int(txtReqId.Text)
         m_groupName = txtGroupName.Text
@@ -271,16 +274,16 @@ Friend Class dlgAccountSummary
         Me.Hide()
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
         m_ok = False
         Me.Hide()
     End Sub
 
-    Private Sub dlgAccountSummary_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub dlgAccountSummary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         m_reqId = 0
     End Sub
 
-    Private Function Text2Int(ByRef text As String) As Integer
+    Private Function Text2Int(text As String) As Integer
         If Len(text) <= 0 Then
             Text2Int = 0
         Else
@@ -294,7 +297,7 @@ Friend Class dlgAccountSummary
     '--------------------------------------------------------------------------------
     ' Sets the dialog field and button states based on the dialog type
     '--------------------------------------------------------------------------------
-    Public Sub init(ByRef dlgType As Dlg_Type)
+    Public Sub init(dlgType As Dlg_Type)
         m_ok = False
 
         Text = m_arrDlgTitles.Item(dlgType)

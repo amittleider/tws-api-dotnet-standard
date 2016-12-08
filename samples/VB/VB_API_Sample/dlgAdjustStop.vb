@@ -2,12 +2,12 @@
 
 Public Class dlgAdjustStop
 
-    Dim order As IBApi.Order
+    Private m_order As IBApi.Order
 
     Sub New(order As Order)
         InitializeComponent()
 
-        Me.order = order
+        Me.m_order = order
         cbAdjustedOrderType.Text = order.AdjustedOrderType
         tbTriggerPrice.Text = Util.DoubleMaxString(order.TriggerPrice)
         tbAdjustedStopPrice.Text = Util.DoubleMaxString(order.AdjustedStopPrice)
@@ -17,12 +17,12 @@ Public Class dlgAdjustStop
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        order.AdjustedOrderType = cbAdjustedOrderType.Text
-        order.TriggerPrice = Utils.StringToDouble(tbTriggerPrice.Text)
-        order.AdjustedStopPrice = Utils.StringToDouble(tbAdjustedStopPrice.Text)
-        order.AdjustedStopLimitPrice = Utils.StringToDouble(tbAdjustedStopLimitPrice.Text)
-        order.AdjustedTrailingAmount = Utils.StringToDouble(tbAdjustedTrailingAmnt.Text)
-        order.AdjustableTrailingUnit = cbAdjustedTrailingAmntUnit.SelectedIndex
+        m_order.AdjustedOrderType = cbAdjustedOrderType.Text
+        m_order.TriggerPrice = Utils.StringToDouble(tbTriggerPrice.Text)
+        m_order.AdjustedStopPrice = Utils.StringToDouble(tbAdjustedStopPrice.Text)
+        m_order.AdjustedStopLimitPrice = Utils.StringToDouble(tbAdjustedStopLimitPrice.Text)
+        m_order.AdjustedTrailingAmount = Utils.StringToDouble(tbAdjustedTrailingAmnt.Text)
+        m_order.AdjustableTrailingUnit = cbAdjustedTrailingAmntUnit.SelectedIndex
 
         Close()
     End Sub

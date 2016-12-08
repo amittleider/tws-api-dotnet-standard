@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
@@ -146,9 +146,10 @@ Partial Class dlgSmartComboRoutingParams
         'txtValue
         '
         Me.txtValue.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtValue.Location = New System.Drawing.Point(63, 40)
+        Me.txtValue.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtValue.Location = New System.Drawing.Point(63, 44)
         Me.txtValue.Name = "txtValue"
-        Me.txtValue.Size = New System.Drawing.Size(156, 20)
+        Me.txtValue.Size = New System.Drawing.Size(156, 13)
         Me.txtValue.TabIndex = 1
         '
         'lblParam
@@ -174,14 +175,16 @@ Partial Class dlgSmartComboRoutingParams
         'txtParam
         '
         Me.txtParam.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtParam.Location = New System.Drawing.Point(64, 6)
+        Me.txtParam.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtParam.Location = New System.Drawing.Point(64, 10)
         Me.txtParam.Name = "txtParam"
-        Me.txtParam.Size = New System.Drawing.Size(154, 20)
+        Me.txtParam.Size = New System.Drawing.Size(154, 13)
         Me.txtParam.TabIndex = 0
         '
         'grdParams
         '
         Me.grdParams.AutoArrange = False
+        Me.grdParams.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.grdParams.FullRowSelect = True
         Me.grdParams.HideSelection = False
         Me.grdParams.Location = New System.Drawing.Point(6, 19)
@@ -205,6 +208,7 @@ Partial Class dlgSmartComboRoutingParams
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(284, 379)
         Me.Controls.Add(Me.frmParameters)
         Me.Controls.Add(Me.TableLayoutPanel1)

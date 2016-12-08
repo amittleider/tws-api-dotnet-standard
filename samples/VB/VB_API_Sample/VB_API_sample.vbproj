@@ -24,7 +24,7 @@
     <OptionExplicit>On</OptionExplicit>
     <OptionStrict>Off</OptionStrict>
     <RootNamespace>TWSAPI_VBSample</RootNamespace>
-    <StartupObject>TWSAPI_VBSample.dlgMainWnd</StartupObject>
+    <StartupObject>TWSAPI_VBSample.MainForm</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
@@ -90,6 +90,12 @@
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
       <Name>System</Name>
@@ -113,7 +119,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="_DTwsEvents_bondContractDetailsEvent.vb" />
+    <Compile Include="ApiEventSource.vb" />
+    <Compile Include="EventArgs\AccountDownloadEndEventArgs.vb" />
+    <Compile Include="EventArgs\BondContractDetailsEventArgs.vb" />
     <Compile Include="dlgSecDefOptParamsReq.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -156,59 +164,58 @@
     <Compile Include="dlgPositions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_DTwsEvents_accountDownloadEndEvent.vb" />
-    <Compile Include="_DTwsEvents_accountSummaryEndEvent.vb" />
-    <Compile Include="_DTwsEvents_accountSummaryEvent.vb" />
-    <Compile Include="_DTwsEvents_accountUpdateMultiEndEvent.vb" />
-    <Compile Include="_DTwsEvents_accountUpdateMultiEvent.vb" />
-    <Compile Include="_DTwsEvents_commissionReportEvent.vb" />
-    <Compile Include="_DTwsEvents_contractDetailsEndEvent.vb" />
-    <Compile Include="_DTwsEvents_contractDetailsExEvent.vb" />
-    <Compile Include="_DTwsEvents_currentTimeEvent.vb" />
-    <Compile Include="_DTwsEvents_deltaNeutralValidationEvent.vb" />
-    <Compile Include="_DTwsEvents_displayGroupListEvent.vb" />
-    <Compile Include="_DTwsEvents_displayGroupUpdatedEvent.vb" />
-    <Compile Include="_DTwsEvents_errMsgEvent.vb" />
-    <Compile Include="_DTwsEvents_execDetailsEndEvent.vb" />
-    <Compile Include="_DTwsEvents_execDetailsExEvent.vb" />
-    <Compile Include="_DTwsEvents_familyCodesEvent.vb" />
-    <Compile Include="_DTwsEvents_fundamentalDataEvent.vb" />
-    <Compile Include="_DTwsEvents_historicalDataEnd.vb" />
-    <Compile Include="_DTwsEvents_historicalDataEvent.vb" />
-    <Compile Include="_DTwsEvents_managedAccountsEvent.vb" />
-    <Compile Include="_DTwsEvents_marketDataTypeEvent.vb" />
-    <Compile Include="_DTwsEvents_mktDepthExchangesEvent.vb" />
-    <Compile Include="_DTwsEvents_nextValidIdEvent.vb" />
-    <Compile Include="_DTwsEvents_openOrderExEvent.vb" />
-    <Compile Include="_DTwsEvents_orderStatusEvent.vb" />
-    <Compile Include="_DTwsEvents_positionEvent.vb" />
-    <Compile Include="_DTwsEvents_positionMultiEndEvent.vb" />
-    <Compile Include="_DTwsEvents_positionMultiEvent.vb" />
-    <Compile Include="_DTwsEvents_realtimeBarEvent.vb" />
-    <Compile Include="_DTwsEvents_receiveFAEvent.vb" />
-    <Compile Include="_DTwsEvents_scannerDataEndEvent.vb" />
-    <Compile Include="_DTwsEvents_scannerDataExEvent.vb" />
-    <Compile Include="_DTwsEvents_scannerParametersEvent.vb" />
-    <Compile Include="_DTwsEvents_securityDefinitionOptionParameterEnd.vb" />
-    <Compile Include="_DTWsEvents_securityDefinitionOptionParameterEvent.vb" />
-    <Compile Include="_DTwsEvents_symbolSamplesEvent.vb" />
-    <Compile Include="_DTwsEvents_tickEFPEvent.vb" />
-    <Compile Include="_DTwsEvents_tickGenericEvent.vb" />
-    <Compile Include="_DTwsEvents_tickOptionComputationEvent.vb" />
-    <Compile Include="_DTwsEvents_tickPriceEvent.vb" />
-    <Compile Include="_DTwsEvents_tickSizeEvent.vb" />
-    <Compile Include="_DTwsEvents_tickSnapshotEndEvent.vb" />
-    <Compile Include="_DTwsEvents_tickStringEvent.vb" />
-    <Compile Include="_DTwsEvents_updateAccountTimeEvent.vb" />
-    <Compile Include="_DTwsEvents_updateAccountValueEvent.vb" />
-    <Compile Include="_DTwsEvents_updateMktDepthEvent.vb" />
-    <Compile Include="_DTwsEvents_updateMktDepthL2Event.vb" />
-    <Compile Include="_DTwsEvents_updateNewsBulletinEvent.vb" />
-    <Compile Include="_DTwsEvents_updatePortfolioExEvent.vb" />
-    <Compile Include="_DTwsEvents_verifyAndAuthCompletedEvent.vb" />
-    <Compile Include="_DTwsEvents_verifyAndAuthMessageAPIEvent.vb" />
-    <Compile Include="_DTwsEvents_verifyCompletedEvent.vb" />
-    <Compile Include="_DTwsEvents_verifyMessageAPIEvent.vb" />
+    <Compile Include="EventArgs\AccountSummaryEndEventArgs.vb" />
+    <Compile Include="EventArgs\AccountSummaryEventArgs.vb" />
+    <Compile Include="EventArgs\AccountUpdateMultiEndEventArgs.vb" />
+    <Compile Include="EventArgs\AccountUpdateMultiEventArgs.vb" />
+    <Compile Include="EventArgs\CommissionReportEventArgs.vb" />
+    <Compile Include="EventArgs\ContractDetailsEndEventArgs.vb" />
+    <Compile Include="EventArgs\ContractDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\CurrentTimeEventArgs.vb" />
+    <Compile Include="EventArgs\DeltaNeutralValidationEventArgs.vb" />
+    <Compile Include="EventArgs\DisplayGroupListEventArgs.vb" />
+    <Compile Include="EventArgs\DisplayGroupUpdatedEventArgs.vb" />
+    <Compile Include="EventArgs\ErrMsgEventArgs.vb" />
+    <Compile Include="EventArgs\ExecDetailsEndEventArgs.vb" />
+    <Compile Include="EventArgs\ExecDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\FamilyCodesEventArgs.vb" />
+    <Compile Include="EventArgs\FundamentalDataEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalDataEndEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalDataEventArgs.vb" />
+    <Compile Include="EventArgs\ManagedAccountsEventArgs.vb" />
+    <Compile Include="EventArgs\MarketDataTypeEventArgs.vb" />
+    <Compile Include="EventArgs\MktDepthExchangesEventArgs.vb" />
+    <Compile Include="EventArgs\NextValidIdEventArgs.vb" />
+    <Compile Include="EventArgs\OpenOrderEventArgs.vb" />
+    <Compile Include="EventArgs\OrderStatusEventArgs.vb" />
+    <Compile Include="EventArgs\PositionEventArgs.vb" />
+    <Compile Include="EventArgs\PositionMultiEndEventArgs.vb" />
+    <Compile Include="EventArgs\PositionMultiEventArgs.vb" />
+    <Compile Include="EventArgs\RealtimeBarEventArgs.vb" />
+    <Compile Include="EventArgs\ReceiveFAEventArgs.vb" />
+    <Compile Include="EventArgs\ScannerDataEndEventArgs.vb" />
+    <Compile Include="EventArgs\ScannerDataEventArgs.vb" />
+    <Compile Include="EventArgs\ScannerParametersEventArgs.vb" />
+    <Compile Include="EventArgs\SecurityDefinitionOptionParameterEndEventArgs.vb" />
+    <Compile Include="EventArgs\SecurityDefinitionOptionParameterEventArgs.vb" />
+    <Compile Include="EventArgs\SymbolSamplesEventArgs.vb" />
+    <Compile Include="EventArgs\TickEFPEventArgs.vb" />
+    <Compile Include="EventArgs\TickGenericEventArgs.vb" />
+    <Compile Include="EventArgs\TickOptionComputationEventArgs.vb" />
+    <Compile Include="EventArgs\TickPriceEventArgs.vb" />
+    <Compile Include="EventArgs\TickSizeEventArgs.vb" />
+    <Compile Include="EventArgs\TickSnapshotEndEventArgs.vb" />
+    <Compile Include="EventArgs\TickStringEventArgs.vb" />
+    <Compile Include="EventArgs\UpdateAccountTimeEventArgs.vb" />
+    <Compile Include="EventArgs\UpdateAccountValueEventArgs.vb" />
+    <Compile Include="EventArgs\UpdateMktDepthEventArgs.vb" />
+    <Compile Include="EventArgs\UpdateMktDepthL2EventArgs.vb" />
+    <Compile Include="EventArgs\UpdateNewsBulletinEventArgs.vb" />
+    <Compile Include="EventArgs\UpdatePortfolioEventArgs.vb" />
+    <Compile Include="EventArgs\VerifyAndAuthCompletedEventArgs.vb" />
+    <Compile Include="EventArgs\VerifyAndAuthMessageAPIEventArgs.vb" />
+    <Compile Include="EventArgs\VerifyCompletedEventArgs.vb" />
+    <Compile Include="EventArgs\VerifyMessageAPIEventArgs.vb" />
     <None Include="app.config" />
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
@@ -274,7 +281,7 @@
     <Compile Include="Utils.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VB_API_sample.vb">
+    <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="dlgSecDefOptParamsReq.resX">
@@ -369,10 +376,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>dlgUnderComp.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VB_API_sample.resX">
-      <DependentUpon>VB_API_sample.vb</DependentUpon>
+    <EmbeddedResource Include="MainForm.resX">
+      <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />

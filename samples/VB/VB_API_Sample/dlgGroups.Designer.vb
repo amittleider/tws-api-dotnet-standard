@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
@@ -22,25 +22,25 @@ Partial Class dlgGroups
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.labelId = New System.Windows.Forms.Label
-        Me.textId = New System.Windows.Forms.TextBox
-        Me.cmdQueryDisplayGroups = New System.Windows.Forms.Button
-        Me.comboDisplayGroups = New System.Windows.Forms.ComboBox
-        Me.labelDisplayGroups = New System.Windows.Forms.Label
-        Me.cmdSubscribeToGroupEvents = New System.Windows.Forms.Button
-        Me.cmdUnsubscribeFromGroupEvents = New System.Windows.Forms.Button
-        Me.cmdUpdateDisplayGroup = New System.Windows.Forms.Button
-        Me.labelContractInfo = New System.Windows.Forms.Label
-        Me.textContractInfo = New System.Windows.Forms.TextBox
-        Me.lstGroupMessages = New System.Windows.Forms.ListBox
-        Me.cmdReset = New System.Windows.Forms.Button
-        Me.cmdClose = New System.Windows.Forms.Button
+        Me.labelId = New System.Windows.Forms.Label()
+        Me.textId = New System.Windows.Forms.TextBox()
+        Me.cmdQueryDisplayGroups = New System.Windows.Forms.Button()
+        Me.comboDisplayGroups = New System.Windows.Forms.ComboBox()
+        Me.labelDisplayGroups = New System.Windows.Forms.Label()
+        Me.cmdSubscribeToGroupEvents = New System.Windows.Forms.Button()
+        Me.cmdUnsubscribeFromGroupEvents = New System.Windows.Forms.Button()
+        Me.cmdUpdateDisplayGroup = New System.Windows.Forms.Button()
+        Me.labelContractInfo = New System.Windows.Forms.Label()
+        Me.textContractInfo = New System.Windows.Forms.TextBox()
+        Me.lstGroupMessages = New System.Windows.Forms.ListBox()
+        Me.cmdReset = New System.Windows.Forms.Button()
+        Me.cmdClose = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'labelId
         '
         Me.labelId.AutoSize = True
-        Me.labelId.Location = New System.Drawing.Point(12, 14)
+        Me.labelId.Location = New System.Drawing.Point(12, 7)
         Me.labelId.Name = "labelId"
         Me.labelId.Size = New System.Drawing.Size(16, 13)
         Me.labelId.TabIndex = 0
@@ -48,9 +48,10 @@ Partial Class dlgGroups
         '
         'textId
         '
+        Me.textId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.textId.Location = New System.Drawing.Point(42, 7)
         Me.textId.Name = "textId"
-        Me.textId.Size = New System.Drawing.Size(73, 20)
+        Me.textId.Size = New System.Drawing.Size(73, 13)
         Me.textId.TabIndex = 1
         Me.textId.Text = "0"
         '
@@ -65,6 +66,7 @@ Partial Class dlgGroups
         '
         'comboDisplayGroups
         '
+        Me.comboDisplayGroups.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.comboDisplayGroups.FormattingEnabled = True
         Me.comboDisplayGroups.Location = New System.Drawing.Point(202, 65)
         Me.comboDisplayGroups.Name = "comboDisplayGroups"
@@ -118,17 +120,19 @@ Partial Class dlgGroups
         '
         'textContractInfo
         '
+        Me.textContractInfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.textContractInfo.Location = New System.Drawing.Point(205, 150)
         Me.textContractInfo.Name = "textContractInfo"
-        Me.textContractInfo.Size = New System.Drawing.Size(170, 20)
+        Me.textContractInfo.Size = New System.Drawing.Size(170, 13)
         Me.textContractInfo.TabIndex = 9
         '
         'lstGroupMessages
         '
+        Me.lstGroupMessages.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lstGroupMessages.FormattingEnabled = True
         Me.lstGroupMessages.Location = New System.Drawing.Point(20, 191)
         Me.lstGroupMessages.Name = "lstGroupMessages"
-        Me.lstGroupMessages.Size = New System.Drawing.Size(354, 186)
+        Me.lstGroupMessages.Size = New System.Drawing.Size(354, 182)
         Me.lstGroupMessages.TabIndex = 10
         '
         'cmdReset
@@ -153,6 +157,7 @@ Partial Class dlgGroups
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(388, 421)
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdReset)

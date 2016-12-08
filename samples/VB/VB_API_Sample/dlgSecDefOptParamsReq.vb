@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 Friend Class dlgSecDefOptParamsReq
     Inherits System.Windows.Forms.Form
@@ -32,7 +32,7 @@ Friend Class dlgSecDefOptParamsReq
         txtSymbol.Text = m_symbol
     End Sub
     'Form overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+    Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()
@@ -79,6 +79,7 @@ Friend Class dlgSecDefOptParamsReq
         '
         Me.txtConId.AcceptsReturn = True
         Me.txtConId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtConId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtConId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtConId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtConId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -86,13 +87,14 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtConId.MaxLength = 0
         Me.txtConId.Name = "txtConId"
         Me.txtConId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtConId.Size = New System.Drawing.Size(161, 20)
+        Me.txtConId.Size = New System.Drawing.Size(161, 13)
         Me.txtConId.TabIndex = 6
         '
         'txtSymbol
         '
         Me.txtSymbol.AcceptsReturn = True
         Me.txtSymbol.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSymbol.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSymbol.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSymbol.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSymbol.ForeColor = System.Drawing.SystemColors.WindowText
@@ -100,13 +102,14 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtSymbol.MaxLength = 0
         Me.txtSymbol.Name = "txtSymbol"
         Me.txtSymbol.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSymbol.Size = New System.Drawing.Size(161, 20)
+        Me.txtSymbol.Size = New System.Drawing.Size(161, 13)
         Me.txtSymbol.TabIndex = 2
         '
         'txtSecType
         '
         Me.txtSecType.AcceptsReturn = True
         Me.txtSecType.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSecType.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSecType.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtSecType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSecType.ForeColor = System.Drawing.SystemColors.WindowText
@@ -114,13 +117,14 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtSecType.MaxLength = 0
         Me.txtSecType.Name = "txtSecType"
         Me.txtSecType.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtSecType.Size = New System.Drawing.Size(161, 20)
+        Me.txtSecType.Size = New System.Drawing.Size(161, 13)
         Me.txtSecType.TabIndex = 3
         '
         'txtExchange
         '
         Me.txtExchange.AcceptsReturn = True
         Me.txtExchange.BackColor = System.Drawing.SystemColors.Window
+        Me.txtExchange.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtExchange.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtExchange.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtExchange.ForeColor = System.Drawing.SystemColors.WindowText
@@ -128,7 +132,7 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtExchange.MaxLength = 0
         Me.txtExchange.Name = "txtExchange"
         Me.txtExchange.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExchange.Size = New System.Drawing.Size(161, 20)
+        Me.txtExchange.Size = New System.Drawing.Size(161, 13)
         Me.txtExchange.TabIndex = 4
         '
         'cmdCancel
@@ -144,7 +148,7 @@ Friend Class dlgSecDefOptParamsReq
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
         Me.cmdCancel.TabIndex = 8
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = False
+        Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'cmdOk
         '
@@ -159,11 +163,11 @@ Friend Class dlgSecDefOptParamsReq
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
         Me.cmdOk.TabIndex = 7
         Me.cmdOk.Text = "Ok"
-        Me.cmdOk.UseVisualStyleBackColor = False
+        Me.cmdOk.UseVisualStyleBackColor = True
         '
         'lblSymbol
         '
-        Me.lblSymbol.BackColor = System.Drawing.SystemColors.Control
+        Me.lblSymbol.BackColor = System.Drawing.Color.Gainsboro
         Me.lblSymbol.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblSymbol.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSymbol.ForeColor = System.Drawing.SystemColors.ControlText
@@ -176,7 +180,7 @@ Friend Class dlgSecDefOptParamsReq
         '
         'lblSecType
         '
-        Me.lblSecType.BackColor = System.Drawing.SystemColors.Control
+        Me.lblSecType.BackColor = System.Drawing.Color.Gainsboro
         Me.lblSecType.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblSecType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSecType.ForeColor = System.Drawing.SystemColors.ControlText
@@ -189,7 +193,7 @@ Friend Class dlgSecDefOptParamsReq
         '
         'lblExchange
         '
-        Me.lblExchange.BackColor = System.Drawing.SystemColors.Control
+        Me.lblExchange.BackColor = System.Drawing.Color.Gainsboro
         Me.lblExchange.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblExchange.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblExchange.ForeColor = System.Drawing.SystemColors.ControlText
@@ -204,6 +208,7 @@ Friend Class dlgSecDefOptParamsReq
         '
         Me.txtReqId.AcceptsReturn = True
         Me.txtReqId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReqId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtReqId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReqId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -211,12 +216,12 @@ Friend Class dlgSecDefOptParamsReq
         Me.txtReqId.MaxLength = 0
         Me.txtReqId.Name = "txtReqId"
         Me.txtReqId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtReqId.Size = New System.Drawing.Size(161, 20)
+        Me.txtReqId.Size = New System.Drawing.Size(161, 13)
         Me.txtReqId.TabIndex = 1
         '
         'lblReqId
         '
-        Me.lblReqId.BackColor = System.Drawing.SystemColors.Control
+        Me.lblReqId.BackColor = System.Drawing.Color.Gainsboro
         Me.lblReqId.Cursor = System.Windows.Forms.Cursors.Default
         Me.lblReqId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblReqId.ForeColor = System.Drawing.SystemColors.ControlText
@@ -229,7 +234,7 @@ Friend Class dlgSecDefOptParamsReq
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
@@ -243,7 +248,7 @@ Friend Class dlgSecDefOptParamsReq
         'dlgSecDefOptParamsReq
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(292, 185)
         Me.Controls.Add(Me.txtConId)
         Me.Controls.Add(Me.Label1)
@@ -336,7 +341,7 @@ Friend Class dlgSecDefOptParamsReq
     ' ========================================================
     ' Button Events
     ' ========================================================
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOk.Click
+    Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
 
         m_reqId = Text2Int(txtReqId.Text)
         m_conId = Text2IntMax(txtConId.Text)
@@ -349,15 +354,15 @@ Friend Class dlgSecDefOptParamsReq
 
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
         Me.Hide()
     End Sub
 
-    Private Sub dlgExecFilter_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub dlgExecFilter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         m_reqId = 0
     End Sub
 
-    Private Function Text2Int(ByRef text As String) As Integer
+    Private Function Text2Int(text As String) As Integer
         If Len(text) <= 0 Then
             Text2Int = 0
         Else
@@ -365,7 +370,7 @@ Friend Class dlgSecDefOptParamsReq
         End If
     End Function
 
-    Private Function Text2IntMax(ByRef text As String) As Integer
+    Private Function Text2IntMax(text As String) As Integer
         If Len(text) <= 0 Then
             Return Integer.MaxValue
         Else

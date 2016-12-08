@@ -5,7 +5,7 @@ Public Class dlgPegBench
     Dim order As IBApi.Order
 
     Sub New(order As Order)
-        ' This call is required by the designer.
+        ' This is required by the designer.
         InitializeComponent()
 
         Me.order = order

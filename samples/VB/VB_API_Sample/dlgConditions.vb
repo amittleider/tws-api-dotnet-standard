@@ -6,7 +6,7 @@ Public Class dlgConditions
     Dim bindingSource As New BindingSource
 
     Public Sub New(order As Order)
-        ' This call is required by the designer.
+        ' This is required by the designer.
         InitializeComponent()
 
         Me.order = order

@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 Friend Class dlgNewsBulletins
 	Inherits System.Windows.Forms.Form
@@ -25,7 +25,7 @@ Friend Class dlgNewsBulletins
 		InitializeComponent()
 	End Sub
 	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+	Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
 		If Disposing Then
 			If Not components Is Nothing Then
 				components.Dispose()
@@ -47,151 +47,145 @@ Friend Class dlgNewsBulletins
 	'It can be modified using the Windows Form Designer.
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(dlgNewsBulletins))
-		Me.components = New System.ComponentModel.Container()
-		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
-		Me.ToolTip1.Active = True
-		Me.cmdSubscribe = New System.Windows.Forms.Button
-		Me.Frame1 = New System.Windows.Forms.GroupBox
-		Me.optAllMsgs = New System.Windows.Forms.RadioButton
-		Me.optNewMsgs = New System.Windows.Forms.RadioButton
-		Me.Label1 = New System.Windows.Forms.Label
-		Me.cmdClose = New System.Windows.Forms.Button
-		Me.cmdUnsubscribe = New System.Windows.Forms.Button
-		Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-		Me.Text = "IB News Bulletin Subscription"
-		Me.ClientSize = New System.Drawing.Size(371, 146)
-		Me.Location = New System.Drawing.Point(184, 250)
-		Me.MaximizeBox = False
-		Me.MinimizeBox = False
-		Me.ShowInTaskbar = False
-		Me.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-		Me.BackColor = System.Drawing.SystemColors.Control
-		Me.ControlBox = True
-		Me.Enabled = True
-		Me.KeyPreview = False
-		Me.Cursor = System.Windows.Forms.Cursors.Default
-		Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.HelpButton = False
-		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
-		Me.Name = "dlgNewsBulletins"
-		Me.cmdSubscribe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdSubscribe.Text = "Subscribe"
-		Me.cmdSubscribe.Size = New System.Drawing.Size(81, 25)
-		Me.cmdSubscribe.Location = New System.Drawing.Point(72, 112)
-		Me.cmdSubscribe.TabIndex = 4
-		Me.cmdSubscribe.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.cmdSubscribe.BackColor = System.Drawing.SystemColors.Control
-		Me.cmdSubscribe.CausesValidation = True
-		Me.cmdSubscribe.Enabled = True
-		Me.cmdSubscribe.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.cmdSubscribe.Cursor = System.Windows.Forms.Cursors.Default
-		Me.cmdSubscribe.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.cmdSubscribe.TabStop = True
-		Me.cmdSubscribe.Name = "cmdSubscribe"
-		Me.Frame1.Size = New System.Drawing.Size(353, 89)
-		Me.Frame1.Location = New System.Drawing.Point(8, 8)
-		Me.Frame1.TabIndex = 2
-		Me.Frame1.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Frame1.BackColor = System.Drawing.SystemColors.Control
-		Me.Frame1.Enabled = True
-		Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.Frame1.Visible = True
-		Me.Frame1.Name = "Frame1"
-		Me.optAllMsgs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optAllMsgs.Text = "receive all current day's messages and any new messages."
-		Me.optAllMsgs.Size = New System.Drawing.Size(305, 17)
-		Me.optAllMsgs.Location = New System.Drawing.Point(32, 56)
-		Me.optAllMsgs.TabIndex = 6
-		Me.optAllMsgs.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.optAllMsgs.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optAllMsgs.BackColor = System.Drawing.SystemColors.Control
-		Me.optAllMsgs.CausesValidation = True
-		Me.optAllMsgs.Enabled = True
-		Me.optAllMsgs.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.optAllMsgs.Cursor = System.Windows.Forms.Cursors.Default
-		Me.optAllMsgs.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.optAllMsgs.Appearance = System.Windows.Forms.Appearance.Normal
-		Me.optAllMsgs.TabStop = True
-		Me.optAllMsgs.Checked = False
-		Me.optAllMsgs.Visible = True
-		Me.optAllMsgs.Name = "optAllMsgs"
-		Me.optNewMsgs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optNewMsgs.Text = "receive new messages only."
-		Me.optNewMsgs.Size = New System.Drawing.Size(241, 17)
-		Me.optNewMsgs.Location = New System.Drawing.Point(32, 32)
-		Me.optNewMsgs.TabIndex = 5
-		Me.optNewMsgs.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.optNewMsgs.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-		Me.optNewMsgs.BackColor = System.Drawing.SystemColors.Control
-		Me.optNewMsgs.CausesValidation = True
-		Me.optNewMsgs.Enabled = True
-		Me.optNewMsgs.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.optNewMsgs.Cursor = System.Windows.Forms.Cursors.Default
-		Me.optNewMsgs.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.optNewMsgs.Appearance = System.Windows.Forms.Appearance.Normal
-		Me.optNewMsgs.TabStop = True
-		Me.optNewMsgs.Checked = False
-		Me.optNewMsgs.Visible = True
-		Me.optNewMsgs.Name = "optNewMsgs"
-		Me.Label1.Text = "When subscribing to IB news bulletins you have 2 options:"
-		Me.Label1.Size = New System.Drawing.Size(297, 25)
-		Me.Label1.Location = New System.Drawing.Point(8, 16)
-		Me.Label1.TabIndex = 3
-		Me.Label1.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopLeft
-		Me.Label1.BackColor = System.Drawing.SystemColors.Control
-		Me.Label1.Enabled = True
-		Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
-		Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.Label1.UseMnemonic = True
-		Me.Label1.Visible = True
-		Me.Label1.AutoSize = False
-		Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.Label1.Name = "Label1"
-		Me.cmdClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdClose.Text = "Close"
-		Me.cmdClose.Size = New System.Drawing.Size(81, 25)
-		Me.cmdClose.Location = New System.Drawing.Point(280, 112)
-		Me.cmdClose.TabIndex = 1
-		Me.cmdClose.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
-		Me.cmdClose.CausesValidation = True
-		Me.cmdClose.Enabled = True
-		Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
-		Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.cmdClose.TabStop = True
-		Me.cmdClose.Name = "cmdClose"
-		Me.cmdUnsubscribe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.cmdUnsubscribe.Text = "UnSubscribe"
-		Me.cmdUnsubscribe.Size = New System.Drawing.Size(81, 25)
-		Me.cmdUnsubscribe.Location = New System.Drawing.Point(160, 112)
-		Me.cmdUnsubscribe.TabIndex = 0
-		Me.cmdUnsubscribe.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.cmdUnsubscribe.BackColor = System.Drawing.SystemColors.Control
-		Me.cmdUnsubscribe.CausesValidation = True
-		Me.cmdUnsubscribe.Enabled = True
-		Me.cmdUnsubscribe.ForeColor = System.Drawing.SystemColors.ControlText
-		Me.cmdUnsubscribe.Cursor = System.Windows.Forms.Cursors.Default
-		Me.cmdUnsubscribe.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.cmdUnsubscribe.TabStop = True
-		Me.cmdUnsubscribe.Name = "cmdUnsubscribe"
-		Me.Controls.Add(cmdSubscribe)
-		Me.Controls.Add(Frame1)
-		Me.Controls.Add(cmdClose)
-		Me.Controls.Add(cmdUnsubscribe)
-		Me.Frame1.Controls.Add(optAllMsgs)
-		Me.Frame1.Controls.Add(optNewMsgs)
-		Me.Frame1.Controls.Add(Label1)
-	End Sub
-#End Region 
+        Me.components = New System.ComponentModel.Container()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmdSubscribe = New System.Windows.Forms.Button()
+        Me.Frame1 = New System.Windows.Forms.GroupBox()
+        Me.optAllMsgs = New System.Windows.Forms.RadioButton()
+        Me.optNewMsgs = New System.Windows.Forms.RadioButton()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmdClose = New System.Windows.Forms.Button()
+        Me.cmdUnsubscribe = New System.Windows.Forms.Button()
+        Me.Frame1.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'cmdSubscribe
+        '
+        Me.cmdSubscribe.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdSubscribe.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdSubscribe.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSubscribe.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdSubscribe.Location = New System.Drawing.Point(72, 112)
+        Me.cmdSubscribe.Name = "cmdSubscribe"
+        Me.cmdSubscribe.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdSubscribe.Size = New System.Drawing.Size(81, 25)
+        Me.cmdSubscribe.TabIndex = 4
+        Me.cmdSubscribe.Text = "Subscribe"
+        Me.cmdSubscribe.UseVisualStyleBackColor = True
+        '
+        'Frame1
+        '
+        Me.Frame1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Frame1.Controls.Add(Me.optAllMsgs)
+        Me.Frame1.Controls.Add(Me.optNewMsgs)
+        Me.Frame1.Controls.Add(Me.Label1)
+        Me.Frame1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Frame1.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.Frame1.Location = New System.Drawing.Point(8, 8)
+        Me.Frame1.Name = "Frame1"
+        Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Frame1.Size = New System.Drawing.Size(353, 89)
+        Me.Frame1.TabIndex = 2
+        Me.Frame1.TabStop = False
+        '
+        'optAllMsgs
+        '
+        Me.optAllMsgs.BackColor = System.Drawing.Color.Gainsboro
+        Me.optAllMsgs.Cursor = System.Windows.Forms.Cursors.Default
+        Me.optAllMsgs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optAllMsgs.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.optAllMsgs.Location = New System.Drawing.Point(32, 56)
+        Me.optAllMsgs.Name = "optAllMsgs"
+        Me.optAllMsgs.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.optAllMsgs.Size = New System.Drawing.Size(305, 17)
+        Me.optAllMsgs.TabIndex = 6
+        Me.optAllMsgs.TabStop = True
+        Me.optAllMsgs.Text = "receive all current day's messages and any new messages."
+        Me.optAllMsgs.UseVisualStyleBackColor = False
+        '
+        'optNewMsgs
+        '
+        Me.optNewMsgs.BackColor = System.Drawing.Color.Gainsboro
+        Me.optNewMsgs.Cursor = System.Windows.Forms.Cursors.Default
+        Me.optNewMsgs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optNewMsgs.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.optNewMsgs.Location = New System.Drawing.Point(32, 32)
+        Me.optNewMsgs.Name = "optNewMsgs"
+        Me.optNewMsgs.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.optNewMsgs.Size = New System.Drawing.Size(241, 17)
+        Me.optNewMsgs.TabIndex = 5
+        Me.optNewMsgs.TabStop = True
+        Me.optNewMsgs.Text = "receive new messages only."
+        Me.optNewMsgs.UseVisualStyleBackColor = False
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label1.Location = New System.Drawing.Point(8, 16)
+        Me.Label1.Name = "Label1"
+        Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label1.Size = New System.Drawing.Size(297, 17)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "When subscribing to IB news bulletins you have 2 options:"
+        '
+        'cmdClose
+        '
+        Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdClose.Location = New System.Drawing.Point(280, 112)
+        Me.cmdClose.Name = "cmdClose"
+        Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdClose.Size = New System.Drawing.Size(81, 25)
+        Me.cmdClose.TabIndex = 1
+        Me.cmdClose.Text = "Close"
+        Me.cmdClose.UseVisualStyleBackColor = True
+        '
+        'cmdUnsubscribe
+        '
+        Me.cmdUnsubscribe.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdUnsubscribe.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdUnsubscribe.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdUnsubscribe.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdUnsubscribe.Location = New System.Drawing.Point(160, 112)
+        Me.cmdUnsubscribe.Name = "cmdUnsubscribe"
+        Me.cmdUnsubscribe.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdUnsubscribe.Size = New System.Drawing.Size(81, 25)
+        Me.cmdUnsubscribe.TabIndex = 0
+        Me.cmdUnsubscribe.Text = "UnSubscribe"
+        Me.cmdUnsubscribe.UseVisualStyleBackColor = True
+        '
+        'dlgNewsBulletins
+        '
+        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.BackColor = System.Drawing.Color.Gainsboro
+        Me.ClientSize = New System.Drawing.Size(371, 146)
+        Me.Controls.Add(Me.cmdSubscribe)
+        Me.Controls.Add(Me.Frame1)
+        Me.Controls.Add(Me.cmdClose)
+        Me.Controls.Add(Me.cmdUnsubscribe)
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Location = New System.Drawing.Point(184, 250)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "dlgNewsBulletins"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ShowInTaskbar = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.Text = "IB News Bulletin Subscription"
+        Me.Frame1.ResumeLayout(False)
+        Me.ResumeLayout(False)
+
+    End Sub
+#End Region
 #Region "Upgrade Support "
-	Private Shared m_vb6FormDefInstance As dlgNewsBulletins
+    Private Shared m_vb6FormDefInstance As dlgNewsBulletins
 	Private Shared m_InitializingDefInstance As Boolean
 	Public Shared Property DefInstance() As dlgNewsBulletins
 		Get
@@ -243,7 +237,7 @@ Friend Class dlgNewsBulletins
 	'--------------------------------------------------------------------------------
 	'   Aborts the news bulletin request and hides this dialog
 	'--------------------------------------------------------------------------------
-	Private Sub cmdClose_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdClose.Click
+	Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
 		m_ok = False
 		Hide()
 	End Sub
@@ -252,7 +246,7 @@ Friend Class dlgNewsBulletins
 	'   Subscribes to IB news bulletins. When subscribing users can get all the existing
 	'   days messages and will be notified of new messages
 	'--------------------------------------------------------------------------------
-	Private Sub cmdSubscribe_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSubscribe.Click
+	Private Sub cmdSubscribe_Click(sender As Object, e As EventArgs) Handles cmdSubscribe.Click
 		m_ok = True
 		m_subscribe = True
 		m_allMsgs = (optAllMsgs.Checked = True)
@@ -263,7 +257,7 @@ Friend Class dlgNewsBulletins
 	'   Unsubscribes to news bulletins so users will not receive IB new bulletin
 	'   notifications.
 	'--------------------------------------------------------------------------------
-	Private Sub cmdUnsubscribe_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdUnsubscribe.Click
+	Private Sub cmdUnsubscribe_Click(sender As Object, e As EventArgs) Handles cmdUnsubscribe.Click
 		m_ok = True
 		m_subscribe = False
 		Hide()
@@ -272,7 +266,7 @@ Friend Class dlgNewsBulletins
 	'--------------------------------------------------------------------------------
 	'   Default to the 'new messages only' subscription option if not is specified.
 	'--------------------------------------------------------------------------------
-	Private Sub dlgNewsBulletins_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+	Private Sub dlgNewsBulletins_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		optNewMsgs.Checked = True
 	End Sub
 End Class

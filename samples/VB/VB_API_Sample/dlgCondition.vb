@@ -3,19 +3,12 @@ Imports System.Collections.Generic
 Imports System.Linq
 
 Public Class dlgCondition
-    Dim radioMap As New Dictionary(Of RadioButton, Tuple(Of Panel, OrderConditionType))
-    Dim radioButtons As IEnumerable(Of RadioButton)
+    Private m_radioMap As New Dictionary(Of RadioButton, Tuple(Of Panel, OrderConditionType))
+    Private m_radioButtons As IEnumerable(Of RadioButton)
 
-    Dim _condition As OrderCondition
+    Private m_condition As OrderCondition
 
     Public Property Condition As OrderCondition
-        Get
-            Return _condition
-        End Get
-        Private Set(value As OrderCondition)
-            _condition = value
-        End Set
-    End Property
 
     Private Sub fillOperator(op As ComboBox, condition As OperatorCondition)
         op.SelectedIndex = If(condition.IsMore, 1, 0)
@@ -75,14 +68,14 @@ Public Class dlgCondition
     Public Sub New(condition As OrderCondition)
         InitializeComponent()
 
-        radioMap(priceRb) = Tuple.Create(pricePanel, OrderConditionType.Price)
-        radioMap(marginRb) = Tuple.Create(marginPanel, OrderConditionType.Margin)
-        radioMap(tradeRb) = Tuple.Create(tradePanel, OrderConditionType.Execution)
-        radioMap(timeRb) = Tuple.Create(timePanel, OrderConditionType.Time)
-        radioMap(volumeRb) = Tuple.Create(volumePanel, OrderConditionType.Volume)
-        radioMap(percentRb) = Tuple.Create(percentPanel, OrderConditionType.PercentCange)
+        m_radioMap(priceRb) = Tuple.Create(pricePanel, OrderConditionType.Price)
+        m_radioMap(marginRb) = Tuple.Create(marginPanel, OrderConditionType.Margin)
+        m_radioMap(tradeRb) = Tuple.Create(tradePanel, OrderConditionType.Execution)
+        m_radioMap(timeRb) = Tuple.Create(timePanel, OrderConditionType.Time)
+        m_radioMap(volumeRb) = Tuple.Create(volumePanel, OrderConditionType.Volume)
+        m_radioMap(percentRb) = Tuple.Create(percentPanel, OrderConditionType.PercentCange)
 
-        radioButtons = conditionTypePage.Controls.OfType(Of RadioButton).ToArray()
+        m_radioButtons = conditionTypePage.Controls.OfType(Of RadioButton).ToArray()
         Me.Condition = If(Not condition Is Nothing, condition, OrderCondition.Create(OrderConditionType.Price))
         priceMethod.Items.AddRange(CTriggerMethod.friendlyNames.Where(Function(n) Not String.IsNullOrWhiteSpace(n)).ToArray())
 
@@ -135,7 +128,7 @@ Public Class dlgCondition
             Return
         End If
 
-        Dim panel As Panel = radioMap(radioButtons.FirstOrDefault(Function(rb) rb.Checked)).Item1
+        Dim panel = m_radioMap(m_radioButtons.FirstOrDefault(Function(rb) rb.Checked)).Item1
 
         conditionPanel.Controls.Clear()
         conditionPanel.Controls.Add(panel)
@@ -147,7 +140,7 @@ Public Class dlgCondition
     End Sub
 
     Private Sub apply_Click(sender As Object, e As EventArgs) Handles apply.Click
-        Dim type As OrderConditionType = radioMap(radioButtons.FirstOrDefault(Function(rb) rb.Checked)).Item2
+        Dim type = m_radioMap(m_radioButtons.FirstOrDefault(Function(rb) rb.Checked)).Item2
 
         If type <> Condition.Type Then
             Condition = OrderCondition.Create(type)

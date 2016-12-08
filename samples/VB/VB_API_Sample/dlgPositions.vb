@@ -1,7 +1,7 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
-Option Strict Off
+
 Option Explicit On
 Friend Class dlgPositions
     Inherits System.Windows.Forms.Form
@@ -23,10 +23,9 @@ Friend Class dlgPositions
         End If
         'This call is required by the Windows Form Designer.
         InitializeComponent()
-        Form_Initialize_Renamed()
     End Sub
     'Form overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+    Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
             If Not components Is Nothing Then
                 components.Dispose()
@@ -76,7 +75,7 @@ Friend Class dlgPositions
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
         Me.cmdOk.TabIndex = 7
         Me.cmdOk.Text = "Ok"
-        Me.cmdOk.UseVisualStyleBackColor = False
+        Me.cmdOk.UseVisualStyleBackColor = True
         '
         'cmdCancel
         '
@@ -91,12 +90,13 @@ Friend Class dlgPositions
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
         Me.cmdCancel.TabIndex = 8
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = False
+        Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'txtAccount
         '
         Me.txtAccount.AcceptsReturn = True
         Me.txtAccount.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAccount.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtAccount.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtAccount.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAccount.ForeColor = System.Drawing.SystemColors.WindowText
@@ -104,13 +104,14 @@ Friend Class dlgPositions
         Me.txtAccount.MaxLength = 0
         Me.txtAccount.Name = "txtAccount"
         Me.txtAccount.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAccount.Size = New System.Drawing.Size(151, 20)
+        Me.txtAccount.Size = New System.Drawing.Size(151, 13)
         Me.txtAccount.TabIndex = 3
         '
         'txtModelCode
         '
         Me.txtModelCode.AcceptsReturn = True
         Me.txtModelCode.BackColor = System.Drawing.SystemColors.Window
+        Me.txtModelCode.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtModelCode.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtModelCode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtModelCode.ForeColor = System.Drawing.SystemColors.WindowText
@@ -118,13 +119,14 @@ Friend Class dlgPositions
         Me.txtModelCode.MaxLength = 0
         Me.txtModelCode.Name = "txtModelCode"
         Me.txtModelCode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtModelCode.Size = New System.Drawing.Size(151, 20)
+        Me.txtModelCode.Size = New System.Drawing.Size(151, 13)
         Me.txtModelCode.TabIndex = 5
         '
         'txtId
         '
         Me.txtId.AcceptsReturn = True
         Me.txtId.BackColor = System.Drawing.SystemColors.Window
+        Me.txtId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtId.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtId.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtId.ForeColor = System.Drawing.SystemColors.WindowText
@@ -132,13 +134,13 @@ Friend Class dlgPositions
         Me.txtId.MaxLength = 0
         Me.txtId.Name = "txtId"
         Me.txtId.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtId.Size = New System.Drawing.Size(151, 20)
+        Me.txtId.Size = New System.Drawing.Size(151, 13)
         Me.txtId.TabIndex = 1
         Me.txtId.Text = "0"
         '
         'Label3
         '
-        Me.Label3.BackColor = System.Drawing.SystemColors.Control
+        Me.Label3.BackColor = System.Drawing.Color.Gainsboro
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
@@ -151,7 +153,7 @@ Friend Class dlgPositions
         '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.BackColor = System.Drawing.Color.Gainsboro
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
@@ -164,7 +166,7 @@ Friend Class dlgPositions
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Gainsboro
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
@@ -188,7 +190,7 @@ Friend Class dlgPositions
         'dlgPositions
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(280, 154)
         Me.Controls.Add(Me.cbLedgerAndNLV)
         Me.Controls.Add(Me.cmdOk)
@@ -233,17 +235,16 @@ Friend Class dlgPositions
     End Property
 #End Region
 
-    Public Enum Dlg_Type
-        REQUEST_POSITIONS_MULTI = 1
-        CANCEL_POSITIONS_MULTI
-        REQUEST_ACCOUNT_UPDATES_MULTI
-        CANCEL_ACCOUNT_UPDATES_MULTI
+    Friend Enum DialogType
+        RequestPositionsMulti = 1
+        CancelPositionsMulti
+        RequestAccountUpdatesMulti
+        CancelAccountUpdatesMulti
     End Enum
 
     ' ===============================================================================
     ' Private Members
     ' ===============================================================================
-    Private m_arrDlgTitles As New Collection
     Private m_id As Integer
     Private m_account As String
     Private m_modelCode As String
@@ -286,7 +287,7 @@ Friend Class dlgPositions
     ' ========================================================
     ' Button Events
     ' ========================================================
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
         m_id = Text2Int(txtId.Text)
         m_account = txtAccount.Text
         m_modelCode = txtModelCode.Text
@@ -296,16 +297,16 @@ Friend Class dlgPositions
         Close()
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
         m_ok = False
         Close()
     End Sub
 
-    Private Sub dlgPositions_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub dlgPositions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         m_id = 0
     End Sub
 
-    Private Function Text2Int(ByRef text As String) As Integer
+    Private Function Text2Int(text As String) As Integer
         If Len(text) <= 0 Then
             Text2Int = 0
         Else
@@ -320,27 +321,31 @@ Friend Class dlgPositions
     '--------------------------------------------------------------------------------
     ' Sets the dialog field and button states based on the dialog type
     '--------------------------------------------------------------------------------
-    Public Sub init(ByRef dlgType As Dlg_Type)
+    Public Sub init(dlgType As DialogType)
         m_ok = False
 
-        Text = m_arrDlgTitles.Item(dlgType)
+        Text = getTitle(dlgType)
 
         txtId.Enabled = True
-        txtAccount.Enabled = (dlgType = Dlg_Type.REQUEST_POSITIONS_MULTI Or dlgType = Dlg_Type.REQUEST_ACCOUNT_UPDATES_MULTI)
-        txtModelCode.Enabled = (dlgType = Dlg_Type.REQUEST_POSITIONS_MULTI Or dlgType = Dlg_Type.REQUEST_ACCOUNT_UPDATES_MULTI)
-        cbLedgerAndNLV.Enabled = (dlgType = Dlg_Type.REQUEST_ACCOUNT_UPDATES_MULTI)
+        txtAccount.Enabled = (dlgType = DialogType.RequestPositionsMulti Or dlgType = DialogType.RequestAccountUpdatesMulti)
+        txtModelCode.Enabled = (dlgType = DialogType.RequestPositionsMulti Or dlgType = DialogType.RequestAccountUpdatesMulti)
+        cbLedgerAndNLV.Enabled = (dlgType = DialogType.RequestAccountUpdatesMulti)
 
     End Sub
 
-    '--------------------------------------------------------------------------------
-    ' Set the various dialog title string for each dialog type and the initial
-    ' dialog data.
-    '--------------------------------------------------------------------------------
-    Private Sub Form_Initialize_Renamed()
-        m_arrDlgTitles.Add("Request Positions Multi")
-        m_arrDlgTitles.Add("Cancel Positions Multi")
-        m_arrDlgTitles.Add("Request Account Updates Multi")
-        m_arrDlgTitles.Add("Cancel Account Updates Multi")
-    End Sub
+    Private Function getTitle(dlg_type As DialogType) As String
+        Select Case dlg_type
+            Case DialogType.CancelAccountUpdatesMulti
+                Return "Cancel Account Updates Multi"
+            Case DialogType.CancelPositionsMulti
+                Return "Cancel Positions Multi"
+            Case DialogType.RequestAccountUpdatesMulti
+                Return "Request Account Updates Multi"
+            Case DialogType.RequestPositionsMulti
+                Return "Request Positions Multi"
+            Case Else
+                Throw New InvalidOperationException
+        End Select
+    End Function
 
 End Class
