@@ -23,7 +23,7 @@ public class ContractDetails {
     private String   m_liquidHours;
     private String   m_evRule;
     private double   m_evMultiplier;
-    private int      m_lotSize;
+    private int      m_mdSizeMultiplier;
     private ArrayList<TagValue> m_secIdList; // CUSIP/ISIN/etc.
 
     // BOND values
@@ -62,7 +62,7 @@ public class ContractDetails {
     public String liquidHours()         { return m_liquidHours; }
     public String evRule()              { return m_evRule; }
     public double evMultiplier()        { return m_evMultiplier; }
-    public int lotSize()                { return m_lotSize; }
+    public int mdSizeMultiplier()       { return m_mdSizeMultiplier; }
     public ArrayList<TagValue> secIdList() { return m_secIdList; }
     
     public String cusip()               { return m_cusip; }
@@ -99,7 +99,7 @@ public class ContractDetails {
     public void liquidHours(String liquidHours)     { m_liquidHours = liquidHours; }
     public void evRule(String evRule)               { m_evRule = evRule; }
     public void evMultiplier(double evMultiplier)   { m_evMultiplier = evMultiplier; }
-    public void lotSize(int lotSize)                { m_lotSize = lotSize; }
+    public void mdSizeMultiplier(int mdSizeMultiplier) { m_mdSizeMultiplier = mdSizeMultiplier; }
     public void secIdList(ArrayList<TagValue> secIdList) { m_secIdList = secIdList; }
     
     public void cusip(String cusip)             { m_cusip = cusip; }
@@ -129,7 +129,7 @@ public class ContractDetails {
     		double p_minTick, String p_orderTypes, String p_validExchanges, int p_underConId, String p_longName,
     	    String p_contractMonth, String p_industry, String p_category, String p_subcategory,
     	    String p_timeZoneId, String	p_tradingHours, String p_liquidHours,
-    	    String p_evRule, double p_evMultiplier, int p_lotSize) {
+    	    String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier) {
         m_contract = p_contract;
     	m_marketName = p_marketName;
     	m_minTick = p_minTick;
@@ -146,7 +146,7 @@ public class ContractDetails {
         m_liquidHours = p_liquidHours;
         m_evRule = p_evRule;
         m_evMultiplier = p_evMultiplier;
-        m_lotSize = p_lotSize;
+        m_mdSizeMultiplier = p_mdSizeMultiplier;
     }
 
     @Override public String toString() {
@@ -168,7 +168,7 @@ public class ContractDetails {
         add( sb, "liquidHours", m_liquidHours);
         add( sb, "evRule", m_evRule);
         add( sb, "evMultiplier", m_evMultiplier);
-        add( sb, "lotSize", m_lotSize);
+        add( sb, "mdSizeMultiplier", m_mdSizeMultiplier);
 
         add( sb, "cusip", m_cusip);
         add( sb, "ratings", m_ratings);

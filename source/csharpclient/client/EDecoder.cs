@@ -820,9 +820,9 @@ namespace IBApi
             contract.Summary.TradingClass = ReadString();
             contract.Summary.ConId = ReadInt();
             contract.MinTick = ReadDouble();
-            if (serverVersion >= MinServerVer.LOT_SIZE)
+            if (serverVersion >= MinServerVer.MD_SIZE_MULTIPLIER)
             {
-                contract.LotSize = ReadInt();
+                contract.MdSizeMultiplier = ReadInt();
             }
             contract.OrderTypes = ReadString();
             contract.ValidExchanges = ReadString();
@@ -1421,9 +1421,9 @@ namespace IBApi
             contract.Summary.TradingClass = ReadString();
             contract.Summary.ConId = ReadInt();
             contract.MinTick = ReadDouble();
-            if (serverVersion >= MinServerVer.LOT_SIZE)
+            if (serverVersion >= MinServerVer.MD_SIZE_MULTIPLIER)
             {
-                contract.LotSize = ReadInt();
+                contract.MdSizeMultiplier = ReadInt();
             }
             contract.Summary.Multiplier = ReadString();
             contract.OrderTypes = ReadString();

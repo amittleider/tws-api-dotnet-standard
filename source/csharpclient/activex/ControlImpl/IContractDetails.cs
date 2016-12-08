@@ -83,6 +83,6 @@ namespace TWSLib
         [DispId(36)]
         double evMultiplier { get; }
         [DispId(37)]
-        int lotSize { get; }
+        int mdSizeMultiplier { get; }
     }
 }

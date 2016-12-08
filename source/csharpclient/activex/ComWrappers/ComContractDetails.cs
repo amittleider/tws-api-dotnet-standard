@@ -177,12 +177,12 @@ namespace TWSLib
         }
 
         /**
-        * @brief Lot Size
+        * @brief MD Size Multiplier
         */
-        public int LotSize
+        public int MdSizeMultiplier
         {
-            get { return data != null ? data.LotSize : default(int); }
-            set { if (data != null) data.LotSize = value; }
+            get { return data != null ? data.MdSizeMultiplier : default(int); }
+            set { if (data != null) data.MdSizeMultiplier = value; }
         }
 
         /**
@@ -509,9 +509,9 @@ namespace TWSLib
             get { return EvMultiplier; }
         }
 
-        int TWSLib.IContractDetails.lotSize
+        int TWSLib.IContractDetails.mdSizeMultiplier
         {
-            get { return LotSize; }
+            get { return MdSizeMultiplier; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

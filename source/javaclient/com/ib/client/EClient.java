@@ -229,7 +229,7 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_FAMILY_CODES = 107;
     protected static final int MIN_SERVER_VER_REQ_MATCHING_SYMBOLS = 108;
     protected static final int MIN_SERVER_VER_PAST_LIMIT = 109;
-    protected static final int MIN_SERVER_VER_LOT_SIZE = 110;
+    protected static final int MIN_SERVER_VER_MD_SIZE_MULTIPLIER = 110;
     protected static final int MIN_SERVER_VER_CASH_QTY = 111;
     protected static final int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
     
