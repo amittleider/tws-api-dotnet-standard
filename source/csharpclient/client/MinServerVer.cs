@@ -69,7 +69,7 @@ namespace IBApi
         public const int REQ_FAMILY_CODES = 107;
         public const int REQ_MATCHING_SYMBOLS = 108;
         public const int PAST_LIMIT = 109;
-        public const int LOT_SIZE = 110;
+        public const int MD_SIZE_MULTIPLIER = 110;
         public const int CASH_QTY = 111;
         public const int REQ_MKT_DEPTH_EXCHANGES = 112;
     }

@@ -829,8 +829,8 @@ class EDecoder implements ObjectInput {
 		contract.contract().tradingClass(readStr());
 		contract.contract().conid(readInt());
 		contract.minTick(readDouble());
-		if (m_serverVersion >= EClient.MIN_SERVER_VER_LOT_SIZE) {
-			contract.lotSize(readInt());
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MD_SIZE_MULTIPLIER) {
+			contract.mdSizeMultiplier(readInt());
 		}
 		contract.orderTypes(readStr());
 		contract.validExchanges(readStr());
@@ -884,8 +884,8 @@ class EDecoder implements ObjectInput {
 		contract.contract().tradingClass(readStr());
 		contract.contract().conid(readInt());
 		contract.minTick(readDouble());
-		if (m_serverVersion >= EClient.MIN_SERVER_VER_LOT_SIZE) {
-			contract.lotSize(readInt());
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MD_SIZE_MULTIPLIER) {
+			contract.mdSizeMultiplier(readInt());
 		}
 		contract.contract().multiplier(readStr());
 		contract.orderTypes(readStr());

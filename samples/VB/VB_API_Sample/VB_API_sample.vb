@@ -2019,7 +2019,7 @@ Friend Class dlgMainWnd
         End If
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.EvRule)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.EvMultiplier)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lotSize = " & contractDetails.LotSize)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
 
         If (contract.SecType = "BOND") Then
 
@@ -2999,7 +2999,7 @@ Friend Class dlgMainWnd
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  longName = " & contractDetails.LongName)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evRule = " & contractDetails.EvRule)
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  evMultiplier = " & contractDetails.EvMultiplier)
-        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  lotSize = " & contractDetails.LotSize)
+        Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
 
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "Bond Details:")
         Call m_utils.addListItem(Utils.List_Types.SERVER_RESPONSES, "  cusip = " & contractDetails.Cusip)

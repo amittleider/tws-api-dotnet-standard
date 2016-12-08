@@ -33,7 +33,7 @@ namespace IBApi
         private string liquidHours;
         private string evRule;
         private double evMultiplier;
-        private int lotSize;
+        private int mdSizeMultiplier;
         private List<TagValue> secIdList;
        
         // BOND values
@@ -212,12 +212,12 @@ namespace IBApi
         }
 
         /**
-        * @brief Lot Size
+        * @brief MD Size Multiplier
         */
-        public int LotSize
+        public int MdSizeMultiplier
         {
-            get { return lotSize; }
-            set { lotSize = value; }
+            get { return mdSizeMultiplier; }
+            set { mdSizeMultiplier = value; }
         }
 
         /**

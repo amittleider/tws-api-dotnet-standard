@@ -143,7 +143,7 @@ struct ContractDetails
 	std::string	liquidHours;
 	std::string	evRule;
 	double		evMultiplier;
-	int			lotSize;
+	int			mdSizeMultiplier;
 
 	TagValueListSPtr secIdList;
 
