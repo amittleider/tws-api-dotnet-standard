@@ -8,14 +8,13 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ContractDetailsMessage : IBMessage
+    public class ContractDetailsMessage
     {
         private int requestId;
         private ContractDetails contractDetails;
         
         public ContractDetailsMessage(int requestId, ContractDetails contractDetails)
         {
-            Type = MessageType.ContractData;
             RequestId = requestId;
             ContractDetails = contractDetails;
         }

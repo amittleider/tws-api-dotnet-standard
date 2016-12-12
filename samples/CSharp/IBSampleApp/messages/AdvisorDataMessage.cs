@@ -7,14 +7,13 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AdvisorDataMessage : IBMessage 
+    public class AdvisorDataMessage 
     {
         private int faDataType;
         private string data;
         
         public AdvisorDataMessage(int faDataType, string data)
         {
-            Type = MessageType.ReceiveFA;
             FaDataType = faDataType;
             Data = data;
         }

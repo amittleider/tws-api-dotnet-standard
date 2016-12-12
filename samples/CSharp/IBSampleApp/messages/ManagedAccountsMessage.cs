@@ -7,14 +7,13 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ManagedAccountsMessage : IBMessage
+    public class ManagedAccountsMessage
     {
         List<string> managedAccounts;
 
         public ManagedAccountsMessage(string managedAccounts)
         {
             this.managedAccounts = new List<string>(managedAccounts.Split(','));
-            Type = MessageType.ManagedAccounts;
         }
 
         public List<string> ManagedAccounts

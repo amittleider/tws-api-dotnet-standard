@@ -62,13 +62,13 @@ namespace IBSampleApp.ui
             isSubscribed = false;
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(DeepBookMessage entry)
         {
             DataGridView grid = (DataGridView)uiControl;
+
             if (grid.Rows.Count == 0)
                 grid.Rows.Add(numRows * 2);
 
-            DeepBookMessage entry = (DeepBookMessage)message;
             if (entry.Side == 1)
             {
                 grid[BID_MAKER_IDX, GetBidIndex(entry.Position)].Value = entry.MarketMaker;
@@ -103,11 +103,9 @@ namespace IBSampleApp.ui
             mktDepthExchangesGrid.Rows.Clear();
         }
 
-        public void HandleMktDepthExchangesMessage(IBMessage message)
+        public void HandleMktDepthExchangesMessage(MktDepthExchangesMessage mktDepthExchangesMessage)
         {
             mktDepthExchangesGrid.Rows.Clear();
-
-            MktDepthExchangesMessage mktDepthExchangesMessage = (MktDepthExchangesMessage)message;
 
             for (int i = 0; i < mktDepthExchangesMessage.Descriptions.Length; i++)
             {

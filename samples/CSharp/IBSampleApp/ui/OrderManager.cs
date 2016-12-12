@@ -53,35 +53,6 @@ namespace IBSampleApp.ui
                 ibClient.NextOrderId++;
             }
         }
-        
-        public void UpdateUI(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.OpenOrder:
-                    handleOpenOrder((OpenOrderMessage)message);
-                    break;
-                case MessageType.OpenOrderEnd:
-                    break;
-                case MessageType.OrderStatus:
-                    handleOrderStatus((OrderStatusMessage)message);
-                    break;
-                case MessageType.ExecutionData:
-                    HandleExecutionMessage((ExecutionMessage)message);
-                    break;
-                case MessageType.CommissionsReport:
-                    HandleCommissionMessage((CommissionMessage)message);
-                    break;
-                case MessageType.SoftDollarTiers:
-                    HandleSoftDollarTiers(message);
-                    break;
-            }
-        }
-
-        private void HandleSoftDollarTiers(IBMessage softDollarTiersMessage)
-        {
-            orderDialog.HandleIncomingMessage(softDollarTiersMessage);
-        }
 
         public void OpenOrderDialog()
         {
@@ -139,7 +110,7 @@ namespace IBSampleApp.ui
             return null;
         }
 
-        private void HandleCommissionMessage(CommissionMessage message)
+        public void HandleCommissionMessage(CommissionMessage message)
         {
             for (int i = 0; i < tradeLogGrid.Rows.Count; i++)
             {
@@ -151,10 +122,10 @@ namespace IBSampleApp.ui
             }
         }
 
-        private void handleOpenOrder(OpenOrderMessage openOrder)
+        public void handleOpenOrder(OpenOrderMessage openOrder)
         {
             if (openOrder.Order.WhatIf)
-                orderDialog.HandleIncomingMessage(openOrder);
+                orderDialog.HandleOpenOrder(openOrder);
             else
             {
                 UpdateLiveOrders(openOrder);
@@ -162,7 +133,7 @@ namespace IBSampleApp.ui
             }
         }
 
-        private void HandleExecutionMessage(ExecutionMessage message)
+        public void HandleExecutionMessage(ExecutionMessage message)
         {
             for (int i = 0; i < tradeLogGrid.Rows.Count; i++)
             {
@@ -187,7 +158,7 @@ namespace IBSampleApp.ui
             tradeLogGrid[7, index].Value = message.Execution.Price;
         }
 
-        private void handleOrderStatus(OrderStatusMessage statusMessage)
+        public void HandleOrderStatus(OrderStatusMessage statusMessage)
         {
             for (int i = 0; i < liveOrdersGrid.Rows.Count; i++)
             {
@@ -197,6 +168,11 @@ namespace IBSampleApp.ui
                     return;
                 }
             }
+        }
+
+        public void HandleSoftDollarTiers(SoftDollarTiersMessage msg)
+        {
+            orderDialog.HandleSoftDollarTiers(msg);
         }
 
         private void UpdateLiveOrders(OpenOrderMessage orderMesage)

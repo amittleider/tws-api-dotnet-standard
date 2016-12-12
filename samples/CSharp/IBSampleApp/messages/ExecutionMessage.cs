@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ExecutionMessage : IBMessage
+    public class ExecutionMessage
     {
         private int reqId;
         private Contract contract;
@@ -16,7 +16,6 @@ namespace IBSampleApp.messages
 
         public ExecutionMessage(int reqId, Contract contract, Execution execution)
         {
-            Type = MessageType.ExecutionData;
             ReqId = reqId;
             Contract = contract;
             Execution = execution;

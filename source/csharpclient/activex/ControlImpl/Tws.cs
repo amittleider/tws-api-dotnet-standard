@@ -50,134 +50,134 @@ namespace TWSLib
         {
             socket = new EClientSocket(this, eReaderSignal);
 
-            resetAllProperties();
+            (this as ITws).resetAllProperties();
         }
 
 
         #region properties
-        [DispId(1)]
+        
         public string account { get; set; }
-        [DispId(2)]
+        
         public string tif { get; set; }
-        [DispId(3)]
+        
         public string oca { get; set; }
-        [DispId(4)]
+        
         public string orderRef { get; set; }
-        [DispId(5)]
+        
         public int origin { get; set; }
-        [DispId(6)]
+        
         public bool transmit { get; set; }
-        [DispId(7)]
+        
         public string openClose { get; set; }
-        [DispId(8)]
+        
         public int parentId { get; set; }
-        [DispId(9)]
+        
         public bool blockOrder { get; set; }
-        [DispId(10)]
+        
         public bool sweepToFill { get; set; }
-        [DispId(11)]
+        
         public int displaySize { get; set; }
-        [DispId(12)]
+        
         public int triggerMethod { get; set; }
-        [DispId(13)]
+        
         public bool outsideRth { get; set; }
-        [DispId(14)]
+        
         public bool hidden { get; set; }
-        [DispId(16)]
+        
         public int clientIdFilter { get; set; }
-        [DispId(17)]
+        
         public string acctCodeFilter { get; set; }
-        [DispId(18)]
+        
         public string timeFilter { get; set; }
-        [DispId(19)]
+        
         public string symbolFilter { get; set; }
-        [DispId(20)]
+        
         public string secTypeFilter { get; set; }
-        [DispId(21)]
+        
         public string exchangeFilter { get; set; }
-        [DispId(22)]
+        
         public string sideFilter { get; set; }
-        [DispId(23)]
+        
         public double discretionaryAmt { get; set; }
-        [DispId(24)]
+        
         public int shortSaleSlot { get; set; }
-        [DispId(25)]
+        
         public string designatedLocation { get; set; }
-        [DispId(26)]
+        
         public int ocaType { get; set; }
-        [DispId(27)]
+        
         public int exemptCode { get; set; }
-        [DispId(28)]
+        
         public string rule80A { get; set; }
-        [DispId(29)]
+        
         public string settlingFirm { get; set; }
-        [DispId(30)]
+        
         public bool allOrNone { get; set; }
-        [DispId(31)]
+        
         public int minQty { get; set; }
-        [DispId(32)]
+        
         public double percentOffset { get; set; }
-        [DispId(33)]
+        
         public bool eTradeOnly { get; set; }
-        [DispId(34)]
+        
         public bool firmQuoteOnly { get; set; }
-        [DispId(35)]
+        
         public double nbboPriceCap { get; set; }
-        [DispId(36)]
+        
         public int auctionStrategy { get; set; }
-        [DispId(37)]
+        
         public double startingPrice { get; set; }
-        [DispId(38)]
+        
         public double stockRefPrice { get; set; }
-        [DispId(39)]
+        
         public double delta { get; set; }
-        [DispId(40)]
+        
         public double stockRangeLower { get; set; }
-        [DispId(41)]
+        
         public double stockRangeUpper { get; set; }
-        [DispId(42)]
+        
         public string TwsConnectionTime { get { return socket.ServerTime; } }
-        [DispId(43)]
+        
         public int serverVersion { get; set; }
-        [DispId(44)]
+        
         public bool overridePercentageConstraints { get; set; }
-        [DispId(45)]
+        
         public double volatility { get; set; }
-        [DispId(46)]
+        
         public int volatilityType { get; set; }
-        [DispId(47)]
+        
         public string deltaNeutralOrderType { get; set; }
-        [DispId(48)]
+        
         public double deltaNeutralAuxPrice { get; set; }
-        [DispId(49)]
+        
         public int continuousUpdate { get; set; }
-        [DispId(50)]
+        
         public int referencePriceType { get; set; }
-        [DispId(51)]
+        
         public double trailStopPrice { get; set; }
-        [DispId(52)]
+        
         public int scaleInitLevelSize { get; set; }
-        [DispId(53)]
+        
         public int scaleSubsLevelSize { get; set; }
-        [DispId(54)]
+        
         public double scalePriceIncrement { get; set; }
         #endregion
 
         #region methods
-        [DispId(55)]
-        public void cancelMktData(int id)
+        
+        void ITws.cancelMktData(int id)
         {
             socket.cancelMktData(id);
         }
 
-        [DispId(56)]
-        public void cancelOrder(int id)
+        
+        void ITws.cancelOrder(int id)
         {
             socket.cancelOrder(id);
         }
 
-        [DispId(57)]
-        public void placeOrder(int id, string action, double quantity, string localSymbol, string secType,
+        
+        void ITws.placeOrder(int id, string action, double quantity, string localSymbol, string secType,
                    string lastTradeDateOrContractMonth, double strike, string right, string multiplier,
                    string exchange, string primaryExchange, string curency, string orderType,
                    double lmtPrice, double auxPrice, string goodAfterTime, string faGroup,
@@ -215,64 +215,14 @@ namespace TWSLib
 
             setExtendedOrderAttributes(order);
         }
-
-        void setExtendedOrderAttributes(Order order)
-        {
-            order.Tif = this.tif;
-            order.OcaGroup = this.oca;
-            order.Account = this.account;
-            order.OpenClose = this.openClose;
-            order.Origin = this.origin;
-            order.OrderRef = this.orderRef;
-            order.Transmit = this.transmit;
-            order.ParentId = this.parentId;
-            order.BlockOrder = this.blockOrder;
-            order.SweepToFill = this.sweepToFill;
-            order.DisplaySize = this.displaySize;
-            order.TriggerMethod = this.triggerMethod;
-            order.OutsideRth = this.outsideRth;
-            order.Hidden = this.hidden;
-            order.DiscretionaryAmt = this.discretionaryAmt;
-            order.ShortSaleSlot = this.shortSaleSlot;
-            order.DesignatedLocation = this.designatedLocation;
-            order.ExemptCode = this.exemptCode;
-            order.OcaType = this.ocaType;
-            order.Rule80A = this.rule80A;
-            order.SettlingFirm = this.settlingFirm;
-            order.AllOrNone = this.allOrNone;
-            order.MinQty = this.minQty;
-            order.PercentOffset = this.percentOffset;
-            order.ETradeOnly = this.eTradeOnly;
-            order.FirmQuoteOnly = this.firmQuoteOnly;
-            order.NbboPriceCap = this.nbboPriceCap;
-            order.AuctionStrategy = this.auctionStrategy;
-            order.StartingPrice = this.startingPrice;
-            order.StockRefPrice = this.stockRefPrice;
-            order.Delta = this.delta;
-            order.StockRangeLower = this.stockRangeLower;
-            order.StockRangeUpper = this.stockRangeUpper;
-            order.OverridePercentageConstraints = this.overridePercentageConstraints;
-            // VOLATILITY ORDERS ONLY
-            order.Volatility = this.volatility;
-            order.VolatilityType = this.volatilityType;     // 1=daily, 2=annual
-            order.DeltaNeutralOrderType = this.deltaNeutralOrderType;
-            order.DeltaNeutralAuxPrice = this.deltaNeutralAuxPrice;
-            order.ContinuousUpdate = this.continuousUpdate;
-            order.ReferencePriceType = this.referencePriceType; // 1=Average, 2 = BidOrAsk
-            order.TrailStopPrice = this.trailStopPrice;
-            order.ScaleInitLevelSize = this.scaleInitLevelSize;
-            order.ScaleSubsLevelSize = this.scaleSubsLevelSize;
-            order.ScalePriceIncrement = this.scalePriceIncrement;
-        }
-
-        [DispId(58)]
-        public void disconnect()
+        
+        void ITws.disconnect()
         {
             this.socket.eDisconnect();
         }
 
-        [DispId(59)]
-        public void connect(string host, int port, int clientId, bool extraAuth)
+        
+        void ITws.connect(string host, int port, int clientId, bool extraAuth)
         {
             this.socket.eConnect(host, port, clientId, extraAuth);
 
@@ -293,8 +243,8 @@ namespace TWSLib
             }) { IsBackground = true }.Start();
         }
 
-        [DispId(60)]
-        public void reqMktData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.reqMktData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string primaryExchange,
                    string currency, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
@@ -318,20 +268,20 @@ namespace TWSLib
             this.socket.reqMktData(id, contract, genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
 
-        [DispId(61)]
-        public void reqOpenOrders()
+        
+        void ITws.reqOpenOrders()
         {
             this.socket.reqOpenOrders();
         }
 
-        [DispId(62)]
-        public void reqAccountUpdates(bool subscribe, string acctCode)
+        
+        void ITws.reqAccountUpdates(bool subscribe, string acctCode)
         {
             this.socket.reqAccountUpdates(subscribe, acctCode);
         }
 
-        [DispId(63)]
-        public void reqExecutions()
+        
+        void ITws.reqExecutions()
         {
             ExecutionFilter filter = new ExecutionFilter();
 
@@ -346,14 +296,14 @@ namespace TWSLib
             this.socket.reqExecutions(-1, filter);
         }
 
-        [DispId(64)]
-        public void reqIds(int numIds)
+        
+        void ITws.reqIds(int numIds)
         {
             this.socket.reqIds(numIds);
         }
 
-        [DispId(65)]
-        public void reqMktData2(int id, string localSymbol, string secType, string exchange,
+        
+        void ITws.reqMktData2(int id, string localSymbol, string secType, string exchange,
                    string primaryExchange, string currency, string genericTicks,
                    bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
@@ -373,8 +323,8 @@ namespace TWSLib
             this.socket.reqMktData(id, contract, genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
 
-        [DispId(66)]
-        public void placeOrder2(int id, string action, double quantity, string localSymbol,
+        
+        void ITws.placeOrder2(int id, string action, double quantity, string localSymbol,
                    string secType, string exchange, string primaryExchange, string curency,
                    string orderType, double lmtPrice, double auxPrice,
                    string goodAfterTime, string faGroup,
@@ -414,8 +364,8 @@ namespace TWSLib
             this.socket.placeOrder(id, contract, order);
         }
 
-        [DispId(67)]
-        public void reqContractDetails(string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.reqContractDetails(string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int includeExpired)
         {
             // set contract fields
@@ -435,8 +385,8 @@ namespace TWSLib
             this.socket.reqContractDetails(-1, contract);
         }
 
-        [DispId(68)]
-        public void reqContractDetails2(string localSymbol, string secType, string exchange, string curency, int includeExpired)
+        
+        void ITws.reqContractDetails2(string localSymbol, string secType, string exchange, string curency, int includeExpired)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -451,8 +401,8 @@ namespace TWSLib
             this.socket.reqContractDetails(-1, contract);
         }
 
-        [DispId(69)]
-        public void reqMktDepth(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.reqMktDepth(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options)
         {
             // set contract fields
@@ -471,8 +421,8 @@ namespace TWSLib
             this.socket.reqMarketDepth(id, contract, numRows, ITagValueListToListTagValue(options));
         }
 
-        [DispId(70)]
-        public void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options)
+        
+        void ITws.reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options)
         {
 
             Contract contract = new Contract();
@@ -486,14 +436,14 @@ namespace TWSLib
             this.socket.reqMarketDepth(id, contract, numRows, ITagValueListToListTagValue(options));
         }
 
-        [DispId(71)]
-        public void cancelMktDepth(int id)
+        
+        void ITws.cancelMktDepth(int id)
         {
             this.socket.cancelMktDepth(id);
         }
 
-        [DispId(72)]
-        public void addComboLeg(int conid, string action, int ratio, string exchange, int openClose, int shortSaleSlot, string designatedLocation, int exemptCode)
+        
+        void ITws.addComboLeg(int conid, string action, int ratio, string exchange, int openClose, int shortSaleSlot, string designatedLocation, int exemptCode)
         {
             ComboLeg comboLeg = new ComboLeg();
 
@@ -509,62 +459,62 @@ namespace TWSLib
             this.comboLegs.Add(comboLeg);
         }
 
-        [DispId(73)]
-        public void clearComboLegs()
+        
+        void ITws.clearComboLegs()
         {
             this.comboLegs.Clear();
         }
 
-        [DispId(74)]
-        public void cancelNewsBulletins()
+        
+        void ITws.cancelNewsBulletins()
         {
             this.socket.cancelNewsBulletin();
         }
 
-        [DispId(75)]
-        public void reqNewsBulletins(bool allDaysMsgs)
+        
+        void ITws.reqNewsBulletins(bool allDaysMsgs)
         {
             this.socket.reqNewsBulletins(allDaysMsgs);
         }
 
-        [DispId(76)]
-        public void setServerLogLevel(int logLevel)
+        
+        void ITws.setServerLogLevel(int logLevel)
         {
             this.socket.setServerLogLevel(logLevel);
         }
 
-        [DispId(77)]
-        public void reqAutoOpenOrders(bool bAutoBind)
+        
+        void ITws.reqAutoOpenOrders(bool bAutoBind)
         {
             this.socket.reqAutoOpenOrders(bAutoBind);
         }
 
-        [DispId(78)]
-        public void reqAllOpenOrders()
+        
+        void ITws.reqAllOpenOrders()
         {
             this.socket.reqAllOpenOrders();
         }
 
-        [DispId(79)]
-        public void reqManagedAccts()
+        
+        void ITws.reqManagedAccts()
         {
             this.socket.reqManagedAccts();
         }
 
-        [DispId(80)]
-        public void requestFA(int faDataType)
+        
+        void ITws.requestFA(int faDataType)
         {
             this.socket.requestFA(faDataType);
         }
 
-        [DispId(81)]
-        public void replaceFA(int faDataType, string cxml)
+        
+        void ITws.replaceFA(int faDataType, string cxml)
         {
             this.socket.replaceFA(faDataType, cxml);
         }
 
-        [DispId(82)]
-        public void reqHistoricalData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.reqHistoricalData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int isExpired,
                    string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
                    int useRTH, int formatDate, ITagValueList options)
@@ -588,8 +538,8 @@ namespace TWSLib
             this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, ITagValueListToListTagValue(options));
         }
 
-        [DispId(83)]
-        public void exerciseOptions(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.exerciseOptions(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency,
                    int exerciseAction, int exerciseQuantity, int @override)
         {
@@ -607,14 +557,14 @@ namespace TWSLib
             this.socket.exerciseOptions(id, contract, exerciseAction, exerciseQuantity, this.account, @override);
         }
 
-        [DispId(84)]
-        public void reqScannerParameters()
+        
+        void ITws.reqScannerParameters()
         {
             this.socket.reqScannerParameters();
         }
 
-        [DispId(85)]
-        public void reqScannerSubscription(int tickerId, int numberOfRows, string instrument,
+        
+        void ITws.reqScannerSubscription(int tickerId, int numberOfRows, string instrument,
             string locationCode, string scanCode, double abovePrice, double belowPrice,
             int aboveVolume, double marketCapAbove, double marketCapBelow, string moodyRatingAbove,
             string moodyRatingBelow, string spRatingAbove, string spRatingBelow,
@@ -649,20 +599,20 @@ namespace TWSLib
             this.socket.reqScannerSubscription(tickerId, subscription, ITagValueListToListTagValue(options));
         }
 
-        [DispId(86)]
-        public void cancelHistoricalData(int tickerId)
+        
+        void ITws.cancelHistoricalData(int tickerId)
         {
             this.socket.cancelHistoricalData(tickerId);
         }
 
-        [DispId(87)]
-        public void cancelScannerSubscription(int tickerId)
+        
+        void ITws.cancelScannerSubscription(int tickerId)
         {
             this.socket.cancelScannerSubscription(tickerId);
         }
 
-        [DispId(88)]
-        public void resetAllProperties()
+        
+        void ITws.resetAllProperties()
         {
             openClose = "O";
             origin = 0;
@@ -719,8 +669,8 @@ namespace TWSLib
             scalePriceIncrement = double.MaxValue;
         }
 
-        [DispId(89)]
-        public void reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
+        
+        void ITws.reqRealTimeBars(int tickerId, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
             string right, string multiplier, string exchange, string primaryExchange, string currency,
             int isExpired, int barSize, string whatToShow, int useRTH, ITagValueList options)
         {
@@ -741,20 +691,20 @@ namespace TWSLib
             this.socket.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH != 0, ITagValueListToListTagValue(options));
         }
 
-        [DispId(90)]
-        public void cancelRealTimeBars(int tickerId)
+        
+        void ITws.cancelRealTimeBars(int tickerId)
         {
             this.socket.cancelRealTimeBars(tickerId);
         }
 
-        [DispId(91)]
-        public void reqCurrentTime()
+        
+        void ITws.reqCurrentTime()
         {
             this.socket.reqCurrentTime();
         }
 
-        [DispId(92)]
-        public void reqFundamentalData(int reqId, IContract contract, string reportType)
+        
+        void ITws.reqFundamentalData(int reqId, IContract contract, string reportType)
         {
             if (!(contract is ComContract))
                 throw new ArgumentException("Invalid argument type", "contract");
@@ -762,58 +712,58 @@ namespace TWSLib
             this.socket.reqFundamentalData(reqId, (Contract)(contract as ComContract), reportType, null);
         }
 
-        [DispId(93)]
-        public void cancelFundamentalData(int reqId)
+        
+        void ITws.cancelFundamentalData(int reqId)
         {
             this.socket.cancelFundamentalData(reqId);
         }
 
-        [DispId(94)]
-        public void calculateImpliedVolatility(int reqId, IContract contract, double optionPrice, double underPrice)
+        
+        void ITws.calculateImpliedVolatility(int reqId, IContract contract, double optionPrice, double underPrice)
         {
             //X - CHANGED
             this.socket.calculateImpliedVolatility(reqId, (Contract)(contract as ComContract), optionPrice, underPrice, null);
         }
 
-        [DispId(95)]
-        public void calculateOptionPrice(int reqId, IContract contract, double volatility, double underPrice)
+        
+        void ITws.calculateOptionPrice(int reqId, IContract contract, double volatility, double underPrice)
         {
             //X - CHANGED
             this.socket.calculateOptionPrice(reqId, (Contract)(contract as ComContract), volatility, underPrice, null);
         }
 
-        [DispId(96)]
-        public void cancelCalculateImpliedVolatility(int reqId)
+        
+        void ITws.cancelCalculateImpliedVolatility(int reqId)
         {
             this.socket.cancelCalculateImpliedVolatility(reqId);
         }
 
-        [DispId(97)]
-        public void cancelCalculateOptionPrice(int reqId)
+        
+        void ITws.cancelCalculateOptionPrice(int reqId)
         {
             this.socket.cancelCalculateOptionPrice(reqId);
         }
 
-        [DispId(98)]
-        public void reqGlobalCancel()
+        
+        void ITws.reqGlobalCancel()
         {
             this.socket.reqGlobalCancel();
         }
 
-        [DispId(99)]
-        public void reqMarketDataType(int marketDataType)
+        
+        void ITws.reqMarketDataType(int marketDataType)
         {
             this.socket.reqMarketDataType(marketDataType);
         }
 
-        [DispId(100)]
-        public void reqContractDetailsEx(int reqId, IContract contract)
+        
+        void ITws.reqContractDetailsEx(int reqId, IContract contract)
         {
             this.socket.reqContractDetails(reqId, (Contract)(contract as ComContract));
         }
 
-        [DispId(101)]
-        public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options)
+        
+        void ITws.reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
             this.socket.reqMktData(tickerId, (Contract)(contract as ComContract), genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
@@ -826,122 +776,228 @@ namespace TWSLib
             return (v as ComTagValueList).Tvl.Select(x => (TagValue)x).ToList();
         }
 
-        [DispId(102)]
-        public void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options)
+        
+        void ITws.reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options)
         {
             this.socket.reqMarketDepth(tickerId, (Contract)(contract as ComContract), numRows, ITagValueListToListTagValue(options));
         }
 
-        [DispId(103)]
-        public void placeOrderEx(int orderId, IContract contract, IOrder order)
+        
+        void ITws.placeOrderEx(int orderId, IContract contract, IOrder order)
         {
             this.socket.placeOrder(orderId, (Contract)(contract as ComContract), (Order)(order as ComOrder));
         }
 
-        [DispId(104)]
-        public void reqExecutionsEx(int reqId, IExecutionFilter filter)
+        
+        void ITws.reqExecutionsEx(int reqId, IExecutionFilter filter)
         {
             this.socket.reqExecutions(reqId, (ExecutionFilter)(filter as ComExecutionFilter));
         }
 
-        [DispId(105)]
-        public void exerciseOptionsEx(int tickerId, IContract contract, int exerciseAction,
+        
+        void ITws.exerciseOptionsEx(int tickerId, IContract contract, int exerciseAction,
             int exerciseQuantity, string account, int @override)
         {
             this.socket.exerciseOptions(tickerId, (Contract)(contract as ComContract), exerciseAction, exerciseQuantity, account, @override);
         }
 
-        [DispId(106)]
-        public void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
+        
+        void ITws.reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
             string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options)
         {
             this.socket.reqHistoricalData(tickerId, (Contract)(contract as ComContract), endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, ITagValueListToListTagValue(options));
         }
 
-        [DispId(107)]
-        public void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options)
+        
+        void ITws.reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options)
         {
             this.socket.reqRealTimeBars(tickerId, (Contract)(contract as ComContract), barSize, whatToShow, useRTH, ITagValueListToListTagValue(options));
         }
 
-        [DispId(108)]
-        public void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options)
+        
+        void ITws.reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options)
         {
             this.socket.reqScannerSubscription(tickerId, (ScannerSubscription)(subscription as ComScannerSubscription), ITagValueListToListTagValue(options));
         }
 
-        [DispId(109)]
-        public void addOrderComboLeg(double price)
+        
+        void ITws.addOrderComboLeg(double price)
         {
             this.orderComboLegs.Add(new OrderComboLeg() { Price = price });
         }
 
-        [DispId(110)]
-        public void clearOrderComboLegs()
+        
+        void ITws.clearOrderComboLegs()
         {
             this.orderComboLegs.Clear();
         }
 
-        [DispId(111)]
-        public void reqPositions()
+        
+        void ITws.reqPositions()
         {
             this.socket.reqPositions();
         }
 
-        [DispId(112)]
-        public void cancelPositions()
+        
+        void ITws.cancelPositions()
         {
             this.socket.cancelPositions();
         }
 
-        [DispId(113)]
-        public void reqAccountSummary(int reqId, string groupName, string tags)
+        
+        void ITws.reqAccountSummary(int reqId, string groupName, string tags)
         {
             this.socket.reqAccountSummary(reqId, groupName, tags);
         }
 
-        [DispId(114)]
-        public void cancelAccountSummary(int reqId)
+        
+        void ITws.cancelAccountSummary(int reqId)
         {
             this.socket.cancelAccountSummary(reqId);
         }
-        [DispId(123)]
-        public void reqPositionsMulti(int requestId, string account, string modelCode)
+        
+        void ITws.reqPositionsMulti(int requestId, string account, string modelCode)
         {
             this.socket.reqPositionsMulti(requestId, account, modelCode);
         }
-        [DispId(124)]
-        public void cancelPositionsMulti(int requestId)
+        
+        void ITws.cancelPositionsMulti(int requestId)
         {
             this.socket.cancelPositionsMulti(requestId);
         }
-        [DispId(125)]
-        public void reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
+        
+        void ITws.reqAccountUpdatesMulti(int requestId, string account, string modelCode, bool ledgerAndNLV)
         {
             this.socket.reqAccountUpdatesMulti(requestId, account, modelCode, ledgerAndNLV);
         }
-        [DispId(126)]
-        public void cancelAccountUpdatesMulti(int requestId)
+        
+        void ITws.cancelAccountUpdatesMulti(int requestId)
         {
             this.socket.cancelAccountUpdatesMulti(requestId);
         }
 
-        [DispId(200)]
-        public IContract createContract() { return new ComContract(); }
-        [DispId(201)]
-        public IComboLegList createComboLegList() { return new ComComboLegList(); }
-        [DispId(202)]
-        public IOrder createOrder() { return new ComOrder(); }
-        [DispId(203)]
-        public IExecutionFilter createExecutionFilter() { return new ComExecutionFilter(); }
-        [DispId(204)]
-        public IScannerSubscription createScannerSubscription() { return new ComScannerSubscription(); }
-        [DispId(205)]
-        public IUnderComp createUnderComp() { return new ComUnderComp(); }
-        [DispId(206)]
-        public ITagValueList createTagValueList() { return new ComTagValueList(); }
-        [DispId(207)]
-        public IOrderComboLegList createOrderComboLegList() { return new ComOrderComboLegList(); }
+        
+        IContract ITws.createContract() { return new ComContract(); }
+        
+        IComboLegList ITws.createComboLegList() { return new ComComboLegList(); }
+        
+        IOrder ITws.createOrder() { return new ComOrder(); }
+        
+        IExecutionFilter ITws.createExecutionFilter() { return new ComExecutionFilter(); }
+        
+        IScannerSubscription ITws.createScannerSubscription() { return new ComScannerSubscription(); }
+        
+        IUnderComp ITws.createUnderComp() { return new ComUnderComp(); }
+        
+        ITagValueList ITws.createTagValueList() { return new ComTagValueList(); }
+        
+        IOrderComboLegList ITws.createOrderComboLegList() { return new ComOrderComboLegList(); }
+
+
+        void ITws.verifyRequest(string apiName, string apiVersion)
+        {
+            socket.verifyRequest(apiName, apiVersion);
+        }
+
+        void ITws.verifyMessage(string apiData)
+        {
+            socket.verifyMessage(apiData);
+        }
+
+        void ITws.verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
+        {
+            socket.verifyAndAuthRequest(apiName, apiVersion, opaqueIsvKey);
+        }
+
+        void ITws.verifyAndAuthMessage(string apiData, string xyzResponse)
+        {
+            socket.verifyAndAuthMessage(apiData, xyzResponse);
+        }
+
+        void ITws.queryDisplayGroups(int reqId)
+        {
+            socket.queryDisplayGroups(reqId);
+        }
+
+        void ITws.subscribeToGroupEvents(int reqId, int groupId)
+        {
+            socket.subscribeToGroupEvents(reqId, groupId);
+        }
+
+        void ITws.updateDisplayGroup(int reqId, string contractInfo)
+        {
+            socket.updateDisplayGroup(reqId, contractInfo);
+        }
+
+        void ITws.unsubscribeFromGroupEvents(int reqId)
+        {
+            socket.unsubscribeFromGroupEvents(reqId);
+        }
+
+        void ITws.setConnectOptions(string connectOptions)
+        {
+            socket.SetConnectOptions(connectOptions);
+        }
+
+        void ITws.disableUseV100Plus()
+        {
+            socket.DisableUseV100Plus();
+        }
+
+        void ITws.startApi()
+        {
+            socket.startApi();
+        }
+
+        void ITws.reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
+        {
+            socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId);
+        }
+
+        void ITws.reqSoftDollarTiers(int reqId)
+        {
+            socket.reqSoftDollarTiers(reqId);
+        }
+
+        void ITws.reqFamilyCodes()
+        {
+            socket.reqFamilyCodes();
+        }
+
+        void ITws.reqMatchingSymbols(int reqId, string pattern)
+        {
+            socket.reqMatchingSymbols(reqId, pattern);
+        }
+
+        void ITws.reqMktDepthExchanges()
+        {
+            socket.reqMktDepthExchanges();
+        }
+
+        void ITws.reqSmartComponents(int reqId, string bboExchange)
+        {
+            socket.reqSmartComponents(reqId, bboExchange);
+        }
+
+        void ITws.reqNewsProviders()
+        {
+            socket.reqNewsProviders();
+        }
+
+        void ITws.reqNewsArticle(int requestId, string providerCode, string articleId)
+        {
+            socket.reqNewsArticle(requestId, providerCode, articleId);
+        }
+
+        void ITws.reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        {
+            socket.reqHistoricalNews(requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
+        }
+
+        void ITws.reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate)
+        {
+            this.socket.reqHeadTimestamp(tickerId, (Contract)(contract as ComContract), whatToShow, useRTH, formatDate);
+        }
         #endregion
 
         #region events
@@ -1865,10 +1921,69 @@ namespace TWSLib
                 InvokeIfRequired(t_historicalNewsEnd, requestId, hasMore);
         }
 
+        public delegate void headTimestampDelegate(int reqId, string timestamp);
+        public event headTimestampDelegate headTimestamp;
+        void EWrapper.headTimestamp(int reqId, string headTimestamp)
+        {
+            var tmp = this.headTimestamp;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, headTimestamp);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
         List<OrderComboLeg> orderComboLegs = new List<OrderComboLeg>();
+
+        void setExtendedOrderAttributes(Order order)
+        {
+            order.Tif = this.tif;
+            order.OcaGroup = this.oca;
+            order.Account = this.account;
+            order.OpenClose = this.openClose;
+            order.Origin = this.origin;
+            order.OrderRef = this.orderRef;
+            order.Transmit = this.transmit;
+            order.ParentId = this.parentId;
+            order.BlockOrder = this.blockOrder;
+            order.SweepToFill = this.sweepToFill;
+            order.DisplaySize = this.displaySize;
+            order.TriggerMethod = this.triggerMethod;
+            order.OutsideRth = this.outsideRth;
+            order.Hidden = this.hidden;
+            order.DiscretionaryAmt = this.discretionaryAmt;
+            order.ShortSaleSlot = this.shortSaleSlot;
+            order.DesignatedLocation = this.designatedLocation;
+            order.ExemptCode = this.exemptCode;
+            order.OcaType = this.ocaType;
+            order.Rule80A = this.rule80A;
+            order.SettlingFirm = this.settlingFirm;
+            order.AllOrNone = this.allOrNone;
+            order.MinQty = this.minQty;
+            order.PercentOffset = this.percentOffset;
+            order.ETradeOnly = this.eTradeOnly;
+            order.FirmQuoteOnly = this.firmQuoteOnly;
+            order.NbboPriceCap = this.nbboPriceCap;
+            order.AuctionStrategy = this.auctionStrategy;
+            order.StartingPrice = this.startingPrice;
+            order.StockRefPrice = this.stockRefPrice;
+            order.Delta = this.delta;
+            order.StockRangeLower = this.stockRangeLower;
+            order.StockRangeUpper = this.stockRangeUpper;
+            order.OverridePercentageConstraints = this.overridePercentageConstraints;
+            // VOLATILITY ORDERS ONLY
+            order.Volatility = this.volatility;
+            order.VolatilityType = this.volatilityType;     // 1=daily, 2=annual
+            order.DeltaNeutralOrderType = this.deltaNeutralOrderType;
+            order.DeltaNeutralAuxPrice = this.deltaNeutralAuxPrice;
+            order.ContinuousUpdate = this.continuousUpdate;
+            order.ReferencePriceType = this.referencePriceType; // 1=Average, 2 = BidOrAsk
+            order.TrailStopPrice = this.trailStopPrice;
+            order.ScaleInitLevelSize = this.scaleInitLevelSize;
+            order.ScaleSubsLevelSize = this.scaleSubsLevelSize;
+            order.ScalePriceIncrement = this.scalePriceIncrement;
+        }
 
         void InvokeIfRequired(Delegate method, params object[] args)
         {
@@ -1886,106 +2001,6 @@ namespace TWSLib
         void IDisposable.Dispose()
         {
             this.socket.Close();
-        }
-
-        public void verifyRequest(string apiName, string apiVersion)
-        {
-            socket.verifyRequest(apiName, apiVersion);
-        }
-
-        public void verifyMessage(string apiData)
-        {
-            socket.verifyMessage(apiData);
-        }
-
-        public void verifyAndAuthRequest(string apiName, string apiVersion, string opaqueIsvKey)
-        {
-            socket.verifyAndAuthRequest(apiName, apiVersion, opaqueIsvKey);
-        }
-
-        public void verifyAndAuthMessage(string apiData, string xyzResponse)
-        {
-            socket.verifyAndAuthMessage(apiData, xyzResponse);
-        }
-
-        public void queryDisplayGroups(int reqId)
-        {
-            socket.queryDisplayGroups(reqId);
-        }
-
-        public void subscribeToGroupEvents(int reqId, int groupId)
-        {
-            socket.subscribeToGroupEvents(reqId, groupId);
-        }
-
-        public void updateDisplayGroup(int reqId, string contractInfo)
-        {
-            socket.updateDisplayGroup(reqId, contractInfo);
-        }
-
-        public void unsubscribeFromGroupEvents(int reqId)
-        {
-            socket.unsubscribeFromGroupEvents(reqId);
-        }
-
-        public void setConnectOptions(string connectOptions)
-        {
-            socket.SetConnectOptions(connectOptions);
-        }
-
-        public void disableUseV100Plus()
-        {
-            socket.DisableUseV100Plus();
-        }
-
-        public void startApi()
-        {
-            socket.startApi();
-        }
-
-        public void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId)
-        {
-            socket.reqSecDefOptParams(reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId);
-        }
-
-        public void reqSoftDollarTiers(int reqId)
-        {
-            socket.reqSoftDollarTiers(reqId);
-        }
-
-        public void reqFamilyCodes()
-        {
-            socket.reqFamilyCodes();
-        }
-
-        public void reqMatchingSymbols(int reqId, string pattern)
-        {
-            socket.reqMatchingSymbols(reqId, pattern);
-        }
-
-        public void reqMktDepthExchanges()
-        {
-            socket.reqMktDepthExchanges();
-        }
-
-        public void reqSmartComponents(int reqId, string bboExchange)
-        {
-            socket.reqSmartComponents(reqId, bboExchange);
-        }
-
-        public void reqNewsProviders()
-        {
-            socket.reqNewsProviders();
-        }
-
-        public void reqNewsArticle(int requestId, string providerCode, string articleId)
-        {
-            socket.reqNewsArticle(requestId, providerCode, articleId);
-        }
-
-        public void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
-        {
-            socket.reqHistoricalNews(requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
         }
 
         public ArrayList ParseConditions(string str)

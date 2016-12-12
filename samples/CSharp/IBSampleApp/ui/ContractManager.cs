@@ -38,32 +38,20 @@ namespace IBSampleApp.ui
 
         }
 
-        public void UpdateUI(IBMessage message)
+        public void UpdateUI(ContractDetailsMessage message)
         {
-            switch (message.Type)
-            {
-                case MessageType.BondContractData:
-                    HandleBondContractMessage((BondContractDetailsMessage)message);
-                    break;
-                case MessageType.ContractData:
-                    if (isComboLegRequest)
-                        comboContractResults.UpdateUI((ContractDetailsMessage)message);
-                    else
-                        HandleContractMessage((ContractDetailsMessage)message);
-                    break;
-                case MessageType.ContractDataEnd:
-                    HandleContractDataEndMessage((ContractDetailsEndMessage)message);
-                    break;
-                case MessageType.FundamentalData:
-                    HandleFundamentalsData((FundamentalsMessage)message);
-                    break;
-            }
+
+            if (isComboLegRequest)
+                comboContractResults.UpdateUI(message);
+            else
+                HandleContractMessage(message);
         }
 
         public void HandleContractDataEndMessage(ContractDetailsEndMessage contractDetailsEndMessage)
         {
             if (IsComboLegRequest)
                 comboContractResults.Show();
+
             contractRequestActive = false;
             IsComboLegRequest = false;
         }

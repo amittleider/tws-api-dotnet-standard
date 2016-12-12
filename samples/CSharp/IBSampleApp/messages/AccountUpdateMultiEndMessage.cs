@@ -8,13 +8,12 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class AccountUpdateMultiEndMessage : IBMessage 
+    public class AccountUpdateMultiEndMessage 
     {
         private int reqId;
         
         public AccountUpdateMultiEndMessage(int reqId)
         {
-            Type = MessageType.AccountUpdateMultiEnd;
             ReqId = ReqId;
         }
 

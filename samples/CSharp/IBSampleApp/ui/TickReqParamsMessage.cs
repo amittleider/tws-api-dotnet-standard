@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IBSampleApp.ui
+namespace IBSampleApp.messages
 {
-    class TickReqParamsMessage : IBMessage
+    public class TickReqParamsMessage
     {
         public int TickerId { get; private set; }
         public double MinTick { get; private set; }
@@ -14,7 +14,6 @@ namespace IBSampleApp.ui
 
         public TickReqParamsMessage(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
-            type = MessageType.TickReqParams;
             TickerId = tickerId;
             MinTick = minTick;
             BboExchange = bboExchange;

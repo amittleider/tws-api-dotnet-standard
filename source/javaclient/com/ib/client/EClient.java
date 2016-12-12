@@ -180,6 +180,7 @@ public abstract class EClient {
     private static final int REQ_NEWS_ARTICLE = 84;
     private static final int REQ_NEWS_PROVIDERS = 85;
     private static final int REQ_HISTORICAL_NEWS = 86;
+  	private static final int REQ_HEAD_TIMESTAMP = 87;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -241,6 +242,7 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_NEWS_PROVIDERS = 115;
     protected static final int MIN_SERVER_VER_REQ_NEWS_ARTICLE = 116;
     protected static final int MIN_SERVER_VER_REQ_HISTORICAL_NEWS = 117;
+    protected static final int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP = 118;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = MIN_SERVER_VER_REQ_HISTORICAL_NEWS; // ditto
@@ -803,6 +805,54 @@ public abstract class EClient {
         }
     }
 
+    /** Note that formatData parameter affects intra-day bars only; 1-day bars always return with date in YYYYMMDD format. */
+    public synchronized void reqHeadTimestamp(int tickerId, Contract contract,
+                                                String whatToShow, int useRTH, int formatDate) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        try {
+          if (m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {
+              if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
+                  error(tickerId, EClientErrors.UPDATE_TWS,
+                      "  It does not support head time stamp requests.");
+                  return;
+              }
+          }
+
+          Builder b = prepareBuffer(); 
+
+          b.send(REQ_HEAD_TIMESTAMP);
+          b.send(tickerId);
+          b.send(contract.conid());
+          b.send(contract.symbol());
+          b.send(contract.getSecType());
+          b.send(contract.lastTradeDateOrContractMonth());
+          b.send(contract.strike());
+          b.send(contract.getRight());
+          b.send(contract.multiplier());
+          b.send(contract.exchange());
+          b.send(contract.primaryExch());
+          b.send(contract.currency());
+          b.send(contract.localSymbol());
+          b.send(contract.tradingClass());
+      	  b.send(contract.includeExpired() ? 1 : 0);
+          b.send(useRTH);
+          b.send(whatToShow);          
+          b.send(formatDate);
+          
+          closeAndSend(b);
+        }
+        catch (Exception e) {
+          error(tickerId, EClientErrors.FAIL_SEND_REQHISTDATA, e.toString());
+          close();
+        }
+    }
+    
+    
     public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, ArrayList<TagValue> realTimeBarsOptions) {
         // not connected?
         if( !isConnected()) {

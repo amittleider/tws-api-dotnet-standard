@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AccountValueMessage : IBMessage 
+    public class AccountValueMessage 
     {
         private string key;
         private string value;
@@ -16,7 +16,6 @@ namespace IBSampleApp.messages
 
         public AccountValueMessage(string key, string value, string currency, string accountName)
         {
-            Type = MessageType.AccountValue;
             Key = key;
             Value = value;
             Currency = currency;

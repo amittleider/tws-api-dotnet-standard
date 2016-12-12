@@ -83,6 +83,7 @@ class EDecoder implements ObjectInput {
     static final int NEWS_PROVIDERS = 85;
     static final int HISTORICAL_NEWS = 86;
     static final int HISTORICAL_NEWS_END = 87;
+    static final int HEAD_TIMESTAMP = 88;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -384,6 +385,10 @@ class EDecoder implements ObjectInput {
             case MKT_DEPTH_EXCHANGES:
                 processMktDepthExchangesMsg();
                 break;
+                
+            case HEAD_TIMESTAMP:
+            	processHeadTimestampMsg();
+            	break;
 
             case TICK_NEWS:
                 processTickNewsMsg();
@@ -466,6 +471,13 @@ class EDecoder implements ObjectInput {
 
         m_EWrapper.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
     }
+
+    private void processHeadTimestampMsg() throws IOException {
+		int reqId = readInt();
+		String headTimestamp = readStr();
+		
+		m_EWrapper.headTimestamp(reqId, headTimestamp);
+	}
 
     private void processMktDepthExchangesMsg() throws IOException {
         DepthMktDataDescription[] depthMktDataDescriptions = new DepthMktDataDescription[0];
@@ -1785,8 +1797,8 @@ class EDecoder implements ObjectInput {
     		char exchangeLetter = readChar();
     		
     		theMap.put(bitNumber, new SimpleEntry<>(exchange, exchangeLetter));
-    	}
-    	
+    }
+    
     	m_EWrapper.smartComponents(reqId, theMap);
     }
     

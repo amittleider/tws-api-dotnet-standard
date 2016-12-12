@@ -51,17 +51,14 @@ namespace IBSampleApp.ui
         {
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(HistoricalDataMessage message)
         {
-            switch (message.Type)
-            {
-                case MessageType.HistoricalData:
-                    historicalData.Add((HistoricalDataMessage)message);
-                    break;
-                case MessageType.HistoricalDataEnd:
-                    PaintChart();
-                    break;
-            }
+            historicalData.Add(message);
+        }
+
+        public void UpdateUI(HistoricalDataEndMessage message)
+        {
+            PaintChart();
         }
 
         private void PaintChart()
@@ -89,10 +86,10 @@ namespace IBSampleApp.ui
             }
         }
 
-        protected void PopulateGrid(IBMessage message)
-        {
-            HistoricalDataMessage bar = (HistoricalDataMessage)message;
+        protected void PopulateGrid(HistoricalDataMessage bar)
+        {            
             gridView.Rows.Add(1);
+
             gridView[0, gridView.Rows.Count -1].Value = bar.Date;
             gridView[1, gridView.Rows.Count - 1].Value = bar.Open;
             gridView[2, gridView.Rows.Count - 1].Value = bar.High;

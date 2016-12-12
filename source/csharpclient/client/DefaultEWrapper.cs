@@ -281,5 +281,9 @@ namespace IBApi
         public virtual void historicalNewsEnd(int requestId, bool hasMore)
         {
         }
+
+        public void headTimestamp(int reqId, string headTimestamp)
+        {
+        }
     }
 }

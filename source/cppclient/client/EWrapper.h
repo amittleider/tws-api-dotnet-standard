@@ -195,6 +195,7 @@ public:
    virtual void newsArticle(int requestId, int articleType, const std::string& articleText) = 0;
    virtual void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) = 0;
    virtual void historicalNewsEnd(int requestId, bool hasMore) = 0;
+   virtual void headTimestamp(int reqId, const std::string& headTimestamp) = 0;
 };
 
 

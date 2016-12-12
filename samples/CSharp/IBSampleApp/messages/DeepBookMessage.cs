@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class DeepBookMessage : IBMessage
+    public class DeepBookMessage
     {
         private int requestId;
         private int position;
@@ -19,7 +19,6 @@ namespace IBSampleApp.messages
 
         public DeepBookMessage(int tickerId, int position, int operation, int side, double price, int size, string marketMaker)
         {
-            Type = MessageType.MarketDepth;
             RequestId = tickerId;
             Position = position;
             Operation = operation;

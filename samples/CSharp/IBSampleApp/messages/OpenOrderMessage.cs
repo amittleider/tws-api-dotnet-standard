@@ -16,7 +16,6 @@ namespace IBSampleApp.messages
 
         public OpenOrderMessage(int orderId, Contract contract, Order order, OrderState orderState)
         {
-            Type = MessageType.OpenOrder;
             OrderId = orderId;
             Contract = contract;
             Order = order;

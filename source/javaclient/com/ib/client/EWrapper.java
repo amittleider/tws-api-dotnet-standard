@@ -89,5 +89,6 @@ public interface EWrapper {
     void newsArticle(int requestId, int articleType, String articleText);
     void historicalNews(int requestId, String time, String providerCode, String articleId, String headline);
     void historicalNewsEnd(int requestId, boolean hasMore);
+	void headTimestamp(int reqId, String headTimestamp);
 }
 

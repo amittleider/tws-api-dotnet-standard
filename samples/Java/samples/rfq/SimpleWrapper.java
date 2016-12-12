@@ -471,4 +471,10 @@ public class SimpleWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void headTimestamp(int reqId, String headTimestamp) {
+		// TODO Auto-generated method stub
+		
+	}
 }

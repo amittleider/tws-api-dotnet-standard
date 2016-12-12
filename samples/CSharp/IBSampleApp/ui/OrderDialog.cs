@@ -99,30 +99,12 @@ namespace IBSampleApp
             orderManager.PlaceOrder(contract, order);
         }
 
-        public void HandleIncomingMessage(IBMessage message)
-        {
-            ProcessMessage(message);
-        }
-
-        private void ProcessMessage(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.OpenOrder:
-                    HandleOpenOrder((OpenOrderMessage)message);
-                    break;
-                case MessageType.SoftDollarTiers:
-                    HandleSoftDollarTiers((SoftDollarTiersMessage)message);
-                    break;
-            }
-        }
-
-        private void HandleSoftDollarTiers(SoftDollarTiersMessage softDollarTiersMessage)
+        public void HandleSoftDollarTiers(SoftDollarTiersMessage softDollarTiersMessage)
         {
             softDollarTier.Items.AddRange(softDollarTiersMessage.Tiers);
         }
 
-        private void HandleOpenOrder(OpenOrderMessage openOrderMessage)
+        public void HandleOpenOrder(OpenOrderMessage openOrderMessage)
         {
             if (openOrderMessage.Order.WhatIf)
                 this.marginDialog.UpdateMarginInformation(openOrderMessage.OrderState);

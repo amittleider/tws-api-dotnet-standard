@@ -8,13 +8,12 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class CommissionMessage : IBMessage
+    public class CommissionMessage
     {
         private CommissionReport commissionReport;
 
         public CommissionMessage(CommissionReport commissionReport)
         {
-            Type = MessageType.CommissionsReport;
             CommissionReport = commissionReport;
         }
 

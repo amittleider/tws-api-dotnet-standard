@@ -7,13 +7,12 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AccountDownloadEndMessage : IBMessage
+    public class AccountDownloadEndMessage
     {
         private string account;
         
         public AccountDownloadEndMessage(string account)
         {
-            Type = MessageType.AccountDownloadEnd;
             Account = account;
         }
 

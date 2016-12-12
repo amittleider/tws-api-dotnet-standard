@@ -8,14 +8,13 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    class SymbolSamplesMessage : IBMessage
+    public class SymbolSamplesMessage
     {
         public int ReqId { get; private set; }
         public ContractDescription[] ContractDescriptions { get; private set; }
 
         public SymbolSamplesMessage(int reqId, ContractDescription[] contractDescriptions)
         {
-            this.type = MessageType.SymbolSamples;
             this.ReqId = reqId;
             this.ContractDescriptions = contractDescriptions;
         }

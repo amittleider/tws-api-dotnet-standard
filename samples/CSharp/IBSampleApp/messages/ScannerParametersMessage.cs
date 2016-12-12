@@ -7,13 +7,12 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerParametersMessage : IBMessage
+    public class ScannerParametersMessage
     {
         private string xmlData;
         
         public ScannerParametersMessage(string data)
         {
-            Type = MessageType.ScannerParameters;
             XmlData = data;
         }
 

@@ -78,6 +78,8 @@ enum State {
 	ST_REQNEWSARTICLE_ACK,
 	ST_REQHISTORICALNEWS,
 	ST_REQHISTORICALNEWS_ACK,
+	ST_REQHEADTIMESTAMP,
+	ST_REQHEADTIMESTAMP_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -132,6 +134,7 @@ private:
 	void reqNewsProviders();
 	void reqNewsArticle();
 	void reqHistoricalNews();
+	void reqHeadTimestamp();
 
 	void reqCurrentTime();
 
@@ -217,6 +220,7 @@ public:
 	void newsArticle(int requestId, int articleType, const std::string& articleText);
 	void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
 	void historicalNewsEnd(int requestId, bool hasMore);
+	void headTimestamp(int reqId, const std::string& headTimestamp);
 
 private:
 	//! [socket_declare]

@@ -5,15 +5,15 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class SoftDollarTiersMessage
+    public class HeadTimestampMessage
     {
         public int ReqId { get; private set; }
-        public IBApi.SoftDollarTier[] Tiers { get; private set; }
+        public string HeadTimestamp { get; private set; }
 
-        public SoftDollarTiersMessage(int reqId, IBApi.SoftDollarTier[] tiers)
+        public HeadTimestampMessage(int reqId, string headTimestamp)
         {
             this.ReqId = reqId;
-            this.Tiers = tiers;
+            this.HeadTimestamp = headTimestamp;
         }
     }
 }

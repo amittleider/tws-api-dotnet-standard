@@ -774,5 +774,7 @@ namespace IBApi
         * @sa EClient::reqHistoricalNews
         */
         void historicalNewsEnd(int requestId, bool hasMore);
+
+        void headTimestamp(int reqId, string headTimestamp);
     }
 }

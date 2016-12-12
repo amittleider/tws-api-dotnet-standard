@@ -45,41 +45,12 @@ namespace IBSampleApp.ui
             FamilyCodesGrid = familyCodesGrid;
         }
 
-        public void UpdateUI(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.AccountSummary:
-                    HandleAccountSummary((AccountSummaryMessage)message);
-                    break;
-                case MessageType.AccountSummaryEnd:
-                    HandleAccountSummaryEnd();
-                    break;
-                case MessageType.AccountValue:
-                    HandleAccountValue((AccountValueMessage)message);
-                    break;
-                case MessageType.PortfolioValue:
-                    HandlePortfolioValue((UpdatePortfolioMessage)message);
-                    break;
-                case MessageType.AccountDownloadEnd:
-                    break;
-                case MessageType.Position:
-                    HandlePosition((PositionMessage)message);
-                    break;
-                case MessageType.FamilyCodes:
-                    HandleFamilyCodes((FamilyCodesMessage)message);
-                    break;
-                case MessageType.PositionEnd:
-                    break;
-            }
-        }
-
-        private void HandleAccountSummaryEnd()
+        public void HandleAccountSummaryEnd()
         {
             accountSummaryRequestActive = false;
         }
 
-        private void  HandleAccountSummary(AccountSummaryMessage summaryMessage)
+        public void HandleAccountSummary(AccountSummaryMessage summaryMessage)
         {
             for (int i = 0; i < accountSummaryGrid.Rows.Count; i++)
             {
@@ -97,7 +68,7 @@ namespace IBSampleApp.ui
             accountSummaryGrid[3, accountSummaryGrid.Rows.Count - 1].Value = summaryMessage.Account;
         }
 
-        private void HandleAccountValue(AccountValueMessage accountValueMessage)
+        public void HandleAccountValue(AccountValueMessage accountValueMessage)
         {
             for (int i = 0; i < accountValueGrid.Rows.Count; i++)
             {
@@ -114,7 +85,7 @@ namespace IBSampleApp.ui
             accountValueGrid[2, accountValueGrid.Rows.Count - 1].Value = accountValueMessage.Currency;
         }
 
-        private void HandlePortfolioValue(UpdatePortfolioMessage updatePortfolioMessage)
+        public void HandlePortfolioValue(UpdatePortfolioMessage updatePortfolioMessage)
         {
             
             for (int i = 0; i < accountPortfolioGrid.Rows.Count; i++)

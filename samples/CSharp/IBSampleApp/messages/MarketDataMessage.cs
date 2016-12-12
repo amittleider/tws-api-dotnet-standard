@@ -7,14 +7,13 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public abstract class MarketDataMessage : IBMessage
+    public abstract class MarketDataMessage
     {
         protected int requestId;
         protected int field;
 
-        public MarketDataMessage(MessageType type, int requestId, int field)
+        public MarketDataMessage(int requestId, int field)
         {
-            Type = type;
             RequestId = requestId;
             Field = field;
         }

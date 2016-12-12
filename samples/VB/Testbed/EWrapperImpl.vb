@@ -494,6 +494,12 @@ Namespace Samples
         End Sub
         '! [historicalNewsEnd]
 
+        '! [historicalNewsEnd]
+        Public Sub headTimestamp(requestId As Integer, timeStamp As String) Implements IBApi.EWrapper.headTimestamp
+            Console.WriteLine("Head time stamp. Request Id: {0}, Head time stamp: {1}", requestId, timeStamp)
+        End Sub
+        '! [historicalNewsEnd]
+
     End Class
 
 End Namespace

@@ -353,6 +353,8 @@ namespace TWSLib
         void reqNewsArticle(int requestId, string providerCode, string articleId);
         [DispId(221)]
         void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults);
+        [DispId(222)]
+        void reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate);
 
         #endregion
     }

@@ -393,6 +393,11 @@ namespace IBApi
                         HistoricalNewsEndEvent();
                         break;
                     }
+                case IncomingMessage.HeadTimestamp:
+                    {
+                        HeadTimestampEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -401,6 +406,14 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void HeadTimestampEvent()
+        {
+            int reqId = ReadInt();
+            string headTimestamp = ReadString();
+
+            eWrapper.headTimestamp(reqId, headTimestamp);
         }
 
         private void HistoricalNewsEvent()

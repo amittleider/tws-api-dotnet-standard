@@ -15,7 +15,7 @@ Friend Class ApiEventSource
     End Sub
 
     Friend WriteOnly Property ApiClient As EClient
-        Set
+        Set(value As EClient)
             m_Api = Value
         End Set
     End Property
@@ -31,6 +31,16 @@ Friend Class ApiEventSource
     End Sub
 
 #Region "IBApi.EWrapper"
+
+    Private Sub EWrapper_headTimestamp(requestId As Integer, timeStamp As String) Implements IBApi.EWrapper.headTimestamp
+        InvokeIfRequired(Sub()
+                             RaiseEvent HeadTimestamp(Me, New HeadTimestampEventArgs With {
+                                 .requestId = requestId,
+                                 .timeStamp = timeStamp
+                                         })
+                         End Sub)
+
+    End Sub
 
     Private Sub EWrapper_AccountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
         InvokeIfRequired(Sub()
@@ -684,6 +694,7 @@ Friend Class ApiEventSource
 
 #Region "Event declarations"
 
+    Event HeadTimestamp(sender As ApiEventSource, e As HeadTimestampEventArgs)
     Event NextValidId(sender As Object, e As NextValidIdEventArgs)
     Event ErrMsg(sender As Object, e As ErrMsgEventArgs)
     Event ConnectionClosed(sender As Object, e As System.EventArgs)

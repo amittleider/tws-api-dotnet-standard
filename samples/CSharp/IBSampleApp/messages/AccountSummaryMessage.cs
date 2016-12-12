@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AccountSummaryMessage : IBMessage
+    public class AccountSummaryMessage
     {
         private int requestId;
         private string account;
@@ -47,7 +47,6 @@ namespace IBSampleApp.messages
 
         public AccountSummaryMessage(int requestId, string account, string tag, string value, string currency)
         {
-            Type = MessageType.AccountSummary;
             RequestId = requestId;
             Account = account;
             Tag = tag;

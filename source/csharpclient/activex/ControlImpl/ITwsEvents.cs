@@ -171,5 +171,7 @@ namespace TWSLib
         void historicalNews(int requestId, string time, string providerCode, string articleId, string headline);
         [DispId(135)]
         void historicalNewsEnd(int requestId, bool hasMore);
+        [DispId(136)]
+        void headTimestamp(int reqId, string timestamp);
     }
 }

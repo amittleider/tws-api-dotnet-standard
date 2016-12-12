@@ -723,7 +723,7 @@ public class EWrapperMsgGenerator {
 		
 		return sb.toString();
 	}
-	
+
 	static public String newsArticle(int requestId, int articleType, String articleText) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("==== News Article Begin requestId: ").append(requestId).append(" ====\n");
@@ -737,7 +737,7 @@ public class EWrapperMsgGenerator {
 		sb.append("==== News Article End requestId: ").append(requestId).append(" ====\n");
 		return sb.toString();
 	}
-
+	
 	static public String historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
 		String msg = "Historical News. RequestId: " + requestId + ", time: " + time + ", providerCode: " + providerCode + 
 				", articleId: " + articleId + ", headline: " + headline;
@@ -746,5 +746,9 @@ public class EWrapperMsgGenerator {
 
 	static public String historicalNewsEnd( int requestId, boolean hasMore) {
 		return "Historical News End. RequestId: " + requestId + ", hasMore: " + hasMore;
+	}
+
+	public static String headTimestamp(int reqId, String headTimestamp) {		
+		return "Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp;
 	}
 }

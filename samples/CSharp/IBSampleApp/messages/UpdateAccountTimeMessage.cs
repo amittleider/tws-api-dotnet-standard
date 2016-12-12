@@ -7,13 +7,12 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class UpdateAccountTimeMessage : IBMessage
+    public class UpdateAccountTimeMessage
     {
         private string timestamp;
         
         public UpdateAccountTimeMessage(string timestamp)
         {
-            Type = MessageType.AccountUpdateTime;
             Timestamp = timestamp;
         }
 

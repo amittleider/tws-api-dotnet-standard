@@ -170,6 +170,7 @@ const int REQ_SMART_COMPONENTS			= 83;
 const int REQ_NEWS_ARTICLE				= 84;
 const int REQ_NEWS_PROVIDERS			= 85;
 const int REQ_HISTORICAL_NEWS			= 86;
+const int REQ_HEAD_TIMESTAMP			= 87;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -313,6 +314,7 @@ public:
 	void reqNewsProviders();
 	void reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId);
 	void reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults);
+	void reqHeadTimestamp(int tickerId, Contract contract, const std::string& whatToShow, int useRTH, int formatDate);
 
 private:
 

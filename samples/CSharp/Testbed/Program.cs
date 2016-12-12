@@ -137,9 +137,19 @@ namespace Samples
             /***********************/
             //smartComponents(client);
 
+            /***********************/
+            /*** Head time stamp ***/
+            /***********************/
+            headTimestamp(client);
+
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void headTimestamp(EClientSocket client)
+        {
+            client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1);
         }
 
         private static void smartComponents(EClientSocket client)

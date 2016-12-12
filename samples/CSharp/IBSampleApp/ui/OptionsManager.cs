@@ -66,63 +66,60 @@ namespace IBSampleApp.ui
             this.optionParamsListView = optionParamsListView;
         }
 
-        public void UpdateUI(IBMessage message)
+        public void UpdateUI(ContractDetailsMessage message)
         {
-            if (message is ContractDetailsMessage)
-            {
-                Contract contract = ((ContractDetailsMessage)message).ContractDetails.Summary;
+            Contract contract = message.ContractDetails.Summary;
 
-                if (contract.Right != null)
-                {
-                    if (contract.Right.Equals("C"))
-                    {
-                        int mktDataRequest = currentMktDataCallRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
-                        UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
-                    }
-                    else
-                    {
-                        int mktDataRequest = currentMktDataPutRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
-                        UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
-                    }
-                }
-            }
-            else if (message is MarketDataMessage)
+            if (contract.Right != null)
             {
-                MarketDataMessage mktDataMsg = (MarketDataMessage)message;
-                if (mktDataMsg.RequestId < OPTIONS_DATA_PUT_BASE)
+                if (contract.Right.Equals("C"))
                 {
-                    UpdateOptionGridTick(callGrid, (mktDataMsg.RequestId - OPTIONS_DATA_CALL_BASE), mktDataMsg);
+                    int mktDataRequest = currentMktDataCallRequest++;
+                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
+                    UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
                 }
                 else
                 {
-                    UpdateOptionGridTick(putGrid, (mktDataMsg.RequestId - OPTIONS_DATA_PUT_BASE), mktDataMsg);
-                }
-            }
-            else if (message is SecurityDefinitionOptionParameterMessage)
-            {
-                SecurityDefinitionOptionParameterMessage secDefOptParamMsg = (SecurityDefinitionOptionParameterMessage)message;
-
-                var key = new SecDefOptParamKey(secDefOptParamMsg.Exchange, secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
-
-                if (!secDefOptParamGroups.ContainsKey(key))
-                {
-                    optionParamsListView.Groups.Add(secDefOptParamGroups[key] = new ListViewGroup(key + ""));                    
-                }
-
-                var strikes = secDefOptParamMsg.Strikes.ToArray();
-                var expriations = secDefOptParamMsg.Expirations.ToArray();
-                var n = Math.Max(strikes.Length, expriations.Length);
-
-                for (int i = 0; i < n; i++)
-                {
-                    var item = new ListViewItem(new[] { i < expriations.Length ? expriations[i] : "", i < strikes.Length ? strikes[i] + "" : "" }) { Group = secDefOptParamGroups[key] };
-
-                    optionParamsListView.Items.Add(item);
+                    int mktDataRequest = currentMktDataPutRequest++;
+                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
+                    UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
                 }
             }
         }
+
+        public void UpdateUI(MarketDataMessage mktDataMsg)
+        {
+            if (mktDataMsg.RequestId < OPTIONS_DATA_PUT_BASE)
+            {
+                UpdateOptionGridTick(callGrid, (mktDataMsg.RequestId - OPTIONS_DATA_CALL_BASE), mktDataMsg);
+            }
+            else
+            {
+                UpdateOptionGridTick(putGrid, (mktDataMsg.RequestId - OPTIONS_DATA_PUT_BASE), mktDataMsg);
+            }
+        }        
+
+        public void UpdateUI(SecurityDefinitionOptionParameterMessage secDefOptParamMsg)
+        {
+            var key = new SecDefOptParamKey(secDefOptParamMsg.Exchange, secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
+
+            if (!secDefOptParamGroups.ContainsKey(key))
+            {
+                optionParamsListView.Groups.Add(secDefOptParamGroups[key] = new ListViewGroup(key + ""));
+            }
+
+            var strikes = secDefOptParamMsg.Strikes.ToArray();
+            var expriations = secDefOptParamMsg.Expirations.ToArray();
+            var n = Math.Max(strikes.Length, expriations.Length);
+
+            for (int i = 0; i < n; i++)
+            {
+                var item = new ListViewItem(new[] { i < expriations.Length ? expriations[i] : "", i < strikes.Length ? strikes[i] + "" : "" }) { Group = secDefOptParamGroups[key] };
+
+                optionParamsListView.Items.Add(item);
+            }
+        }
+        
 
         Dictionary<SecDefOptParamKey, ListViewGroup> secDefOptParamGroups = new Dictionary<SecDefOptParamKey, ListViewGroup>();
 

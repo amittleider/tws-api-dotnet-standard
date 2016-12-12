@@ -167,13 +167,13 @@ bool EClient::usingV100Plus() {
 }
 
 int EClient::bufferedSend(const std::string& msg) {
-    EMessage emsg(std::vector<char>(msg.begin(), msg.end()));
+	EMessage emsg(std::vector<char>(msg.begin(), msg.end()));
 
-    return m_transport->send(&emsg);
+	return m_transport->send(&emsg);
 }
 
 void EClient::reqMktData(TickerId tickerId, const Contract& contract,
-								   const std::string& genericTicks, bool snapshot, bool regulatorySnaphsot, const TagValueListSPtr& mktDataOptions)
+						 const std::string& genericTicks, bool snapshot, bool regulatorySnaphsot, const TagValueListSPtr& mktDataOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -422,9 +422,9 @@ void EClient::cancelMktDepth( TickerId tickerId)
 }
 
 void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
-										  const std::string& endDateTime, const std::string& durationStr,
-										  const std::string&  barSizeSetting, const std::string& whatToShow,
-										  int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
+								const std::string& endDateTime, const std::string& durationStr,
+								const std::string&  barSizeSetting, const std::string& whatToShow,
+								int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -547,8 +547,8 @@ void EClient::cancelHistoricalData(TickerId tickerId)
 }
 
 void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
-										int barSize, const std::string& whatToShow, bool useRTH,
-										const TagValueListSPtr& realTimeBarsOptions)
+							  int barSize, const std::string& whatToShow, bool useRTH,
+							  const TagValueListSPtr& realTimeBarsOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -677,7 +677,7 @@ void EClient::reqScannerParameters()
 
 
 void EClient::reqScannerSubscription(int tickerId,
-											   const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
+									 const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -769,7 +769,7 @@ void EClient::cancelScannerSubscription(int tickerId)
 }
 
 void EClient::reqFundamentalData(TickerId reqId, const Contract& contract, 
-										   const std::string& reportType)
+								 const std::string& reportType)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -1420,7 +1420,7 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
 		ENCODE_FIELD(order.totalQuantity)
 	else
-		ENCODE_FIELD((long)order.totalQuantity)
+	ENCODE_FIELD((long)order.totalQuantity)
 
 	ENCODE_FIELD( order.orderType);
 	if( m_serverVersion < MIN_SERVER_VER_ORDER_COMBO_LEGS_PRICE) {
@@ -1731,10 +1731,10 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		ENCODE_FIELD(order.solicited);
 	}
 
-    if (m_serverVersion >= MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE) {
-        ENCODE_FIELD(order.randomizeSize);
-        ENCODE_FIELD(order.randomizePrice);
-    }
+	if (m_serverVersion >= MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE) {
+		ENCODE_FIELD(order.randomizeSize);
+		ENCODE_FIELD(order.randomizePrice);
+	}
 
 	if (m_serverVersion >= MIN_SERVER_VER_PEGGED_TO_BENCHMARK) {
 		if (order.orderType == "PEG BENCH") {
@@ -2083,8 +2083,8 @@ void EClient::replaceFA(faDataType pFaDataType, const std::string& cxml)
 
 
 void EClient::exerciseOptions( TickerId tickerId, const Contract& contract,
-										int exerciseAction, int exerciseQuantity,
-										const std::string& account, int override)
+							  int exerciseAction, int exerciseQuantity,
+							  const std::string& account, int override)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -2509,35 +2509,35 @@ void EClient::updateDisplayGroup( int reqId, const std::string& contractInfo)
 
 void EClient::startApi()
 {
-    // not connected?
-    if( !isConnected()) {
-        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
-        return;
-    }
+	// not connected?
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
 
-    if( m_serverVersion >= 3) {
-        if( m_serverVersion < MIN_SERVER_VER_LINKING) {
-            std::stringstream msg;
-            ENCODE_FIELD( m_clientId);
-            bufferedSend( msg.str());
-        }
-        else
-        {
-            std::stringstream msg;
-            prepareBuffer( msg);
+	if( m_serverVersion >= 3) {
+		if( m_serverVersion < MIN_SERVER_VER_LINKING) {
+			std::stringstream msg;
+			ENCODE_FIELD( m_clientId);
+			bufferedSend( msg.str());
+		}
+		else
+		{
+			std::stringstream msg;
+			prepareBuffer( msg);
 
-            const int VERSION = 2;
+			const int VERSION = 2;
 
-            ENCODE_FIELD( START_API);
-            ENCODE_FIELD( VERSION);
-            ENCODE_FIELD( m_clientId);
+			ENCODE_FIELD( START_API);
+			ENCODE_FIELD( VERSION);
+			ENCODE_FIELD( m_clientId);
 
-            if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
-                ENCODE_FIELD(m_optionalCapabilities);
+			if (m_serverVersion >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES)
+				ENCODE_FIELD(m_optionalCapabilities);
 
-            closeAndSend( msg.str());
-        }
-    }
+			closeAndSend( msg.str());
+		}
+	}
 }
 
 void EClient::unsubscribeFromGroupEvents( int reqId)
@@ -2677,7 +2677,7 @@ void EClient::cancelAccountUpdatesMulti( int reqId)
 
 void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId)
 {
-		// not connected?
+	// not connected?
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
@@ -2694,11 +2694,11 @@ void EClient::reqSecDefOptParams(int reqId, const std::string& underlyingSymbol,
 
 
 	ENCODE_FIELD(REQ_SEC_DEF_OPT_PARAMS);
-    ENCODE_FIELD(reqId);
-    ENCODE_FIELD(underlyingSymbol); 
-    ENCODE_FIELD(futFopExchange);
-    ENCODE_FIELD(underlyingSecType);
-    ENCODE_FIELD(underlyingConId);
+	ENCODE_FIELD(reqId);
+	ENCODE_FIELD(underlyingSymbol); 
+	ENCODE_FIELD(futFopExchange);
+	ENCODE_FIELD(underlyingSecType);
+	ENCODE_FIELD(underlyingConId);
 
 	closeAndSend(msg.str());
 }
@@ -2715,7 +2715,7 @@ void EClient::reqSoftDollarTiers(int reqId)
 
 
 	ENCODE_FIELD(REQ_SOFT_DOLLAR_TIERS);
-    ENCODE_FIELD(reqId);
+	ENCODE_FIELD(reqId);
 
 	closeAndSend(msg.str());
 }
@@ -2881,6 +2881,44 @@ void EClient::reqHistoricalNews(int requestId, int conId, const std::string& pro
 	closeAndSend(msg.str());
 }
 
+void EClient::reqHeadTimestamp(int tickerId, Contract contract, const std::string& whatToShow, int useRTH, int formatDate)
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support head timestamp requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_HEAD_TIMESTAMP);
+	ENCODE_FIELD(tickerId);
+	ENCODE_FIELD(contract.conId);
+	ENCODE_FIELD(contract.symbol);
+	ENCODE_FIELD(contract.secType);
+	ENCODE_FIELD(contract.lastTradeDateOrContractMonth);
+	ENCODE_FIELD(contract.strike);
+	ENCODE_FIELD(contract.right);
+	ENCODE_FIELD(contract.multiplier);
+	ENCODE_FIELD(contract.exchange);
+	ENCODE_FIELD(contract.primaryExchange);
+	ENCODE_FIELD(contract.currency);
+	ENCODE_FIELD(contract.localSymbol);
+	ENCODE_FIELD(contract.tradingClass);
+	ENCODE_FIELD(contract.includeExpired);
+	ENCODE_FIELD(useRTH);
+	ENCODE_FIELD(whatToShow);          
+	ENCODE_FIELD(formatDate);
+
+	closeAndSend(msg.str());
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);
@@ -2938,7 +2976,7 @@ int EClient::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, me
 }
 
 bool EClient::extraAuth() {
-    return m_extraAuth;
+	return m_extraAuth;
 }
 
 int EClient::processMsg(const char*& beginPtr, const char* endPtr)
@@ -2981,7 +3019,7 @@ int EClient::sendConnectRequest()
 {
 	m_connState = CS_CONNECTING;
 
-    int rval;
+	int rval;
 
 	// send client version
 	std::stringstream msg;
@@ -3000,15 +3038,15 @@ int EClient::sendConnectRequest()
 
 		rval = closeAndSend( msg.str(), sizeof(API_SIGN));
 	}
-    else {
-        ENCODE_FIELD( CLIENT_VERSION);
+	else {
+		ENCODE_FIELD( CLIENT_VERSION);
 
-        rval = bufferedSend( msg.str());
-    }
-    
-    m_connState = rval > 0 ? CS_CONNECTED : CS_DISCONNECTED;
+		rval = bufferedSend( msg.str());
+	}
 
-    return rval;
+	m_connState = rval > 0 ? CS_CONNECTED : CS_DISCONNECTED;
+
+	return rval;
 }
 
 bool EClient::isInBufferEmpty() const

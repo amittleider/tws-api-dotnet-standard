@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public abstract class OrderMessage : IBMessage
+    public abstract class OrderMessage
     {
         protected int orderId;
 

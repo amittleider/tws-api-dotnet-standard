@@ -14,7 +14,7 @@ namespace IBSampleApp.messages
         private TickAttrib attribs;
 
         public TickPriceMessage(int requestId, int field, double price, TickAttrib attribs)
-            : base(MessageType.TickPrice, requestId, field)
+            : base(requestId, field)
         {
             this.price = price;
             this.attribs = attribs;

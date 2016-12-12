@@ -47,6 +47,8 @@ public class Testbed {
                 //! [ereader]
                 Thread.sleep(1000);
                 
+                wrapper.getClient().reqHeadTimestamp(4002, ContractSamples.USStock(), "TRADES", 1, 1);
+
                 //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
                 //contractOperations(wrapper.getClient());
                 //hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -62,7 +64,6 @@ public class Testbed {
                 Thread.sleep(100000);
                 m_client.eDisconnect();
         }
-        
 	private static void orderOperations(EClientSocket client, int nextOrderId) throws InterruptedException {
 		
 		/*** Requesting the next valid id ***/

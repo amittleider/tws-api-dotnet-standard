@@ -88,5 +88,6 @@ public:
    virtual void newsArticle(int requestId, int articleType, const std::string& articleText);
    virtual void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
    virtual void historicalNewsEnd(int requestId, bool hasMore);
+   virtual void headTimestamp(int reqId, const std::string& headTimestamp);
 };
 
