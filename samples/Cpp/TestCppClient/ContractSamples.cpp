@@ -44,6 +44,17 @@ Contract ContractSamples::IBKRStk(){
 	return contract;
 }
 
+Contract ContractSamples::HKStk(){
+	//! [1@SEHK contract]
+	Contract contract;
+	contract.symbol = "1";
+	contract.secType = "STK";
+	contract.currency = "HKD";
+	contract.exchange = "SEHK";
+	//! [1@SEHK contract]
+	return contract;
+}
+
 Contract ContractSamples::EurGbpFx(){
 	//! [cashcontract]
 	Contract contract;

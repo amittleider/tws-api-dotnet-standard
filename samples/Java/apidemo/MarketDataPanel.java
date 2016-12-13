@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import javax.swing.table.TableCellRenderer;
 import com.ib.client.Contract;
 import com.ib.client.ContractDescription;
 import com.ib.client.ContractDetails;
+import com.ib.client.MarketDataType;
 import com.ib.client.ScannerSubscription;
 import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DeepSide;
@@ -203,21 +206,46 @@ public class MarketDataPanel extends JPanel {
 	
 	private class TopRequestPanel extends JPanel {
 		final ContractPanel m_contractPanel = new ContractPanel(m_contract);
-		
+		protected TCombo<String> m_marketDataType = new TCombo<String>( MarketDataType.getFields() );
+
 		TopRequestPanel() {
+			m_marketDataType.setSelectedItem( MarketDataType.REALTIME);
+
 			HtmlButton reqTop = new HtmlButton( "Request Top Market Data") {
 				@Override protected void actionPerformed() {
 					onTop();
 				}
 			};
-			
+
+			HtmlButton cancelTop = new HtmlButton( "Cancel Top Market Data") {
+				@Override protected void actionPerformed() {
+					onCancelTop();
+				}
+			};
+
+			m_marketDataType.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent event) {
+					ApiDemo.INSTANCE.controller().reqMktDataType( MarketDataType.getField(m_marketDataType.getSelectedItem()));
+				}
+			});
+
+			VerticalPanel paramPanel = new VerticalPanel();
+			paramPanel.add( "Market data type", m_marketDataType);
+
 			VerticalPanel butPanel = new VerticalPanel();
+			butPanel.add( Box.createVerticalStrut( 40));
 			butPanel.add( reqTop);
-			
+			butPanel.add( cancelTop);
+
+			JPanel rightPanel = new StackPanel();
+			rightPanel.add( paramPanel);
+			rightPanel.add( Box.createVerticalStrut( 20));
+			rightPanel.add( butPanel);
+
 			setLayout( new BoxLayout( this, BoxLayout.X_AXIS) );
 			add( m_contractPanel);
 			add( Box.createHorizontalStrut(20));
-			add( butPanel);
+			add( rightPanel);
 		}
 
 		protected void onTop() {
@@ -229,30 +257,21 @@ public class MarketDataPanel extends JPanel {
 			
 			m_topResultPanel.m_model.addRow( m_contract);
 		}
+
+		protected void onCancelTop() {
+			m_topResultPanel.m_model.removeSelectedRows();
+		}
 	}
 	
 	private class TopResultsPanel extends NewTabPanel {
 		final TopModel m_model = new TopModel();
 		final JTable m_tab = new TopTable( m_model);
-		final TCombo<MktDataType> m_typeCombo = new TCombo<MktDataType>( MktDataType.values() );
 
 		TopResultsPanel() {
-			m_typeCombo.removeItemAt( 0);
-
 			JScrollPane scroll = new JScrollPane( m_tab);
-
-			HtmlButton reqType = new HtmlButton( "Go") {
-				@Override protected void actionPerformed() {
-					onReqType();
-				}
-			};
-
-			VerticalPanel butPanel = new VerticalPanel();
-			butPanel.add( "Market data type", m_typeCombo, reqType);
 			
 			setLayout( new BorderLayout() );
 			add( scroll);
-			add( butPanel, BorderLayout.SOUTH);
 		}
 		
 		/** Called when the tab is first visited. */
@@ -265,18 +284,8 @@ public class MarketDataPanel extends JPanel {
 			m_topResultPanel = null;
 		}
 
-		void onReqType() {
-			ApiDemo.INSTANCE.controller().reqMktDataType( m_typeCombo.getSelectedItem() );
-		}
-		
 		class TopTable extends JTable {
 			public TopTable(TopModel model) { super( model); }
-
-			@Override public TableCellRenderer getCellRenderer(int rowIn, int column) {
-				TableCellRenderer rend = super.getCellRenderer(rowIn, column);
-				m_model.color( rend, rowIn, getForeground() );
-				return rend;
-			}
 		}
 	}		
 	

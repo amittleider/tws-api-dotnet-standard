@@ -31,6 +31,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
+import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -981,6 +982,26 @@ class SampleFrame extends JFrame implements EWrapper {
 
         // req mkt data type
         m_client.reqMarketDataType( m_orderDlg.m_marketDataType);
+
+        if(m_client.isConnected()) {
+            switch( m_orderDlg.m_marketDataType){
+                case MarketDataType.REALTIME:
+                    m_TWS.add( "Frozen, Delayed and Delayed-Frozen market data types are disabled");
+                    break;
+                case MarketDataType.FROZEN:
+                    m_TWS.add( "Frozen market data type is enabled");
+                    break;
+                case MarketDataType.DELAYED:
+                    m_TWS.add( "Delayed market data type is enabled, Delayed-Frozen market data type is disabled");
+                    break;
+                case MarketDataType.DELAYED_FROZEN:
+                    m_TWS.add( "Delayed and Delayed-Frozen market data types are enabled");
+                    break;
+                default:
+                    m_errors.add( "Unknown market data type");
+                    break;
+            }
+        }
     }
 
     void onRequestPositions() {

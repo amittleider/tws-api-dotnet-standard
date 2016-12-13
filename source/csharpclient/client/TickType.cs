@@ -93,6 +93,10 @@ namespace IBApi
         public const int RT_TRD_VOLUME = 77;
         public const int CREDITMAN_MARK_PRICE = 78;
         public const int CREDITMAN_SLOW_MARK_PRICE = 79;
+        public const int DELAYED_BID_OPTION = 80;
+        public const int DELAYED_ASK_OPTION = 81;
+        public const int DELAYED_LAST_OPTION = 82;
+        public const int DELAYED_MODEL_OPTION = 83;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -173,9 +177,13 @@ namespace IBApi
                 case DELAYED_VOLUME:              return "delayedVolume";
                 case DELAYED_CLOSE:               return "delayedClose";
                 case DELAYED_OPEN:                return "delayedOpen";
-                case RT_TRD_VOLUME: return "rtTrdVolume";
-                case CREDITMAN_MARK_PRICE: return "creditmanMarkPrice";
-                case CREDITMAN_SLOW_MARK_PRICE: return "creditmanSlowMarkPrice";
+                case RT_TRD_VOLUME:               return "rtTrdVolume";
+                case CREDITMAN_MARK_PRICE:        return "creditmanMarkPrice";
+                case CREDITMAN_SLOW_MARK_PRICE:   return "creditmanSlowMarkPrice";
+                case DELAYED_BID_OPTION:          return "delayedBidOptComp";
+                case DELAYED_ASK_OPTION:          return "delayedAskOptComp";
+                case DELAYED_LAST_OPTION:         return "delayedLastOptComp";
+                case DELAYED_MODEL_OPTION:        return "delayedModelOptComp";
 
                 default:                          return "unknown";
             }

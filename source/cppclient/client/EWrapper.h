@@ -85,10 +85,14 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				RT_TRD_VOLUME,
 				CREDITMAN_MARK_PRICE,
 				CREDITMAN_SLOW_MARK_PRICE,
+				DELAYED_BID_OPTION_COMPUTATION,
+				DELAYED_ASK_OPTION_COMPUTATION,
+				DELAYED_LAST_OPTION_COMPUTATION,
+				DELAYED_MODEL_OPTION_COMPUTATION,
 				NOT_SET };
 
 inline bool isPrice( TickType tickType) {
-	return tickType == BID || tickType == ASK || tickType == LAST;
+	return tickType == BID || tickType == ASK || tickType == LAST || tickType == DELAYED_BID || tickType == DELAYED_ASK || tickType == DELAYED_LAST;
 }
 
 struct Contract;

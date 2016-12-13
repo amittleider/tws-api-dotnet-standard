@@ -112,6 +112,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_TICKDATAOPERATION_ACK:
 			break;
+		case ST_DELAYEDTICKDATAOPERATION:
+			delayedTickDataOperation();
+			break;
+		case ST_DELAYEDTICKDATAOPERATION_ACK:
+			break;
 		case ST_MARKETDEPTHOPERATION:
 			marketDepthOperations();
 			break;
@@ -322,6 +327,27 @@ void TestCppClient::tickDataOperation()
 	m_state = ST_TICKDATAOPERATION_ACK;
 }
 
+void TestCppClient::delayedTickDataOperation()
+{
+	/*** Requesting delayed market data ***/
+
+	//! [reqmktdata_delayedmd]
+	m_pClient->reqMarketDataType(4); // send delayed-frozen (4) market data type
+	m_pClient->reqMktData(1013, ContractSamples::HKStk(), "", false, TagValueListSPtr());
+	m_pClient->reqMktData(1014, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
+	//! [reqmktdata_delayedmd]
+
+	std::this_thread::sleep_for(std::chrono::seconds(10));
+
+	/*** Canceling the delayed market data subscription ***/
+	//! [cancelmktdata_delayedmd]
+	m_pClient->cancelMktData(1013);
+	m_pClient->cancelMktData(1014);
+	//! [cancelmktdata_delayedmd]
+
+	m_state = ST_DELAYEDTICKDATAOPERATION_ACK;
+}
+
 void TestCppClient::marketDepthOperations()
 {
 	/*** Requesting the Deep Book ***/
@@ -355,7 +381,11 @@ void TestCppClient::realTimeBars()
 void TestCppClient::marketDataType()
 {
 	//! [reqmarketdatatype]
-	/*** Switch to live (1) frozen (2) delayed (3) or delayed frozen (4)***/
+	/*** By default only real-time (1) market data is enabled
+		 Sending frozen (2) enables frozen market data
+		 Sending delayed (3) enables delayed market data and disables delayed-frozen market data
+		 Sending delayed-frozen (4) enables delayed and delayed-frozen market data
+		 Sending real-time (1) disables frozen, delayed and delayed-frozen market data ***/
 	m_pClient->reqMarketDataType(2);
 	//! [reqmarketdatatype]
 
@@ -890,6 +920,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//! [nextvalidid]
 
 	//m_state = ST_TICKDATAOPERATION; 
+	m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
@@ -911,7 +942,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MISCELANEOUS;
 	//m_state = ST_FAMILYCODES;
 	//m_state = ST_SYMBOLSAMPLES;
-	m_state = ST_REQMKTDEPTHEXCHANGES;
+	//m_state = ST_REQMKTDEPTHEXCHANGES;
 	//m_state = ST_PING;
 }
 

@@ -26,6 +26,7 @@ import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
 import com.ib.client.FamilyCode;
+import com.ib.client.MarketDataType;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
@@ -468,7 +469,7 @@ public class ApiController implements EWrapper {
 		void tickSize(TickType tickType, int size);
 		void tickString(TickType tickType, String value);
 		void tickSnapshotEnd();
-		void marketDataType(MktDataType marketDataType);
+		void marketDataType(int marketDataType);
 	}
 
 	public interface IEfpHandler extends ITopMktDataHandler {
@@ -488,7 +489,7 @@ public class ApiController implements EWrapper {
 		}
 		@Override public void tickSnapshotEnd() {
 		}
-		@Override public void marketDataType(MktDataType marketDataType) {
+		@Override public void marketDataType(int marketDataType) {
 		}
 	}
 
@@ -548,12 +549,29 @@ public class ApiController implements EWrapper {
     	getAndRemoveKey( m_efpMap, handler);
     }
 
-	public void reqMktDataType( MktDataType type) {
+	public void reqMktDataType( int mktDataType) {
 		if (!checkConnection())
 			return;
 
-		m_client.reqMarketDataType( type.ordinal() );
+		m_client.reqMarketDataType( mktDataType);
 		sendEOM();
+		switch(mktDataType){
+			case MarketDataType.REALTIME:
+				show( "Frozen, Delayed and Delayed-Frozen market data types are disabled");
+				break;
+			case MarketDataType.FROZEN:
+				show( "Frozen market data type is enabled");
+				break;
+			case MarketDataType.DELAYED:
+				show( "Delayed market data type is enabled, Delayed-Frozen market data type is disabled");
+				break;
+			case MarketDataType.DELAYED_FROZEN:
+				show( "Delayed and Delayed-Frozen market data types are enabled");
+				break;
+			default:
+				show( "Unknown market data type");
+				break;
+		}
 	}
 
 	@Override public void tickPrice(int reqId, int tickType, double price, TickAttr attribs) {
@@ -607,7 +625,7 @@ public class ApiController implements EWrapper {
 	@Override public void marketDataType(int reqId, int marketDataType) {
 		ITopMktDataHandler handler = m_topMktDataMap.get( reqId);
 		if (handler != null) {
-			handler.marketDataType( MktDataType.get( marketDataType) );
+			handler.marketDataType( marketDataType );
 		}
 		recEOM();
 	}

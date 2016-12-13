@@ -1518,6 +1518,19 @@ Friend Class MainForm
         If m_dlgOrder.ok Then
             m_api.reqMarketDataType(m_dlgOrder.marketDataType)
         End If
+
+        Select Case m_dlgOrder.marketDataType
+            Case dlgOrder.MarketDataTypes.Realtime
+                m_utils.addListItem(Utils.ListType.ServerResponses, "Frozen, Delayed and Delayed-Frozen market data types are disabled")
+            Case dlgOrder.MarketDataTypes.Frozen
+                m_utils.addListItem(Utils.ListType.ServerResponses, "Frozen market data type is enabled")
+            Case dlgOrder.MarketDataTypes.Delayed
+                m_utils.addListItem(Utils.ListType.ServerResponses, "Delayed market data type is enabled, Delayed-Frozen market data type is disabled")
+            Case dlgOrder.MarketDataTypes.DelayedFrozen
+                m_utils.addListItem(Utils.ListType.ServerResponses, "Delayed and Delayed-Frozen market data types are enabled")
+            Case Else
+                m_utils.addListItem(Utils.ListType.Errors, "Unknown market data type")
+        End Select
     End Sub
 
     '--------------------------------------------------------------------------------
@@ -2473,7 +2486,7 @@ Friend Class MainForm
     ' Market Data Type
     '--------------------------------------------------------------------------------
     Private Sub Api_marketDataType(sender As Object, e As MarketDataTypeEventArgs) Handles m_apiEvents.MarketDataType
-        Dim msg = "id=" & e.reqId & [Enum].GetName(GetType(dlgOrder.MarketDataTypes), e.marketDataType)
+        Dim msg = "id=" & e.reqId & " marketDataType=" & [Enum].GetName(GetType(dlgOrder.MarketDataTypes), e.marketDataType)
         m_utils.addListItem(Utils.ListType.MarketData, msg)
     End Sub
 

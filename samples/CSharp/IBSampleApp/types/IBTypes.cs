@@ -195,4 +195,29 @@ namespace IBSampleApp.types
             return allocationProfileTypes;
         }
     }
+
+    public class MarketDataType
+    {
+        public static object[] GetAll()
+        {
+            return new object[] { Real_Time, Frozen, Delayed, Delayed_Frozen };
+        }
+
+        public static IBType get(int marketDataType)
+        {
+            IBType ret = Real_Time;
+            foreach (object ibType in MarketDataType.GetAll()){
+                if ( (int)((IBType)ibType).Value == marketDataType)
+                {
+                    ret = (IBType)ibType;
+                }
+            }
+            return ret;
+        }
+
+        public static IBType Real_Time = new IBType("Real-Time", 1);
+        public static IBType Frozen = new IBType("Frozen", 2);
+        public static IBType Delayed = new IBType("Delayed", 3);
+        public static IBType Delayed_Frozen = new IBType("Delayed-Frozen", 4);
+    }
 }

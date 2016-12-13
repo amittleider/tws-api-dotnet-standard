@@ -85,6 +85,10 @@ public enum TickType {
     RT_TRD_VOLUME(77, "rtTrdVolume"),
     CREDITMAN_MARK_PRICE(78, "creditmanMarkPrice"),
     CREDITMAN_SLOW_MARK_PRICE(79, "creditmanSlowMarkPrice"),
+    DELAYED_BID_OPTION( 80, "delayedBidOptComp" ),
+    DELAYED_ASK_OPTION( 81, "delayedAskOptComp" ),
+    DELAYED_LAST_OPTION( 82, "delayedLastOptComp" ),
+    DELAYED_MODEL_OPTION( 83, "delayedModelOptComp" ),
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
 
     private int m_ndx;

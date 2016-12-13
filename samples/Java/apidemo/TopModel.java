@@ -7,17 +7,14 @@ import static com.ib.controller.Formats.fmt;
 import static com.ib.controller.Formats.fmtPct;
 import static com.ib.controller.Formats.fmtTime;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import com.ib.client.Contract;
+import com.ib.client.MarketDataType;
 import com.ib.client.TickAttr;
 import com.ib.client.TickType;
-import com.ib.client.Types.MktDataType;
 import com.ib.controller.ApiController.TopMktDataAdapter;
 import com.ib.controller.Formats;
 
@@ -36,20 +33,43 @@ class TopModel extends AbstractTableModel {
 		fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
 	}
 
+	void removeSelectedRows() {
+		for(int rowIndex = m_rows.size() - 1; rowIndex >= 0; rowIndex--) {
+			if(m_rows.get(rowIndex).m_cancel) {
+				ApiDemo.INSTANCE.controller().cancelTopMktData( m_rows.get(rowIndex));
+				m_rows.remove(rowIndex);
+			}
+		}		
+		fireTableDataChanged();
+	}
+	
 	public void desubscribe() {
 		for (TopRow row : m_rows) {
 			ApiDemo.INSTANCE.controller().cancelTopMktData( row);
 		}
-	}		
+	}
+
+	@Override public Class<?> getColumnClass(int columnIndex) {
+		switch (columnIndex) {
+		case 12:
+			return Boolean.class;
+		default:
+			return String.class;
+		}
+	}
+
+	@Override public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return columnIndex == 12 ? true : false;
+	}
 
 	@Override public int getRowCount() {
 		return m_rows.size();
 	}
-	
+
 	@Override public int getColumnCount() {
-		return 9;
+		return 13;
 	}
-	
+
 	@Override public String getColumnName(int col) {
 		switch( col) {
 			case 0: return "Description";
@@ -61,6 +81,10 @@ class TopModel extends AbstractTableModel {
 			case 6: return "Time";
 			case 7: return "Change";
 			case 8: return "Volume";
+			case 9: return "Close";
+			case 10: return "Open";
+			case 11: return "Market Data Type";
+			case 12: return "Cancel";
 			default: return null;
 		}
 	}
@@ -77,20 +101,29 @@ class TopModel extends AbstractTableModel {
 			case 6: return fmtTime( row.m_lastTime);
 			case 7: return row.change();
 			case 8: return Formats.fmt0( row.m_volume);
+			case 9: return fmt( row.m_close);
+			case 10: return fmt( row.m_open);
+			case 11: return row.m_marketDataType;
+			case 12: return row.m_cancel;
 			default: return null;
 		}
 	}
-	
-	public void color(TableCellRenderer rend, int rowIn, Color def) {
+
+	@Override public void setValueAt(Object aValue, int rowIn, int col) {
 		TopRow row = m_rows.get( rowIn);
-		Color c = row.m_frozen ? Color.gray : def;
-		((JLabel)rend).setForeground( c);
-	}
+		switch (col) {
+		case 12:
+			row.m_cancel = (Boolean) aValue;
+			break;
+		default:
+			break;
+		}
+	}	
 
 	public void cancel(int i) {
 		ApiDemo.INSTANCE.controller().cancelTopMktData( m_rows.get( i) );
 	}
-	
+
 	static class TopRow extends TopMktDataAdapter {
 		AbstractTableModel m_model;
 		String m_description;
@@ -102,7 +135,9 @@ class TopModel extends AbstractTableModel {
 		int m_askSize;
 		double m_close;
 		int m_volume;
-		boolean m_frozen;
+		double m_open;
+		boolean m_cancel;
+		String m_marketDataType = MarketDataType.getField(MarketDataType.REALTIME);
 		
 		TopRow( AbstractTableModel model, String description) {
 			m_model = model;
@@ -114,18 +149,35 @@ class TopModel extends AbstractTableModel {
 		}
 
 		@Override public void tickPrice( TickType tickType, double price, TickAttr attribs) {
+			if ( m_marketDataType.equalsIgnoreCase(MarketDataType.getField(MarketDataType.REALTIME)) &&
+					(tickType == TickType.DELAYED_BID || 
+					tickType == TickType.DELAYED_ASK ||
+					tickType == TickType.DELAYED_LAST || 
+					tickType == TickType.DELAYED_CLOSE || 
+					tickType == TickType.DELAYED_OPEN )) {
+				m_marketDataType = MarketDataType.getField(MarketDataType.DELAYED);
+			}
+
 			switch( tickType) {
 				case BID:
+				case DELAYED_BID:
 					m_bid = price;
 					break;
 				case ASK:
+				case DELAYED_ASK:
 					m_ask = price;
 					break;
 				case LAST:
+				case DELAYED_LAST:
 					m_last = price;
 					break;
 				case CLOSE:
+				case DELAYED_CLOSE:
 					m_close = price;
+					break;
+				case OPEN:
+				case DELAYED_OPEN:
+					m_open = price;
 					break;
 				default: break;	
 			}
@@ -133,32 +185,42 @@ class TopModel extends AbstractTableModel {
 		}
 
 		@Override public void tickSize( TickType tickType, int size) {
+			if ( m_marketDataType.equalsIgnoreCase(MarketDataType.getField(MarketDataType.REALTIME)) &&
+					(tickType == TickType.DELAYED_BID_SIZE || 
+					tickType == TickType.DELAYED_ASK_SIZE ||
+					tickType == TickType.DELAYED_VOLUME)) {
+				m_marketDataType = MarketDataType.getField(MarketDataType.DELAYED);
+			}
+			
 			switch( tickType) {
 				case BID_SIZE:
+				case DELAYED_BID_SIZE:
 					m_bidSize = size;
 					break;
 				case ASK_SIZE:
+				case DELAYED_ASK_SIZE:
 					m_askSize = size;
 					break;
 				case VOLUME:
+				case DELAYED_VOLUME:
 					m_volume = size;
 					break;
-                default: break; 
+				default: break; 
 			}
 			m_model.fireTableDataChanged();
 		}
-		
+
 		@Override public void tickString(TickType tickType, String value) {
 			switch( tickType) {
 				case LAST_TIMESTAMP:
 					m_lastTime = Long.parseLong( value) * 1000;
 					break;
-                default: break; 
+				default: break; 
 			}
 		}
-		
-		@Override public void marketDataType(MktDataType marketDataType) {
-			m_frozen = marketDataType == MktDataType.Frozen;
+
+		@Override public void marketDataType(int marketDataType) {
+			m_marketDataType = MarketDataType.getField(marketDataType);
 			m_model.fireTableDataChanged();
 		}
 	}

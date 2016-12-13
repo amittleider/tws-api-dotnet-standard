@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.MarketDataType;
 import com.ib.client.TickAttr;
 import com.ib.client.TickType;
 import com.ib.client.Types.Right;
@@ -49,30 +50,42 @@ public class OptionChainsPanel extends JPanel {
 	private JTextField m_optExch = new UpperField();
 	private UpperField m_symbol = new UpperField();
 	private TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
+	protected UpperField m_lastTradeDateOrContractMonth = new UpperField();
 	private UpperField m_exchange = new UpperField();
 	private UpperField m_currency = new UpperField();
 	private JCheckBox m_snapshot = new JCheckBox();
+	protected TCombo<String> m_marketDataType = new TCombo<String>( MarketDataType.getFields() );
 
 	OptionChainsPanel() {
-		m_symbol.setText( "IBM");
+		m_symbol.setText( "IBKR");
 		m_secType.setSelectedItem( SecType.STK);
 		m_exchange.setText( "SMART"); 
+		m_lastTradeDateOrContractMonth.setText("20170616");
 		m_currency.setText( "USD");
 		m_optExch.setText( "SMART");
-		
+		m_marketDataType.setSelectedItem( MarketDataType.REALTIME);
+
 		HtmlButton button = new HtmlButton( "Go") {
 			@Override protected void actionPerformed() {
 				onAdd();
 			}
 		};
+
+		m_marketDataType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ApiDemo.INSTANCE.controller().reqMktDataType( MarketDataType.getField(m_marketDataType.getSelectedItem()));
+			}
+		});
 		
 		VerticalPanel topPanel = new VerticalPanel();
 		topPanel.add( "Symbol", m_symbol);
-    	topPanel.add( "Currency", m_currency);
-    	topPanel.add( "Underlying sec type", m_secType);
-    	topPanel.add( "Underlying exchange", m_exchange, Box.createHorizontalStrut(20), button);
+		topPanel.add( "Currency", m_currency);
+		topPanel.add( "Underlying sec type", m_secType);
+		topPanel.add( "Underlying exchange", m_exchange, Box.createHorizontalStrut(30), button);
+		topPanel.add( "Last trade date or contract month", m_lastTradeDateOrContractMonth);
 		topPanel.add( "Option exchange", m_optExch);
 		topPanel.add( "Use snapshot data", m_snapshot);
+		topPanel.add( "Market data type", m_marketDataType);
 		
 		setLayout( new BorderLayout() );
 		add( topPanel, BorderLayout.NORTH);
@@ -101,6 +114,7 @@ public class OptionChainsPanel extends JPanel {
 		// request option chains
 		Contract optContract = new Contract();
 		optContract.symbol( m_underContract.symbol() );
+		optContract.lastTradeDateOrContractMonth( m_lastTradeDateOrContractMonth.getText() );
 		optContract.currency( m_underContract.currency() );
 		optContract.exchange( m_optExch.getText() );
 		optContract.secType( SecType.OPT);
@@ -120,7 +134,7 @@ public class OptionChainsPanel extends JPanel {
 	    JLabel m_labUnderPrice = new JLabel();
 	    TopMktDataAdapter m_stockListener = new TopMktDataAdapter() {
             @Override public void tickPrice(TickType tickType, double price, TickAttr attribs) {
-                if (tickType == TickType.LAST) {
+                if (tickType == TickType.LAST || tickType == TickType.DELAYED_LAST) {
                     m_labUnderPrice.setText( "" + price);
                 }
             }
@@ -280,9 +294,11 @@ public class OptionChainsPanel extends JPanel {
 				@Override public void tickPrice(TickType tickType, double price, TickAttr attribs) {
 					switch( tickType) {
 						case BID:
+						case DELAYED_BID:
 							m_bid = price;
 							break;
 						case ASK:
+						case DELAYED_ASK:
 							m_ask = price;
 							break;
 		                default: break; 
@@ -290,7 +306,7 @@ public class OptionChainsPanel extends JPanel {
 				}
 		
 				@Override public void tickOptionComputation( TickType tickType, double impVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) {
-					if (tickType == TickType.MODEL_OPTION) {
+					if (tickType == TickType.MODEL_OPTION || tickType == TickType.DELAYED_MODEL_OPTION) {
 						m_impVol = impVol;
 						m_delta = delta;
 						m_gamma = gamma;
