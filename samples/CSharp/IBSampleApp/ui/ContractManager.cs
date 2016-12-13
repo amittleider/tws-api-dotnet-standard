@@ -160,6 +160,11 @@ namespace IBSampleApp.ui
             }
         }
 
+        public void RequestMarketDataType(int marketDataType)
+        {
+            ibClient.ClientSocket.reqMarketDataType(marketDataType);
+        }
+
         public ComboContractResults ComboContractResults
         {
             get { return comboContractResults; }

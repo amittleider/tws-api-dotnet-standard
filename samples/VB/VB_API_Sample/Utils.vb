@@ -64,6 +64,32 @@ Friend Class Utils
         TradesPerMin
         VolumePerMin
         LastRTHTrade
+        RTHistoricalVol
+        IBDividends
+        BondFactorMultiplier
+        RegulatoryImbalance
+        NewsTick
+        ShortTermVolume3Min
+        ShortTermVolume5Min
+        ShortTermVolume10Min
+        DelayedBid
+        DelayedAsk
+        DelayedLast
+        DelayedBidSize
+        DelayedAskSize
+        DelayedLastSize
+        DelayedHigh
+        DelayedLow
+        DelayedVolume
+        DelayedClose
+        DelayedOpen
+        RTTrdVolume
+        CreditmanMarkPrice
+        CreditmanSlowMarkPrice
+        DelayedBidOptComp
+        DelayedAskOptComp
+        DelayedLastOptComp
+        DelayedModelOptComp
         Unknown
     End Enum
 

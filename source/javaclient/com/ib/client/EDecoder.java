@@ -1,3 +1,6 @@
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 import java.io.Closeable;
@@ -1504,7 +1507,8 @@ class EDecoder implements ObjectInput {
 		double vega = Double.MAX_VALUE;
 		double theta = Double.MAX_VALUE;
 		double undPrice = Double.MAX_VALUE;
-		if (version >= 6 || tickType == TickType.MODEL_OPTION.index()) { // introduced in version == 5
+		if (version >= 6 || tickType == TickType.MODEL_OPTION.index()
+				|| tickType == TickType.DELAYED_MODEL_OPTION.index()) { // introduced in version == 5
 			optPrice = readDouble();
 			if (optPrice < 0) { // -1 is the "not yet computed" indicator
 				optPrice = Double.MAX_VALUE;
@@ -1633,6 +1637,15 @@ class EDecoder implements ObjectInput {
 		            break ;
 		        case 4: // LAST
 		            sizeTickType = 5 ; // LAST_SIZE
+		            break ;
+		        case 66: // DELAYED_BID
+		            sizeTickType = 69 ; // DELAYED_BID_SIZE
+		            break ;
+		        case 67: // DELAYED_ASK
+		            sizeTickType = 70 ; // DELAYED_ASK_SIZE
+		            break ;
+		        case 68: // DELAYED_LAST
+		            sizeTickType = 71 ; // DELAYED_LAST_SIZE
 		            break ;
 		    }
 		    if (sizeTickType != -1) {

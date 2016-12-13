@@ -18,6 +18,8 @@ enum State {
 	ST_CONNECT,
 	ST_TICKDATAOPERATION,
 	ST_TICKDATAOPERATION_ACK,
+	ST_DELAYEDTICKDATAOPERATION,
+	ST_DELAYEDTICKDATAOPERATION_ACK,
 	ST_MARKETDEPTHOPERATION,
 	ST_MARKETDEPTHOPERATION_ACK,
 	ST_REALTIMEBARS,
@@ -91,6 +93,7 @@ public:
 
 private:
 	void tickDataOperation();
+	void delayedTickDataOperation();
 	void marketDepthOperations();
 	void realTimeBars();
 	void marketDataType();

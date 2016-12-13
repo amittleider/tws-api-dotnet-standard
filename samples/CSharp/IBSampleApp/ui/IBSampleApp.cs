@@ -74,6 +74,12 @@ namespace IBSampleApp
 
             fundamentalsReportType.Items.AddRange(FundamentalsReport.GetAll());
             fundamentalsReportType.SelectedIndex = 0;
+
+            comboBoxMarketDataType_CDT.Items.AddRange(MarketDataType.GetAll());
+            comboBoxMarketDataType_CDT.SelectedIndex = 0;
+
+            comboBoxMarketDataType_MDT.Items.AddRange(MarketDataType.GetAll());
+            comboBoxMarketDataType_MDT.SelectedIndex = 0;
             
             this.groupMethod.DataSource = AllocationGroupMethod.GetAsData();
             this.groupMethod.ValueMember = "Value";
@@ -128,7 +134,7 @@ namespace IBSampleApp
                 HandleMessage(new HistoricalDataMessage(reqId, date, open, high, low, close, volume, count, WAP, hasGaps));
 
             ibClient.HistoricalDataEnd += (reqId, startDate, endDate) => HandleMessage(new HistoricalDataEndMessage(reqId, startDate, endDate));
-            ibClient.MarketDataType += (reqId, marketDataType) => addTextToBox("MarketDataType. " + reqId + ", Type: " + marketDataType + "\n");
+            ibClient.MarketDataType += (reqId, marketDataType) => HandleMessage(new MarketDataTypeMessage(reqId, marketDataType));
             ibClient.UpdateMktDepth += (tickerId, position, operation, side, price, size) => HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, ""));
             ibClient.UpdateMktDepthL2 += (tickerId, position, marketMaker, operation, side, price, size) => HandleMessage(new DeepBookMessage(tickerId, position, operation, side, price, size, marketMaker));
             ibClient.UpdateNewsBulletin += (msgId, msgType, message, origExchange) => 
@@ -400,7 +406,14 @@ namespace IBSampleApp
                         deepBookManager.HandleMktDepthExchangesMessage(message);
                         break;
                     }
-
+                case MessageType.MarketDataType:
+                    {
+                        if (marketDataManager.isActive())
+                        {
+                            marketDataManager.HandleMarketDataTypeMessage(message);
+                        }
+                        break;
+                    }
                 default:
                     {
                         HandleMessage(new ErrorMessage(-1, -1, message.ToString()));
@@ -989,5 +1002,53 @@ namespace IBSampleApp
             deepBookManager.ClearMktDepthExchanges();
         }
 
+        private void buttonRequestMarketDataType_MDT_Click(object sender, EventArgs e)
+        {
+            marketDataManager.setActive();
+            marketDataManager.RequestMarketDataType((int)((IBType)comboBoxMarketDataType_MDT.SelectedItem).Value);
+        }
+
+        private void comboBoxMarketDataType_CDT_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            marketDataManager.unsetActive();
+            int marketDataType = (int)((IBType)comboBoxMarketDataType_CDT.SelectedItem).Value;
+            contractManager.RequestMarketDataType(marketDataType);
+            showMarketDataTypeSelectMessage(marketDataType);
+        }
+
+        private void comboBoxMarketDataType_MDT_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            marketDataManager.unsetActive();
+            int marketDataType = (int)((IBType)comboBoxMarketDataType_MDT.SelectedItem).Value;
+            contractManager.RequestMarketDataType(marketDataType);
+            showMarketDataTypeSelectMessage(marketDataType);
+        }
+
+        private void showMarketDataTypeSelectMessage(int marketDataType)
+        {
+            if (isConnected)
+            {
+                if (marketDataType == (int)MarketDataType.Real_Time.Value)
+                {
+                    ShowMessageOnPanel("Frozen, Delayed and Delayed-Frozen market data types are disabled");
+                }
+                else if (marketDataType == (int)MarketDataType.Frozen.Value)
+                {
+                    ShowMessageOnPanel("Frozen market data type is enabled");
+                }
+                else if (marketDataType == (int)MarketDataType.Delayed.Value)
+                {
+                    ShowMessageOnPanel("Delayed market data type is enabled, Delayed-Frozen market data type is disabled");
+                }
+                else if (marketDataType == (int)MarketDataType.Delayed_Frozen.Value)
+                {
+                    ShowMessageOnPanel("Delayed and Delayed-Frozen market data types are enabled");
+                }
+                else
+                {
+                    ShowMessageOnPanel("Unknown market data type");
+                }
+            }
+        }
     }
 }

@@ -1716,9 +1716,14 @@ namespace IBApi
         }
 
         /**
-         * @brief indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data.
+         * @brief indicates the TWS to enable "frozen", "delayed" or "delayed-frozen" market data.
          * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.
-         * @param marketDataType set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data. Note: At the present time, only data types 1 and 2 are supported. 
+         * @param marketDataType:
+         *      by default only real-time (1) market data is enabled
+         *      sending 1 (real-time) disables frozen, delayed and delayed-frozen market data
+         *      sending 2 (frozen) enables frozen market data
+         *      sending 3 (delayed) enables delayed and disables delayed-frozen market data
+         *      sending 4 (delayed-frozen) enables delayed and delayed-frozen market data 
          */
         public void reqMarketDataType(int marketDataType)
         {

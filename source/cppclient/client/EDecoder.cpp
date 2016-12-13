@@ -66,6 +66,15 @@ const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
         case LAST:
             sizeTickType = LAST_SIZE;
             break;
+        case DELAYED_BID:
+            sizeTickType = DELAYED_BID_SIZE;
+            break;
+        case DELAYED_ASK:
+            sizeTickType = DELAYED_ASK_SIZE;
+            break;
+        case DELAYED_LAST:
+            sizeTickType = DELAYED_LAST_SIZE;
+            break;
         default:
             break;
         }
@@ -121,7 +130,7 @@ const char* EDecoder::processTickOptionComputationMsg(const char* ptr, const cha
         delta = DBL_MAX;
     }
 
-    if( version >= 6 || tickTypeInt == MODEL_OPTION) { // introduced in version == 5
+    if( version >= 6 || tickTypeInt == MODEL_OPTION || tickTypeInt == DELAYED_MODEL_OPTION_COMPUTATION) { // introduced in version == 5
 
         DECODE_FIELD( optPrice);
         DECODE_FIELD( pvDividend);

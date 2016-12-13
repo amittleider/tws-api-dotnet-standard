@@ -202,9 +202,11 @@ namespace IBSampleApp.ui
             switch (message.Field)
             {
                 case TickType.ASK:
+                case TickType.DELAYED_ASK:
                     grid[ASK_INDEX, row].Value = message.Price;
                     break;
                 case TickType.BID:
+                case TickType.DELAYED_BID:
                     grid[BID_INDEX, row].Value = message.Price;
                     break;
             }

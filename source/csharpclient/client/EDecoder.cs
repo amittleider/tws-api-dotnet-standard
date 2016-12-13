@@ -588,14 +588,23 @@ namespace IBApi
                 int sizeTickType = -1;//not a tick
                 switch (tickType)
                 {
-                    case 1:
-                        sizeTickType = 0;//BID_SIZE
+                    case TickType.BID:
+                        sizeTickType = TickType.BID_SIZE;
                         break;
-                    case 2:
-                        sizeTickType = 3;//ASK_SIZE
+                    case TickType.ASK:
+                        sizeTickType = TickType.ASK_SIZE;
                         break;
-                    case 4:
-                        sizeTickType = 5;//LAST_SIZE
+                    case TickType.LAST:
+                        sizeTickType = TickType.LAST_SIZE;
+                        break;
+                    case TickType.DELAYED_BID:
+                        sizeTickType = TickType.DELAYED_BID_SIZE;
+                        break;
+                    case TickType.DELAYED_ASK:
+                        sizeTickType = TickType.DELAYED_ASK_SIZE;
+                        break;
+                    case TickType.DELAYED_LAST:
+                        sizeTickType = TickType.DELAYED_LAST_SIZE;
                         break;
                 }
                 if (sizeTickType != -1)
@@ -720,7 +729,7 @@ namespace IBApi
             double vega = Double.MaxValue;
             double theta = Double.MaxValue;
             double undPrice = Double.MaxValue;
-            if (msgVersion >= 6 || tickType == TickType.MODEL_OPTION)
+            if (msgVersion >= 6 || tickType == TickType.MODEL_OPTION || tickType == TickType.DELAYED_MODEL_OPTION)
             {
                 optPrice = ReadDouble();
                 if (optPrice < 0)
