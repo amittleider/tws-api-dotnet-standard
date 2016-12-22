@@ -270,7 +270,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a5b7d2f3048b2be5c9c3a87c18fb01dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests real time market data. This function will return the product's market data. It is important to notice that only real time data can be delivered via the API.  <a href="#a5b7d2f3048b2be5c9c3a87c18fb01dd3">More...</a><br/></td></tr>
 <tr class="separator:a5b7d2f3048b2be5c9c3a87c18fb01dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae03b31bb2702ba519ed63c46455872b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#ae03b31bb2702ba519ed63c46455872b6">reqMarketDataType</a> (int marketDataType)</td></tr>
-<tr class="memdesc:ae03b31bb2702ba519ed63c46455872b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data. The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.  <a href="#ae03b31bb2702ba519ed63c46455872b6">More...</a><br/></td></tr>
+<tr class="memdesc:ae03b31bb2702ba519ed63c46455872b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates the TWS to enable "frozen", "delayed" or "delayed-frozen" market data. The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.  <a href="#ae03b31bb2702ba519ed63c46455872b6">More...</a><br/></td></tr>
 <tr class="separator:ae03b31bb2702ba519ed63c46455872b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f2915171d0c150723e297be291beabb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">reqMarketDepth</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, int numRows, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt; mktDepthOptions)</td></tr>
 <tr class="memdesc:a7f2915171d0c150723e297be291beabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the contract's market depth (order book). Note this request must be direct-routed to an exchange and not smart-routed. The number of simultaneous market depth requests allowed in an account is calculated based on a formula that looks at an accounts equity, commissions, and quote booster packs.  <a href="#a7f2915171d0c150723e297be291beabb">More...</a><br/></td></tr>
@@ -352,6 +352,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a3a187b45bb69f801b1c67bdf3fb66a88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a3a187b45bb69f801b1c67bdf3fb66a88">reqSoftDollarTiers</a> (int reqId)</td></tr>
 <tr class="memdesc:a3a187b45bb69f801b1c67bdf3fb66a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests pre-defined Soft Dollar Tiers. This is only supported for registered professional advisors and hedge and mutual funds who have configured Soft Dollar Tiers in Account Management. Refer to: <a href="https://www.interactivebrokers.com/en/software/am/am/manageaccount/requestsoftdollars.htm?Highlight=soft%20dollar%20tier">https://www.interactivebrokers.com/en/software/am/am/manageaccount/requestsoftdollars.htm?Highlight=soft%20dollar%20tier</a>.  <a href="#a3a187b45bb69f801b1c67bdf3fb66a88">More...</a><br/></td></tr>
 <tr class="separator:a3a187b45bb69f801b1c67bdf3fb66a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80207770f2654147d5a1c4c985748f38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a80207770f2654147d5a1c4c985748f38">reqFamilyCodes</a> ()</td></tr>
+<tr class="memdesc:a80207770f2654147d5a1c4c985748f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests family codes.  <a href="#a80207770f2654147d5a1c4c985748f38">More...</a><br/></td></tr>
+<tr class="separator:a80207770f2654147d5a1c4c985748f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0bff193c5cbaa73e89dccdd0f027195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#aa0bff193c5cbaa73e89dccdd0f027195">reqMatchingSymbols</a> (int reqId, string pattern)</td></tr>
+<tr class="memdesc:aa0bff193c5cbaa73e89dccdd0f027195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests matching symbols (implements 'google-like' suggestions as user starts typing symbol or contract name)  pattern - user typed string pattern.  <a href="#aa0bff193c5cbaa73e89dccdd0f027195">More...</a><br/></td></tr>
+<tr class="separator:aa0bff193c5cbaa73e89dccdd0f027195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c40b7bf20ba269530807b093dc51853"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a5c40b7bf20ba269530807b093dc51853">reqMktDepthExchanges</a> ()</td></tr>
+<tr class="memdesc:a5c40b7bf20ba269530807b093dc51853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests venues with market depth data available.  <a href="#a5c40b7bf20ba269530807b093dc51853">More...</a><br/></td></tr>
+<tr class="separator:a5c40b7bf20ba269530807b093dc51853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc9a6d7c7f6db257ec75b61d8e906bb6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc9a6d7c7f6db257ec75b61d8e906bb6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>ReadInt</b> ()</td></tr>
 <tr class="separator:acc9a6d7c7f6db257ec75b61d8e906bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1650,6 +1659,32 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 
 </div>
 </div>
+<a class="anchor" id="a80207770f2654147d5a1c4c985748f38"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void reqFamilyCodes </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Requests family codes. </p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a35527542977d427f4ad6ce624aebc8b4" title="returns array of family codes ">EWrapper::familyCodes</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="abba7df6f72f5516cae4c05c9144a89ee"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1949,10 +1984,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </table>
 </div><div class="memdoc">
 
-<p>indicates the TWS to switch to "frozen", "delayed" or "delayed-frozen" market data. The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data. </p>
+<p>indicates the TWS to enable "frozen", "delayed" or "delayed-frozen" market data. The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">marketDataType</td><td>set to 1 for real time streaming, set to 2 for frozen market data, set to 3 for delayed market data, set to 4 for delayed-frozen market data. Note: At the present time, only data types 1 and 2 are supported. </td></tr>
+    <tr><td class="paramname">marketDataType,:</td><td>by default only real-time (1) market data is enabled sending 1 (real-time) disables frozen, delayed and delayed-frozen market data sending 2 (frozen) enables frozen market data sending 3 (delayed) enables delayed and disables delayed-frozen market data sending 4 (delayed-frozen) enables delayed and delayed-frozen market data </td></tr>
   </table>
   </dd>
 </dl>
@@ -2013,6 +2048,43 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </dd>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a7aeb4af9a757c70cb74579308ab1fb7b" title="Cancel&#39;s market depth&#39;s request. ">cancelMktDepth</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912" title="Returns the order book. ">EWrapper::updateMktDepth</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968" title="Returns the order book. ">EWrapper::updateMktDepthL2</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa0bff193c5cbaa73e89dccdd0f027195"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void reqMatchingSymbols </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Requests matching symbols (implements 'google-like' suggestions as user starts typing symbol or contract name)  pattern - user typed string pattern. </p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a82cfd0c663944c5e6d4fee8ebd482ecf" title="returns array of sample contract descriptions ">EWrapper::symbolSamples</a> </dd></dl>
 
 </div>
 </div>
@@ -2092,7 +2164,33 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#af443a1cd993aee33ce67deb7bc39e484" title="Cancels a RT Market Data request. ">cancelMktData</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">EWrapper::tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">EWrapper::tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">EWrapper::tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">EWrapper::tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">EWrapper::tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">EWrapper::tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">EWrapper::tickSnapshotEnd</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#af443a1cd993aee33ce67deb7bc39e484" title="Cancels a RT Market Data request. ">cancelMktData</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. ">EWrapper::tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">EWrapper::tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">EWrapper::tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">EWrapper::tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">EWrapper::tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">EWrapper::tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">EWrapper::tickSnapshotEnd</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5c40b7bf20ba269530807b093dc51853"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void reqMktDepthExchanges </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Requests venues with market depth data available. </p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#aaf5ec42d517d013340e52c42209dcefe" title="called when receives Depth Market Data Descriptions ">EWrapper::mktDepthExchanges</a> </dd></dl>
 
 </div>
 </div>

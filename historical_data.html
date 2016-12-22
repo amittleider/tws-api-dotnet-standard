@@ -193,7 +193,7 @@ Receiving</h1>
 <div class="line">        }</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> historicalDataEnd(<span class="keywordtype">int</span> reqId, <span class="keywordtype">string</span> startDate, <span class="keywordtype">string</span> endDate)</div>
 <div class="line">        {</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Historical data end - &quot;</span>+reqId+<span class="stringliteral">&quot; from &quot;</span>+startDate+<span class="stringliteral">&quot; to &quot;</span>+endDate);</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;HistoricalDataEnd - &quot;</span>+reqId+<span class="stringliteral">&quot; from &quot;</span>+startDate+<span class="stringliteral">&quot; to &quot;</span>+endDate);</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -204,6 +204,10 @@ Receiving</h1>
 <div class="line">            <span class="keywordtype">double</span> WAP, <span class="keywordtype">boolean</span> hasGaps) {</div>
 <div class="line">        System.out.println(<span class="stringliteral">&quot;HistoricalData. &quot;</span>+reqId+<span class="stringliteral">&quot; - Date: &quot;</span>+date+<span class="stringliteral">&quot;, Open: &quot;</span>+open+<span class="stringliteral">&quot;, High: &quot;</span>+high+<span class="stringliteral">&quot;, Low: &quot;</span>+low+<span class="stringliteral">&quot;, Close: &quot;</span>+close+<span class="stringliteral">&quot;, Volume: &quot;</span>+volume+<span class="stringliteral">&quot;, Count: &quot;</span>+count+<span class="stringliteral">&quot;, WAP: &quot;</span>+WAP+<span class="stringliteral">&quot;, HasGaps: &quot;</span>+hasGaps);</div>
 <div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalDataEnd(<span class="keywordtype">int</span> reqId, String startDateStr, String endDateStr) {</div>
+<div class="line">        System.out.println(<span class="stringliteral">&quot;HistoricalDataEnd. &quot;</span>+reqId+<span class="stringliteral">&quot; - Start Date: &quot;</span>+startDateStr+<span class="stringliteral">&quot;, End Date: &quot;</span>+endDateStr);</div>
+<div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
@@ -212,6 +216,9 @@ Receiving</h1>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;HistoricalData - ReqId [&quot;</span> &amp; reqId &amp; <span class="stringliteral">&quot;] Date [&quot;</span> &amp; [date] &amp; <span class="stringliteral">&quot;] Open [&quot;</span> &amp; open &amp; <span class="stringliteral">&quot;] High [&quot;</span> &amp;</div>
 <div class="line">                          high &amp; <span class="stringliteral">&quot;] Low [&quot;</span> &amp; low &amp; <span class="stringliteral">&quot;] Volume [&quot;</span> &amp; volume &amp; <span class="stringliteral">&quot;] Count [&quot;</span> &amp; count &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
 <div class="line">        End Sub</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub historicalDataEnd(reqId As Integer, start As String, [end] As String) Implements IBApi.EWrapper.historicalDataEnd</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;HistoricalDataEnd - ReqId [&quot;</span> &amp; reqId &amp; <span class="stringliteral">&quot;] Start [&quot;</span> &amp; start &amp; <span class="stringliteral">&quot;] End [&quot;</span> &amp; [end] &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
+<div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
@@ -219,6 +226,9 @@ Receiving</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalData(TickerId reqId, <span class="keyword">const</span> std::string&amp; date, <span class="keywordtype">double</span> open, <span class="keywordtype">double</span> high,</div>
 <div class="line">                                   <span class="keywordtype">double</span> low, <span class="keywordtype">double</span> close, <span class="keywordtype">int</span> volume, <span class="keywordtype">int</span> barCount, <span class="keywordtype">double</span> WAP, <span class="keywordtype">int</span> hasGaps) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n&quot;</span>, reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);</div>
+<div class="line">}</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalDataEnd(<span class="keywordtype">int</span> reqId, std::string startDateStr, std::string endDateStr) { </div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;HistoricalDataEnd. ReqId: &quot;</span> &lt;&lt; reqId &lt;&lt; <span class="stringliteral">&quot; - Start Date: &quot;</span> &lt;&lt; startDateStr &lt;&lt; <span class="stringliteral">&quot;, End Date: &quot;</span> &lt;&lt; endDateStr &lt;&lt; std::endl;   </div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>

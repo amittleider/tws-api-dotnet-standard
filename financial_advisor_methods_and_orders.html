@@ -782,9 +782,9 @@ Soft Dollar Tiers</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::softDollarTiers(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;SoftDollarTier&gt; &amp;tiers) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Soft dollar tiers (%d):&quot;</span>, tiers.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Soft dollar tiers (%lu):&quot;</span>, tiers.size());</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tiers.size(); i++) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; tiers.size(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot;%s\n&quot;</span>, tiers[i].displayName().c_str());</div>
 <div class="line">    }</div>
 <div class="line">}</div>

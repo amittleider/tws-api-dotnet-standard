@@ -201,19 +201,19 @@ Consuming TWS data</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="keyword">final</span> EReader reader = <span class="keyword">new</span> EReader(m_client, m_signal);        </div>
-<div class="line">        reader.start();        </div>
-<div class="line">        <span class="keyword">new</span> Thread() {</div>
-<div class="line">            <span class="keyword">public</span> <span class="keywordtype">void</span> run() {</div>
-<div class="line">                <span class="keywordflow">while</span> (m_client.isConnected()) {</div>
-<div class="line">                    m_signal.waitForSignal();</div>
-<div class="line">                    <span class="keywordflow">try</span> {</div>
-<div class="line">                        reader.processMsgs();</div>
-<div class="line">                    } <span class="keywordflow">catch</span> (Exception e) {</div>
-<div class="line">                        System.out.println(<span class="stringliteral">&quot;Exception: &quot;</span>+e.getMessage());</div>
+<div class="line">                reader.start();</div>
+<div class="line">                <span class="keyword">new</span> Thread() {</div>
+<div class="line">                    <span class="keyword">public</span> <span class="keywordtype">void</span> run() {</div>
+<div class="line">                        <span class="keywordflow">while</span> (m_client.isConnected()) {</div>
+<div class="line">                            m_signal.waitForSignal();</div>
+<div class="line">                            <span class="keywordflow">try</span> {</div>
+<div class="line">                                reader.processMsgs();</div>
+<div class="line">                            } <span class="keywordflow">catch</span> (Exception e) {</div>
+<div class="line">                                System.out.println(<span class="stringliteral">&quot;Exception: &quot;</span>+e.getMessage());</div>
+<div class="line">                            }</div>
+<div class="line">                        }</div>
 <div class="line">                    }</div>
-<div class="line">                }</div>
-<div class="line">            }</div>
-<div class="line">        }.start();</div>
+<div class="line">                }.start();</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="stringliteral">&#39;Once the messages are in the queue, an additional thread need to fetch them</span></div>

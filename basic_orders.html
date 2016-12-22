@@ -363,39 +363,6 @@ Products: CFD, FUT, STK, WAR </li>
 <div class="line">    order.tif = <span class="stringliteral">&quot;OPG&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 </ul>
-<h1><a class="anchor" id="midpoint_match"></a>
-Midpoint Match</h1>
-<p><a href="https://www.interactivebrokers.com/en/index.php?f=752" target="_blank" class="linkexternal">ISE Midpoint Match</a> (MPM) orders always execute at the midpoint of the NBBO. You can submit market and limit orders direct-routed to ISE for MPM execution. Market orders execute at the midpoint whenever an eligible contra-order is available. Limit orders execute only when the midpoint price is better than the limit price. Standard MPM orders are completely anonymous. </p>
-<ul>
-<li>
-Products: STK (ISE only) </li>
-</ul>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">            Order order = <span class="keyword">new</span> Order();</div>
-<div class="line">            order.Action = action;</div>
-<div class="line">            order.OrderType = <span class="stringliteral">&quot;MKT&quot;</span>;</div>
-<div class="line">            order.TotalQuantity = quantity;</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Order order = <span class="keyword">new</span> Order();</div>
-<div class="line">        order.action(action);</div>
-<div class="line">        order.orderType(<span class="stringliteral">&quot;MKT&quot;</span>);</div>
-<div class="line">        order.totalQuantity(quantity);</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">            Dim order As Order = New Order</div>
-<div class="line">            order.Action = action</div>
-<div class="line">            order.OrderType = <span class="stringliteral">&quot;MKT&quot;</span></div>
-<div class="line">            order.TotalQuantity = quantity</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    Order order;</div>
-<div class="line">    order.action = action;</div>
-<div class="line">    order.orderType = <span class="stringliteral">&quot;MKT&quot;</span>;</div>
-<div class="line">    order.totalQuantity = quantity;</div>
-</div><!-- fragment -->  </li>
-</ul>
 <h1><a class="anchor" id="pegged_market"></a>
 Pegged to Market</h1>
 <p>A <a href="https://www.interactivebrokers.com/en/index.php?f=616" target="_blank" class="linkexternal">pegged-to-market order</a> is designed to maintain a purchase price relative to the national best offer (NBO) or a sale price relative to the national best bid (NBB). Depending on the width of the quote, this order may be passive or aggressive. The trader creates the order by entering a limit price which defines the worst limit price that they are willing to accept. Next, the trader enters an offset amount which computes the active limit price as follows: Sell order price = Bid price + offset amount Buy order price = Ask price - offset amount </p>
@@ -1119,7 +1086,7 @@ Stop Limit</h1>
 <li>
 Products: CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <li>
-<a href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=stplmt" target="_blank" class="linkexternal">Supported exchanges</a> </li>
+<a href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=stplmt" target="_blank" class="linkexternal">Supported exchanges</a> </li>
 </ul>
 <ul id="tab">
 <li class="active">
@@ -1162,7 +1129,7 @@ Stop with Protection</h1>
 <li>
 Products: FUT </li>
 <li>
-<a href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=stpprot" target="_blank" class="linkexternal">Supported exchanges</a> </li>
+<a href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=stpprot" target="_blank" class="linkexternal">Supported exchanges</a> </li>
 </ul>
 <ul id="tab">
 <li class="active">
@@ -1202,7 +1169,7 @@ Trailing Stop</h1>
 <li>
 Products: CFD, CASH, FOP, FUT, OPT, STK, WAR </li>
 <li>
-<a href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=trail" target="_blank" class="linkexternal">Supported exchanges</a> </li>
+<a href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=trail" target="_blank" class="linkexternal">Supported exchanges</a> </li>
 </ul>
 <ul id="tab">
 <li class="active">
@@ -1245,8 +1212,6 @@ Trailing Stop Limit</h1>
 <ul>
 <li>
 Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
-<li>
-<a href="" target="_blank" class="linkexternal">Supported exchanges</a> </li>
 </ul>
 <ul id="tab">
 <li class="active">
@@ -1591,7 +1556,7 @@ Volatility</h1>
 <li>
 Products: FOP, OPT </li>
 <li>
-<a href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=volat" target="_blank" class="linkexternal">Supported exchanges</a> </li>
+<a href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=volat" target="_blank" class="linkexternal">Supported exchanges</a> </li>
 </ul>
 <ul id="tab">
 <li class="active">

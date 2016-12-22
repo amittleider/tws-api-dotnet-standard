@@ -20,6 +20,7 @@ var classIBApi_1_1Order =
     [ "BasisPoints", "classIBApi_1_1Order.html#ab9f8823057410d2ac4d4618c201505d1", null ],
     [ "BasisPointsType", "classIBApi_1_1Order.html#ad245c45081244220acf5a092fe82508a", null ],
     [ "BlockOrder", "classIBApi_1_1Order.html#aa5140c5d83ff714c0e03c3aa01bed648", null ],
+    [ "CashQty", "classIBApi_1_1Order.html#ad8b3c5183fafa7d28ca5c433ba28ae24", null ],
     [ "ClearingAccount", "classIBApi_1_1Order.html#ae6fa7e0ab92926dcf520c21c9a3a320a", null ],
     [ "ClearingIntent", "classIBApi_1_1Order.html#a09ae26e89e4324b0c2c64732ef1a1aea", null ],
     [ "ClientId", "classIBApi_1_1Order.html#a776a8855d7e7ba3b6401d3db760a0f54", null ],

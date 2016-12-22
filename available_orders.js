@@ -7,7 +7,6 @@ var available_orders =
       [ "Market If Touched", "basic_orders.html#market_if_touched", null ],
       [ "Market On Close", "basic_orders.html#market_on_close", null ],
       [ "Market On Open", "basic_orders.html#market_on_open", null ],
-      [ "Midpoint Match", "basic_orders.html#midpoint_match", null ],
       [ "Pegged to Market", "basic_orders.html#pegged_market", null ],
       [ "Pegged to Stock", "basic_orders.html#pegged_stock", null ],
       [ "Pegged to Primary", "basic_orders.html#relative_pegged_primary", null ],
