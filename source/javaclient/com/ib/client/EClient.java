@@ -654,7 +654,7 @@ public abstract class EClient {
         }
     }
 
-    public void cancelRealTimeBars(int tickerId) {
+    public synchronized void cancelRealTimeBars(int tickerId) {
         // not connected?
         if( !isConnected()) {
             notConnected();
