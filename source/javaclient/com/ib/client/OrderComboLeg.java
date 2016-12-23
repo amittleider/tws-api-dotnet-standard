@@ -20,10 +20,10 @@ public class OrderComboLeg {
 
     @Override
     public boolean equals(Object p_other) {
-        if ( this == p_other ) {
+        if (this == p_other) {
             return true;
         }
-        else if ( p_other == null ) {
+        if (!(p_other instanceof OrderComboLeg)) {
             return false;
         }
 

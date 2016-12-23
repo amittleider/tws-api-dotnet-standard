@@ -21,18 +21,13 @@ public class CommissionReport {
 
     @Override
     public boolean equals(Object p_other) {
-        boolean l_bRetVal = false;
-
-        if ( p_other == null ) {
-            l_bRetVal = false;
+        if (this == p_other) {
+            return true;
         }
-        else if ( this == p_other ) {
-            l_bRetVal = true;
+        if (!(p_other instanceof CommissionReport)) {
+            return false;
         }
-        else {
-            CommissionReport l_theOther = (CommissionReport)p_other;
-            l_bRetVal = m_execId.equals( l_theOther.m_execId);
-        }
-        return l_bRetVal;
+        CommissionReport l_theOther = (CommissionReport)p_other;
+        return m_execId.equals(l_theOther.m_execId);
     }
 }

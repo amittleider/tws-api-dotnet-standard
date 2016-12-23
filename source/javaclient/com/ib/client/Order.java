@@ -493,12 +493,12 @@ public class Order {
 
     @Override
     public boolean equals(Object p_other) {
-        if ( this == p_other )
+        if (this == p_other) {
             return true;
-
-        if ( p_other == null )
+        }
+        if (!(p_other instanceof Order)) {
             return false;
-
+        }
         Order l_theOther = (Order)p_other;
 
         if ( m_permId == l_theOther.m_permId ) {

@@ -98,18 +98,13 @@ public class Execution {
 
     @Override
     public boolean equals(Object p_other) {
-        boolean l_bRetVal = false;
-
-        if ( p_other == null ) {
-            l_bRetVal = false;
-		}
-        else if ( this == p_other ) {
-            l_bRetVal = true;
+        if (this == p_other) {
+            return true;
         }
-        else {
-            Execution l_theOther = (Execution)p_other;
-            l_bRetVal = m_execId.equals( l_theOther.m_execId);
+        if (!(p_other instanceof Execution)) {
+            return false;
         }
-        return l_bRetVal;
+        Execution l_theOther = (Execution)p_other;
+        return m_execId.equals(l_theOther.m_execId);
     }
 }
