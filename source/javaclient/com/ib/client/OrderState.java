@@ -59,12 +59,12 @@ public class OrderState {
 
 	@Override
     public boolean equals(Object other) {
-        if (this == other)
+        if (this == other) {
             return true;
-
-        if (other == null)
+        }
+        if (!(other instanceof OrderState)) {
             return false;
-
+        }
         OrderState state = (OrderState)other;
 
         if (m_commission != state.m_commission ||

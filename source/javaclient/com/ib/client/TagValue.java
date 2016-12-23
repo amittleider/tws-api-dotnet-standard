@@ -17,13 +17,12 @@ public final class TagValue {
 
 	@Override
     public boolean equals(Object p_other) {
-
-		if( this == p_other)
-            return true;
-
-        if( p_other == null)
-            return false;
-
+		if (this == p_other) {
+			return true;
+		}
+        if(!(p_other instanceof TagValue)) {
+			return false;
+		}
         TagValue l_theOther = (TagValue)p_other;
 
         if( Util.StringCompare(m_tag, l_theOther.m_tag) != 0 ||
