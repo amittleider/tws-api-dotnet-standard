@@ -136,23 +136,23 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Bid Size</td><td>0</td><td>Number of contracts or lots offered at the bid price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Bid Price</td><td>1</td><td>Highest priced bid for the contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Bid Price</td><td>1</td><td>Highest priced bid for the contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Ask Price</td><td>2</td><td>Lowest price offer on the contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Ask Price</td><td>2</td><td>Lowest price offer on the contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Ask Size</td><td>3</td><td>Number of contracts or lots offered at the ask price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Last Price</td><td>4</td><td>Last price at which the contract traded.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Last Price</td><td>4</td><td>Last price at which the contract traded (does not include some trades in RTVolume).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Last Size</td><td>5</td><td>Number of contracts or lots traded at the last price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>High</td><td>6</td><td>High price for the day.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>High</td><td>6</td><td>High price for the day.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Low</td><td>7</td><td>Low price for the day.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Low</td><td>7</td><td>Low price for the day.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Volume</td><td>8</td><td>Trading volume for the day for the selected contract (US Stocks: multiplier 100).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Close Price</td><td>9</td><td>The last available closing price for the <em>previous</em> day. For US Equities, we use corporate action processing to get the closing price, so the close price is adjusted to reflect forward and reverse splits and cash and stock dividends. </td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Close Price</td><td>9</td><td>The last available closing price for the <em>previous</em> day. For US Equities, we use corporate action processing to get the closing price, so the close price is adjusted to reflect forward and reverse splits and cash and stock dividends. </td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Bid Option Computation</td><td>10</td><td>Computed Greeks for the underlying stock price and the option reference price. See <a class="el" href="option_computations.html">Options Computations</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3">IBApi.EWrapper.tickOptionComputation</a></td><td>- </td></tr>
 <tr>
@@ -162,19 +162,19 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Model Option Computation</td><td>13</td><td>Computed Greeks and model's implied volatility for the underlying stock price and the option reference price. See <a class="el" href="option_computations.html">Options Computations</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3">IBApi.EWrapper.tickOptionComputation</a></td><td>- </td></tr>
 <tr>
-<td>Open Tick</td><td>14</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Open Tick</td><td>14</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Low 13 Weeks</td><td>15</td><td>Lowest price for the last 13 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>Low 13 Weeks</td><td>15</td><td>Lowest price for the last 13 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
-<td>High 13 Weeks</td><td>16</td><td>Highest price for the last 13 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>High 13 Weeks</td><td>16</td><td>Highest price for the last 13 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
-<td>Low 26 Weeks</td><td>17</td><td>Lowest price for the last 26 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>Low 26 Weeks</td><td>17</td><td>Lowest price for the last 26 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
-<td>High 26 Weeks</td><td>18</td><td>Highest price for the last 26 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>High 26 Weeks</td><td>18</td><td>Highest price for the last 26 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
-<td>Low 52 Weeks</td><td>19</td><td>Lowest price for the last 52 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>Low 52 Weeks</td><td>19</td><td>Lowest price for the last 52 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
-<td>High 52 Weeks</td><td>20</td><td>Highest price for the last 52 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
+<td>High 52 Weeks</td><td>20</td><td>Highest price for the last 52 weeks.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>165 </td></tr>
 <tr>
 <td>Average Volume</td><td>21</td><td>The average daily trading volume over 90 days (multiply this value times 100).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>165 </td></tr>
 <tr>
@@ -204,25 +204,25 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Auction Volume</td><td>34</td><td>The number of shares that would trade if no new orders were received and the auction were held now.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>225 </td></tr>
 <tr>
-<td>Auction Price</td><td>35</td><td>The price at which the auction would occur if no new orders were received and the auction were held now. The indicative price for the auction.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>225 </td></tr>
+<td>Auction Price</td><td>35</td><td>The price at which the auction would occur if no new orders were received and the auction were held now. The indicative price for the auction.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>225 </td></tr>
 <tr>
 <td>Auction Imbalance</td><td>36</td><td>The number of unmatched shares for the next auction; returns how many more shares are on one side of the auction than the other.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>225 </td></tr>
 <tr>
-<td>Mark Price</td><td>37</td><td>The mark price is equal to the Last Price unless: Ask &lt; Last - the mark price is equal to the Ask Price. Bid &gt; Last - the mark price is equal to the Bid Price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>221 or 232 </td></tr>
+<td>Mark Price</td><td>37</td><td>The mark price is equal to the Last Price unless: Ask &lt; Last - the mark price is equal to the Ask Price. Bid &gt; Last - the mark price is equal to the Bid Price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>221 or 232 </td></tr>
 <tr>
-<td>Bid EFP Computation</td><td>38</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Bid EFP Computation</td><td>38</td><td>Computed EFP bid price</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>Ask EFP Computation</td><td>39</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Ask EFP Computation</td><td>39</td><td>Computed EFP ask price</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>Last EFP Computation</td><td>40</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Last EFP Computation</td><td>40</td><td>Computed EFP last price</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>Open EFP Computation</td><td>41</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Open EFP Computation</td><td>41</td><td>Computed EFP open price</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>High EFP Computation</td><td>42</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>High EFP Computation</td><td>42</td><td>Computed high EFP traded price for the day</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>Low EFP Computation</td><td>43</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Low EFP Computation</td><td>43</td><td>Computed low EFP traded price for the day</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
-<td>Close EFP Computation</td><td>44</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
+<td>Close EFP Computation</td><td>44</td><td>Computed closing EFP price for previous day</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc">IBApi.EWrapper.tickEFP</a></td><td>- </td></tr>
 <tr>
 <td>Last Timestamp</td><td>45</td><td>Time of the last trade (in UNIX time).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>- </td></tr>
 <tr>
@@ -238,11 +238,11 @@ Also see <a class="el" href="reuters_fundamentals.html">Fundamental Data</a> for
 <tr>
 <td>Halted</td><td>49</td><td>Indicates if a contract is halted. See <a class="el" href="tick_types.html#halted">Halted</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26">IBApi.EWrapper.tickGeneric</a></td><td>- </td></tr>
 <tr>
-<td>Bid Yield</td><td>50</td><td>Implied yield of the bond if it is purchased at the current bid.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Bid Yield</td><td>50</td><td>Implied yield of the bond if it is purchased at the current bid.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Ask Yield</td><td>51</td><td>Implied yield of the bond if it is purchased at the current ask.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Ask Yield</td><td>51</td><td>Implied yield of the bond if it is purchased at the current ask.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Last Yield</td><td>52</td><td>Implied yield of the bond if it is purchased at the last price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Last Yield</td><td>52</td><td>Implied yield of the bond if it is purchased at the last price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>Custom Option Computation</td><td>53</td><td>Greek values are based off a user customized price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3">IBApi.EWrapper.tickOptionComputation</a></td><td>- </td></tr>
 <tr>
@@ -252,13 +252,13 @@ Also see <a class="el" href="reuters_fundamentals.html">Fundamental Data</a> for
 <tr>
 <td>Volume Rate</td><td>56</td><td>Volume per minute.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>295 </td></tr>
 <tr>
-<td>Last RTH Trade</td><td>57</td><td>Last Regular Trading Hours traded price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>318 </td></tr>
+<td>Last RTH Trade</td><td>57</td><td>Last Regular Trading Hours traded price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>318 </td></tr>
 <tr>
 <td>RT Historical Volatility</td><td>58</td><td>30-day real time historical volatility.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26">IBApi.EWrapper.tickGeneric</a></td><td>411 </td></tr>
 <tr>
 <td>IB Dividends</td><td>59</td><td>Contract's dividends. See <a class="el" href="tick_types.html#ib_dividends">IB Dividends</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>456 </td></tr>
 <tr>
-<td>Bond Factor Multiplier</td><td>60</td><td>DESC</td><td>METHOD</td><td>- </td></tr>
+<td>Bond Factor Multiplier</td><td>60</td><td>Not currently implemented.</td><td></td><td>- </td></tr>
 <tr>
 <td>Regulatory Imbalance</td><td>61</td><td>The imbalance that is used to determine which at-the-open or at-the-close orders can be entered following the publishing of the regulatory imbalance.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
@@ -270,27 +270,27 @@ Also see <a class="el" href="reuters_fundamentals.html">Fundamental Data</a> for
 <tr>
 <td>Short-Term Volume 10 Minutes</td><td>65</td><td>The past ten minutes volume. Interpolation may be applied.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>595 </td></tr>
 <tr>
-<td>Delayed Bid</td><td>66</td><td>Delayed bid price. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Bid</td><td>66</td><td>Delayed bid price. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Ask</td><td>67</td><td>Delayed ask price. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Ask</td><td>67</td><td>Delayed ask price. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Last</td><td>68</td><td>Delayed last traded price. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Last</td><td>68</td><td>Delayed last traded price. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Bid Size</td><td>69</td><td>Delayed bid size. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
+<td>Delayed Bid Size</td><td>69</td><td>Delayed bid size. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Ask Size</td><td>70</td><td>Delayed ask size. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
+<td>Delayed Ask Size</td><td>70</td><td>Delayed ask size. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Last Size</td><td>71</td><td>Delayed last size. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
+<td>Delayed Last Size</td><td>71</td><td>Delayed last size. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Delayed High Price</td><td>72</td><td>Delayed highest price of the day. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed High Price</td><td>72</td><td>Delayed highest price of the day. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Low Price</td><td>73</td><td>Delayed lowest price of the day. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Low Price</td><td>73</td><td>Delayed lowest price of the day. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Volume</td><td>74</td><td>Delayed traded volume of the day. See <a class="el" href="top_data.html#market_data_type">Real Time Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
+<td>Delayed Volume</td><td>74</td><td>Delayed traded volume of the day. See <a class="el" href="top_data.html#market_data_type">Market Data Types</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Close</td><td>75</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Close</td><td>75</td><td>The <b>prior</b> day's closing price.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
-<td>Delayed Open</td><td>76</td><td>DESC</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
+<td>Delayed Open</td><td>76</td><td>The day's open, but not available for at least 15-20 minutes after the open.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a></td><td>- </td></tr>
 <tr>
 <td>RT Trade Volume</td><td>77</td><td>Last trade details that excludes "Unreportable Trades". See <a class="el" href="tick_types.html#rt_trd_volume">RT Trade Volume</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>375 </td></tr>
 </table>
@@ -301,7 +301,9 @@ Halted</h1>
 <tr>
 <th>Value</th><th>Description </th></tr>
 <tr>
-<td>0</td><td>Not halted. </td></tr>
+<td>-1</td><td>Halted status not available. Usually returned with frozen data. </td></tr>
+<tr>
+<td>0</td><td>Not halted. This value will be returned if the contract is in a TWS watchlist. </td></tr>
 <tr>
 <td>1</td><td>General halt. Trading halt is imposed for purely regulatory reasons with/without volatility halt. </td></tr>
 <tr>
@@ -329,7 +331,6 @@ RT Volume</h1>
 <h1><a class="anchor" id="rt_trd_volume"></a>
 RT Trade Volume</h1>
 <p>The RT Trade Volume is similar to RT Volume, but designed to avoid relaying back "Unreportable Trades" shown in TWS Time&amp;Sales via the API.</p>
-<p>The RT Trade Volume tick type only relays back the last trade information that show up in the "Last" field of a TWS watchlist. It is suggested to use RT Trade Volume instead of RT Volume in purpose to avoid receiving '0's for unreportable trades.</p>
 <h1><a class="anchor" id="ib_dividends"></a>
 IB Dividends</h1>
 <p>This tick type provides four different comma-separated elements:</p>
@@ -340,11 +341,12 @@ IB Dividends</h1>
 <li>The next single dividend amount (0.23 from the example below).</li>
 </ul>
 <p><b>Example: </b>0.83,0.92,20130219,0.23</p>
-<p>To receive dividend information it is necessary to direct-route rather than smart-route market data requests.</p>
+<p>To receive dividend information it is sometimes necessary to direct-route rather than smart-route market data requests.</p>
 <h1><a class="anchor" id="delayed"></a>
 Delayed Data</h1>
-<p>Delayed Data support through the API is in development and will be made available in a futures version of TWS.</p>
-<p>Following a call to reqMarketDataType(3) all requests to reqMktData() will return delayed data <em>only</em>. Please note that receiving delayed data for a contract through the API will also cause delayed data to be displayed for the same contract in Tws. In Tws data can be switched back from delayed to live data for those contracts which have live market data subscriptions in Tws Global Configuration at Display -&gt; Ticker Row -&gt; Reset Subscription, following by the Ctrl-Alt-F combination in Tws to reset subscriptions.</p>
+<p>Delayed Data support through the API is available with TWS and IBG versions 962 and higher.</p>
+<p>To receive delayed data for exchanges without the necessary market data subscriptions for live data, the function call <a class="el" href="top_data.html#market_data_type">Market Data Types</a> is made prior to reqMktData. Quotes for data from 15-20 minutes prior will be streamed back.</p>
+<p><em>Note: API version 9.72 and higher is suggested, but not required, so as to correctly label the delayed tick types (Tick ID 66~76).</em></p>
 <p><br/>
 <br/>
  </p>

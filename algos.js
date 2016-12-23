@@ -1,14 +1,19 @@
 var algos =
 [
     [ "IB Algorithms", "ibalgos.html", [
+      [ "Adaptive Algo", "ibalgos.html#adaptive", null ],
       [ "ArrivalPrice", "ibalgos.html#arrivalprice", null ],
+      [ "Close Price", "ibalgos.html#closepx", null ],
       [ "DarkIce", "ibalgos.html#darkice", null ],
       [ "Accumulate/Distribute", "ibalgos.html#ad", null ],
+      [ "Percentage of Volume", "ibalgos.html#pctvol", null ],
       [ "TWAP", "ibalgos.html#twap", null ],
+      [ "Price Variant Percentage of Volume Strategy", "ibalgos.html#pctvolpx", null ],
+      [ "Size Variant Percentage of Volume Strategy", "ibalgos.html#pctvolsz", null ],
+      [ "Time Variant Percentage of Volume Strategy", "ibalgos.html#pctvoltm", null ],
       [ "VWAP", "ibalgos.html#vwap", null ],
       [ "Balance Impact Risk", "ibalgos.html#balanceimpact", null ],
-      [ "Minimise Impact", "ibalgos.html#minimpact", null ],
-      [ "Adaptive Algo", "ibalgos.html#adaptive", null ]
+      [ "Minimise Impact", "ibalgos.html#minimpact", null ]
     ] ],
     [ "CSFB Algorithms", "csfb.html", [
       [ "CSFB Algorithm Parameters", "csfb.html#csfb_params", [

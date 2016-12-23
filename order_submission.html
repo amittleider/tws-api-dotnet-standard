@@ -243,7 +243,7 @@ The openOrder method</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrder( OrderId orderId, <span class="keyword">const</span> Contract&amp; contract, <span class="keyword">const</span> Order&amp; order, <span class="keyword">const</span> OrderState&amp; ostate) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;OpenOrder. ID: %ld, %s, %s @ %s: %s, %s, %g, %s\n&quot;</span>, orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, ostate.status.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;OpenOrder. ID: %ld, %s, %s @ %s: %s, %s, %g, %g, %s\n&quot;</span>, orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, order.cashQty == UNSET_DOUBLE ? 0 : order.cashQty, ostate.status.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>

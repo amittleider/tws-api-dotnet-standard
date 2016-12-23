@@ -6,7 +6,7 @@ var namespaceIBApi =
     [ "EReaderSignal", "interfaceIBApi_1_1EReaderSignal.html", "interfaceIBApi_1_1EReaderSignal" ],
     [ "EClientSocket", "classIBApi_1_1EClientSocket.html", "classIBApi_1_1EClientSocket" ],
     [ "EClientSocketSSL", "classIBApi_1_1EClientSocketSSL.html", "classIBApi_1_1EClientSocketSSL" ],
-    [ "AccountSummaryTags", "classIBApi_1_1AccountSummaryTags.html", null ],
+    [ "AccountSummaryTags", "classIBApi_1_1AccountSummaryTags.html", "classIBApi_1_1AccountSummaryTags" ],
     [ "ComboLeg", "classIBApi_1_1ComboLeg.html", "classIBApi_1_1ComboLeg" ],
     [ "CommissionReport", "classIBApi_1_1CommissionReport.html", "classIBApi_1_1CommissionReport" ],
     [ "Contract", "classIBApi_1_1Contract.html", "classIBApi_1_1Contract" ],

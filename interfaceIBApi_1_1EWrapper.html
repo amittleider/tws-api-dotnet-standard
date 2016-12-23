@@ -149,9 +149,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2">currentTime</a> (long time)</td></tr>
 <tr class="memdesc:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime.  <a href="#a7004c6c027c90ecdc1f5c68759e37fd2">More...</a><br/></td></tr>
 <tr class="separator:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff4ae3269d7b13dd1ca989a8d5ca1ced"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced">tickPrice</a> (int tickerId, int field, double price, int canAutoExecute)</td></tr>
-<tr class="memdesc:aff4ae3269d7b13dd1ca989a8d5ca1ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Market data tick price callback. Handles all price related ticks.  <a href="#aff4ae3269d7b13dd1ca989a8d5ca1ced">More...</a><br/></td></tr>
-<tr class="separator:aff4ae3269d7b13dd1ca989a8d5ca1ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">tickPrice</a> (int tickerId, int field, double price, TickAttrib attribs)</td></tr>
+<tr class="memdesc:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Market data tick price callback. Handles all price related ticks.  <a href="#ae851ec3a1e0fa2d0964c7779b0c89718">More...</a><br/></td></tr>
+<tr class="separator:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1844eb442fb657c0f2cc0a63e4e74eba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">tickSize</a> (int tickerId, int field, int size)</td></tr>
 <tr class="memdesc:a1844eb442fb657c0f2cc0a63e4e74eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Market data tick size callback. Handles all size-related ticks.  <a href="#a1844eb442fb657c0f2cc0a63e4e74eba">More...</a><br/></td></tr>
 <tr class="separator:a1844eb442fb657c0f2cc0a63e4e74eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,7 +242,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memdesc:a715bb6750de66a0e072a910e697e20cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the ending of the historical bars reception. <br/></td></tr>
 <tr class="separator:a715bb6750de66a0e072a910e697e20cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79918660257f0e7ce77309bf3bccf13c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c">marketDataType</a> (int reqId, int marketDataType)</td></tr>
-<tr class="memdesc:a79918660257f0e7ce77309bf3bccf13c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen)  <a href="#a79918660257f0e7ce77309bf3bccf13c">More...</a><br/></td></tr>
+<tr class="memdesc:a79918660257f0e7ce77309bf3bccf13c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> when TWS switches from real-time to frozen and back and from delayed to delayed-frozen and back.  <a href="#a79918660257f0e7ce77309bf3bccf13c">More...</a><br/></td></tr>
 <tr class="separator:a79918660257f0e7ce77309bf3bccf13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d68c4cf7093f105095d72dd7e7a912"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">updateMktDepth</a> (int tickerId, int <a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6">position</a>, int operation, int side, double price, int size)</td></tr>
 <tr class="memdesc:ab0d68c4cf7093f105095d72dd7e7a912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the order book.  <a href="#ab0d68c4cf7093f105095d72dd7e7a912">More...</a><br/></td></tr>
@@ -321,6 +321,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:a522a5d8dc187a2b7bb79c57621c6239a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a522a5d8dc187a2b7bb79c57621c6239a">softDollarTiers</a> (int reqId, <a class="el" href="classIBApi_1_1SoftDollarTier.html">SoftDollarTier</a>[] tiers)</td></tr>
 <tr class="memdesc:a522a5d8dc187a2b7bb79c57621c6239a"><td class="mdescLeft">&#160;</td><td class="mdescRight">called when receives Soft Dollar Tier configuration information  <a href="#a522a5d8dc187a2b7bb79c57621c6239a">More...</a><br/></td></tr>
 <tr class="separator:a522a5d8dc187a2b7bb79c57621c6239a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35527542977d427f4ad6ce624aebc8b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a35527542977d427f4ad6ce624aebc8b4">familyCodes</a> (FamilyCode[] familyCodes)</td></tr>
+<tr class="memdesc:a35527542977d427f4ad6ce624aebc8b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns array of family codes  <a href="#a35527542977d427f4ad6ce624aebc8b4">More...</a><br/></td></tr>
+<tr class="separator:a35527542977d427f4ad6ce624aebc8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82cfd0c663944c5e6d4fee8ebd482ecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a82cfd0c663944c5e6d4fee8ebd482ecf">symbolSamples</a> (int reqId, ContractDescription[] contractDescriptions)</td></tr>
+<tr class="memdesc:a82cfd0c663944c5e6d4fee8ebd482ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns array of sample contract descriptions  <a href="#a82cfd0c663944c5e6d4fee8ebd482ecf">More...</a><br/></td></tr>
+<tr class="separator:a82cfd0c663944c5e6d4fee8ebd482ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf5ec42d517d013340e52c42209dcefe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aaf5ec42d517d013340e52c42209dcefe">mktDepthExchanges</a> (DepthMktDataDescription[] depthMktDataDescriptions)</td></tr>
+<tr class="memdesc:aaf5ec42d517d013340e52c42209dcefe"><td class="mdescLeft">&#160;</td><td class="mdescRight">called when receives Depth Market Data Descriptions  <a href="#aaf5ec42d517d013340e52c42209dcefe">More...</a><br/></td></tr>
+<tr class="separator:aaf5ec42d517d013340e52c42209dcefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This interface's methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every <a class="el" href="classIBApi_1_1EClientSocket.html" title="TWS/Gateway client class This client class contains all the available methods to communicate with IB...">EClientSocket</a> method call will result in at least one event delivered here. </p>
@@ -930,6 +939,31 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
+<a class="anchor" id="a35527542977d427f4ad6ce624aebc8b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void familyCodes </td>
+          <td>(</td>
+          <td class="paramtype">FamilyCode[]&#160;</td>
+          <td class="paramname"><em>familyCodes</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>returns array of family codes </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FamilyCode[]</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a80207770f2654147d5a1c4c985748f38" title="Requests family codes. ">EClient::reqFamilyCodes</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="af209070fa9583fb4780be0f3ff1e61e4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1101,15 +1135,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
       </table>
 </div><div class="memdoc">
 
-<p>Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) </p>
+<p>Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> when TWS switches from real-time to frozen and back and from delayed to delayed-frozen and back. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reqId</td><td>the request's identifier </td></tr>
-    <tr><td class="paramname">marketDataType</td><td>1 for real time, 2 for frozen, 3 for delayed, 4 for delayed-frozen </td></tr>
+    <tr><td class="paramname">reqId</td><td>the id of ticker sent in reqMktData </td></tr>
+    <tr><td class="paramname">marketDataType</td><td>means that now API starts to tick with the folloiwng market data: 1 for real-time, 2 for frozen, 3 for delayed, 4 for delayed-frozen </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ae03b31bb2702ba519ed63c46455872b6" title="indicates the TWS to switch to &quot;frozen&quot;, &quot;delayed&quot; or &quot;delayed-frozen&quot; market data. The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data. ">EClientSocket::reqMarketDataType</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#ae03b31bb2702ba519ed63c46455872b6" title="indicates the TWS to enable &quot;frozen&quot;, &quot;delayed&quot; or &quot;delayed-frozen&quot; market data. The API can receive ...">EClientSocket::reqMarketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaf5ec42d517d013340e52c42209dcefe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mktDepthExchanges </td>
+          <td>(</td>
+          <td class="paramtype">DepthMktDataDescription[]&#160;</td>
+          <td class="paramname"><em>depthMktDataDescriptions</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>called when receives Depth Market Data Descriptions </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptions</td><td>Stores a list of DepthMktDataDescriprion </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a5c40b7bf20ba269530807b093dc51853" title="Requests venues with market depth data available. ">EClient::reqMktDepthExchanges</a> </dd></dl>
 
 </div>
 </div>
@@ -1825,6 +1884,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
+<a class="anchor" id="a82cfd0c663944c5e6d4fee8ebd482ecf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void symbolSamples </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContractDescription[]&#160;</td>
+          <td class="paramname"><em>contractDescriptions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>returns array of sample contract descriptions </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ContractDescription[]</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa0bff193c5cbaa73e89dccdd0f027195" title="Requests matching symbols (implements &#39;google-like&#39; suggestions as user starts typing symbol or contr...">EClient::reqMatchingSymbols</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="af8afed0428f2f848f15ac137d81283fc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2039,11 +2133,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by EClientSo...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aff4ae3269d7b13dd1ca989a8d5ca1ced"></a>
+<a class="anchor" id="ae851ec3a1e0fa2d0964c7779b0c89718"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2068,8 +2162,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>canAutoExecute</em>&#160;</td>
+          <td class="paramtype">TickAttrib&#160;</td>
+          <td class="paramname"><em>attribs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2089,7 +2183,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by EClientSo...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
 </div>
@@ -2132,7 +2226,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e" title="Market data callback. ">tickString</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by EClientSo...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
 </div>
@@ -2175,7 +2269,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aff4ae3269d7b13dd1ca989a8d5ca1ced" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen) ...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>TickType, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">tickSize</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. ">tickPrice</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc" title="Exchange for Physicals. ">tickEFP</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26" title="Market data callback. ">tickGeneric</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3" title="Receive&#39;s option specific market data. This method is called when the market in an option or its unde...">tickOptionComputation</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169" title="When requesting market data snapshots, this market will indicate the snapshot reception is finished...">tickSnapshotEnd</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a79918660257f0e7ce77309bf3bccf13c" title="Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by EClientSo...">marketDataType</a>, <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">EClientSocket::reqMktData</a> </dd></dl>
 
 </div>
 </div>

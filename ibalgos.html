@@ -129,7 +129,65 @@ $(document).ready(function(){initNavTree('ibalgos.html','');});
 <div class="title">IB Algorithms </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="arrivalprice"></a>
+<div class="textblock"><h1><a class="anchor" id="adaptive"></a>
+Adaptive Algo</h1>
+<p>The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>adaptivePriority </td><td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order. </td><td>Critical &gt; Urgent &gt; Normal &gt; Patient  </td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, <span class="keywordtype">string</span> priority)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, String priority) {</div>
+<div class="line"></div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Adaptive&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
+<div class="line"></div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillAdaptiveParams(baseOrder As Order, priority As String)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority))</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillAdaptiveParams(Order&amp; baseOrder, std::string priority){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="arrivalprice"></a>
 ArrivalPrice</h1>
 <p>The <a href="https://www.interactivebrokers.com/en/index.php?f=1122" target="_blank" class="linkexternal">Arrival Price</a> algorithmic order type will attempt to achieve, over the course of the order, the bid/ask midpoint at the time the order is submitted. The Arrival Price algo is designed to keep hidden orders that will impact a high percentage of the average daily volume (ADV). The pace of execution is determined by the user-assigned level of risk aversion and the user-defined target percent of average daily volume. How quickly the order is submitted during the day is determined by the level of urgency: the higher the urgency the faster it will execute but will expose it to a greater market impact. Market impact can be lessened by assigning lesser urgency, which is likely to lengthen the duration of the order. The user can set the max percent of ADV from 1 to 50%. The order entry screen allows the user to determine when the order will start and end regardless of whether or not the full amount of the order has been filled. By checking the box marked Allow trading past end time the algo will continue to work past the specified end time in an effort to fill the remaining portion of the order.</p>
 <table class="doxtable">
@@ -140,23 +198,25 @@ ArrivalPrice</h1>
 <tr>
 <td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive </td></tr>
 <tr>
-<td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
-<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
 <td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
 <tr>
 <td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 </table>
 <p><br/>
 </p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillArrivalPriceParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, <span class="keywordtype">string</span> riskAversion, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, </div>
-<div class="line">            <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">bool</span> allowPastTime)</div>
+<div class="line">            <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">bool</span> allowPastTime, <span class="keywordtype">double</span> monetaryValue)</div>
 <div class="line">        {            </div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ArrivalPx&quot;</span>;</div>
 <div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
@@ -166,13 +226,15 @@ ArrivalPrice</h1>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillArrivalPriceParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String riskAversion, String startTime, String endTime, <span class="keywordtype">boolean</span> forceCompletion, <span class="keywordtype">boolean</span> allowPastTime) {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillArrivalPriceParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String riskAversion, String startTime, </div>
+<div class="line">            String endTime, <span class="keywordtype">boolean</span> forceCompletion, <span class="keywordtype">boolean</span> allowPastTime, <span class="keywordtype">double</span> monetaryValue) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;ArrivalPx&quot;</span>);</div>
 <div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
@@ -182,15 +244,16 @@ ArrivalPrice</h1>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
-<div class="line">        </div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">                </div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, True)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, True, 100000)</div>
 <div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillArrivalPriceParams(baseOrder As Order, maxPctVol As Double, riskAversion As String, startTime As String, endTime As String,</div>
-<div class="line">            forceCompletion As Boolean, allowPastTime As Boolean)</div>
+<div class="line">            forceCompletion As Boolean, allowPastTime As Boolean, monetaryValue As Double)</div>
 <div class="line"></div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ArrivalPx&quot;</span></div>
 <div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
@@ -200,14 +263,15 @@ ArrivalPrice</h1>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, BooleantoString(forceCompletion)))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, BooleantoString(allowPastTime)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillArrivalPriceParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillArrivalPriceParams(Order&amp; baseOrder, <span class="keywordtype">double</span> maxPctVol, std::string riskAversion, std::string startTime, std::string endTime, </div>
-<div class="line">    <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">bool</span> allowPastTime){</div>
+<div class="line">    <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">bool</span> allowPastTime, <span class="keywordtype">double</span> monetaryValue){</div>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;ArrivalPx&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, std::to_string(maxPctVol)));</div>
@@ -216,12 +280,102 @@ ArrivalPrice</h1>
 <div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag7(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag7);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="closepx"></a>
+Close Price</h1>
+<p>Investors submitting market or limit orders into the closing auction may adversely affect the closing price, especially when the size of the order is large relative to the average close auction volume. In order to help investors attempting to execute towards the end of the trading session we have developed the <a href="https://www.interactivebrokers.com/en/index.php?f=19749" target="_blank" class="linkexternal">Close Price</a> algo Strategy. This algo breaks down large order amounts and determines the timing of order entry so that it will continuously execute in order to minimize slippage. The start and pace of execution are determined by the user who assigns a level of market risk and specifies the target percentage of volume, while the algo considers the prior volatility of the stock.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>maxPctVol</td><td>Maximum percentage of ADV</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive </td></tr>
+<tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillClosePriceParams(baseOrder, 0.5, <span class="stringliteral">&quot;Neutral&quot;</span>, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillClosePriceParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, <span class="keywordtype">string</span> riskAversion, <span class="keywordtype">string</span> startTime, </div>
+<div class="line">            <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">double</span> monetaryValue)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ClosePx&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillClosePriceParams(baseOrder, 0.5, <span class="stringliteral">&quot;Neutral&quot;</span>, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillClosePriceParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String riskAversion, String startTime, </div>
+<div class="line">            <span class="keywordtype">boolean</span> forceCompletion, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">            </div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;ClosePx&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, String.valueOf(maxPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillClosePriceParams(baseOrder, 0.5, <span class="stringliteral">&quot;Neutral&quot;</span>, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, True, 100000)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillClosePriceParams(baseOrder As Order, maxPctVol As Double, riskAversion As String, startTime As String, forceCompletion As Boolean, monetaryValue As Double)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ClosePx&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, BooleantoString(forceCompletion)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
+<div class="line"></div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillClosePriceParams(baseOrder, 0.5, <span class="stringliteral">&quot;Neutral&quot;</span>, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillClosePriceParams(Order&amp; baseOrder, <span class="keywordtype">double</span> maxPctVol, std::string riskAversion, std::string startTime, <span class="keywordtype">bool</span> forceCompletion, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;ClosePx&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, std::to_string(maxPctVol)));</div>
+<div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>,riskAversion));</div>
+<div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, forceCompletion ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -234,20 +388,23 @@ DarkIce</h1>
 <tr>
 <td>displaySize</td><td>Order size to be displayed</td><td></td></tr>
 <tr>
-<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
 <td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
 <tr>
 <td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 </table>
 <p><br/>
 </p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillDarkIceParams(Order baseOrder, <span class="keywordtype">int</span> displaySize, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, <span class="keywordtype">bool</span> allowPastEndTime)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillDarkIceParams(Order baseOrder, <span class="keywordtype">int</span> displaySize, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, </div>
+<div class="line">            <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue)</div>
 <div class="line">        {</div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;DarkIce&quot;</span>;</div>
 <div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
@@ -255,13 +412,15 @@ DarkIce</h1>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillDarkIceParams(Order baseOrder, <span class="keywordtype">int</span> displaySize, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime) {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillDarkIceParams(Order baseOrder, <span class="keywordtype">int</span> displaySize, String startTime, String endTime, </div>
+<div class="line">            <span class="keywordtype">boolean</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;DarkIce&quot;</span>);</div>
 <div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
@@ -269,14 +428,16 @@ DarkIce</h1>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
 <div class="line">        </div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, 100000)</div>
 <div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillDarkIceParams(baseOrder As Order, displaySize As Integer, startTime As String, endTime As String, allowPastEndTime As Boolean)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillDarkIceParams(baseOrder As Order, displaySize As Integer, startTime As String, endTime As String,</div>
+<div class="line">            allowPastEndTime As Boolean, monetaryValue As Double)</div>
 <div class="line"></div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;DarkIce&quot;</span></div>
 <div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
@@ -284,23 +445,26 @@ DarkIce</h1>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, BooleantoString(allowPastEndTime)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillDarkIceParams(baseOrder, 10, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillDarkIceParams(Order&amp; baseOrder, <span class="keywordtype">int</span> displaySize, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime){</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillDarkIceParams(Order&amp; baseOrder, <span class="keywordtype">int</span> displaySize, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue){</div>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;DarkIce&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;displaySize&quot;</span>, std::to_string(displaySize)));</div>
 <div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -426,6 +590,92 @@ Accumulate/Distribute</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
+<h1><a class="anchor" id="pctvol"></a>
+Percentage of Volume</h1>
+<p>The <a href="https://www.interactivebrokers.com/en/index.php?f=1123" target="_blank" class="linkexternal">Percent of Volume </a> algo can limit the contribution of orders to overall average daily volume in order to minimize impact. Clients can set a value between 1-50% to control their participation between stated start and end times. Order quantity and volume distribution over the day is determined using the target percent of volume you entered along with continuously updated volume forecasts calculated from TWS market data. In addition, the algo can be set to avoid taking liquidity, which may help avoid liquidity-taker fees and could result in liquidity-adding rebates. By checking the Attempt to never take liquidity box, the algo is discouraged from hitting the bid or lifting the offer if possible. However, this may also result in greater deviations from the benchmark, and in partial fills, since the posted bid/offer may not always get hit as the price moves up/down. IB will use best efforts not to take liquidity when this box is checked, however, there will be times that it cannot be avoided.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillPctVolParams(baseOrder, 0.5, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillPctVolParams(Order baseOrder, <span class="keywordtype">double</span> pctVol, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVol&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillPctVolParams(baseOrder, 0.5, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillPctVolParams(Order baseOrder, <span class="keywordtype">double</span> pctVol, String startTime, String endTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue) {</div>
+<div class="line">        </div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;PctVol&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, String.valueOf(pctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillPctVolParams(baseOrder, 0.5, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, True, 100000)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillPctVolParams(baseOrder As Order, pctVol As Double, startTime As String, endTime As String, noTakeLiq As Boolean, monetaryValue As Double)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVol&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, BooleantoString(noTakeLiq)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
+<div class="line"></div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillPctVolParams(baseOrder, 0.5, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillPctVolParams(Order&amp; baseOrder, <span class="keywordtype">double</span> pctVol, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;PctVol&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, std::to_string(pctVol)));</div>
+<div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
 <h1><a class="anchor" id="twap"></a>
 TWAP</h1>
 <p>The <a href="https://www.interactivebrokers.com/en/index.php?f=1125" target="_blank" class="linkexternal">TWAP</a> algo aims to achieve the time-weighted average price calculated from the time you submit the order to the time it completes. Incomplete orders at the end of the stated completion time will continue to fill if the box 'allow trading past end time' is checked. Users can set the order to trade only when specified conditions are met. Those user-defined inputs include when the order is marketable, when the midpoint matches the required price, when the same side (buy or sell) matches to make the order marketable or when the last traded price would make the order marketable. For the TWAP algo, the average price calculation is calculated from the order entry time through the close of the market and will only attempt to execute when the criterion is met. The order may not fill throughout its stated duration and so the order is not guaranteed. TWAP is available for all US equities.</p>
@@ -435,20 +685,22 @@ TWAP</h1>
 <tr>
 <td>strategyType</td><td>Trade strategy</td><td>Marketable, Matching, Midpoint, Matching Same Side, Matching Last </td></tr>
 <tr>
-<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
 <td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
 <tr>
 <td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 </table>
 <p><br/>
 </p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTwapParams(Order baseOrder, <span class="keywordtype">string</span> strategyType, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, <span class="keywordtype">bool</span> allowPastEndTime)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTwapParams(Order baseOrder, <span class="keywordtype">string</span> strategyType, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue)</div>
 <div class="line">        {</div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Twap&quot;</span>;</div>
 <div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
@@ -456,13 +708,15 @@ TWAP</h1>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTwapParams(Order baseOrder, String strategyType, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime) {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTwapParams(Order baseOrder, String strategyType, String startTime, String endTime, </div>
+<div class="line">            <span class="keywordtype">boolean</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Twap&quot;</span>);</div>
 <div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
@@ -470,14 +724,16 @@ TWAP</h1>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
 <div class="line">        </div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, 100000)</div>
 <div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillTwapParams(baseOrder As Order, strategyType As String, startTime As String, endTime As String, allowPastEndTime As Boolean)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillTwapParams(baseOrder As Order, strategyType As String, startTime As String, endTime As String,</div>
+<div class="line">            allowPastEndTime As Boolean, monetaryValue As Double)</div>
 <div class="line"></div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Twap&quot;</span></div>
 <div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
@@ -485,25 +741,334 @@ TWAP</h1>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, BooleantoString(allowPastEndTime)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
 <div class="line"></div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillTwapParams(baseOrder, <span class="stringliteral">&quot;Marketable&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillTwapParams(Order&amp; baseOrder, std::string strategyType, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime){</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillTwapParams(Order&amp; baseOrder, std::string strategyType, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">double</span> monetaryValue){</div>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;Twap&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;strategyType&quot;</span>, strategyType));</div>
 <div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
 <div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="pctvolpx"></a>
+Price Variant Percentage of Volume Strategy</h1>
+<p><a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse03" target="_blank" class="linkexternal">Price Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies over time depending on the market price of the security. This algo allows you to buy more aggressively when the price is low and be more passive as the price increases, and just the opposite for sell orders. The order quantity and volume distribution over the time during which the order is active is determined using the target percent of volume you entered along with continuously updated volume forecasts calculated from TWS market data.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>deltaPctVol</td><td>Target Percentage Change Rate</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>minPctVol4Px</td><td>Minimum Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>maxPctVol4Px</td><td>Maximum Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillPriceVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> pctVol, <span class="keywordtype">double</span> deltaPctVol, <span class="keywordtype">double</span> minPctVol4Px, </div>
+<div class="line">            <span class="keywordtype">double</span> maxPctVol4Px, String startTime, String endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolPx&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, deltaPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, minPctVol4Px.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, maxPctVol4Px.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillPriceVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> pctVol, <span class="keywordtype">double</span> deltaPctVol, <span class="keywordtype">double</span> minPctVol4Px, </div>
+<div class="line">            <span class="keywordtype">double</span> maxPctVol4Px, String startTime, String endTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">            </div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;PctVolPx&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, String.valueOf(pctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, String.valueOf(deltaPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, String.valueOf(minPctVol4Px)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, String.valueOf(maxPctVol4Px)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, True, 100000)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillPriceVariantPctVolParams(baseOrder As Order, pctVol As Double, deltaPctVol As Double, minPctVol4Px As Double,</div>
+<div class="line">            maxPctVol4Px As Double, startTime As String, endTime As String, noTakeLiq As Boolean, monetaryValue As Double)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolPx&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, deltaPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, minPctVol4Px.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, maxPctVol4Px.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, BooleantoString(noTakeLiq)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
+<div class="line"></div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillPriceVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> pctVol, <span class="keywordtype">double</span> deltaPctVol, <span class="keywordtype">double</span> minPctVol4Px, </div>
+<div class="line">                                                       <span class="keywordtype">double</span> maxPctVol4Px, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;PctVolPx&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, std::to_string(pctVol)));</div>
+<div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, std::to_string(deltaPctVol)));</div>
+<div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, std::to_string(minPctVol4Px)));</div>
+<div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, std::to_string(maxPctVol4Px)));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">    TagValueSPtr tag7(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag8(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag7);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag8);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="pctvolsz"></a>
+Size Variant Percentage of Volume Strategy</h1>
+<p><a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse02" target="_blank" class="linkexternal">Size Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies over time depending on the remaining size of the order. Define the target percent rate at the start time (Initial Participation Rate) and at the end time (Terminal Participation Rate), and the algo calculates the participation rate over time between the two based on the remaining order size. This allows the order to be more aggressive initially and less aggressive toward the end, or vice versa.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillSizeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol, </div>
+<div class="line">            String startTime, String endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolSz&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillSizeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol, </div>
+<div class="line">            String startTime, String endTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">            </div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;PctVolSz&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, String.valueOf(startPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, String.valueOf(endPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, True, 100000)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillSizeVariantPctVolParams(baseOrder As Order, startPctVol As Double, endPctVol As Double,</div>
+<div class="line">            startTime As String, endTime As String, noTakeLiq As Boolean, monetaryValue As Double)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolSz&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, BooleantoString(noTakeLiq)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
+<div class="line"></div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillSizeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol, </div>
+<div class="line">                                std::string startTime, std::string endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;PctVolSz&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, std::to_string(startPctVol)));</div>
+<div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, std::to_string(endPctVol)));</div>
+<div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="pctvoltm"></a>
+Time Variant Percentage of Volume Strategy</h1>
+<p><a href="https://www.interactivebrokers.com/en/index.php?f=14369#collapse01" target="_blank" class="linkexternal">Time Variant Percentage of Volume Strategy</a> - This algo allows you to participate in volume at a user-defined rate that varies with time. Define the target percent rate at the start time and at the end time, and the algo calculates the participation rate over time between the two. This allows the order to be more aggressive initially and less aggressive toward the end, or vice versa.</p>
+<table class="doxtable">
+<tr>
+<th>Parameter</th><th>Description</th><th>Values </th></tr>
+<tr>
+<td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
+<tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
+</table>
+<p><br/>
+</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTimeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol,</div>
+<div class="line">            String startTime, String endTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue)</div>
+<div class="line">        {</div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolTm&quot;</span>;</div>
+<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol.ToString()));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillTimeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol, </div>
+<div class="line">            String startTime, String endTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">            </div>
+<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;PctVolTm&quot;</span>);</div>
+<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, String.valueOf(startPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, String.valueOf(endPctVol)));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, True, 100000)</div>
+<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillTimeVariantPctVolParams(baseOrder As Order, startPctVol As Double, endPctVol As Double,</div>
+<div class="line">            startTime As String, endTime As String, noTakeLiq As Boolean, monetaryValue As Double)</div>
+<div class="line"></div>
+<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolTm&quot;</span></div>
+<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol.ToString()))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, BooleantoString(noTakeLiq)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
+<div class="line"></div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">true</span>, 100000);</div>
+<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillTimeVariantPctVolParams(Order baseOrder, <span class="keywordtype">double</span> startPctVol, <span class="keywordtype">double</span> endPctVol, std::string startTime, </div>
+<div class="line">                                 std::string endTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">double</span> monetaryValue){</div>
+<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;PctVolTm&quot;</span>;</div>
+<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
+<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, std::to_string(startPctVol)));</div>
+<div class="line">    TagValueSPtr tag2(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, std::to_string(endPctVol)));</div>
+<div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime));</div>
+<div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
+<div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
+<div class="line">}</div>
+<div class="line"></div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="vwap"></a>
@@ -517,22 +1082,27 @@ VWAP</h1>
 <tr>
 <td>maxPctVol</td><td>Maximum percentage of average daily volume</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
-<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
 <td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
 <tr>
 <td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<tr>
+<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>speedUp</td><td>Compensate for the decreased fill rate due to presence of limit price</td><td>1 (true) or 0 (false) </td></tr>
+<tr>
+<td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 </table>
 <p><br/>
 </p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillVwapParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">bool</span> noTakeLiq)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillVwapParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, <span class="keywordtype">string</span> startTime, <span class="keywordtype">string</span> endTime, </div>
+<div class="line">            <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">bool</span> speedUp, <span class="keywordtype">double</span> monetaryValue)</div>
 <div class="line">        {</div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Vwap&quot;</span>;</div>
 <div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
@@ -541,13 +1111,16 @@ VWAP</h1>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;speedUp&quot;</span>, speedUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">true</span>, 100000);</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillVwapParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String startTime, String endTime, <span class="keywordtype">boolean</span> allowPastEndTime, <span class="keywordtype">boolean</span> noTakeLiq) {</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillVwapParams(Order baseOrder, <span class="keywordtype">double</span> maxPctVol, String startTime, String endTime, </div>
+<div class="line">            <span class="keywordtype">boolean</span> allowPastEndTime, <span class="keywordtype">boolean</span> noTakeLiq, <span class="keywordtype">boolean</span> speedUp, <span class="keywordtype">double</span> monetaryValue) {</div>
 <div class="line">        </div>
 <div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Vwap&quot;</span>);</div>
 <div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
@@ -556,14 +1129,17 @@ VWAP</h1>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;speedUp&quot;</span>, speedUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, String.valueOf(monetaryValue)));</div>
 <div class="line">        </div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, True)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, True, True, True, 100000)</div>
 <div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillVwapParams(baseOrder As Order, maxPctVol As Double, startTime As String, endTime As String, allowPastEndTime As Boolean, noTakeLiq As Boolean)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillVwapParams(baseOrder As Order, maxPctVol As Double, startTime As String, endTime As String,</div>
+<div class="line">            allowPastEndTime As Boolean, noTakeLiq As Boolean, speedUp As Boolean, monetaryValue As Double)</div>
 <div class="line"></div>
 <div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Vwap&quot;</span></div>
 <div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
@@ -572,6 +1148,8 @@ VWAP</h1>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, BooleantoString(allowPastEndTime)))</div>
 <div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, BooleantoString(noTakeLiq)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;speedUp&quot;</span>, BooleantoString(speedUp)))</div>
+<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue.ToString()))</div>
 <div class="line"></div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
@@ -579,7 +1157,7 @@ VWAP</h1>
 <div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillBalanceImpactRiskParams(baseOrder, 0.1, <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="keyword">true</span>);</div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillVwapParams(Order&amp; baseOrder, <span class="keywordtype">double</span> maxPctVol, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">bool</span> noTakeLiq){</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillVwapParams(Order&amp; baseOrder, <span class="keywordtype">double</span> maxPctVol, std::string startTime, std::string endTime, <span class="keywordtype">bool</span> allowPastEndTime, <span class="keywordtype">bool</span> noTakeLiq, <span class="keywordtype">bool</span> speedUp, <span class="keywordtype">double</span> monetaryValue){</div>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;Vwap&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, std::to_string(maxPctVol)));</div>
@@ -587,11 +1165,15 @@ VWAP</h1>
 <div class="line">    TagValueSPtr tag3(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime));</div>
 <div class="line">    TagValueSPtr tag4(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>, allowPastEndTime ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
 <div class="line">    TagValueSPtr tag5(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, noTakeLiq ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag6(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;speedUp&quot;</span>, speedUp ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>));</div>
+<div class="line">    TagValueSPtr tag7(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, std::to_string(monetaryValue)));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag2);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag3);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag4);</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag5);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag6);</div>
+<div class="line">    baseOrder.algoParams-&gt;push_back(tag7);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -607,8 +1189,6 @@ Balance Impact Risk</h1>
 <td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive </td></tr>
 <tr>
 <td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false) </td></tr>
-<tr>
-<td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
 </table>
 <p><br/>
 </p>
@@ -722,64 +1302,6 @@ Minimise Impact</h1>
 <div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;MinImpact&quot;</span>;</div>
 <div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, std::to_string(maxPctVol)));</div>
-<div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
-<div class="line">}</div>
-</div><!-- fragment -->  </li>
-</ul>
-<h1><a class="anchor" id="adaptive"></a>
-Adaptive Algo</h1>
-<p>The <a href="https://www.interactivebrokers.com/en/index.php?f=19091" target="_blank" class="linkexternal">Adaptive Algo</a> combines IB's Smartrouting capabilities with user-defined priority settings in an effort to achieve further cost efficiency at the point of execution. Using the Adaptive algo leads to better execution prices on average than for regular limit or market orders.</p>
-<table class="doxtable">
-<tr>
-<th>Parameter</th><th>Description</th><th>Values </th></tr>
-<tr>
-<td>adaptivePriority </td><td>The 'Priority' selector determines the time taken to scan for better execution prices. The 'Critical' setting scans only briefly, while the 'Patient' scan works more slowly and has a higher chance of achieving a better overall fill for your order. </td><td>Critical &gt; Urgent &gt; Normal &gt; Patient  </td></tr>
-</table>
-<p><br/>
-</p>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">            Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
-<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, <span class="keywordtype">string</span> priority)</div>
-<div class="line">        {</div>
-<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
-<div class="line">            baseOrder.AlgoParams = <span class="keyword">new</span> List&lt;TagValue&gt;();</div>
-<div class="line">            baseOrder.AlgoParams.Add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
-<div class="line">        }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Order baseOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
-<div class="line">        client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> FillAdaptiveParams(Order baseOrder, String priority) {</div>
-<div class="line"></div>
-<div class="line">        baseOrder.algoStrategy(<span class="stringliteral">&quot;Adaptive&quot;</span>);</div>
-<div class="line">        baseOrder.algoParams(<span class="keyword">new</span> ArrayList&lt;TagValue&gt;());</div>
-<div class="line">        baseOrder.algoParams().add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
-<div class="line"></div>
-<div class="line">    }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Dim baseOrder As Order = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>)</div>
-<div class="line">        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Shared Sub FillAdaptiveParams(baseOrder As Order, priority As String)</div>
-<div class="line"></div>
-<div class="line">            baseOrder.AlgoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span></div>
-<div class="line">            baseOrder.AlgoParams = New List(Of TagValue)</div>
-<div class="line">            baseOrder.AlgoParams.Add(New TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority))</div>
-<div class="line">        End Sub</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    Order baseOrder = OrderSamples::LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 1000, 1);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">    AvailableAlgoParams::FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>);</div>
-<div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> AvailableAlgoParams::FillAdaptiveParams(Order&amp; baseOrder, std::string priority){</div>
-<div class="line">    baseOrder.algoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span>;</div>
-<div class="line">    baseOrder.algoParams.reset(<span class="keyword">new</span> TagValueList());</div>
-<div class="line">    TagValueSPtr tag1(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority));</div>
 <div class="line">    baseOrder.algoParams-&gt;push_back(tag1);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>

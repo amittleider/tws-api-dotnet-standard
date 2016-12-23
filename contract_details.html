@@ -232,7 +232,7 @@ Obtaining BroadTape List of News</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetails( <span class="keywordtype">int</span> reqId, <span class="keyword">const</span> ContractDetails&amp; contractDetails) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquidation Hours: %s\n&quot;</span>, reqId, contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, MD Size Multiplier: %d\n&quot;</span>, reqId, contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), contractDetails.mdSizeMultiplier);</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetailsEnd( <span class="keywordtype">int</span> reqId) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ContractDetailsEnd. %d\n&quot;</span>, reqId);</div>
