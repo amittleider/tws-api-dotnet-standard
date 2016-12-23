@@ -245,7 +245,7 @@ public class EWrapperImpl implements EWrapper {
 	//! [historicaldataend]
 	@Override
 	public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
-		System.out.println("HistoricalData. "+reqId+" - Start Date: "+startDateStr+", End Date: "+endDateStr);
+		System.out.println("HistoricalDataEnd. "+reqId+" - Start Date: "+startDateStr+", End Date: "+endDateStr);
 	}
 	//! [historicaldataend]
 	

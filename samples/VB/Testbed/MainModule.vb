@@ -605,14 +605,14 @@ Module MainModule
         '! [algo_base_order]
 
         '! [arrivalpx]
-        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, "Aggressive", "09:00:00 CET", "16:00:00 CET", True, True)
+        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, "Aggressive", "09:00:00 CET", "16:00:00 CET", True, True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [arrivalpx]
 
         Thread.Sleep(500)
 
         '! [darkice]
-        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, "09:00:00 CET", "16:00:00 CET", True)
+        AvailableAlgoParams.FillDarkIceParams(baseOrder, 10, "09:00:00 CET", "16:00:00 CET", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [darkice]
 
@@ -627,14 +627,14 @@ Module MainModule
         Thread.Sleep(500)
 
         '! [twap]
-        AvailableAlgoParams.FillTwapParams(baseOrder, "Marketable", "09:00:00 CET", "16:00:00 CET", True)
+        AvailableAlgoParams.FillTwapParams(baseOrder, "Marketable", "09:00:00 CET", "16:00:00 CET", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [twap]
 
         Thread.Sleep(500)
 
         '! [vwap]
-        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, "09:00:00 CET", "16:00:00 CET", True, True)
+        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, "09:00:00 CET", "16:00:00 CET", True, True, True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [vwap]
 
@@ -656,6 +656,31 @@ Module MainModule
         AvailableAlgoParams.FillAdaptiveParams(baseOrder, "Normal")
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [adaptive]
+
+        '! [closepx]
+        AvailableAlgoParams.FillClosePriceParams(baseOrder, 0.5, "Neutral", "12:00:00 EST", True, 100000)
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [closepx]
+
+        '! [pctvol]
+        AvailableAlgoParams.FillPctVolParams(baseOrder, 0.5, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [pctvol]               
+
+        '! [pctvolpx]
+        AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [pctvolpx]
+
+        '! [pctvolsz]
+        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [pctvolsz]
+
+        '! [pctvoltm]
+        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
+        '! [pctvoltm]
     End Sub
 
 

@@ -10,7 +10,7 @@
 		<tr><td>Bid Price</td><td>1</td><td>Highest priced bid for the contract.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>		
 		<tr><td>Ask Price</td><td>2</td><td>Lowest price offer on the contract.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>		
 		<tr><td>Ask Size</td><td>3</td><td>Number of contracts or lots offered at the ask price.</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>		
-		<tr><td>Last Price</td><td>4</td><td>Last price at which the contract traded.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
+		<tr><td>Last Price</td><td>4</td><td>Last price at which the contract traded (does not include some trades in RTVolume).</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Last Size</td><td>5</td><td>Number of contracts or lots traded at the last price.</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
 		<tr><td>High</td><td>6</td><td>High price for the day.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Low</td><td>7</td><td>Low price for the day.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
@@ -44,13 +44,13 @@
 		<tr><td>Auction Price</td><td>35</td><td>The price at which the auction would occur if no new orders were received and the auction were held now. The indicative price for the auction.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>225</td></tr>
 		<tr><td>Auction Imbalance</td><td>36</td><td>The number of unmatched shares for the next auction; returns how many more shares are on one side of the auction than the other.</td><td>@ref IBApi::EWrapper::tickSize</td><td>225</td></tr>
 		<tr><td>Mark Price</td><td>37</td><td>The mark price is equal to the Last Price unless: Ask < Last - the mark price is equal to the Ask Price. Bid > Last - the mark price is equal to the Bid Price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>221 or 232</td></tr>
-		<tr><td>Bid EFP Computation</td><td>38</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>Ask EFP Computation</td><td>39</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>Last EFP Computation</td><td>40</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>Open EFP Computation</td><td>41</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>High EFP Computation</td><td>42</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>Low EFP Computation</td><td>43</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
-		<tr><td>Close EFP Computation</td><td>44</td><td>DESC</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Bid EFP Computation</td><td>38</td><td>Computed EFP bid price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Ask EFP Computation</td><td>39</td><td>Computed EFP ask price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Last EFP Computation</td><td>40</td><td>Computed EFP last price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Open EFP Computation</td><td>41</td><td>Computed EFP open price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>High EFP Computation</td><td>42</td><td>Computed high EFP traded price for the day</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Low EFP Computation</td><td>43</td><td>Computed low EFP traded price for the day</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
+		<tr><td>Close EFP Computation</td><td>44</td><td>Computed closing EFP price for previous day</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
 		<tr><td>Last Timestamp</td><td>45</td><td>Time of the last trade (in UNIX time).</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>
 		<tr><td>Shortable</td><td>46</td><td>Describes the level of difficulty with which the contract can be sold short. See @ref shortable</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>236</td></tr>
 		<tr><td>Fundamental Ratios</td><td>47</td><td>Provides the available Reuter's Fundamental Ratios. See \subpage fundamental_ratios_tags <br><br><i>Note: For some tags the value returned may be -99999.99. This is Reuters' way of indicating data is not available for that tag for the company.</i><br><br>Also see \ref reuters_fundamentals for requesting other fundamental data type using @ref IBApi::EClient::reqFundamentalData.</td><td>@ref IBApi::EWrapper::tickString</td><td>258</td></tr>
@@ -66,7 +66,7 @@
 		<tr><td>Last RTH Trade</td><td>57</td><td>Last Regular Trading Hours traded price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>318</td></tr>
 		<tr><td>RT Historical Volatility</td><td>58</td><td>30-day real time historical volatility.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>411</td></tr>
 		<tr><td>IB Dividends</td><td>59</td><td>Contract's dividends. See @ref ib_dividends</td><td>@ref IBApi::EWrapper::tickString</td><td>456</td></tr>
-		<tr><td>Bond Factor Multiplier</td><td>60</td><td>DESC</td><td>METHOD</td><td>-</td></tr>
+		<tr><td>Bond Factor Multiplier</td><td>60</td><td>Not currently implemented.</td><td></td><td>-</td></tr>
 		<tr><td>Regulatory Imbalance</td><td>61</td><td>The imbalance that is used to determine which at-the-open or at-the-close orders can be entered following the publishing of the regulatory imbalance.</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
 		<tr><td>News</td><td>62</td><td>Contract's news feed.</td><td>@ref IBApi::EWrapper::tickString</td><td>292</td></tr>
 		<tr><td>Short-Term Volume 3 Minutes</td><td>63</td><td>The past three minutes volume. Interpolation may be applied.</td><td>@ref IBApi::EWrapper::tickSize</td><td>595</td></tr>
@@ -81,8 +81,8 @@
 		<tr><td>Delayed High Price</td><td>72</td><td>Delayed highest price of the day. See @ref market_data_type</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Delayed Low Price</td><td>73</td><td>Delayed lowest price of the day. See @ref market_data_type</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Delayed Volume</td><td>74</td><td>Delayed traded volume of the day. See @ref market_data_type</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
-		<tr><td>Delayed Close</td><td>75</td><td>DESC</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
-		<tr><td>Delayed Open</td><td>76</td><td>DESC</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
+		<tr><td>Delayed Close</td><td>75</td><td>The <b>prior</b> day's closing price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
+		<tr><td>Delayed Open</td><td>76</td><td>The day's open, but not available for at least 15-20 minutes after the open.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>RT Trade Volume</td><td>77</td><td>Last trade details that excludes "Unreportable Trades". See @ref rt_trd_volume</td><td>@ref IBApi::EWrapper::tickString</td><td>375</td></tr>
 	</table>
 	
@@ -92,7 +92,8 @@
 	
 	<table>
 		<tr><th>Value</th><th>Description</th></tr>
-		<tr><td>0</td><td>Not halted.</td></tr>
+		<tr><td>-1</td><td>Halted status not available. Usually returned with frozen data.</td></tr>
+		<tr><td>0</td><td>Not halted. This value will be returned if the contract is in a TWS watchlist.</td></tr>
 		<tr><td>1</td><td>General halt. Trading halt is imposed for purely regulatory reasons with/without volatility halt.</td></tr>
 		<tr><td>2</td><td>Volatility halt. Trading halt is imposed by the exchange to protect against extreme volatility.</td></tr>
 	</table>
@@ -123,8 +124,6 @@
 	
 	The RT Trade Volume is similar to RT Volume, but designed to avoid relaying back "Unreportable Trades" shown in TWS Time&Sales via the API. 
 	
-	The RT Trade Volume tick type only relays back the last trade information that show up in the "Last" field of a TWS watchlist. It is suggested to use RT Trade Volume instead of RT Volume in purpose to avoid receiving '0's for unreportable trades.
-	
 	\section ib_dividends IB Dividends
 	
 	This tick type provides four different comma-separated elements:
@@ -136,13 +135,15 @@
 	
 	<b>Example: </b>0.83,0.92,20130219,0.23
 	
-	To receive dividend information it is necessary to direct-route rather than smart-route market data requests. 
+	To receive dividend information it is sometimes necessary to direct-route rather than smart-route market data requests. 
 	
 	\section delayed Delayed Data
 	
-	Delayed Data support through the API is in development and will be made available in a futures version of TWS. 
+	Delayed Data support through the API is available with TWS and IBG versions 962 and higher. 
 	
-	Following a call to reqMarketDataType(3) all requests to reqMktData() will return delayed data *only*. Please note that receiving delayed data for a contract through the API will also cause delayed data to be displayed for the same contract in Tws. In Tws data can be switched back from delayed to live data for those contracts which have live market data subscriptions in Tws Global Configuration at Display -> Ticker Row -> Reset Subscription, following by the Ctrl-Alt-F combination in Tws to reset subscriptions. 
+	To receive delayed data for exchanges without the necessary market data subscriptions for live data, the function call @ref market_data_type is made prior to reqMktData. Quotes for data from 15-20 minutes prior will be streamed back. 
+	
+	<i>Note: API version 9.72 and higher is suggested, but not required, so as to correctly label the delayed tick types (Tick ID 66~76).</i>
 	
 	<br><br>
 	

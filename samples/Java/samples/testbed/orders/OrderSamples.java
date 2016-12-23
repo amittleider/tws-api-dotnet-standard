@@ -573,6 +573,28 @@ public class OrderSamples {
         //! [adjustable_stop_limit]
         return order;
     }
+	
+	public static Order AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice, double adjustedTrailAmount, int trailUnit) {
+    	//! [adjustable_trail]
+        Order order = new Order();
+        //Attached order is a conventional STP order
+        order.action(parent.action().equals("BUY") ? "SELL" : "BUY");
+        order.totalQuantity(parent.totalQuantity());
+        order.auxPrice(attachedOrderStopPrice);
+        order.parentId(parent.orderId());
+        //When trigger price is penetrated
+        order.triggerPrice(triggerPrice);
+        //The parent order will be turned into a TRAIL order
+        order.adjustedOrderType(OrderType.TRAIL);
+        //With a stop price of...
+        order.adjustedStopPrice(adjustStopPrice);
+        //traling by and amount (0) or a percent (1)...
+        order.adjustableTrailingUnit(trailUnit);
+        //of...
+        order.adjustedTrailingAmount(adjustedTrailAmount);
+        //! [adjustable_trail]
+        return order;
+    }
     
     public static PriceCondition PriceCondition(int conId, String exchange, double price, boolean isMore, boolean isConjunction) {
     	//! [price_condition]

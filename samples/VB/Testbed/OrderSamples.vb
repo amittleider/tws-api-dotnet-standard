@@ -927,6 +927,31 @@ Namespace Samples
             '! [adjustable_stop_limit]
             Return order
         End Function
+		
+		Public Shared Function AttachAdjustableToTrail(parent As Order, attachedOrderStopPrice As Double, triggerPrice As Double, adjustedStopPrice As Double,
+             adjustedTrailAmount As Double, trailUnit As Integer) As Order
+
+            '! [adjustable_trail]
+            'Attached order Is a conventional STP order
+            Dim action As String = "BUY"
+            If (parent.Action.Equals("BUY")) Then
+                action = "SELL"
+            End If
+            Dim order As Order = StopOrder(action, parent.TotalQuantity, attachedOrderStopPrice)
+            order.ParentId = parent.OrderId
+            'When trigger price Is penetrated
+            order.TriggerPrice = triggerPrice
+            'The parent order will be turned into a TRAIL order
+            order.AdjustedOrderType = "TRAIL"
+            'With a stop price of...
+            order.AdjustedStopPrice = adjustedStopPrice
+            'traling by And amount (0) Or a percent (1)...
+            order.AdjustableTrailingUnit = trailUnit
+            'of...
+            order.AdjustedTrailingAmount = adjustedTrailAmount
+            '! [adjustable_trail]        
+            Return order
+        End Function
 
         Public Shared Function PriceCondition(conId As Integer, exchange As String, price As Double, isMore As Boolean, isConjunction As Boolean) As PriceCondition
 

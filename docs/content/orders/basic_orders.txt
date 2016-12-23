@@ -146,29 +146,6 @@
 		</li>
 	</ul>
 	
-	\section midpoint_match Midpoint Match
-	
-	<a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=752">ISE Midpoint Match</a> (MPM) orders always execute at the midpoint of the NBBO. You can submit market and limit orders direct-routed 
-    to ISE for MPM execution. Market orders execute at the midpoint whenever an eligible contra-order is available. Limit orders 
-    execute only when the midpoint price is better than the limit price. Standard MPM orders are completely anonymous.
-	<ul>
-		<li>Products: STK (ISE only)</li>
-	</ul> 
-	<ul id="tab">
-		<li class="active"> 
-			\snippet OrderSamples.cs midpoint_match 
-		</li>
-		<li> 
-			\snippet OrderSamples.java midpoint_match 
-		</li>
-		<li> 
-			\snippet OrderSamples.vb midpoint_match 
-		</li>
-		<li> 
-			\snippet OrderSamples.cpp midpoint_match 
-		</li>
-	</ul>
-	
 	\section pegged_market Pegged to Market
 	A <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=616">pegged-to-market order</a> is designed to maintain a purchase price relative to the national best offer (NBO) or a sale price 
 	 relative to the national best bid (NBB). Depending on the width of the quote, this order may be passive or aggressive. 
@@ -635,7 +612,7 @@
          price, the order becomes executable and enters the market as a limit order, which is an order to buy or sell at a specified price or better.
 	<ul>
 		<li>Products: CFD, CASH, FUT, FOP, OPT, STK, WAR</li>
-		<li><a target="_blank" class="linkexternal" href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=stplmt">Supported exchanges</a></li>
+		<li><a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=stplmt">Supported exchanges</a></li>
 	</ul> 
 	<ul id="tab">
 		<li class="active"> 
@@ -661,7 +638,7 @@
 	 trigger price +/- the protection points.
 	<ul>
 		<li>Products: FUT</li>
-		<li><a target="_blank" class="linkexternal" href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=stpprot">Supported exchanges</a></li>
+		<li><a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=stpprot">Supported exchanges</a></li>
 	</ul> 
 	<ul id="tab">
 		<li class="active"> 
@@ -689,7 +666,7 @@
 	 Note that Trailing Stop orders can have the trailing amount specified as a percent, as in the example below, or as an absolute amount which is specified in the auxPrice field. 
 	<ul>
 		<li>Products: CFD, CASH, FOP, FUT, OPT, STK, WAR</li>
-		<li><a target="_blank" class="linkexternal" href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=trail">Supported exchanges</a></li>
+		<li><a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=trail">Supported exchanges</a></li>
 	</ul> 
 	<ul id="tab">
 		<li class="active"> 
@@ -719,7 +696,6 @@
 	 Note that Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field. 
 	<ul>
 		<li>Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR</li>
-		<li><a target="_blank" class="linkexternal" href="">Supported exchanges</a></li>
 	</ul> 
 	<ul id="tab">
 		<li class="active"> 
@@ -864,7 +840,7 @@
 	 receive.
 	<ul>
 		<li>Products: FOP, OPT</li>
-		<li><a target="_blank" class="linkexternal" href="https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=volat">Supported exchanges</a></li>
+		<li><a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=3883?ot=volat">Supported exchanges</a></li>
 	</ul> 
 	<ul id="tab">
 		<li class="active"> 
