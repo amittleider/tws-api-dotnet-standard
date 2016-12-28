@@ -64,185 +64,178 @@ public class EWrapperMsgGenerator {
     }
     
     static public String openOrder( int orderId, Contract contract, Order order, OrderState orderState) {
-        String msg = "open order: orderId=" + orderId +
-        " action=" + order.getAction() +
-        " quantity=" + order.totalQuantity() +
-        " cashQty=" + Util.DoubleMaxString(order.cashQty()) +
-        " conid=" + contract.conid() + 
-        " symbol=" + contract.symbol() + 
-        " secType=" + contract.getSecType() + 
-        " lastTradeDate=" + contract.lastTradeDateOrContractMonth() + 
-        " strike=" + contract.strike() + 
-        " right=" + contract.getRight() + 
-        " multiplier=" + contract.multiplier() + 
-        " exchange=" + contract.exchange() + 
-        " primaryExch=" + contract.primaryExch() + 
-        " currency=" + contract.currency() + 
-        " localSymbol=" + contract.localSymbol() + 
-        " tradingClass=" + contract.tradingClass() + 
-        " type=" + order.getOrderType() +
-        " lmtPrice=" + Util.DoubleMaxString(order.lmtPrice()) +
-        " auxPrice=" + Util.DoubleMaxString(order.auxPrice()) +
-        " TIF=" + order.getTif() +
-        " localSymbol=" + contract.localSymbol() +
-        " client Id=" + order.clientId() +
-        " parent Id=" + order.parentId() +
-        " permId=" + order.permId() +
-        " outsideRth=" + order.outsideRth() +
-        " hidden=" + order.hidden() +
-        " discretionaryAmt=" + order.discretionaryAmt() +
-        " displaySize=" + order.displaySize() +
-        " triggerMethod=" + order.getTriggerMethod() +
-        " goodAfterTime=" + order.goodAfterTime() +
-        " goodTillDate=" + order.goodTillDate() +
-        " faGroup=" + order.faGroup() +
-        " faMethod=" + order.getFaMethod() +
-        " faPercentage=" + order.faPercentage() +
-        " faProfile=" + order.faProfile() +
-        " shortSaleSlot=" + order.shortSaleSlot() +
-        " designatedLocation=" + order.designatedLocation() +
-        " exemptCode=" + order.exemptCode() +
-        " ocaGroup=" + order.ocaGroup() +
-        " ocaType=" + order.getOcaType() +
-        " rule80A=" + order.getRule80A() +
-        " allOrNone=" + order.allOrNone() +
-        " minQty=" + Util.IntMaxString(order.minQty()) +
-        " percentOffset=" + Util.DoubleMaxString(order.percentOffset()) +
-        " eTradeOnly=" + order.eTradeOnly() +
-        " firmQuoteOnly=" + order.firmQuoteOnly() +
-        " nbboPriceCap=" + Util.DoubleMaxString(order.nbboPriceCap()) +
-        " optOutSmartRouting=" + order.optOutSmartRouting() +
-        " auctionStrategy=" + order.auctionStrategy() +
-        " startingPrice=" + Util.DoubleMaxString(order.startingPrice()) +
-        " stockRefPrice=" + Util.DoubleMaxString(order.stockRefPrice()) +
-        " delta=" + Util.DoubleMaxString(order.delta()) +
-        " stockRangeLower=" + Util.DoubleMaxString(order.stockRangeLower()) +
-        " stockRangeUpper=" + Util.DoubleMaxString(order.stockRangeUpper()) +
-        " volatility=" + Util.DoubleMaxString(order.volatility()) +
-        " volatilityType=" + order.getVolatilityType() +
-        " deltaNeutralOrderType=" + order.getDeltaNeutralOrderType() +
-        " deltaNeutralAuxPrice=" + Util.DoubleMaxString(order.deltaNeutralAuxPrice()) +
-        " deltaNeutralConId=" + order.deltaNeutralConId() +
-        " deltaNeutralSettlingFirm=" + order.deltaNeutralSettlingFirm() +
-        " deltaNeutralClearingAccount=" + order.deltaNeutralClearingAccount() +
-        " deltaNeutralClearingIntent=" + order.deltaNeutralClearingIntent() +
-        " deltaNeutralOpenClose=" + order.deltaNeutralOpenClose() +
-        " deltaNeutralShortSale=" + order.deltaNeutralShortSale() +
-        " deltaNeutralShortSaleSlot=" + order.deltaNeutralShortSaleSlot() +
-        " deltaNeutralDesignatedLocation=" + order.deltaNeutralDesignatedLocation() +
-        " continuousUpdate=" + order.continuousUpdate() +
-        " referencePriceType=" + order.getReferencePriceType() +
-        " trailStopPrice=" + Util.DoubleMaxString(order.trailStopPrice()) +
-        " trailingPercent=" + Util.DoubleMaxString(order.trailingPercent()) +
-        " scaleInitLevelSize=" + Util.IntMaxString(order.scaleInitLevelSize()) +
-        " scaleSubsLevelSize=" + Util.IntMaxString(order.scaleSubsLevelSize()) +
-        " scalePriceIncrement=" + Util.DoubleMaxString(order.scalePriceIncrement()) +
-        " scalePriceAdjustValue=" + Util.DoubleMaxString(order.scalePriceAdjustValue()) +
-        " scalePriceAdjustInterval=" + Util.IntMaxString(order.scalePriceAdjustInterval()) +
-        " scaleProfitOffset=" + Util.DoubleMaxString(order.scaleProfitOffset()) +
-        " scaleAutoReset=" + order.scaleAutoReset() +
-        " scaleInitPosition=" + Util.IntMaxString(order.scaleInitPosition()) +
-        " scaleInitFillQty=" + Util.IntMaxString(order.scaleInitFillQty()) +
-        " scaleRandomPercent=" + order.scaleRandomPercent() +
-        " hedgeType=" + order.getHedgeType() +
-        " hedgeParam=" + order.hedgeParam() +
-        " account=" + order.account() +
-        " modelCode = " + order.modelCode() +
-        " settlingFirm=" + order.settlingFirm() +
-        " clearingAccount=" + order.clearingAccount() +
-        " clearingIntent=" + order.clearingIntent() +
-        " notHeld=" + order.notHeld() +
-        " whatIf=" + order.whatIf() +
-        " solicited=" + order.solicited() +
-        " randomize size=" + order.randomizeSize() +
-        " randomize price=" + order.randomizePrice();
+		final StringBuilder sb = new StringBuilder(1024);
+        sb.append("open order: orderId=").append(orderId)
+				.append(" action=").append(order.getAction())
+                .append(" quantity=").append(order.totalQuantity())
+                .append(" cashQty=").append(Util.DoubleMaxString(order.cashQty()))
+                .append(" conid=").append(contract.conid())
+                .append(" symbol=").append(contract.symbol())
+                .append(" secType=").append(contract.getSecType())
+                .append(" lastTradeDate=").append(contract.lastTradeDateOrContractMonth())
+                .append(" strike=").append(contract.strike())
+                .append(" right=").append(contract.getRight())
+                .append(" multiplier=").append(contract.multiplier())
+                .append(" exchange=").append(contract.exchange())
+                .append(" primaryExch=").append(contract.primaryExch())
+                .append(" currency=").append(contract.currency())
+                .append(" localSymbol=").append(contract.localSymbol())
+                .append(" tradingClass=").append(contract.tradingClass())
+                .append(" type=").append(order.getOrderType())
+                .append(" lmtPrice=").append(Util.DoubleMaxString(order.lmtPrice()))
+                .append(" auxPrice=").append(Util.DoubleMaxString(order.auxPrice()))
+                .append(" TIF=").append(order.getTif())
+                .append(" localSymbol=").append(contract.localSymbol())
+                .append(" client Id=").append(order.clientId())
+                .append(" parent Id=").append(order.parentId())
+                .append(" permId=").append(order.permId())
+                .append(" outsideRth=").append(order.outsideRth())
+                .append(" hidden=").append(order.hidden())
+                .append(" discretionaryAmt=").append(order.discretionaryAmt())
+                .append(" displaySize=").append(order.displaySize())
+                .append(" triggerMethod=").append(order.getTriggerMethod())
+				.append(" goodAfterTime=").append(order.goodAfterTime())
+				.append(" goodTillDate=").append(order.goodTillDate())
+				.append(" faGroup=").append(order.faGroup())
+				.append(" faMethod=").append(order.getFaMethod())
+				.append(" faPercentage=").append(order.faPercentage())
+				.append(" faProfile=").append(order.faProfile())
+				.append(" shortSaleSlot=").append(order.shortSaleSlot())
+				.append(" designatedLocation=").append(order.designatedLocation())
+				.append(" exemptCode=").append(order.exemptCode())
+				.append(" ocaGroup=").append(order.ocaGroup())
+				.append(" ocaType=").append(order.getOcaType())
+				.append(" rule80A=").append(order.getRule80A())
+				.append(" allOrNone=").append(order.allOrNone())
+				.append(" minQty=").append(Util.IntMaxString(order.minQty()))
+				.append(" percentOffset=").append( Util.DoubleMaxString(order.percentOffset()))
+				.append(" eTradeOnly=").append(order.eTradeOnly())
+				.append(" firmQuoteOnly=").append(order.firmQuoteOnly())
+				.append(" nbboPriceCap=").append(Util.DoubleMaxString(order.nbboPriceCap()))
+				.append(" optOutSmartRouting=").append(order.optOutSmartRouting())
+				.append(" auctionStrategy=").append(order.auctionStrategy())
+				.append(" startingPrice=").append(Util.DoubleMaxString(order.startingPrice()))
+				.append(" stockRefPrice=").append(Util.DoubleMaxString(order.stockRefPrice()))
+				.append(" delta=").append(Util.DoubleMaxString(order.delta()))
+				.append(" stockRangeLower=").append(Util.DoubleMaxString(order.stockRangeLower()))
+				.append(" stockRangeUpper=").append( Util.DoubleMaxString(order.stockRangeUpper()))
+				.append(" volatility=").append(Util.DoubleMaxString(order.volatility()))
+				.append(" volatilityType=").append(order.getVolatilityType())
+				.append(" deltaNeutralOrderType=").append(order.getDeltaNeutralOrderType())
+				.append(" deltaNeutralAuxPrice=").append(Util.DoubleMaxString(order.deltaNeutralAuxPrice()))
+				.append(" deltaNeutralConId=").append(order.deltaNeutralConId())
+				.append(" deltaNeutralSettlingFirm=").append(order.deltaNeutralSettlingFirm())
+				.append(" deltaNeutralClearingAccount=").append(order.deltaNeutralClearingAccount())
+				.append(" deltaNeutralClearingIntent=").append(order.deltaNeutralClearingIntent())
+				.append(" deltaNeutralOpenClose=").append(order.deltaNeutralOpenClose())
+				.append(" deltaNeutralShortSale=").append(order.deltaNeutralShortSale())
+				.append(" deltaNeutralShortSaleSlot=").append(order.deltaNeutralShortSaleSlot())
+				.append(" deltaNeutralDesignatedLocation=").append(order.deltaNeutralDesignatedLocation())
+				.append(" continuousUpdate=").append(order.continuousUpdate())
+				.append(" referencePriceType=").append(order.getReferencePriceType())
+				.append(" trailStopPrice=").append(Util.DoubleMaxString(order.trailStopPrice()))
+				.append(" trailingPercent=").append(Util.DoubleMaxString(order.trailingPercent()))
+				.append(" scaleInitLevelSize=").append(Util.IntMaxString(order.scaleInitLevelSize()))
+				.append(" scaleSubsLevelSize=").append(Util.IntMaxString(order.scaleSubsLevelSize()))
+				.append(" scalePriceIncrement=").append(Util.DoubleMaxString(order.scalePriceIncrement()))
+				.append(" scalePriceAdjustValue=").append(Util.DoubleMaxString(order.scalePriceAdjustValue()))
+				.append(" scalePriceAdjustInterval=").append(Util.IntMaxString(order.scalePriceAdjustInterval()))
+				.append(" scaleProfitOffset=").append(Util.DoubleMaxString(order.scaleProfitOffset()))
+				.append(" scaleAutoReset=").append(order.scaleAutoReset())
+				.append(" scaleInitPosition=").append(Util.IntMaxString(order.scaleInitPosition()))
+				.append(" scaleInitFillQty=").append(Util.IntMaxString(order.scaleInitFillQty()))
+				.append(" scaleRandomPercent=").append(order.scaleRandomPercent())
+				.append(" hedgeType=").append(order.getHedgeType())
+				.append(" hedgeParam=").append(order.hedgeParam())
+				.append(" account=").append(order.account())
+				.append(" modelCode=").append(order.modelCode())
+				.append(" settlingFirm=").append(order.settlingFirm())
+				.append(" clearingAccount=").append(order.clearingAccount())
+				.append(" clearingIntent=").append(order.clearingIntent())
+				.append(" notHeld=").append(order.notHeld())
+				.append(" whatIf=").append(order.whatIf())
+				.append(" solicited=").append(order.solicited())
+				.append(" randomize size=").append(order.randomizeSize())
+				.append(" randomize price=").append(order.randomizePrice());
         
 
         if ("BAG".equals(contract.getSecType())) {
         	if (contract.comboLegsDescrip() != null) {
-        		msg += " comboLegsDescrip=" + contract.comboLegsDescrip();
+        		sb.append(" comboLegsDescrip=").append(contract.comboLegsDescrip());
         	}
         	
-           	msg += " comboLegs={";
+           	sb.append(" comboLegs={");
             if (contract.comboLegs() != null) {
             	for (int i = 0; i < contract.comboLegs().size(); ++i) {
             		ComboLeg comboLeg = contract.comboLegs().get(i);
-            		msg += " leg " + (i+1) + ": "; 
-            		msg += "conId=" +  comboLeg.conid();
-            		msg += " ratio=" +  comboLeg.ratio();
-            		msg += " action=" +  comboLeg.getAction();
-            		msg += " exchange=" +  comboLeg.exchange();
-            		msg += " openClose=" +  comboLeg.getOpenClose();
-            		msg += " shortSaleSlot=" +  comboLeg.shortSaleSlot();
-            		msg += " designatedLocation=" +  comboLeg.designatedLocation();
-            		msg += " exemptCode=" +  comboLeg.exemptCode();
+            		sb.append(" leg ").append(i+1).append(": ")
+							.append("conId=").append(comboLeg.conid())
+							.append(" ratio=").append(comboLeg.ratio())
+            		        .append(" action=").append(comboLeg.getAction())
+							.append(" exchange=").append(comboLeg.exchange())
+            		        .append(" openClose=").append(comboLeg.getOpenClose())
+            		        .append(" shortSaleSlot=").append(comboLeg.shortSaleSlot())
+            		        .append(" designatedLocation=").append(comboLeg.designatedLocation())
+            		        .append(" exemptCode=").append(comboLeg.exemptCode());
             		if (order.orderComboLegs() != null && contract.comboLegs().size() == order.orderComboLegs().size()) {
             			OrderComboLeg orderComboLeg = order.orderComboLegs().get(i);
-            			msg += " price=" +  Util.DoubleMaxString(orderComboLeg.price());
+            			sb.append(" price=").append(Util.DoubleMaxString(orderComboLeg.price()));
             		}
-            		msg += ";";
+            		sb.append(';');
             	}
             }
-           	msg += "}";
+           	sb.append('}');
            	
         	if (order.basisPoints() != Double.MAX_VALUE) {
-        		msg += " basisPoints=" + Util.DoubleMaxString(order.basisPoints());
-        		msg += " basisPointsType=" + Util.IntMaxString(order.basisPointsType());
+        		sb.append(" basisPoints=").append(Util.DoubleMaxString(order.basisPoints()))
+						.append(" basisPointsType=").append(Util.IntMaxString(order.basisPointsType()));
         	}
         }
         
     	if (contract.underComp() != null) {
     		DeltaNeutralContract underComp = contract.underComp();
-    		msg +=
-    			" underComp.conId =" + underComp.conid() +
-    			" underComp.delta =" + underComp.delta() +
-    			" underComp.price =" + underComp.price();
+    		sb.append(" underComp.conId=").append(underComp.conid())
+					.append(" underComp.delta=").append(underComp.delta())
+					.append(" underComp.price=").append(underComp.price());
     	}
     	
         if (!Util.StringIsEmpty(order.getAlgoStrategy())) {
-    		msg += " algoStrategy=" + order.getAlgoStrategy();
-    		msg += " algoParams={";
+    		sb.append(" algoStrategy=").append(order.getAlgoStrategy()).append(" algoParams={");
     		if (order.algoParams() != null) {
-    			ArrayList<TagValue> algoParams = order.algoParams();
-    			for (int i = 0; i < algoParams.size(); ++i) {
-    				TagValue param = algoParams.get(i);
-    				if (i > 0) {
-    					msg += ",";
-    				}
-    				msg += param.m_tag + "=" + param.m_value;
-    			}
+				for (TagValue param : order.algoParams()) {
+					sb.append(param.m_tag).append('=').append(param.m_value).append(',');
+				}
+				if (!order.algoParams().isEmpty()) {
+					sb.setLength(sb.length() - 1);
+				}
     		}
-    		msg += "}";
+    		sb.append('}');
     	}
     	
         if ("BAG".equals(contract.getSecType())) {
-        	msg += " smartComboRoutingParams={";
+        	sb.append(" smartComboRoutingParams={");
         	if (order.smartComboRoutingParams() != null) {
-        		ArrayList<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
-        		for (int i = 0; i < smartComboRoutingParams.size(); ++i) {
-        			TagValue param = smartComboRoutingParams.get(i);
-        			if (i > 0) {
-        				msg += ",";
-        			}
-        			msg += param.m_tag + "=" + param.m_value;
-        		}
+				for (TagValue param : order.smartComboRoutingParams()) {
+					sb.append(param.m_tag).append('=').append(param.m_value).append(',');
+				}
+				if (!order.smartComboRoutingParams().isEmpty()) {
+					sb.setLength(sb.length() - 1);
+				}
         	}
-        	msg += "}";
+        	sb.append('}');
         }
     
-        String orderStateMsg =
-        	" status=" + orderState.getStatus()
-        	+ " initMargin=" + orderState.initMargin()
-        	+ " maintMargin=" + orderState.maintMargin()
-        	+ " equityWithLoan=" + orderState.equityWithLoan()
-        	+ " commission=" + Util.DoubleMaxString(orderState.commission())
-        	+ " minCommission=" + Util.DoubleMaxString(orderState.minCommission())
-        	+ " maxCommission=" + Util.DoubleMaxString(orderState.maxCommission())
-        	+ " commissionCurrency=" + orderState.commissionCurrency()
-        	+ " warningText=" + orderState.warningText()
-		;
+        sb.append(" status=").append(orderState.getStatus())
+				.append(" initMargin=").append(orderState.initMargin())
+				.append(" maintMargin=").append(orderState.maintMargin())
+				.append(" equityWithLoan=").append(orderState.equityWithLoan())
+				.append(" commission=").append(Util.DoubleMaxString(orderState.commission()))
+				.append(" minCommission=").append(Util.DoubleMaxString(orderState.minCommission()))
+				.append(" maxCommission=").append(Util.DoubleMaxString(orderState.maxCommission()))
+				.append(" commissionCurrency=").append(orderState.commissionCurrency())
+				.append(" warningText=").append(orderState.warningText());
 
-        return msg + orderStateMsg;
+        return sb.toString();
     }
     
     static public String openOrderEnd() {
@@ -360,19 +353,18 @@ public class EWrapperMsgGenerator {
     }
     
     static public String contractDetailsSecIdList(ContractDetails contractDetails) {
-        String msg = "secIdList={";
+        final StringBuilder sb = new StringBuilder(32);
+        sb.append("secIdList={");
         if (contractDetails.secIdList() != null) {
-            ArrayList<TagValue> secIdList = contractDetails.secIdList();
-            for (int i = 0; i < secIdList.size(); ++i) {
-                TagValue param = secIdList.get(i);
-                if (i > 0) {
-                    msg += ",";
-                }
-                msg += param.m_tag + "=" + param.m_value;
-            }
+			for (TagValue param : contractDetails.secIdList()) {
+				sb.append(param.m_tag).append("=").append(param.m_value).append(',');
+			}
+			if (!contractDetails.secIdList().isEmpty()) {
+				sb.setLength(sb.length() - 1);
+			}
         }
-        msg += "}\n";
-        return msg;
+        sb.append("}\n");
+        return sb.toString();
     }
 
     static public String contractDetailsEnd(int reqId) {
@@ -583,22 +575,21 @@ public class EWrapperMsgGenerator {
 
 	public static String securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
 			String multiplier, Set<String> expirations, Set<Double> strikes) {
-		String expirationsStr = "";
-		
+		final StringBuilder sb = new StringBuilder(128);
+		sb.append(" id = ").append(reqId)
+				.append(" exchange = ").append(exchange)
+				.append(" underlyingConId = ").append(underlyingConId)
+				.append(" tradingClass = ").append(tradingClass)
+				.append(" multiplier = ").append(multiplier)
+				.append(" expirations: ");
 		for (String expiration : expirations) {
-			expirationsStr += expiration + ", ";			
+			sb.append(expiration).append(", ");
 		}
-		
-		String strikesStr = "";
-		
+		sb.append(" strikes: ");
 		for (Double strike : strikes) {
-			strikesStr += strike + ", ";
+			sb.append(strike).append(", ");
 		}
-		
-		String msg = " id = " + reqId + "exchange = " + exchange + " underlyingConId = " + underlyingConId + " tradingClass = " + tradingClass + " multiplier = " + 
-			multiplier + " expirations: " + expirationsStr + " strikes: " + strikesStr;
-
-		return msg;
+		return sb.toString();
 	}
 
 	static public String securityDefinitionOptionalParameterEnd( int reqId) {
@@ -607,56 +598,60 @@ public class EWrapperMsgGenerator {
 
 	static public String softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("==== Soft Dollar Tiers Begin (total=" + tiers.length + ") reqId: " +  reqId + " ====\n");
+		sb.append("==== Soft Dollar Tiers Begin (total=").append(tiers.length).append(") reqId: ").append(reqId).append(" ====\n");
 		for (int i = 0; i < tiers.length; i++) {
-			sb.append("Soft Dollar Tier [" + i + "] - name: " + tiers[i].name() + ", value: " + tiers[i].value() +  "\n");
+			sb.append("Soft Dollar Tier [").append(i).append("] - name: ").append(tiers[i].name())
+					.append(", value: ").append(tiers[i].value()).append("\n");
 		}
-		sb.append("==== Soft Dollar Tiers End (total=" + tiers.length + ") ====\n");
+		sb.append("==== Soft Dollar Tiers End (total=").append(tiers.length).append(") ====\n");
 
 		return sb.toString();
 	}
 
 	static public String familyCodes(FamilyCode[] familyCodes) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("==== Family Codes Begin (total=" + familyCodes.length + ") ====\n");
+        StringBuilder sb = new StringBuilder(256);
+        sb.append("==== Family Codes Begin (total=").append(familyCodes.length).append(") ====\n");
         for (int i = 0; i < familyCodes.length; i++) {
-            sb.append("Family Code [" + i + "] - accountID: " + familyCodes[i].accountID() + ", familyCode: " + familyCodes[i].familyCodeStr() + "\n");
+            sb.append("Family Code [").append(i)
+					.append("] - accountID: ").append(familyCodes[i].accountID())
+					.append(", familyCode: ").append(familyCodes[i].familyCodeStr())
+					.append("\n");
         }
-        sb.append("==== Family Codes End (total=" + familyCodes.length + ") ====\n");
+        sb.append("==== Family Codes End (total=").append(familyCodes.length).append(") ====\n");
 
         return sb.toString();
     }
 
     static public String symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("==== Symbol Samples Begin (total=" + contractDescriptions.length + ") reqId: " + reqId + " ====\n");
+        StringBuilder sb = new StringBuilder(256);
+        sb.append("==== Symbol Samples Begin (total=").append(contractDescriptions.length).append(") reqId: ").append(reqId).append(" ====\n");
         for (int i = 0; i < contractDescriptions.length; i++) {
-            sb.append("---- Contract Description Begin (" + i + ") ----\n");
-            sb.append("conId: " + contractDescriptions[i].contract().conid() + "\n");
-            sb.append("symbol: " + contractDescriptions[i].contract().symbol() + "\n");
-            sb.append("secType: " + contractDescriptions[i].contract().secType() + "\n");
-            sb.append("primaryExch: " + contractDescriptions[i].contract().primaryExch() + "\n");
-            sb.append("currency: " + contractDescriptions[i].contract().currency() + "\n");
-            sb.append("derivativeSecTypes (total=" + contractDescriptions[i].derivativeSecTypes().length + "): ");
+            sb.append("---- Contract Description Begin (").append(i).append(") ----\n");
+            sb.append("conId: ").append(contractDescriptions[i].contract().conid()).append("\n");
+            sb.append("symbol: ").append(contractDescriptions[i].contract().symbol()).append("\n");
+            sb.append("secType: ").append(contractDescriptions[i].contract().secType()).append("\n");
+            sb.append("primaryExch: ").append(contractDescriptions[i].contract().primaryExch()).append("\n");
+            sb.append("currency: ").append(contractDescriptions[i].contract().currency()).append("\n");
+            sb.append("derivativeSecTypes (total=").append(contractDescriptions[i].derivativeSecTypes().length).append("): ");
             for (int j = 0; j < contractDescriptions[i].derivativeSecTypes().length; j++){
-                sb.append(contractDescriptions[i].derivativeSecTypes()[j] + " ");
+                sb.append(contractDescriptions[i].derivativeSecTypes()[j]).append(' ');
             }
             sb.append("\n");
-            sb.append("---- Contract Description End (" + i + ") ----\n");
+            sb.append("---- Contract Description End (").append(i).append(") ----\n");
         }
-        sb.append("==== Symbol Samples End (total=" + contractDescriptions.length + ") reqId: " + reqId + " ====\n");
+        sb.append("==== Symbol Samples End (total=").append(contractDescriptions.length).append(") reqId: ").append(reqId).append(" ====\n");
 
         return sb.toString();
     }
 
 	static public String mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("==== Market Depth Exchanges Begin (total=" + depthMktDataDescriptions.length + ") ====\n");
+		sb.append("==== Market Depth Exchanges Begin (total=").append(depthMktDataDescriptions.length).append(") ====\n");
 		for (int i = 0; i < depthMktDataDescriptions.length; i++) {
-			sb.append("Depth Market Data Description [" + i + "] - exchange: " + depthMktDataDescriptions[i].exchange() 
-					+ ", secType: " + depthMktDataDescriptions[i].secType() + ", isL2: " + depthMktDataDescriptions[i].isL2() + "\n");
+			sb.append("Depth Market Data Description [").append(i).append("] - exchange: ").append(depthMktDataDescriptions[i].exchange())
+					.append(", secType: ").append(depthMktDataDescriptions[i].secType()).append(", isL2: ").append(depthMktDataDescriptions[i].isL2()).append("\n");
 		}
-		sb.append("==== Market Depth Exchanges End (total=" + depthMktDataDescriptions.length + ") ====\n");
+		sb.append("==== Market Depth Exchanges End (total=").append(depthMktDataDescriptions.length).append(") ====\n");
 		return sb.toString();
 	}
 	
