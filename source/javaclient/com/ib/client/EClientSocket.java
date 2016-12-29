@@ -109,7 +109,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	}
 
 	@Override
-	public void redirect(String newAddress) {
+	public synchronized void redirect(String newAddress) {
 	    if( m_useV100Plus ) {
 	    	if (!m_allowRedirect) {
 	    		m_eWrapper.error(EClientErrors.NO_VALID_ID, EClientErrors.CONNECT_FAIL.code(), EClientErrors.CONNECT_FAIL.msg());
@@ -131,13 +131,11 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 			} catch (IOException e) {
 				m_eWrapper.error(e);
 			}
-	        
-	    	return;
 	    }
 	}
 
 	@Override
-	public void serverVersion(int version, String time) {
+	public synchronized void serverVersion(int version, String time) {
 		m_serverVersion = version;
 		m_TwsTime = time;	
 		
@@ -215,8 +213,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    try {
 	        if (dis != null)
 	        	dis.close();
-	    }
-	    catch( Exception e) {
+	    } catch (Exception ignored) {
 	    }
 	}
 

@@ -2576,7 +2576,7 @@ public abstract class EClient {
         }
 	}
 	
-	public void reqSoftDollarTiers(int reqId) {
+	public synchronized void reqSoftDollarTiers(int reqId) {
 		if (!isConnected()) {
 			notConnected();
 			return;
