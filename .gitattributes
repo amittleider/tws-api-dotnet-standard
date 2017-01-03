@@ -2,3 +2,4 @@
 * eol=lf
 *.xls -text -eol
 *.png	binary
+*.PNG	binary
