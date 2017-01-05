@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -14,9 +11,9 @@ Collection of misc tools
 
 
 import sys
+import logging
 
-from common import UNSET_INTEGER, UNSET_DOUBLE
-from logger import LOGGER
+from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
 
 # I use this just to visually emphasize it's a wrapper overriden method
 def iswrapper(fn):
@@ -36,7 +33,7 @@ def crt_fn_name(parent_idx = 0):
 
 def setattr_log(self, var_name, var_value):
     #import code; code.interact(local=locals())
-    LOGGER.debug("%s %s %s=|%s|", self.__class__, id(self), var_name, var_value)
+    logging.debug("%s %s %s=|%s|", self.__class__, id(self), var_name, var_value)
     super(self.__class__, self).__setattr__(var_name, var_value)
 
 
@@ -47,7 +44,7 @@ def decode(the_type, fields, show_unset = False):
     except StopIteration:
         raise BadMessage()  
 
-    LOGGER.debug("decode %s %s", the_type, s)
+    logging.debug("decode %s %s", the_type, s)
 
     if the_type is str:
         if type(s) is str:
@@ -93,34 +90,5 @@ def ExerciseStaticMethods(klass):
             print()
   
 
-def test_setattr_log():
-    class A:
-        def __init__(self):
-            self.n = 5
 
-    A.__setattr__ = setattr_log
-    a = A()
-    print(a.n)
-    a.n = 6
-    print(a.n)
-
-
-def test_polymorphism():
-    class A:
-        def __init__(self):
-            self.n = 5
-        def m(self):
-            self.n += 1
-    class B(A):
-        def m(self):
-            self.n += 2
-
-    o = B()
-    import code; code.interact(local=locals())
-
-
-if __name__ == "__main__":
-    pass
-    #test_setattr_log()
-    #test_poly()
  

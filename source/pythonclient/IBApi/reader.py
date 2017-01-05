@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -9,19 +6,19 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 
 """
-The Reader runs in a separate threads and is responsible for receiving the
+The EReader runs in a separate threads and is responsible for receiving the
 incoming messages.
 It will read the packets from the wire, use the low level IB messaging to 
 remove the size prefix and put the rest in a Queue.
 """
 
-
+import logging
 from threading import Thread
-import comm
-from logger import LOGGER
+
+from IBApi import comm
 
 
-class Reader(Thread):
+class EReader(Thread):
     def __init__(self, conn, msg_queue):
         super().__init__()
         self.conn = conn
@@ -33,24 +30,25 @@ class Reader(Thread):
         while self.conn.is_connected():
         
             buf = self.prevBuf + self.conn.recv_msg()
-            LOGGER.debug("reader loop, prevBuf.size: %d recvd size: %d buf %s",
+            logging.debug("reader loop, prevBuf.size: %d recvd size: %d buf %s",
                 len(self.prevBuf), len(buf), buf)
            
             while len(buf) > 0:
                 (size, msg, buf) = comm.read_msg(buf)
-                #LOGGER.debug("resp %s", buf.decode('ascii'))
-                LOGGER.debug("size:%d msg.size:%d msg:|%s| buf:%s|", size,
+                #logging.debug("resp %s", buf.decode('ascii'))
+                logging.debug("size:%d msg.size:%d msg:|%s| buf:%s|", size,
                     len(msg), buf, "|")
 
                 if len(msg) == size:
                     self.msg_queue.put(msg)
                     self.prevBuf = b""
                 elif len(msg) < size:
-                    LOGGER.debug("more incoming packet(s) are needed ")
+                    logging.debug("more incoming packet(s) are needed ")
                     self.prevBuf = buf
+                    break
                 else:
-                    LOGGER.error("recvd bigger msg (%d) than expected (%d)", 
+                    logging.error("recvd bigger msg (%d) than expected (%d)", 
                         len(msg), size)
 
-        LOGGER.debug("Reader thread finished")
+        logging.debug("EReader thread finished")
 

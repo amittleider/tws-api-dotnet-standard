@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -11,8 +8,8 @@ import sys
 sys.path.append("../../../source/pythonclient")
 
 
-from object_implem import Object 
-from scanner import ScannerSubscription
+from IBApi.object_implem import Object 
+from IBApi.scanner import ScannerSubscription
 
 
 class ScannerSubscriptionSamples(Object):

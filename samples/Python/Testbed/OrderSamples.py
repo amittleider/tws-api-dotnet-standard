@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -10,11 +7,12 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 import sys
 sys.path.append("../../../source/pythonclient")
 
-from order import *
-from common import *
-from tag_value import TagValue
-import order_condition
-from order_condition import *
+import IBApi.order_condition
+from IBApi.order import (OrderComboLeg, Order)
+from IBApi.common import *
+from IBApi.tag_value import TagValue
+from IBApi import order_condition
+from IBApi.order_condition import *
 
 
 class OrderSamples:

@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -28,7 +25,7 @@ class CodeMsgPair:
 
 ALREADY_CONNECTED = CodeMsgPair(501,	"Already connected.")
 CONNECT_FAIL = CodeMsgPair(502, 
-"""Couldn't connect to TWS. Confirm that \"Enable ActiveX and Socket Clients\" 
+"""Couldn't connect to TWS. Confirm that \"Enable ActiveX and Socket EClients\" 
 is enabled and connection port is the same as \"Socket Port\" on the 
 TWS \"Edit->Global Configuration...->API->Settings\" menu. Live Trading ports: 
 TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new installations 

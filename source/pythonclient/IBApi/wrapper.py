@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -14,7 +11,7 @@ that his/her code can receive info from the TWS/IBGW.
 
 NOTE: the methods use type annotations to describe the types of the arguments.
 This is used by the Decoder to dynamically and automatically decode the
-received message into the given Wrapper method. This method can only be 
+received message into the given EWrapper method. This method can only be 
 used for the most simple messages, but it's still huge helper.
 Also this method currently automatically decode a 'version' field in the
 message. However having a 'version' field is a legacy thing, newer
@@ -25,28 +22,25 @@ server and client.
 
 import logging
 
-from common import * 
-from utils import *
-from logger import LOGGER
-from contract import Contract
-from contract import ContractDetails
-from contract import UnderComp
-from order import Order
-from order_state import OrderState
-from execution import Execution
-from ticktype import *
-from commission_report import CommissionReport
+from IBApi.common import * 
+from IBApi.utils import *
+from IBApi.contract import (Contract, ContractDetails, UnderComp)
+from IBApi.order import Order
+from IBApi.order_state import OrderState
+from IBApi.execution import Execution
+from IBApi.ticktype import *
+from IBApi.commission_report import CommissionReport
 
 
-class Wrapper:
+class EWrapper:
     def logAnswer(self, fnName, fnParams):
-        if LOGGER.isEnabledFor(logging.INFO):
+        if logging.getLogger().isEnabledFor(logging.INFO):
             if 'self' in fnParams:
                 prms = dict(fnParams)
                 del prms['self']
             else:
                 prms = fnParams
-            LOGGER.info("ANSWER %s %s", fnName, prms)
+            logging.info("ANSWER %s %s", fnName, prms)
 
 
     def error(self, reqId:TickerId, errorCode:int, errorString:str):
@@ -54,7 +48,7 @@ class Wrapper:
         communication or when TWS wants to send a message to the client."""
 
         self.logAnswer(crt_fn_name(), vars()) 
-        LOGGER.error("ERROR %s %s %s", reqId, errorCode, errorString)
+        logging.error("ERROR %s %s %s", reqId, errorCode, errorString)
 
  
     def winError(self, text:str, lastError:int):
@@ -191,7 +185,7 @@ class Wrapper:
     def updateAccountValue(self, key:str, val:str, currency:str, 
                             accountName:str):
         """ This function is called only when ReqAccountUpdates on
-        EClientSocket object has been called. """
+        EEClientSocket object has been called. """
 
         self.logAnswer(crt_fn_name(), vars()) 
 
@@ -201,7 +195,7 @@ class Wrapper:
                         averageCost:float, unrealizedPNL:float, 
                         realizedPNL:float, accountName:str):
         """This function is called only when reqAccountUpdates on
-        EClientSocket object has been called."""
+        EEClientSocket object has been called."""
 
         self.logAnswer(crt_fn_name(), vars()) 
 
@@ -225,7 +219,7 @@ class Wrapper:
 
     def contractDetails(self, reqId:int, contractDetails:ContractDetails):
         """Receives the full contract's definitons. This method will return all
-        contracts matching the requested via EClientSocket::reqContractDetails. 
+        contracts matching the requested via EEClientSocket::reqContractDetails. 
         For example, one can obtain the whole option chain with it."""
 
         self.logAnswer(crt_fn_name(), vars()) 
@@ -592,7 +586,7 @@ class Wrapper:
     def softDollarTiers(self, reqId:int, tiers:list):
         """ Called when receives Soft Dollar Tier configuration information
 
-        reqId - The request ID used in the call to EClient::reqSoftDollarTiers
+        reqId - The request ID used in the call to EEClient::reqSoftDollarTiers
         tiers - Stores a list of SoftDollarTier that contains all Soft Dollar 
             Tiers information """
 

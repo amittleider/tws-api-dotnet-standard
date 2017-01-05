@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -17,11 +14,10 @@ It allows us to keep some other info along with it.
 import sys
 import socket
 import threading
+import logging
 
-from common import *
-from errors import *
-import comm
-from logger import LOGGER
+from IBApi.common import *
+from IBApi.errors import *
 
 
 #TODO: support SSL !!
@@ -39,6 +35,7 @@ class Connection:
     def connect(self):
         try:
             self.socket = socket.socket()
+        #TODO: list the exceptions you want to catch
         except:
             if self.wrapper:
                 self.wrapper.error(NO_VALID_ID, FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg())
@@ -55,10 +52,10 @@ class Connection:
     def disconnect(self):
         self.lock.acquire()
         try:
-            LOGGER.debug("disconnecting")
+            logging.debug("disconnecting")
             self.socket.close()
             self.socket = None
-            LOGGER.debug("disconnected")
+            logging.debug("disconnected")
             if self.wrapper:
                 self.wrapper.connectionClosed()
         finally:
@@ -71,41 +68,40 @@ class Connection:
 
 
     def send_msg(self, msg):
-        nSent = -1
 
-        LOGGER.debug("acquiring lock")
+        logging.debug("acquiring lock")
         self.lock.acquire()
-        LOGGER.debug("acquired lock")
+        logging.debug("acquired lock")
         try:
             nSent = self.socket.send(msg)
         except:
-            LOGGER.debug("exception from send_msg %s", sys.exc_info())
+            logging.debug("exception from send_msg %s", sys.exc_info())
             raise
         finally:
-            LOGGER.debug("releasing lock")
+            logging.debug("releasing lock")
             self.lock.release()
-            LOGGER.debug("release lock")
+            logging.debug("release lock")
             
-        LOGGER.debug("send_msg: sent: %d", nSent)
+        logging.debug("send_msg: sent: %d", nSent)
 
         return nSent
 
 
     def recv_msg(self):
-        LOGGER.debug("acquiring lock")
+        logging.debug("acquiring lock")
         self.lock.acquire()
-        LOGGER.debug("acquired lock")
+        logging.debug("acquired lock")
         try:
             buf = self._recv_all_msg()
         except:
-            LOGGER.debug("exception from recv_msg %s", sys.exc_info())
+            logging.debug("exception from recv_msg %s", sys.exc_info())
             buf = b""
         else:
             pass
         finally:
-            LOGGER.debug("releasing lock")
+            logging.debug("releasing lock")
             self.lock.release()
-            LOGGER.debug("release lock")
+            logging.debug("release lock")
 
         return buf            
     
@@ -116,7 +112,7 @@ class Connection:
         while cont:
             buf = self.socket.recv(4096)
             allbuf += buf
-            LOGGER.debug("len %d raw:%s|", len(buf), buf)
+            logging.debug("len %d raw:%s|", len(buf), buf)
 
             if len(buf) < 4096:
                 cont = False

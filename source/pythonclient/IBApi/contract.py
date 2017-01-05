@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -15,7 +13,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 
 
-from object_implem import Object
+from IBApi.object_implem import Object
 
 
 (SAME_POS, OPEN_POS, CLOSE_POS, UNKNOWN_POS) = range(4)
@@ -88,7 +86,7 @@ class Contract(Object):
 
         #combos
         self.comboLegsDescrip = ""  # type: str; received in open order 14 and up for all combos
-        self.comboLegs = None     # type: vector<ComboLeg>
+        self.comboLegs = None     # type: list<ComboLeg>
         self.underComp = None
 
 
@@ -199,7 +197,7 @@ class ContractDetails(Object):
 class ContractDescription(Object):
     def __init__(self):
         self.contract = Contract()
-        self.derivativeSecTypes = None   # type: vector<std::string>
+        self.derivativeSecTypes = None   # type: list[str]
 
 
 #inline void

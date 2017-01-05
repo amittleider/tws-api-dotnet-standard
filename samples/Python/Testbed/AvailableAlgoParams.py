@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -12,9 +9,9 @@ import sys
 sys.path.append("../../../source/pythonclient")
 
 
-from object_implem import Object
-from tag_value import TagValue
-from order import Order
+from IBApi.object_implem import Object
+from IBApi.tag_value import TagValue
+from IBApi.order import Order
 
 
 class AvailableAlgoParams(Object):
@@ -159,13 +156,13 @@ class AvailableAlgoParams(Object):
     def FillClosePriceParams(baseOrder:Order, maxPctVol:float, riskAversion:str, 
                              startTime:str, forceCompletion:bool, 
                              monetaryValue:float):
-        baseOrder.AlgoStrategy = "ClosePx";
+        baseOrder.AlgoStrategy = "ClosePx"
         baseOrder.AlgoParams = []
-        baseOrder.AlgoParams.append(TagValue("maxPctVol", maxPctVol));
-        baseOrder.AlgoParams.append(TagValue("riskAversion", riskAversion));
-        baseOrder.AlgoParams.append(TagValue("startTime", startTime));
-        baseOrder.AlgoParams.append(TagValue("forceCompletion", int(forceCompletion)));
-        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue));
+        baseOrder.AlgoParams.append(TagValue("maxPctVol", maxPctVol))
+        baseOrder.AlgoParams.append(TagValue("riskAversion", riskAversion))
+        baseOrder.AlgoParams.append(TagValue("startTime", startTime))
+        baseOrder.AlgoParams.append(TagValue("forceCompletion", int(forceCompletion)))
+        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue))
     #! [closepx_params]
 
 
@@ -175,16 +172,16 @@ class AvailableAlgoParams(Object):
                                      maxPctVol4Px:float, startTime:str,
                                      endTime:str, noTakeLiq:bool, 
                                      monetaryValue:float):
-        baseOrder.AlgoStrategy = "PctVolPx";
+        baseOrder.AlgoStrategy = "PctVolPx"
         baseOrder.AlgoParams = []
-        baseOrder.AlgoParams.append(TagValue("pctVol", pctVol));
-        baseOrder.AlgoParams.append(TagValue("deltaPctVol", deltaPctVol));
-        baseOrder.AlgoParams.append(TagValue("minPctVol4Px", minPctVol4Px));
-        baseOrder.AlgoParams.append(TagValue("maxPctVol4Px", maxPctVol4Px));
-        baseOrder.AlgoParams.append(TagValue("startTime", startTime));
-        baseOrder.AlgoParams.append(TagValue("endTime", endTime));
-        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)));
-        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue));
+        baseOrder.AlgoParams.append(TagValue("pctVol", pctVol))
+        baseOrder.AlgoParams.append(TagValue("deltaPctVol", deltaPctVol))
+        baseOrder.AlgoParams.append(TagValue("minPctVol4Px", minPctVol4Px))
+        baseOrder.AlgoParams.append(TagValue("maxPctVol4Px", maxPctVol4Px))
+        baseOrder.AlgoParams.append(TagValue("startTime", startTime))
+        baseOrder.AlgoParams.append(TagValue("endTime", endTime))
+        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)))
+        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue))
     #! [pctvolpx_params]
 
 
@@ -193,14 +190,14 @@ class AvailableAlgoParams(Object):
                                     endPctVol:float, startTime:str, 
                                     endTime:str, noTakeLiq:bool, 
                                     monetaryValue:float):
-        baseOrder.AlgoStrategy = "PctVolSz";
+        baseOrder.AlgoStrategy = "PctVolSz"
         baseOrder.AlgoParams = []
-        baseOrder.AlgoParams.append(TagValue("startPctVol", startPctVol));
-        baseOrder.AlgoParams.append(TagValue("endPctVol", endPctVol));
-        baseOrder.AlgoParams.append(TagValue("startTime", startTime));
-        baseOrder.AlgoParams.append(TagValue("endTime", endTime));
-        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)));
-        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue));
+        baseOrder.AlgoParams.append(TagValue("startPctVol", startPctVol))
+        baseOrder.AlgoParams.append(TagValue("endPctVol", endPctVol))
+        baseOrder.AlgoParams.append(TagValue("startTime", startTime))
+        baseOrder.AlgoParams.append(TagValue("endTime", endTime))
+        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)))
+        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue))
     #! [pctvolsz_params]
 
 
@@ -209,14 +206,14 @@ class AvailableAlgoParams(Object):
                                     endPctVol:float, startTime:str, 
                                     endTime:str, noTakeLiq:bool, 
                                     monetaryValue:float):
-        baseOrder.AlgoStrategy = "PctVolTm";
+        baseOrder.AlgoStrategy = "PctVolTm"
         baseOrder.AlgoParams = []
-        baseOrder.AlgoParams.append(TagValue("startPctVol", startPctVol));
-        baseOrder.AlgoParams.append(TagValue("endPctVol", endPctVol));
-        baseOrder.AlgoParams.append(TagValue("startTime", startTime));
-        baseOrder.AlgoParams.append(TagValue("endTime", endTime));
-        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)));
-        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue));
+        baseOrder.AlgoParams.append(TagValue("startPctVol", startPctVol))
+        baseOrder.AlgoParams.append(TagValue("endPctVol", endPctVol))
+        baseOrder.AlgoParams.append(TagValue("startTime", startTime))
+        baseOrder.AlgoParams.append(TagValue("endTime", endTime))
+        baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)))
+        baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue))
     #! [pctvoltm_params]
 
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -11,7 +9,8 @@ Simple class mapping a tag to a value. Both of them are strings.
 They are used in a list to convey extra info with the requests.
 """
 
-from object_implem import Object
+from IBApi.object_implem import Object
+
 
 class TagValue(Object):
     def __init__(self, tag:str=None, value:str=None):

@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -9,8 +6,8 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 import sys
 
-from enum_implem import Enum
-from object_implem import Object
+from IBApi.enum_implem import Enum
+from IBApi.object_implem import Object
 
 
 NO_VALID_ID = -1
@@ -38,18 +35,19 @@ ListOfContractDescription = list
 
 class BarData(Object):
     def __init__(self):
-        date = ""
-        open = 0. 
-        high = 0. 
-        low = 0. 
-        close = 0. 
-        volume = 0
-        average = 0.
-        hasGaps = "" 
-        barCount = 0
+        self.date = ""
+        self.open = 0. 
+        self.high = 0. 
+        self.low = 0. 
+        self.close = 0. 
+        self.volume = 0
+        self.average = 0.
+        self.hasGaps = "" 
+        self.barCount = 0
+
 
     def __str__(self):
-        return "%s:%f,%f,%f,%f,%d,%f,%d,%d" % (self.date, self.open, self.high,
+        return "%s:%f,%f,%f,%f,%d,%f,%i,%d" % (self.date, self.open, self.high,
             self.low, self.close, self.volume, self.average, self.hasGaps,
             self.barCount)
 

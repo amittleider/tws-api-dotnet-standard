@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -9,33 +7,34 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 The Decoder knows how to transform a message's payload into higher level 
 IB message (eg: order info, mkt data, etc).
-It will call the corresponding method from the Wrapper so that customer's code
-(eg: class derived from Wrapper) can make further use of the data.
+It will call the corresponding method from the EWrapper so that customer's code
+(eg: class derived from EWrapper) can make further use of the data.
 """
 
 
 import inspect
+import logging
 
-from object_implem import Object
-from message import IN, OUT
-from wrapper import *
-from order import Order
-from order import OrderComboLeg
-from contract import Contract
-from contract import UnderComp
-from contract import ComboLeg
-from execution import Execution
-import order_condition
-from order_state import OrderState 
-from logger import LOGGER
-from server_versions import *
-from utils import *
-from softdollartier import SoftDollarTier
-from ticktype import *
-from tag_value import TagValue
-from scanner import ScanData
-from commission_report import CommissionReport
-
+from IBApi import order_condition
+from IBApi.object_implem import Object
+from IBApi.message import IN
+from IBApi.wrapper import *
+from IBApi.order import Order
+from IBApi.order import OrderComboLeg
+from IBApi.contract import Contract
+from IBApi.contract import ContractDescription
+from IBApi.contract import UnderComp
+from IBApi.contract import ComboLeg
+from IBApi.execution import Execution
+from IBApi.order_state import OrderState 
+from IBApi.server_versions import *
+from IBApi.utils import *
+from IBApi.softdollartier import SoftDollarTier
+from IBApi.ticktype import *
+from IBApi.tag_value import TagValue
+from IBApi.scanner import ScanData
+from IBApi.commission_report import CommissionReport
+from IBApi.errors import BAD_MESSAGE
         
 
 class HandleInfo(Object):
@@ -47,8 +46,8 @@ class HandleInfo(Object):
             raise ValueError("both wrap and proc can't be None")
 
     def __str__(self):
-        s = "wrap:%s meth:%s prms:%s" % (self.wrapperParams,
-                self.processMsth, self.wrapperParams)
+        s = "wrap:%s meth:%s prms:%s" % (self.wrapperMeth,
+                self.processMeth, self.wrapperParams)
         return s
 
 
@@ -57,7 +56,7 @@ class Decoder(Object):
         self.wrapper = wrapper
         self.serverVersion = serverVersion
         self.discover_params()
-        self.print_params()
+        #self.print_params()
 
 
     def processTickPriceMsg(self, fields):
@@ -499,7 +498,7 @@ class Decoder(Object):
             contract.secIdListCount = decode(int, fields)
             if contract.secIdListCount > 0:
                 contract.secIdList = []
-                for idxSecIdList in range(secIdListCount):
+                for idxSecIdList in range(contract.secIdListCount):
                     tagValue = TagValue()
                     tagValue.tag = decode(str, fields)
                     tagValue.value = decode(str, fields)
@@ -552,7 +551,7 @@ class Decoder(Object):
             contract.secIdListCount = decode(int, fields)
             if contract.secIdListCount > 0:
                 contract.secIdList = []
-                for idxSecIdList in range(secIdListCount):
+                for idxSecIdList in range(contract.secIdListCount):
                     tagValue = TagValue()
                     tagValue.tag = decode(str, fields)
                     tagValue.value = decode(str, fields)
@@ -764,7 +763,7 @@ class Decoder(Object):
         commissionReport.commission = decode(float, fields)
         commissionReport.currency = decode(str, fields)
         commissionReport.realizedPNL = decode(float, fields)
-        commissionReport.yield_ = decode(float, fields);
+        commissionReport.yield_ = decode(float, fields)
         commissionReport.yieldRedemptionDate = decode(int, fields)
 
         self.wrapper.commissionReport(commissionReport)
@@ -923,35 +922,35 @@ class Decoder(Object):
         for handleInfo in self.msgId2handleInfo.values():
             meth2handleInfo[handleInfo.wrapperMeth] = handleInfo
         
-        methods = inspect.getmembers(Wrapper, inspect.isfunction)
+        methods = inspect.getmembers(EWrapper, inspect.isfunction)
         for (name, meth) in methods:
-            #LOGGER.debug("meth %s", name)
+            #logging.debug("meth %s", name)
             sig = inspect.signature(meth)
             handleInfo = meth2handleInfo.get(meth, None)
             if handleInfo is not None:
                 handleInfo.wrapperParams = sig.parameters
         
             #for (pname, param) in sig.parameters.items():
-            #     LOGGER.debug("\tparam %s %s %s", pname, param.name, param.annotation)
+            #     logging.debug("\tparam %s %s %s", pname, param.name, param.annotation)
   
 
     def print_params(self):
         for (msgId, handleInfo) in self.msgId2handleInfo.items():
             if handleInfo.wrapperMeth is not None:
-                LOGGER.debug("meth %s", handleInfo.wrapperMeth.__name__)
+                logging.debug("meth %s", handleInfo.wrapperMeth.__name__)
                 if handleInfo.wrapperParams is not None:
                     for (pname, param) in handleInfo.wrapperParams.items():
-                         LOGGER.debug("\tparam %s %s %s", pname, param.name, param.annotation)
+                         logging.debug("\tparam %s %s %s", pname, param.name, param.annotation)
                     
 
     def interpret_with_signature(self, fields, handleInfo):
         if handleInfo.wrapperParams is None:
-            LOGGER.debug("%s: no param info in ", fields, handleInfo)
+            logging.debug("%s: no param info in ", fields, handleInfo)
             return
        
         nIgnoreFields = 2 #bypass msgId and versionId faster this way
         if len(fields) - nIgnoreFields != len(handleInfo.wrapperParams) - 1:
-            LOGGER.error("diff len fields and params %d %d for fields: %s and handleInfo: %s", 
+            logging.error("diff len fields and params %d %d for fields: %s and handleInfo: %s", 
                          len(fields), len(handleInfo.wrapperParams), fields,
                          handleInfo)
             return 
@@ -960,9 +959,9 @@ class Decoder(Object):
         args = []
         for (pname, param) in handleInfo.wrapperParams.items():
             if pname != "self":
-                LOGGER.debug("field %s ", fields[fieldIdx])
+                logging.debug("field %s ", fields[fieldIdx])
                 arg = fields[fieldIdx].decode()
-                LOGGER.debug("arg %s type %s", arg, param.annotation)
+                logging.debug("arg %s type %s", arg, param.annotation)
                 if param.annotation is int:
                     arg = int(arg)
                 elif param.annotation is float:
@@ -973,13 +972,13 @@ class Decoder(Object):
 
         #handleInfo.wrapperMeth(self.wrapper, *args)
         method = getattr(self.wrapper.__class__, handleInfo.wrapperMeth.__name__)
-        LOGGER.debug("calling %s with %s %s", method, self.wrapper, args)
+        logging.debug("calling %s with %s %s", method, self.wrapper, args)
         method(self.wrapper, *args)
        
     
     def interpret(self, fields):
         if len(fields) == 0:
-            LOGGER.debug("no fields")
+            logging.debug("no fields")
             return
 
         sMsgId = fields[0]
@@ -988,7 +987,7 @@ class Decoder(Object):
         handleInfo = self.msgId2handleInfo.get(nMsgId, None)
 
         if handleInfo is None:
-            LOGGER.debug("%s: no handleInfo", fields)
+            logging.debug("%s: no handleInfo", fields)
             return
        
         try:
@@ -1005,54 +1004,54 @@ class Decoder(Object):
  
     msgId2handleInfo = { 
         IN.TICK_PRICE: HandleInfo(proc=processTickPriceMsg), 
-        IN.TICK_SIZE: HandleInfo(wrap=Wrapper.tickSize), 
+        IN.TICK_SIZE: HandleInfo(wrap=EWrapper.tickSize), 
         IN.ORDER_STATUS: HandleInfo(proc=processOrderStatusMsg), 
-        IN.ERR_MSG: HandleInfo(wrap=Wrapper.error), 
+        IN.ERR_MSG: HandleInfo(wrap=EWrapper.error), 
         IN.OPEN_ORDER: HandleInfo(proc=processOpenOrder), 
-        IN.ACCT_VALUE: HandleInfo(wrap=Wrapper.updateAccountValue), 
+        IN.ACCT_VALUE: HandleInfo(wrap=EWrapper.updateAccountValue), 
         IN.PORTFOLIO_VALUE: HandleInfo(proc=processPortfolioValueMsg), 
-        IN.ACCT_UPDATE_TIME: HandleInfo(wrap=Wrapper.updateAccountTime), 
-        IN.NEXT_VALID_ID: HandleInfo(wrap=Wrapper.nextValidId, ), 
+        IN.ACCT_UPDATE_TIME: HandleInfo(wrap=EWrapper.updateAccountTime), 
+        IN.NEXT_VALID_ID: HandleInfo(wrap=EWrapper.nextValidId, ), 
         IN.CONTRACT_DATA: HandleInfo(proc=processContractDataMsg), 
         IN.EXECUTION_DATA: HandleInfo(proc=processExecutionDataMsg), 
-        IN.MARKET_DEPTH: HandleInfo(wrap=Wrapper.updateMktDepth), 
-        IN.MARKET_DEPTH_L2: HandleInfo(wrap=Wrapper.updateMktDepthL2), 
-        IN.NEWS_BULLETINS: HandleInfo(wrap=Wrapper.updateNewsBulletin), 
-        IN.MANAGED_ACCTS: HandleInfo(wrap=Wrapper.managedAccounts, ),
-        IN.RECEIVE_FA: HandleInfo(wrap=Wrapper.receiveFA), 
+        IN.MARKET_DEPTH: HandleInfo(wrap=EWrapper.updateMktDepth), 
+        IN.MARKET_DEPTH_L2: HandleInfo(wrap=EWrapper.updateMktDepthL2), 
+        IN.NEWS_BULLETINS: HandleInfo(wrap=EWrapper.updateNewsBulletin), 
+        IN.MANAGED_ACCTS: HandleInfo(wrap=EWrapper.managedAccounts),
+        IN.RECEIVE_FA: HandleInfo(wrap=EWrapper.receiveFA), 
         IN.HISTORICAL_DATA: HandleInfo(proc=processHistoricalDataMsg), 
         IN.BOND_CONTRACT_DATA: HandleInfo(proc=processBondContractDataMsg), 
-        IN.SCANNER_PARAMETERS: HandleInfo(wrap=Wrapper.scannerParameters), 
+        IN.SCANNER_PARAMETERS: HandleInfo(wrap=EWrapper.scannerParameters), 
         IN.SCANNER_DATA: HandleInfo(proc=processScannerDataMsg), 
         IN.TICK_OPTION_COMPUTATION: HandleInfo(proc=processTickOptionComputationMsg), 
-        IN.TICK_GENERIC: HandleInfo(wrap=Wrapper.tickGeneric), 
-        IN.TICK_STRING: HandleInfo(wrap=Wrapper.tickString), 
-        IN.TICK_EFP: HandleInfo(wrap=Wrapper.tickEFP), 
-        IN.CURRENT_TIME: HandleInfo(wrap=Wrapper.currentTime), 
-        IN.REAL_TIME_BARS: HandleInfo(wrap=Wrapper.realtimeBar), 
-        IN.FUNDAMENTAL_DATA: HandleInfo(wrap=Wrapper.fundamentalData), 
-        IN.CONTRACT_DATA_END: HandleInfo(wrap=Wrapper.contractDetailsEnd), 
-        IN.OPEN_ORDER_END: HandleInfo(wrap=Wrapper.openOrderEnd), 
-        IN.ACCT_DOWNLOAD_END: HandleInfo(wrap=Wrapper.accountDownloadEnd), 
-        IN.EXECUTION_DATA_END: HandleInfo(wrap=Wrapper.execDetailsEnd), 
+        IN.TICK_GENERIC: HandleInfo(wrap=EWrapper.tickGeneric), 
+        IN.TICK_STRING: HandleInfo(wrap=EWrapper.tickString), 
+        IN.TICK_EFP: HandleInfo(wrap=EWrapper.tickEFP), 
+        IN.CURRENT_TIME: HandleInfo(wrap=EWrapper.currentTime), 
+        IN.REAL_TIME_BARS: HandleInfo(wrap=EWrapper.realtimeBar), 
+        IN.FUNDAMENTAL_DATA: HandleInfo(wrap=EWrapper.fundamentalData), 
+        IN.CONTRACT_DATA_END: HandleInfo(wrap=EWrapper.contractDetailsEnd), 
+        IN.OPEN_ORDER_END: HandleInfo(wrap=EWrapper.openOrderEnd), 
+        IN.ACCT_DOWNLOAD_END: HandleInfo(wrap=EWrapper.accountDownloadEnd), 
+        IN.EXECUTION_DATA_END: HandleInfo(wrap=EWrapper.execDetailsEnd), 
         IN.DELTA_NEUTRAL_VALIDATION: HandleInfo(proc=processDeltaNeutralValidationMsg), 
-        IN.TICK_SNAPSHOT_END: HandleInfo(wrap=Wrapper.tickSnapshotEnd), 
-        IN.MARKET_DATA_TYPE: HandleInfo(wrap=Wrapper.marketDataType), 
+        IN.TICK_SNAPSHOT_END: HandleInfo(wrap=EWrapper.tickSnapshotEnd), 
+        IN.MARKET_DATA_TYPE: HandleInfo(wrap=EWrapper.marketDataType), 
         IN.COMMISSION_REPORT: HandleInfo(proc=processCommissionReportMsg), 
         IN.POSITION_DATA: HandleInfo(proc=processPositionDataMsg), 
-        IN.POSITION_END: HandleInfo(wrap=Wrapper.positionEnd), 
-        IN.ACCOUNT_SUMMARY: HandleInfo(wrap=Wrapper.accountSummary), 
-        IN.ACCOUNT_SUMMARY_END: HandleInfo(wrap=Wrapper.accountSummaryEnd), 
-        IN.VERIFY_MESSAGE_API: HandleInfo(wrap=Wrapper.verifyMessageAPI), 
-        IN.VERIFY_COMPLETED: HandleInfo(wrap=Wrapper.verifyCompleted), 
-        IN.DISPLAY_GROUP_LIST: HandleInfo(wrap=Wrapper.displayGroupList), 
-        IN.DISPLAY_GROUP_UPDATED: HandleInfo(wrap=Wrapper.displayGroupUpdated), 
-        IN.VERIFY_AND_AUTH_MESSAGE_API: HandleInfo(wrap=Wrapper.verifyAndAuthMessageAPI), 
-        IN.VERIFY_AND_AUTH_COMPLETED: HandleInfo(wrap=Wrapper.verifyAndAuthCompleted), 
+        IN.POSITION_END: HandleInfo(wrap=EWrapper.positionEnd), 
+        IN.ACCOUNT_SUMMARY: HandleInfo(wrap=EWrapper.accountSummary), 
+        IN.ACCOUNT_SUMMARY_END: HandleInfo(wrap=EWrapper.accountSummaryEnd), 
+        IN.VERIFY_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyMessageAPI), 
+        IN.VERIFY_COMPLETED: HandleInfo(wrap=EWrapper.verifyCompleted), 
+        IN.DISPLAY_GROUP_LIST: HandleInfo(wrap=EWrapper.displayGroupList), 
+        IN.DISPLAY_GROUP_UPDATED: HandleInfo(wrap=EWrapper.displayGroupUpdated), 
+        IN.VERIFY_AND_AUTH_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyAndAuthMessageAPI), 
+        IN.VERIFY_AND_AUTH_COMPLETED: HandleInfo(wrap=EWrapper.verifyAndAuthCompleted), 
         IN.POSITION_MULTI: HandleInfo(proc=processPositionMultiMsg), 
-        IN.POSITION_MULTI_END: HandleInfo(wrap=Wrapper.positionMultiEnd), 
-        IN.ACCOUNT_UPDATE_MULTI: HandleInfo(wrap=Wrapper.accountUpdateMulti), 
-        IN.ACCOUNT_UPDATE_MULTI_END: HandleInfo(wrap=Wrapper.accountUpdateMultiEnd), 
+        IN.POSITION_MULTI_END: HandleInfo(wrap=EWrapper.positionMultiEnd), 
+        IN.ACCOUNT_UPDATE_MULTI: HandleInfo(wrap=EWrapper.accountUpdateMulti), 
+        IN.ACCOUNT_UPDATE_MULTI_END: HandleInfo(wrap=EWrapper.accountUpdateMultiEnd), 
         IN.SECURITY_DEFINITION_OPTION_PARAMETER: HandleInfo(proc=processSecurityDefinitionOptionParameterMsg), 
         IN.SECURITY_DEFINITION_OPTION_PARAMETER_END: HandleInfo(proc=processSecurityDefinitionOptionParameterEndMsg), 
         IN.SOFT_DOLLAR_TIERS: HandleInfo(proc=processSoftDollarTiersMsg), 

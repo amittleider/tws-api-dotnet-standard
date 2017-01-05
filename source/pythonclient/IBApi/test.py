@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -15,25 +12,25 @@ import datetime
 import inspect
 import time
 import argparse
+import logging
 
-from common import * 
-import decoder
-import wrapper
-from ticktype import TickType, TickTypeEnum
-from comm import *
-from message import IN, OUT
-from client import Client
-from logger import LOGGER
-from connection import Connection
-from reader import Reader
-from queue import Queue
-from utils import *
-from execution import ExecutionFilter
-from scanner import ScannerSubscription
-from order_condition import *
-from contract import *
-from order import *
-from order_state import *
+import IBApi.decoder
+import IBApi.wrapper
+from IBApi.common import * 
+from IBApi.ticktype import TickType, TickTypeEnum
+from IBApi.comm import *
+from IBApi.message import IN, OUT
+from IBApi.client import EClient
+from IBApi.connection import Connection
+from IBApi.reader import EReader
+from IBApi.queue import Queue
+from IBApi.utils import *
+from IBApi.execution import ExecutionFilter
+from IBApi.scanner import ScannerSubscription
+from IBApi.order_condition import *
+from IBApi.contract import *
+from IBApi.order import *
+from IBApi.order_state import *
 
 #import pdb; pdb.set_trace()
 #import code; code.interact(local=locals())
@@ -41,9 +38,9 @@ from order_state import *
 
 
 
-class TestApp(Client, wrapper.Wrapper):
+class TestApp(EClient, wrapper.EWrapper):
     def __init__(self):
-        Client.__init__(self, self)
+        EClient.__init__(self, self)
         self.nextValidOrderId = None
         self.permId2ord = {}
 
@@ -51,7 +48,7 @@ class TestApp(Client, wrapper.Wrapper):
     def nextValidId(self, orderId:int):
         super().nextValidId(orderId)
 
-        LOGGER.debug("setting nextValidOrderId: %d", orderId)
+        logging.debug("setting nextValidOrderId: %d", orderId)
         self.nextValidOrderId = orderId
 
 
@@ -104,7 +101,7 @@ class TestApp(Client, wrapper.Wrapper):
     def openOrderEnd(self, *args):
         super().openOrderEnd(*args)
 
-        LOGGER.debug("Received %d openOrders", len(self.permId2ord))
+        logging.debug("Received %d openOrders", len(self.permId2ord))
 
 
     @iswrapper
@@ -143,12 +140,12 @@ def main():
         dest="port", default = 4005, help="The TCP port to use")
     args = cmdLineParser.parse_args()
     print("Using args", args)
-    LOGGER.debug("Using args %s", args)
+    logging.debug("Using args %s", args)
     #print(args)
                                                                                                                                            
-    LOGGER.debug("now is %s", datetime.datetime.now())
+    logging.debug("now is %s", datetime.datetime.now())
     import logging
-    #LOGGER.setLevel(logging.ERROR)
+    #logging.setLevel(logging.ERROR)
 
     #enable logging when member vars are assigned
     import utils 

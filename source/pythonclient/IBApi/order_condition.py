@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -7,12 +5,11 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 
 
-from common import UNSET_INTEGER, UNSET_DOUBLE
-import comm
-import decoder
-from object_implem import Object
-from enum_implem import Enum
-from utils import decode
+from IBApi import comm
+from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
+from IBApi.object_implem import Object
+from IBApi.enum_implem import Enum
+from IBApi.utils import decode
 
 #TODO: add support for Rebate, P/L, ShortableShares conditions 
 
@@ -42,7 +39,7 @@ class OrderCondition(Object):
         return self
 
     def decode(self, fields):
-        connector = decoder.decode(str, fields)
+        connector = decode(str, fields)
         self.isConjunctionConnection = connector == "a"
 
     def make_fields(self):

@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -14,19 +11,18 @@ This module has tools for implementing the IB low level messaging.
 
 
 import struct
+import logging
 
-from common import UNSET_INTEGER, UNSET_DOUBLE
-from logger import LOGGER
+from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
 
 
 def make_msg(text) -> bytes:
     """ adds the length prefix """
-    #msg = array.array('B', 
     msg = struct.pack("!I%ds" % len(text), len(text), str.encode(text))
     return msg
 
 
-def make_field(val) -> bytes:
+def make_field(val) -> str:
     """ adds the NULL string terminator """
 
     if val is None:
@@ -40,7 +36,7 @@ def make_field(val) -> bytes:
     return field
 
 
-def make_field_handle_empty(val) -> bytes:
+def make_field_handle_empty(val) -> str:
 
     if val is None:
         raise ValueError("Cannot send None to TWS")
@@ -51,16 +47,18 @@ def make_field_handle_empty(val) -> bytes:
     return make_field(val)
 
 
-def read_msg(buf: bytes) -> tuple:
+def read_msg(buf:bytes) -> tuple:
     """ first the size prefix and then the corresponding msg payload """
     size = struct.unpack("!I", buf[0:4])[0]
-    LOGGER.debug("read_msg: size: %d", size)
-    text = struct.unpack("!%ds" % size, buf[4:4+size])[0]
-
-    return (size, text, buf[4+size:])
+    logging.debug("read_msg: size: %d", size)
+    if len(buf) - 4 >= size:
+        text = struct.unpack("!%ds" % size, buf[4:4+size])[0]
+        return (size, text, buf[4+size:])
+    else:
+        return (size, "", buf)
      
 
-def read_fields(buf: bytes) -> tuple:
+def read_fields(buf:bytes) -> tuple:
     """ msg payload is made of fields terminated/separated by NULL chars """
     fields = buf.split(b"\0")
 

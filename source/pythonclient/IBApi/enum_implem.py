@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -24,14 +21,3 @@ class Enum:
         return self.idx2name.get(idx, "NOTFOUND")
 
 
-def test_enum():
-    e = Enum("ZERO", "ONE", "TWO")
-    print(e.ZERO)
-    print(e.to_str(e.ZERO))
-
-
-if __name__ == "__main__":
-    #test_setattr_log()
-    #test_poly()
-    test_enum()
-   

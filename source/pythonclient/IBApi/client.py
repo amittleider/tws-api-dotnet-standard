@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -13,41 +11,38 @@ It takes care of almost everything:
 - implementing the requests
 - creating the answer decoder
 - creating the connection to TWS/IBGW
-The user just needs to override Wrapper methods to receive the answers.
+The user just needs to override EWrapper methods to receive the answers.
 """
 
-import time
 import logging
-from queue import Queue
+import queue
 
-from common import UNSET_INTEGER, UNSET_DOUBLE
-from connection import Connection
-import decoder
-import reader
-from message import OUT
-from common import *
-from contract import Contract
-from order import Order
-from execution import ExecutionFilter
-from scanner import ScannerSubscription
-import comm
-from comm import make_field
-from comm import make_field_handle_empty
-from utils import crt_fn_name
-from logger import LOGGER
-from errors import *
-from server_versions import *
+from IBApi import (decoder, reader, comm)
+from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
+from IBApi.connection import Connection
+from IBApi.message import OUT
+from IBApi.common import *
+from IBApi.contract import Contract
+from IBApi.order import Order
+from IBApi.execution import ExecutionFilter
+from IBApi.scanner import ScannerSubscription
+from IBApi.comm import (make_field, make_field_handle_empty)
+from IBApi.utils import crt_fn_name
+from IBApi.errors import *
+from IBApi.server_versions import *
+
+#TODO: use pylint
 
 
-
-class Client(object):
+class EClient(object):
     (DISCONNECTED, CONNECTING, CONNECTED, REDIRECT) = range(4)
  
     #TODO: support redirect !!
     
     def __init__(self, wrapper):
-        self.msg_queue = Queue()
+        self.msg_queue = queue.Queue()
         self.wrapper = wrapper
+        self.decoder = None
         self.reset()
 
 
@@ -66,30 +61,51 @@ class Client(object):
         self.async = False
         self.reader = None
         self.decode = None
-        self.setConnState(Client.DISCONNECTED)
+        self.setConnState(EClient.DISCONNECTED)
  
     
     def setConnState(self, connState):
         _connState = self.connState
         self.connState = connState
-        LOGGER.debug("%s connState: %s -> %s" % (id(self), _connState,
+        logging.debug("%s connState: %s -> %s" % (id(self), _connState,
                                                  self.connState))
 
     def send_msg(self, msg):
         full_msg = comm.make_msg(msg)
-        LOGGER.info("%s %s %s", "SENDING", crt_fn_name(1), full_msg)
+        logging.info("%s %s %s", "SENDING", crt_fn_name(1), full_msg)
         self.conn.send_msg(full_msg)
  
 
     def logRequest(self, fnName, fnParams):
-        if LOGGER.isEnabledFor(logging.INFO):
+        if logging.getLogger().isEnabledFor(logging.INFO):
             if 'self' in fnParams:
                 prms = dict(fnParams)
                 del prms['self']
             else:
                 prms = fnParams
-            LOGGER.info("REQUEST %s %s", fnName, prms)
+            logging.info("REQUEST %s %s" % (fnName, prms))
      
+    def startApi(self):
+        """  Initiates the message exchange between the client application and
+        the TWS/IB Gateway. """
+
+        self.logRequest(crt_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(),
+                               NOT_CONNECTED.msg())
+            return
+
+        VERSION = 2
+
+        msg = make_field(OUT.START_API) \
+           + make_field(VERSION)    \
+           + make_field(self.clientId)
+
+        if self.serverVersion() >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES:
+           msg += make_field(self.optCapab)
+
+        self.send_msg(msg)
 
     def connect(self, host, port, clientId):
         """This function must be called before any other. There is no
@@ -110,12 +126,12 @@ class Client(object):
         self.host = host
         self.port = port
         self.clientId = clientId
-        LOGGER.debug("Connecting to %s:%d w/ id:%d", self.host, self.port, self.clientId)
+        logging.debug("Connecting to %s:%d w/ id:%d", self.host, self.port, self.clientId)
 
         self.conn = Connection(self.host, self.port)
         
         self.conn.connect()
-        self.setConnState(Client.CONNECTING)
+        self.setConnState(EClient.CONNECTING)
         
         #TODO: support async mode
         
@@ -123,9 +139,9 @@ class Client(object):
         v100version = "v%d..%d" % (MIN_CLIENT_VER, MAX_CLIENT_VER)
         #v100version = "v%d..%d" % (MIN_CLIENT_VER, 101)
         msg = comm.make_msg(v100version)
-        LOGGER.debug("msg %s", msg)
+        logging.debug("msg %s", msg)
         msg2 = str.encode(v100prefix, 'ascii') + msg
-        LOGGER.debug("REQUEST %s", msg2)
+        logging.debug("REQUEST %s", msg2)
         self.conn.send_msg(msg2)
 
         self.decoder = decoder.Decoder(self.wrapper, self.serverVersion())
@@ -135,25 +151,25 @@ class Client(object):
         while len(fields) != 2:
             self.decoder.interpret(fields)
             buf = self.conn.recv_msg()
-            LOGGER.debug("ANSWER %s", buf)
+            logging.debug("ANSWER %s", buf)
             if len(buf) > 0:
                 (size, msg, rest) = comm.read_msg(buf)
-                LOGGER.debug("size:%d msg:%s rest:%s|", size, msg, rest)
+                logging.debug("size:%d msg:%s rest:%s|", size, msg, rest)
                 fields = comm.read_fields(msg)
-                LOGGER.debug("fields %s", fields)
+                logging.debug("fields %s", fields)
             else:
                 fields = []
 
         (server_version, conn_time) = fields
         server_version = int(server_version)
-        LOGGER.debug("ANSWER Version:%d time:%s", server_version, conn_time)
+        logging.debug("ANSWER Version:%d time:%s", server_version, conn_time)
         self.connTime = conn_time
         self.serverVersion_ = server_version
         self.decoder.serverVersion = self.serverVersion()
 
-        self.setConnState(Client.CONNECTED)
+        self.setConnState(EClient.CONNECTED)
 
-        self.reader = reader.Reader(self.conn, self.msg_queue)
+        self.reader = reader.EReader(self.conn, self.msg_queue)
         self.reader.start()   # start thread
         print("sent startApi")
         self.startApi()
@@ -166,7 +182,7 @@ class Client(object):
         sent."""
         
         self.conn.disconnect()
-        self.setConnState(Client.DISCONNECTED)
+        self.setConnState(EClient.DISCONNECTED)
         self.wrapper.connectionClosed()
         self.reset()
 
@@ -174,8 +190,8 @@ class Client(object):
     def isConnected(self):
         """Call this function to check if there is a connection with TWS"""
 
-        LOGGER.debug("%s isConn: %s" % (id(self), self.connState))
-        return Client.CONNECTED == self.connState
+        logging.debug("%s isConn: %s" % (id(self), self.connState))
+        return EClient.CONNECTED == self.connState
 
     def keyboardInterrupt(self):
         #intended to be overloaded
@@ -191,26 +207,28 @@ class Client(object):
         """This is the function that has the message loop."""
 
         try:
-            while not self.done and (self.conn.is_connected() \
+            while not self.done and (self.conn.is_connected()
                         or not self.msg_queue.empty()):
                 try:
-                    text = self.msg_queue.get(block=True, timeout=0.2)
-                    if len(text) > MAX_MSG_LEN:
-                        self.wrapper.error(NO_VALID_ID, BAD_LENGTH.code(), 
-                            BAD_LENGTH.msg() + ":" + len(text) + ":" + text)
-                        self.disconnect()
-                        break
+                    try:
+                        text = self.msg_queue.get(block=True, timeout=0.2)
+                        if len(text) > MAX_MSG_LEN:
+                            self.wrapper.error(NO_VALID_ID, BAD_LENGTH.code(),
+                                "%s:%d:%s" % (BAD_LENGTH.msg(), len(text), text))
+                            self.disconnect()
+                            break
+                    except queue.Empty:
+                        logging.debug("queue.get: empty")
+                    else:
+                        fields = comm.read_fields(text)
+                        logging.debug("fields %s", fields)
+                        self.decoder.interpret(fields) 
                 except (KeyboardInterrupt, SystemExit):
                     print("detected KeyboardInterrupt, SystemExit") 
                     self.keyboardInterrupt()
                     self.keyboardInterruptHard()
-                except:
-                    LOGGER.debug("exception from queue.get")
-                else:
-                    fields = comm.read_fields(text)
-                    LOGGER.debug("fields %s", fields)
-                    self.decoder.interpret(fields)
-                LOGGER.debug("conn:%d queue.sz:%d", 
+
+                logging.debug("conn:%d queue.sz:%d", 
                              self.conn.is_connected(), 
                              self.msg_queue.qsize())
         except:
@@ -273,28 +291,7 @@ class Client(object):
 
 
 
-    def startApi(self):
-        """  Initiates the message exchange between the client application and
-        the TWS/IB Gateway. """
 
-        self.logRequest(crt_fn_name(), vars()) 
-
-        if not self.isConnected():
-            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), 
-                               NOT_CONNECTED.msg())
-            return
-
-        VERSION = 2
-
-        msg = make_field(OUT.START_API) \
-           + make_field(VERSION)    \
-           + make_field(self.clientId)
-
-        if self.serverVersion() >= MIN_SERVER_VER_OPTIONAL_CAPABILITIES:
-           msg += make_field(self.optCapab)
-
-        self.send_msg(msg)
-     
 
     ##########################################################################       
     ################## Market Data
@@ -400,7 +397,7 @@ class Client(object):
         if self.serverVersion() >= MIN_SERVER_VER_LINKING:
             #current doc says this part if for "internal use only" -> won't support it
             if mktDataOptions:
-                raise "not supported"
+                raise NotImplementedError("not supported")
             mktDataOptionsStr = ""
             flds += [make_field(mktDataOptionsStr),]
 
@@ -448,11 +445,11 @@ class Client(object):
         self.logRequest(crt_fn_name(), vars()) 
 
         if not self.isConnected():
-            self.wrapper.error(reqId, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
             return
 
         if self.serverVersion() < MIN_SERVER_VER_REQ_MARKET_DATA_TYPE:
-            self.wrapper.error(reqId, UPDATE_TWS.code(), 
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(),
                 UPDATE_TWS.msg() + "  It does not support market data type requests.")
             return
           
@@ -478,7 +475,7 @@ class Client(object):
                                    implVolOptions:TagValueList):
         """Call this function to calculate volatility for a supplied 
         option price and underlying price. Result will be delivered
-        via Wrapper.tickOptionComputation()
+        via EWrapper.tickOptionComputation()
 
         reqId:TickerId -  The request id.
         contract:Contract -  Describes the contract.
@@ -492,10 +489,9 @@ class Client(object):
             return
 
         if self.serverVersion() < MIN_SERVER_VER_REQ_CALC_IMPLIED_VOLAT:
-            if contract.tradingClass:
-                self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                        "  It does not support calculateImpliedVolatility req.")
-                return
+            self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support calculateImpliedVolatility req.")
+            return
  
         if self.serverVersion() < MIN_SERVER_VER_TRADING_CLASS:
             if contract.tradingClass:
@@ -554,10 +550,9 @@ class Client(object):
             return
  
         if self.serverVersion() < MIN_SERVER_VER_REQ_CALC_IMPLIED_VOLAT:
-            if contract.tradingClass:
-                self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                        "  It does not support calculateImpliedVolatility req.")
-                return
+            self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support calculateImpliedVolatility req.")
+            return
  
         VERSION = 1
 
@@ -586,10 +581,9 @@ class Client(object):
             return
 
         if self.serverVersion() < MIN_SERVER_VER_REQ_CALC_IMPLIED_VOLAT:
-            if contract.tradingClass:
-                self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                        "  It does not support calculateImpliedVolatility req.")
-                return
+            self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support calculateImpliedVolatility req.")
+            return
  
         if self.serverVersion() < MIN_SERVER_VER_TRADING_CLASS:
             if contract.tradingClass:
@@ -648,10 +642,9 @@ class Client(object):
             return
  
         if self.serverVersion() < MIN_SERVER_VER_REQ_CALC_IMPLIED_VOLAT:
-            if contract.tradingClass:
-                self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                        "  It does not support calculateImpliedVolatility req.")
-                return
+            self.wrapper.error( reqId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support calculateImpliedVolatility req.")
+            return
  
         VERSION = 1
 
@@ -1222,7 +1215,7 @@ class Client(object):
     def reqOpenOrders(self):
         """Call this function to request the open orders that were
         placed from this client. Each open order will be fed back through the
-        openOrder() and orderStatus() functions on the Wrapper.
+        openOrder() and orderStatus() functions on the EWrapper.
 
         Note:  The client with a clientId of 0 will also receive the TWS-owned
         open orders. These orders will be associated with the client and a new
@@ -1243,7 +1236,7 @@ class Client(object):
         """Call this function to request that newly created TWS orders
         be implicitly associated with the client. When a new TWS order is
         created, the order will be associated with the client, and fed back
-        through the openOrder() and orderStatus() functions on the Wrapper.
+        through the openOrder() and orderStatus() functions on the EWrapper.
 
         Note:  This request can only be made from a client with clientId of 0.
 
@@ -1269,7 +1262,7 @@ class Client(object):
     def reqAllOpenOrders(self):
         """Call this function to request the open orders placed from all
         clients and also from TWS. Each open order will be fed back through the
-        openOrder() and orderStatus() functions on the Wrapper.
+        openOrder() and orderStatus() functions on the EWrapper.
 
         Note:  No association is made between the returned orders and the
         requesting client."""
@@ -1340,8 +1333,8 @@ class Client(object):
 
     def reqAccountUpdates(self, subscribe:bool, acctCode:str):
         """Call this function to start getting account values, portfolio, 
-        and last update time information via Wrapper.updateAccountValue(),
-        Wrapperi.updatePortfolio() and Wrapper.updateAccountTime().
+        and last update time information via EWrapper.updateAccountValue(),
+        EWrapperi.updatePortfolio() and Wrapper.updateAccountTime().
 
         subscribe:bool - If set to TRUE, the client will start receiving account
             and Portfoliolio updates. If set to FALSE, the client will stop 
@@ -1367,7 +1360,7 @@ class Client(object):
         self.send_msg(msg)
   
 
-    def reqAccountSummary(self, reqId:int, groupName:str, tags:str) -> bytes:
+    def reqAccountSummary(self, reqId:int, groupName:str, tags:str):
         """Call this method to request and keep up to date the data that appears
         on the TWS Account Window Summary tab. The data is returned by 
         accountSummary().
@@ -1470,7 +1463,7 @@ class Client(object):
 
         if self.serverVersion() < MIN_SERVER_VER_POSITIONS:
             self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                    "  It does not support positions request.");
+                    "  It does not support positions request.")
             return
 
         VERSION = 1
@@ -1492,7 +1485,7 @@ class Client(object):
 
         if self.serverVersion() < MIN_SERVER_VER_POSITIONS:
             self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                    "  It does not support positions request.");
+                    "  It does not support positions request.")
             return
  
 
@@ -1506,8 +1499,8 @@ class Client(object):
 
     def reqPositionsMulti(self, reqId:int, account:str, modelCode:str):
         """Requests positions for account and/or model.
-        Results are delivered via Wrapper.positionMulti() and 
-        Wrapper.positionMultiEnd() """
+        Results are delivered via EWrapper.positionMulti() and 
+        EWrapper.positionMultiEnd() """
 
         self.logRequest(crt_fn_name(), vars()) 
 
@@ -1659,7 +1652,7 @@ class Client(object):
     def reqContractDetails(self, reqId:int , contract:Contract):
         """Call this function to download all details for a particular
         underlying. The contract details will be received via the contractDetails()
-        function on the Wrapper. 
+        function on the EWrapper. 
 
         reqId:int - The ID of the data request. Ensures that responses are
             make_fieldatched to requests if several requests are in process.
@@ -1800,7 +1793,7 @@ class Client(object):
         if self.serverVersion() >= MIN_SERVER_VER_LINKING:
             #current doc says this part if for "internal use only" -> won't support it
             if mktDepthOptions:
-                raise "not supported"
+                raise NotImplementedError("not supported")
             mktDataOptionsStr = ""
             flds += [make_field(mktDataOptionsStr),]
 
@@ -1880,7 +1873,7 @@ class Client(object):
 
     def reqManagedAccts(self):
         """Call this function to request the list of managed accounts. The list
-        will be returned by the managedAccounts() function on the Wrapper.
+        will be returned by the managedAccounts() function on the EWrapper.
 
         Note:  This request can only be made when connected to a FA managed account."""
 
@@ -1960,7 +1953,7 @@ class Client(object):
                           useRTH:int, formatDate:int, chartOptions:TagValueList):
         """Requests contracts' historical data. When requesting historical data, a
         finishing time and date is required along with a duration string. The
-        resulting bars will be returned in Wrapper.historicalData()
+        resulting bars will be returned in EWrapper.historicalData()
 
         reqId:TickerId - The id of the request. Must be a unique value. When the
             market data returns, it whatToShowill be identified by this tag. This is also
@@ -2207,7 +2200,7 @@ class Client(object):
                         whatToShow:str, useRTH:bool, 
                         realTimeBarsOptions:TagValueList):
         """Call the reqRealTimeBars() function to start receiving real time bar
-        results through the realtimeBar() Wrapper function.
+        results through the realtimeBar() EWrapper function.
 
         reqId:TickerId - The Id for the request. Must be a unique value. When the 
             data is received, it will be identified by this Id. This is also 
@@ -2314,7 +2307,7 @@ class Client(object):
         """Call this function to receive Reuters global fundamental data for
         stocks. There must be a subscription to Reuters Fundamental set up in 
         Account Management before you can receive this data.
-        Reuters fundamental data will be returned at Wrapper.fundamentalData().
+        Reuters fundamental data will be returned at EWrapper.fundamentalData().
 
         reqFundamentalData() can handle conid specified in the Contract object, 
         but not tradingClass or multiplier. This is because reqFundamentalData()
@@ -2639,7 +2632,7 @@ class Client(object):
         options are trading. Can be set to the empty string "" for all 
         exchanges. underlyingSecType The type of the underlying security, 
         i.e. STK underlyingConId the contract ID of the underlying security.
-        Response comes via Wrapper.securityDefinitionOptionParameter()"""
+        Response comes via EWrapper.securityDefinitionOptionParameter()"""
 
         self.logRequest(crt_fn_name(), vars()) 
 

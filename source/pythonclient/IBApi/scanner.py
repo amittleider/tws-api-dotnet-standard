@@ -1,24 +1,22 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
  IB API Commercial License, as applicable. 
 """
 
-from object_implem import Object
-from common import UNSET_INTEGER, UNSET_DOUBLE
+
+from IBApi.object_implem import Object
+from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
 
 
 class ScanData(Object):
     def __init__(self):
-        contract = None
-        rank = 0
-        distance = ""
-        benchmark = ""
-        projection = ""
-        legsStr = ""
+        self.contract = None
+        self.rank = 0
+        self.distance = ""
+        self.benchmark = ""
+        self.projection = ""
+        self.legsStr = ""
 
     def __str__(self):
         return "%s,%d,%s,%s,%s,%s" % (self.contract, self.rank, self.distance,

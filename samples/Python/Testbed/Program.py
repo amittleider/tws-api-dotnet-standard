@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
@@ -12,28 +9,30 @@ import argparse
 import datetime
 import collections
 import inspect
+
 import logging
+import time
+import os.path
 
 sys.path.append("../../../source/pythonclient")
 
-import wrapper
-from client import Client
-from utils import iswrapper
+from IBApi import wrapper
+from IBApi.client import EClient
+from IBApi.utils import iswrapper
 
 #types
-from common import *
-from order_condition import *
-from contract import *
-from order import *
-from order_state import *
-from execution import Execution
-from execution import ExecutionFilter
-from commission_report import CommissionReport
-from scanner import ScannerSubscription
-from ticktype import *
+from IBApi.common import *
+from IBApi.order_condition import *
+from IBApi.contract import *
+from IBApi.order import *
+from IBApi.order_state import *
+from IBApi.execution import Execution
+from IBApi.execution import ExecutionFilter
+from IBApi.commission_report import CommissionReport
+from IBApi.scanner import ScannerSubscription
+from IBApi.ticktype import *
 
-from logger import LOGGER
-from account_summary_tags import *
+from IBApi.account_summary_tags import *
 
 from ContractSamples import ContractSamples 
 from OrderSamples import OrderSamples 
@@ -41,6 +40,29 @@ from AvailableAlgoParams import AvailableAlgoParams
 from ScannerSubscriptionSamples import ScannerSubscriptionSamples
 from FaAllocationSamples import FaAllocationSamples
 
+
+def SetupLogger():
+    if not os.path.exists("log"):
+        os.makedirs("log")
+
+    time.strftime("pyibapi.%Y%m%d_%H%M%S.log")
+
+    recfmt = '(%(threadName)s) %(asctime)s.%(msecs)03d %(levelname)s %(filename)s:%(lineno)d %(message)s'
+
+    timefmt = '%y%m%d_%H:%M:%S'
+
+    #logging.basicConfig( level=logging.DEBUG, 
+    #                    format=recfmt, datefmt=timefmt)
+    logging.basicConfig(filename=time.strftime("log/pyibapi.%y%m%d_%H%M%S.log") , 
+                        filemode="w",
+                        level=logging.INFO, 
+                        format=recfmt, datefmt=timefmt)
+    logger = logging.getLogger()
+    console = logging.StreamHandler()
+    console.setLevel(logging.ERROR)
+    logger.addHandler(console)
+
+ 
 
 def printWhenExecuting(fn):
     def fn2(self):
@@ -74,9 +96,11 @@ class RequestMgr(Object):
 
 
 
-class TestClient(Client):
+#! [socket_declare]
+class TestClient(EClient):
     def __init__(self, wrapper):
-        Client.__init__(self, wrapper)
+        EClient.__init__(self, wrapper)
+#! [socket_declare]
 
         #how many times a method is called to see test coverage
         self.clntMeth2callCount = collections.defaultdict(int)
@@ -99,12 +123,12 @@ class TestClient(Client):
 
     def setupDetectReqId(self):
         
-        methods = inspect.getmembers(Client, inspect.isfunction)
+        methods = inspect.getmembers(EClient, inspect.isfunction)
         for (methName, meth) in methods:
             if methName != "send_msg":
             #don't screw up the nice automated logging in the send_msg()
                 self.clntMeth2callCount[methName] = 0
-                #LOGGER.debug("meth %s", name)
+                #logging.debug("meth %s", name)
                 sig = inspect.signature(meth)
                 for (idx, pnameNparam) in enumerate(sig.parameters.items()):
                     (paramName, param) = pnameNparam
@@ -116,9 +140,11 @@ class TestClient(Client):
         #print("TestClient.clntMeth2reqIdIdx", self.clntMeth2reqIdIdx)
 
 
-class TestWrapper(wrapper.Wrapper):
+#! [ewrapperimpl]
+class TestWrapper(wrapper.EWrapper):
+#! [ewrapperimpl]
     def __init__(self):
-        wrapper.Wrapper.__init__(self)
+        wrapper.EWrapper.__init__(self)
 
         self.wrapMeth2callCount = collections.defaultdict(int)
         self.wrapMeth2reqIdIdx = collections.defaultdict(lambda: -1)
@@ -141,10 +167,10 @@ class TestWrapper(wrapper.Wrapper):
 
     def setupDetectWrapperReqId(self):
         
-        methods = inspect.getmembers(wrapper.Wrapper, inspect.isfunction)
+        methods = inspect.getmembers(wrapper.EWrapper, inspect.isfunction)
         for (methName, meth) in methods:
             self.wrapMeth2callCount[methName] = 0
-            #LOGGER.debug("meth %s", name)
+            #logging.debug("meth %s", name)
             sig = inspect.signature(meth)
             for (idx, pnameNparam) in enumerate(sig.parameters.items()):
                 (paramName, param) = pnameNparam
@@ -155,25 +181,24 @@ class TestWrapper(wrapper.Wrapper):
             setattr(TestWrapper, methName, self.countWrapReqId(methName, meth))
      
         #print("TestClient.wrapMeth2reqIdIdx", self.wrapMeth2reqIdIdx)
- 
-#! [socket_declare]
-#! [socket_init]
-#! [ereader]
-# The Client class takes care of everything that's done individually in the 
-# API-s: 
-# - creating the Socket, Reader and Decoder
-# - initializing the socket
-# 
-#! [ereader]
-#! [socket_init]
-#! [socket_declare]
 
-#! [ewrapperimpl]
-class TestApp(TestClient, TestWrapper):
-#! [ewrapperimpl]
+#this is here for documentation generation
+""" 
+#! [ereader]
+        #this code is in Client::connect() so it's automatically done, no need
+        # for user to do it
+        self.reader = reader.EReader(self.conn, self.msg_queue)
+        self.reader.start()   # start thread
+
+#! [ereader]
+"""
+
+#! [socket_init]
+class TestApp(TestWrapper, TestClient):
     def __init__(self):
-        TestClient.__init__(self, self)
         TestWrapper.__init__(self)
+        TestClient.__init__(self, wrapper=self)
+#! [socket_init]
         self.nKeybInt = 0
         self.started = False
         self.nextValidOrderId = None
@@ -184,26 +209,27 @@ class TestApp(TestClient, TestWrapper):
 
     def dumpTestCoverageSituation(self):
         for clntMeth in sorted(self.clntMeth2callCount.keys()):
-            LOGGER.debug("ClntMeth: %-30s %6d" % (clntMeth,
+            logging.debug("ClntMeth: %-30s %6d" % (clntMeth,
                                             self.clntMeth2callCount[clntMeth]))
 
         for wrapMeth in sorted(self.wrapMeth2callCount.keys()):
-            LOGGER.debug("WrapMeth: %-30s %6d" % (wrapMeth,
+            logging.debug("WrapMeth: %-30s %6d" % (wrapMeth,
                                             self.wrapMeth2callCount[wrapMeth]))
 
 
     def dumpReqAnsErrSituation(self):
-        LOGGER.debug("%s\t%s\t%s\t%s" % ("ReqId", "#Req", "#Ans", "#Err"))
+        logging.debug("%s\t%s\t%s\t%s" % ("ReqId", "#Req", "#Ans", "#Err"))
         for reqId in sorted(self.reqId2nReq.keys()):
             nReq = self.reqId2nReq.get(reqId, 0)
             nAns = self.reqId2nAns.get(reqId, 0)
             nErr = self.reqId2nErr.get(reqId, 0)
-            LOGGER.debug("%d\t%d\t%s\t%d" % (reqId, nReq, nAns, nErr))
+            logging.debug("%d\t%d\t%s\t%d" % (reqId, nReq, nAns, nErr))
 
     @iswrapper
     #! [connectack]
     def connectAck(self):
-        print("connected ok")
+        if self.async:
+            self.startApi() 
     #! [connectack]
 
     @iswrapper
@@ -211,7 +237,7 @@ class TestApp(TestClient, TestWrapper):
     def nextValidId(self, orderId:int):
         super().nextValidId(orderId)
 
-        LOGGER.debug("setting nextValidOrderId: %d", orderId)
+        logging.debug("setting nextValidOrderId: %d", orderId)
         self.nextValidOrderId = orderId
     #! [nextvalidid]
 
@@ -284,8 +310,8 @@ class TestApp(TestClient, TestWrapper):
     #! [error]
     def error(self, reqId:TickerId, errorCode:int, errorString:str):
         super().error(reqId, errorCode, errorString)
-    #! [error]
-        self.reqId2nErr[reqId] += 1
+        print("Error. Id: " , id , ", Code: " , errorCode , ", Msg: " , errorString , "\n")
+    #! [error] self.reqId2nErr[reqId] += 1
 
 
     @iswrapper
@@ -298,6 +324,7 @@ class TestApp(TestClient, TestWrapper):
     def openOrder(self, orderId:OrderId, contract:Contract, order:Order, 
                   orderState:OrderState):
         super().openOrder(orderId, contract, order, orderState)
+        print("OpenOrder. ID: ",orderId,", ",contract.symbol,", ",contract.secType," @ ",contract.exchange,": ",order.action,", ",order.orderType," ",order.totalQuantity,", ",orderState.status)
     #! [openorder]
 
         order.contract = contract
@@ -308,9 +335,10 @@ class TestApp(TestClient, TestWrapper):
     #! [openorderend]
     def openOrderEnd(self):
         super().openOrderEnd()
+        print("OpenOrderEnd")
     #! [openorderend]
 
-        LOGGER.debug("Received %d openOrders", len(self.permId2ord))
+        logging.debug("Received %d openOrders", len(self.permId2ord))
 
 
     @iswrapper
@@ -321,6 +349,7 @@ class TestApp(TestClient, TestWrapper):
                     whyHeld:str):
         super().orderStatus(orderId, status, filled, remaining,
             avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)
+        print("OrderStatus. Id: ",orderId,", Status: ",status,", Filled",filled,", Remaining: ",remaining ,", AvgFillPrice: ",avgFillPrice,", PermId: ",permId,", ParentId: ",parentId,", LastFillPrice: ",lastFillPrice,", ClientId: ",clientId,", WhyHeld: ",whyHeld)
     #! [orderstatus]
 
 
@@ -401,6 +430,7 @@ class TestApp(TestClient, TestWrapper):
     #! [managedaccounts]
     def managedAccounts(self, accountsList:str):
         super().managedAccounts(accountsList)
+        print("Account list: ",accountsList)
     #! [managedaccounts]
 
         self.account = accountsList.split(",")[0]
@@ -411,6 +441,7 @@ class TestApp(TestClient, TestWrapper):
     def accountSummary(self, reqId:int, account:str, tag:str, value:str, 
                        currency:str):
         super().accountSummary(reqId, account, tag, value, currency)
+        print("Acct Summary. ReqId: " , reqId , ", Acct: " , account , ", Tag: " , tag , ", Value: " , value , ", Currency: " , currency)
     #! [accountsummary]
 
 
@@ -418,6 +449,7 @@ class TestApp(TestClient, TestWrapper):
     #! [accountsummaryend]
     def accountSummaryEnd(self, reqId:int):
         super().accountSummaryEnd(reqId)
+        print("AccountSummaryEnd. Req Id: ",reqId,"\n")
 
     #! [accountsummaryend]
 
@@ -427,6 +459,7 @@ class TestApp(TestClient, TestWrapper):
     def updateAccountValue(self, key:str, val:str, currency:str, 
                             accountName:str):
         super().updateAccountValue(key, val, currency, accountName)
+        print("UpdateAccountValue. Key: " , key , ", Value: " , val , ", Currency: " , currency , ", AccountName: " , accountName)
     #! [updateaccountvalue]
 
 
@@ -438,6 +471,7 @@ class TestApp(TestClient, TestWrapper):
                         realizedPNL:float, accountName:str):
         super().updatePortfolio(contract, position, marketPrice, marketValue,
                         averageCost, unrealizedPNL, realizedPNL, accountName)
+        print("UpdatePortfolio. ",contract.symbol,", ",contract.secType," @ ",contract.exchange ,": Position: ",position,", MarketPrice: ",marketPrice,", MarketValue: ",marketValue,", AverageCost: ",averageCost ,", UnrealizedPNL: ",unrealizedPNL,", RealizedPNL: ",realizedPNL,", AccountName: ",accountName)
     #! [updateportfolio]
 
 
@@ -445,6 +479,7 @@ class TestApp(TestClient, TestWrapper):
     #! [updateaccounttime]
     def updateAccountTime(self, timeStamp:str):
         super().updateAccountTime(timeStamp)
+        print("UpdateAccountTime. Time: " , timeStamp,"\n")
     #! [updateaccounttime]
 
 
@@ -452,6 +487,7 @@ class TestApp(TestClient, TestWrapper):
     #! [accountdownloadend]
     def accountDownloadEnd(self, accountName:str):
         super().accountDownloadEnd(accountName)
+        print("Account download finished: ",accountName,"\n")
     #! [accountdownloadend]
 
 
@@ -460,6 +496,7 @@ class TestApp(TestClient, TestWrapper):
     def position(self, account:str, contract:Contract, position:float, 
                  avgCost:float):
         super().position(account, contract, position, avgCost)
+        print("Position. ",account," - Symbol: ",contract.symbol,", SecType: ",contract.secType,", Currency: ",contract.currency,", Position: ",position,", Avg cost: ",avgCost)
     #! [position]
 
 
@@ -467,6 +504,7 @@ class TestApp(TestClient, TestWrapper):
     #! [positionend]
     def positionEnd(self):
         super().positionEnd()
+        print("PositionEnd \n")
     #! [positionend]
 
  
@@ -475,6 +513,7 @@ class TestApp(TestClient, TestWrapper):
     def positionMulti(self, reqId:int, account:str, modelCode:str,
                       contract:Contract, pos:float, avgCost:float):
         super().positionMulti(reqId, account, modelCode, contract, pos, avgCost)
+        print("Position Multi. Request: " , reqId , ", Account: " , account , ", ModelCode: " , modelCode , ", Symbol: " , contract.symbol , ", SecType: " , contract.secType , ", Currency: " , contract.currency , ", Position: " , pos , ", Avg cost: " , avgCost , "\n")
     #! [positionmulti]
 
 
@@ -482,6 +521,7 @@ class TestApp(TestClient, TestWrapper):
     #! [positionmultiend]
     def positionMultiEnd(self, reqId:int):
         super().positionMultiEnd(reqId)
+        print("Position Multi End. Request: " , reqId , "\n")
     #! [positionmultiend]
 
 
@@ -491,6 +531,7 @@ class TestApp(TestClient, TestWrapper):
                             key:str, value:str, currency:str):
         super().accountUpdateMulti(reqId, account, modelCode, key, value,
                                    currency)
+        print("Account Update Multi. Request: " , reqId , ", Account: " , account , ", ModelCode: " , modelCode , ", Key: " , key , ", Value: " , value , ", Currency: " , currency , "\n")
     #! [accountupdatemulti]
 
 
@@ -498,6 +539,7 @@ class TestApp(TestClient, TestWrapper):
     #! [accountupdatemultiend]
     def accountUpdateMultiEnd(self, reqId:int):
         super().accountUpdateMultiEnd(reqId)
+        print("Account Update Multi End. Request: " , reqId , "\n")
     #! [accountupdatemultiend]
 
     
@@ -505,6 +547,9 @@ class TestApp(TestClient, TestWrapper):
     #! [familyCodes]
     def familyCodes(self, familyCodes:ListOfFamilyCode):
         super().familyCodes(familyCodes)
+        print("Family Codes:")
+        for familyCode in familyCodes:
+            print("Account ID: %s, Family Code Str: %s" % (familyCode.accountID, familyCode.familyCodeStr))
     #! [familyCodes]
 
  
@@ -518,6 +563,7 @@ class TestApp(TestClient, TestWrapper):
     #! [marketdatatype]
     def marketDataType(self, reqId:TickerId, marketDataType:int):
         super().marketDataType(reqId, marketDataType)
+        print("MarketDataType. ",reqId,", Type: ",marketDataType,"\n")
     #! [marketdatatype]
  
 
@@ -576,6 +622,7 @@ class TestApp(TestClient, TestWrapper):
     def tickPrice(self, reqId: TickerId , tickType: TickType, price: float,
                   attrib:TickAttrib):
         super().tickPrice(reqId, tickType, price, attrib)
+        print("Tick Price. Ticker Id:",reqId,", tickType: ",tickType,", Price: ",price,", CanAutoExecute: ",attrib.canAutoExecute , ", PastLimit" , attrib.pastLimit)
     #! [tickprice]
 
 
@@ -583,6 +630,7 @@ class TestApp(TestClient, TestWrapper):
     #! [ticksize]
     def tickSize(self, reqId: TickerId, tickType: TickType, size: int):
         super().tickSize(reqId, tickType, size)
+        print("Tick Size. Ticker Id:" , reqId , ", tickType: " , tickType , ", Size: " , size)
     #! [ticksize]
 
 
@@ -590,6 +638,7 @@ class TestApp(TestClient, TestWrapper):
     #! [tickgeneric]
     def tickGeneric(self, reqId:TickerId, tickType:TickType, value:float):
         super().tickGeneric(reqId, tickType, value)
+        print("Tick Generic. Ticker Id:" , reqId , ", tickType: " , tickType , ", Value: " , value)
     #! [tickgeneric]
 
 
@@ -597,6 +646,7 @@ class TestApp(TestClient, TestWrapper):
     #! [tickstring]
     def tickString(self, reqId:TickerId, tickType:TickType, value:str):
         super().tickString(reqId, tickType, value)
+        print("Tick string. Ticker Id:" , reqId , ", Type: " , tickType , ", Value: " , value)
     #! [tickstring]
   
 
@@ -604,6 +654,7 @@ class TestApp(TestClient, TestWrapper):
     #! [ticksnapshotend]
     def tickSnapshotEnd(self, reqId:int):
         super().tickSnapshotEnd(reqId)
+        print("TickSnapshotEnd: ", reqId)
     #! [ticksnapshotend]
 
 
@@ -621,6 +672,7 @@ class TestApp(TestClient, TestWrapper):
     def updateMktDepth(self, reqId:TickerId , position:int, operation:int,
                         side:int, price:float, size:int): 
         super().updateMktDepth(reqId, position, operation, side, price, size)
+        print("UpdateMarketDepth. " , reqId , " - Position: " , position , ", Operation: " , operation , ", Side: " , side , ", Price: " , price , ", Size" , size)
     #! [updatemktdepth]
 
  
@@ -630,6 +682,7 @@ class TestApp(TestClient, TestWrapper):
                           operation:int, side:int, price:float, size:int):
         super().updateMktDepthL2(reqId, position, marketMaker, operation, side,
                                  price, size)
+        print("UpdateMarketDepthL2. " , reqId , " - Position: " , position , ", Operation: " , operation , ", Side: " , side , ", Price: " , price , ", Size" , size)
     #! [updatemktdepthl2]
  
 
@@ -658,6 +711,7 @@ class TestApp(TestClient, TestWrapper):
                     low:float, close:float, volume:int, wap:float, 
                     count: int):
         super().realtimeBar(reqId, time, open, high, low, close, volume, wap, count)
+        print("RealTimeBars. " , reqId , " - Time: " , time , ", Open: " , open , ", High: " , high , ", Low: " , low , ", Close: " , close , ", Volume: " , volume , ", Count: " , count , ", WAP: " , wap)
     #! [realtimebar]
 
  
@@ -701,7 +755,15 @@ class TestApp(TestClient, TestWrapper):
                         WAP:float, hasGaps:int):
         super().historicalData(reqId, date, open, high, low, close, volume,
                                barCount, WAP, hasGaps)
+        print("HistoricalData. ",reqId," - Date: ",date,", Open: ",open,", High: ",high,", Low: ",low,", Close: ",close,", Volume: ",volume,", Count: ",barCount,", WAP: ",WAP,", HasGaps: ",hasGaps)
     #! [historicaldata]
+
+    @iswrapper
+    #! [historicaldataend]
+    def historicalDataEnd(self, reqId:int, start:str, end:str):
+        super().historicalDataEnd(reqId, start, end)
+        print("HistoricalDataEnd - ",reqId," from ",start," to ",end)
+    #! [historicaldataend]
 
 
     @printWhenExecuting
@@ -743,6 +805,7 @@ class TestApp(TestClient, TestWrapper):
                         expirations:SetOfString, strikes:SetOfFloat):
         super().securityDefinitionOptionParameter(reqId, exchange,
             underlyingConId, tradingClass, multiplier, expirations, strikes)
+        print("Security Definition Option Parameter. ReqId: %d, Exchange: %s, Underlying contract id: %d, Trading class: %s, Multiplier: %s, Expirations: %s, Strikes: %s", reqId, exchange, underlyingConId, tradingClass, multiplier, ", ".join(expirations), ", ".join(str(strikes)))
     #! [securityDefinitionOptionParameter]
 
 
@@ -750,6 +813,7 @@ class TestApp(TestClient, TestWrapper):
     #! [securityDefinitionOptionParameterEnd]
     def securityDefinitionOptionParameterEnd(self, reqId:int):
         super().securityDefinitionOptionParameterEnd(reqId)
+        print("Security Definition Option Parameter End. Request: " , reqId , "\n")
     #! [securityDefinitionOptionParameterEnd]
 
 
@@ -760,6 +824,7 @@ class TestApp(TestClient, TestWrapper):
             gamma:float, vega:float, theta:float, undPrice:float):  
         super().tickOptionComputation(reqId, tickType, impliedVol, delta,
                             optPrice, pvDividend, gamma, vega, theta, undPrice)
+        print("TickOptionComputation. TickerId: ",reqId,", tickType: ",tickType,", ImpliedVolatility: ",impliedVol,", Delta: ",delta ,", OptionPrice: ",optPrice,", pvDividend: ",pvDividend,", Gamma: ",gamma,", Vega: ",vega,", Theta: ",theta,", UnderlyingPrice: ",undPrice)
     #! [tickoptioncomputation]
 
 
@@ -786,19 +851,21 @@ class TestApp(TestClient, TestWrapper):
     @iswrapper
     #! [contractdetails]
     def contractDetails(self, reqId:int, contractDetails:ContractDetails):
-        super().contractDetails(reqId, ContractDetails)
+        super().contractDetails(reqId, contractDetails)
+        print("ContractDetails. ReqId: ",reqId," - ",contractDetails.summary.symbol,", ",contractDetails.summary.secType,", ConId: ",contractDetails.summary.conId," @ ",contractDetails.summary.exchange)
     #! [contractdetails]
 
 
     @iswrapper
     def bondContractDetails(self, reqId:int, contractDetails:ContractDetails):
-        super().bondContractDetails(reqId, ContractDetails)
+        super().bondContractDetails(reqId, contractDetails)
 
 
     @iswrapper
     #! [contractdetailsend]
     def contractDetailsEnd(self, reqId:int):
         super().contractDetailsEnd(reqId)
+        print("ContractDetailsEnd. ",reqId,"\n")
     #! [contractdetailsend]
 
 
@@ -807,6 +874,19 @@ class TestApp(TestClient, TestWrapper):
     def symbolSamples(self, reqId:int, 
                       contractDescriptions:ListOfContractDescription):
         super().symbolSamples(reqId, contractDescriptions)
+        print("Symbol Samples. Request Id: ", reqId)
+
+        for contractDescription in contractDescriptions:
+            derivSecTypes = ""
+            for derivSecType in contractDescription.DerivativeSecTypes:
+                derivSecTypes += derivSecType
+                derivSecTypes += " "
+            print("Contract: conId - %s, symbol - %s, secType - %s primExchange - %s, currency - %s, derivativeSecTypes - %s" % (
+                contractDescription.contract.conId, 
+                contractDescription.contract.symbol, 
+                contractDescription.contract.secType, 
+                contractDescription.contract.primaryExch,
+                contractDescription.contract.currency, derivSecTypes))
     #! [symbolSamples]
 
  
@@ -847,6 +927,7 @@ class TestApp(TestClient, TestWrapper):
                      distance:str, benchmark:str, projection:str, legsStr:str):
         super().scannerData(reqId, rank, contractDetails, distance, benchmark,
                             projection, legsStr)
+        print("ScannerData. ",reqId," - Rank: ",rank,", Symbol: ",contractDetails.summary.symbol,", SecType: ",contractDetails.summary.secType,", Currency: ",contractDetails.summary.currency ,", Distance: ",distance,", Benchmark: ",benchmark,", Projection: ",projection,", Legs String: ",legsStr)
     #! [scannerdata]
 
 
@@ -854,6 +935,7 @@ class TestApp(TestClient, TestWrapper):
     #! [scannerdataend]
     def scannerDataEnd(self, reqId:int):
         super().scannerDataEnd(reqId)
+        print("ScannerDataEnd. ",reqId)
     #! [scannerdataend]
 
  
@@ -878,6 +960,7 @@ class TestApp(TestClient, TestWrapper):
     #! [fundamentaldata]
     def fundamentalData(self, reqId:TickerId , data:str):
         super().fundamentalData(reqId, data)
+        print("FundamentalData. " , reqId , "" , data,"\n")
     #! [fundamentaldata]
 
 
@@ -902,6 +985,7 @@ class TestApp(TestClient, TestWrapper):
     def updateNewsBulletin(self, msgId:int, msgType:int, newsMessage:str, 
                            originExch:str):
         super().updateNewsBulletin(msgId, msgType, newsMessage, originExch)
+        print("News Bulletins. ",msgId," - Type: ",msgType,", Message: ",newsMessage,", Exchange of Origin: ",originExch,"\n")
     #! [updatenewsbulletin]
 
         self.bulletins_cancel()
@@ -914,7 +998,7 @@ class TestApp(TestClient, TestWrapper):
         ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 10))
         ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 11))
         ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 12))
-        OrderSamples.OneCancelsAll("TestOCA_" + nextOrderId, ocaOrders, 2)
+        OrderSamples.OneCancelsAll("TestOCA_" + self.nextValidOrderId, ocaOrders, 2)
         for o in ocaOrders:
             self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), o)
         #! [ocasubmit]
@@ -1104,6 +1188,8 @@ class TestApp(TestClient, TestWrapper):
     #! [receivefa]
     def receiveFA(self, faData:FaDataType , cxml:str):
         super().receiveFA(faData, cxml)
+        print("Receiving FA: ",faDataType)
+        open('log/fa.xml', 'w').write(xml)
     #! [receivefa]
 
 
@@ -1111,6 +1197,7 @@ class TestApp(TestClient, TestWrapper):
     #! [softDollarTiers]
     def softDollarTiers(self, reqId:int, tiers:list):
         super().softDollarTiers(reqId, tiers)
+        print("Soft Dollar Tiers:", tiers)
     #! [softDollarTiers]
 
 
@@ -1150,6 +1237,7 @@ class TestApp(TestClient, TestWrapper):
     #! [displaygrouplist]
     def displayGroupList(self, reqId:int, groups:str):
         super().displayGroupList(reqId, groups)
+        print("DisplayGroupList. Request: " , reqId , ", Groups" , groups)
     #! [displaygrouplist]
 
 
@@ -1157,6 +1245,7 @@ class TestApp(TestClient, TestWrapper):
     #! [displaygroupupdated]
     def displayGroupUpdated(self, reqId:int, contractInfo:str):
         super().displayGroupUpdated(reqId, contractInfo)
+        print("displayGroupUpdated. Request: " , reqId , ", ContractInfo: " , contractInfo)
     #! [displaygroupupdated]
 
 
@@ -1325,6 +1414,7 @@ class TestApp(TestClient, TestWrapper):
     #! [execdetails]
     def execDetails(self, reqId:int, contract:Contract, execution:Execution):
         super().execDetails(reqId, contract, execution)
+        print("ExecDetails. ",reqId," - ",contract.symbol,", ",contract.secType,", ",contract.currency," - ",execution.execId,", ",execution.orderId,", ",execution.shares)
     #! [execdetails]
 
 
@@ -1332,6 +1422,7 @@ class TestApp(TestClient, TestWrapper):
     #! [execdetailsend]
     def execDetailsEnd(self, reqId:int):
         super().execDetailsEnd(reqId)
+        print("ExecDetailsEnd. ",reqId,"\n")
     #! [execdetailsend]
 
 
@@ -1339,10 +1430,14 @@ class TestApp(TestClient, TestWrapper):
     #! [commissionreport]
     def commissionReport(self, commissionReport:CommissionReport):
         super().commissionReport(commissionReport)
+        print("CommissionReport. ",commissionReport.execId," - ",commissionReport.commission," ",commissionReport.currency," RPNL ",commissionReport.realizedPNL)
     #! [commissionreport]
      
 
 def main():
+    SetupLogger()                                                                                                                                           
+    logging.debug("now is %s", datetime.datetime.now())
+    logging.getLogger().setLevel(logging.DEBUG)
 
     cmdLineParser = argparse.ArgumentParser("api tests")
     #cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")
@@ -1354,20 +1449,18 @@ def main():
         help="whether to trigger a globalCancel req")
     args = cmdLineParser.parse_args()
     print("Using args", args)
-    LOGGER.debug("Using args %s", args)
+    logging.debug("Using args %s", args)
     #print(args)
-                                                                                                                                           
-    LOGGER.debug("now is %s", datetime.datetime.now())
-    LOGGER.setLevel(logging.DEBUG)
+
 
     #enable logging when member vars are assigned
-    import utils 
-    from order import Order
+    from IBApi import utils 
+    from IBApi.order import Order
     Order.__setattr__ = utils.setattr_log
-    from contract import Contract,UnderComp
+    from IBApi.contract import Contract,UnderComp
     Contract.__setattr__ = utils.setattr_log 
     UnderComp.__setattr__ = utils.setattr_log 
-    from tag_value import TagValue
+    from IBApi.tag_value import TagValue
     TagValue.__setattr__ = utils.setattr_log
     TimeCondition.__setattr__ = utils.setattr_log 
     ExecutionCondition.__setattr__ = utils.setattr_log  
