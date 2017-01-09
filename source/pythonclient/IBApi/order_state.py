@@ -4,7 +4,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
  IB API Commercial License, as applicable. 
 """
 
-from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
+from IBApi.common import UNSET_DOUBLE
 
 
 class OrderState:

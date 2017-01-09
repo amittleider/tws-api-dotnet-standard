@@ -197,7 +197,7 @@ class ContractDetails(Object):
 class ContractDescription(Object):
     def __init__(self):
         self.contract = Contract()
-        self.derivativeSecTypes = None   # type: list[str]
+        self.derivativeSecTypes = None   # type: list of strings
 
 
 #inline void

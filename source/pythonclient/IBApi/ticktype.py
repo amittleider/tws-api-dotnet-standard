@@ -10,7 +10,6 @@ TickType type
 """
 
 from IBApi.enum_implem import Enum
-from IBApi.object_implem import Object
 
 
 # TickType

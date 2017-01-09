@@ -16,6 +16,7 @@ import os.path
 
 sys.path.append("../../../source/pythonclient")
 
+
 from IBApi import wrapper
 from IBApi.client import EClient
 from IBApi.utils import iswrapper
@@ -835,7 +836,7 @@ class TestApp(TestWrapper, TestClient):
         print("Security Definition Option Parameter. ReqId:%d Exchange:%s "
             "Underlying conId: %d TradingClass:%s Multiplier:%s Exp:%s Strikes:%s", 
             reqId, exchange, underlyingConId, tradingClass, multiplier, 
-            ", ".join(expirations), ", ".join(str(strikes)))
+            ",".join(expirations), ",".join(str(strikes)))
     #! [securityDefinitionOptionParameter]
 
 
@@ -964,7 +965,8 @@ class TestApp(TestWrapper, TestClient):
                             projection, legsStr)
         print("ScannerData. ", reqId, "Rank:", rank, "Symbol:", contractDetails.summary.symbol, 
             "SecType:", contractDetails.summary.secType, "Currency:", contractDetails.summary.currency , 
-            "Distance:", distance, "Benchmark:", benchmark, "Projection:", projection, "Legs String:", legsStr)
+            "Distance:", distance, "Benchmark:", benchmark, 
+            "Projection:", projection, "Legs String:", legsStr)
     #! [scannerdata]
 
 
@@ -1524,7 +1526,7 @@ def main():
             app.globalCancelOnly = True
         #! [connect]
         app.connect("127.0.0.1", args.port, clientId=0)
-        print("serverVersion:%d connectionTime:%s" % (app.serverVersion(),
+        print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),
                                                     app.twsConnectionTime()))
         #! [connect]
         app.run()

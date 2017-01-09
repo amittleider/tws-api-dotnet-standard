@@ -6,7 +6,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 
 from IBApi import comm
-from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
+from IBApi.common import UNSET_DOUBLE
 from IBApi.object_implem import Object
 from IBApi.enum_implem import Enum
 from IBApi.utils import decode

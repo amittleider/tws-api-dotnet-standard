@@ -11,7 +11,6 @@ It allows us to keep some other info along with it.
 """
 
 
-import sys
 import socket
 import threading
 import logging
@@ -36,13 +35,13 @@ class Connection:
         try:
             self.socket = socket.socket()
         #TODO: list the exceptions you want to catch
-        except:
+        except OSError:
             if self.wrapper:
                 self.wrapper.error(NO_VALID_ID, FAIL_CREATE_SOCK.code(), FAIL_CREATE_SOCK.msg())
 
         try:
             self.socket.connect((self.host, self.port))
-        except:
+        except OSError:
             if self.wrapper:
                 self.wrapper.error(NO_VALID_ID, CONNECT_FAIL.code(), CONNECT_FAIL.msg())
  
@@ -93,7 +92,7 @@ class Connection:
         logging.debug("acquired lock")
         try:
             buf = self._recv_all_msg()
-        except:
+        except OSError:
             logging.debug("exception from recv_msg %s", sys.exc_info())
             buf = b""
         else:

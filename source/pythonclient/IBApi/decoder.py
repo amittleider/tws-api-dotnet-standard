@@ -13,10 +13,8 @@ It will call the corresponding method from the EWrapper so that customer's code
 
 
 import inspect
-import logging
 
 from IBApi import order_condition
-from IBApi.object_implem import Object
 from IBApi.message import IN
 from IBApi.wrapper import *
 from IBApi.order import Order
@@ -999,7 +997,7 @@ class Decoder(Object):
                 theBadMsg = ",".join(fields)
                 self.wrapper.error(NO_VALID_ID, BAD_MESSAGE.code(), 
                                    BAD_MESSAGE.msg() + theBadMsg)
-                self.conn.disconnect()
+                raise
 
  
     msgId2handleInfo = { 

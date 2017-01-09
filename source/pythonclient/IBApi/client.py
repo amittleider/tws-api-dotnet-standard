@@ -18,7 +18,6 @@ import logging
 import queue
 
 from IBApi import (decoder, reader, comm)
-from IBApi.common import UNSET_INTEGER, UNSET_DOUBLE
 from IBApi.connection import Connection
 from IBApi.message import OUT
 from IBApi.common import *
@@ -28,6 +27,7 @@ from IBApi.execution import ExecutionFilter
 from IBApi.scanner import ScannerSubscription
 from IBApi.comm import (make_field, make_field_handle_empty)
 from IBApi.utils import crt_fn_name
+from IBApi.utils import BadMessage
 from IBApi.errors import *
 from IBApi.server_versions import *
 
@@ -123,68 +123,75 @@ class EClient(object):
             Note: Each client MUST connect with a unique clientId."""
 
 
-        self.host = host
-        self.port = port
-        self.clientId = clientId
-        logging.debug("Connecting to %s:%d w/ id:%d", self.host, self.port, self.clientId)
+        try:
+            self.host = host
+            self.port = port
+            self.clientId = clientId
+            logging.debug("Connecting to %s:%d w/ id:%d", self.host, self.port, self.clientId)
 
-        self.conn = Connection(self.host, self.port)
-        
-        self.conn.connect()
-        self.setConnState(EClient.CONNECTING)
-        
-        #TODO: support async mode
-        
-        v100prefix = "API\0"
-        v100version = "v%d..%d" % (MIN_CLIENT_VER, MAX_CLIENT_VER)
-        #v100version = "v%d..%d" % (MIN_CLIENT_VER, 101)
-        msg = comm.make_msg(v100version)
-        logging.debug("msg %s", msg)
-        msg2 = str.encode(v100prefix, 'ascii') + msg
-        logging.debug("REQUEST %s", msg2)
-        self.conn.send_msg(msg2)
+            self.conn = Connection(self.host, self.port)
+            
+            self.conn.connect()
+            self.setConnState(EClient.CONNECTING)
+            
+            #TODO: support async mode
+            
+            v100prefix = "API\0"
+            v100version = "v%d..%d" % (MIN_CLIENT_VER, MAX_CLIENT_VER)
+            #v100version = "v%d..%d" % (MIN_CLIENT_VER, 101)
+            msg = comm.make_msg(v100version)
+            logging.debug("msg %s", msg)
+            msg2 = str.encode(v100prefix, 'ascii') + msg
+            logging.debug("REQUEST %s", msg2)
+            self.conn.send_msg(msg2)
 
-        self.decoder = decoder.Decoder(self.wrapper, self.serverVersion())
-        fields = []
+            self.decoder = decoder.Decoder(self.wrapper, self.serverVersion())
+            fields = []
 
-        #sometimes I get news before the server version, thus the loop
-        while len(fields) != 2:
-            self.decoder.interpret(fields)
-            buf = self.conn.recv_msg()
-            logging.debug("ANSWER %s", buf)
-            if len(buf) > 0:
-                (size, msg, rest) = comm.read_msg(buf)
-                logging.debug("size:%d msg:%s rest:%s|", size, msg, rest)
-                fields = comm.read_fields(msg)
-                logging.debug("fields %s", fields)
-            else:
-                fields = []
+            #sometimes I get news before the server version, thus the loop
+            while len(fields) != 2:
+                self.decoder.interpret(fields)
+                buf = self.conn.recv_msg()
+                logging.debug("ANSWER %s", buf)
+                if len(buf) > 0:
+                    (size, msg, rest) = comm.read_msg(buf)
+                    logging.debug("size:%d msg:%s rest:%s|", size, msg, rest)
+                    fields = comm.read_fields(msg)
+                    logging.debug("fields %s", fields)
+                else:
+                    fields = []
 
-        (server_version, conn_time) = fields
-        server_version = int(server_version)
-        logging.debug("ANSWER Version:%d time:%s", server_version, conn_time)
-        self.connTime = conn_time
-        self.serverVersion_ = server_version
-        self.decoder.serverVersion = self.serverVersion()
+            (server_version, conn_time) = fields
+            server_version = int(server_version)
+            logging.debug("ANSWER Version:%d time:%s", server_version, conn_time)
+            self.connTime = conn_time
+            self.serverVersion_ = server_version
+            self.decoder.serverVersion = self.serverVersion()
 
-        self.setConnState(EClient.CONNECTED)
+            self.setConnState(EClient.CONNECTED)
 
-        self.reader = reader.EReader(self.conn, self.msg_queue)
-        self.reader.start()   # start thread
-        print("sent startApi")
-        self.startApi()
-        self.wrapper.connectAck()        
-
+            self.reader = reader.EReader(self.conn, self.msg_queue)
+            self.reader.start()   # start thread
+            print("sent startApi")
+            self.startApi()
+            self.wrapper.connectAck()        
+        except Exception:
+            print("could not connect")
+            self.disconnect()
+            self.done = True
+ 
 
     def disconnect(self):
         """Call this function to terminate the connections with TWS.
         Calling this function does not cancel orders that have already been
         sent."""
         
-        self.conn.disconnect()
-        self.setConnState(EClient.DISCONNECTED)
-        self.wrapper.connectionClosed()
-        self.reset()
+        if self.conn:
+            print("disconnecting")
+            self.conn.disconnect()
+            self.setConnState(EClient.DISCONNECTED)
+            self.wrapper.connectionClosed()
+            self.reset()
 
 
     def isConnected(self):
@@ -227,15 +234,14 @@ class EClient(object):
                     print("detected KeyboardInterrupt, SystemExit") 
                     self.keyboardInterrupt()
                     self.keyboardInterruptHard()
+                except BadMessage:
+                    print("BadMessage")
+                    self.conn.disconnect()
 
                 logging.debug("conn:%d queue.sz:%d", 
                              self.conn.is_connected(), 
                              self.msg_queue.qsize())
-        except:
-            raise
         finally:
-            print("terminating thread")
-            print("disconnecting")
             self.disconnect()        
      
 

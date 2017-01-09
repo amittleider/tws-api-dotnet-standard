@@ -62,7 +62,7 @@ def read_fields(buf:bytes) -> tuple:
     """ msg payload is made of fields terminated/separated by NULL chars """
     fields = buf.split(b"\0")
 
-    return fields[0:-1]   #last one is empty; this may slow dow things though, TODO
+    return tuple(fields[0:-1])   #last one is empty; this may slow dow things though, TODO
 
 
  
