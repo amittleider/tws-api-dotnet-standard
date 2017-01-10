@@ -14,26 +14,23 @@ import logging
 import time
 import os.path
 
-sys.path.append("../../../source/pythonclient")
-
-
-from IBApi import wrapper
-from IBApi.client import EClient
-from IBApi.utils import iswrapper
+from ibapi import wrapper
+from ibapi.client import EClient
+from ibapi.utils import iswrapper
 
 #types
-from IBApi.common import *
-from IBApi.order_condition import *
-from IBApi.contract import *
-from IBApi.order import *
-from IBApi.order_state import *
-from IBApi.execution import Execution
-from IBApi.execution import ExecutionFilter
-from IBApi.commission_report import CommissionReport
-from IBApi.scanner import ScannerSubscription
-from IBApi.ticktype import *
+from ibapi.common import *
+from ibapi.order_condition import *
+from ibapi.contract import *
+from ibapi.order import *
+from ibapi.order_state import *
+from ibapi.execution import Execution
+from ibapi.execution import ExecutionFilter
+from ibapi.commission_report import CommissionReport
+from ibapi.scanner import ScannerSubscription
+from ibapi.ticktype import *
 
-from IBApi.account_summary_tags import *
+from ibapi.account_summary_tags import *
 
 from ContractSamples import ContractSamples 
 from OrderSamples import OrderSamples 
@@ -1496,13 +1493,13 @@ def main():
 
 
     #enable logging when member vars are assigned
-    from IBApi import utils 
-    from IBApi.order import Order
+    from ibapi import utils 
+    from ibapi.order import Order
     Order.__setattr__ = utils.setattr_log
-    from IBApi.contract import Contract,UnderComp
+    from ibapi.contract import Contract,UnderComp
     Contract.__setattr__ = utils.setattr_log 
     UnderComp.__setattr__ = utils.setattr_log 
-    from IBApi.tag_value import TagValue
+    from ibapi.tag_value import TagValue
     TagValue.__setattr__ = utils.setattr_log
     TimeCondition.__setattr__ = utils.setattr_log 
     ExecutionCondition.__setattr__ = utils.setattr_log  

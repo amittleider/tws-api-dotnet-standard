@@ -5,9 +5,8 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 
 import sys
-sys.path.append("../../../source/pythonclient")
 
-from IBApi.contract import *
+from ibapi.contract import *
 
 
 class ContractSamples:

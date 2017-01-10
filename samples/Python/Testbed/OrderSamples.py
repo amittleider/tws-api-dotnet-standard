@@ -5,14 +5,13 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 
 import sys
-sys.path.append("../../../source/pythonclient")
 
-import IBApi.order_condition
-from IBApi.order import (OrderComboLeg, Order)
-from IBApi.common import *
-from IBApi.tag_value import TagValue
-from IBApi import order_condition
-from IBApi.order_condition import *
+import ibapi.order_condition
+from ibapi.order import (OrderComboLeg, Order)
+from ibapi.common import *
+from ibapi.tag_value import TagValue
+from ibapi import order_condition
+from ibapi.order_condition import *
 
 
 class OrderSamples:

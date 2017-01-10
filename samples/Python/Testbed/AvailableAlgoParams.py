@@ -6,12 +6,10 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 
 import sys
-sys.path.append("../../../source/pythonclient")
 
-
-from IBApi.object_implem import Object
-from IBApi.tag_value import TagValue
-from IBApi.order import Order
+from ibapi.object_implem import Object
+from ibapi.tag_value import TagValue
+from ibapi.order import Order
 
 
 class AvailableAlgoParams(Object):
