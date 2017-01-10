@@ -1,2 +1,2 @@
-include IBApi/*.py
-include IBApi/README.md
+include ibapi/*.py
+include README.md
