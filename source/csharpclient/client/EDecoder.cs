@@ -358,6 +358,11 @@ namespace IBApi
                         MktDepthExchangesEvent();
                         break;
                     }
+                case IncomingMessage.TickNews:
+                    {
+                        TickNewsEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -366,6 +371,18 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void TickNewsEvent()
+        {
+            int tickerId = ReadInt();
+            long timeStamp = ReadLong();
+            string providerCode = ReadString();
+            string articleId = ReadString();
+            string headline = ReadString();
+            string extraData = ReadString();
+
+            eWrapper.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
         }
 
         private void SymbolSamplesEvent()

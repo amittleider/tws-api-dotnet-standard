@@ -157,5 +157,7 @@ namespace TWSLib
         void symbolSamples(int reqId, IContractDescriptionList contractDescriptions);
         [DispId(128)]
         void mktDepthExchanges(IDepthMktDataDescriptionList depthMktDataDescriptions);
+        [DispId(129)]
+        void tickNews(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
     }
 }

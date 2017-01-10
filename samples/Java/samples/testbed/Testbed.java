@@ -57,6 +57,7 @@ public class Testbed {
                 //marketDataType(wrapper.getClient());
                 //historicalDataRequests(wrapper.getClient());
                 //accountOperations(wrapper.getClient());
+                //newsOperations(wrapper.getClient());
                 
                 Thread.sleep(100000);
                 m_client.eDisconnect();
@@ -297,7 +298,21 @@ public class Testbed {
 		client.cancelPositions();
 		//! [cancelpositions]
     }
-	
+
+	private static void newsOperations(EClientSocket client) throws InterruptedException {
+
+		/*** Requesting news ticks ***/
+		//! [reqNewsTicks]
+		client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", false, null);
+		//! [reqNewsTicks]
+
+		Thread.sleep(10000);
+
+		//! [cancelNewsTicks]
+		client.cancelMktData(10001);
+		//! [cancelNewsTicks]
+	}
+
 	private static void conditionSamples(EClientSocket client, int nextOrderId) {
 		
 		//! [order_conditioning_activate]

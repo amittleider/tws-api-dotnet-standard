@@ -710,5 +710,16 @@ namespace IBApi
         */
         void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
 
+        /**
+        * @brief ticks with news headline
+        * @param tickerId
+        * @param timeStamp
+        * @param providerCode
+        * @param articleId
+        * @param headline
+        * @param extraData
+        * @sa EClient::reqMktData
+        */
+        void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData);
     }
 }

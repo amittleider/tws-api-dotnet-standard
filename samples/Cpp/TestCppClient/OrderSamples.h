@@ -52,6 +52,7 @@ public:
 	static Order PeggedToBenchmark(std::string action, double quantity, double startingPrice, bool peggedChangeAmountDecrease, double peggedChangeAmount, double referenceChangeAmount, int referenceConId, std::string referenceExchange, double stockReferencePrice, double referenceContractLowerRange, double referenceContractUpperRange);
 	static Order AttachAdjustableToStop(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice);
 	static Order AttachAdjustableToStopLimit(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice, double adjustedStopLimitPrice);
+	static Order AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice, double adjustedTrailAmount, int trailUnit);
 	static OrderCondition* Price_Condition(int conId, std::string exchange, double price, bool isMore, bool isConjunction);
 	static OrderCondition* Execution_Condition(std::string symbol, std::string secType, std::string exchange, bool isConjunction);
 	static OrderCondition* Margin_Condition(int percent, bool isMore, bool isConjunction);

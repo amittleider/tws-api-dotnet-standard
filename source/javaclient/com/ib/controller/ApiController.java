@@ -82,6 +82,7 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<IFamilyCodesHandler>();
 	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<Integer, ISymbolSamplesHandler>();
 	private final ConcurrentHashSet<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<IMktDepthExchangesHandler>();
+	private final HashMap<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<Integer, ITickNewsHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1439,6 +1440,31 @@ public class ApiController implements EWrapper {
 	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 		for( IMktDepthExchangesHandler handler : m_mktDepthExchangesHandlers) {
 			handler.mktDepthExchanges(depthMktDataDescriptions);
+		}
+		recEOM();
+	}
+
+	public interface ITickNewsHandler {
+		void tickNews(long timeStamp, String providerCode, String articleId, String headline, String extraData);
+	}
+
+	public void reqNewsTicks(Contract contract, ITickNewsHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int tickerId = m_reqId++;
+
+		m_tickNewsHandlerMap.put(tickerId, handler);
+		m_client.reqMktData(tickerId, contract, "mdoff,292", false, Collections.<TagValue>emptyList());
+		sendEOM();
+	}
+
+	@Override
+	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+		ITickNewsHandler handler = m_tickNewsHandlerMap.get(tickerId);
+
+		if (handler != null) {
+			handler.tickNews(timeStamp, providerCode, articleId, headline, extraData);
 		}
 		recEOM();
 	}

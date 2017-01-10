@@ -72,6 +72,7 @@ class EDecoder implements ObjectInput {
     static final int FAMILY_CODES = 78;
     static final int SYMBOL_SAMPLES = 79;
     static final int MKT_DEPTH_EXCHANGES = 80;
+    static final int TICK_NEWS = 84;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -383,6 +384,10 @@ class EDecoder implements ObjectInput {
                 processMktDepthExchangesMsg();
                 break;
 
+            case TICK_NEWS:
+                processTickNewsMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -391,6 +396,17 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processTickNewsMsg() throws IOException {
+        int tickerId = readInt();
+        long timeStamp = readLong();
+        String providerCode = readStr();
+        String articleId = readStr();
+        String headline = readStr();
+        String extraData = readStr();
+
+        m_EWrapper.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
     }
 
     private void processMktDepthExchangesMsg() throws IOException {

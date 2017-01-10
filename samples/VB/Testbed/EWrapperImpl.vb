@@ -418,6 +418,12 @@ Namespace Samples
         End Sub
         '! [mktDepthExchanges]
 
+        '! [ticklNews]
+        Public Sub tickNews(tickerId As Integer, timeStamp As Long, providerCode As String, articleId As String, headline As String, extraData As String) Implements IBApi.EWrapper.tickNews
+            Console.WriteLine("Tick News. Ticker Id: " & tickerId & ", Time Stamp: " & timeStamp & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline & ", Extra Data: " & extraData)
+        End Sub
+        '! [tickNews]
+
     End Class
 
 End Namespace

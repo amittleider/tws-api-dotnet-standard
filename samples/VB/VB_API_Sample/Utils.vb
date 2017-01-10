@@ -186,4 +186,9 @@ Friend Class Utils
     Public Shared Function StringToDouble(val As String) As Double
         Return If(String.IsNullOrWhiteSpace(val), Double.MaxValue, CDbl(val))
     End Function
+
+    Public Shared Function UnixMillisecondsToString(unixTime As Long, dateFormat As String) As String
+        UnixMillisecondsToString = DateAdd(DateInterval.Second, unixTime / 1000, DateSerial(1970, 1, 1)).ToString(dateFormat)
+    End Function
+
 End Class

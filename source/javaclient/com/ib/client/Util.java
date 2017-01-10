@@ -3,7 +3,9 @@
 
 package com.ib.client;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.ib.controller.ApiController;
 import com.ib.controller.ApiController.IContractDetailsHandler;
@@ -68,6 +70,12 @@ public class Util {
     	return (value == Double.MAX_VALUE) ? "" : String.valueOf(value);
     }
     
+    public static String UnixMillisecondsToString(long milliseconds, String dateFormat){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        return simpleDateFormat.format(calendar.getTime());
+    }
     
     
 	public static ArrayList<ContractDetails> lookupContract(ApiController controller, Contract contract) {

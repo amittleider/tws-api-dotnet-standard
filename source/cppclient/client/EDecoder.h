@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -62,12 +62,13 @@ const int MIN_SERVER_VER_PAST_LIMIT				= 109;
 const int MIN_SERVER_VER_MD_SIZE_MULTIPLIER		= 110;
 const int MIN_SERVER_VER_CASH_QTY				= 111;
 const int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
+const int MIN_SERVER_VER_TICK_NEWS				= 113;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_TICK_NEWS;
 
 
 // incoming msg id's
@@ -126,6 +127,7 @@ const int SOFT_DOLLAR_TIERS = 77;
 const int FAMILY_CODES = 78;
 const int SYMBOL_SAMPLES = 79;
 const int MKT_DEPTH_EXCHANGES = 80;
+const int TICK_NEWS = 84;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -223,6 +225,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processFamilyCodesMsg(const char* ptr, const char* endPtr);
 	const char* processSymbolSamplesMsg(const char* ptr, const char* endPtr);
 	const char* processMktDepthExchangesMsg(const char* ptr, const char* endPtr);
+	const char* processTickNewsMsg(const char* ptr, const char* endPtr);
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
 
@@ -233,6 +236,7 @@ public:
 	static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(int&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(long&, const char*& ptr, const char* endPtr);
+	static bool DecodeField(time_t&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(double&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
 

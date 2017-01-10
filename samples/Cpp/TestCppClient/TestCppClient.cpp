@@ -232,6 +232,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_REQMKTDEPTHEXCHANGES_ACK:
 			break;
+		case ST_REQNEWSTICKS:
+			reqNewsTicks();
+			break;
+		case ST_REQNEWSTICKS_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -937,6 +942,21 @@ void TestCppClient::reqMktDepthExchanges()
 	m_state = ST_REQMKTDEPTHEXCHANGES_ACK;
 }
 
+void TestCppClient::reqNewsTicks()
+{
+	//! [reqmktdata_ticknews]
+	m_pClient->reqMktData(12001, ContractSamples::USStockAtSmart(), "mdoff,292", false, TagValueListSPtr());
+	//! [reqmktdata_ticknews]
+
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+
+	//! [cancelmktdata]
+	m_pClient->cancelMktData(12001);
+	//! [cancelmktdata]
+
+	m_state = ST_REQNEWSTICKS_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -945,7 +965,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//! [nextvalidid]
 
 	//m_state = ST_TICKDATAOPERATION; 
-	m_state = ST_DELAYEDTICKDATAOPERATION; 
+	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
@@ -968,6 +988,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAMILYCODES;
 	//m_state = ST_SYMBOLSAMPLES;
 	//m_state = ST_REQMKTDEPTHEXCHANGES;
+	m_state = ST_REQNEWSTICKS;
 	//m_state = ST_PING;
 }
 
@@ -1350,3 +1371,8 @@ void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription>
 }
 //! [mktDepthExchanges]
 
+//! [tickNews]
+void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) {
+	printf("News Tick. TickerId: %d, TimeStamp: %s, ProviderCode: %s, ArticleId: %s, Headline: %s, ExtraData: %s\n", tickerId, ctime(&(timeStamp /= 1000)), providerCode.c_str(), articleId.c_str(), headline.c_str(), extraData.c_str());
+}
+//! [tickNews]

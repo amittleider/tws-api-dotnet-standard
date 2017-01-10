@@ -36,6 +36,7 @@ namespace IBSampleApp
         private AcctPosMultiManager acctPosMultiManager;
         private SymbolSamplesManager symbolSamplesManagerData;
         private SymbolSamplesManager symbolSamplesManagerContractInfo;
+        private NewsManager newsManager;
 
         protected IBClient ibClient;
 
@@ -66,6 +67,7 @@ namespace IBSampleApp
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
+            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -167,6 +169,7 @@ namespace IBSampleApp
             ibClient.FamilyCodes += (familyCodes) => HandleMessage(new FamilyCodesMessage(familyCodes));
             ibClient.SymbolSamples += (reqId, contractDescriptions) => HandleMessage(new SymbolSamplesMessage(reqId, contractDescriptions));
             ibClient.MktDepthExchanges += (depthMktDataDescriptions) => HandleMessage(new MktDepthExchangesMessage(depthMktDataDescriptions));
+            ibClient.TickNews += (tickerId, timeStamp, providerCode, articleId, headline, extraData) => HandleMessage(new TickNewsMessage(tickerId, timeStamp, providerCode, articleId, headline, extraData));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -412,6 +415,11 @@ namespace IBSampleApp
                         {
                             marketDataManager.HandleMarketDataTypeMessage(message);
                         }
+                        break;
+                    }
+                case MessageType.TickNews:
+                    {
+                        newsManager.UpdateUI(message);
                         break;
                     }
                 default:
@@ -1002,25 +1010,19 @@ namespace IBSampleApp
             deepBookManager.ClearMktDepthExchanges();
         }
 
-        private void buttonRequestMarketDataType_MDT_Click(object sender, EventArgs e)
-        {
-            marketDataManager.setActive();
-            marketDataManager.RequestMarketDataType((int)((IBType)comboBoxMarketDataType_MDT.SelectedItem).Value);
-        }
-
         private void comboBoxMarketDataType_CDT_SelectedIndexChanged(object sender, EventArgs e)
         {
             marketDataManager.unsetActive();
             int marketDataType = (int)((IBType)comboBoxMarketDataType_CDT.SelectedItem).Value;
-            contractManager.RequestMarketDataType(marketDataType);
+            marketDataManager.RequestMarketDataType(marketDataType);
             showMarketDataTypeSelectMessage(marketDataType);
         }
 
         private void comboBoxMarketDataType_MDT_SelectedIndexChanged(object sender, EventArgs e)
         {
-            marketDataManager.unsetActive();
+            marketDataManager.setActive();
             int marketDataType = (int)((IBType)comboBoxMarketDataType_MDT.SelectedItem).Value;
-            contractManager.RequestMarketDataType(marketDataType);
+            marketDataManager.RequestMarketDataType(marketDataType);
             showMarketDataTypeSelectMessage(marketDataType);
         }
 
@@ -1048,6 +1050,36 @@ namespace IBSampleApp
                 {
                     ShowMessageOnPanel("Unknown market data type");
                 }
+            }
+        }
+
+        private void buttonReqNewsTicks_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                Contract contract = new Contract();
+                contract.Symbol = this.textBoxNewsTicksSymbol.Text;
+                contract.SecType = this.comboBoxNewsTicksSecType.Text;
+                contract.Currency = this.textBoxNewsTicksCurrency.Text;
+                contract.Exchange = this.textBoxNewsTicksExchange.Text;
+                contract.PrimaryExch = this.textBoxNewsTicksPrimExchange.Text;
+
+                newsManager.RequestNewsTicks(contract);
+
+                ShowTab(tabControlNewsResults, tabPageTickNewsResults);
+            }
+        }
+
+        private void linkLabelNewsTicksClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            newsManager.ClearTickNews();
+        }
+
+        private void buttonCancelNewsTicks_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                newsManager.CancelTickNews();
             }
         }
     }

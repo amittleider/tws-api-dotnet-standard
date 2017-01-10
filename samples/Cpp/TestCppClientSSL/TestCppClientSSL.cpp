@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -291,3 +291,4 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {}
 void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {}
 void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) {}
+void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) {}
