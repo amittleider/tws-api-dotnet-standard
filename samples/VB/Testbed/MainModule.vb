@@ -133,6 +133,11 @@ Module MainModule
         '*******************
         'linkingOperations(client)
 
+        '*******************
+        '** News operations ***
+        '*******************
+        'newsOperations(client)
+
         Thread.Sleep(15000)
         Console.WriteLine("Done")
         Thread.Sleep(500000)
@@ -529,6 +534,21 @@ Module MainModule
         '! [reqexecutions]
         client.reqExecutions(10001, New ExecutionFilter())
         '! [reqexecutions]
+    End Sub
+
+    Private Sub newsOperations(client As EClientSocket)
+
+        ' Requesting news ticks
+        ' [reqNewsTicks]
+        client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", False, Nothing)
+        ' [reqNewsTicks]
+
+        Thread.Sleep(10000)
+
+        ' Canceling news ticks
+        ' [cancelNewsTicks]
+        client.cancelMktData(10001)
+        ' [cancelNewsTicks]
     End Sub
 
     Private Sub OcaSample(client As EClientSocket, nextOrderId As Integer)

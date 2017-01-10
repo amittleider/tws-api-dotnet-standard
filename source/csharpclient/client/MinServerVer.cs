@@ -72,5 +72,6 @@ namespace IBApi
         public const int MD_SIZE_MULTIPLIER = 110;
         public const int CASH_QTY = 111;
         public const int REQ_MKT_DEPTH_EXCHANGES = 112;
+        public const int TICK_NEWS = 113;
     }
 }

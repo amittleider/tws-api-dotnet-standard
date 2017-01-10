@@ -601,6 +601,24 @@ Friend Class ApiEventSource
     End Sub
 
     Public Sub EWrapper_MktDepthExchanges(depthMktDataDescriptions() As DepthMktDataDescription) Implements EWrapper.mktDepthExchanges
+        InvokeIfRequired(Sub()
+                             RaiseEvent MktDepthExchanges(Me, New MktDepthExchangesEventArgs With {
+                                                            .depthMktDataDescriptions = depthMktDataDescriptions
+                                                            })
+                         End Sub)
+    End Sub
+
+    Private Sub EWrapper_TickNews(tickerId As Integer, timeStamp As Long, providerCode As String, articleId As String, headline As String, extraData As String) Implements EWrapper.tickNews
+        InvokeIfRequired(Sub()
+                             RaiseEvent TickNews(Me, New TickNewsEventArgs With {
+                                                            .tickerId = tickerId,
+                                                            .timeStamp = timeStamp,
+                                                            .providerCode = providerCode,
+                                                            .articleId = articleId,
+                                                            .headline = headline,
+                                                            .extraData = extraData
+                                                            })
+                         End Sub)
     End Sub
 
 #End Region
@@ -664,6 +682,7 @@ Friend Class ApiEventSource
     Event SymbolSamples(sender As Object, e As SymbolSamplesEventArgs)
     Event BondContractDetails(sender As Object, e As BondContractDetailsEventArgs)
     Event MktDepthExchanges(sender As Object, e As MktDepthExchangesEventArgs)
+    Event TickNews(sender As Object, e As TickNewsEventArgs)
 
 #End Region
 

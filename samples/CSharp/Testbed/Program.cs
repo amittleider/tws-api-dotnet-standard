@@ -124,6 +124,12 @@ namespace Samples
             /********************/
             //linkingOperations(client);
 
+            /***********************/
+            /*** News operations ***/
+            /***********************/
+            //newsOperations(client);
+
+
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
@@ -502,6 +508,21 @@ namespace Samples
             //! [reqexecutions]
             client.reqExecutions(10001, new ExecutionFilter());
             //! [reqexecutions]
+        }
+
+        private static void newsOperations(EClientSocket client)
+        {
+            /*** Requesting news ticks ***/
+            //! [reqNewsTicks]
+            client.reqMktData(12001, ContractSamples.USStockAtSmart(), "mdoff,292", false, null);
+            //! [reqNewsTicks]
+
+            Thread.Sleep(5000);
+
+            /*** Canceling news ticks ***/
+            //! [cancelNewsTicks]
+            client.cancelMktData(12001);
+            //! [cancelNewsTicks]
         }
 
         private static void OcaSample(EClientSocket client, int nextOrderId)

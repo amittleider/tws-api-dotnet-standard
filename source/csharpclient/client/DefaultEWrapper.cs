@@ -254,5 +254,8 @@ namespace IBApi
         {
         }
 
+        public virtual void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
+        {
+        }
     }
 }

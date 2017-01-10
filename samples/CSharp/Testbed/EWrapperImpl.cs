@@ -475,7 +475,13 @@ namespace Samples
                 Console.WriteLine("Depth Market Data Description: Exchange: {0}, Security Type: {1}, Is L2: {2}", depthMktDataDescription.Exchange, depthMktDataDescription.SecType, depthMktDataDescription.IsL2);
             }
         }
-        //! [familyCodes]
+        //! [mktDepthExchanges]
 
+        //! [tickNews]
+        public void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
+        {
+            Console.WriteLine("Tick News. Ticker Id: {0}, Time Stamp: {1}, Provider Code: {2}, Article Id: {3}, headline: {4}, extraData: {5}", tickerId, timeStamp, providerCode, articleId, headline, extraData);
+        }
+        //! [tickNews]
     }
 }

@@ -1570,4 +1570,10 @@ class SampleFrame extends JFrame implements EWrapper {
 		String msg = EWrapperMsgGenerator.mktDepthExchanges(depthMktDataDescriptions);
 		m_TWS.add(msg);
 	}
+	
+	@Override
+	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+		String msg = EWrapperMsgGenerator.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
+		m_TWS.add(msg);
+	}
 }

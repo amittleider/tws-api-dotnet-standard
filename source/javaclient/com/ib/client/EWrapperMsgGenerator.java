@@ -654,7 +654,13 @@ public class EWrapperMsgGenerator {
 		sb.append("==== Market Depth Exchanges End (total=").append(depthMktDataDescriptions.length).append(") ====\n");
 		return sb.toString();
 	}
-	
+
+	static public String tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+		String msg = "TickNews. tickerId: " + tickerId + ", timeStamp: " + Util.UnixMillisecondsToString(timeStamp, "yyyy-MM-dd HH:mm:ss zzz") + 
+				", providerCode: " + providerCode + ", articleId: " + articleId + ", headline: " + headline + ", extraData: " + extraData;
+		return msg;
+	}
+
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 

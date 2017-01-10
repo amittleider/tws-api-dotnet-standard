@@ -1776,6 +1776,16 @@ namespace TWSLib
                 InvokeIfRequired(t_mktDepthExchanges, depthMktDataDescriptions.Length > 0 ? new ComDepthMktDataDescriptionList(depthMktDataDescriptions) : null);
         }
 
+        public delegate void tickNewsDelegate(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
+        public event tickNewsDelegate tickNews;
+        void EWrapper.tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
+        {
+            var t_tickNews = this.tickNews;
+
+            if (t_tickNews != null)
+                InvokeIfRequired(t_tickNews, tickerId, timeStamp.ToString("G"), providerCode, articleId, headline, extraData);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
