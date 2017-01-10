@@ -87,7 +87,7 @@ var NAVTREEINDEX =
 "account_portfolio.html",
 "classIBApi_1_1EClient.html#acf33b0c140093f975338b62657f81057",
 "classIBApi_1_1ScannerSubscription.html#ab8848a45559dc42774ed3759bb31632a",
-"interfaceIBApi_1_1EWrapper.html#ac9b605c48d60da99ef595d2bc7ca39e2"
+"interfaceIBApi_1_1EWrapper.html#ac79344d06112e6145bccb3794270ee3c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

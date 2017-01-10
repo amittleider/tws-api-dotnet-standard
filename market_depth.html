@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -146,6 +146,10 @@ Requesting</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktDepth(2001, ContractSamples::EurGbpFx(), 5, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktDepth(2101, ContractSamples.USStock(), 5, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, <span class="keywordtype">None</span>)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="receive"></a>
 Receiving</h1>
@@ -201,6 +205,20 @@ Receiving</h1>
 <div class="line">    printf( <span class="stringliteral">&quot;UpdateMarketDepthL2. %ld - Position: %d, Operation: %d, Side: %d, Price: %g, Size: %d\n&quot;</span>, <span class="keywordtype">id</span>, position, operation, side, price, size);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepth(self, reqId:TickerId , position:int, operation:int,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        side:int, price:float, size:int): </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateMktDepth(reqId, position, operation, side, price, size)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>, </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepthL2(self, reqId:TickerId , position:int, marketMaker:str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                          operation:int, side:int, price:float, size:int):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateMktDepthL2(reqId, position, marketMaker, operation, side,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                 price, size)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>, </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="canceling"></a>
 Canceling</h1>
@@ -217,6 +235,10 @@ Canceling</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelMktDepth(2001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.cancelMktDepth(2101)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.cancelMktDepth(2001)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitations"></a>

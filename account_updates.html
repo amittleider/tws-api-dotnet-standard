@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -144,6 +144,9 @@ Requesting</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqAccountUpdates(<span class="keyword">true</span>, <span class="stringliteral">&quot;U150462&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqAccountUpdates(<span class="keyword">True</span>, self.account)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="acct_update_receive"></a>
@@ -233,10 +236,35 @@ Receiving</h1>
 <div class="line">    printf( <span class="stringliteral">&quot;Account download finished: %s\n&quot;</span>, accountName.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountValue(self, key:str, val:str, currency:str, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                            accountName:str):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateAccountValue(key, val, currency, accountName)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateAccountValue. Key:&quot;</span> ,key, <span class="stringliteral">&quot;Value:&quot;</span>, val, </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;Currency:&quot;</span>, currency, <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updatePortfolio(self, contract:Contract, position:float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        marketPrice:float, marketValue:float, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        averageCost:float, unrealizedPNL:float, </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                        realizedPNL:float, accountName:str):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        super().updatePortfolio(contract, position, marketPrice, marketValue,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                        averageCost, unrealizedPNL, realizedPNL, accountName)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;UpdatePortfolio.&quot;</span>, contract.symbol, <span class="stringliteral">&quot;&quot;</span>, contract.secType, <span class="stringliteral">&quot;@&quot;</span>,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            contract.exchange, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;MarketPrice:&quot;</span>, marketPrice,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;MarketValue:&quot;</span>, marketValue, <span class="stringliteral">&quot;AverageCost:&quot;</span>, averageCost,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            <span class="stringliteral">&quot;UnrealizedPNL:&quot;</span>, unrealizedPNL, <span class="stringliteral">&quot;RealizedPNL:&quot;</span>, realizedPNL,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountTime(self, timeStamp:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().updateAccountTime(timeStamp)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;UpdateAccountTime. Time:&quot;</span>, timeStamp)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountDownloadEnd(self, accountName:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().accountDownloadEnd(accountName)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Account download finished:&quot;</span>, accountName)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="acct_update_cancel"></a>
 Cancelling</h1>
-<p>Once the subscription to account updates is no longer needed, it can be cancelled by invoking the IBApi::EClient::updateAccountValue method while specifying the susbcription flag to be False:</p>
+<p>Once the subscription to account updates is no longer needed, it can be cancelled by invoking the <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> method while specifying the susbcription flag to be False:</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqAccountUpdates(<span class="keyword">false</span>, <span class="stringliteral">&quot;U150462&quot;</span>);</div>
@@ -249,6 +277,9 @@ Cancelling</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqAccountUpdates(<span class="keyword">false</span>, <span class="stringliteral">&quot;U150462&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqAccountUpdates(<span class="keyword">False</span>, self.account)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Note: </b>An important key passed back in <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5">IBApi.EWrapper.updateAccountValue</a> after a call to <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> is a boolean value 'accountReady'. If an accountReady value of false is returned that means that the IB server is in the process of resetting at that moment, i.e. the account is 'not ready'. When this occurs subsequent key values returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5" title="Receives the subscribed account&#39;s information. Only one account can be subscribed at a time...">IBApi::EWrapper::updateAccountValue</a> in the current update can be out of date or incorrect.</p>
@@ -277,6 +308,9 @@ Models</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqAccountUpdatessMulti(9002, <span class="stringliteral">&quot;U150462&quot;</span>, <span class="stringliteral">&quot;EUstocks&quot;</span>, <span class="keyword">true</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqAccountUpdatesMulti(9005, self.account, <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">True</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The resulting account and portfolio information will be delivered via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae9114b5146bb8f32796f9b9d21569d7c">IBApi.EWrapper.accountUpdateMulti</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#aeb5dd139597e26edd978b300ccd0450b">IBApi.EWrapper.accountUpdateMultiEnd</a></p>
@@ -324,6 +358,19 @@ Models</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::accountUpdateMultiEnd( <span class="keywordtype">int</span> reqId) {</div>
 <div class="line">    printf(<span class="stringliteral">&quot;Account Update Multi End. Request: %d\n&quot;</span>, reqId);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMulti(self, reqId:int, account:str, modelCode:str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                            key:str, value:str, currency:str):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().accountUpdateMulti(reqId, account, modelCode, key, value,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                   currency)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;Account Update Multi. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;Account:&quot;</span>, account, </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Key:&quot;</span>, key , <span class="stringliteral">&quot;Value:&quot;</span>, value, </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;Currency:&quot;</span>, currency)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMultiEnd(self, reqId:int):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().accountUpdateMultiEnd(reqId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Account Update Multi End. Request:&quot;</span>, reqId)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

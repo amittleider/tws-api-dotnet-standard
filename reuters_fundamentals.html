@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -143,6 +143,10 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqFundamentalData(8001, ContractSamples::USStock(), <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqFundamentalData(8001, ContractSamples.USStock(),</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                  <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>, <span class="keywordtype">None</span>)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>Note how a string attribute specifies the requested report type. In the example above the request was made for the financial summary. See <a class="el" href="reuters_fundamentals.html#report_type">Report Types</a> at the bottom of this page for the rest report types available.</p>
 <p>Results are delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#af209070fa9583fb4780be0f3ff1e61e4">IBApi.EWrapper.fundamentalData</a> in form of an XML report:</p>
@@ -176,6 +180,12 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 <div class="line">    printf( <span class="stringliteral">&quot;FundamentalData. ReqId: %ld, %s\n&quot;</span>, reqId, data.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>fundamentalData(self, reqId:TickerId , data:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().fundamentalData(reqId, data)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;FundamentalData. &quot;</span>, reqId, data)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>The <a class="el" href="classIBApi_1_1EClient.html#abba7df6f72f5516cae4c05c9144a89ee">IBApi.EClient.reqFundamentalData</a> request can be cancelled via :</p>
 <ul id="tab">
@@ -191,6 +201,9 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelFundamentalData(8001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.cancelFundamentalData(8001)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="report_type"></a>

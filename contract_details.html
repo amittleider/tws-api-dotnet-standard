@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -166,13 +166,26 @@ Obtaining Option Chains</h1>
 <div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    m_pClient-&gt;reqContractDetails(210, ContractSamples::OptionForQuery());</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;FISV&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;OPT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqContractDetails(209, ContractSamples.EurGbpFx())</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqContractDetails(210, ContractSamples.OptionForQuery())</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqContractDetails(211, ContractSamples.Bond())</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="broadtape_list"></a>
 Obtaining BroadTape List of News</h1>
 <p>The example below shows an "incomplete" news <a class="el" href="classIBApi_1_1Contract.html">IBApi.Contract</a> with no symbol or currency defined. In most cases using such a contract would result in an invalid contract details error since a symbol or localSymbol is required. <a class="el" href="classIBApi_1_1EClient.html#ade440c6db838b548594981d800ea5ca9">IBApi.EClient.reqContractDetails</a> will instead use it to obtain the whole BroadTape news chain from the TWS.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"></div><!-- fragment --> ... <div class="fragment"><div class="line">            client.reqContractDetails(211, ContractSamples.NewsFeedForQuery());</div>
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;NEWS&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;BT&quot;</span>; <span class="comment">//Briefing Trader</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            client.reqContractDetails(211, ContractSamples.NewsFeedForQuery());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
@@ -191,6 +204,12 @@ Obtaining BroadTape List of News</h1>
 <div class="line">    contract.secType = <span class="stringliteral">&quot;NEWS&quot;</span>;</div>
 <div class="line">    contract.exchange = <span class="stringliteral">&quot;BT&quot;</span>; <span class="comment">//Briefing Trader</span></div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">    m_pClient-&gt;reqContractDetails(211, ContractSamples::NewsFeedForQuery());</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.secType = <span class="stringliteral">&quot;NEWS&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.exchange = <span class="stringliteral">&quot;BT&quot;</span> <span class="comment">#Briefing Trader</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqContractDetails(213, ContractSamples.NewsFeedForQuery())</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>All returned objects will be delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1b767810613c700b5bb1056a836da0bc">IBApi.EWrapper.contractDetails</a>. Once all contracts have been delivered the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a4e9466339bac7149c2fdb48cda0dd088">IBApi.EWrapper.contractDetailsEnd</a> marker will be triggered to notify it.</p>
@@ -237,6 +256,17 @@ Obtaining BroadTape List of News</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetailsEnd( <span class="keywordtype">int</span> reqId) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ContractDetailsEnd. %d\n&quot;</span>, reqId);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetails(self, reqId:int, contractDetails:ContractDetails):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetails(reqId, contractDetails)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetails. ReqId:&quot;</span>, reqId, contractDetails.summary.symbol, </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            contractDetails.summary.secType, <span class="stringliteral">&quot;ConId:&quot;</span>, contractDetails.summary.conId, </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;@&quot;</span>, contractDetails.summary.exchange)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetailsEnd(self, reqId:int):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetailsEnd(reqId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetailsEnd. &quot;</span>,reqId,<span class="stringliteral">&quot;\n&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> due to the potentially high amount of data resulting from such queries this request is subject to pacing. Although a request such as the above one will be answered immediately, a similar subsequent one will be kept on hold for one minute. This amount of time will increase if more such requests are performed. To prevent this narrow down the amount of eligible contracts by providing an expiration date specifying at least the year (i.e. 2016) or the year and the month (i.e. 201603 for March 2016).</p>

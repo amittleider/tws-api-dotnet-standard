@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -303,6 +303,55 @@ $(document).ready(function(){initNavTree('bracket_order.html','');});
 <div class="line">    m_pClient-&gt;placeOrder(parent.orderId, ContractSamples::EuropeanStock(), parent);</div>
 <div class="line">    m_pClient-&gt;placeOrder(takeProfit.orderId, ContractSamples::EuropeanStock(), takeProfit);</div>
 <div class="line">    m_pClient-&gt;placeOrder(stopLoss.orderId, ContractSamples::EuropeanStock(), stopLoss);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>BracketOrder(parentOrderId:int, action:str, quantity:float, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     limitPrice:float, takeProfitLimitPrice:float, </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                     stopLossPrice:float):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="comment">#This will be our main or &quot;parent&quot; order</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        parent = Order()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        parent.orderId = parentOrderId</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        parent.action = action</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        parent.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        parent.totalQuantity = quantity</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        parent.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="comment">#The parent and children orders will need this attribute set to False to prevent accidental executions.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="comment">#The LAST CHILD will have it set to True, </span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        parent.transmit = <span class="keyword">False</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        takeProfit = Order()</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        takeProfit.orderId = parent.orderId + 1</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        takeProfit.action = <span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        takeProfit.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        takeProfit.totalQuantity = quantity</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        takeProfit.lmtPrice = takeProfitLimitPrice</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        takeProfit.parentId = parentOrderId</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        takeProfit.transmit = <span class="keyword">False</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        stopLoss = Order()</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        stopLoss.orderId = parent.orderId + 2</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        stopLoss.action = <span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        stopLoss.orderType = <span class="stringliteral">&quot;STP&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="comment">#Stop trigger price</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        stopLoss.auxPrice = stopLossPrice</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        stopLoss.totalQuantity = quantity</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        stopLoss.parentId = parentOrderId</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">#In this case, the low side order will be the last child being sent. Therefore, it needs to set this attribute to True </span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">#to activate all its predecessors</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        stopLoss.transmit = <span class="keyword">True</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        bracketOrder = []</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        bracketOrder.append(parent)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        bracketOrder.append(takeProfit)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        bracketOrder.append(stopLoss)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> bracketOrder</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        bracket = OrderSamples.BracketOrder(self.nextOrderId(), <span class="stringliteral">&quot;BUY&quot;</span>, 100, 30, 40, 20)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="keywordflow">for</span> o <span class="keywordflow">in</span> bracket:</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            self.placeOrder(o.orderId, ContractSamples.EuropeanStock(), o)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            self.nextOrderId()  <span class="comment"># need to advance this we&#39;ll skip one extra oid, it&#39;s fine</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

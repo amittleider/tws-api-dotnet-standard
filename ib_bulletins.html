@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -143,6 +143,9 @@ $(document).ready(function(){initNavTree('ib_bulletins.html','');});
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqNewsBulletins(<span class="keyword">true</span>);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqNewsBulletins(<span class="keyword">True</span>)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>Bulletins are delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a3286ab81957d224345888153bce59082">IBApi.EWrapper.updateNewsBulletin</a> whenever there is a new bulletin:</p>
 <ul id="tab">
@@ -176,6 +179,14 @@ $(document).ready(function(){initNavTree('ib_bulletins.html','');});
 <div class="line">    printf( <span class="stringliteral">&quot;News Bulletins. %d - Type: %d, Message: %s, Exchange of Origin: %s\n&quot;</span>, msgId, msgType, newsMessage.c_str(), originExch.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateNewsBulletin(self, msgId:int, msgType:int, newsMessage:str, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                           originExch:str):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateNewsBulletin(msgId, msgType, newsMessage, originExch)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;News Bulletins. &quot;</span>, msgId, <span class="stringliteral">&quot; Type: &quot;</span>, msgType, <span class="stringliteral">&quot;Message:&quot;</span>, newsMessage, </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;Exchange of Origin: &quot;</span>,originExch)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>In order to stop receiving bulletins you need to cancel the subscription:</p>
 <ul id="tab">
@@ -190,6 +201,9 @@ $(document).ready(function(){initNavTree('ib_bulletins.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelNewsBulletins();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.cancelNewsBulletins()</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

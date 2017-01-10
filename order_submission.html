@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -150,6 +150,10 @@ The Next Valid Identifier</h1>
 <div class="fragment"><div class="line">    <span class="comment">//The parameter is always ignored.</span></div>
 <div class="line">    m_pClient-&gt;reqIds(-1);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#The parameter is always ignored.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqIds(-1)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>The above will result in <a class="el" href="interfaceIBApi_1_1EWrapper.html#a09c07727efd297e438690ab42838d332">IBApi.EWrapper.nextValidId</a> callback being invoked:</p>
 <ul id="tab">
@@ -186,6 +190,14 @@ The Next Valid Identifier</h1>
 <div class="line">    printf(<span class="stringliteral">&quot;Next Valid Id: %ld\n&quot;</span>, orderId);</div>
 <div class="line">    m_orderId = orderId;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>nextValidId(self, orderId:int):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().nextValidId(orderId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        logging.debug(<span class="stringliteral">&quot;setting nextValidOrderId: %d&quot;</span>, orderId)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        self.nextValidOrderId = orderId</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p><b>The next valid identifier is persistent between TWS sessions.</b></p>
 <p>If necessary, you can reset the order ID sequence within the API Settings dialogue. Note however that the order sequence Id can only be reset if there are no active orders.</p>
@@ -207,6 +219,11 @@ Order Submission</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 1, 50));</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.simplePlaceOid = self.nextOrderId()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.placeOrder(self.simplePlaceOid, ContractSamples.USStock(), </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        OrderSamples.LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 1, 50))</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Immediately after the order was submitted correctly, the TWS will start sending events concerning the order's activity via <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">IBApi.EWrapper.openOrder</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a></p>
@@ -245,6 +262,15 @@ The openOrder method</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrder( OrderId orderId, <span class="keyword">const</span> Contract&amp; contract, <span class="keyword">const</span> Order&amp; order, <span class="keyword">const</span> OrderState&amp; ostate) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;OpenOrder. ID: %ld, %s, %s @ %s: %s, %s, %g, %g, %s\n&quot;</span>, orderId, contract.symbol.c_str(), contract.secType.c_str(), contract.exchange.c_str(), order.action.c_str(), order.orderType.c_str(), order.totalQuantity, order.cashQty == UNSET_DOUBLE ? 0 : order.cashQty, ostate.status.c_str());</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>openOrder(self, orderId:OrderId, contract:Contract, order:Order, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                  orderState:OrderState):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().openOrder(orderId, contract, order, orderState)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;OpenOrder. ID:&quot;</span>, orderId, contract.symbol, contract.secType,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;@&quot;</span>, contract.exchange, <span class="stringliteral">&quot;:&quot;</span>, order.action, order.orderType,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            order.totalQuantity, orderState.status)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="order_status"></a>
@@ -289,12 +315,25 @@ The orderStatus method</h1>
 <div class="line">    printf(<span class="stringliteral">&quot;OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s\n&quot;</span>, orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>orderStatus(self, orderId:OrderId , status:str, filled:float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                    remaining:float, avgFillPrice:float, permId:int, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                    parentId:int, lastFillPrice:float, clientId:int, </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                    whyHeld:str):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        super().orderStatus(orderId, status, filled, remaining,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;OrderStatus. Id:&quot;</span>, orderId, <span class="stringliteral">&quot;Status:&quot;</span>, status, <span class="stringliteral">&quot;Filled:&quot;</span>, filled,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="stringliteral">&quot;Remaining:&quot;</span>, remaining ,<span class="stringliteral">&quot;AvgFillPrice:&quot;</span>, avgFillPrice,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;PermId:&quot;</span>, permId, <span class="stringliteral">&quot;ParentId:&quot;</span>, parentId, <span class="stringliteral">&quot;LastFillPrice:&quot;</span>,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            lastFillPrice, <span class="stringliteral">&quot;ClientId:&quot;</span>, clientId, <span class="stringliteral">&quot;WhyHeld:&quot;</span>,whyHeld)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>There are several different categories a client might fall into which determine the orderStatus messages it receives:</p>
 <p>-&gt;Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.</p>
 <p>-&gt;The master client (set in TWS/IBG) will receive order status messages for all clients.</p>
 <p>-&gt;Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS.</p>
-<p>Other important points concerning IBApi::EWrapper::orderStatus:</p>
+<p>Other important points concerning <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> :</p>
 <p>-&gt;Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange.</p>
 <p>-&gt;There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a09f82de3d0666d13b00b5168e8b9313d">IBApi.EWrapper.execDetails</a> function in addition to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a>.</p>
 <h1><a class="anchor" id="order_attach"></a>

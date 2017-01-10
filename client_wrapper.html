@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -149,6 +149,9 @@ Implementing the EWrapper interface</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;class TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="client_socket"></a>
 The EClientSocket class</h1>
@@ -193,6 +196,15 @@ The EClientSocket class</h1>
 <div class="line">    , m_extraAuth(false)</div>
 <div class="line">{</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestClient(EClient):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>__init__(self, wrapper):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        EClient.__init__(self, wrapper)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestApp(TestWrapper, TestClient):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        TestWrapper.__init__(self)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        TestClient.__init__(self, wrapper=self)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

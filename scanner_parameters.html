@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('scanner_parameters.html','');});
 <div class="title">Scanner Parameters </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Scanner parameters can be obtained via IBApi::EClient::reqScannerParameters:</p>
+<div class="textblock"><p>Scanner parameters can be obtained via <a class="el" href="classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970">IBApi.EClient.reqScannerParameters</a> :</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqScannerParameters();</div>
@@ -142,6 +142,9 @@ $(document).ready(function(){initNavTree('scanner_parameters.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqScannerParameters();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqScannerParameters()</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>A string containing all available XML-formatted parameters will then be returned via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc">IBApi.EWrapper.scannerParameters</a></p>
@@ -164,13 +167,22 @@ $(document).ready(function(){initNavTree('scanner_parameters.html','');});
 <li>
 <div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
 <div class="line">        Implements EWrapper</div>
-</div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub scannerParameters(xml As String) Implements IBApi.EWrapper.scannerParameters</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ScannerParameters. &quot;</span> &amp; xml &amp; <span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::scannerParameters(<span class="keyword">const</span> std::string&amp; xml) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ScannerParameters. %s\n&quot;</span>, xml.c_str());</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>scannerParameters(self, xml:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().scannerParameters(xml)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        open(<span class="stringliteral">&#39;log/scanner.xml&#39;</span>, <span class="stringliteral">&#39;w&#39;</span>).write(xml)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> remember the TWS API is just an interface to the TWS. If you are having problems defining a scanner, always make sure you can create a similar scanner using the TWS' <a href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm" target="_blank" class="linkexternal">Advanced Market Scanner</a>.</p>
