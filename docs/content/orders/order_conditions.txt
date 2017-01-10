@@ -15,6 +15,9 @@
 		<li>
 		\snippet TestCppClient.cpp order_conditioning_activate
 		</li>
+		<li>
+		\snippet Program.py order_conditioning_activate
+		</li>
 	</ul>
 	
 	Or cancel them
@@ -31,6 +34,9 @@
 		</li>
 		<li>
 		\snippet TestCppClient.cpp order_conditioning_cancel
+		</li>
+		<li>
+		\snippet Program.py order_conditioning_cancel
 		</li>
 	</ul>
 	
@@ -49,6 +55,9 @@
 		<li>
 		\snippet OrderSamples.cpp price_condition
 		</li>
+		<li>
+		\snippet OrderSamples.py price_condition
+		</li>
 	</ul>
 	
 	\section execution_condition Execution Conditions
@@ -66,6 +75,9 @@
 		<li>
 		\snippet OrderSamples.cpp execution_condition
 		</li>
+		<li>
+		\snippet OrderSamples.py execution_condition
+		</li>
 	</ul>
 	
 	\section marging_condition Margin Conditions
@@ -75,13 +87,16 @@
 		 \snippet OrderSamples.cs margin_condition
 		</li>
 		<li>
-			\snippet OrderSamples.java execution_condition
+			\snippet OrderSamples.java margin_condition
 		</li>
 		<li>
-			\snippet OrderSamples.vb execution_condition
+			\snippet OrderSamples.vb margin_condition
 		</li>
 		<li>
-		\snippet OrderSamples.cpp execution_condition
+		\snippet OrderSamples.cpp margin_condition
+		</li>
+		<li>
+		\snippet OrderSamples.py margin_condition
 		</li>
 	</ul>
 	
@@ -100,6 +115,9 @@
 		<li>
 		\snippet OrderSamples.cpp percentage_condition
 		</li>
+		<li>
+		\snippet OrderSamples.py percentage_condition
+		</li>
 	</ul>
 	
 	\section time_condition Time Conditions
@@ -117,6 +135,9 @@
 		<li>
 		\snippet OrderSamples.cpp time_condition
 		</li>
+		<li>
+		\snippet OrderSamples.py time_condition
+		</li>
 	</ul>
 	
 	\section volume_condition Volume Conditions
@@ -133,6 +154,9 @@
 		</li>
 		<li>
 		\snippet OrderSamples.cpp volume_condition
+		</li>
+		<li>
+		\snippet OrderSamples.py volume_condition
 		</li>
 	</ul>
 

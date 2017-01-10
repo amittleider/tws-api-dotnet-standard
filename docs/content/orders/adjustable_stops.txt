@@ -18,6 +18,9 @@
 		<li>
 		\snippet OrderSamples.cpp adjustable_stop
 		</li>
+		<li>
+		\snippet OrderSamples.py adjustable_stop
+		</li>
 	</ul>
 	
 	\section adjusted_stop_limit Adjusted to Stop Limit
@@ -35,6 +38,9 @@
 		<li>
 		\snippet OrderSamples.cpp adjustable_stop_limit
 		</li>
+		<li>
+		\snippet OrderSamples.py adjustable_stop_limit
+		</li>
 	</ul>
 	
 	\section adjusted_stop_trail Adjusted to Trail
@@ -51,6 +57,9 @@
 		</li>
 		<li>
 		\snippet OrderSamples.cpp adjustable_trail
+		</li>
+		<li>
+		\snippet OrderSamples.py adjustable_trail
 		</li>
 	</ul>
 	

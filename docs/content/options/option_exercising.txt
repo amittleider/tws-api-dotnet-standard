@@ -15,6 +15,9 @@
 		<li>
 			\snippet TestCppClient.cpp exercise_options
 		</li>
+		<li>
+			\snippet Program.py exercise_options
+		</li>
 	</ul>
 	
 	

@@ -14,6 +14,9 @@
 		<li>
 			\snippet ContractSamples.cpp cashcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py cashcontract
+		</li>
 	</ul>
 	
 	\section stk Stocks
@@ -29,6 +32,9 @@
 		</li>
 		<li>
 		\snippet ContractSamples.cpp stkcontract
+		</li>
+		<li>
+			\snippet ContractSamples.py stkcontract
 		</li>
 	</ul>
 	
@@ -46,6 +52,9 @@
 		</li>
 		<li>
 		\snippet ContractSamples.cpp stkcontractwithprimary
+		</li>
+		<li>
+			\snippet ContractSamples.py stkcontractwithprimary
 		</li>
 	</ul>
 	
@@ -65,6 +74,9 @@
 		<li>
 		\snippet ContractSamples.cpp indcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py indcontract
+		</li>
 	</ul>
 	
 	\section cfd CFDs
@@ -81,6 +93,9 @@
 		</li>
 		<li>
 		\snippet ContractSamples.cpp cfdcontract
+		</li>
+		<li>
+			\snippet ContractSamples.py cfdcontract
 		</li>
 	</ul>
 	
@@ -101,6 +116,9 @@
 		<li>
 		\snippet ContractSamples.cpp futcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py futcontract
+		</li>
 	</ul>
 	
 	Although the expiration and underlying symbol can be replaced with the contract's own symbol, also known as <b>local symbol</b> (named as Symbol within the TWS' Contract Description dialog):
@@ -117,6 +135,9 @@
 		</li>
 		<li>
 		\snippet ContractSamples.cpp futcontract_local_symbol
+		</li>
+		<li>
+			\snippet ContractSamples.py futcontract_local_symbol
 		</li>
 	</ul>
 	
@@ -135,6 +156,9 @@
 		</li>
 		<li>
 		\snippet ContractSamples.cpp futcontract_multiplier
+		</li>
+		<li>
+			\snippet ContractSamples.py futcontract_multiplier
 		</li>
 	</ul>
 
@@ -155,6 +179,9 @@
 		<li>
 			\snippet ContractSamples.cpp optcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py optcontract
+		</li>
 	</ul>
 	
 	It is not unusual to find many option contracts with an almost identical description (i.e. underlying symbol, strike, last trading date, multiplier, etc.).
@@ -173,6 +200,9 @@
 		<li>
 			\snippet ContractSamples.cpp optcontract_tradingclass
 		</li>
+		<li>
+			\snippet ContractSamples.py optcontract_tradingclass
+		</li>
 	</ul>
 	
 	Using the contract's own symbol (local symbol in the API side) instead of its underlying can greatly simplify an option's description
@@ -189,6 +219,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp optcontract_localsymbol
+		</li>
+		<li>
+			\snippet ContractSamples.py optcontract_localsymbol
 		</li>
 	</ul>
 	
@@ -209,6 +242,9 @@
 		<li>
 			\snippet ContractSamples.cpp fopcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py fopcontract
+		</li>
 	</ul>
 	
 	\section Bonds
@@ -228,6 +264,9 @@
 		<li>
 			\snippet ContractSamples.cpp bondwithcusip
 		</li>
+		<li>
+			\snippet ContractSamples.py bondwithcusip
+		</li>
 	</ul>
 	
 	Bonds can also be defined with the conId and exchange as with any security type. 
@@ -244,6 +283,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp bond
+		</li>
+		<li>
+			\snippet ContractSamples.py bond
 		</li>
 	</ul>
 	
@@ -264,6 +306,9 @@
 		<li>
 			\snippet ContractSamples.cpp fundcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py fundcontract
+		</li>
 	</ul>
 	
 	\section Commodities
@@ -280,6 +325,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp commoditycontract
+		</li>
+		<li>
+			\snippet ContractSamples.py commoditycontract
 		</li>
 	</ul>
 	

@@ -21,6 +21,9 @@
 		<li>
 			\snippet ContractSamples.cpp bagstkcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py bagstkcontract
+		</li>
 	</ul>
 	
 	<b>Note:</b> EFPs are simply defined as a bag contract of stock and corresponding SSF with a ratio of 100:1. 
@@ -39,6 +42,9 @@
 		<li>
 			\snippet ContractSamples.cpp bagfutcontract
 		</li>
+		<li>
+			\snippet ContractSamples.py bagfutcontract
+		</li>
 	</ul>
 	
 	\section bag_opt Options Spread
@@ -54,6 +60,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp bagoptcontract
+		</li>
+		<li>
+			\snippet ContractSamples.py bagoptcontract
 		</li>
 	</ul>
 	
@@ -71,6 +80,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp intcmdfutcontract
+		</li>
+		<li>
+			\snippet ContractSamples.py intcmdfutcontract
 		</li>
 	</ul>
 	

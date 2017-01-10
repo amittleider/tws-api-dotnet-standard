@@ -483,11 +483,11 @@ namespace Samples
 
         public static Contract NewsFeedForQuery()
         {
-            //! [newsfeedforquery]
+            //! [newsFeedforquery]
             Contract contract = new Contract();
             contract.SecType = "NEWS";
             contract.Exchange = "BT"; //Briefing Trader
-            //! [newsfeedforquery]
+            //! [newsFeedforquery]
             return contract;
         }
 

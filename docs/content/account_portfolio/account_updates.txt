@@ -19,6 +19,9 @@
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountupdates
 		</li>
+		<li>
+			\snippet Program.py reqaaccountupdates
+		</li>
 	</ul>
 	
 	\section acct_update_receive Receiving
@@ -72,11 +75,22 @@
 			...
 			\snippet TestCppClient.cpp accountdownloadend
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py updateaccountvalue
+			...
+			\snippet Program.py updateportfolio
+			...
+			\snippet Program.py updateaccounttime
+			...
+			\snippet Program.py accountdownloadend
+		</li>
 	</ul>
 	
 	\section acct_update_cancel Cancelling
 	
-	Once the subscription to account updates is no longer needed, it can be cancelled by invoking the @ref IBApi::EClient::updateAccountValue method while specifying the susbcription flag to be False:
+	Once the subscription to account updates is no longer needed, it can be cancelled by invoking the @ref IBApi::EClient::reqAccountUpdates method while specifying the susbcription flag to be False:
 	
 	<ul id="tab">
 		<li class="active">
@@ -90,6 +104,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp cancelaaccountupdates
+		</li>
+		<li>
+			\snippet Program.py cancelaaccountupdates
 		</li>
 	</ul>
 
@@ -126,6 +143,9 @@
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountupdatesmulti
 		</li>
+		<li>
+			\snippet Program.py reqaaccountupdatesmulti
+		</li>
 	</ul>
 	
 	The resulting account and portfolio information will be delivered via the @ref IBApi::EWrapper::accountUpdateMulti and @ref IBApi::EWrapper::accountUpdateMultiEnd
@@ -159,6 +179,13 @@
 			\snippet TestCppClient.cpp accountupdatemulti
 			...
 			\snippet TestCppClient.cpp accountupdatemultiend
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py accountupdatemulti
+			...
+			\snippet Program.py accountupdatemultiend
 		</li>
 	</ul>
 	

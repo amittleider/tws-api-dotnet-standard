@@ -19,6 +19,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqrealtimebars
 		</li>
+		<li>
+			\snippet Program.py reqrealtimebars
+		</li>
 	</ul>
 	
 	\section rt_bars_rec Receiving
@@ -46,6 +49,11 @@
 			...
 			\snippet TestCppClient.cpp realtimebar
 		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py realtimebar
+		</li>
 	</ul>
 	
 	\section rt_bars_cancel Canceling
@@ -64,6 +72,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp cancelrealtimebars
+		</li>
+		<li>
+			\snippet Program.py cancelrealtimebars
 		</li>
 	</ul>
 	

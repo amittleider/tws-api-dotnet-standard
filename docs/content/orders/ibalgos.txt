@@ -45,6 +45,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp adaptive_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py adaptive
+			...
+			\snippet AvailableAlgoParams.py adaptive_params
+		</li>
 	</ul>
 	
 	\section arrivalprice ArrivalPrice
@@ -100,6 +107,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp arrivalpx_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py arrivalpx
+			...
+			\snippet AvailableAlgoParams.py arrivalpx_params
+		</li>
 	</ul>
 	
 	\section closepx Close Price
@@ -147,6 +161,13 @@
 			\snippet TestCppClient.cpp closepx
 			...
 			\snippet AvailableAlgoParams.cpp closepx_params
+		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py closepx
+			...
+			\snippet AvailableAlgoParams.py closepx_params
 		</li>
 	</ul>
 	
@@ -198,6 +219,13 @@
 			\snippet TestCppClient.cpp darkice
 			...
 			\snippet AvailableAlgoParams.cpp darkice_params
+		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py darkice
+			...
+			\snippet AvailableAlgoParams.py darkice_params
 		</li>
 	</ul>
 	
@@ -254,6 +282,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp ad_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py ad
+			...
+			\snippet AvailableAlgoParams.py ad_params
+		</li>
 	</ul>
 	
 	\section pctvol Percentage of Volume
@@ -302,6 +337,13 @@
 			\snippet TestCppClient.cpp pctvol
 			...
 			\snippet AvailableAlgoParams.cpp pctvol_params
+		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py pctvol
+			...
+			\snippet AvailableAlgoParams.py pctvol_params
 		</li>
 	</ul>
 	
@@ -354,6 +396,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp twap_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py twap
+			...
+			\snippet AvailableAlgoParams.py twap_params
+		</li>
 	</ul>
 	
 	\section pctvolpx Price Variant Percentage of Volume Strategy
@@ -404,6 +453,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp pctvolpx_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py pctvolpx
+			...
+			\snippet AvailableAlgoParams.py pctvolpx_params
+		</li>
 	</ul>
 	
 	\section pctvolsz Size Variant Percentage of Volume Strategy
@@ -452,6 +508,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp pctvolsz_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py pctvolsz
+			...
+			\snippet AvailableAlgoParams.py pctvolsz_params
+		</li>
 	</ul>
 	
 	\section pctvoltm Time Variant Percentage of Volume Strategy
@@ -499,6 +562,13 @@
 			\snippet TestCppClient.cpp pctvoltm
 			...
 			\snippet AvailableAlgoParams.cpp pctvoltm_params
+		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py pctvoltm
+			...
+			\snippet AvailableAlgoParams.py pctvoltm_params
 		</li>
 	</ul>
 		
@@ -557,6 +627,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp vwap_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py vwap
+			...
+			\snippet AvailableAlgoParams.py vwap_params
+		</li>
 	</ul>
 	
 	\section balanceimpact Balance Impact Risk
@@ -603,6 +680,13 @@
 			...
 			\snippet AvailableAlgoParams.cpp balanceimpactrisk_params
 		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py balanceimpactrisk
+			...
+			\snippet AvailableAlgoParams.py balanceimpactrisk_params
+		</li>
 	</ul>
 	
 	\section minimpact Minimise Impact
@@ -645,6 +729,13 @@
 			\snippet TestCppClient.cpp minimpact
 			...
 			\snippet AvailableAlgoParams.cpp minimpact_params
+		</li>
+		<li>
+			\snippet Program.py algo_base_order
+			...
+			\snippet Program.py minimpact
+			...
+			\snippet AvailableAlgoParams.py minimpact_params
 		</li>
 	</ul>
 	

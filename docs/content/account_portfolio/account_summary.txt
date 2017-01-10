@@ -20,6 +20,9 @@
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountsummary
 		</li>
+		<li>
+			\snippet Program.py reqaaccountsummary
+		</li>
 	</ul>
 	
 	Starting from TWS Build 956 and IB Gateway 956, we have added the function to request account summary data (including <i>CashBalance</i> and <i>TotalCashBalance</i>) for every
@@ -40,6 +43,9 @@
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountsummaryledger
 		</li>
+		<li>
+			\snippet Program.py reqaaccountsummaryledger
+		</li>
 	</ul>
 	
 	When the "$LEDGER:CURRENCY" tag is specified, the account summary data will be returned only in the CURRENCY specified. The CashBalance and TotalCashBalance returned are the balance in that specific currency only as you see within the TWS Account Window.
@@ -58,6 +64,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountsummaryledgercurrency
+		</li>
+		<li>
+			\snippet Program.py reqaaccountsummaryledgercurrency
 		</li>
 	</ul>
 	
@@ -81,6 +90,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp reqaaccountsummaryledgerall
+		</li>
+		<li>
+			\snippet Program.py reqaaccountsummaryledgerall
 		</li>
 	</ul>
 	
@@ -122,6 +134,13 @@
 			...
 			\snippet TestCppClient.cpp accountsummaryend
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py accountsummary
+			...
+			\snippet Program.py accountsummaryend
+		</li>
 	</ul>
 	
 	\section acct_summary_cancel Cancelling
@@ -140,6 +159,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp cancelaaccountsummary
+		</li>
+		<li>
+			\snippet Program.py cancelaaccountsummary
 		</li>
 	</ul>
 

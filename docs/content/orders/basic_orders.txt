@@ -22,6 +22,9 @@
 		<li> 
 			\snippet OrderSamples.cpp auction 
 		</li>
+		<li> 
+			\snippet OrderSamples.py auction 
+		</li>
 	</ul>
 
 	\section discretionary Discretionary
@@ -46,6 +49,9 @@
 		<li> 
 			\snippet OrderSamples.cpp discretionary 
 		</li>
+		<li> 
+			\snippet OrderSamples.py discretionary 
+		</li>
 	</ul>
 
 	\section market Market
@@ -69,6 +75,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp market 
+		</li>
+		<li> 
+			\snippet OrderSamples.py market 
 		</li>
 	</ul>
 	
@@ -98,6 +107,9 @@
 		<li> 
 			\snippet OrderSamples.cpp market_if_touched 
 		</li>
+		<li> 
+			\snippet OrderSamples.py market_if_touched 
+		</li>
 	</ul>
 	
 	\section market_on_close Market On Close
@@ -121,6 +133,9 @@
 		<li> 
 			\snippet OrderSamples.cpp market_on_close 
 		</li>
+		<li> 
+			\snippet OrderSamples.py market_on_close 
+		</li>
 	</ul>
 	
 	\section market_on_open Market On Open
@@ -143,6 +158,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp market_on_open 
+		</li>
+		<li> 
+			\snippet OrderSamples.py market_on_open 
 		</li>
 	</ul>
 	
@@ -169,6 +187,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp pegged_market 
+		</li>
+		<li> 
+			\snippet OrderSamples.py pegged_market 
 		</li>
 	</ul>
 	
@@ -197,6 +218,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp pegged_stock
+		</li>
+		<li> 
+			\snippet OrderSamples.py pegged_stock
 		</li>
 	</ul>
 	
@@ -228,6 +252,9 @@
 		<li> 
 			\snippet OrderSamples.cpp relative_pegged_primary
 		</li>
+		<li> 
+			\snippet OrderSamples.py relative_pegged_primary
+		</li>
 	</ul>
 	
 	\section sweep_to_fill Sweep to Fill
@@ -251,6 +278,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp sweep_to_fill 
+		</li>
+		<li> 
+			\snippet OrderSamples.py sweep_to_fill 
 		</li>
 	</ul>
 	
@@ -278,6 +308,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp auction_limit 
+		</li>
+		<li> 
+			\snippet OrderSamples.py auction_limit 
 		</li>
 	</ul>
 	
@@ -309,6 +342,9 @@
 		<li> 
 			\snippet OrderSamples.cpp  auction_pegged_stock
 		</li>
+		<li> 
+			\snippet OrderSamples.py  auction_pegged_stock
+		</li>
 	</ul>
 	
 	\section auction_relative Auction Relative
@@ -339,6 +375,9 @@
 		<li> 
 			\snippet OrderSamples.cpp auction_relative 
 		</li>
+		<li> 
+			\snippet OrderSamples.py auction_relative 
+		</li>
 	</ul>
 		
 	\section block Block
@@ -360,6 +399,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp  block
+		</li>
+		<li> 
+			\snippet OrderSamples.py  block
 		</li>
 	</ul>
 	
@@ -383,6 +425,9 @@
 		<li> 
 			\snippet OrderSamples.cpp  boxtop
 		</li>
+		<li> 
+			\snippet OrderSamples.py  boxtop
+		</li>
 	</ul>
 	
 	\section limitorder Limit Order
@@ -405,6 +450,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp  limitorder
+		</li>
+		<li> 
+			\snippet OrderSamples.py  limitorder
 		</li>
 	</ul>
 	
@@ -430,6 +478,9 @@
 		<li> 
 			\snippet OrderSamples.cpp limitiftouched
 		</li>
+		<li> 
+			\snippet OrderSamples.py limitiftouched
+		</li>
 	</ul>
 	
 	\section limitonclose Limit on Close
@@ -452,6 +503,9 @@
 		<li> 
 			\snippet OrderSamples.cpp limitonclose
 		</li>
+		<li> 
+			\snippet OrderSamples.py limitonclose
+		</li>
 	</ul>
 	
 	\section limitonopen Limit on Open
@@ -473,6 +527,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp limitonopen
+		</li>
+		<li> 
+			\snippet OrderSamples.py limitonopen
 		</li>
 	</ul>
 		
@@ -504,6 +561,9 @@
 		<li> 
 			\snippet OrderSamples.cpp passive_relative
 		</li>
+		<li> 
+			\snippet OrderSamples.py passive_relative
+		</li>
 	</ul>
 	
 	\section pegged_midpoint Pegged to Midpoint
@@ -527,6 +587,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp pegged_midpoint
+		</li>
+		<li> 
+			\snippet OrderSamples.py pegged_midpoint
 		</li>
 	</ul>
 	
@@ -552,6 +615,9 @@
 		<li> 
 			\snippet OrderSamples.cpp markettolimit
 		</li>
+		<li> 
+			\snippet OrderSamples.py markettolimit
+		</li>
 	</ul>
 	
 	\section marketwithprotection Market with Protection
@@ -576,6 +642,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp marketwithprotection
+		</li>
+		<li> 
+			\snippet OrderSamples.py marketwithprotection
 		</li>
 	</ul>
 	
@@ -603,6 +672,9 @@
 		<li> 
 			\snippet OrderSamples.cpp stop
 		</li>
+		<li> 
+			\snippet OrderSamples.py stop
+		</li>
 	</ul>
 	
 	\section stoplimit Stop Limit
@@ -626,6 +698,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp stoplimit
+		</li>
+		<li> 
+			\snippet OrderSamples.py stoplimit
 		</li>
 	</ul>
 	
@@ -652,6 +727,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp stopwithprotection
+		</li>
+		<li> 
+			\snippet OrderSamples.py stopwithprotection
 		</li>
 	</ul>
 	
@@ -680,6 +758,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp trailingstop
+		</li>
+		<li> 
+			\snippet OrderSamples.py trailingstop
 		</li>
 	</ul>
 	
@@ -710,6 +791,9 @@
 		<li> 
 			\snippet OrderSamples.cpp trailingstoplimit
 		</li>
+		<li> 
+			\snippet OrderSamples.py trailingstoplimit
+		</li>
 	</ul>
 	
 	\section combolimit Combo Limit
@@ -732,6 +816,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp combolimit
+		</li>
+		<li> 
+			\snippet OrderSamples.py combolimit
 		</li>
 	</ul>
 	
@@ -756,6 +843,9 @@
 		<li> 
 			\snippet OrderSamples.cpp combomarket
 		</li>
+		<li> 
+			\snippet OrderSamples.py combomarket
+		</li>
 	</ul>
 	
 	\section limitordercombolegprices Combo Limit with Price per Leg
@@ -778,6 +868,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp limitordercombolegprices
+		</li>
+		<li> 
+			\snippet OrderSamples.py limitordercombolegprices
 		</li>
 	</ul>
 	
@@ -802,6 +895,9 @@
 		<li> 
 			\snippet OrderSamples.cpp relativelimitcombo
 		</li>
+		<li> 
+			\snippet OrderSamples.py relativelimitcombo
+		</li>
 	</ul>
 	
 	\section relativemarketcombo Relative Market Combo
@@ -824,6 +920,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp relativemarketcombo
+		</li>
+		<li> 
+			\snippet OrderSamples.py relativemarketcombo
 		</li>
 	</ul>
 	
@@ -855,6 +954,9 @@
 		<li> 
 			\snippet OrderSamples.cpp volatility
 		</li>
+		<li> 
+			\snippet OrderSamples.py volatility
+		</li>
 	</ul>
 	
 	\section pegged_benchmark Pegged to Benchmark
@@ -878,6 +980,9 @@
 		</li>
 		<li> 
 			\snippet OrderSamples.cpp pegged_benchmark
+		</li>
+		<li> 
+			\snippet OrderSamples.py pegged_benchmark
 		</li>
 	</ul>
 	

@@ -29,6 +29,11 @@
 			...
 			\snippet TestCppClient.cpp reqcontractdetails
 		</li>
+		<li>
+			\snippet ContractSamples.py optionforquery
+			...
+			\snippet Program.py reqcontractdetails
+		</li>
 	</ul>
 	
 	\section broadtape_list  Obtaining BroadTape List of News
@@ -56,6 +61,11 @@
 			\snippet ContractSamples.cpp newsfeedforquery
 			...
 			\snippet TestCppClient.cpp reqcontractdetailsnews
+		</li>
+		<li>
+			\snippet ContractSamples.py newsfeedforquery
+			...
+			\snippet Program.py reqcontractdetailsnews
 		</li>
 	</ul>
 	
@@ -90,6 +100,13 @@
 			\snippet TestCppClient.cpp contractdetails
 			...
 			\snippet TestCppClient.cpp contractdetailsend
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py contractdetails
+			...
+			\snippet Program.py contractdetailsend
 		</li>
 	</ul>
 	

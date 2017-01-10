@@ -460,13 +460,9 @@ void TestCppClient::contractOperations()
 	m_pClient->reqContractDetails(211, ContractSamples::NewsFeedForQuery());
 	//! [reqcontractdetailsnews]
 
-	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(212, ContractSamples::IBMBond());
-	//! [reqcontractdetails]
 
-	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
-	//! [reqcontractdetails]
 
 	m_state = ST_CONTRACTOPERATION_ACK;
 }
@@ -950,9 +946,7 @@ void TestCppClient::reqNewsTicks()
 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 
-	//! [cancelmktdata]
 	m_pClient->cancelMktData(12001);
-	//! [cancelmktdata]
 
 	m_state = ST_REQNEWSTICKS_ACK;
 }

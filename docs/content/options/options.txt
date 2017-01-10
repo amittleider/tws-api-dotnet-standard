@@ -31,6 +31,11 @@
 			...
 			\snippet TestCppClient.cpp securityDefinitionOptionParameter
 		</li>
+		<li>
+			\snippet Program.py reqsecdefoptparams
+			...
+			\snippet Program.py securityDefinitionOptionParameter
+		</li>
 	</ul>
 	
 	

@@ -21,12 +21,17 @@
 		<li>
 		\snippet EWrapperImpl.vb ewrapperimpl
 		   ...
-		\snippet EWrapperImpl.vb error	
+		\snippet EWrapperImpl.vb errors	
 		</li>
 		<li>
 			\snippet TestCppClient.h ewrapperimpl
 			...
-			\snippet TestCppClient.cpp error	
+			\snippet TestCppClient.cpp error
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py error
 		</li>
 	</ul>
 	

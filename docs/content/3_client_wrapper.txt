@@ -21,6 +21,9 @@
 		<li>
 		\snippet TestCppClient.h ewrapperimpl
 		</li>
+		<li> 
+		\snippet Program.py ewrapperimpl
+		</li>
 	</ul>
 	
 	\section client_socket The EClientSocket class
@@ -50,6 +53,11 @@
 		\snippet TestCppClient.h socket_declare
 		...
 		\snippet TestCppClient.cpp socket_init
+		</li>
+		<li> 
+		\snippet Program.py socket_declare
+		...
+		\snippet Program.py socket_init
 		</li>
 	</ul>
 	

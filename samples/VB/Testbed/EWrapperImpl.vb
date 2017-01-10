@@ -113,11 +113,11 @@ Namespace Samples
         End Sub
         '! [displaygroupupdated]
 
-
+        '! [errors]
         Public Sub [error](id As Integer, errorCode As Integer, errorMsg As String) Implements IBApi.EWrapper.error
             Console.WriteLine("Error - Id [" & id & "] ErrorCode [" & errorCode & "] ErrorMsg [" & errorMsg & "]")
         End Sub
-
+        '! [errors]
 
         Public Sub [error](str As String) Implements IBApi.EWrapper.error
             Console.WriteLine("Error - Str [" & str & "]")
@@ -249,11 +249,11 @@ Namespace Samples
         End Sub
         '! [scannerdataend]
 
-        '! [scannerParameters]
+        '! [scannerparameters]
         Public Sub scannerParameters(xml As String) Implements IBApi.EWrapper.scannerParameters
             Console.WriteLine("ScannerParameters. " & xml & "\n")
         End Sub
-        '! [scannerParameters]
+        '! [scannerparameters]
 
         '! [tickEFP]
         Public Sub tickEFP(tickerId As Integer, tickType As Integer, basisPoints As Double, formattedBasisPoints As String, impliedFuture As Double, holdDays As Integer, futureLastTradeDate As String, dividendImpact As Double, dividendsToLastTradeDate As Double) Implements IBApi.EWrapper.tickEFP
