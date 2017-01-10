@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -68,6 +68,8 @@ enum State {
 	ST_SYMBOLSAMPLES_ACK,
 	ST_REQMKTDEPTHEXCHANGES,
 	ST_REQMKTDEPTHEXCHANGES_ACK,
+	ST_REQNEWSTICKS,
+	ST_REQNEWSTICKS_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -117,6 +119,7 @@ private:
 	void reqFamilyCodes();
 	void reqMatchingSymbols();
 	void reqMktDepthExchanges();
+	void reqNewsTicks();
 
 	void reqCurrentTime();
 
@@ -195,6 +198,7 @@ public:
 	void familyCodes(const std::vector<FamilyCode> &familyCodes);
 	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 	void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
+	void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
 
 private:
 	//! [socket_declare]

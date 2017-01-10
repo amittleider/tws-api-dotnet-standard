@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 
@@ -99,6 +99,7 @@ Friend Class MainForm
     Friend WithEvents cmdFamilyCodes As System.Windows.Forms.Button
     Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
     Friend WithEvents cmdReqMktDepthExchanges As System.Windows.Forms.Button
+    Friend WithEvents cmdReqNewsTicks As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -158,6 +159,7 @@ Friend Class MainForm
         Me.cmdFamilyCodes = New System.Windows.Forms.Button()
         Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
         Me.cmdReqMktDepthExchanges = New System.Windows.Forms.Button()
+        Me.cmdReqNewsTicks = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -306,11 +308,11 @@ Friend Class MainForm
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(224, 639)
+        Me.cmdClearForm.Location = New System.Drawing.Point(224, 697)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 54
+        Me.cmdClearForm.TabIndex = 56
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -320,11 +322,11 @@ Friend Class MainForm
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(320, 639)
+        Me.cmdClose.Location = New System.Drawing.Point(320, 697)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 55
+        Me.cmdClose.TabIndex = 57
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -481,7 +483,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 168)
-        Me.lstErrors.TabIndex = 53
+        Me.lstErrors.TabIndex = 55
         '
         'lstServerResponses
         '
@@ -496,7 +498,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
-        Me.lstServerResponses.TabIndex = 51
+        Me.lstServerResponses.TabIndex = 53
         '
         'lstMktData
         '
@@ -511,7 +513,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 168)
-        Me.lstMktData.TabIndex = 49
+        Me.lstMktData.TabIndex = 51
         '
         'Label3
         '
@@ -523,7 +525,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 52
+        Me.Label3.TabIndex = 54
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -536,7 +538,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 50
+        Me.Label2.TabIndex = 52
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -549,7 +551,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 48
+        Me.Label1.TabIndex = 50
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -853,11 +855,21 @@ Friend Class MainForm
         Me.cmdReqMktDepthExchanges.Text = "Req Mkt Depth Exch"
         Me.cmdReqMktDepthExchanges.UseVisualStyleBackColor = True
         '
+        'cmdReqNewsTicks
+        '
+        Me.cmdReqNewsTicks.Location = New System.Drawing.Point(685, 641)
+        Me.cmdReqNewsTicks.Name = "cmdReqNewsTicks"
+        Me.cmdReqNewsTicks.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNewsTicks.TabIndex = 49
+        Me.cmdReqNewsTicks.Text = "Req News Ticks"
+        Me.cmdReqNewsTicks.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(823, 683)
+        Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqNewsTicks)
         Me.Controls.Add(Me.cmdReqMktDepthExchanges)
         Me.Controls.Add(Me.cmdFamilyCodes)
         Me.Controls.Add(Me.cmdReqMatchingSymbols)
@@ -1683,10 +1695,16 @@ Friend Class MainForm
         End If
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Request Family Codes
+    '--------------------------------------------------------------------------------
     Private Sub cmdFamilyCodes_Click(sender As Object, e As EventArgs) Handles cmdFamilyCodes.Click
         m_api.reqFamilyCodes()
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Request Matching Symbols
+    '--------------------------------------------------------------------------------
     Private Sub cmdReqMatchingSymbols_Click(sender As Object, e As EventArgs) Handles cmdReqMatchingSymbols.Click
         ' Set the dialog state
         m_dlgOrder.init(dlgOrder.DialogType.RequestMatchingSymbols,
@@ -1696,6 +1714,24 @@ Friend Class MainForm
 
         If m_dlgOrder.ok Then
             m_api.reqMatchingSymbols(m_dlgOrder.orderId, m_contractInfo.Symbol)
+        End If
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Request News Ticks
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqNewsTicks_Click(sender As Object, e As EventArgs) Handles cmdReqNewsTicks.Click
+        ' Set the dialog state
+        m_dlgOrder.init(dlgOrder.DialogType.RequestMarketData,
+            m_contractInfo, m_orderInfo, m_underComp, m_mktDataOptions, Me)
+
+        m_dlgOrder.ShowDialog()
+
+        m_mktDataOptions = m_dlgOrder.options
+
+        If m_dlgOrder.ok Then
+            m_api.reqMktData(m_dlgOrder.orderId, m_contractInfo,
+                    "mdoff,292", False, m_mktDataOptions)
         End If
     End Sub
 
@@ -2674,6 +2710,9 @@ Friend Class MainForm
         m_api.startApi()
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Security Definition Option Parameter
+    '--------------------------------------------------------------------------------
     Private Sub Api_SecurityDefinitionOptionParameter(sender As Object, e As SecurityDefinitionOptionParameterEventArgs) Handles m_apiEvents.SecurityDefinitionOptionParameter
         Dim displayString = String.Format("reqId: {0}, exchange {1}, underlyingConId: {2}, tradingClass: {3}, multiplier: {4}, expirations: {5}, strikes: {6}",
             e.reqId,
@@ -2690,6 +2729,9 @@ Friend Class MainForm
         lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Family Codes
+    '--------------------------------------------------------------------------------
     Private Sub Api_FamilyCodes(sender As Object, e As FamilyCodesEventArgs) Handles m_apiEvents.FamilyCodes
         Dim offset = lstServerResponses.Items.Count
 
@@ -2705,6 +2747,9 @@ Friend Class MainForm
         lstServerResponses.TopIndex = offset
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Symbol Samples
+    '--------------------------------------------------------------------------------
     Private Sub Api_SymbolSamples(sender As Object, e As SymbolSamplesEventArgs) Handles m_apiEvents.SymbolSamples
         Dim offset = lstServerResponses.Items.Count
 
@@ -2734,6 +2779,9 @@ Friend Class MainForm
         lstServerResponses.TopIndex = offset
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Bond Contract Details
+    '--------------------------------------------------------------------------------
     Private Sub Api_BondContractDetails(sender As Object, e As BondContractDetailsEventArgs) Handles m_apiEvents.BondContractDetails
         Dim offset = lstServerResponses.Items.Count
 
@@ -2793,6 +2841,9 @@ Friend Class MainForm
         lstServerResponses.TopIndex = offset
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Market Depth Exchanges
+    '--------------------------------------------------------------------------------
     Private Sub Api_MktDepthExchanges(sender As Object, e As MktDepthExchangesEventArgs) Handles m_apiEvents.MktDepthExchanges
         Dim offset As Long
         offset = lstServerResponses.Items.Count
@@ -2804,6 +2855,25 @@ Friend Class MainForm
             count += 1
         Next
         m_utils.addListItem(Utils.ListType.ServerResponses, " ==== Market Depth Exchanges End (total=" & e.depthMktDataDescriptions.Length & ") ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Tick News
+    '--------------------------------------------------------------------------------
+    Private Sub Api_TickNews(sender As Object, e As TickNewsEventArgs) Handles m_apiEvents.TickNews
+        Dim offset = lstServerResponses.Items.Count
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Tick News Begin ----")
+        m_utils.addListItem(Utils.ListType.ServerResponses, "tickerId=" & e.tickerId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "timeStamp=" & Utils.UnixMillisecondsToString(e.timeStamp, "yyyy-MM-dd HH:mm:ss zzz"))
+        m_utils.addListItem(Utils.ListType.ServerResponses, "providerCode=" & e.providerCode)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "articleId=" & e.articleId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "headline=" & e.headline)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "extraData=" & e.extraData)
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Tick News End ----")
 
         ' move into view
         lstServerResponses.TopIndex = offset

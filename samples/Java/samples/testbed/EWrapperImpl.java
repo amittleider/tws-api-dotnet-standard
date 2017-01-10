@@ -502,4 +502,11 @@ public class EWrapperImpl implements EWrapper {
 		}
 	}
 	//! [mktDepthExchanges]
+
+	//! [tickNews]
+	@Override
+	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+		System.out.println("Tick News. TickerId: " + tickerId + ", TimeStamp: " + timeStamp + ", ProviderCode: " + providerCode + ", ArticleId: " + articleId + ", Headline: " + headline + ", ExtraData: " + extraData + "\n");
+	}
+	//! [tickNews]
 }

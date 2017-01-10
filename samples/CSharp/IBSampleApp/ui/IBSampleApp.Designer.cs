@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -457,6 +457,31 @@ namespace IBSampleApp
             this.labelModelCode = new System.Windows.Forms.Label();
             this.textAccount = new System.Windows.Forms.TextBox();
             this.textModelCode = new System.Windows.Forms.TextBox();
+            this.newsTab = new System.Windows.Forms.TabPage();
+            this.tabControlNewsResults = new System.Windows.Forms.TabControl();
+            this.tabPageTickNewsResults = new System.Windows.Forms.TabPage();
+            this.dataGridViewNewsTicks = new System.Windows.Forms.DataGridView();
+            this.dataGridViewNewsTicksTimeStamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewNewsTicksProviderCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewNewsTicksArticleId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewHeadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewNewsTicksExtraData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkLabelNewsTicksClear = new System.Windows.Forms.LinkLabel();
+            this.tabControlNews = new System.Windows.Forms.TabControl();
+            this.tabPageTickNews = new System.Windows.Forms.TabPage();
+            this.groupBoxNewsTicks = new System.Windows.Forms.GroupBox();
+            this.buttonCancelNewsTicks = new System.Windows.Forms.Button();
+            this.textBoxNewsTicksPrimExchange = new System.Windows.Forms.TextBox();
+            this.labelNewsTicksPrimExchange = new System.Windows.Forms.Label();
+            this.buttonReqNewsTicks = new System.Windows.Forms.Button();
+            this.labelNewsTicksSymbol = new System.Windows.Forms.Label();
+            this.comboBoxNewsTicksSecType = new System.Windows.Forms.ComboBox();
+            this.labelNewsTicksSecType = new System.Windows.Forms.Label();
+            this.labelNewsTicksExchange = new System.Windows.Forms.Label();
+            this.textBoxNewsTicksExchange = new System.Windows.Forms.TextBox();
+            this.labelNewsTicksCurrency = new System.Windows.Forms.Label();
+            this.textBoxNewsTicksCurrency = new System.Windows.Forms.TextBox();
+            this.textBoxNewsTicksSymbol = new System.Windows.Forms.TextBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -595,6 +620,13 @@ namespace IBSampleApp
             this.tabAccountUpdatesMulti.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).BeginInit();
             this.groupBoxRequestData.SuspendLayout();
+            this.newsTab.SuspendLayout();
+            this.tabControlNewsResults.SuspendLayout();
+            this.tabPageTickNewsResults.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsTicks)).BeginInit();
+            this.tabControlNews.SuspendLayout();
+            this.tabPageTickNews.SuspendLayout();
+            this.groupBoxNewsTicks.SuspendLayout();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -617,6 +649,7 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.advisorTab);
             this.TabControl.Controls.Add(this.optionsTab);
             this.TabControl.Controls.Add(this.acctPosTab);
+            this.TabControl.Controls.Add(this.newsTab);
             this.TabControl.Location = new System.Drawing.Point(0, 68);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
@@ -829,14 +862,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -982,27 +1015,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea7.AxisX.MajorGrid.Enabled = false;
-            chartArea7.AxisX.MajorTickMark.Enabled = false;
-            chartArea7.AxisY.IsStartedFromZero = false;
-            chartArea7.Name = "ChartArea1";
-            chartArea7.Position.Auto = false;
-            chartArea7.Position.Height = 100F;
-            chartArea7.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend7);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series7.IsVisibleInLegend = false;
-            series7.IsXValueIndexed = true;
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series7.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series7);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
             this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -1109,26 +1142,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea8.AxisX.MajorGrid.Enabled = false;
-            chartArea8.AxisX.MajorTickMark.Enabled = false;
-            chartArea8.AxisY.IsStartedFromZero = false;
-            chartArea8.Name = "ChartArea1";
-            chartArea8.Position.Auto = false;
-            chartArea8.Position.Height = 100F;
-            chartArea8.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend8);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend2);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series8.IsVisibleInLegend = false;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series8.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series8);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series2);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -4608,6 +4641,265 @@ namespace IBSampleApp
             this.textModelCode.Size = new System.Drawing.Size(100, 20);
             this.textModelCode.TabIndex = 3;
             // 
+            // newsTab
+            // 
+            this.newsTab.BackColor = System.Drawing.Color.LightGray;
+            this.newsTab.Controls.Add(this.tabControlNewsResults);
+            this.newsTab.Controls.Add(this.tabControlNews);
+            this.newsTab.Location = new System.Drawing.Point(4, 22);
+            this.newsTab.Name = "newsTab";
+            this.newsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.newsTab.Size = new System.Drawing.Size(1248, 448);
+            this.newsTab.TabIndex = 9;
+            this.newsTab.Text = "News";
+            // 
+            // tabControlNewsResults
+            // 
+            this.tabControlNewsResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlNewsResults.Controls.Add(this.tabPageTickNewsResults);
+            this.tabControlNewsResults.Location = new System.Drawing.Point(0, 207);
+            this.tabControlNewsResults.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControlNewsResults.Name = "tabControlNewsResults";
+            this.tabControlNewsResults.SelectedIndex = 0;
+            this.tabControlNewsResults.Size = new System.Drawing.Size(1242, 235);
+            this.tabControlNewsResults.TabIndex = 2;
+            // 
+            // tabPageTickNewsResults
+            // 
+            this.tabPageTickNewsResults.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageTickNewsResults.Controls.Add(this.dataGridViewNewsTicks);
+            this.tabPageTickNewsResults.Controls.Add(this.linkLabelNewsTicksClear);
+            this.tabPageTickNewsResults.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTickNewsResults.Name = "tabPageTickNewsResults";
+            this.tabPageTickNewsResults.Size = new System.Drawing.Size(1234, 209);
+            this.tabPageTickNewsResults.TabIndex = 2;
+            this.tabPageTickNewsResults.Text = "News Ticks";
+            // 
+            // dataGridViewNewsTicks
+            // 
+            this.dataGridViewNewsTicks.AllowUserToAddRows = false;
+            this.dataGridViewNewsTicks.AllowUserToDeleteRows = false;
+            this.dataGridViewNewsTicks.AllowUserToOrderColumns = true;
+            this.dataGridViewNewsTicks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewNewsTicks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewNewsTicks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewNewsTicksTimeStamp,
+            this.dataGridViewNewsTicksProviderCode,
+            this.dataGridViewNewsTicksArticleId,
+            this.dataGridViewHeadline,
+            this.dataGridViewNewsTicksExtraData});
+            this.dataGridViewNewsTicks.Location = new System.Drawing.Point(4, 20);
+            this.dataGridViewNewsTicks.Name = "dataGridViewNewsTicks";
+            this.dataGridViewNewsTicks.ReadOnly = true;
+            this.dataGridViewNewsTicks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewNewsTicks.Size = new System.Drawing.Size(1225, 184);
+            this.dataGridViewNewsTicks.TabIndex = 3;
+            this.dataGridViewNewsTicks.Visible = false;
+            // 
+            // dataGridViewNewsTicksTimeStamp
+            // 
+            this.dataGridViewNewsTicksTimeStamp.HeaderText = "Time Stamp";
+            this.dataGridViewNewsTicksTimeStamp.Name = "dataGridViewNewsTicksTimeStamp";
+            this.dataGridViewNewsTicksTimeStamp.ReadOnly = true;
+            this.dataGridViewNewsTicksTimeStamp.Width = 150;
+            // 
+            // dataGridViewNewsTicksProviderCode
+            // 
+            this.dataGridViewNewsTicksProviderCode.HeaderText = "Provider Code";
+            this.dataGridViewNewsTicksProviderCode.Name = "dataGridViewNewsTicksProviderCode";
+            this.dataGridViewNewsTicksProviderCode.ReadOnly = true;
+            // 
+            // dataGridViewNewsTicksArticleId
+            // 
+            this.dataGridViewNewsTicksArticleId.HeaderText = "Article Id";
+            this.dataGridViewNewsTicksArticleId.Name = "dataGridViewNewsTicksArticleId";
+            this.dataGridViewNewsTicksArticleId.ReadOnly = true;
+            this.dataGridViewNewsTicksArticleId.Width = 120;
+            // 
+            // dataGridViewHeadline
+            // 
+            this.dataGridViewHeadline.HeaderText = "Headline";
+            this.dataGridViewHeadline.Name = "dataGridViewHeadline";
+            this.dataGridViewHeadline.ReadOnly = true;
+            this.dataGridViewHeadline.Width = 700;
+            // 
+            // dataGridViewNewsTicksExtraData
+            // 
+            this.dataGridViewNewsTicksExtraData.HeaderText = "Extra Data";
+            this.dataGridViewNewsTicksExtraData.Name = "dataGridViewNewsTicksExtraData";
+            this.dataGridViewNewsTicksExtraData.ReadOnly = true;
+            // 
+            // linkLabelNewsTicksClear
+            // 
+            this.linkLabelNewsTicksClear.AutoSize = true;
+            this.linkLabelNewsTicksClear.Location = new System.Drawing.Point(3, 4);
+            this.linkLabelNewsTicksClear.Name = "linkLabelNewsTicksClear";
+            this.linkLabelNewsTicksClear.Size = new System.Drawing.Size(31, 13);
+            this.linkLabelNewsTicksClear.TabIndex = 2;
+            this.linkLabelNewsTicksClear.TabStop = true;
+            this.linkLabelNewsTicksClear.Text = "Clear";
+            this.linkLabelNewsTicksClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelNewsTicksClear_LinkClicked);
+            // 
+            // tabControlNews
+            // 
+            this.tabControlNews.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlNews.Controls.Add(this.tabPageTickNews);
+            this.tabControlNews.Location = new System.Drawing.Point(0, 0);
+            this.tabControlNews.Name = "tabControlNews";
+            this.tabControlNews.SelectedIndex = 0;
+            this.tabControlNews.Size = new System.Drawing.Size(1238, 208);
+            this.tabControlNews.TabIndex = 1;
+            // 
+            // tabPageTickNews
+            // 
+            this.tabPageTickNews.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageTickNews.Controls.Add(this.groupBoxNewsTicks);
+            this.tabPageTickNews.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTickNews.Name = "tabPageTickNews";
+            this.tabPageTickNews.Size = new System.Drawing.Size(1230, 182);
+            this.tabPageTickNews.TabIndex = 2;
+            this.tabPageTickNews.Text = "News Ticks";
+            // 
+            // groupBoxNewsTicks
+            // 
+            this.groupBoxNewsTicks.Controls.Add(this.buttonCancelNewsTicks);
+            this.groupBoxNewsTicks.Controls.Add(this.textBoxNewsTicksPrimExchange);
+            this.groupBoxNewsTicks.Controls.Add(this.labelNewsTicksPrimExchange);
+            this.groupBoxNewsTicks.Controls.Add(this.buttonReqNewsTicks);
+            this.groupBoxNewsTicks.Controls.Add(this.labelNewsTicksSymbol);
+            this.groupBoxNewsTicks.Controls.Add(this.comboBoxNewsTicksSecType);
+            this.groupBoxNewsTicks.Controls.Add(this.labelNewsTicksSecType);
+            this.groupBoxNewsTicks.Controls.Add(this.labelNewsTicksExchange);
+            this.groupBoxNewsTicks.Controls.Add(this.textBoxNewsTicksExchange);
+            this.groupBoxNewsTicks.Controls.Add(this.labelNewsTicksCurrency);
+            this.groupBoxNewsTicks.Controls.Add(this.textBoxNewsTicksCurrency);
+            this.groupBoxNewsTicks.Controls.Add(this.textBoxNewsTicksSymbol);
+            this.groupBoxNewsTicks.Location = new System.Drawing.Point(0, 3);
+            this.groupBoxNewsTicks.Name = "groupBoxNewsTicks";
+            this.groupBoxNewsTicks.Size = new System.Drawing.Size(317, 156);
+            this.groupBoxNewsTicks.TabIndex = 34;
+            this.groupBoxNewsTicks.TabStop = false;
+            this.groupBoxNewsTicks.Text = "Contract Details";
+            // 
+            // buttonCancelNewsTicks
+            // 
+            this.buttonCancelNewsTicks.Location = new System.Drawing.Point(192, 99);
+            this.buttonCancelNewsTicks.Name = "buttonCancelNewsTicks";
+            this.buttonCancelNewsTicks.Size = new System.Drawing.Size(114, 23);
+            this.buttonCancelNewsTicks.TabIndex = 37;
+            this.buttonCancelNewsTicks.Text = "Cancel News Ticks";
+            this.informationTooltip.SetToolTip(this.buttonCancelNewsTicks, "Looks for all contracts matching the description provided.");
+            this.buttonCancelNewsTicks.UseMnemonic = false;
+            this.buttonCancelNewsTicks.UseVisualStyleBackColor = true;
+            this.buttonCancelNewsTicks.Click += new System.EventHandler(this.buttonCancelNewsTicks_Click);
+            // 
+            // textBoxNewsTicksPrimExchange
+            // 
+            this.textBoxNewsTicksPrimExchange.Location = new System.Drawing.Point(86, 120);
+            this.textBoxNewsTicksPrimExchange.Name = "textBoxNewsTicksPrimExchange";
+            this.textBoxNewsTicksPrimExchange.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNewsTicksPrimExchange.TabIndex = 36;
+            // 
+            // labelNewsTicksPrimExchange
+            // 
+            this.labelNewsTicksPrimExchange.AutoSize = true;
+            this.labelNewsTicksPrimExchange.Location = new System.Drawing.Point(22, 127);
+            this.labelNewsTicksPrimExchange.Name = "labelNewsTicksPrimExchange";
+            this.labelNewsTicksPrimExchange.Size = new System.Drawing.Size(54, 13);
+            this.labelNewsTicksPrimExchange.TabIndex = 35;
+            this.labelNewsTicksPrimExchange.Text = "Prim Exch";
+            // 
+            // buttonReqNewsTicks
+            // 
+            this.buttonReqNewsTicks.Location = new System.Drawing.Point(192, 70);
+            this.buttonReqNewsTicks.Name = "buttonReqNewsTicks";
+            this.buttonReqNewsTicks.Size = new System.Drawing.Size(114, 23);
+            this.buttonReqNewsTicks.TabIndex = 34;
+            this.buttonReqNewsTicks.Text = "Req News Ticks";
+            this.informationTooltip.SetToolTip(this.buttonReqNewsTicks, "Looks for all contracts matching the description provided.");
+            this.buttonReqNewsTicks.UseMnemonic = false;
+            this.buttonReqNewsTicks.UseVisualStyleBackColor = true;
+            this.buttonReqNewsTicks.Click += new System.EventHandler(this.buttonReqNewsTicks_Click);
+            // 
+            // labelNewsTicksSymbol
+            // 
+            this.labelNewsTicksSymbol.AutoSize = true;
+            this.labelNewsTicksSymbol.Location = new System.Drawing.Point(22, 23);
+            this.labelNewsTicksSymbol.Name = "labelNewsTicksSymbol";
+            this.labelNewsTicksSymbol.Size = new System.Drawing.Size(41, 13);
+            this.labelNewsTicksSymbol.TabIndex = 17;
+            this.labelNewsTicksSymbol.Text = "Symbol";
+            // 
+            // comboBoxNewsTicksSecType
+            // 
+            this.comboBoxNewsTicksSecType.FormattingEnabled = true;
+            this.comboBoxNewsTicksSecType.Items.AddRange(new object[] {
+            "STK",
+            "CASH",
+            "IND",
+            "NEWS"});
+            this.comboBoxNewsTicksSecType.Location = new System.Drawing.Point(86, 44);
+            this.comboBoxNewsTicksSecType.Name = "comboBoxNewsTicksSecType";
+            this.comboBoxNewsTicksSecType.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxNewsTicksSecType.TabIndex = 18;
+            this.comboBoxNewsTicksSecType.Text = "STK";
+            // 
+            // labelNewsTicksSecType
+            // 
+            this.labelNewsTicksSecType.AutoSize = true;
+            this.labelNewsTicksSecType.Location = new System.Drawing.Point(22, 49);
+            this.labelNewsTicksSecType.Name = "labelNewsTicksSecType";
+            this.labelNewsTicksSecType.Size = new System.Drawing.Size(50, 13);
+            this.labelNewsTicksSecType.TabIndex = 19;
+            this.labelNewsTicksSecType.Text = "SecType";
+            // 
+            // labelNewsTicksExchange
+            // 
+            this.labelNewsTicksExchange.AutoSize = true;
+            this.labelNewsTicksExchange.Location = new System.Drawing.Point(22, 101);
+            this.labelNewsTicksExchange.Name = "labelNewsTicksExchange";
+            this.labelNewsTicksExchange.Size = new System.Drawing.Size(55, 13);
+            this.labelNewsTicksExchange.TabIndex = 23;
+            this.labelNewsTicksExchange.Text = "Exchange";
+            // 
+            // textBoxNewsTicksExchange
+            // 
+            this.textBoxNewsTicksExchange.Location = new System.Drawing.Point(86, 95);
+            this.textBoxNewsTicksExchange.Name = "textBoxNewsTicksExchange";
+            this.textBoxNewsTicksExchange.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNewsTicksExchange.TabIndex = 27;
+            this.textBoxNewsTicksExchange.Text = "SMART";
+            // 
+            // labelNewsTicksCurrency
+            // 
+            this.labelNewsTicksCurrency.AutoSize = true;
+            this.labelNewsTicksCurrency.Location = new System.Drawing.Point(22, 75);
+            this.labelNewsTicksCurrency.Name = "labelNewsTicksCurrency";
+            this.labelNewsTicksCurrency.Size = new System.Drawing.Size(49, 13);
+            this.labelNewsTicksCurrency.TabIndex = 24;
+            this.labelNewsTicksCurrency.Text = "Currency";
+            // 
+            // textBoxNewsTicksCurrency
+            // 
+            this.textBoxNewsTicksCurrency.Location = new System.Drawing.Point(86, 70);
+            this.textBoxNewsTicksCurrency.Name = "textBoxNewsTicksCurrency";
+            this.textBoxNewsTicksCurrency.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNewsTicksCurrency.TabIndex = 26;
+            this.textBoxNewsTicksCurrency.Text = "USD";
+            // 
+            // textBoxNewsTicksSymbol
+            // 
+            this.textBoxNewsTicksSymbol.Location = new System.Drawing.Point(86, 19);
+            this.textBoxNewsTicksSymbol.Name = "textBoxNewsTicksSymbol";
+            this.textBoxNewsTicksSymbol.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNewsTicksSymbol.TabIndex = 16;
+            this.textBoxNewsTicksSymbol.Text = "IBKR";
+            // 
             // connectButton
             // 
             this.connectButton.Location = new System.Drawing.Point(1181, 12);
@@ -5312,6 +5604,15 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.accountUpdatesMultiGrid)).EndInit();
             this.groupBoxRequestData.ResumeLayout(false);
             this.groupBoxRequestData.PerformLayout();
+            this.newsTab.ResumeLayout(false);
+            this.tabControlNewsResults.ResumeLayout(false);
+            this.tabPageTickNewsResults.ResumeLayout(false);
+            this.tabPageTickNewsResults.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsTicks)).EndInit();
+            this.tabControlNews.ResumeLayout(false);
+            this.tabPageTickNews.ResumeLayout(false);
+            this.groupBoxNewsTicks.ResumeLayout(false);
+            this.groupBoxNewsTicks.PerformLayout();
             this.comboTab.ResumeLayout(false);
             this.comboDeltaNeutralBox.ResumeLayout(false);
             this.comboDeltaNeutralBox.PerformLayout();
@@ -5800,6 +6101,31 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn openTickerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn highTickerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lowTickerColumn;
+        private System.Windows.Forms.TabPage newsTab;
+        private System.Windows.Forms.TabControl tabControlNews;
+        private System.Windows.Forms.TabControl tabControlNewsResults;
+        private System.Windows.Forms.TabPage tabPageTickNews;
+        private System.Windows.Forms.GroupBox groupBoxNewsTicks;
+        private System.Windows.Forms.TextBox textBoxNewsTicksPrimExchange;
+        private System.Windows.Forms.Label labelNewsTicksPrimExchange;
+        private System.Windows.Forms.Button buttonReqNewsTicks;
+        private System.Windows.Forms.Label labelNewsTicksSymbol;
+        private System.Windows.Forms.ComboBox comboBoxNewsTicksSecType;
+        private System.Windows.Forms.Label labelNewsTicksSecType;
+        private System.Windows.Forms.Label labelNewsTicksExchange;
+        private System.Windows.Forms.TextBox textBoxNewsTicksExchange;
+        private System.Windows.Forms.Label labelNewsTicksCurrency;
+        private System.Windows.Forms.TextBox textBoxNewsTicksCurrency;
+        private System.Windows.Forms.TextBox textBoxNewsTicksSymbol;
+        private System.Windows.Forms.TabPage tabPageTickNewsResults;
+        private System.Windows.Forms.DataGridView dataGridViewNewsTicks;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksTimeStamp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksProviderCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksArticleId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewHeadline;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksExtraData;
+        private System.Windows.Forms.LinkLabel linkLabelNewsTicksClear;
+        private System.Windows.Forms.Button buttonCancelNewsTicks;
     }
 }
 

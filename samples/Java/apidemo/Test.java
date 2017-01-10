@@ -309,4 +309,10 @@ public class Test implements EWrapper {
 	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 		System.out.println(EWrapperMsgGenerator.mktDepthExchanges(depthMktDataDescriptions));
 	}
+
+	@Override
+	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline,
+			String extraData) {
+		System.out.println(EWrapperMsgGenerator.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData));
+	}
 }

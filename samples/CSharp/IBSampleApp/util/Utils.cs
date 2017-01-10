@@ -8,6 +8,11 @@ namespace IBSampleApp.util
 {
     public class Utils
     {
+        public static string UnixMillisecondsToString(long milliseconds, string dateFormat)
+        {
+            return String.Format("{0:" + dateFormat + "}", DateTime.SpecifyKind(new DateTime(1970, 1, 1), DateTimeKind.Utc).AddMilliseconds(milliseconds));
+        }
+
         public static string ContractToString(Contract contract)
         {
             return contract.Symbol + " " + contract.SecType + " " + contract.Currency + " @ " + contract.Exchange;

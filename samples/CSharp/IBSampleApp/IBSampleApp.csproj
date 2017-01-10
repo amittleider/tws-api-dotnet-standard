@@ -64,6 +64,7 @@
     <Compile Include="messages\AccountUpdateMultiMessage.cs" />
     <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
     <Compile Include="messages\BondContractDetailsMessage.cs" />
+    <Compile Include="messages\TickNewsMessage.cs" />
     <Compile Include="messages\MarketDataTypeMessage.cs" />
     <Compile Include="messages\FamilyCodesMessage.cs" />
     <Compile Include="messages\MktDepthExchangesMessage.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="ui\ContractSearchDialog.Designer.cs">
       <DependentUpon>ContractSearchDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\NewsManager.cs" />
     <Compile Include="ui\SymbolSamplesManager.cs" />
     <Compile Include="ui\MarginDialog.cs">
       <SubType>Form</SubType>

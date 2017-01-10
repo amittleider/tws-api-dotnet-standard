@@ -729,5 +729,16 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(depthMktDataDescriptions);
         }
+
+        public event Action<int, long, string, string, string, string> TickNews;
+
+        void EWrapper.tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
+        {
+            var tmp = TickNews;
+
+            if (tmp != null)
+                tmp(tickerId, timeStamp, providerCode, articleId, headline, extraData);
+        }
+
     }
 }

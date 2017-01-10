@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -1780,6 +1780,27 @@ const char* EDecoder::processMktDepthExchangesMsg(const char* ptr, const char* e
 	return ptr;
 }
 
+const char* EDecoder::processTickNewsMsg(const char* ptr, const char* endPtr) 
+{
+	int tickerId;
+	time_t timeStamp;
+	std::string providerCode;
+	std::string articleId;
+	std::string headline;
+	std::string extraData;
+
+	DECODE_FIELD( tickerId);
+	DECODE_FIELD( timeStamp);
+	DECODE_FIELD( providerCode);
+	DECODE_FIELD( articleId);
+	DECODE_FIELD( headline);
+	DECODE_FIELD( extraData);
+
+	m_pEWrapper->tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2076,6 +2097,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processMktDepthExchangesMsg(ptr, endPtr);
 			break;
 
+		case TICK_NEWS:
+			ptr = processTickNewsMsg(ptr, endPtr);
+			break;
+
         default:
             {
                 m_pEWrapper->error( msgId, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
@@ -2127,6 +2152,19 @@ bool EDecoder::DecodeField(int& intValue, const char*& ptr, const char* endPtr)
     if( !fieldEnd)
         return false;
     intValue = atoi(fieldBeg);
+    ptr = ++fieldEnd;
+    return true;
+}
+
+bool EDecoder::DecodeField(time_t& time_tValue, const char*& ptr, const char* endPtr)
+{
+    if( !CheckOffset(ptr, endPtr))
+        return false;
+    const char* fieldBeg = ptr;
+    const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
+    if( !fieldEnd)
+        return false;
+    time_tValue = _atoi64(fieldBeg);
     ptr = ++fieldEnd;
     return true;
 }

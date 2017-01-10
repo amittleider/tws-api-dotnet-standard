@@ -232,9 +232,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_MD_SIZE_MULTIPLIER = 110;
     protected static final int MIN_SERVER_VER_CASH_QTY = 111;
     protected static final int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
+    protected static final int MIN_SERVER_VER_TICK_NEWS = 113;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_TICK_NEWS; // ditto
 
 
     protected EReaderSignal m_signal;

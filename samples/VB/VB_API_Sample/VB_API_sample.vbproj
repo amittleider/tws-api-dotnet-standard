@@ -171,6 +171,7 @@
     <Compile Include="EventArgs\CommissionReportEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEndEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\TickNewsEventArgs.vb" />
     <Compile Include="EventArgs\CurrentTimeEventArgs.vb" />
     <Compile Include="EventArgs\DeltaNeutralValidationEventArgs.vb" />
     <Compile Include="EventArgs\DisplayGroupListEventArgs.vb" />

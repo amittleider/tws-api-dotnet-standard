@@ -58,6 +58,7 @@ namespace IBSampleApp
         FamilyCodes = 78,
         SymbolSamples = 79,
         MktDepthExchanges = 80,
+        TickNews = 84,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one
         HistoricalDataEnd = -HistoricalData,

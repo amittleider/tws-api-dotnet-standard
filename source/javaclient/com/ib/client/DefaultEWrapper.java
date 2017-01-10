@@ -395,4 +395,10 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+		// TODO Auto-generated method stub
+		
+	}
 }
