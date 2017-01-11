@@ -16,7 +16,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #define IB_WIN32
-
+#define atoll _atoi64
 #else
 
 #include <unistd.h> // defines _POSIX_THREADS, @see http://bit.ly/1pWJ8KQ#tag_13_80_03_02
