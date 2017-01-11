@@ -1790,7 +1790,7 @@ const char* EDecoder::processTickNewsMsg(const char* ptr, const char* endPtr)
 	std::string extraData;
 
 	DECODE_FIELD( tickerId);
-	DECODE_FIELD( timeStamp);
+	DECODE_FIELD_TIME( timeStamp);
 	DECODE_FIELD( providerCode);
 	DECODE_FIELD( articleId);
 	DECODE_FIELD( headline);
@@ -2156,7 +2156,7 @@ bool EDecoder::DecodeField(int& intValue, const char*& ptr, const char* endPtr)
     return true;
 }
 
-bool EDecoder::DecodeField(time_t& time_tValue, const char*& ptr, const char* endPtr)
+bool EDecoder::DecodeFieldTime(time_t& time_tValue, const char*& ptr, const char* endPtr)
 {
     if( !CheckOffset(ptr, endPtr))
         return false;
