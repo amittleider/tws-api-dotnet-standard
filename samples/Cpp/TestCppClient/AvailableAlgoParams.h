@@ -25,7 +25,7 @@ public:
 	static void FillSizeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, 
 			std::string startTime, std::string endTime, bool noTakeLiq, double monetaryValue);
 	static void FillTimeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, std::string startTime, 
-			std::string endTime, boolean noTakeLiq, double monetaryValue);
+			std::string endTime, bool noTakeLiq, double monetaryValue);
 };
 
 #endif
