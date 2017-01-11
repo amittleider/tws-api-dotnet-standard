@@ -236,9 +236,10 @@ public:
 	static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(int&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(long&, const char*& ptr, const char* endPtr);
-	static bool DecodeField(time_t&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(double&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
+
+    static bool DecodeFieldTime(time_t&, const char*& ptr, const char* endPtr);
 
 	static bool DecodeFieldMax(int&, const char*& ptr, const char* endPtr);
 	static bool DecodeFieldMax(long&, const char*& ptr, const char* endPtr);
@@ -250,4 +251,5 @@ public:
 };
 
 #define DECODE_FIELD(x) if (!EDecoder::DecodeField(x, ptr, endPtr)) return 0;
+#define DECODE_FIELD_TIME(x) if (!EDecoder::DecodeFieldTime(x, ptr, endPtr)) return 0;
 #define DECODE_FIELD_MAX(x) if (!EDecoder::DecodeFieldMax(x, ptr, endPtr)) return 0;
