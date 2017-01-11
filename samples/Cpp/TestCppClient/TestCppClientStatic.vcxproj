@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{458559CA-82CB-46EA-A45C-2E9DA3927D42}</ProjectGuid>
+    <ProjectGuid>{A2A869EF-063B-4DF7-AC04-74FA6BE0A764}</ProjectGuid>
     <RootNamespace>TestCppClient</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,7 @@
       <AdditionalIncludeDirectories>..\..\..\source\cppclient;..\..\..\source\cppclient\client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,7 +104,7 @@
       <AdditionalIncludeDirectories>..\..\..\source\cppclient;..\..\..\source\cppclient\client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -155,8 +155,8 @@
     <ClInclude Include="TestCppClient.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\cppclient\client\TwsSocketClient.vcxproj">
-      <Project>{e9c3126e-cea8-41a8-a714-7644b016db3c}</Project>
+    <ProjectReference Include="..\..\..\source\cppclient\client\TwsSocketClientStatic.vcxproj">
+      <Project>{256e5e0b-3fd4-49e3-b7f2-2995ac60721d}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
