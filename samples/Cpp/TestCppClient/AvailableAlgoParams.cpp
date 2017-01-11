@@ -219,7 +219,7 @@ void AvailableAlgoParams::FillSizeVariantPctVolParams(Order baseOrder, double st
 
 //! [pctvoltm_params]
 void AvailableAlgoParams::FillTimeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, std::string startTime, 
-								 std::string endTime, boolean noTakeLiq, double monetaryValue){
+								 std::string endTime, bool noTakeLiq, double monetaryValue){
 	baseOrder.algoStrategy = "PctVolTm";
 	baseOrder.algoParams.reset(new TagValueList());
 	TagValueSPtr tag1(new TagValue("startPctVol", std::to_string(startPctVol)));
