@@ -18,6 +18,9 @@
 		<li> 
 			\snippet TestCppClient.cpp reqpositions
 		</li>
+		<li>
+			\snippet Program.py reqpositions
+		</li>
 	</ul>
 	
 	\section position_receive Receiving
@@ -53,6 +56,13 @@
 			...
 			\snippet TestCppClient.cpp positionend
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py position
+			...
+			\snippet Program.py positionend
+		</li>
 	</ul>
 	
 	\section position_cancel Cancelling
@@ -72,6 +82,9 @@
 		<li> 
 			\snippet TestCppClient.cpp cancelpositions
 		</li>
+		<li>
+			\snippet Program.py cancelpositions
+		</li>
 	</ul>
 	
 	\section position_multi Models' Positions
@@ -89,6 +102,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp reqpositionsmulti
+		</li>
+		<li>
+			\snippet Program.py reqpositionsmulti
 		</li>
 	</ul>
 	
@@ -122,6 +138,13 @@
 			\snippet TestCppClient.cpp positionmulti
 			...
 			\snippet TestCppClient.cpp positionmultiend
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py positionmulti
+			...
+			\snippet Program.py positionmultiend
 		</li>
 	</ul>
 	

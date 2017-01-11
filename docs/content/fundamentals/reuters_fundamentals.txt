@@ -15,6 +15,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqfundamentaldata
 		</li>
+		<li>
+			\snippet Program.py reqfundamentaldata
+		</li>
 	</ul>
 	
 	Note how a string attribute specifies the requested report type. In the example above the request was made for the financial summary. See @ref report_type at the bottom of this page 
@@ -43,6 +46,11 @@
 		   ...
 			\snippet TestCppClient.cpp fundamentaldata
 		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py fundamentaldata
+		</li>
 	</ul>
 	
 	The @ref IBApi::EClient::reqFundamentalData request can be cancelled via @ref::IBApi::EClient::cancelFundamentalData:
@@ -59,6 +67,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp cancelfundamentaldata
+		</li>
+		<li>
+			\snippet Program.py cancelfundamentaldata
 		</li>
 	</ul>
 	

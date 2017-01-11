@@ -27,6 +27,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqmktdata
 		</li>
+		<li>
+			\snippet Program.py reqmktdata
+		</li>
 	</ul>
 		
    \section md_receive Receiving
@@ -57,7 +60,9 @@
 			\snippet EWrapperImpl.java ewrapperimpl
 		   ...
 		   \snippet EWrapperImpl.java tickprice
-		   ...
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit appears starting in API version 9.72.19 but is not yet implemented and reserved for future use.
+		   
 		   \snippet EWrapperImpl.java ticksize
 		   ...
 		   \snippet EWrapperImpl.java tickstring
@@ -68,7 +73,9 @@
 			\snippet EWrapperImpl.vb ewrapperimpl
 		   ...
 		   \snippet EWrapperImpl.vb tickprice
-		   ...
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit appears starting in API version 9.72.19 but is not yet implemented and reserved for future use.
+		   
 		   \snippet EWrapperImpl.vb ticksize
 		   ....
 		   \snippet EWrapperImpl.vb tickstring
@@ -79,12 +86,27 @@
 			\snippet TestCppClient.h ewrapperimpl
 		   ...
 		   \snippet TestCppClient.cpp tickprice
-		   ...
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit appears starting in API version 9.72.19 but is not yet implemented and reserved for future use.
+		   
 		   \snippet TestCppClient.cpp ticksize
 		   ....
 		   \snippet TestCppClient.cpp tickstring
 		   ....
 		   \snippet TestCppClient.cpp tickgeneric
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+		   \snippet Program.py tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit appears starting in API version 9.72.19 but is not yet implemented and reserved for future use.
+		   
+		   \snippet Program.py ticksize
+		   ....
+		   \snippet Program.py tickstring
+		   ....
+		   \snippet Program.py tickgeneric
 		</li>
 	</ul>
    		
@@ -103,6 +125,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp cancelmktdata
+		</li>
+		<li>
+			\snippet Program.py cancelmktdata
 		</li>
 	</ul>
 	
@@ -123,6 +148,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp reqmktdata_snapshot
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_snapshot
 		</li>
 	</ul>
 	<h4>End marker reception:</h4>
@@ -147,6 +175,11 @@
 			...
 			\snippet TestCppClient.cpp ticksnapshotend
 		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py ticksnapshotend
+		</li>
 	</ul>
 		
 	\section genticks Generic Ticks
@@ -165,6 +198,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp reqmktdata_genticks
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_genticks
 		</li>
 	</ul>
 	
@@ -207,6 +243,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqmarketdatatype
 		</li>
+		<li>
+			\snippet Program.py reqmarketdatatype
+		</li>
 	</ul>
 	
 	After invoking @ref IBApi::EClient::reqMarketDataType to fetch frozen or delayed data, subsequent @req IBApi::EClient::reqMktData requests will trigger @ref IBApi::EWrapper::marketDataType as one of the
@@ -232,6 +271,11 @@
 			\snippet TestCppClient.h ewrapperimpl
 		   ...
 			\snippet TestCppClient.cpp marketdatatype
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py marketdatatype
 		</li>
 	</ul>
 	

@@ -351,14 +351,12 @@ Order OrderSamples::LimitOrder(std::string action, double quantity, double limit
 	/// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
 	/// </summary>
 Order OrderSamples::LimitOrderWithCashQty(std::string action, double quantity, double limitPrice, double cashQty){
-	// ! [limitorder]
 	Order order;
 	order.action = action;
 	order.orderType = "LMT";
 	order.totalQuantity = quantity;
 	order.lmtPrice = limitPrice;
 	order.cashQty = cashQty;
-	// ! [limitorder]
 	return order;
 }
 

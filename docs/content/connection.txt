@@ -1,6 +1,6 @@
 ﻿/*! \page connection Connection
 
-	A TCP connection between your API client application and the TWS needs to be established via the @ref IBApi::EClient::eConnect function. The TWS can be considered 
+	A TCP connection between your API client application and the TWS needs to be established via the @ref IBApi::EClientSocket::eConnect function. The TWS can be considered 
 	like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to <b>32 different client applications</b> simultaneously 
 	each of them identified by a unique client Id.
 		
@@ -20,6 +20,9 @@
 		</li>
 		<li>
 		\snippet Main.cpp connect
+		</li>
+		<li>
+		\snippet Program.py connect
 		</li>
 	</ul>
 	
@@ -51,6 +54,11 @@
 		   ...
 		\snippet TestCppClient.cpp connectack
 		</li>
+		<li> 
+		\snippet Program.py ewrapperimpl
+		   ...
+		\snippet Program.py connectack
+		</li>
 	</ul>
 	
 	Note: all our sample code connects synchronously to the TWS.
@@ -75,6 +83,9 @@
 		</li>
 		<li>
 		\snippet Main.cpp ereader
+		</li>
+		<li> 
+		\snippet Program.py ereader
 		</li>
 	</ul>
 	

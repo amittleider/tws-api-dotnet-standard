@@ -6,7 +6,7 @@
 	
 	\section news_contract Contract Specific News
 	
-	When invoking @ref IBApi::EClient::reqMktData, for a specific @ref IBApi::Contract you will follow the same format convention as any other \subpage basic_contract. The News Source is identified by the <b>genericTickList</b>.
+	When invoking @ref IBApi::EClient::reqMktData, for a specific @ref IBApi::Contract you will follow the same format convention as any other @ref basic_contracts. The News Source is identified by the <b>genericTickList</b>.
 	
 	<ul id="tab">
 		<li class="active">
@@ -20,6 +20,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp reqmktdata_contractnews
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_contractnews
 		</li>
 	</ul>
 	
@@ -42,6 +45,9 @@
 		<li>
 			\snippet ContractSamples.cpp newscontractbt
 		</li>
+		<li>
+			\snippet ContractSamples.py newscontractbt
+		</li>
 	</ul>
 	
 	\section news_bz Benzinga Pro
@@ -58,6 +64,9 @@
 		</li>
 		<li>
 			\snippet ContractSamples.cpp newscontractbz
+		</li>
+		<li>
+			\snippet ContractSamples.py newscontractbz
 		</li>
 	</ul>
 	
@@ -76,6 +85,9 @@
 		<li>
 			\snippet ContractSamples.cpp newscontractfly
 		</li>
+		<li>
+			\snippet ContractSamples.py newscontractfly
+		</li>
 	</ul>
 	
 	\section news_mt Midnight Trader
@@ -93,6 +105,9 @@
 		<li>
 			\snippet ContractSamples.cpp newscontractmt
 		</li>
+		<li>
+			\snippet ContractSamples.py newscontractmt
+		</li>
 	</ul>
 	
 	Then you can invoke @ref IBApi::EClient::reqMktData for the broad tape news feed. 
@@ -109,6 +124,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp reqmktdata_broadtapenews
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_broadtapenews
 		</li>
 	</ul>
 	

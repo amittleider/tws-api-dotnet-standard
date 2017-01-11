@@ -23,6 +23,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqoptiondatagenticks
 		</li>
+		<li>
+			\snippet Program.py reqoptiondatagenticks
+		</li>
 	</ul>
 	
 	The Implied Volatility of an underlying based on its current option prices is returned in tick 24. See @ref tick_types
@@ -46,6 +49,9 @@
 		<li>
 			\snippet TestCppClient.cpp calculateimpliedvolatility
 		</li>
+		<li>
+			\snippet Program.py calculateimpliedvolatility
+		</li>
 	</ul>	
 	
 	Alternatively, given the price of the underlying and an implied volatility it is possible to calculate the option price using the function @ref IBApi::EClient::calculateOptionPrice
@@ -63,6 +69,9 @@
 		<li>
 			\snippet TestCppClient.cpp calculateoptionprice
 		</li>
+		<li>
+			\snippet Program.py calculateoptionprice
+		</li>
 	</ul>
 	
 	After the request, the option specific information will be delivered via the @ref IBApi::EWrapper::tickOptionComputation method:
@@ -79,11 +88,19 @@
 			\snippet EWrapperImpl.java tickoptioncomputation
 		</li>
 		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		    ...
+		    \snippet EWrapperImpl.vb tickoptioncomputation
 		</li>
 		<li>
 			\snippet TestCppClient.h ewrapperimpl
 		    ...
 		    \snippet TestCppClient.cpp tickoptioncomputation
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		    ...
+		    \snippet Program.py tickoptioncomputation
 		</li>
 	</ul>
 	

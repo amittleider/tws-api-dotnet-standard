@@ -24,6 +24,9 @@
 		<li>
 		\snippet TestCppClient.cpp reqopenorders
 		</li>
+		<li>
+		\snippet Program.py reqopenorders
+		</li>
 	</ul>
 	
 	\section all_api_orders All API submitted orders
@@ -42,6 +45,9 @@
 		</li>
 		<li>
 		\snippet TestCppClient.cpp reqallopenorders
+		</li>
+		<li>
+		\snippet Program.py reqallopenorders
 		</li>
 	</ul>
 	
@@ -62,6 +68,9 @@
 		</li>
 		<li>
 		\snippet TestCppClient.cpp reqautoopenorders
+		</li>
+		<li>
+		\snippet Program.py reqautoopenorders
 		</li>
 	</ul>
 	
@@ -112,6 +121,15 @@
 			\snippet TestCppClient.cpp orderstatus
 		   ...
 			\snippet TestCppClient.cpp openorderend
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py openorder
+			...
+			\snippet Program.py orderstatus
+		   ...
+			\snippet Program.py openorderend
 		</li>
 	</ul>
 	

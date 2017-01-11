@@ -22,6 +22,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqmarketdepth
 		</li>
+		<li>
+			\snippet Program.py reqmarketdepth
+		</li>
 	</ul>
 	
 	\section receive Receiving
@@ -62,6 +65,13 @@
 			...
 			\snippet TestCppClient.cpp updatemktdepthl2
 		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py updatemktdepth
+			...
+			\snippet Program.py updatemktdepthl2
+		</li>
 	</ul>
 	
 	\section canceling Canceling
@@ -80,6 +90,9 @@
 		</li>
 		<li>
 			\snippet TestCppClient.cpp cancelmktdepth
+		</li>
+		<li>
+			\snippet Program.py cancelmktdepth
 		</li>
 	</ul>
 	

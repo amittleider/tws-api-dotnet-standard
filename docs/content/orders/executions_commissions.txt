@@ -32,6 +32,13 @@
 			...
 			\snippet TestCppClient.cpp commissionreport 
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py execdetails
+			...
+			\snippet Program.py commissionreport 
+		</li>
 	</ul>
 	
 	\section execution_request Requesting Executions
@@ -51,6 +58,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp reqexecutions
+		</li>
+		<li> 
+			\snippet Program.py reqexecutions
 		</li>
 	</ul>
 	
@@ -76,6 +86,11 @@
 			\snippet TestCppClient.h ewrapperimpl
 			...
 			\snippet TestCppClient.cpp execdetailsend
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py execdetailsend
 		</li>
 	</ul>
 	

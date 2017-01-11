@@ -16,6 +16,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqmanagedaccts
 		</li>
+		<li> 
+			\snippet Program.py reqmanagedaccts
+		</li>
 	</ul>
 	
 	The above will result in a comma separated list of account Ids delivered through @ref IBApi::EWrapper::managedAccounts
@@ -40,6 +43,11 @@
 			\snippet TestCppClient.h ewrapperimpl
 		   ...
 		   \snippet TestCppClient.cpp managedaccounts
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+		   ...
+		   \snippet Program.py managedaccounts
 		</li>
 	</ul>
 	

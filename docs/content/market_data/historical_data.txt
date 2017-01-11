@@ -30,6 +30,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqhistoricaldata
 		</li>
+		<li>
+			\snippet Program.py reqhistoricaldata
+		</li>
 	</ul>
 	
 	\section hd_receive Receiving
@@ -65,6 +68,13 @@
 			\snippet TestCppClient.cpp historicaldata
 			...
 			\snippet TestCppClient.cpp historicaldataend
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py historicaldata
+			...
+			\snippet Program.py historicaldataend
 		</li>
 	</ul>
 	

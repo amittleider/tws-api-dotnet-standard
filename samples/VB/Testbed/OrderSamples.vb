@@ -798,7 +798,7 @@ Namespace Samples
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/oca.php?ib_entity=llc
         ''' </summary>
         Public Shared Function OneCancelsAll(ocaGroup As String, ocaOrders As List(Of Order), ocaType As Integer) As List(Of Order)
-            '! [one_cancels_all]
+            '! [oca]
             For Each o As Order In ocaOrders
 
                 o.OcaGroup = ocaGroup
@@ -810,7 +810,7 @@ Namespace Samples
 
             'Telling the TWS to transmit the last order in the OCA will also cause the transmission of its predecessors.
             ocaOrders.Item(ocaOrders.Count - 1).Transmit = True
-            '! [one_cancels_all]
+            '! [oca]
             Return ocaOrders
 
         End Function

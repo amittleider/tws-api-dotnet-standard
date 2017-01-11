@@ -2,11 +2,11 @@
 
 	On top of the basic order types, it is possible to make use of the following advanced features:
 	
-	- \subpage hedging Hedging
-	- \subpage bracket_order Bracket Orders
-	- \subpage oca One Cancels All
-	- \subpage adjustable_stops Adjustable stops
-	- \subpage order_conditions Conditioning
-	- \subpage algos IB Algos
+	- \subpage hedging "Hedging"
+	- \subpage bracket_order "Bracket Orders"
+	- \subpage oca "One Cancels All"
+	- \subpage adjustable_stops "Adjustable stops"
+	- \subpage order_conditions "Conditioning"
+	- \subpage algos "IB Algos"
 
 */

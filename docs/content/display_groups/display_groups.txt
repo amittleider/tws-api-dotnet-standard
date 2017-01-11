@@ -21,6 +21,9 @@
 		<li> 
 			\snippet TestCppClient.cpp querydisplaygroups
 		</li>
+		<li> 
+			\snippet Program.py querydisplaygroups
+		</li>
 	</ul>
 	
 	The @ref IBApi::EWrapper::displayGroupList is a one-time response to @ref IBApi::EClient::queryDisplayGroups.
@@ -49,6 +52,11 @@
 			...
 			\snippet TestCppClient.cpp displaygrouplist
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py displaygrouplist
+		</li>
 	</ul>
 	
 	\section subscribe_to_group_events Subscribe To Group Events
@@ -67,6 +75,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp subscribetogroupevents
+		</li>
+		<li> 
+			\snippet Program.py subscribetogroupevents
 		</li>
 	</ul>
 	
@@ -90,6 +101,11 @@
 			\snippet TestCppClient.h ewrapperimpl
 			...
 			\snippet TestCppClient.cpp displaygroupupdated
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py displaygroupupdated
 		</li>
 	</ul>
 	
@@ -119,6 +135,9 @@
 		<li> 
 			\snippet TestCppClient.cpp updatedisplaygroup
 		</li>
+		<li> 
+			\snippet Program.py updatedisplaygroup
+		</li>
 	</ul>
 	
 	<em>Note: This request from the API does not get a response from TWS unless an error occurs.</em>
@@ -144,6 +163,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp subscribefromgroupevents
+		</li>
+		<li> 
+			\snippet Program.py subscribefromgroupevents
 		</li>
 	</ul>
 	

@@ -818,8 +818,7 @@
             <td>End time</td>
             <td>Time</td>
             <td>15:00:00 EST</td>
-                </tr>
-            </tbody>
+        </tr>
     </table>
     
     \subsection Reserve

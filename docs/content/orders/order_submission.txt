@@ -27,6 +27,9 @@
 		<li>
 			\snippet TestCppClient.cpp reqids
 		</li>
+		<li>
+			\snippet Program.py reqids
+		</li>
 	</ul>
 	
 	The above will result in @ref IBApi::EWrapper::nextValidId callback being invoked:
@@ -52,6 +55,11 @@
 		   ...
 			\snippet TestCppClient.cpp nextvalidid
 		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py nextvalidid
+		</li>
 	</ul>
 	
 	<b>The next valid identifier is persistent between TWS sessions.</b>
@@ -76,6 +84,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp order_submission
+		</li>
+		<li> 
+			\snippet Program.py order_submission
 		</li>
 	</ul>
 
@@ -107,6 +118,11 @@
 			...
 			\snippet TestCppClient.cpp openorder
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py openorder
+		</li>
 	</ul>
 	
 	\section order_status The orderStatus method
@@ -134,6 +150,11 @@
 			...
 			\snippet TestCppClient.cpp orderstatus
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py orderstatus
+		</li>
 	</ul>
 	
 	There are several different categories a client might fall into which determine the orderStatus messages it receives:
@@ -144,7 +165,7 @@
 	
 	->Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS. 
 	
-	Other important points concerning @ref IBApi::EWrapper::orderStatus:
+	Other important points concerning @ref IBApi::EWrapper::orderStatus :
 	
 	->Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange. 
 	

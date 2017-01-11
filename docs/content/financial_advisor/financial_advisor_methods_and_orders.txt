@@ -19,6 +19,9 @@
 		<li> 
 			\snippet TestCppClient.cpp requestfaaliases
 		</li>
+		<li> 
+			\snippet Program.py requestfaaliases
+		</li>
 	</ul>
 	
 	<b>Request FA Groups</b>
@@ -36,6 +39,9 @@
 		<li> 
 			\snippet TestCppClient.cpp requestfagroups
 		</li>
+		<li> 
+			\snippet Program.py requestfagroups
+		</li>
 	</ul>
 	
 	<b>Request FA Profiles</b>
@@ -52,6 +58,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp requestfaprofiles
+		</li>
+		<li> 
+			\snippet Program.py requestfaprofiles
 		</li>
 	</ul>
 	
@@ -80,6 +89,11 @@
 			...
 			\snippet TestCppClient.cpp receivefa
 		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py receivefa
+		</li>
 	</ul>
 	
 	\section replace_fa_methods ReplaceFA() methods
@@ -101,7 +115,7 @@
 		</li>
 		<li> 
 
-			\snippet MainModule.vb faonegroup
+			\snippet FaAllocationSamples.vb faonegroup
 			...
 			\snippet MainModule.vb replacefaonegroup
 		</li>
@@ -109,6 +123,11 @@
 			\snippet FAMethodSamples.h faonegroup
 			...
 			\snippet TestCppClient.cpp replacefaonegroup
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.py faonegroup
+			...
+			\snippet Program.py replacefaonegroup
 		</li>
 	</ul>
 	
@@ -128,12 +147,17 @@
 		<li> 
 			\snippet FaAllocationSamples.vb fatwogroups
 			...
-			\snippet FaAllocationSamples.vb replacefatwogroups
+			\snippet MainModule.vb replacefatwogroups
 		</li>
 		<li> 
 			\snippet FAMethodSamples.h fatwogroups
 			...
 			\snippet TestCppClient.cpp replacefatwogroups
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.py fatwogroups
+			...
+			\snippet Program.py replacefatwogroups
 		</li>
 	</ul>
 	
@@ -141,7 +165,7 @@
 	
 	<b>Replace Account Profiles Configuration</b>
 	
-	You can find the corresponding type number for profile allocation in the \ref profile_methods_matching "Profile Methods Matching" table.
+	You can find the corresponding type number for profile allocation in the \ref allocation_methods_profiles "Profile Methods Matching" table.
 	
 	<ul id="tab">
 		<li class="active">
@@ -157,12 +181,17 @@
 		<li> 
 			\snippet FaAllocationSamples.vb faoneprofile
 			...
-			\snippet FaAllocationSamples.vb replacefaoneprofile
+			\snippet MainModule.vb replacefaoneprofile
 		</li>
 		<li> 
 			\snippet FAMethodSamples.h faoneprofile
 			...
 			\snippet TestCppClient.cpp replacefaoneprofile
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.py faoneprofile
+			...
+			\snippet Program.py replacefaoneprofile
 		</li>
 	</ul>
 	
@@ -182,12 +211,17 @@
 		<li> 
 			\snippet FaAllocationSamples.vb fatwoprofiles
 			...
-			\snippet FaAllocationSamples.vb replacefatwoprofiles
+			\snippet MainModule.vb replacefatwoprofiles
 		</li>
 		<li> 
 			\snippet FAMethodSamples.h fatwoprofiles
 			...
 			\snippet TestCppClient.cpp replacefatwoprofiles
+		</li>
+		<li> 
+			\snippet FaAllocationSamples.py fatwoprofiles
+			...
+			\snippet Program.py replacefatwoprofiles
 		</li>
 	</ul>
 	
@@ -214,6 +248,9 @@
 		<li> 
 			\snippet TestCppClient.cpp faorderoneaccount
 		</li>
+		<li> 
+			\snippet Program.py faorderoneaccount
+		</li>
 	</ul>
 	
 	<b>Place an Order for an Account Group</b>
@@ -233,6 +270,9 @@
 		<li> 
 			\snippet TestCppClient.cpp faordergroupequalquantity
 		</li>
+		<li> 
+			\snippet Program.py faordergroupequalquantity
+		</li>
 	</ul>
 	
 	For <em>PctChange</em> allocation methods, you should <b>NOT</b> specify the order size but you need to specify @ref IBApi::Order::FaPercentage parameter.
@@ -250,6 +290,9 @@
 		<li> 
 			\snippet TestCppClient.cpp faordergrouppctchange
 		</li>
+		<li> 
+			\snippet Program.py faordergrouppctchange
+		</li>
 	</ul>
 	
 	<b>Place an Order for an Account Profile</b>
@@ -266,6 +309,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp faorderprofile
+		</li>
+		<li> 
+			\snippet Program.py faorderprofile
 		</li>
 	</ul>
 	
@@ -289,6 +335,9 @@
 		</li>
 		<li> 
 			\snippet TestCppClient.cpp reqSoftDollarTiers
+		</li>
+		<li> 
+			\snippet Program.py reqSoftDollarTiers
 		</li>
 	</ul>
 	
@@ -316,6 +365,11 @@
 			\snippet TestCppClient.h ewrapperimpl
 			...
 			\snippet TestCppClient.cpp softDollarTiers
+		</li>
+		<li> 
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py softDollarTiers
 		</li>
 	</ul>
 	

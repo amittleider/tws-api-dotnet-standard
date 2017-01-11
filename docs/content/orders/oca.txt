@@ -21,11 +21,19 @@
 			\snippet Testbed.java ocasubmit
 		</li>
 		<li>
+			\snippet OrderSamples.vb oca
+			...
+			\snippet MainModule.vb ocasubmit
 		</li>
 		<li>
 			\snippet OrderSamples.cpp oca
 			...
 			\snippet TestCppClient.cpp ocasubmit
+		</li>
+		<li>
+			\snippet OrderSamples.py oca
+			...
+			\snippet Program.py ocasubmit
 		</li>
 	</ul>
 		
