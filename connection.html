@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('connection.html','');});
 <div class="title">Connection </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A TCP connection between your API client application and the TWS needs to be established via the IBApi::EClient::eConnect function. The TWS can be considered like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to <b>32 different client applications</b> simultaneously each of them identified by a unique client Id.</p>
+<div class="textblock"><p>A TCP connection between your API client application and the TWS needs to be established via the <a class="el" href="classIBApi_1_1EClientSocket.html#a315a7f7a34afc504d84c4f0ca462d924">IBApi.EClientSocket.eConnect</a> function. The TWS can be considered like a server actively listening for incoming connection requests on a given port. Note that the TWS can accept up to <b>32 different client applications</b> simultaneously each of them identified by a unique client Id.</p>
 <h1><a class="anchor" id="connect"></a>
 Connecting</h1>
 <p>Once our two main objects have been created, the client application can then connect via the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a> object:</p>
@@ -145,6 +145,11 @@ Connecting</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.connect( host, port, clientId);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        app.connect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, args.port, clientId=0)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;serverVersion:%s connectionTime:%s&quot;</span> % (app.serverVersion(),</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                    app.twsConnectionTime()))</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="connect_ack"></a>
@@ -185,6 +190,12 @@ Acknowledging the connection</h1>
 <div class="line">    <span class="keywordflow">if</span> (!m_extraAuth &amp;&amp; m_pClient-&gt;asyncEConnect())</div>
 <div class="line">        m_pClient-&gt;startApi();</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>connectAck(self):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="keywordflow">if</span> self.async:</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            self.startApi() </div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Note: all our sample code connects synchronously to the TWS.</p>
@@ -234,6 +245,13 @@ Consuming TWS data</h1>
 <div class="line">        <span class="keywordflow">while</span>( client.isConnected()) {</div>
 <div class="line">            client.processMessages();</div>
 <div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#this code is in Client::connect() so it&#39;s automatically done, no need</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="comment"># for user to do it</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reader = reader.EReader(self.conn, self.msg_queue)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reader.start()   <span class="comment"># start thread</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Now it is time to revisit the role of <a class="el" href="interfaceIBApi_1_1EReaderSignal.html">IBApi.EReaderSignal</a> initially introduced in <a class="el" href="client_wrapper.html#client_socket">The EClientSocket class</a>. As mentioned in the previous paragraph, the EReader's thread will need to be notified whenever there is information ready to be consumed. This is done via the <a class="el" href="interfaceIBApi_1_1EReaderSignal.html">IBApi.EReaderSignal</a> object we initiated within the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a>'s implementor.</p>

@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -146,6 +146,10 @@ Requesting</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqRealTimeBars(3001, ContractSamples::EurGbpFx(), 5, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, <span class="keyword">true</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqRealTimeBars(3101, ContractSamples.USStockAtSmart(), 5, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, <span class="keyword">True</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqRealTimeBars(3001, ContractSamples.EurGbpFx(), 5, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, <span class="keyword">True</span>, <span class="keywordtype">None</span>)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="rt_bars_rec"></a>
 Receiving</h1>
@@ -183,6 +187,16 @@ Receiving</h1>
 <div class="line">    printf( <span class="stringliteral">&quot;RealTimeBars. %ld - Time: %ld, Open: %g, High: %g, Low: %g, Close: %g, Volume: %ld, Count: %d, WAP: %g\n&quot;</span>, reqId, time, open, high, low, close, volume, count, wap);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>realtimeBar(self, reqId:TickerId , time:int, open:float, high:float, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                    low:float, close:float, volume:int, wap:float, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                    count: int):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        super().realtimeBar(reqId, time, open, high, low, close, volume, wap, count)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;RealTimeBars. &quot;</span>, reqId, <span class="stringliteral">&quot;Time:&quot;</span>, time, <span class="stringliteral">&quot;Open:&quot;</span>, open, </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;High:&quot;</span>, high, <span class="stringliteral">&quot;Low:&quot;</span>, low, <span class="stringliteral">&quot;Close:&quot;</span>, close, <span class="stringliteral">&quot;Volume:&quot;</span>, volume, </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;Count:&quot;</span>, count, <span class="stringliteral">&quot;WAP:&quot;</span>, wap)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="rt_bars_cancel"></a>
 Canceling</h1>
@@ -199,6 +213,10 @@ Canceling</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelRealTimeBars(3001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.cancelRealTimeBars(3101)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.cancelRealTimeBars(3001)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

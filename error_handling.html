@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -150,10 +150,9 @@ $(document).ready(function(){initNavTree('error_handling.html','');});
 <li>
 <div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
 <div class="line">        Implements EWrapper</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Error - Id [&quot;</span> &amp; <span class="keywordtype">id</span> &amp; <span class="stringliteral">&quot;] ErrorCode [&quot;</span> &amp; errorCode &amp; <span class="stringliteral">&quot;] ErrorMsg [&quot;</span> &amp; errorMsg &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub [error](<span class="keywordtype">id</span> As Integer, errorCode As Integer, errorMsg As String) Implements IBApi.EWrapper.error</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Error - Id [&quot;</span> &amp; <span class="keywordtype">id</span> &amp; <span class="stringliteral">&quot;] ErrorCode [&quot;</span> &amp; errorCode &amp; <span class="stringliteral">&quot;] ErrorMsg [&quot;</span> &amp; errorMsg &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
 <div class="line">        End Sub</div>
-<div class="line"></div>
-<div class="line"></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
@@ -162,6 +161,12 @@ $(document).ready(function(){initNavTree('error_handling.html','');});
 <div class="line">{</div>
 <div class="line">    printf( <span class="stringliteral">&quot;Error. Id: %d, Code: %d, Msg: %s\n&quot;</span>, <span class="keywordtype">id</span>, errorCode, errorString.c_str());</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>error(self, reqId:TickerId, errorCode:int, errorString:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().error(reqId, errorCode, errorString)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Error. Id: &quot;</span> , reqId, <span class="stringliteral">&quot; Code: &quot;</span> , errorCode , <span class="stringliteral">&quot; Msg: &quot;</span> , errorString)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>For a list containing all available error messages from the TWS, see <a class="el" href="message_codes.html">Message Codes</a> </p>

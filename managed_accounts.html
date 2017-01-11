@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -143,6 +143,9 @@ $(document).ready(function(){initNavTree('managed_accounts.html','');});
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqManagedAccts();</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqManagedAccts()</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>The above will result in a comma separated list of account Ids delivered through <a class="el" href="interfaceIBApi_1_1EWrapper.html#abd7e561f313bcc4c860074906199a46c">IBApi.EWrapper.managedAccounts</a></p>
 <ul id="tab">
@@ -174,6 +177,12 @@ $(document).ready(function(){initNavTree('managed_accounts.html','');});
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::managedAccounts( <span class="keyword">const</span> std::string&amp; accountsList) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;Account List: %s\n&quot;</span>, accountsList.c_str());</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>managedAccounts(self, accountsList:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().managedAccounts(accountsList)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Account list: &quot;</span>,accountsList)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important: </b>whenever your TWS user name handles more than a single account, you will be forced to specify the account Id to which the order needs to be allocated. Failure to do so will result in the order being rejected since the TWS cannot assign the order to a default account.</p>

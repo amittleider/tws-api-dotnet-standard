@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -188,6 +188,18 @@ Adjusted to Stop</h1>
 <div class="line">    <span class="comment">//With the given STP price</span></div>
 <div class="line">    order.adjustedStopPrice = adjustStopPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Attached order is a conventional STP order in opposite direction</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.parentId = parent.orderId</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.triggerPrice = triggerPrice</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment">#The parent order will be turned into a STP order</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        order.adjustedOrderType = <span class="stringliteral">&quot;STP&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="comment">#With the given STP price</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        order.adjustedStopPrice = adjustStopPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="adjusted_stop_limit"></a>
 Adjusted to Stop Limit</h1>
@@ -254,6 +266,20 @@ Adjusted to Stop Limit</h1>
 <div class="line">    order.adjustedStopPrice = adjustStopPrice;</div>
 <div class="line">    <span class="comment">//And the given limit price</span></div>
 <div class="line">    order.adjustedStopLimitPrice = adjustedStopLimitPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#Attached order is a conventional STP order</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.parentId = parent.orderId</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.triggerPrice = triggerPrice</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment">#The parent order will be turned into a STP LMT order</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        order.adjustedOrderType = <span class="stringliteral">&quot;STP LMT&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="comment">#With the given stop price</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        order.adjustedStopPrice = adjustedStopPrice</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="comment">#And the given limit price</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        order.adjustedStopLimitPrice = adjustedStopLimitPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="adjusted_stop_trail"></a>
@@ -329,6 +355,22 @@ Adjusted to Trail</h1>
 <div class="line">    order.adjustableTrailingUnit = trailUnit;</div>
 <div class="line">    <span class="comment">//of...</span></div>
 <div class="line">    order.adjustedTrailingAmount = adjustedTrailAmount;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#Attached order is a conventional STP order</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.ParentId = parent.OrderId</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.TriggerPrice = triggerPrice</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment">#The parent order will be turned into a TRAIL order</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        order.AdjustedOrderType = <span class="stringliteral">&quot;TRAIL&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="comment">#With a stop price of...</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        order.AdjustedStopPrice = adjustedStopPrice</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="comment">#traling by and amount (0) or a percent (1)...</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        order.AdjustableTrailingUnit = trailUnit</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="comment">#of...</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        order.AdjustedTrailingAmount = adjustedTrailAmount</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

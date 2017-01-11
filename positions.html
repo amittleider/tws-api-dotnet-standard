@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -145,6 +145,9 @@ Requesting</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqPositions();</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqPositions()</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="position_receive"></a>
 Receiving</h1>
@@ -195,6 +198,18 @@ Receiving</h1>
 <div class="line">    printf( <span class="stringliteral">&quot;PositionEnd\n&quot;</span>);</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>position(self, account:str, contract:Contract, position:float, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                 avgCost:float):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().position(account, contract, position, avgCost)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Position.&quot;</span>, account, <span class="stringliteral">&quot;Symbol:&quot;</span>, contract.symbol, <span class="stringliteral">&quot;SecType:&quot;</span>,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Avg cost:&quot;</span>, avgCost)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionEnd(self):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().positionEnd()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;PositionEnd&quot;</span>)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="position_cancel"></a>
 Cancelling</h1>
@@ -212,6 +227,9 @@ Cancelling</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;cancelPositions();</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.cancelPositions()</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="position_multi"></a>
 Models' Positions</h1>
@@ -228,6 +246,9 @@ Models' Positions</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqPositionsMulti(9003, <span class="stringliteral">&quot;U150462&quot;</span>, <span class="stringliteral">&quot;EUstocks&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqPositionsMulti(9006, self.account, <span class="stringliteral">&quot;&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>After invoking <a class="el" href="classIBApi_1_1EClient.html#a4fa2744c3459f9f6cf695980267608c3">IBApi.EClient.reqPositionsMulti</a> data will be returned to the <a class="el" href="interfaceIBApi_1_1EWrapper.html#afecadbe206c341b3e89c117790e42e87">IBApi.EWrapper.positionMulti</a> function. After all positions have been delivered, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a46c77101413adc69812d808b907cff9d">IBApi.EWrapper.positionMultiEnd</a> function will be triggered.</p>
@@ -275,6 +296,19 @@ Models' Positions</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::positionMultiEnd( <span class="keywordtype">int</span> reqId) {</div>
 <div class="line">    printf(<span class="stringliteral">&quot;Position Multi End. Request: %d\n&quot;</span>, reqId);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMulti(self, reqId:int, account:str, modelCode:str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      contract:Contract, pos:float, avgCost:float):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().positionMulti(reqId, account, modelCode, contract, pos, avgCost)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Position Multi. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;Account:&quot;</span>, account,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Symbol:&quot;</span>, contract.symbol, <span class="stringliteral">&quot;SecType:&quot;</span>,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency, <span class="stringliteral">&quot;,Position:&quot;</span>, </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            pos, <span class="stringliteral">&quot;AvgCost:&quot;</span>, avgCost)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMultiEnd(self, reqId:int):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().positionMultiEnd(reqId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Position Multi End. Request:&quot;</span> , reqId)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

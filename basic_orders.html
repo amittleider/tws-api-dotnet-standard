@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -171,6 +171,14 @@ Products: FUT, STK </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.lmtPrice = price;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.tif = <span class="stringliteral">&quot;AUC&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.orderType = <span class="stringliteral">&quot;MTL&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = price</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="discretionary"></a>
 Discretionary</h1>
@@ -214,6 +222,14 @@ Products: STK </li>
 <div class="line">    order.lmtPrice = price;</div>
 <div class="line">    order.discretionaryAmt = discretionaryAmount;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = price</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.discretionaryAmt = discretionaryAmount</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="market"></a>
 Market</h1>
@@ -248,6 +264,12 @@ Products: BOND, CFD, EFP, CASH, FUND, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.action = action;</div>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;MKT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MKT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="market_if_touched"></a>
@@ -288,6 +310,13 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = price;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MIT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = price</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="market_on_close"></a>
 Market On Close</h1>
@@ -322,6 +351,12 @@ Products: CFD, FUT, STK, WAR </li>
 <div class="line">    order.action = action;</div>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;MOC&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MOC&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="market_on_open"></a>
@@ -362,6 +397,13 @@ Products: CFD, FUT, STK, WAR </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.tif = <span class="stringliteral">&quot;OPG&quot;</span>;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MKT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.tif = <span class="stringliteral">&quot;OPG&quot;</span></div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pegged_market"></a>
 Pegged to Market</h1>
@@ -400,6 +442,13 @@ Products: STK </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;PEG MKT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = marketOffset;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG MKT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = 100</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = marketOffset<span class="comment">#Offset price</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pegged_stock"></a>
@@ -448,6 +497,15 @@ Products: OPT </li>
 <div class="line">    order.lmtPrice = stockReferencePrice;</div>
 <div class="line">    order.startingPrice = startingPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG STK&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.delta = delta</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = stockReferencePrice</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        order.startingPrice = startingPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="relative_pegged_primary"></a>
 Pegged to Primary</h1>
@@ -491,6 +549,14 @@ Products: CFD, STK, OPT, FUT </li>
 <div class="line">    order.lmtPrice = priceCap;</div>
 <div class="line">    order.auxPrice = offsetAmount;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;REL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = priceCap</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.auxPrice = offsetAmount</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="sweep_to_fill"></a>
 Sweep to Fill</h1>
@@ -531,6 +597,14 @@ Products: CFD, STK, WAR (SMART only) </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.lmtPrice = price;</div>
 <div class="line">    order.sweepToFill = <span class="keyword">true</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = price</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.sweepToFill = <span class="keyword">True</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="auction_limit"></a>
@@ -573,6 +647,14 @@ Products: OPT (BOX only) </li>
 <div class="line">    order.lmtPrice = price;</div>
 <div class="line">    order.auctionStrategy = auctionStrategy;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = price</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.auctionStrategy = auctionStrategy</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="auction_pegged_stock"></a>
 Auction Pegged to Stock</h1>
@@ -614,6 +696,14 @@ Products: OPT (BOX only) </li>
 <div class="line">    order.delta = delta;</div>
 <div class="line">    order.startingPrice = startingPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG STK&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.delta = delta</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.startingPrice = startingPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="auction_relative"></a>
 Auction Relative</h1>
@@ -650,6 +740,13 @@ Products: OPT (BOX only) </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;REL&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = offset;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;REL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = offset</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="block"></a>
@@ -694,6 +791,14 @@ Products: OPT </li>
 <div class="line">    order.lmtPrice = price;</div>
 <div class="line">    order.blockOrder = <span class="keyword">true</span>;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity<span class="comment">#Large volumes!</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = price</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.blockOrder = <span class="keyword">True</span></div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="boxtop"></a>
 Box Top</h1>
@@ -726,6 +831,12 @@ Products: OPT (BOX only) </li>
 <div class="line">    order.action = action;</div>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;BOX TOP&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;BOX TOP&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitorder"></a>
@@ -765,6 +876,13 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;LMT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.lmtPrice = limitPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitiftouched"></a>
@@ -809,6 +927,14 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.lmtPrice = limitPrice;</div>
 <div class="line">    order.auxPrice = triggerPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LIT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.auxPrice = triggerPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitonclose"></a>
 Limit on Close</h1>
@@ -847,6 +973,13 @@ Products: CFD, FUT, STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;LOC&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.lmtPrice = limitPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LOC&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitonopen"></a>
@@ -891,6 +1024,14 @@ Products: CFD, STK, OPT, WAR </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.lmtPrice = limitPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.tif = <span class="stringliteral">&quot;OPG&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = limitPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="passive_relative"></a>
 Passive Relative</h1>
@@ -929,6 +1070,13 @@ Products: STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;PASSV REL&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = offset;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PASSV REL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = offset</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pegged_midpoint"></a>
@@ -969,6 +1117,13 @@ Products: STK </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = offset;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG MID&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = offset</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="markettolimit"></a>
 Market to Limit</h1>
@@ -1004,6 +1159,12 @@ Products: CFD, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;MTL&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MTL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="marketwithprotection"></a>
 Market with Protection</h1>
@@ -1038,6 +1199,12 @@ Products: FUT, FOP </li>
 <div class="line">    order.action = action;</div>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;MKT PRT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MKT PRT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="stop"></a>
@@ -1077,6 +1244,13 @@ Products: CFD, BAG, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;STP&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = stopPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;STP&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.auxPrice = stopPrice</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.totalQuantity = quantity</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="stoplimit"></a>
@@ -1121,6 +1295,14 @@ Products: CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.lmtPrice = limitPrice;</div>
 <div class="line">    order.auxPrice = stopPrice;</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;STP LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.auxPrice = stopPrice</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="stopwithprotection"></a>
 Stop with Protection</h1>
@@ -1159,6 +1341,13 @@ Products: FUT </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;STP PRT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = stopPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.orderType = <span class="stringliteral">&quot;STP PRT&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = stopPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="trailingstop"></a>
@@ -1203,6 +1392,14 @@ Products: CFD, CASH, FOP, FUT, OPT, STK, WAR </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.trailingPercent = trailingPercent;</div>
 <div class="line">    order.trailStopPrice = trailStopPrice;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;TRAIL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.trailingPercent = trailingPercent</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.trailStopPrice = trailStopPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="trailingstoplimit"></a>
@@ -1249,6 +1446,15 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.trailStopPrice = trailStopPrice;</div>
 <div class="line">    order.lmtPrice = limitPrice;</div>
 <div class="line">    order.auxPrice = trailingAmount;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;TRAIL LIMIT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.trailStopPrice = trailStopPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        order.auxPrice = trailingAmount</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="combolimit"></a>
@@ -1306,6 +1512,18 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.smartComboRoutingParams-&gt;push_back(tag1);</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="keywordflow">if</span> nonGuaranteed:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            order.smartComboRoutingParams = []</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            order.smartComboRoutingParams.append(TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        </div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="combomarket"></a>
 Combo Market</h1>
@@ -1358,6 +1576,17 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.smartComboRoutingParams.reset(<span class="keyword">new</span> TagValueList());</div>
 <div class="line">        order.smartComboRoutingParams-&gt;push_back(tag1);</div>
 <div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;MKT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="keywordflow">if</span> nonGuaranteed:</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            order.smartComboRoutingParams = []</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            order.smartComboRoutingParams.append(TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        </div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="limitordercombolegprices"></a>
@@ -1439,6 +1668,23 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.smartComboRoutingParams-&gt;push_back(tag1);</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.orderComboLegs = []</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="keywordflow">for</span> price <span class="keywordflow">in</span> legPrices:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            comboLeg = OrderComboLeg()</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            comboLeg.price = price</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            order.orderComboLegs.append(comboLeg)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                   </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordflow">if</span> nonGuaranteed:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            order.smartComboRoutingParams = []</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            order.smartComboRoutingParams.append(TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>))</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="relativelimitcombo"></a>
 Relative Limit Combo</h1>
@@ -1495,6 +1741,18 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.smartComboRoutingParams-&gt;push_back(tag1);</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.orderType = <span class="stringliteral">&quot;REL + LMT&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="keywordflow">if</span> nonGuaranteed:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            order.smartComboRoutingParams = []</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            order.smartComboRoutingParams.append(TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        </div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="relativemarketcombo"></a>
 Relative Market Combo</h1>
@@ -1548,6 +1806,17 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.smartComboRoutingParams-&gt;push_back(tag1);</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.orderType = <span class="stringliteral">&quot;REL + MKT&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="keywordflow">if</span> nonGuaranteed:</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            order.smartComboRoutingParams = []</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            order.smartComboRoutingParams.append(TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        </div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="volatility"></a>
 Volatility</h1>
@@ -1590,6 +1859,14 @@ Products: FOP, OPT </li>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.volatility = volatilityPercent; <span class="comment">//Expressed in percentage (40%)</span></div>
 <div class="line">    order.volatilityType = volatilityType; <span class="comment">// 1=daily, 2=annual</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;VOL&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.volatility = volatilityPercent<span class="comment">#Expressed in percentage (40%)</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.volatilityType = volatilityType<span class="comment"># 1=daily, 2=annual</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pegged_benchmark"></a>
@@ -1701,6 +1978,31 @@ Products: STK, OPT </li>
 <div class="line">    order.stockRangeLower = referenceContractLowerRange;</div>
 <div class="line">    <span class="comment">//and...</span></div>
 <div class="line">    order.stockRangeUpper = referenceContractUpperRange;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG BENCH&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="comment">#BUY or SELL</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="comment">#Beginning with price...</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        order.startingPrice = startingPrice</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="comment">#increase/decrease price..</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        order.isPeggedChangeAmountDecrease = peggedChangeAmountDecrease</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="comment">#by... (and likewise for price moving in opposite direction)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        order.peggedChangeAmount = peggedChangeAmount</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="comment">#whenever there is a price change of...</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        order.referenceChangeAmount = referenceChangeAmount</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="comment">#in the reference contract...</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        order.referenceContractId = referenceConId</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="comment">#being traded at...</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        order.referenceExchange = referenceExchange</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="comment">#starting reference price is...</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        order.stockRefPrice = stockReferencePrice</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="comment">#Keep order active as long as reference contract trades between...</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        order.stockRangeLower = referenceContractLowerRange</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="comment">#and...</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        order.stockRangeUpper = referenceContractUpperRange</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

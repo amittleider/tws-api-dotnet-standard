@@ -46,6 +46,7 @@ var interfaceIBApi_1_1EWrapper =
     [ "symbolSamples", "interfaceIBApi_1_1EWrapper.html#a82cfd0c663944c5e6d4fee8ebd482ecf", null ],
     [ "tickEFP", "interfaceIBApi_1_1EWrapper.html#af8afed0428f2f848f15ac137d81283fc", null ],
     [ "tickGeneric", "interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26", null ],
+    [ "tickNews", "interfaceIBApi_1_1EWrapper.html#ac2cf5a12822959fb0ce7e9f816157ea8", null ],
     [ "tickOptionComputation", "interfaceIBApi_1_1EWrapper.html#acacbf738e95ff9ffcc19b130f39938b3", null ],
     [ "tickPrice", "interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718", null ],
     [ "tickSize", "interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba", null ],

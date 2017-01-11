@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -147,6 +147,9 @@ Connected client's own orders</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqOpenOrders();</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqOpenOrders()</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="all_api_orders"></a>
 All API submitted orders</h1>
@@ -164,6 +167,9 @@ All API submitted orders</h1>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqAllOpenOrders();</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqAllOpenOrders()</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="manually_submitted"></a>
 Manually submitted TWS orders</h1>
@@ -180,6 +186,9 @@ Manually submitted TWS orders</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqAutoOpenOrders(<span class="keyword">true</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqAutoOpenOrders(<span class="keyword">True</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> only those applications connecting with client Id 0 will be able to take over manually submitted orders</p>
@@ -259,6 +268,28 @@ Receiving Active Orders from the TWS</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrderEnd() {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;OpenOrderEnd\n&quot;</span>);</div>
 <div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>openOrder(self, orderId:OrderId, contract:Contract, order:Order, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                  orderState:OrderState):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().openOrder(orderId, contract, order, orderState)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;OpenOrder. ID:&quot;</span>, orderId, contract.symbol, contract.secType,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;@&quot;</span>, contract.exchange, <span class="stringliteral">&quot;:&quot;</span>, order.action, order.orderType,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            order.totalQuantity, orderState.status)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>orderStatus(self, orderId:OrderId , status:str, filled:float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                    remaining:float, avgFillPrice:float, permId:int, </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                    parentId:int, lastFillPrice:float, clientId:int, </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                    whyHeld:str):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        super().orderStatus(orderId, status, filled, remaining,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;OrderStatus. Id:&quot;</span>, orderId, <span class="stringliteral">&quot;Status:&quot;</span>, status, <span class="stringliteral">&quot;Filled:&quot;</span>, filled,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="stringliteral">&quot;Remaining:&quot;</span>, remaining ,<span class="stringliteral">&quot;AvgFillPrice:&quot;</span>, avgFillPrice,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;PermId:&quot;</span>, permId, <span class="stringliteral">&quot;ParentId:&quot;</span>, parentId, <span class="stringliteral">&quot;LastFillPrice:&quot;</span>,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            lastFillPrice, <span class="stringliteral">&quot;ClientId:&quot;</span>, clientId, <span class="stringliteral">&quot;WhyHeld:&quot;</span>,whyHeld)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>openOrderEnd(self):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().openOrderEnd()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;OpenOrderEnd&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

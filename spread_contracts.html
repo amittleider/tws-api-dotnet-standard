@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -230,6 +230,29 @@ Stock Spread</h1>
 <div class="line">    contract.comboLegs-&gt;push_back(leg1);</div>
 <div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;IBKR,MCD&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;BAG&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        leg1 = ComboLeg()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        leg1.conId = 43645865<span class="comment">#IBKR STK</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        leg1.ratio = 1</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        leg1.action = <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        leg1.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        leg2 = ComboLeg()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        leg2.conId = 9408<span class="comment">#MCD STK</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        leg2.ratio = 1</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        leg2.action = <span class="stringliteral">&quot;SELL&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        leg2.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        contract.comboLegs = []</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        contract.comboLegs.append(leg1)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        contract.comboLegs.append(leg2)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p><b>Note:</b> EFPs are simply defined as a bag contract of stock and corresponding SSF with a ratio of 100:1.</p>
 <h1><a class="anchor" id="bag_fut"></a>
@@ -331,6 +354,29 @@ Futures Spread</h1>
 <div class="line">    contract.comboLegs-&gt;push_back(leg1);</div>
 <div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;VIX&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;BAG&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.exchange = <span class="stringliteral">&quot;CFE&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        leg1 = ComboLeg()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        leg1.conId = 256038899 <span class="comment"># VIX FUT 201708</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        leg1.ratio = 1</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        leg1.action = <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        leg1.exchange = <span class="stringliteral">&quot;CFE&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        leg2 = ComboLeg()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        leg2.conId = 260564703 <span class="comment"># VIX FUT 201709</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        leg2.ratio = 1</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        leg2.action = <span class="stringliteral">&quot;SELL&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        leg2.exchange = <span class="stringliteral">&quot;CFE&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        contract.comboLegs = []</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        contract.comboLegs.append(leg1)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        contract.comboLegs.append(leg2)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="bag_opt"></a>
 Options Spread</h1>
@@ -431,6 +477,29 @@ Options Spread</h1>
 <div class="line">    contract.comboLegs-&gt;push_back(leg1);</div>
 <div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
 </div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;DBK&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;BAG&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.currency = <span class="stringliteral">&quot;EUR&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.exchange = <span class="stringliteral">&quot;DTB&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        leg1 = ComboLeg()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        leg1.conId = 197397509 <span class="comment">#DBK JUN 15 2018 C</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        leg1.ratio = 1</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        leg1.action = <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        leg1.exchange = <span class="stringliteral">&quot;DTB&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        leg2 = ComboLeg()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        leg2.conId = 197397584  <span class="comment">#DBK JUN 15 2018 P</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        leg2.ratio = 1</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        leg2.action = <span class="stringliteral">&quot;SELL&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        leg2.exchange = <span class="stringliteral">&quot;DTB&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        contract.comboLegs = []</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        contract.comboLegs.append(leg1)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        contract.comboLegs.append(leg2)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="bag_intcmdfut"></a>
 Inter-Commodity Futures</h1>
@@ -530,6 +599,29 @@ Inter-Commodity Futures</h1>
 <div class="line">    contract.comboLegs.reset(<span class="keyword">new</span> Contract::ComboLegList());</div>
 <div class="line">    contract.comboLegs-&gt;push_back(leg1);</div>
 <div class="line">    contract.comboLegs-&gt;push_back(leg2);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;CL.bZ&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;BAG&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        leg1 = ComboLeg()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        leg1.conId = 47207310 <span class="comment">#CL Dec&#39;16 @NYMEX</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        leg1.ratio = 1</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        leg1.action = <span class="stringliteral">&quot;BUY&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        leg1.exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        leg2 = ComboLeg()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        leg2.conId = 47195961 <span class="comment">#BZ Dec&#39;16 @NYMEX</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        leg2.ratio = 1</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        leg2.action = <span class="stringliteral">&quot;SELL&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        leg2.exchange = <span class="stringliteral">&quot;NYMEX&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        contract.comboLegs = []</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        contract.comboLegs.append(leg1)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        contract.comboLegs.append(leg2)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><em>Please be mindful of the fact that Inter-commodity Futures contracts are spread contracts offered by the exchange directly, and the contract definition is different from regular combo contracts. Please make sure all the contract attributes are specified in accordance with <a class="el" href="contracts.html#Overview">TWS Contract Description</a> page. </em></p>

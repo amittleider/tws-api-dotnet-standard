@@ -82,7 +82,7 @@ function checkCookie() {
  <tr>
   <td id="projectlogo"><img alt="Logo" src="nav_iblogo.png"/></a></td>
   <td style="padding: 0 0 0 1em;">
-   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li></ul>
+   <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
   <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
@@ -206,6 +206,26 @@ $(document).ready(function(){initNavTree('hedging.html','');});
 <div class="line">    m_pClient-&gt;placeOrder(parent.orderId, ContractSamples::EuropeanStock(), parent);</div>
 <div class="line">    <span class="comment">//Then the hedge order</span></div>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::EurGbpFx(), hedge);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>MarketFHedge(parentOrderId:int, action:str):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="comment">#FX Hedge orders can only have a quantity of 0</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order = OrderSamples.MarketOrder(action, 0)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.parentId = parentOrderId</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        order.hedgeType = <span class="stringliteral">&quot;F&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="keywordflow">return</span> order</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    </div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#Parent order on a contract which currency differs from your base currency</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        parent = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100, 10)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        parent.orderId = self.nextOrderId()</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="comment">#Hedge on the currency conversion</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        hedge = OrderSamples.MarketFHedge(parent.orderId, <span class="stringliteral">&quot;BUY&quot;</span>)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="comment">#Place the parent first...</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        self.placeOrder(parent.orderId, ContractSamples.EuropeanStock(), parent)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="comment">#Then the hedge order</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.EurGbpFx(), hedge)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Note that in some cases it will be necessary to include a small delay of 50 ms or less after placing the parent order for processing, before placing the child order. Otherwise the error "10006: Missing parent order" will be triggered.</p>
