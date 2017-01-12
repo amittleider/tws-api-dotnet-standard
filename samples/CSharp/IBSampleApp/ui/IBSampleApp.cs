@@ -46,6 +46,7 @@ namespace IBSampleApp
         private const int REDUCED_LINES_IN_MESSAGE_BOX = 100;
         private int numberOfLinesInMessageBox = 0;
         private List<string> linesInMessageBox = new List<string>(MAX_LINES_IN_MESSAGE_BOX);
+        private List<string> bboExchangeList = new List<string>();
 
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
@@ -92,6 +93,7 @@ namespace IBSampleApp
             this.profileType.DisplayMember = "Name";
 
             hdRequest_EndTime.Text = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            bboExchange_comboBox.DataSource = bboExchangeList;
 
             DateTime execFilterDefault = DateTime.Now.AddHours(-1);
             execFilterTime.Text = execFilterDefault.ToString("yyyyMMdd HH:mm:ss");
@@ -170,6 +172,8 @@ namespace IBSampleApp
             ibClient.SymbolSamples += (reqId, contractDescriptions) => HandleMessage(new SymbolSamplesMessage(reqId, contractDescriptions));
             ibClient.MktDepthExchanges += (depthMktDataDescriptions) => HandleMessage(new MktDepthExchangesMessage(depthMktDataDescriptions));
             ibClient.TickNews += (tickerId, timeStamp, providerCode, articleId, headline, extraData) => HandleMessage(new TickNewsMessage(tickerId, timeStamp, providerCode, articleId, headline, extraData));
+            ibClient.TickReqParams += (tickerId, minTick, bboExchange, snapshotPermissions) => HandleMessage(new TickReqParamsMessage(tickerId, minTick, bboExchange, snapshotPermissions));
+            ibClient.SmartComponents += (reqId, theMap) => theMap.ToList().ForEach(i => HandleMessage(new SmartComponentsMessage(i.Key, i.Value.Key, i.Value.Value)));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -420,6 +424,22 @@ namespace IBSampleApp
                 case MessageType.TickNews:
                     {
                         newsManager.UpdateUI(message);
+                        break;
+                    }
+                case MessageType.TickReqParams:
+                    {
+                        bboExchange_comboBox.BindingContext[bboExchangeList].SuspendBinding();
+                        bboExchangeList.Add(((TickReqParamsMessage)message).BboExchange);
+                        bboExchange_comboBox.BindingContext[bboExchangeList].ResumeBinding();
+
+                        ReqSmartComponents_Button.Enabled = bboExchange_comboBox.Items.Count > 0;
+                        break;
+                    }
+                case MessageType.SmartComponents:
+                    {
+                        SmartComponentsMessage msg = (SmartComponentsMessage)message;
+
+                        dataGridViewSmartComponents.Rows.Add(new object[] { msg.BitNumber, msg.Exchange, msg.ExchangeChar });
                         break;
                     }
                 default:
@@ -1081,6 +1101,20 @@ namespace IBSampleApp
             {
                 newsManager.CancelTickNews();
             }
+        }
+
+        private void ReqSmartComponents_Button_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                ibClient.ClientSocket.reqSmartComponents(new Random(DateTime.Now.Millisecond).Next(), bboExchange_comboBox.SelectedItem + "");
+                ShowTab(marketData_MDT, smartComponentsTabPage);
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.dataGridViewSmartComponents.Rows.Clear();
         }
     }
 }

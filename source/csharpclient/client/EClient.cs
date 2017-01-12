@@ -1618,7 +1618,7 @@ namespace IBApi
          * @param snapshot when set to true, it will provide a single snapshot of the available data. Set to false if you want to receive continuous updates.
          * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOptionComputation, EWrapper::tickSnapshotEnd
          */
-        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, List<TagValue> mktDataOptions)
+        public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, bool regulatorySnaphsot, List<TagValue> mktDataOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1699,14 +1699,22 @@ namespace IBApi
                     paramsList.AddParameter(false);
                 }
             }
+
             if (serverVersion >= 31)
             {
                 paramsList.AddParameter(genericTickList);
             }
+            
             if (serverVersion >= MinServerVer.SNAPSHOT_MKT_DATA)
             {
                 paramsList.AddParameter(snapshot);
             }
+
+            if (serverVersion >= MinServerVer.SMART_COMPONENTS)
+            {
+                paramsList.AddParameter(regulatorySnaphsot);
+            }
+
             if (serverVersion >= MinServerVer.LINKING)
             {
                 paramsList.AddParameter(TagValueListToString(mktDataOptions));
@@ -2405,6 +2413,24 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestMktDepthExchanges);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTHEXCHANGES);
+        }
+
+        public void reqSmartComponents(int reqId, String bboExchange)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_MKT_DEPTH_EXCHANGES,
+                " It does not support smart components request."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestSmartComponents);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(bboExchange);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQSMARTCOMPONENTS);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

@@ -721,5 +721,23 @@ namespace IBApi
         * @sa EClient::reqMktData
         */
         void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData);
+
+        /**
+        * @brief bit number to exchange + exchange apprevation dictionary
+        * @param reqId
+        * @param theMap
+        * sa EClient::reqSmartComponents
+        */
+        void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap);
+
+        /**
+        * @brief tick with BOO exchange and snapshot permissions
+        * @param tickerId
+        * @param minTick
+        * @param bboExchange
+        * @param snapshotPermissions
+        * sa EClient::reqMktData
+        */
+        void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
     }
 }

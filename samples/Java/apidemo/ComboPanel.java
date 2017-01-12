@@ -50,10 +50,10 @@ public class ComboPanel extends JPanel implements INewTab {
 		}
 	};
 	
-	ComboPanel() {
+	ComboPanel(MarketDataPanel parentPanel) {
 		NewTabbedPanel tabs = new NewTabbedPanel();
-		tabs.addTab( "Spreads", new SpreadsPanel() );
-		tabs.addTab( "EFP's", new EfpPanel() );
+		tabs.addTab( "Spreads", new SpreadsPanel(parentPanel) );
+		tabs.addTab( "EFP's", new EfpPanel(parentPanel) );
 		
 		final JTable ordersTable = new JTable( m_ordersModel);
 		JScrollPane ordersScroll = new JScrollPane( ordersTable);
@@ -97,13 +97,16 @@ public class ComboPanel extends JPanel implements INewTab {
 		private final ArrayList<LegRow> m_legRows = new ArrayList<LegRow>();
 		private final LegModel m_legsModel = new LegModel( m_legRows);
 		private final JTable m_legsTable = new JTable( m_legsModel);
-		private final TopModel m_mktDataModel = new TopModel();
-		private final JTable m_mktDataTable = new JTable( m_mktDataModel);
+		private final TopModel m_mktDataModel;
+		private final JTable m_mktDataTable;
 		private DeltaNeutralContract m_dnContract;
 		private final DnPanel m_dnPanel = new DnPanel();
 		private final JLabel m_dnText = new JLabel();
 
-		SpreadsPanel() {
+		SpreadsPanel(MarketDataPanel parentPanel) {
+			m_mktDataModel = new TopModel(parentPanel);
+			m_mktDataTable = new JTable( m_mktDataModel);
+			
 			HtmlButton addLeg = new HtmlButton( "Add Leg") {
 				@Override protected void actionPerformed() {
 					onAddLeg();
@@ -336,10 +339,12 @@ public class ComboPanel extends JPanel implements INewTab {
 		private final ArrayList<LegRow> m_legRows = new ArrayList<LegRow>();
 		private final LegModel m_legsModel = new LegModel( m_legRows);
 		private final JTable m_legsTable = new JTable( m_legsModel);
-		private final EfpModel m_efpModel = new EfpModel();
+		private final EfpModel m_efpModel;
 		private final JCheckBox m_divProt = new JCheckBox();
 
-		EfpPanel() {
+		EfpPanel(MarketDataPanel parentPanel) {
+			m_efpModel = new EfpModel(parentPanel);
+			
 			HtmlButton addLeg = new HtmlButton( "Create EFP") {
 				@Override protected void actionPerformed() {
 					onCreateEfp();
@@ -490,11 +495,16 @@ public class ComboPanel extends JPanel implements INewTab {
 
 		static class EfpModel extends AbstractTableModel {
 			ArrayList<EfpRow> m_rows = new ArrayList<EfpRow>();
+			MarketDataPanel m_parentPanel;
+			
+			public EfpModel(MarketDataPanel parentPanel) {
+				m_parentPanel = parentPanel;
+			}
 
 			void addRow(Contract contract) {
-				EfpRow row = new EfpRow( this, contract.description() );
+				EfpRow row = new EfpRow( this, contract.description(), m_parentPanel );
 				m_rows.add( row);
-				ApiDemo.INSTANCE.controller().reqEfpMktData( contract, "", false, row);
+				ApiDemo.INSTANCE.controller().reqEfpMktData( contract, "", false, false, row);
 				fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
 			}
 
@@ -549,8 +559,8 @@ public class ComboPanel extends JPanel implements INewTab {
 				double m_dividendImpact;
 				double m_dividendsToLastTradeDate;
 				
-				EfpRow(AbstractTableModel model, String description) {
-					super(model, description);
+				EfpRow(AbstractTableModel model, String description, MarketDataPanel parentPanel) {
+					super(model, description, parentPanel);
 				}
 
 				@Override public void tickEFP(int tickType, double basisPoints, String formattedBasisPoints, double impliedFuture, int holdDays, String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {

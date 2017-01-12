@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -12,6 +12,8 @@
 #include "TickAttrib.h"
 #include <string>
 #include <set>
+#include <map>
+#include <tuple>
 
 enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				HIGH, LOW, VOLUME, CLOSE,
@@ -90,6 +92,9 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				DELAYED_LAST_OPTION_COMPUTATION,
 				DELAYED_MODEL_OPTION_COMPUTATION,
 				NOT_SET };
+
+typedef std::map<int, std::tuple<std::string, char>> SmartComponentsMap;
+
 
 inline bool isPrice( TickType tickType) {
 	return tickType == BID || tickType == ASK || tickType == LAST || tickType == DELAYED_BID || tickType == DELAYED_ASK || tickType == DELAYED_LAST;
@@ -183,6 +188,8 @@ public:
    virtual void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) = 0;
    virtual void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) = 0;
    virtual void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) = 0;
+   virtual void smartComponents(int reqId, SmartComponentsMap theMap) = 0;
+   virtual void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) = 0;
 };
 
 

@@ -50,7 +50,7 @@ namespace IBSampleApp.ui
             activeRequests.Add(contract);
             int nextReqId = TICK_ID_BASE+(currentTicker++);
             checkToAddRow(nextReqId);
-            ibClient.ClientSocket.reqMktData(nextReqId, contract, genericTickList, false, new List<TagValue>());
+            ibClient.ClientSocket.reqMktData(nextReqId, contract, genericTickList, false, false, new List<TagValue>());
 
             if(!uiControl.Visible)
                 uiControl.Visible = true;

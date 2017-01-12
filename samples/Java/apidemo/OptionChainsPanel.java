@@ -161,7 +161,7 @@ public class OptionChainsPanel extends JPanel {
 			
 			m_timer.start();
 			
-			ApiDemo.INSTANCE.controller().reqTopMktData( m_underContract, "", false, m_stockListener);
+			ApiDemo.INSTANCE.controller().reqTopMktData( m_underContract, "", false, false, m_stockListener);
 		}
 		
 		/** Called when the tab is first visited. */
@@ -233,7 +233,7 @@ public class OptionChainsPanel extends JPanel {
 				ChainRow row = new ChainRow( contract);
 				m_list.add( row);
 				
-				ApiDemo.INSTANCE.controller().reqOptionMktData(contract, "", snapshot, row);
+				ApiDemo.INSTANCE.controller().reqOptionMktData(contract, "", snapshot, false, row);
 				
 				if (snapshot) {
 					Util.sleep( 11); // try to avoid pacing violation at TWS

@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -70,6 +70,8 @@ enum State {
 	ST_REQMKTDEPTHEXCHANGES_ACK,
 	ST_REQNEWSTICKS,
 	ST_REQNEWSTICKS_ACK,
+	ST_REQSMARTCOMPONENTS,
+	ST_REQSMARTCOMPONENTS_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -120,6 +122,7 @@ private:
 	void reqMatchingSymbols();
 	void reqMktDepthExchanges();
 	void reqNewsTicks();
+	void reqSmartComponents();
 
 	void reqCurrentTime();
 
@@ -199,7 +202,8 @@ public:
 	void symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions);
 	void mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions);
 	void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
-
+    void smartComponents(int reqId, SmartComponentsMap theMap);
+    void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 private:
 	//! [socket_declare]
 	EReaderOSSignal m_osSignal;
@@ -211,6 +215,7 @@ private:
 	OrderId m_orderId;
 	EReader *m_pReader;
     bool m_extraAuth;
+	std::string m_bboExchange;
 };
 
 #endif

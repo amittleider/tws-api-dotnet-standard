@@ -621,6 +621,26 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_smartComponents(reqId As Integer, theMap As Dictionary(Of Integer, KeyValuePair(Of String, Char))) Implements EWrapper.smartComponents
+        InvokeIfRequired(Sub()
+                             RaiseEvent SmartComponents(Me, New SmartComponentsEventArgs With {
+                                                            .reqId = reqId,
+                                                            .theMap = theMap
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub EWrapper_tickReqParams(tickerId As Integer, minTick As Double, bboExchange As String, snapshotPermissions As Integer) Implements EWrapper.tickReqParams
+        InvokeIfRequired(Sub()
+                             RaiseEvent TickReqParams(Me, New TickReqParamsEventArgs With {
+                                                            .tickerId = tickerId,
+                                                            .minTick = minTick,
+                                                            .bboExchange = bboExchange,
+                                                            .snapshotPermissions = snapshotPermissions
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -683,6 +703,8 @@ Friend Class ApiEventSource
     Event BondContractDetails(sender As Object, e As BondContractDetailsEventArgs)
     Event MktDepthExchanges(sender As Object, e As MktDepthExchangesEventArgs)
     Event TickNews(sender As Object, e As TickNewsEventArgs)
+    Event SmartComponents(sender As ApiEventSource, e As SmartComponentsEventArgs)
+    Event TickReqParams(sender As ApiEventSource, e As TickReqParamsEventArgs)
 
 #End Region
 

@@ -77,13 +77,13 @@ namespace IBSampleApp.ui
                     if (contract.Right.Equals("C"))
                     {
                         int mktDataRequest = currentMktDataCallRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
+                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
                         UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
                     }
                     else
                     {
                         int mktDataRequest = currentMktDataPutRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
+                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
                         UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
                     }
                 }

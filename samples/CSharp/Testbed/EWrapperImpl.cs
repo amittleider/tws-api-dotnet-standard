@@ -38,6 +38,8 @@ namespace Samples
             set { nextOrderId = value; }
         }
 
+        public string BboExchange { get; private set; }
+
         public virtual void error(Exception e)
         {
             Console.WriteLine("Exception thrown: "+e);
@@ -483,5 +485,32 @@ namespace Samples
             Console.WriteLine("Tick News. Ticker Id: {0}, Time Stamp: {1}, Provider Code: {2}, Article Id: {3}, headline: {4}, extraData: {5}", tickerId, timeStamp, providerCode, articleId, headline, extraData);
         }
         //! [tickNews]
+
+        //! [smartComponents]
+        public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ====\n", theMap.Count, reqId);
+
+            foreach (var item in theMap)
+            {
+                sb.AppendFormat("bit number: {0}, exchange: {1}, exchange letter: {2}\n", item.Key, item.Value.Key, item.Value.Value);
+            }
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ====\n", theMap.Count, reqId);
+
+            Console.WriteLine(sb);
+        }
+        //! [smartComponents]
+
+        //! [tickReqParams]
+        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            Console.WriteLine("id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, minTick, bboExchange, snapshotPermissions);
+
+            BboExchange = bboExchange;
+        }
+        //! [tickReqParams]
     }
 }

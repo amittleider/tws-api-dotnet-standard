@@ -35,9 +35,9 @@ public class SecDefOptParamsReqDlg extends JDialog {
 		ok.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { onOK(); } });
 		cancel.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { onCancel(); } });
 		
+		paramsPanel.add("Req Id", m_idFld);			
 		paramsPanel.add("Underlying symbol", m_underlyingSymbolFld);			
 		paramsPanel.add("FUT-FOP exchange", m_futFopExchangeFld);			
-//		paramsPanel.add("Currency", m_currencyFld);			
 		paramsPanel.add("Underlying security type", m_underlyingSecTypeFld);			
 		paramsPanel.add("Underlying contract id", m_underlyingConIdFld);			
 		paramsPanel.add(ok);

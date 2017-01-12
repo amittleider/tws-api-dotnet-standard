@@ -1859,6 +1859,43 @@ int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 	return 0;
 }
 
+const char* EDecoder::processSmartComponentsMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	int n;
+	SmartComponentsMap theMap;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(n);
+
+	for (int i = 0; i < n; i++) {
+		int bitNumber;
+		std::string exchange;
+		char exchangeLetter;
+
+		DECODE_FIELD(bitNumber);
+		DECODE_FIELD(exchange);
+		DECODE_FIELD(exchangeLetter);
+
+		theMap[bitNumber] = std::make_tuple(exchange, exchangeLetter);
+	}
+
+	m_pEWrapper->smartComponents(reqId, theMap);
+}
+
+const char* EDecoder::processTickReqParamsMsg(const char* ptr, const char* endPtr) {
+	int tickerId;
+	double minTick;
+	std::string bboExchange;
+	int snapshotPermissions;
+
+	DECODE_FIELD(tickerId);
+	DECODE_FIELD(minTick);
+	DECODE_FIELD(bboExchange);
+	DECODE_FIELD(snapshotPermissions);
+
+	m_pEWrapper->tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+}
+
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
     // process a single message from the buffer;
@@ -2089,13 +2126,21 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processFamilyCodesMsg(ptr, endPtr);
 			break;
 
+		case SMART_COMPONENTS:
+			ptr = processSmartComponentsMsg(ptr, endPtr);
+			break;
+
+		case TICK_REQ_PARAMS:
+			ptr = processTickReqParamsMsg(ptr, endPtr);
+			break;
+
 		case SYMBOL_SAMPLES:
 			ptr = processSymbolSamplesMsg(ptr, endPtr);
 			break;
 
 		case MKT_DEPTH_EXCHANGES:
 			ptr = processMktDepthExchangesMsg(ptr, endPtr);
-			break;
+			break;			
 
 		case TICK_NEWS:
 			ptr = processTickNewsMsg(ptr, endPtr);
@@ -2201,6 +2246,20 @@ bool EDecoder::DecodeField(std::string& stringValue,
     if( !fieldEnd)
         return false;
     stringValue = fieldBeg; // better way?
+    ptr = ++fieldEnd;
+    return true;
+}
+
+bool EDecoder::DecodeField(char& charValue,
+                           const char*& ptr, const char* endPtr)
+{
+    if( !CheckOffset(ptr, endPtr))
+        return false;
+    const char* fieldBeg = ptr;
+    const char* fieldEnd = FindFieldEnd(ptr, endPtr);
+    if( !fieldEnd)
+        return false;
+    charValue = fieldBeg[0]; // better way?
     ptr = ++fieldEnd;
     return true;
 }

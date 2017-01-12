@@ -4,8 +4,10 @@
 package com.ib.client;
 
 import java.text.DateFormat;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 public class EWrapperMsgGenerator {
@@ -675,5 +677,38 @@ public class EWrapperMsgGenerator {
 
 	public static String connectionClosed() {
 		return "Connection Closed";
+	}
+
+	public static String softDollarTiers(SoftDollarTier[] tiers) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("==== Soft Dollar Tiers Begin (total=" + tiers.length + ") ====\n");
+		
+		for (SoftDollarTier tier : tiers) {
+			sb.append(tier + "\n");
+		}
+		
+		sb.append("==== Soft Dollar Tiers End (total=" + tiers.length + ") ====\n");
+		
+		return sb.toString();
+	}
+
+	public static String tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		return "id=" + tickerId + " minTick = " + minTick + " bboExchange = " + bboExchange + " snapshotPermissions = " + snapshotPermissions;
+	}
+
+	public static String smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("==== Smart Components Begin (total=" + theMap.entrySet().size() + ") reqId = " + reqId + "====\n");
+		
+		for (Map.Entry<Integer, SimpleEntry<String, Character>> item : theMap.entrySet()) {
+			sb.append("bit number: " + item.getKey() + 
+					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue() + "\n");
+		}
+		
+		sb.append("==== Smart Components End (total=" + theMap.entrySet().size() + ") reqId = " + reqId + "====\n");
+		
+		return sb.toString();
 	}
 }

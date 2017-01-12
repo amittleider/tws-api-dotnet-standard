@@ -237,6 +237,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_REQNEWSTICKS_ACK:
 			break;
+		case ST_REQSMARTCOMPONENTS:
+			reqSmartComponents();
+			break;
+		case ST_REQSMARTCOMPONENTS_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -291,34 +296,34 @@ void TestCppClient::tickDataOperation()
 	/*** Requesting real time market data ***/
     std::this_thread::sleep_for(std::chrono::seconds(1));
     //! [reqmktdata]
-	m_pClient->reqMktData(1001, ContractSamples::StockComboContract(), "", false, TagValueListSPtr());
-	m_pClient->reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), "", false, TagValueListSPtr());
+	m_pClient->reqMktData(1001, ContractSamples::StockComboContract(), "", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), "", false, false, TagValueListSPtr());
 	//! [reqmktdata]
 	//! [reqmktdata_snapshot]
-	m_pClient->reqMktData(1003, ContractSamples::FutureComboContract(), "", true, TagValueListSPtr());
+	m_pClient->reqMktData(1003, ContractSamples::FutureComboContract(), "", true, false, TagValueListSPtr());
 	//! [reqmktdata_snapshot]
 
 	//! [reqmktdata_genticks]
 	//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
-	m_pClient->reqMktData(1004, ContractSamples::USStock(), "233,236,258", false, TagValueListSPtr());
+	m_pClient->reqMktData(1004, ContractSamples::USStock(), "233,236,258", false, false, TagValueListSPtr());
 	//! [reqmktdata_genticks]
 
 	//! [reqmktdata_contractnews]
-	m_pClient->reqMktData(1005, ContractSamples::USStock(), "mdoff,292:BZ", false, TagValueListSPtr());
-	m_pClient->reqMktData(1006, ContractSamples::USStock(), "mdoff,292:BT", false, TagValueListSPtr());
-	m_pClient->reqMktData(1007, ContractSamples::USStock(), "mdoff,292:FLY", false, TagValueListSPtr());
-	m_pClient->reqMktData(1008, ContractSamples::USStock(), "mdoff,292:MT", false, TagValueListSPtr());
+	m_pClient->reqMktData(1005, ContractSamples::USStock(), "mdoff,292:BZ", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1006, ContractSamples::USStock(), "mdoff,292:BT", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1007, ContractSamples::USStock(), "mdoff,292:FLY", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1008, ContractSamples::USStock(), "mdoff,292:MT", false, false, TagValueListSPtr());
 	//! [reqmktdata_contractnews]
 	//! [reqmktdata_broadtapenews]
-	m_pClient->reqMktData(1009, ContractSamples::BTbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
-	m_pClient->reqMktData(1010, ContractSamples::BZbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
-	m_pClient->reqMktData(1011, ContractSamples::FLYbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
-	m_pClient->reqMktData(1012, ContractSamples::MTbroadtapeNewsFeed(), "mdoff,292", false, TagValueListSPtr());
+	m_pClient->reqMktData(1009, ContractSamples::BTbroadtapeNewsFeed(), "mdoff,292", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1010, ContractSamples::BZbroadtapeNewsFeed(), "mdoff,292", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1011, ContractSamples::FLYbroadtapeNewsFeed(), "mdoff,292", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1012, ContractSamples::MTbroadtapeNewsFeed(), "mdoff,292", false, false, TagValueListSPtr());
 	//! [reqmktdata_broadtapenews]
 
 	//! [reqoptiondatagenticks]
 	//Requesting data for an option contract will return the greek values
-	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
+	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, false, TagValueListSPtr());
 	//! [reqoptiondatagenticks]
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -338,8 +343,8 @@ void TestCppClient::delayedTickDataOperation()
 
 	//! [reqmktdata_delayedmd]
 	m_pClient->reqMarketDataType(4); // send delayed-frozen (4) market data type
-	m_pClient->reqMktData(1013, ContractSamples::HKStk(), "", false, TagValueListSPtr());
-	m_pClient->reqMktData(1014, ContractSamples::USOptionContract(), "", false, TagValueListSPtr());
+	m_pClient->reqMktData(1013, ContractSamples::HKStk(), "", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1014, ContractSamples::USOptionContract(), "", false, false, TagValueListSPtr());
 	//! [reqmktdata_delayedmd]
 
 	std::this_thread::sleep_for(std::chrono::seconds(10));
@@ -460,9 +465,13 @@ void TestCppClient::contractOperations()
 	m_pClient->reqContractDetails(211, ContractSamples::NewsFeedForQuery());
 	//! [reqcontractdetailsnews]
 
+	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(212, ContractSamples::IBMBond());
+	//! [reqcontractdetails]
 
+	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
+	//! [reqcontractdetails]
 
 	m_state = ST_CONTRACTOPERATION_ACK;
 }
@@ -941,7 +950,7 @@ void TestCppClient::reqMktDepthExchanges()
 void TestCppClient::reqNewsTicks()
 {
 	//! [reqmktdata_ticknews]
-	m_pClient->reqMktData(12001, ContractSamples::USStockAtSmart(), "mdoff,292", false, TagValueListSPtr());
+	m_pClient->reqMktData(12001, ContractSamples::USStockAtSmart(), "mdoff,292", false, false, TagValueListSPtr());
 	//! [reqmktdata_ticknews]
 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -949,6 +958,26 @@ void TestCppClient::reqNewsTicks()
 	m_pClient->cancelMktData(12001);
 
 	m_state = ST_REQNEWSTICKS_ACK;
+}
+
+void TestCppClient::reqSmartComponents()
+{
+	static bool bFirstRun = true;
+
+	if (bFirstRun) {
+		m_pClient->reqMktData(13001, ContractSamples::USStockAtSmart(), "", false, false, TagValueListSPtr());
+
+		bFirstRun = false;
+	}
+
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+
+	if (m_bboExchange.size() > 0) {
+		m_pClient->cancelMktData(13001);
+		m_pClient->reqSmartComponents(13002, m_bboExchange);
+
+		m_state = ST_REQSMARTCOMPONENTS_ACK;
+	}
 }
 
 //! [nextvalidid]
@@ -982,7 +1011,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_FAMILYCODES;
 	//m_state = ST_SYMBOLSAMPLES;
 	//m_state = ST_REQMKTDEPTHEXCHANGES;
-	m_state = ST_REQNEWSTICKS;
+	//m_state = ST_REQNEWSTICKS;
+	m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_PING;
 }
 
@@ -1330,7 +1360,6 @@ void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
 	printf("Family codes (%lu):\n", familyCodes.size());
 
 	for (unsigned int i = 0; i < familyCodes.size(); i++) {
-//! [familyCodes]
 		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
 	}
 }
@@ -1341,7 +1370,6 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 	printf("Symbol Samples (total=%lu) reqId: %d\n", contractDescriptions.size(), reqId);
 
 	for (unsigned int i = 0; i < contractDescriptions.size(); i++) {
-//! [symbolSamples]
 		Contract contract = contractDescriptions[i].contract;
 		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
 		printf("Contract (%u): %ld %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
@@ -1359,7 +1387,6 @@ void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription>
 	printf("Mkt Depth Exchanges (%lu):\n", depthMktDataDescriptions.size());
 
 	for (unsigned int i = 0; i < depthMktDataDescriptions.size(); i++) {
-//! [mktDepthExchanges]
 		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n", i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? "true" : "false");
 	}
 }
@@ -1370,3 +1397,21 @@ void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& 
 	printf("News Tick. TickerId: %d, TimeStamp: %s, ProviderCode: %s, ArticleId: %s, Headline: %s, ExtraData: %s\n", tickerId, ctime(&(timeStamp /= 1000)), providerCode.c_str(), articleId.c_str(), headline.c_str(), extraData.c_str());
 }
 //! [tickNews]
+
+//! [smartComponents]
+void TestCppClient::smartComponents(int reqId, SmartComponentsMap theMap) {
+	printf("Smart components: (%lu):\n", theMap.size());
+
+	for (SmartComponentsMap::iterator i = theMap.begin(); i != theMap.end(); i++) {
+		printf(" bit number: %d exchange: %s exchange letter: %c\n", i->first, std::get<0>(i->second).c_str(), std::get<1>(i->second));
+	}
+}
+//! [smartComponents]
+
+//! [tickReqParams]
+void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) {
+	printf("tickerId: %d, minTick: %g, bboExchange: %s, snapshotPermissions: %u", tickerId, minTick, bboExchange.c_str(), snapshotPermissions);
+
+	m_bboExchange = bboExchange;
+}
+//! [tickReqParams]

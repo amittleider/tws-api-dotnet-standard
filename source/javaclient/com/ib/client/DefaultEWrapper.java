@@ -3,6 +3,8 @@
 
 package com.ib.client;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 import java.util.Set;
 
 class DefaultEWrapper implements EWrapper {
@@ -401,4 +403,17 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

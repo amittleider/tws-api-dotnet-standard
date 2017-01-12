@@ -166,6 +166,7 @@ const int REQ_SOFT_DOLLAR_TIERS			= 79;
 const int REQ_FAMILY_CODES				= 80;
 const int REQ_MATCHING_SYMBOLS			= 81;
 const int REQ_MKT_DEPTH_EXCHANGES		= 82;
+const int REQ_SMART_COMPONENTS			= 83;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -242,7 +243,7 @@ public:
 	int serverVersion();
 	std::string TwsConnectionTime();
 	void reqMktData(TickerId id, const Contract& contract,
-		const std::string& genericTicks, bool snapshot, const TagValueListSPtr& mktDataOptions);
+		const std::string& genericTicks, bool snapshot, bool regulatorySnaphsot, const TagValueListSPtr& mktDataOptions);
 	void cancelMktData(TickerId id);
 	void placeOrder(OrderId id, const Contract& contract, const Order& order);
 	void cancelOrder(OrderId id) ;
@@ -305,6 +306,7 @@ public:
 	void reqFamilyCodes();
 	void reqMatchingSymbols(int reqId, const std::string& pattern);
 	void reqMktDepthExchanges();
+	void reqSmartComponents(int reqId, std::string bboExchange);
 
 private:
 

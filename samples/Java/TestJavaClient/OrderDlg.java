@@ -98,6 +98,7 @@ public class OrderDlg extends JDialog {
     private JTextField 	m_marketDepthRowTextField = new JTextField( "20");
     private JTextField  m_genericTicksTextField = new JTextField(ALL_GENERIC_TICK_TAGS);
     private JCheckBox   m_snapshotMktDataTextField = new JCheckBox("Snapshot", false);
+    private JCheckBox   m_regSnapshotMktDataTextField = new JCheckBox("Regulatory Snapshot", false);
     private JTextField m_exerciseActionTextField = new JTextField("1");
     private JTextField m_exerciseQuantityTextField = new JTextField("1");
     private JTextField m_overrideTextField = new JTextField("0");
@@ -123,6 +124,7 @@ public class OrderDlg extends JDialog {
     private String      m_faPercentage;
 	public  String      m_genericTicks;
 	public  boolean     m_snapshotMktData;
+	public	boolean		m_reqSnapshotMktData;
 
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
@@ -225,7 +227,8 @@ public class OrderDlg extends JDialog {
         addGBComponent(pMarketData, new JLabel( "Generic Tick Tags"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         addGBComponent(pMarketData, m_genericTicksTextField, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         addGBComponent(pMarketData, m_snapshotMktDataTextField, gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
-
+        addGBComponent(pMarketData, m_regSnapshotMktDataTextField, gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
+        
         // create options exercise panel
         IBGridBagPanel pOptionsExercise= new IBGridBagPanel();
         pOptionsExercise.setBorder( BorderFactory.createTitledBorder( "Options Exercise") );
@@ -564,6 +567,7 @@ public class OrderDlg extends JDialog {
             m_marketDepthRows = Integer.parseInt( m_marketDepthRowTextField.getText() );
             m_genericTicks = m_genericTicksTextField.getText();
             m_snapshotMktData = m_snapshotMktDataTextField.isSelected();
+            m_reqSnapshotMktData = m_regSnapshotMktDataTextField.isSelected();
 
             m_marketDataType = m_marketDataTypeCombo.getSelectedIndex() + 1;
         }

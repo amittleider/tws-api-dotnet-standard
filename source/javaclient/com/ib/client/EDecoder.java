@@ -8,8 +8,12 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import java.lang.UnsupportedOperationException;
@@ -72,6 +76,8 @@ class EDecoder implements ObjectInput {
     static final int FAMILY_CODES = 78;
     static final int SYMBOL_SAMPLES = 79;
     static final int MKT_DEPTH_EXCHANGES = 80;
+    static final int TICK_REQ_PARAMS = 81;
+    static final int SMART_COMPONENTS = 82;
     static final int TICK_NEWS = 84;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
@@ -145,220 +151,203 @@ class EDecoder implements ObjectInput {
         switch( msgId) {
             case END_CONN:
                 return 0;
-            case TICK_PRICE: {
+                
+            case TICK_PRICE:
                 processTickPriceMsg();
                 break;
-            }
-            case TICK_SIZE: {
+
+            case TICK_SIZE:
                 processTickSizeMsg();
                 break;
-            }
 
-            case POSITION:{
+            case POSITION:
                 processPositionMsg();
                 break;
-            }
 
-            case POSITION_END:{
+            case POSITION_END:
                 processPositionEndMsg();
                 break;
-            }
 
-            case ACCOUNT_SUMMARY:{
+            case ACCOUNT_SUMMARY:
                 processAccountSummaryMsg();
                 break;
-            }
 
-            case ACCOUNT_SUMMARY_END:{
+            case ACCOUNT_SUMMARY_END:
                 processAccountSummaryEndMsg();
                 break;
-            }
 
-            case TICK_OPTION_COMPUTATION: {
+            case TICK_OPTION_COMPUTATION:
                 processTickOptionComputatioMsg();
             	break;
-            }
 
-            case TICK_GENERIC: {
+            case TICK_GENERIC:
                 processTickGenericMsg();
                 break;
-            }
 
-            case TICK_STRING: {
+            case TICK_STRING:
                 processTickStringMsg();
                 break;
-            }
 
-            case TICK_EFP: {
+            case TICK_EFP:
                 processTickEFPMsg();
                 break;
-            }
 
-            case ORDER_STATUS: {
+            case ORDER_STATUS:
                 processOrderStatusMsg();
                 break;
-            }
 
-            case ACCT_VALUE: {
+            case ACCT_VALUE:
                 processAcctValueMsg();
                 break;
-            }
 
-            case PORTFOLIO_VALUE: {
+            case PORTFOLIO_VALUE:
                 processPortfolioValueMsg();
 
                 break;
-            }
 
-            case ACCT_UPDATE_TIME: {
+            case ACCT_UPDATE_TIME:
                 processAcctUpdateTimeMsg();
                 break;
-            }
 
-            case ERR_MSG: {
+            case ERR_MSG:
                 processErrMsgMsg();
                 break;
-            }
 
-            case OPEN_ORDER: {
+            case OPEN_ORDER:
                 processOpenOrderMsg();
                 break;
-            }
 
-            case NEXT_VALID_ID: {
+            case NEXT_VALID_ID:
                 processNextValidIdMsg();
                 break;
-            }
 
-            case SCANNER_DATA: {
+            case SCANNER_DATA:
                 processScannerDataMsg();
                 break;
-            }
 
-            case CONTRACT_DATA: {
+            case CONTRACT_DATA:
                 processContractDataMsg();
                 break;
-            }
-            case BOND_CONTRACT_DATA: {
+           
+            case BOND_CONTRACT_DATA:
                 processBondContractDataMsg();
                 break;
-            }
-            case EXECUTION_DATA: {
+            
+            case EXECUTION_DATA:
                 processExecutionDataMsg();
                 break;
-            }
-            case MARKET_DEPTH: {
+            
+            case MARKET_DEPTH:
                 processMarketDepthMsg();
                 break;
-            }
-            case MARKET_DEPTH_L2: {
+            
+            case MARKET_DEPTH_L2:
                 processMarketDepthL2Msg();
                 break;
-            }
-            case NEWS_BULLETINS: {
+            
+            case NEWS_BULLETINS:
                 processNewsBulletinsMsg();
                 break;
-            }
-            case MANAGED_ACCTS: {
+            
+            case MANAGED_ACCTS:
                 processManagedAcctsMsg();
                 break;
-            }
-            case RECEIVE_FA: {
+            
+            case RECEIVE_FA:
               processReceiveFaMsg();
               break;
-            }
-            case HISTORICAL_DATA: {
+            
+            case HISTORICAL_DATA:
               processHistoricalDataMsg();
               break;
-            }
-            case SCANNER_PARAMETERS: {
+            
+            case SCANNER_PARAMETERS:
                 processScannerParametersMsg();
                 break;
-            }
-            case CURRENT_TIME: {
+            
+            case CURRENT_TIME:
                 processCurrentTimeMsg();
                 break;
-            }
-            case REAL_TIME_BARS: {
+            
+            case REAL_TIME_BARS:
                 processRealTimeBarsMsg();
                 break;
-            }
-            case FUNDAMENTAL_DATA: {
+            
+            case FUNDAMENTAL_DATA:
                 processFundamentalDataMsg();
                 break;
-            }
-            case CONTRACT_DATA_END: {
+            
+            case CONTRACT_DATA_END:
                 processContractDataEndMsg();
                 break;
-            }
-            case OPEN_ORDER_END: {
+            
+            case OPEN_ORDER_END:
                 processOpenOrderEndMsg();
                 break;
-            }
-            case ACCT_DOWNLOAD_END: {
+            
+            case ACCT_DOWNLOAD_END:
                 processAcctDownloadEndMsg();
                 break;
-            }
-            case EXECUTION_DATA_END: {
+            
+            case EXECUTION_DATA_END:
                 processExecutionDataEndMsg();
                 break;
-            }
-            case DELTA_NEUTRAL_VALIDATION: {
+            
+            case DELTA_NEUTRAL_VALIDATION:
                 processDeltaNetrualValidationMsg();
                 break;
-            }
-            case TICK_SNAPSHOT_END: {
+            
+            case TICK_SNAPSHOT_END:
                 processTickSnapshotEndMsg();
                 break;
-            }
-            case MARKET_DATA_TYPE: {
+            
+            case MARKET_DATA_TYPE:
                 processMarketDataTypeMsg();
                 break;
-            }
-            case COMMISSION_REPORT: {
+            
+            case COMMISSION_REPORT:
                 processCommissionReportMsg();
                 break;
-            }
-            case VERIFY_MESSAGE_API: {
+            
+            case VERIFY_MESSAGE_API:
                 processVerifyMessageApiMsg();
                 break;
-            }
-            case VERIFY_COMPLETED: {
+            
+            case VERIFY_COMPLETED:
                 processVerivyCompletedMsg();
                 break;
-            }
-            case DISPLAY_GROUP_LIST: {
+            
+            case DISPLAY_GROUP_LIST:
                 processDisplayGroupListMsg();
                 break;
-            }
-            case DISPLAY_GROUP_UPDATED: {
+            
+            case DISPLAY_GROUP_UPDATED:
                 processDisplayGroupUpdatedMsg();
                 break;
-            }
-            case VERIFY_AND_AUTH_MESSAGE_API: {
+            
+            case VERIFY_AND_AUTH_MESSAGE_API:
                 processVerifyAndAuthMessageMsg();
                 break;
-            }
-            case VERIFY_AND_AUTH_COMPLETED: {
+            
+            case VERIFY_AND_AUTH_COMPLETED:
                 processVerifyAndAuthCompletedMsg();
                 break;
-            }
-            case POSITION_MULTI: {
+            
+            case POSITION_MULTI:
                 processPositionMultiMsg();
                 break;
-            }
-            case POSITION_MULTI_END: {
+            
+            case POSITION_MULTI_END:
                 processPositionMultiEndMsg();
                 break;
-            }
-            case ACCOUNT_UPDATE_MULTI: {
+            
+            case ACCOUNT_UPDATE_MULTI:
                 processAccountUpdateMultiMsg();
                 break;
-            }
-            case ACCOUNT_UPDATE_MULTI_END: {
+            
+            case ACCOUNT_UPDATE_MULTI_END:
                 processAccountUpdateMultiEndMsg();
-                break;
-            }
+                break;            
             
             case SECURITY_DEFINITION_OPTION_PARAMETER:
             	processSecurityDefinitionOptionalParameterMsg();
@@ -374,7 +363,15 @@ class EDecoder implements ObjectInput {
 
             case FAMILY_CODES:
                 processFamilyCodesMsg();
-                break;
+                break;           	
+            	
+            case SMART_COMPONENTS:
+            	processSmartComponentsMsg();
+            	break;
+            	
+            case TICK_REQ_PARAMS:
+            	processTickReqParamsMsg();
+            	break;
 
             case SYMBOL_SAMPLES:
                 processSymbolSamplesMsg();
@@ -1718,6 +1715,31 @@ class EDecoder implements ObjectInput {
         int reqId = readInt();
 
         m_EWrapper.accountUpdateMultiEnd( reqId);
+    }  
+    
+    private void processSmartComponentsMsg() throws IOException {
+    	int reqId = readInt();
+    	int n = readInt();    	
+    	Map<Integer, SimpleEntry<String, Character>> theMap = new HashMap<>();
+    	
+    	for (int i = 0; i < n; i++) {
+    		int bitNumber = readInt();
+    		String exchange = readStr();
+    		char exchangeLetter = readChar();
+    		
+    		theMap.put(bitNumber, new SimpleEntry<>(exchange, exchangeLetter));
+    	}
+    	
+    	m_EWrapper.smartComponents(reqId, theMap);
+    }
+    
+    private void processTickReqParamsMsg() throws IOException {
+    	int tickerId = readInt();
+    	double minTick = readDouble();
+    	String bboExchange = readStr();
+    	int snapshotPermissions = readInt();
+    	
+    	m_EWrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
     }
     
     protected String readStr() throws IOException {
@@ -1828,7 +1850,7 @@ class EDecoder implements ObjectInput {
 	public float readFloat() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public char readChar() throws IOException { throw new UnsupportedOperationException(); }
+	public char readChar() throws IOException { return readStr().charAt(0); }
 	
 	@Override
 	public byte readByte() throws IOException { throw new UnsupportedOperationException(); }

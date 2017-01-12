@@ -257,5 +257,14 @@ namespace IBApi
         public virtual void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
         {
         }
+
+
+        public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        {
+        }
+
+        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+        }
     }
 }

@@ -1,5 +1,7 @@
 package samples.testbed;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
 import java.util.Set;
 
 import com.ib.client.CommissionReport;
@@ -450,8 +452,8 @@ public class EWrapperImpl implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
-    
-    //! [softDollarTiers]
+        
+        //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		for (SoftDollarTier tier : tiers) {
@@ -460,7 +462,7 @@ public class EWrapperImpl implements EWrapper {
 		
 		System.out.println();
 	}
-    //! [softDollarTiers]
+        //! [softDollarTiers]
 
     //! [familyCodes]
     @Override
@@ -492,7 +494,7 @@ public class EWrapperImpl implements EWrapper {
         System.out.println();
     }
     //! [symbolSamples]
-
+    
 	//! [mktDepthExchanges]
 	@Override
 	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
@@ -502,11 +504,25 @@ public class EWrapperImpl implements EWrapper {
 		}
 	}
 	//! [mktDepthExchanges]
-
+	
 	//! [tickNews]
 	@Override
 	public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
 		System.out.println("Tick News. TickerId: " + tickerId + ", TimeStamp: " + timeStamp + ", ProviderCode: " + providerCode + ", ArticleId: " + articleId + ", Headline: " + headline + ", ExtraData: " + extraData + "\n");
 	}
 	//! [tickNews]
+	@Override
+	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		System.out.println("smart components req id:" + reqId);
+		
+		for (Map.Entry<Integer, SimpleEntry<String, Character>> item : theMap.entrySet()) {
+			System.out.println("bit number: " + item.getKey() + 
+					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue());			
+		}
+	}
+	
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		System.out.println("Tick req params. Ticker Id:" + tickerId + ", Min tick: " + minTick + ", bbo exchange: " + bboExchange + ", Snapshot permissions: " + snapshotPermissions);
+	}
 }

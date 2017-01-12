@@ -68,5 +68,6 @@ namespace IBApi
         RequestFamilyCodes = 80,
         RequestMatchingSymbols = 81,
         RequestMktDepthExchanges = 82,
+        RequestSmartComponents = 83,
     }
 }

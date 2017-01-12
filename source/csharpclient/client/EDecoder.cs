@@ -363,6 +363,16 @@ namespace IBApi
                         TickNewsEvent();
                         break;
                     }
+                case IncomingMessage.TickReqParams:
+                    {
+                        TickReqParamsEvent();
+                        break;
+                    }
+                case IncomingMessage.SmartComponents:
+                    {
+                        SmartComponentsEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -371,6 +381,34 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void SmartComponentsEvent()
+        {
+            int reqId = ReadInt();
+            int n = ReadInt();
+            var theMap = new Dictionary<int, KeyValuePair<string, char>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                int bitNumber = ReadInt();
+                String exchange = ReadString();
+                char exchangeLetter = ReadChar();
+
+                theMap.Add(bitNumber, new KeyValuePair<string, char>(exchange, exchangeLetter));
+            }
+
+            eWrapper.smartComponents(reqId, theMap);
+        }
+
+        private void TickReqParamsEvent()
+        {
+            int tickerId = ReadInt();
+            double minTick = ReadDouble();
+            String bboExchange = ReadString();
+            int snapshotPermissions = ReadInt();
+
+            eWrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
         }
 
         private void TickNewsEvent()
@@ -1889,6 +1927,12 @@ namespace IBApi
         {
             string str = ReadString();
             return str == null ? false : (Int32.Parse(str) != 0);
+        }
+
+        public char ReadChar()
+        {
+            string str = ReadString();
+            return str == null ? '\0' : str[0];
         }
 
         public string ReadString()

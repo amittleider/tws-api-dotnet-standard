@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 import com.ib.client.CommissionReport;
@@ -432,4 +434,17 @@ public class SimpleWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

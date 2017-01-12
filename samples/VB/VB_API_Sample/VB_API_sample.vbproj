@@ -120,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEventSource.vb" />
+    <Compile Include="dlgSmartComponents.Designer.vb">
+      <DependentUpon>dlgSmartComponents.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgSmartComponents.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EventArgs\AccountDownloadEndEventArgs.vb" />
     <Compile Include="EventArgs\BondContractDetailsEventArgs.vb" />
     <Compile Include="dlgSecDefOptParamsReq.vb">
@@ -278,6 +284,8 @@
     <Compile Include="dlgUnderComp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SmartComponentsEventArgs.vb" />
+    <Compile Include="TickReqParamsEventArgs.vb" />
     <Compile Include="Tws.vb" />
     <Compile Include="Utils.vb">
       <SubType>Code</SubType>
@@ -372,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgSmartComboRoutingParams.resX">
       <DependentUpon>dlgSmartComboRoutingParams.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgSmartComponents.resx">
+      <DependentUpon>dlgSmartComponents.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgUnderComp.resX">
       <SubType>Designer</SubType>

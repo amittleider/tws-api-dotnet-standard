@@ -155,32 +155,32 @@ public class Testbed {
 		/*** Requesting real time market data ***/
 		//Thread.sleep(1000);
 		//! [reqmktdata]
-		client.reqMktData(1001, ContractSamples.StockComboContract(), "", false, null);
+		client.reqMktData(1001, ContractSamples.StockComboContract(), "", false, false, null);
 		//! [reqmktdata]
 		
 		//! [reqmktdata_snapshot]
-		client.reqMktData(1003, ContractSamples.FutureComboContract(), "", true, null);
+		client.reqMktData(1003, ContractSamples.FutureComboContract(), "", true, false, null);
 		//! [reqmktdata_snapshot]
 		
 		//! [reqmktdata_genticks]
 		//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
-		client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, null);
+		client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, false, null);
 		//! [reqmktdata_genticks]
 		//! [reqmktdata_contractnews]
-		client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, null);
-		client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, null);
-		client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, null);
-		client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", false, null);
+		client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, false, null);
+		client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, false, null);
+		client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, false, null);
+		client.reqMktData(1008, ContractSamples.USStock(), "mdoff,292:MT", false, false, null);
 		//! [reqmktdata_contractnews]
 		//! [reqmktdata_broadtapenews]
-		client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", false, null);
-		client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", false, null);
-		client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", false, null);
-		client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", false, null);
+		client.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+		client.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+		client.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", false, false, null);
+		client.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", false, false, null);
 		//! [reqmktdata_broadtapenews]
 		//! [reqoptiondatagenticks]
         //Requesting data for an option contract will return the greek values
-        client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), "", false, null);
+        client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), "", false, false, null);
         //! [reqoptiondatagenticks]
 		
 		Thread.sleep(10000);
@@ -303,7 +303,7 @@ public class Testbed {
 
 		/*** Requesting news ticks ***/
 		//! [reqNewsTicks]
-		client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", false, null);
+		client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", false, false, null);
 		//! [reqNewsTicks]
 
 		Thread.sleep(10000);
