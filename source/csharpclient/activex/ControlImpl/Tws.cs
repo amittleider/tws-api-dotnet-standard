@@ -296,7 +296,7 @@ namespace TWSLib
         [DispId(60)]
         public void reqMktData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string primaryExchange,
-                   string currency, string genericTicks, bool snapshot, ITagValueList options)
+                   string currency, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -315,7 +315,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
 
         [DispId(61)]
@@ -355,7 +355,7 @@ namespace TWSLib
         [DispId(65)]
         public void reqMktData2(int id, string localSymbol, string secType, string exchange,
                    string primaryExchange, string currency, string genericTicks,
-                   bool snapshot, ITagValueList options)
+                   bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
             // set contract fields
             Contract contract = new Contract();
@@ -370,7 +370,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request market data
-            this.socket.reqMktData(id, contract, genericTicks, snapshot, ITagValueListToListTagValue(options));
+            this.socket.reqMktData(id, contract, genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
 
         [DispId(66)]
@@ -813,9 +813,9 @@ namespace TWSLib
         }
 
         [DispId(101)]
-        public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options)
+        public void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options)
         {
-            this.socket.reqMktData(tickerId, (Contract)(contract as ComContract), genericTicks, snapshot, ITagValueListToListTagValue(options));
+            this.socket.reqMktData(tickerId, (Contract)(contract as ComContract), genericTicks, snapshot, regulatorySnapshot, ITagValueListToListTagValue(options));
         }
 
         private static List<TagValue> ITagValueListToListTagValue(ITagValueList v)
@@ -1405,14 +1405,9 @@ namespace TWSLib
                                       contractDetails.Notes);
         }
 
-        public delegate void scannerParametersDelegate(string xml);
-        public event scannerParametersDelegate scannerParameters;
 
         public delegate void scannerDataDelegate(int reqId, int rank, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, string distance, string benchmark, string projection, string legsStr);
         public event scannerDataDelegate scannerData;
-
-        public delegate void tickOptionComputationDelegate(int id, int tickType, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
-        public event tickOptionComputationDelegate tickOptionComputation;
 
         public delegate void tickGenericDelegate(int id, int tickType, double value);
         public event tickGenericDelegate tickGeneric;
@@ -1442,10 +1437,6 @@ namespace TWSLib
             if (t_tickEFP != null)
                 InvokeIfRequired(t_tickEFP, tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
-
-        public delegate void realtimeBarDelegate(int tickerId, int time, double open, double high, double low, double close,
-                         int volume, double WAP, int count);
-        public event realtimeBarDelegate realtimeBar;
 
         public delegate void currentTimeDelegate(int time);
         public event currentTimeDelegate currentTime;
@@ -1710,13 +1701,13 @@ namespace TWSLib
                 InvokeIfRequired(t_accountUpdateMultiEnd, requestId);
         }
 
-        public delegate void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        public delegate void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, string[] expirations, double[] strikes);
         public event securityDefinitionOptionParameterDelegate securityDefinitionOptionParameter;
         void EWrapper.securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
             var t_securityDefinitionOptionParameter = this.securityDefinitionOptionParameter;
             if (t_securityDefinitionOptionParameter != null)
-                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, exchange, underlyingConId, tradingClass, multiplier, new ArrayList(expirations.ToArray()), new ArrayList(strikes.ToArray()));
+                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, exchange, underlyingConId, tradingClass, multiplier, expirations.ToArray(), strikes.ToArray());
         }
 
         public delegate void securityDefinitionOptionParameterEndDelegate(int reqId);
@@ -1776,6 +1767,15 @@ namespace TWSLib
                 InvokeIfRequired(t_mktDepthExchanges, depthMktDataDescriptions.Length > 0 ? new ComDepthMktDataDescriptionList(depthMktDataDescriptions) : null);
         }
 
+        public delegate void tickOptionComputationDelegate(int id, int tickType, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
+        public event tickOptionComputationDelegate tickOptionComputation;
+        void EWrapper.tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        {
+            var t_tickOptionComputation = this.tickOptionComputation;
+            if (t_tickOptionComputation != null)
+                InvokeIfRequired(t_tickOptionComputation, tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+        }
+
         public delegate void tickNewsDelegate(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
         public event tickNewsDelegate tickNews;
         void EWrapper.tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
@@ -1784,6 +1784,45 @@ namespace TWSLib
 
             if (t_tickNews != null)
                 InvokeIfRequired(t_tickNews, tickerId, timeStamp.ToString("G"), providerCode, articleId, headline, extraData);
+        }
+
+        public delegate void realtimeBarDelegate(int tickerId, int time, double open, double high, double low, double close,
+                int volume, double WAP, int count);
+        public event realtimeBarDelegate realtimeBar;
+        void EWrapper.realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count)
+        {
+            var t_realtimeBar = this.realtimeBar;
+            if (t_realtimeBar != null)
+                InvokeIfRequired(t_realtimeBar, reqId, (int)time, open, high, low, close, (int)volume, WAP, count);
+        }
+
+        public delegate void scannerParametersDelegate(string xml);
+        public event scannerParametersDelegate scannerParameters;
+        void EWrapper.scannerParameters(string xml)
+        {
+            var t_scannerParameters = this.scannerParameters;
+            if (t_scannerParameters != null)
+                InvokeIfRequired(t_scannerParameters, xml);
+        }
+
+        public delegate void smartComponentsDelegate(int reqId, ArrayList[] theMap);
+        public event smartComponentsDelegate smartComponents;
+        void EWrapper.smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        {
+            var tmp = this.smartComponents;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, theMap.Select(x => new ArrayList(new object[] { x.Key, x.Value.Key, x.Value.Value })).ToArray());
+        }
+
+        public delegate void tickReqParamsDelegate(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
+        public event tickReqParamsDelegate tickReqParams;
+        void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            var tmp = this.tickReqParams;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, tickerId, minTick, bboExchange, snapshotPermissions);
         }
 
         #endregion
@@ -1802,27 +1841,6 @@ namespace TWSLib
         void InvokeIfRequired(Delegate method)
         {
             InvokeIfRequired(method, new object[0]);
-        }
- 
-        void EWrapper.tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
-        {
-            var t_tickOptionComputation = this.tickOptionComputation;
-            if (t_tickOptionComputation != null)
-                InvokeIfRequired(t_tickOptionComputation, tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
-        }
-
-        void EWrapper.realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count)
-        {
-            var t_realtimeBar = this.realtimeBar;
-            if (t_realtimeBar != null)
-                InvokeIfRequired(t_realtimeBar, reqId, (int)time, open, high, low, close, (int)volume, WAP, count);
-        }
-
-        void EWrapper.scannerParameters(string xml)
-        {
-            var t_scannerParameters = this.scannerParameters;
-            if (t_scannerParameters != null)
-                InvokeIfRequired(t_scannerParameters, xml);
         }
 
         void IDisposable.Dispose()
@@ -1908,6 +1926,11 @@ namespace TWSLib
         public void reqMktDepthExchanges()
         {
             socket.reqMktDepthExchanges();
+        }
+
+        public void reqSmartComponents(int reqId, string bboExchange)
+        {
+            socket.reqSmartComponents(reqId, bboExchange);
         }
 
         public ArrayList ParseConditions(string str)

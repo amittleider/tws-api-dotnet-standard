@@ -146,7 +146,7 @@ namespace TWSLib
         [DispId(60)]
         void reqMktData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string primaryExchange,
-                  string currency, string genericTicks, bool snapshot, ITagValueList options);
+                  string currency, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options);
 
         [DispId(61)]
         void reqOpenOrders();
@@ -163,7 +163,7 @@ namespace TWSLib
         [DispId(65)]
         void reqMktData2(int id, string localSymbol, string secType, string exchange,
                   string primaryExchange, string currency, string genericTicks,
-                  bool snapshot, ITagValueList options);
+                  bool snapshot, bool regulatorySnapshot, ITagValueList options);
 
         [DispId(66)]
         void placeOrder2(int id, string action, double quantity, string localSymbol,
@@ -256,7 +256,7 @@ namespace TWSLib
         [DispId(100)]
         void reqContractDetailsEx(int reqId, IContract contract);
         [DispId(101)]
-        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options);
+        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options);
         [DispId(102)]
         void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options);
         [DispId(103)]
@@ -345,6 +345,8 @@ namespace TWSLib
         void reqMatchingSymbols(int reqId, string pattern);
         [DispId(217)]
         void reqMktDepthExchanges();
+        [DispId(218)]
+        void reqSmartComponents(int reqId, string bboExchange);
 
         #endregion
     }

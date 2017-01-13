@@ -146,11 +146,11 @@ namespace TWSLib
         [DispId(122)]
         void accountUpdateMultiEnd(int requestId);
         [DispId(123)]
-        void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, string[] expirations, double[] strikes);
         [DispId(124)]
-        void securityDefinitionOptionParameterEndDelegate(int reqId);
+        void securityDefinitionOptionParameterEnd(int reqId);
         [DispId(125)]
-        void softDollarTiersDelegate(int reqid);
+        void softDollarTiers(int reqid, SoftDollarTier[] tiers);
         [DispId(126)]
         void familyCodes(IFamilyCodeList familyCodes);
         [DispId(127)]
@@ -159,5 +159,9 @@ namespace TWSLib
         void mktDepthExchanges(IDepthMktDataDescriptionList depthMktDataDescriptions);
         [DispId(129)]
         void tickNews(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
+        [DispId(130)]
+        void smartComponents(int reqId, ArrayList[] theMap);
+        [DispId(131)]
+        void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
     }
 }
