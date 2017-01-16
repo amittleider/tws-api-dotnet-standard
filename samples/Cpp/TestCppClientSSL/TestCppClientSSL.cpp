@@ -294,3 +294,4 @@ void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription>
 void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) {}
 void TestCppClient::smartComponents(int reqId, SmartComponentsMap theMap) {}
 void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) {}
+void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders) {}

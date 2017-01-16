@@ -416,4 +416,10 @@ class DefaultEWrapper implements EWrapper {
 		
 	}
 	
+	
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		// TODO Auto-generated method stub
+		
+	}
 }

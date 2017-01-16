@@ -24,6 +24,7 @@ import com.ib.client.EReader;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
+import com.ib.client.NewsProvider;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -447,4 +448,9 @@ public class SimpleWrapper implements EWrapper {
 		
 	}
 
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		// TODO Auto-generated method stub
+
+	}
 }

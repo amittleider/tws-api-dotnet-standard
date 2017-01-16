@@ -641,6 +641,14 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_NewsProviders(newsProviders() As NewsProvider) Implements EWrapper.newsProviders
+        InvokeIfRequired(Sub()
+                             RaiseEvent NewsProviders(Me, New NewsProvidersEventArgs With {
+                                                            .newsProviders = newsProviders
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -705,6 +713,7 @@ Friend Class ApiEventSource
     Event TickNews(sender As Object, e As TickNewsEventArgs)
     Event SmartComponents(sender As ApiEventSource, e As SmartComponentsEventArgs)
     Event TickReqParams(sender As ApiEventSource, e As TickReqParamsEventArgs)
+    Event NewsProviders(sender As Object, e As NewsProvidersEventArgs)
 
 #End Region
 

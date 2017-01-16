@@ -69,5 +69,6 @@ namespace IBApi
         RequestMatchingSymbols = 81,
         RequestMktDepthExchanges = 82,
         RequestSmartComponents = 83,
+        RequestNewsProviders = 85,
     }
 }

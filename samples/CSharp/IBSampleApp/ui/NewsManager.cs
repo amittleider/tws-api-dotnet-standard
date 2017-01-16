@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -20,11 +20,13 @@ namespace IBSampleApp.ui
 
         private IBClient ibClient;
         private DataGridView tickNewsGrid;
+        private DataGridView newsProvidersGrid;
 
-        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid)
+        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid)
         {
             IbClient = ibClient;
             TickNewsGrid = tickNewsDataGrid;
+            NewsProvidersGrid = newsProvidersGrid;
         }
 
         public void UpdateUI(IBMessage message)
@@ -33,6 +35,9 @@ namespace IBSampleApp.ui
             {
                 case MessageType.TickNews:
                     HandleTickNews((TickNewsMessage)message);
+                    break;
+                case MessageType.NewsProviders:
+                    HandleNewsProviders((NewsProvidersMessage)message);
                     break;
             }
         }
@@ -48,6 +53,17 @@ namespace IBSampleApp.ui
                 TickNewsGrid[3, rowCountTickNewsGrid].Value = tickNewsMessage.Headline;
                 TickNewsGrid[4, rowCountTickNewsGrid].Value = tickNewsMessage.ExtraData;
                 rowCountTickNewsGrid++;
+            }
+        }
+
+        public void HandleNewsProviders(NewsProvidersMessage newsProvidersMessage)
+        {
+            newsProvidersGrid.Rows.Clear();
+            for (int i = 0; i < newsProvidersMessage.NewsProviders.Length; i++)
+            {
+                newsProvidersGrid.Rows.Add(1);
+                newsProvidersGrid[0, newsProvidersGrid.Rows.Count - 1].Value = newsProvidersMessage.NewsProviders[i].ProviderCode;
+                newsProvidersGrid[1, newsProvidersGrid.Rows.Count - 1].Value = newsProvidersMessage.NewsProviders[i].ProviderName;
             }
         }
 
@@ -72,10 +88,31 @@ namespace IBSampleApp.ui
             ClearTickNews();
         }
 
+        public void ClearNewsProviders()
+        {
+            newsProvidersGrid.Rows.Clear();
+        }
+
+        public void RequestNewsProviders()
+        {
+            if (!NewsProvidersGrid.Visible)
+                newsProvidersGrid.Visible = true;
+
+            ClearNewsProviders();
+
+            ibClient.ClientSocket.reqNewsProviders();
+        }
+
         public DataGridView TickNewsGrid
         {
             get { return tickNewsGrid; }
             set { tickNewsGrid = value; }
+        }
+
+        public DataGridView NewsProvidersGrid
+        {
+            get { return newsProvidersGrid; }
+            set { newsProvidersGrid = value; }
         }
 
         public IBClient IbClient

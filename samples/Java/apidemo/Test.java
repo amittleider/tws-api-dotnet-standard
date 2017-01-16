@@ -329,4 +329,9 @@ public class Test implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		System.out.println(EWrapperMsgGenerator.newsProviders(newsProviders));
+	}
 }

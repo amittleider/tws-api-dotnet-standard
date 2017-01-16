@@ -477,6 +477,11 @@ namespace IBSampleApp
             this.dataGridViewHeadline = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewNewsTicksExtraData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.linkLabelNewsTicksClear = new System.Windows.Forms.LinkLabel();
+            this.tabPageNewsProvidersResults = new System.Windows.Forms.TabPage();
+            this.dataGridViewNewsProviders = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxNewsProvidersProviderCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxNewsProvidersProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkLabelClearNewsProviders = new System.Windows.Forms.LinkLabel();
             this.tabControlNews = new System.Windows.Forms.TabControl();
             this.tabPageTickNews = new System.Windows.Forms.TabPage();
             this.groupBoxNewsTicks = new System.Windows.Forms.GroupBox();
@@ -492,6 +497,8 @@ namespace IBSampleApp
             this.labelNewsTicksCurrency = new System.Windows.Forms.Label();
             this.textBoxNewsTicksCurrency = new System.Windows.Forms.TextBox();
             this.textBoxNewsTicksSymbol = new System.Windows.Forms.TextBox();
+            this.tabPageNewsProviders = new System.Windows.Forms.TabPage();
+            this.buttonReqNewsProviders = new System.Windows.Forms.Button();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -637,9 +644,12 @@ namespace IBSampleApp
             this.tabControlNewsResults.SuspendLayout();
             this.tabPageTickNewsResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsTicks)).BeginInit();
+            this.tabPageNewsProvidersResults.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsProviders)).BeginInit();
             this.tabControlNews.SuspendLayout();
             this.tabPageTickNews.SuspendLayout();
             this.groupBoxNewsTicks.SuspendLayout();
+            this.tabPageNewsProviders.SuspendLayout();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -4776,6 +4786,7 @@ namespace IBSampleApp
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlNewsResults.Controls.Add(this.tabPageTickNewsResults);
+            this.tabControlNewsResults.Controls.Add(this.tabPageNewsProvidersResults);
             this.tabControlNewsResults.Location = new System.Drawing.Point(0, 207);
             this.tabControlNewsResults.Margin = new System.Windows.Forms.Padding(0);
             this.tabControlNewsResults.Name = "tabControlNewsResults";
@@ -4861,11 +4872,67 @@ namespace IBSampleApp
             this.linkLabelNewsTicksClear.Text = "Clear";
             this.linkLabelNewsTicksClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelNewsTicksClear_LinkClicked);
             // 
+            // tabPageNewsProvidersResults
+            // 
+            this.tabPageNewsProvidersResults.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageNewsProvidersResults.Controls.Add(this.dataGridViewNewsProviders);
+            this.tabPageNewsProvidersResults.Controls.Add(this.linkLabelClearNewsProviders);
+            this.tabPageNewsProvidersResults.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewsProvidersResults.Name = "tabPageNewsProvidersResults";
+            this.tabPageNewsProvidersResults.Size = new System.Drawing.Size(1234, 209);
+            this.tabPageNewsProvidersResults.TabIndex = 3;
+            this.tabPageNewsProvidersResults.Text = "News Providers";
+            // 
+            // dataGridViewNewsProviders
+            // 
+            this.dataGridViewNewsProviders.AllowUserToAddRows = false;
+            this.dataGridViewNewsProviders.AllowUserToDeleteRows = false;
+            this.dataGridViewNewsProviders.AllowUserToOrderColumns = true;
+            this.dataGridViewNewsProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewNewsProviders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewNewsProviders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxNewsProvidersProviderCode,
+            this.dataGridViewTextBoxNewsProvidersProviderName});
+            this.dataGridViewNewsProviders.Location = new System.Drawing.Point(5, 22);
+            this.dataGridViewNewsProviders.Name = "dataGridViewNewsProviders";
+            this.dataGridViewNewsProviders.ReadOnly = true;
+            this.dataGridViewNewsProviders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewNewsProviders.Size = new System.Drawing.Size(1225, 184);
+            this.dataGridViewNewsProviders.TabIndex = 3;
+            this.dataGridViewNewsProviders.Visible = false;
+            // 
+            // dataGridViewTextBoxNewsProvidersProviderCode
+            // 
+            this.dataGridViewTextBoxNewsProvidersProviderCode.HeaderText = "Provider Code";
+            this.dataGridViewTextBoxNewsProvidersProviderCode.Name = "dataGridViewTextBoxNewsProvidersProviderCode";
+            this.dataGridViewTextBoxNewsProvidersProviderCode.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxNewsProvidersProviderName
+            // 
+            this.dataGridViewTextBoxNewsProvidersProviderName.HeaderText = "Provider Name";
+            this.dataGridViewTextBoxNewsProvidersProviderName.Name = "dataGridViewTextBoxNewsProvidersProviderName";
+            this.dataGridViewTextBoxNewsProvidersProviderName.ReadOnly = true;
+            this.dataGridViewTextBoxNewsProvidersProviderName.Width = 500;
+            // 
+            // linkLabelClearNewsProviders
+            // 
+            this.linkLabelClearNewsProviders.AutoSize = true;
+            this.linkLabelClearNewsProviders.Location = new System.Drawing.Point(7, 3);
+            this.linkLabelClearNewsProviders.Name = "linkLabelClearNewsProviders";
+            this.linkLabelClearNewsProviders.Size = new System.Drawing.Size(31, 13);
+            this.linkLabelClearNewsProviders.TabIndex = 2;
+            this.linkLabelClearNewsProviders.TabStop = true;
+            this.linkLabelClearNewsProviders.Text = "Clear";
+            this.linkLabelClearNewsProviders.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClearNewsProviders_LinkClicked);
+            // 
             // tabControlNews
             // 
             this.tabControlNews.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlNews.Controls.Add(this.tabPageTickNews);
+            this.tabControlNews.Controls.Add(this.tabPageNewsProviders);
             this.tabControlNews.Location = new System.Drawing.Point(0, 0);
             this.tabControlNews.Name = "tabControlNews";
             this.tabControlNews.SelectedIndex = 0;
@@ -5016,6 +5083,28 @@ namespace IBSampleApp
             this.textBoxNewsTicksSymbol.Size = new System.Drawing.Size(100, 20);
             this.textBoxNewsTicksSymbol.TabIndex = 16;
             this.textBoxNewsTicksSymbol.Text = "IBKR";
+            // 
+            // tabPageNewsProviders
+            // 
+            this.tabPageNewsProviders.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageNewsProviders.Controls.Add(this.buttonReqNewsProviders);
+            this.tabPageNewsProviders.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNewsProviders.Name = "tabPageNewsProviders";
+            this.tabPageNewsProviders.Size = new System.Drawing.Size(1230, 182);
+            this.tabPageNewsProviders.TabIndex = 3;
+            this.tabPageNewsProviders.Text = "News Providers";
+            // 
+            // buttonReqNewsProviders
+            // 
+            this.buttonReqNewsProviders.Location = new System.Drawing.Point(9, 12);
+            this.buttonReqNewsProviders.Name = "buttonReqNewsProviders";
+            this.buttonReqNewsProviders.Size = new System.Drawing.Size(129, 23);
+            this.buttonReqNewsProviders.TabIndex = 35;
+            this.buttonReqNewsProviders.Text = "Req News Providers";
+            this.informationTooltip.SetToolTip(this.buttonReqNewsProviders, "Looks for all contracts matching the description provided.");
+            this.buttonReqNewsProviders.UseMnemonic = false;
+            this.buttonReqNewsProviders.UseVisualStyleBackColor = true;
+            this.buttonReqNewsProviders.Click += new System.EventHandler(this.buttonReqNewsProviders_Click);
             // 
             // connectButton
             // 
@@ -5731,10 +5820,14 @@ namespace IBSampleApp
             this.tabPageTickNewsResults.ResumeLayout(false);
             this.tabPageTickNewsResults.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsTicks)).EndInit();
+            this.tabPageNewsProvidersResults.ResumeLayout(false);
+            this.tabPageNewsProvidersResults.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNewsProviders)).EndInit();
             this.tabControlNews.ResumeLayout(false);
             this.tabPageTickNews.ResumeLayout(false);
             this.groupBoxNewsTicks.ResumeLayout(false);
             this.groupBoxNewsTicks.PerformLayout();
+            this.tabPageNewsProviders.ResumeLayout(false);
             this.comboTab.ResumeLayout(false);
             this.comboDeltaNeutralBox.ResumeLayout(false);
             this.comboDeltaNeutralBox.PerformLayout();
@@ -6174,6 +6267,13 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewNewsTicksExtraData;
         private System.Windows.Forms.LinkLabel linkLabelNewsTicksClear;
         private System.Windows.Forms.Button buttonCancelNewsTicks;
+        private System.Windows.Forms.TabPage tabPageNewsProviders;
+        private System.Windows.Forms.Button buttonReqNewsProviders;
+        private System.Windows.Forms.TabPage tabPageNewsProvidersResults;
+        private System.Windows.Forms.DataGridView dataGridViewNewsProviders;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxNewsProvidersProviderCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxNewsProvidersProviderName;
+        private System.Windows.Forms.LinkLabel linkLabelClearNewsProviders;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.ComboBox bboExchange_comboBox;
         private System.Windows.Forms.Button ReqSmartComponents_Button;

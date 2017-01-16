@@ -68,7 +68,7 @@ namespace IBSampleApp
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
-            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks);
+            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -174,6 +174,7 @@ namespace IBSampleApp
             ibClient.TickNews += (tickerId, timeStamp, providerCode, articleId, headline, extraData) => HandleMessage(new TickNewsMessage(tickerId, timeStamp, providerCode, articleId, headline, extraData));
             ibClient.TickReqParams += (tickerId, minTick, bboExchange, snapshotPermissions) => HandleMessage(new TickReqParamsMessage(tickerId, minTick, bboExchange, snapshotPermissions));
             ibClient.SmartComponents += (reqId, theMap) => theMap.ToList().ForEach(i => HandleMessage(new SmartComponentsMessage(i.Key, i.Value.Key, i.Value.Value)));
+            ibClient.NewsProviders += (newsProviders) => HandleMessage(new NewsProvidersMessage(newsProviders));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -422,6 +423,7 @@ namespace IBSampleApp
                         break;
                     }
                 case MessageType.TickNews:
+                case MessageType.NewsProviders:
                     {
                         newsManager.UpdateUI(message);
                         break;
@@ -1116,5 +1118,17 @@ namespace IBSampleApp
         {
             this.dataGridViewSmartComponents.Rows.Clear();
         }
+
+        private void buttonReqNewsProviders_Click(object sender, EventArgs e)
+        {
+            ShowTab(tabControlNewsResults, tabPageNewsProvidersResults);
+            newsManager.RequestNewsProviders();
+        }
+
+        private void linkLabelClearNewsProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            newsManager.ClearNewsProviders();
+        }
+        
     }
 }

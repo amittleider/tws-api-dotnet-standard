@@ -512,5 +512,18 @@ namespace Samples
             BboExchange = bboExchange;
         }
         //! [tickReqParams]
+
+        //! [newsProviders]
+        public void newsProviders(NewsProvider[] newsProviders)
+        {
+            Console.WriteLine("News Providers:");
+
+            foreach (var newsProvider in newsProviders)
+            {
+                Console.WriteLine("News provider: providerCode - {0}, providerName - {1}",
+                    newsProvider.ProviderCode, newsProvider.ProviderName);
+            }
+        }
+        //! [newsProviders]
     }
 }

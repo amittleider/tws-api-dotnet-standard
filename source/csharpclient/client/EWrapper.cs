@@ -739,5 +739,12 @@ namespace IBApi
         * sa EClient::reqMktData
         */
         void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
+
+        /**
+        * @brief returns array of news providers
+        * @param NewsProvider[]
+        * @sa EClient::reqNewsProviders
+        */
+        void newsProviders(NewsProvider[] newsProviders);
     }
 }

@@ -663,6 +663,18 @@ public class EWrapperMsgGenerator {
 		return msg;
 	}
 
+	static public String newsProviders(NewsProvider[] newsProviders) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("==== News Providers Begin (total=").append(newsProviders.length).append(") ====\n");
+		for (int i = 0; i < newsProviders.length; i++) {
+			sb.append("News Provider [").append(i).append("] - providerCode: ").append(newsProviders[i].providerCode()).append(", providerName: ")
+					.append(newsProviders[i].providerName()).append("\n");
+		}
+		sb.append("==== News Providers End (total=").append(newsProviders.length).append(") ====\n");
+
+		return sb.toString();
+	}
+
     public static String error( Exception ex) { return "Error - " + ex;}
     public static String error( String str) { return str;}
 

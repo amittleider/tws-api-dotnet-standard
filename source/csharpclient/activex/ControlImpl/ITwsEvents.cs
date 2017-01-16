@@ -163,5 +163,7 @@ namespace TWSLib
         void smartComponents(int reqId, ArrayList[] theMap);
         [DispId(131)]
         void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
+        [DispId(132)]
+        void newsProviders(INewsProviderList newsProviders);
     }
 }

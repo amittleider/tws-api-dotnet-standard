@@ -242,6 +242,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_REQSMARTCOMPONENTS_ACK:
 			break;
+		case ST_NEWSPROVIDERS:
+			reqNewsProviders();
+			break;
+		case ST_NEWSPROVIDERS_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -955,7 +960,9 @@ void TestCppClient::reqNewsTicks()
 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 
+	//! [cancelmktdata]
 	m_pClient->cancelMktData(12001);
+	//! [cancelmktdata]
 
 	m_state = ST_REQNEWSTICKS_ACK;
 }
@@ -978,6 +985,16 @@ void TestCppClient::reqSmartComponents()
 
 		m_state = ST_REQSMARTCOMPONENTS_ACK;
 	}
+}
+
+void TestCppClient::reqNewsProviders()
+{
+	/*** Request TWS' news providers ***/
+	//! [reqNewsProviders]
+	m_pClient->reqNewsProviders();
+	//! [reqNewsProviders]
+
+	m_state = ST_NEWSPROVIDERS_ACK;
 }
 
 //! [nextvalidid]
@@ -1012,7 +1029,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_SYMBOLSAMPLES;
 	//m_state = ST_REQMKTDEPTHEXCHANGES;
 	//m_state = ST_REQNEWSTICKS;
-	m_state = ST_REQSMARTCOMPONENTS;
+	//m_state = ST_REQSMARTCOMPONENTS;
+	m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_PING;
 }
 
@@ -1415,3 +1433,13 @@ void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboE
 	m_bboExchange = bboExchange;
 }
 //! [tickReqParams]
+
+//! [newsProviders]
+void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders) {
+	printf("News providers (%d):\n", newsProviders.size());
+
+	for (int i = 0; i < newsProviders.size(); i++) {
+		printf("News provider [%d] - providerCode: %s providerName: %s\n", i, newsProviders[i].providerCode.c_str(), newsProviders[i].providerName.c_str());
+	}
+}
+//! [newsProviders]

@@ -144,6 +144,9 @@
     <Compile Include="..\client\MinServerVer.cs">
       <Link>CSharpAPI\MinServerVer.cs</Link>
     </Compile>
+    <Compile Include="..\client\NewsProvider.cs">
+      <Link>CSharpAPI\NewsProvider.cs</Link>
+    </Compile>
     <Compile Include="..\client\OperatorCondition.cs">
       <Link>CSharpAPI\OperatorCondition.cs</Link>
     </Compile>
@@ -204,6 +207,7 @@
     <Compile Include="ComWrappers\comExecutionFilter.cs" />
     <Compile Include="ComWrappers\ComFamilyCode.cs" />
     <Compile Include="ComWrappers\ComList.cs" />
+    <Compile Include="ComWrappers\ComNewsProvider.cs" />
     <Compile Include="ComWrappers\comOrder.cs" />
     <Compile Include="ComWrappers\comOrderComboLeg.cs" />
     <Compile Include="ComWrappers\comOrderState.cs" />
@@ -226,6 +230,8 @@
     <Compile Include="ControlImpl\IExecutionFilter.cs" />
     <Compile Include="ControlImpl\IFamilyCodeList.cs" />
     <Compile Include="ControlImpl\IFamilyCode.cs" />
+    <Compile Include="ControlImpl\INewsProvider.cs" />
+    <Compile Include="ControlImpl\INewsProviderList.cs" />
     <Compile Include="ControlImpl\IOrder.cs" />
     <Compile Include="ControlImpl\IOrderComboLeg.cs" />
     <Compile Include="ControlImpl\IOrderComboLegList.cs" />

@@ -9,6 +9,7 @@
 #include "SoftDollarTier.h"
 #include "DepthMktDataDescription.h"
 #include "FamilyCode.h"
+#include "NewsProvider.h"
 #include "TickAttrib.h"
 #include <string>
 #include <set>
@@ -190,6 +191,7 @@ public:
    virtual void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) = 0;
    virtual void smartComponents(int reqId, SmartComponentsMap theMap) = 0;
    virtual void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) = 0;
+   virtual void newsProviders(const std::vector<NewsProvider> &newsProviders) = 0;
 };
 
 

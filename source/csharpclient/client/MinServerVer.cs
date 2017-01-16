@@ -74,5 +74,6 @@ namespace IBApi
         public const int REQ_MKT_DEPTH_EXCHANGES = 112;
         public const int TICK_NEWS = 113;
         public const int SMART_COMPONENTS = 114;
+        public const int REQ_NEWS_PROVIDERS = 115;
     }
 }

@@ -1801,6 +1801,26 @@ const char* EDecoder::processTickNewsMsg(const char* ptr, const char* endPtr)
 	return ptr;
 }
 
+const char* EDecoder::processNewsProvidersMsg(const char* ptr, const char* endPtr) 
+{
+	typedef std::vector<NewsProvider> NewsProviderList;
+	NewsProviderList newsProviders;
+	int nNewsProviders = 0;
+	DECODE_FIELD( nNewsProviders);
+
+	if (nNewsProviders > 0) {
+		newsProviders.resize(nNewsProviders);
+		for( int i = 0; i < nNewsProviders; ++i) {
+			DECODE_FIELD( newsProviders[i].providerCode);
+			DECODE_FIELD( newsProviders[i].providerName);
+		}
+	}
+
+	m_pEWrapper->newsProviders(newsProviders);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2144,6 +2164,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case TICK_NEWS:
 			ptr = processTickNewsMsg(ptr, endPtr);
+			break;
+
+		case NEWS_PROVIDERS:
+			ptr = processNewsProvidersMsg(ptr, endPtr);
 			break;
 
         default:

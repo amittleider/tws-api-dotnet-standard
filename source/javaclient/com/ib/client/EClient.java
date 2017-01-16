@@ -177,6 +177,7 @@ public abstract class EClient {
     private static final int REQ_MATCHING_SYMBOLS = 81;
     private static final int REQ_MKT_DEPTH_EXCHANGES = 82;
     private static final int REQ_SMART_COMPONENTS = 83;
+    private static final int REQ_NEWS_PROVIDERS = 85;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -235,9 +236,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
     protected static final int MIN_SERVER_VER_TICK_NEWS = 113;
     protected static final int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
+    protected static final int MIN_SERVER_VER_REQ_NEWS_PROVIDERS = 115;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_SMART_COMPONENTS; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_NEWS_PROVIDERS; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -3167,6 +3169,31 @@ public abstract class EClient {
         }
     }
 
+    public synchronized void reqNewsProviders() {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_REQ_NEWS_PROVIDERS) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support news providers request.");
+            return;
+        }
+
+        Builder b = prepareBuffer();
+
+        b.send( REQ_NEWS_PROVIDERS);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQNEWSPROVIDERS, e.toString());
+        }
+    }
+        
     /** @deprecated, never called. */
     protected synchronized void error( String err) {
         m_eWrapper.error( err);

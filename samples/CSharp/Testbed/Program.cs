@@ -543,6 +543,12 @@ namespace Samples
             //! [cancelNewsTicks]
             client.cancelMktData(12001);
             //! [cancelNewsTicks]
+
+            // Requesting news providers
+            Thread.Sleep(2000);
+            //! [reqNewsProviders]
+            client.reqNewsProviders();
+            //! [reqNewsProviders]
         }
 
         private static void OcaSample(EClientSocket client, int nextOrderId)

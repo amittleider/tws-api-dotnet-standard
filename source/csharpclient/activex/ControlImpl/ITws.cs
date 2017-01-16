@@ -347,6 +347,8 @@ namespace TWSLib
         void reqMktDepthExchanges();
         [DispId(218)]
         void reqSmartComponents(int reqId, string bboExchange);
+        [DispId(219)]
+        void reqNewsProviders();
 
         #endregion
     }

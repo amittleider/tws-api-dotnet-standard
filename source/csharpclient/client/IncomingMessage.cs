@@ -69,5 +69,6 @@ namespace IBApi
         public const int TickReqParams = 81;
         public const int SmartComponents = 82;
         public const int TickNews = 84;
+        public const int NewsProviders = 85;
     }
 }

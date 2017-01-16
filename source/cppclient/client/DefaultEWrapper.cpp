@@ -80,6 +80,7 @@ void DefaultEWrapper::mktDepthExchanges(const std::vector<DepthMktDataDescriptio
 void DefaultEWrapper::tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData) { }
 void DefaultEWrapper::smartComponents(int reqId, SmartComponentsMap theMap) { }
 void DefaultEWrapper::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) { }
+void DefaultEWrapper::newsProviders(const std::vector<NewsProvider> &newsProviders) { }
 
 
 

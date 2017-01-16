@@ -16,6 +16,7 @@ import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
+import com.ib.client.NewsProvider;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -453,7 +454,7 @@ public class EWrapperImpl implements EWrapper {
 		
 	}
         
-        //! [softDollarTiers]
+    //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
 		for (SoftDollarTier tier : tiers) {
@@ -462,7 +463,7 @@ public class EWrapperImpl implements EWrapper {
 		
 		System.out.println();
 	}
-        //! [softDollarTiers]
+    //! [softDollarTiers]
 
     //! [familyCodes]
     @Override
@@ -511,6 +512,7 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Tick News. TickerId: " + tickerId + ", TimeStamp: " + timeStamp + ", ProviderCode: " + providerCode + ", ArticleId: " + articleId + ", Headline: " + headline + ", ExtraData: " + extraData + "\n");
 	}
 	//! [tickNews]
+
 	@Override
 	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
 		System.out.println("smart components req id:" + reqId);
@@ -525,4 +527,15 @@ public class EWrapperImpl implements EWrapper {
 	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
 		System.out.println("Tick req params. Ticker Id:" + tickerId + ", Min tick: " + minTick + ", bbo exchange: " + bboExchange + ", Snapshot permissions: " + snapshotPermissions);
 	}
+	
+	//! [newsProviders]
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		for (NewsProvider np : newsProviders) {
+			System.out.print("News Provider. ProviderCode: " + np.providerCode() + ", ProviderName: " + np.providerName() + "\n");
+		}
+
+		System.out.println();
+	}
+	//! [newsProviders]
 }

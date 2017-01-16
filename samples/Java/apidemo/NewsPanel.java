@@ -1,33 +1,26 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.Contract;
-import com.ib.client.MarketDataType;
+import com.ib.client.NewsProvider;
 import com.ib.client.Util;
 import com.ib.client.Types.SecType;
+import com.ib.controller.ApiController.INewsProvidersHandler;
 import com.ib.controller.ApiController.ITickNewsHandler;
 
 import apidemo.util.HtmlButton;
@@ -43,10 +36,110 @@ public class NewsPanel extends JPanel {
 
     NewsPanel() {
         m_requestPanels.addTab( "News Ticks", new NewsTicksRequestPanel() );
+        m_requestPanels.addTab( "News Providers", new RequestNewsProvidersPanel() );
 
         setLayout( new BorderLayout() );
         add( m_requestPanels, BorderLayout.NORTH);
         add( m_resultsPanels);
+    }
+
+    private class RequestNewsProvidersPanel extends JPanel {
+        RequestNewsProvidersPanel() {
+            HtmlButton requestNewsProvidersButton = new HtmlButton( "Request NewsProviders") {
+                @Override protected void actionPerformed() {
+                    onRequestNewsProviders();
+                }
+            };
+
+            setLayout( new BoxLayout( this, BoxLayout.X_AXIS) );
+            add( requestNewsProvidersButton);
+        }
+
+        protected void onRequestNewsProviders() {
+            NewsProvidersPanel newsProvidersPanel = new NewsProvidersPanel();
+            m_resultsPanels.addTab("News Providers", newsProvidersPanel, true, true);
+            ApiDemo.INSTANCE.controller().reqNewsProviders(newsProvidersPanel);
+        }
+    }
+
+    static class NewsProvidersPanel extends NewTabPanel implements INewsProvidersHandler {
+        final NewsProvidersModel m_model = new NewsProvidersModel();
+        final ArrayList<NewsProvidersRow> m_rows = new ArrayList<NewsProvidersRow>();
+
+        NewsProvidersPanel() {
+            JTable table = new JTable( m_model);
+            JScrollPane scroll = new JScrollPane( table);
+            setLayout( new BorderLayout() );
+            add( scroll);
+        };
+
+        /** Called when the tab is first visited. */
+        @Override public void activated() { /* noop */ }
+
+        /** Called when the tab is closed by clicking the X. */
+        @Override public void closed() { /* noop */ }
+
+        @Override
+        public void newsProviders(NewsProvider[] newsProviders) {
+            for (int i = 0; i < newsProviders.length; i++) {
+                NewsProvidersRow newsProvidersRow = new NewsProvidersRow(
+                        newsProviders[i].providerCode(),
+                        newsProviders[i].providerName()
+                        );
+                m_rows.add( newsProvidersRow);
+            }
+            fire();
+        }
+
+        private void fire() {
+            SwingUtilities.invokeLater( new Runnable() {
+                @Override public void run() {
+                    m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                    revalidate();
+                }
+           });
+        }
+
+        class NewsProvidersModel extends AbstractTableModel {
+            @Override public int getRowCount() {
+                return m_rows.size();
+            }
+
+            @Override public int getColumnCount() {
+                return 2;
+            }
+
+            @Override public String getColumnName(int col) {
+                switch( col) {
+                    case 0: return "Provider Code";
+                    case 1: return "Provider Name";
+                    default: return null;
+                }
+            }
+
+            @Override public Object getValueAt(int rowIn, int col) {
+                NewsProvidersRow newsProvidersRow = m_rows.get( rowIn);
+                switch( col) {
+                    case 0: return newsProvidersRow.m_providerCode;
+                    case 1: return newsProvidersRow.m_providerName;
+                    default: return null;
+                }
+            }
+        }
+
+        static class NewsProvidersRow {
+            String m_providerCode;
+            String m_providerName;
+
+            public NewsProvidersRow(String providerCode, String providerName) {
+                update( providerCode, providerName);
+            }
+
+            void update( String providerCode, String providerName) {
+                m_providerCode = providerCode;
+                m_providerName = providerName;
+            }
+        }
     }
 
     class NewsTicksRequestPanel extends JPanel {
