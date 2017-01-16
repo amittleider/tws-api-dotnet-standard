@@ -16,6 +16,7 @@
 #include "EDecoder.h"
 #include "EClientMsgSink.h"
 #include <string.h>
+#include <cstdlib>
 
 EDecoder::EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink) {
     m_pEWrapper = callback;
@@ -2209,7 +2210,7 @@ bool EDecoder::DecodeFieldTime(time_t& time_tValue, const char*& ptr, const char
     const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
     if( !fieldEnd)
         return false;
-    time_tValue = _atoi64(fieldBeg);
+    time_tValue = atoll(fieldBeg);
     ptr = ++fieldEnd;
     return true;
 }
