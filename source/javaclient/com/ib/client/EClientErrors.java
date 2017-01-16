@@ -70,6 +70,7 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_REQFAMILYCODES = new CodeMsgPair(559, "Request Family Codes Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQMATCHINGSYMBOLS = new CodeMsgPair(560, "Request Matching Symbols Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQMKTDEPTHEXCHANGES = new CodeMsgPair(561, "Request Market Depth Exchanges Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQNEWSPROVIDERS = new CodeMsgPair(562, "Request News Providers Sending Error - ");
 
     public EClientErrors() {
     }

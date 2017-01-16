@@ -72,6 +72,8 @@ enum State {
 	ST_REQNEWSTICKS_ACK,
 	ST_REQSMARTCOMPONENTS,
 	ST_REQSMARTCOMPONENTS_ACK,
+	ST_NEWSPROVIDERS,
+	ST_NEWSPROVIDERS_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -123,6 +125,7 @@ private:
 	void reqMktDepthExchanges();
 	void reqNewsTicks();
 	void reqSmartComponents();
+	void reqNewsProviders();
 
 	void reqCurrentTime();
 
@@ -204,6 +207,8 @@ public:
 	void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
     void smartComponents(int reqId, SmartComponentsMap theMap);
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
+	void newsProviders(const std::vector<NewsProvider> &newsProvider);
+
 private:
 	//! [socket_declare]
 	EReaderOSSignal m_osSignal;

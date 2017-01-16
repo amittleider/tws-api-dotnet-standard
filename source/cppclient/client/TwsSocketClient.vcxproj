@@ -209,6 +209,7 @@
     <ClInclude Include="FamilyCode.h" />
     <ClInclude Include="IExternalizable.h" />
     <ClInclude Include="MarginCondition.h" />
+    <ClInclude Include="NewsProvider.h" />
     <ClInclude Include="OperatorCondition.h" />
     <ClInclude Include="OrderCondition.h" />
     <ClInclude Include="PercentChangeCondition.h" />

@@ -34,6 +34,7 @@ import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
 import com.ib.client.MarketDataType;
+import com.ib.client.NewsProvider;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
@@ -86,7 +87,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
         getContentPane().add( scrollingWindowDisplayPanel, BorderLayout.CENTER);
         getContentPane().add( buttonPanel, BorderLayout.EAST);
-        setSize( 600, 700);
+        setSize( 600, 800);
         setTitle( "Sample");
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
@@ -433,11 +434,16 @@ class SampleFrame extends JFrame implements EWrapper {
                 onReqMktDepthExchanges();
             }
         });
-        
         JButton butReqSmartComponents = new JButton( "Req Smart Components");
         butReqSmartComponents.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e) {
                 onReqSmartComponents();
+            }
+        });
+        JButton butRequestNewsProviders = new JButton( "Request News Providers");
+        butRequestNewsProviders.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onRequestNewsProviders();
             }
         });
 
@@ -511,6 +517,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butRequestMatchingSymbols ) ;
         buttonPanel.add( butReqMktDepthExchanges ) ;
         buttonPanel.add(butReqSmartComponents);
+        buttonPanel.add( butRequestNewsProviders ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -1119,7 +1126,12 @@ class SampleFrame extends JFrame implements EWrapper {
         // request matching symbols
         m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
     }
-    
+
+    void onRequestNewsProviders() {
+        // request news providers
+        m_client.reqNewsProviders();
+    }
+
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, attribs);
@@ -1617,4 +1629,9 @@ class SampleFrame extends JFrame implements EWrapper {
 		m_tickers.add(msg);
 	}
 
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		String msg = EWrapperMsgGenerator.newsProviders(newsProviders);
+		m_TWS.add(msg);
+	}
 }

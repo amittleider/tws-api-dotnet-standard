@@ -216,5 +216,8 @@
     <ClInclude Include="TickAttrib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NewsProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

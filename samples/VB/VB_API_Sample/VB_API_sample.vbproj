@@ -191,6 +191,7 @@
     <Compile Include="EventArgs\HistoricalDataEventArgs.vb" />
     <Compile Include="EventArgs\ManagedAccountsEventArgs.vb" />
     <Compile Include="EventArgs\MarketDataTypeEventArgs.vb" />
+    <Compile Include="EventArgs\NewsProvidersEventArgs.vb" />
     <Compile Include="EventArgs\MktDepthExchangesEventArgs.vb" />
     <Compile Include="EventArgs\NextValidIdEventArgs.vb" />
     <Compile Include="EventArgs\OpenOrderEventArgs.vb" />

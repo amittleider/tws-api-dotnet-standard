@@ -460,6 +460,16 @@ Namespace Samples
         End Sub
         '! [tickReqParams]
 
+        '! [newsProviders]
+        Public Sub newsProviders(newsProviders As NewsProvider()) Implements EWrapper.newsProviders
+            Console.WriteLine("News Providers")
+
+            For Each newsProvider In newsProviders
+                Console.WriteLine("News Provider: providerCode - " & newsProvider.ProviderCode & ", providerName - " & newsProvider.ProviderName)
+            Next
+        End Sub
+        '! [newsProviders]
+
     End Class
 
 End Namespace

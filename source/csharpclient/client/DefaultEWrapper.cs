@@ -266,5 +266,9 @@ namespace IBApi
         public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
         }
+
+        public void newsProviders(NewsProvider[] newsProviders)
+        {
+        }
     }
 }

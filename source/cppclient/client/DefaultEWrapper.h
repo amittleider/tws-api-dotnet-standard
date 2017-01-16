@@ -84,5 +84,6 @@ public:
    virtual void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
    virtual void smartComponents(int reqId, SmartComponentsMap theMap);
    virtual void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
+   virtual void newsProviders(const std::vector<NewsProvider> &newsProviders);
 };
 

@@ -31,6 +31,7 @@ import com.ib.client.Execution;
 import com.ib.client.ExecutionFilter;
 import com.ib.client.FamilyCode;
 import com.ib.client.MarketDataType;
+import com.ib.client.NewsProvider;
 import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.OrderStatus;
@@ -88,6 +89,7 @@ public class ApiController implements EWrapper {
 	private final ConcurrentHashSet<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<IMktDepthExchangesHandler>();
 	private final HashMap<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<Integer, ITickNewsHandler>();
 	private final HashMap<Integer, ISmartComponentsHandler> m_smartComponentsHanlder = new HashMap<>();
+	private final ConcurrentHashSet<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<INewsProvidersHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1506,5 +1508,26 @@ public class ApiController implements EWrapper {
 		if (handler != null) {
 			handler.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
 		}
+	}
+
+	public interface INewsProvidersHandler {
+		void newsProviders(NewsProvider[] newsProviders);
+	}
+
+	public void reqNewsProviders(INewsProvidersHandler handler) {
+		if (!checkConnection())
+			return;
+
+		m_newsProvidersHandlers.add(handler);
+		m_client.reqNewsProviders();
+		sendEOM();
+	}
+
+	@Override
+	public void newsProviders(NewsProvider[] newsProviders) {
+		for( INewsProvidersHandler handler : m_newsProvidersHandlers) {
+			handler.newsProviders(newsProviders);
+		}
+		recEOM();
 	}
 }

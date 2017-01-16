@@ -759,5 +759,15 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(tickerId, minTick, bboExchange, snapshotPermissions);
         }
+
+        public event Action<NewsProvider[]> NewsProviders;
+
+        void EWrapper.newsProviders(NewsProvider[] newsProviders)
+        {
+            var tmp = NewsProviders;
+
+            if (tmp != null)
+                tmp(newsProviders);
+        }
     }
 }

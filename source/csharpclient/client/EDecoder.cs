@@ -373,6 +373,11 @@ namespace IBApi
                         SmartComponentsEvent();
                         break;
                     }
+                case IncomingMessage.NewsProviders:
+                    {
+                        NewsProvidersEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -381,6 +386,24 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void NewsProvidersEvent()
+        {
+            NewsProvider[] newsProviders = new NewsProvider[0];
+            int nNewsProviders = ReadInt();
+
+            if (nNewsProviders > 0)
+            {
+                Array.Resize(ref newsProviders, nNewsProviders);
+
+                for (int i = 0; i < nNewsProviders; ++i)
+                {
+                    newsProviders[i] = new NewsProvider(ReadString(), ReadString());
+                }
+            }
+
+            eWrapper.newsProviders(newsProviders);
         }
 
         private void SmartComponentsEvent()

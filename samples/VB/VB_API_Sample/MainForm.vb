@@ -99,8 +99,8 @@ Friend Class MainForm
     Friend WithEvents cmdFamilyCodes As System.Windows.Forms.Button
     Friend WithEvents cmdReqMatchingSymbols As System.Windows.Forms.Button
     Friend WithEvents cmdReqMktDepthExchanges As System.Windows.Forms.Button
-    Friend WithEvents cmdReqNewsTicks As System.Windows.Forms.Button
     Friend WithEvents cmdReqSmartComponents As System.Windows.Forms.Button
+    Friend WithEvents cmdReqNewsProviders As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -160,8 +160,8 @@ Friend Class MainForm
         Me.cmdFamilyCodes = New System.Windows.Forms.Button()
         Me.cmdReqMatchingSymbols = New System.Windows.Forms.Button()
         Me.cmdReqMktDepthExchanges = New System.Windows.Forms.Button()
-        Me.cmdReqNewsTicks = New System.Windows.Forms.Button()
         Me.cmdReqSmartComponents = New System.Windows.Forms.Button()
+        Me.cmdReqNewsProviders = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -314,7 +314,7 @@ Friend Class MainForm
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 56
+        Me.cmdClearForm.TabIndex = 57
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -328,7 +328,7 @@ Friend Class MainForm
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 57
+        Me.cmdClose.TabIndex = 58
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -485,7 +485,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 168)
-        Me.lstErrors.TabIndex = 55
+        Me.lstErrors.TabIndex = 56
         '
         'lstServerResponses
         '
@@ -500,7 +500,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
-        Me.lstServerResponses.TabIndex = 53
+        Me.lstServerResponses.TabIndex = 54
         '
         'lstMktData
         '
@@ -515,7 +515,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 168)
-        Me.lstMktData.TabIndex = 51
+        Me.lstMktData.TabIndex = 52
         '
         'Label3
         '
@@ -527,7 +527,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 54
+        Me.Label3.TabIndex = 55
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -540,7 +540,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 52
+        Me.Label2.TabIndex = 53
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -553,7 +553,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 50
+        Me.Label1.TabIndex = 51
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -850,21 +850,12 @@ Friend Class MainForm
         '
         'cmdReqMktDepthExchanges
         '
-        Me.cmdReqMktDepthExchanges.Location = New System.Drawing.Point(545, 641)
+        Me.cmdReqMktDepthExchanges.Location = New System.Drawing.Point(543, 641)
         Me.cmdReqMktDepthExchanges.Name = "cmdReqMktDepthExchanges"
         Me.cmdReqMktDepthExchanges.Size = New System.Drawing.Size(134, 21)
         Me.cmdReqMktDepthExchanges.TabIndex = 48
         Me.cmdReqMktDepthExchanges.Text = "Req Mkt Depth Exch"
         Me.cmdReqMktDepthExchanges.UseVisualStyleBackColor = True
-        '
-        'cmdReqNewsTicks
-        '
-        Me.cmdReqNewsTicks.Location = New System.Drawing.Point(685, 641)
-        Me.cmdReqNewsTicks.Name = "cmdReqNewsTicks"
-        Me.cmdReqNewsTicks.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqNewsTicks.TabIndex = 49
-        Me.cmdReqNewsTicks.Text = "Req News Ticks"
-        Me.cmdReqNewsTicks.UseVisualStyleBackColor = True
         '
         'cmdReqSmartComponents
         '
@@ -875,13 +866,22 @@ Friend Class MainForm
         Me.cmdReqSmartComponents.Text = "Req Smart Components"
         Me.cmdReqSmartComponents.UseVisualStyleBackColor = True
         '
+        'cmdReqNewsProviders
+        '
+        Me.cmdReqNewsProviders.Location = New System.Drawing.Point(684, 641)
+        Me.cmdReqNewsProviders.Name = "cmdReqNewsProviders"
+        Me.cmdReqNewsProviders.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNewsProviders.TabIndex = 50
+        Me.cmdReqNewsProviders.Text = "Req News Providers"
+        Me.cmdReqNewsProviders.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqNewsProviders)
         Me.Controls.Add(Me.cmdReqSmartComponents)
-        Me.Controls.Add(Me.cmdReqNewsTicks)
         Me.Controls.Add(Me.cmdReqMktDepthExchanges)
         Me.Controls.Add(Me.cmdFamilyCodes)
         Me.Controls.Add(Me.cmdReqMatchingSymbols)
@@ -1730,21 +1730,10 @@ Friend Class MainForm
     End Sub
 
     '--------------------------------------------------------------------------------
-    ' Request News Ticks
+    ' Request News Providers
     '--------------------------------------------------------------------------------
-    Private Sub cmdReqNewsTicks_Click(sender As Object, e As EventArgs) Handles cmdReqNewsTicks.Click
-        ' Set the dialog state
-        m_dlgOrder.init(dlgOrder.DialogType.RequestMarketData,
-            m_contractInfo, m_orderInfo, m_underComp, m_mktDataOptions, Me)
-
-        m_dlgOrder.ShowDialog()
-
-        m_mktDataOptions = m_dlgOrder.options
-
-        If m_dlgOrder.ok Then
-            m_api.reqMktData(m_dlgOrder.orderId, m_contractInfo,
-                    "mdoff,292", False, False, m_mktDataOptions)
-        End If
+    Private Sub cmdReqNewsProviders_Click(sender As Object, e As EventArgs) Handles cmdReqNewsProviders.Click
+        m_api.reqNewsProviders()
     End Sub
 
 
@@ -2921,6 +2910,24 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Smart Components End ----")
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' News Providers
+    '--------------------------------------------------------------------------------
+    Private Sub Api_NewsProviders(sender As Object, e As NewsProvidersEventArgs) Handles m_apiEvents.NewsProviders
+        Dim offset As Long
+        offset = lstServerResponses.Items.Count
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Providers Begin (total=" & e.newsProviders.Length & ") ====")
+        Dim count As Integer = 0
+        For Each newsProvider As NewsProvider In e.newsProviders
+            m_utils.addListItem(Utils.ListType.ServerResponses, "News Provider (" & count & ") - code=" & newsProvider.ProviderCode & " name=" & newsProvider.ProviderName)
+            count += 1
+        Next
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Providers End (total=" & e.newsProviders.Length & ") ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+    End Sub
 
 #End Region
 

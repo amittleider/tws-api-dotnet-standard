@@ -125,6 +125,7 @@ public:
 	void tickNews(int tickerId, time_t timeStamp, const std::string& providerCode, const std::string& articleId, const std::string& headline, const std::string& extraData);
     void smartComponents(int reqId, SmartComponentsMap theMap);
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
+	void newsProviders(const std::vector<NewsProvider> &newsProviders);
 
 private:
     EReaderOSSignal m_osSignal;

@@ -68,6 +68,7 @@
     <Compile Include="messages\MarketDataTypeMessage.cs" />
     <Compile Include="messages\FamilyCodesMessage.cs" />
     <Compile Include="messages\MktDepthExchangesMessage.cs" />
+    <Compile Include="messages\NewsProvidersMessage.cs" />
     <Compile Include="messages\PositionMultiEndMessage.cs" />
     <Compile Include="messages\PositionMultiMessage.cs" />
     <Compile Include="messages\DeepBookMessage.cs" />

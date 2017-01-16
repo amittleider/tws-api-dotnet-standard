@@ -1825,6 +1825,16 @@ namespace TWSLib
                 InvokeIfRequired(tmp, tickerId, minTick, bboExchange, snapshotPermissions);
         }
 
+        public delegate void newsProvidersDelegate(INewsProviderList newsProviders);
+        public event newsProvidersDelegate newsProviders;
+        void EWrapper.newsProviders(NewsProvider[] newsProviders)
+        {
+            var t_newsProviders = this.newsProviders;
+
+            if (t_newsProviders != null)
+                InvokeIfRequired(t_newsProviders, newsProviders.Length > 0 ? new ComNewsProviderList(newsProviders) : null);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1931,6 +1941,11 @@ namespace TWSLib
         public void reqSmartComponents(int reqId, string bboExchange)
         {
             socket.reqSmartComponents(reqId, bboExchange);
+        }
+
+        public void reqNewsProviders()
+        {
+            socket.reqNewsProviders();
         }
 
         public ArrayList ParseConditions(string str)

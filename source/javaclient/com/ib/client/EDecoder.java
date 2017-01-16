@@ -79,6 +79,7 @@ class EDecoder implements ObjectInput {
     static final int TICK_REQ_PARAMS = 81;
     static final int SMART_COMPONENTS = 82;
     static final int TICK_NEWS = 84;
+    static final int NEWS_PROVIDERS = 85;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -385,6 +386,10 @@ class EDecoder implements ObjectInput {
                 processTickNewsMsg();
                 break;
 
+            case NEWS_PROVIDERS:
+                processNewsProvidersMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -393,6 +398,22 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processNewsProvidersMsg() throws IOException {
+        NewsProvider[] newsProviders = new NewsProvider[0];
+        int nNewsProviders = readInt();
+
+        if (nNewsProviders > 0) {
+            newsProviders = new NewsProvider[nNewsProviders];
+
+            for (int i = 0; i < nNewsProviders; i++)
+            {
+                newsProviders[i] = new NewsProvider(readStr(), readStr());
+            }
+        }
+
+        m_EWrapper.newsProviders(newsProviders);
     }
 
     private void processTickNewsMsg() throws IOException {

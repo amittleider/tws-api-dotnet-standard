@@ -565,6 +565,12 @@ Module MainModule
         ' [cancelNewsTicks]
         client.cancelMktData(10001)
         ' [cancelNewsTicks]
+        
+        ' Requesting news providers
+        Thread.Sleep(2000)
+        ' [reqNewsProviders]
+        client.reqNewsProviders()
+        ' [reqNewsProviders]
     End Sub
 
     Private Sub OcaSample(client As EClientSocket, nextOrderId As Integer)

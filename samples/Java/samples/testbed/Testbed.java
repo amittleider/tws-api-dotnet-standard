@@ -311,6 +311,12 @@ public class Testbed {
 		//! [cancelNewsTicks]
 		client.cancelMktData(10001);
 		//! [cancelNewsTicks]
+
+		Thread.sleep(2000);
+		
+		//! [reqNewsProviders]
+		client.reqNewsProviders();
+		//! [reqNewsProviders]
 	}
 
 	private static void conditionSamples(EClientSocket client, int nextOrderId) {
