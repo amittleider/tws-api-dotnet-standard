@@ -4,7 +4,11 @@
 #include "StdAfx.h"
 #include "EReaderOSSignal.h"
 #if defined(IB_POSIX)
+#if defined(__MACH__)
 #include <sys/time.h>
+#else
+#include <time.h>
+#endif
 #endif
 
 #define MS_IN_SEC 1000
@@ -17,7 +21,15 @@ EReaderOSSignal::EReaderOSSignal(unsigned long waitTimeout) throw (std::runtime_
 #if defined(IB_POSIX)
     int rc1 = pthread_mutex_init(&m_mutex, NULL);
     int rc2 = pthread_cond_init(&m_evMsgs, NULL);
+#if defined(__MACH__)
     ok = rc1 == 0 && rc2 == 0;
+#else
+    pthread_condattr_t attr;
+    int rc3 = pthread_condattr_init(&attr);
+    int rc4 = pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
+    pthread_condattr_destroy(&attr);
+    ok = rc1 == 0 && rc2 == 0 && rc3 == 0 && rc4 == 0;
+#endif
     open = false; 
 #elif defined(IB_WIN32)
 	m_evMsgs = CreateEvent(0, false, false, 0);
@@ -60,17 +72,27 @@ void EReaderOSSignal::waitForSignal() {
 #if defined(IB_POSIX)
     pthread_mutex_lock(&m_mutex); 
     if (!open) {
-	if ( m_waitTimeout == INFINITE ) {
-		pthread_cond_wait(&m_evMsgs, &m_mutex);
-	}
-	else {
-		struct timespec ts;
-		struct timeval tv;
-		gettimeofday(&tv, NULL);
-		ts.tv_sec = tv.tv_sec+m_waitTimeout/MS_IN_SEC;
-		ts.tv_nsec = (m_waitTimeout%MS_IN_SEC)*1000/*us/ms*/*1000/*ns/us*/;
-		pthread_cond_timedwait(&m_evMsgs, &m_mutex, &ts);
-	}
+        if ( m_waitTimeout == INFINITE ) {
+            pthread_cond_wait(&m_evMsgs, &m_mutex);
+        }
+        else {
+#if defined(__MACH__)
+// on Mac OS X, clock_gettime is not available, stick to gettimeofday for the moment
+            struct timespec ts;
+            struct timeval tv;
+            gettimeofday(&tv, NULL);
+            ts.tv_sec = tv.tv_sec+m_waitTimeout/MS_IN_SEC;
+            ts.tv_nsec = (m_waitTimeout%MS_IN_SEC)*1000/*us/ms*/*1000/*ns/us*/;
+#else
+            struct timespec ts;
+            clock_gettime(CLOCK_MONOTONIC, &ts);
+            ts.tv_sec += m_waitTimeout/ MS_IN_SEC;
+            ts.tv_nsec += MS_IN_SEC * MS_IN_SEC * (m_waitTimeout % MS_IN_SEC);
+            ts.tv_sec += ts.tv_nsec / (MS_IN_SEC * MS_IN_SEC * MS_IN_SEC);
+            ts.tv_nsec %= (MS_IN_SEC * MS_IN_SEC * MS_IN_SEC);
+#endif
+            pthread_cond_timedwait(&m_evMsgs, &m_mutex, &ts);
+        }
     }
     open = false;
     pthread_mutex_unlock(&m_mutex);
