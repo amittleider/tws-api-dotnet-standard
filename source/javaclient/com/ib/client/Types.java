@@ -25,16 +25,16 @@ import static com.ib.client.Types.AlgoParam.useOddLots;
 import static com.ib.client.Types.AlgoParam.waitForFill;
 
 public class Types {
-	public static enum ComboParam {
+	public enum ComboParam {
 		NonGuaranteed, PriceCondConid, CondPriceMax, CondPriceMin, ChangeToMktTime1, ChangeToMktTime2, DiscretionaryPct, DontLeginNext, LeginPrio, MaxSegSize,
 	}
 
-	public static enum AlgoParam {
+	public enum AlgoParam {
 		startTime, endTime, allowPastEndTime, maxPctVol, pctVol, strategyType, noTakeLiq, riskAversion, forceCompletion, displaySize, getDone, noTradeAhead, useOddLots,
 		componentSize, timeBetweenOrders, randomizeTime20, randomizeSize55, giveUp, catchUp, waitForFill	
 	}
 
-	public static enum AlgoStrategy implements IApiEnum {
+	public enum AlgoStrategy implements IApiEnum {
 		None(),
 		Vwap( startTime, endTime, maxPctVol, noTakeLiq, getDone, noTradeAhead, useOddLots),
 		Twap( startTime, endTime, allowPastEndTime, strategyType),
@@ -47,7 +47,7 @@ public class Types {
 
 		public AlgoParam[] params() { return m_params; }
 
-		private AlgoStrategy( AlgoParam... params) {
+		AlgoStrategy( AlgoParam... params) {
 			m_params = params;
 		}
 
@@ -60,7 +60,7 @@ public class Types {
 		}
 	}
 
-	public static enum HedgeType implements IApiEnum {
+	public enum HedgeType implements IApiEnum {
 		None, Delta, Beta, Fx, Pair;
 
 		public static HedgeType get(String apiString) {
@@ -72,7 +72,7 @@ public class Types {
 		}
 	}
 
-	public static enum Right implements IApiEnum {
+	public enum Right implements IApiEnum {
 		None, Put, Call;
 
 		public static Right get( String apiString) {
@@ -90,7 +90,7 @@ public class Types {
 		}
 	}
 
-	public static enum VolatilityType implements IApiEnum {
+	public enum VolatilityType implements IApiEnum {
 		None, Daily, Annual;
 
 		public static VolatilityType get( int ordinal) {
@@ -102,7 +102,7 @@ public class Types {
 		}
 	}
 
-	public static enum ReferencePriceType implements IApiEnum {
+	public enum ReferencePriceType implements IApiEnum {
 		None, Midpoint, BidOrAsk;
 
 		public static ReferencePriceType get( int ordinal) {
@@ -114,14 +114,14 @@ public class Types {
 		}
 	}
 
-	public static enum TriggerMethod implements IApiEnum {
+	public enum TriggerMethod implements IApiEnum {
 		Default( 0), DoubleBidAsk( 1), Last( 2), DoubleLast( 3), BidAsk( 4), LastOrBidAsk( 7), Midpoint( 8);
 
 		int m_val;
 
 		public int val() { return m_val; }
 
-		private TriggerMethod( int val) {
+		TriggerMethod( int val) {
 			m_val = val;
 		}
 
@@ -139,7 +139,7 @@ public class Types {
 		}
 	}
 
-	public static enum Action implements IApiEnum {
+	public enum Action implements IApiEnum {
 		BUY, SELL, SSHORT;
 
         public static Action get(String apiString) {
@@ -151,12 +151,12 @@ public class Types {
 		}
 	}
 
-	public static enum Rule80A implements IApiEnum {
+	public enum Rule80A implements IApiEnum {
 		None(""), IndivArb("J"), IndivBigNonArb("K"), IndivSmallNonArb("I"), INST_ARB("U"), InstBigNonArb("Y"), InstSmallNonArb("A");
 
 		private String m_apiString;
 
-		private Rule80A( String apiString) {
+		Rule80A( String apiString) {
 			m_apiString = apiString;
 		}
 
@@ -170,7 +170,7 @@ public class Types {
 		}
 	}
 
-	public static enum OcaType implements IApiEnum {
+	public enum OcaType implements IApiEnum {
 		None, CancelWithBlocking, ReduceWithBlocking, ReduceWithoutBlocking;
 
 		public static OcaType get( int ordinal) {
@@ -182,7 +182,7 @@ public class Types {
 		}
 	}
 
-	public static enum TimeInForce implements IApiEnum {
+	public enum TimeInForce implements IApiEnum {
 		DAY, GTC, OPG, IOC, GTD, GTT, AUC, FOK, GTX, DTC;
 
         public static TimeInForce get(String apiString) {
@@ -194,49 +194,74 @@ public class Types {
 		}
 	}
 
-	public static enum ExerciseType {
-		None, Exercise, Lapse;
+	public enum ExerciseType {
+		None, Exercise, Lapse,
 	}
 
-	public static enum FundamentalType {
-		ReportSnapshot, ReportsFinSummary, ReportRatios, ReportsFinStatements, RESC, CalendarReport;
+	public enum FundamentalType {
+		ReportSnapshot("Company overview"),
+		ReportsFinSummary("Financial summary"),
+		ReportRatios("Financial ratios"),
+		ReportsFinStatements("Financial statements"),
+		RESC("Analyst estimates"),
+		CalendarReport("Company calendar");
+
+		private final String description;
+
+		FundamentalType(final String description) {
+			this.description = description;
+		}
 
 		public String getApiString() {
 			return super.toString();
 		}
 
 		@Override public String toString() {
-			switch( this) {
-				case ReportSnapshot: 		return "Company overview";
-				case ReportsFinSummary:		return "Financial summary";
-				case ReportRatios:			return "Financial ratios";
-				case ReportsFinStatements:	return "Financial statements";
-				case RESC: 					return "Analyst estimates";
-				case CalendarReport:		return "Company calendar";
-				default:					return null;
-			}
+			return description;
 		}
 	}
 
-	public static enum WhatToShow {
+	public enum WhatToShow {
 		TRADES, MIDPOINT, BID, ASK, // << only these are valid for real-time bars
         BID_ASK, HISTORICAL_VOLATILITY, OPTION_IMPLIED_VOLATILITY, YIELD_ASK, YIELD_BID, YIELD_BID_ASK, YIELD_LAST
 	}
 
-	public static enum BarSize {
-		_1_secs, _5_secs, _10_secs, _15_secs, _30_secs, _1_min, _2_mins, _3_mins, _5_mins, _10_mins, _15_mins, _20_mins, _30_mins, _1_hour, _4_hours, _1_day, _1_week;
+	public enum BarSize {
+		_1_secs("1 secs"),
+		_5_secs("5 secs"),
+		_10_secs("10 secs"),
+		_15_secs("15 secs"),
+		_30_secs("30 secs"),
+		_1_min("1 min"),
+		_2_mins("2 mins"),
+		_3_mins("3 mins"),
+		_5_mins("5 mins"),
+		_10_mins("10 mins"),
+		_15_mins("15 mins"),
+		_20_mins("20 mins"),
+		_30_mins("30 mins"),
+		_1_hour("1 hour"),
+		_4_hours("4 hours"),
+		_1_day("1_day"),
+		_1_week("1 week");
+
+		private final String description;
+
+		BarSize(final String description) {
+			this.description = description;
+		}
 
 		@Override
         public String toString() {
-			return super.toString().substring( 1).replace( '_', ' ');
+			return description;
 		}
 	}
 
-	public static enum DurationUnit {
-		SECOND, DAY, WEEK, MONTH, YEAR;
+	public enum DurationUnit {
+		SECOND, DAY, WEEK, MONTH, YEAR,
 	}
 
-	public static enum DeepType {
+	public enum DeepType {
 	    INSERT, UPDATE, DELETE;
 
 	    public static DeepType get( int ordinal) {
@@ -244,7 +269,7 @@ public class Types {
 	    }
 	}
 
-	public static enum DeepSide {
+	public enum DeepSide {
 	    SELL, BUY;
 
 	    public static DeepSide get( int ordinal) {
