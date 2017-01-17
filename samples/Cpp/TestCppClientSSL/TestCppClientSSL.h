@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -126,6 +126,7 @@ public:
     void smartComponents(int reqId, SmartComponentsMap theMap);
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 	void newsProviders(const std::vector<NewsProvider> &newsProviders);
+	void newsArticle(int requestId, int articleType, const std::string& articleText);
 
 private:
     EReaderOSSignal m_osSignal;

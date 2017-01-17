@@ -1822,6 +1822,21 @@ const char* EDecoder::processNewsProvidersMsg(const char* ptr, const char* endPt
 	return ptr;
 }
 
+const char* EDecoder::processNewsArticleMsg(const char* ptr, const char* endPtr) 
+{
+	int requestId;
+	int articleType;
+	std::string articleText;
+
+	DECODE_FIELD( requestId);
+	DECODE_FIELD( articleType);
+	DECODE_FIELD( articleText);
+
+	m_pEWrapper->newsArticle(requestId, articleType, articleText);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2169,6 +2184,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case NEWS_PROVIDERS:
 			ptr = processNewsProvidersMsg(ptr, endPtr);
+			break;
+
+		case NEWS_ARTICLE:
+			ptr = processNewsArticleMsg(ptr, endPtr);
 			break;
 
         default:

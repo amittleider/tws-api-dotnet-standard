@@ -446,6 +446,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onRequestNewsProviders();
             }
         });
+        JButton butReqNewsArticle = new JButton( "Req News Article");
+        butReqNewsArticle.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onReqNewsArticle();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -518,6 +524,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butReqMktDepthExchanges ) ;
         buttonPanel.add(butReqSmartComponents);
         buttonPanel.add( butRequestNewsProviders ) ;
+        buttonPanel.add( butReqNewsArticle ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -1132,6 +1139,16 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqNewsProviders();
     }
 
+    void onReqNewsArticle() {
+        NewsArticleDlg dlg = new NewsArticleDlg(this);
+
+        dlg.setVisible(true);
+        if ( dlg.m_rc ) {
+            // request news article
+            m_client.reqNewsArticle( dlg.m_retRequestId, dlg.m_retProviderCode, dlg.m_retArticleId);
+        }
+    }
+
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, attribs);
@@ -1632,6 +1649,12 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void newsProviders(NewsProvider[] newsProviders) {
 		String msg = EWrapperMsgGenerator.newsProviders(newsProviders);
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void newsArticle(int requestId, int articleType, String articleText) {
+		String msg = EWrapperMsgGenerator.newsArticle(requestId, articleType, articleText);
 		m_TWS.add(msg);
 	}
 }

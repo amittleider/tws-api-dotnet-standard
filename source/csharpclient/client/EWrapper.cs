@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -746,5 +746,14 @@ namespace IBApi
         * @sa EClient::reqNewsProviders
         */
         void newsProviders(NewsProvider[] newsProviders);
+
+        /**
+        * @brief called when receives News Article
+        * @param requestId The request ID used in the call to EClient::reqNewsArticle
+        * @param articleType The type of news article (0 - plain text or html, 1 - binary data / pdf)
+        * @param articleText The body of article (if articleType == 1, the binary data is encoded using the Base64 scheme)
+        * @sa EClient::reqNewsArticle
+        */
+        void newsArticle(int requestId, int articleType, string articleText);
     }
 }

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -167,6 +167,7 @@ const int REQ_FAMILY_CODES				= 80;
 const int REQ_MATCHING_SYMBOLS			= 81;
 const int REQ_MKT_DEPTH_EXCHANGES		= 82;
 const int REQ_SMART_COMPONENTS			= 83;
+const int REQ_NEWS_ARTICLE				= 84;
 const int REQ_NEWS_PROVIDERS			= 85;
 
 // TWS New Bulletins constants
@@ -309,6 +310,7 @@ public:
 	void reqMktDepthExchanges();
 	void reqSmartComponents(int reqId, std::string bboExchange);
 	void reqNewsProviders();
+	void reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId);
 
 private:
 

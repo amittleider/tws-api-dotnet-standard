@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -75,5 +75,6 @@ namespace IBApi
         public const int TICK_NEWS = 113;
         public const int SMART_COMPONENTS = 114;
         public const int REQ_NEWS_PROVIDERS = 115;
+        public const int REQ_NEWS_ARTICLE = 116;
     }
 }

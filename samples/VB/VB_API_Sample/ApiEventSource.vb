@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 Imports IBApi
@@ -649,6 +649,16 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_NewsArticle(requestId As Integer, articleType As Integer, articleText As String) Implements EWrapper.newsArticle
+        InvokeIfRequired(Sub()
+                             RaiseEvent NewsArticle(Me, New NewsArticleEventArgs With {
+                                                            .requestId = requestId,
+                                                            .articleType = articleType,
+                                                            .articleText = articleText
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -714,6 +724,7 @@ Friend Class ApiEventSource
     Event SmartComponents(sender As ApiEventSource, e As SmartComponentsEventArgs)
     Event TickReqParams(sender As ApiEventSource, e As TickReqParamsEventArgs)
     Event NewsProviders(sender As Object, e As NewsProvidersEventArgs)
+    Event NewsArticle(sender As Object, e As NewsArticleEventArgs)
 
 #End Region
 

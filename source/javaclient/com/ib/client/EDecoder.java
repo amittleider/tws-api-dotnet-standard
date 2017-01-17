@@ -78,6 +78,7 @@ class EDecoder implements ObjectInput {
     static final int MKT_DEPTH_EXCHANGES = 80;
     static final int TICK_REQ_PARAMS = 81;
     static final int SMART_COMPONENTS = 82;
+    static final int NEWS_ARTICLE = 83;
     static final int TICK_NEWS = 84;
     static final int NEWS_PROVIDERS = 85;
 
@@ -390,6 +391,10 @@ class EDecoder implements ObjectInput {
                 processNewsProvidersMsg();
                 break;
 
+            case NEWS_ARTICLE:
+                processNewsArticleMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -398,6 +403,14 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processNewsArticleMsg() throws IOException {
+        int requestId = readInt();
+        int articleType = readInt();
+        String articleText = readStr();
+
+        m_EWrapper.newsArticle(requestId, articleType, articleText);
     }
 
     private void processNewsProvidersMsg() throws IOException {

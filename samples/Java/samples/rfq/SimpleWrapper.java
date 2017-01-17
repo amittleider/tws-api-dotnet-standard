@@ -453,4 +453,10 @@ public class SimpleWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void newsArticle(int requestId, int articleType, String articleText) {
+		// TODO Auto-generated method stub
+		
+	}
 }

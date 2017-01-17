@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using IBApi;
@@ -1835,6 +1835,16 @@ namespace TWSLib
                 InvokeIfRequired(t_newsProviders, newsProviders.Length > 0 ? new ComNewsProviderList(newsProviders) : null);
         }
 
+        public delegate void newsArticleDelegate(int requestId, int articleType, string articleText);
+        public event newsArticleDelegate newsArticle;
+        void EWrapper.newsArticle(int requestId, int articleType, string articleText)
+        {
+            var t_newsArticle = this.newsArticle;
+
+            if (t_newsArticle != null)
+                InvokeIfRequired(t_newsArticle, requestId, articleType, articleText);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1946,6 +1956,11 @@ namespace TWSLib
         public void reqNewsProviders()
         {
             socket.reqNewsProviders();
+        }
+
+        public void reqNewsArticle(int requestId, string providerCode, string articleId)
+        {
+            socket.reqNewsArticle(requestId, providerCode, articleId);
         }
 
         public ArrayList ParseConditions(string str)

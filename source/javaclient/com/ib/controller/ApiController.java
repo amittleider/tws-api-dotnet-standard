@@ -90,6 +90,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<Integer, ITickNewsHandler>();
 	private final HashMap<Integer, ISmartComponentsHandler> m_smartComponentsHanlder = new HashMap<>();
 	private final ConcurrentHashSet<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<INewsProvidersHandler>();
+	private final HashMap<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<Integer, INewsArticleHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1527,6 +1528,31 @@ public class ApiController implements EWrapper {
 	public void newsProviders(NewsProvider[] newsProviders) {
 		for( INewsProvidersHandler handler : m_newsProvidersHandlers) {
 			handler.newsProviders(newsProviders);
+		}
+		recEOM();
+	}
+	
+	public interface INewsArticleHandler {
+		void newsArticle(int articleType, String articleText);
+	}
+
+	public void reqNewsArticle(String providerCode, String articleId, INewsArticleHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int requestId = m_reqId++;
+
+		m_newsArticleHandlerMap.put(requestId, handler);
+		m_client.reqNewsArticle(requestId, providerCode, articleId);
+		sendEOM();
+	}
+
+	@Override
+	public void newsArticle(int requestId, int articleType, String articleText) {
+		INewsArticleHandler handler = m_newsArticleHandlerMap.get(requestId);
+
+		if (handler != null) {
+			handler.newsArticle(articleType, articleText);
 		}
 		recEOM();
 	}

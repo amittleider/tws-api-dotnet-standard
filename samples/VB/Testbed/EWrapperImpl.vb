@@ -1,4 +1,4 @@
-﻿Imports IBApi
+Imports IBApi
 Imports System.Text
 
 Namespace Samples
@@ -469,6 +469,18 @@ Namespace Samples
             Next
         End Sub
         '! [newsProviders]
+
+        '! [newsArticle]
+        Public Sub newsArticle(requestId As Integer, articleType As Integer, articleText As String) Implements EWrapper.newsArticle
+            Console.WriteLine("News Article. Request Id: " & requestId & ", Article Type: " & articleType)
+
+            If articleType = 0 Then
+                Console.WriteLine("News Article Text: " & articleText)
+            ElseIf articleType = 1 Then
+                Console.WriteLine("News Article Text: article text is binary/pdf and cannot be displayed")
+            End If
+        End Sub
+        '! [newsArticle]
 
     End Class
 

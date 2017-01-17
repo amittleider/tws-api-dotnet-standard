@@ -101,6 +101,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqMktDepthExchanges As System.Windows.Forms.Button
     Friend WithEvents cmdReqSmartComponents As System.Windows.Forms.Button
     Friend WithEvents cmdReqNewsProviders As System.Windows.Forms.Button
+    Friend WithEvents cmdReqNewsArticle As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -162,6 +163,7 @@ Friend Class MainForm
         Me.cmdReqMktDepthExchanges = New System.Windows.Forms.Button()
         Me.cmdReqSmartComponents = New System.Windows.Forms.Button()
         Me.cmdReqNewsProviders = New System.Windows.Forms.Button()
+        Me.cmdReqNewsArticle = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -314,7 +316,7 @@ Friend Class MainForm
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 57
+        Me.cmdClearForm.TabIndex = 58
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -328,7 +330,7 @@ Friend Class MainForm
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 58
+        Me.cmdClose.TabIndex = 59
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -485,7 +487,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 168)
-        Me.lstErrors.TabIndex = 56
+        Me.lstErrors.TabIndex = 57
         '
         'lstServerResponses
         '
@@ -500,7 +502,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
-        Me.lstServerResponses.TabIndex = 54
+        Me.lstServerResponses.TabIndex = 55
         '
         'lstMktData
         '
@@ -515,7 +517,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 168)
-        Me.lstMktData.TabIndex = 52
+        Me.lstMktData.TabIndex = 53
         '
         'Label3
         '
@@ -527,7 +529,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 55
+        Me.Label3.TabIndex = 56
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -540,7 +542,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 53
+        Me.Label2.TabIndex = 54
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -553,7 +555,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 51
+        Me.Label1.TabIndex = 52
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -862,7 +864,7 @@ Friend Class MainForm
         Me.cmdReqSmartComponents.Location = New System.Drawing.Point(545, 668)
         Me.cmdReqSmartComponents.Name = "cmdReqSmartComponents"
         Me.cmdReqSmartComponents.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqSmartComponents.TabIndex = 58
+        Me.cmdReqSmartComponents.TabIndex = 50
         Me.cmdReqSmartComponents.Text = "Req Smart Components"
         Me.cmdReqSmartComponents.UseVisualStyleBackColor = True
         '
@@ -871,15 +873,25 @@ Friend Class MainForm
         Me.cmdReqNewsProviders.Location = New System.Drawing.Point(684, 641)
         Me.cmdReqNewsProviders.Name = "cmdReqNewsProviders"
         Me.cmdReqNewsProviders.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqNewsProviders.TabIndex = 50
+        Me.cmdReqNewsProviders.TabIndex = 49
         Me.cmdReqNewsProviders.Text = "Req News Providers"
         Me.cmdReqNewsProviders.UseVisualStyleBackColor = True
+        '
+        'cmdReqNewsArticle
+        '
+        Me.cmdReqNewsArticle.Location = New System.Drawing.Point(685, 668)
+        Me.cmdReqNewsArticle.Name = "cmdReqNewsArticle"
+        Me.cmdReqNewsArticle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNewsArticle.TabIndex = 51
+        Me.cmdReqNewsArticle.Text = "Req News Article"
+        Me.cmdReqNewsArticle.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqNewsArticle)
         Me.Controls.Add(Me.cmdReqNewsProviders)
         Me.Controls.Add(Me.cmdReqSmartComponents)
         Me.Controls.Add(Me.cmdReqMktDepthExchanges)
@@ -1743,6 +1755,22 @@ Friend Class MainForm
         If dlg.ShowDialog() = Windows.Forms.DialogResult.OK Then
             m_api.reqSmartComponents(CInt(dlg.txtReqId.Text), dlg.txtBBOExchange.Text)
         End If
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Request News Article
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqNewsArticle_Click(sender As Object, e As EventArgs) Handles cmdReqNewsArticle.Click
+        Dim dlgNewsArticle As New dlgNewsArticle
+
+        ' Set the dialog state
+        dlgNewsArticle.init()
+        dlgNewsArticle.ShowDialog()
+
+        If dlgNewsArticle.ok Then
+            m_api.reqNewsArticle(dlgNewsArticle.requestId, dlgNewsArticle.providerCode, dlgNewsArticle.articleId)
+        End If
+
     End Sub
 
 #End Region
@@ -2924,6 +2952,27 @@ Friend Class MainForm
             count += 1
         Next
         m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Providers End (total=" & e.newsProviders.Length & ") ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' News Article
+    '--------------------------------------------------------------------------------
+    Private Sub Api_NewsArticle(sender As Object, e As NewsArticleEventArgs) Handles m_apiEvents.NewsArticle
+        Dim offset = lstServerResponses.Items.Count
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Article Begin requestId=" & e.requestId & " ====")
+        m_utils.addListItem(Utils.ListType.ServerResponses, " Article Type: " & e.articleType)
+        m_utils.addListItem(Utils.ListType.ServerResponses, " Article Text: ")
+        If e.articleType = 0 Then
+            m_utils.addListItem(Utils.ListType.ServerResponses, e.articleText)
+        ElseIf e.articleType = 1 Then
+            m_utils.addListItem(Utils.ListType.ServerResponses, "article text is binary/pdf and cannot be displayed")
+
+        End If
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Article End requestId=" & e.requestId & " ====")
 
         ' move into view
         lstServerResponses.TopIndex = offset

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -66,12 +66,13 @@ const int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
 const int MIN_SERVER_VER_TICK_NEWS				= 113;
 const int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
 const int MIN_SERVER_VER_REQ_NEWS_PROVIDERS		= 115;
+const int MIN_SERVER_VER_REQ_NEWS_ARTICLE		= 116;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_NEWS_PROVIDERS;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_NEWS_ARTICLE;
 
 
 // incoming msg id's
@@ -132,6 +133,7 @@ const int SYMBOL_SAMPLES = 79;
 const int MKT_DEPTH_EXCHANGES = 80;
 const int TICK_REQ_PARAMS = 81;
 const int SMART_COMPONENTS = 82;
+const int NEWS_ARTICLE = 83;
 const int TICK_NEWS = 84;
 const int NEWS_PROVIDERS = 85;
 
@@ -242,6 +244,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processTickReqParamsMsg(const char* ptr, const char* endPtr);
 	const char* processSmartComponentsMsg(const char* ptr, const char* endPtr);
 	const char* processNewsProvidersMsg(const char* ptr, const char* endPtr);
+	const char* processNewsArticleMsg(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);

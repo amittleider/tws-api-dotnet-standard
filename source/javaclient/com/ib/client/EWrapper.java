@@ -86,5 +86,6 @@ public interface EWrapper {
 	void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap);
 	void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions);
     void newsProviders(NewsProvider[] newsProviders);
+    void newsArticle(int requestId, int articleType, String articleText);
 }
 

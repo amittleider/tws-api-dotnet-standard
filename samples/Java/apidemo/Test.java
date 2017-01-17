@@ -334,4 +334,9 @@ public class Test implements EWrapper {
 	public void newsProviders(NewsProvider[] newsProviders) {
 		System.out.println(EWrapperMsgGenerator.newsProviders(newsProviders));
 	}
+
+	@Override
+	public void newsArticle(int requestId, int articleType, String articleText) {
+		System.out.println(EWrapperMsgGenerator.newsArticle(requestId, articleType, articleText));
+	}
 }

@@ -723,4 +723,19 @@ public class EWrapperMsgGenerator {
 		
 		return sb.toString();
 	}
+	
+	static public String newsArticle(int requestId, int articleType, String articleText) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("==== News Article Begin requestId: ").append(requestId).append(" ====\n");
+		if (articleType == 0) {
+			sb.append("---- Article type is text or html ----\n");
+			sb.append(articleText).append("\n");
+		} else if (articleType == 1) {
+			sb.append("---- Article type is binary/pdf ----\n");
+			sb.append("Binary/pdf article text cannot be displayed\n");
+		}
+		sb.append("==== News Article End requestId: ").append(requestId).append(" ====\n");
+		return sb.toString();
+	}
+	
 }
