@@ -1,4 +1,4 @@
-﻿Imports IBApi
+Imports IBApi
 Imports System.Threading
 Imports Testbed.Samples
 
@@ -571,6 +571,13 @@ Module MainModule
         ' [reqNewsProviders]
         client.reqNewsProviders()
         ' [reqNewsProviders]
+
+        ' Requesting news article
+        Thread.Sleep(2000)
+        ' [reqNewsArticle]
+        client.reqNewsArticle(10002, "BZ", "BZ$04507322")
+        ' [reqNewsArticle]
+
     End Sub
 
     Private Sub OcaSample(client As EClientSocket, nextOrderId As Integer)

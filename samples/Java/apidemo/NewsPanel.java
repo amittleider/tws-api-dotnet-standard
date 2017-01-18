@@ -4,13 +4,17 @@
 package apidemo;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,6 +24,7 @@ import com.ib.client.Contract;
 import com.ib.client.NewsProvider;
 import com.ib.client.Util;
 import com.ib.client.Types.SecType;
+import com.ib.controller.ApiController.INewsArticleHandler;
 import com.ib.controller.ApiController.INewsProvidersHandler;
 import com.ib.controller.ApiController.ITickNewsHandler;
 
@@ -34,13 +39,94 @@ public class NewsPanel extends JPanel {
     private final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
     private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 
+    private NewsArticleRequestPanel m_newsArticleRequestPanel = new NewsArticleRequestPanel();
+
     NewsPanel() {
         m_requestPanels.addTab( "News Ticks", new NewsTicksRequestPanel() );
         m_requestPanels.addTab( "News Providers", new RequestNewsProvidersPanel() );
+        m_requestPanels.addTab( "News Article", m_newsArticleRequestPanel );
 
         setLayout( new BorderLayout() );
         add( m_requestPanels, BorderLayout.NORTH);
         add( m_resultsPanels);
+    }
+
+    private class RequestPanel extends JPanel {
+        protected JTextField m_providerCode = new JTextField();
+        protected JTextField m_articleId = new JTextField();
+
+        RequestPanel() {
+            VerticalPanel p = new VerticalPanel();
+            p.add( "Provider Code", m_providerCode);
+            m_providerCode.setColumns(10);
+            p.add( "Article Id", m_articleId);
+            m_articleId.setColumns(10);
+            setLayout( new BorderLayout() );
+            add( p);
+        }
+
+        public void setProviderCode(String v){
+            m_providerCode.setText(v);
+        }
+
+        public void setArticleId(String v){
+            m_articleId.setText(v);
+        }
+
+        @Override public Dimension getMaximumSize() {
+            return super.getPreferredSize();
+        }
+    }
+
+    class NewsArticleRequestPanel extends JPanel {
+        final RequestPanel m_requestPanel = new RequestPanel();
+
+        NewsArticleRequestPanel() {
+            HtmlButton butReqNewsArticle = new HtmlButton( "Request News Article") {
+                @Override protected void actionPerformed() {
+                    onReqNewsArticle();
+                }
+            };
+
+            VerticalPanel butPanel = new VerticalPanel();
+            butPanel.add( butReqNewsArticle);
+            setLayout( new BoxLayout( this, BoxLayout.X_AXIS) );
+            add( m_requestPanel);
+            add( Box.createHorizontalStrut(20));
+            add( butPanel);
+        }
+
+        protected void onReqNewsArticle() {
+            NewsArticleResultsPanel panel = new NewsArticleResultsPanel();
+            String providerCode = m_requestPanel.m_providerCode.getText().trim();
+            String articleId = m_requestPanel.m_articleId.getText().trim();
+            ApiDemo.INSTANCE.controller().reqNewsArticle(providerCode, articleId, panel);
+            m_resultsPanels.addTab( "News Article: " + providerCode + " " + articleId, panel, true, true);
+        }
+    }
+
+    class NewsArticleResultsPanel extends JPanel implements INewsArticleHandler {
+        JLabel m_label = new JLabel();
+        JTextArea m_text = new JTextArea();
+
+        NewsArticleResultsPanel() {
+            JScrollPane scroll = new JScrollPane( m_text);
+
+            setLayout( new BorderLayout() );
+            add( m_label, BorderLayout.NORTH);
+            add( scroll);
+        }
+
+        @Override
+        public void newsArticle(int articleType, String articleText) {
+            if (articleType == 0) {
+                m_label.setText( "Article type is text or html");
+                m_text.setText( articleText);
+            } else if (articleType == 1){
+                m_label.setText( "Article type is binary/pdf");
+                m_text.setText( "Binary/pdf article text cannot be displayed");
+            }
+        }
     }
 
     private class RequestNewsProvidersPanel extends JPanel {
@@ -198,6 +284,8 @@ public class NewsPanel extends JPanel {
                         NewsTickRow newsTickRow = m_rows.get( table.getSelectedRow());
                     	if (newsTickRow.m_providerCode.length() > 0 && newsTickRow.m_articleId.length() > 0) {
                             m_requestPanels.select( "News Article");
+                            m_newsArticleRequestPanel.m_requestPanel.setProviderCode(newsTickRow.m_providerCode);
+                            m_newsArticleRequestPanel.m_requestPanel.setArticleId(newsTickRow.m_articleId);
                         }
                     }
                 }

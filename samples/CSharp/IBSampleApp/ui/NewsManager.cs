@@ -16,17 +16,21 @@ namespace IBSampleApp.ui
         private const int TICK_NEWS_ID_BASE = 90000000;
         private const int TICK_NEWS_ID = TICK_NEWS_ID_BASE;
 
+        private const int NEWS_ARTICLE_ID = TICK_NEWS_ID_BASE + 10000;
+
         int rowCountTickNewsGrid = 0;
 
         private IBClient ibClient;
         private DataGridView tickNewsGrid;
         private DataGridView newsProvidersGrid;
+        private TextBox textBoxArticleText;
 
-        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid)
+        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid, TextBox textBoxArticleText)
         {
             IbClient = ibClient;
             TickNewsGrid = tickNewsDataGrid;
             NewsProvidersGrid = newsProvidersGrid;
+            TextBoxArticleText = textBoxArticleText;
         }
 
         public void UpdateUI(IBMessage message)
@@ -38,6 +42,9 @@ namespace IBSampleApp.ui
                     break;
                 case MessageType.NewsProviders:
                     HandleNewsProviders((NewsProvidersMessage)message);
+                    break;
+                case MessageType.NewsArticle:
+                    HandleNewsArticle((NewsArticleMessage)message);
                     break;
             }
         }
@@ -65,6 +72,29 @@ namespace IBSampleApp.ui
                 newsProvidersGrid[0, newsProvidersGrid.Rows.Count - 1].Value = newsProvidersMessage.NewsProviders[i].ProviderCode;
                 newsProvidersGrid[1, newsProvidersGrid.Rows.Count - 1].Value = newsProvidersMessage.NewsProviders[i].ProviderName;
             }
+        }
+
+        private void  HandleNewsArticle(NewsArticleMessage newsArticleMessage)
+        {
+            if (newsArticleMessage.ArticleType == 0)
+            {
+                textBoxArticleText.Text = newsArticleMessage.ArticleText;
+            }
+            else if (newsArticleMessage.ArticleType == 1)
+            {
+                textBoxArticleText.Text = "News article text is binary/pdf and cannot be displayed.";
+            }
+        }
+
+        public void RequestNewsArticle(string providerCode, string articleId)
+        {
+            textBoxArticleText.Clear();
+            ibClient.ClientSocket.reqNewsArticle(NEWS_ARTICLE_ID, providerCode, articleId);
+        }
+
+        public void ClearArticleText()
+        {
+            textBoxArticleText.Clear();
         }
 
         public void RequestNewsTicks(Contract contract)
@@ -113,6 +143,12 @@ namespace IBSampleApp.ui
         {
             get { return newsProvidersGrid; }
             set { newsProvidersGrid = value; }
+        }
+
+        public TextBox TextBoxArticleText
+        {
+            get { return textBoxArticleText; }
+            set { textBoxArticleText = value; }
         }
 
         public IBClient IbClient

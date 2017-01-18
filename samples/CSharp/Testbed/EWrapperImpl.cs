@@ -525,5 +525,18 @@ namespace Samples
             }
         }
         //! [newsProviders]
+
+        //! [newsArticle]
+        public void newsArticle(int requestId, int articleType, string articleText)
+        {
+            Console.WriteLine("News Article. Request Id: {0}, ArticleType: {1}", requestId, articleType);
+            if (articleType == 0) {
+                Console.WriteLine("News Article Text: {0}", articleText);
+            }
+            else if (articleType == 1) {
+                Console.WriteLine("News Article Text: article text is binary/pdf and cannot be displayed");
+            }
+        }
+        //! [newsArticle]
     }
 }

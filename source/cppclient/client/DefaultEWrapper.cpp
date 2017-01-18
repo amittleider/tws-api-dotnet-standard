@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -81,6 +81,7 @@ void DefaultEWrapper::tickNews(int tickerId, time_t timeStamp, const std::string
 void DefaultEWrapper::smartComponents(int reqId, SmartComponentsMap theMap) { }
 void DefaultEWrapper::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) { }
 void DefaultEWrapper::newsProviders(const std::vector<NewsProvider> &newsProviders) { }
+void DefaultEWrapper::newsArticle(int requestId, int articleType, const std::string& articleText) { }
 
 
 

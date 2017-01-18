@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2015 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2015 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using IBApi;
@@ -549,6 +549,12 @@ namespace Samples
             //! [reqNewsProviders]
             client.reqNewsProviders();
             //! [reqNewsProviders]
+
+            // Requesting news article
+            Thread.Sleep(2000);
+            //! [reqNewsArticle]
+            client.reqNewsArticle(12002, "BZ", "BZ$04507322");
+            //! [reqNewsArticle]
         }
 
         private static void OcaSample(EClientSocket client, int nextOrderId)

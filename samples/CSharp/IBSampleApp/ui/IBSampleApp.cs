@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -68,7 +68,7 @@ namespace IBSampleApp
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
-            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders);
+            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders, textBoxNewsArticle);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -175,6 +175,7 @@ namespace IBSampleApp
             ibClient.TickReqParams += (tickerId, minTick, bboExchange, snapshotPermissions) => HandleMessage(new TickReqParamsMessage(tickerId, minTick, bboExchange, snapshotPermissions));
             ibClient.SmartComponents += (reqId, theMap) => theMap.ToList().ForEach(i => HandleMessage(new SmartComponentsMessage(i.Key, i.Value.Key, i.Value.Value)));
             ibClient.NewsProviders += (newsProviders) => HandleMessage(new NewsProvidersMessage(newsProviders));
+            ibClient.NewsArticle += (requestId, articleType, articleText) => HandleMessage(new NewsArticleMessage(requestId, articleType, articleText));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -424,6 +425,7 @@ namespace IBSampleApp
                     }
                 case MessageType.TickNews:
                 case MessageType.NewsProviders:
+                case MessageType.NewsArticle:
                     {
                         newsManager.UpdateUI(message);
                         break;
@@ -1105,6 +1107,21 @@ namespace IBSampleApp
             }
         }
 
+        private void dataGridViewNewsTicks_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (e.RowIndex > -1)
+            {
+                DataGridViewRow dataGridViewRow = dataGridView.Rows[e.RowIndex];
+                if (dataGridViewRow.Cells[dataGridViewNewsTicksProviderCode.Index].Value != null && dataGridViewRow.Cells[dataGridViewNewsTicksArticleId.Index].Value != null)
+                {
+                    textBoxNewsArticleProviderCode.Text = (String)dataGridViewRow.Cells[dataGridViewNewsTicksProviderCode.Index].Value;
+                    textBoxNewsArticleArticleId.Text = (String)dataGridViewRow.Cells[dataGridViewNewsTicksArticleId.Index].Value;
+                    ShowTab(tabControlNews, tabPageNewsArticle);
+                }
+            }
+        }
+
         private void ReqSmartComponents_Button_Click(object sender, EventArgs e)
         {
             if (isConnected)
@@ -1128,6 +1145,17 @@ namespace IBSampleApp
         private void linkLabelClearNewsProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             newsManager.ClearNewsProviders();
+        }
+        
+        private void buttonRequestNewsArticle_Click(object sender, EventArgs e)
+        {
+            ShowTab(tabControlNewsResults, tabPageNewsArticleResults);
+            newsManager.RequestNewsArticle(textBoxNewsArticleProviderCode.Text, textBoxNewsArticleArticleId.Text);
+        }
+
+        private void linkLabelClearNewsArticle_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            newsManager.ClearArticleText();
         }
         
     }

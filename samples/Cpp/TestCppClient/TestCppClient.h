@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -74,6 +74,8 @@ enum State {
 	ST_REQSMARTCOMPONENTS_ACK,
 	ST_NEWSPROVIDERS,
 	ST_NEWSPROVIDERS_ACK,
+	ST_REQNEWSARTICLE,
+	ST_REQNEWSARTICLE_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -126,6 +128,7 @@ private:
 	void reqNewsTicks();
 	void reqSmartComponents();
 	void reqNewsProviders();
+	void reqNewsArticle();
 
 	void reqCurrentTime();
 
@@ -208,6 +211,7 @@ public:
     void smartComponents(int reqId, SmartComponentsMap theMap);
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 	void newsProviders(const std::vector<NewsProvider> &newsProvider);
+	void newsArticle(int requestId, int articleType, const std::string& articleText);
 
 private:
 	//! [socket_declare]

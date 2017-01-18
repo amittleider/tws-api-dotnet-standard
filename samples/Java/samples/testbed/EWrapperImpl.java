@@ -538,4 +538,12 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println();
 	}
 	//! [newsProviders]
+
+	//! [newsArticle]
+	@Override
+	public void newsArticle(int requestId, int articleType, String articleText) {
+		System.out.println("News Article. Request Id: " + requestId + ", ArticleType: " + articleType + 
+				", ArticleText: " + articleText);
+	}
+	//! [newsArticle]
 }

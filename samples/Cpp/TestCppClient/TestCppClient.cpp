@@ -247,6 +247,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_NEWSPROVIDERS_ACK:
 			break;
+		case ST_REQNEWSARTICLE:
+			reqNewsArticle();
+			break;
+		case ST_REQNEWSARTICLE_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -997,6 +1002,16 @@ void TestCppClient::reqNewsProviders()
 	m_state = ST_NEWSPROVIDERS_ACK;
 }
 
+void TestCppClient::reqNewsArticle()
+{
+	/*** Request TWS' news article ***/
+	//! [reqNewsArticle]
+	m_pClient->reqNewsArticle(12001, "BZ", "BZ$04507322");
+	//! [reqNewsArticle]
+
+	m_state = ST_REQNEWSARTICLE_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1030,7 +1045,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQMKTDEPTHEXCHANGES;
 	//m_state = ST_REQNEWSTICKS;
 	//m_state = ST_REQSMARTCOMPONENTS;
-	m_state = ST_NEWSPROVIDERS;
+	//m_state = ST_NEWSPROVIDERS;
+	m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_PING;
 }
 
@@ -1443,3 +1459,15 @@ void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders
 	}
 }
 //! [newsProviders]
+
+//! [newsArticle]
+void TestCppClient::newsArticle(int requestId, int articleType, const std::string& articleText) {
+	printf("News Article. Request Id: %d, Article Type: %d\n", requestId, articleType);
+	if (articleType == 0) {
+		printf("News Article Text (text or html): %s\n", articleText.c_str());
+	} else if (articleType == 1) {
+		printf("News Article Text (binary/pdf): Binary/pdf article text cannot be displayed\n");
+	}
+}
+//! [newsArticle]
+

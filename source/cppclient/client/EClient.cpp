@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -2826,6 +2826,30 @@ void EClient::reqNewsProviders()
 	prepareBuffer(msg);
 
 	ENCODE_FIELD(REQ_NEWS_PROVIDERS);
+
+	closeAndSend(msg.str());
+}
+
+void EClient::reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId)
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_NEWS_ARTICLE) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support news article requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_NEWS_ARTICLE);
+	ENCODE_FIELD(requestId);
+	ENCODE_FIELD(providerCode);
+	ENCODE_FIELD(articleId);
 
 	closeAndSend(msg.str());
 }

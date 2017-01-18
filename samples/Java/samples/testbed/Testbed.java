@@ -308,15 +308,24 @@ public class Testbed {
 
 		Thread.sleep(10000);
 
+		/*** Canceling news ticks ***/
 		//! [cancelNewsTicks]
 		client.cancelMktData(10001);
 		//! [cancelNewsTicks]
 
 		Thread.sleep(2000);
-		
+
+		/*** Requesting news providers ***/
 		//! [reqNewsProviders]
 		client.reqNewsProviders();
 		//! [reqNewsProviders]
+
+		Thread.sleep(2000);
+		
+		/*** Requesting news article ***/
+		//! [reqNewsArticle]
+		client.reqNewsArticle(10002, "BZ", "BZ$04507322");
+		//! [reqNewsArticle]
 	}
 
 	private static void conditionSamples(EClientSocket client, int nextOrderId) {

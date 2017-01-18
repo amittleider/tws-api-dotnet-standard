@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -349,6 +349,8 @@ namespace TWSLib
         void reqSmartComponents(int reqId, string bboExchange);
         [DispId(219)]
         void reqNewsProviders();
+        [DispId(220)]
+        void reqNewsArticle(int requestId, string providerCode, string articleId);
 
         #endregion
     }

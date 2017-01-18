@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -378,6 +378,11 @@ namespace IBApi
                         NewsProvidersEvent();
                         break;
                     }
+                case IncomingMessage.NewsArticle:
+                    {
+                        NewsArticleEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -386,6 +391,15 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void NewsArticleEvent()
+        {
+            int requestId = ReadInt();
+            int articleType = ReadInt();
+            string articleText = ReadString();
+
+            eWrapper.newsArticle(requestId, articleType, articleText);
         }
 
         private void NewsProvidersEvent()

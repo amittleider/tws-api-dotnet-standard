@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Net;
@@ -2451,6 +2451,29 @@ namespace IBApi
 
             paramsList.AddParameter(OutgoingMessages.RequestNewsProviders);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQNEWSPROVIDERS);
+        }
+
+        /**
+         * @brief Requests news article body
+         * @sa EWrapper::newsArticle
+         */
+        public void reqNewsArticle(int requestId, string providerCode, string articleId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_NEWS_ARTICLE,
+                " It does not support news article requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestNewsArticle);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(providerCode);
+            paramsList.AddParameter(articleId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQNEWSARTICLE);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

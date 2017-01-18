@@ -769,5 +769,15 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(newsProviders);
         }
+
+        public event Action<int, int, string> NewsArticle;
+
+        void EWrapper.newsArticle(int requestId, int articleType, string articleText)
+        {
+            var tmp = NewsArticle;
+
+            if (tmp != null)
+                tmp(requestId, articleType, articleText);
+        }
     }
 }
