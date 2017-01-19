@@ -1,24 +1,20 @@
 package com.ib.client;
 
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 
-public abstract class OrderCondition implements Externalizable {
+public abstract class OrderCondition {
 	
 	private OrderConditionType m_type;
 	private boolean m_isConjunctionConnection;
-		
-	@Override
-	public void readExternal(ObjectInput in) throws IOException,
-			ClassNotFoundException {
+			
+	public void readFrom(ObjectInput in) throws IOException {
 		conjunctionConnection(in.readUTF().compareToIgnoreCase("a") == 0);
 	}
-
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
+	
+	public void writeTo(ObjectOutput out) throws IOException {
 		out.writeUTF(conjunctionConnection() ? "a" : "o");
 	}
 

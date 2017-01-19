@@ -1780,7 +1780,7 @@ public abstract class EClient {
         	   if (order.conditions().size() > 0) {
         		   for (OrderCondition item : order.conditions()) {
         			   b.send(item.type().val());
-        			   item.writeExternal(b);
+        			   item.writeTo(b);
         		   }
         		   
         		   b.send(order.conditionsIgnoreRth());

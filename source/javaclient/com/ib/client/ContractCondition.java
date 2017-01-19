@@ -30,17 +30,16 @@ public abstract class ContractCondition extends OperatorCondition {
 	private String m_exchange;
 
 	@Override
-	public void readExternal(ObjectInput in) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(in);
+	public void readFrom(ObjectInput in) throws IOException {
+		super.readFrom(in);
 		
 		m_conId = in.readInt();
 		m_exchange = in.readUTF();
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		super.writeExternal(out);
+	public void writeTo(ObjectOutput out) throws IOException {
+		super.writeTo(out);
 		out.writeInt(m_conId);
 		out.writeUTF(m_exchange);
 	}
