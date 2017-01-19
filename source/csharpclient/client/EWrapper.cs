@@ -755,5 +755,24 @@ namespace IBApi
         * @sa EClient::reqNewsArticle
         */
         void newsArticle(int requestId, int articleType, string articleText);
+
+        /**
+        * @brief returns news headline
+        * @param requestId
+        * @param time
+        * @param providerCode
+        * @param articleId
+        * @param headline
+        * @sa EClient::reqHistoricalNews
+        */
+        void historicalNews(int requestId, string time, string providerCode, string articleId, string headline);
+
+        /**
+        * @brief returns news headlines end marker
+        * @param requestId
+        * @param hasMore - indicates whether there are more results available, false otherwise
+        * @sa EClient::reqHistoricalNews
+        */
+        void historicalNewsEnd(int requestId, bool hasMore);
     }
 }

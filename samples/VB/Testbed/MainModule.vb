@@ -559,7 +559,7 @@ Module MainModule
         client.reqMktData(10001, ContractSamples.USStockAtSmart(), "mdoff,292", False, False, Nothing)
         ' [reqNewsTicks]
 
-        Thread.Sleep(10000)
+        Thread.Sleep(5000)
 
         ' Canceling news ticks
         ' [cancelNewsTicks]
@@ -577,6 +577,12 @@ Module MainModule
         ' [reqNewsArticle]
         client.reqNewsArticle(10002, "BZ", "BZ$04507322")
         ' [reqNewsArticle]
+
+        ' Requesting historical news
+        Thread.Sleep(2000)
+        ' [reqHistoricalNews]
+        client.reqHistoricalNews(10003, 8314, "BZ+FLY", "", "", 10)
+        ' [reqHistoricalNews]
 
     End Sub
 

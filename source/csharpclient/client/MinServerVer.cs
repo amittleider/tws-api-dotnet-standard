@@ -76,5 +76,6 @@ namespace IBApi
         public const int SMART_COMPONENTS = 114;
         public const int REQ_NEWS_PROVIDERS = 115;
         public const int REQ_NEWS_ARTICLE = 116;
+        public const int REQ_HISTORICAL_NEWS = 117;
     }
 }

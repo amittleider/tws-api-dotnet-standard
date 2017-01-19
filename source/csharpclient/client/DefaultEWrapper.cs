@@ -258,7 +258,6 @@ namespace IBApi
         {
         }
 
-
         public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
         {
         }
@@ -272,6 +271,14 @@ namespace IBApi
         }
 
         public virtual void newsArticle(int requestId, int articleType, string articleText)
+        {
+        }
+
+        public virtual void historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+        }
+
+        public virtual void historicalNewsEnd(int requestId, bool hasMore)
         {
         }
     }

@@ -102,6 +102,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqSmartComponents As System.Windows.Forms.Button
     Friend WithEvents cmdReqNewsProviders As System.Windows.Forms.Button
     Friend WithEvents cmdReqNewsArticle As System.Windows.Forms.Button
+    Friend WithEvents cmdReqHistoricalNews As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -164,6 +165,7 @@ Friend Class MainForm
         Me.cmdReqSmartComponents = New System.Windows.Forms.Button()
         Me.cmdReqNewsProviders = New System.Windows.Forms.Button()
         Me.cmdReqNewsArticle = New System.Windows.Forms.Button()
+        Me.cmdReqHistoricalNews = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -316,7 +318,7 @@ Friend Class MainForm
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 58
+        Me.cmdClearForm.TabIndex = 59
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -330,7 +332,7 @@ Friend Class MainForm
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 59
+        Me.cmdClose.TabIndex = 60
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -487,7 +489,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 168)
-        Me.lstErrors.TabIndex = 57
+        Me.lstErrors.TabIndex = 58
         '
         'lstServerResponses
         '
@@ -502,7 +504,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
-        Me.lstServerResponses.TabIndex = 55
+        Me.lstServerResponses.TabIndex = 56
         '
         'lstMktData
         '
@@ -517,7 +519,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 168)
-        Me.lstMktData.TabIndex = 53
+        Me.lstMktData.TabIndex = 54
         '
         'Label3
         '
@@ -529,7 +531,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 56
+        Me.Label3.TabIndex = 57
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -542,7 +544,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 54
+        Me.Label2.TabIndex = 55
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -555,7 +557,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 52
+        Me.Label1.TabIndex = 53
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -886,11 +888,21 @@ Friend Class MainForm
         Me.cmdReqNewsArticle.Text = "Req News Article"
         Me.cmdReqNewsArticle.UseVisualStyleBackColor = True
         '
+        'cmdReqHistoricalNews
+        '
+        Me.cmdReqHistoricalNews.Location = New System.Drawing.Point(545, 695)
+        Me.cmdReqHistoricalNews.Name = "cmdReqHistoricalNews"
+        Me.cmdReqHistoricalNews.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHistoricalNews.TabIndex = 52
+        Me.cmdReqHistoricalNews.Text = "Req Historical News"
+        Me.cmdReqHistoricalNews.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqHistoricalNews)
         Me.Controls.Add(Me.cmdReqNewsArticle)
         Me.Controls.Add(Me.cmdReqNewsProviders)
         Me.Controls.Add(Me.cmdReqSmartComponents)
@@ -1771,6 +1783,18 @@ Friend Class MainForm
             m_api.reqNewsArticle(dlgNewsArticle.requestId, dlgNewsArticle.providerCode, dlgNewsArticle.articleId)
         End If
 
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Request Historical News
+    '--------------------------------------------------------------------------------
+    Private Sub cmdReqHistoricalNews_Click(sender As Object, e As EventArgs) Handles cmdReqHistoricalNews.Click
+        Dim dlg = New dlgHistoricalNews()
+        dlg.ShowDialog()
+
+        If dlg.ok Then
+            m_api.reqHistoricalNews(dlg.requestId, dlg.conId, dlg.providerCodes, dlg.startDateTime, dlg.endDateTime, dlg.totalResults)
+        End If
     End Sub
 
 #End Region
@@ -2976,6 +3000,42 @@ Friend Class MainForm
 
         ' move into view
         lstServerResponses.TopIndex = offset
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Historical News
+    '--------------------------------------------------------------------------------
+    Private Sub Api_HistoricalNews(sender As Object, e As HistoricalNewsEventArgs) Handles m_apiEvents.HistoricalNews
+        Dim offset = lstServerResponses.Items.Count
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Historical News Begin ----")
+        m_utils.addListItem(Utils.ListType.ServerResponses, "requestId=" & e.requestId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "time=" & e.time)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "providerCode=" & e.providerCode)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "articleId=" & e.articleId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "headline=" & e.headline)
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Historical News End ----")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Historical News End
+    '--------------------------------------------------------------------------------
+    Private Sub Api_HistoricalNewsEnd(sender As Object, e As HistoricalNewsEndEventArgs) Handles m_apiEvents.HistoricalNewsEnd
+        Dim hasMoreStr As String
+        If e.hasMore Then
+            hasMoreStr = "> has more ..."
+        Else
+            hasMoreStr = ""
+        End If
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, "requestId = " & e.requestId & " ===== Historical News End ====" & hasMoreStr)
+
+        ' move into view
+        lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
     End Sub
 
 #End Region

@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IBSampleApp.messages;
 using System.Windows.Forms;
-using IBSampleApp.util;
 using IBApi;
+using IBSampleApp.messages;
+using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
@@ -17,20 +17,24 @@ namespace IBSampleApp.ui
         private const int TICK_NEWS_ID = TICK_NEWS_ID_BASE;
 
         private const int NEWS_ARTICLE_ID = TICK_NEWS_ID_BASE + 10000;
+        private const int HISTORICAL_NEWS_ID = TICK_NEWS_ID_BASE + 20000;
 
+        int rowCountHistoricalNewsGrid = 0;
         int rowCountTickNewsGrid = 0;
 
         private IBClient ibClient;
         private DataGridView tickNewsGrid;
         private DataGridView newsProvidersGrid;
         private TextBox textBoxArticleText;
+        private DataGridView historicalNewsGrid;
 
-        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid, TextBox textBoxArticleText)
+        public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid, TextBox textBoxArticleText, DataGridView historicalNewsGrid)
         {
             IbClient = ibClient;
             TickNewsGrid = tickNewsDataGrid;
             NewsProvidersGrid = newsProvidersGrid;
             TextBoxArticleText = textBoxArticleText;
+            HistoricalNewsGrid = historicalNewsGrid;
         }
 
         public void UpdateUI(IBMessage message)
@@ -46,9 +50,40 @@ namespace IBSampleApp.ui
                 case MessageType.NewsArticle:
                     HandleNewsArticle((NewsArticleMessage)message);
                     break;
+                case MessageType.HistoricalNews:
+                    HandleHistoricalNews((HistoricalNewsMessage)message);
+                    break;
+                case MessageType.HistoricalNewsEnd:
+                    HandleHistoricalNewsEnd((HistoricalNewsEndMessage)message);
+                    break;
             }
         }
 
+        private void HandleHistoricalNews(HistoricalNewsMessage historicalNewsMessage)
+        {
+            if (historicalNewsMessage.RequestId == HISTORICAL_NEWS_ID)
+            {
+                HistoricalNewsGrid.Rows.Add();
+                HistoricalNewsGrid[0, rowCountHistoricalNewsGrid].Value = historicalNewsMessage.Time;
+                HistoricalNewsGrid[1, rowCountHistoricalNewsGrid].Value = historicalNewsMessage.ProviderCode;
+                HistoricalNewsGrid[2, rowCountHistoricalNewsGrid].Value = historicalNewsMessage.ArticleId;
+                HistoricalNewsGrid[3, rowCountHistoricalNewsGrid].Value = historicalNewsMessage.Headline;
+                rowCountHistoricalNewsGrid++;
+            }
+        }
+
+        private void HandleHistoricalNewsEnd(HistoricalNewsEndMessage historicalNewsEndMessage)
+        {
+            if (historicalNewsEndMessage.RequestId == HISTORICAL_NEWS_ID)
+            {
+                if (historicalNewsEndMessage.HasMore)
+                {
+                    HistoricalNewsGrid.Rows.Add();
+                    HistoricalNewsGrid[3, rowCountHistoricalNewsGrid].Value = "has more ...";
+                }
+            }
+        }
+        
         private void HandleTickNews(TickNewsMessage tickNewsMessage)
         {
             if (tickNewsMessage.TickerId == TICK_NEWS_ID)
@@ -131,6 +166,26 @@ namespace IBSampleApp.ui
             ClearNewsProviders();
 
             ibClient.ClientSocket.reqNewsProviders();
+        }
+
+        public void RequestHistoricalNews(int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        {
+            if (!HistoricalNewsGrid.Visible)
+                HistoricalNewsGrid.Visible = true;
+
+            ClearHistoricalNews();
+            IbClient.ClientSocket.reqHistoricalNews(HISTORICAL_NEWS_ID, conId, providerCodes, startDateTime, endDateTime, totalResults);
+        }
+
+        public void ClearHistoricalNews() {
+            rowCountHistoricalNewsGrid = 0;
+            HistoricalNewsGrid.Rows.Clear();
+        }
+
+        public DataGridView HistoricalNewsGrid
+        {
+            get { return historicalNewsGrid; }
+            set { historicalNewsGrid = value; }
         }
 
         public DataGridView TickNewsGrid

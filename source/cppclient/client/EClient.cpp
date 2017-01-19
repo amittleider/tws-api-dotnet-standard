@@ -2854,6 +2854,33 @@ void EClient::reqNewsArticle(int requestId, const std::string& providerCode, con
 	closeAndSend(msg.str());
 }
 
+void EClient::reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults)
+{
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_HISTORICAL_NEWS) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support historical news requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_HISTORICAL_NEWS);
+	ENCODE_FIELD(requestId);
+	ENCODE_FIELD(conId);
+	ENCODE_FIELD(providerCodes);
+	ENCODE_FIELD(startDateTime);
+	ENCODE_FIELD(endDateTime);
+	ENCODE_FIELD(totalResults);
+
+	closeAndSend(msg.str());
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);

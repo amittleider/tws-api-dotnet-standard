@@ -76,6 +76,8 @@ enum State {
 	ST_NEWSPROVIDERS_ACK,
 	ST_REQNEWSARTICLE,
 	ST_REQNEWSARTICLE_ACK,
+	ST_REQHISTORICALNEWS,
+	ST_REQHISTORICALNEWS_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -129,6 +131,7 @@ private:
 	void reqSmartComponents();
 	void reqNewsProviders();
 	void reqNewsArticle();
+	void reqHistoricalNews();
 
 	void reqCurrentTime();
 
@@ -212,6 +215,8 @@ public:
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 	void newsProviders(const std::vector<NewsProvider> &newsProvider);
 	void newsArticle(int requestId, int articleType, const std::string& articleText);
+	void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
+	void historicalNewsEnd(int requestId, bool hasMore);
 
 private:
 	//! [socket_declare]

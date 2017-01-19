@@ -68,7 +68,7 @@ namespace IBSampleApp
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
-            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders, textBoxNewsArticle);
+            newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders, textBoxNewsArticle, dataGridViewHistoricalNews);
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -97,6 +97,12 @@ namespace IBSampleApp
 
             DateTime execFilterDefault = DateTime.Now.AddHours(-1);
             execFilterTime.Text = execFilterDefault.ToString("yyyyMMdd HH:mm:ss");
+
+            DateTime endDateTime = DateTime.Now.AddDays(-3);
+            textBoxHistoricalNewsEndDateTime.Text = endDateTime.ToString("yyyy-MM-dd HH:mm:ss.0");
+
+            DateTime startDateTime = DateTime.Now.AddDays(-4);
+            textBoxHistoricalNewsStartDateTime.Text = startDateTime.ToString("yyyy-MM-dd HH:mm:ss.0");
 
             ibClient.Error += ibClient_Error;
             ibClient.ConnectionClosed += ibClient_ConnectionClosed;
@@ -176,6 +182,8 @@ namespace IBSampleApp
             ibClient.SmartComponents += (reqId, theMap) => theMap.ToList().ForEach(i => HandleMessage(new SmartComponentsMessage(i.Key, i.Value.Key, i.Value.Value)));
             ibClient.NewsProviders += (newsProviders) => HandleMessage(new NewsProvidersMessage(newsProviders));
             ibClient.NewsArticle += (requestId, articleType, articleText) => HandleMessage(new NewsArticleMessage(requestId, articleType, articleText));
+            ibClient.HistoricalNews += (requestId, time, providerCode, articleId, headline) => HandleMessage(new HistoricalNewsMessage(requestId, time, providerCode, articleId, headline));
+            ibClient.HistoricalNewsEnd += (requestId, hasMore) => HandleMessage(new HistoricalNewsEndMessage(requestId, hasMore));
         }
 
         void ibClient_NextValidId(int orderId)
@@ -426,6 +434,8 @@ namespace IBSampleApp
                 case MessageType.TickNews:
                 case MessageType.NewsProviders:
                 case MessageType.NewsArticle:
+                case MessageType.HistoricalNews:
+                case MessageType.HistoricalNewsEnd:
                     {
                         newsManager.UpdateUI(message);
                         break;
@@ -1158,5 +1168,44 @@ namespace IBSampleApp
             newsManager.ClearArticleText();
         }
         
+
+        private void buttonRequestHistoricalNews_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                int conId = string.IsNullOrWhiteSpace(textBoxHistoricalNewsContractId.Text) ? int.MaxValue : int.Parse(textBoxHistoricalNewsContractId.Text);
+                string providerCodes = textBoxHistoricalNewsProviderCodes.Text;
+                string startDateTime = textBoxHistoricalNewsStartDateTime.Text;
+                string endDateTime = textBoxHistoricalNewsEndDateTime.Text;
+                int totalResults = string.IsNullOrWhiteSpace(textBoxHistoricalNewsTotalResults.Text) ? 1 : int.Parse(textBoxHistoricalNewsTotalResults.Text);
+
+                newsManager.RequestHistoricalNews(conId, providerCodes, startDateTime, endDateTime, totalResults);
+
+                ShowTab(tabControlNewsResults, tabPageHistoricalNewsResults);
+            }
+        }
+
+        private void linkLabelClearHistoricalNews_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            newsManager.ClearHistoricalNews();
+
+        }
+
+        private void dataGridViewHistoricalNews_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (e.RowIndex > -1)
+            {
+                DataGridViewRow dataGridViewRow = dataGridView.Rows[e.RowIndex];
+
+                if (dataGridViewRow.Cells[dataGridViewTextBoxProviderCode.Index].Value != null && dataGridViewRow.Cells[dataGridViewTextBoxArticleId.Index].Value != null)
+                {
+                    textBoxNewsArticleProviderCode.Text = (String)dataGridViewRow.Cells[dataGridViewTextBoxProviderCode.Index].Value;
+                    textBoxNewsArticleArticleId.Text = (String)dataGridViewRow.Cells[dataGridViewTextBoxArticleId.Index].Value;
+                    ShowTab(tabControlNews, tabPageNewsArticle);
+                }
+            }
+        }
+
     }
 }

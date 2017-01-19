@@ -61,6 +61,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	private GroupsDlg       m_groupsDlg;
 	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
+    private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
 
     private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
     private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
@@ -452,6 +453,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onReqNewsArticle();
             }
         });
+        JButton butReqHistoricalNews = new JButton( "Req Historical News");
+        butReqHistoricalNews.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                onReqHistoricalNews();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -525,6 +532,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add(butReqSmartComponents);
         buttonPanel.add( butRequestNewsProviders ) ;
         buttonPanel.add( butReqNewsArticle ) ;
+        buttonPanel.add( butReqHistoricalNews ) ;
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -1149,6 +1157,21 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
+
+    void onReqHistoricalNews() {
+        // run m_historicalNewsDlg
+        m_historicalNewsDlg.show();
+        
+        if( !m_historicalNewsDlg.m_rc ) {
+            return;
+        }
+
+        // reqHistoricalNews
+        m_client.reqHistoricalNews( m_historicalNewsDlg.m_retRequestId, m_historicalNewsDlg.m_retConId,
+                m_historicalNewsDlg.m_retProviderCodes, m_historicalNewsDlg.m_retStartDateTime, 
+                m_historicalNewsDlg.m_retEndDateTime, m_historicalNewsDlg.m_retTotalResults);
+    }
+
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs) {
         // received price tick
     	String msg = EWrapperMsgGenerator.tickPrice( tickerId, field, price, attribs);
@@ -1655,6 +1678,18 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void newsArticle(int requestId, int articleType, String articleText) {
 		String msg = EWrapperMsgGenerator.newsArticle(requestId, articleType, articleText);
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
+		String msg = EWrapperMsgGenerator.historicalNews(requestId, time, providerCode, articleId, headline);
+		m_TWS.add(msg);
+	}
+
+	@Override
+	public void historicalNewsEnd(int requestId, boolean hasMore) {
+		String msg = EWrapperMsgGenerator.historicalNewsEnd(requestId, hasMore);
 		m_TWS.add(msg);
 	}
 }

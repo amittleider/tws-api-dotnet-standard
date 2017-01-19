@@ -252,6 +252,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_REQNEWSARTICLE_ACK:
 			break;
+		case ST_REQHISTORICALNEWS:
+			reqHistoricalNews();
+			break;
+		case ST_REQHISTORICALNEWS_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1012,6 +1017,17 @@ void TestCppClient::reqNewsArticle()
 	m_state = ST_REQNEWSARTICLE_ACK;
 }
 
+void TestCppClient::reqHistoricalNews(){
+
+	//! [ReqHistoricalNews]
+	m_pClient->reqHistoricalNews(12001, 8314, "BZ+FLY", "", "", 5);
+	//! [ReqHistoricalNews]
+
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	m_state = ST_REQHISTORICALNEWS_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1046,7 +1062,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQNEWSTICKS;
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
-	m_state = ST_REQNEWSARTICLE;
+	//m_state = ST_REQNEWSARTICLE;
+	m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_PING;
 }
 
@@ -1470,4 +1487,16 @@ void TestCppClient::newsArticle(int requestId, int articleType, const std::strin
 	}
 }
 //! [newsArticle]
+
+//! [historicalNews]
+void TestCppClient::historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) {
+	printf("Historical News. RequestId: %d, Time: %s, ProviderCode: %s, ArticleId: %s, Headline: %s\n", requestId, time.c_str(), providerCode.c_str(), articleId.c_str(), headline.c_str());
+}
+//! [historicalNews]
+
+//! [historicalNewsEnd]
+void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {
+	printf("Historical News End. RequestId: %d, HasMore: %s\n", requestId, (hasMore ? "true" : " false"));
+}
+//! [historicalNewsEnd]
 

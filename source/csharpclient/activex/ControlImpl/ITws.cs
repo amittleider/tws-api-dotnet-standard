@@ -351,6 +351,8 @@ namespace TWSLib
         void reqNewsProviders();
         [DispId(220)]
         void reqNewsArticle(int requestId, string providerCode, string articleId);
+        [DispId(221)]
+        void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults);
 
         #endregion
     }

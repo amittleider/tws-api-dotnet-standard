@@ -71,5 +71,7 @@ namespace IBApi
         public const int NewsArticle = 83;
         public const int TickNews = 84;
         public const int NewsProviders = 85;
+        public const int HistoricalNews = 86;
+        public const int HistoricalNewsEnd = 87;
     }
 }

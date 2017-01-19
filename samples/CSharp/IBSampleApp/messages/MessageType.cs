@@ -63,6 +63,8 @@ namespace IBSampleApp
         NewsArticle = 83,
         TickNews = 84,
         NewsProviders = 85,
+        HistoricalNews = 86,
+        HistoricalNewsEnd = 87,
 
         //Given that the TWS is not sending a termination message for the historical bars, we produce one
         HistoricalDataEnd = -HistoricalData,

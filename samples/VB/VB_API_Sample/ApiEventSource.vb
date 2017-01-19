@@ -659,6 +659,27 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Private Sub EWrapper_HistoricalNews(requestId As Integer, time As String, providerCode As String, articleId As String, headline As String) Implements EWrapper.historicalNews
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistoricalNews(Me, New HistoricalNewsEventArgs With {
+                                                            .requestId = requestId,
+                                                            .time = time,
+                                                            .providerCode = providerCode,
+                                                            .articleId = articleId,
+                                                            .headline = headline
+                                                            })
+                         End Sub)
+    End Sub
+
+    Private Sub EWrapper_HistoricalNewsEnd(requestId As Integer, hasMore As Boolean) Implements EWrapper.historicalNewsEnd
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistoricalNewsEnd(Me, New HistoricalNewsEndEventArgs With {
+                                                            .requestId = requestId,
+                                                            .hasMore = hasMore
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -725,6 +746,8 @@ Friend Class ApiEventSource
     Event TickReqParams(sender As ApiEventSource, e As TickReqParamsEventArgs)
     Event NewsProviders(sender As Object, e As NewsProvidersEventArgs)
     Event NewsArticle(sender As Object, e As NewsArticleEventArgs)
+    Event HistoricalNews(sender As Object, e As HistoricalNewsEventArgs)
+    Event HistoricalNewsEnd(sender As Object, e As HistoricalNewsEndEventArgs)
 
 #End Region
 

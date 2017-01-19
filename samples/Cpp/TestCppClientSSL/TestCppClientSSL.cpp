@@ -296,3 +296,5 @@ void TestCppClient::smartComponents(int reqId, SmartComponentsMap theMap) {}
 void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) {}
 void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders) {}
 void TestCppClient::newsArticle(int requestId, int articleType, const std::string& articleText) {}
+void TestCppClient::historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) {}
+void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {}

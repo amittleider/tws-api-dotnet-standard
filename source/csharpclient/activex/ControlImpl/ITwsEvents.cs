@@ -167,5 +167,9 @@ namespace TWSLib
         void newsProviders(INewsProviderList newsProviders);
         [DispId(133)]
         void newsArticle(int requestId, int articleType, string articleText);
+        [DispId(134)]
+        void historicalNews(int requestId, string time, string providerCode, string articleId, string headline);
+        [DispId(135)]
+        void historicalNewsEnd(int requestId, bool hasMore);
     }
 }
