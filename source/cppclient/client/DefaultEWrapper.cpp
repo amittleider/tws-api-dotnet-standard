@@ -82,6 +82,8 @@ void DefaultEWrapper::smartComponents(int reqId, SmartComponentsMap theMap) { }
 void DefaultEWrapper::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) { }
 void DefaultEWrapper::newsProviders(const std::vector<NewsProvider> &newsProviders) { }
 void DefaultEWrapper::newsArticle(int requestId, int articleType, const std::string& articleText) { }
+void DefaultEWrapper::historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) { }
+void DefaultEWrapper::historicalNewsEnd(int requestId, bool hasMore) { }
 
 
 

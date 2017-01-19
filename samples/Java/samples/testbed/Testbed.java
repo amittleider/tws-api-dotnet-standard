@@ -326,6 +326,13 @@ public class Testbed {
 		//! [reqNewsArticle]
 		client.reqNewsArticle(10002, "BZ", "BZ$04507322");
 		//! [reqNewsArticle]
+
+		Thread.sleep(5000);
+
+		/*** Requesting historical news ***/
+		//! [reqHistoricalNews]
+		client.reqHistoricalNews(10003, 8314, "BZ+FLY", "", "", 10);
+		//! [reqHistoricalNews]
 	}
 
 	private static void conditionSamples(EClientSocket client, int nextOrderId) {

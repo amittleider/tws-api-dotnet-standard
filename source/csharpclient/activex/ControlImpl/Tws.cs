@@ -1845,6 +1845,26 @@ namespace TWSLib
                 InvokeIfRequired(t_newsArticle, requestId, articleType, articleText);
         }
 
+        public delegate void historicalNewsDelegate(int requestId, string time, string providerCode, string articleId, string headline);
+        public event historicalNewsDelegate historicalNews;
+        void EWrapper.historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+            var t_historicalNews = this.historicalNews;
+
+            if (t_historicalNews != null)
+                InvokeIfRequired(t_historicalNews, requestId, time, providerCode, articleId, headline);
+        }
+
+        public delegate void historicalNewsEndDelegate(int requestId, bool hasMore);
+        public event historicalNewsEndDelegate historicalNewsEnd;
+        void EWrapper.historicalNewsEnd(int requestId, bool hasMore)
+        {
+            var t_historicalNewsEnd = this.historicalNewsEnd;
+
+            if (t_historicalNewsEnd != null)
+                InvokeIfRequired(t_historicalNewsEnd, requestId, hasMore);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -1961,6 +1981,11 @@ namespace TWSLib
         public void reqNewsArticle(int requestId, string providerCode, string articleId)
         {
             socket.reqNewsArticle(requestId, providerCode, articleId);
+        }
+
+        public void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        {
+            socket.reqHistoricalNews(requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
         }
 
         public ArrayList ParseConditions(string str)

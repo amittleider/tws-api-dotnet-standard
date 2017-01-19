@@ -5,7 +5,10 @@ package apidemo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -27,11 +30,12 @@ import com.ib.client.Types.SecType;
 import com.ib.controller.ApiController.INewsArticleHandler;
 import com.ib.controller.ApiController.INewsProvidersHandler;
 import com.ib.controller.ApiController.ITickNewsHandler;
+import com.ib.controller.ApiController.IHistoricalNewsHandler;
 
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
-import apidemo.util.TCombo;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
+import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
@@ -45,6 +49,7 @@ public class NewsPanel extends JPanel {
         m_requestPanels.addTab( "News Ticks", new NewsTicksRequestPanel() );
         m_requestPanels.addTab( "News Providers", new RequestNewsProvidersPanel() );
         m_requestPanels.addTab( "News Article", m_newsArticleRequestPanel );
+    	m_requestPanels.addTab( "Historical News", new HistoricalNewsRequestPanel() );
 
         setLayout( new BorderLayout() );
         add( m_requestPanels, BorderLayout.NORTH);
@@ -369,6 +374,152 @@ public class NewsPanel extends JPanel {
                 m_articleId = articleId;
                 m_headline = headline;
                 m_extraData = extraData;
+            }
+        }
+    }
+    
+    class HistoricalNewsRequestPanel extends JPanel {
+        protected UpperField m_conId = new UpperField("8314");
+        protected JTextField m_providerCodes = new JTextField("BZ+FLY");
+        protected JTextField m_startDateTime = new JTextField();
+        protected JTextField m_endDateTime = new JTextField();
+        protected UpperField m_totalResults = new UpperField("10");
+
+        HistoricalNewsRequestPanel() {
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -3);
+            m_endDateTime.setText(df.format(cal.getTime()));
+            cal.add(Calendar.DATE, -1);
+            m_startDateTime.setText(df.format(cal.getTime()));
+
+            HtmlButton but = new HtmlButton( "Request Historical News") {
+                @Override protected void actionPerformed() {
+                    onRequestHistoricalNews();
+                }
+            };
+
+            VerticalPanel topPanel = new VerticalPanel();
+            topPanel.add( "Contract Id", m_conId);
+            topPanel.add( "Provider Codes", m_providerCodes);
+            topPanel.add( "Start Date/Time", m_startDateTime, Box.createHorizontalStrut(30), but);
+            topPanel.add( "End Date/Time", m_endDateTime);
+            topPanel.add( "Total Results", m_totalResults);
+
+            setLayout( new BorderLayout() );
+            add( topPanel, BorderLayout.NORTH);
+        }
+
+        protected void onRequestHistoricalNews() {
+            HistoricalNewsResultsPanel panel = new HistoricalNewsResultsPanel();
+            m_resultsPanels.addTab( "Hist News: " + m_conId.getText(), panel, true, true);
+            ApiDemo.INSTANCE.controller().reqHistoricalNews(m_conId.getInt(), m_providerCodes.getText(), 
+                m_startDateTime.getText(), m_endDateTime.getText(), m_totalResults.getInt(), panel);
+        }
+    }
+
+    class HistoricalNewsResultsPanel extends NewTabPanel implements IHistoricalNewsHandler {
+        final HistoricalNewsModel m_model = new HistoricalNewsModel();
+        final ArrayList<HistoricalNewsRow> m_rows = new ArrayList<HistoricalNewsRow>();
+
+        HistoricalNewsResultsPanel() {
+            JTable table = new JTable( m_model);
+            table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+                public void valueChanged(ListSelectionEvent event) {
+                    if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+                        HistoricalNewsRow historicalNewsRow = m_rows.get( table.getSelectedRow());
+                    	if (historicalNewsRow.m_providerCode.length() > 0 && historicalNewsRow.m_articleId.length() > 0) {
+                            m_requestPanels.select( "News Article");
+                            m_newsArticleRequestPanel.m_requestPanel.setProviderCode(historicalNewsRow.m_providerCode);
+                            m_newsArticleRequestPanel.m_requestPanel.setArticleId(historicalNewsRow.m_articleId);
+                        }
+                    }
+                }
+            });
+            table.getColumnModel().getColumn(3).setMinWidth(650);
+            JScrollPane scroll = new JScrollPane( table);
+            setLayout( new BorderLayout() );
+            add( scroll);
+        };
+
+        /** Called when the tab is first visited. */
+        @Override public void activated() { /* noop */ }
+
+        /** Called when the tab is closed by clicking the X. */
+        @Override public void closed() { /* noop */ }
+
+        @Override
+        public void historicalNews(String time, String providerCode, String articleId, String headline) {
+            HistoricalNewsRow historicalNewsRow = new HistoricalNewsRow(time, providerCode, articleId, headline);
+            m_rows.add( historicalNewsRow);
+        }
+
+        @Override
+        public void historicalNewsEnd(boolean hasMore) {
+            if (hasMore){
+                HistoricalNewsRow historicalNewsRow = new HistoricalNewsRow("", "", "", "has more ...");
+                m_rows.add( historicalNewsRow);
+            }
+            fire();
+        }
+
+        private void fire() {
+            SwingUtilities.invokeLater( new Runnable() {
+                @Override public void run() {
+                    m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                    revalidate();
+                    repaint();
+                }
+            });
+        }
+
+        class HistoricalNewsModel extends AbstractTableModel {
+            @Override public int getRowCount() {
+                return m_rows.size();
+            }
+
+            @Override public int getColumnCount() {
+                return 4;
+            }
+
+            @Override public String getColumnName(int col) {
+                switch( col) {
+                    case 0: return "Time";
+                    case 1: return "Provider Code";
+                    case 2: return "Article Id";
+                    case 3: return "Headline";
+                    default: return null;
+                }
+            }
+
+            @Override public Object getValueAt(int rowIn, int col) {
+                HistoricalNewsRow historicalNewsRow = m_rows.get( rowIn);
+                switch( col) {
+                    case 0: return historicalNewsRow.m_time;
+                    case 1: return historicalNewsRow.m_providerCode;
+                    case 2: return historicalNewsRow.m_articleId;
+                    case 3: return historicalNewsRow.m_headline;
+                    default: return null;
+                }
+            }
+        }
+
+        class HistoricalNewsRow {
+            String m_time;
+            String m_providerCode;
+            String m_articleId;
+            String m_headline;
+
+            public HistoricalNewsRow(String time, String providerCode, String articleId, String headline) {
+                update( time, providerCode, articleId, headline);
+            }
+
+            void update( String time, String providerCode, String articleId, String headline) {
+                m_time = time;
+                m_providerCode = providerCode;
+                m_articleId = articleId;
+                m_headline = headline;
             }
         }
     }

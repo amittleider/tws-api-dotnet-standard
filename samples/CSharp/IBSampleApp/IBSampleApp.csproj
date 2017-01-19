@@ -64,6 +64,8 @@
     <Compile Include="messages\AccountUpdateMultiMessage.cs" />
     <Compile Include="messages\AccountUpdateMultiEndMessage.cs" />
     <Compile Include="messages\BondContractDetailsMessage.cs" />
+    <Compile Include="messages\HistoricalNewsEndMessage.cs" />
+    <Compile Include="messages\HistoricalNewsMessage.cs" />
     <Compile Include="messages\TickNewsMessage.cs" />
     <Compile Include="messages\MarketDataTypeMessage.cs" />
     <Compile Include="messages\NewsArticleMessage.cs" />

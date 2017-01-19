@@ -779,5 +779,25 @@ namespace IBSampleApp
             if (tmp != null)
                 tmp(requestId, articleType, articleText);
         }
+
+        public event Action<int, string, string, string, string> HistoricalNews;
+
+        void EWrapper.historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+            var tmp = HistoricalNews;
+
+            if (tmp != null)
+                tmp(requestId, time, providerCode, articleId, headline);
+        }
+
+        public event Action<int, bool> HistoricalNewsEnd;
+
+        void EWrapper.historicalNewsEnd(int requestId, bool hasMore)
+        {
+            var tmp = HistoricalNewsEnd;
+
+            if (tmp != null)
+                tmp(requestId, hasMore);
+        }
     }
 }

@@ -1837,6 +1837,38 @@ const char* EDecoder::processNewsArticleMsg(const char* ptr, const char* endPtr)
 	return ptr;
 }
 
+const char* EDecoder::processHistoricalNewsMsg(const char* ptr, const char* endPtr) 
+{
+	int requestId;
+	std::string time;
+	std::string providerCode;
+	std::string articleId;
+	std::string headline;
+
+	DECODE_FIELD( requestId);
+	DECODE_FIELD( time);
+	DECODE_FIELD( providerCode);
+	DECODE_FIELD( articleId);
+	DECODE_FIELD( headline);
+
+	m_pEWrapper->historicalNews(requestId, time, providerCode, articleId, headline);
+
+	return ptr;
+}
+
+const char* EDecoder::processHistoricalNewsEndMsg(const char* ptr, const char* endPtr) 
+{
+    int requestId;
+	bool hasMore;
+
+    DECODE_FIELD( requestId);
+	DECODE_FIELD( hasMore);
+
+	m_pEWrapper->historicalNewsEnd(requestId, hasMore);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2188,6 +2220,14 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case NEWS_ARTICLE:
 			ptr = processNewsArticleMsg(ptr, endPtr);
+			break;
+
+		case HISTORICAL_NEWS:
+			ptr = processHistoricalNewsMsg(ptr, endPtr);
+			break;
+
+		case HISTORICAL_NEWS_END:
+			ptr = processHistoricalNewsEndMsg(ptr, endPtr);
 			break;
 
         default:

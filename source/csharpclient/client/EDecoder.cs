@@ -383,6 +383,16 @@ namespace IBApi
                         NewsArticleEvent();
                         break;
                     }
+                case IncomingMessage.HistoricalNews:
+                    {
+                        HistoricalNewsEvent();
+                        break;
+                    }
+                case IncomingMessage.HistoricalNewsEnd:
+                    {
+                        HistoricalNewsEndEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -391,6 +401,25 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void HistoricalNewsEvent()
+        {
+            int requestId = ReadInt();
+            string time = ReadString();
+            string providerCode = ReadString();
+            string articleId = ReadString();
+            string headline = ReadString();
+
+            eWrapper.historicalNews(requestId, time, providerCode, articleId, headline);
+        }
+
+        private void HistoricalNewsEndEvent()
+        {
+            int requestId = ReadInt();
+            bool hasMore = ReadBoolFromInt();
+
+            eWrapper.historicalNewsEnd(requestId, hasMore);
         }
 
         private void NewsArticleEvent()

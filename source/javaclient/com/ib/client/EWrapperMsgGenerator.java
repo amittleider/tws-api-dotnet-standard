@@ -737,5 +737,14 @@ public class EWrapperMsgGenerator {
 		sb.append("==== News Article End requestId: ").append(requestId).append(" ====\n");
 		return sb.toString();
 	}
-	
+
+	static public String historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
+		String msg = "Historical News. RequestId: " + requestId + ", time: " + time + ", providerCode: " + providerCode + 
+				", articleId: " + articleId + ", headline: " + headline;
+		return msg;
+	}
+
+	static public String historicalNewsEnd( int requestId, boolean hasMore) {
+		return "Historical News End. RequestId: " + requestId + ", hasMore: " + hasMore;
+	}
 }

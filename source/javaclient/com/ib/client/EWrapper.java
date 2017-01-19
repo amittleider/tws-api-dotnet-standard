@@ -87,5 +87,7 @@ public interface EWrapper {
 	void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions);
     void newsProviders(NewsProvider[] newsProviders);
     void newsArticle(int requestId, int articleType, String articleText);
+    void historicalNews(int requestId, String time, String providerCode, String articleId, String headline);
+    void historicalNewsEnd(int requestId, boolean hasMore);
 }
 

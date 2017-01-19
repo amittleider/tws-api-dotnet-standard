@@ -71,5 +71,6 @@ namespace IBApi
         RequestSmartComponents = 83,
         RequestNewsArticle = 84,
         RequestNewsProviders = 85,
+        RequestHistoricalNews = 86,
     }
 }

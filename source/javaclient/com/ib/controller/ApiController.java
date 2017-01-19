@@ -91,6 +91,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, ISmartComponentsHandler> m_smartComponentsHanlder = new HashMap<>();
 	private final ConcurrentHashSet<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<INewsProvidersHandler>();
 	private final HashMap<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<Integer, INewsArticleHandler>();
+	private final HashMap<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<Integer, IHistoricalNewsHandler>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1553,6 +1554,37 @@ public class ApiController implements EWrapper {
 
 		if (handler != null) {
 			handler.newsArticle(articleType, articleText);
+		}
+		recEOM();
+	}
+
+	public interface IHistoricalNewsHandler {
+		void historicalNews( String time, String providerCodes, String articleId, String headline);
+		void historicalNewsEnd( boolean hasMore);
+	}
+
+	public void reqHistoricalNews( int conId, String providerCodes, String startDateTime, String endDateTime, int totalResults, IHistoricalNewsHandler handler) {
+		if (!checkConnection())
+			return;
+
+		int requestId = m_reqId++;
+		m_historicalNewsHandlerMap.put( requestId, handler);
+		m_client.reqHistoricalNews( requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
+		sendEOM();
+	}
+
+	@Override public void historicalNews( int requestId, String time, String providerCode, String articleId, String headline) {
+		IHistoricalNewsHandler handler = m_historicalNewsHandlerMap.get( requestId);
+		if (handler != null) {
+			handler.historicalNews( time, providerCode, articleId, headline);
+		}
+		recEOM();
+	}
+
+	@Override public void historicalNewsEnd( int requestId, boolean hasMore) {
+		IHistoricalNewsHandler handler = m_historicalNewsHandlerMap.get( requestId);
+		if (handler != null) {
+			handler.historicalNewsEnd( hasMore);
 		}
 		recEOM();
 	}

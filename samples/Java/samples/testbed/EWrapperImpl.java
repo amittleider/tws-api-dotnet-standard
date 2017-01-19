@@ -546,4 +546,18 @@ public class EWrapperImpl implements EWrapper {
 				", ArticleText: " + articleText);
 	}
 	//! [newsArticle]
+
+	//! [historicalNews]
+	@Override
+	public void historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
+		System.out.println("Historical News. RequestId: " + requestId + ", Time: " + time + ", ProviderCode: " + providerCode + ", ArticleId: " + articleId + ", Headline: " + headline + "\n");
+	}
+	//! [historicalNews]
+
+	//! [historicalNewsEnd]
+	@Override
+	public void historicalNewsEnd(int requestId, boolean hasMore) {
+		System.out.println("Historical News End. RequestId: " + requestId + ", HasMore: " + hasMore + "\n");
+	}
+	//! [historicalNewsEnd]
 }

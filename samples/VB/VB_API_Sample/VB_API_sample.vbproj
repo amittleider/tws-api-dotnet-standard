@@ -129,6 +129,9 @@
     <Compile Include="dlgNewsArticle.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="dlgHistoricalNews.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EventArgs\AccountDownloadEndEventArgs.vb" />
     <Compile Include="EventArgs\BondContractDetailsEventArgs.vb" />
     <Compile Include="dlgSecDefOptParamsReq.vb">
@@ -180,6 +183,8 @@
     <Compile Include="EventArgs\CommissionReportEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEndEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalNewsEndEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalNewsEventArgs.vb" />
     <Compile Include="EventArgs\NewsArticleEventArgs.vb" />
     <Compile Include="EventArgs\TickNewsEventArgs.vb" />
     <Compile Include="EventArgs\CurrentTimeEventArgs.vb" />
@@ -298,6 +303,10 @@
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="dlgHistoricalNews.resX">
+      <DependentUpon>dlgHistoricalNews.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgNewsArticle.resX">
       <DependentUpon>dlgNewsArticle.vb</DependentUpon>
       <SubType>Designer</SubType>

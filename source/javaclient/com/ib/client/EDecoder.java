@@ -81,6 +81,8 @@ class EDecoder implements ObjectInput {
     static final int NEWS_ARTICLE = 83;
     static final int TICK_NEWS = 84;
     static final int NEWS_PROVIDERS = 85;
+    static final int HISTORICAL_NEWS = 86;
+    static final int HISTORICAL_NEWS_END = 87;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     static final int REDIRECT_MSG_ID = -1;
@@ -395,6 +397,14 @@ class EDecoder implements ObjectInput {
                 processNewsArticleMsg();
                 break;
 
+            case HISTORICAL_NEWS:
+                processHistoricalNewsMsg();
+                break;
+
+            case HISTORICAL_NEWS_END:
+                processHistoricalNewsEndMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -403,6 +413,23 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processHistoricalNewsEndMsg() throws IOException {
+        int requestId = readInt();
+        boolean hasMore = readBoolFromInt();
+
+        m_EWrapper.historicalNewsEnd(requestId, hasMore);
+    }
+
+    private void processHistoricalNewsMsg() throws IOException {
+        int requestId = readInt();
+        String time = readStr();
+        String providerCode = readStr();
+        String articleId = readStr();
+        String headline = readStr();
+
+        m_EWrapper.historicalNews(requestId, time, providerCode, articleId, headline);
     }
 
     private void processNewsArticleMsg() throws IOException {

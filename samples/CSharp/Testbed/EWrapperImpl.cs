@@ -538,5 +538,20 @@ namespace Samples
             }
         }
         //! [newsArticle]
+        
+        //! [historicalNews]
+        public void historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+            Console.WriteLine("Historical News. Request Id: {0}, Time: {1}, Provider Code: {2}, Article Id: {3}, headline: {4}", requestId, time, providerCode, articleId, headline);
+        }
+        //! [historicalNews]
+
+        //! [historicalNewsEnd]
+        public void historicalNewsEnd(int requestId, bool hasMore)
+        {
+            Console.WriteLine("Historical News End. Request Id: {0}, Has More: {1}", requestId, hasMore);
+        }
+        //! [historicalNewsEnd]
+        
     }
 }

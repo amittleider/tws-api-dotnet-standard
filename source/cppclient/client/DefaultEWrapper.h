@@ -86,5 +86,7 @@ public:
    virtual void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
    virtual void newsProviders(const std::vector<NewsProvider> &newsProviders);
    virtual void newsArticle(int requestId, int articleType, const std::string& articleText);
+   virtual void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
+   virtual void historicalNewsEnd(int requestId, bool hasMore);
 };
 

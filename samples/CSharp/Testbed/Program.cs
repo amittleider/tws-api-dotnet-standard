@@ -555,6 +555,13 @@ namespace Samples
             //! [reqNewsArticle]
             client.reqNewsArticle(12002, "BZ", "BZ$04507322");
             //! [reqNewsArticle]
+
+            // Requesting historical news
+            Thread.Sleep(2000);
+            //! [reqHistoricalNews]
+            client.reqHistoricalNews(12003, 8314, "BZ+FLY", "", "", 10);
+            //! [reqHistoricalNews]
+
         }
 
         private static void OcaSample(EClientSocket client, int nextOrderId)

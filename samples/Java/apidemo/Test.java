@@ -339,4 +339,14 @@ public class Test implements EWrapper {
 	public void newsArticle(int requestId, int articleType, String articleText) {
 		System.out.println(EWrapperMsgGenerator.newsArticle(requestId, articleType, articleText));
 	}
+
+	@Override
+	public void historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
+		System.out.println(EWrapperMsgGenerator.historicalNews(requestId, time, providerCode, articleId, headline));
+	}
+
+	@Override
+	public void historicalNewsEnd(int requestId, boolean hasMore) {
+		System.out.println(EWrapperMsgGenerator.historicalNewsEnd(requestId, hasMore));
+	}
 }

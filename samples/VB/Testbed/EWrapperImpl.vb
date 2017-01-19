@@ -482,6 +482,18 @@ Namespace Samples
         End Sub
         '! [newsArticle]
 
+        '! [historicalNews]
+        Public Sub historicalNews(requestId As Integer, time As String, providerCode As String, articleId As String, headline As String) Implements IBApi.EWrapper.historicalNews
+            Console.WriteLine("Historical News. Request Id: " & requestId & ", Time: " & time & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline)
+        End Sub
+        '! [historicalNews]
+
+        '! [historicalNewsEnd]
+        Public Sub historicalNewsEnd(requestId As Integer, hasMore As Boolean) Implements IBApi.EWrapper.historicalNewsEnd
+            Console.WriteLine("Historical News End. Request Id: " & requestId & ", Has More: " & hasMore)
+        End Sub
+        '! [historicalNewsEnd]
+
     End Class
 
 End Namespace

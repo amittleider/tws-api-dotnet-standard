@@ -127,6 +127,8 @@ public:
     void tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions);
 	void newsProviders(const std::vector<NewsProvider> &newsProviders);
 	void newsArticle(int requestId, int articleType, const std::string& articleText);
+	void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
+	void historicalNewsEnd(int requestId, bool hasMore);
 
 private:
     EReaderOSSignal m_osSignal;

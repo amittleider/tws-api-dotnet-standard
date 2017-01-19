@@ -179,6 +179,7 @@ public abstract class EClient {
     private static final int REQ_SMART_COMPONENTS = 83;
     private static final int REQ_NEWS_ARTICLE = 84;
     private static final int REQ_NEWS_PROVIDERS = 85;
+    private static final int REQ_HISTORICAL_NEWS = 86;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -239,9 +240,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
     protected static final int MIN_SERVER_VER_REQ_NEWS_PROVIDERS = 115;
     protected static final int MIN_SERVER_VER_REQ_NEWS_ARTICLE = 116;
+    protected static final int MIN_SERVER_VER_REQ_HISTORICAL_NEWS = 117;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_NEWS_ARTICLE; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_HISTORICAL_NEWS; // ditto
 
 
     protected EReaderSignal m_signal;
@@ -3221,6 +3223,39 @@ public abstract class EClient {
         }
         catch (IOException e) {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQNEWSARTICLE, e.toString());
+        }
+    }
+
+    public synchronized void reqHistoricalNews( int requestId, int conId, String providerCodes, 
+            String startDateTime, String endDateTime, int totalResults) {
+
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_REQ_HISTORICAL_NEWS) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+            "  It does not support historical news request.");
+            return;
+        }
+
+        Builder b = prepareBuffer();
+
+        b.send( REQ_HISTORICAL_NEWS);
+        b.send( requestId);
+        b.send( conId);
+        b.send( providerCodes);
+        b.send( startDateTime);
+        b.send( endDateTime);
+        b.send( totalResults);
+
+        try {
+            closeAndSend(b);
+        }
+        catch (IOException e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQHISTORICALNEWS, e.toString());
         }
     }
 

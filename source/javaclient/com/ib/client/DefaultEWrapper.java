@@ -429,4 +429,15 @@ class DefaultEWrapper implements EWrapper {
 		
 	}
 	
+	@Override
+	public void historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void historicalNewsEnd(int requestId, boolean hasMore) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -2476,6 +2476,38 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQNEWSARTICLE);
         }
 
+        /**
+        * @brief Requests historical news headlines
+        * @params requestId
+        * @params conId - contract id of ticker
+        * @params providerCodes - a '+'-separated list of provider codes
+        * @params startDateTime - marks the (exclusive) start of the date range. The format is yyyy-MM-dd HH:mm:ss.0
+        * @params endDateTime - marks the (inclusive) end of the date range. The format is yyyy-MM-dd HH:mm:ss.0
+        * @params totalResults - the maximum number of headlines to fetch (1 - 300)
+        * @sa EWrapper::historicalNews, EWrapper::historicalNewsEnd
+        */
+        public void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HISTORICAL_NEWS,
+                " It does not support historical news requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestHistoricalNews);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(conId);
+            paramsList.AddParameter(providerCodes);
+            paramsList.AddParameter(startDateTime);
+            paramsList.AddParameter(endDateTime);
+            paramsList.AddParameter(totalResults);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");
