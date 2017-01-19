@@ -1320,12 +1320,8 @@ class EDecoder implements ObjectInput {
 					OrderConditionType orderConditionType = OrderConditionType.fromInt(readInt());				
 					OrderCondition condition = OrderCondition.create(orderConditionType);
 
-					try {
-						condition.readExternal(this);					
-						order.conditions().add(condition);
-					} catch (ClassNotFoundException e) {
-						throw new IOException(e.getCause());
-					}
+					condition.readFrom(this);					
+					order.conditions().add(condition);
 				}
 				
 				order.conditionsIgnoreRth(readBoolFromInt());
