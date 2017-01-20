@@ -25,11 +25,14 @@ public final class TagValue {
 		}
         TagValue l_theOther = (TagValue)p_other;
 
-        if( Util.StringCompare(m_tag, l_theOther.m_tag) != 0 ||
-        	Util.StringCompare(m_value, l_theOther.m_value) != 0) {
-        	return false;
-        }
+		return Util.StringCompare(m_tag, l_theOther.m_tag) == 0
+				&& Util.StringCompare(m_value, l_theOther.m_value) == 0;
+	}
 
-		return true;
+	@Override
+	public int hashCode() {
+		int result = (m_tag == null || "".equals(m_tag)) ? 0 : m_tag.hashCode();
+		result = result * 31 + ((m_value == null || "".equals(m_value)) ? 0 : m_value.hashCode());
+		return result;
 	}
 }

@@ -54,4 +54,16 @@ public class DeltaNeutralContract {
 
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = m_conid;
+        temp = Double.doubleToLongBits(m_delta);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

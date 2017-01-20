@@ -112,6 +112,17 @@ public class ComboLeg {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = m_conid;
+        result = result * 31 + m_ratio;
+        result = result * 31 + m_openClose;
+        result = result * 31 + m_shortSaleSlot;
+        result = result * 31 + m_exemptCode;
+        // Other fields are strings compared ignoring case and with null checks. Do not use them.
+        return result;
+    }
+
     @Override public String toString() {
         return String.format( "%s %s %s", m_action, m_ratio, m_conid);
     }

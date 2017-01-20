@@ -107,4 +107,10 @@ public class Execution {
         Execution l_theOther = (Execution)p_other;
         return m_execId.equals(l_theOther.m_execId);
     }
+
+    @Override
+    public int hashCode() {
+        // Since equals() uses m_execId only, the hashCode should do as well.
+        return m_execId != null ? m_execId.hashCode() : 0;
+    }
 }

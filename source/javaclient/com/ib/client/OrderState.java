@@ -82,4 +82,18 @@ public class OrderState {
         }
         return true;
 	}
+
+    @Override
+    public int hashCode() {
+        // Use a few fields as a compromise between performance and hashCode quality.
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(m_commission);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_minCommission);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_maxCommission);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
