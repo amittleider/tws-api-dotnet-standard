@@ -49,12 +49,12 @@ public class OptionChainsPanel extends JPanel {
 	private NewTabbedPanel m_tabbedPanel = new NewTabbedPanel();
 	private JTextField m_optExch = new UpperField();
 	private UpperField m_symbol = new UpperField();
-	private TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
+	private TCombo<SecType> m_secType = new TCombo<>( SecType.values() );
 	protected UpperField m_lastTradeDateOrContractMonth = new UpperField();
 	private UpperField m_exchange = new UpperField();
 	private UpperField m_currency = new UpperField();
 	private JCheckBox m_snapshot = new JCheckBox();
-	protected TCombo<String> m_marketDataType = new TCombo<String>( MarketDataType.getFields() );
+	protected TCombo<String> m_marketDataType = new TCombo<>( MarketDataType.getFields() );
 
 	OptionChainsPanel() {
 		m_symbol.setText( "IBKR");
@@ -201,18 +201,13 @@ public class OptionChainsPanel extends JPanel {
 				@Override public int compare(ChainRow o1, ChainRow o2) {
 					int rc = o1.m_c.lastTradeDateOrContractMonth().compareTo( o2.m_c.lastTradeDateOrContractMonth());
 					if (rc == 0) {
-						if (o1.m_c.strike() < o2.m_c.strike()) {
-							rc = -1;
-						}
-						if (o1.m_c.strike() > o2.m_c.strike()) {
-							rc = 1;
-						}
+						rc = Double.compare(o1.m_c.strike(), o2.m_c.strike());
 					}
 					return rc;
 				}
 			};
 			
-			ArrayList<ChainRow> m_list = new ArrayList<ChainRow>();
+			ArrayList<ChainRow> m_list = new ArrayList<>();
 			
             public void desubscribe() {
                 for (ChainRow row : m_list) {

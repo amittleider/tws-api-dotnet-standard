@@ -97,8 +97,8 @@ public class AccountPositionsMultiPanel extends JPanel {
 		}
 	
 		private class PositionsResultsPanel extends NewTabPanel implements IPositionMultiHandler {
-			HashMap<String,PositionRow> m_map = new HashMap<String,PositionRow>();
-			ArrayList<PositionRow> m_list = new ArrayList<PositionRow>();
+			HashMap<String,PositionRow> m_map = new HashMap<>();
+			ArrayList<PositionRow> m_list = new ArrayList<>();
 			PositionsModel m_model = new PositionsModel();
 
 			boolean m_complete;
@@ -229,8 +229,8 @@ public class AccountPositionsMultiPanel extends JPanel {
 		}
 	
 		private class AccountUpdatesResultsPanel extends NewTabPanel implements IAccountUpdateMultiHandler {
-			HashMap<AccountUpdateKey, AccountUpdateRow> m_map = new HashMap<AccountUpdateKey, AccountUpdateRow>();
-			ArrayList<AccountUpdateRow> m_list = new ArrayList<AccountUpdateRow>();
+			HashMap<AccountUpdateKey, AccountUpdateRow> m_map = new HashMap<>();
+			ArrayList<AccountUpdateRow> m_list = new ArrayList<>();
 			AccountUpdatesModel m_model = new AccountUpdatesModel();
 
 			boolean m_complete;
@@ -325,6 +325,12 @@ public class AccountPositionsMultiPanel extends JPanel {
 				}
 				
 				@Override public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof AccountUpdateKey)) {
+						return false;
+					}
 					AccountUpdateKey other = (AccountUpdateKey)obj;
 					return m_key.equals( other.m_key) && m_currency.equals( other.m_currency);
 				}
