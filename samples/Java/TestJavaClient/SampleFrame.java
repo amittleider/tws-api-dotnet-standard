@@ -9,11 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,7 +54,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private OrderDlg        m_orderDlg = new OrderDlg( this);
     private ExtOrdDlg       m_extOrdDlg = new ExtOrdDlg( m_orderDlg);
     private AccountDlg      m_acctDlg = new AccountDlg(this);
-    private HashMap<Integer, MktDepthDlg> m_mapRequestToMktDepthDlg = new HashMap<Integer, MktDepthDlg>();
+    private HashMap<Integer, MktDepthDlg> m_mapRequestToMktDepthDlg = new HashMap<>();
     private NewsBulletinDlg m_newsBulletinDlg = new NewsBulletinDlg(this);
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
@@ -63,12 +62,12 @@ class SampleFrame extends JFrame implements EWrapper {
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
 
-    private ArrayList<TagValue> m_mktDataOptions = new ArrayList<TagValue>();
-    private ArrayList<TagValue> m_chartOptions = new ArrayList<TagValue>();
-//    private Vector<TagValue> m_orderMiscOptions = new ArrayList<TagValue>();
-    private ArrayList<TagValue> m_mktDepthOptions = new ArrayList<TagValue>();
-//    private Vector<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
-    private ArrayList<TagValue> m_realTimeBarsOptions = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_mktDataOptions = new ArrayList<>();
+    private ArrayList<TagValue> m_chartOptions = new ArrayList<>();
+//    private Vector<TagValue> m_orderMiscOptions = new ArrayList<>();
+    private ArrayList<TagValue> m_mktDepthOptions = new ArrayList<>();
+//    private Vector<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
+    private ArrayList<TagValue> m_realTimeBarsOptions = new ArrayList<>();
     
     String faGroupXML ;
     String faProfilesXML ;
@@ -101,47 +100,36 @@ class SampleFrame extends JFrame implements EWrapper {
     	void onError(int errorCode, String errorMsg);
     }
     
-    HashMap<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<Integer, ContractDetailsCallback>(); 
+    HashMap<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<>();
     
     public ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
-    	final ArrayList<ContractDetails> rval = new ArrayList<ContractDetails>();    	
-    	int reqId = m_orderDlg.m_id;
-    	final Object sync = new Object();
-    	final boolean[] done = new boolean[] { false };
-    	
-    	m_callbackMap.put(reqId, new ContractDetailsCallback() {
+        final CompletableFuture<ArrayList<ContractDetails>> future = new CompletableFuture<>();
+
+    	m_callbackMap.put(m_orderDlg.m_id, new ContractDetailsCallback() {
+
+    	    private final ArrayList<ContractDetails> list = new ArrayList<>();
 			
 			@Override
 			public void onError(int errorCode, String errorMsg) {
-				done[0] = true;
-				synchronized (sync) {
-					sync.notifyAll();
-				}
+			    future.complete(list);
 			}
 			
 			@Override
 			public void onContractDetailsEnd() {
-				done[0] = true;
-				synchronized (sync) {
-					sync.notifyAll();
-				}
+			    future.complete(list);
 			}
 			
 			@Override
 			public void onContractDetails(ContractDetails contractDetails) {
-				rval.add(contractDetails);
+				list.add(contractDetails);
 			}
 		});
-    	
-		m_client.reqContractDetails(reqId, contract);   
-		
-		while (!done[0]) {
-			synchronized (sync) {
-				sync.wait();
-			}
-		}
-    	
-    	return rval;
+        m_client.reqContractDetails(m_orderDlg.m_id, contract);
+    	try {
+            return future.get();
+        } catch (final ExecutionException e) {
+    	    return null;
+        }
     }
 
     private JPanel createButtonPanel() {
@@ -1346,8 +1334,8 @@ class SampleFrame extends JFrame implements EWrapper {
     	
     	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg);
         m_errors.add( msg);
-        for (int ctr=0; ctr < faErrorCodes.length; ctr++) {
-            faError |= (errorCode == faErrorCodes[ctr]);
+        for (int faErrorCode : faErrorCodes) {
+            faError |= (errorCode == faErrorCode);
         }
         if (errorCode == MktDepthDlg.MKT_DEPTH_DATA_RESET) {
 
