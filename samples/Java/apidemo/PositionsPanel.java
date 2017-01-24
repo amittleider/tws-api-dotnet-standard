@@ -71,8 +71,8 @@ public class PositionsPanel extends NewTabPanel {
 	}
 	
 	private class PositionModel extends AbstractTableModel implements IPositionHandler {
-		HashMap<PositionKey,PositionRow> m_map = new HashMap<PositionKey,PositionRow>();
-		ArrayList<PositionRow> m_list = new ArrayList<PositionRow>();
+		HashMap<PositionKey,PositionRow> m_map = new HashMap<>();
+		ArrayList<PositionRow> m_list = new ArrayList<>();
 
 		@Override public void position(String account, Contract contract, double position, double avgCost) {
 			PositionKey key = new PositionKey( account, contract.conid() );
@@ -145,6 +145,12 @@ public class PositionsPanel extends NewTabPanel {
 		}
 		
 		@Override public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (!(obj instanceof PositionKey)) {
+				return false;
+			}
 			PositionKey other = (PositionKey)obj;
 			return m_account.equals( other.m_account) && m_conid == other.m_conid;
 		}

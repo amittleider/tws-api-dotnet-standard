@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -135,8 +136,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	}
 	
 	private class MarginModel extends AbstractTableModel {
-		HashMap<MarginRowKey,MarginRow> m_map = new HashMap<MarginRowKey,MarginRow>();
-		ArrayList<MarginRow> m_list = new ArrayList<MarginRow>();
+		HashMap<MarginRowKey,MarginRow> m_map = new HashMap<>();
+		ArrayList<MarginRow> m_list = new ArrayList<>();
 
 		void clear() {
 			m_map.clear();
@@ -237,6 +238,22 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		@Override public int compareTo(MarginRow o) {
 			return m_tag.compareTo( o.m_tag);
 		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (!(obj instanceof MarginRow)) {
+				return false;
+			}
+			return compareTo((MarginRow) obj) == 0;
+		}
+
+		@Override
+		public int hashCode() {
+			return m_tag != null ? m_tag.hashCode() : 0;
+		}
 	}
 	
 	private static class MarginRowKey {
@@ -254,15 +271,20 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		}
 
 		@Override public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (!(obj instanceof MarginRowKey)) {
+				return false;
+			}
 			MarginRowKey other = (MarginRowKey)obj;
-			return m_tag.equals( other.m_tag) &&
-				  (m_currency == null && other.m_currency == null || m_currency != null && m_currency.equals( other.m_currency) );
+			return m_tag.equals( other.m_tag) && Objects.equals(m_currency, other.m_currency);
 		}
 	}
 	
 	static class MktValModel extends AbstractTableModel {
-		private HashMap<String,MktValRow> m_map = new HashMap<String,MktValRow>();
-		private ArrayList<MktValRow> m_list = new ArrayList<MktValRow>();
+		private HashMap<String,MktValRow> m_map = new HashMap<>();
+		private ArrayList<MktValRow> m_list = new ArrayList<>();
 		
 		void handle(String account, String currency, MarketValueTag mvTag, String value) {
 			String key = account + currency;
@@ -320,8 +342,14 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 //		@Override public int hashCode() {
 //			return m_account.hashCode() + m_currency.hashCode();
 //		}
-//		
+//
 //		@Override public boolean equals(Object obj) {
+//			if (this == obj) {
+//				return true;
+//			}
+//			if (!(obj instanceof MktValKey)) {
+//				return false;
+//			}
 //			MktValKey other = (MktValKey)obj;
 //			return m_account.equals( other.m_account) && m_currency.equals( other.m_currency);
 //		}
@@ -330,7 +358,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	private static class MktValRow {
 		String m_account;
 		String m_currency;
-		HashMap<MarketValueTag,String> m_map = new HashMap<MarketValueTag,String>();
+		HashMap<MarketValueTag,String> m_map = new HashMap<>();
 		
 		public MktValRow(String account, String currency) {
 			m_account = account;
@@ -348,8 +376,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 
 	/** Shared with ExercisePanel. */
 	static class PortfolioModel extends AbstractTableModel {
-		private HashMap<Integer,Position> m_portfolioMap = new HashMap<Integer,Position>();
-		private ArrayList<Integer> m_positions = new ArrayList<Integer>(); // must store key because Position is overwritten
+		private HashMap<Integer,Position> m_portfolioMap = new HashMap<>();
+		private ArrayList<Integer> m_positions = new ArrayList<>(); // must store key because Position is overwritten
 		
 		void clear() {
 			m_positions.clear();
@@ -435,7 +463,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 			? val + " " + currency : val;
 	}
 
-	/** Table where first n columsn are left-justified, all other columns are right-justified. */
+	/** Table where first n columns are left-justified, all other columns are right-justified. */
 	static class Table extends JTable {
 		private int m_n;
 

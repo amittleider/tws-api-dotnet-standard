@@ -18,7 +18,7 @@ public class ConditionsModel extends AbstractTableModel {
 			return;
 		}
 		
-		m_conditions.get(row).conjunctionConnection(val.toString() == "and");
+		m_conditions.get(row).conjunctionConnection("and".equals(val.toString()));
 	}
 
 	@Override
