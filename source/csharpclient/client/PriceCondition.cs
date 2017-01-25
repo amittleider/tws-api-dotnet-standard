@@ -51,6 +51,22 @@ namespace IBApi
             return TriggerMethod.ToFriendlyString() + " " + base.ToString();
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as PriceCondition;
+
+            if (other == null)
+                return false;
+
+            return base.Equals(obj)
+                && this.TriggerMethod == other.TriggerMethod;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + TriggerMethod.GetHashCode();
+        }
+
         public double Price { get; set; }
         public TriggerMethod TriggerMethod { get; set; }
 

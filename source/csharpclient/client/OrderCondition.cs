@@ -83,6 +83,21 @@ namespace IBApi
 
             return conditions.FirstOrDefault(c => c.TryParse(cond));
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as OrderCondition;
+
+            if (other == null)
+                return false;
+
+            return this.IsConjunctionConnection == other.IsConjunctionConnection && this.Type == other.Type;
+        }
+
+        public override int GetHashCode()
+        {
+            return IsConjunctionConnection.GetHashCode() + Type.GetHashCode();
+        }
     }
 
     class StringSuffixParser

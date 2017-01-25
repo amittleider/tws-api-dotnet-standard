@@ -17,6 +17,23 @@ namespace IBApi
             return header + (IsMore ? ">= " : "<= ") + Value;
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as OperatorCondition;
+
+            if (other == null)
+                return false;
+
+            return base.Equals(obj)
+                && this.Value.Equals(other.Value)
+                && this.IsMore == other.IsMore;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + Value.GetHashCode() + IsMore.GetHashCode();
+        }
+
         protected override bool TryParse(string cond)
         {
             if (!cond.StartsWith(header))

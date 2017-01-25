@@ -79,5 +79,23 @@ namespace IBApi
             outStream.AddParameter(Exchange);
             outStream.AddParameter(Symbol);
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as ExecutionCondition;
+
+            if (other == null)
+                return false;
+
+            return base.Equals(obj) 
+                && this.Exchange.Equals(other.Exchange)
+                && this.SecType.Equals(other.SecType)
+                && this.Symbol.Equals(other.Symbol);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + Exchange.GetHashCode() + SecType.GetHashCode() + Symbol.GetHashCode();
+        }
     }
 }
