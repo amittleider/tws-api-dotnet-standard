@@ -89,6 +89,9 @@ public enum TickType {
     DELAYED_ASK_OPTION( 81, "delayedAskOptComp" ),
     DELAYED_LAST_OPTION( 82, "delayedLastOptComp" ),
     DELAYED_MODEL_OPTION( 83, "delayedModelOptComp" ),
+    LAST_EXCH(84, "lastExchange"),
+    LAST_REG_TIME(85, "lastRegTime"),
+
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
 
     private int m_ndx;
