@@ -6,7 +6,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 import unittest
 
-from IBApi.enum_implem import Enum
+from ibapi.enum_implem import Enum
 
 
 class EnumTestCase(unittest.TestCase):

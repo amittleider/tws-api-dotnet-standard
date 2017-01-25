@@ -6,8 +6,8 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 import unittest
 
-from IBApi.enum_implem import Enum
-from IBApi.utils import setattr_log
+from ibapi.enum_implem import Enum
+from ibapi.utils import setattr_log
 
 
 class UtilsTestCase(unittest.TestCase):

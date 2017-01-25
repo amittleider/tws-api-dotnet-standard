@@ -6,7 +6,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 import unittest
 
-from IBApi.order_condition import *
+from ibapi.order_condition import *
 
 
 
