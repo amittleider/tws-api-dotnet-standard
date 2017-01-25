@@ -62,4 +62,10 @@ public class ExecutionFilter{
                m_exchange.equalsIgnoreCase( l_theOther.m_exchange) &&
                m_side.equalsIgnoreCase( l_theOther.m_side);
     }
+
+    @Override
+    public int hashCode() {
+        // Use m_clientId only since other fields are string compared ignoring case and with null checks.
+        return m_clientId;
+    }
 }

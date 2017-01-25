@@ -112,12 +112,12 @@ public class Order {
 
     // algo orders
     private String              m_algoStrategy = "";
-    private ArrayList<TagValue> m_algoParams = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_algoParams = new ArrayList<>();
     private String              m_algoId;
 
     // combo orders
-    private ArrayList<TagValue>       m_smartComboRoutingParams = new ArrayList<TagValue>();
-    private ArrayList<OrderComboLeg>  m_orderComboLegs = new ArrayList<OrderComboLeg>();
+    private ArrayList<TagValue>       m_smartComboRoutingParams = new ArrayList<>();
+    private ArrayList<OrderComboLeg>  m_orderComboLegs = new ArrayList<>();
 
     // processing control
     private boolean m_whatIf;
@@ -183,7 +183,7 @@ public class Order {
 	private int m_adjustableTrailingUnit;
 	private double m_lmtPriceOffset = Double.MAX_VALUE;
 	
-	private ArrayList<OrderCondition> m_conditions = new ArrayList<OrderCondition>();
+	private ArrayList<OrderCondition> m_conditions = new ArrayList<>();
 	private boolean m_conditionsCancelOrder;
 	private boolean m_conditionsIgnoreRth;
     
@@ -486,7 +486,7 @@ public class Order {
 
     public ArrayList<TagValue> algoParams() { 
         if( m_algoParams == null ) {
-            m_algoParams = new ArrayList<TagValue>();
+            m_algoParams = new ArrayList<>();
         }
         return m_algoParams; 
     }
@@ -634,5 +634,11 @@ public class Order {
         }
         
         return true;
-    }    
+    }
+
+    @Override
+    public int hashCode() {
+        // Use m_permId only due to the definition of equals.
+        return (int) (m_permId ^ (m_permId >>> 32));
+    }
 }

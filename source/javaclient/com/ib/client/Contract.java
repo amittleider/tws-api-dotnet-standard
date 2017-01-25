@@ -23,13 +23,13 @@ public class Contract implements Cloneable {
     private String  m_localSymbol;
     private String  m_tradingClass;
     private String  m_secIdType; // CUSIP;SEDOL;ISIN;RIC
-    private String  m_secId; 
-    
+    private String  m_secId;
+
     private DeltaNeutralContract m_underComp;
     private boolean m_includeExpired;  // can not be set to true for orders
     // COMBOS
     private String m_comboLegsDescrip; // received in open order version 14 and up for all combos 
-    private ArrayList<ComboLeg> m_comboLegs = new ArrayList<ComboLeg>(); // would be final except for clone
+    private ArrayList<ComboLeg> m_comboLegs = new ArrayList<>(); // would be final except for clone
 
     // Get
     public double strike()          { return m_strike; }
@@ -76,7 +76,7 @@ public class Contract implements Cloneable {
     public void includeExpired(boolean v)         { m_includeExpired = v; }
     public void comboLegs(ArrayList<ComboLeg> v)  { m_comboLegs = v; }
     public void comboLegsDescrip(String v)        { m_comboLegsDescrip = v; }
-    
+
     public Contract() {
     	m_conid = 0;
         m_strike = 0;
@@ -87,10 +87,10 @@ public class Contract implements Cloneable {
         try {
             Contract copy = (Contract)super.clone();
             if ( copy.m_comboLegs != null ) {
-                copy.m_comboLegs = new ArrayList<ComboLeg>( copy.m_comboLegs);
+                copy.m_comboLegs = new ArrayList<>( copy.m_comboLegs);
             }
             else {
-                copy.m_comboLegs = new ArrayList<ComboLeg>();
+                copy.m_comboLegs = new ArrayList<>();
             }
             return copy;
         }
@@ -150,7 +150,7 @@ public class Contract implements Cloneable {
         	return false;
         }
 
-        if (!Util.NormalizeString(m_secType).equals("BOND")) {
+        if (!"BOND".equals(m_secType)) {
 
         	if (m_strike != l_theOther.m_strike) {
         		return false;
@@ -187,6 +187,16 @@ public class Contract implements Cloneable {
         	}
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        // Use a few fields only as a compromise between performance and hashCode quality.
+        int result = m_conid;
+        result = result * 31 + (m_symbol == null || "".equals(m_symbol) ? 0 : m_symbol.hashCode());
+        long temp = Double.doubleToLongBits(m_strike);
+        result = result * 31 + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     /** Returns a text description that can be used for display. */

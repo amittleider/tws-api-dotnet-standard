@@ -29,9 +29,12 @@ public class OrderComboLeg {
 
         OrderComboLeg l_theOther = (OrderComboLeg)p_other;
 
-        if (m_price != l_theOther.m_price) {
-        	return false;
-        }
-        return true;
+        return m_price == l_theOther.m_price;
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(m_price);
+        return (int) (temp ^ (temp >>> 32));
     }
 }
