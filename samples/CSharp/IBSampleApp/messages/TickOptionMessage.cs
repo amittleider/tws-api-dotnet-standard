@@ -19,7 +19,7 @@ namespace IBSampleApp.messages
         private double undPrice;
 
         public TickOptionMessage(int requestId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
-            : base(MessageType.TickOptionComputation, requestId, field)
+            : base(requestId, field)
         {
             ImpliedVolatility = impliedVolatility;
             Delta = delta;

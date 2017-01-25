@@ -7,13 +7,12 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AccountSummaryEndMessage : IBMessage 
+    public class AccountSummaryEndMessage 
     {
         private int requestId;
 
         public AccountSummaryEndMessage(int requestId)
         {
-            Type = MessageType.AccountSummaryEnd;
             RequestId = requestId;
         }
 

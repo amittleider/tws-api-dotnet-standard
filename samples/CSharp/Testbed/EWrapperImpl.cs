@@ -552,6 +552,12 @@ namespace Samples
             Console.WriteLine("Historical News End. Request Id: {0}, Has More: {1}", requestId, hasMore);
         }
         //! [historicalNewsEnd]
-        
+
+        //! [headTimestamp]
+        public void headTimestamp(int reqId, string headTimestamp)
+        {
+            Console.WriteLine("Head time stamp. Request Id: {0}, Head time stamp: {1}", reqId, headTimestamp);
+        }
+        //! [headTimestamp]
     }
 }

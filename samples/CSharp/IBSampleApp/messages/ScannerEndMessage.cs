@@ -7,14 +7,13 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerEndMessage : IBMessage
+    public class ScannerEndMessage
     {
         private int requestId;
 
         public ScannerEndMessage(int requestId)
         {
-            Type = MessageType.ScannerDataEnd;
-            RequestId = requestId;
+             RequestId = requestId;
         }
 
         public int RequestId

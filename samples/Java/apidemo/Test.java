@@ -320,14 +320,12 @@ public class Test implements EWrapper {
 
 	@Override
 	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(EWrapperMsgGenerator.smartComponents(reqId, theMap));
 	}
 
 	@Override
 	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(EWrapperMsgGenerator.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions));
 	}
 
 	@Override
@@ -348,5 +346,10 @@ public class Test implements EWrapper {
 	@Override
 	public void historicalNewsEnd(int requestId, boolean hasMore) {
 		System.out.println(EWrapperMsgGenerator.historicalNewsEnd(requestId, hasMore));
+	}
+	
+	@Override
+	public void headTimestamp(int reqId, String headTimestamp) {
+		System.out.println(EWrapperMsgGenerator.headTimestamp(reqId, headTimestamp));
 	}
 }

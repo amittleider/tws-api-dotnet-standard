@@ -22,7 +22,6 @@ namespace IBSampleApp.messages
         public OrderStatusMessage(int orderId, string status, double filled, double remaining, double avgFillPrice,
            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
         {
-            Type = MessageType.OrderStatus;
             OrderId = orderId;
             Status = status;
             Filled = filled;

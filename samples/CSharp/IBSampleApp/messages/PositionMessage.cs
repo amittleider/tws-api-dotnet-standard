@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class PositionMessage : IBMessage 
+    public class PositionMessage 
     {
         private string account;
         private Contract contract;
@@ -17,7 +17,6 @@ namespace IBSampleApp.messages
         
         public PositionMessage(string account, Contract contract, double pos, double avgCost)
         {
-            Type = MessageType.Position;
             Account = account;
             Contract = contract;
             Position = pos;

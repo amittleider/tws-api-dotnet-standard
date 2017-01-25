@@ -2508,6 +2508,39 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
         }
 
+        public void reqHeadTimestamp(int tickerId, Contract contract, string whatToShow, int useRTH, int formatDate)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HEAD_TIMESTAMP,
+                " It does not support head time stamp requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestHeadTimestamp);
+            paramsList.AddParameter(tickerId);
+            paramsList.AddParameter(contract.ConId);
+            paramsList.AddParameter(contract.Symbol);
+            paramsList.AddParameter(contract.SecType);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
+            paramsList.AddParameter(contract.Strike);
+            paramsList.AddParameter(contract.Right);
+            paramsList.AddParameter(contract.Multiplier);
+            paramsList.AddParameter(contract.Exchange);
+            paramsList.AddParameter(contract.PrimaryExch);
+            paramsList.AddParameter(contract.Currency);
+            paramsList.AddParameter(contract.LocalSymbol);
+            paramsList.AddParameter(contract.TradingClass);
+            paramsList.AddParameter(contract.IncludeExpired);
+            paramsList.AddParameter(useRTH);
+            paramsList.AddParameter(whatToShow);
+            paramsList.AddParameter(formatDate);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");

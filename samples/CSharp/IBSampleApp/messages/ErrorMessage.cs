@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp
 {
-    public class ErrorMessage : IBMessage 
+    public class ErrorMessage 
     {
         private string message;
         private int errorCode;
@@ -15,7 +15,6 @@ namespace IBSampleApp
 
         public ErrorMessage(int requestId, int errorCode, string message)
         {
-            Type = MessageType.Error;
             Message = message;
             RequestId = requestId;
             ErrorCode = errorCode;

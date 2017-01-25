@@ -15,8 +15,6 @@ namespace IBSampleApp.ui
         protected IBClient ibClient;
         protected int currentTicker = 1;
 
-        protected delegate void UpdateUICallback(IBMessage msg);
-
         public DataManager(IBClient client, Control dataGrid)
         {
             ibClient = client;
@@ -26,8 +24,5 @@ namespace IBSampleApp.ui
         public abstract void NotifyError(int requestId);
         
         public abstract void Clear();
-
-        public abstract void UpdateUI(IBMessage message);
-
     }
 }

@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class AccountUpdateMultiMessage : IBMessage 
+    public class AccountUpdateMultiMessage 
     {
         private int reqId;
         private string account;
@@ -19,7 +19,6 @@ namespace IBSampleApp.messages
         
         public AccountUpdateMultiMessage(int reqId, string account, string modelCode, string key, string value, string currency)
         {
-            Type = MessageType.AccountUpdateMulti;
             Account = account;
             ModelCode = modelCode;
             Key = key;

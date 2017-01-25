@@ -8,13 +8,12 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class PositionMultiEndMessage : IBMessage 
+    public class PositionMultiEndMessage 
     {
         private int reqId;
         
         public PositionMultiEndMessage(int reqId)
         {
-            Type = MessageType.PositionMultiEnd;
             ReqId = reqId;
         }
 

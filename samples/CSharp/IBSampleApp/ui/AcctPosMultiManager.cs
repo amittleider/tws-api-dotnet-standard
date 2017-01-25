@@ -28,26 +28,7 @@ namespace IBSampleApp.ui
             AccountUpdatesMultiGrid = accountUpdatesMultiGrid;
         }
 
-        public void UpdateUI(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.PositionMulti:
-                    HandlePositionMulti((PositionMultiMessage)message);
-                    break;
-                case MessageType.PositionMultiEnd:
-                    HandlePositionMultiEnd((PositionMultiEndMessage)message);
-                    break;
-                case MessageType.AccountUpdateMulti:
-                    HandleAccountUpdateMulti((AccountUpdateMultiMessage)message);
-                    break;
-                case MessageType.AccountUpdateMultiEnd:
-                    HandleAccountUpdateMultiEnd((AccountUpdateMultiEndMessage)message);
-                    break;
-            }
-        }
-
-        private void  HandleAccountUpdateMulti(AccountUpdateMultiMessage accountUpdateMultiMessage)
+        public void  HandleAccountUpdateMulti(AccountUpdateMultiMessage accountUpdateMultiMessage)
         {
             for (int i = 0; i < accountUpdatesMultiGrid.Rows.Count; i++)
             {
@@ -68,7 +49,7 @@ namespace IBSampleApp.ui
             accountUpdatesMultiGrid[4, accountUpdatesMultiGrid.Rows.Count - 1].Value = accountUpdateMultiMessage.Currency == null ? "" : accountUpdateMultiMessage.Currency;
         }
 
-        private void HandleAccountUpdateMultiEnd(AccountUpdateMultiEndMessage accountUpdateMultiEndMessage)
+        public void HandleAccountUpdateMultiEnd(AccountUpdateMultiEndMessage accountUpdateMultiEndMessage)
         {
         }
 

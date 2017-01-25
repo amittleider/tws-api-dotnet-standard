@@ -11,7 +11,7 @@ namespace IBSampleApp.messages
     {
         private int size;
 
-        public TickSizeMessage(int requestId, int field, int size) : base(MessageType.TickSize, requestId, field)
+        public TickSizeMessage(int requestId, int field, int size) : base(requestId, field)
         {
             Size = size;
         }

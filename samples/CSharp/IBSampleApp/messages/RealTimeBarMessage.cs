@@ -27,7 +27,6 @@ namespace IBSampleApp.messages
         public RealTimeBarMessage(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count)
             : base(reqId, UnixTimestampToDateTime(date).ToString("yyyyMMdd hh:mm:ss"), open, high, low, close, -1, count, WAP, false)
         {
-            Type = MessageType.RealTimeBars;
             Timestamp = date;
             LongVolume = volume;
         }

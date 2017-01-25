@@ -84,6 +84,6 @@ void DefaultEWrapper::newsProviders(const std::vector<NewsProvider> &newsProvide
 void DefaultEWrapper::newsArticle(int requestId, int articleType, const std::string& articleText) { }
 void DefaultEWrapper::historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) { }
 void DefaultEWrapper::historicalNewsEnd(int requestId, bool hasMore) { }
-
+void DefaultEWrapper::headTimestamp(int reqId, const std::string& headTimestamp) { }
 
 

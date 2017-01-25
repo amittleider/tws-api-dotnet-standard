@@ -103,6 +103,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqNewsProviders As System.Windows.Forms.Button
     Friend WithEvents cmdReqNewsArticle As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistoricalNews As System.Windows.Forms.Button
+    Public WithEvents cmdReqHeadTimestamp As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -166,6 +167,7 @@ Friend Class MainForm
         Me.cmdReqNewsProviders = New System.Windows.Forms.Button()
         Me.cmdReqNewsArticle = New System.Windows.Forms.Button()
         Me.cmdReqHistoricalNews = New System.Windows.Forms.Button()
+        Me.cmdReqHeadTimestamp = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -897,11 +899,26 @@ Friend Class MainForm
         Me.cmdReqHistoricalNews.Text = "Req Historical News"
         Me.cmdReqHistoricalNews.UseVisualStyleBackColor = True
         '
+        'cmdReqHeadTimestamp
+        '
+        Me.cmdReqHeadTimestamp.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdReqHeadTimestamp.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdReqHeadTimestamp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdReqHeadTimestamp.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdReqHeadTimestamp.Location = New System.Drawing.Point(683, 695)
+        Me.cmdReqHeadTimestamp.Name = "cmdReqHeadTimestamp"
+        Me.cmdReqHeadTimestamp.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdReqHeadTimestamp.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHeadTimestamp.TabIndex = 61
+        Me.cmdReqHeadTimestamp.Text = "Req Head Time Stamp..."
+        Me.cmdReqHeadTimestamp.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.Controls.Add(Me.cmdReqHeadTimestamp)
         Me.Controls.Add(Me.cmdReqHistoricalNews)
         Me.Controls.Add(Me.cmdReqNewsArticle)
         Me.Controls.Add(Me.cmdReqNewsProviders)
@@ -3038,6 +3055,15 @@ Friend Class MainForm
         lstServerResponses.TopIndex = lstServerResponses.Items.Count - 1
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Head time stamp
+    '--------------------------------------------------------------------------------
+    Private Sub m_apiEvents_HeadTimestamp(sender As ApiEventSource, e As HeadTimestampEventArgs) Handles m_apiEvents.HeadTimestamp
+        Dim displayString = "Head time stamp: request id - " & e.requestId & ", time stamp - " & e.timeStamp
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, displayString)
+    End Sub
+
 #End Region
 
 #Region "Helper methods"
@@ -3156,4 +3182,19 @@ Friend Class MainForm
 
 #End Region
 
+    Private Sub cmdReqHeadTimestamp_Click(sender As Object, e As EventArgs) Handles cmdReqHeadTimestamp.Click
+        ' Set the dialog state
+        m_dlgOrder.init(dlgOrder.DialogType.RequestHistoricalData,
+            m_contractInfo, m_orderInfo, m_underComp, m_chartOptions, Me)
+
+        m_dlgOrder.ShowDialog()
+
+        m_chartOptions = m_dlgOrder.options
+
+        If m_dlgOrder.ok Then
+
+            m_api.reqHeadTimestamp(m_dlgOrder.orderId, m_contractInfo,
+                m_dlgOrder.whatToShow, m_dlgOrder.useRTH, m_dlgOrder.formatDate)
+        End If
+    End Sub
 End Class

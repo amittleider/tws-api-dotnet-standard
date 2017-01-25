@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class UpdatePortfolioMessage : IBMessage
+    public class UpdatePortfolioMessage
     {
         private Contract contract;
         private double position;
@@ -21,7 +21,6 @@ namespace IBSampleApp.messages
 
         public UpdatePortfolioMessage(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
         {
-            Type = MessageType.PortfolioValue;
             Contract = contract;
             Position = position;
             MarketPrice = marketPrice;

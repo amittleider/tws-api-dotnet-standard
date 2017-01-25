@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerMessage : IBMessage
+    public class ScannerMessage
     {
         private int requestId;
         private int rank;
@@ -20,7 +20,6 @@ namespace IBSampleApp.messages
 
         public ScannerMessage(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)
         {
-            Type = MessageType.ScannerData;
             RequestId = reqId;
             Rank = rank;
             ContractDetails = contractDetails;

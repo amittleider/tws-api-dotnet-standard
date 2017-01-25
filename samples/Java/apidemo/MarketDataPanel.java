@@ -39,6 +39,7 @@ import com.ib.client.Types.DurationUnit;
 import com.ib.client.Types.MktDataType;
 import com.ib.client.Types.WhatToShow;
 import com.ib.controller.ApiController.IDeepMktDataHandler;
+import com.ib.controller.ApiController.IHeadTimestampHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.ApiController.IScannerHandler;
@@ -46,6 +47,7 @@ import com.ib.controller.ApiController.ISecDefOptParamsReqHandler;
 import com.ib.controller.ApiController.ISmartComponentsHandler;
 import com.ib.controller.ApiController.ISymbolSamplesHandler;
 import com.ib.controller.Bar;
+import com.ib.controller.Formats;
 import com.ib.controller.Instrument;
 import com.ib.controller.ScanCode;
 
@@ -638,6 +640,12 @@ public class MarketDataPanel extends JPanel {
 					onRealTime();
 				}
 			};
+			
+			HtmlButton htsButton = new HtmlButton("Request head timestamp") {
+				@Override protected void actionPerformed() {
+					onHts();
+				}
+			};
 	
 	    	VerticalPanel paramPanel = new VerticalPanel();
 			paramPanel.add( "What to show", m_whatToShow);
@@ -645,6 +653,7 @@ public class MarketDataPanel extends JPanel {
 			
 			VerticalPanel butPanel = new VerticalPanel();
 			butPanel.add( button);
+			butPanel.add(htsButton);
 			
 			JPanel rightPanel = new StackPanel();
 			rightPanel.add( paramPanel);
@@ -657,6 +666,15 @@ public class MarketDataPanel extends JPanel {
 			add( rightPanel);
 		}
 	
+		protected void onHts() {			
+			m_contractPanel.onOK();
+			
+			HtsResultsPanel panel = new HtsResultsPanel();
+			
+			ApiDemo.INSTANCE.controller().reqHeadTimestamp(m_contract, m_whatToShow.getSelectedItem(), m_rthOnly.isSelected(), panel);
+			m_resultsPanel.addTab( "Head time stamp " + m_contract.symbol(), panel, true, true);
+		}
+
 		protected void onRealTime() {
 			m_contractPanel.onOK();
 			BarResultsPanel panel = new BarResultsPanel( false);
@@ -664,6 +682,80 @@ public class MarketDataPanel extends JPanel {
 			m_resultsPanel.addTab( "Real-time " + m_contract.symbol(), panel, true, true);
 		}
 	}
+	
+	static class HtsResultsPanel extends NewTabPanel implements IHeadTimestampHandler {
+		final BarModel m_model = new BarModel();
+		final ArrayList<Long> m_rows = new ArrayList<>();
+		//final Chart m_chart = new Chart( m_rows);
+		
+		HtsResultsPanel() {
+			
+			JTable tab = new JTable( m_model);
+			JScrollPane scroll = new JScrollPane( tab) {
+				public Dimension getPreferredSize() {
+					Dimension d = super.getPreferredSize();
+					d.width = 500;
+					return d;
+				}
+			};
+
+			//JScrollPane chartScroll = new JScrollPane( m_chart);
+
+			setLayout( new BorderLayout() );
+			add( scroll, BorderLayout.WEST);
+			//add( chartScroll, BorderLayout.CENTER);
+		}
+
+		/** Called when the tab is first visited. */
+		@Override public void activated() {
+		}
+
+		/** Called when the tab is closed by clicking the X. */
+		@Override public void closed() {
+
+		}
+
+		@Override public void headTimestamp(int reqId, long headTimestamp) {
+			m_rows.add(headTimestamp);
+		}
+		
+		private void fire() {
+			SwingUtilities.invokeLater( new Runnable() {
+				@Override public void run() {
+					m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+					//m_chart.repaint();
+				}
+			});
+		}
+
+		class BarModel extends AbstractTableModel {
+			@Override public int getRowCount() {
+				return m_rows.size();
+			}
+
+			@Override public int getColumnCount() {
+				return 7;
+			}
+			
+			@Override public String getColumnName(int col) {
+				switch( col) {
+					case 0: return "Date/time";
+					default: return null;
+				}
+			}
+
+			@Override public Object getValueAt(int rowIn, int col) {
+				long row = m_rows.get( rowIn);
+				
+				switch( col) {
+					case 0: return Formats.fmtDate(row * 1000);
+					default: return null;
+				}
+			}
+		}
+
+	}
+
 	
 	static class BarResultsPanel extends NewTabPanel implements IHistoricalDataHandler, IRealTimeBarHandler {
 		final BarModel m_model = new BarModel();

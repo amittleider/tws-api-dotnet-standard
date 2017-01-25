@@ -447,6 +447,12 @@ class SampleFrame extends JFrame implements EWrapper {
                 onReqHistoricalNews();
             }
         });
+        JButton butHeadTimestamp = new JButton( "Req Head Time Stamp");
+        butHeadTimestamp.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+            	onHeadTimestamp();
+            }
+        });
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener( new ActionListener() {
@@ -521,6 +527,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butRequestNewsProviders ) ;
         buttonPanel.add( butReqNewsArticle ) ;
         buttonPanel.add( butReqHistoricalNews ) ;
+        buttonPanel.add(butHeadTimestamp);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -676,6 +683,23 @@ class SampleFrame extends JFrame implements EWrapper {
     void onReqCurrentTime() {
     	m_client.reqCurrentTime();
 	}
+    
+    void onHeadTimestamp() {
+    	
+        // run m_orderDlg
+        m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
+
+        m_orderDlg.show();
+        if( !m_orderDlg.m_rc ) {
+            return;
+        }
+
+        m_chartOptions = m_orderDlg.getOptions();
+        
+        // req head timestamp
+        m_client.reqHeadTimestamp(m_orderDlg.m_id, m_orderDlg.m_contract, m_orderDlg.m_whatToShow,
+                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate);
+    }
 
     void onHistoricalData() {
     	
@@ -1678,6 +1702,13 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void historicalNewsEnd(int requestId, boolean hasMore) {
 		String msg = EWrapperMsgGenerator.historicalNewsEnd(requestId, hasMore);
+		m_TWS.add(msg);
+	}
+	
+	@Override
+	public void headTimestamp(int reqId, String headTimestamp) {
+		String msg = EWrapperMsgGenerator.headTimestamp(reqId, headTimestamp);
+		
 		m_TWS.add(msg);
 	}
 }

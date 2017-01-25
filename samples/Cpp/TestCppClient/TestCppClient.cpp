@@ -257,6 +257,9 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_REQHISTORICALNEWS_ACK:
 			break;
+		case ST_REQHEADTIMESTAMP:
+			reqHeadTimestamp();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1028,6 +1031,13 @@ void TestCppClient::reqHistoricalNews(){
 	m_state = ST_REQHISTORICALNEWS_ACK;
 }
 
+void TestCppClient::reqHeadTimestamp() {
+	m_pClient->reqHeadTimestamp(14001, ContractSamples::EurGbpFx(), "MIDPOINT", 1, 1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	m_state = ST_REQHEADTIMESTAMP_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1063,7 +1073,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
-	m_state = ST_REQHISTORICALNEWS;
+	//m_state = ST_REQHISTORICALNEWS;
+	m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_PING;
 }
 
@@ -1500,3 +1511,7 @@ void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {
 }
 //! [historicalNewsEnd]
 
+void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {
+	printf( "HistoricalData. ReqId: %ld - Head time stamp: %s,\n", reqId, headTimestamp.c_str());
+
+}

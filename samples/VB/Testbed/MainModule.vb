@@ -141,6 +141,11 @@ Module MainModule
         '*** Smart components ***
         '***********************
         'smartComponents(client)
+        '***********************
+        '*** Head time stamp ***
+        '***********************
+        headTimestamp(client)
+
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -812,6 +817,10 @@ Module MainModule
         client.verifyRequest("a name", "9.71")
         client.verifyMessage("apiData")
 
+    End Sub
+
+    Private Sub headTimestamp(client As EClientSocket)
+        client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
     End Sub
 
 End Module

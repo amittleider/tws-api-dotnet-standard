@@ -34,28 +34,26 @@ namespace IBSampleApp.ui
         {
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(ScannerParametersMessage scanParamsMessage)
         {
-
-            if (message.Type == MessageType.ScannerParameters)
-            {
-                ScannerParametersMessage scanParamsMessage = (ScannerParametersMessage)message;
-                parametersOutput.Text = scanParamsMessage.XmlData;
-            }
-            else
-            {
-                ScannerMessage scannMessage = (ScannerMessage)message;
-                DataGridView grid = (DataGridView)uiControl;
-                rowCounter++;
-                grid.Rows.Add();
-                grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
-                grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
-                grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
-                grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
-                grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
-                grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
-            }
+            parametersOutput.Text = scanParamsMessage.XmlData;
         }
+
+        public void UpdateUI(ScannerMessage scannMessage)
+        {
+            DataGridView grid = (DataGridView)uiControl;
+
+            rowCounter++;
+
+            grid.Rows.Add();
+            grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
+            grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
+            grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
+            grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
+            grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
+            grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
+        }
+        
 
         public override void Clear()
         {

@@ -8,14 +8,13 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    class HistoricalNewsEndMessage : IBMessage
+    public class HistoricalNewsEndMessage
     {
         public int RequestId { get; private set; }
         public bool HasMore { get; private set; }
 
         public HistoricalNewsEndMessage(int requestId, bool hasMore)
         {
-            this.type = MessageType.HistoricalNewsEnd;
             this.RequestId = requestId;
             this.HasMore = hasMore;
         }

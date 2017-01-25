@@ -32,14 +32,12 @@ namespace IBSampleApp.ui
             base.Clear();
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(RealTimeBarMessage rtBar)
         {
             barCounter++;
+
             Chart rtBarsChart = (Chart)uiControl;
-            RealTimeBarMessage rtBar = (RealTimeBarMessage)message;
-
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0);
-
             DateTime dt = start.AddMilliseconds(rtBar.Timestamp * 1000).ToLocalTime();
 
             // adding date and high
@@ -50,7 +48,7 @@ namespace IBSampleApp.ui
             rtBarsChart.Series[0].Points[barCounter].YValues[2] = rtBar.Open;
             // adding close
             rtBarsChart.Series[0].Points[barCounter].YValues[3] = rtBar.Close;
-            PopulateGrid(message);
+            PopulateGrid(rtBar);
         }
     }
 }

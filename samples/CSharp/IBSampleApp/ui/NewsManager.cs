@@ -37,29 +37,7 @@ namespace IBSampleApp.ui
             HistoricalNewsGrid = historicalNewsGrid;
         }
 
-        public void UpdateUI(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.TickNews:
-                    HandleTickNews((TickNewsMessage)message);
-                    break;
-                case MessageType.NewsProviders:
-                    HandleNewsProviders((NewsProvidersMessage)message);
-                    break;
-                case MessageType.NewsArticle:
-                    HandleNewsArticle((NewsArticleMessage)message);
-                    break;
-                case MessageType.HistoricalNews:
-                    HandleHistoricalNews((HistoricalNewsMessage)message);
-                    break;
-                case MessageType.HistoricalNewsEnd:
-                    HandleHistoricalNewsEnd((HistoricalNewsEndMessage)message);
-                    break;
-            }
-        }
-
-        private void HandleHistoricalNews(HistoricalNewsMessage historicalNewsMessage)
+        public void UpdateUI(HistoricalNewsMessage historicalNewsMessage)
         {
             if (historicalNewsMessage.RequestId == HISTORICAL_NEWS_ID)
             {
@@ -72,7 +50,7 @@ namespace IBSampleApp.ui
             }
         }
 
-        private void HandleHistoricalNewsEnd(HistoricalNewsEndMessage historicalNewsEndMessage)
+        public void UpdateUI(HistoricalNewsEndMessage historicalNewsEndMessage)
         {
             if (historicalNewsEndMessage.RequestId == HISTORICAL_NEWS_ID)
             {
@@ -83,8 +61,8 @@ namespace IBSampleApp.ui
                 }
             }
         }
-        
-        private void HandleTickNews(TickNewsMessage tickNewsMessage)
+
+        public void UpdateUI(TickNewsMessage tickNewsMessage)
         {
             if (tickNewsMessage.TickerId == TICK_NEWS_ID)
             {
@@ -109,7 +87,7 @@ namespace IBSampleApp.ui
             }
         }
 
-        private void  HandleNewsArticle(NewsArticleMessage newsArticleMessage)
+        public void UpdateUI(NewsArticleMessage newsArticleMessage)
         {
             if (newsArticleMessage.ArticleType == 0)
             {

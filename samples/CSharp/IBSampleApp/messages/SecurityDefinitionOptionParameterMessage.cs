@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    class SecurityDefinitionOptionParameterMessage : IBMessage
+    public class SecurityDefinitionOptionParameterMessage
     {
         public int ReqId { get; private set; }
         public string Exchange { get; private set; }
@@ -17,7 +17,6 @@ namespace IBSampleApp.messages
 
         public SecurityDefinitionOptionParameterMessage(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
-            this.Type = MessageType.SecurityDefinitionOptionParameter;
             this.ReqId = reqId;
             this.Exchange = exchange;
             this.UnderlyingConId = underlyingConId;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ConnectionStatusMessage : IBMessage
+    public class ConnectionStatusMessage
     {
         private bool isConnected;
 
@@ -18,7 +18,6 @@ namespace IBSampleApp.messages
 
         public ConnectionStatusMessage(bool isConnected)
         {
-            Type = MessageType.ConnectionStatus;
             this.isConnected = isConnected;
         }
 

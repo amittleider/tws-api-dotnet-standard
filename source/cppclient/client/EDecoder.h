@@ -68,12 +68,13 @@ const int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
 const int MIN_SERVER_VER_REQ_NEWS_PROVIDERS		= 115;
 const int MIN_SERVER_VER_REQ_NEWS_ARTICLE		= 116;
 const int MIN_SERVER_VER_REQ_HISTORICAL_NEWS	= 117;
+const int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP		= 118;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_HISTORICAL_NEWS;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_HEAD_TIMESTAMP;
 
 
 // incoming msg id's
@@ -139,6 +140,7 @@ const int TICK_NEWS = 84;
 const int NEWS_PROVIDERS = 85;
 const int HISTORICAL_NEWS = 86;
 const int HISTORICAL_NEWS_END = 87;
+const int HEAD_TIMESTAMP = 88;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -250,6 +252,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processNewsArticleMsg(const char* ptr, const char* endPtr);
 	const char* processHistoricalNewsMsg(const char* ptr, const char* endPtr);
 	const char* processHistoricalNewsEndMsg(const char* ptr, const char* endPtr);
+	const char* processHeadTimestampMsg(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);

@@ -8,13 +8,12 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class FamilyCodesMessage : IBMessage
+    public class FamilyCodesMessage
     {
         public FamilyCode[] FamilyCodes { get; private set; }
 
         public FamilyCodesMessage(FamilyCode[] familyCodes)
         {
-            this.type = MessageType.FamilyCodes;
             this.FamilyCodes = familyCodes;
         }
     }

@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class PositionMultiMessage : IBMessage 
+    public class PositionMultiMessage 
     {
         private int reqId;
         private string account;
@@ -19,7 +19,6 @@ namespace IBSampleApp.messages
         
         public PositionMultiMessage(int reqId, string account, string modelCode, Contract contract, double pos, double avgCost)
         {
-            Type = MessageType.PositionMulti;
             ReqId = reqId;
             Account = account;
             ModelCode = modelCode;

@@ -73,5 +73,6 @@ namespace IBApi
         public const int NewsProviders = 85;
         public const int HistoricalNews = 86;
         public const int HistoricalNewsEnd = 87;
+        public const int HeadTimestamp = 88;
     }
 }

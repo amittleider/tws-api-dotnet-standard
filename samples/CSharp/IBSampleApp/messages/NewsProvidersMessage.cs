@@ -9,13 +9,12 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class NewsProvidersMessage : IBMessage
+    public class NewsProvidersMessage
     {
         public NewsProvider[] NewsProviders { get; private set; }
 
         public NewsProvidersMessage(NewsProvider[] newsProviders)
         {
-            this.type = MessageType.NewsProviders;
             this.NewsProviders = newsProviders;
         }
     }

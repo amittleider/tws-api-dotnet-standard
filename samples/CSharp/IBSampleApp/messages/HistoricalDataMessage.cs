@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class HistoricalDataMessage : IBMessage 
+    public class HistoricalDataMessage
     {
         protected int requestId;
         protected string date;
@@ -83,7 +83,6 @@ namespace IBSampleApp.messages
 
         public HistoricalDataMessage(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
         {
-            Type = MessageType.HistoricalData;
             RequestId = reqId;
             Date = date;
             Open = open;

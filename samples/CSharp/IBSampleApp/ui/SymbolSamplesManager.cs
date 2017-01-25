@@ -36,13 +36,13 @@ namespace IBSampleApp.ui
         public void setActive() { active = true; }
         public void unsetActive() { active = false; }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(SymbolSamplesMessage dataMessage)
         {
             if (!uiControl.Visible)
                 uiControl.Visible = true;
 
             ((DataGridView)uiControl).Rows.Clear();
-            SymbolSamplesMessage dataMessage = (SymbolSamplesMessage)message;
+
             if (dataMessage.ReqId == activeReqId)
             {
                 DataGridView grid = (DataGridView)uiControl;

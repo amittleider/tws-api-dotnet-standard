@@ -35,13 +35,13 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.marketDataTab = new System.Windows.Forms.TabPage();
@@ -125,6 +125,9 @@ namespace IBSampleApp
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.headTimestampTabPage = new System.Windows.Forms.TabPage();
+            this.clearHeadTimestampGridViewlinkLabel = new System.Windows.Forms.LinkLabel();
+            this.headTimestampDataGridView = new System.Windows.Forms.DataGridView();
             this.dataResults_MDT = new System.Windows.Forms.TabControl();
             this.topMktData_MDT = new System.Windows.Forms.TabPage();
             this.ReqSmartComponents_Button = new System.Windows.Forms.Button();
@@ -165,6 +168,7 @@ namespace IBSampleApp
             this.lastTradeDate_label_TMD_MDT = new System.Windows.Forms.Label();
             this.strike_label_TMD_MDT = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.headTimestamp_button = new System.Windows.Forms.Button();
             this.contractMDRTH = new System.Windows.Forms.CheckBox();
             this.realTime_Button = new System.Windows.Forms.Button();
             this.histData_Button = new System.Windows.Forms.Button();
@@ -529,6 +533,7 @@ namespace IBSampleApp
             this.textBoxHistoricalNewsStartDateTime = new System.Windows.Forms.TextBox();
             this.textBoxHistoricalNewsEndDateTime = new System.Windows.Forms.TextBox();
             this.labelHistoricalNewsTotalResults = new System.Windows.Forms.Label();
+            this.headTimestampTab = new System.Windows.Forms.TabPage();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -585,6 +590,22 @@ namespace IBSampleApp
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.ib_banner = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.reqIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.headTimestampColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.secTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastTradeDateorContractMonthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.strikeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.multiplierColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exchangeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.primaryExchColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.currencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localSymbolColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tradingClassColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.includeExpiredColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.whatToShowColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabControl.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
@@ -607,6 +628,8 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.symbolSamplesDataGridData)).BeginInit();
             this.smartComponentsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSmartComponents)).BeginInit();
+            this.headTimestampTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.headTimestampDataGridView)).BeginInit();
             this.dataResults_MDT.SuspendLayout();
             this.topMktData_MDT.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -710,6 +733,7 @@ namespace IBSampleApp
             this.TabControl.Controls.Add(this.optionsTab);
             this.TabControl.Controls.Add(this.acctPosTab);
             this.TabControl.Controls.Add(this.newsTab);
+            this.TabControl.Controls.Add(this.headTimestampTab);
             this.TabControl.Location = new System.Drawing.Point(0, 68);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
@@ -742,6 +766,7 @@ namespace IBSampleApp
             this.marketData_MDT.Controls.Add(this.mktDepthExchanges_MDT);
             this.marketData_MDT.Controls.Add(this.symbolSamplesTabData);
             this.marketData_MDT.Controls.Add(this.smartComponentsTabPage);
+            this.marketData_MDT.Controls.Add(this.headTimestampTabPage);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 210);
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
@@ -923,14 +948,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -1076,27 +1101,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorTickMark.Enabled = false;
+            chartArea3.AxisY.IsStartedFromZero = false;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend3);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series3.IsVisibleInLegend = false;
+            series3.IsXValueIndexed = true;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series3);
             this.historicalChart.Size = new System.Drawing.Size(699, 200);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -1203,26 +1228,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend2);
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.AxisY.IsStartedFromZero = false;
+            chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 100F;
+            chartArea4.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend4);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series4.IsVisibleInLegend = false;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series4.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series4);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 200);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -1532,6 +1557,61 @@ namespace IBSampleApp
             this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
             this.dataGridViewTextBoxColumn27.ReadOnly = true;
             this.dataGridViewTextBoxColumn27.Width = 200;
+            // 
+            // headTimestampTabPage
+            // 
+            this.headTimestampTabPage.BackColor = System.Drawing.Color.LightGray;
+            this.headTimestampTabPage.Controls.Add(this.clearHeadTimestampGridViewlinkLabel);
+            this.headTimestampTabPage.Controls.Add(this.headTimestampDataGridView);
+            this.headTimestampTabPage.Location = new System.Drawing.Point(4, 22);
+            this.headTimestampTabPage.Name = "headTimestampTabPage";
+            this.headTimestampTabPage.Size = new System.Drawing.Size(1234, 209);
+            this.headTimestampTabPage.TabIndex = 7;
+            this.headTimestampTabPage.Text = "Head Time Stamp";
+            // 
+            // clearHeadTimestampGridViewlinkLabel
+            // 
+            this.clearHeadTimestampGridViewlinkLabel.AutoSize = true;
+            this.clearHeadTimestampGridViewlinkLabel.Location = new System.Drawing.Point(8, 4);
+            this.clearHeadTimestampGridViewlinkLabel.Name = "clearHeadTimestampGridViewlinkLabel";
+            this.clearHeadTimestampGridViewlinkLabel.Size = new System.Drawing.Size(31, 13);
+            this.clearHeadTimestampGridViewlinkLabel.TabIndex = 3;
+            this.clearHeadTimestampGridViewlinkLabel.TabStop = true;
+            this.clearHeadTimestampGridViewlinkLabel.Text = "Clear";
+            this.clearHeadTimestampGridViewlinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.clearHeadTimestampGridViewlinkLabel_LinkClicked);
+            // 
+            // headTimestampDataGridView
+            // 
+            this.headTimestampDataGridView.AllowUserToAddRows = false;
+            this.headTimestampDataGridView.AllowUserToDeleteRows = false;
+            this.headTimestampDataGridView.AllowUserToOrderColumns = true;
+            this.headTimestampDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.headTimestampDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.headTimestampDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.reqIdColumn,
+            this.headTimestampColumn,
+            this.conIdColumn,
+            this.symbolColumn,
+            this.secTypeColumn,
+            this.lastTradeDateorContractMonthColumn,
+            this.strikeColumn,
+            this.rightColumn,
+            this.multiplierColumn,
+            this.exchangeColumn,
+            this.primaryExchColumn,
+            this.currencyColumn,
+            this.localSymbolColumn,
+            this.tradingClassColumn,
+            this.includeExpiredColumn,
+            this.whatToShowColumn});
+            this.headTimestampDataGridView.Location = new System.Drawing.Point(5, 20);
+            this.headTimestampDataGridView.Name = "headTimestampDataGridView";
+            this.headTimestampDataGridView.ReadOnly = true;
+            this.headTimestampDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.headTimestampDataGridView.Size = new System.Drawing.Size(1225, 184);
+            this.headTimestampDataGridView.TabIndex = 2;
             // 
             // dataResults_MDT
             // 
@@ -1940,6 +2020,7 @@ namespace IBSampleApp
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.headTimestamp_button);
             this.groupBox1.Controls.Add(this.contractMDRTH);
             this.groupBox1.Controls.Add(this.realTime_Button);
             this.groupBox1.Controls.Add(this.histData_Button);
@@ -1959,6 +2040,16 @@ namespace IBSampleApp
             this.groupBox1.TabIndex = 54;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bar request";
+            // 
+            // headTimestamp_button
+            // 
+            this.headTimestamp_button.Location = new System.Drawing.Point(221, 146);
+            this.headTimestamp_button.Name = "headTimestamp_button";
+            this.headTimestamp_button.Size = new System.Drawing.Size(91, 23);
+            this.headTimestamp_button.TabIndex = 61;
+            this.headTimestamp_button.Text = "Head timestamp";
+            this.headTimestamp_button.UseVisualStyleBackColor = true;
+            this.headTimestamp_button.Click += new System.EventHandler(this.headTimestamp_button_Click);
             // 
             // contractMDRTH
             // 
@@ -5444,6 +5535,15 @@ namespace IBSampleApp
             this.labelHistoricalNewsTotalResults.TabIndex = 8;
             this.labelHistoricalNewsTotalResults.Text = "Total Results";
             // 
+            // headTimestampTab
+            // 
+            this.headTimestampTab.Location = new System.Drawing.Point(4, 22);
+            this.headTimestampTab.Name = "headTimestampTab";
+            this.headTimestampTab.Size = new System.Drawing.Size(1248, 448);
+            this.headTimestampTab.TabIndex = 10;
+            this.headTimestampTab.Text = "Head time stamp";
+            this.headTimestampTab.UseVisualStyleBackColor = true;
+            // 
             // connectButton
             // 
             this.connectButton.Location = new System.Drawing.Point(1181, 12);
@@ -6020,6 +6120,105 @@ namespace IBSampleApp
             this.label7.Text = "Live Trading ports: TWS: 7496; IB Gateway: 4001. Simulated Trading ports for new " +
     "installations of version 954.1 or newer:  TWS: 7497; IB Gateway: 4002";
             // 
+            // reqIdColumn
+            // 
+            this.reqIdColumn.HeaderText = "Req Id";
+            this.reqIdColumn.Name = "reqIdColumn";
+            this.reqIdColumn.ReadOnly = true;
+            this.reqIdColumn.Visible = false;
+            // 
+            // headTimestampColumn
+            // 
+            this.headTimestampColumn.HeaderText = "Head Time Stamp";
+            this.headTimestampColumn.Name = "headTimestampColumn";
+            this.headTimestampColumn.ReadOnly = true;
+            // 
+            // conIdColumn
+            // 
+            this.conIdColumn.HeaderText = "Con Id";
+            this.conIdColumn.Name = "conIdColumn";
+            this.conIdColumn.ReadOnly = true;
+            // 
+            // symbolColumn
+            // 
+            this.symbolColumn.HeaderText = "Symbol";
+            this.symbolColumn.Name = "symbolColumn";
+            this.symbolColumn.ReadOnly = true;
+            // 
+            // secTypeColumn
+            // 
+            this.secTypeColumn.HeaderText = "Sec Type";
+            this.secTypeColumn.Name = "secTypeColumn";
+            this.secTypeColumn.ReadOnly = true;
+            // 
+            // lastTradeDateorContractMonthColumn
+            // 
+            this.lastTradeDateorContractMonthColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.lastTradeDateorContractMonthColumn.HeaderText = "Last Trade Date / Contract Month";
+            this.lastTradeDateorContractMonthColumn.Name = "lastTradeDateorContractMonthColumn";
+            this.lastTradeDateorContractMonthColumn.ReadOnly = true;
+            this.lastTradeDateorContractMonthColumn.Width = 149;
+            // 
+            // strikeColumn
+            // 
+            this.strikeColumn.HeaderText = "Strike";
+            this.strikeColumn.Name = "strikeColumn";
+            this.strikeColumn.ReadOnly = true;
+            // 
+            // rightColumn
+            // 
+            this.rightColumn.HeaderText = "Right";
+            this.rightColumn.Name = "rightColumn";
+            this.rightColumn.ReadOnly = true;
+            // 
+            // multiplierColumn
+            // 
+            this.multiplierColumn.HeaderText = "Multiplier";
+            this.multiplierColumn.Name = "multiplierColumn";
+            this.multiplierColumn.ReadOnly = true;
+            // 
+            // exchangeColumn
+            // 
+            this.exchangeColumn.HeaderText = "Exchange";
+            this.exchangeColumn.Name = "exchangeColumn";
+            this.exchangeColumn.ReadOnly = true;
+            // 
+            // primaryExchColumn
+            // 
+            this.primaryExchColumn.HeaderText = "Primary Exchange";
+            this.primaryExchColumn.Name = "primaryExchColumn";
+            this.primaryExchColumn.ReadOnly = true;
+            // 
+            // currencyColumn
+            // 
+            this.currencyColumn.HeaderText = "Currency";
+            this.currencyColumn.Name = "currencyColumn";
+            this.currencyColumn.ReadOnly = true;
+            // 
+            // localSymbolColumn
+            // 
+            this.localSymbolColumn.HeaderText = "Local Symbol";
+            this.localSymbolColumn.Name = "localSymbolColumn";
+            this.localSymbolColumn.ReadOnly = true;
+            // 
+            // tradingClassColumn
+            // 
+            this.tradingClassColumn.HeaderText = "Trading Class";
+            this.tradingClassColumn.Name = "tradingClassColumn";
+            this.tradingClassColumn.ReadOnly = true;
+            // 
+            // includeExpiredColumn
+            // 
+            this.includeExpiredColumn.HeaderText = "Include Expired";
+            this.includeExpiredColumn.Name = "includeExpiredColumn";
+            this.includeExpiredColumn.ReadOnly = true;
+            // 
+            // whatToShowColumn
+            // 
+            this.whatToShowColumn.HeaderText = "What To Show";
+            this.whatToShowColumn.Name = "whatToShowColumn";
+            this.whatToShowColumn.ReadOnly = true;
+            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6071,6 +6270,9 @@ namespace IBSampleApp
             this.smartComponentsTabPage.ResumeLayout(false);
             this.smartComponentsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSmartComponents)).EndInit();
+            this.headTimestampTabPage.ResumeLayout(false);
+            this.headTimestampTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.headTimestampDataGridView)).EndInit();
             this.dataResults_MDT.ResumeLayout(false);
             this.topMktData_MDT.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -6734,9 +6936,30 @@ namespace IBSampleApp
         private System.Windows.Forms.TabPage smartComponentsTabPage;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.DataGridView dataGridViewSmartComponents;
+        private System.Windows.Forms.Button headTimestamp_button;
+        private System.Windows.Forms.TabPage headTimestampTab;
+        private System.Windows.Forms.TabPage headTimestampTabPage;
+        private System.Windows.Forms.LinkLabel clearHeadTimestampGridViewlinkLabel;
+        private System.Windows.Forms.DataGridView headTimestampDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reqIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn headTimestampColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn secTypeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastTradeDateorContractMonthColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn strikeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rightColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn multiplierColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn exchangeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn primaryExchColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn currencyColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localSymbolColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tradingClassColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn includeExpiredColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn whatToShowColumn;
     }
 }
 

@@ -7,11 +7,10 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ContractDetailsEndMessage : IBMessage
+    public class ContractDetailsEndMessage
     {
         public ContractDetailsEndMessage()
         {
-            Type = MessageType.ContractDataEnd;
         }
     }
 }

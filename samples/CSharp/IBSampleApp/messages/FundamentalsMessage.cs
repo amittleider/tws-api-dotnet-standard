@@ -7,13 +7,12 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class FundamentalsMessage : IBMessage
+    public class FundamentalsMessage
     {
         private string data;
         
         public FundamentalsMessage(string data)
         {
-            Type = MessageType.FundamentalData;
             Data = data;
         }
 

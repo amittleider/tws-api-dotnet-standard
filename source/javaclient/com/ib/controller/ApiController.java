@@ -73,6 +73,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, IScannerHandler> m_scannerMap = new HashMap<Integer, IScannerHandler>();
 	private final HashMap<Integer, IRealTimeBarHandler> m_realTimeBarMap = new HashMap<Integer, IRealTimeBarHandler>();
 	private final HashMap<Integer, IHistoricalDataHandler> m_historicalDataMap = new HashMap<Integer, IHistoricalDataHandler>();
+	private final HashMap<Integer, IHeadTimestampHandler> m_headTimestampMap = new HashMap<Integer, IHeadTimestampHandler>();
 	private final HashMap<Integer, IFundamentalsHandler> m_fundMap = new HashMap<Integer, IFundamentalsHandler>();
 	private final HashMap<Integer, IOrderHandler> m_orderHandlers = new HashMap<Integer, IOrderHandler>();
 	private final HashMap<Integer,IAccountSummaryHandler> m_acctSummaryHandlers = new HashMap<Integer,IAccountSummaryHandler>();
@@ -1496,6 +1497,9 @@ public class ApiController implements EWrapper {
 	}
 	
 	public void reqSmartComponents(String bboExchange, ISmartComponentsHandler handler) {
+		if (!checkConnection())
+			return;
+		
 		int reqId = m_reqId++;
 		
 		m_smartComponentsHanlder.put(reqId, handler);
@@ -1510,6 +1514,8 @@ public class ApiController implements EWrapper {
 		if (handler != null) {
 			handler.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
 		}
+		
+		recEOM();
 	}
 
 	public interface INewsProvidersHandler {
@@ -1586,6 +1592,33 @@ public class ApiController implements EWrapper {
 		if (handler != null) {
 			handler.historicalNewsEnd( hasMore);
 		}
+		recEOM();
+	}
+
+	public interface IHeadTimestampHandler {
+
+		void headTimestamp(int reqId, long headTimestamp);
+		
+	}
+	
+	public void reqHeadTimestamp(Contract contract, WhatToShow whatToShow, boolean rthOnly, IHeadTimestampHandler handler) {
+		if (!checkConnection())
+			return;
+
+    	int reqId = m_reqId++;
+		
+    	m_headTimestampMap.put(reqId, handler);
+    	m_client.reqHeadTimestamp(reqId, contract, whatToShow.toString(), rthOnly ? 1 : 0, 2);
+	}
+
+	@Override
+	public void headTimestamp(int reqId, String headTimestamp) {
+		IHeadTimestampHandler handler = m_headTimestampMap.get(reqId);
+		
+		if (handler != null) {
+			handler.headTimestamp(reqId, Long.parseLong(headTimestamp));
+		}
+		
 		recEOM();
 	}
 }

@@ -560,4 +560,9 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Historical News End. RequestId: " + requestId + ", HasMore: " + hasMore + "\n");
 	}
 	//! [historicalNewsEnd]
+	
+	@Override
+	public void headTimestamp(int reqId, String headTimestamp) {
+		System.out.println("Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp);
+	}
 }

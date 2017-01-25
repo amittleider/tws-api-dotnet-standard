@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.ui
 {
-    class SmartComponentsMessage : IBMessage
+    class SmartComponentsMessage
     {
         public int BitNumber { get; private set; }
         public string Exchange { get; private set; }
@@ -13,7 +13,6 @@ namespace IBSampleApp.ui
 
         public SmartComponentsMessage(int bitNumber, string exchange, char exchangeChar)
         {
-            type = MessageType.SmartComponents;
             BitNumber = bitNumber;
             Exchange = exchange;
             ExchangeChar = exchangeChar;
