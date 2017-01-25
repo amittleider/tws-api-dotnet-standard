@@ -97,6 +97,8 @@ namespace IBApi
         public const int DELAYED_ASK_OPTION = 81;
         public const int DELAYED_LAST_OPTION = 82;
         public const int DELAYED_MODEL_OPTION = 83;
+        public const int LAST_EXCH = 84;
+        public const int LAST_REG_TIME = 85;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -184,6 +186,8 @@ namespace IBApi
                 case DELAYED_ASK_OPTION:          return "delayedAskOptComp";
                 case DELAYED_LAST_OPTION:         return "delayedLastOptComp";
                 case DELAYED_MODEL_OPTION:        return "delayedModelOptComp";
+                case LAST_EXCH:                   return "lastExchange";
+                case LAST_REG_TIME:               return "lastRegTime";
 
                 default:                          return "unknown";
             }
