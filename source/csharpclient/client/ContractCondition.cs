@@ -10,7 +10,7 @@ namespace IBApi
         public int ConId { get; set; }
         public string Exchange { get; set; }
 
-        public const string delimiter = " of ";
+        const string delimiter = " of ";
 
         public Func<int, string, string> ContractResolver { get; set; }
 
@@ -22,6 +22,23 @@ namespace IBApi
         public override string ToString()
         {
             return Type + delimiter + ContractResolver(ConId, Exchange) + base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as ContractCondition;
+
+            if (other == null)
+                return false;
+
+            return base.Equals(obj)
+                && this.ConId == other.ConId
+                && this.Exchange.Equals(other.Exchange);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + ConId.GetHashCode() + Exchange.GetHashCode();
         }
 
         protected override bool TryParse(string cond)

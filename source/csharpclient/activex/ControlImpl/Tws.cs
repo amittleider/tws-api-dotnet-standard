@@ -1935,10 +1935,39 @@ namespace TWSLib
 
         public ArrayList ParseConditions(string str)
         {
-            var strConditions = str.Split(new[] { " or", " and" }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var strConditions = new List<string>();
+
+            while (str.Length > 0)
+            {
+                var strCondition = str.Substring(0, IndexOfConditionEdge(str));
+
+                strConditions.Add(strCondition);
+                str = str.Replace(strCondition, "").Trim();
+            }
+
             var conditions = strConditions.Select(c => OrderCondition.Parse(c)).ToArray();
 
             return new ArrayList(conditions);
+        }
+
+        private static int IndexOfConditionEdge(string str)
+        {
+            var indexOfAnd = str.IndexOf(" and");
+            var indexOfOr = str.IndexOf(" or");
+
+            CheckEdge(str, ref indexOfAnd, " and");
+            CheckEdge(str, ref indexOfOr, " or");
+
+            return Math.Min(indexOfAnd, indexOfOr);
+        }
+
+        private static void CheckEdge(string str, ref int index, string tag)
+        {
+            while (index > 0 && index + tag.Length != str.Length && str[index + tag.Length] != ' ')
+                index = str.IndexOf(tag, index + 1);
+
+            if (index > 0) index += tag.Length;
+            else index = str.Length;
         }
 
         public string ConditionsToString(object oConditions)

@@ -13,15 +13,29 @@ namespace OrderConditionsParsingTestProject
         [TestMethod]
         public void ParseExecutionCondition()
         {
-            ParseCondition<ExecutionCondition>("trade occurs for ANY symbol on ANY exchange for * security type");         
+            ExecutionCondition cond = ParseCondition<ExecutionCondition>("trade occurs for ANY symbol on ANY exchange for * security type");
+            var examp = OrderCondition.Create(OrderConditionType.Execution) as ExecutionCondition;
+
+            examp.Exchange = "ANY";
+            examp.Symbol = "ANY";
+            examp.SecType = "*";
+
+            Assert.IsNotNull(cond);
+            Assert.AreEqual(cond.Exchange, "any", true);
+            Assert.IsFalse(cond.IsConjunctionConnection);
+            Assert.AreEqual(cond.SecType, "*");
+            Assert.AreEqual(cond.Symbol, "any", true);
+            Assert.AreEqual(cond, examp);
         }
 
-        void ParseCondition<T>(string strCond) where T : OrderCondition
+        T ParseCondition<T>(string strCond) where T : OrderCondition
         {
             var cond = OrderCondition.Parse(strCond) as T;
 
             Assert.IsNotNull(cond);
             Assert.AreEqual(strCond, cond.ToString());
+
+            return cond;
         }
 
         [TestMethod]
@@ -57,18 +71,18 @@ namespace OrderConditionsParsingTestProject
         [TestMethod]
         public void ParseConditionList()
         {
-            var conditions = (new Tws().ParseConditions("default Price of 8314(SMART) is <= 0 or the margin cushion percent is <= 5 or trade occurs for ANY symbol on ANY exchange for * security type or time is <= 20151030 21:56:26 GMT+03:00 or Volume of 265598(SMART) is <= 8 or PercentCange of 43645865(ISLAND) is <= 0") as ArrayList).OfType<OrderCondition>();
+            var conditions = (new Tws().ParseConditions("default Price of 8314(SMART) is <= 0 and the margin cushion percent is <= 5 or trade occurs for ANY symbol on ANY exchange for * security type and time is <= 20151030 21:56:26 GMT+03:00 or Volume of 265598(SMART) is <= 8 and PercentCange of 43645865(ISLAND) is <= 0") as ArrayList).OfType<OrderCondition>();
 
             var conds = new[] { 
-                OperatorCondition.Parse("default Price of 8314(SMART) is <= 0 or"), 
+                OperatorCondition.Parse("default Price of 8314(SMART) is <= 0 and"), 
                 OperatorCondition.Parse("the margin cushion percent is <= 5 or"),
-                OperatorCondition.Parse("trade occurs for ANY symbol on ANY exchange for * security type or"),
+                OperatorCondition.Parse("trade occurs for ANY symbol on ANY exchange for * security type and"),
                 OperatorCondition.Parse("time is <= 20151030 21:56:26 GMT+03:00 or"),
-                OperatorCondition.Parse("Volume of 265598(SMART) is <= 8 or"),
+                OperatorCondition.Parse("Volume of 265598(SMART) is <= 8 and"),
                 OperatorCondition.Parse("PercentCange of 43645865(ISLAND) is <= 0")
             };
 
-            Assert.IsTrue(conds.Select(c => c.ToString()).SequenceEqual(conditions.Select(c => c.ToString())));
+            Assert.IsTrue(conds.SequenceEqual(conditions));
         }
     }
 }
