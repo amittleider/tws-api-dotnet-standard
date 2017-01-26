@@ -5,7 +5,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """
 
 import unittest
-from IBApi.account_summary_tags import AccountSummaryTags
+from ibapi.account_summary_tags import AccountSummaryTags
 
 
 class AccountSummaryTagsTestCase(unittest.TestCase):

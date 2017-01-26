@@ -11,4 +11,4 @@ dist
 build
 .idea
 *.egg-info
-
+/.tox/

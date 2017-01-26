@@ -6,7 +6,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 
 import unittest
 import struct
-from IBApi import comm
+from ibapi import comm
 
 
 class CommTestCase(unittest.TestCase):
