@@ -5,8 +5,6 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
@@ -54,7 +52,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private OrderDlg        m_orderDlg = new OrderDlg( this);
     private ExtOrdDlg       m_extOrdDlg = new ExtOrdDlg( m_orderDlg);
     private AccountDlg      m_acctDlg = new AccountDlg(this);
-    private HashMap<Integer, MktDepthDlg> m_mapRequestToMktDepthDlg = new HashMap<>();
+    private Map<Integer, MktDepthDlg> m_mapRequestToMktDepthDlg = new HashMap<>();
     private NewsBulletinDlg m_newsBulletinDlg = new NewsBulletinDlg(this);
     private ScannerDlg      m_scannerDlg = new ScannerDlg(this);
 	private GroupsDlg       m_groupsDlg;
@@ -64,16 +62,16 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private ArrayList<TagValue> m_mktDataOptions = new ArrayList<>();
     private ArrayList<TagValue> m_chartOptions = new ArrayList<>();
-//    private Vector<TagValue> m_orderMiscOptions = new ArrayList<>();
+//    private ArrayList<TagValue> m_orderMiscOptions = new ArrayList<>();
     private ArrayList<TagValue> m_mktDepthOptions = new ArrayList<>();
-//    private Vector<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
+//    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
     private ArrayList<TagValue> m_realTimeBarsOptions = new ArrayList<>();
     
-    String faGroupXML ;
-    String faProfilesXML ;
-    String faAliasesXML ;
-    public String   m_FAAcctCodes;
-    public boolean  m_bIsFAAccount = false;
+    private String faGroupXML ;
+    private String faProfilesXML ;
+    private String faAliasesXML ;
+    String m_FAAcctCodes;
+    boolean m_bIsFAAccount = false;
 
     private boolean m_disconnectInProgress = false;
 
@@ -100,372 +98,158 @@ class SampleFrame extends JFrame implements EWrapper {
     	void onError(int errorCode, String errorMsg);
     }
     
-    HashMap<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<>();
+    private final Map<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<>();
     
-    public ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
+    ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
         final CompletableFuture<ArrayList<ContractDetails>> future = new CompletableFuture<>();
 
-    	m_callbackMap.put(m_orderDlg.m_id, new ContractDetailsCallback() {
+        synchronized (m_callbackMap) {
+            m_callbackMap.put(m_orderDlg.m_id, new ContractDetailsCallback() {
 
-    	    private final ArrayList<ContractDetails> list = new ArrayList<>();
-			
-			@Override
-			public void onError(int errorCode, String errorMsg) {
-			    future.complete(list);
-			}
-			
-			@Override
-			public void onContractDetailsEnd() {
-			    future.complete(list);
-			}
-			
-			@Override
-			public void onContractDetails(ContractDetails contractDetails) {
-				list.add(contractDetails);
-			}
-		});
+                private final ArrayList<ContractDetails> list = new ArrayList<>();
+
+                @Override
+                public void onError(int errorCode, String errorMsg) {
+                    future.complete(list);
+                }
+
+                @Override
+                public void onContractDetailsEnd() {
+                    future.complete(list);
+                }
+
+                @Override
+                public void onContractDetails(ContractDetails contractDetails) {
+                    list.add(contractDetails);
+                }
+            });
+        }
         m_client.reqContractDetails(m_orderDlg.m_id, contract);
     	try {
             return future.get();
         } catch (final ExecutionException e) {
     	    return null;
+        } finally {
+    	    synchronized (m_callbackMap) {
+    	        m_callbackMap.remove(m_orderDlg.m_id);
+            }
         }
     }
 
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel( new GridLayout( 0, 1) );
         JButton butConnect = new JButton( "Connect");
-        butConnect.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onConnect();
-            }
-        });
+        butConnect.addActionListener(e -> onConnect());
         JButton butDisconnect = new JButton( "Disconnect");
-        butDisconnect.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onDisconnect();
-            }
-        });
+        butDisconnect.addActionListener(e -> onDisconnect());
         JButton butMktData = new JButton( "Req Mkt Data");
-        butMktData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqMktData();
-            }
-        });
+        butMktData.addActionListener(e -> onReqMktData());
         JButton butCancelMktData = new JButton( "Cancel Mkt Data");
-        butCancelMktData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelMktData();
-            }
-        });
+        butCancelMktData.addActionListener(e -> onCancelMktData());
         JButton butMktDepth = new JButton( "Req Mkt Depth");
-        butMktDepth.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqMktDepth();
-            }
-        });
+        butMktDepth.addActionListener(e -> onReqMktDepth());
         JButton butCancelMktDepth = new JButton( "Cancel Mkt Depth");
-        butCancelMktDepth.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelMktDepth();
-            }
-        });
+        butCancelMktDepth.addActionListener(e -> onCancelMktDepth());
         JButton butHistoricalData = new JButton( "Historical Data");
-        butHistoricalData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onHistoricalData();
-            }
-        });
+        butHistoricalData.addActionListener(e -> onHistoricalData());
         JButton butCancelHistoricalData = new JButton( "Cancel Hist. Data");
-        butCancelHistoricalData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelHistoricalData();
-            }
-        });
+        butCancelHistoricalData.addActionListener(e -> onCancelHistoricalData());
         JButton butFundamentalData = new JButton( "Fundamental Data");
-        butFundamentalData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onFundamentalData();
-            }
-        });
+        butFundamentalData.addActionListener(e -> onFundamentalData());
         JButton butCancelFundamentalData = new JButton( "Cancel Fund. Data");
-        butCancelFundamentalData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelFundamentalData();
-            }
-        });
+        butCancelFundamentalData.addActionListener(e -> onCancelFundamentalData());
         JButton butRealTimeBars = new JButton( "Req Real Time Bars");
-        butRealTimeBars.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqRealTimeBars();
-            }
-        });
+        butRealTimeBars.addActionListener(e -> onReqRealTimeBars());
         JButton butCancelRealTimeBars = new JButton( "Cancel Real Time Bars");
-        butCancelRealTimeBars.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelRealTimeBars();
-            }
-        });
+        butCancelRealTimeBars.addActionListener(e -> onCancelRealTimeBars());
         JButton butCurrentTime = new JButton( "Req Current Time");
-        butCurrentTime.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqCurrentTime();
-            }
-        });
+        butCurrentTime.addActionListener(e -> onReqCurrentTime());
         JButton butScanner = new JButton( "Market Scanner");
-        butScanner.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onScanner();
-            }
-        });
+        butScanner.addActionListener(e -> onScanner());
         JButton butOpenOrders = new JButton( "Req Open Orders");
-        butOpenOrders.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqOpenOrders();
-            }
-        });
+        butOpenOrders.addActionListener(e -> onReqOpenOrders());
         JButton butCalculateImpliedVolatility = new JButton( "Calculate Implied Volatility");
-        butCalculateImpliedVolatility.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCalculateImpliedVolatility();
-            }
-        });
+        butCalculateImpliedVolatility.addActionListener(e -> onCalculateImpliedVolatility());
         JButton butCancelCalculateImpliedVolatility = new JButton( "Cancel Calc Impl Volatility");
-        butCancelCalculateImpliedVolatility.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelCalculateImpliedVolatility();
-            }
-        });
+        butCancelCalculateImpliedVolatility.addActionListener(e -> onCancelCalculateImpliedVolatility());
         JButton butCalculateOptionPrice = new JButton( "Calculate Option Price");
-        butCalculateOptionPrice.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCalculateOptionPrice();
-            }
-        });
+        butCalculateOptionPrice.addActionListener(e -> onCalculateOptionPrice());
         JButton butCancelCalculateOptionPrice = new JButton( "Cancel Calc Opt Price");
-        butCancelCalculateOptionPrice.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelCalculateOptionPrice();
-            }
-        });
+        butCancelCalculateOptionPrice.addActionListener(e -> onCancelCalculateOptionPrice());
         JButton butWhatIfOrder = new JButton( "What If");
-        butWhatIfOrder.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onWhatIfOrder();
-            }
-        });
+        butWhatIfOrder.addActionListener(e -> onWhatIfOrder());
         JButton butPlaceOrder = new JButton( "Place Order");
-        butPlaceOrder.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onPlaceOrder();
-            }
-        });
+        butPlaceOrder.addActionListener(e -> onPlaceOrder());
         JButton butCancelOrder = new JButton( "Cancel Order");
-        butCancelOrder.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelOrder();
-            }
-        });
+        butCancelOrder.addActionListener(e -> onCancelOrder());
         JButton butExerciseOptions = new JButton( "Exercise Options");
-        butExerciseOptions.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onExerciseOptions();
-            }
-        });
+        butExerciseOptions.addActionListener(e -> onExerciseOptions());
         JButton butExtendedOrder = new JButton( "Extended");
-        butExtendedOrder.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onExtendedOrder();
-            }
-        });
+        butExtendedOrder.addActionListener(e -> onExtendedOrder());
         JButton butAcctData = new JButton( "Req Acct Data");
-        butAcctData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqAcctData();
-            }
-        });
+        butAcctData.addActionListener(e -> onReqAcctData());
         JButton butContractData = new JButton( "Req Contract Data");
-        butContractData.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqContractData();
-            }
-        });
+        butContractData.addActionListener(e -> onReqContractData());
         JButton butExecutions = new JButton( "Req Executions");
-        butExecutions.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqExecutions();
-            }
-        });
+        butExecutions.addActionListener(e -> onReqExecutions());
         JButton butNewsBulletins = new JButton( "Req News Bulletins");
-        butNewsBulletins.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqNewsBulletins();
-            }
-        });
+        butNewsBulletins.addActionListener(e -> onReqNewsBulletins());
         JButton butServerLogging = new JButton( "Server Logging");
-        butServerLogging.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onServerLogging();
-            }
-        });
+        butServerLogging.addActionListener(e -> onServerLogging());
         JButton butAllOpenOrders = new JButton( "Req All Open Orders");
-        butAllOpenOrders.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqAllOpenOrders();
-            }
-        });
+        butAllOpenOrders.addActionListener(e -> onReqAllOpenOrders());
         JButton butAutoOpenOrders = new JButton( "Req Auto Open Orders");
-        butAutoOpenOrders.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqAutoOpenOrders();
-            }
-        });
+        butAutoOpenOrders.addActionListener(e -> onReqAutoOpenOrders());
         JButton butManagedAccts = new JButton( "Req Accounts");
-        butManagedAccts.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqManagedAccts();
-            }
-        });
+        butManagedAccts.addActionListener(e -> onReqManagedAccts());
         JButton butFinancialAdvisor = new JButton( "Financial Advisor");
-        butFinancialAdvisor.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onFinancialAdvisor();
-            }
-        });
+        butFinancialAdvisor.addActionListener(e -> onFinancialAdvisor());
         JButton butGlobalCancel = new JButton( "Global Cancel");
-        butGlobalCancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onGlobalCancel();
-            }
-        });
+        butGlobalCancel.addActionListener(e -> onGlobalCancel());
         JButton butReqMarketDataType = new JButton( "Req Market Data Type");
-        butReqMarketDataType.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqMarketDataType();
-            }
-        });
+        butReqMarketDataType.addActionListener(e -> onReqMarketDataType());
 
         JButton butRequestPositions = new JButton( "Request Positions");
-        butRequestPositions.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestPositions();
-            }
-        });
+        butRequestPositions.addActionListener(e -> onRequestPositions());
         JButton butCancelPositions = new JButton( "Cancel Positions");
-        butCancelPositions.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelPositions();
-            }
-        });
+        butCancelPositions.addActionListener(e -> onCancelPositions());
         JButton butRequestAccountSummary = new JButton( "Request Account Summary");
-        butRequestAccountSummary.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestAccountSummary();
-            }
-        });
+        butRequestAccountSummary.addActionListener(e -> onRequestAccountSummary());
         JButton butCancelAccountSummary = new JButton( "Cancel Account Summary");
-        butCancelAccountSummary.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelAccountSummary();
-            }
-        });
+        butCancelAccountSummary.addActionListener(e -> onCancelAccountSummary());
         JButton butRequestPositionsMulti = new JButton( "Request Positions Multi");
-        butRequestPositionsMulti.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestPositionsMulti();
-            }
-        });
+        butRequestPositionsMulti.addActionListener(e -> onRequestPositionsMulti());
         JButton butCancelPositionsMulti = new JButton( "Cancel Positions Multi");
-        butCancelPositionsMulti.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelPositionsMulti();
-            }
-        });
+        butCancelPositionsMulti.addActionListener(e -> onCancelPositionsMulti());
         JButton butRequestAccountUpdatesMulti = new JButton( "Request Account Updates Multi");
-        butRequestAccountUpdatesMulti.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestAccountUpdatesMulti();
-            }
-        });
+        butRequestAccountUpdatesMulti.addActionListener(e -> onRequestAccountUpdatesMulti());
         JButton butCancelAccountUpdatesMulti = new JButton( "Cancel Account Updates Multi");
-        butCancelAccountUpdatesMulti.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelAccountUpdatesMulti();
-            }
-        });
+        butCancelAccountUpdatesMulti.addActionListener(e -> onCancelAccountUpdatesMulti());
         JButton butRequestSecurityDefinitionOptionParameters = new JButton( "Request Security Definition Option Parameters");
-        butRequestSecurityDefinitionOptionParameters.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestSecurityDefinitionOptionParameters();
-            }
-        });
+        butRequestSecurityDefinitionOptionParameters.addActionListener(e -> onRequestSecurityDefinitionOptionParameters());
         JButton butGroups = new JButton( "Groups");
-        butGroups.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onGroups();
-            }
-        });
+        butGroups.addActionListener(e -> onGroups());
         JButton butRequestFamilyCodes = new JButton( "Request Family Codes");
-        butRequestFamilyCodes.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestFamilyCodes();
-            }
-        });
-        JButton butRequestMatchingSymbols = new JButton( "Request Mathing Symbols");
-        butRequestMatchingSymbols.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestMatchingSymbols();
-            }
-        });
+        butRequestFamilyCodes.addActionListener(e -> onRequestFamilyCodes());
+        JButton butRequestMatchingSymbols = new JButton( "Request Matching Symbols");
+        butRequestMatchingSymbols.addActionListener(e -> onRequestMatchingSymbols());
         JButton butReqMktDepthExchanges = new JButton( "Req Mkt Depth Exchanges");
-        butReqMktDepthExchanges.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqMktDepthExchanges();
-            }
-        });
+        butReqMktDepthExchanges.addActionListener(e -> onReqMktDepthExchanges());
         JButton butReqSmartComponents = new JButton( "Req Smart Components");
-        butReqSmartComponents.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqSmartComponents();
-            }
-        });
+        butReqSmartComponents.addActionListener(e -> onReqSmartComponents());
         JButton butRequestNewsProviders = new JButton( "Request News Providers");
-        butRequestNewsProviders.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestNewsProviders();
-            }
-        });
+        butRequestNewsProviders.addActionListener(e -> onRequestNewsProviders());
         JButton butReqNewsArticle = new JButton( "Req News Article");
-        butReqNewsArticle.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqNewsArticle();
-            }
-        });
+        butReqNewsArticle.addActionListener(e -> onReqNewsArticle());
         JButton butReqHistoricalNews = new JButton( "Req Historical News");
-        butReqHistoricalNews.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReqHistoricalNews();
-            }
-        });
+        butReqHistoricalNews.addActionListener(e -> onReqHistoricalNews());
         JButton butHeadTimestamp = new JButton( "Req Head Time Stamp");
-        butHeadTimestamp.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-            	onHeadTimestamp();
-            }
-        });
+        butHeadTimestamp.addActionListener(e -> onHeadTimestamp());
 
         JButton butClear = new JButton( "Clear");
-        butClear.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onClear();
-            }
-        });
+        butClear.addActionListener(e -> onClear());
         JButton butClose = new JButton( "Close");
-        butClose.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onClose();
-            }
-        });
+        butClose.addActionListener(e -> onClose());
 
 
         buttonPanel.add( new JPanel() );
@@ -536,7 +320,7 @@ class SampleFrame extends JFrame implements EWrapper {
         return buttonPanel;
     }
 
-	protected void onReqSmartComponents() {
+	private void onReqSmartComponents() {
 		m_smartComponentsParamsReq.setModal(true);
 		m_smartComponentsParamsReq.setVisible(true);
 		
@@ -548,11 +332,11 @@ class SampleFrame extends JFrame implements EWrapper {
 		}
 	}
 
-	protected void onReqMktDepthExchanges() {
+	private void onReqMktDepthExchanges() {
 		m_client.reqMktDepthExchanges();
 	}
 
-	protected void onRequestSecurityDefinitionOptionParameters() {
+	private void onRequestSecurityDefinitionOptionParameters() {
 		m_secDefOptParamsReq.setModal(true);
 		m_secDefOptParamsReq.setVisible(true);
 		
@@ -567,7 +351,7 @@ class SampleFrame extends JFrame implements EWrapper {
 		}
 	}
 
-	void onConnect() {
+	private void onConnect() {
 		if(m_client.isConnected())
 			return;
         m_bIsFAAccount = false;
@@ -593,14 +377,12 @@ class SampleFrame extends JFrame implements EWrapper {
         
         m_reader.start();
        
-        new Thread() {
-        	public void run() {
-        		processMessages();
-        		
-        		int i = 0;
-        		System.out.println(i);
-        	}
-        }.start();
+        new Thread(() -> {
+            processMessages();
+
+            int i = 0;
+            System.out.println(i);
+        }).start();
     }
 	
 	private void processMessages() {
@@ -615,13 +397,13 @@ class SampleFrame extends JFrame implements EWrapper {
 		}
 	}
 
-    void onDisconnect() {
+    private void onDisconnect() {
         // disconnect from TWS
         m_disconnectInProgress = true;
         m_client.eDisconnect();
     }
 
-    void onReqMktData() {
+    private void onReqMktData() {
 
     	// run m_orderDlg
         m_orderDlg.init("Mkt Data Options", true, "Market Data Options", m_mktDataOptions);
@@ -639,7 +421,7 @@ class SampleFrame extends JFrame implements EWrapper {
         		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData, m_orderDlg.m_reqSnapshotMktData, m_mktDataOptions);
     }
 
-    void onReqRealTimeBars() {
+    private void onReqRealTimeBars() {
         // run m_orderDlg
         m_orderDlg.init("RTB Options", true, "Real Time Bars Options", m_realTimeBarsOptions);
 
@@ -655,7 +437,7 @@ class SampleFrame extends JFrame implements EWrapper {
         		m_orderDlg.m_whatToShow, m_orderDlg.m_useRTH > 0, m_realTimeBarsOptions);
     }
 
-    void onCancelRealTimeBars() {
+    private void onCancelRealTimeBars() {
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -665,7 +447,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelRealTimeBars( m_orderDlg.m_id );
     }
 
-    void onScanner() {
+    private void onScanner() {
         m_scannerDlg.show();
         
         if (m_scannerDlg.m_userSelection == ScannerDlg.CANCEL_SELECTION) {
@@ -680,12 +462,12 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onReqCurrentTime() {
+    private void onReqCurrentTime() {
     	m_client.reqCurrentTime();
 	}
-    
-    void onHeadTimestamp() {
-    	
+
+    private void onHeadTimestamp() {
+
         // run m_orderDlg
         m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
 
@@ -695,13 +477,13 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         m_chartOptions = m_orderDlg.getOptions();
-        
+
         // req head timestamp
         m_client.reqHeadTimestamp(m_orderDlg.m_id, m_orderDlg.m_contract, m_orderDlg.m_whatToShow,
                                     m_orderDlg.m_useRTH, m_orderDlg.m_formatDate);
     }
 
-    void onHistoricalData() {
+    private void onHistoricalData() {
     	
         // run m_orderDlg
         m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
@@ -720,7 +502,7 @@ class SampleFrame extends JFrame implements EWrapper {
                                     m_orderDlg.m_useRTH, m_orderDlg.m_formatDate, m_chartOptions );
     }
 
-    void onCancelHistoricalData() {
+    private void onCancelHistoricalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -732,7 +514,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelHistoricalData( m_orderDlg.m_id );
     }
 
-    void onFundamentalData() {
+    private void onFundamentalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -742,8 +524,8 @@ class SampleFrame extends JFrame implements EWrapper {
        	m_client.reqFundamentalData(m_orderDlg.m_id, m_orderDlg.m_contract,
         			/* reportType */ m_orderDlg.m_whatToShow);
     }
-    
-    void onCancelFundamentalData() {
+
+    private void onCancelFundamentalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -753,8 +535,8 @@ class SampleFrame extends JFrame implements EWrapper {
 
         m_client.cancelFundamentalData(m_orderDlg.m_id);
     }
-    
-    void onReqContractData() {
+
+    private void onReqContractData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -766,7 +548,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqContractDetails( m_orderDlg.m_id, m_orderDlg.m_contract );
     }
 
-    void onReqMktDepth() {
+    private void onReqMktDepth() {
         // run m_orderDlg
         m_orderDlg.init("Mkt Depth Options", true, "Market Depth Options", m_mktDepthOptions);
 
@@ -797,7 +579,7 @@ class SampleFrame extends JFrame implements EWrapper {
         depthDialog.setVisible(true);
     }
 
-    void onCancelMktData() {
+    private void onCancelMktData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -809,7 +591,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelMktData( m_orderDlg.m_id );
     }
 
-    void onCancelMktDepth() {
+    private void onCancelMktDepth() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -821,19 +603,19 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelMktDepth( m_orderDlg.m_id );
     }
 
-    void onReqOpenOrders() {
+    private void onReqOpenOrders() {
         m_client.reqOpenOrders();
     }
 
-    void onWhatIfOrder() {
+    private void onWhatIfOrder() {
     	placeOrder(true);
     }
 
-    void onPlaceOrder() {
+    private void onPlaceOrder() {
     	placeOrder(false);
     }
 
-    void placeOrder(boolean whatIf) {
+    private void placeOrder(boolean whatIf) {
         // run m_orderDlg
         m_orderDlg.init("Order Misc Options", true, "Order Misc Options",  m_orderDlg.m_order.orderMiscOptions());
 
@@ -856,7 +638,7 @@ class SampleFrame extends JFrame implements EWrapper {
         order.whatIf(savedWhatIf);
     }
 
-    void onExerciseOptions() {
+    private void onExerciseOptions() {
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
         if( !m_orderDlg.m_rc ) {
@@ -869,7 +651,7 @@ class SampleFrame extends JFrame implements EWrapper {
                                   m_orderDlg.m_order.account(), m_orderDlg.m_override);
     }
 
-    void onCancelOrder() {
+    private void onCancelOrder() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -881,7 +663,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelOrder( m_orderDlg.m_id );
     }
 
-    void onExtendedOrder() {
+    private void onExtendedOrder() {
         //Show the extended order attributes dialog
         m_extOrdDlg.setVisible(true);
         if( !m_extOrdDlg.m_rc ) {
@@ -892,7 +674,7 @@ class SampleFrame extends JFrame implements EWrapper {
         copyExtendedOrderDetails( m_orderDlg.m_order, m_extOrdDlg.m_order);
     }
 
-    void  onReqAcctData() {
+    private void onReqAcctData() {
         AcctUpdatesDlg dlg = new AcctUpdatesDlg(this);
 
         dlg.setVisible(true);
@@ -909,7 +691,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onFinancialAdvisor() {
+    private void onFinancialAdvisor() {
       faGroupXML = faProfilesXML = faAliasesXML = null ;
       faError = false ;
       m_client.requestFA(EClientSocket.GROUPS) ;
@@ -917,7 +699,7 @@ class SampleFrame extends JFrame implements EWrapper {
       m_client.requestFA(EClientSocket.ALIASES) ;
     }
 
-    void  onServerLogging() {
+    private void onServerLogging() {
         // get server logging level
         LogConfigDlg dlg = new LogConfigDlg( this);
         dlg.setVisible(true);
@@ -929,34 +711,34 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.setServerLogLevel( dlg.m_serverLogLevel);
     }
 
-    void  onReqAllOpenOrders() {
+    private void onReqAllOpenOrders() {
         // request list of all open orders
         m_client.reqAllOpenOrders();
     }
 
-    void  onReqAutoOpenOrders() {
+    private void onReqAutoOpenOrders() {
         // request to automatically bind any newly entered TWS orders
         // to this API client. NOTE: TWS orders can only be bound to
         // client's with clientId=0.
         m_client.reqAutoOpenOrders( true);
     }
 
-    void  onReqManagedAccts() {
+    private void onReqManagedAccts() {
         // request the list of managed accounts
         m_client.reqManagedAccts();
     }
 
-    void onClear() {
+    private void onClear() {
         m_tickers.clear();
         m_TWS.clear();
         m_errors.clear();
     }
 
-    void onClose() {
+    private void onClose() {
         System.exit(1);
     }
 
-    void onReqExecutions() {
+    private void onReqExecutions() {
         ExecFilterDlg dlg = new ExecFilterDlg(this);
 
         dlg.setVisible(true);
@@ -966,7 +748,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onReqNewsBulletins() {
+    private void onReqNewsBulletins() {
         // run m_newsBulletinDlg
         m_newsBulletinDlg.setVisible(true);
         if( !m_newsBulletinDlg.m_rc ) {
@@ -981,7 +763,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onCalculateImpliedVolatility() {
+    private void onCalculateImpliedVolatility() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -992,7 +774,7 @@ class SampleFrame extends JFrame implements EWrapper {
                 m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
-    void onCancelCalculateImpliedVolatility() {
+    private void onCancelCalculateImpliedVolatility() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -1003,7 +785,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelCalculateImpliedVolatility( m_orderDlg.m_id);
     }
 
-    void onCalculateOptionPrice() {
+    private void onCalculateOptionPrice() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -1014,7 +796,7 @@ class SampleFrame extends JFrame implements EWrapper {
                 m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
-    void onCancelCalculateOptionPrice() {
+    private void onCancelCalculateOptionPrice() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -1025,11 +807,11 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.cancelCalculateOptionPrice( m_orderDlg.m_id);
     }
 
-    void onGlobalCancel() {
+    private void onGlobalCancel() {
         m_client.reqGlobalCancel();
     }
 
-    void onReqMarketDataType() {
+    private void onReqMarketDataType() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -1061,15 +843,15 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onRequestPositions() {
+    private void onRequestPositions() {
         m_client.reqPositions();
     }
 
-    void onCancelPositions() {
+    private void onCancelPositions() {
         m_client.cancelPositions();
     }
 
-    void onRequestAccountSummary() {
+    private void onRequestAccountSummary() {
         AccountSummary dlg = new AccountSummary(this);
 
         dlg.setVisible(true);
@@ -1079,7 +861,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onCancelAccountSummary() {
+    private void onCancelAccountSummary() {
         AccountSummary dlg = new AccountSummary(this);
 
         dlg.setVisible(true);
@@ -1089,7 +871,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onRequestPositionsMulti() {
+    private void onRequestPositionsMulti() {
         PositionsDlg dlg = new PositionsDlg(this);
 
         dlg.setVisible(true);
@@ -1099,7 +881,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onCancelPositionsMulti() {
+    private void onCancelPositionsMulti() {
         PositionsDlg dlg = new PositionsDlg(this);
 
         dlg.setVisible(true);
@@ -1109,7 +891,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onRequestAccountUpdatesMulti() {
+    private void onRequestAccountUpdatesMulti() {
         PositionsDlg dlg = new PositionsDlg(this);
 
         dlg.setVisible(true);
@@ -1119,7 +901,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
     }
 
-    void onCancelAccountUpdatesMulti() {
+    private void onCancelAccountUpdatesMulti() {
         PositionsDlg dlg = new PositionsDlg(this);
 
         dlg.setVisible(true);
@@ -1128,21 +910,21 @@ class SampleFrame extends JFrame implements EWrapper {
             m_client.cancelAccountUpdatesMulti( dlg.m_retId);
         }
     }
-    
-    void onGroups() {
+
+    private void onGroups() {
 
         m_groupsDlg.setVisible(true);
 //        if ( dlg.m_rc ) {
 
 //        }
     }
-    
-    void onRequestFamilyCodes() {
+
+    private void onRequestFamilyCodes() {
         // request family codes
         m_client.reqFamilyCodes();
     }
 
-    void onRequestMatchingSymbols() {
+    private void onRequestMatchingSymbols() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
         m_orderDlg.show();
@@ -1154,12 +936,12 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
     }
 
-    void onRequestNewsProviders() {
+    private void onRequestNewsProviders() {
         // request news providers
         m_client.reqNewsProviders();
     }
 
-    void onReqNewsArticle() {
+    private void onReqNewsArticle() {
         NewsArticleDlg dlg = new NewsArticleDlg(this);
 
         dlg.setVisible(true);
@@ -1170,9 +952,9 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
 
-    void onReqHistoricalNews() {
+    private void onReqHistoricalNews() {
         // run m_historicalNewsDlg
-        m_historicalNewsDlg.show();
+        m_historicalNewsDlg.setVisible(true);
         
         if( !m_historicalNewsDlg.m_rc ) {
             return;
@@ -1255,8 +1037,12 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     public void contractDetails(int reqId, ContractDetails contractDetails) {
-    	if (m_callbackMap.containsKey(reqId)) {
-    		m_callbackMap.get(reqId).onContractDetails(contractDetails);
+        ContractDetailsCallback callback;
+        synchronized (m_callbackMap) {
+            callback = m_callbackMap.get(reqId);
+        }
+    	if (callback != null) {
+    		callback.onContractDetails(contractDetails);
     	}
     	
     	String msg = EWrapperMsgGenerator.contractDetails( reqId, contractDetails);
@@ -1264,8 +1050,12 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
 	public void contractDetailsEnd(int reqId) {
-    	if (m_callbackMap.containsKey(reqId)) {
-    		m_callbackMap.get(reqId).onContractDetailsEnd();
+        ContractDetailsCallback callback;
+        synchronized (m_callbackMap) {
+            callback = m_callbackMap.get(reqId);
+        }
+    	if (callback != null) {
+    		callback.onContractDetailsEnd();
     	}
     	
     	String msg = EWrapperMsgGenerator.contractDetailsEnd(reqId);
@@ -1347,13 +1137,21 @@ class SampleFrame extends JFrame implements EWrapper {
 
     public void error( int id, int errorCode, String errorMsg) {
         // received error
-    	if (m_callbackMap.containsKey(id)) {
-    		m_callbackMap.get(id).onError(errorCode, errorMsg);    		
-    	}
-    	else if (id == -1) {
-    		for (ContractDetailsCallback callback : m_callbackMap.values()) {
-    			callback.onError(errorCode, errorMsg);
-    		}
+        final ContractDetailsCallback callback;
+        synchronized (m_callbackMap) {
+            callback = m_callbackMap.get(id);
+        }
+    	if (callback != null) {
+    		callback.onError(errorCode, errorMsg);
+    	} else if (id == -1) {
+            final Collection<ContractDetailsCallback> callbacks;
+            synchronized (m_callbackMap) {
+                callbacks = new ArrayList<>(m_callbackMap.size());
+                callbacks.addAll(m_callbackMap.values());
+            }
+            for (final ContractDetailsCallback cb : callbacks) {
+                cb.onError(errorCode, errorMsg);
+            }
     	}
     	
     	String msg = EWrapperMsgGenerator.error(id, errorCode, errorMsg);
@@ -1444,7 +1242,7 @@ class SampleFrame extends JFrame implements EWrapper {
 		m_TWS.add(msg);
 	}
 
-    void displayXML(String title, String xml) {
+    private void displayXML(String title, String xml) {
         m_TWS.add(title);
         m_TWS.addText(xml);
     }
@@ -1704,11 +1502,11 @@ class SampleFrame extends JFrame implements EWrapper {
 		String msg = EWrapperMsgGenerator.historicalNewsEnd(requestId, hasMore);
 		m_TWS.add(msg);
 	}
-	
+
 	@Override
 	public void headTimestamp(int reqId, String headTimestamp) {
 		String msg = EWrapperMsgGenerator.headTimestamp(reqId, headTimestamp);
-		
+
 		m_TWS.add(msg);
 	}
 }
