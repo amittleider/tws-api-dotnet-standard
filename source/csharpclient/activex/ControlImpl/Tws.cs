@@ -998,6 +998,16 @@ namespace TWSLib
         {
             this.socket.reqHeadTimestamp(tickerId, (Contract)(contract as ComContract), whatToShow, useRTH, formatDate);
         }
+
+        void ITws.reqHistogramData(int tickerId, IContract contract, bool useRTH, string period)
+        {
+            this.socket.reqHistogramData(tickerId, (Contract)(contract as ComContract), useRTH, period);
+        }
+
+        void ITws.cancelHistogramData(int tickerId)
+        {
+            this.socket.cancelHistogramData(tickerId);
+        }
         #endregion
 
         #region events
@@ -1929,6 +1939,16 @@ namespace TWSLib
 
             if (tmp != null)
                 InvokeIfRequired(tmp, reqId, headTimestamp);
+        }
+
+        public delegate void histogramDataDelegate(int reqId, ArrayList[] data);
+        public event histogramDataDelegate histogramData;
+        void EWrapper.histogramData(int reqId, Tuple<double, long>[] data)
+        {
+            var tmp = this.histogramData;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, data.Select(x => new ArrayList(new object[] { x.Item1, x.Item2 })).ToArray());
         }
 
         #endregion

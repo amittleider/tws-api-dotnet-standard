@@ -2555,6 +2555,56 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP);
         }
 
+        public void reqHistogramData(int tickerId, Contract contract, bool useRTH, string period)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HISTOGRAM_DATA,
+                " It does not support histogram data requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestHistogramData);
+            paramsList.AddParameter(tickerId);
+            paramsList.AddParameter(contract.ConId);
+            paramsList.AddParameter(contract.Symbol);
+            paramsList.AddParameter(contract.SecType);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
+            paramsList.AddParameter(contract.Strike);
+            paramsList.AddParameter(contract.Right);
+            paramsList.AddParameter(contract.Multiplier);
+            paramsList.AddParameter(contract.Exchange);
+            paramsList.AddParameter(contract.PrimaryExch);
+            paramsList.AddParameter(contract.Currency);
+            paramsList.AddParameter(contract.LocalSymbol);
+            paramsList.AddParameter(contract.TradingClass);
+            paramsList.AddParameter(contract.IncludeExpired);
+            paramsList.AddParameter(useRTH);
+            paramsList.AddParameter(period);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTOGRAMDATA);
+        }
+
+        public void cancelHistogramData(int tickerId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HISTOGRAM_DATA,
+                " It does not support histogram data requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelHistogramData);
+            paramsList.AddParameter(tickerId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELHISTOGRAMDATA);
+        }
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");

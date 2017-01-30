@@ -260,6 +260,9 @@ void TestCppClient::processMessages() {
 		case ST_REQHEADTIMESTAMP:
 			reqHeadTimestamp();
 			break;
+		case ST_REQHISTOGRAMDATA:
+			reqHistogramData();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1054,6 +1057,14 @@ void TestCppClient::reqHeadTimestamp() {
 	m_state = ST_REQHEADTIMESTAMP_ACK;
 }
 
+void TestCppClient::reqHistogramData() {
+	m_pClient->reqHistogramData(15001, ContractSamples::IBMUSStockAtSmart(), false, "1 weeks");
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	m_state = ST_REQHISTOGRAMDATA_ACK;
+}
+
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1090,7 +1101,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
-	m_state = ST_REQHEADTIMESTAMP;
+	//m_state = ST_REQHEADTIMESTAMP;
+	m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_PING;
 }
 
@@ -1529,7 +1541,17 @@ void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {
 
 //! [headTimestamp]
 void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {
-	printf( "HistoricalData. ReqId: %d - Head time stamp: %s,\n", reqId, headTimestamp.c_str());
+	printf( "Head time stamp. ReqId: %d - Head time stamp: %s,\n", reqId, headTimestamp.c_str());
 
 }
 //! [headTimestamp]
+
+//! [histogramData]
+void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
+	printf("Histogram. ReqId: %d, data length: %d\n", reqId, data.size());
+
+	for (auto item : data) {
+		printf("\t price: %f, size: %ld\n", std::get<0>(item), std::get<1>(item));
+	}
+}
+//! [histogramData]

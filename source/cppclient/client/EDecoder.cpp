@@ -1974,6 +1974,26 @@ const char* EDecoder::processHeadTimestampMsg(const char* ptr, const char* endPt
 	m_pEWrapper->headTimestamp(reqId, headTimestamp);
 }
 
+const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	int n;
+	HistogramDataVector data;
+	double price;
+	long long size;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(n);
+
+	for (int i = 0; i < n; i++) {
+		DECODE_FIELD(price);
+		DECODE_FIELD(size);
+
+		data.push_back(std::make_tuple(price, size));
+	}
+
+	m_pEWrapper->histogramData(reqId, data);
+}
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -2243,6 +2263,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processHeadTimestampMsg(ptr, endPtr);
 			break;
 
+		case HISTOGRAM_DATA:
+			ptr = processHistogramDataMsg(ptr, endPtr);
+			break;
+
 		default:
 			{
 				m_pEWrapper->error( msgId, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
@@ -2307,6 +2331,19 @@ bool EDecoder::DecodeFieldTime(time_t& time_tValue, const char*& ptr, const char
 	if( !fieldEnd)
 		return false;
 	time_tValue = atoll(fieldBeg);
+	ptr = ++fieldEnd;
+	return true;
+}
+
+bool EDecoder::DecodeField(long long& longLongValue, const char*& ptr, const char* endPtr)
+{
+	if( !CheckOffset(ptr, endPtr))
+		return false;
+	const char* fieldBeg = ptr;
+	const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
+	if( !fieldEnd)
+		return false;
+	longLongValue = atoll(fieldBeg);
 	ptr = ++fieldEnd;
 	return true;
 }

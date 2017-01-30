@@ -144,7 +144,11 @@ Module MainModule
         '***********************
         '*** Head time stamp ***
         '***********************
-        headTimestamp(client)
+        'headTimestamp(client)
+        '***********************
+        '*** Histogram data  ***
+        '***********************
+        histogramData(client)
 
 
         Thread.Sleep(15000)
@@ -836,6 +840,12 @@ Module MainModule
 	'! [reqHeadTimeStamp]
         client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
 	'! [reqHeadTimeStamp]
+    End Sub
+
+    Private Sub histogramData(client As EClientSocket)
+        client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch, False, "1 week")
+        Thread.Sleep(2000)
+        client.cancelHistogramData(15001)
     End Sub
 
 End Module

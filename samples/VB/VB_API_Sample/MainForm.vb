@@ -6,6 +6,8 @@ Option Explicit On
 Imports System.Xml
 Imports System.Collections.Generic
 Imports IBApi
+Imports System.Linq
+Imports System.Text
 
 Friend Class MainForm
     Inherits System.Windows.Forms.Form
@@ -104,6 +106,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqNewsArticle As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistoricalNews As System.Windows.Forms.Button
     Public WithEvents cmdReqHeadTimestamp As System.Windows.Forms.Button
+    Friend WithEvents cmdReqHistogramData As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -168,6 +171,7 @@ Friend Class MainForm
         Me.cmdReqNewsArticle = New System.Windows.Forms.Button()
         Me.cmdReqHistoricalNews = New System.Windows.Forms.Button()
         Me.cmdReqHeadTimestamp = New System.Windows.Forms.Button()
+        Me.cmdReqHistogramData = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -312,11 +316,12 @@ Friend Class MainForm
         '
         'cmdClearForm
         '
+        Me.cmdClearForm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdClearForm.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(224, 697)
+        Me.cmdClearForm.Location = New System.Drawing.Point(224, 743)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
@@ -326,11 +331,12 @@ Friend Class MainForm
         '
         'cmdClose
         '
+        Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(320, 697)
+        Me.cmdClose.Location = New System.Drawing.Point(320, 743)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
@@ -913,11 +919,21 @@ Friend Class MainForm
         Me.cmdReqHeadTimestamp.Text = "Req Head Time Stamp..."
         Me.cmdReqHeadTimestamp.UseVisualStyleBackColor = True
         '
+        'cmdReqHistogramData
+        '
+        Me.cmdReqHistogramData.Location = New System.Drawing.Point(543, 722)
+        Me.cmdReqHistogramData.Name = "cmdReqHistogramData"
+        Me.cmdReqHistogramData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHistogramData.TabIndex = 62
+        Me.cmdReqHistogramData.Text = "Req Histogram Data"
+        Me.cmdReqHistogramData.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(823, 733)
+        Me.ClientSize = New System.Drawing.Size(823, 779)
+        Me.Controls.Add(Me.cmdReqHistogramData)
         Me.Controls.Add(Me.cmdReqHeadTimestamp)
         Me.Controls.Add(Me.cmdReqHistoricalNews)
         Me.Controls.Add(Me.cmdReqNewsArticle)
@@ -3064,6 +3080,18 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, displayString)
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Histogram data
+    '--------------------------------------------------------------------------------
+    Private Sub m_apiEvents_HistogramData(sender As ApiEventSource, e As HistogramDataEventArgs) Handles m_apiEvents.HistogramData
+        Dim displayString = New StringBuilder
+
+        displayString.AppendFormat("Histogram data. Request Id: {0}, data size: {1}" & vbNewLine, e.requestId, e.data.Length)
+        e.data.ToList().ForEach(Sub(i) displayString.AppendFormat(vbTab & "Price: {0}, Size: {1}", i.Item1, i.Item2))
+        m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
+    End Sub
+
+
 #End Region
 
 #Region "Helper methods"
@@ -3195,6 +3223,22 @@ Friend Class MainForm
 
             m_api.reqHeadTimestamp(m_dlgOrder.orderId, m_contractInfo,
                 m_dlgOrder.whatToShow, m_dlgOrder.useRTH, m_dlgOrder.formatDate)
+        End If
+    End Sub
+
+    Private Sub cmdReqHistogramData_Click(sender As Object, e As EventArgs) Handles cmdReqHistogramData.Click
+        ' Set the dialog state
+        m_dlgOrder.init(dlgOrder.DialogType.RequestHistoricalData,
+            m_contractInfo, m_orderInfo, m_underComp, m_chartOptions, Me)
+
+        m_dlgOrder.ShowDialog()
+
+        m_chartOptions = m_dlgOrder.options
+
+        If m_dlgOrder.ok Then
+
+            m_api.reqHistogramData(m_dlgOrder.orderId, m_contractInfo,
+                m_dlgOrder.useRTH, m_dlgOrder.histDuration)
         End If
     End Sub
 End Class

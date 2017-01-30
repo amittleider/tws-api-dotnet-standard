@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.util.AbstractMap.SimpleEntry;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,6 +84,7 @@ class EDecoder implements ObjectInput {
     private static final int HISTORICAL_NEWS = 86;
     private static final int HISTORICAL_NEWS_END = 87;
     private static final int HEAD_TIMESTAMP = 88;
+    private static final int HISTOGRAM_DATA = 89;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -407,6 +409,10 @@ class EDecoder implements ObjectInput {
             case HISTORICAL_NEWS_END:
                 processHistoricalNewsEndMsg();
                 break;
+                
+            case HISTOGRAM_DATA:
+            	processHistogramDataMsg();
+            	break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -418,7 +424,19 @@ class EDecoder implements ObjectInput {
         return m_messageReader.msgLength();
     }
 
-    private void processHistoricalNewsEndMsg() throws IOException {
+    private void processHistogramDataMsg() throws IOException {
+    	int reqId = readInt();
+    	int n = readInt();
+    	ArrayList<SimpleEntry<Double, Long>> items = new ArrayList<SimpleEntry<Double, Long>>(n);
+    	
+    	for (int i = 0; i < n; i++) {
+    		items.add(new SimpleEntry<Double, Long>(readDouble(), readLong()));
+    	}
+    	
+    	m_EWrapper.histogramData(reqId, items);
+	}
+
+	private void processHistoricalNewsEndMsg() throws IOException {
         int requestId = readInt();
         boolean hasMore = readBoolFromInt();
 

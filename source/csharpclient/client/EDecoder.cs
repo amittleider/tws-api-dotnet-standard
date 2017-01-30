@@ -398,6 +398,11 @@ namespace IBApi
                         HeadTimestampEvent();
                         break;
                     }
+                case IncomingMessage.HistogramData:
+                    {
+                        HistogramDataEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -406,6 +411,20 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void HistogramDataEvent()
+        {
+            var reqId = ReadInt();
+            var n = ReadInt();
+            var data = new Tuple<double, long>[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                data[i] = Tuple.Create(ReadDouble(), ReadLong());
+            }
+
+            eWrapper.histogramData(reqId, data);
         }
 
         private void HeadTimestampEvent()

@@ -776,5 +776,7 @@ namespace IBApi
         void historicalNewsEnd(int requestId, bool hasMore);
 
         void headTimestamp(int reqId, string headTimestamp);
+
+        void histogramData(int reqId, Tuple<double, long>[] data);
     }
 }
