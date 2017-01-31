@@ -300,7 +300,7 @@ public class OrderSamples {
         //to activate all its predecessors
 		stopLoss.transmit(true);
 		
-		List<Order> bracketOrder = new ArrayList<Order>();
+		List<Order> bracketOrder = new ArrayList<>();
 		bracketOrder.add(parent);
 		bracketOrder.add(takeProfit);
 		bracketOrder.add(stopLoss);
@@ -397,7 +397,7 @@ public class OrderSamples {
 		order.totalQuantity(quantity);
 		if (nonGuaranteed)
 		{
-			List<TagValue> smartComboRoutingParams = new ArrayList<TagValue>();
+			List<TagValue> smartComboRoutingParams = new ArrayList<>();
 			smartComboRoutingParams.add(new TagValue("NonGuaranteed", "1"));
 		}
 		// ! [combolimit]
@@ -412,7 +412,7 @@ public class OrderSamples {
 		order.totalQuantity(quantity);
 		if (nonGuaranteed)
 		{
-			List<TagValue> smartComboRoutingParams = new ArrayList<TagValue>();
+			List<TagValue> smartComboRoutingParams = new ArrayList<>();
 			smartComboRoutingParams.add(new TagValue("NonGuaranteed", "1"));
 		}
 		// ! [combomarket]
@@ -425,7 +425,7 @@ public class OrderSamples {
 		order.action(action);
 		order.orderType("LMT");
 		order.totalQuantity(quantity);
-		order.orderComboLegs(new ArrayList<OrderComboLeg>());
+		order.orderComboLegs(new ArrayList<>());
 		
 		for(double price : legPrices) {
 			OrderComboLeg comboLeg = new OrderComboLeg();
@@ -435,7 +435,7 @@ public class OrderSamples {
 		
 		if (nonGuaranteed)
 		{
-			List<TagValue> smartComboRoutingParams = new ArrayList<TagValue>();
+			List<TagValue> smartComboRoutingParams = new ArrayList<>();
 			smartComboRoutingParams.add(new TagValue("NonGuaranteed", "1"));
 		}
 		// ! [limitordercombolegprices]
@@ -451,7 +451,7 @@ public class OrderSamples {
 		order.lmtPrice(limitPrice);
 		if (nonGuaranteed)
 		{
-			List<TagValue> smartComboRoutingParams = new ArrayList<TagValue>();
+			List<TagValue> smartComboRoutingParams = new ArrayList<>();
 			smartComboRoutingParams.add(new TagValue("NonGuaranteed", "1"));
 		}
 		// ! [relativelimitcombo]
@@ -466,7 +466,7 @@ public class OrderSamples {
 		order.totalQuantity(quantity);
 		if (nonGuaranteed)
 		{
-			List<TagValue> smartComboRoutingParams = new ArrayList<TagValue>();
+			List<TagValue> smartComboRoutingParams = new ArrayList<>();
 			smartComboRoutingParams.add(new TagValue("NonGuaranteed", "1"));
 		}
 		// ! [relativemarketcombo]
@@ -540,7 +540,7 @@ public class OrderSamples {
         //! [adjustable_stop]
         Order order = new Order();
         //Attached order is a conventional STP order in opposite direction
-        order.action(parent.action().equals("BUY") ? "SELL" : "BUY");
+        order.action("BUY".equals(parent.getAction()) ? "SELL" : "BUY");
         order.totalQuantity(parent.totalQuantity());
         order.auxPrice(attachedOrderStopPrice);
         order.parentId(parent.orderId());
@@ -558,7 +558,7 @@ public class OrderSamples {
     	//! [adjustable_stop_limit]
         Order order = new Order();
         //Attached order is a conventional STP order
-        order.action(parent.action().equals("BUY") ? "SELL" : "BUY");
+        order.action("BUY".equals(parent.getAction()) ? "SELL" : "BUY");
         order.totalQuantity(parent.totalQuantity());
         order.auxPrice(attachedOrderStopPrice);
         order.parentId(parent.orderId());
@@ -578,7 +578,7 @@ public class OrderSamples {
     	//! [adjustable_trail]
         Order order = new Order();
         //Attached order is a conventional STP order
-        order.action(parent.action().equals("BUY") ? "SELL" : "BUY");
+        order.action("BUY".equals(parent.getAction()) ? "SELL" : "BUY");
         order.totalQuantity(parent.totalQuantity());
         order.auxPrice(attachedOrderStopPrice);
         order.parentId(parent.orderId());
