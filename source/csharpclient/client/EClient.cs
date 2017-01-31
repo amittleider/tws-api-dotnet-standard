@@ -219,7 +219,7 @@ namespace IBApi
                 return;
             const int VERSION = 1;
             //No server version validation takes place here since minimum is already higher
-            SendCancelRequest(OutgoingMessages.CancelOptionPrice, VERSION, reqId, EClientErrors.FAIL_SEND_CANHISTDATA);
+            SendCancelRequest(OutgoingMessages.CancelHistoricalData, VERSION, reqId, EClientErrors.FAIL_SEND_CANHISTDATA);
         }
 
         /**
