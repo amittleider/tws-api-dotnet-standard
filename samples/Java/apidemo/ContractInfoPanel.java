@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -30,10 +31,10 @@ import apidemo.util.VerticalPanel;
 
 public class ContractInfoPanel extends JPanel {
 	private final Contract m_contract = new Contract();
-	private final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 	
 	ContractInfoPanel() {
+		final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
 		m_requestPanels.addTab( "Contract details", new DetailsRequestPanel() );
 		m_requestPanels.addTab( "Fundamentals", new FundaRequestPanel() );
 		
@@ -58,7 +59,7 @@ public class ContractInfoPanel extends JPanel {
 			add( but);
 		}
 		
-		protected void onQuery() {
+		void onQuery() {
 			m_contractPanel.onOK();
 			
 			DetailsResultsPanel panel = new DetailsResultsPanel();
@@ -103,7 +104,7 @@ public class ContractInfoPanel extends JPanel {
 	
 	public class FundaRequestPanel extends JPanel {
 		ContractPanel m_contractPanel = new ContractPanel( m_contract);
-		TCombo<FundamentalType> m_type = new TCombo<FundamentalType>( FundamentalType.values() );
+		TCombo<FundamentalType> m_type = new TCombo<>( FundamentalType.values() );
 		
 		FundaRequestPanel() {
 			HtmlButton but = new HtmlButton( "Query") {
@@ -123,7 +124,7 @@ public class ContractInfoPanel extends JPanel {
 			add( but);
 		}
 		
-		protected void onQuery() {
+		void onQuery() {
 			m_contractPanel.onOK();
 			FundaResultPanel panel = new FundaResultPanel();
 			FundamentalType type = m_type.getSelectedItem();
@@ -149,16 +150,14 @@ public class ContractInfoPanel extends JPanel {
 			add( b, BorderLayout.EAST);
 		}
 
-		protected void onView() {
+		void onView() {
 			try {
 				File file = File.createTempFile( "tws", ".xml");
-				FileWriter writer = new FileWriter( file);
-				writer.write( m_text.getText() );
-				writer.flush();
-				writer.close();
+				try (FileWriter writer = new FileWriter( file)) {
+					writer.write(m_text.getText());
+				}
 				Desktop.getDesktop().open( file);
-			}
-			catch( Exception e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
