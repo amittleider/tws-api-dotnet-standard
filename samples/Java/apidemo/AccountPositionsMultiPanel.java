@@ -26,10 +26,9 @@ import com.ib.controller.Formats;
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
 import apidemo.util.NewTabbedPanel.NewTabPanel;
-import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
-public class AccountPositionsMultiPanel extends JPanel {
+class AccountPositionsMultiPanel extends JPanel {
 	private final NewTabbedPanel m_requestPanel = new NewTabbedPanel();
 	private final NewTabbedPanel m_resultsPanel = new NewTabbedPanel();
 	
@@ -42,7 +41,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 		add( m_resultsPanel);
 	}
 	
-	private class RequestPanel extends JPanel {
+	private static class RequestPanel extends JPanel {
 		protected JTextField m_account = new JTextField();
 		protected JTextField m_modelCode = new JTextField();
 		final JCheckBox m_ledgerAndNLV = new JCheckBox();
@@ -58,7 +57,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 			add( p);
 		}
 		
-		public void enableLedgerAndNLV(boolean enable){
+		void enableLedgerAndNLV(boolean enable){
 			m_ledgerAndNLV.setEnabled(enable);
 		}
 		
@@ -87,7 +86,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 			add( butPanel);
 		}
 
-		protected void onRequestPositionsMulti() {
+		void onRequestPositionsMulti() {
 			PositionsResultsPanel panel = new PositionsResultsPanel();
 			String account = m_requestPanel.m_account.getText().trim();
 			String modelCode = m_requestPanel.m_modelCode.getText().trim();
@@ -218,7 +217,7 @@ public class AccountPositionsMultiPanel extends JPanel {
 			add( butPanel);
 		}
 
-		protected void onRequestAccountUpdatesMulti() {
+		void onRequestAccountUpdatesMulti() {
 			AccountUpdatesResultsPanel panel = new AccountUpdatesResultsPanel();
 			String account = m_requestPanel.m_account.getText().trim();
 			String modelCode = m_requestPanel.m_modelCode.getText().trim();

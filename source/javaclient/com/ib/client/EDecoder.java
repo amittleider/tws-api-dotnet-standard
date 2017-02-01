@@ -8,7 +8,6 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
-import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,77 +19,77 @@ import java.lang.UnsupportedOperationException;
 
 class EDecoder implements ObjectInput {
     // incoming msg id's
-    static final int END_CONN           = -1;
-    static final int TICK_PRICE		= 1;
-    static final int TICK_SIZE		= 2;
-    static final int ORDER_STATUS	= 3;
-    static final int ERR_MSG		= 4;
-    static final int OPEN_ORDER         = 5;
-    static final int ACCT_VALUE         = 6;
-    static final int PORTFOLIO_VALUE    = 7;
-    static final int ACCT_UPDATE_TIME   = 8;
-    static final int NEXT_VALID_ID      = 9;
-    static final int CONTRACT_DATA      = 10;
-    static final int EXECUTION_DATA     = 11;
-    static final int MARKET_DEPTH     	= 12;
-    static final int MARKET_DEPTH_L2    = 13;
-    static final int NEWS_BULLETINS    	= 14;
-    static final int MANAGED_ACCTS    	= 15;
-    static final int RECEIVE_FA    	    = 16;
-    static final int HISTORICAL_DATA    = 17;
-    static final int BOND_CONTRACT_DATA = 18;
-    static final int SCANNER_PARAMETERS = 19;
-    static final int SCANNER_DATA       = 20;
-    static final int TICK_OPTION_COMPUTATION = 21;
-    static final int TICK_GENERIC = 45;
-    static final int TICK_STRING = 46;
-    static final int TICK_EFP = 47;
-    static final int CURRENT_TIME = 49;
-    static final int REAL_TIME_BARS = 50;
-    static final int FUNDAMENTAL_DATA = 51;
-    static final int CONTRACT_DATA_END = 52;
-    static final int OPEN_ORDER_END = 53;
-    static final int ACCT_DOWNLOAD_END = 54;
-    static final int EXECUTION_DATA_END = 55;
-    static final int DELTA_NEUTRAL_VALIDATION = 56;
-    static final int TICK_SNAPSHOT_END = 57;
-    static final int MARKET_DATA_TYPE = 58;
-    static final int COMMISSION_REPORT = 59;
-    static final int POSITION = 61;
-    static final int POSITION_END = 62;
-    static final int ACCOUNT_SUMMARY = 63;
-    static final int ACCOUNT_SUMMARY_END = 64;
-    static final int VERIFY_MESSAGE_API = 65;
-    static final int VERIFY_COMPLETED = 66;
-    static final int DISPLAY_GROUP_LIST = 67;
-    static final int DISPLAY_GROUP_UPDATED = 68;
-    static final int VERIFY_AND_AUTH_MESSAGE_API = 69;
-    static final int VERIFY_AND_AUTH_COMPLETED = 70;
-    static final int POSITION_MULTI = 71;
-    static final int POSITION_MULTI_END = 72;
-    static final int ACCOUNT_UPDATE_MULTI = 73;
-    static final int ACCOUNT_UPDATE_MULTI_END = 74;
-    static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
-    static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
-    static final int SOFT_DOLLAR_TIERS = 77;
-    static final int FAMILY_CODES = 78;
-    static final int SYMBOL_SAMPLES = 79;
-    static final int MKT_DEPTH_EXCHANGES = 80;
-    static final int TICK_REQ_PARAMS = 81;
-    static final int SMART_COMPONENTS = 82;
-    static final int NEWS_ARTICLE = 83;
-    static final int TICK_NEWS = 84;
-    static final int NEWS_PROVIDERS = 85;
-    static final int HISTORICAL_NEWS = 86;
-    static final int HISTORICAL_NEWS_END = 87;
-    static final int HEAD_TIMESTAMP = 88;
+    private static final int END_CONN           = -1;
+    private static final int TICK_PRICE		= 1;
+    private static final int TICK_SIZE		= 2;
+    private static final int ORDER_STATUS	= 3;
+    private static final int ERR_MSG		= 4;
+    private static final int OPEN_ORDER         = 5;
+    private static final int ACCT_VALUE         = 6;
+    private static final int PORTFOLIO_VALUE    = 7;
+    private static final int ACCT_UPDATE_TIME   = 8;
+    private static final int NEXT_VALID_ID      = 9;
+    private static final int CONTRACT_DATA      = 10;
+    private static final int EXECUTION_DATA     = 11;
+    private static final int MARKET_DEPTH     	= 12;
+    private static final int MARKET_DEPTH_L2    = 13;
+    private static final int NEWS_BULLETINS    	= 14;
+    private static final int MANAGED_ACCTS    	= 15;
+    private static final int RECEIVE_FA    	    = 16;
+    private static final int HISTORICAL_DATA    = 17;
+    private static final int BOND_CONTRACT_DATA = 18;
+    private static final int SCANNER_PARAMETERS = 19;
+    private static final int SCANNER_DATA       = 20;
+    private static final int TICK_OPTION_COMPUTATION = 21;
+    private static final int TICK_GENERIC = 45;
+    private static final int TICK_STRING = 46;
+    private static final int TICK_EFP = 47;
+    private static final int CURRENT_TIME = 49;
+    private static final int REAL_TIME_BARS = 50;
+    private static final int FUNDAMENTAL_DATA = 51;
+    private static final int CONTRACT_DATA_END = 52;
+    private static final int OPEN_ORDER_END = 53;
+    private static final int ACCT_DOWNLOAD_END = 54;
+    private static final int EXECUTION_DATA_END = 55;
+    private static final int DELTA_NEUTRAL_VALIDATION = 56;
+    private static final int TICK_SNAPSHOT_END = 57;
+    private static final int MARKET_DATA_TYPE = 58;
+    private static final int COMMISSION_REPORT = 59;
+    private static final int POSITION = 61;
+    private static final int POSITION_END = 62;
+    private static final int ACCOUNT_SUMMARY = 63;
+    private static final int ACCOUNT_SUMMARY_END = 64;
+    private static final int VERIFY_MESSAGE_API = 65;
+    private static final int VERIFY_COMPLETED = 66;
+    private static final int DISPLAY_GROUP_LIST = 67;
+    private static final int DISPLAY_GROUP_UPDATED = 68;
+    private static final int VERIFY_AND_AUTH_MESSAGE_API = 69;
+    private static final int VERIFY_AND_AUTH_COMPLETED = 70;
+    private static final int POSITION_MULTI = 71;
+    private static final int POSITION_MULTI_END = 72;
+    private static final int ACCOUNT_UPDATE_MULTI = 73;
+    private static final int ACCOUNT_UPDATE_MULTI_END = 74;
+    private static final int SECURITY_DEFINITION_OPTION_PARAMETER = 75;
+    private static final int SECURITY_DEFINITION_OPTION_PARAMETER_END = 76;
+    private static final int SOFT_DOLLAR_TIERS = 77;
+    private static final int FAMILY_CODES = 78;
+    private static final int SYMBOL_SAMPLES = 79;
+    private static final int MKT_DEPTH_EXCHANGES = 80;
+    private static final int TICK_REQ_PARAMS = 81;
+    private static final int SMART_COMPONENTS = 82;
+    private static final int NEWS_ARTICLE = 83;
+    private static final int TICK_NEWS = 84;
+    private static final int NEWS_PROVIDERS = 85;
+    private static final int HISTORICAL_NEWS = 86;
+    private static final int HISTORICAL_NEWS_END = 87;
+    private static final int HEAD_TIMESTAMP = 88;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
-    static final int REDIRECT_MSG_ID = -1;
-    
-    EClientMsgSink m_clientMsgSink;
-	EWrapper m_EWrapper;
-	int m_serverVersion;
+    private static final int REDIRECT_MSG_ID = -1;
+
+    private EClientMsgSink m_clientMsgSink;
+    private EWrapper m_EWrapper;
+    private int m_serverVersion;
 	private IMessageReader m_messageReader;
 
 	public EDecoder(int serverVersion, EWrapper callback) {
@@ -103,7 +102,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper = callback;
 	}
 	
-    protected void processFirstMsg() throws IOException {
+    private void processFirstMsg() throws IOException {
         m_serverVersion = readInt();
         
         // Handle redirect
@@ -134,10 +133,9 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.connectAck();
     } 
     
-    protected boolean readMessageToInternalBuf(InputStream dis) throws IOException {
+    private boolean readMessageToInternalBuf(InputStream dis) throws IOException {
   		m_messageReader = new PreV100MessageReader(dis);
-
-    	return m_messageReader != null;
+    	return true;
     }
     
     public int processMsg(EMessage msg) throws IOException {
@@ -182,7 +180,7 @@ class EDecoder implements ObjectInput {
                 break;
 
             case TICK_OPTION_COMPUTATION:
-                processTickOptionComputatioMsg();
+                processTickOptionComputationMsg();
             	break;
 
             case TICK_GENERIC:
@@ -574,8 +572,8 @@ class EDecoder implements ObjectInput {
 		String tradingClass = readStr();
 		String multiplier = readStr();
 		int expirationsSize = readInt();
-		Set<String> expirations = new HashSet<String>();
-		Set<Double> strikes = new HashSet<Double>();
+		Set<String> expirations = new HashSet<>();
+		Set<Double> strikes = new HashSet<>();
 		
 		for (int i = 0; i < expirationsSize; i++) {
 			expirations.add(readStr());
@@ -727,7 +725,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processScannerParametersMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		String xml = readStr();
 		m_EWrapper.scannerParameters(xml);
 	}
@@ -756,16 +754,15 @@ class EDecoder implements ObjectInput {
 		    if (version >= 3) {
 		    	barCount = readInt();
 		    }
-		    m_EWrapper.historicalData(reqId, date, open, high, low,
-		                            close, volume, barCount, WAP,
-		                            Boolean.valueOf(hasGaps).booleanValue());
+		    m_EWrapper.historicalData(reqId, date, open, high, low, close, volume, barCount, WAP,
+                                      Boolean.valueOf(hasGaps));
 		  }
 		  // send end of dataset marker
 		  m_EWrapper.historicalDataEnd(reqId, startDateStr, endDateStr);
 	}
 
 	private void processReceiveFaMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		  int faDataType = readInt();
 		  String xml = readStr();
 
@@ -773,14 +770,14 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processManagedAcctsMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		String accountsList = readStr();
 
 		m_EWrapper.managedAccounts( accountsList);
 	}
 
 	private void processNewsBulletinsMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int newsMsgId = readInt();
 		int newsMsgType = readInt();
 		String newsMessage = readStr();
@@ -790,7 +787,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processMarketDepthL2Msg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int id = readInt();
 
 		int position = readInt();
@@ -805,7 +802,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processMarketDepthMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int id = readInt();
 
 		int position = readInt();
@@ -939,7 +936,7 @@ class EDecoder implements ObjectInput {
 		if (version >= 5) {
 		    int secIdListCount = readInt();
 		    if (secIdListCount  > 0) {
-		        contract.secIdList(new ArrayList<TagValue>(secIdListCount));
+		        contract.secIdList(new ArrayList<>(secIdListCount));
 		        for (int i = 0; i < secIdListCount; ++i) {
 		            TagValue tagValue = new TagValue();
 		            tagValue.m_tag = readStr();
@@ -1005,7 +1002,7 @@ class EDecoder implements ObjectInput {
 		if (version >= 7) {
 		    int secIdListCount = readInt();
 		        if (secIdListCount  > 0) {
-		            contract.secIdList(new ArrayList<TagValue>(secIdListCount));
+		            contract.secIdList(new ArrayList<>(secIdListCount));
 		            for (int i = 0; i < secIdListCount; ++i) {
 		                TagValue tagValue = new TagValue();
 		                tagValue.m_tag = readStr();
@@ -1052,7 +1049,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processNextValidIdMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int orderId = readInt();
 		m_EWrapper.nextValidId( orderId);
 	}
@@ -1243,7 +1240,7 @@ class EDecoder implements ObjectInput {
 		if (version >= 29) {
 			int comboLegsCount = readInt();
 			if (comboLegsCount > 0) {
-				contract.comboLegs(new ArrayList<ComboLeg>(comboLegsCount));
+				contract.comboLegs(new ArrayList<>(comboLegsCount));
 				for (int i = 0; i < comboLegsCount; ++i) {
 					int conId = readInt();
 					int ratio = readInt();
@@ -1262,7 +1259,7 @@ class EDecoder implements ObjectInput {
 
 			int orderComboLegsCount = readInt();
 			if (orderComboLegsCount > 0) {
-				order.orderComboLegs(new ArrayList<OrderComboLeg>(orderComboLegsCount));
+				order.orderComboLegs(new ArrayList<>(orderComboLegsCount));
 				for (int i = 0; i < orderComboLegsCount; ++i) {
 					double price = readDoubleMax();
 
@@ -1275,7 +1272,7 @@ class EDecoder implements ObjectInput {
 		if (version >= 26) {
 			int smartComboRoutingParamsCount = readInt();
 			if (smartComboRoutingParamsCount > 0) {
-				order.smartComboRoutingParams(new ArrayList<TagValue>(smartComboRoutingParamsCount));
+				order.smartComboRoutingParams(new ArrayList<>(smartComboRoutingParamsCount));
 				for (int i = 0; i < smartComboRoutingParamsCount; ++i) {
 					TagValue tagValue = new TagValue();
 					tagValue.m_tag = readStr();
@@ -1436,7 +1433,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processAcctUpdateTimeMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		String timeStamp = readStr();
 		m_EWrapper.updateAccountTime(timeStamp);
 	}
@@ -1464,7 +1461,7 @@ class EDecoder implements ObjectInput {
 		    contract.tradingClass(readStr());
 		}
 
-		double position = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();;
+		double position = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();
 		double marketPrice = readDouble();
 		double marketValue = readDouble();
 		double  averageCost = 0.0;
@@ -1539,7 +1536,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processTickEFPMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int tickerId = readInt();
 		int tickType = readInt();
 		double basisPoints = readDouble();
@@ -1554,7 +1551,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processTickStringMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int tickerId = readInt();
 		int tickType = readInt();
 		String value = readStr();
@@ -1563,7 +1560,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processTickGenericMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int tickerId = readInt();
 		int tickType = readInt();
 		double value = readDouble();
@@ -1571,7 +1568,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.tickGeneric( tickerId, tickType, value);
 	}
 
-	private void processTickOptionComputatioMsg() throws IOException {
+	private void processTickOptionComputationMsg() throws IOException {
 		int version = readInt();
 		int tickerId = readInt();
 		int tickType = readInt();
@@ -1623,13 +1620,13 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processAccountSummaryEndMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int reqId = readInt();
 		m_EWrapper.accountSummaryEnd(reqId);
 	}
 
 	private void processAccountSummaryMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int reqId = readInt();
 		String account = readStr();
 		String tag = readStr();
@@ -1639,7 +1636,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processPositionEndMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		m_EWrapper.positionEnd();
 	}
 
@@ -1672,7 +1669,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processTickSizeMsg() throws IOException {
-		int version = readInt();
+		/*int version =*/ readInt();
 		int tickerId = readInt();
 		int tickType = readInt();
 		int size = readInt();
@@ -1737,7 +1734,7 @@ class EDecoder implements ObjectInput {
 	}
     
     private void processPositionMultiMsg() throws IOException {
-        int version = readInt();
+        /*int version =*/ readInt();
         int reqId = readInt();
         String account = readStr();
 
@@ -1761,14 +1758,14 @@ class EDecoder implements ObjectInput {
     }
 
     private void processPositionMultiEndMsg() throws IOException {
-        int version = readInt();
+        /*int version =*/ readInt();
         int reqId = readInt();
 
         m_EWrapper.positionMultiEnd( reqId);
     }
 
     private void processAccountUpdateMultiMsg() throws IOException {
-        int version = readInt();
+        /*int version =*/ readInt();
         int reqId = readInt();
         String account = readStr();
         String modelCode = readStr();
@@ -1780,7 +1777,7 @@ class EDecoder implements ObjectInput {
     }
 
     private void processAccountUpdateMultiEndMsg() throws IOException {
-        int version = readInt();
+        /*int version =*/ readInt();
         int reqId = readInt();
 
         m_EWrapper.accountUpdateMultiEnd( reqId);
@@ -1811,13 +1808,13 @@ class EDecoder implements ObjectInput {
     	m_EWrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
     }
     
-    protected String readStr() throws IOException {
+    private String readStr() throws IOException {
     	return m_messageReader.readStr();
     }
 
-    boolean readBoolFromInt() throws IOException {
+    private boolean readBoolFromInt() throws IOException {
         String str = readStr();
-        return str == null ? false : (Integer.parseInt( str) != 0);
+        return str != null && (Integer.parseInt(str) != 0);
     }
 
     public int readInt() throws IOException {
@@ -1825,7 +1822,7 @@ class EDecoder implements ObjectInput {
         return str == null ? 0 : Integer.parseInt( str);
     }
 
-    protected int readIntMax() throws IOException {
+    private int readIntMax() throws IOException {
         String str = readStr();
         return (str == null || str.length() == 0) ? Integer.MAX_VALUE
         	                                      : Integer.parseInt( str);
@@ -1833,7 +1830,7 @@ class EDecoder implements ObjectInput {
 
     public long readLong() throws IOException {
         String str = readStr();
-        return str == null ? 0l : Long.parseLong(str);
+        return str == null ? 0L : Long.parseLong(str);
     }
 
     public double readDouble() throws IOException {
@@ -1841,7 +1838,7 @@ class EDecoder implements ObjectInput {
         return str == null ? 0 : Double.parseDouble( str);
     }
 
-    protected double readDoubleMax() throws IOException {
+    private double readDoubleMax() throws IOException {
         String str = readStr();
         return (str == null || str.length() == 0) ? Double.MAX_VALUE
         	                                      : Double.parseDouble( str);
@@ -1849,15 +1846,15 @@ class EDecoder implements ObjectInput {
 
     /** Message reader interface */
     private interface IMessageReader extends Closeable {
-    	public abstract String readStr() throws IOException;
-    	public abstract int msgLength();
+    	String readStr() throws IOException;
+    	int msgLength();
     }
 
     private static class PreV100MessageReader implements IMessageReader {
     	private final InputStream m_din;
     	private int m_msgLength = 0;
     	
-    	public PreV100MessageReader( InputStream din ) {
+    	PreV100MessageReader( InputStream din ) {
     		m_din = din;
     	}
     	
@@ -1887,7 +1884,7 @@ class EDecoder implements ObjectInput {
  	    }
     	
     	@Override public void close() {
-    	    /** noop in pre-v100 */
+    	    /* noop in pre-v100 */
     	}
     }
 

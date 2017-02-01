@@ -21,8 +21,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -35,8 +33,8 @@ import apidemo.util.NewTabbedPanel;
 import apidemo.util.NewTabbedPanel.INewTab;
 
 public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler {
-	private DefaultListModel m_acctList = new DefaultListModel();
-	private JList m_accounts = new JList( m_acctList);
+	private DefaultListModel<String> m_acctList = new DefaultListModel<>();
+	private JList<String> m_accounts = new JList<>( m_acctList);
 	private String m_selAcct = "";
 	private MarginModel m_marginModel = new MarginModel();
 	private JTable m_marginTable = new Table( m_marginModel);
@@ -71,11 +69,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		add( tabbedPanel);
 		add( m_lastUpdated, BorderLayout.SOUTH);
 		
-		m_accounts.addListSelectionListener( new ListSelectionListener() {
-			@Override public void valueChanged(ListSelectionEvent e) {
-				onChanged();
-			}
-		});
+		m_accounts.addListSelectionListener(e -> onChanged());
 	}
 	
 	/** Called when the tab is first visited. */
@@ -96,7 +90,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	protected synchronized void onChanged() {
 		int i = m_accounts.getSelectedIndex();
 		if (i != -1) {
-			String selAcct = (String)m_acctList.get( i);
+			String selAcct = m_acctList.get( i);
 			if (!selAcct.equals( m_selAcct) ) {
 				m_selAcct = selAcct;
 				m_marginModel.clear();
@@ -135,7 +129,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	public void accountDownloadEnd(String account) {
 	}
 	
-	private class MarginModel extends AbstractTableModel {
+	private static class MarginModel extends AbstractTableModel {
 		HashMap<MarginRowKey,MarginRow> m_map = new HashMap<>();
 		ArrayList<MarginRow> m_list = new ArrayList<>();
 
@@ -185,11 +179,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 				case 2: row.m_comVal = value; break;
 			}
 			
-			SwingUtilities.invokeLater( new Runnable() {
-				@Override public void run() {
-					fireTableDataChanged();
-				}
-			});
+			SwingUtilities.invokeLater(this::fireTableDataChanged);
 		}
 
 		@Override public int getRowCount() {
@@ -260,7 +250,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		String m_tag;
 		String m_currency;
 		
-		public MarginRowKey(String key, String currency) {
+		MarginRowKey(String key, String currency) {
 			m_tag = key;
 			m_currency = currency;
 		}
@@ -360,7 +350,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		String m_currency;
 		HashMap<MarketValueTag,String> m_map = new HashMap<>();
 		
-		public MktValRow(String account, String currency) {
+		MktValRow(String account, String currency) {
 			m_account = account;
 			m_currency = currency;
 		}
@@ -455,8 +445,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		try {
 			double dub = Double.parseDouble( val);
 			val = fmt0( dub);
-		}
-		catch (Exception e) {	
+		} catch (Exception ignored) {
 		}
 		
 		return currency != null && currency.length() > 0
