@@ -5,11 +5,10 @@
 	- \subpage market_depth
 	- \subpage historical_data
 	- \subpage realtime_bars
-	- \subpage news
 	
 	\section market_subscriptions Live Market Data
 	
-	In order to receive any kind of API market data (top-of-book, depth-of-book, or historical) it is necessary have live market data for the requested instruments in TWS. For many contracts, delayed data will be available in TWS, but to receive any data through the API its necessary for live market data to be available. This requires: 
+	In order to receive top-of-book, depth-of-book, or historical market data from the API it is necessary have live market data subscriptions for the requested instruments in TWS. The full list of requirements for real time data:
 	
 	(1) trading permissions for the specified instruments 
 	
@@ -22,7 +21,9 @@
 	Login to your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -> Trade Configuration 
 	-> Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.
 	
-	To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.
+	One way to determine which market data subscriptions are required for a given security is to enter the contract into a TWS watchlist and the right-click on the contract to select "Launch Market Data Subscription Manager". This will launch a browser window to the market data subscription page of a subscription covering the indicated instrument. 
+
+	Alternatively, there is also a "Market Data Assistant" utility for determining market data subscriptions:
 	
 	\image html am_market_data_subscription.png
 	
@@ -61,7 +62,7 @@
 	is your market data lines' entitlement calculated, please refer to our website's "Market Data Display" section within the 
 	<a href="https://www.interactivebrokers.com/en/index.php?f=14193" target="_blank" class="linkexternal">Research, News and Market Data</a> page.	
 	
-	<b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and historical data.
+	<b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and real time bars.
 	
 	
 	<br><br>

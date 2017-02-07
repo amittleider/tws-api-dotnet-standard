@@ -2,10 +2,10 @@
 
 	\section acct_summary_req Requesting
 
-	The @ref IBApi::EClient::reqAccountSummary method pulls the information displayed in the TWS' Account Summary window.
+	The @ref IBApi::EClient::reqAccountSummary method creates a subscription for the account data displayed in the TWS Account Summary window. It is commonly used with multiple-account structures. 
 	
-	Unlike @ref IBApi::EClient::reqAccountUpdates, @ref IBApi::EClient::reqAccountSummary can not only retrieve summarised information for either one or all the managed accounts but also
-	extract only the specified values to be monitored by the client application.
+	Unlike @ref IBApi::EClient::reqAccountUpdates, @ref IBApi::EClient::reqAccountSummary can not only retrieve summarized information for either one or all the managed accounts but also
+	extract only the specified values to be monitored by the client application. The initial invocation of reqAccountSummary will result in a list of all requested values being returned, and then every three minutes those values which have changed will be returned. The update frequency of 3 minutes is the same as the TWS Account Window and cannot be changed. 
 	
 	<ul id="tab">
 		<li class="active">

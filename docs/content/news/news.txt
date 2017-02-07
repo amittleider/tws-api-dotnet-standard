@@ -1,0 +1,249 @@
+/*! \page news News
+	
+	Four news providers offer news articles from the API. News from the API requires separate subscriptions, and each has different data fees, than the same news services in TWS. The API functions which handle news are able to query available news provides, subscribe to news in real time to receive headlines as they are released, request specific news articles, and return a historical list of news stories that are cached in the system. 
+
+	\section news_providers Querying subscribed API news
+
+	The available API news subscriptions current are Briefing Trader, Benzinga Pro, Fly on the Wall, and Midnight Trader. Signing up for API news is done through Account Management. In Account Management it is also possible to view current subscriptions, or from the API this can be done with the function IBApi::EClient::reqNewsProviders. Note this function is only available starting in API v973.02.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqNewsProviders
+		</li>
+		<li>
+			\snippet Testbed.java reqNewsProviders
+		</li>
+		<li>
+			\snippet MainModule.vb reqNewsProviders
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqNewsProviders
+		</li>
+		<li>
+			\snippet Program.py reqNewsProviders
+		</li>
+	</ul>
+
+	A list of available subscribed news sources is returned to the function IBApi::EWrapper::newsProviders
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs newsProviders
+		</li>
+		<li>
+			\snippet EWrapperImpl.java newsProviders
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb newsProviders
+		</li>
+		<li>
+			\snippet TestCppClient.cpp newsProviders
+		</li>
+		<li>
+			\snippet Program.py newsProviders
+		</li>
+	</ul>
+
+	\section news_contract Contract Specific News
+
+	There are two ways to subscribe to real time news headlines through the API. You can request <b>Contract</b> specific News or <b>BroadTape</b> News. See also @ref broadtape_list
+	
+	<b>Important:</b> in order to obtain news feeds via the TWS API you need to acquire the relevant API-specific subscriptions via your Account Management.
+	
+	When invoking @ref IBApi::EClient::reqMktData, for a specific @ref IBApi::Contract you will follow the same format convention as any other @ref basic_contracts. The News Source is identified by the <b>genericTickList</b>.
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqmktdata_contractnews
+		</li>
+		<li>
+			\snippet Testbed.java reqmktdata_contractnews
+		</li>
+		<li>
+			\snippet MainModule.vb reqmktdata_contractnews
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmktdata_contractnews
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_contractnews
+		</li>
+	</ul>
+	
+	<h2> BroadTape News </h2>
+	
+	For <b>BroadTape</b> News you specify the @ref IBApi::Contract for the specific news source. This is uniquely identified by the symbol and exchange. The symbol of an instrument can easily be obtained via the @ref IBApi::EClientSocket::reqContractDetails request.
+	
+	<h1> Four currently available API news sources for subscription</h1>
+	<br>
+
+	<h2> Briefing Trader </h2>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs newscontractbt
+		</li>
+		 <li>
+			\snippet ContractSamples.java newscontractbt
+		</li>
+		<li>
+			\snippet ContractSamples.vb newscontractbt
+		</li>
+		<li>
+			\snippet ContractSamples.cpp newscontractbt
+		</li>
+		<li>
+			\snippet ContractSamples.py newscontractbt
+		</li>
+	</ul>
+	
+	<h2> Benzinga Pro </h2>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs newscontractbz
+		</li>
+		<li>
+			\snippet ContractSamples.java newscontractbz
+		</li>
+		<li>
+			\snippet ContractSamples.vb newscontractbz
+		</li>
+		<li>
+			\snippet ContractSamples.cpp newscontractbz
+		</li>
+		<li>
+			\snippet ContractSamples.py newscontractbz
+		</li>
+	</ul>
+	
+	<h2> Fly on the Wall </h2>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs newscontractfly
+		</li>
+		<li>
+			\snippet ContractSamples.java newscontractfly
+		</li>
+		<li>
+			\snippet ContractSamples.vb newscontractfly
+		</li>
+		<li>
+			\snippet ContractSamples.cpp newscontractfly
+		</li>
+		<li>
+			\snippet ContractSamples.py newscontractfly
+		</li>
+	</ul>
+	
+	<h2> Midnight Trader </h2>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs newscontractmt
+		</li>
+		<li>
+			\snippet ContractSamples.java newscontractmt
+		</li>
+		<li>
+			\snippet ContractSamples.vb newscontractmt
+		</li>
+		<li>
+			\snippet ContractSamples.cpp newscontractmt
+		</li>
+		<li>
+			\snippet ContractSamples.py newscontractmt
+		</li>
+	</ul>
+	
+	Then you can invoke @ref IBApi::EClient::reqMktData for the broad tape news feed. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqmktdata_broadtapenews
+		</li>
+		 <li>
+			\snippet Testbed.java reqmktdata_broadtapenews
+		</li>
+		<li>
+			\snippet MainModule.vb reqmktdata_broadtapenews
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmktdata_broadtapenews
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_broadtapenews
+		</li>
+	</ul>
+	
+	<b>Important:</b> For Briefing Trader live head lines via the API is only offered on a case-by-case basis directly from Briefing.com offers Briefing Trader subscribers access to the subscription live head lines via the API. For more information and to submit an API entitlement application, please contact Briefing.com directly at dbeasley@briefing.com.
+	
+	The resulting news headlines are returned to the function IBApi::EWrapper::tickNews with the news headline, timestamp, and article ID. The article ID can be used to retrieve the body of the news article using the function IBApi::EClient::reqNewsArticle below.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs tickNews
+		</li>
+		<li>
+			\snippet EWrapperImpl.java tickNews
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb tickNews
+		</li>
+		<li>
+			\snippet TestCppClient.cpp tickNews
+		</li>
+		<li>
+			\snippet Program.py tickNews
+		</li>
+	</ul>
+
+	\section historical_news Requesting historical news headlines
+
+	With the appropriate API news subscription, historical news headlines can be requested from the API using the function IBApi::EClient::reqHistoricalNews starting in API v.973.02. The resulting headlines are returned to IBApi::EWrapper::historicalNews.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqHistoricalNews
+		</li>
+		 <li>
+			\snippet Testbed.java reqHistoricalNews
+		</li>
+		<li>
+			\snippet MainModule.vb reqHistoricalNews
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqHistoricalNews
+		</li>
+		<li>
+			\snippet Program.py reqHistoricalNews
+		</li>
+	</ul>
+
+
+	\section news_articles Requesting news articles
+
+	After requesting news headlines using one of the above functions, the body of a news article can be requested with the article ID returned by invoking the function IBApi::EClient::reqNewsArticle starting in API v973.02. The body of the news article is returned to the function IBApi::EWrapper::newsArticle.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqNewsArticle
+		</li>
+		 <li>
+			\snippet Testbed.java reqNewsArticle
+		</li>
+		<li>
+			\snippet MainModule.vb reqNewsArticle
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqNewsArticle
+		</li>
+		<li>
+			\snippet Program.py reqNewsArticle
+		</li>
+	</ul>
+
+	<br><br>
+	
+*/

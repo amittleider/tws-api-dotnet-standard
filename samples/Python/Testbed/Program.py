@@ -398,9 +398,9 @@ class TestApp(TestWrapper, TestClient):
         self.reqPositionsMulti(9006, self.account, "")
         #! [reqpositionsmulti]
 
-        #! [reqFamilyCodes]
+        #! [reqfamilycodes]
         self.reqFamilyCodes()
-        #! [reqFamilyCodes]
+        #! [reqfamilycodes]
 
 
     @printWhenExecuting
@@ -572,7 +572,7 @@ class TestApp(TestWrapper, TestClient):
  
     def marketDataType_req(self):
         #! [reqmarketdatatype]
-        # Switch to live (1) frozen (2) delayed (3) or delayed frozen (4)
+        # Switch to live (1) frozen (2) delayed (3) delayed frozen (4).
         self.reqMarketDataType(MarketDataTypeEnum.DELAYED)
         #! [reqmarketdatatype]
 
@@ -596,6 +596,10 @@ class TestApp(TestWrapper, TestClient):
         #! [reqmktdata_snapshot]
         self.reqMktData(1003, ContractSamples.FutureComboContract(), "", False, None)
         #! [reqmktdata_snapshot]
+
+		#! [regulatorysnapshot]
+		# Regulatory snapshots are not yet available in Python
+		#! [regulatorysnapshot]
 
         #! [reqmktdata_genticks]
         # Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
@@ -684,6 +688,9 @@ class TestApp(TestWrapper, TestClient):
         self.reqMktDepth(2101, ContractSamples.USStock(), 5, None)
         self.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, None)
         #! [reqmarketdepth]
+	#! [reqMktDepthExchanges]
+	# reqMktDepthExchanges not yet available in Python
+	#! [reqMktDepthExchanges]
 
 
     @iswrapper
@@ -750,6 +757,9 @@ class TestApp(TestWrapper, TestClient):
     @printWhenExecuting
     def historicalDataRequests_req(self):
         # Requesting historical data 
+	#! [reqHeadTimeStamp]
+	# reqHeadTimeStamp is not yet available in Python
+	#! [reqHeadTimeStamp]
         #! [reqhistoricaldata]
         queryTime = (datetime.datetime.today() -
                     datetime.timedelta(days=180)).strftime("%Y%m%d %H:%M:%S")
@@ -770,6 +780,10 @@ class TestApp(TestWrapper, TestClient):
         self.cancelHistoricalData(4001)
         self.cancelHistoricalData(4002)
 
+	#@iswrapper
+	#! [headTimestamp]
+	# head timestamp not yet available in Python
+	#! [headTimestamp]
 
     @iswrapper
     #! [historicaldata]
@@ -867,9 +881,9 @@ class TestApp(TestWrapper, TestClient):
         self.reqContractDetails(211, ContractSamples.Bond())
         #! [reqcontractdetails]
 
-        #! [reqMatchingSymbols]
+        #! [reqmatchingsymbols]
         self.reqMatchingSymbols(212, "IB")
-        #! [reqMatchingSymbols]
+        #! [reqmatchingsymbols]
 
 
     @printWhenExecuting
@@ -878,6 +892,17 @@ class TestApp(TestWrapper, TestClient):
         self.reqContractDetails(213, ContractSamples.NewsFeedForQuery())
         #! [reqcontractdetailsnews]
 
+        #! [reqNewsProviders]
+        # reqNewsProviders is not yet available in Python
+        #! [reqNewsProviders]
+
+        #! [reqNewsArticle]
+        # reqNewsArticle is not yet available in Python
+        #! [reqNewsArticle]
+
+        #! [reqHistoricalNews]
+        # reqHistoricalNews is not yet available in Python
+        #! [reqHistoricalNews]
 
     @iswrapper
     #! [contractdetails]
@@ -890,9 +915,10 @@ class TestApp(TestWrapper, TestClient):
 
 
     @iswrapper
+    #! [bondcontractdetails]
     def bondContractDetails(self, reqId:int, contractDetails:ContractDetails):
         super().bondContractDetails(reqId, contractDetails)
-
+    #! [bondcontractdetails]
 
     @iswrapper
     #! [contractdetailsend]
@@ -973,8 +999,23 @@ class TestApp(TestWrapper, TestClient):
         super().scannerDataEnd(reqId)
         print("ScannerDataEnd. ",reqId)
     #! [scannerdataend]
+	
+    #! [reqsmartcomponents]
+    # reqSmartComponents not yet available in Python
+    #! [reqsmartcomponents]
 
- 
+    #! [smartcomponents]
+    # smartComponents not yet available in Python
+    #! [smartcomponents]
+
+    #! [tickReqParams] 
+    # tickReqParams not yet implemented in Python
+    #! [tickReqParams]
+
+	#! [mktDepthExchanges]
+	# mktDepthExchanges not yet available in Python
+	#! [mktDepthExchanges]
+	
     @printWhenExecuting
     def reutersFundamentals_req(self):
         # Requesting Fundamentals 
@@ -983,7 +1024,7 @@ class TestApp(TestWrapper, TestClient):
                                   "ReportsFinSummary", None)
         #! [reqfundamentaldata]
 
-
+	
     @printWhenExecuting
     def reutersFundamentals_cancel(self):
         # Canceling fundamentals request ***/
@@ -1225,8 +1266,8 @@ class TestApp(TestWrapper, TestClient):
     #! [receivefa]
     def receiveFA(self, faData:FaDataType , cxml:str):
         super().receiveFA(faData, cxml)
-        print("Receiving FA: ",faDataType)
-        open('log/fa.xml', 'w').write(xml)
+        print("Receiving FA: ",faData)
+        open('log/fa.xml', 'w').write(cxml)
     #! [receivefa]
 
 
@@ -1432,20 +1473,23 @@ class TestApp(TestWrapper, TestClient):
         #Attached TRAIL adjusted can only be attached to LMT parent orders.
         #self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008))
         self.testAlgoSamples()
-
+		
         # Cancel all orders for all accounts ***/
+		#! [reqglobalcancel]
         #self.reqGlobalCancel()
-
+		#! [reqglobalcancel]
+		
         # Request the day's executions ***/
         #! [reqexecutions]
         self.reqExecutions(10001, ExecutionFilter())
         #! [reqexecutions]
 
         
-    #! [order_cancellation]
+    
     def orderOperations_cancel(self):
+	#! [cancelorder]
         self.cancelOrder(self.simplePlaceOid)
-    #! [order_cancellation]
+    #! [cancelorder]
 
     @iswrapper    
     #! [execdetails]
@@ -1482,7 +1526,7 @@ def main():
     #cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")
     #cmdLineParser.add_option("-f", action="store", type="string", dest="file", default="", help="the input file")
     cmdLineParser.add_argument("-p", "--port", action="store", type=int, 
-        dest="port", default = 4005, help="The TCP port to use")
+        dest="port", default = 7497, help="The TCP port to use")
     cmdLineParser.add_argument("-C", "--global-cancel", action="store_true",
         dest="global_cancel", default = False, 
         help="whether to trigger a globalCancel req")

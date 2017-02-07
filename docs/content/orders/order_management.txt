@@ -2,6 +2,7 @@
 
 	- \subpage order_submission
 	- \subpage modifying_orders
+	- \subpage cancel_order
 	- \subpage open_orders
 	- \subpage executions_commissions
 	- \subpage order_limitations

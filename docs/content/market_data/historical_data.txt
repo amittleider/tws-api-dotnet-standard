@@ -1,8 +1,8 @@
-﻿/*! \page historical_data Historical Data
+/*! \page historical_data Historical Data
 
-	When retrieving historical data from the TWS, be mindful of our \subpage historical_limitations and the relevant @ref market_subscriptions
+	To receive historical data from the API a user must have level 1 market data subscriptions for that contract. Historical data is available in TWS charts for many types of instruments without having market data subscriptions, but will not be available to the API unless all the requirements for @ref market_subscriptions are met. When retrieving historical data from the TWS, be aware of the \subpage historical_limitations.
 
-	\section hd_request Requesting
+	\section hd_request Requesting Historical Data
 
 	Historical data is obtained from the the TWS via the @ref IBApi::EClient::reqHistoricalData function. Every request needs:
 	- A unique identifier which will serve to identify the incoming data.
@@ -13,10 +13,9 @@
 	- The type of data to retrieve. See @ref hd_what_to_show
 	- Whether or not to retrieve data generated only within Regular Trading Hours (RTH)
 	- The format in which the incoming bars' date should be presented. Note that for day bars, only yyyyMMdd format is available.
-	
-	For example, making a request with an end date and time of "20160127 23:59:59", a duration string of "3 D" and a bar size of "1 hour" will return three days worth of 1 hour bars data in which the
-	most recent bar will be the closest possible to 20160127 23:59:59.
-	
+
+	For example, making a request with an end date and time of "20160127 23:59:59", a duration string of "3 D" and a bar size of "1 hour" will return three days worth of 1 hour bars data in which the most recent bar will be the closest possible 	to 20160127 23:59:59.
+
 	<ul id="tab">
 		<li class="active"> 
 			\snippet Program.cs reqhistoricaldata
@@ -35,7 +34,59 @@
 		</li>
 	</ul>
 	
-	\section hd_receive Receiving
+	\section reqHeadTimeStamp Querying start of historical data
+
+	To find the earliest available data point for a given instrument and data type a function is in the API starting in v973.02 and v963 of TWS/IBG, IBApi::EClient::reqHeadTimestamp
+
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqHeadTimeStamp
+		</li>
+		<li>
+			\snippet Testbed.java reqHeadTimeStamp
+		</li>
+		<li>
+			\snippet MainModule.vb reqHeadTimeStamp
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqHeadTimeStamp
+		</li>
+		<li>
+			\snippet Program.py reqHeadTimeStamp
+		</li>
+	</ul>
+
+	The resulting head timestamp is returned to the function IBApi::Client::headTimestamp
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.cs headTimestamp
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java headTimestamp
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+			\snippet EWrapperImpl.vb headTimestamp
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+			\snippet TestCppClient.cpp headTimestamp
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+			\snippet Program.py headTimestamp
+		</li>
+	</ul>
+
+	\section hd_receive Receiving Historical Data
 	
 	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. Once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
 	marker will be sent
@@ -43,7 +94,7 @@
 	<ul id="tab">
 		<li class="active"> 
 			\snippet EWrapperImpl.cs ewrapperimpl
-		   ...
+		   	...
 			\snippet EWrapperImpl.cs historicaldata
 			...
 			\snippet EWrapperImpl.cs historicaldataend
@@ -57,7 +108,7 @@
 		</li>
 		<li>
 			\snippet EWrapperImpl.vb ewrapperimpl
-		    ...
+		    	...
 			\snippet EWrapperImpl.vb historicaldata
 			...
 			\snippet EWrapperImpl.vb historicaldataend
@@ -77,7 +128,7 @@
 			\snippet Program.py historicaldataend
 		</li>
 	</ul>
-	
+
 	\section hd_duration Valid Duration String units
 	
 	<table>
@@ -93,7 +144,7 @@
 	
 	<table>
 		<tr><th>Size</th></tr>
-		<tr><td>1 sec</td></tr>
+		<tr><td>1 secs</td></tr>
 		<tr><td>5 secs</td></tr>
 		<tr><td>10 secs</td></tr>
 		<tr><td>15 secs</td></tr>
@@ -131,13 +182,13 @@
 		<tr><td><b>HISTORICAL_VOLATILITY</b></td><td>Starting volatility</td><td>Highest volatility</td><td>Lowest volatility</td><td>Last volatility</td><td>N/A</td></tr>
 		<tr><td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A</td></tr>
 		<tr><td><b>REBATE_RATE</b></td><td>Starting rebate rate</td><td>Highest rebate rate</td><td>Lowest rebate rate</td><td>Last rebate rate</td><td>N/A</td></tr>
-		<tr><td><b>FREE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A</td></tr>
+		<tr><td><b>FEE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A</td></tr>
 	</table>
-	
+	<br>
 	\section available_products_hd Available Data per Product
 	
 	<table>
-		<tr><th>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th></tr>
+		<tr><th><CENTER>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th></tr>
 		<tr><td>Stocks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
 		<tr><td>Commodities</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
 		<tr><td>Options</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
@@ -152,9 +203,10 @@
 		<tr><td>Indices</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>Y</td></tr>
 		<tr><td>Bonds</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
 		<tr><td>Funds</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
+		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr></CENTER>
 	</table> 
-	
+
+
 	<br><br>
 
 */

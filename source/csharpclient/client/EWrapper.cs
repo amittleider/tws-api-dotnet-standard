@@ -198,7 +198,7 @@ namespace IBApi
          */
         void accountSummaryEnd(int reqId);
 
-        /*
+        /**
          * @brief Delivers the Bond contract data after this has been requested via reqContractDetails
          * @param reqId the request's identifier
          * @param contract the bond contract's information.

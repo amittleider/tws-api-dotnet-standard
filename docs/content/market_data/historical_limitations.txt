@@ -34,9 +34,9 @@
 		<tr><td>1 Y</td><td>1 day - 1 month</td></tr>
 	</table>
 
-	\section hd_availability Data Availability
+	\section hd_availability Data Availability for Stocks
 	
-	Historical data requests can go back one full calendar year or more, depending on the number of @ref market_lines you are entitled to:
+	The <b>minimum</b> expected historical data availability for stocks is one year, and depends on the user's maximum @ref market_lines :
 	
 	<table>           
         <tr><th>Years of Historical Data</th><th>Lines required</th><th>Required monthly commissions</th><th>Required monthly equity</th><th>Booster packs</th></tr>

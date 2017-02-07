@@ -27,7 +27,7 @@ public class Testbed {
 		final EClientSocket m_client = wrapper.getClient();
 		final EReaderSignal m_signal = wrapper.getSignal();
 		//! [connect]
-		m_client.eConnect("127.0.0.1", 7496, 0);
+		m_client.eConnect("127.0.0.1", 7497, 0);
 		//! [connect]
 		//! [ereader]
 		final EReader reader = new EReader(m_client, m_signal);        
@@ -46,8 +46,6 @@ public class Testbed {
                 }.start();
                 //! [ereader]
                 Thread.sleep(1000);
-                
-                wrapper.getClient().reqHeadTimestamp(4002, ContractSamples.USStock(), "TRADES", 1, 1);
 
                 //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
                 //contractOperations(wrapper.getClient());
@@ -119,7 +117,8 @@ public class Testbed {
         //! [faorderprofile]
         Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
         faOrderProfile.faProfile("Percent_60_40");
-        client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
+        int cancelID = nextOrderId;
+		client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
         //! [faorderprofile]
         
 		//client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.PeggedToMarket("BUY", 10, 0.01));
@@ -129,7 +128,15 @@ public class Testbed {
         //! [reqexecutions]
         client.reqExecutions(10001, new ExecutionFilter());
         //! [reqexecutions]
-        
+
+		//! [cancelorder]
+		client.cancelOrder(cancelID);
+		//! [cancelorder]
+
+		//! [reqglobalcancel]
+		client.reqGlobalCancel();
+		//! [reqglobalcancel]
+
         Thread.sleep(10000);
         
     }
@@ -158,11 +165,20 @@ public class Testbed {
 		//! [reqmktdata]
 		client.reqMktData(1001, ContractSamples.StockComboContract(), "", false, false, null);
 		//! [reqmktdata]
-		
+
+		//! [reqsmartcomponents]
+		client.reqSmartComponents(1013, "a6");
+		//! [reqsmartcomponents]
+
 		//! [reqmktdata_snapshot]
 		client.reqMktData(1003, ContractSamples.FutureComboContract(), "", true, false, null);
 		//! [reqmktdata_snapshot]
-		
+
+		//! [regulatorysnapshot]
+		// Each regulatory snapshot request incurs a 0.01 USD fee
+		// client.reqMktData(1014, ContractSamples.USStock(), "", false, true, null);
+		//! [regulatorysnapshot]
+
 		//! [reqmktdata_genticks]
 		//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
 		client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, false, null);
@@ -196,7 +212,12 @@ public class Testbed {
 	private static void historicalDataRequests(EClientSocket client) throws InterruptedException {
 		
 		/*** Requesting historical data ***/
-        //! [reqhistoricaldata]
+
+		//! [reqHeadTimeStamp]
+		client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
+		//! [reqHeadTimeStamp]
+
+		//! [reqhistoricaldata]
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -6);
 		SimpleDateFormat form = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
@@ -228,6 +249,11 @@ public class Testbed {
 	private static void marketDepthOperations(EClientSocket client) throws InterruptedException {
 		
 		/*** Requesting the Deep Book ***/
+
+		//! [reqMktDepthExchanges]
+		client.reqMktDepthExchanges();
+		//! [reqMktDepthExchanges]
+
         //! [reqmarketdepth]
         client.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, null);
         //! [reqmarketdepth]
@@ -251,6 +277,12 @@ public class Testbed {
         //! [reqmanagedaccts]
         client.reqManagedAccts();
         //! [reqmanagedaccts]
+
+		/*** Requesting family codes***/
+		//! [reqfamilycodes]
+		client.reqFamilyCodes();
+		//! [reqfamilycodes]
+
         /*** Requesting accounts' summary ***/
         Thread.sleep(2000);
         //! [reqaaccountsummary]
@@ -366,8 +398,14 @@ public class Testbed {
 		
 		//! [reqcontractdetails]
 		client.reqContractDetails(210, ContractSamples.OptionForQuery());
+		client.reqContractDetails(211, ContractSamples.EurGbpFx());
+		client.reqContractDetails(212, ContractSamples.Bond());
 		//! [reqcontractdetails]
-		
+
+		//! [reqmatchingsymbols]
+		client.reqMatchingSymbols(211, "IB");
+		//! [reqmatchingsymbols]
+
 	}
 	
 	private static void contractNewsFeed(EClientSocket client) {

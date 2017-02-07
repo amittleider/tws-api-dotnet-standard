@@ -1,6 +1,6 @@
 /*! \page market_scanners Market Scanners
 
-	The TWS' <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm">Advanced Market Scanner</a> can 
+	Some scans in the TWS <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm">Advanced Market Scanner</a> can 
 	be accessed via the TWS API through the @ref IBApi::EClient::reqScannerSubscription. 
 		
 	<ul id="tab">
@@ -21,9 +21,9 @@
 		</li>
 	</ul>
 	
-	Note how a @ref IBApi::ScannerSubscription object containing the scanner's criteria needs to be defined. See @ref scanner_examples at the bottom of this page.
+	The available API filters and and parameters are defined in the @ref IBApi::ScannerSubscription object, including [AbovePrice, BelowPrice, AboveVolume, ...] . Some @ref scanner_examples are listed at the bottom of this page.
 	
-	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered:
+	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters market data subscriptions are generally required.
 	
 	<ul id="tab">
 		<li class="active"> 

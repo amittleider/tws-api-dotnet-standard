@@ -1,14 +1,40 @@
 /*! \page options Options
-	The API can return the greek values in real time for options, as well as calculate the implied volatility given a hypothetical price or calculate the hypothetical price given an implied volatility. 
-	- \subpage option_computations
 
-	There is specific functionality to exercise or lapse options. 
+	\section option_chains Option Chains
 
-	- \subpage option_exercising
+	The option chain for a given security can be returned using the function reqContractDetails. If an option contract is incompletely defined (say with the strike undefined) and used as an argument to IBApi::EClient::reqContractDetails, a list of all matching option contracts will be returned. 
 
-	The option chain for a given security can be returned using the function reqContractDetails. See the Contract Details page.
-	
-	Starting in version 9.72 of the API there is a function named reqSecDefOptParams designed specifically to retrieve the option chain for a security which is not as restricted by the pacing limitations. 
+	The example below shows an "incomplete" option @ref IBApi::Contract with no last trading day, strike nor multiplier defined. In most cases using such a contract would result into a contract ambiguity error since there are lots of instruments matching the same description. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole option chain from the TWS.
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet ContractSamples.cs optionforquery
+			...
+			\snippet Program.cs reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.java optionforquery
+			...
+			\snippet Testbed.java reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.vb optionforquery
+			...
+			\snippet MainModule.vb reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.cpp optionforquery
+			...
+			\snippet TestCppClient.cpp reqcontractdetails
+		</li>
+		<li>
+			\snippet ContractSamples.py optionforquery
+			...
+			\snippet Program.py reqcontractdetails
+		</li>
+	</ul>
+
+	One limitation of this technique is that the return of option chains will be throttled and take a longer time the more ambiguous the contract definition. Starting in version 9.72 of the API, a new function IBApi::EClient::reqSecDefOptParams is introduced that does not have the throttling limitation. 
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -37,6 +63,34 @@
 			\snippet Program.py securityDefinitionOptionParameter
 		</li>
 	</ul>
+
+	IBApi::EClient::reqSecDefOptParams returns a list of expiries and a list of strike prices. In some cases it is possible there are combinations of strike and expiry that would not give a valid option contract. 
+
+	The API can return the greek values in real time for options, as well as calculate the implied volatility given a hypothetical price or calculate the hypothetical price given an implied volatility. 
+	- \subpage option_computations
+
+	\section option_exercising Exercising options
+
+	Options are exercised or lapsed from the API with the function @ref IBApi::EClient::exerciseOptions
 	
-	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs exercise_options
+		</li>
+		<li>
+			\snippet Testbed.java exercise_options
+		</li>
+		<li>
+			\snippet MainModule.vb exercise_options
+		</li>
+		<li>
+			\snippet TestCppClient.cpp exercise_options
+		</li>
+		<li>
+			\snippet Program.py exercise_options
+		</li>
+	</ul>
+
+
+	<br><br>
 */

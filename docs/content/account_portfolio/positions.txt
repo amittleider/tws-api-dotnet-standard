@@ -2,8 +2,7 @@
 
 	\section position_request Requesting
 
-	One of the major drawbacks of @ref IBApi::EClient::reqAccountUpdates is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain
-	the positions of all managed accounts. For this purpose @ref IBApi::EClient::reqPositions can be used. Note that this function will not keep an open subscription.
+	A limitation of the function @ref IBApi::EClient::reqAccountUpdates is that it can only be used with a single account at a time. To create a subscription for position updates from multiple accounts, the function @ref IBApi::EClient::reqPositions is available. After initially invoking reqPositions, information about all positions in all associated accounts will be returned. Thereafter, when a position has changed an update will be returned to the IBApi::EWrapper::position function. To cancel a reqPositions subscription, invoke IBApi::EClient::cancelPositions. 
 	
 	<ul id="tab">
 		<li class="active">
@@ -25,7 +24,7 @@
 	
 	\section position_receive Receiving
 	
-	After invoking the above, the positions will then be received through the @ref IBApi::EWrapper::position callback. After all positions have been delivered, the @ref IBApi::EWrapper::positionEnd function will be triggered to indicate so.
+	After invoking the above, the positions will then be received through the @ref IBApi::EWrapper::position callback. After the <b>initial callback</b> of all positions, the @ref IBApi::EWrapper::positionEnd function will be triggered.
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -67,7 +66,7 @@
 	
 	\section position_cancel Cancelling
 	
-	Once the subscription to positions is no longer needed, it can be cancelled via the IBApi::EClient::cancelPositions method:
+	To cancel the reqPosition subscription, invoke IBApi::EClient::cancelPositions:
 	
 	<ul id="tab">
 		<li class="active">
@@ -108,7 +107,7 @@
 		</li>
 	</ul>
 	
-	After invoking @ref IBApi::EClient::reqPositionsMulti data will be returned to the @ref IBApi::EWrapper::positionMulti function. After all positions have been delivered, the @ref IBApi::EWrapper::positionMultiEnd function will be triggered.
+	After invoking @ref IBApi::EClient::reqPositionsMulti data will be returned to the @ref IBApi::EWrapper::positionMulti function. After the initial callback of all positions matching the supplied criteria to reqPositionsMulti, the @ref IBApi::EWrapper::positionMultiEnd function will be triggered. Thereafter, there will only be messages sent to positionsMulti when there is a change. 
 	
 	<ul id="tab">
 		<li class="active"> 

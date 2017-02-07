@@ -1,0 +1,46 @@
+/*! \page matching_symbols Contract Search
+
+	<b>This function is still in development and not yet available.</b>
+
+	Starting in API v973.02, a function IBApi::EClient::reqMatchingSymbols can be used to search for contracts based on initial letters defining the ticker symbol. For instance, if the strings "I" or "IB" are specified to search for the IB ticker symbol "IBKR" it will be returned in the list of matching contracts. 
+
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqmatchingsymbols
+		</li>
+		<li>
+			\snippet Testbed.java reqmatchingsymbols
+		</li>
+		<li>
+			\snippet MainModule.vb reqmatchingsymbols
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmatchingsymbols
+		</li>
+		<li>
+			\snippet Program.py reqmatchingsymbols
+		</li>
+	</ul>
+
+	The results are returned to IBApi::EWrapper::symbolSamples.
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs symbolSamples
+		</li>
+		<li>
+			\snippet EWrapperImpl.java symbolSamples
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb symbolSamples
+		</li>
+		<li>
+			\snippet TestCppClient.cpp symbolSamples
+		</li>
+		<li>
+			\snippet Program.py symbolSamples
+		</li>
+	</ul>
+	
+	<br><br>
+*/

@@ -7,8 +7,8 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 """ Package implementing the Python API for the TWS/IB Gateway """
 
 VERSION = {
-    'major': 7,
-    'minor': 93,
+    'major': 9,
+    'minor': 73,
     'micro': 1 } 
 
 

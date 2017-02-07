@@ -1,4 +1,4 @@
-﻿/*! \page contracts Contracts
+/*! \page contracts Contracts
 
 	\section Overview
 	An @ref IBApi::Contract object represents trading instruments such as a stocks, futures or options. 
@@ -27,6 +27,7 @@
 	See also:
 	
 	- \subpage contract_details
+	- \subpage matching_symbols
 	- \subpage basic_contracts
 	- \subpage spread_contracts
 	

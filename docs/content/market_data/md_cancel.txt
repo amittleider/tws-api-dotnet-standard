@@ -1,0 +1,25 @@
+/*! \page md_cancel Cancelling streaming data
+
+	Once an active market data request is no longer needed, it can be cancelled via the IBApi::EClient::cancelMktData method. The one argument to cancelMktData is the ticker ID which was specified in original market data request. Cancelling a subscription allows the user to make a subscription to a different contract and remain within the level 1 market data lines allowance. 
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs cancelmktdata
+		</li>
+		<li>
+			\snippet Testbed.java cancelmktdata
+		</li>
+		<li>
+			\snippet MainModule.vb cancelmktdata
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelmktdata
+		</li>
+		<li>
+			\snippet Program.py cancelmktdata
+		</li>
+	</ul>
+
+	<br><br>
+	
+*/
