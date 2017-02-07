@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Options</title>
+<title>TWS API v9.72+: Options</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -129,16 +129,63 @@ $(document).ready(function(){initNavTree('options.html','');});
 <div class="title">Options </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The API can return the greek values in real time for options, as well as calculate the implied volatility given a hypothetical price or calculate the hypothetical price given an implied volatility.</p>
-<ul>
-<li><a class="el" href="option_computations.html">Options Computations</a></li>
+<div class="textblock"><h1><a class="anchor" id="option_chains"></a>
+Option Chains</h1>
+<p>The option chain for a given security can be returned using the function reqContractDetails. If an option contract is incompletely defined (say with the strike undefined) and used as an argument to <a class="el" href="classIBApi_1_1EClient.html#ade440c6db838b548594981d800ea5ca9" title="Requests contract information. This method will provide all the contracts matching the contract provi...">IBApi::EClient::reqContractDetails</a>, a list of all matching option contracts will be returned.</p>
+<p>The example below shows an "incomplete" option <a class="el" href="classIBApi_1_1Contract.html">IBApi.Contract</a> with no last trading day, strike nor multiplier defined. In most cases using such a contract would result into a contract ambiguity error since there are lots of instruments matching the same description. <a class="el" href="classIBApi_1_1EClient.html#ade440c6db838b548594981d800ea5ca9">IBApi.EClient.reqContractDetails</a> will instead use it to obtain the whole option chain from the TWS.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;FISV&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;OPT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">            client.reqContractDetails(209, ContractSamples.OptionForQuery());</div>
+<div class="line">            client.reqContractDetails(210, ContractSamples.EurGbpFx());</div>
+<div class="line">            client.reqContractDetails(211, ContractSamples.Bond());</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.symbol(<span class="stringliteral">&quot;FISV&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;OPT&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        client.reqContractDetails(210, ContractSamples.OptionForQuery());</div>
+<div class="line">        client.reqContractDetails(211, ContractSamples.EurGbpFx());</div>
+<div class="line">        client.reqContractDetails(212, ContractSamples.Bond());</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim contract As Contract = New Contract</div>
+<div class="line">            contract.Symbol = <span class="stringliteral">&quot;FISV&quot;</span></div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;OPT&quot;</span></div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        client.reqContractDetails(209, ContractSamples.EurGbpFx())</div>
+<div class="line">        client.reqContractDetails(210, ContractSamples.OptionForQuery())</div>
+<div class="line">        client.reqContractDetails(211, ContractSamples.Bond())</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.symbol = <span class="stringliteral">&quot;FISV&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;OPT&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    m_pClient-&gt;reqContractDetails(210, ContractSamples::OptionForQuery());</div>
+<div class="line">    m_pClient-&gt;reqContractDetails(212, ContractSamples::IBMBond());</div>
+<div class="line">    m_pClient-&gt;reqContractDetails(213, ContractSamples::IBKRStk());</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;FISV&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;OPT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqContractDetails(209, ContractSamples.EurGbpFx())</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqContractDetails(210, ContractSamples.OptionForQuery())</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqContractDetails(211, ContractSamples.Bond())</div>
+</div><!-- fragment -->  </li>
 </ul>
-<p>There is specific functionality to exercise or lapse options.</p>
-<ul>
-<li><a class="el" href="option_exercising.html">Exercising Options</a></li>
-</ul>
-<p>The option chain for a given security can be returned using the function reqContractDetails. See the Contract Details page.</p>
-<p>Starting in version 9.72 of the API there is a function named reqSecDefOptParams designed specifically to retrieve the option chain for a security which is not as restricted by the pacing limitations.</p>
+<p>One limitation of this technique is that the return of option chains will be throttled and take a longer time the more ambiguous the contract definition. Starting in version 9.72 of the API, a new function <a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain  reqId the ID ch...">IBApi::EClient::reqSecDefOptParams</a> is introduced that does not have the throttling limitation.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqSecDefOptParams(0, <span class="stringliteral">&quot;IBM&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;STK&quot;</span>, 8314);</div>
@@ -182,6 +229,38 @@ $(document).ready(function(){initNavTree('options.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;,&quot;</span>.join(expirations), <span class="stringliteral">&quot;,&quot;</span>.join(str(strikes)))</div>
 </div><!-- fragment -->  </li>
 </ul>
+<p><a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain  reqId the ID ch...">IBApi::EClient::reqSecDefOptParams</a> returns a list of expiries and a list of strike prices. In some cases it is possible there are combinations of strike and expiry that would not give a valid option contract.</p>
+<p>The API can return the greek values in real time for options, as well as calculate the implied volatility given a hypothetical price or calculate the hypothetical price given an implied volatility.</p>
+<ul>
+<li><a class="el" href="option_computations.html">Option Greeks</a></li>
+</ul>
+<h1><a class="anchor" id="option_exercising"></a>
+Exercising Options</h1>
+<p>Options are exercised or lapsed from the API with the function <a class="el" href="classIBApi_1_1EClient.html#aad70a7b82ad3b5e7ae3e9f0b98dc2a5b">IBApi.EClient.exerciseOptions</a></p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, null, 1);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        <span class="comment">//** Exercising options ***</span></div>
+<div class="line">        client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, <span class="stringliteral">&quot;&quot;</span>, 1);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        <span class="stringliteral">&#39;** Exercising options ***</span></div>
+<div class="line"><span class="stringliteral">        client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, Nothing, 1)</span></div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    <span class="comment">//** Exercising options ***</span></div>
+<div class="line">    m_pClient-&gt;exerciseOptions(5003, ContractSamples::OptionWithTradingClass(), 1, 1, <span class="stringliteral">&quot;&quot;</span>, 1);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                             1, self.account, 1)</div>
+</div><!-- fragment -->  </li>
+</ul>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->

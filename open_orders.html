@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Retrieving currently active orders</title>
+<title>TWS API v9.72+: Retrieving currently active orders</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('open_orders.html','');});
 <p><b>Note:</b> it is not possible to obtain cancelled or fully filled orders.</p>
 <h1><a class="anchor" id="connected_client_orders"></a>
 Connected client's own orders</h1>
-<p>The <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05">IBApi.EClient.reqOpenOrders</a> method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS.</p>
+<p>The <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05">IBApi.EClient.reqOpenOrders</a> method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS. If client 0 invokes reqOpenOrders, it will cause <b>currently</b> open orders placed from TWS manually to be 'bound', i.e. assigned an order ID so that they can be modified or cancelled by the API client 0. In the API settings in Global Configuration, is a setting checked by default "Use negative numbers to bind automatic orders" which will specify how manual TWS orders are assigned an API order ID.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqOpenOrders();</div>
@@ -173,7 +173,7 @@ All API submitted orders</h1>
 </ul>
 <h1><a class="anchor" id="manually_submitted"></a>
 Manually submitted TWS orders</h1>
-<p>Finally, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016">IBApi.EClient.reqAutoOpenOrders</a> will allow to obtain those orders <b>manually placed</b> using the TWS itself. This method also allows the client application to take over these orders and modify them by setting the autoBind parameter to <b>true</b>. If successfully bound, The orders will be assigned (i.e. bound to) an API order id and as such be eligible for modification.</p>
+<p>Finally, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016">IBApi.EClient.reqAutoOpenOrders</a> can only be invoked by client with ID 0. It will cause future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqAutoOpenOrders(<span class="keyword">true</span>);</div>

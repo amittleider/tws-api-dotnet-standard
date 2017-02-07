@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Basic Orders</title>
+<title>TWS API v9.72+: Basic Orders</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -1485,7 +1485,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.totalQuantity(quantity);</div>
 <div class="line">        <span class="keywordflow">if</span> (nonGuaranteed)</div>
 <div class="line">        {</div>
-<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;TagValue&gt;();</div>
+<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;&gt;();</div>
 <div class="line">            smartComboRoutingParams.add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
@@ -1551,7 +1551,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.totalQuantity(quantity);</div>
 <div class="line">        <span class="keywordflow">if</span> (nonGuaranteed)</div>
 <div class="line">        {</div>
-<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;TagValue&gt;();</div>
+<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;&gt;();</div>
 <div class="line">            smartComboRoutingParams.add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
@@ -1620,7 +1620,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.action(action);</div>
 <div class="line">        order.orderType(<span class="stringliteral">&quot;LMT&quot;</span>);</div>
 <div class="line">        order.totalQuantity(quantity);</div>
-<div class="line">        order.orderComboLegs(<span class="keyword">new</span> ArrayList&lt;OrderComboLeg&gt;());</div>
+<div class="line">        order.orderComboLegs(<span class="keyword">new</span> ArrayList&lt;&gt;());</div>
 <div class="line">        </div>
 <div class="line">        <span class="keywordflow">for</span>(<span class="keywordtype">double</span> price : legPrices) {</div>
 <div class="line">            OrderComboLeg comboLeg = <span class="keyword">new</span> OrderComboLeg();</div>
@@ -1630,7 +1630,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        </div>
 <div class="line">        <span class="keywordflow">if</span> (nonGuaranteed)</div>
 <div class="line">        {</div>
-<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;TagValue&gt;();</div>
+<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;&gt;();</div>
 <div class="line">            smartComboRoutingParams.add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
@@ -1714,7 +1714,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.lmtPrice(limitPrice);</div>
 <div class="line">        <span class="keywordflow">if</span> (nonGuaranteed)</div>
 <div class="line">        {</div>
-<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;TagValue&gt;();</div>
+<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;&gt;();</div>
 <div class="line">            smartComboRoutingParams.add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
@@ -1780,7 +1780,7 @@ Products: OPT, STK, FUT </li>
 <div class="line">        order.totalQuantity(quantity);</div>
 <div class="line">        <span class="keywordflow">if</span> (nonGuaranteed)</div>
 <div class="line">        {</div>
-<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;TagValue&gt;();</div>
+<div class="line">            List&lt;TagValue&gt; smartComboRoutingParams = <span class="keyword">new</span> ArrayList&lt;&gt;();</div>
 <div class="line">            smartComboRoutingParams.add(<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;NonGuaranteed&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>

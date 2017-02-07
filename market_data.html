@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Market Data</title>
+<title>TWS API v9.72+: Market Data</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -135,17 +135,17 @@ $(document).ready(function(){initNavTree('market_data.html','');});
 <li><a class="el" href="market_depth.html">Market Depth (Level II)</a></li>
 <li><a class="el" href="historical_data.html">Historical Data</a></li>
 <li><a class="el" href="realtime_bars.html">Real Time Bars</a></li>
-<li><a class="el" href="news.html">News</a></li>
 </ul>
 <h1><a class="anchor" id="market_subscriptions"></a>
 Live Market Data</h1>
-<p>In order to receive any kind of API market data (top-of-book, depth-of-book, or historical) it is necessary have live market data for the requested instruments in TWS. For many contracts, delayed data will be available in TWS, but to receive any data through the API its necessary for live market data to be available. This requires:</p>
+<p>In order to receive top-of-book, depth-of-book, or historical market data from the API it is necessary have live market data subscriptions for the requested instruments in TWS. The full list of requirements for real time data:</p>
 <p>(1) trading permissions for the specified instruments</p>
 <p>(2) a funded account (except with forex and bonds), and</p>
 <p>(3) market data subscriptions for the specified username</p>
 <p>To subscribe to live market data:</p>
 <p>Login to your <a href="https://gdcdyn.interactivebrokers.com/sso/Login" target="_blank" class="linkexternal">Account Management</a>, navigate to Manage Account -&gt; Trade Configuration -&gt; Market Data and select the relevant packages and/or subscription you wish to subscribe to based on the products you require.</p>
-<p>To find out which subscription are required for a given product, make use of the "Market Data Assistant" utility.</p>
+<p>One way to determine which market data subscriptions are required for a given security is to enter the contract into a TWS watchlist and the right-click on the contract to select "Launch Market Data Subscription Manager". This will launch a browser window to the market data subscription page of a subscription covering the indicated instrument.</p>
+<p>Alternatively, there is also a "Market Data Assistant" utility for determining market data subscriptions:</p>
 <div class="image">
 <img src="am_market_data_subscription.png" alt="am_market_data_subscription.png"/>
 </div>
@@ -170,7 +170,7 @@ Market Data Lines</h1>
 <p>Whenever a user requests an instrument's real time (top-of-book) market data either from within the TWS or through the TWS API, the user is making use of a market data line. Market data lines therefore represent the <b>active</b> market data requests a user has.</p>
 <p><b>Example: </b> To clarify this concept further, let us assume a user has a maxTicker Limit of <b>ten</b> market data lines and is already observing the real time data of say <b>five</b> stocks within the TWS itself. When the user connects his TWS API client application to the TWS, he then requests the real time market data for another <b>different five</b> instruments. At a later point while all 10 requests are still active, the user tries to subscribe to the live real time market data of an eleventh product. Since the user is already making use of ten market data lines (five in the TWS and another five in his client application), the TWS will respond with an error message telling the client application it has reached the maximum number of simultaneous requests. In order to request the market data of the eleventh product, the user will have to cancel at least one of the currently active subscriptions (either within TWS or from his client program.)</p>
 <p>By default, every user has a maxTicker Limit of 100 market data lines and as such can obtain the real time market data of up to 100 instruments <b>simultaneously</b>. This limit however can be further extended either through the purchase of quote booster packs or by increasing the equity and/or commissions of the user's account. For further details on how to increment the number of market data lines or how is your market data lines' entitlement calculated, please refer to our website's "Market Data Display" section within the <a href="https://www.interactivebrokers.com/en/index.php?f=14193" target="_blank" class="linkexternal">Research, News and Market Data</a> page.</p>
-<p><b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and historical data.</p>
+<p><b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and real time bars.</p>
 <p><br/>
 <br/>
  </p>

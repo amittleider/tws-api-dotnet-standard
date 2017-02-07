@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Fundamental Data</title>
+<title>TWS API v9.72+: Fundamental Data</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 <div class="title">Fundamental Data </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Reuters Fundamental data for stocks and the Wall Street Events Horizon Calendar can be accessed via the TWS API through the <a class="el" href="classIBApi_1_1EClient.html#abba7df6f72f5516cae4c05c9144a89ee">IBApi.EClient.reqFundamentalData</a>. For the "CalendarReport" it is necessary to have the Wall Street Horizon subscription activated first in <a href="http://interactivebrokers.github.io/tws-api/market_data.html#market_subscriptions" target="_blank" class="linkexternal">Account Management</a>. The other report types require the Reuters Fundamentals subscription but this is freely available and will be activated in most accounts by default.</p>
+<div class="textblock"><p><b>Reuters Fundamental</b> data for stocks and the <b>Wall Street Events Horizon Calendar</b> can be accessed via the TWS API through the <a class="el" href="classIBApi_1_1EClient.html#abba7df6f72f5516cae4c05c9144a89ee">IBApi.EClient.reqFundamentalData</a>. For the "CalendarReport" it is necessary to have the Wall Street Horizon subscription activated first in <a href="http://interactivebrokers.github.io/tws-api/market_data.html#market_subscriptions" target="_blank" class="linkexternal">Account Management</a>. The other report types require the Reuters Fundamentals subscription but this is freely available and will be activated in most accounts by default.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqFundamentalData(8001, ContractSamples.USStock(), <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>, null);</div>
@@ -224,7 +224,7 @@ Report Types</h1>
 <tr>
 <td>CalendarReport</td><td>Company's calendar </td></tr>
 </table>
-<p><em>Fundamental Ratios data can be acquired by requesting generic tick type 258 with <a class="el" href="classIBApi_1_1EClient.html#a5b7d2f3048b2be5c9c3a87c18fb01dd3">IBApi.EClient.reqMktData</a>. See both <a class="el" href="tick_types.html">Available Tick Types</a> and <a class="el" href="fundamental_ratios_tags.html">Available Fundamental Ratios</a>.</em></p>
+<p><em>Fundamental Ratios data can be acquired by requesting generic tick type 258 with <a class="el" href="classIBApi_1_1EClient.html#a7a19258a3a2087c07c1c57b93f659b63">IBApi.EClient.reqMktData</a>. See both <a class="el" href="tick_types.html">Available Tick Types</a> and <a class="el" href="fundamental_ratios_tags.html">Available Fundamental Ratios</a>.</em></p>
 <p><br/>
 <br/>
  </p>

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Options Computations</title>
+<title>TWS API v9.72+: Option Greeks</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -126,31 +126,31 @@ $(document).ready(function(){initNavTree('option_computations.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Options Computations </div>  </div>
+<div class="title">Option Greeks </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="option_greeks"></a>
 Market data related to options</h1>
 <p>The option greek values- delta, gamma, theta, vega- are returned by default following a reqMktData() request for the option. See <a class="el" href="tick_types.html">Available Tick Types</a></p>
-<p>Tick types BID_OPTION_COMPUTATION (#10), ASK_OPTION_COMPUTATION (#11), LAST_OPTION_COMPUTATION (#12), and MODEL_OPTION_COMPUTATION (#13) return all Greeks (delta, gamma, vega, theta), the underlying price and the stock and option reference price when requested.</p>
+<p>Tick types "Bid Option Computation" (#10), "Ask Option Computation" (#11), "Last Option Computation" (#12), and "Model Option Computation" (#13) return all Greeks (delta, gamma, vega, theta), the underlying price and the stock and option reference price when requested.</p>
 <p>MODEL_OPTION_COMPUTATION also returns model implied volatility.</p>
 <p>Note that to receive greek values it is necessary to have market data subscriptions for both the option and the underlying contract.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            <span class="comment">//Requesting data for an option contract will return the greek values</span></div>
-<div class="line">            client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, null);</div>
+<div class="line">            client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="comment">//Requesting data for an option contract will return the greek values</span></div>
-<div class="line">        client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, null);</div>
+<div class="line">        client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="stringliteral">&#39;Requesting data for an option contract will return the greek values</span></div>
-<div class="line"><span class="stringliteral">        client.reqMktData(1005, ContractSamples.USOptionContract(), String.Empty, False, Nothing)</span></div>
+<div class="line"><span class="stringliteral">        client.reqMktData(1005, ContractSamples.USOptionContract(), String.Empty, False, False, Nothing)</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    <span class="comment">//Requesting data for an option contract will return the greek values</span></div>
-<div class="line">    m_pClient-&gt;reqMktData(1005, ContractSamples::USOptionContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
+<div class="line">    m_pClient-&gt;reqMktData(1005, ContractSamples::USOptionContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Requesting data for an option contract will return the greek values</span></div>

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: ContractDetails Class Reference</title>
+<title>TWS API v9.72+: ContractDetails Class Reference</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -167,7 +167,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="separator:accd9046286f3769ac78f5a596ddb4c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63e528469d3e0c066c2a12eff1659b5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63e528469d3e0c066c2a12eff1659b5e"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a63e528469d3e0c066c2a12eff1659b5e">ValidExchanges</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a63e528469d3e0c066c2a12eff1659b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges on which this product is traded. <br/></td></tr>
+<tr class="memdesc:a63e528469d3e0c066c2a12eff1659b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid exchange fields when placing an order for this contract. <br/></td></tr>
 <tr class="separator:a63e528469d3e0c066c2a12eff1659b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d2b19f1b0c552f7a946185fa1167510"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d2b19f1b0c552f7a946185fa1167510"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a6d2b19f1b0c552f7a946185fa1167510">UnderConId</a><code> [get, set]</code></td></tr>
@@ -215,19 +215,19 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="separator:a7f2d7928c93dfdff59059c5920923586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea3e9ded7f1e8a604bea3cbf2bd9c35e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#aea3e9ded7f1e8a604bea3cbf2bd9c35e">MdSizeMultiplier</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MD Size Multiplier. <br/></td></tr>
+<tr class="memdesc:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments. <br/></td></tr>
 <tr class="separator:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78cf9be62898771e4f47a73d3b07dc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad78cf9be62898771e4f47a73d3b07dc5"></a>
 List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#ad78cf9be62898771e4f47a73d3b07dc5">SecIdList</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ad78cf9be62898771e4f47a73d3b07dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of contract identifiers that the customer is allowed to view. CUSIP/ISIN/etc. <br/></td></tr>
+<tr class="memdesc:ad78cf9be62898771e4f47a73d3b07dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of contract identifiers that the customer is allowed to view. CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription. <br/></td></tr>
 <tr class="separator:ad78cf9be62898771e4f47a73d3b07dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ec8acefd0343cef5400cee429bcabfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ec8acefd0343cef5400cee429bcabfa"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a6ec8acefd0343cef5400cee429bcabfa">Cusip</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6ec8acefd0343cef5400cee429bcabfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The nine-character bond CUSIP or the 12-character SEDOL. For Bonds only. <br/></td></tr>
+<tr class="memdesc:a6ec8acefd0343cef5400cee429bcabfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The nine-character bond CUSIP or the 12-character SEDOL. For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription. <br/></td></tr>
 <tr class="separator:a6ec8acefd0343cef5400cee429bcabfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f7eb6bbc0ec3429e26a67da0070675"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8f7eb6bbc0ec3429e26a67da0070675"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#ab8f7eb6bbc0ec3429e26a67da0070675">Ratings</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ab8f7eb6bbc0ec3429e26a67da0070675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the credit rating of the issuer. For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&amp;P respectively. <br/></td></tr>
+<tr class="memdesc:ab8f7eb6bbc0ec3429e26a67da0070675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the credit rating of the issuer. For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&amp;P respectively. Not currently implemented due to bond market data restrictions. <br/></td></tr>
 <tr class="separator:ab8f7eb6bbc0ec3429e26a67da0070675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b1e2fea74de71d63bb7d90ac6cfbf6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49b1e2fea74de71d63bb7d90ac6cfbf6"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a49b1e2fea74de71d63bb7d90ac6cfbf6">DescAppend</a><code> [get, set]</code></td></tr>
@@ -259,11 +259,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:af005f667886960c6064333353480c45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0529525f5a8f43b10ceb558577763c15"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0529525f5a8f43b10ceb558577763c15"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a0529525f5a8f43b10ceb558577763c15">Maturity</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a0529525f5a8f43b10ceb558577763c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">he date on which the issuer must repay the face value of the bond. For Bonds only. <br/></td></tr>
+<tr class="memdesc:a0529525f5a8f43b10ceb558577763c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">he date on which the issuer must repay the face value of the bond. For Bonds only. Not currently implemented due to bond market data restrictions. <br/></td></tr>
 <tr class="separator:a0529525f5a8f43b10ceb558577763c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58fa4bd5c8490afb2107aa31e96bafb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58fa4bd5c8490afb2107aa31e96bafb8"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a58fa4bd5c8490afb2107aa31e96bafb8">IssueDate</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a58fa4bd5c8490afb2107aa31e96bafb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date the bond was issued. For Bonds only. <br/></td></tr>
+<tr class="memdesc:a58fa4bd5c8490afb2107aa31e96bafb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date the bond was issued. For Bonds only. Not currently implemented due to bond market data restrictions. <br/></td></tr>
 <tr class="separator:a58fa4bd5c8490afb2107aa31e96bafb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd0a0f532fcd83910248a2782af0b8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2cd0a0f532fcd83910248a2782af0b8a"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a2cd0a0f532fcd83910248a2782af0b8a">NextOptionDate</a><code> [get, set]</code></td></tr>

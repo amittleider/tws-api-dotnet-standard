@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Initial Setup</title>
+<title>TWS API v9.72+: Initial Setup</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -131,11 +131,11 @@ $(document).ready(function(){initNavTree('initial_setup.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="tws"></a>
 The Trader Workstation</h1>
-<p>Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72 of the API, it is necessary to have TWS version 952 or higher.</p>
+<p>Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72+ of the API, it is necessary to have TWS version 952 or higher.</p>
 <h1><a class="anchor" id="gateway"></a>
 The IB Gateway</h1>
 <p>The only alternative to the TWS is the IB Gateway. From the TWS API perspective, the IB Gateway and the TWS are identical: both represent nothing but a server to which it can open a socket connection. From the user perspective however the IB Gateway is a lightweight application through which he can only make use of the TWS API. As opposed to the TWS' rich user interface, the IB Gateway does not provide the end user with anything else than the very basic features to handle API connections. On the other hand, the IB Gateway does not need to be restarted every 24 hours and can therefore be used to run indefinitely.</p>
-<p><b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonyms.</b></p>
+<p><b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonymous.</b></p>
 <h1><a class="anchor" id="enable_api"></a>
 Enable API connections</h1>
 <p>Before any client application can connect to the Trader Workstation, the TWS needs to be configured to listen for incoming API connections on a very specific port. To do this simply access the TWS' API settings via Edit -&gt; Global Configuration -&gt; API -&gt; Settings and make sure the "Enable ActiveX and Socket Clients" option is activated as shown below:</p>
@@ -147,6 +147,9 @@ Enable API connections</h1>
 <h1><a class="anchor" id="read_only"></a>
 Read Only API</h1>
 <p>The API Settings dialogue allows you to configure the TWS not to accept any orders being sent via the TWS API. This is enabled by default and is an additional security measure you can enable when the API client is only intended to request information from the TWS. Note that no information about orders will be available to the API when read-only mode is enabled.</p>
+<h1><a class="anchor" id="master_client"></a>
+Master Client ID</h1>
+<p>By default the "Master Client ID" field is unset. To specify that a certain client should automatically receive updates about all open orders, as well as to receive commission reports from an execution resulting from an order being placed by any client, that client's ID should be set as the Master Client ID in TWS or IBG Global Configuration. The clientID is one of the parameters specified from an API client application in the initial function call to <a class="el" href="classIBApi_1_1EClientSocket.html#a315a7f7a34afc504d84c4f0ca462d924">IBApi::EClientSocket::eConnect</a>.</p>
 <h1><a class="anchor" id="install"></a>
 Installing the API source</h1>
 <p>The API itself can be downloaded and installed from:</p>
@@ -155,9 +158,10 @@ Installing the API source</h1>
 <p>The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. It is important that the API installs to the C: drive, as otherwise API applications may not be able to find the associated files.</p>
 <h1><a class="anchor" id="changing"></a>
 Changing the installed API version</h1>
-<p>If a different version of the API is required than the one currently installed on the system, there are a couple additional steps needed in the uninstallation of the previously installed API version:</p>
+<p>(On Windows Only)</p>
+<p>If a different version of the ActiveX (v9.71 or lower) or C++ API is required than the one currently installed on the system, there are additional steps required to uninstall the previous API version to manually remove a file called "TwsSocketClient.dll":</p>
 <p>1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual</p>
-<p>2) Locate the file "C:\Windows\SysWOW32\TwsSocketClient.dll". Delete this file.</p>
+<p>2) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.</p>
 <p>3) Restart the computer before installing a different API version.</p>
 <p><br/>
 <br/>

@@ -6,6 +6,7 @@ var market_data =
     [ "Top Market Data (Level I)", "top_data.html", "top_data" ],
     [ "Market Depth (Level II)", "market_depth.html", [
       [ "Requesting", "market_depth.html#request", null ],
+      [ "Exchanges supplying Market Makers", "market_depth.html#reqmktdepthexchanges", null ],
       [ "Receiving", "market_depth.html#receive", null ],
       [ "Canceling", "market_depth.html#canceling", null ],
       [ "Limitations", "market_depth.html#limitations", null ]
@@ -15,13 +16,5 @@ var market_data =
       [ "Requesting", "realtime_bars.html#rt_bars_req", null ],
       [ "Receiving", "realtime_bars.html#rt_bars_rec", null ],
       [ "Canceling", "realtime_bars.html#rt_bars_cancel", null ]
-    ] ],
-    [ "News", "news.html", [
-      [ "Contract Specific News", "news.html#news_contract", null ],
-      [ "BroadTape News", "news.html#news_broad", null ],
-      [ "Briefing Trader", "news.html#news_bt", null ],
-      [ "Benzinga Pro", "news.html#news_bz", null ],
-      [ "Fly on the Wall", "news.html#news_fly", null ],
-      [ "Midnight Trader", "news.html#news_mt", null ]
     ] ]
 ];

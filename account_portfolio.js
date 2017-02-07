@@ -1,6 +1,7 @@
 var account_portfolio =
 [
     [ "Managed Accounts", "managed_accounts.html", null ],
+    [ "Family Codes", "family_codes.html", null ],
     [ "Account Updates", "account_updates.html", [
       [ "Requesting", "account_updates.html#acct_update_request", null ],
       [ "Receiving", "account_updates.html#acct_update_receive", null ],

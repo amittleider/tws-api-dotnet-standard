@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Financial Advisor Methods and Orders</title>
+<title>TWS API v9.72+: Financial Advisor Methods and Orders</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -223,8 +223,8 @@ ReceiveFA() methods</h1>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>receiveFA(self, faData:FaDataType , cxml:str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().receiveFA(faData, cxml)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Receiving FA: &quot;</span>,faDataType)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        open(<span class="stringliteral">&#39;log/fa.xml&#39;</span>, <span class="stringliteral">&#39;w&#39;</span>).write(xml)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Receiving FA: &quot;</span>,faData)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        open(<span class="stringliteral">&#39;log/fa.xml&#39;</span>, <span class="stringliteral">&#39;w&#39;</span>).write(cxml)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="replace_fa_methods"></a>
@@ -858,6 +858,7 @@ Financial Advisor Sample Orders</h1>
 <li>
 <div class="fragment"><div class="line">        Order faOrderProfile = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
 <div class="line">        faOrderProfile.faProfile(<span class="stringliteral">&quot;Percent_60_40&quot;</span>);</div>
+<div class="line">        <span class="keywordtype">int</span> cancelID = nextOrderId;</div>
 <div class="line">        client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);</div>
 </div><!-- fragment -->  </li>
 <li>

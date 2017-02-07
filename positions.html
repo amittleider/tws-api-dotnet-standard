@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Positions</title>
+<title>TWS API v9.72+: Positions</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('positions.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="position_request"></a>
 Requesting</h1>
-<p>One of the major drawbacks of <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> is that it only allows to retrieve information for one account at a time while it is very often desirable to easily obtain the positions of all managed accounts. For this purpose <a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e">IBApi.EClient.reqPositions</a> can be used. Note that this function will not keep an open subscription.</p>
+<p>A limitation of the function <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a> is that it can only be used with a single account at a time. To create a subscription for position updates from multiple accounts, the function <a class="el" href="classIBApi_1_1EClient.html#ab262cf5601e57d6612d3df5e821fca9e">IBApi.EClient.reqPositions</a> is available. After initially invoking reqPositions, information about all positions in all associated accounts will be returned. Thereafter, when a position has changed an update will be returned to the <a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6" title="provides the portfolio&#39;s open positions. ">IBApi::EWrapper::position</a> function. To cancel a reqPositions subscription, invoke <a class="el" href="classIBApi_1_1EClient.html#ab2159a39733d8967928317524875aa62" title="Cancels all account&#39;s positions request. ">IBApi::EClient::cancelPositions</a>.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqPositions();</div>
@@ -151,7 +151,7 @@ Requesting</h1>
 </ul>
 <h1><a class="anchor" id="position_receive"></a>
 Receiving</h1>
-<p>After invoking the above, the positions will then be received through the <a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6">IBApi.EWrapper.position</a> callback. After all positions have been delivered, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#acf1bebfc1b29cbeff32da7d53aec0971">IBApi.EWrapper.positionEnd</a> function will be triggered to indicate so.</p>
+<p>After invoking the above, the positions will then be received through the <a class="el" href="interfaceIBApi_1_1EWrapper.html#af4105e2dae9efd6f6bb56f706374c9d6">IBApi.EWrapper.position</a> callback. After the <b>initial callback</b> of all positions, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#acf1bebfc1b29cbeff32da7d53aec0971">IBApi.EWrapper.positionEnd</a> function will be triggered.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
@@ -213,7 +213,7 @@ Receiving</h1>
 </ul>
 <h1><a class="anchor" id="position_cancel"></a>
 Cancelling</h1>
-<p>Once the subscription to positions is no longer needed, it can be cancelled via the <a class="el" href="classIBApi_1_1EClient.html#ab2159a39733d8967928317524875aa62" title="Cancels all account&#39;s positions request. ">IBApi::EClient::cancelPositions</a> method:</p>
+<p>To cancel the reqPosition subscription, invoke <a class="el" href="classIBApi_1_1EClient.html#ab2159a39733d8967928317524875aa62" title="Cancels all account&#39;s positions request. ">IBApi::EClient::cancelPositions</a>:</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.cancelPositions();</div>
@@ -251,7 +251,7 @@ Models' Positions</h1>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqPositionsMulti(9006, self.account, <span class="stringliteral">&quot;&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>After invoking <a class="el" href="classIBApi_1_1EClient.html#a4fa2744c3459f9f6cf695980267608c3">IBApi.EClient.reqPositionsMulti</a> data will be returned to the <a class="el" href="interfaceIBApi_1_1EWrapper.html#afecadbe206c341b3e89c117790e42e87">IBApi.EWrapper.positionMulti</a> function. After all positions have been delivered, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a46c77101413adc69812d808b907cff9d">IBApi.EWrapper.positionMultiEnd</a> function will be triggered.</p>
+<p>After invoking <a class="el" href="classIBApi_1_1EClient.html#a4fa2744c3459f9f6cf695980267608c3">IBApi.EClient.reqPositionsMulti</a> data will be returned to the <a class="el" href="interfaceIBApi_1_1EWrapper.html#afecadbe206c341b3e89c117790e42e87">IBApi.EWrapper.positionMulti</a> function. After the initial callback of all positions matching the supplied criteria to reqPositionsMulti, the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a46c77101413adc69812d808b907cff9d">IBApi.EWrapper.positionMultiEnd</a> function will be triggered. Thereafter, there will only be messages sent to positionsMulti when there is a change.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
