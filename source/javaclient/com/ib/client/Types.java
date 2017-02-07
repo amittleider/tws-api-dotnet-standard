@@ -3,6 +3,8 @@
 
 package com.ib.client;
 
+import java.util.Arrays;
+
 import static com.ib.client.Types.AlgoParam.allowPastEndTime;
 import static com.ib.client.Types.AlgoParam.catchUp;
 import static com.ib.client.Types.AlgoParam.componentSize;
@@ -45,10 +47,12 @@ public class Types {
 
 		private AlgoParam[] m_params;
 
-		public AlgoParam[] params() { return m_params; }
+		public AlgoParam[] params() {
+			return Arrays.copyOf(m_params, m_params.length);
+		}
 
 		AlgoStrategy( AlgoParam... params) {
-			m_params = params;
+			m_params = Arrays.copyOf(params, params.length);
 		}
 
 		public static AlgoStrategy get(String apiString) {
