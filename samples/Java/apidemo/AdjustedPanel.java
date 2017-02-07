@@ -16,12 +16,12 @@ public class AdjustedPanel extends OnOKPanel {
 	 */
 	private final JDialog m_parentDlg;
 	private final Order m_order;
-	final TCombo<OrderType> m_adjustedOrderType = new TCombo<OrderType>(OrderType.None, OrderType.STP, OrderType.STP_LMT, OrderType.TRAIL, OrderType.TRAIL_LIMIT); 
+	final TCombo<OrderType> m_adjustedOrderType = new TCombo<>(OrderType.None, OrderType.STP, OrderType.STP_LMT, OrderType.TRAIL, OrderType.TRAIL_LIMIT);
 	final UpperField m_triggerPrice = new UpperField();
 	final UpperField m_adjustedStopPrice = new UpperField();
 	final UpperField m_adjustedStopLimitPrice = new UpperField();
 	final UpperField m_adjustedTrailingAmount = new UpperField();
-	final TCombo<AmntUnit> m_adjustedTrailingAmountUnit = new TCombo<AmntUnit>(AmntUnit.values());
+	final TCombo<AmntUnit> m_adjustedTrailingAmountUnit = new TCombo<>(AmntUnit.values());
 	
 	public AdjustedPanel(JDialog parentDlg, Order order) {
 		m_parentDlg = parentDlg;

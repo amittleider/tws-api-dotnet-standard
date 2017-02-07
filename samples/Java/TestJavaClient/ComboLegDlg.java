@@ -208,8 +208,8 @@ public class ComboLegDlg extends JDialog {
 }
 
 class ComboLegModel extends AbstractTableModel {
-    private ArrayList<ComboLeg> m_comboLegData = new ArrayList<ComboLeg>();
-    private ArrayList<OrderComboLeg> m_orderComboLegData = new ArrayList<OrderComboLeg>();
+    private ArrayList<ComboLeg> m_comboLegData = new ArrayList<>();
+    private ArrayList<OrderComboLeg> m_orderComboLegData = new ArrayList<>();
 
     synchronized public void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg) {
         m_comboLegData.add( comboLeg);

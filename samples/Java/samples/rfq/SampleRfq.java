@@ -119,7 +119,7 @@ public class SampleRfq extends SimpleWrapper {
             break;
       case 4:
             m_contract = new ComboContract("Z", "GBP", "LIFFE");
-            m_contract.comboLegs(new ArrayList<ComboLeg>(2));
+            m_contract.comboLegs(new ArrayList<>(2));
             {
                Contract l1 = new OptContract("Z", "LIFFE", "200809", 54.75, "CALL");
                l1.currency("GBP");
@@ -134,7 +134,7 @@ public class SampleRfq extends SimpleWrapper {
             break;
       case 5:
             m_contract = new ComboContract("IBM");
-            m_contract.comboLegs(new ArrayList<ComboLeg>(1));
+            m_contract.comboLegs(new ArrayList<>(1));
 
             m_contract.underComp(new DeltaNeutralContract());
             //m_contract.m_underComp.m_delta = 0.8;
@@ -148,7 +148,7 @@ public class SampleRfq extends SimpleWrapper {
             break;
       case 6:
             m_contract = new ComboContract("RUT");
-            m_contract.comboLegs(new ArrayList<ComboLeg>(1));
+            m_contract.comboLegs(new ArrayList<>(1));
 
             m_contract.underComp(new DeltaNeutralContract());
             m_needFrontMonthFuture = true;
@@ -161,7 +161,7 @@ public class SampleRfq extends SimpleWrapper {
             break;
       case 7:
             m_contract = new ComboContract("Z", "GBP", "LIFFE");
-            m_contract.comboLegs(new ArrayList<ComboLeg>(1));
+            m_contract.comboLegs(new ArrayList<>(1));
 
             m_contract.underComp(new DeltaNeutralContract());
             m_needFrontMonthFuture = true;

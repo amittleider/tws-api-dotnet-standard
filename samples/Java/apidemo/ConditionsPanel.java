@@ -27,7 +27,7 @@ public class ConditionsPanel extends OnOKPanel {
 	private final Order m_order;
 	final ConditionsModel m_conditionList;
 	final JTable m_conditions;
-	final TCombo<String> m_cancelOrder = new TCombo<String>("Submit order", "Cancel order");
+	final TCombo<String> m_cancelOrder = new TCombo<>("Submit order", "Cancel order");
 	final JCheckBox m_ignoreRth = new JCheckBox("Allow condition to be satisfied and activate order outside of regular trading hours");
 
 	public ConditionsPanel(JDialog parentDlg, Order order, final ContractLookuper lookuper) {
@@ -60,7 +60,7 @@ public class ConditionsPanel extends OnOKPanel {
 			@Override public void mouseExited(MouseEvent e) { }
 		});
 		
-		TCombo<String> comboBox = new TCombo<String>("and", "or");
+		TCombo<String> comboBox = new TCombo<>("and", "or");
 		DefaultCellEditor editor = new DefaultCellEditor(comboBox);		
 
 		m_conditions.getColumnModel().getColumn(1).setCellEditor(editor);

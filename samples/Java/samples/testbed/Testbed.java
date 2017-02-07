@@ -10,14 +10,12 @@ import samples.testbed.orders.AvailableAlgoParams;
 import samples.testbed.orders.OrderSamples;
 import samples.testbed.scanner.ScannerSubscriptionSamples;
 
-import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EReader;
 import com.ib.client.EReaderSignal;
 import com.ib.client.ExecutionFilter;
 import com.ib.client.Order;
 import com.ib.client.Types.FADataType;
-import com.ib.controller.AccountSummaryTag;
 
 public class Testbed {
 
@@ -138,7 +136,7 @@ public class Testbed {
 		
 		//OCA order
 		//! [ocasubmit]
-		List<Order> OcaOrders = new ArrayList<Order>();
+		List<Order> OcaOrders = new ArrayList<>();
 		OcaOrders.add(OrderSamples.LimitOrder("BUY", 1, 10));
 		OcaOrders.add(OrderSamples.LimitOrder("BUY", 1, 11));
 		OcaOrders.add(OrderSamples.LimitOrder("BUY", 1, 12));

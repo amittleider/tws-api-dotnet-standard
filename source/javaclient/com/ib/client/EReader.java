@@ -26,7 +26,7 @@ public class EReader extends Thread {
     private static final int IN_BUF_SIZE_DEFAULT = 8192;
     private byte[] m_iBuf = new byte[IN_BUF_SIZE_DEFAULT];
     private int m_iBufLen = 0;
-    private Deque<EMessage> m_msgQueue = new LinkedList<EMessage>();
+    private Deque<EMessage> m_msgQueue = new LinkedList<>();
     
     protected boolean isUseV100Plus() {
 		return m_clientSocket.isUseV100Plus();

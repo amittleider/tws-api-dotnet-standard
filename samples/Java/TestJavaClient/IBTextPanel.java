@@ -95,7 +95,7 @@ class IBTextPanel extends JPanel {
     }
 
     public static ArrayList<String> tokenizedIntoArrayList(String source, String delimiter) {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(source, delimiter);
         while (st.hasMoreTokens()) {
             String temp = st.nextToken();

@@ -8,7 +8,7 @@ import apidemo.util.TCombo;
 
 public class PriceConditionPanel extends ContractConditionPanel<PriceCondition> {
 
-	static enum Method {
+	enum Method {
 		Default(0),
 		DoubleBidAsk(1),
 		Last(2),
@@ -46,7 +46,7 @@ public class PriceConditionPanel extends ContractConditionPanel<PriceCondition> 
 		}
 	}
 	
-	final private TCombo<Method> m_method = new TCombo<Method>(Method.values()); 
+	final private TCombo<Method> m_method = new TCombo<>(Method.values());
 
 	public PriceConditionPanel(PriceCondition condition, ContractLookuper lookuper) {
 		super(condition, lookuper);

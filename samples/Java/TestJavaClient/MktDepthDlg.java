@@ -5,8 +5,6 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
@@ -147,7 +145,7 @@ class MktDepthDlg extends JDialog {
 }
 
 class MktDepthModel extends AbstractTableModel {
-    private LinkedList<MktDepthTableRow>  m_allData = new LinkedList<MktDepthTableRow>();
+    private LinkedList<MktDepthTableRow>  m_allData = new LinkedList<>();
 
     synchronized public void addOrderAt(int position, String marketMaker, double price, int size)
     {

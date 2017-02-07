@@ -13,7 +13,7 @@ public class Profile {
 
     private String m_name;
 	private Type m_type;
-	private ArrayList<Allocation> m_allocations = new ArrayList<Allocation>();
+	private ArrayList<Allocation> m_allocations = new ArrayList<>();
 
 	public String name() { return m_name; }
 	public Type type() { return m_type; }

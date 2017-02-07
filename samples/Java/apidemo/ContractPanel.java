@@ -18,10 +18,10 @@ import apidemo.util.VerticalPanel;
 
 public class ContractPanel extends JPanel {
 	protected UpperField m_symbol = new UpperField();
-	protected TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
+	protected TCombo<SecType> m_secType = new TCombo<>( SecType.values() );
 	protected UpperField m_lastTradeDateOrContractMonth = new UpperField();
 	protected UpperField m_strike = new UpperField();
-	protected TCombo<Right> m_right = new TCombo<Right>( Right.values() );
+	protected TCombo<Right> m_right = new TCombo<>( Right.values() );
 	protected UpperField m_multiplier = new UpperField();
 	protected UpperField m_exchange = new UpperField();
 	protected UpperField m_compExch = new UpperField();

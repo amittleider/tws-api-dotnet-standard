@@ -296,7 +296,7 @@ public class ContractSamples {
 		ComboLeg leg1 = new ComboLeg();
 		ComboLeg leg2 = new ComboLeg();
 
-		ArrayList<ComboLeg> addAllLegs = new ArrayList<ComboLeg>();
+		ArrayList<ComboLeg> addAllLegs = new ArrayList<>();
 
 		leg1.conid(197397509);//DBK JUN 15 '18 C
 		leg1.ratio(1);
@@ -328,7 +328,7 @@ public class ContractSamples {
 		ComboLeg leg1 = new ComboLeg();
 		ComboLeg leg2 = new ComboLeg();
 
-		ArrayList<ComboLeg> addAllLegs = new ArrayList<ComboLeg>();
+		ArrayList<ComboLeg> addAllLegs = new ArrayList<>();
 
 		leg1.conid(43645865);//IBKR STK
 		leg1.ratio(1);
@@ -360,7 +360,7 @@ public class ContractSamples {
 		ComboLeg leg1 = new ComboLeg();
 		ComboLeg leg2 = new ComboLeg();
 
-		ArrayList<ComboLeg> addAllLegs = new ArrayList<ComboLeg>();
+		ArrayList<ComboLeg> addAllLegs = new ArrayList<>();
 
 		leg1.conid(195538625);//VIX FUT 20160217
 		leg1.ratio(1);
@@ -392,7 +392,7 @@ public class ContractSamples {
 		ComboLeg leg1 = new ComboLeg();
 		ComboLeg leg2 = new ComboLeg();
 
-		ArrayList<ComboLeg> addAllLegs = new ArrayList<ComboLeg>();
+		ArrayList<ComboLeg> addAllLegs = new ArrayList<>();
 
 		leg1.conid(47207310); //CL Dec'16 @NYMEX
 		leg1.ratio(1);

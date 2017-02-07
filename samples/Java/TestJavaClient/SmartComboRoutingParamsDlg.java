@@ -34,7 +34,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     private SmartComboRoutingParamModel 	m_paramModel = new SmartComboRoutingParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
     private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
-    ArrayList<TagValue> m_smartComboRoutingParams = new ArrayList<TagValue>();
+    ArrayList<TagValue> m_smartComboRoutingParams = new ArrayList<>();
     
     public SmartComboRoutingParamModel paramModel() { return m_paramModel; }
     public ArrayList<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
@@ -163,7 +163,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 }
 
 class SmartComboRoutingParamModel extends AbstractTableModel {
-    private ArrayList<TagValue> m_allData = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_allData = new ArrayList<>();
 
     synchronized public void addParam( TagValue tagValue) {
         m_allData.add( tagValue);

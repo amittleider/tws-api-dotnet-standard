@@ -8,7 +8,7 @@ import apidemo.util.UpperField;
 
 public class  OperatorConditionPanel<T> extends OnOKPanel {
 	OperatorCondition m_condition;
-	final TCombo<String> m_operator = new TCombo<String>("<=", ">=");
+	final TCombo<String> m_operator = new TCombo<>("<=", ">=");
 	final UpperField m_value = new UpperField();
 	
 	public OperatorConditionPanel(OperatorCondition condition) {
