@@ -65,7 +65,7 @@ public class FamilyCodesPanel extends NewTabPanel {
 	}
 
 	private class FamilyCodesModel extends AbstractTableModel implements IFamilyCodesHandler {
-		ArrayList<FamilyCodeRow> m_list = new ArrayList<FamilyCodeRow>();
+		ArrayList<FamilyCodeRow> m_list = new ArrayList<>();
 
 		@Override public void familyCodes(FamilyCode[] familyCodes) {
 			for (FamilyCode familyCode : familyCodes){

@@ -23,8 +23,8 @@ import com.ib.controller.ApiController.ITradeReportHandler;
 import apidemo.util.HtmlButton;
 
 public class TradesPanel extends JPanel implements ITradeReportHandler {
-	private ArrayList<FullExec> m_trades = new ArrayList<FullExec>();
-	private HashMap<String,FullExec> m_map = new HashMap<String,FullExec>();
+	private ArrayList<FullExec> m_trades = new ArrayList<>();
+	private HashMap<String,FullExec> m_map = new HashMap<>();
 	private Model m_model = new Model();
 	
 	TradesPanel() {

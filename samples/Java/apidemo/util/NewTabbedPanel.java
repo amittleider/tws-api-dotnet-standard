@@ -42,7 +42,7 @@ public class NewTabbedPanel extends JPanel {
 	private final JPanel m_topPanel = new JPanel();
 	private final CardLayout m_cardLayout = new CardLayout();
 	private final JPanel m_cardPanel = new JPanel( m_cardLayout);
-	private final HashMap<String,Tab> m_map = new HashMap<String,Tab>();
+	private final HashMap<String,Tab> m_map = new HashMap<>();
 	private final boolean m_underline;  // if true, draws a horizontal line all the way across
 	private int m_count = 2;
 	

@@ -7,12 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Bar {
-	private static final ThreadLocal<SimpleDateFormat> FORMAT_CACHE = new ThreadLocal<SimpleDateFormat>(){
-		@Override
-		protected SimpleDateFormat initialValue() {
-			return new SimpleDateFormat( "yyyyMMdd HH:mm:ss");
-		}
-	};
+	private static final ThreadLocal<SimpleDateFormat> FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "yyyyMMdd HH:mm:ss"));
 
 	private final long m_time;
 	private final double m_high;

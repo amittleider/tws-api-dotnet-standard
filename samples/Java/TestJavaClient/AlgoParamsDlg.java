@@ -173,7 +173,7 @@ public class AlgoParamsDlg extends JDialog {
 }
 
 class AlgoParamModel extends AbstractTableModel {
-    private ArrayList<TagValue> m_allData = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_allData = new ArrayList<>();
 
     synchronized public void addParam( TagValue tagValue) {
         m_allData.add( tagValue);

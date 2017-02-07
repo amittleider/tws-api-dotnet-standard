@@ -66,7 +66,7 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 	}
 
 	private class MktDepthExchangesModel extends AbstractTableModel implements IMktDepthExchangesHandler {
-		ArrayList<DepthMktDataDescriptionRow> m_list = new ArrayList<DepthMktDataDescriptionRow>();
+		ArrayList<DepthMktDataDescriptionRow> m_list = new ArrayList<>();
 
 		@Override public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 			for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions){

@@ -25,8 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.ib.client.Contract;
-import com.ib.client.ContractDetails;
-import com.ib.client.ContractLookuper;
 import com.ib.client.DeltaNeutralContract;
 import com.ib.client.MarketDataType;
 import com.ib.client.Order;
@@ -63,7 +61,7 @@ public class OrderDlg extends JDialog {
     public int          m_override;
     public int          m_marketDataType;
     private String      m_optionsDlgTitle;
-    private ArrayList<TagValue> m_options = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_options = new ArrayList<>();
 
     private JTextField	m_Id = new JTextField( "0");
     private JTextField	m_BackfillEndTime = new JTextField(22);
@@ -393,44 +391,30 @@ public class OrderDlg extends JDialog {
 	}
     
 	protected void onBtnPeg2Bench() {
-		showModalPanelDialog(new CallableWithParam() {@Override
-			public Object call(Object param) {
-				return new PegBenchPanel((JDialog)param, m_order, new ContractLookuper() {					
-					@Override
-					public ArrayList<ContractDetails> lookupContract(Contract contract) {
-						try {
-							return m_parent.lookupContract(contract);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						return new ArrayList<ContractDetails>();
-					}
-				});
-			} 
-		});
+		showModalPanelDialog(param -> new PegBenchPanel((JDialog)param, m_order,
+                contract -> {
+                    try {
+                        return m_parent.lookupContract(contract);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    return new ArrayList<>();
+                }));
 	}
 
 	
 	protected void onBtnConditions() {
-		showModalPanelDialog(new CallableWithParam() {@Override
-			public Object call(Object param) {
-				return new ConditionsPanel((JDialog)param, m_order,  new ContractLookuper() {					
-					@Override
-					public ArrayList<ContractDetails> lookupContract(Contract contract) {
-						try {
-							return m_parent.lookupContract(contract);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						return new ArrayList<ContractDetails>();
-					}
-				});
-			} 
-		});
+		showModalPanelDialog(param -> new ConditionsPanel((JDialog)param, m_order,
+                contract -> {
+                  try {
+                      return m_parent.lookupContract(contract);
+                  } catch (InterruptedException e) {
+                      // TODO Auto-generated catch block
+                      e.printStackTrace();
+                  }
+                  return new ArrayList<>();
+                }));
 	}	
 	
 	interface CallableWithParam {

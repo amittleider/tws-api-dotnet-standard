@@ -20,7 +20,7 @@ public class PegBenchPanel extends OnOKPanel {
 	final ContractLookupButton m_refCon;
 	final UpperField m_pegChangeAmount = new UpperField();
 	final UpperField m_refChangeAmount = new UpperField();
-	final TCombo<String> m_pegChangeType = new TCombo<String>("increase", "decrease");
+	final TCombo<String> m_pegChangeType = new TCombo<>("increase", "decrease");
 	
 	public PegBenchPanel(JDialog parentDlg, Order order, ContractLookuper lookuper) {
 		m_parentDlg = parentDlg;

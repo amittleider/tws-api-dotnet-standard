@@ -12,18 +12,8 @@ public class Formats {
 	private static final Format FMT2 = new DecimalFormat( "#,##0.00");
 	private static final Format FMT0 = new DecimalFormat( "#,##0");
 	private static final Format PCT = new DecimalFormat( "0.0%");
-	private static final ThreadLocal<SimpleDateFormat> DATE_TIME_FORMAT_CACHE = new ThreadLocal<SimpleDateFormat>(){
-		@Override
-		protected SimpleDateFormat initialValue() {
-			return new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-		}
-	};
-	private static final ThreadLocal<SimpleDateFormat> TIME_FORMAT_CACHE = new ThreadLocal<SimpleDateFormat>(){
-		@Override
-		protected SimpleDateFormat initialValue() {
-			return new SimpleDateFormat( "HH:mm:ss");
-		}
-	};
+	private static final ThreadLocal<SimpleDateFormat> DATE_TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss"));
+	private static final ThreadLocal<SimpleDateFormat> TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "HH:mm:ss"));
 
 	/** Format with two decimals. */
 	public static String fmt( double v) {

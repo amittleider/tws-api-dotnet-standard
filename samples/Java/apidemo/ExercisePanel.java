@@ -10,8 +10,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.ib.client.Types.ExerciseType;
 import com.ib.client.Types.SecType;
@@ -28,8 +26,8 @@ import apidemo.util.VerticalPanel.HorzPanel;
 
 
 public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler {
-	private DefaultListModel m_acctList = new DefaultListModel();
-	private JList m_accounts = new JList( m_acctList);
+	private DefaultListModel<String> m_acctList = new DefaultListModel<>();
+	private JList<String> m_accounts = new JList<>( m_acctList);
 	private String m_selAcct = "";
 	private PortfolioModel m_portfolioModel = new PortfolioModel();
 	private JTable m_portTable = new JTable( m_portfolioModel);
@@ -46,17 +44,13 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 		add( portScroll);
 		add( new ExPanel() );
 
-		m_accounts.addListSelectionListener( new ListSelectionListener() {
-			@Override public void valueChanged(ListSelectionEvent e) {
-				onAcctChanged();
-			}
-		});
+		m_accounts.addListSelectionListener(e -> onAcctChanged());
 	}
 	
-	protected void onAcctChanged() {
+	private void onAcctChanged() {
 		int i = m_accounts.getSelectedIndex();
 		if (i != -1) {
-			String selAcct = (String)m_acctList.get( i);
+			String selAcct = m_acctList.get( i);
 			if (!selAcct.equals( m_selAcct) ) {
 				m_selAcct = selAcct;
 				m_portfolioModel.clear();
@@ -66,7 +60,7 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 	}
 
 	class ExPanel extends VerticalPanel {
-		TCombo<ExerciseType> m_combo = new TCombo<ExerciseType>( ExerciseType.values() );
+		TCombo<ExerciseType> m_combo = new TCombo<>( ExerciseType.values() );
 		UpperField m_qty = new UpperField( "1");
 		JCheckBox m_override = new JCheckBox();
 		
@@ -85,8 +79,8 @@ public class ExercisePanel extends HorzPanel implements INewTab, IAccountHandler
 			add( but);
 		}
 
-		protected void onExercise() {
-			String account = (String)m_accounts.getSelectedValue();
+		void onExercise() {
+			String account = m_accounts.getSelectedValue();
 			int i = m_portTable.getSelectedRow();
 			if (i != -1 && account != null) {
 				Position position = m_portfolioModel.getPosition( i);

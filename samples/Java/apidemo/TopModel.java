@@ -9,24 +9,21 @@ import static com.ib.controller.Formats.fmtTime;
 
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import com.ib.client.Contract;
 import com.ib.client.MarketDataType;
 import com.ib.client.TickAttr;
 import com.ib.client.TickType;
-import com.ib.client.Types.MktDataType;
 import com.ib.controller.ApiController.TopMktDataAdapter;
 import com.ib.controller.Formats;
 
 class TopModel extends AbstractTableModel {
-	private ArrayList<TopRow> m_rows = new ArrayList<TopRow>();
+	private ArrayList<TopRow> m_rows = new ArrayList<>();
 	MarketDataPanel m_parentPanel;
 	private final int CANCEL_CHBX_COL_INDEX = 21;
 
-	public TopModel(MarketDataPanel parentPanel) {
+	TopModel(MarketDataPanel parentPanel) {
 		m_parentPanel = parentPanel;
 	}
 
@@ -52,7 +49,7 @@ class TopModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 	
-	public void desubscribe() {
+	void desubscribe() {
 		for (TopRow row : m_rows) {
 			ApiDemo.INSTANCE.controller().cancelTopMktData( row);
 		}
@@ -68,7 +65,7 @@ class TopModel extends AbstractTableModel {
 	}
 
 	@Override public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return columnIndex == CANCEL_CHBX_COL_INDEX ? true : false;
+		return columnIndex == CANCEL_CHBX_COL_INDEX;
 	}
 
 	@Override public int getRowCount() {

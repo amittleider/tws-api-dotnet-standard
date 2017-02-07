@@ -30,7 +30,7 @@ public class ScannerDlg extends JDialog {
     public int          m_userSelection = NO_SELECTION;
     public int 			m_id;
     public ScannerSubscription m_subscription = new ScannerSubscription();
-    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
+    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
 
     private JTextField m_Id = new JTextField( "0");
     private JTextField m_numberOfRows = new JTextField("10");

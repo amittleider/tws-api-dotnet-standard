@@ -12,7 +12,7 @@ public class AvailableAlgoParams {
 			String endTime, boolean forceCompletion, boolean allowPastTime, double monetaryValue) {
 		
 		baseOrder.algoStrategy("ArrivalPx");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("maxPctVol", String.valueOf(maxPctVol)));
 		baseOrder.algoParams().add(new TagValue("riskAversion", riskAversion));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
@@ -29,7 +29,7 @@ public class AvailableAlgoParams {
 			boolean allowPastEndTime, double monetaryValue) {
 		
 		baseOrder.algoStrategy("DarkIce");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("displaySize", String.valueOf(displaySize)));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
 		baseOrder.algoParams().add(new TagValue("endTime", endTime));
@@ -43,7 +43,7 @@ public class AvailableAlgoParams {
 	public static void FillPctVolParams(Order baseOrder, double pctVol, String startTime, String endTime, boolean noTakeLiq, double monetaryValue) {
 		
 		baseOrder.algoStrategy("PctVol");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("pctVol", String.valueOf(pctVol)));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
 		baseOrder.algoParams().add(new TagValue("endTime", endTime));
@@ -57,7 +57,7 @@ public class AvailableAlgoParams {
 			boolean allowPastEndTime, double monetaryValue) {
 		
 		baseOrder.algoStrategy("Twap");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("strategyType", strategyType));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
 		baseOrder.algoParams().add(new TagValue("endTime", endTime));
@@ -72,7 +72,7 @@ public class AvailableAlgoParams {
 			boolean allowPastEndTime, boolean noTakeLiq, boolean speedUp, double monetaryValue) {
 		
 		baseOrder.algoStrategy("Vwap");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("maxPctVol", String.valueOf(maxPctVol)));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
 		baseOrder.algoParams().add(new TagValue("endTime", endTime));
@@ -89,7 +89,7 @@ public class AvailableAlgoParams {
             int giveUp, boolean catchUp, boolean waitForFill, String startTime, String endTime) {
 		
 		baseOrder.algoStrategy("AD");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("componentSize", String.valueOf(componentSize)));
 		baseOrder.algoParams().add(new TagValue("timeBetweenOrders", String.valueOf(timeBetweenOrders)));
 		baseOrder.algoParams().add(new TagValue("randomizeTime20", randomizeTime20 ? "1" : "0"));
@@ -107,7 +107,7 @@ public class AvailableAlgoParams {
 	public static void FillBalanceImpactRiskParams(Order baseOrder, double maxPctVol, String riskAversion, boolean forceCompletion) {
 		
 		baseOrder.algoStrategy("BalanceImpactRisk");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("maxPctVol", String.valueOf(maxPctVol)));
 		baseOrder.algoParams().add(new TagValue("riskAversion", riskAversion));
 		baseOrder.algoParams().add(new TagValue("forceCompletion", forceCompletion ? "1" : "0"));
@@ -119,7 +119,7 @@ public class AvailableAlgoParams {
 	public static void FillMinImpactParams(Order baseOrder, double maxPctVol) {
 		
 		baseOrder.algoStrategy("BalanceImpactRisk");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("maxPctVol", String.valueOf(maxPctVol)));
 		
 	}
@@ -129,7 +129,7 @@ public class AvailableAlgoParams {
 	public static void FillAdaptiveParams(Order baseOrder, String priority) {
 
 		baseOrder.algoStrategy("Adaptive");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("adaptivePriority", priority));
 
 	}
@@ -140,7 +140,7 @@ public class AvailableAlgoParams {
 			boolean forceCompletion, double monetaryValue){
             
 		baseOrder.algoStrategy("ClosePx");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("maxPctVol", String.valueOf(maxPctVol)));
 		baseOrder.algoParams().add(new TagValue("riskAversion", riskAversion));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
@@ -154,7 +154,7 @@ public class AvailableAlgoParams {
 			double maxPctVol4Px, String startTime, String endTime, boolean noTakeLiq, double monetaryValue){
             
 		baseOrder.algoStrategy("PctVolPx");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("pctVol", String.valueOf(pctVol)));
 		baseOrder.algoParams().add(new TagValue("deltaPctVol", String.valueOf(deltaPctVol)));
 		baseOrder.algoParams().add(new TagValue("minPctVol4Px", String.valueOf(minPctVol4Px)));
@@ -171,7 +171,7 @@ public class AvailableAlgoParams {
 			String startTime, String endTime, boolean noTakeLiq, double monetaryValue){
             
 		baseOrder.algoStrategy("PctVolSz");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("startPctVol", String.valueOf(startPctVol)));
 		baseOrder.algoParams().add(new TagValue("endPctVol", String.valueOf(endPctVol)));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));
@@ -186,7 +186,7 @@ public class AvailableAlgoParams {
 			String startTime, String endTime, boolean noTakeLiq, double monetaryValue){
             
 		baseOrder.algoStrategy("PctVolTm");
-		baseOrder.algoParams(new ArrayList<TagValue>());
+		baseOrder.algoParams(new ArrayList<>());
 		baseOrder.algoParams().add(new TagValue("startPctVol", String.valueOf(startPctVol)));
 		baseOrder.algoParams().add(new TagValue("endPctVol", String.valueOf(endPctVol)));
 		baseOrder.algoParams().add(new TagValue("startTime", startTime));

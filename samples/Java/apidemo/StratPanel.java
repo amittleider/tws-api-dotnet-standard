@@ -41,9 +41,9 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 	final private UpperField m_pct1 = new UpperField();
 	final private UpperField m_pct2 = new UpperField();
 	final private OrdersModel m_ordersModel = new OrdersModel();
-	final private TCombo<BarSize> m_barSize = new TCombo<BarSize>( BarSize.values() );
+	final private TCombo<BarSize> m_barSize = new TCombo<>( BarSize.values() );
 	final private UpperField m_bars = new UpperField();
-	final private ArrayList<Bar> m_rows = new ArrayList<Bar>();
+	final private ArrayList<Bar> m_rows = new ArrayList<>();
 	final private Chart m_chart = new Chart( m_rows);
 	private boolean m_req;
 	
@@ -128,7 +128,7 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 		m_chart.repaint();
 	}
 	
-	TreeMap<Long,Bar> m_map = new TreeMap<Long,Bar>();
+	TreeMap<Long,Bar> m_map = new TreeMap<>();
 	
 	@Override public void historicalData(Bar bar, boolean hasGaps) {
 		System.out.println( bar);
