@@ -25,7 +25,7 @@ public class AdvisorUtil {
 	}
 
 	static ArrayList<Group> getGroups_( String xml) throws IOException {
-		ArrayList<Group> list = new ArrayList<Group>();
+		ArrayList<Group> list = new ArrayList<>();
 
 		Group group = null;
 
@@ -102,7 +102,7 @@ public class AdvisorUtil {
 	}
 
 	static ArrayList<Profile> getProfiles_( String xml) throws IOException {
-		ArrayList<Profile> list = new ArrayList<Profile>();
+		ArrayList<Profile> list = new ArrayList<>();
 
 		Profile profile = null;
 		Allocation alloc = null;
@@ -205,7 +205,7 @@ public class AdvisorUtil {
 	}
 
 	static ArrayList<Alias> getAliases_( String xml) throws IOException {
-		ArrayList<Alias> list = new ArrayList<Alias>();
+		ArrayList<Alias> list = new ArrayList<>();
 
 		Alias alias = null;
 
@@ -289,11 +289,11 @@ public class AdvisorUtil {
 		buf.append( "<ListOfGroups>\n");
 		for( Group group : groups) {
 			buf.append( "<Group>\n");
-			buf.append( String.format( "<name>%s</name>\n", group.name() ) );
-			buf.append( String.format( "<defaultMethod>%s</defaultMethod>\n", group.defaultMethod() ) );
+			buf.append( String.format( "<name>%s</name>%n", group.name() ) );
+			buf.append( String.format( "<defaultMethod>%s</defaultMethod>%n", group.defaultMethod() ) );
 			buf.append( "<ListOfAccts varName=\"list\"\n>");
 			for( String acct : group.accounts() ) {
-				buf.append( String.format( "<String>%s</String>\n", acct) );
+				buf.append( String.format( "<String>%s</String>%n", acct) );
 			}
 			buf.append( "</ListOfAccts>\n");
 			buf.append( "</Group>\n");
@@ -308,13 +308,13 @@ public class AdvisorUtil {
 		buf.append( "<ListOfProfiles>\n");
 		for( Profile profile : profiles) {
 			buf.append( "<Profile>\n");
-			buf.append( String.format( "<name>%s</name>\n", profile.name() ) );
-			buf.append( String.format( "<type>%s</type>\n", profile.type().ordinal() ) );
+			buf.append( String.format( "<name>%s</name>%n", profile.name() ) );
+			buf.append( String.format( "<type>%s</type>%n", profile.type().ordinal() ) );
 			buf.append( "<ListOfAllocations varName=\"listOfAllocations\">\n");
 			for( Allocation alloc : profile.allocations() ) {
 				buf.append( "<Allocation>\n");
-				buf.append( String.format( "<acct>%s</acct>\n", alloc.account() ) );
-				buf.append( String.format( "<amount>%s</amount>\n", alloc.amount() ) );
+				buf.append( String.format( "<acct>%s</acct>%n", alloc.account() ) );
+				buf.append( String.format( "<amount>%s</amount>%n", alloc.amount() ) );
 				buf.append( "</Allocation>\n");
 			}
 			buf.append( "</ListOfAllocations>\n");

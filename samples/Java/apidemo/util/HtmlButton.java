@@ -122,7 +122,7 @@ public class HtmlButton extends JLabel {
 		return String.format( "<html><b>%s</html>", str);
 	}
 	
-	class B implements Border {
+	static class B implements Border {
 		@Override public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 		}
 

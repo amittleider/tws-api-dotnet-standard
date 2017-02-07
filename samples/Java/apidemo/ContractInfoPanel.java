@@ -29,7 +29,7 @@ import apidemo.util.NewTabbedPanel.INewTab;
 import apidemo.util.TCombo;
 import apidemo.util.VerticalPanel;
 
-public class ContractInfoPanel extends JPanel {
+class ContractInfoPanel extends JPanel {
 	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 	
@@ -68,7 +68,7 @@ public class ContractInfoPanel extends JPanel {
 		}
 	}
 
-	class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
+	static class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
 		JLabel m_label = new JLabel();
 		JTextArea m_text = new JTextArea();
 		

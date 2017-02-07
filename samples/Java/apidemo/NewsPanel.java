@@ -19,8 +19,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.Contract;
@@ -39,7 +37,7 @@ import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
-public class NewsPanel extends JPanel {
+class NewsPanel extends JPanel {
     private final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
     private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 
@@ -56,9 +54,9 @@ public class NewsPanel extends JPanel {
         add( m_resultsPanels);
     }
 
-    private class RequestPanel extends JPanel {
-        protected JTextField m_providerCode = new JTextField();
-        protected JTextField m_articleId = new JTextField();
+    private static class RequestPanel extends JPanel {
+        JTextField m_providerCode = new JTextField();
+        JTextField m_articleId = new JTextField();
 
         RequestPanel() {
             VerticalPanel p = new VerticalPanel();
@@ -101,7 +99,7 @@ public class NewsPanel extends JPanel {
             add( butPanel);
         }
 
-        protected void onReqNewsArticle() {
+        void onReqNewsArticle() {
             NewsArticleResultsPanel panel = new NewsArticleResultsPanel();
             String providerCode = m_requestPanel.m_providerCode.getText().trim();
             String articleId = m_requestPanel.m_articleId.getText().trim();
@@ -110,7 +108,7 @@ public class NewsPanel extends JPanel {
         }
     }
 
-    class NewsArticleResultsPanel extends JPanel implements INewsArticleHandler {
+    static class NewsArticleResultsPanel extends JPanel implements INewsArticleHandler {
         JLabel m_label = new JLabel();
         JTextArea m_text = new JTextArea();
 
@@ -146,7 +144,7 @@ public class NewsPanel extends JPanel {
             add( requestNewsProvidersButton);
         }
 
-        protected void onRequestNewsProviders() {
+        void onRequestNewsProviders() {
             NewsProvidersPanel newsProvidersPanel = new NewsProvidersPanel();
             m_resultsPanels.addTab("News Providers", newsProvidersPanel, true, true);
             ApiDemo.INSTANCE.controller().reqNewsProviders(newsProvidersPanel);
@@ -155,14 +153,14 @@ public class NewsPanel extends JPanel {
 
     static class NewsProvidersPanel extends NewTabPanel implements INewsProvidersHandler {
         final NewsProvidersModel m_model = new NewsProvidersModel();
-        final ArrayList<NewsProvidersRow> m_rows = new ArrayList<NewsProvidersRow>();
+        final ArrayList<NewsProvidersRow> m_rows = new ArrayList<>();
 
         NewsProvidersPanel() {
             JTable table = new JTable( m_model);
             JScrollPane scroll = new JScrollPane( table);
             setLayout( new BorderLayout() );
             add( scroll);
-        };
+        }
 
         /** Called when the tab is first visited. */
         @Override public void activated() { /* noop */ }
@@ -172,23 +170,21 @@ public class NewsPanel extends JPanel {
 
         @Override
         public void newsProviders(NewsProvider[] newsProviders) {
-            for (int i = 0; i < newsProviders.length; i++) {
+            for (NewsProvider newsProvider : newsProviders) {
                 NewsProvidersRow newsProvidersRow = new NewsProvidersRow(
-                        newsProviders[i].providerCode(),
-                        newsProviders[i].providerName()
-                        );
-                m_rows.add( newsProvidersRow);
+                        newsProvider.providerCode(),
+                        newsProvider.providerName()
+                );
+                m_rows.add(newsProvidersRow);
             }
             fire();
         }
 
         private void fire() {
-            SwingUtilities.invokeLater( new Runnable() {
-                @Override public void run() {
-                    m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
-                    revalidate();
-                }
-           });
+            SwingUtilities.invokeLater(() -> {
+                m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                revalidate();
+            });
         }
 
         class NewsProvidersModel extends AbstractTableModel {
@@ -222,7 +218,7 @@ public class NewsPanel extends JPanel {
             String m_providerCode;
             String m_providerName;
 
-            public NewsProvidersRow(String providerCode, String providerName) {
+            NewsProvidersRow(String providerCode, String providerName) {
                 update( providerCode, providerName);
             }
 
@@ -235,7 +231,7 @@ public class NewsPanel extends JPanel {
 
     class NewsTicksRequestPanel extends JPanel {
         private UpperField m_symbol = new UpperField();
-        private TCombo<SecType> m_secType = new TCombo<SecType>( SecType.values() );
+        private TCombo<SecType> m_secType = new TCombo<>( SecType.values() );
         private UpperField m_exchange = new UpperField();
         private UpperField m_primExchange = new UpperField();
         private UpperField m_currency = new UpperField();
@@ -263,7 +259,7 @@ public class NewsPanel extends JPanel {
             add( topPanel, BorderLayout.NORTH);
         }
 
-        protected void onRequestNewsTicks() {
+        void onRequestNewsTicks() {
             Contract contract = new Contract();
             contract.symbol( m_symbol.getText().toUpperCase() ); 
             contract.secType( m_secType.getSelectedItem() ); 
@@ -279,19 +275,17 @@ public class NewsPanel extends JPanel {
 
     class NewsTicksResultsPanel extends NewTabPanel implements ITickNewsHandler {
         final NewsTicksModel m_model = new NewsTicksModel();
-        final ArrayList<NewsTickRow> m_rows = new ArrayList<NewsTickRow>();
+        final ArrayList<NewsTickRow> m_rows = new ArrayList<>();
 
         NewsTicksResultsPanel() {
             JTable table = new JTable( m_model);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-                public void valueChanged(ListSelectionEvent event) {
-                    if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
-                        NewsTickRow newsTickRow = m_rows.get( table.getSelectedRow());
-                    	if (newsTickRow.m_providerCode.length() > 0 && newsTickRow.m_articleId.length() > 0) {
-                            m_requestPanels.select( "News Article");
-                            m_newsArticleRequestPanel.m_requestPanel.setProviderCode(newsTickRow.m_providerCode);
-                            m_newsArticleRequestPanel.m_requestPanel.setArticleId(newsTickRow.m_articleId);
-                        }
+            table.getSelectionModel().addListSelectionListener(event -> {
+                if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+                    NewsTickRow newsTickRow = m_rows.get( table.getSelectedRow());
+                    if (newsTickRow.m_providerCode.length() > 0 && newsTickRow.m_articleId.length() > 0) {
+                        m_requestPanels.select( "News Article");
+                        m_newsArticleRequestPanel.m_requestPanel.setProviderCode(newsTickRow.m_providerCode);
+                        m_newsArticleRequestPanel.m_requestPanel.setArticleId(newsTickRow.m_articleId);
                     }
                 }
             });
@@ -299,7 +293,7 @@ public class NewsPanel extends JPanel {
             JScrollPane scroll = new JScrollPane( table);
             setLayout( new BorderLayout() );
             add( scroll);
-        };
+        }
 
         /** Called when the tab is first visited. */
         @Override public void activated() { /* noop */ }
@@ -315,12 +309,10 @@ public class NewsPanel extends JPanel {
         }
 
         private void fire() {
-            SwingUtilities.invokeLater( new Runnable() {
-                @Override public void run() {
-                    m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
-                    revalidate();
-                    repaint();
-                }
+            SwingUtilities.invokeLater(() -> {
+                m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                revalidate();
+                repaint();
             });
         }
 
@@ -364,7 +356,7 @@ public class NewsPanel extends JPanel {
             String m_headline;
             String m_extraData;
 
-            public NewsTickRow(long timeStamp, String providerCode, String articleId, String headline, String extraData) {
+            NewsTickRow(long timeStamp, String providerCode, String articleId, String headline, String extraData) {
                 update( timeStamp, providerCode, articleId, headline, extraData);
             }
 
@@ -411,7 +403,7 @@ public class NewsPanel extends JPanel {
             add( topPanel, BorderLayout.NORTH);
         }
 
-        protected void onRequestHistoricalNews() {
+        void onRequestHistoricalNews() {
             HistoricalNewsResultsPanel panel = new HistoricalNewsResultsPanel();
             m_resultsPanels.addTab( "Hist News: " + m_conId.getText(), panel, true, true);
             ApiDemo.INSTANCE.controller().reqHistoricalNews(m_conId.getInt(), m_providerCodes.getText(), 
@@ -421,19 +413,17 @@ public class NewsPanel extends JPanel {
 
     class HistoricalNewsResultsPanel extends NewTabPanel implements IHistoricalNewsHandler {
         final HistoricalNewsModel m_model = new HistoricalNewsModel();
-        final ArrayList<HistoricalNewsRow> m_rows = new ArrayList<HistoricalNewsRow>();
+        final ArrayList<HistoricalNewsRow> m_rows = new ArrayList<>();
 
         HistoricalNewsResultsPanel() {
             JTable table = new JTable( m_model);
-            table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-                public void valueChanged(ListSelectionEvent event) {
-                    if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
-                        HistoricalNewsRow historicalNewsRow = m_rows.get( table.getSelectedRow());
-                    	if (historicalNewsRow.m_providerCode.length() > 0 && historicalNewsRow.m_articleId.length() > 0) {
-                            m_requestPanels.select( "News Article");
-                            m_newsArticleRequestPanel.m_requestPanel.setProviderCode(historicalNewsRow.m_providerCode);
-                            m_newsArticleRequestPanel.m_requestPanel.setArticleId(historicalNewsRow.m_articleId);
-                        }
+            table.getSelectionModel().addListSelectionListener(event -> {
+                if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+                    HistoricalNewsRow historicalNewsRow = m_rows.get( table.getSelectedRow());
+                    if (historicalNewsRow.m_providerCode.length() > 0 && historicalNewsRow.m_articleId.length() > 0) {
+                        m_requestPanels.select( "News Article");
+                        m_newsArticleRequestPanel.m_requestPanel.setProviderCode(historicalNewsRow.m_providerCode);
+                        m_newsArticleRequestPanel.m_requestPanel.setArticleId(historicalNewsRow.m_articleId);
                     }
                 }
             });
@@ -441,7 +431,7 @@ public class NewsPanel extends JPanel {
             JScrollPane scroll = new JScrollPane( table);
             setLayout( new BorderLayout() );
             add( scroll);
-        };
+        }
 
         /** Called when the tab is first visited. */
         @Override public void activated() { /* noop */ }
@@ -465,12 +455,10 @@ public class NewsPanel extends JPanel {
         }
 
         private void fire() {
-            SwingUtilities.invokeLater( new Runnable() {
-                @Override public void run() {
-                    m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
-                    revalidate();
-                    repaint();
-                }
+            SwingUtilities.invokeLater(() -> {
+                m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                revalidate();
+                repaint();
             });
         }
 
@@ -511,7 +499,7 @@ public class NewsPanel extends JPanel {
             String m_articleId;
             String m_headline;
 
-            public HistoricalNewsRow(String time, String providerCode, String articleId, String headline) {
+            HistoricalNewsRow(String time, String providerCode, String articleId, String headline) {
                 update( time, providerCode, articleId, headline);
             }
 

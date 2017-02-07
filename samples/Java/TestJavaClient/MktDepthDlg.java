@@ -24,22 +24,21 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ib.client.EClient;
 
-public class MktDepthDlg extends JDialog {
-    final static int OPERATION_INSERT 		= 0;
-    final static int OPERATION_UPDATE 		= 1;
-    final static int OPERATION_DELETE 		= 2;
+class MktDepthDlg extends JDialog {
+    private final static int OPERATION_INSERT 		= 0;
+    private final static int OPERATION_UPDATE 		= 1;
+    private final static int OPERATION_DELETE 		= 2;
 
     final static int SIDE_ASK = 0;
     final static int SIDE_BID = 1;
     final static int MKT_DEPTH_DATA_RESET = 317;
 
-    private JButton 		m_close = new JButton( "Close");
     private MktDepthModel 	m_bidModel = new MktDepthModel();
     private MktDepthModel 	m_askModel = new MktDepthModel();
     private EClient 	m_client;
     private int			  	m_id;
 
-    public MktDepthDlg(String title, JFrame parent) {
+    MktDepthDlg(String title, JFrame parent) {
         super(parent, title, false);
 
         JScrollPane bidPane = new JScrollPane(new JTable(m_bidModel));
@@ -54,12 +53,9 @@ public class MktDepthDlg extends JDialog {
         splitPane.setPreferredSize(new Dimension(600, 380));
 
         JPanel closePanel = new JPanel();
+        JButton	m_close = new JButton( "Close");
         closePanel.add(m_close);
-        m_close.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onClose();
-            }
-        });
+        m_close.addActionListener(e -> onClose());
 
         this.addWindowListener( new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -239,7 +235,7 @@ class MktDepthModel extends AbstractTableModel {
         }
     }
 
-    class MktDepthTableRow {
+    static class MktDepthTableRow {
         public String 	m_marketMaker;
         public double 	m_price;
         public int 		m_size;

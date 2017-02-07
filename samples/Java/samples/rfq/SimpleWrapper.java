@@ -30,6 +30,8 @@ import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
 import com.ib.client.TickAttr;
 
+import javax.swing.*;
+
 
 public class SimpleWrapper implements EWrapper {
 	private static final int MAX_MESSAGES = 1000000;
@@ -65,28 +67,22 @@ public class SimpleWrapper implements EWrapper {
         
         reader.start();
        
-		new Thread() {
-			public void run() {
-				while (m_client.isConnected()) {
-					m_signal.waitForSignal();
-					try {
-						javax.swing.SwingUtilities
-								.invokeAndWait(new Runnable() {
-									@Override
-									public void run() {
-										try {
-											reader.processMsgs();
-										} catch (IOException e) {
-											error(e);
-										}
-									}
-								});
-					} catch (Exception e) {
-						error(e);
-					}
-				}
-			}
-		}.start();
+		new Thread(() -> {
+            while (m_client.isConnected()) {
+                m_signal.waitForSignal();
+                try {
+                    SwingUtilities.invokeAndWait(() -> {
+                                try {
+                                    reader.processMsgs();
+                                } catch (IOException e) {
+                                    error(e);
+                                }
+                            });
+                } catch (Exception e) {
+                    error(e);
+                }
+            }
+        }).start();
 	}
 
 	public void disconnect() {
@@ -352,10 +348,12 @@ public class SimpleWrapper implements EWrapper {
 		sleep(sec * 1000);
 	}
 
-	protected static void sleep(int msec) {
+	private static void sleep(int msec) {
 		try {
 			Thread.sleep(msec);
-		} catch (Exception e) { /* noop */ }
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 	}
 
 	protected void swStart() {
@@ -376,11 +374,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	private static void attachDisconnectHook(final SimpleWrapper ut) {
-		Runtime.getRuntime().addShutdownHook(new Thread() {				
-			public void run() {
-				ut.disconnect();
-			}
-		});			    	
+		Runtime.getRuntime().addShutdownHook(new Thread(ut::disconnect));
 	}
 	
 	public void connectAck() {

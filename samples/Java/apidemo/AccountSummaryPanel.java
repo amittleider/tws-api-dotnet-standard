@@ -69,9 +69,9 @@ public class AccountSummaryPanel extends NewTabPanel {
 		m_model.clear();
 	}
 	
-	private class SummaryModel extends AbstractTableModel implements IAccountSummaryHandler {
-		ArrayList<SummaryRow> m_rows = new ArrayList<SummaryRow>();
-		HashMap<String,SummaryRow> m_map = new HashMap<String,SummaryRow>();
+	private static class SummaryModel extends AbstractTableModel implements IAccountSummaryHandler {
+		ArrayList<SummaryRow> m_rows = new ArrayList<>();
+		HashMap<String,SummaryRow> m_map = new HashMap<>();
 		boolean m_complete;
 
 		public void clear() {
@@ -133,18 +133,18 @@ public class AccountSummaryPanel extends NewTabPanel {
 			}
 		}
 
-		public String fmtPct(String val) {
+		String fmtPct(String val) {
 			return val == null || val.length() == 0 ? null : Formats.fmtPct( Double.parseDouble( val) );
 		}
 
-		public String fmtTime(String val) {
+		String fmtTime(String val) {
 			return val == null || val.length() == 0 || val.equals( "0") ? null : Formats.fmtDate( Long.parseLong( val) * 1000);
 		}
 	}
 	
 	private static class SummaryRow {
 		String m_account;
-		HashMap<AccountSummaryTag,String> m_map = new HashMap<AccountSummaryTag,String>();
+		HashMap<AccountSummaryTag,String> m_map = new HashMap<>();
 		
 		public void update(String account, AccountSummaryTag tag, String value) {
 			m_account = account;

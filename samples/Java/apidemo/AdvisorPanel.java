@@ -55,8 +55,6 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 		}
 	};
 
-	private final JTable m_aliasTable = new JTable( m_aliasModel);
-
 	AdvisorPanel() {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout( new BoxLayout( mainPanel, BoxLayout.Y_AXIS));
@@ -64,8 +62,8 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 		mainPanel.add( new GroupsPanel() );
 		mainPanel.add( Box.createVerticalStrut(10));
 		mainPanel.add( new ProfilesPanel() );
-		
-		JScrollPane aliasScroll = new JScrollPane( m_aliasTable);
+
+		JScrollPane aliasScroll = new JScrollPane(new JTable( m_aliasModel));
 		aliasScroll.setBorder( new TitledBorder( "Aliases"));
 		aliasScroll.setPreferredSize(new Dimension( 300, 2000));
 		
@@ -97,8 +95,8 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 		m_aliasModel.update( aliases);
 	}
 	
-	private class AliasModel extends AbstractTableModel {
-		ArrayList<Alias> m_list = new ArrayList<Alias>();
+	private static class AliasModel extends AbstractTableModel {
+		ArrayList<Alias> m_list = new ArrayList<>();
 		
 		@Override public int getRowCount() {
 			return m_list.size();
@@ -158,14 +156,14 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 			add( buts, BorderLayout.EAST);
 		}
 
-		protected void onCreateGroup() {
+		void onCreateGroup() {
 			String name = JOptionPane.showInputDialog( this, "Enter group name");
 			if (name != null) {
 				m_groupModel.add( name);
 			}
 		}
 
-		protected void onTransmit() {
+		void onTransmit() {
 			int rc = JOptionPane.showConfirmDialog( this, "This will replace all Groups in TWS with the ones shown here.\nAre you sure you want to do that?", "Confirm", JOptionPane.YES_NO_OPTION);
 			if (rc == 0) {
 				m_groupModel.transmit();
@@ -175,9 +173,9 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	}
 	
 	private static class GroupModel extends AbstractTableModel {
-		TCombo<Method> combo = new TCombo<Method>(Method.values());
+		TCombo<Method> combo = new TCombo<>(Method.values());
 		DefaultCellEditor EDITOR = new DefaultCellEditor( combo);
-		ArrayList<Group> m_groups = new ArrayList<Group>();
+		ArrayList<Group> m_groups = new ArrayList<>();
 		
 		GroupModel() {		
 			EDITOR.setClickCountToStart( 1);
@@ -231,7 +229,7 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 			return true;
 		}
 		
-		public TableCellEditor getCellEditor(int row, int col) {
+		TableCellEditor getCellEditor(int row, int col) {
 			return col == 1 ? EDITOR : DEF_CELL_EDITOR;
 		}
 		
@@ -288,9 +286,9 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	}
 	
 	private static class ProfileModel extends AbstractTableModel {
-		TCombo<Type> combo = new TCombo<Type>(Type.values());
+		TCombo<Type> combo = new TCombo<>(Type.values());
 		DefaultCellEditor EDITOR = new DefaultCellEditor( combo);
-		ArrayList<Profile> m_profiles = new ArrayList<Profile>();
+		ArrayList<Profile> m_profiles = new ArrayList<>();
 		
 		ProfileModel() {		
 			EDITOR.setClickCountToStart( 1);
@@ -345,7 +343,7 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 			return true;
 		}
 		
-		public TableCellEditor getCellEditor(int row, int col) {
+		TableCellEditor getCellEditor(int row, int col) {
 			return col == 1 ? EDITOR : DEF_CELL_EDITOR;
 		}
 
