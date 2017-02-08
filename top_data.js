@@ -1,10 +1,11 @@
 var top_data =
 [
-    [ "Requesting", "top_data.html#md_request", null ],
-    [ "Receiving", "top_data.html#md_receive", null ],
-    [ "Cancelling", "top_data.html#md_cancel", null ],
-    [ "Snapshots", "top_data.html#md_snapshot", null ],
-    [ "Generic Ticks", "top_data.html#genticks", null ],
-    [ "Market Data Types", "top_data.html#market_data_type", null ],
-    [ "Available Tick Types", "tick_types.html", "tick_types" ]
+    [ "Requesting Market Data", "md_request.html", "md_request" ],
+    [ "Receiving Market Data", "md_receive.html", [
+      [ "Receiving Market Data", "md_receive.html#market_data_return", null ],
+      [ "Exchange Component Mapping", "md_receive.html#smart_mapping", null ]
+    ] ],
+    [ "Cancelling streaming data", "md_cancel.html", null ],
+    [ "Receiving exchange components", "smart_components.html", null ],
+    [ "Market Data Types", "market_data_type.html", null ]
 ];

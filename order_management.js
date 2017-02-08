@@ -9,6 +9,7 @@ var order_management =
       [ "Checking Margin Requirements", "order_submission.html#order_margin", null ]
     ] ],
     [ "Modifying Orders", "modifying_orders.html", null ],
+    [ "Cancelling Orders", "cancel_order.html", null ],
     [ "Retrieving currently active orders", "open_orders.html", [
       [ "Connected client's own orders", "open_orders.html#connected_client_orders", null ],
       [ "All API submitted orders", "open_orders.html#all_api_orders", null ],

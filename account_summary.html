@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Account Summary</title>
+<title>TWS API v9.72+: Account Summary</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -131,8 +131,8 @@ $(document).ready(function(){initNavTree('account_summary.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="acct_summary_req"></a>
 Requesting</h1>
-<p>The <a class="el" href="classIBApi_1_1EClient.html#a3e0d55d36cd416639b97ee6e47a86fe9">IBApi.EClient.reqAccountSummary</a> method pulls the information displayed in the TWS' Account Summary window.</p>
-<p>Unlike <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a>, <a class="el" href="classIBApi_1_1EClient.html#a3e0d55d36cd416639b97ee6e47a86fe9">IBApi.EClient.reqAccountSummary</a> can not only retrieve summarised information for either one or all the managed accounts but also extract only the specified values to be monitored by the client application.</p>
+<p>The <a class="el" href="classIBApi_1_1EClient.html#a3e0d55d36cd416639b97ee6e47a86fe9">IBApi.EClient.reqAccountSummary</a> method creates a subscription for the account data displayed in the TWS Account Summary window. It is commonly used with multiple-account structures.</p>
+<p>Unlike <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f">IBApi.EClient.reqAccountUpdates</a>, <a class="el" href="classIBApi_1_1EClient.html#a3e0d55d36cd416639b97ee6e47a86fe9">IBApi.EClient.reqAccountSummary</a> can not only retrieve summarized information for either one or all the managed accounts but also extract only the specified values to be monitored by the client application. The initial invocation of reqAccountSummary will result in a list of all requested values being returned, and then every three minutes those values which have changed will be returned. The update frequency of 3 minutes is the same as the TWS Account Window and cannot be changed.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqAccountSummary(9001, <span class="stringliteral">&quot;All&quot;</span>, AccountSummaryTags.GetAllTags());</div>

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Placing Orders</title>
+<title>TWS API v9.72+: Placing Orders</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -331,7 +331,7 @@ The orderStatus method</h1>
 </ul>
 <p>There are several different categories a client might fall into which determine the orderStatus messages it receives:</p>
 <p>-&gt;Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.</p>
-<p>-&gt;The master client (set in TWS/IBG) will receive order status messages for all clients.</p>
+<p>-&gt;The client with <a class="el" href="initial_setup.html#master_client">Master Client ID</a> (set in TWS/IBG) will receive order status messages for all clients.</p>
 <p>-&gt;Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS.</p>
 <p>Other important points concerning <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> :</p>
 <p>-&gt;Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange.</p>

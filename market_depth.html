@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72: Market Depth (Level II)</title>
+<title>TWS API v9.72+: Market Depth (Level II)</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -84,7 +84,7 @@ function checkCookie() {
   <td style="padding: 0 0 0 1em;">
    <ul id="tabs"><li class="active">C#</li><li>Java</li><li>VB</li><li>C++</li><li>Python</li></ul>
   </td>
-  <td><a href="mailto:api@interactivebrokers.com?subject=TWS API Documentation" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
+  <td><a href="https://www.interactivebrokers.com/en/index.php?f=customerService&p=email" style="color:#C7C7C7;font-weight:bold;padding: 0 0 0 1em;">Contact us</a></td>
   <!--BEGIN GCS_SEARCHBOX-->
   <td style="position: absolute; right: 0;">
    <div id="google-custom-search" align="right" style="vertical-align: top;">
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('market_depth.html','');});
 <div class="title">Market Depth (Level II) </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Market depth data, also known as level II, represent's an instrument's order book. Via the TWS API it is possible to obtain this information thanks to the <a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">IBApi.EClient.reqMarketDepth</a> function. Unlike <a class="el" href="top_data.html">Top Market Data (Level I)</a>, market depth data is sent without sampling nor filtering, however we cannot guarantee that every price quoted for a particular security will be displayed when you invoke <a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">IBApi.EClient.reqMarketDepth</a>.</p>
+<div class="textblock"><p>Market depth data, also known as level II, represent's an instrument's order book. Via the TWS API it is possible to obtain this information thanks to the <a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">IBApi.EClient.reqMarketDepth</a> function. Unlike <a class="el" href="top_data.html">Top Market Data (Level I)</a>, market depth data is sent without sampling nor filtering, however we cannot guarantee that every price quoted for a particular security will be displayed when you invoke <a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">IBApi.EClient.reqMarketDepth</a>. Market depth requests must be routed to a particular exchange - it is <b>not</b> possible to request a smart-routed aggregate quote as with level 1 data.</p>
 <h1><a class="anchor" id="request"></a>
 Requesting</h1>
 <p>The <a class="el" href="classIBApi_1_1EClient.html#a7f2915171d0c150723e297be291beabb">IBApi.EClient.reqMarketDepth</a> method receives a request identifier (or ticker Id) with which to identify the incoming data, the <a class="el" href="classIBApi_1_1Contract.html">IBApi.Contract</a> for which we want to pull this information and the number of rows or depth level that is required. In case the market depth is smaller than the requested number of rows, the TWS will simply return the available entries.</p>
@@ -151,9 +151,74 @@ Requesting</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, <span class="keywordtype">None</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
+<h1><a class="anchor" id="reqmktdepthexchanges"></a>
+Exchanges supplying Market Makers</h1>
+<p><b> This function is still under development </b></p>
+<p>Market depth will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a> callback. The two functions differentiate in that, for exchanges have additional Market Makers than itself, market depth data will be relayed back through <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, otherwise <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. For example, ARCA only has ARCA itself as a Market Maker. Therefore when requesting market depth data from ARCA, the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. On the other hand, exchange like ISLAND (ECN for NASDAQ) has additional Market Makers, such as Timberhill, so the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, where the Market Maker information is directly available as a parameter of the call back function.</p>
+<p>To check which market depth subscriptions provide market maker information, the function <a class="el" href="classIBApi_1_1EClient.html#a5c40b7bf20ba269530807b093dc51853" title="Requests venues for which market data is returned to updateMktDepthL2 (those with market makers) ...">IBApi::EClient::reqMktDepthExchanges</a> can be invoked.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqMktDepthExchanges();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqMktDepthExchanges();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqMktDepthExchanges()</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqMktDepthExchanges();</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># reqMktDepthExchanges not yet available in Python</span></div>
+</div><!-- fragment -->  </li>
+</ul>
+<p>API 'Exchange' fields for which a market depth request would return market maker information and result in a callback to <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968" title="Returns the order book. ">IBApi::EWrapper::updateMktDepthL2</a> will be indicated in the results from the <a class="el" href="interfaceIBApi_1_1EWrapper.html#aaf5ec42d517d013340e52c42209dcefe" title="called when receives Depth Market Data Descriptions ">IBApi::EWrapper::mktDepthExchanges</a> field by a 'True' value in the 'isL2' field:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Market Depth Exchanges:&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">            <span class="keywordflow">foreach</span> (var depthMktDataDescription <span class="keywordflow">in</span> depthMktDataDescriptions)</div>
+<div class="line">            {</div>
+<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Depth Market Data Description: Exchange: {0}, Security Type: {1}, Is L2: {2}&quot;</span>, depthMktDataDescription.Exchange, depthMktDataDescription.SecType, depthMktDataDescription.IsL2);</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {</div>
+<div class="line">        <span class="keywordflow">for</span> (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions) {</div>
+<div class="line">            System.out.println(<span class="stringliteral">&quot;Depth Mkt Data Description. Exchange: &quot;</span> + depthMktDataDescription.exchange() </div>
+<div class="line">            + <span class="stringliteral">&quot;, SecType: &quot;</span> + depthMktDataDescription.secType() + <span class="stringliteral">&quot;, isL2: &quot;</span> + depthMktDataDescription.isL2());</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Public Sub mktDepthExchanges(depthMktDataDescriptions As DepthMktDataDescription()) Implements EWrapper.mktDepthExchanges</div>
+<div class="line">            Console.WriteLine(&quot;Market Depth Exchanges:&quot;)</div>
+<div class="line"></div>
+<div class="line">            For Each depthMktDataDescription In depthMktDataDescriptions</div>
+<div class="line">                Console.WriteLine(&quot;Depth Market Data Descriprion. Exchange: &quot; &amp; depthMktDataDescription.Exchange &amp; &quot; Security Type: &quot; &amp; depthMktDataDescription.SecType &amp; &quot; Is L2: &quot; &amp; depthMktDataDescription.IsL2)</div>
+<div class="line">            Next</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::mktDepthExchanges(<span class="keyword">const</span> std::vector&lt;DepthMktDataDescription&gt; &amp;depthMktDataDescriptions) {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Mkt Depth Exchanges (%lu):\n&quot;</span>, depthMktDataDescriptions.size());</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; depthMktDataDescriptions.size(); i++) {</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n&quot;</span>, i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? <span class="stringliteral">&quot;true&quot;</span> : <span class="stringliteral">&quot;false&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># mktDepthExchanges not yet available in Python</span></div>
+</div><!-- fragment -->  </li>
+</ul>
 <h1><a class="anchor" id="receive"></a>
 Receiving</h1>
-<p>Market depth will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a> callback. The two functions differentiate in that, for exchanges have additional Market Makers than itself, market depth data will be relayed back through <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, otherwise <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. For example, ARCA only has ARCA itself as Market Maker. Therefore when requesting market depth data from ARCA, the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab0d68c4cf7093f105095d72dd7e7a912">IBApi.EWrapper.updateMktDepth</a>. On the other hand, exchange like ISLAND (ECN for NASDAQ) has additional Market Makers, such as Timberhill, so the data will be relayed back via <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968">IBApi.EWrapper.updateMktDepthL2</a>, where the Market Maker information is directly available as a parameter of the call back function.</p>
 <p>Initially, all requested/available rows will be delivered to the client application. As market moves however these rows will inevitably change. To keep the client's order book consistent, the TWS will send updates not only informing which row is to be updated but also the operation to perform in the row: insert (0), update (1) or remove (2).</p>
 <ul id="tab">
 <li class="active">

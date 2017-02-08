@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "TWS API v9.72", "index.html", [
+  [ "TWS API v9.72+", "index.html", [
     [ "Trader Workstation API", "index.html", null ],
     [ "Introduction", "introduction.html", [
       [ "Audience", "introduction.html#audience", null ],
@@ -16,6 +16,7 @@ var NAVTREE =
       [ "The IB Gateway", "initial_setup.html#gateway", null ],
       [ "Enable API connections", "initial_setup.html#enable_api", null ],
       [ "Read Only API", "initial_setup.html#read_only", null ],
+      [ "Master Client ID", "initial_setup.html#master_client", null ],
       [ "Installing the API source", "initial_setup.html#install", null ],
       [ "Changing the installed API version", "initial_setup.html#changing", null ]
     ] ],
@@ -32,6 +33,12 @@ var NAVTREE =
     [ "Contracts", "contracts.html", "contracts" ],
     [ "Orders", "orders.html", "orders" ],
     [ "Market Data", "market_data.html", "market_data" ],
+    [ "News", "news.html", [
+      [ "Querying subscribed API news", "news.html#news_providers", null ],
+      [ "Contract Specific News", "news.html#news_contract", null ],
+      [ "Requesting historical news headlines", "news.html#historical_news", null ],
+      [ "Requesting news articles", "news.html#news_articles", null ]
+    ] ],
     [ "Options", "options.html", "options" ],
     [ "Account & Portfolio", "account_portfolio.html", "account_portfolio" ],
     [ "Market Scanners", "market_scanners.html", "market_scanners" ],
@@ -66,6 +73,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Dynamic Data Exchange (DDE)", "dde_intro.html", "dde_intro" ],
+    [ "Exercising Options", "option_exercising.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -85,9 +93,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClient.html#acf33b0c140093f975338b62657f81057",
-"classIBApi_1_1ScannerSubscription.html#ab8848a45559dc42774ed3759bb31632a",
-"interfaceIBApi_1_1EWrapper.html#ac79344d06112e6145bccb3794270ee3c"
+"classIBApi_1_1EClient.html#ac48f75cf63bc2208cdee548ebcea8cf4",
+"classIBApi_1_1ScannerSubscription.html#a4d08f4109792b9003e534536c0458774",
+"interfaceIBApi_1_1EWrapper.html#a7ebfc18d5d03189ab5bf895db4a1a204"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
