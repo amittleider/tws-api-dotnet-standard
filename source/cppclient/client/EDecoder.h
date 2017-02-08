@@ -51,8 +51,8 @@ const int MIN_SERVER_VER_ORDER_SOLICITED        = 73;
 const int MIN_SERVER_VER_LINKING_AUTH           = 74;
 const int MIN_SERVER_VER_PRIMARYEXCH            = 75;
 const int MIN_SERVER_VER_RANDOMIZE_SIZE_AND_PRICE = 76;
-const int MIN_SERVER_VER_FRACTIONAL_POSITIONS = 101;
-const int MIN_SERVER_VER_PEGGED_TO_BENCHMARK = 102;
+const int MIN_SERVER_VER_FRACTIONAL_POSITIONS	= 101;
+const int MIN_SERVER_VER_PEGGED_TO_BENCHMARK	= 102;
 const int MIN_SERVER_VER_MODELS_SUPPORT         = 103;
 const int MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ = 104;
 const int MIN_SERVER_VER_EXT_OPERATOR	        = 105;
@@ -64,17 +64,18 @@ const int MIN_SERVER_VER_MD_SIZE_MULTIPLIER		= 110;
 const int MIN_SERVER_VER_CASH_QTY				= 111;
 const int MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112;
 const int MIN_SERVER_VER_TICK_NEWS				= 113;
-const int MIN_SERVER_VER_REQ_SMART_COMPONENTS = 114;
+const int MIN_SERVER_VER_REQ_SMART_COMPONENTS	= 114;
 const int MIN_SERVER_VER_REQ_NEWS_PROVIDERS		= 115;
 const int MIN_SERVER_VER_REQ_NEWS_ARTICLE		= 116;
 const int MIN_SERVER_VER_REQ_HISTORICAL_NEWS	= 117;
 const int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP		= 118;
+const int MIN_SERVER_VER_REQ_HISTOGRAM			= 119;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_HEAD_TIMESTAMP;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_HISTOGRAM;
 
 
 // incoming msg id's
@@ -141,6 +142,7 @@ const int NEWS_PROVIDERS = 85;
 const int HISTORICAL_NEWS = 86;
 const int HISTORICAL_NEWS_END = 87;
 const int HEAD_TIMESTAMP = 88;
+const int HISTOGRAM_DATA = 89;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -253,6 +255,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processHistoricalNewsMsg(const char* ptr, const char* endPtr);
 	const char* processHistoricalNewsEndMsg(const char* ptr, const char* endPtr);
 	const char* processHeadTimestampMsg(const char* ptr, const char* endPtr);
+	const char* processHistogramDataMsg(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
@@ -264,6 +267,7 @@ public:
 	static bool DecodeField(bool&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(int&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(long&, const char*& ptr, const char* endPtr);
+	static bool DecodeField(long long&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(double&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(std::string&, const char*& ptr, const char* endPtr);
 	static bool DecodeField(char&, const char*& ptr, const char* endPtr);

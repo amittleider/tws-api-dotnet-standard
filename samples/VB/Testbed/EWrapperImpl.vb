@@ -500,6 +500,13 @@ Namespace Samples
         End Sub
         '! [headTimestamp]
 
+        '! [histogramData]
+        Public Sub histogramData(reqId As Integer, data As Tuple(Of Double, Long)()) Implements EWrapper.histogramData
+            Console.WriteLine("Histogram data. Request Id: {0}, data size: {1}", reqId, data.Length)
+            data.ToList().ForEach(Sub(i) Console.WriteLine(vbTab & "Price: {0}, Size: {1}", i.Item1, i.Item2))
+        End Sub
+        '! [histogramData]
+
     End Class
 
 End Namespace

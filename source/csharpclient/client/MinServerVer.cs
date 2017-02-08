@@ -78,5 +78,6 @@ namespace IBApi
         public const int REQ_NEWS_ARTICLE = 116;
         public const int REQ_HISTORICAL_NEWS = 117;
         public const int REQ_HEAD_TIMESTAMP = 118;
+        public const int REQ_HISTOGRAM_DATA = 119;
     }
 }

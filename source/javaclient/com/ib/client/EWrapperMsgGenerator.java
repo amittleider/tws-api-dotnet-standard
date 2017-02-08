@@ -751,4 +751,14 @@ public class EWrapperMsgGenerator {
 	public static String headTimestamp(int reqId, String headTimestamp) {		
 		return "Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp;
 	}
+
+	public static String histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Histogram data. Req Id: " + reqId + ", Data (" + items.size() + "):\n");
+		
+		items.stream().forEach(i -> sb.append("\tPrice: " + i.getKey() + ", Size: " + i.getValue() + "\n"));
+
+		return sb.toString();
+	}
 }

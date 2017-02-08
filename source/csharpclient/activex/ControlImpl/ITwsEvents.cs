@@ -173,5 +173,7 @@ namespace TWSLib
         void historicalNewsEnd(int requestId, bool hasMore);
         [DispId(136)]
         void headTimestamp(int reqId, string timestamp);
+        [DispId(137)]
+        void histogramData(int reqId, ArrayList[] data);
     }
 }

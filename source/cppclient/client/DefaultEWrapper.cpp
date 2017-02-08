@@ -85,5 +85,6 @@ void DefaultEWrapper::newsArticle(int requestId, int articleType, const std::str
 void DefaultEWrapper::historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) { }
 void DefaultEWrapper::historicalNewsEnd(int requestId, bool hasMore) { }
 void DefaultEWrapper::headTimestamp(int reqId, const std::string& headTimestamp) { }
+void DefaultEWrapper::histogramData(int reqId, HistogramDataVector data) { }
 
 

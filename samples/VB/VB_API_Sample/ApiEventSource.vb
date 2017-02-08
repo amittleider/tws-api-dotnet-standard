@@ -16,7 +16,7 @@ Friend Class ApiEventSource
 
     Friend WriteOnly Property ApiClient As EClient
         Set(value As EClient)
-            m_Api = Value
+            m_Api = value
         End Set
     End Property
 
@@ -32,6 +32,15 @@ Friend Class ApiEventSource
 
 #Region "IBApi.EWrapper"
 
+    Private Sub EWrapper_histogramdata(requestId As Integer, data As Tuple(Of Double, Long)()) Implements EWrapper.histogramData
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistogramData(Me, New HistogramDataEventArgs With {
+                                 .requestId = requestId,
+                                 .data = data
+                                         })
+                         End Sub)
+    End Sub
+
     Private Sub EWrapper_headTimestamp(requestId As Integer, timeStamp As String) Implements IBApi.EWrapper.headTimestamp
         InvokeIfRequired(Sub()
                              RaiseEvent HeadTimestamp(Me, New HeadTimestampEventArgs With {
@@ -39,7 +48,6 @@ Friend Class ApiEventSource
                                  .timeStamp = timeStamp
                                          })
                          End Sub)
-
     End Sub
 
     Private Sub EWrapper_AccountDownloadEnd(account As String) Implements IBApi.EWrapper.accountDownloadEnd
@@ -72,7 +80,7 @@ Friend Class ApiEventSource
 
     Private Sub EWrapper_CommissionReport(commissionReport As IBApi.CommissionReport) Implements IBApi.EWrapper.commissionReport
         InvokeIfRequired(Sub()
-                             RaiseEvent commissionReport(Me, New CommissionReportEventArgs With {
+                             RaiseEvent CommissionReport(Me, New CommissionReportEventArgs With {
                                                                      .commissionReport = commissionReport
                                                                      })
                          End Sub)
@@ -86,7 +94,7 @@ Friend Class ApiEventSource
 
     Private Sub EWrapper_ContractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
         InvokeIfRequired(Sub()
-                             RaiseEvent contractDetails(Me, New ContractDetailsEventArgs With {
+                             RaiseEvent ContractDetails(Me, New ContractDetailsEventArgs With {
                                                                      .reqId = reqId,
                                                                       .contractDetails = contractDetails
                                                                      })
@@ -218,7 +226,7 @@ Friend Class ApiEventSource
 
     Private Sub EWrapper_MarketDataType(reqId As Integer, marketDataType As Integer) Implements IBApi.EWrapper.marketDataType
         InvokeIfRequired(Sub()
-                             RaiseEvent marketDataType(Me, New MarketDataTypeEventArgs With {
+                             RaiseEvent MarketDataType(Me, New MarketDataTypeEventArgs With {
                                                                      .reqId = reqId,
                                                                       .marketDataType = marketDataType
                                                                      })
@@ -591,7 +599,7 @@ Friend Class ApiEventSource
 
     Private Sub EWrapper_FamilyCodes(familyCodes() As FamilyCode) Implements EWrapper.familyCodes
         InvokeIfRequired(Sub()
-                             RaiseEvent familyCodes(Me, New FamilyCodesEventArgs With {
+                             RaiseEvent FamilyCodes(Me, New FamilyCodesEventArgs With {
                                                               .familyCodes = familyCodes
                                                             })
                          End Sub)
@@ -694,6 +702,7 @@ Friend Class ApiEventSource
 
 #Region "Event declarations"
 
+    Event HistogramData(sender As ApiEventSource, e As HistogramDataEventArgs)
     Event HeadTimestamp(sender As ApiEventSource, e As HeadTimestampEventArgs)
     Event NextValidId(sender As Object, e As NextValidIdEventArgs)
     Event ErrMsg(sender As Object, e As ErrMsgEventArgs)

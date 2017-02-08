@@ -72,6 +72,7 @@ public class ApiController implements EWrapper {
 	private final HashMap<Integer, IRealTimeBarHandler> m_realTimeBarMap = new HashMap<>();
 	private final HashMap<Integer, IHistoricalDataHandler> m_historicalDataMap = new HashMap<>();
 	private final HashMap<Integer, IHeadTimestampHandler> m_headTimestampMap = new HashMap<>();
+	private final HashMap<Integer, IHistogramDataHandler> m_histogramDataMap = new HashMap<>();
 	private final HashMap<Integer, IFundamentalsHandler> m_fundMap = new HashMap<>();
 	private final HashMap<Integer, IOrderHandler> m_orderHandlers = new HashMap<>();
 	private final HashMap<Integer,IAccountSummaryHandler> m_acctSummaryHandlers = new HashMap<>();
@@ -1612,6 +1613,46 @@ public class ApiController implements EWrapper {
 		
 		if (handler != null) {
 			handler.headTimestamp(reqId, Long.parseLong(headTimestamp));
+		}
+		
+		recEOM();
+	}
+	
+	public interface IHistogramDataHandler {
+
+		void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items);		
+		
+	}
+	
+	public void reqHistogramData(Contract contract, int duration, DurationUnit durationUnit, boolean rthOnly, IHistogramDataHandler handler) {
+		if (!checkConnection())
+			return;
+
+    	int reqId = m_reqId++;
+    	String durationStr = duration + " " + durationUnit.toString().toLowerCase() + "s";
+    	
+    	m_histogramDataMap.put(reqId, handler);
+    	m_client.reqHistogramData(reqId, contract, rthOnly, durationStr);
+	}
+	
+    public void cancelHistogramData(IHistogramDataHandler handler) {
+		if (!checkConnection())
+			return;
+
+		Integer reqId = getAndRemoveKey(m_histogramDataMap, handler);
+		
+    	if (reqId != null) {
+    		m_client.cancelHistoricalData(reqId);
+    		sendEOM();
+    	}
+    }
+
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		IHistogramDataHandler handler = m_histogramDataMap.get(reqId);
+		
+		if (handler != null) {
+			handler.histogramData(reqId, items);
 		}
 		
 		recEOM();

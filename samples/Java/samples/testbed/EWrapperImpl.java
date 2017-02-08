@@ -1,6 +1,7 @@
 package samples.testbed;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
+import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
 import com.ib.client.NewsProvider;
@@ -573,4 +575,11 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp);
 	}
 	//! [headTimestamp]
+	
+	//! [histogramData]
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
+	}
+	//! [histogramData]
 }

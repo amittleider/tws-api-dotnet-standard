@@ -559,5 +559,13 @@ namespace Samples
             Console.WriteLine("Head time stamp. Request Id: {0}, Head time stamp: {1}", reqId, headTimestamp);
         }
         //! [headTimestamp]
+
+        //! [histogramData]
+        public void histogramData(int reqId, Tuple<double, long>[] data)
+        {
+            Console.WriteLine("Histogram data. Request Id: {0}, data size: {1}", reqId, data.Length);
+            data.ToList().ForEach(i => Console.WriteLine("\tPrice: {0}, Size: {1}", i.Item1, i.Item2));
+        }
+        //! [histogramData]
     }
 }

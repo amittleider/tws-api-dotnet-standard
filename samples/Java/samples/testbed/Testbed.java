@@ -44,6 +44,12 @@ public class Testbed {
                 }.start();
                 //! [ereader]
                 Thread.sleep(1000);
+               
+                wrapper.getClient().reqHistogramData(4002, ContractSamples.USStock(), false, "3 days");
+                
+                Thread.sleep(60000);
+                
+                wrapper.getClient().cancelHistogramData(4002);
 
                 //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
                 //contractOperations(wrapper.getClient());

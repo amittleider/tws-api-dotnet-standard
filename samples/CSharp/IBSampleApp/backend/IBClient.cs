@@ -951,5 +951,17 @@ namespace IBSampleApp
                                 tmp(new HeadTimestampMessage(reqId, headTimestamp))
                 ).RunSynchronously(scheduler);
         }
+
+        public event Action<HistogramDataMessage> HistogramData;
+
+        void EWrapper.histogramData(int reqId, Tuple<double, long>[] data)
+        {
+            var tmp = HistogramData;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(new HistogramDataMessage(reqId, data))
+                ).RunSynchronously(scheduler);
+        }
     }
 }

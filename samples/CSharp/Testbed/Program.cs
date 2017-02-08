@@ -140,11 +140,24 @@ namespace Samples
             /***********************/
             /*** Head time stamp ***/
             /***********************/
-            headTimestamp(client);
+            //headTimestamp(client);
+
+            /***********************/
+            /*** Histogram data  ***/
+            /***********************/
+            histogramData(client);
+
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void histogramData(EClientSocket client)
+        {
+            client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch(), false, "1 week");
+            Thread.Sleep(2000);
+            client.cancelHistogramData(15001);
         }
 
         private static void headTimestamp(EClientSocket client)

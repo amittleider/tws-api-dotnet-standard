@@ -73,5 +73,7 @@ namespace IBApi
         RequestNewsProviders = 85,
         RequestHistoricalNews = 86,
         RequestHeadTimestamp = 87,
+        RequestHistogramData = 88,
+        CancelHistogramData = 89,
     }
 }

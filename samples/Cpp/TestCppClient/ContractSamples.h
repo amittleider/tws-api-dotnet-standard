@@ -18,6 +18,7 @@ public:
 	static Contract OptionAtIse();
 	static Contract USStock();
 	static Contract USStockAtSmart();
+	static Contract IBMUSStockAtSmart();
 	static Contract USStockWithPrimaryExch();
 	static Contract BondWithCusip();
 	static Contract Bond();

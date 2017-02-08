@@ -297,6 +297,7 @@
     <Compile Include="EventArgs\HeadTimestampEventArgs.vb" />
     <Compile Include="EventArgs\SmartComponentsEventArgs.vb" />
     <Compile Include="EventArgs\TickReqParamsEventArgs.vb" />
+    <Compile Include="EventArgs\HistogramDataEventArgs.vb" />
     <Compile Include="Tws.vb" />
     <Compile Include="Utils.vb">
       <SubType>Code</SubType>

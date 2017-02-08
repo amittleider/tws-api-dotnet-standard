@@ -179,6 +179,13 @@ namespace IBSampleApp
             ibClient.HistoricalNews += newsManager.UpdateUI;
             ibClient.HistoricalNewsEnd += newsManager.UpdateUI;
             ibClient.HeadTimestamp += UpdateUI;
+            ibClient.HistogramData += UpdateUI;
+        }
+
+        private void UpdateUI(HistogramDataMessage obj)
+        {
+            if (histogramSubscriptionList.Contains(obj.ReqId))
+                obj.Data.ToList().ForEach(i => histogramDataGridView.Rows.Add(new object[] { obj.ReqId, i.Item1, i.Item2 }));
         }
 
         void ibClient_Tick(TickSizeMessage msg)
@@ -1112,6 +1119,35 @@ namespace IBSampleApp
 
             if (row != null)
                 row.Cells[1].Value = obj.HeadTimestamp;
+        }
+
+        private void histogram_button_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                Contract contract = GetMDContract();
+                string whatToShow = hdRequest_WhatToShow.Text.Trim();
+                string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
+                var reqId = new Random(DateTime.Now.Millisecond).Next();
+
+                histogramSubscriptionList.Add(reqId);
+                ibClient.ClientSocket.reqHistogramData(reqId, contract, true, duration);
+                ShowTab(marketData_MDT, histogramTabPage);
+            }
+        }
+
+        private HashSet<int> histogramSubscriptionList = new HashSet<int>();
+
+        private void histogramClearLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (histogramDataGridView.Rows.Count == 0)
+                return;
+
+            var reqId = (int)histogramDataGridView.Rows[0].Cells[0].Value;
+
+            histogramSubscriptionList.Remove(reqId);
+            ibClient.ClientSocket.cancelHistogramData(reqId);
+            histogramDataGridView.Rows.Clear();
         }
     }
 }
