@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConcurrentHashSet<Key> extends AbstractSet<Key> {
-    static Object OBJECT = new Object();
+    private static final Object OBJECT = new Object();
 
     private ConcurrentHashMap<Key, Object> m_map = new ConcurrentHashMap<>(16,0.75f,1); // use write concurrency level 1 (last param) to decrease memory consumption by ConcurrentHashMap
 
