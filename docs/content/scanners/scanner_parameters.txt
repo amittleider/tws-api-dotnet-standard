@@ -1,6 +1,6 @@
 /*! \page scanner_parameters Scanner Parameters
 
-	Scanner parameters can be obtained via @ref IBApi::EClient::reqScannerParameters :
+	A list of TWS scanner parameters can be obtained via @ref IBApi::EClient::reqScannerParameters. Not all of the returned parameters to scannerParameters are available from the API scanners. 
 	
 	<ul id="tab">
 		<li class="active"> 

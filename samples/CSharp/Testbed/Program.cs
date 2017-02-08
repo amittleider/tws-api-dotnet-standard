@@ -149,8 +149,10 @@ namespace Samples
 
         private static void headTimestamp(EClientSocket client)
         {
+	//! [reqHeadTimeStamp]
             client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1);
-        }
+        //! [reqHeadTimeStamp]
+	}
 
         private static void smartComponents(EClientSocket client)
         {
@@ -162,7 +164,9 @@ namespace Samples
             }
 
             client.cancelMktData(13001);
+		//! [reqsmartcomponents]
             client.reqSmartComponents(13002, testImpl.BboExchange);
+		//! [reqsmartcomponents]
         }
 
         private static void tickDataOperations(EClientSocket client)
@@ -175,6 +179,11 @@ namespace Samples
             //! [reqmktdata_snapshot]
             client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, true, false, null);
             //! [reqmktdata_snapshot]
+
+		//! [regulatorysnapshot]
+		// Each regulatory snapshot incurs a 0.01 USD fee
+		//client.reqMktData(1005, ContractSamples.USStock(), "", false, true, null);
+		//! [regulatorysnapshot]
 
             //! [reqmktdata_genticks]
             //Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
@@ -288,16 +297,16 @@ namespace Samples
 
         private static void contractOperations(EClientSocket client)
         {
-            client.reqContractDetails(209, ContractSamples.EurGbpFx());
-            Thread.Sleep(2000);
             //! [reqcontractdetails]
-            client.reqContractDetails(210, ContractSamples.OptionForQuery());
+            client.reqContractDetails(209, ContractSamples.OptionForQuery());
+            client.reqContractDetails(210, ContractSamples.EurGbpFx());
+            client.reqContractDetails(211, ContractSamples.Bond());
             //! [reqcontractdetails]
 
             Thread.Sleep(2000);
-            //! [reqMatchingSymbols]
+            //! [reqmatchingsymbols]
             client.reqMatchingSymbols(211, "IB");
-            //! [reqMatchingSymbols]
+            //! [reqmatchingsymbols]
         }
 
         private static void contractNewsFeed(EClientSocket client)
@@ -412,9 +421,9 @@ namespace Samples
             client.reqPositionsMulti(9003, "DU74649", "EUstocks");
             //! [reqpositionsmulti]
 
-            //! [reqFamilyCodes]
+            //! [reqfamilycodes]
             client.reqFamilyCodes();
-            //! [reqFamilyCodes]
+            //! [reqfamilycodes]
         }
 
         private static void orderOperations(EClientSocket client, int nextOrderId)
@@ -532,8 +541,13 @@ namespace Samples
             //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008));
             TestAlgoSamples(client, nextOrderId);
             Thread.Sleep(30000);
+		//! [cancelorder]
+		client.cancelOrder(nextOrderId-1);
+		//! [cancelorder]
             /*** Cancel all orders for all accounts ***/
+		//! [reqglobalcancel]
             //client.reqGlobalCancel();
+		//! [reqglobalcancel]
             /*** Request the day's executions ***/
             //! [reqexecutions]
             client.reqExecutions(10001, new ExecutionFilter());

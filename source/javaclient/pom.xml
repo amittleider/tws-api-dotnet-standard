@@ -3,7 +3,7 @@
 
     <groupId>com.interactivebrokers</groupId>
     <artifactId>tws-api</artifactId>
-    <version>9.72.18-SNAPSHOT</version>
+    <version>9.73.01-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

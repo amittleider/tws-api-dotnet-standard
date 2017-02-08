@@ -1,9 +1,9 @@
-﻿/*! \page initial_setup Initial Setup
+/*! \page initial_setup Initial Setup
 
 	\section tws The Trader Workstation
 	
 	Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide 
-	from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72 of the API, it is necessary to have TWS version 952 or higher. 
+	from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72+ of the API, it is necessary to have TWS version 952 or higher. 
 
 	\section gateway The IB Gateway
 	
@@ -12,7 +12,7 @@
 	the IB Gateway does not provide the end user with anything else than the very basic features to handle API connections. On the other hand, the IB Gateway does not need to be restarted
 	every 24 hours and can therefore be used to run indefinitely.
 	
-	<b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonyms.</b>
+	<b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonymous.</b>
 	
 	\section enable_api Enable API connections
 		
@@ -32,6 +32,10 @@
 	The API Settings dialogue allows you to configure the TWS not to accept any orders being sent via the TWS API. This is enabled by default and is an additional security measure you can enable when the API client
 	is only intended to request information from the TWS. Note that no information about orders will be available to the API when read-only mode is enabled. 
 		
+	\section master_client Master Client ID
+
+	By default the "Master Client ID" field is unset. To specify that a certain client should automatically receive updates about all open orders, as well as to receive commission reports from an execution resulting from an order being placed by any client, that client's ID should be set as the Master Client ID in TWS or IBG Global Configuration. The clientID is one of the parameters specified from an API client application in the initial function call to IBApi::EClientSocket::eConnect.
+
 	\section install Installing the API source
 	
 	The API itself can be downloaded and installed from:
@@ -44,11 +48,13 @@
 	
 	\section changing Changing the installed API version
 	
-	If a different version of the API is required than the one currently installed on the system, there are a couple additional steps needed in the uninstallation of the previously installed API version:
+	(On Windows Only)
+
+	If a different version of the ActiveX (v9.71 or lower) or C++ API is required than the one currently installed on the system, there are additional steps required to uninstall the previous API version to manually remove a file called "TwsSocketClient.dll":
 	
 	1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual
 	
-	2) Locate the file "C:\Windows\SysWOW32\TwsSocketClient.dll". Delete this file.
+	2) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.
 	
 	3) Restart the computer before installing a different API version.
 		

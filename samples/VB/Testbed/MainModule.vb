@@ -161,7 +161,9 @@ Module MainModule
         End While
 
         client.cancelMktData(13001)
+	 ' [reqsmartcomponents]
         client.reqSmartComponents(13002, wrapperImpl.BboExchange)
+ 	' [reqsmartcomponents]
     End Sub
 
     Private Sub tickDataOperations(client As EClientSocket)
@@ -175,6 +177,11 @@ Module MainModule
         ' [reqmktdata_snapshot]
         client.reqMktData(1003, ContractSamples.FutureComboContract(), String.Empty, True, False, Nothing)
         ' [reqmktdata_snapshot]
+
+	' [regulatorysnapshot]
+	' Each regulatory snapshot request will incur a fee of 0.01 USD 
+	'client.reqMktData(1004, ContractSamples.USStock(), "", False, True, Nothing)
+	' [regulatorysnapshot]
 
         '! [reqmktdata_genticks]
         'Requesting RTVolume (Time & Sales), shortable And Fundamental Ratios generic ticks
@@ -295,19 +302,20 @@ Module MainModule
 
     Private Sub contractOperations(client As EClientSocket)
 
-        client.reqContractDetails(209, ContractSamples.EurGbpFx())
-        Thread.Sleep(2000)
         '! [reqcontractdetails]
+		client.reqContractDetails(209, ContractSamples.EurGbpFx())
         client.reqContractDetails(210, ContractSamples.OptionForQuery())
+		client.reqContractDetails(211, ContractSamples.Bond())
         '! [reqcontractdetails]
+		
         '! [reqcontractdetailsnews]
         client.reqContractDetails(211, ContractSamples.NewsFeedForQuery())
         '! [reqcontractdetailsnews]
 
         Thread.Sleep(2000)
-        ''! [reqMatchingSymbols]
+        ''! [reqmatchingsymbols]
         client.reqMatchingSymbols(202, "IB")
-        ''! [reqMatchingSymbols]
+        ''! [reqmatchingsymbols]
     End Sub
 
     Private Sub marketScanners(client As EClientSocket)
@@ -427,9 +435,9 @@ Module MainModule
         '! [cancelpositions]
 
         Thread.Sleep(2000)
-        ''! [reqFamilyCodes]
+        ''! [reqfamilycodes]
         client.reqFamilyCodes()
-        ''! [reqFamilyCodes]
+        ''! [reqfamilycodes]
 
     End Sub
 
@@ -549,8 +557,13 @@ Module MainModule
         'client.placeOrder(increment(nextOrderId), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrail(lmtParent, 34, 32, 33, 0.008, 0))
 
         'Thread.Sleep(3000)
-        '** Cancel all orders for all accounts ***
+	'! [cancelorder]
+        client.cancelOrder(nextOrderId -1)
+	'! [cancelorder]
+	'** Cancel all orders for all accounts ***
+	'! [reqglobalcancel]
         'client.reqGlobalCancel()
+	'! [reqglobalcancel]
         '** Request the day's executions ***
         '! [reqexecutions]
         client.reqExecutions(10001, New ExecutionFilter())
@@ -820,7 +833,9 @@ Module MainModule
     End Sub
 
     Private Sub headTimestamp(client As EClientSocket)
+	'! [reqHeadTimeStamp]
         client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
+	'! [reqHeadTimeStamp]
     End Sub
 
 End Module

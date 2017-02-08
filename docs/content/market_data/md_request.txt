@@ -1,0 +1,146 @@
+/*! \page md_request Requesting Market Data
+
+	In order to receive live quotes, you must first make the request call via @ref IBApi::EClient::reqMktData within your API program. Every request needs a unique identifier which will serve
+	to identify the returned data:
+		
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqmktdata
+		</li>
+		<li>
+			\snippet Testbed.java reqmktdata
+		</li>
+		<li>
+			\snippet MainModule.vb reqmktdata
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmktdata
+		</li>
+		<li>
+			\snippet Program.py reqmktdata
+		</li>
+	</ul>
+	
+	\section genticks Generic Tick Types
+	The most common tick types are delivered automatically after a successful market data request. There are however other tick types available by explicit request: the generic tick types. 
+	When invoking @ref IBApi::EClient::reqMktData, specific generic ticks can be requested via the <b>genericTickList</b> parameter of the function:
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqmktdata_genticks
+		</li>
+		<li>
+			\snippet Testbed.java reqmktdata_genticks
+		</li>
+		<li>
+			\snippet MainModule.vb reqmktdata_genticks
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmktdata_genticks
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_genticks
+		</li>
+	</ul>
+	
+	For a list of available tick types please refer to \subpage tick_types
+
+	\section md_snapshot Snapshots available with streaming market data subscription
+
+	With an exchange market data subscription, such as Network A (NYSE), Network B(ARCA), or Network C(NASDAQ) for US stocks, it is possible to request a snapshot of the current state of the market once instead of requesting a stream of updates continuously as market values change. By invoking the IBApi::EClient::reqMktData function 
+	passing in <b>true</b> for the snapshot parameter, the client application will receive the currently available market data once before a @ref IBApi::EWrapper::tickSnapshotEnd
+	event is sent 11 seconds later. Snapshot requests can only be made for the default tick types; no generic ticks can be specified. It is important to note that a snapshot request will only return available data over the 11 second span; in many cases values for all default ticks will not be returned. However snapshots are allowed a higher rate limit than the normal 50 messages per second limitation of other EClientSocket functions.
+	<h4>Snapshot request:</h4>
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs reqmktdata_snapshot
+		</li>
+		<li>
+			\snippet Testbed.java reqmktdata_snapshot
+		</li>
+		<li>
+			\snippet MainModule.vb reqmktdata_snapshot
+		</li>
+		<li>
+			\snippet TestCppClient.cpp reqmktdata_snapshot
+		</li>
+		<li>
+			\snippet Program.py reqmktdata_snapshot
+		</li>
+	</ul>
+	<h4>End marker reception:</h4>
+	<ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs ticksnapshotend
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+			...
+			\snippet EWrapperImpl.java ticksnapshotend
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+			...
+			\snippet EWrapperImpl.vb ticksnapshotend
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+			...
+			\snippet TestCppClient.cpp ticksnapshotend
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+			...
+			\snippet Program.py ticksnapshotend
+		</li>
+	</ul>
+	
+	\section regulatory_snapshot Regulatory Snapshots for Stocks
+
+	The fifth argument to reqMktData specifies a regulatory snapshot request to a US stock. Regulatory snapshots require TWS/IBG v963 and API 9.73.02 or higher. 
+
+	For stocks, there are individual exchange-specific market data subscriptions necessary to receive streaming quotes. For instance, for NYSE stocks this subscription is known as "Network A", for ARCA/AMEX stocks it is called "Network B" and for NASDAQ stocks it is "Network C". Each subscription is added a la carte and has a separate market data fee. 
+	
+	Alternatively, there is also a "US Securities Snapshot Bundle" subscription which does not provide streaming data but which allows for real time calculated snapshots of US market NBBO prices. By setting the 5th parameter in the function IBApi::EClient::reqMktData to <b>True</b>, a regulatory snapshot request can be made from the API. The returned value is a  calculation of the current market state based on data from all available exchanges. 
+	
+	<b>Important: Each regulatory snapshot made will incur a fee of 0.01 USD to the account. This applies to both live <i>and</i> paper accounts.</b>. If the monthly fee for regulatory snapshots reaches the price of a particular 'Network' subscription, the user will automatically be subscribed to that Network subscription for continuous streaming quotes and charged the associated fee for that month. At the end of the month the subscription will be terminated. Each listing exchange will be capped independently and will not be combined across listing exchanges. 
+
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs regulatorysnapshot
+		</li>
+		<li>
+			\snippet Testbed.java regulatorysnapshot
+		</li>
+		<li>
+			\snippet MainModule.vb regulatorysnapshot
+		</li>
+		<li>
+			\snippet TestCppClient.cpp regulatorysnapshot
+		</li>
+		<li>
+			\snippet Program.py regulatorysnapshot
+		</li>
+	</ul>
+	
+	The following table lists the cost and maximum allocation for regulatory snapshot quotes:
+	
+	<table>
+	<tr><th>Listed Network Feed</th><th>Price per reqSnapshot request</th><th>Pro or non-Pro</th><th>Max reqSnapshot request</th></tr>
+	<tr><td><CENTER>NYSE (Network A/CTA)</td><td>0.01 USD</td><td>Pro</td><td>4500</td></tr>
+	<tr><td>NYSE (Network A/CTA)</td><td>0.01 USD</td><td>Non-Pro</td><td>150</td></tr>
+	<tr><td>AMEX (Network B/CTA)</td><td>0.01 USD</td><td>Pro</td><td>2300</td></tr>
+	<tr><td>AMEX (Network B/CTA)</td><td>0.01 USD</td><td>Non-Pro</td><td>150</td></tr>
+	<tr><td>NASDAQ (Network C/UTP)</td><td>0.01 USD</td><td>Pro</td><td>2300</td></tr>
+	<tr><td>NASDAQ (Network C/UTP)</td><td>0.01 USD</td><td>Non-Pro</td><td>150</CENTER></td></tr>
+	</table>
+
+	Requesting regulatory snapshots is subject to pacing limitations:
+
+	- If markets are closed, no more than two requests can be made in a 5 second period.
+	- If markets are open, there can be no more than 5 requests pending for the same contract.
+	
+	<br><br>
+*/

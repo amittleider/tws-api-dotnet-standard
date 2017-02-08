@@ -448,12 +448,14 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Security Definition Optional Parameter. Request: "+reqId+", Trading Class: "+tradingClass+", Multiplier: "+multiplier+" \n");
 	}
 	//! [securityDefinitionOptionParameter]
+
+	//! [securityDefinitionOptionParameterEnd]
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Security Definition Optional Parameter End. Request: " + reqId);
 	}
-        
+	//! [securityDefinitionOptionParameterEnd]
+
     //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
@@ -513,6 +515,7 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [tickNews]
 
+	//! [smartcomponents]
 	@Override
 	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
 		System.out.println("smart components req id:" + reqId);
@@ -522,12 +525,15 @@ public class EWrapperImpl implements EWrapper {
 					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue());			
 		}
 	}
-	
+	//! [smartcomponents]
+
+	//! [tickReqParams]
 	@Override
 	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
 		System.out.println("Tick req params. Ticker Id:" + tickerId + ", Min tick: " + minTick + ", bbo exchange: " + bboExchange + ", Snapshot permissions: " + snapshotPermissions);
 	}
-	
+	//! [tickReqParams]
+
 	//! [newsProviders]
 	@Override
 	public void newsProviders(NewsProvider[] newsProviders) {
@@ -560,9 +566,11 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Historical News End. RequestId: " + requestId + ", HasMore: " + hasMore + "\n");
 	}
 	//! [historicalNewsEnd]
-	
+
+	//! [headTimestamp]
 	@Override
 	public void headTimestamp(int reqId, String headTimestamp) {
 		System.out.println("Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp);
 	}
+	//! [headTimestamp]
 }

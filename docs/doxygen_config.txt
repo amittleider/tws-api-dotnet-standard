@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "TWS API v9.72"
+PROJECT_NAME           = "TWS API v9.72+"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -750,6 +750,7 @@ INPUT					+= ./content/page_order.dox
 INPUT					+= ./content/orders
 INPUT					+= ./content/market_data
 INPUT					+= ./content/contracts
+INPUT					+= ./content/news
 INPUT					+= ./content/options
 INPUT					+= ./content/account_portfolio
 INPUT					+= ./content/misc
@@ -799,7 +800,7 @@ EXAMPLE_PATH           += ../samples/Java/samples/testbed/contracts
 EXAMPLE_PATH           += ../samples/Java/samples/testbed/orders
 EXAMPLE_PATH           += ../samples/Java/samples/testbed/scanner
 EXAMPLE_PATH           += ../samples/Java/samples/testbed/advisor
-EXAMPLE_PATH           += ../samples/cpp/TestCppClient/
+EXAMPLE_PATH           += ../samples/Cpp/TestCppClient/
 EXAMPLE_PATH           += ../samples/Python/Testbed/
 
 # This tag can be used to specify the character encoding of the source files

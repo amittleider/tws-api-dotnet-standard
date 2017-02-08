@@ -68,6 +68,8 @@
 	
 	\section bag_intcmdfut Inter-Commodity Futures
 	
+	For Inter-Commodity futures, the 'Local Symbol' field in TWS is used for the 'Symbol' field in the API contract definition. 
+
 	<ul id="tab">
 		<li class="active">
 			\snippet ContractSamples.cs intcmdfutcontract

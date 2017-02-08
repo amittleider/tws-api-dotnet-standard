@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -100,7 +100,7 @@ namespace IBApi
         }
 
         /**
-        * @brief Exchanges on which this product is traded.
+        * @brief Valid exchange fields when placing an order for this contract.
         */
         public string ValidExchanges
         {
@@ -212,7 +212,7 @@ namespace IBApi
         }
 
         /**
-        * @brief MD Size Multiplier
+        * @brief MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments. 
         */
         public int MdSizeMultiplier
         {
@@ -222,7 +222,7 @@ namespace IBApi
 
         /**
         * @brief A list of contract identifiers that the customer is allowed to view.
-         * CUSIP/ISIN/etc.
+         * CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription.
         */
         public List<TagValue> SecIdList
         {
@@ -232,7 +232,7 @@ namespace IBApi
 
         /**
         * @brief The nine-character bond CUSIP or the 12-character SEDOL.
-         * For Bonds only.
+         * For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription.
         */
         public string Cusip
         {
@@ -242,7 +242,7 @@ namespace IBApi
 
         /**
         * @brief Identifies the credit rating of the issuer.
-         * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively.
+         * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively. Not currently implemented due to bond market data restrictions.
         */
         public string Ratings
         {
@@ -321,7 +321,7 @@ namespace IBApi
 
         /**
         * @brief he date on which the issuer must repay the face value of the bond.
-         * For Bonds only.
+         * For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string Maturity
         {
@@ -331,7 +331,7 @@ namespace IBApi
 
         /** 
         * @brief The date the bond was issued. 
-         * For Bonds only.
+         * For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string IssueDate
         {

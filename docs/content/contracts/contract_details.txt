@@ -1,40 +1,11 @@
 /*! \page contract_details Requesting Contract Details
 
-	@ref IBApi::ContractDetails can be fetched from the TWS via the @ref IBApi::EClient::reqContractDetails function. This method receives a sample @ref IBApi::Contract object which will be used
-	as reference to find all contracts matching its description. This is particularly handy when looking for option chains. Note there is a new function reqSecDefOptParams starting in version 9.72 of the API to perform this function.
-	
-	\section option_chain Obtaining Option Chains 
-	
-	The example below shows an "incomplete" option @ref IBApi::Contract with no last trading day, strike nor multiplier defined. In most cases using such a contract would result into a contract 
-	ambiguity error since there are lots of instruments matching the same description. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole option chain from the TWS.
-		
-	<ul id="tab">
-		<li class="active"> 
-			\snippet ContractSamples.cs optionforquery
-			...
-			\snippet Program.cs reqcontractdetails
-		</li>
-		<li>
-			\snippet ContractSamples.java optionforquery
-			...
-			\snippet Testbed.java reqcontractdetails
-		</li>
-		<li>
-			\snippet ContractSamples.vb optionforquery
-			...
-			\snippet MainModule.vb reqcontractdetails
-		</li>
-		<li>
-			\snippet ContractSamples.cpp optionforquery
-			...
-			\snippet TestCppClient.cpp reqcontractdetails
-		</li>
-		<li>
-			\snippet ContractSamples.py optionforquery
-			...
-			\snippet Program.py reqcontractdetails
-		</li>
-	</ul>
+	@ref IBApi::ContractDetails can be received from the API by the @ref IBApi::EClient::reqContractDetails function. This method takes as argument a @ref IBApi::Contract object which may be incompletely-defined and so
+	not matching a single contract in IB's database unambiguously. In reply, fully-defined contract objects with all fields specified which match the supplied Contract's parameters will be individually returned to the
+	IBApi::EWrapper::contractDetails function. The one exception is Bond contracts, which will be returned to the function IBApi::EWrapper::bondContractDetails. Because of market data license restrictions, there are only
+	a few available fields to be returned in a bond contract description, namely the minTick, exchange, currency, and short name. 
+
+	One particular use of the IBApi::EClient::reqContractDetails function is to request an option chain. See @ref option_chains for more details. 
 	
 	\section broadtape_list  Obtaining BroadTape List of News
 	

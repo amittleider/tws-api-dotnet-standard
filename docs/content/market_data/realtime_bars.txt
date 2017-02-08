@@ -1,8 +1,8 @@
-﻿/*! \page realtime_bars Real Time Bars
+/*! \page realtime_bars Real Time Bars
 
-	Real time and historical data functionality is combined through the @ref IBApi::EClient::reqRealTimeBars request. 
+	Real time and historical data functionality is combined through the @ref IBApi::EClient::reqRealTimeBars request. reqRealTimeBars will create an active subscription that will return a single bar in real time every five seconds that has the OHLC values over that period. reqRealTimeBars can only be used with a bar size of 5 seconds. 
 	
-	<b>Important:</b> real time bars subscriptions combine the limitations of both, top and historical market data. Make sure you observe @ref market_lines and @ref pacing_violations
+	<b>Important:</b> real time bars subscriptions combine the limitations of both, top and historical market data. Make sure you observe @ref market_lines and @ref pacing_violations. For example, no more than 60 <b>*new*</b> requests for real time bars can be made in 10 minutes, and the total number of active active subscriptions of all types cannot exceed the maximum allowed market data lines for the user. 
 	
 	\section rt_bars_req Requesting
 	

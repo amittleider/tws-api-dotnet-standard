@@ -486,7 +486,7 @@ namespace Samples
         }
         //! [tickNews]
 
-        //! [smartComponents]
+        //! [smartcomponents]
         public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
         {
             StringBuilder sb = new StringBuilder();
@@ -502,7 +502,7 @@ namespace Samples
 
             Console.WriteLine(sb);
         }
-        //! [smartComponents]
+        //! [smartcomponents]
 
         //! [tickReqParams]
         public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)

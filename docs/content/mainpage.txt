@@ -1,9 +1,7 @@
-﻿/*! \mainpage Trader Workstation API
+/*! \mainpage Trader Workstation API
 
-	Build your own trading applications in Java, .NET (C#), C++, or DDE, using our Trader Workstation Application Programming Interface (TWS API).
+	Build your own trading applications in Java, .NET (C#), C++, Python, or DDE, using our Trader Workstation Application Programming Interface (TWS API).
 	
-	\image html api_icon_programming.png
-	
-	
+	\image html api_icon_programming.png	
 
 */

@@ -38,12 +38,12 @@
 		<tr><td>Option Call Volume</td><td>29</td><td>Call option volume for the trading day.</td><td>@ref IBApi::EWrapper::tickSize</td><td>100</td></tr>
 		<tr><td>Option Put Volume</td><td>30</td><td>Put option volume for the trading day.</td><td>@ref IBApi::EWrapper::tickSize</td><td>100</td></tr>
 		<tr><td>Index Future Premium</td><td>31</td><td>The number of points that the index is over the cash index.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>162</td></tr>
-		<tr><td>Bid Exchange</td><td>32</td><td>Identifies the options exchange(s) posting the best bid price on the options contract.</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>
-		<tr><td>Ask Exchange</td><td>33</td><td>Identifies the options exchange(s) posting the best ask price on the options contract.</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>		
+		<tr><td>Bid Exchange</td><td>32</td><td>For stock and options, identifies the exchange(s) posting the bid price. See @ref smart_components</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>
+		<tr><td>Ask Exchange</td><td>33</td><td>For stock and options, identifies the exchange(s) posting the ask price. See @ref smart_components</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>		
 		<tr><td>Auction Volume</td><td>34</td><td>The number of shares that would trade if no new orders were received and the auction were held now.</td><td>@ref IBApi::EWrapper::tickSize</td><td>225</td></tr>
 		<tr><td>Auction Price</td><td>35</td><td>The price at which the auction would occur if no new orders were received and the auction were held now. The indicative price for the auction.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>225</td></tr>
 		<tr><td>Auction Imbalance</td><td>36</td><td>The number of unmatched shares for the next auction; returns how many more shares are on one side of the auction than the other.</td><td>@ref IBApi::EWrapper::tickSize</td><td>225</td></tr>
-		<tr><td>Mark Price</td><td>37</td><td>The mark price is equal to the Last Price unless: Ask < Last - the mark price is equal to the Ask Price. Bid > Last - the mark price is equal to the Bid Price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>221 or 232</td></tr>
+		<tr><td>Mark Price</td><td>37</td><td>The mark price is the current theoretical calculated value of an instrument. Since it is a calculated value, it will typically have many digits of precision.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>221 or 232</td></tr>
 		<tr><td>Bid EFP Computation</td><td>38</td><td>Computed EFP bid price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
 		<tr><td>Ask EFP Computation</td><td>39</td><td>Computed EFP ask price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
 		<tr><td>Last EFP Computation</td><td>40</td><td>Computed EFP last price</td><td>@ref IBApi::EWrapper::tickEFP</td><td>-</td></tr>
@@ -60,9 +60,9 @@
 		<tr><td>Ask Yield</td><td>51</td><td>Implied yield of the bond if it is purchased at the current ask.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>		
 		<tr><td>Last Yield</td><td>52</td><td>Implied yield of the bond if it is purchased at the last price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Custom Option Computation</td><td>53</td><td>Greek values are based off a user customized price.</td><td>@ref IBApi::EWrapper::tickOptionComputation</td><td>-</td></tr>
-		<tr><td>Trade Count</td><td>54</td><td>Trade count for the day.</td><td>@ref IBApi::EWrapper::tickSize</td><td>293</td></tr>
-		<tr><td>Trade Rate</td><td>55</td><td>Trade count per minute.</td><td>@ref IBApi::EWrapper::tickSize</td><td>294</td></tr>
-		<tr><td>Volume Rate</td><td>56</td><td>Volume per minute.</td><td>@ref IBApi::EWrapper::tickSize</td><td>295</td></tr>
+		<tr><td>Trade Count</td><td>54</td><td>Trade count for the day.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>293</td></tr>
+		<tr><td>Trade Rate</td><td>55</td><td>Trade count per minute.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>294</td></tr>
+		<tr><td>Volume Rate</td><td>56</td><td>Volume per minute.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>295</td></tr>
 		<tr><td>Last RTH Trade</td><td>57</td><td>Last Regular Trading Hours traded price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>318</td></tr>
 		<tr><td>RT Historical Volatility</td><td>58</td><td>30-day real time historical volatility.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>411</td></tr>
 		<tr><td>IB Dividends</td><td>59</td><td>Contract's dividends. See @ref ib_dividends</td><td>@ref IBApi::EWrapper::tickString</td><td>456</td></tr>
@@ -82,8 +82,16 @@
 		<tr><td>Delayed Low Price</td><td>73</td><td>Delayed lowest price of the day. See @ref market_data_type</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>Delayed Volume</td><td>74</td><td>Delayed traded volume of the day. See @ref market_data_type</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
 		<tr><td>Delayed Close</td><td>75</td><td>The <b>prior</b> day's closing price.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
-		<tr><td>Delayed Open</td><td>76</td><td>The day's open, but not available for at least 15-20 minutes after the open.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
+		<tr><td>Delayed Open</td><td>76</td><td>Not typically available</td><td>@ref IBApi::EWrapper::tickPrice</td><td>-</td></tr>
 		<tr><td>RT Trade Volume</td><td>77</td><td>Last trade details that excludes "Unreportable Trades". See @ref rt_trd_volume</td><td>@ref IBApi::EWrapper::tickString</td><td>375</td></tr>
+		<tr><td>Creditman mark price</td><td>78</td><td>Not currently available</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
+		<tr><td>Creditman slow mark price</td><td>79</td><td>Slower mark price update used in system calculations</td><td>@ref IBApi::EWrapper::tickPrice</td><td>619</td></tr>
+		<tr><td>Delayed Bid Option</td><td>80</td><td>Computed greeks based on delayed bid price. See @ref market_data_type and @ref option_computations</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
+		<tr><td>Delayed Ask Option</td><td>81</td><td>Computed greeks based on delayed ask price. See @ref market_data_type and @ref option_computations</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
+		<tr><td>Delayed Last Option</td><td>82</td><td>Computed greeks based on delayed last price. See @ref market_data_type and @ref option_computations</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
+		<tr><td>Delayed Model Option</td><td>83</td><td>Computed Greeks and model's implied volatility based on delayed stock and option prices.</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
+		<tr><td>Last Exchange</td><td>84</td><td>Exchange of last traded price</td><td>@ref IBApi::EWrapper::tickString</td><td></td></tr>
+		<tr><td>Last Regulatory Time</td><td>85</td><td>Timestamp (in Unix ms time) of last trade returned with regulatory snapshot</td><td>@ref IBApi::EWrapper::tickString</td><td></td></tr>
 	</table>
 	
 	\section halted Halted
@@ -93,7 +101,7 @@
 	<table>
 		<tr><th>Value</th><th>Description</th></tr>
 		<tr><td>-1</td><td>Halted status not available. Usually returned with frozen data.</td></tr>
-		<tr><td>0</td><td>Not halted. This value will be returned if the contract is in a TWS watchlist.</td></tr>
+		<tr><td>0</td><td>Not halted. This value will <b>only</b> be returned if the contract is in a TWS watchlist.</td></tr>
 		<tr><td>1</td><td>General halt. Trading halt is imposed for purely regulatory reasons with/without volatility halt.</td></tr>
 		<tr><td>2</td><td>Volatility halt. Trading halt is imposed by the exchange to protect against extreme volatility.</td></tr>
 	</table>
@@ -109,6 +117,8 @@
 		<tr><td>1.5 or less</td><td>Contract is not available for short selling.</td></tr>
 	</table>
 		
+	The TWS API cannot send the exact number of shortable shares available. For more detailed information about shortability data (shortable shares, fee rate, rebate rate) available outside of TWS, IB provides an FTP site. For more information, see knowledge base article <a href="https://ibkb.interactivebrokers.com/it/article/2024" target="_blank">2024</a>
+
 	\section rt_volume RT Volume
 	
 	The RT Volume tick type corresponds to the TWS' Time & Sales window and contains the last trade's price, size and time along with current day's total traded volume, Volume Weighted Average Price (VWAP)
@@ -118,11 +128,11 @@
 	
 	As volume for US stocks is reported in lots, a volume of 0 reported in RTVolume will typically indicate an odd lot data point (less than 100 shares).
 	
-	It is important to note that while the TWS Time & Sales Window also has information about trade conditions available with data points, this data is not available through the API. So for instance, the 'unreportable' trade status displayed with points in the Time & Sales Window is not available through the API, and that trade data will appear in the API just as any other data point. So an API application needs to exercise caution in implementing conditions based on individual callbacks. 
+	It is important to note that while the TWS Time & Sales Window also has information about trade conditions available with data points, this data is not available through the API. So for instance, the 'unreportable' trade status displayed with points in the Time & Sales Window is not available through the API, and that trade data will appear in the API just as any other data point. As always, an API application needs to exercise caution in responding to single data points. 
 	
 	\section rt_trd_volume RT Trade Volume
 	
-	The RT Trade Volume is similar to RT Volume, but designed to avoid relaying back "Unreportable Trades" shown in TWS Time&Sales via the API. 
+	The RT Trade Volume is similar to RT Volume, but designed to avoid relaying back "Unreportable Trades" shown in TWS Time&Sales via the API. RT Trade Volume will not contain average price or derivative trades which are included in RTVolume. 
 	
 	\section ib_dividends IB Dividends
 	

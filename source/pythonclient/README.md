@@ -53,7 +53,7 @@ python3 setup.py sdist
 
 * you can use this to build a wheel
 
-python3 setyp.py bdist_wheel
+python3 setup.py bdist_wheel
 
 * you can use this to install the wheel
 
