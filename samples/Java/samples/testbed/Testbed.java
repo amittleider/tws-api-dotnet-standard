@@ -30,18 +30,16 @@ public class Testbed {
 		//! [ereader]
 		final EReader reader = new EReader(m_client, m_signal);        
                 reader.start();
-                new Thread() {
-                    public void run() {
-                        while (m_client.isConnected()) {
-                            m_signal.waitForSignal();
-                            try {
-                                reader.processMsgs();
-                            } catch (Exception e) {
-                                System.out.println("Exception: "+e.getMessage());
-                            }
+                new Thread(() -> {
+                    while (m_client.isConnected()) {
+                        m_signal.waitForSignal();
+                        try {
+                            reader.processMsgs();
+                        } catch (Exception e) {
+                            System.out.println("Exception: "+e.getMessage());
                         }
                     }
-                }.start();
+                }).start();
                 //! [ereader]
                 Thread.sleep(1000);
                 

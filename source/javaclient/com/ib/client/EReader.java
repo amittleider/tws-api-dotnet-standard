@@ -26,7 +26,7 @@ public class EReader extends Thread {
     private static final int IN_BUF_SIZE_DEFAULT = 8192;
     private byte[] m_iBuf = new byte[IN_BUF_SIZE_DEFAULT];
     private int m_iBufLen = 0;
-    private Deque<EMessage> m_msgQueue = new LinkedList<>();
+    private final Deque<EMessage> m_msgQueue = new LinkedList<>();
     
     protected boolean isUseV100Plus() {
 		return m_clientSocket.isUseV100Plus();
@@ -95,10 +95,9 @@ public class EReader extends Thread {
     }
 	
     static final int MAX_MSG_LENGTH = 0xffffff;
-    
-    @SuppressWarnings("serial")
+
 	private static class InvalidMessageLengthException extends IOException {
-		public InvalidMessageLengthException(String message) {
+		InvalidMessageLengthException(String message) {
 			super(message);
 		}
     }
@@ -135,7 +134,7 @@ public class EReader extends Thread {
 			m_iBufLen = appendIBuf();
 		}
 				
-		int msgSize = 0;
+		int msgSize;
 		
 		while (true)
 			try {
