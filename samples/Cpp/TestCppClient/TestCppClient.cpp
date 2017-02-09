@@ -654,7 +654,7 @@ void TestCppClient::orderOperations()
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::StopWithProtection("SELL", 1, 45));
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::SweepToFill("BUY", 1, 35));
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStop("SELL", 1, 0.5, 30));
-	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStopLimit("BUY", 1, 50, 5, 30));
+	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStopLimit("BUY", 1, 2, 5, 50));
 
 	//! [place order with cashQty]
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), OrderSamples::LimitOrderWithCashQty("BUY", 1, 30, 5000));
@@ -1058,7 +1058,9 @@ void TestCppClient::reqHeadTimestamp() {
 }
 
 void TestCppClient::reqHistogramData() {
+	//! [reqHistogramData]
 	m_pClient->reqHistogramData(15001, ContractSamples::IBMUSStockAtSmart(), false, "1 weeks");
+	//! [reqHistogramData]
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	m_state = ST_REQHISTOGRAMDATA_ACK;

@@ -525,7 +525,7 @@ Module MainModule
         'client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), OrderSamples.StopWithProtection("SELL", 1, 45))
         'client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), OrderSamples.SweepToFill("BUY", 1, 35))
         'client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), OrderSamples.TrailingStop("SELL", 1, 0.5, 30))
-        'client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 50, 5, 30))
+        'client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 2, 5, 50))
         'client.placeOrder(increment(nextOrderId), ContractSamples.NormalOption(), OrderSamples.Volatility("SELL", 1, 5, 2))
 
 
@@ -837,15 +837,19 @@ Module MainModule
     End Sub
 
     Private Sub headTimestamp(client As EClientSocket)
-	'! [reqHeadTimeStamp]
+		'! [reqHeadTimeStamp]
         client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
-	'! [reqHeadTimeStamp]
+		'! [reqHeadTimeStamp]
     End Sub
 
     Private Sub histogramData(client As EClientSocket)
+		'! [reqHistogramData]
         client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch, False, "1 week")
-        Thread.Sleep(2000)
+        '! [reqHistogramData]
+		Thread.Sleep(2000)
+		'! [cancelHistogramData]
         client.cancelHistogramData(15001)
+		'! [cancelHistogramData]
     End Sub
 
 End Module

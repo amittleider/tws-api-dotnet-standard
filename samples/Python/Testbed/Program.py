@@ -1437,7 +1437,7 @@ class TestApp(TestWrapper, TestClient):
         self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), 
             OrderSamples.TrailingStop("SELL", 1, 0.5, 30))
         self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), 
-            OrderSamples.TrailingStopLimit("BUY", 1, 50, 5, 30))
+            OrderSamples.TrailingStopLimit("BUY", 1, 2, 5, 50))
         self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtIse(), 
             OrderSamples.Volatility("SELL", 1, 5, 2))
 
