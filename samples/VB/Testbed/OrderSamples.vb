@@ -654,14 +654,14 @@ Namespace Samples
         ''' Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/trailingStopLimit.php?ib_entity=llc
         ''' </summary>
-        Public Shared Function TrailingStopLimit(action As String, quantity As Double, limitPrice As Double, trailingAmount As Double, trailStopPrice As Double) As Order
+        Public Shared Function TrailingStopLimit(action As String, quantity As Double, lmtPriceOffset As Double, trailingAmount As Double, trailStopPrice As Double) As Order
             '! [trailingstoplimit]
             Dim order As Order = New Order
             order.Action = action
             order.OrderType = "TRAIL LIMIT"
             order.TotalQuantity = quantity
+            order.LmtPriceOffset = lmtPriceOffset
             order.TrailStopPrice = trailStopPrice
-            order.LmtPrice = limitPrice
             order.AuxPrice = trailingAmount
             '![trailingstoplimit]
             Return order

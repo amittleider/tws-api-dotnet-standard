@@ -40,7 +40,7 @@ public:
 	static Order StopLimit(std::string action, double quantity, double limitPrice, double stopPrice);
 	static Order StopWithProtection(std::string action, double quantity, double stopPrice);
 	static Order TrailingStop(std::string action, double quantity, double trailingPercent, double trailStopPrice);
-	static Order TrailingStopLimit(std::string action, double quantity, double limitPrice, double trailingAmount, double trailStopPrice);
+	static Order TrailingStopLimit(std::string action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice);
 	static Order ComboLimitOrder(std::string action, double quantity, double limitPrice, bool nonGuaranteed);
 	static Order ComboMarketOrder(std::string action, double quantity, bool nonGuaranteed);
 	static Order LimitOrderForComboWithLegPrices(std::string action, double quantity, std::vector<double> legprices, bool nonGuaranteed);
