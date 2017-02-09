@@ -7,8 +7,14 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -1528,7 +1534,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		String msg = EWrapperMsgGenerator.histogramData(reqId, items);
 		
 		m_TWS.add(msg);		

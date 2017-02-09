@@ -1,8 +1,9 @@
 package samples.testbed;
 
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.ib.client.CommissionReport;
@@ -578,7 +579,7 @@ public class EWrapperImpl implements EWrapper {
 	
 	//! [histogramData]
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 	//! [histogramData]
