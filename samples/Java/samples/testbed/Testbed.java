@@ -235,12 +235,12 @@ public class Testbed {
 		//! [reqhistoricaldata]
 		
 		//! [reqHistogramData]
-		client.getClient().reqHistogramData(4004, ContractSamples.USStock(), false, "3 days");
+		client.reqHistogramData(4004, ContractSamples.USStock(), false, "3 days");
         //! [reqHistogramData]
 		Thread.sleep(5);
 		
 		//! [cancelHistogramData]
-        client.getClient().cancelHistogramData(4004);
+        client.cancelHistogramData(4004);
 		//! [cancelHistogramData]
 	}
 	

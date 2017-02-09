@@ -2925,7 +2925,7 @@ void EClient::reqHistogramData(int reqId, Contract contract, bool useRTH, const 
 		return;
 	}
 
-	if( m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {
+	if( m_serverVersion < MIN_SERVER_VER_REQ_HISTOGRAM) {
 		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 			"  It does not support histogram requests.");
 		return;

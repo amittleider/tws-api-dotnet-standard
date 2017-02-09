@@ -185,6 +185,7 @@
 		<tr><td><b>FEE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A</td></tr>
 	</table>
 	<br>
+	
 	\section available_products_hd Available Data per Product
 	
 	<table>
@@ -206,6 +207,7 @@
 		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr></CENTER>
 	</table> 
 
+	\subpage histograms 
 
 	<br><br>
 
