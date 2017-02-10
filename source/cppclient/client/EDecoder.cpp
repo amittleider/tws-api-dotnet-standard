@@ -1948,6 +1948,8 @@ const char* EDecoder::processSmartComponentsMsg(const char* ptr, const char* end
 	}
 
 	m_pEWrapper->smartComponents(reqId, theMap);
+	
+	return ptr;
 }
 
 const char* EDecoder::processTickReqParamsMsg(const char* ptr, const char* endPtr) {
@@ -1962,6 +1964,8 @@ const char* EDecoder::processTickReqParamsMsg(const char* ptr, const char* endPt
 	DECODE_FIELD(snapshotPermissions);
 
 	m_pEWrapper->tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+	
+	return ptr;
 }
 
 const char* EDecoder::processHeadTimestampMsg(const char* ptr, const char* endPtr) {
@@ -1972,6 +1976,8 @@ const char* EDecoder::processHeadTimestampMsg(const char* ptr, const char* endPt
 	DECODE_FIELD(headTimestamp);
 
 	m_pEWrapper->headTimestamp(reqId, headTimestamp);
+	
+	return ptr;
 }
 
 const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPtr) {
@@ -1992,6 +1998,8 @@ const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPt
 	}
 
 	m_pEWrapper->histogramData(reqId, data);
+	
+	return ptr;
 }
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {

@@ -790,7 +790,7 @@ Namespace Samples
         ''' cancellation of the remaining group orders while partial completion causes the group to rebalance. An investor might desire to sell 
         ''' 1000 shares of only ONE of three positions held above prevailing market prices. The OCA order group allows the investor to enter prices 
         ''' at specified target levels and if one is completed, the other two will automatically cancel. Alternatively, an investor may wish to take 
-        ''' a LONG position in eMini S&P stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
+        ''' a LONG position in ES mini stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
         ''' Grouping the two orders using an OCA order type offers the investor two chance to enter a similar position, while only running the risk 
         ''' of taking on a single position.
         ''' Products: BOND, CASH, FUT, FOP, STK, OPT, WAR

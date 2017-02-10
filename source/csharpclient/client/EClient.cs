@@ -2512,13 +2512,13 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
         }
 
-	/**
-	* @brief Returns the timestamp of earliest available historical data for a contract and data type
-	* @params tickerId - an identifier for the request
-	* @params contract - contract object for which head timestamp is being requested
-	* @params whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc
-	* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
-	* @params formatDate - @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
+		/**
+		* @brief Returns the timestamp of earliest available historical data for a contract and data type
+		* @params tickerId - an identifier for the request
+		* @params contract - contract object for which head timestamp is being requested
+		* @params whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc
+		* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+		* @params formatDate - @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
         * @sa headTimeStamp
         */
 
@@ -2555,6 +2555,15 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP);
         }
 
+		/**
+		* @brief Returns data histogram of specified contract
+		* @params tickerId - an identifier for the request
+		* @params contract - Contract object for which histogram is being requested
+		* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+		* @params period - period of which data is being requested, e.g. "3 days"
+		* @sa histogramData
+		*/
+			
         public void reqHistogramData(int tickerId, Contract contract, bool useRTH, string period)
         {
             if (!CheckConnection())
@@ -2587,6 +2596,12 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTOGRAMDATA);
         }
 
+		/**
+		* @brief Cancels an active data histogram request
+		* @params tickerId - identifier specified in reqHistogramData request
+		* @sa reqHistogramData, histogramData
+		*/
+		
         public void cancelHistogramData(int tickerId)
         {
             if (!CheckConnection())

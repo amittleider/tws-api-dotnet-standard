@@ -757,9 +757,9 @@ class TestApp(TestWrapper, TestClient):
     @printWhenExecuting
     def historicalDataRequests_req(self):
         # Requesting historical data 
-	#! [reqHeadTimeStamp]
-	# reqHeadTimeStamp is not yet available in Python
-	#! [reqHeadTimeStamp]
+		#! [reqHeadTimeStamp]
+		# reqHeadTimeStamp is not yet available in Python
+		#! [reqHeadTimeStamp]
         #! [reqhistoricaldata]
         queryTime = (datetime.datetime.today() -
                     datetime.timedelta(days=180)).strftime("%Y%m%d %H:%M:%S")
@@ -771,7 +771,13 @@ class TestApp(TestWrapper, TestClient):
         self.reqHistoricalData(4002, ContractSamples.EuropeanStock(), queryTime,
                                 "10 D", "1 min", "TRADES", 1, 1, None)
         #! [reqhistoricaldata]
-
+		#! [reqHistogramData]
+		# reqHistogramData is not yet available in Python
+		#! [reqHistogramData]
+		#! [cancelHistogramData]
+        # cancelHistogramData is not yet available in Python
+		#! [cancelHistogramData]
+		
 
     @printWhenExecuting
     def historicalDataRequests_cancel(self):
@@ -785,6 +791,11 @@ class TestApp(TestWrapper, TestClient):
 	# head timestamp not yet available in Python
 	#! [headTimestamp]
 
+	#@iswrapper
+	#! [histogramData]
+	# histogramData is not yet available in Python
+	#! [histogramData]
+	
     @iswrapper
     #! [historicaldata]
     def historicalData(self, reqId:TickerId , date:str, open:float, high:float, 
