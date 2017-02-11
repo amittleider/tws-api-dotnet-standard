@@ -482,11 +482,8 @@ public abstract class EClient {
                 int scannerSubscriptionOptionsCount = scannerSubscriptionOptions == null ? 0 : scannerSubscriptionOptions.size();
                 if( scannerSubscriptionOptionsCount > 0) {
                     for( int i = 0; i < scannerSubscriptionOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)scannerSubscriptionOptions.get(i);
-                        scannerSubscriptionOptionsStr.append( tagValue.m_tag);
-                        scannerSubscriptionOptionsStr.append( "=");
-                        scannerSubscriptionOptionsStr.append( tagValue.m_value);
-                        scannerSubscriptionOptionsStr.append( ";");
+                        TagValue tagValue = scannerSubscriptionOptions.get(i);
+                        scannerSubscriptionOptionsStr.append( tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
                     }
                 }
                 b.send( scannerSubscriptionOptionsStr.toString());
@@ -624,11 +621,8 @@ public abstract class EClient {
                 int mktDataOptionsCount = mktDataOptions == null ? 0 : mktDataOptions.size();
                 if( mktDataOptionsCount > 0) {
                     for( int i = 0; i < mktDataOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)mktDataOptions.get(i);
-                        mktDataOptionsStr.append( tagValue.m_tag);
-                        mktDataOptionsStr.append( "=");
-                        mktDataOptionsStr.append( tagValue.m_value);
-                        mktDataOptionsStr.append( ";");
+                        TagValue tagValue = mktDataOptions.get(i);
+                        mktDataOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
                     }
                 }
                 b.send( mktDataOptionsStr.toString());
@@ -791,11 +785,8 @@ public abstract class EClient {
               int chartOptionsCount = chartOptions == null ? 0 : chartOptions.size();
               if( chartOptionsCount > 0) {
                   for( int i = 0; i < chartOptionsCount; ++i) {
-                      TagValue tagValue = (TagValue)chartOptions.get(i);
-                      chartOptionsStr.append( tagValue.m_tag);
-                      chartOptionsStr.append( "=");
-                      chartOptionsStr.append( tagValue.m_value);
-                      chartOptionsStr.append( ";");
+                      TagValue tagValue = chartOptions.get(i);
+                      chartOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append( ";");
                   }
               }
               b.send( chartOptionsStr.toString());
@@ -913,11 +904,8 @@ public abstract class EClient {
                 int realTimeBarsOptionsCount = realTimeBarsOptions == null ? 0 : realTimeBarsOptions.size();
                 if( realTimeBarsOptionsCount > 0) {
                     for( int i = 0; i < realTimeBarsOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)realTimeBarsOptions.get(i);
-                        realTimeBarsOptionsStr.append( tagValue.m_tag);
-                        realTimeBarsOptionsStr.append( "=");
-                        realTimeBarsOptionsStr.append( tagValue.m_value);
-                        realTimeBarsOptionsStr.append( ";");
+                        TagValue tagValue = realTimeBarsOptions.get(i);
+                        realTimeBarsOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
                     }
                 }
                 b.send( realTimeBarsOptionsStr.toString());
@@ -998,14 +986,11 @@ public abstract class EClient {
             	b.send(contract.exchange());
             	b.send(contract.primaryExch());
             }
-            else if (m_serverVersion >= MIN_SERVER_VER_LINKING)
-            {
-                if (!IsEmpty(contract.primaryExch()) && (contract.exchange() == "BEST" || contract.exchange() == "SMART"))
-                {
+            else if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                if (!IsEmpty(contract.primaryExch())
+                        && ("BEST".equals(contract.exchange()) || "SMART".equals(contract.exchange()))) {
                    	b.send(contract.exchange() + ":" + contract.primaryExch());
-                }
-                else
-                {
+                } else {
                 	b.send(contract.exchange());
                 }
             }
@@ -1090,11 +1075,8 @@ public abstract class EClient {
                 int mktDepthOptionsCount = mktDepthOptions == null ? 0 : mktDepthOptions.size();
                 if( mktDepthOptionsCount > 0) {
                     for( int i = 0; i < mktDepthOptionsCount; ++i) {
-                        TagValue tagValue = (TagValue)mktDepthOptions.get(i);
-                        mktDepthOptionsStr.append( tagValue.m_tag);
-                        mktDepthOptionsStr.append( "=");
-                        mktDepthOptionsStr.append( tagValue.m_value);
-                        mktDepthOptionsStr.append( ";");
+                        TagValue tagValue = mktDepthOptions.get(i);
+                        mktDepthOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
                     }
                 }
                 b.send( mktDepthOptionsStr.toString());
@@ -1803,10 +1785,7 @@ public abstract class EClient {
                int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
                if( orderMiscOptionsCount > 0) {
                    for( TagValue tagValue : orderMiscOptions ) {
-                       orderMiscOptionsStr.append( tagValue.m_tag);
-                       orderMiscOptionsStr.append( "=");
-                       orderMiscOptionsStr.append( tagValue.m_value);
-                       orderMiscOptionsStr.append( ";");
+                       orderMiscOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
                    }
                }
                b.send( orderMiscOptionsStr.toString());
@@ -3440,17 +3419,18 @@ public abstract class EClient {
         error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
     }
     
-	public String connectedHost()        { return m_host; } // Host that was connected/redirected
-	protected void send( int val) throws IOException {
+	public synchronized String connectedHost() {
+        return m_host;
+    } // Host that was connected/redirected
+
+    protected void send( int val) throws IOException {
 		send( String.valueOf( val) );
 	}
 	// Sends String without length prefix (pre-V100 style)
 	protected void send( String str) throws IOException {
 		// Write string to data buffer
 		Builder b = new Builder( 1024 );
-	
 		b.send(str);
-	
 		sendMsg(new EMessage(b));
 	}
 }

@@ -15,11 +15,11 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	private boolean m_connected = false;
 	private Socket m_socket;
 		
-	public void setAsyncEConnect(boolean asyncEConnect) {
+	public synchronized void setAsyncEConnect(boolean asyncEConnect) {
 		this.m_asyncEConnect = asyncEConnect;
 	}
 
-	public boolean isAsyncEConnect() {
+	public synchronized boolean isAsyncEConnect() {
 		return m_asyncEConnect;
 	}
 
@@ -57,7 +57,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    sendConnectRequest();
 	
 	    // start reader thread
-	    EReader reader = new EReader(this, m_signal);;
+	    EReader reader = new EReader(this, m_signal);
 	
 	    if (!m_asyncEConnect) {
 	    	reader.putMessageToQueue();
@@ -100,11 +100,11 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    }
 	}
 
-	public boolean allowRedirect() {
+	public synchronized boolean allowRedirect() {
 		return m_allowRedirect;
 	}
 
-	public void allowRedirect(boolean val) {
+	public synchronized void allowRedirect(boolean val) {
 		m_allowRedirect = val;
 	}
 
@@ -169,7 +169,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    	startAPI();
 	}
 
-	protected void performRedirect( String address, int defaultPort ) throws IOException {
+	protected synchronized void performRedirect( String address, int defaultPort ) throws IOException {
 	    System.out.println("Server Redirect: " + address);
 	    
 	    // Get host:port from address string and reconnect (note: port is optional)
@@ -226,7 +226,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	}
 
 	@Override
-	public boolean isConnected() {
+	public synchronized boolean isConnected() {
 		return m_socket != null && m_socket.isConnected() && m_connected;
 	}
 }
