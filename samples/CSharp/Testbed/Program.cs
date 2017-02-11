@@ -110,7 +110,7 @@ namespace Samples
             /**********************/
             /*** Order handling ***/
             /**********************/
-            //orderOperations(client, nextValidId);
+            orderOperations(client, nextValidId);
 
             /************************************/
             /*** Financial Advisor Exclusive Operations ***/
@@ -140,17 +140,36 @@ namespace Samples
             /***********************/
             /*** Head time stamp ***/
             /***********************/
-            headTimestamp(client);
+            //headTimestamp(client);
+
+            /***********************/
+            /*** Histogram data  ***/
+            /***********************/
+            histogramData(client);
+
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
         }
 
+        private static void histogramData(EClientSocket client)
+        {
+			//! [reqHistogramData]
+			client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch(), false, "1 week");
+            //! [reqHistogramData]
+			Thread.Sleep(2000);
+            //! [cancelHistogramData]
+			client.cancelHistogramData(15001);
+			//! [cancelHistogramData]
+		}
+
         private static void headTimestamp(EClientSocket client)
         {
+			//! [reqHeadTimeStamp]
             client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1);
-        }
+			//! [reqHeadTimeStamp]
+	}
 
         private static void smartComponents(EClientSocket client)
         {
@@ -162,7 +181,9 @@ namespace Samples
             }
 
             client.cancelMktData(13001);
+		//! [reqsmartcomponents]
             client.reqSmartComponents(13002, testImpl.BboExchange);
+		//! [reqsmartcomponents]
         }
 
         private static void tickDataOperations(EClientSocket client)
@@ -175,6 +196,11 @@ namespace Samples
             //! [reqmktdata_snapshot]
             client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, true, false, null);
             //! [reqmktdata_snapshot]
+
+		//! [regulatorysnapshot]
+		// Each regulatory snapshot incurs a 0.01 USD fee
+		//client.reqMktData(1005, ContractSamples.USStock(), "", false, true, null);
+		//! [regulatorysnapshot]
 
             //! [reqmktdata_genticks]
             //Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
@@ -288,16 +314,16 @@ namespace Samples
 
         private static void contractOperations(EClientSocket client)
         {
-            client.reqContractDetails(209, ContractSamples.EurGbpFx());
-            Thread.Sleep(2000);
             //! [reqcontractdetails]
-            client.reqContractDetails(210, ContractSamples.OptionForQuery());
+            client.reqContractDetails(209, ContractSamples.OptionForQuery());
+            client.reqContractDetails(210, ContractSamples.EurGbpFx());
+            client.reqContractDetails(211, ContractSamples.Bond());
             //! [reqcontractdetails]
 
             Thread.Sleep(2000);
-            //! [reqMatchingSymbols]
+            //! [reqmatchingsymbols]
             client.reqMatchingSymbols(211, "IB");
-            //! [reqMatchingSymbols]
+            //! [reqmatchingsymbols]
         }
 
         private static void contractNewsFeed(EClientSocket client)
@@ -412,9 +438,9 @@ namespace Samples
             client.reqPositionsMulti(9003, "DU74649", "EUstocks");
             //! [reqpositionsmulti]
 
-            //! [reqFamilyCodes]
+            //! [reqfamilycodes]
             client.reqFamilyCodes();
-            //! [reqFamilyCodes]
+            //! [reqfamilycodes]
         }
 
         private static void orderOperations(EClientSocket client, int nextOrderId)
@@ -422,22 +448,22 @@ namespace Samples
             /*** Requesting the next valid id ***/
             //! [reqids]
             //The parameter is always ignored.
-            client.reqIds(-1);
+            //client.reqIds(-1);
             //! [reqids]
             //Thread.Sleep(1000);
             /*** Requesting all open orders ***/
             //! [reqallopenorders]
-            client.reqAllOpenOrders();
+            //client.reqAllOpenOrders();
             //! [reqallopenorders]
             //Thread.Sleep(1000);
             /*** Taking over orders to be submitted via TWS ***/
             //! [reqautoopenorders]
-            client.reqAutoOpenOrders(true);
+            //client.reqAutoOpenOrders(true);
             //! [reqautoopenorders]
             //Thread.Sleep(1000);
             /*** Requesting this API client's orders ***/
             //! [reqopenorders]
-            client.reqOpenOrders();
+            //client.reqOpenOrders();
             //! [reqopenorders]
             //Thread.Sleep(1000);
             //BracketSample(client, nextOrderId);
@@ -446,36 +472,36 @@ namespace Samples
 			Note if there are multiple clients connected to an account, the order ID must also be greater than all order IDs returned for orders to orderStatus and openOrder to this client.
 			***/
             //! [order_submission]
-            client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.LimitOrder("SELL", 1, 50));
+            client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 5, 5, 110));
             //! [order_submission]
 
             //! [faorderoneaccount]
-            Order faOrderOneAccount = OrderSamples.MarketOrder("BUY", 100);
+            //Order faOrderOneAccount = OrderSamples.MarketOrder("BUY", 100);
             // Specify the Account Number directly
-            faOrderOneAccount.Account = "DU119915";
-            client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);
+           // faOrderOneAccount.Account = "DU119915";
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);
             //! [faorderoneaccount]
 
             //! [faordergroupequalquantity]
-            Order faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000);
-            faOrderGroupEQ.FaGroup = "Group_Equal_Quantity";
-            faOrderGroupEQ.FaMethod = "EqualQuantity";
-            client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);
+            //Order faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000);
+            //faOrderGroupEQ.FaGroup = "Group_Equal_Quantity";
+            //faOrderGroupEQ.FaMethod = "EqualQuantity";
+            //client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);
             //! [faordergroupequalquantity]
 
             //! [faordergrouppctchange]
-            Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0); ;
+            //Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0); ;
             // You should not specify any order quantity for PctChange allocation method
-            faOrderGroupPC.FaGroup = "Pct_Change";
-            faOrderGroupPC.FaMethod = "PctChange";
-            faOrderGroupPC.FaPercentage = "100";
-            client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);
+            //faOrderGroupPC.FaGroup = "Pct_Change";
+            //faOrderGroupPC.FaMethod = "PctChange";
+           // faOrderGroupPC.FaPercentage = "100";
+            //client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);
             //! [faordergrouppctchange]
 
             //! [faorderprofile]
-            Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
-            faOrderProfile.FaProfile = "Percent_60_40";
-            client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
+            //Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
+            //faOrderProfile.FaProfile = "Percent_60_40";
+            //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
             //! [faorderprofile]
 
             //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.Block("BUY", 50, 20));
@@ -500,7 +526,7 @@ namespace Samples
             //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.StopWithProtection("SELL", 1, 45));
             //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.SweepToFill("BUY", 1, 35));
             //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStop("SELL", 1, 0.5, 30));
-            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 50, 5, 30));
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.TrailingStopLimit("BUY", 1, 2, 5, 50));
             //client.placeOrder(nextOrderId++, ContractSamples.NormalOption(), OrderSamples.Volatility("SELL", 1, 5, 2));
 
             
@@ -530,13 +556,18 @@ namespace Samples
             //client.placeOrder(lmtParent.OrderId, ContractSamples.EuropeanStock(), lmtParent);
             //Attached TRAIL adjusted can only be attached to LMT parent orders.
             //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrailAmount(lmtParent, 34, 32, 33, 0.008));
-            TestAlgoSamples(client, nextOrderId);
-            Thread.Sleep(30000);
+            //TestAlgoSamples(client, nextOrderId);
+            //Thread.Sleep(30000);
+		//! [cancelorder]
+		//client.cancelOrder(nextOrderId-1);
+		//! [cancelorder]
             /*** Cancel all orders for all accounts ***/
+		//! [reqglobalcancel]
             //client.reqGlobalCancel();
+		//! [reqglobalcancel]
             /*** Request the day's executions ***/
             //! [reqexecutions]
-            client.reqExecutions(10001, new ExecutionFilter());
+            //client.reqExecutions(10001, new ExecutionFilter());
             //! [reqexecutions]
         }
 

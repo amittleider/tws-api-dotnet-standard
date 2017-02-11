@@ -1,6 +1,7 @@
 package samples.testbed;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import com.ib.client.EClientSocket;
 import com.ib.client.EJavaSignal;
 import com.ib.client.EReaderSignal;
 import com.ib.client.EWrapper;
+import com.ib.client.EWrapperMsgGenerator;
 import com.ib.client.Execution;
 import com.ib.client.FamilyCode;
 import com.ib.client.NewsProvider;
@@ -448,12 +450,14 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Security Definition Optional Parameter. Request: "+reqId+", Trading Class: "+tradingClass+", Multiplier: "+multiplier+" \n");
 	}
 	//! [securityDefinitionOptionParameter]
+
+	//! [securityDefinitionOptionParameterEnd]
 	@Override
 	public void securityDefinitionOptionalParameterEnd(int reqId) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Security Definition Optional Parameter End. Request: " + reqId);
 	}
-        
+	//! [securityDefinitionOptionParameterEnd]
+
     //! [softDollarTiers]
 	@Override
 	public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
@@ -513,6 +517,7 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [tickNews]
 
+	//! [smartcomponents]
 	@Override
 	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
 		System.out.println("smart components req id:" + reqId);
@@ -522,12 +527,15 @@ public class EWrapperImpl implements EWrapper {
 					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue());			
 		}
 	}
-	
+	//! [smartcomponents]
+
+	//! [tickReqParams]
 	@Override
 	public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
 		System.out.println("Tick req params. Ticker Id:" + tickerId + ", Min tick: " + minTick + ", bbo exchange: " + bboExchange + ", Snapshot permissions: " + snapshotPermissions);
 	}
-	
+	//! [tickReqParams]
+
 	//! [newsProviders]
 	@Override
 	public void newsProviders(NewsProvider[] newsProviders) {
@@ -560,9 +568,18 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println("Historical News End. RequestId: " + requestId + ", HasMore: " + hasMore + "\n");
 	}
 	//! [historicalNewsEnd]
-	
+
+	//! [headTimestamp]
 	@Override
 	public void headTimestamp(int reqId, String headTimestamp) {
 		System.out.println("Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp);
 	}
+	//! [headTimestamp]
+	
+	//! [histogramData]
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
+	}
+	//! [histogramData]
 }

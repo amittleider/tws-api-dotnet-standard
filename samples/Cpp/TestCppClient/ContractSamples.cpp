@@ -131,6 +131,15 @@ Contract ContractSamples::USStockAtSmart(){
 	return contract;
 }
 
+Contract ContractSamples::IBMUSStockAtSmart(){
+	Contract contract;
+	contract.symbol = "IBM";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	return contract;
+}
+
 Contract ContractSamples::USStockWithPrimaryExch(){
 	//! [stkcontractwithprimary]
 	Contract contract;

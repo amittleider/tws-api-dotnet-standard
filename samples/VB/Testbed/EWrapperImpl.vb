@@ -430,13 +430,13 @@ Namespace Samples
         End Sub
         '! [mktDepthExchanges]
 
-        '! [ticklNews]
+        '! [tickNews]
         Public Sub tickNews(tickerId As Integer, timeStamp As Long, providerCode As String, articleId As String, headline As String, extraData As String) Implements IBApi.EWrapper.tickNews
             Console.WriteLine("Tick News. Ticker Id: " & tickerId & ", Time Stamp: " & timeStamp & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline & ", Extra Data: " & extraData)
         End Sub
         '! [tickNews]
 
-        '! [smartComponents]
+        '! [smartcomponents]
         Public Sub smartComponents(reqId As Integer, theMap As Dictionary(Of Integer, KeyValuePair(Of String, Char))) Implements EWrapper.smartComponents
             Dim sb As New StringBuilder
 
@@ -450,7 +450,7 @@ Namespace Samples
 
             Console.WriteLine(sb)
         End Sub
-        '! [smartComponents]
+        '! [smartcomponents]
 
         '! [tickReqParams]
         Public Sub tickReqParams(tickerId As Integer, minTick As Double, bboExchange As String, snapshotPermissions As Integer) Implements EWrapper.tickReqParams
@@ -494,11 +494,18 @@ Namespace Samples
         End Sub
         '! [historicalNewsEnd]
 
-        '! [historicalNewsEnd]
+        '! [headTimestamp]
         Public Sub headTimestamp(requestId As Integer, timeStamp As String) Implements IBApi.EWrapper.headTimestamp
             Console.WriteLine("Head time stamp. Request Id: {0}, Head time stamp: {1}", requestId, timeStamp)
         End Sub
-        '! [historicalNewsEnd]
+        '! [headTimestamp]
+
+        '! [histogramData]
+        Public Sub histogramData(reqId As Integer, data As Tuple(Of Double, Long)()) Implements EWrapper.histogramData
+            Console.WriteLine("Histogram data. Request Id: {0}, data size: {1}", reqId, data.Length)
+            data.ToList().ForEach(Sub(i) Console.WriteLine(vbTab & "Price: {0}, Size: {1}", i.Item1, i.Item2))
+        End Sub
+        '! [histogramData]
 
     End Class
 

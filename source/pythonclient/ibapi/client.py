@@ -891,7 +891,7 @@ class EClient(object):
                 return
 
         if self.serverVersion() < MIN_SERVER_VER_SOFT_DOLLAR_TIER:
-            if order.softDollarTier.name() or order.softDollarTier.val():
+            if order.softDollarTier.name or order.softDollarTier.val:
                 self.wrapper.error(orderId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
                         " It does not support soft dollar tier")
                 return

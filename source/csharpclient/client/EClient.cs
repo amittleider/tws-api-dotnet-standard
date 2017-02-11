@@ -373,7 +373,7 @@ namespace IBApi
 
         /**
          * @brief Cancels Fundamental data request
-         * @param reqId the request's idenfier.
+         * @param reqId the request's identifier.
          * @sa reqFundamentalData
          */
         public void cancelFundamentalData(int reqId)
@@ -428,7 +428,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Cancels an active order
+         * @brief Cancels an active order placed by that specific client (one with the same client ID)
          * @param orderId the order's client id
          * @sa placeOrder, reqGlobalCancel
          */
@@ -537,7 +537,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Places an order
+         * @brief Places or modifies an order
          * @param id the order's unique identifier. Use a sequential id starting with the id received at the nextValidId method. If a new order is placed with an order ID less than or equal to the order ID of a previous order an error will occur. 
          * @param contract the order's contract
          * @param order the order
@@ -1146,7 +1146,7 @@ namespace IBApi
 
         /**
          * @brief Subscribes to an specific account's information and portfolio
-         * Through this method, a single account's subscription can be started/stopped. As a result from the subscription, the account's information, portfolio and last update time will be received at EWrapper::updateAccountValue, EWrapper::updateAccountPortfolio, EWrapper::updateAccountTime respectively.
+         * Through this method, a single account's subscription can be started/stopped. As a result from the subscription, the account's information, portfolio and last update time will be received at EWrapper::updateAccountValue, EWrapper::updateAccountPortfolio, EWrapper::updateAccountTime respectively. All account values and positions will be returned initially, and then there will only be updates when there is a change in a position, or to an account value every 3 minutes if it has changed. 
          * Only one account can be subscribed at a time. A second subscription request for another account when the previous one is still active will cause the first one to be canceled in favour of the second one. Consider user reqPositions if you want to retrieve all your accounts' portfolios directly.
          * @param subscribe set to true to start the subscription and to false to stop it.
          * @param acctCode the account id (i.e. U123456) for which the information is requested.
@@ -1169,7 +1169,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all open orders submitted by any API client as well as those directly placed in the TWS. The existing orders will be received via the openOrder and orderStatus events.
+         * @brief Requests all *current* open orders in all associated accounts. The existing orders will be received via the openOrder and orderStatus events.
          * @sa reqAutoOpenOrders, reqOpenOrders, EWrapper::openOrder, EWrapper::orderStatus, EWrapper::openOrderEnd
          */
         public void reqAllOpenOrders()
@@ -1186,9 +1186,8 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all order placed on the TWS directly.
-         * Only the orders created after this request has been made will be returned.
-         * @param autoBind if set to true, the newly created orders will be implicitely associated with this client.
+         * @brief Requests status updates about future orders placed from TWS. Can only be used with client ID 0. 
+         * @param autoBind if set to true, the newly created orders will be assigned an API order ID and implicitly associated with this client. If set to false, future orders will not be.
          * @sa reqAllOpenOrders, reqOpenOrders, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus
          */
         public void reqAutoOpenOrders(bool autoBind)
@@ -1295,7 +1294,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests the server's current time.
+         * @brief Requests TWS's current time.
          * @sa EWrapper::currentTime
          */
         public void reqCurrentTime()
@@ -1316,7 +1315,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all the day's executions matching the filter.
+         * @brief Requests current day's (since the last IB server reset) executions matching the filter.
          * Only the current day's executions can be retrieved. Along with the executions, the CommissionReport will also be returned. The execution details will arrive at EWrapper:execDetails
          * @param reqId the request's unique identifier.
          * @param filter the filter criteria used to determine which execution reports are returned.
@@ -1414,7 +1413,7 @@ namespace IBApi
 
         /**
          * @brief Cancels all the active orders.
-         * This method will cancel ALL open orders included those placed directly via the TWS.
+         * This method will cancel ALL open orders including those placed directly from TWS.
          * @sa cancelOrder
          */
         public void reqGlobalCancel()
@@ -1471,7 +1470,7 @@ namespace IBApi
          *      - BID_ASK
          *      - HISTORICAL_VOLATILITY
          *      - OPTION_IMPLIED_VOLATILITY
-         *	    - FREE_RATE
+         *	    - FEE_RATE
          *	    - REBATE_RATE
          * @param useRTH set to 0 to obtain the data which was also generated outside of the Regular Trading Hours, set to 1 to obtain only the RTH data
          * @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
@@ -1559,7 +1558,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests the next valid order id.
+         * @brief Requests the next valid order ID at the current moment.
          * @param numIds deprecated- this parameter will not affect the value returned to nextValidId
          * @sa EWrapper::nextValidId
          */
@@ -1615,7 +1614,8 @@ namespace IBApi
          *      - 258 	Fundamental Ratios 
          *      - 411 	Realtime Historical Volatility 
          *      - 456 	IBDividends
-         * @param snapshot when set to true, it will provide a single snapshot of the available data. Set to false if you want to receive continuous updates.
+         * @param snapshot for users with corresponding real time market data subscriptions. A true value will return a one-time snapshot, while a false value will provide streaming data. 
+	 * @param regulatory snapshot requests NBBO snapshots for users which have "US Securities Snapshot Bundle" subscription but not corresponding Network A, B, or C subscription necessary for streaming 		 * market data. One-time snapshot of current market price that will incur a fee of 1 cent to the account per snapshot. 
          * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOptionComputation, EWrapper::tickSnapshotEnd
          */
         public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, bool regulatorySnaphsot, List<TagValue> mktDataOptions)
@@ -1724,14 +1724,14 @@ namespace IBApi
         }
 
         /**
-         * @brief indicates the TWS to enable "frozen", "delayed" or "delayed-frozen" market data.
-         * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. If you use this function, you are telling TWS to automatically switch to frozen market data after the close. Then, before the opening of the next trading day, market data will automatically switch back to real-time market data.
+         * @brief indicates the TWS to enable "frozen", "delayed" or "delayed-frozen" market data. Requires TWS/IBG v963+.
+         * The API can receive frozen market data from Trader Workstation. Frozen market data is the last data recorded in our system. During normal trading hours, the API receives real-time market data. Invoking this function with argument 2 requests a switch to frozen data immediately or after the close. When the market reopens the next data the market data type will automatically switch back to real time if available.
          * @param marketDataType:
          *      by default only real-time (1) market data is enabled
          *      sending 1 (real-time) disables frozen, delayed and delayed-frozen market data
          *      sending 2 (frozen) enables frozen market data
          *      sending 3 (delayed) enables delayed and disables delayed-frozen market data
-         *      sending 4 (delayed-frozen) enables delayed and delayed-frozen market data 
+         *      sending 4 (delayed-frozen) enables delayed and delayed-frozen market data
          */
         public void reqMarketDataType(int marketDataType)
         {
@@ -1830,7 +1830,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all open orders places by this specific API client (identified by the API client id)
+         * @brief Requests all open orders places by this specific API client (identified by the API client id). For client ID 0, this will bind previous manual TWS orders.
          * @sa reqAllOpenOrders, reqAutoOpenOrders, placeOrder, cancelOrder, reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus, EWrapper::openOrderEnd
          */
         public void reqOpenOrders()
@@ -1847,7 +1847,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all positions from all accounts
+         * @brief Subscribes to position updates for all accessible accounts. All positions sent initially, and then only updates as positions change. 
          * @sa cancelPositions, EWrapper::position, EWrapper::positionEnd
          */
         public void reqPositions()
@@ -1931,7 +1931,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests all possible parameters which can be used for a scanner subscription
+         * @brief Requests an XML list of scanner parameters valid in TWS. Note: not all parameters are valid from API scanner.
          * @sa reqScannerSubscription
          */
         public void reqScannerParameters()
@@ -2353,7 +2353,7 @@ namespace IBApi
         }
 
         /**
-        * @brief Requests family codes
+        * @brief Requests family codes for an account, for instance if it is a FA, IBroker, or associated account.
         * @sa EWrapper::familyCodes
         */
         public void reqFamilyCodes()
@@ -2396,7 +2396,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests venues with market depth data available
+         * @brief Requests venues for which market data is returned to updateMktDepthL2 (those with market makers)
          * @sa EWrapper::mktDepthExchanges
          */
         public void reqMktDepthExchanges()
@@ -2415,6 +2415,10 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTHEXCHANGES);
         }
 
+	/**
+	 * @brief Returns the mapping of single letter codes to exchange names given the mapping identifier
+	 * @sa EWrapper::smartComponents
+         */
         public void reqSmartComponents(int reqId, String bboExchange)
         {
             if (!CheckConnection())
@@ -2434,7 +2438,7 @@ namespace IBApi
         }
 
         /**
-        * @brief Requests news providers
+        * @brief Requests news providers which the user has subscribed to. 
         * @sa EWrapper::newsProviders
         */
         public void reqNewsProviders()
@@ -2454,8 +2458,8 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests news article body
-         * @sa EWrapper::newsArticle
+         * @brief Requests news article body given articleId.
+         * @sa EWrapper::newsArticle, 
          */
         public void reqNewsArticle(int requestId, string providerCode, string articleId)
         {
@@ -2508,6 +2512,16 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
         }
 
+		/**
+		* @brief Returns the timestamp of earliest available historical data for a contract and data type
+		* @params tickerId - an identifier for the request
+		* @params contract - contract object for which head timestamp is being requested
+		* @params whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc
+		* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+		* @params formatDate - @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
+        * @sa headTimeStamp
+        */
+
         public void reqHeadTimestamp(int tickerId, Contract contract, string whatToShow, int useRTH, int formatDate)
         {
             if (!CheckConnection())
@@ -2539,6 +2553,71 @@ namespace IBApi
             paramsList.AddParameter(whatToShow);
             paramsList.AddParameter(formatDate);
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP);
+        }
+
+		/**
+		* @brief Returns data histogram of specified contract
+		* @params tickerId - an identifier for the request
+		* @params contract - Contract object for which histogram is being requested
+		* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+		* @params period - period of which data is being requested, e.g. "3 days"
+		* @sa histogramData
+		*/
+			
+        public void reqHistogramData(int tickerId, Contract contract, bool useRTH, string period)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HISTOGRAM_DATA,
+                " It does not support histogram data requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestHistogramData);
+            paramsList.AddParameter(tickerId);
+            paramsList.AddParameter(contract.ConId);
+            paramsList.AddParameter(contract.Symbol);
+            paramsList.AddParameter(contract.SecType);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
+            paramsList.AddParameter(contract.Strike);
+            paramsList.AddParameter(contract.Right);
+            paramsList.AddParameter(contract.Multiplier);
+            paramsList.AddParameter(contract.Exchange);
+            paramsList.AddParameter(contract.PrimaryExch);
+            paramsList.AddParameter(contract.Currency);
+            paramsList.AddParameter(contract.LocalSymbol);
+            paramsList.AddParameter(contract.TradingClass);
+            paramsList.AddParameter(contract.IncludeExpired);
+            paramsList.AddParameter(useRTH);
+            paramsList.AddParameter(period);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTOGRAMDATA);
+        }
+
+		/**
+		* @brief Cancels an active data histogram request
+		* @params tickerId - identifier specified in reqHistogramData request
+		* @sa reqHistogramData, histogramData
+		*/
+		
+        public void cancelHistogramData(int tickerId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.REQ_HISTOGRAM_DATA,
+                " It does not support histogram data requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelHistogramData);
+            paramsList.AddParameter(tickerId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELHISTOGRAMDATA);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

@@ -774,7 +774,10 @@
 	 is submitted at the last calculated limit price. A "Buy" trailing stop limit order is the mirror image of a sell trailing stop limit, 
 	 and is generally used in falling markets.
 	 
-	 Note that Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field. 
+	 Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field. 
+	
+	<b>Important:</b> the 'limit offset' field is set by default in the TWS/IBG settings in v963+. This setting either needs to be changed in the Order Presets, the default value accepted, or the limit price offset sent from the API as in the example below. Not both the 'limit price' and 'limit price offset' fields can be set in TRAIL LIMIT orders.
+	
 	<ul>
 		<li>Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR</li>
 	</ul> 

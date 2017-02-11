@@ -285,5 +285,10 @@ namespace IBApi
         public void headTimestamp(int reqId, string headTimestamp)
         {
         }
+
+
+        public void histogramData(int reqId, Tuple<double, long>[] data)
+        {
+        }
     }
 }

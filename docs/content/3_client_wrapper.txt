@@ -58,6 +58,8 @@
 		\snippet Program.py socket_declare
 		...
 		\snippet Program.py socket_init
+		
+		<i><b>Note: </b> The EReaderSignal class is not used for Python API.</i>
 		</li>
 	</ul>
 	

@@ -97,6 +97,7 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				NOT_SET };
 
 typedef std::map<int, std::tuple<std::string, char>> SmartComponentsMap;
+typedef std::vector<std::tuple<double, long long>> HistogramDataVector;
 
 
 inline bool isPrice( TickType tickType) {
@@ -198,6 +199,7 @@ public:
    virtual void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline) = 0;
    virtual void historicalNewsEnd(int requestId, bool hasMore) = 0;
    virtual void headTimestamp(int reqId, const std::string& headTimestamp) = 0;
+   virtual void histogramData(int reqId, HistogramDataVector data) = 0;
 };
 
 

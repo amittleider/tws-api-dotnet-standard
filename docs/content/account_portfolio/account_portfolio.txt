@@ -4,6 +4,7 @@
 	kind of requests/operations:
 	
 	- \subpage managed_accounts
+	- \subpage family_codes
 	- \subpage account_updates 
 	- \subpage account_summary 
 	- \subpage positions 

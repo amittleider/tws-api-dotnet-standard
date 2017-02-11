@@ -260,6 +260,9 @@ void TestCppClient::processMessages() {
 		case ST_REQHEADTIMESTAMP:
 			reqHeadTimestamp();
 			break;
+		case ST_REQHISTOGRAMDATA:
+			reqHistogramData();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -320,6 +323,11 @@ void TestCppClient::tickDataOperation()
 	//! [reqmktdata_snapshot]
 	m_pClient->reqMktData(1003, ContractSamples::FutureComboContract(), "", true, false, TagValueListSPtr());
 	//! [reqmktdata_snapshot]
+
+	//! [regulatorysnapshot]
+	// Each regulatory snapshot incurs a fee of 0.01 USD
+	// m_pClient->reqMktData(1013, ContractSamples::USStock(), "", false, true, TagValueListSPtr());
+	//! [regulatorysnapshot]
 
 	//! [reqmktdata_genticks]
 	//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
@@ -477,19 +485,13 @@ void TestCppClient::contractOperations()
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(210, ContractSamples::OptionForQuery());
+	m_pClient->reqContractDetails(212, ContractSamples::IBMBond());
+	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
 	//! [reqcontractdetails]
 
 	//! [reqcontractdetailsnews]
 	m_pClient->reqContractDetails(211, ContractSamples::NewsFeedForQuery());
 	//! [reqcontractdetailsnews]
-
-	//! [reqcontractdetails]
-	m_pClient->reqContractDetails(212, ContractSamples::IBMBond());
-	//! [reqcontractdetails]
-
-	//! [reqcontractdetails]
-	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
-	//! [reqcontractdetails]
 
 	m_state = ST_CONTRACTOPERATION_ACK;
 }
@@ -652,7 +654,7 @@ void TestCppClient::orderOperations()
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::StopWithProtection("SELL", 1, 45));
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::SweepToFill("BUY", 1, 35));
 	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStop("SELL", 1, 0.5, 30));
-	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStopLimit("BUY", 1, 50, 5, 30));
+	//m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), OrderSamples::TrailingStopLimit("BUY", 1, 2, 5, 50));
 
 	//! [place order with cashQty]
 	m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), OrderSamples::LimitOrderWithCashQty("BUY", 1, 30, 5000));
@@ -660,8 +662,15 @@ void TestCppClient::orderOperations()
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
+	/*** Cancel one order ***/
+	//! [cancelorder]
+	m_pClient->cancelOrder(m_orderId-1);
+	//! [cancelorder]
+	
 	/*** Cancel all orders for all accounts ***/
+	//! [reqglobalcancel]
 	m_pClient->reqGlobalCancel();
+	//! [reqglobalcancel]
 
 	/*** Request the day's executions ***/
 	//! [reqexecutions]
@@ -944,7 +953,9 @@ void TestCppClient::miscelaneous()
 void TestCppClient::reqFamilyCodes()
 {
 	/*** Request TWS' family codes ***/
+	//! [reqfamilycodes]
 	m_pClient->reqFamilyCodes();
+	//! [reqfamilycodes]
 
 	m_state = ST_FAMILYCODES_ACK;
 }
@@ -952,15 +963,18 @@ void TestCppClient::reqFamilyCodes()
 void TestCppClient::reqMatchingSymbols()
 {
 	/*** Request TWS' mathing symbols ***/
+	//! [reqmatchingsymbols]
 	m_pClient->reqMatchingSymbols(11001, "IBM");
-
+	//! [reqmatchingsymbols]
 	m_state = ST_SYMBOLSAMPLES_ACK;
 }
 
 void TestCppClient::reqMktDepthExchanges()
 {
 	/*** Request TWS' market depth exchanges ***/
+	//! [reqMktDepthExchanges]
 	m_pClient->reqMktDepthExchanges();
+	//! [reqMktDepthExchanges]
 
 	m_state = ST_REQMKTDEPTHEXCHANGES_ACK;
 }
@@ -973,9 +987,9 @@ void TestCppClient::reqNewsTicks()
 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 
-	//! [cancelmktdata]
+	//! [cancelmktdata2]
 	m_pClient->cancelMktData(12001);
-	//! [cancelmktdata]
+	//! [cancelmktdata2]
 
 	m_state = ST_REQNEWSTICKS_ACK;
 }
@@ -994,8 +1008,10 @@ void TestCppClient::reqSmartComponents()
 
 	if (m_bboExchange.size() > 0) {
 		m_pClient->cancelMktData(13001);
-		m_pClient->reqSmartComponents(13002, m_bboExchange);
 
+		//! [reqsmartcomponents]
+		m_pClient->reqSmartComponents(13002, m_bboExchange);
+		//! [reqsmartcomponents]
 		m_state = ST_REQSMARTCOMPONENTS_ACK;
 	}
 }
@@ -1022,21 +1038,36 @@ void TestCppClient::reqNewsArticle()
 
 void TestCppClient::reqHistoricalNews(){
 
-	//! [ReqHistoricalNews]
+	//! [reqHistoricalNews]
 	m_pClient->reqHistoricalNews(12001, 8314, "BZ+FLY", "", "", 5);
-	//! [ReqHistoricalNews]
+	//! [reqHistoricalNews]
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	m_state = ST_REQHISTORICALNEWS_ACK;
 }
 
+
 void TestCppClient::reqHeadTimestamp() {
+	//! [reqHeadTimeStamp]
 	m_pClient->reqHeadTimestamp(14001, ContractSamples::EurGbpFx(), "MIDPOINT", 1, 1);
+	//! [reqHeadTimeStamp]	
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	m_state = ST_REQHEADTIMESTAMP_ACK;
 }
+
+void TestCppClient::reqHistogramData() {
+	//! [reqHistogramData]
+	m_pClient->reqHistogramData(15001, ContractSamples::IBMUSStockAtSmart(), false, "1 weeks");
+	//! [reqHistogramData]
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	//! [cancelHistogramData]
+	m_pClient->cancelHistogramData(15001);
+	//! [cancelHistogramData]
+	m_state = ST_REQHISTOGRAMDATA_ACK;
+}
+
 
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
@@ -1074,7 +1105,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
-	m_state = ST_REQHEADTIMESTAMP;
+	//m_state = ST_REQHEADTIMESTAMP;
+	m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_PING;
 }
 
@@ -1409,7 +1441,7 @@ void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {
 
 //! [softDollarTiers]
 void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {
-	printf("Soft dollar tiers (%lu):", tiers.size());
+	printf("Soft dollar tiers (%u):", tiers.size());
 
 	for (unsigned int i = 0; i < tiers.size(); i++) {
 		printf("%s\n", tiers[i].displayName().c_str());
@@ -1419,7 +1451,7 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 
 //! [familyCodes]
 void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
-	printf("Family codes (%lu):\n", familyCodes.size());
+	printf("Family codes (%u):\n", familyCodes.size());
 
 	for (unsigned int i = 0; i < familyCodes.size(); i++) {
 		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
@@ -1429,13 +1461,13 @@ void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
 
 //! [symbolSamples]
 void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {
-	printf("Symbol Samples (total=%lu) reqId: %d\n", contractDescriptions.size(), reqId);
+	printf("Symbol Samples (total=%u) reqId: %d\n", contractDescriptions.size(), reqId);
 
 	for (unsigned int i = 0; i < contractDescriptions.size(); i++) {
 		Contract contract = contractDescriptions[i].contract;
 		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
 		printf("Contract (%u): %ld %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
-		printf("Derivative Sec-types (%lu):", derivativeSecTypes.size());
+		printf("Derivative Sec-types (%u):", derivativeSecTypes.size());
 		for (unsigned int j = 0; j < derivativeSecTypes.size(); j++) {
 			printf(" %s", derivativeSecTypes[j].c_str());
 		}
@@ -1446,7 +1478,7 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 
 //! [mktDepthExchanges]
 void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) {
-	printf("Mkt Depth Exchanges (%lu):\n", depthMktDataDescriptions.size());
+	printf("Mkt Depth Exchanges (%u):\n", depthMktDataDescriptions.size());
 
 	for (unsigned int i = 0; i < depthMktDataDescriptions.size(); i++) {
 		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n", i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? "true" : "false");
@@ -1460,15 +1492,15 @@ void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& 
 }
 //! [tickNews]
 
-//! [smartComponents]
+//! [smartcomponents]]
 void TestCppClient::smartComponents(int reqId, SmartComponentsMap theMap) {
-	printf("Smart components: (%lu):\n", theMap.size());
+	printf("Smart components: (%u):\n", theMap.size());
 
 	for (SmartComponentsMap::iterator i = theMap.begin(); i != theMap.end(); i++) {
 		printf(" bit number: %d exchange: %s exchange letter: %c\n", i->first, std::get<0>(i->second).c_str(), std::get<1>(i->second));
 	}
 }
-//! [smartComponents]
+//! [smartcomponents]
 
 //! [tickReqParams]
 void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboExchange, int snapshotPermissions) {
@@ -1480,9 +1512,9 @@ void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboE
 
 //! [newsProviders]
 void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders) {
-	printf("News providers (%d):\n", newsProviders.size());
+	printf("News providers (%u):\n", newsProviders.size());
 
-	for (int i = 0; i < newsProviders.size(); i++) {
+	for (unsigned int i = 0; i < newsProviders.size(); i++) {
 		printf("News provider [%d] - providerCode: %s providerName: %s\n", i, newsProviders[i].providerCode.c_str(), newsProviders[i].providerName.c_str());
 	}
 }
@@ -1511,7 +1543,19 @@ void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {
 }
 //! [historicalNewsEnd]
 
+//! [headTimestamp]
 void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {
-	printf( "HistoricalData. ReqId: %ld - Head time stamp: %s,\n", reqId, headTimestamp.c_str());
+	printf( "Head time stamp. ReqId: %d - Head time stamp: %s,\n", reqId, headTimestamp.c_str());
 
 }
+//! [headTimestamp]
+
+//! [histogramData]
+void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
+	printf("Histogram. ReqId: %d, data length: %d\n", reqId, data.size());
+
+	for (auto item : data) {
+		printf("\t price: %f, size: %lld\n", std::get<0>(item), std::get<1>(item));
+	}
+}
+//! [histogramData]

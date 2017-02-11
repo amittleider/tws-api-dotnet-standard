@@ -8,8 +8,7 @@
 	
 	\section connected_client_orders Connected client's own orders
 	
-	The @ref IBApi::EClient::reqOpenOrders method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the
-	TWS.
+	The @ref IBApi::EClient::reqOpenOrders method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS. If client 0 invokes reqOpenOrders, it will cause <b>currently</b> open orders placed from TWS manually to be 'bound', i.e. assigned an order ID so that they can be modified or cancelled by the API client 0. In the API settings in Global Configuration, is a setting checked by default "Use negative numbers to bind automatic orders" which will specify how manual TWS orders are assigned an API order ID.
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -53,8 +52,7 @@
 	
 	\section manually_submitted Manually submitted TWS orders
 	
-	Finally, @ref IBApi::EClient::reqAutoOpenOrders will allow to obtain those orders <b>manually placed</b> using the TWS itself. This method also allows the client application to take over these
-	orders and modify them by setting the autoBind parameter to <b>true</b>. If successfully bound, The orders will be assigned (i.e. bound to) an API order id and as such be eligible for modification.
+	Finally, @ref IBApi::EClient::reqAutoOpenOrders can only be invoked by client with ID 0. It will cause future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0.
 	
 	<ul id="tab">
 		<li class="active"> 

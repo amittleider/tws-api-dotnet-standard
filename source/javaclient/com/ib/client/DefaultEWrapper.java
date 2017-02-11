@@ -4,6 +4,7 @@
 package com.ib.client;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -443,6 +444,12 @@ class DefaultEWrapper implements EWrapper {
 	
 	@Override
 	public void headTimestamp(int reqId, String headTimestamp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
 		// TODO Auto-generated method stub
 		
 	}

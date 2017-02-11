@@ -129,6 +129,8 @@ public:
 	void newsArticle(int requestId, int articleType, const std::string& articleText);
 	void historicalNews(int requestId, const std::string& time, const std::string& providerCode, const std::string& articleId, const std::string& headline);
 	void historicalNewsEnd(int requestId, bool hasMore);
+	void headTimestamp(int reqId, const std::string& headTimestamp);
+	void histogramData(int reqId, HistogramDataVector data);
 
 private:
     EReaderOSSignal m_osSignal;

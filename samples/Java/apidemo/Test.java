@@ -5,6 +5,7 @@ package apidemo;
 
 import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class Test implements EWrapper {
 	}
 
 	private void run() {
-		m_s.eConnect("localhost", 4002, 0);
+		m_s.eConnect("localhost", 7497, 0);
 		
         final EReader reader = new EReader(m_s, m_signal);
         
@@ -348,5 +349,10 @@ public class Test implements EWrapper {
 	@Override
 	public void headTimestamp(int reqId, String headTimestamp) {
 		System.out.println(EWrapperMsgGenerator.headTimestamp(reqId, headTimestamp));
+	}
+
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 }

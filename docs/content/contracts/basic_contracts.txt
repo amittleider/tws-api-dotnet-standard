@@ -249,7 +249,7 @@
 	
 	\section Bonds
 	
-	Bonds can be specified by defining the symbol as the CUSIP. The CUSIP requires a separate market data subscription.
+	Bonds can be specified by defining the symbol as the CUSIP or ISIN.
 	
 	<ul id="tab">
 		<li class="active">

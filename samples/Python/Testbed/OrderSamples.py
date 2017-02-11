@@ -664,7 +664,7 @@ class OrderSamples:
     #/ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
     </summary>"""
     @staticmethod
-    def TrailingStopLimit(action:str, quantity:float, limitPrice:float, 
+    def TrailingStopLimit(action:str, quantity:float, lmtPriceOffset:float, 
                           trailingAmount:float, trailStopPrice:float):
     
         # ! [trailingstoplimit]
@@ -673,7 +673,7 @@ class OrderSamples:
         order.orderType = "TRAIL LIMIT"
         order.totalQuantity = quantity
         order.trailStopPrice = trailStopPrice
-        order.lmtPrice = limitPrice
+        order.lmtPriceOffset = lmtPriceOffset
         order.auxPrice = trailingAmount
         # ! [trailingstoplimit]
         return order

@@ -626,7 +626,7 @@ namespace Samples
         /// and is generally used in falling markets.
         /// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
         /// </summary>
-        public static Order TrailingStopLimit(string action, double quantity, double limitPrice, double trailingAmount, double trailStopPrice)
+        public static Order TrailingStopLimit(string action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice)
         {
             // ! [trailingstoplimit]
             Order order = new Order();
@@ -634,7 +634,7 @@ namespace Samples
             order.OrderType = "TRAIL LIMIT";
             order.TotalQuantity = quantity;
             order.TrailStopPrice = trailStopPrice;
-            order.LmtPrice = limitPrice;
+            order.LmtPriceOffset = lmtPriceOffset;
             order.AuxPrice = trailingAmount;
             // ! [trailingstoplimit]
             return order;

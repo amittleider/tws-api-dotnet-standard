@@ -181,6 +181,8 @@ public abstract class EClient {
     private static final int REQ_NEWS_PROVIDERS = 85;
     private static final int REQ_HISTORICAL_NEWS = 86;
   	private static final int REQ_HEAD_TIMESTAMP = 87;
+  	private static final int REQ_HISTOGRAM_DATA = 88;
+    private static final int CANCEL_HISTOGRAM_DATA = 89;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -243,6 +245,7 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_NEWS_ARTICLE = 116;
     protected static final int MIN_SERVER_VER_REQ_HISTORICAL_NEWS = 117;
     protected static final int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP = 118;
+    protected static final int MIN_SERVER_VER_REQ_HISTOGRAM = 119;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = MIN_SERVER_VER_REQ_HISTORICAL_NEWS; // ditto
@@ -3306,6 +3309,81 @@ public abstract class EClient {
         }
         catch (IOException e) {
             error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQHISTORICALNEWS, e.toString());
+        }
+    }
+
+    public synchronized void reqHistogramData(int tickerId, Contract contract,
+    		boolean useRTH, String timePeriod) {
+    	// not connected?
+    	if( !isConnected()) {
+    		notConnected();
+    		return;
+    	}
+
+    	try {
+    		if (m_serverVersion < MIN_SERVER_VER_REQ_HISTOGRAM) {
+    			if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
+    				error(tickerId, EClientErrors.UPDATE_TWS,
+    						"  It does not support histogram requests.");
+    				return;
+    			}
+    		}
+
+    		Builder b = prepareBuffer(); 
+
+    		b.send(REQ_HISTOGRAM_DATA);
+    		b.send(tickerId);
+    		b.send(contract.conid());
+    		b.send(contract.symbol());
+    		b.send(contract.getSecType());
+    		b.send(contract.lastTradeDateOrContractMonth());
+    		b.send(contract.strike());
+    		b.send(contract.getRight());
+    		b.send(contract.multiplier());
+    		b.send(contract.exchange());
+    		b.send(contract.primaryExch());
+    		b.send(contract.currency());
+    		b.send(contract.localSymbol());
+    		b.send(contract.tradingClass());
+    		b.send(contract.includeExpired() ? 1 : 0);
+    		b.send(useRTH ? 1 : 0);
+    		b.send(timePeriod);
+
+    		closeAndSend(b);
+    	}
+    	catch (Exception e) {
+    		error(tickerId, EClientErrors.FAIL_SEND_REQHISTDATA, e.toString());
+    		close();
+    	}
+    }
+    
+    public synchronized void cancelHistogramData( int tickerId ) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_REQ_HISTOGRAM) {
+        	error(tickerId, EClientErrors.UPDATE_TWS,
+        			"  It does not support head time stamp requests.");
+        	return;
+        }
+
+        final int VERSION = 1;
+
+        // send cancel mkt data msg
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(CANCEL_HISTOGRAM_DATA);
+            b.send(tickerId);
+
+            closeAndSend(b);
+        }
+        catch( Exception e) {
+            error( tickerId, EClientErrors.FAIL_SEND_CANHISTDATA, e.toString());
+            close();
         }
     }
 

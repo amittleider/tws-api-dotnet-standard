@@ -1,0 +1,109 @@
+/*! \page md_receive Receiving Market Data
+
+   \section market_data_return Receiving Market Data
+
+   After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement 
+   these methods to manipulate the data relayed back to the client. Notice how market data callbacks such as @ref IBApi::EWrapper::tickPrice and @ref IBApi::EWrapper::tickSize methods contain the request id with
+   which the response can be mapped to its originating request.
+   
+   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is no data currently available. Most commonly this occurs when requesting data from markets that are closed. It can also occur for infrequently trading instruments which do not have open bids or offers at that time of the request. To receive frozen quotes (the last available bid/ask recorded by the system) invoke the function @ref IBApi::EClient::reqMarketDataType with argument 2. Frozen data is exclusive to default tick types- \ref genticks are not available- and requires market data subscriptions.
+   
+   Following every IBApi::EWrapper::tickPrice callback there will be a IBApi::EWrapper::tickSize. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive IBApi::EWrapper::tickSize value. 
+   
+   <ul id="tab">
+		<li class="active"> 
+			\snippet EWrapperImpl.cs ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.cs tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask. 
+		   
+		   \snippet EWrapperImpl.cs ticksize
+		   ....
+		   \snippet EWrapperImpl.cs tickstring
+		   ....
+		   \snippet EWrapperImpl.cs tickgeneric
+		</li>
+		<li>
+			\snippet EWrapperImpl.java ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.java tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.
+		   
+		   \snippet EWrapperImpl.java ticksize
+		   ...
+		   \snippet EWrapperImpl.java tickstring
+		   ...
+		   \snippet EWrapperImpl.java tickgeneric
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb ewrapperimpl
+		   ...
+		   \snippet EWrapperImpl.vb tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.
+		   
+		   \snippet EWrapperImpl.vb ticksize
+		   ....
+		   \snippet EWrapperImpl.vb tickstring
+		   ....
+		   \snippet EWrapperImpl.vb tickgeneric
+		</li>
+		<li>
+			\snippet TestCppClient.h ewrapperimpl
+		   ...
+		   \snippet TestCppClient.cpp tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.
+		   
+		   \snippet TestCppClient.cpp ticksize
+		   ....
+		   \snippet TestCppClient.cpp tickstring
+		   ....
+		   \snippet TestCppClient.cpp tickgeneric
+		</li>
+		<li>
+			\snippet Program.py ewrapperimpl
+		   ...
+		   \snippet Program.py tickprice
+		   
+		   The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.
+		   
+		   \snippet Program.py ticksize
+		   ....
+		   \snippet Program.py tickstring
+		   ....
+		   \snippet Program.py tickgeneric
+		</li>
+	</ul>
+	
+	\section smart_mapping Exchange Component Mapping
+
+   A market data request is able to return data from multiple exchanges. Beginning in TWS/IBG v<b>963</b> and API v<b>973.02</b>, after a market data request is made for an instrument covered by market data subscriptions, a message will be sent to function IBApi::EWrapper::tickReqParams with information about 'minTick', BBO exchange mapping, and available snapshot permissions. 
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs tickReqParams
+		</li>
+		<li>
+			\snippet EWrapperImpl.java tickReqParams
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb tickReqParams
+		</li>
+		<li>
+			\snippet TestCppClient.cpp tickReqParams
+		</li>
+		<li>
+			\snippet Program.py tickReqParams
+		</li>
+	</ul>
+
+	The exchange mapping identifier <i>bboExchange</i> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function IBApi::EClient::reqSmartComponents. More information about @ref smart_components.
+
+	IBApi::ContractDetails::MinTick will represent the smallest possible minimum increment for the contract on any exchange and at any price. For complicated minimum increment structures, such as is common for European stocks, there might be different minimum increments at different price and size levels, so the 'minTick' of the contract may not necessarily represent the minimum increment at which it is presently trading. For complete information about the minimum increment, it is necessary to consult the IB Contracts and Securities search site. 
+	
+	<br><br>
+	
+*/

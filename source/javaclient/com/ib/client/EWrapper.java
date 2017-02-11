@@ -4,6 +4,7 @@
 package com.ib.client;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,5 +91,6 @@ public interface EWrapper {
     void historicalNews(int requestId, String time, String providerCode, String articleId, String headline);
     void historicalNewsEnd(int requestId, boolean hasMore);
 	void headTimestamp(int reqId, String headTimestamp);
+	void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items);
 }
 

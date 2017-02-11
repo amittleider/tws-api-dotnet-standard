@@ -37,6 +37,7 @@ import com.ib.client.Types.DurationUnit;
 import com.ib.client.Types.WhatToShow;
 import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHeadTimestampHandler;
+import com.ib.controller.ApiController.IHistogramDataHandler;
 import com.ib.controller.ApiController.IHistoricalDataHandler;
 import com.ib.controller.ApiController.IRealTimeBarHandler;
 import com.ib.controller.ApiController.IScannerHandler;
@@ -65,19 +66,20 @@ public class MarketDataPanel extends JPanel {
 	private SmartComponentsResPanel m_smartComponentsResPanel = null;
 	
 	MarketDataPanel() {
-		final NewTabbedPanel m_requestPanel = new NewTabbedPanel();
-		m_requestPanel.addTab( "Top Market Data", new TopRequestPanel(this) );
-		m_requestPanel.addTab( "Deep Book", new DeepRequestPanel() );
-		m_requestPanel.addTab( "Historical Data", new HistRequestPanel() );
-		m_requestPanel.addTab( "Real-time Bars", new RealtimeRequestPanel() );
-		m_requestPanel.addTab( "Market Scanner", new ScannerRequestPanel(this) );
-		m_requestPanel.addTab("Security definition optional parameters", new SecDefOptParamsPanel());
-		m_requestPanel.addTab( "Matching Symbols", new RequestMatchingSymbolsPanel());
-		m_requestPanel.addTab( "Market Depth Exchanges", new MktDepthExchangesPanel() );
-		m_requestPanel.addTab("Smart Components", m_smartComponentsPanel);
+		final NewTabbedPanel requestPanel = new NewTabbedPanel();
+		
+		requestPanel.addTab("Top Market Data", new TopRequestPanel(this));
+		requestPanel.addTab("Deep Book", new DeepRequestPanel());
+		requestPanel.addTab("Historical Data", new HistRequestPanel());
+		requestPanel.addTab("Real-time Bars", new RealtimeRequestPanel());
+		requestPanel.addTab("Market Scanner", new ScannerRequestPanel(this));
+		requestPanel.addTab("Security definition optional parameters", new SecDefOptParamsPanel());
+		requestPanel.addTab("Matching Symbols", new RequestMatchingSymbolsPanel());
+		requestPanel.addTab("Market Depth Exchanges", new MktDepthExchangesPanel());
+		requestPanel.addTab("Smart Components", m_smartComponentsPanel);
 		
 		setLayout( new BorderLayout() );
-		add( m_requestPanel, BorderLayout.NORTH);
+		add( requestPanel, BorderLayout.NORTH);
 		add( m_resultsPanel);
 	}
 	
@@ -589,6 +591,12 @@ public class MarketDataPanel extends JPanel {
 				}
 			};
 			
+			HtmlButton button2 = new HtmlButton("Request histogram data") {
+				@Override protected void actionPerformed() {
+					onHistogram();
+				}
+			};
+			
 	    	VerticalPanel paramPanel = new VerticalPanel();
 			paramPanel.add( "End", m_end);
 			paramPanel.add( "Duration", m_duration);
@@ -599,6 +607,7 @@ public class MarketDataPanel extends JPanel {
 			
 			VerticalPanel butPanel = new VerticalPanel();
 			butPanel.add( button);
+			butPanel.add(button2);
 			
 			JPanel rightPanel = new StackPanel();
 			rightPanel.add( paramPanel);
@@ -611,6 +620,15 @@ public class MarketDataPanel extends JPanel {
 			add( rightPanel);
 		}
 	
+		protected void onHistogram() {
+			m_contractPanel.onOK();
+			
+			HistogramResultsPanel panel = new HistogramResultsPanel();
+			
+			ApiDemo.INSTANCE.controller().reqHistogramData(m_contract, m_duration.getInt(), m_durationUnit.getSelectedItem(), m_rthOnly.isSelected(), panel);
+			m_resultsPanel.addTab("Histogram " + m_contract.symbol(), panel, true, true);
+		}
+
 		void onHistorical() {
 			m_contractPanel.onOK();
 			BarResultsPanel panel = new BarResultsPanel( true);
@@ -706,7 +724,8 @@ public class MarketDataPanel extends JPanel {
 		}
 
 		@Override public void headTimestamp(int reqId, long headTimestamp) {
-			m_rows.add(headTimestamp);
+			m_rows.add(headTimestamp);			
+			fire();
 		}
 		
 		private void fire() {
@@ -744,6 +763,78 @@ public class MarketDataPanel extends JPanel {
 
 	}
 
+	static class HistogramResultsPanel extends NewTabPanel implements IHistogramDataHandler {
+		final HistogramModel m_model = new HistogramModel();
+		final ArrayList<SimpleEntry<Double, Long>> m_rows = new ArrayList<>();
+		final Histogram m_hist = new Histogram(m_rows);
+		
+		HistogramResultsPanel() {			
+			JTable tab = new JTable( m_model);
+			JScrollPane scroll = new JScrollPane( tab) {
+				public Dimension getPreferredSize() {
+					Dimension d = super.getPreferredSize();
+					d.width = 500;
+					return d;
+				}
+			};
+
+			JScrollPane chartScroll = new JScrollPane(m_hist);
+
+			setLayout(new BorderLayout());
+			add(scroll, BorderLayout.WEST);
+			add(chartScroll, BorderLayout.CENTER);
+		}
+
+		/** Called when the tab is first visited. */
+		@Override public void activated() {
+		}
+
+		/** Called when the tab is closed by clicking the X. */
+		@Override public void closed() {
+			ApiDemo.INSTANCE.controller().cancelHistogramData(this);
+		}
+
+		private void fire() {
+			SwingUtilities.invokeLater(() -> {
+                m_model.fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
+                m_hist.repaint();
+            });			
+		}
+
+		class HistogramModel extends AbstractTableModel {
+			@Override public int getRowCount() {
+				return m_rows.size();
+			}
+
+			@Override public int getColumnCount() {
+				return 2;
+			}
+			
+			@Override public String getColumnName(int col) {
+				switch(col) {
+					case 0: return "Price";
+					case 1: return "Size";
+					default: return null;
+				}
+			}
+
+			@Override public Object getValueAt(int rowIn, int col) {
+				SimpleEntry<Double, Long> row = m_rows.get(rowIn);
+				
+				switch(col) {
+					case 0: return row.getKey();
+					case 1: return row.getValue();
+					default: return null;
+				}
+			}
+		}
+
+		@Override
+		public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+			m_rows.addAll(items);
+			fire();
+		}		
+	}
 	
 	static class BarResultsPanel extends NewTabPanel implements IHistoricalDataHandler, IRealTimeBarHandler {
 		final BarModel m_model = new BarModel();

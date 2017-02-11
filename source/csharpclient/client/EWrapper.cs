@@ -198,7 +198,7 @@ namespace IBApi
          */
         void accountSummaryEnd(int reqId);
 
-        /*
+        /**
          * @brief Delivers the Bond contract data after this has been requested via reqContractDetails
          * @param reqId the request's identifier
          * @param contract the bond contract's information.
@@ -775,6 +775,20 @@ namespace IBApi
         */
         void historicalNewsEnd(int requestId, bool hasMore);
 
+		/**
+        * @brief - returns beginning of data for contract for specified data type
+        * @param requestId 
+        * @param headTimestamp - string identifying earliest data date
+        * @sa EClient::reqHeadTimestamp
+        */
         void headTimestamp(int reqId, string headTimestamp);
+
+		/**
+        * @brief returns data histogram
+        * @param requestId
+        * @param data - returned Tuple of histogram data, number of trades at specified price level
+        * @sa EClient::reqHistogramData
+        */
+        void histogramData(int reqId, Tuple<double, long>[] data);
     }
 }

@@ -245,6 +245,8 @@ class SampleFrame extends JFrame implements EWrapper {
         butReqHistoricalNews.addActionListener(e -> onReqHistoricalNews());
         JButton butHeadTimestamp = new JButton( "Req Head Time Stamp");
         butHeadTimestamp.addActionListener(e -> onHeadTimestamp());
+        JButton butHistogram = new JButton("Req Histogram");
+        butHistogram.addActionListener(e -> onHistogram());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -312,12 +314,27 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butReqNewsArticle ) ;
         buttonPanel.add( butReqHistoricalNews ) ;
         buttonPanel.add(butHeadTimestamp);
+        buttonPanel.add(butHistogram);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
         buttonPanel.add( butClose );
 
         return buttonPanel;
+    }
+
+	private void onHistogram() {
+        // run m_orderDlg
+        m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
+
+        m_orderDlg.show();
+        if( !m_orderDlg.m_rc ) {
+            return;
+        }
+
+        m_chartOptions = m_orderDlg.getOptions();
+
+        m_client.reqHistogramData(m_orderDlg.m_id, m_orderDlg.m_contract, m_orderDlg.m_useRTH == 1, m_orderDlg.m_backfillDuration);
     }
 
 	private void onReqSmartComponents() {
@@ -1508,5 +1525,12 @@ class SampleFrame extends JFrame implements EWrapper {
 		String msg = EWrapperMsgGenerator.headTimestamp(reqId, headTimestamp);
 
 		m_TWS.add(msg);
+	}
+
+	@Override
+	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		String msg = EWrapperMsgGenerator.histogramData(reqId, items);
+		
+		m_TWS.add(msg);		
 	}
 }

@@ -351,14 +351,14 @@ Order OrderSamples::LimitOrder(std::string action, double quantity, double limit
 	/// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
 	/// </summary>
 Order OrderSamples::LimitOrderWithCashQty(std::string action, double quantity, double limitPrice, double cashQty){
-	// ! [limitorder]
+	// ! [limitorderwithcashqty]
 	Order order;
 	order.action = action;
 	order.orderType = "LMT";
 	order.totalQuantity = quantity;
 	order.lmtPrice = limitPrice;
 	order.cashQty = cashQty;
-	// ! [limitorder]
+	// ! [limitorderwithcashqty]
 	return order;
 }
 
@@ -611,14 +611,14 @@ Order OrderSamples::TrailingStop(std::string action, double quantity, double tra
     /// and is generally used in falling markets.
     /// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
     /// </summary>
-Order OrderSamples::TrailingStopLimit(std::string action, double quantity, double limitPrice, double trailingAmount, double trailStopPrice){
+Order OrderSamples::TrailingStopLimit(std::string action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice){
 	// ! [trailingstoplimit]
 	Order order;
 	order.action = action;
 	order.orderType = "TRAIL LIMIT";
 	order.totalQuantity = quantity;
 	order.trailStopPrice = trailStopPrice;
-	order.lmtPrice = limitPrice;
+	order.lmtPriceOffset = lmtPriceOffset;
 	order.auxPrice = trailingAmount;
 	// ! [trailingstoplimit]
 	return order;

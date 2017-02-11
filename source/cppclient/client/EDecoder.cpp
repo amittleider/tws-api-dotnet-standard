@@ -1948,6 +1948,8 @@ const char* EDecoder::processSmartComponentsMsg(const char* ptr, const char* end
 	}
 
 	m_pEWrapper->smartComponents(reqId, theMap);
+	
+	return ptr;
 }
 
 const char* EDecoder::processTickReqParamsMsg(const char* ptr, const char* endPtr) {
@@ -1962,6 +1964,8 @@ const char* EDecoder::processTickReqParamsMsg(const char* ptr, const char* endPt
 	DECODE_FIELD(snapshotPermissions);
 
 	m_pEWrapper->tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+	
+	return ptr;
 }
 
 const char* EDecoder::processHeadTimestampMsg(const char* ptr, const char* endPtr) {
@@ -1972,6 +1976,30 @@ const char* EDecoder::processHeadTimestampMsg(const char* ptr, const char* endPt
 	DECODE_FIELD(headTimestamp);
 
 	m_pEWrapper->headTimestamp(reqId, headTimestamp);
+	
+	return ptr;
+}
+
+const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	int n;
+	HistogramDataVector data;
+	double price;
+	long long size;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(n);
+
+	for (int i = 0; i < n; i++) {
+		DECODE_FIELD(price);
+		DECODE_FIELD(size);
+
+		data.push_back(std::make_tuple(price, size));
+	}
+
+	m_pEWrapper->histogramData(reqId, data);
+	
+	return ptr;
 }
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
@@ -2243,6 +2271,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processHeadTimestampMsg(ptr, endPtr);
 			break;
 
+		case HISTOGRAM_DATA:
+			ptr = processHistogramDataMsg(ptr, endPtr);
+			break;
+
 		default:
 			{
 				m_pEWrapper->error( msgId, UNKNOWN_ID.code(), UNKNOWN_ID.msg());
@@ -2307,6 +2339,19 @@ bool EDecoder::DecodeFieldTime(time_t& time_tValue, const char*& ptr, const char
 	if( !fieldEnd)
 		return false;
 	time_tValue = atoll(fieldBeg);
+	ptr = ++fieldEnd;
+	return true;
+}
+
+bool EDecoder::DecodeField(long long& longLongValue, const char*& ptr, const char* endPtr)
+{
+	if( !CheckOffset(ptr, endPtr))
+		return false;
+	const char* fieldBeg = ptr;
+	const char* fieldEnd = FindFieldEnd(fieldBeg, endPtr);
+	if( !fieldEnd)
+		return false;
+	longLongValue = atoll(fieldBeg);
 	ptr = ++fieldEnd;
 	return true;
 }

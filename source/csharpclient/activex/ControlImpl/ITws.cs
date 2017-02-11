@@ -355,6 +355,10 @@ namespace TWSLib
         void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults);
         [DispId(222)]
         void reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate);
+        [DispId(223)]
+        void reqHistogramData(int tickerId, IContract contract, bool useRTH, string period);
+        [DispId(224)]
+        void cancelHistogramData(int tickerId);
 
         #endregion
     }

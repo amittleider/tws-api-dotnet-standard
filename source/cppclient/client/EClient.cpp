@@ -2919,6 +2919,63 @@ void EClient::reqHeadTimestamp(int tickerId, Contract contract, const std::strin
 	closeAndSend(msg.str());
 }
 
+void EClient::reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod) {
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_HISTOGRAM) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support histogram requests.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(REQ_HISTOGRAM_DATA);
+	ENCODE_FIELD(reqId);
+	ENCODE_FIELD(contract.conId);
+	ENCODE_FIELD(contract.symbol);
+	ENCODE_FIELD(contract.secType);
+	ENCODE_FIELD(contract.lastTradeDateOrContractMonth);
+	ENCODE_FIELD(contract.strike);
+	ENCODE_FIELD(contract.right);
+	ENCODE_FIELD(contract.multiplier);
+	ENCODE_FIELD(contract.exchange);
+	ENCODE_FIELD(contract.primaryExchange);
+	ENCODE_FIELD(contract.currency);
+	ENCODE_FIELD(contract.localSymbol);
+	ENCODE_FIELD(contract.tradingClass);
+	ENCODE_FIELD(contract.includeExpired);
+	ENCODE_FIELD(useRTH);
+	ENCODE_FIELD(timePeriod);          
+
+	closeAndSend(msg.str());
+}
+
+void EClient::cancelHistogramData(int reqId) {
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support histogram requests.");
+		return;
+	}
+
+		std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(CANCEL_HISTOGRAM_DATA);
+	ENCODE_FIELD(reqId);      
+
+	closeAndSend(msg.str());
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);

@@ -1,10 +1,10 @@
-/*! \page option_computations Options Computations
+/*! \page option_computations Option Greeks
 
 	\section option_greeks Market data related to options
 	
 	The option greek values- delta, gamma, theta, vega- are returned by default following a reqMktData() request for the option. See @ref tick_types 
 	
-	Tick types BID_OPTION_COMPUTATION (#10), ASK_OPTION_COMPUTATION (#11), LAST_OPTION_COMPUTATION (#12), and MODEL_OPTION_COMPUTATION (#13) return all Greeks (delta, gamma, vega, theta), the underlying price and the stock and option reference price when requested. 
+	Tick types "Bid Option Computation" (#10), "Ask Option Computation" (#11), "Last Option Computation" (#12), and "Model Option Computation" (#13) return all Greeks (delta, gamma, vega, theta), the underlying price and the stock and option reference price when requested. 
 	
 	MODEL_OPTION_COMPUTATION also returns model implied volatility.
 	

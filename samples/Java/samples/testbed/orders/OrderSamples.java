@@ -375,12 +375,12 @@ public class OrderSamples {
 		return order;
 	}
 	
-	public static Order TrailingStopLimit(String action, double quantity, double trailingAmount, double trailStopPrice, double limitPrice) {
+	public static Order TrailingStopLimit(String action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice) {
 		// ! [trailingstoplimit]
 		Order order = new Order();
 		order.action(action);
 		order.orderType("TRAIL LIMIT");
-		order.lmtPrice(limitPrice);
+		order.lmtPriceOffset(lmtPriceOffset);
 		order.auxPrice(trailingAmount);
 		order.trailStopPrice(trailStopPrice);
 		order.totalQuantity(quantity);

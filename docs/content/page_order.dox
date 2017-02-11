@@ -1,4 +1,4 @@
-﻿/*! 
+/*! 
 	\page introduction Introduction
 	\page initial_setup Initial Setup
 	\page client_wrapper EWrapper and EClientSocket
@@ -6,6 +6,7 @@
 	\page contracts Contracts
 	\page orders Orders
 	\page market_data Market Data
+	\page news News
 	\page options Options
 	\page account_portfolio Account & Portfolio
 	\page market_scanners Market Scanners

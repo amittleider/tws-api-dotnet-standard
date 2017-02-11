@@ -161,7 +161,7 @@
 	
 	->Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.
 	
-	->The master client (set in TWS/IBG) will receive order status messages for all clients. 
+	->The client with @ref master_client (set in TWS/IBG) will receive order status messages for all clients. 
 	
 	->Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS. 
 	

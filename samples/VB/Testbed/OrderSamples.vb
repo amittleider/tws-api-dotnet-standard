@@ -654,14 +654,14 @@ Namespace Samples
         ''' Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/trailingStopLimit.php?ib_entity=llc
         ''' </summary>
-        Public Shared Function TrailingStopLimit(action As String, quantity As Double, limitPrice As Double, trailingAmount As Double, trailStopPrice As Double) As Order
+        Public Shared Function TrailingStopLimit(action As String, quantity As Double, lmtPriceOffset As Double, trailingAmount As Double, trailStopPrice As Double) As Order
             '! [trailingstoplimit]
             Dim order As Order = New Order
             order.Action = action
             order.OrderType = "TRAIL LIMIT"
             order.TotalQuantity = quantity
+            order.LmtPriceOffset = lmtPriceOffset
             order.TrailStopPrice = trailStopPrice
-            order.LmtPrice = limitPrice
             order.AuxPrice = trailingAmount
             '![trailingstoplimit]
             Return order
@@ -790,7 +790,7 @@ Namespace Samples
         ''' cancellation of the remaining group orders while partial completion causes the group to rebalance. An investor might desire to sell 
         ''' 1000 shares of only ONE of three positions held above prevailing market prices. The OCA order group allows the investor to enter prices 
         ''' at specified target levels and if one is completed, the other two will automatically cancel. Alternatively, an investor may wish to take 
-        ''' a LONG position in eMini S&P stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
+        ''' a LONG position in ES mini stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
         ''' Grouping the two orders using an OCA order type offers the investor two chance to enter a similar position, while only running the risk 
         ''' of taking on a single position.
         ''' Products: BOND, CASH, FUT, FOP, STK, OPT, WAR

@@ -2,6 +2,8 @@
 
 	When an order is filled either fully or partially, the @ref IBApi::EWrapper::execDetails and @ref IBApi::EWrapper::commissionReport events will deliver @ref IBApi::Execution and
 	@ref IBApi::CommissionReport objects. This allows to obtain the full picture of the order's execution and the resulting commissions.
+
+	<b>Important:</b> To receive commissions reports for all clients it is necessary to connect as the @ref master_client. 
 	
 	<ul id="tab">
 		<li class="active">
