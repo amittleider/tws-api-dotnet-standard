@@ -3,14 +3,33 @@
 
 package apidemo;
 
+import static apidemo.util.Util.sleep;
+
 import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import com.ib.client.*;
-import static apidemo.util.Util.sleep;
+import com.ib.client.CommissionReport;
+import com.ib.client.Contract;
+import com.ib.client.ContractDescription;
+import com.ib.client.ContractDetails;
+import com.ib.client.DeltaNeutralContract;
+import com.ib.client.DepthMktDataDescription;
+import com.ib.client.EClientSocket;
+import com.ib.client.EJavaSignal;
+import com.ib.client.EReader;
+import com.ib.client.EWrapper;
+import com.ib.client.EWrapperMsgGenerator;
+import com.ib.client.Execution;
+import com.ib.client.FamilyCode;
+import com.ib.client.NewsProvider;
+import com.ib.client.Order;
+import com.ib.client.OrderState;
+import com.ib.client.SoftDollarTier;
+import com.ib.client.TickAttr;
 
 public class Test implements EWrapper {
 	EJavaSignal m_signal = new EJavaSignal();
@@ -355,7 +374,7 @@ public class Test implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 }

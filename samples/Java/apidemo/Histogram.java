@@ -7,7 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.JComponent;
 
@@ -17,11 +18,11 @@ public class Histogram extends JComponent {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int m_barHeight = 15;
-	private final ArrayList<SimpleEntry<Double, Long>> m_rows;
+	private final List<Entry<Double, Long>> m_rows;
 	int m_width;
 	private static final int m_x0 = 40;
 	
-	public Histogram(ArrayList<SimpleEntry<Double, Long>> rows) {
+	public Histogram(List<Entry<Double, Long>> rows) {
 		m_rows = rows;
 	}
 	
@@ -31,7 +32,7 @@ public class Histogram extends JComponent {
 
 		m_width = getWidth() - m_x0;
 		
-		for (SimpleEntry<Double, Long> bar : m_rows) {
+		for (Entry<Double, Long> bar : m_rows) {
 			int x1 = (int)((bar.getValue() * m_width) / max);
 
 			String label = bar.getKey() + "";
