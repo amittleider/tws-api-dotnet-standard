@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.util.AbstractMap.SimpleEntry;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
-
-import java.lang.UnsupportedOperationException;
 
 class EDecoder implements ObjectInput {
     // incoming msg id's
@@ -427,7 +426,7 @@ class EDecoder implements ObjectInput {
     private void processHistogramDataMsg() throws IOException {
     	int reqId = readInt();
     	int n = readInt();
-    	ArrayList<SimpleEntry<Double, Long>> items = new ArrayList<SimpleEntry<Double, Long>>(n);
+    	List<Entry<Double, Long>> items = new ArrayList<>(n);
     	
     	for (int i = 0; i < n; i++) {
     		items.add(new SimpleEntry<Double, Long>(readDouble(), readLong()));

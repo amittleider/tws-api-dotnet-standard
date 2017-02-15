@@ -5,9 +5,10 @@ package com.ib.client;
 
 import java.text.DateFormat;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class EWrapperMsgGenerator {
@@ -752,7 +753,7 @@ public class EWrapperMsgGenerator {
 		return "Head timestamp. Req Id: " + reqId + ", headTimestamp: " + headTimestamp;
 	}
 
-	public static String histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public static String histogramData(int reqId, List<Entry<Double, Long>> items) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Histogram data. Req Id: " + reqId + ", Data (" + items.size() + "):\n");

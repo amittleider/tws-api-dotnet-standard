@@ -8,10 +8,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.swing.SwingUtilities;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -30,8 +33,6 @@ import com.ib.client.Order;
 import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
 import com.ib.client.TickAttr;
-
-import javax.swing.*;
 
 
 public class SimpleWrapper implements EWrapper {
@@ -474,7 +475,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		// TODO Auto-generated method stub
 		
 	}

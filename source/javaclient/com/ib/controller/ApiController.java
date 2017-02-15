@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -1620,7 +1621,7 @@ public class ApiController implements EWrapper {
 	
 	public interface IHistogramDataHandler {
 
-		void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items);		
+		void histogramData(int reqId, List<Entry<Double, Long>> items);		
 		
 	}
 	
@@ -1648,7 +1649,7 @@ public class ApiController implements EWrapper {
     }
 
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		IHistogramDataHandler handler = m_histogramDataMap.get(reqId);
 		
 		if (handler != null) {

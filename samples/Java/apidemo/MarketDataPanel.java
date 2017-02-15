@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.Box;
@@ -765,7 +767,7 @@ public class MarketDataPanel extends JPanel {
 
 	static class HistogramResultsPanel extends NewTabPanel implements IHistogramDataHandler {
 		final HistogramModel m_model = new HistogramModel();
-		final ArrayList<SimpleEntry<Double, Long>> m_rows = new ArrayList<>();
+		final List<Entry<Double, Long>> m_rows = new ArrayList<>();
 		final Histogram m_hist = new Histogram(m_rows);
 		
 		HistogramResultsPanel() {			
@@ -819,7 +821,7 @@ public class MarketDataPanel extends JPanel {
 			}
 
 			@Override public Object getValueAt(int rowIn, int col) {
-				SimpleEntry<Double, Long> row = m_rows.get(rowIn);
+				Entry<Double, Long> row = m_rows.get(rowIn);
 				
 				switch(col) {
 					case 0: return row.getKey();
@@ -830,7 +832,7 @@ public class MarketDataPanel extends JPanel {
 		}
 
 		@Override
-		public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+		public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 			m_rows.addAll(items);
 			fire();
 		}		

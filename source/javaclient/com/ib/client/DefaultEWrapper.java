@@ -4,8 +4,9 @@
 package com.ib.client;
 
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 class DefaultEWrapper implements EWrapper {
@@ -449,7 +450,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, ArrayList<SimpleEntry<Double, Long>> items) {
+	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
 		// TODO Auto-generated method stub
 		
 	}
