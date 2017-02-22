@@ -251,7 +251,6 @@ public abstract class EClient {
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
     public static final int MAX_VERSION = MIN_SERVER_VER_SERVICE_DATA_TYPE; // ditto
 
-
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
     protected int m_serverVersion;
@@ -3323,11 +3322,9 @@ public abstract class EClient {
 
     	try {
     		if (m_serverVersion < MIN_SERVER_VER_REQ_HISTOGRAM) {
-    			if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
-    				error(tickerId, EClientErrors.UPDATE_TWS,
-    						"  It does not support histogram requests.");
-    				return;
-    			}
+    			error(tickerId, EClientErrors.UPDATE_TWS,
+    					"  It does not support histogram requests.");
+    			return;
     		}
 
     		Builder b = prepareBuffer(); 
@@ -3370,8 +3367,6 @@ public abstract class EClient {
         			"  It does not support head time stamp requests.");
         	return;
         }
-
-        final int VERSION = 1;
 
         // send cancel mkt data msg
         try {
