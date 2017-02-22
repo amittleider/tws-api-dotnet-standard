@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -112,7 +112,10 @@ namespace IBSampleApp.ui
                 MktDepthExchangesGrid.Rows.Add(1);
                 MktDepthExchangesGrid[0, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].Exchange;
                 MktDepthExchangesGrid[1, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].SecType;
-                MktDepthExchangesGrid[2, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].IsL2 ? "Yes" : "No";
+                MktDepthExchangesGrid[2, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].ListingExch;
+                MktDepthExchangesGrid[3, MktDepthExchangesGrid.Rows.Count - 1].Value = mktDepthExchangesMessage.Descriptions[i].ServiceDataType;
+                MktDepthExchangesGrid[4, MktDepthExchangesGrid.Rows.Count - 1].Value = 
+                    mktDepthExchangesMessage.Descriptions[i].AggGroup != Int32.MaxValue ? mktDepthExchangesMessage.Descriptions[i].AggGroup.ToString() : "";
             }
         }
 

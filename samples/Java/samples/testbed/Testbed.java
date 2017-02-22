@@ -45,12 +45,6 @@ public class Testbed {
                 //! [ereader]
                 Thread.sleep(1000);
                
-                wrapper.getClient().reqHistogramData(4002, ContractSamples.USStock(), false, "3 days");
-                
-                Thread.sleep(60000);
-                
-                wrapper.getClient().cancelHistogramData(4002);
-
                 //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
                 //contractOperations(wrapper.getClient());
                 //hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -62,6 +56,7 @@ public class Testbed {
                 //historicalDataRequests(wrapper.getClient());
                 //accountOperations(wrapper.getClient());
                 //newsOperations(wrapper.getClient());
+                marketDepthOperations(wrapper.getClient());
                 
                 Thread.sleep(100000);
                 m_client.eDisconnect();

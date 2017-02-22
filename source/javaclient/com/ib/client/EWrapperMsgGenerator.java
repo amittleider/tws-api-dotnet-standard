@@ -652,7 +652,11 @@ public class EWrapperMsgGenerator {
 		sb.append("==== Market Depth Exchanges Begin (total=").append(depthMktDataDescriptions.length).append(") ====\n");
 		for (int i = 0; i < depthMktDataDescriptions.length; i++) {
 			sb.append("Depth Market Data Description [").append(i).append("] - exchange: ").append(depthMktDataDescriptions[i].exchange())
-					.append(", secType: ").append(depthMktDataDescriptions[i].secType()).append(", isL2: ").append(depthMktDataDescriptions[i].isL2()).append("\n");
+					.append(", secType: ").append(depthMktDataDescriptions[i].secType())
+					.append(", listingExch: ").append(depthMktDataDescriptions[i].listingExch())
+					.append(", serviceDataType: ").append(depthMktDataDescriptions[i].serviceDataType())
+					.append(", aggGroup: ").append(depthMktDataDescriptions[i].aggGroup() != Integer.MAX_VALUE ? 
+							depthMktDataDescriptions[i].aggGroup() : "").append("\n");
 		}
 		sb.append("==== Market Depth Exchanges End (total=").append(depthMktDataDescriptions.length).append(") ====\n");
 		return sb.toString();

@@ -424,8 +424,20 @@ Namespace Samples
         Public Sub mktDepthExchanges(depthMktDataDescriptions As DepthMktDataDescription()) Implements EWrapper.mktDepthExchanges
             Console.WriteLine("Market Depth Exchanges:")
 
+            Dim aggGroup As String
+
             For Each depthMktDataDescription In depthMktDataDescriptions
-                Console.WriteLine("Depth Market Data Descriprion. Exchange: " & depthMktDataDescription.Exchange & " Security Type: " & depthMktDataDescription.SecType & " Is L2: " & depthMktDataDescription.IsL2)
+                If depthMktDataDescription.AggGroup <> Integer.MaxValue Then
+                    aggGroup = depthMktDataDescription.AggGroup
+                Else
+                    aggGroup = ""
+                End If
+
+                Console.WriteLine("Depth Market Data Descriprion. Exchange: " & depthMktDataDescription.Exchange &
+                                  " Security Type: " & depthMktDataDescription.SecType &
+                                  " Listing Exch: " & depthMktDataDescription.ListingExch &
+                                  " Service Data Type: " & depthMktDataDescription.ServiceDataType &
+                                  "  Agg Group: " & aggGroup)
             Next
         End Sub
         '! [mktDepthExchanges]

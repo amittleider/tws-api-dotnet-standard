@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -1099,14 +1099,14 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_MISCELANEOUS;
 	//m_state = ST_FAMILYCODES;
 	//m_state = ST_SYMBOLSAMPLES;
-	//m_state = ST_REQMKTDEPTHEXCHANGES;
+	m_state = ST_REQMKTDEPTHEXCHANGES;
 	//m_state = ST_REQNEWSTICKS;
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
-	m_state = ST_REQHISTOGRAMDATA;
+	//m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_PING;
 }
 
@@ -1481,7 +1481,12 @@ void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription>
 	printf("Mkt Depth Exchanges (%u):\n", depthMktDataDescriptions.size());
 
 	for (unsigned int i = 0; i < depthMktDataDescriptions.size(); i++) {
-		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n", i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? "true" : "false");
+		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s listingExch: %s serviceDataType: %s aggGroup: %s\n", i, 
+			depthMktDataDescriptions[i].exchange.c_str(), 
+			depthMktDataDescriptions[i].secType.c_str(), 
+			depthMktDataDescriptions[i].listingExch.c_str(), 
+			depthMktDataDescriptions[i].serviceDataType.c_str(), 
+			depthMktDataDescriptions[i].aggGroup != INT_MAX ? std::to_string(depthMktDataDescriptions[i].aggGroup).c_str() : "");
 	}
 }
 //! [mktDepthExchanges]

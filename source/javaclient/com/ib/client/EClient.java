@@ -246,9 +246,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REQ_HISTORICAL_NEWS = 117;
     protected static final int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP = 118;
     protected static final int MIN_SERVER_VER_REQ_HISTOGRAM = 119;
+    protected static final int MIN_SERVER_VER_SERVICE_DATA_TYPE = 120;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_REQ_HISTORICAL_NEWS; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_SERVICE_DATA_TYPE; // ditto
 
 
     protected EReaderSignal m_signal;

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using IBApi;
@@ -36,15 +36,32 @@ namespace TWSLib
         }
 
         /**
-        * @brief is L2
+        * @brief listing exchange
         */
-        public bool IsL2
+        public string ListingExch
         {
-            get { return data != null ? data.IsL2 : default(bool); }
-            set { if (data != null) data.IsL2 = value; }
+            get { return data != null ? data.ListingExch : default(string); }
+            set { if (data != null) data.ListingExch = value; }
         }
 
-        
+        /**
+        * @brief service data type
+        */
+        public string ServiceDataType
+        {
+            get { return data != null ? data.ServiceDataType : default(string); }
+            set { if (data != null) data.ServiceDataType = value; }
+        }
+
+        /**
+        * @brief aggregated group
+        */
+        public int AggGroup
+        {
+            get { return data != null ? data.AggGroup : default(int); }
+            set { if (data != null) data.AggGroup = value; }
+        }
+
         string TWSLib.IDepthMktDataDescription.exchange
         {
             get { return Exchange; }
@@ -55,9 +72,19 @@ namespace TWSLib
             get { return SecType; }
         }
 
-        bool TWSLib.IDepthMktDataDescription.isL2
+        string TWSLib.IDepthMktDataDescription.listingExch
         {
-            get { return IsL2; }
+            get { return ListingExch; }
+        }
+
+        string TWSLib.IDepthMktDataDescription.serviceDataType
+        {
+            get { return ServiceDataType; }
+        }
+
+        int TWSLib.IDepthMktDataDescription.aggGroup
+        {
+            get { return AggGroup; }
         }
 
         public static explicit operator ComDepthMktDataDescription(DepthMktDataDescription depthMktDataDescription)

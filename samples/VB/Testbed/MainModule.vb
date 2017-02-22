@@ -66,7 +66,7 @@ Module MainModule
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
         '*******************************************************
-        'marketDepthOperations(client)
+        marketDepthOperations(client)
 
         '*********************************************************
         '** Real time market data operations  - Real Time Bars ***
@@ -148,7 +148,7 @@ Module MainModule
         '***********************
         '*** Histogram data  ***
         '***********************
-        histogramData(client)
+        'histogramData(client)
 
 
         Thread.Sleep(15000)

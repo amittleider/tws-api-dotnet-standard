@@ -503,7 +503,11 @@ class EDecoder implements ObjectInput {
 
             for (int i = 0; i < nDepthMktDataDescriptions; i++)
             {
-                depthMktDataDescriptions[i] = new DepthMktDataDescription(readStr(), readStr(), readBoolFromInt());
+                if (m_serverVersion >= EClient.MIN_SERVER_VER_SERVICE_DATA_TYPE) {
+                    depthMktDataDescriptions[i] = new DepthMktDataDescription(readStr(), readStr(), readStr(), readStr(), readIntMax());
+                } else {
+                    depthMktDataDescriptions[i] = new DepthMktDataDescription(readStr(), readStr(), "", readBoolFromInt() ? "Deep2" : "Deep", Integer.MAX_VALUE);
+                }
             }
         }
 
