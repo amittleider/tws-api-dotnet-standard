@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -72,7 +72,9 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 			for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions){
 				DepthMktDataDescriptionRow row = new DepthMktDataDescriptionRow();
 				m_list.add( row);
-				row.update(depthMktDataDescription.exchange(), depthMktDataDescription.secType(), depthMktDataDescription.isL2());
+				row.update(depthMktDataDescription.exchange(), depthMktDataDescription.secType(), 
+						depthMktDataDescription.listingExch(), depthMktDataDescription.serviceDataType(),
+						depthMktDataDescription.aggGroup());
 			}
 			m_model.fireTableDataChanged();
 		}
@@ -87,14 +89,16 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 		}
 
 		@Override public int getColumnCount() {
-			return 3;
+			return 5;
 		}
 
 		@Override public String getColumnName(int col) {
 			switch( col) {
 				case 0: return "Exchange";
 				case 1: return "Security Type";
-				case 2: return "Is L2";
+				case 2: return "Listing Exch";
+				case 3: return "Service Data Type";
+				case 4: return "Agg Group";
 				default: return null;
 			}
 		}
@@ -105,7 +109,9 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 			switch( col) {
 				case 0: return row.m_exchange;
 				case 1: return row.m_secType;
-				case 2: return row.m_isL2;
+				case 2: return row.m_listingExch;
+				case 3: return row.m_serviceDataType;
+				case 4: return row.m_aggGroup;
 				default: return null;
 			}
 		}
@@ -114,12 +120,16 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 	private static class DepthMktDataDescriptionRow {
 		String m_exchange;
 		String m_secType;
-		boolean m_isL2;
+		String m_listingExch;
+		String m_serviceDataType;
+		String m_aggGroup;
 
-		void update(String exchange, String secType, boolean isL2) {
+		void update(String exchange, String secType, String listingExch, String serviceDataType, int aggGroup) {
 			m_exchange = exchange;
 			m_secType = secType;
-			m_isL2 = isL2;
+			m_listingExch = listingExch;
+			m_serviceDataType = serviceDataType;
+			m_aggGroup = (aggGroup != Integer.MAX_VALUE ? String.valueOf(aggGroup) : "");
 		}
 	}
 }

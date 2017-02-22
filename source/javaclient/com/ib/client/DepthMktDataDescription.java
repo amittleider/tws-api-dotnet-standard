@@ -6,24 +6,32 @@ package com.ib.client;
 public class DepthMktDataDescription {
     private String 	m_exchange;
     private String 	m_secType;
-    private boolean m_isL2;
+    private String 	m_listingExch;
+    private String 	m_serviceDataType;
+    private int 	m_aggGroup;
 
     // Get
     public String exchange() { return m_exchange; }
     public String secType() { return m_secType; }
-    public boolean isL2() { return m_isL2; }
+    public String listingExch() { return m_listingExch; }
+    public String serviceDataType() { return m_serviceDataType; }
+    public int aggGroup() { return m_aggGroup; }
 
     // Set 
     public void exchange(String exchange) { m_exchange = exchange; }
     public void secType(String secType) { m_secType = secType; }
-    public void isL2(boolean isL2) { m_isL2 = isL2; }
+    public void listingExch(String listingExch) { m_listingExch = listingExch; }
+    public void serviceDataType(String serviceDataType) { m_serviceDataType = serviceDataType; }
+    public void aggGroup(int aggGroup) { m_aggGroup = aggGroup; }
 
     public DepthMktDataDescription() {
     }
 
-    public DepthMktDataDescription(String p_exchange, String p_secType, boolean p_isL2) {
+    public DepthMktDataDescription(String p_exchange, String p_secType, String listingExch, String serviceDataType, int aggGroup) {
         m_exchange = p_exchange;
         m_secType = p_secType;
-        m_isL2 = p_isL2;
+        m_listingExch = listingExch;
+        m_serviceDataType = serviceDataType;
+        m_aggGroup = aggGroup;
     }
 }

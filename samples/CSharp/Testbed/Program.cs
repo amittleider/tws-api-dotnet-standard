@@ -60,7 +60,7 @@ namespace Samples
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
             /********************************************************/
-            //marketDepthOperations(client);
+            marketDepthOperations(client);
 
             /**********************************************************/
             /*** Real time market data operations  - Real Time Bars ***/
@@ -110,7 +110,7 @@ namespace Samples
             /**********************/
             /*** Order handling ***/
             /**********************/
-            orderOperations(client, nextValidId);
+            //orderOperations(client, nextValidId);
 
             /************************************/
             /*** Financial Advisor Exclusive Operations ***/
@@ -145,7 +145,7 @@ namespace Samples
             /***********************/
             /*** Histogram data  ***/
             /***********************/
-            histogramData(client);
+            //histogramData(client);
 
 
             Thread.Sleep(3000);

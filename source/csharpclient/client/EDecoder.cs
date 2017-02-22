@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -590,7 +590,14 @@ namespace IBApi
 
                 for (int i = 0; i < nDescriptions; i++)
                 {
-                    depthMktDataDescriptions[i] = new DepthMktDataDescription(ReadString(), ReadString(), ReadBoolFromInt());
+                    if (serverVersion >= MinServerVer.SERVICE_DATA_TYPE)
+                    {
+                        depthMktDataDescriptions[i] = new DepthMktDataDescription(ReadString(), ReadString(), ReadString(), ReadString(), ReadIntMax());
+                    }
+                    else
+                    {
+                        depthMktDataDescriptions[i] = new DepthMktDataDescription(ReadString(), ReadString(), "", ReadBoolFromInt() ? "Deep2" : "Deep", Int32.MaxValue);
+                    }
                 }
             }
 
