@@ -1,7 +1,7 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+IB API Commercial License, as applicable.
 """
 
 
@@ -23,9 +23,9 @@ class ComboLeg(Object):
     def __init__(self):
         self.conId = 0  # type: int
         self.ratio = 0  # type: int
-        self.action = ""      # BUY/SELL/SSHORT 
+        self.action = ""      # BUY/SELL/SSHORT
         self.exchange = ""
-        self.openClose = 0   # type: int; LegOpenClose enum values 
+        self.openClose = 0   # type: int; LegOpenClose enum values
          # for stock legs when doing short sale
         self.shortSaleSlot = 0
         self.designatedLocation = ""
@@ -43,7 +43,7 @@ class ComboLeg(Object):
             str(self.designatedLocation),
             str(self.exemptCode)))
 
- 
+
 class UnderComp(Object):
     def __init__(self):
         self.conId = 0   # type: int
@@ -55,7 +55,7 @@ class UnderComp(Object):
             str(self.conId),
             str(self.delta),
             str(self.price)))
- 
+
 
 class Contract(Object):
     def __init__(self):
@@ -82,7 +82,7 @@ class Contract(Object):
 
 
     def __str__(self):
-        s = ",".join(( 
+        s = ",".join((
             str(self.conId),
             str(self.symbol),
             str(self.secType),
@@ -109,10 +109,10 @@ class Contract(Object):
 
         return s
 
- 
+
 class ContractDetails(Object):
     def __init__(self):
-        self.summary = Contract()        
+        self.summary = Contract()
         self.marketName = ""
         self.minTick = 0.
         self.orderTypes = ""
@@ -129,13 +129,14 @@ class ContractDetails(Object):
         self.liquidHours = ""
         self.evRule = ""
         self.evMultiplier = 0
+        self.mdSizeMultiplier = 0
         self.secIdList = None
         # BOND values
         self.cusip = ""
         self.ratings = ""
         self.descAppend = ""
         self.bondType = ""
-        self.couponType = "" 
+        self.couponType = ""
         self.callable = False
         self.putable = False
         self.coupon = 0
@@ -145,11 +146,11 @@ class ContractDetails(Object):
         self.nextOptionDate = ""
         self.nextOptionType = ""
         self.nextOptionPartial = False
-        self.notes = "" 
+        self.notes = ""
 
     def __str__(self):
         s = ",".join((
-            str(self.summary), 
+            str(self.summary),
             str(self.marketName),
             str(self.minTick),
             str(self.orderTypes),
@@ -166,6 +167,7 @@ class ContractDetails(Object):
             str(self.liquidHours),
             str(self.evRule),
             str(self.evMultiplier),
+            str(self.mdSizeMultiplier),
             str(self.secIdList),
             str(self.cusip),
             str(self.ratings),
@@ -183,8 +185,8 @@ class ContractDetails(Object):
             str(self.nextOptionPartial),
             str(self.notes)))
         return s
-     
- 
+
+
 class ContractDescription(Object):
     def __init__(self):
         self.contract = Contract()

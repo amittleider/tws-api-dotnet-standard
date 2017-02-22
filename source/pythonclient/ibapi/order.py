@@ -1,19 +1,19 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+ IB API Commercial License, as applicable.
 """
 
 
 from ibapi.common import UNSET_INTEGER, UNSET_DOUBLE
 from ibapi.object_implem import Object
 from ibapi.softdollartier import SoftDollarTier
- 
+
 # enum Origin
 (CUSTOMER, FIRM, UNKNOWN) = range(3)
 
 # enum AuctionStrategy
-(AUCTION_UNSET, AUCTION_MATCH, 
+(AUCTION_UNSET, AUCTION_MATCH,
  AUCTION_IMPROVEMENT, AUCTION_TRANSPARENT) = range(4)
 
 
@@ -24,7 +24,7 @@ class OrderComboLeg(Object):
     def __str__(self):
         return "%f" % self.price
 
- 
+
 class Order(Object):
     def __init__(self):
         self.softDollarTier = SoftDollarTier("", "", "")
@@ -41,18 +41,18 @@ class Order(Object):
         self.auxPrice      = UNSET_DOUBLE
 
         # extended order fields
-        self.tif = ""                # "Time in Force" - DAY, GTC, etc. 
-        self.activeStartTime = ""   # for GTC orders 
-        self.activeStopTime = ""    # for GTC orders  
-        self.ocaGroup = ""          # one cancels all group name 
-        self.ocaType        = 0     # 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK 
-        self.orderRef       = ""    
-        self.transmit       = True  # if false, order will be created but not transmited 
-        self.parentId       = 0     # Parent order Id, to associate Auto STP or TRAIL orders with the original order. 
+        self.tif = ""                # "Time in Force" - DAY, GTC, etc.
+        self.activeStartTime = ""   # for GTC orders
+        self.activeStopTime = ""    # for GTC orders
+        self.ocaGroup = ""          # one cancels all group name
+        self.ocaType        = 0     # 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK
+        self.orderRef       = ""
+        self.transmit       = True  # if false, order will be created but not transmited
+        self.parentId       = 0     # Parent order Id, to associate Auto STP or TRAIL orders with the original order.
         self.blockOrder     = False
         self.sweepToFill    = False
         self.displaySize    = 0
-        self.triggerMethod  = 0     # 0=Default, 1=Double_Bid_Ask, 2=Last, 3=Double_Last, 4=Bid_Ask, 7=Last_or_Bid_Ask, 8=Mid-point 
+        self.triggerMethod  = 0     # 0=Default, 1=Double_Bid_Ask, 2=Last, 3=Double_Last, 4=Bid_Ask, 7=Last_or_Bid_Ask, 8=Mid-point
         self.outsideRth     = False
         self.hidden         = False
         self.goodAfterTime       = ""   # Format: 20060505 08:00:00 {time zone}
@@ -63,19 +63,19 @@ class Order(Object):
         self.percentOffset  = UNSET_DOUBLE  # type: float; REL orders only
         self.overridePercentageConstraints = False
         self.trailStopPrice = UNSET_DOUBLE  # type: float
-        self.trailingPercent = UNSET_DOUBLE # type: float; TRAILLIMIT orders only 
+        self.trailingPercent = UNSET_DOUBLE # type: float; TRAILLIMIT orders only
 
         # financial advisors only
         self.faGroup              = ""
-        self.faProfile            = "" 
-        self.faMethod             = "" 
-        self.faPercentage         = "" 
-    
+        self.faProfile            = ""
+        self.faMethod             = ""
+        self.faPercentage         = ""
+
         # institutional (ie non-cleared) only
         self.designatedLocation = "" #used only when shortSaleSlot=2
-        self.openClose     = "O"    # O=Open, C=Close 
-        self.origin        = CUSTOMER  # 0=Customer, 1=Firm 
-        self.shortSaleSlot = 0    # type: int; 1 if you hold the shares, 2 if they will be delivered from elsewhere.  Only for Action=SSHORT 
+        self.openClose     = "O"    # O=Open, C=Close
+        self.origin        = CUSTOMER  # 0=Customer, 1=Firm
+        self.shortSaleSlot = 0    # type: int; 1 if you hold the shares, 2 if they will be delivered from elsewhere.  Only for Action=SSHORT
         self.exemptCode    = -1
 
         # SMART routing only
@@ -86,14 +86,14 @@ class Order(Object):
         self.optOutSmartRouting = False
 
         # BOX exchange orders only
-        self.auctionStrategy = AUCTION_UNSET # type: int; AUCTION_MATCH, AUCTION_IMPROVEMENT, AUCTION_TRANSPARENT 
+        self.auctionStrategy = AUCTION_UNSET # type: int; AUCTION_MATCH, AUCTION_IMPROVEMENT, AUCTION_TRANSPARENT
         self.startingPrice   = UNSET_DOUBLE   # type: float
         self.stockRefPrice   = UNSET_DOUBLE   # type: float
         self.delta           = UNSET_DOUBLE   # type: float
 
         # pegged to stock and VOL orders only
-        self.stockRangeLower = UNSET_DOUBLE   # type: float 
-        self.stockRangeUpper = UNSET_DOUBLE   # type: float 
+        self.stockRangeLower = UNSET_DOUBLE   # type: float
+        self.stockRangeUpper = UNSET_DOUBLE   # type: float
 
         self.randomizePrice = False
         self.randomizeSize = False
@@ -122,7 +122,7 @@ class Order(Object):
         self.scaleInitLevelSize  = UNSET_INTEGER  # type: int
         self.scaleSubsLevelSize  = UNSET_INTEGER  # type: int
         self.scalePriceIncrement = UNSET_DOUBLE  # type: float
-        self.scalePriceAdjustValue = UNSET_DOUBLE  # type: float 
+        self.scalePriceAdjustValue = UNSET_DOUBLE  # type: float
         self.scalePriceAdjustInterval = UNSET_INTEGER  # type: int
         self.scaleProfitOffset = UNSET_DOUBLE  # type: float
         self.scaleAutoReset = False
@@ -144,7 +144,7 @@ class Order(Object):
         # ALGO ORDERS ONLY
         self.algoStrategy          = ""
 
-        self.algoParams            = None    #TagValueList  
+        self.algoParams            = None    #TagValueList
         self.smartComboRoutingParams = None  #TagValueList
 
         self.algoId = ""
@@ -161,7 +161,7 @@ class Order(Object):
 
         # order combo legs
 
-        self.orderComboLegs = None  # OrderComboLegListSPtr 
+        self.orderComboLegs = None  # OrderComboLegListSPtr
 
         self.orderMiscOptions = None  # TagValueList
 
@@ -180,12 +180,15 @@ class Order(Object):
         self.adjustableTrailingUnit = 0
         self.lmtPriceOffset = UNSET_DOUBLE
 
-        self.conditions = []  # std::vector<ibapi::shared_ptr<OrderCondition>> 
+        self.conditions = []  # std::vector<ibapi::shared_ptr<OrderCondition>>
         self.conditionsCancelOrder = False
         self.conditionsIgnoreRth = False
- 
+
         # ext operator
         self.extOperator = ""
+
+        # native cash quantity
+        self.cashQty = UNSET_DOUBLE
 
 
     def __str__(self):

@@ -1,7 +1,7 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+ IB API Commercial License, as applicable.
 """
 
 
@@ -72,8 +72,16 @@ class IN:
     SOFT_DOLLAR_TIERS         = 77
     FAMILY_CODES              = 78
     SYMBOL_SAMPLES            = 79
-#TODO: add MKT_DEPTH_EXCHANGES = 80
-
+    MKT_DEPTH_EXCHANGES       = 80
+    TICK_REQ_PARAMS           = 81
+    SMART_COMPONENTS          = 82
+    NEWS_ARTICLE              = 83
+    TICK_NEWS                 = 84
+    NEWS_PROVIDERS            = 85
+    HISTORICAL_NEWS           = 86
+    HISTORICAL_NEWS_END       = 87
+    HEAD_TIMESTAMP            = 88
+    HISTOGRAM_DATA            = 89
 
 # outgoing msg id's
 class OUT:
@@ -134,4 +142,11 @@ class OUT:
     REQ_SOFT_DOLLAR_TIERS         = 79
     REQ_FAMILY_CODES              = 80
     REQ_MATCHING_SYMBOLS          = 81
-
+    REQ_MKT_DEPTH_EXCHANGES       = 82
+    REQ_SMART_COMPONENTS          = 83
+    REQ_NEWS_ARTICLE              = 84
+    REQ_NEWS_PROVIDERS            = 85
+    REQ_HISTORICAL_NEWS           = 86
+    REQ_HEAD_TIMESTAMP            = 87
+    REQ_HISTOGRAM_DATA            = 88
+    CANCEL_HISTOGRAM_DATA         = 89
