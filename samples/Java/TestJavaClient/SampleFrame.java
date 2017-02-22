@@ -253,6 +253,8 @@ class SampleFrame extends JFrame implements EWrapper {
         butHeadTimestamp.addActionListener(e -> onHeadTimestamp());
         JButton butHistogram = new JButton("Req Histogram");
         butHistogram.addActionListener(e -> onHistogram());
+        JButton butHistogramCancel = new JButton("Cancel Histogram");
+        butHistogramCancel.addActionListener(e -> onHistogramCancel());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -321,6 +323,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butReqHistoricalNews ) ;
         buttonPanel.add(butHeadTimestamp);
         buttonPanel.add(butHistogram);
+        buttonPanel.add(butHistogramCancel);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -328,6 +331,10 @@ class SampleFrame extends JFrame implements EWrapper {
 
         return buttonPanel;
     }
+
+	private void onHistogramCancel() {
+		m_client.cancelHistogramData(m_orderDlg.m_id);
+	}
 
 	private void onHistogram() {
         // run m_orderDlg
