@@ -238,28 +238,32 @@ Receiving</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountValue(self, key:str, val:str, currency:str, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                            accountName:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountValue(self, key: str, val: str, currency: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                           accountName: str):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateAccountValue(key, val, currency, accountName)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateAccountValue. Key:&quot;</span> ,key, <span class="stringliteral">&quot;Value:&quot;</span>, val, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;Currency:&quot;</span>, currency, <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updatePortfolio(self, contract:Contract, position:float,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        marketPrice:float, marketValue:float, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        averageCost:float, unrealizedPNL:float, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                        realizedPNL:float, accountName:str):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateAccountValue. Key:&quot;</span>, key, <span class="stringliteral">&quot;Value:&quot;</span>, val,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot;Currency:&quot;</span>, currency, <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updatePortfolio(self, contract: Contract, position: float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        marketPrice: float, marketValue: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        averageCost: float, unrealizedPNL: float,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                        realizedPNL: float, accountName: str):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        super().updatePortfolio(contract, position, marketPrice, marketValue,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                        averageCost, unrealizedPNL, realizedPNL, accountName)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                averageCost, unrealizedPNL, realizedPNL, accountName)</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;UpdatePortfolio.&quot;</span>, contract.symbol, <span class="stringliteral">&quot;&quot;</span>, contract.secType, <span class="stringliteral">&quot;@&quot;</span>,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            contract.exchange, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;MarketPrice:&quot;</span>, marketPrice,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;MarketValue:&quot;</span>, marketValue, <span class="stringliteral">&quot;AverageCost:&quot;</span>, averageCost,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            <span class="stringliteral">&quot;UnrealizedPNL:&quot;</span>, unrealizedPNL, <span class="stringliteral">&quot;RealizedPNL:&quot;</span>, realizedPNL,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountTime(self, timeStamp:str):</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;              contract.exchange, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;MarketPrice:&quot;</span>, marketPrice,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;              <span class="stringliteral">&quot;MarketValue:&quot;</span>, marketValue, <span class="stringliteral">&quot;AverageCost:&quot;</span>, averageCost,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;              <span class="stringliteral">&quot;UnrealizedPNL:&quot;</span>, unrealizedPNL, <span class="stringliteral">&quot;RealizedPNL:&quot;</span>, realizedPNL,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;              <span class="stringliteral">&quot;AccountName:&quot;</span>, accountName)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateAccountTime(self, timeStamp: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().updateAccountTime(timeStamp)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;UpdateAccountTime. Time:&quot;</span>, timeStamp)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountDownloadEnd(self, accountName:str):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountDownloadEnd(self, accountName: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().accountDownloadEnd(accountName)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Account download finished:&quot;</span>, accountName)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="acct_update_cancel"></a>
@@ -361,16 +365,18 @@ Models</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMulti(self, reqId:int, account:str, modelCode:str,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                            key:str, value:str, currency:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMulti(self, reqId: int, account: str, modelCode: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                           key: str, value: str, currency: str):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().accountUpdateMulti(reqId, account, modelCode, key, value,</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                   currency)</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;Account Update Multi. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;Account:&quot;</span>, account, </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Key:&quot;</span>, key , <span class="stringliteral">&quot;Value:&quot;</span>, value, </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;Currency:&quot;</span>, currency)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMultiEnd(self, reqId:int):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;Account Update Multi. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;Account:&quot;</span>, account,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Key:&quot;</span>, key, <span class="stringliteral">&quot;Value:&quot;</span>, value,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;              <span class="stringliteral">&quot;Currency:&quot;</span>, currency)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountUpdateMultiEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().accountUpdateMultiEnd(reqId)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Account Update Multi End. Request:&quot;</span>, reqId)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

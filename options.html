@@ -218,15 +218,16 @@ Option Chains</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqSecDefOptParams(0, <span class="stringliteral">&quot;IBM&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;STK&quot;</span>, 8314)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>securityDefinitionOptionParameter(self, reqId:int, exchange:str,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        underlyingConId:int, tradingClass:str, multiplier:str, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        expirations:SetOfString, strikes:SetOfFloat):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>securityDefinitionOptionParameter(self, reqId: int, exchange: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                          underlyingConId: int, tradingClass: str, multiplier: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                          expirations: SetOfString, strikes: SetOfFloat):</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        super().securityDefinitionOptionParameter(reqId, exchange,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            underlyingConId, tradingClass, multiplier, expirations, strikes)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                                  underlyingConId, tradingClass, multiplier, expirations, strikes)</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        print(<span class="stringliteral">&quot;Security Definition Option Parameter. ReqId:%d Exchange:%s &quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;Underlying conId: %d TradingClass:%s Multiplier:%s Exp:%s Strikes:%s&quot;</span>, </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            reqId, exchange, underlyingConId, tradingClass, multiplier, </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            <span class="stringliteral">&quot;,&quot;</span>.join(expirations), <span class="stringliteral">&quot;,&quot;</span>.join(str(strikes)))</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;              <span class="stringliteral">&quot;Underlying conId: %d TradingClass:%s Multiplier:%s Exp:%s Strikes:%s&quot;</span>,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;              reqId, exchange, underlyingConId, tradingClass, multiplier,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;              <span class="stringliteral">&quot;,&quot;</span>.join(expirations), <span class="stringliteral">&quot;,&quot;</span>.join(str(strikes)))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain  reqId the ID ch...">IBApi::EClient::reqSecDefOptParams</a> returns a list of expiries and a list of strike prices. In some cases it is possible there are combinations of strike and expiry that would not give a valid option contract.</p>
@@ -235,7 +236,7 @@ Option Chains</h1>
 <li><a class="el" href="option_computations.html">Option Greeks</a></li>
 </ul>
 <h1><a class="anchor" id="option_exercising"></a>
-Exercising Options</h1>
+Exercising options</h1>
 <p>Options are exercised or lapsed from the API with the function <a class="el" href="classIBApi_1_1EClient.html#aad70a7b82ad3b5e7ae3e9f0b98dc2a5b">IBApi.EClient.exerciseOptions</a></p>
 <ul id="tab">
 <li class="active">

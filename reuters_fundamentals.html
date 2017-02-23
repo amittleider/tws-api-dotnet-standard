@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqFundamentalData(8001, ContractSamples.USStock(),</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                  <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                <span class="stringliteral">&quot;ReportsFinSummary&quot;</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Note how a string attribute specifies the requested report type. In the example above the request was made for the financial summary. See <a class="el" href="reuters_fundamentals.html#report_type">Report Types</a> at the bottom of this page for the rest report types available.</p>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('reuters_fundamentals.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>fundamentalData(self, reqId:TickerId , data:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>fundamentalData(self, reqId: TickerId, data: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().fundamentalData(reqId, data)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;FundamentalData. &quot;</span>, reqId, data)</div>
 </div><!-- fragment -->  </li>

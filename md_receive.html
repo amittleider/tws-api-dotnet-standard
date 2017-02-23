@@ -226,24 +226,28 @@ Receiving Market Data</h1>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
 </div><!-- fragment --><p> ... </p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickPrice(self, reqId: TickerId , tickType: TickType, price: float,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                  attrib:TickAttrib):</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickPrice(self, reqId: TickerId, tickType: TickType, price: float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                  attrib: TickAttrib):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().tickPrice(reqId, tickType, price, attrib)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Tick Price. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Price:&quot;</span>, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            price, <span class="stringliteral">&quot;CanAutoExecute:&quot;</span>, attrib.canAutoExecute, </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;PastLimit&quot;</span>, attrib.pastLimit)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Tick Price. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Price:&quot;</span>,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              price, <span class="stringliteral">&quot;CanAutoExecute:&quot;</span>, attrib.canAutoExecute,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              <span class="stringliteral">&quot;PastLimit&quot;</span>, attrib.pastLimit)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 </div><!-- fragment --><p> The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickSize(self, reqId: TickerId, tickType: TickType, size: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickSize(reqId, tickType, size)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Tick Size. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Size:&quot;</span>, size)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment --><p> .... </p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickString(self, reqId:TickerId, tickType:TickType, value:str):</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickString(self, reqId: TickerId, tickType: TickType, value: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickString(reqId, tickType, value)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Tick string. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;Type:&quot;</span>, tickType, <span class="stringliteral">&quot;Value:&quot;</span>, value)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment --><p> .... </p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickGeneric(self, reqId:TickerId, tickType:TickType, value:float):</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickGeneric(self, reqId: TickerId, tickType: TickType, value: float):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickGeneric(reqId, tickType, value)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Tick Generic. Ticker Id:&quot;</span> , reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Value:&quot;</span>, value)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Tick Generic. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Value:&quot;</span>, value)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="smart_mapping"></a>
@@ -279,7 +283,9 @@ Exchange Component Mapping</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># tickReqParams not yet implemented in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickReqParams(self, tickerId:int, minTick:float, bboExchange:str, snapshotPermissions:int):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;tickReqParams: &quot;</span>, tickerId, <span class="stringliteral">&quot; minTick: &quot;</span>, minTick, <span class="stringliteral">&quot; bboExchange: &quot;</span>, bboExchange, <span class="stringliteral">&quot; snapshotPermissions: &quot;</span>, snapshotPermissions)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The exchange mapping identifier <em>bboExchange</em> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a>. More information about <a class="el" href="smart_components.html">Receiving exchange components</a>.</p>

@@ -213,14 +213,16 @@ Obtaining BroadTape List of News</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetails(self, reqId:int, contractDetails:ContractDetails):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetails(self, reqId: int, contractDetails: ContractDetails):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetails(reqId, contractDetails)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetails. ReqId:&quot;</span>, reqId, contractDetails.summary.symbol, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            contractDetails.summary.secType, <span class="stringliteral">&quot;ConId:&quot;</span>, contractDetails.summary.conId, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;@&quot;</span>, contractDetails.summary.exchange)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetailsEnd(self, reqId:int):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetails. ReqId:&quot;</span>, reqId, contractDetails.summary.symbol,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;              contractDetails.summary.secType, <span class="stringliteral">&quot;ConId:&quot;</span>, contractDetails.summary.conId,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot;@&quot;</span>, contractDetails.summary.exchange)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetailsEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetailsEnd(reqId)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetailsEnd. &quot;</span>,reqId,<span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ContractDetailsEnd. &quot;</span>, reqId, <span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> due to the potentially high amount of data resulting from such queries this request is subject to pacing. Although a request such as the above one will be answered immediately, a similar subsequent one will be kept on hold for one minute. This amount of time will increase if more such requests are performed. To prevent this narrow down the amount of eligible contracts by providing an expiration date specifying at least the year (i.e. 2016) or the year and the month (i.e. 201603 for March 2016).</p>

@@ -147,8 +147,8 @@ Requesting</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktDepth(2001, ContractSamples::EurGbpFx(), 5, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktDepth(2101, ContractSamples.USStock(), 5, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, <span class="keywordtype">None</span>)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktDepth(2101, ContractSamples.USStock(), 5, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktDepth(2001, ContractSamples.EurGbpFx(), 5, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="reqmktdepthexchanges"></a>
@@ -170,7 +170,7 @@ Exchanges supplying Market Makers</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktDepthExchanges();</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># reqMktDepthExchanges not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktDepthExchanges()</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>API 'Exchange' fields for which a market depth request would return market maker information and result in a callback to <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad8afb71cd866b423a84555f500992968" title="Returns the order book. ">IBApi::EWrapper::updateMktDepthL2</a> will be indicated in the results from the <a class="el" href="interfaceIBApi_1_1EWrapper.html#aaf5ec42d517d013340e52c42209dcefe" title="called when receives Depth Market Data Descriptions ">IBApi::EWrapper::mktDepthExchanges</a> field by a 'True' value in the 'isL2' field:</p>
@@ -182,7 +182,11 @@ Exchanges supplying Market Makers</h1>
 <div class="line"></div>
 <div class="line">            <span class="keywordflow">foreach</span> (var depthMktDataDescription <span class="keywordflow">in</span> depthMktDataDescriptions)</div>
 <div class="line">            {</div>
-<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Depth Market Data Description: Exchange: {0}, Security Type: {1}, Is L2: {2}&quot;</span>, depthMktDataDescription.Exchange, depthMktDataDescription.SecType, depthMktDataDescription.IsL2);</div>
+<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Depth Market Data Description: Exchange: {0}, Security Type: {1}, Listing Exch: {2}, Service Data Type: {3}, Agg Group: {4}&quot;</span>, </div>
+<div class="line">                    depthMktDataDescription.Exchange, depthMktDataDescription.SecType, </div>
+<div class="line">                    depthMktDataDescription.ListingExch, depthMktDataDescription.ServiceDataType,</div>
+<div class="line">                    depthMktDataDescription.AggGroup != Int32.MaxValue ? depthMktDataDescription.AggGroup.ToString() : <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line">                    );</div>
 <div class="line">            }</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
@@ -190,8 +194,12 @@ Exchanges supplying Market Makers</h1>
 <div class="fragment"><div class="line">    @Override</div>
 <div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {</div>
 <div class="line">        <span class="keywordflow">for</span> (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions) {</div>
-<div class="line">            System.out.println(<span class="stringliteral">&quot;Depth Mkt Data Description. Exchange: &quot;</span> + depthMktDataDescription.exchange() </div>
-<div class="line">            + <span class="stringliteral">&quot;, SecType: &quot;</span> + depthMktDataDescription.secType() + <span class="stringliteral">&quot;, isL2: &quot;</span> + depthMktDataDescription.isL2());</div>
+<div class="line">            System.out.println(<span class="stringliteral">&quot;Depth Mkt Data Description. Exchange: &quot;</span> + depthMktDataDescription.exchange() +</div>
+<div class="line">            <span class="stringliteral">&quot;, ListingExch: &quot;</span> + depthMktDataDescription.listingExch() + </div>
+<div class="line">            <span class="stringliteral">&quot;, SecType: &quot;</span> + depthMktDataDescription.secType() +</div>
+<div class="line">            <span class="stringliteral">&quot;, ServiceDataType: &quot;</span> + depthMktDataDescription.serviceDataType() +</div>
+<div class="line">            <span class="stringliteral">&quot;, AggGroup: &quot;</span> + depthMktDataDescription.aggGroup()</div>
+<div class="line">            );</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
@@ -199,22 +207,43 @@ Exchanges supplying Market Makers</h1>
 <div class="fragment"><div class="line">        Public Sub mktDepthExchanges(depthMktDataDescriptions As DepthMktDataDescription()) Implements EWrapper.mktDepthExchanges</div>
 <div class="line">            Console.WriteLine(&quot;Market Depth Exchanges:&quot;)</div>
 <div class="line"></div>
+<div class="line">            Dim aggGroup As String</div>
+<div class="line"></div>
 <div class="line">            For Each depthMktDataDescription In depthMktDataDescriptions</div>
-<div class="line">                Console.WriteLine(&quot;Depth Market Data Descriprion. Exchange: &quot; &amp; depthMktDataDescription.Exchange &amp; &quot; Security Type: &quot; &amp; depthMktDataDescription.SecType &amp; &quot; Is L2: &quot; &amp; depthMktDataDescription.IsL2)</div>
+<div class="line">                If depthMktDataDescription.AggGroup &lt;&gt; Integer.MaxValue Then</div>
+<div class="line">                    aggGroup = depthMktDataDescription.AggGroup</div>
+<div class="line">                Else</div>
+<div class="line">                    aggGroup = &quot;&quot;</div>
+<div class="line">                End If</div>
+<div class="line"></div>
+<div class="line">                Console.WriteLine(&quot;Depth Market Data Descriprion. Exchange: &quot; &amp; depthMktDataDescription.Exchange &amp;</div>
+<div class="line">                                  &quot; Security Type: &quot; &amp; depthMktDataDescription.SecType &amp;</div>
+<div class="line">                                  &quot; Listing Exch: &quot; &amp; depthMktDataDescription.ListingExch &amp;</div>
+<div class="line">                                  &quot; Service Data Type: &quot; &amp; depthMktDataDescription.ServiceDataType &amp;</div>
+<div class="line">                                  &quot;  Agg Group: &quot; &amp; aggGroup)</div>
 <div class="line">            Next</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::mktDepthExchanges(<span class="keyword">const</span> std::vector&lt;DepthMktDataDescription&gt; &amp;depthMktDataDescriptions) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Mkt Depth Exchanges (%lu):\n&quot;</span>, depthMktDataDescriptions.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Mkt Depth Exchanges (%u):\n&quot;</span>, depthMktDataDescriptions.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; depthMktDataDescriptions.size(); i++) {</div>
-<div class="line">        printf(<span class="stringliteral">&quot;Depth Mkt Data Description [%d] - exchange: %s secType: %s isL2: %s\n&quot;</span>, i, depthMktDataDescriptions[i].exchange.c_str(), depthMktDataDescriptions[i].secType.c_str(), depthMktDataDescriptions[i].isL2 ? <span class="stringliteral">&quot;true&quot;</span> : <span class="stringliteral">&quot;false&quot;</span>);</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Depth Mkt Data Description [%d] - exchange: %s secType: %s listingExch: %s serviceDataType: %s aggGroup: %s\n&quot;</span>, i, </div>
+<div class="line">            depthMktDataDescriptions[i].exchange.c_str(), </div>
+<div class="line">            depthMktDataDescriptions[i].secType.c_str(), </div>
+<div class="line">            depthMktDataDescriptions[i].listingExch.c_str(), </div>
+<div class="line">            depthMktDataDescriptions[i].serviceDataType.c_str(), </div>
+<div class="line">            depthMktDataDescriptions[i].aggGroup != INT_MAX ? std::to_string(depthMktDataDescriptions[i].aggGroup).c_str() : <span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line">    }</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># mktDepthExchanges not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>mktDepthExchanges(self, depthMktDataDescriptions:ListOfDepthExchanges):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().mktDepthExchanges(depthMktDataDescriptions)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;mktDepthExchanges:&quot;</span>)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">for</span> desc <span class="keywordflow">in</span> depthMktDataDescriptions:</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(desc)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="receive"></a>
@@ -272,17 +301,19 @@ Receiving</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepth(self, reqId:TickerId , position:int, operation:int,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                        side:int, price:float, size:int): </div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepth(self, reqId: TickerId, position: int, operation: int,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                       side: int, price: float, size: int):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateMktDepth(reqId, position, operation, side, price, size)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepthL2(self, reqId:TickerId , position:int, marketMaker:str,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                          operation:int, side:int, price:float, size:int):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepth. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>updateMktDepthL2(self, reqId: TickerId, position: int, marketMaker: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                         operation: int, side: int, price: float, size: int):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().updateMktDepthL2(reqId, position, marketMaker, operation, side,</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                 price, size)</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>, </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        print(<span class="stringliteral">&quot;UpdateMarketDepthL2. &quot;</span>, reqId, <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Operation:&quot;</span>,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              operation, <span class="stringliteral">&quot;Side:&quot;</span>, side, <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;Size&quot;</span>, size)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="canceling"></a>

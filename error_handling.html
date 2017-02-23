@@ -164,9 +164,10 @@ $(document).ready(function(){initNavTree('error_handling.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>error(self, reqId:TickerId, errorCode:int, errorString:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>error(self, reqId: TickerId, errorCode: int, errorString: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().error(reqId, errorCode, errorString)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Error. Id: &quot;</span> , reqId, <span class="stringliteral">&quot; Code: &quot;</span> , errorCode , <span class="stringliteral">&quot; Msg: &quot;</span> , errorString)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Error. Id: &quot;</span>, reqId, <span class="stringliteral">&quot; Code: &quot;</span>, errorCode, <span class="stringliteral">&quot; Msg: &quot;</span>, errorString)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>For a list containing all available error messages from the TWS, see <a class="el" href="message_codes.html">Message Codes</a> </p>

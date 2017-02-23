@@ -184,9 +184,10 @@ Query Display Groups</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>displayGroupList(self, reqId:int, groups:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>displayGroupList(self, reqId: int, groups: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().displayGroupList(reqId, groups)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;DisplayGroupList. Request: &quot;</span>, reqId, <span class="stringliteral">&quot;Groups&quot;</span>, groups)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="subscribe_to_group_events"></a>
@@ -240,9 +241,10 @@ Subscribe To Group Events</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>displayGroupUpdated(self, reqId:int, contractInfo:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>displayGroupUpdated(self, reqId: int, contractInfo: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().displayGroupUpdated(reqId, contractInfo)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;displayGroupUpdated. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;ContractInfo:&quot;</span> , contractInfo)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;displayGroupUpdated. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;ContractInfo:&quot;</span>, contractInfo)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="update_display_group"></a>

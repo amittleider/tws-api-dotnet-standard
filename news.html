@@ -147,7 +147,7 @@ Querying subscribed API news</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqNewsProviders();</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># reqNewsProviders is not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqNewsProviders()</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>A list of available subscribed news sources is returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#a95c50b5aa2d2a8ffd8592ccdeb28a6dd" title="returns array of news providers ">IBApi::EWrapper::newsProviders</a></p>
@@ -185,15 +185,19 @@ Querying subscribed API news</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::newsProviders(<span class="keyword">const</span> std::vector&lt;NewsProvider&gt; &amp;newsProviders) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;News providers (%lu):\n&quot;</span>, newsProviders.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;News providers (%u):\n&quot;</span>, newsProviders.size());</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; newsProviders.size(); i++) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; newsProviders.size(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot;News provider [%d] - providerCode: %s providerName: %s\n&quot;</span>, i, newsProviders[i].providerCode.c_str(), newsProviders[i].providerName.c_str());</div>
 <div class="line">    }</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>newsProviders(self, newsProviders: ListOfNewsProviders):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;newsProviders: &quot;</span>)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="keywordflow">for</span> provider <span class="keywordflow">in</span> newsProviders:</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            print(provider)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="news_contract"></a>
 Contract Specific News</h1>
@@ -226,10 +230,10 @@ Contract Specific News</h1>
 <div class="line">    m_pClient-&gt;reqMktData(1008, ContractSamples::USStock(), <span class="stringliteral">&quot;mdoff,292:MT&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1005, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:BZ&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1006, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:BT&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqMktData(1007, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:FLY&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqMktData(1008, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:MT&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1005, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:BZ&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1006, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:BT&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqMktData(1007, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:FLY&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqMktData(1008, ContractSamples.USStock(), <span class="stringliteral">&quot;mdoff,292:MT&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h2>BroadTape News </h2>
@@ -396,10 +400,10 @@ Contract Specific News</h1>
 <div class="line">    m_pClient-&gt;reqMktData(1012, ContractSamples::MTbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), <span class="stringliteral">&quot;mdoff,292&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> For Briefing Trader live head lines via the API is only offered on a case-by-case basis directly from Briefing.com offers Briefing Trader subscribers access to the subscription live head lines via the API. For more information and to submit an API entitlement application, please contact Briefing.com directly at <a href="#" onclick="location.href='mai'+'lto:'+'dbe'+'as'+'ley'+'@b'+'rie'+'fi'+'ng.'+'co'+'m'; return false;">dbeas<span style="display: none;">.nosp@m.</span>ley@<span style="display: none;">.nosp@m.</span>brief<span style="display: none;">.nosp@m.</span>ing.<span style="display: none;">.nosp@m.</span>com</a>.</p>
@@ -428,7 +432,10 @@ Contract Specific News</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickNews(self, tickerId: int, timeStamp: int, providerCode: str, articleId: str, headline: str, extraData: str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;tickNews: &quot;</span>, tickerId, <span class="stringliteral">&quot;, timeStamp: &quot;</span>, timeStamp, <span class="stringliteral">&quot;, providerCode: &quot;</span>, providerCode, <span class="stringliteral">&quot;, articleId: &quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;              articleId, <span class="stringliteral">&quot;, headline: &quot;</span>, headline, <span class="stringliteral">&quot;extraData: &quot;</span>, extraData)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="historical_news"></a>
 Requesting historical news headlines</h1>
@@ -447,7 +454,7 @@ Requesting historical news headlines</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqHistoricalNews(12001, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 5);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># reqHistoricalNews is not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqHistoricalNews(215, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="news_articles"></a>
@@ -467,7 +474,7 @@ Requesting news articles</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqNewsArticle(12001, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># reqNewsArticle is not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqNewsArticle(214,<span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

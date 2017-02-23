@@ -209,13 +209,13 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::symbolSamples(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;ContractDescription&gt; &amp;contractDescriptions) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Symbol Samples (total=%lu) reqId: %d\n&quot;</span>, contractDescriptions.size(), reqId);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Symbol Samples (total=%u) reqId: %d\n&quot;</span>, contractDescriptions.size(), reqId);</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; contractDescriptions.size(); i++) {</div>
 <div class="line">        Contract contract = contractDescriptions[i].contract;</div>
 <div class="line">        std::vector&lt;std::string&gt; derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;</div>
 <div class="line">        printf(<span class="stringliteral">&quot;Contract (%u): %ld %s %s %s %s, &quot;</span>, i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());</div>
-<div class="line">        printf(<span class="stringliteral">&quot;Derivative Sec-types (%lu):&quot;</span>, derivativeSecTypes.size());</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Derivative Sec-types (%u):&quot;</span>, derivativeSecTypes.size());</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; derivativeSecTypes.size(); j++) {</div>
 <div class="line">            printf(<span class="stringliteral">&quot; %s&quot;</span>, derivativeSecTypes[j].c_str());</div>
 <div class="line">        }</div>
@@ -224,8 +224,8 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>symbolSamples(self, reqId:int, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      contractDescriptions:ListOfContractDescription):</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>symbolSamples(self, reqId: int,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      contractDescriptions: ListOfContractDescription):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().symbolSamples(reqId, contractDescriptions)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Symbol Samples. Request Id: &quot;</span>, reqId)</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
@@ -235,11 +235,12 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                derivSecTypes += derivSecType</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                derivSecTypes += <span class="stringliteral">&quot; &quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            print(<span class="stringliteral">&quot;Contract: conId:%s, symbol:%s, secType:%s primExchange:%s, currency:%s, derivativeSecTypes:%s&quot;</span> % (</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                contractDescription.contract.conId, </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                contractDescription.contract.symbol, </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                contractDescription.contract.secType, </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                contractDescription.contract.conId,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                contractDescription.contract.symbol,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                contractDescription.contract.secType,</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                contractDescription.contract.primaryExch,</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                contractDescription.contract.currency, derivSecTypes))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

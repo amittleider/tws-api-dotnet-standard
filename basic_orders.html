@@ -1405,7 +1405,8 @@ Products: CFD, CASH, FOP, FUT, OPT, STK, WAR </li>
 <h1><a class="anchor" id="trailingstoplimit"></a>
 Trailing Stop Limit</h1>
 <p>A <a href="https://www.interactivebrokers.com/en/index.php?f=606" target="_blank" class="linkexternal">trailing stop limit</a> order is designed to allow an investor to specify a limit on the maximum possible loss, without setting a limit on the maximum possible gain. A SELL trailing stop limit moves with the market price, and continually recalculates the stop trigger price at a fixed amount below the market price, based on the user-defined "trailing" amount. The limit order price is also continually recalculated based on the limit offset. As the market price rises, both the stop price and the limit price rise by the trail amount and limit offset respectively, but if the stock price falls, the stop price remains unchanged, and when the stop price is hit a limit order is submitted at the last calculated limit price. A "Buy" trailing stop limit order is the mirror image of a sell trailing stop limit, and is generally used in falling markets.</p>
-<p>Note that Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field. </p>
+<p>Trailing Stop Limit orders can be sent with the trailing amount specified as an absolute amount, as in the example below, or as a percentage, specified in the trailingPercent field.</p>
+<p><b>Important:</b> the 'limit offset' field is set by default in the TWS/IBG settings in v963+. This setting either needs to be changed in the Order Presets, the default value accepted, or the limit price offset sent from the API as in the example below. Not both the 'limit price' and 'limit price offset' fields can be set in TRAIL LIMIT orders.</p>
 <ul>
 <li>
 Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
@@ -1417,14 +1418,14 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">            order.OrderType = <span class="stringliteral">&quot;TRAIL LIMIT&quot;</span>;</div>
 <div class="line">            order.TotalQuantity = quantity;</div>
 <div class="line">            order.TrailStopPrice = trailStopPrice;</div>
-<div class="line">            order.LmtPrice = limitPrice;</div>
+<div class="line">            order.LmtPriceOffset = lmtPriceOffset;</div>
 <div class="line">            order.AuxPrice = trailingAmount;</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order order = <span class="keyword">new</span> Order();</div>
 <div class="line">        order.action(action);</div>
 <div class="line">        order.orderType(<span class="stringliteral">&quot;TRAIL LIMIT&quot;</span>);</div>
-<div class="line">        order.lmtPrice(limitPrice);</div>
+<div class="line">        order.lmtPriceOffset(lmtPriceOffset);</div>
 <div class="line">        order.auxPrice(trailingAmount);</div>
 <div class="line">        order.trailStopPrice(trailStopPrice);</div>
 <div class="line">        order.totalQuantity(quantity);</div>
@@ -1434,8 +1435,8 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">            order.Action = action</div>
 <div class="line">            order.OrderType = <span class="stringliteral">&quot;TRAIL LIMIT&quot;</span></div>
 <div class="line">            order.TotalQuantity = quantity</div>
+<div class="line">            order.LmtPriceOffset = lmtPriceOffset</div>
 <div class="line">            order.TrailStopPrice = trailStopPrice</div>
-<div class="line">            order.LmtPrice = limitPrice</div>
 <div class="line">            order.AuxPrice = trailingAmount</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -1444,7 +1445,7 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;TRAIL LIMIT&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.trailStopPrice = trailStopPrice;</div>
-<div class="line">    order.lmtPrice = limitPrice;</div>
+<div class="line">    order.lmtPriceOffset = lmtPriceOffset;</div>
 <div class="line">    order.auxPrice = trailingAmount;</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -1453,7 +1454,7 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;TRAIL LIMIT&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.trailStopPrice = trailStopPrice</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPriceOffset = lmtPriceOffset</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        order.auxPrice = trailingAmount</div>
 </div><!-- fragment -->  </li>
 </ul>
