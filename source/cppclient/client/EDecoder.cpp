@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
@@ -1770,9 +1770,19 @@ const char* EDecoder::processMktDepthExchangesMsg(const char* ptr, const char* e
 	if (nDepthMktDataDescriptions > 0) {
 		depthMktDataDescriptions.resize(nDepthMktDataDescriptions);
 		for( int i = 0; i < nDepthMktDataDescriptions; ++i) {
-			DECODE_FIELD( depthMktDataDescriptions[i].exchange);
-			DECODE_FIELD( depthMktDataDescriptions[i].secType);
-			DECODE_FIELD( depthMktDataDescriptions[i].isL2);
+			if (m_serverVersion >= MIN_SERVER_VER_SERVICE_DATA_TYPE) {
+				DECODE_FIELD( depthMktDataDescriptions[i].exchange);
+				DECODE_FIELD( depthMktDataDescriptions[i].secType);
+				DECODE_FIELD( depthMktDataDescriptions[i].listingExch);
+				DECODE_FIELD( depthMktDataDescriptions[i].serviceDataType);
+				DECODE_FIELD( depthMktDataDescriptions[i].aggGroup);
+			} else {
+				DECODE_FIELD( depthMktDataDescriptions[i].exchange);
+				DECODE_FIELD( depthMktDataDescriptions[i].secType);
+				bool isL2;
+				DECODE_FIELD( isL2);
+				depthMktDataDescriptions[i].serviceDataType = isL2 ? "Deep2" : "Deep";
+			}
 		}
 	}
 

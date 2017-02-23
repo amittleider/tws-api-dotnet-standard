@@ -505,8 +505,12 @@ public class EWrapperImpl implements EWrapper {
 	@Override
 	public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 		for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions) {
-			System.out.println("Depth Mkt Data Description. Exchange: " + depthMktDataDescription.exchange() 
-			+ ", SecType: " + depthMktDataDescription.secType() + ", isL2: " + depthMktDataDescription.isL2());
+			System.out.println("Depth Mkt Data Description. Exchange: " + depthMktDataDescription.exchange() +
+			", ListingExch: " + depthMktDataDescription.listingExch() + 
+			", SecType: " + depthMktDataDescription.secType() +
+			", ServiceDataType: " + depthMktDataDescription.serviceDataType() +
+			", AggGroup: " + depthMktDataDescription.aggGroup()
+			);
 		}
 	}
 	//! [mktDepthExchanges]

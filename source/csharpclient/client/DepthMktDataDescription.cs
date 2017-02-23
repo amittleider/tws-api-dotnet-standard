@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2015 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -16,8 +16,10 @@ namespace IBApi
     {
         private String exchange;
         private String secType;
-        private bool isL2;
-
+        private String listingExch;
+        private String serviceDataType;
+        private int aggGroup;
+        
         /**
          * @brief The exchange name
          */
@@ -37,23 +39,43 @@ namespace IBApi
         }
 
         /**
-         * @brief The L2 flag
+         * @brief The listing exchange name
          */
-        public bool IsL2
+        public string ListingExch
         {
-            get { return isL2; }
-            set { isL2 = value; }
+            get { return listingExch; }
+            set { listingExch = value; }
+        }
+
+        /**
+         * @brief The service data type
+         */
+        public string ServiceDataType
+        {
+            get { return serviceDataType; }
+            set { serviceDataType = value; }
+        }
+
+        /**
+         * @brief The aggregated group
+         */
+        public int AggGroup
+        {
+            get { return aggGroup; }
+            set { aggGroup = value; }
         }
 
         public DepthMktDataDescription()
         {
         }
 
-        public DepthMktDataDescription(string exchange, string secType, bool isL2)
+        public DepthMktDataDescription(string exchange, string secType, string listingExch, string serviceDataType, int aggGroup)
         {
             this.Exchange = exchange;
             this.SecType = secType;
-            this.IsL2 = isL2;
+            this.ListingExch = listingExch;
+            this.ServiceDataType = serviceDataType;
+            this.AggGroup = aggGroup;
         }
     }
 }

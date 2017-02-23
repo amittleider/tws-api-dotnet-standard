@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -474,7 +474,11 @@ namespace Samples
 
             foreach (var depthMktDataDescription in depthMktDataDescriptions)
             {
-                Console.WriteLine("Depth Market Data Description: Exchange: {0}, Security Type: {1}, Is L2: {2}", depthMktDataDescription.Exchange, depthMktDataDescription.SecType, depthMktDataDescription.IsL2);
+                Console.WriteLine("Depth Market Data Description: Exchange: {0}, Security Type: {1}, Listing Exch: {2}, Service Data Type: {3}, Agg Group: {4}", 
+                    depthMktDataDescription.Exchange, depthMktDataDescription.SecType, 
+                    depthMktDataDescription.ListingExch, depthMktDataDescription.ServiceDataType,
+                    depthMktDataDescription.AggGroup != Int32.MaxValue ? depthMktDataDescription.AggGroup.ToString() : ""
+                    );
             }
         }
         //! [mktDepthExchanges]

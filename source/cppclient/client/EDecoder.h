@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
@@ -70,12 +70,13 @@ const int MIN_SERVER_VER_REQ_NEWS_ARTICLE		= 116;
 const int MIN_SERVER_VER_REQ_HISTORICAL_NEWS	= 117;
 const int MIN_SERVER_VER_REQ_HEAD_TIMESTAMP		= 118;
 const int MIN_SERVER_VER_REQ_HISTOGRAM			= 119;
+const int MIN_SERVER_VER_SERVICE_DATA_TYPE		= 120;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REQ_HISTOGRAM;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_SERVICE_DATA_TYPE;
 
 
 // incoming msg id's

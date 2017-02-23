@@ -1,4 +1,4 @@
-' Copyright (C) 2016 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' Copyright (C) 2017 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 
@@ -2945,8 +2945,18 @@ Friend Class MainForm
 
         m_utils.addListItem(Utils.ListType.ServerResponses, " ==== Market Depth Exchanges Begin (total=" & e.depthMktDataDescriptions.Length & ") ====")
         Dim count As Integer = 0
+        Dim aggGroup As String
         For Each depthMktDataDescription As DepthMktDataDescription In e.depthMktDataDescriptions
-            m_utils.addListItem(Utils.ListType.ServerResponses, "Depth Market Data Description (" & count & ") - exchange=" & depthMktDataDescription.Exchange & " secType=" & depthMktDataDescription.SecType & " isL2=" & depthMktDataDescription.IsL2)
+            aggGroup = ""
+            If depthMktDataDescription.AggGroup <> Integer.MaxValue Then
+                aggGroup = depthMktDataDescription.AggGroup
+            End If
+            m_utils.addListItem(Utils.ListType.ServerResponses, "Depth Market Data Description (" & count & ") - exchange=" & depthMktDataDescription.Exchange &
+                                " secType=" & depthMktDataDescription.SecType &
+                                " listingExch=" & depthMktDataDescription.ListingExch &
+                                " serviceDataType=" & depthMktDataDescription.ServiceDataType &
+                                " aggGroup=" & aggGroup
+                                )
             count += 1
         Next
         m_utils.addListItem(Utils.ListType.ServerResponses, " ==== Market Depth Exchanges End (total=" & e.depthMktDataDescriptions.Length & ") ====")
