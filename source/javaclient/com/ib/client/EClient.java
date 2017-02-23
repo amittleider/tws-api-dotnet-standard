@@ -3416,10 +3416,9 @@ public abstract class EClient {
     }
 
     public String connectedHost()        { return m_host; } // Host that was connected/redirected
-
     protected void send( int val) throws IOException {
-		send( String.valueOf( val) );
-	}
+        send( String.valueOf( val) );
+    }
 	// Sends String without length prefix (pre-V100 style)
 	protected void send( String str) throws IOException {
 		// Write string to data buffer
