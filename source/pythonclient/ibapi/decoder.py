@@ -1,11 +1,11 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+ IB API Commercial License, as applicable.
 """
 
 """
-The Decoder knows how to transform a message's payload into higher level 
+The Decoder knows how to transform a message's payload into higher level
 IB message (eg: order info, mkt data, etc).
 It will call the corresponding method from the EWrapper so that customer's code
 (eg: class derived from EWrapper) can make further use of the data.
@@ -22,7 +22,7 @@ from ibapi.contract import ContractDescription
 from ibapi.contract import UnderComp
 from ibapi.contract import ComboLeg
 from ibapi.execution import Execution
-from ibapi.order_state import OrderState 
+from ibapi.order_state import OrderState
 from ibapi.server_versions import *
 from ibapi.utils import *
 from ibapi.softdollartier import SoftDollarTier
@@ -31,7 +31,7 @@ from ibapi.tag_value import TagValue
 from ibapi.scanner import ScanData
 from ibapi.commission_report import CommissionReport
 from ibapi.errors import BAD_MESSAGE
-        
+
 
 class HandleInfo(Object):
     def __init__(self, wrap=None, proc=None):
@@ -65,7 +65,7 @@ class Decoder(Object):
         size = decode(int, fields) # ver 2 field
         attrMask = decode(int, fields) # ver 3 field
 
-        attrib = TickAttrib() 
+        attrib = TickAttrib()
 
         attrib.canAutoExecute = attrMask == 1
 
@@ -83,6 +83,12 @@ class Decoder(Object):
             sizeTickType = TickTypeEnum.ASK_SIZE
         elif TickTypeEnum.LAST == tickType:
             sizeTickType = TickTypeEnum.LAST_SIZE
+        elif TickTypeEnum.DELAYED_BID == tickType:
+            sizeTickType = TickTypeEnum.DELAYED_BID_SIZE
+        elif TickTypeEnum.DELAYED_ASK == tickType:
+            sizeTickType = TickTypeEnum.DELAYED_ASK_SIZE
+        elif TickTypeEnum.DELAYED_LAST == tickType:
+            sizeTickType = TickTypeEnum.DELAYED_LAST_SIZE
 
         if sizeTickType != TickTypeEnum.NOT_SET:
             self.wrapper.tickSize(reqId, sizeTickType, size)
@@ -128,28 +134,28 @@ class Decoder(Object):
         contract = Contract()
 
         contract.conId = decode(int, fields) # ver 17 field
-        contract.symbol = decode(str, fields) 
-        contract.secType = decode(str, fields) 
-        contract.lastTradeDateOrContractMonth = decode(str, fields) 
+        contract.symbol = decode(str, fields)
+        contract.secType = decode(str, fields)
+        contract.lastTradeDateOrContractMonth = decode(str, fields)
         contract.strike = decode(float, fields)
-        contract.right = decode(str, fields) 
+        contract.right = decode(str, fields)
         if version >= 32:
-            contract.multiplier = decode(str, fields) 
-        contract.exchange = decode(str, fields) 
-        contract.currency = decode(str, fields) 
+            contract.multiplier = decode(str, fields)
+        contract.exchange = decode(str, fields)
+        contract.currency = decode(str, fields)
         contract.localSymbol = decode(str, fields)  # ver 2 field
         if version >= 32:
-            contract.tradingClass = decode(str, fields) 
+            contract.tradingClass = decode(str, fields)
 
         # read order fields
-        order.action = decode(str, fields)  
+        order.action = decode(str, fields)
 
         if self.serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS:
-            order.totalQuantity = decode(float, fields)  
+            order.totalQuantity = decode(float, fields)
         else:
             order.totalQuantity = decode(int, fields)
 
-        order.orderType = decode(str, fields) 
+        order.orderType = decode(str, fields)
         if version < 29:
             order.lmtPrice = decode(float, fields)
         else:
@@ -401,6 +407,9 @@ class Decoder(Object):
             displayName = decode(str, fields)
             order.softDollarTier = SoftDollarTier(name, value, displayName)
 
+        if self.serverVersion >= MIN_SERVER_VER_CASH_QTY:
+            order.cashQty = decode(float,fields)
+
         self.wrapper.openOrder(order.orderId, contract, order, orderState)
 
 
@@ -470,6 +479,8 @@ class Decoder(Object):
         contract.summary.tradingClass = decode(str, fields)
         contract.summary.conId = decode(int, fields)
         contract.minTick = decode(float, fields)
+        if self.serverVersion >= MIN_SERVER_VER_MD_SIZE_MULTIPLIER:
+            contract.mdSizeMultiplier = decode(int, fields)
         contract.summary.multiplier = decode(str, fields)
         contract.orderTypes = decode(str, fields)
         contract.validExchanges = decode(str, fields)
@@ -532,6 +543,8 @@ class Decoder(Object):
         contract.summary.tradingClass = decode(str, fields)
         contract.summary.conId = decode(int, fields)
         contract.minTick = decode(float, fields)
+        if self.serverVersion >= MIN_SERVER_VER_MD_SIZE_MULTIPLIER:
+            contract.mdSizeMultiplier = decode(int, fields)
         contract.orderTypes = decode(str, fields)
         contract.validExchanges = decode(str, fields)
         contract.nextOptionDate = decode(str, fields) # ver 2 field
@@ -586,7 +599,7 @@ class Decoder(Object):
                 data.distance, data.benchmark, data.projection, data.legsStr)
 
         self.wrapper.scannerDataEnd(reqId)
-     
+
 
     def processExecutionDataMsg(self, fields):
         sMsgId = next(fields)
@@ -673,7 +686,7 @@ class Decoder(Object):
 
             bars.append(bar)
 
-            self.wrapper.historicalData(reqId, bar.date, bar.open, bar.high, 
+            self.wrapper.historicalData(reqId, bar.date, bar.open, bar.high,
                 bar.low, bar.close, bar.volume, bar.barCount, bar.average,
                 bar.hasGaps == "true")
 
@@ -683,7 +696,7 @@ class Decoder(Object):
         self.wrapper.historicalDataEnd(reqId, startDateStr, endDateStr)
 
 
- 
+
     def processTickOptionComputationMsg(self, fields):
         optPrice = None
         pvDividend = None
@@ -706,7 +719,8 @@ class Decoder(Object):
             delta = None
 
         if version >= 6 or \
-             tickTypeInt == TickTypeEnum.MODEL_OPTION: # introduced in ver 5
+            tickTypeInt == TickTypeEnum.MODEL_OPTION or \
+                        tickTypeInt == TickTypeEnum.DELAYED_MODEL_OPTION:
 
             optPrice = decode(float, fields)
             pvDividend = decode(float, fields)
@@ -731,7 +745,7 @@ class Decoder(Object):
             if undPrice < 0:             # -1 is the "not computed" indicator
                 undPrice = None
 
-        self.wrapper.tickOptionComputation(reqId, tickTypeInt, impliedVol, 
+        self.wrapper.tickOptionComputation(reqId, tickTypeInt, impliedVol,
             delta, optPrice, pvDividend, gamma, vega, theta, undPrice)
 
 
@@ -763,8 +777,8 @@ class Decoder(Object):
         commissionReport.yieldRedemptionDate = decode(int, fields)
 
         self.wrapper.commissionReport(commissionReport)
-     
- 
+
+
     def processPositionDataMsg(self, fields):
         sMsgId = next(fields)
         version = decode(int, fields)
@@ -821,9 +835,9 @@ class Decoder(Object):
         position = decode(float, fields)
         avgCost = decode(float, fields)
         modelCode = decode(str, fields)
- 
+
         self.wrapper.positionMulti(reqId, account, modelCode, contract, position, avgCost)
-               
+
 
     def processSecurityDefinitionOptionParameterMsg(self, fields):
         sMsgId = next(fields)
@@ -846,7 +860,7 @@ class Decoder(Object):
             strike = decode(float, fields)
             strikes.add(strike)
 
-        self.wrapper.securityDefinitionOptionParameter(reqId, exchange, 
+        self.wrapper.securityDefinitionOptionParameter(reqId, exchange,
             underlyingConId, tradingClass, multiplier, expirations, strikes)
 
 
@@ -870,7 +884,7 @@ class Decoder(Object):
                 tier.value = decode(str, fields)
                 tier.dislplayName = decode(str, fields)
                 tiers.append(tier)
-                
+
         self.wrapper.softDollarTiers(reqId, tiers)
 
 
@@ -910,14 +924,121 @@ class Decoder(Object):
 
         self.wrapper.symbolSamples(reqId, contractDescriptions)
 
-  
+    def processSmartComponents(self,fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        n = decode(int, fields)
+
+        smartComponentMap = []
+        for idx in range(n):
+            smartComponents = SmartComponentsMap()
+            smartComponents.bitNumber = decode(int, fields)
+            smartComponents.exchange = decode(str, fields)
+            smartComponents.exchangeLetter = decode(str, fields)
+            smartComponentMap.append(smartComponents)
+
+        self.wrapper.smartComponents(reqId, smartComponentMap)
+
+    def processTickReqParams(self,fields):
+        sMsgId = next(fields)
+        tickerId = decode(int, fields)
+        minTick = decode(float, fields)
+        bboExchange = decode(str, fields)
+        snapshotPermissions = decode(int, fields)
+        self.wrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions)
+
+    def processMktDepthExchanges(self,fields):
+        sMsgId = next(fields)
+        depthMktDataDescriptions = []
+        nDepthMktDataDescriptions = decode(int, fields)
+
+        if nDepthMktDataDescriptions > 0:
+            for idxDepthDescriptions in range(nDepthMktDataDescriptions):
+                desc = DepthMktDataDescription()
+                desc.exchange = decode(str, fields)
+                desc.secType = decode(str, fields)
+                if self.serverVersion >= MIN_SERVER_VER_SERVICE_DATA_TYPE:
+                    desc.listingExch = decode(str, fields)
+                    desc.serviceDataType = decode(str, fields)
+                    desc.aggGroup = decode(int, fields)
+                else:
+                    decode(int,fields) #boolean notSuppIsL2
+                depthMktDataDescriptions.append(desc)
+
+        self.wrapper.mktDepthExchanges(depthMktDataDescriptions)
+
+    def processHeadTimestamp(self,fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        headTimestamp = decode(str, fields)
+        self.wrapper.headTimestamp(reqId,headTimestamp)
+
+    def processTickNews(self,fields):
+        sMsgId = next(fields)
+        tickerId = decode( int, fields)
+        timeStamp = decode(int, fields)
+        providerCode = decode(str, fields)
+        articleId = decode(str, fields)
+        headline = decode(str, fields)
+        extraData = decode(str, fields)
+        self.wrapper.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData)
+
+    def processNewsProviders(self,fields):
+        sMsgId = next(fields)
+        newsProviders = []
+        nNewsProviders = decode(int, fields)
+        if nNewsProviders > 0:
+            for idx in range(nNewsProviders):
+                provider = NewsProvider()
+                provider.code = decode(str, fields)
+                provider.name = decode(str, fields)
+                newsProviders.append(provider)
+
+        self.wrapper.newsProviders(newsProviders)
+
+    def processNewsArticle(self,fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        articleType = decode(int, fields)
+        articleText = decode(str, fields)
+        self.wrapper.newsArticle(reqId, articleType, articleText)
+
+    def processHistoricalNews(self,fields):
+        sMsgId = next(fields)
+        requestId = decode(int, fields)
+        time = decode(str, fields)
+        providerCode = decode(str, fields)
+        articleId = decode(str, fields)
+        headline = decode(str, fields)
+        self.wrapper.historicalNews(requestId, time, providerCode, articleId, headline)
+
+    def processHistoricalNewsEnd(self,fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        hasMore = decode(bool, fields)
+        self.wrapper.historicalNewsEnd(reqId, hasMore)
+
+    def processHistogramData(self,fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        numPoints = decode(int, fields)
+
+        histogram = []
+        for idxBar in range(numPoints):
+            dataPoint = HistogramData()
+            dataPoint.price = decode(float,fields)
+            dataPoint.count = decode(int,fields)
+            histogram.append(dataPoint)
+
+        self.wrapper.histogramData(reqId,histogram)
+
     ######################################################################
 
     def discoverParams(self):
         meth2handleInfo = {}
         for handleInfo in self.msgId2handleInfo.values():
             meth2handleInfo[handleInfo.wrapperMeth] = handleInfo
-        
+
         methods = inspect.getmembers(EWrapper, inspect.isfunction)
         for (name, meth) in methods:
             #logging.debug("meth %s", name)
@@ -925,10 +1046,10 @@ class Decoder(Object):
             handleInfo = meth2handleInfo.get(meth, None)
             if handleInfo is not None:
                 handleInfo.wrapperParams = sig.parameters
-        
+
             #for (pname, param) in sig.parameters.items():
             #     logging.debug("\tparam %s %s %s", pname, param.name, param.annotation)
-  
+
 
     def printParams(self):
         for (msgId, handleInfo) in self.msgId2handleInfo.items():
@@ -937,19 +1058,19 @@ class Decoder(Object):
                 if handleInfo.wrapperParams is not None:
                     for (pname, param) in handleInfo.wrapperParams.items():
                          logging.debug("\tparam %s %s %s", pname, param.name, param.annotation)
-                    
+
 
     def interpretWithSignature(self, fields, handleInfo):
         if handleInfo.wrapperParams is None:
             logging.debug("%s: no param info in ", fields, handleInfo)
             return
-       
+
         nIgnoreFields = 2 #bypass msgId and versionId faster this way
         if len(fields) - nIgnoreFields != len(handleInfo.wrapperParams) - 1:
-            logging.error("diff len fields and params %d %d for fields: %s and handleInfo: %s", 
+            logging.error("diff len fields and params %d %d for fields: %s and handleInfo: %s",
                          len(fields), len(handleInfo.wrapperParams), fields,
                          handleInfo)
-            return 
+            return
 
         fieldIdx = nIgnoreFields
         args = []
@@ -970,8 +1091,8 @@ class Decoder(Object):
         method = getattr(self.wrapper.__class__, handleInfo.wrapperMeth.__name__)
         logging.debug("calling %s with %s %s", method, self.wrapper, args)
         method(self.wrapper, *args)
-       
-    
+
+
     def interpret(self, fields):
         if len(fields) == 0:
             logging.debug("no fields")
@@ -985,7 +1106,7 @@ class Decoder(Object):
         if handleInfo is None:
             logging.debug("%s: no handleInfo", fields)
             return
-       
+
         try:
             if handleInfo.wrapperMeth is not None:
                 self.interpretWithSignature(fields, handleInfo)
@@ -993,66 +1114,76 @@ class Decoder(Object):
                 handleInfo.processMeth(self, iter(fields))
         except BadMessage as badMsg:
                 theBadMsg = ",".join(fields)
-                self.wrapper.error(NO_VALID_ID, BAD_MESSAGE.code(), 
+                self.wrapper.error(NO_VALID_ID, BAD_MESSAGE.code(),
                                    BAD_MESSAGE.msg() + theBadMsg)
                 raise
 
- 
-    msgId2handleInfo = { 
-        IN.TICK_PRICE: HandleInfo(proc=processTickPriceMsg), 
-        IN.TICK_SIZE: HandleInfo(wrap=EWrapper.tickSize), 
-        IN.ORDER_STATUS: HandleInfo(proc=processOrderStatusMsg), 
-        IN.ERR_MSG: HandleInfo(wrap=EWrapper.error), 
-        IN.OPEN_ORDER: HandleInfo(proc=processOpenOrder), 
-        IN.ACCT_VALUE: HandleInfo(wrap=EWrapper.updateAccountValue), 
-        IN.PORTFOLIO_VALUE: HandleInfo(proc=processPortfolioValueMsg), 
-        IN.ACCT_UPDATE_TIME: HandleInfo(wrap=EWrapper.updateAccountTime), 
-        IN.NEXT_VALID_ID: HandleInfo(wrap=EWrapper.nextValidId, ), 
-        IN.CONTRACT_DATA: HandleInfo(proc=processContractDataMsg), 
-        IN.EXECUTION_DATA: HandleInfo(proc=processExecutionDataMsg), 
-        IN.MARKET_DEPTH: HandleInfo(wrap=EWrapper.updateMktDepth), 
-        IN.MARKET_DEPTH_L2: HandleInfo(wrap=EWrapper.updateMktDepthL2), 
-        IN.NEWS_BULLETINS: HandleInfo(wrap=EWrapper.updateNewsBulletin), 
+
+    msgId2handleInfo = {
+        IN.TICK_PRICE: HandleInfo(proc=processTickPriceMsg),
+        IN.TICK_SIZE: HandleInfo(wrap=EWrapper.tickSize),
+        IN.ORDER_STATUS: HandleInfo(proc=processOrderStatusMsg),
+        IN.ERR_MSG: HandleInfo(wrap=EWrapper.error),
+        IN.OPEN_ORDER: HandleInfo(proc=processOpenOrder),
+        IN.ACCT_VALUE: HandleInfo(wrap=EWrapper.updateAccountValue),
+        IN.PORTFOLIO_VALUE: HandleInfo(proc=processPortfolioValueMsg),
+        IN.ACCT_UPDATE_TIME: HandleInfo(wrap=EWrapper.updateAccountTime),
+        IN.NEXT_VALID_ID: HandleInfo(wrap=EWrapper.nextValidId, ),
+        IN.CONTRACT_DATA: HandleInfo(proc=processContractDataMsg),
+        IN.EXECUTION_DATA: HandleInfo(proc=processExecutionDataMsg),
+        IN.MARKET_DEPTH: HandleInfo(wrap=EWrapper.updateMktDepth),
+        IN.MARKET_DEPTH_L2: HandleInfo(wrap=EWrapper.updateMktDepthL2),
+        IN.NEWS_BULLETINS: HandleInfo(wrap=EWrapper.updateNewsBulletin),
         IN.MANAGED_ACCTS: HandleInfo(wrap=EWrapper.managedAccounts),
-        IN.RECEIVE_FA: HandleInfo(wrap=EWrapper.receiveFA), 
-        IN.HISTORICAL_DATA: HandleInfo(proc=processHistoricalDataMsg), 
-        IN.BOND_CONTRACT_DATA: HandleInfo(proc=processBondContractDataMsg), 
-        IN.SCANNER_PARAMETERS: HandleInfo(wrap=EWrapper.scannerParameters), 
-        IN.SCANNER_DATA: HandleInfo(proc=processScannerDataMsg), 
-        IN.TICK_OPTION_COMPUTATION: HandleInfo(proc=processTickOptionComputationMsg), 
-        IN.TICK_GENERIC: HandleInfo(wrap=EWrapper.tickGeneric), 
-        IN.TICK_STRING: HandleInfo(wrap=EWrapper.tickString), 
-        IN.TICK_EFP: HandleInfo(wrap=EWrapper.tickEFP), 
-        IN.CURRENT_TIME: HandleInfo(wrap=EWrapper.currentTime), 
-        IN.REAL_TIME_BARS: HandleInfo(wrap=EWrapper.realtimeBar), 
-        IN.FUNDAMENTAL_DATA: HandleInfo(wrap=EWrapper.fundamentalData), 
-        IN.CONTRACT_DATA_END: HandleInfo(wrap=EWrapper.contractDetailsEnd), 
-        IN.OPEN_ORDER_END: HandleInfo(wrap=EWrapper.openOrderEnd), 
-        IN.ACCT_DOWNLOAD_END: HandleInfo(wrap=EWrapper.accountDownloadEnd), 
-        IN.EXECUTION_DATA_END: HandleInfo(wrap=EWrapper.execDetailsEnd), 
-        IN.DELTA_NEUTRAL_VALIDATION: HandleInfo(proc=processDeltaNeutralValidationMsg), 
-        IN.TICK_SNAPSHOT_END: HandleInfo(wrap=EWrapper.tickSnapshotEnd), 
-        IN.MARKET_DATA_TYPE: HandleInfo(wrap=EWrapper.marketDataType), 
-        IN.COMMISSION_REPORT: HandleInfo(proc=processCommissionReportMsg), 
-        IN.POSITION_DATA: HandleInfo(proc=processPositionDataMsg), 
-        IN.POSITION_END: HandleInfo(wrap=EWrapper.positionEnd), 
-        IN.ACCOUNT_SUMMARY: HandleInfo(wrap=EWrapper.accountSummary), 
-        IN.ACCOUNT_SUMMARY_END: HandleInfo(wrap=EWrapper.accountSummaryEnd), 
-        IN.VERIFY_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyMessageAPI), 
-        IN.VERIFY_COMPLETED: HandleInfo(wrap=EWrapper.verifyCompleted), 
-        IN.DISPLAY_GROUP_LIST: HandleInfo(wrap=EWrapper.displayGroupList), 
-        IN.DISPLAY_GROUP_UPDATED: HandleInfo(wrap=EWrapper.displayGroupUpdated), 
-        IN.VERIFY_AND_AUTH_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyAndAuthMessageAPI), 
-        IN.VERIFY_AND_AUTH_COMPLETED: HandleInfo(wrap=EWrapper.verifyAndAuthCompleted), 
-        IN.POSITION_MULTI: HandleInfo(proc=processPositionMultiMsg), 
-        IN.POSITION_MULTI_END: HandleInfo(wrap=EWrapper.positionMultiEnd), 
-        IN.ACCOUNT_UPDATE_MULTI: HandleInfo(wrap=EWrapper.accountUpdateMulti), 
-        IN.ACCOUNT_UPDATE_MULTI_END: HandleInfo(wrap=EWrapper.accountUpdateMultiEnd), 
-        IN.SECURITY_DEFINITION_OPTION_PARAMETER: HandleInfo(proc=processSecurityDefinitionOptionParameterMsg), 
-        IN.SECURITY_DEFINITION_OPTION_PARAMETER_END: HandleInfo(proc=processSecurityDefinitionOptionParameterEndMsg), 
-        IN.SOFT_DOLLAR_TIERS: HandleInfo(proc=processSoftDollarTiersMsg), 
-        IN.FAMILY_CODES: HandleInfo(proc=processFamilyCodesMsg), 
-        IN.SYMBOL_SAMPLES: HandleInfo(proc=processSymbolSamplesMsg), 
+        IN.RECEIVE_FA: HandleInfo(wrap=EWrapper.receiveFA),
+        IN.HISTORICAL_DATA: HandleInfo(proc=processHistoricalDataMsg),
+        IN.BOND_CONTRACT_DATA: HandleInfo(proc=processBondContractDataMsg),
+        IN.SCANNER_PARAMETERS: HandleInfo(wrap=EWrapper.scannerParameters),
+        IN.SCANNER_DATA: HandleInfo(proc=processScannerDataMsg),
+        IN.TICK_OPTION_COMPUTATION: HandleInfo(proc=processTickOptionComputationMsg),
+        IN.TICK_GENERIC: HandleInfo(wrap=EWrapper.tickGeneric),
+        IN.TICK_STRING: HandleInfo(wrap=EWrapper.tickString),
+        IN.TICK_EFP: HandleInfo(wrap=EWrapper.tickEFP),
+        IN.CURRENT_TIME: HandleInfo(wrap=EWrapper.currentTime),
+        IN.REAL_TIME_BARS: HandleInfo(wrap=EWrapper.realtimeBar),
+        IN.FUNDAMENTAL_DATA: HandleInfo(wrap=EWrapper.fundamentalData),
+        IN.CONTRACT_DATA_END: HandleInfo(wrap=EWrapper.contractDetailsEnd),
+        IN.OPEN_ORDER_END: HandleInfo(wrap=EWrapper.openOrderEnd),
+        IN.ACCT_DOWNLOAD_END: HandleInfo(wrap=EWrapper.accountDownloadEnd),
+        IN.EXECUTION_DATA_END: HandleInfo(wrap=EWrapper.execDetailsEnd),
+        IN.DELTA_NEUTRAL_VALIDATION: HandleInfo(proc=processDeltaNeutralValidationMsg),
+        IN.TICK_SNAPSHOT_END: HandleInfo(wrap=EWrapper.tickSnapshotEnd),
+        IN.MARKET_DATA_TYPE: HandleInfo(wrap=EWrapper.marketDataType),
+        IN.COMMISSION_REPORT: HandleInfo(proc=processCommissionReportMsg),
+        IN.POSITION_DATA: HandleInfo(proc=processPositionDataMsg),
+        IN.POSITION_END: HandleInfo(wrap=EWrapper.positionEnd),
+        IN.ACCOUNT_SUMMARY: HandleInfo(wrap=EWrapper.accountSummary),
+        IN.ACCOUNT_SUMMARY_END: HandleInfo(wrap=EWrapper.accountSummaryEnd),
+        IN.VERIFY_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyMessageAPI),
+        IN.VERIFY_COMPLETED: HandleInfo(wrap=EWrapper.verifyCompleted),
+        IN.DISPLAY_GROUP_LIST: HandleInfo(wrap=EWrapper.displayGroupList),
+        IN.DISPLAY_GROUP_UPDATED: HandleInfo(wrap=EWrapper.displayGroupUpdated),
+        IN.VERIFY_AND_AUTH_MESSAGE_API: HandleInfo(wrap=EWrapper.verifyAndAuthMessageAPI),
+        IN.VERIFY_AND_AUTH_COMPLETED: HandleInfo(wrap=EWrapper.verifyAndAuthCompleted),
+        IN.POSITION_MULTI: HandleInfo(proc=processPositionMultiMsg),
+        IN.POSITION_MULTI_END: HandleInfo(wrap=EWrapper.positionMultiEnd),
+        IN.ACCOUNT_UPDATE_MULTI: HandleInfo(wrap=EWrapper.accountUpdateMulti),
+        IN.ACCOUNT_UPDATE_MULTI_END: HandleInfo(wrap=EWrapper.accountUpdateMultiEnd),
+        IN.SECURITY_DEFINITION_OPTION_PARAMETER: HandleInfo(proc=processSecurityDefinitionOptionParameterMsg),
+        IN.SECURITY_DEFINITION_OPTION_PARAMETER_END: HandleInfo(proc=processSecurityDefinitionOptionParameterEndMsg),
+        IN.SOFT_DOLLAR_TIERS: HandleInfo(proc=processSoftDollarTiersMsg),
+        IN.FAMILY_CODES: HandleInfo(proc=processFamilyCodesMsg),
+        IN.SYMBOL_SAMPLES: HandleInfo(proc=processSymbolSamplesMsg),
+        IN.SMART_COMPONENTS: HandleInfo(proc=processSmartComponents),
+        IN.TICK_REQ_PARAMS: HandleInfo(proc=processTickReqParams),
+        IN.MKT_DEPTH_EXCHANGES: HandleInfo(proc=processMktDepthExchanges),
+        IN.HEAD_TIMESTAMP: HandleInfo(proc=processHeadTimestamp),
+        IN.TICK_NEWS: HandleInfo(proc=processTickNews),
+        IN.NEWS_PROVIDERS: HandleInfo(proc=processNewsProviders),
+        IN.NEWS_ARTICLE: HandleInfo(proc=processNewsArticle),
+        IN.HISTORICAL_NEWS: HandleInfo(proc=processHistoricalNews),
+        IN.HISTORICAL_NEWS_END: HandleInfo(proc=processHistoricalNewsEnd),
+        IN.HISTOGRAM_DATA: HandleInfo(proc=processHistogramData)
    }
 
 
