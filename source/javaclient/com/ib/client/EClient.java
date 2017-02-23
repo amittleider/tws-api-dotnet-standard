@@ -3414,10 +3414,8 @@ public abstract class EClient {
     protected void notConnected() {
         error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
     }
-    
-	public String connectedHost() {
-        return m_host;
-    } // Host that was connected/redirected
+
+    public String connectedHost()        { return m_host; } // Host that was connected/redirected
 
     protected void send( int val) throws IOException {
 		send( String.valueOf( val) );

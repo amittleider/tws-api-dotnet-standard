@@ -104,7 +104,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 		return m_allowRedirect;
 	}
 
-	public synchronized void allowRedirect(boolean val) {
+	public void allowRedirect(boolean val) {
 		m_allowRedirect = val;
 	}
 
