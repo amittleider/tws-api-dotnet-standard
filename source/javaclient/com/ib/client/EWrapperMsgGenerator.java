@@ -297,6 +297,7 @@ public class EWrapperMsgGenerator {
         + "evRule = " + contractDetails.evRule() + "\n"
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + "mdSizeMultiplier = " + contractDetails.mdSizeMultiplier() + "\n"
+        + "aggGroup = " + contractDetails.aggGroup() + "\n"
         + contractDetailsSecIdList(contractDetails);
     	return msg;
     }
@@ -350,6 +351,7 @@ public class EWrapperMsgGenerator {
         + "evRule = " + contractDetails.evRule() + "\n"
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + "mdSizeMultiplier = " + contractDetails.mdSizeMultiplier() + "\n"
+        + "aggGroup = " + contractDetails.aggGroup() + "\n"
         + contractDetailsSecIdList(contractDetails)
         + " ---- Bond Contract Details End ----\n";
         return msg;

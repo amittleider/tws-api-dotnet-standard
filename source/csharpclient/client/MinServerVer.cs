@@ -80,5 +80,6 @@ namespace IBApi
         public const int REQ_HEAD_TIMESTAMP = 118;
         public const int REQ_HISTOGRAM_DATA = 119;
         public const int SERVICE_DATA_TYPE = 120;
+        public const int AGG_GROUP = 121;
     }
 }

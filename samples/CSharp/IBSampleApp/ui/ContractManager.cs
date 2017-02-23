@@ -71,21 +71,22 @@ namespace IBSampleApp.ui
             BondContractDetailsGrid[8, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.ValidExchanges;
             BondContractDetailsGrid[9, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.LongName;
             BondContractDetailsGrid[10, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.MdSizeMultiplier;
-            BondContractDetailsGrid[11, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Cusip;
-            BondContractDetailsGrid[12, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Ratings;
-            BondContractDetailsGrid[13, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.DescAppend;
-            BondContractDetailsGrid[14, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.BondType;
-            BondContractDetailsGrid[15, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.CouponType;
-            BondContractDetailsGrid[16, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Callable;
-            BondContractDetailsGrid[17, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Putable;
-            BondContractDetailsGrid[18, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Coupon;
-            BondContractDetailsGrid[19, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Convertible;
-            BondContractDetailsGrid[20, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Maturity;
-            BondContractDetailsGrid[21, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.IssueDate;
-            BondContractDetailsGrid[22, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionDate;
-            BondContractDetailsGrid[23, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionType;
-            BondContractDetailsGrid[24, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionPartial;
-            BondContractDetailsGrid[25, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Notes;
+            BondContractDetailsGrid[11, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.AggGroup;
+            BondContractDetailsGrid[12, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Cusip;
+            BondContractDetailsGrid[13, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Ratings;
+            BondContractDetailsGrid[14, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.DescAppend;
+            BondContractDetailsGrid[15, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.BondType;
+            BondContractDetailsGrid[16, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.CouponType;
+            BondContractDetailsGrid[17, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Callable;
+            BondContractDetailsGrid[18, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Putable;
+            BondContractDetailsGrid[19, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Coupon;
+            BondContractDetailsGrid[20, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Convertible;
+            BondContractDetailsGrid[21, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Maturity;
+            BondContractDetailsGrid[22, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.IssueDate;
+            BondContractDetailsGrid[23, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionDate;
+            BondContractDetailsGrid[24, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionType;
+            BondContractDetailsGrid[25, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionPartial;
+            BondContractDetailsGrid[26, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Notes;
         }
 
 
@@ -104,6 +105,7 @@ namespace IBSampleApp.ui
             ContractDetailsGrid[9, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.Right;
             ContractDetailsGrid[10, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.ConId;
             ContractDetailsGrid[11, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.MdSizeMultiplier;
+            ContractDetailsGrid[12, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.AggGroup;
         }
 
         public void HandleRequestError(int requestId)

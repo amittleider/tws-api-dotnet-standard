@@ -854,6 +854,9 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 			contract.secIdList = secIdList;
 		}
 	}
+	if (m_serverVersion >= MIN_SERVER_VER_AGG_GROUP) {
+		DECODE_FIELD( contract.aggGroup);
+	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 
@@ -919,6 +922,9 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 			}
 			contract.secIdList = secIdList;
 		}
+	}
+	if (m_serverVersion >= MIN_SERVER_VER_AGG_GROUP) {
+		DECODE_FIELD( contract.aggGroup);
 	}
 
 	m_pEWrapper->bondContractDetails( reqId, contract);

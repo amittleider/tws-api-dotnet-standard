@@ -34,6 +34,7 @@ namespace IBApi
         private string evRule;
         private double evMultiplier;
         private int mdSizeMultiplier;
+        private int aggGroup;
         private List<TagValue> secIdList;
        
         // BOND values
@@ -221,6 +222,15 @@ namespace IBApi
         }
 
         /**
+        * @brief Aggregated group
+        */
+        public int AggGroup
+        {
+            get { return aggGroup; }
+            set { aggGroup = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription.
         */
@@ -391,7 +401,7 @@ namespace IBApi
                 double minTick, String orderTypes, String validExchanges, int underConId, String longName,
                 String contractMonth, String industry, String category, String subcategory,
                 String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, double evMultiplier)
+                String evRule, double evMultiplier, int aggGroup)
         {
             Summary = summary;
             MarketName = marketName;
@@ -409,6 +419,7 @@ namespace IBApi
             LiquidHours = liquidHours;
             EvRule = evRule;
             EvMultiplier = evMultiplier;
+            AggGroup = aggGroup;
         }
     }
 }

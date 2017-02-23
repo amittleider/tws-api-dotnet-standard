@@ -966,6 +966,9 @@ class EDecoder implements ObjectInput {
 		        }
 		    }
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
+			contract.aggGroup(readInt());
+		}
 
 		m_EWrapper.bondContractDetails( reqId, contract);
 	}
@@ -1031,6 +1034,9 @@ class EDecoder implements ObjectInput {
 		                contract.secIdList().add(tagValue);
 		            }
 		        }
+		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
+			contract.aggGroup(readInt());
 		}
 
 		m_EWrapper.contractDetails( reqId, contract);
