@@ -269,18 +269,6 @@ namespace IBSampleApp
             this.contractInfoTab = new System.Windows.Forms.TabControl();
             this.contractDetailsPage = new System.Windows.Forms.TabPage();
             this.contractDetailsGrid = new System.Windows.Forms.DataGridView();
-            this.conResSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResLocalSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fundamentalsPage = new System.Windows.Forms.TabPage();
             this.fundamentalsOutput = new System.Windows.Forms.TextBox();
             this.optionChainPage = new System.Windows.Forms.TabPage();
@@ -306,6 +294,15 @@ namespace IBSampleApp
             this.putGamma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putVega = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.putTheta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.optionParametersPage = new System.Windows.Forms.TabPage();
             this.listViewOptionParams = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -321,32 +318,6 @@ namespace IBSampleApp
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bondContractDetailsPage = new System.Windows.Forms.TabPage();
             this.bondContractDetailsGrid = new System.Windows.Forms.DataGridView();
-            this.bondContractDetailsConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsTradingClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMarketName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMinTick = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsOrderTypes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsValidExchanges = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsLongName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCusip = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsRatings = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsDescAppend = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsBondType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCouponType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCallable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsPutable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCoupon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsConvertible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMaturity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsIssueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionPartial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountInfoTab = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.accSummaryTab = new System.Windows.Forms.TabPage();
@@ -498,6 +469,11 @@ namespace IBSampleApp
             this.scannerParamsOutput = new System.Windows.Forms.TextBox();
             this.mktDepthExchanges_MDT = new System.Windows.Forms.TabPage();
             this.mktDepthExchangesGrid_MDT = new System.Windows.Forms.DataGridView();
+            this.mktDepthExchangesColumn_Exchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_SecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_ListingExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_ServiceDataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mktDepthExchangesColumn_AggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clearMktDepthExchanges_Button = new System.Windows.Forms.LinkLabel();
             this.symbolSamplesTabData = new System.Windows.Forms.TabPage();
             this.clearSymbolSamplesMarketData = new System.Windows.Forms.LinkLabel();
@@ -609,11 +585,37 @@ namespace IBSampleApp
             this.scanLocation_label = new System.Windows.Forms.Label();
             this.scannerParamsRequest_button = new System.Windows.Forms.Button();
             this.TabControl = new System.Windows.Forms.TabControl();
-            this.mktDepthExchangesColumn_Exchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mktDepthExchangesColumn_SecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mktDepthExchangesColumn_ListingExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mktDepthExchangesColumn_ServiceDataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mktDepthExchangesColumn_AggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLocalSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsTradingClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMarketName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMinTick = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsOrderTypes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsValidExchanges = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsLongName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCusip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsRatings = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsDescAppend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsBondType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCouponType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCallable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsPutable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCoupon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsConvertible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMaturity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsIssueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionPartial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -3039,83 +3041,13 @@ namespace IBSampleApp
             this.conResStrike,
             this.conResRight,
             this.conResConId,
-            this.conResMdSizeMultiplier});
+            this.conResMdSizeMultiplier,
+            this.conResAggGroup});
             this.contractDetailsGrid.Location = new System.Drawing.Point(6, 6);
             this.contractDetailsGrid.Name = "contractDetailsGrid";
             this.contractDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.contractDetailsGrid.Size = new System.Drawing.Size(1216, 231);
             this.contractDetailsGrid.TabIndex = 0;
-            // 
-            // conResSymbol
-            // 
-            this.conResSymbol.HeaderText = "Symbol";
-            this.conResSymbol.Name = "conResSymbol";
-            this.conResSymbol.ReadOnly = true;
-            // 
-            // conResLocalSymbol
-            // 
-            this.conResLocalSymbol.HeaderText = "Local Symbol";
-            this.conResLocalSymbol.Name = "conResLocalSymbol";
-            this.conResLocalSymbol.ReadOnly = true;
-            // 
-            // conResSecType
-            // 
-            this.conResSecType.HeaderText = "Type";
-            this.conResSecType.Name = "conResSecType";
-            this.conResSecType.ReadOnly = true;
-            // 
-            // conResCurrency
-            // 
-            this.conResCurrency.HeaderText = "Currency";
-            this.conResCurrency.Name = "conResCurrency";
-            this.conResCurrency.ReadOnly = true;
-            // 
-            // conResExchange
-            // 
-            this.conResExchange.HeaderText = "Exchange";
-            this.conResExchange.Name = "conResExchange";
-            this.conResExchange.ReadOnly = true;
-            // 
-            // conResPrimaryExch
-            // 
-            this.conResPrimaryExch.HeaderText = "Primary Exch.";
-            this.conResPrimaryExch.Name = "conResPrimaryExch";
-            this.conResPrimaryExch.ReadOnly = true;
-            // 
-            // conResLastTradeDate
-            // 
-            this.conResLastTradeDate.HeaderText = "lastTradeDate";
-            this.conResLastTradeDate.Name = "conResLastTradeDate";
-            this.conResLastTradeDate.ReadOnly = true;
-            // 
-            // conResMultiplier
-            // 
-            this.conResMultiplier.HeaderText = "Multiplier";
-            this.conResMultiplier.Name = "conResMultiplier";
-            this.conResMultiplier.ReadOnly = true;
-            // 
-            // conResStrike
-            // 
-            this.conResStrike.HeaderText = "Strike";
-            this.conResStrike.Name = "conResStrike";
-            this.conResStrike.ReadOnly = true;
-            // 
-            // conResRight
-            // 
-            this.conResRight.HeaderText = "P/C";
-            this.conResRight.Name = "conResRight";
-            this.conResRight.ReadOnly = true;
-            // 
-            // conResConId
-            // 
-            this.conResConId.HeaderText = "ConId";
-            this.conResConId.Name = "conResConId";
-            this.conResConId.ReadOnly = true;
-            // 
-            // conResMdSizeMultiplier
-            // 
-            this.conResMdSizeMultiplier.HeaderText = "MD Size Mult";
-            this.conResMdSizeMultiplier.Name = "conResMdSizeMultiplier";
             // 
             // fundamentalsPage
             // 
@@ -3482,6 +3414,7 @@ namespace IBSampleApp
             this.bondContractDetailsValidExchanges,
             this.bondContractDetailsLongName,
             this.bondContractDetailsMdSizeMultiplier,
+            this.bondContractDetailsAggGroup,
             this.bondContractDetailsCusip,
             this.bondContractDetailsRatings,
             this.bondContractDetailsDescAppend,
@@ -3502,137 +3435,6 @@ namespace IBSampleApp
             this.bondContractDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.bondContractDetailsGrid.Size = new System.Drawing.Size(1216, 231);
             this.bondContractDetailsGrid.TabIndex = 1;
-            // 
-            // bondContractDetailsConId
-            // 
-            this.bondContractDetailsConId.HeaderText = "ConId";
-            this.bondContractDetailsConId.Name = "bondContractDetailsConId";
-            this.bondContractDetailsConId.ReadOnly = true;
-            // 
-            // bondContractDetailsSymbol
-            // 
-            this.bondContractDetailsSymbol.HeaderText = "Symbol";
-            this.bondContractDetailsSymbol.Name = "bondContractDetailsSymbol";
-            // 
-            // bondContractDetailsExchange
-            // 
-            this.bondContractDetailsExchange.HeaderText = "Exchange";
-            this.bondContractDetailsExchange.Name = "bondContractDetailsExchange";
-            // 
-            // bondContractDetailsCurrency
-            // 
-            this.bondContractDetailsCurrency.HeaderText = "Currency";
-            this.bondContractDetailsCurrency.Name = "bondContractDetailsCurrency";
-            // 
-            // bondContractDetailsTradingClass
-            // 
-            this.bondContractDetailsTradingClass.HeaderText = "TradingClass";
-            this.bondContractDetailsTradingClass.Name = "bondContractDetailsTradingClass";
-            // 
-            // bondContractDetailsMarketName
-            // 
-            this.bondContractDetailsMarketName.HeaderText = "MarketName";
-            this.bondContractDetailsMarketName.Name = "bondContractDetailsMarketName";
-            // 
-            // bondContractDetailsMinTick
-            // 
-            this.bondContractDetailsMinTick.HeaderText = "MinTick";
-            this.bondContractDetailsMinTick.Name = "bondContractDetailsMinTick";
-            // 
-            // bondContractDetailsOrderTypes
-            // 
-            this.bondContractDetailsOrderTypes.HeaderText = "OrderTypes";
-            this.bondContractDetailsOrderTypes.Name = "bondContractDetailsOrderTypes";
-            // 
-            // bondContractDetailsValidExchanges
-            // 
-            this.bondContractDetailsValidExchanges.HeaderText = "ValidExchanges";
-            this.bondContractDetailsValidExchanges.Name = "bondContractDetailsValidExchanges";
-            // 
-            // bondContractDetailsLongName
-            // 
-            this.bondContractDetailsLongName.HeaderText = "LongName";
-            this.bondContractDetailsLongName.Name = "bondContractDetailsLongName";
-            // 
-            // bondContractDetailsMdSizeMultiplier
-            // 
-            this.bondContractDetailsMdSizeMultiplier.HeaderText = "MD Size Mult";
-            this.bondContractDetailsMdSizeMultiplier.Name = "bondContractDetailsMdSizeMultiplier";
-            // 
-            // bondContractDetailsCusip
-            // 
-            this.bondContractDetailsCusip.HeaderText = "Cusip";
-            this.bondContractDetailsCusip.Name = "bondContractDetailsCusip";
-            // 
-            // bondContractDetailsRatings
-            // 
-            this.bondContractDetailsRatings.HeaderText = "Ratings";
-            this.bondContractDetailsRatings.Name = "bondContractDetailsRatings";
-            // 
-            // bondContractDetailsDescAppend
-            // 
-            this.bondContractDetailsDescAppend.HeaderText = "DescAppend";
-            this.bondContractDetailsDescAppend.Name = "bondContractDetailsDescAppend";
-            // 
-            // bondContractDetailsBondType
-            // 
-            this.bondContractDetailsBondType.HeaderText = "BondType";
-            this.bondContractDetailsBondType.Name = "bondContractDetailsBondType";
-            // 
-            // bondContractDetailsCouponType
-            // 
-            this.bondContractDetailsCouponType.HeaderText = "CouponType";
-            this.bondContractDetailsCouponType.Name = "bondContractDetailsCouponType";
-            // 
-            // bondContractDetailsCallable
-            // 
-            this.bondContractDetailsCallable.HeaderText = "Callable";
-            this.bondContractDetailsCallable.Name = "bondContractDetailsCallable";
-            // 
-            // bondContractDetailsPutable
-            // 
-            this.bondContractDetailsPutable.HeaderText = "Putable";
-            this.bondContractDetailsPutable.Name = "bondContractDetailsPutable";
-            // 
-            // bondContractDetailsCoupon
-            // 
-            this.bondContractDetailsCoupon.HeaderText = "Coupon";
-            this.bondContractDetailsCoupon.Name = "bondContractDetailsCoupon";
-            // 
-            // bondContractDetailsConvertible
-            // 
-            this.bondContractDetailsConvertible.HeaderText = "Convertible";
-            this.bondContractDetailsConvertible.Name = "bondContractDetailsConvertible";
-            // 
-            // bondContractDetailsMaturity
-            // 
-            this.bondContractDetailsMaturity.HeaderText = "Maturity";
-            this.bondContractDetailsMaturity.Name = "bondContractDetailsMaturity";
-            // 
-            // bondContractDetailsIssueDate
-            // 
-            this.bondContractDetailsIssueDate.HeaderText = "IsuueDate";
-            this.bondContractDetailsIssueDate.Name = "bondContractDetailsIssueDate";
-            // 
-            // bondContractDetailsNextOptionDate
-            // 
-            this.bondContractDetailsNextOptionDate.HeaderText = "NextOptionDate";
-            this.bondContractDetailsNextOptionDate.Name = "bondContractDetailsNextOptionDate";
-            // 
-            // bondContractDetailsNextOptionType
-            // 
-            this.bondContractDetailsNextOptionType.HeaderText = "NextOptionType";
-            this.bondContractDetailsNextOptionType.Name = "bondContractDetailsNextOptionType";
-            // 
-            // bondContractDetailsNextOptionPartial
-            // 
-            this.bondContractDetailsNextOptionPartial.HeaderText = "NextOptionPartial";
-            this.bondContractDetailsNextOptionPartial.Name = "bondContractDetailsNextOptionPartial";
-            // 
-            // bondContractDetailsNotes
-            // 
-            this.bondContractDetailsNotes.HeaderText = "Notes";
-            this.bondContractDetailsNotes.Name = "bondContractDetailsNotes";
             // 
             // accountInfoTab
             // 
@@ -5090,6 +4892,36 @@ namespace IBSampleApp
             this.mktDepthExchangesGrid_MDT.Size = new System.Drawing.Size(584, 184);
             this.mktDepthExchangesGrid_MDT.TabIndex = 3;
             // 
+            // mktDepthExchangesColumn_Exchange
+            // 
+            this.mktDepthExchangesColumn_Exchange.HeaderText = "Exchange";
+            this.mktDepthExchangesColumn_Exchange.Name = "mktDepthExchangesColumn_Exchange";
+            this.mktDepthExchangesColumn_Exchange.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_SecType
+            // 
+            this.mktDepthExchangesColumn_SecType.HeaderText = "SecType";
+            this.mktDepthExchangesColumn_SecType.Name = "mktDepthExchangesColumn_SecType";
+            this.mktDepthExchangesColumn_SecType.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_ListingExch
+            // 
+            this.mktDepthExchangesColumn_ListingExch.HeaderText = "ListingExch";
+            this.mktDepthExchangesColumn_ListingExch.Name = "mktDepthExchangesColumn_ListingExch";
+            this.mktDepthExchangesColumn_ListingExch.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_ServiceDataType
+            // 
+            this.mktDepthExchangesColumn_ServiceDataType.HeaderText = "ServiceDataType";
+            this.mktDepthExchangesColumn_ServiceDataType.Name = "mktDepthExchangesColumn_ServiceDataType";
+            this.mktDepthExchangesColumn_ServiceDataType.ReadOnly = true;
+            // 
+            // mktDepthExchangesColumn_AggGroup
+            // 
+            this.mktDepthExchangesColumn_AggGroup.HeaderText = "AggGroup";
+            this.mktDepthExchangesColumn_AggGroup.Name = "mktDepthExchangesColumn_AggGroup";
+            this.mktDepthExchangesColumn_AggGroup.ReadOnly = true;
+            // 
             // clearMktDepthExchanges_Button
             // 
             this.clearMktDepthExchanges_Button.AutoSize = true;
@@ -6277,35 +6109,217 @@ namespace IBSampleApp
             this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
-            // mktDepthExchangesColumn_Exchange
+            // conResSymbol
             // 
-            this.mktDepthExchangesColumn_Exchange.HeaderText = "Exchange";
-            this.mktDepthExchangesColumn_Exchange.Name = "mktDepthExchangesColumn_Exchange";
-            this.mktDepthExchangesColumn_Exchange.ReadOnly = true;
+            this.conResSymbol.HeaderText = "Symbol";
+            this.conResSymbol.Name = "conResSymbol";
+            this.conResSymbol.ReadOnly = true;
             // 
-            // mktDepthExchangesColumn_SecType
+            // conResLocalSymbol
             // 
-            this.mktDepthExchangesColumn_SecType.HeaderText = "SecType";
-            this.mktDepthExchangesColumn_SecType.Name = "mktDepthExchangesColumn_SecType";
-            this.mktDepthExchangesColumn_SecType.ReadOnly = true;
+            this.conResLocalSymbol.HeaderText = "Local Symbol";
+            this.conResLocalSymbol.Name = "conResLocalSymbol";
+            this.conResLocalSymbol.ReadOnly = true;
             // 
-            // mktDepthExchangesColumn_ListingExch
+            // conResSecType
             // 
-            this.mktDepthExchangesColumn_ListingExch.HeaderText = "ListingExch";
-            this.mktDepthExchangesColumn_ListingExch.Name = "mktDepthExchangesColumn_ListingExch";
-            this.mktDepthExchangesColumn_ListingExch.ReadOnly = true;
+            this.conResSecType.HeaderText = "Type";
+            this.conResSecType.Name = "conResSecType";
+            this.conResSecType.ReadOnly = true;
             // 
-            // mktDepthExchangesColumn_ServiceDataType
+            // conResCurrency
             // 
-            this.mktDepthExchangesColumn_ServiceDataType.HeaderText = "ServiceDataType";
-            this.mktDepthExchangesColumn_ServiceDataType.Name = "mktDepthExchangesColumn_ServiceDataType";
-            this.mktDepthExchangesColumn_ServiceDataType.ReadOnly = true;
+            this.conResCurrency.HeaderText = "Currency";
+            this.conResCurrency.Name = "conResCurrency";
+            this.conResCurrency.ReadOnly = true;
             // 
-            // mktDepthExchangesColumn_AggGroup
+            // conResExchange
             // 
-            this.mktDepthExchangesColumn_AggGroup.HeaderText = "AggGroup";
-            this.mktDepthExchangesColumn_AggGroup.Name = "mktDepthExchangesColumn_AggGroup";
-            this.mktDepthExchangesColumn_AggGroup.ReadOnly = true;
+            this.conResExchange.HeaderText = "Exchange";
+            this.conResExchange.Name = "conResExchange";
+            this.conResExchange.ReadOnly = true;
+            // 
+            // conResPrimaryExch
+            // 
+            this.conResPrimaryExch.HeaderText = "Primary Exch.";
+            this.conResPrimaryExch.Name = "conResPrimaryExch";
+            this.conResPrimaryExch.ReadOnly = true;
+            // 
+            // conResLastTradeDate
+            // 
+            this.conResLastTradeDate.HeaderText = "lastTradeDate";
+            this.conResLastTradeDate.Name = "conResLastTradeDate";
+            this.conResLastTradeDate.ReadOnly = true;
+            // 
+            // conResMultiplier
+            // 
+            this.conResMultiplier.HeaderText = "Multiplier";
+            this.conResMultiplier.Name = "conResMultiplier";
+            this.conResMultiplier.ReadOnly = true;
+            // 
+            // conResStrike
+            // 
+            this.conResStrike.HeaderText = "Strike";
+            this.conResStrike.Name = "conResStrike";
+            this.conResStrike.ReadOnly = true;
+            // 
+            // conResRight
+            // 
+            this.conResRight.HeaderText = "P/C";
+            this.conResRight.Name = "conResRight";
+            this.conResRight.ReadOnly = true;
+            // 
+            // conResConId
+            // 
+            this.conResConId.HeaderText = "ConId";
+            this.conResConId.Name = "conResConId";
+            this.conResConId.ReadOnly = true;
+            // 
+            // conResMdSizeMultiplier
+            // 
+            this.conResMdSizeMultiplier.HeaderText = "MD Size Mult";
+            this.conResMdSizeMultiplier.Name = "conResMdSizeMultiplier";
+            // 
+            // conResAggGroup
+            // 
+            this.conResAggGroup.HeaderText = "Agg Group";
+            this.conResAggGroup.Name = "conResAggGroup";
+            // 
+            // bondContractDetailsConId
+            // 
+            this.bondContractDetailsConId.HeaderText = "ConId";
+            this.bondContractDetailsConId.Name = "bondContractDetailsConId";
+            this.bondContractDetailsConId.ReadOnly = true;
+            // 
+            // bondContractDetailsSymbol
+            // 
+            this.bondContractDetailsSymbol.HeaderText = "Symbol";
+            this.bondContractDetailsSymbol.Name = "bondContractDetailsSymbol";
+            // 
+            // bondContractDetailsExchange
+            // 
+            this.bondContractDetailsExchange.HeaderText = "Exchange";
+            this.bondContractDetailsExchange.Name = "bondContractDetailsExchange";
+            // 
+            // bondContractDetailsCurrency
+            // 
+            this.bondContractDetailsCurrency.HeaderText = "Currency";
+            this.bondContractDetailsCurrency.Name = "bondContractDetailsCurrency";
+            // 
+            // bondContractDetailsTradingClass
+            // 
+            this.bondContractDetailsTradingClass.HeaderText = "TradingClass";
+            this.bondContractDetailsTradingClass.Name = "bondContractDetailsTradingClass";
+            // 
+            // bondContractDetailsMarketName
+            // 
+            this.bondContractDetailsMarketName.HeaderText = "MarketName";
+            this.bondContractDetailsMarketName.Name = "bondContractDetailsMarketName";
+            // 
+            // bondContractDetailsMinTick
+            // 
+            this.bondContractDetailsMinTick.HeaderText = "MinTick";
+            this.bondContractDetailsMinTick.Name = "bondContractDetailsMinTick";
+            // 
+            // bondContractDetailsOrderTypes
+            // 
+            this.bondContractDetailsOrderTypes.HeaderText = "OrderTypes";
+            this.bondContractDetailsOrderTypes.Name = "bondContractDetailsOrderTypes";
+            // 
+            // bondContractDetailsValidExchanges
+            // 
+            this.bondContractDetailsValidExchanges.HeaderText = "ValidExchanges";
+            this.bondContractDetailsValidExchanges.Name = "bondContractDetailsValidExchanges";
+            // 
+            // bondContractDetailsLongName
+            // 
+            this.bondContractDetailsLongName.HeaderText = "LongName";
+            this.bondContractDetailsLongName.Name = "bondContractDetailsLongName";
+            // 
+            // bondContractDetailsMdSizeMultiplier
+            // 
+            this.bondContractDetailsMdSizeMultiplier.HeaderText = "MD Size Mult";
+            this.bondContractDetailsMdSizeMultiplier.Name = "bondContractDetailsMdSizeMultiplier";
+            // 
+            // bondContractDetailsAggGroup
+            // 
+            this.bondContractDetailsAggGroup.HeaderText = "Agg Group";
+            this.bondContractDetailsAggGroup.Name = "bondContractDetailsAggGroup";
+            // 
+            // bondContractDetailsCusip
+            // 
+            this.bondContractDetailsCusip.HeaderText = "Cusip";
+            this.bondContractDetailsCusip.Name = "bondContractDetailsCusip";
+            // 
+            // bondContractDetailsRatings
+            // 
+            this.bondContractDetailsRatings.HeaderText = "Ratings";
+            this.bondContractDetailsRatings.Name = "bondContractDetailsRatings";
+            // 
+            // bondContractDetailsDescAppend
+            // 
+            this.bondContractDetailsDescAppend.HeaderText = "DescAppend";
+            this.bondContractDetailsDescAppend.Name = "bondContractDetailsDescAppend";
+            // 
+            // bondContractDetailsBondType
+            // 
+            this.bondContractDetailsBondType.HeaderText = "BondType";
+            this.bondContractDetailsBondType.Name = "bondContractDetailsBondType";
+            // 
+            // bondContractDetailsCouponType
+            // 
+            this.bondContractDetailsCouponType.HeaderText = "CouponType";
+            this.bondContractDetailsCouponType.Name = "bondContractDetailsCouponType";
+            // 
+            // bondContractDetailsCallable
+            // 
+            this.bondContractDetailsCallable.HeaderText = "Callable";
+            this.bondContractDetailsCallable.Name = "bondContractDetailsCallable";
+            // 
+            // bondContractDetailsPutable
+            // 
+            this.bondContractDetailsPutable.HeaderText = "Putable";
+            this.bondContractDetailsPutable.Name = "bondContractDetailsPutable";
+            // 
+            // bondContractDetailsCoupon
+            // 
+            this.bondContractDetailsCoupon.HeaderText = "Coupon";
+            this.bondContractDetailsCoupon.Name = "bondContractDetailsCoupon";
+            // 
+            // bondContractDetailsConvertible
+            // 
+            this.bondContractDetailsConvertible.HeaderText = "Convertible";
+            this.bondContractDetailsConvertible.Name = "bondContractDetailsConvertible";
+            // 
+            // bondContractDetailsMaturity
+            // 
+            this.bondContractDetailsMaturity.HeaderText = "Maturity";
+            this.bondContractDetailsMaturity.Name = "bondContractDetailsMaturity";
+            // 
+            // bondContractDetailsIssueDate
+            // 
+            this.bondContractDetailsIssueDate.HeaderText = "IsuueDate";
+            this.bondContractDetailsIssueDate.Name = "bondContractDetailsIssueDate";
+            // 
+            // bondContractDetailsNextOptionDate
+            // 
+            this.bondContractDetailsNextOptionDate.HeaderText = "NextOptionDate";
+            this.bondContractDetailsNextOptionDate.Name = "bondContractDetailsNextOptionDate";
+            // 
+            // bondContractDetailsNextOptionType
+            // 
+            this.bondContractDetailsNextOptionType.HeaderText = "NextOptionType";
+            this.bondContractDetailsNextOptionType.Name = "bondContractDetailsNextOptionType";
+            // 
+            // bondContractDetailsNextOptionPartial
+            // 
+            this.bondContractDetailsNextOptionPartial.HeaderText = "NextOptionPartial";
+            this.bondContractDetailsNextOptionPartial.Name = "bondContractDetailsNextOptionPartial";
+            // 
+            // bondContractDetailsNotes
+            // 
+            this.bondContractDetailsNotes.HeaderText = "Notes";
+            this.bondContractDetailsNotes.Name = "bondContractDetailsNotes";
             // 
             // IBSampleAppDialog
             // 
@@ -6714,18 +6728,6 @@ namespace IBSampleApp
         private System.Windows.Forms.TabControl contractInfoTab;
         private System.Windows.Forms.TabPage contractDetailsPage;
         private System.Windows.Forms.DataGridView contractDetailsGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResLocalSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResSecType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResCurrency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResExchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResPrimaryExch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResMultiplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResStrike;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResRight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResConId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResMdSizeMultiplier;
         private System.Windows.Forms.TabPage fundamentalsPage;
         private System.Windows.Forms.TextBox fundamentalsOutput;
         private System.Windows.Forms.TabPage optionChainPage;
@@ -6766,32 +6768,6 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.TabPage bondContractDetailsPage;
         private System.Windows.Forms.DataGridView bondContractDetailsGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsExchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCurrency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsTradingClass;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMinTick;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsOrderTypes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsValidExchanges;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsLongName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMdSizeMultiplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCusip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsRatings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsDescAppend;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsBondType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCouponType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCallable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsPutable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCoupon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConvertible;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMaturity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsIssueDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionPartial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNotes;
         private System.Windows.Forms.TabPage accountInfoTab;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage accSummaryTab;
@@ -7059,6 +7035,46 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_ListingExch;
         private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_ServiceDataType;
         private System.Windows.Forms.DataGridViewTextBoxColumn mktDepthExchangesColumn_AggGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLocalSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResSecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResExchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResPrimaryExch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResStrike;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResRight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResConId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResMdSizeMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResAggGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsExchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsTradingClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMinTick;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsOrderTypes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsValidExchanges;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsLongName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMdSizeMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsAggGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCusip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsRatings;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsDescAppend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsBondType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCouponType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCallable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsPutable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCoupon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConvertible;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMaturity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsIssueDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionPartial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNotes;
     }
 }
 

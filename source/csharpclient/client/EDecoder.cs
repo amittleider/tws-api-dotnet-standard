@@ -1026,6 +1026,10 @@ namespace IBApi
                     }
                 }
             }
+            if (serverVersion >= MinServerVer.AGG_GROUP)
+            {
+                contract.AggGroup = ReadInt();
+            }
 
             eWrapper.bondContractDetails(requestId, contract);
         }
@@ -1639,6 +1643,10 @@ namespace IBApi
                         contract.SecIdList.Add(tagValue);
                     }
                 }
+            }
+            if (serverVersion >= MinServerVer.AGG_GROUP)
+            {
+                contract.AggGroup = ReadInt();
             }
 
             eWrapper.contractDetails(requestId, contract);
