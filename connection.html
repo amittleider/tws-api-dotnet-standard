@@ -149,7 +149,7 @@ Connecting</h1>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        app.connect(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, args.port, clientId=0)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;serverVersion:%s connectionTime:%s&quot;</span> % (app.serverVersion(),</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                    app.twsConnectionTime()))</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                      app.twsConnectionTime()))</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="connect_ack"></a>
@@ -195,7 +195,8 @@ Acknowledging the connection</h1>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>connectAck(self):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="keywordflow">if</span> self.async:</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            self.startApi() </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            self.startApi()</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Note: all our sample code connects synchronously to the TWS.</p>

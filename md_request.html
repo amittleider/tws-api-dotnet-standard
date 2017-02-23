@@ -146,8 +146,8 @@ $(document).ready(function(){initNavTree('md_request.html','');});
 <div class="line">    m_pClient-&gt;reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1101, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1001, ContractSamples.StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">True</span>, <span class="keywordtype">None</span>)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1101, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1001, ContractSamples.StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="genticks"></a>
@@ -172,7 +172,7 @@ Generic Tick Types</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Requesting RTVolume (Time &amp; Sales), shortable and Fundamental Ratios generic ticks</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1004, ContractSamples.USStock(), <span class="stringliteral">&quot;233,236,258&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1004, ContractSamples.USStock(), <span class="stringliteral">&quot;233,236,258&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>For a list of available tick types please refer to <a class="el" href="tick_types.html">Available Tick Types</a></p>
@@ -194,7 +194,7 @@ Snapshots available with streaming market data subscription</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktData(1003, ContractSamples::FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1003, ContractSamples.FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1003, ContractSamples.FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h4>End marker reception:</h4>
@@ -230,9 +230,10 @@ Snapshots available with streaming market data subscription</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickSnapshotEnd(self, reqId:int):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickSnapshotEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickSnapshotEnd(reqId)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;TickSnapshotEnd:&quot;</span>, reqId)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="regulatory_snapshot"></a>
@@ -259,7 +260,7 @@ Regulatory Snapshots for Stocks</h1>
 <div class="line">    <span class="comment">// m_pClient-&gt;reqMktData(1013, ContractSamples::USStock(), &quot;&quot;, false, true, TagValueListSPtr());</span></div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Regulatory snapshots are not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># self.reqMktData(1014, ContractSamples.USStock(), &quot;&quot;, False, True, [])</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The following table lists the cost and maximum allocation for regulatory snapshot quotes:</p>

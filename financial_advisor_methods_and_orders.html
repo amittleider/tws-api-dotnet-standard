@@ -221,10 +221,11 @@ ReceiveFA() methods</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>receiveFA(self, faData:FaDataType , cxml:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>receiveFA(self, faData: FaDataType, cxml: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().receiveFA(faData, cxml)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Receiving FA: &quot;</span>,faData)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Receiving FA: &quot;</span>, faData)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        open(<span class="stringliteral">&#39;log/fa.xml&#39;</span>, <span class="stringliteral">&#39;w&#39;</span>).write(cxml)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="replace_fa_methods"></a>
@@ -739,10 +740,10 @@ Financial Advisor Sample Orders</h1>
 <p>In linked accounts (not Financial Advisor accounts) it is necessary to specify an account number in the Order 'account' field with every order placed.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            Order faOrderOneAccount = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100);</div>
+<div class="fragment"><div class="line">            <span class="comment">//Order faOrderOneAccount = OrderSamples.MarketOrder(&quot;BUY&quot;, 100);</span></div>
 <div class="line">            <span class="comment">// Specify the Account Number directly</span></div>
-<div class="line">            faOrderOneAccount.Account = <span class="stringliteral">&quot;DU119915&quot;</span>;</div>
-<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);</div>
+<div class="line">           <span class="comment">// faOrderOneAccount.Account = &quot;DU119915&quot;;</span></div>
+<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderOneAccount = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100);</div>
@@ -773,10 +774,10 @@ Financial Advisor Sample Orders</h1>
 <p>For <em>EqualQuantity</em>, <em>NetLqi</em> and <em>AvailableEquity</em> allocation methods, you need to specify the <a class="el" href="classIBApi_1_1Order.html#a15c0b93f51d0e3791a669abb9932aa1e">IBApi.Order.FaGroup</a> and <a class="el" href="classIBApi_1_1Order.html#a6d3a08135f6b8e8486250d418bf38d2b">IBApi.Order.FaMethod</a> parameters.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            Order faOrderGroupEQ = OrderSamples.LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 200, 2000);</div>
-<div class="line">            faOrderGroupEQ.FaGroup = <span class="stringliteral">&quot;Group_Equal_Quantity&quot;</span>;</div>
-<div class="line">            faOrderGroupEQ.FaMethod = <span class="stringliteral">&quot;EqualQuantity&quot;</span>;</div>
-<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);</div>
+<div class="fragment"><div class="line">            <span class="comment">//Order faOrderGroupEQ = OrderSamples.LimitOrder(&quot;SELL&quot;, 200, 2000);</span></div>
+<div class="line">            <span class="comment">//faOrderGroupEQ.FaGroup = &quot;Group_Equal_Quantity&quot;;</span></div>
+<div class="line">            <span class="comment">//faOrderGroupEQ.FaMethod = &quot;EqualQuantity&quot;;</span></div>
+<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderGroupEQ = OrderSamples.LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 200, 2000);</div>
@@ -806,12 +807,12 @@ Financial Advisor Sample Orders</h1>
 <p>For <em>PctChange</em> allocation methods, you should <b>NOT</b> specify the order size but you need to specify <a class="el" href="classIBApi_1_1Order.html#ab25af3fc2d87ea758ee456d6911825ee">IBApi.Order.FaPercentage</a> parameter.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            Order faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0); ;</div>
+<div class="fragment"><div class="line">            <span class="comment">//Order faOrderGroupPC = OrderSamples.MarketOrder(&quot;BUY&quot;, 0); ;</span></div>
 <div class="line">            <span class="comment">// You should not specify any order quantity for PctChange allocation method</span></div>
-<div class="line">            faOrderGroupPC.FaGroup = <span class="stringliteral">&quot;Pct_Change&quot;</span>;</div>
-<div class="line">            faOrderGroupPC.FaMethod = <span class="stringliteral">&quot;PctChange&quot;</span>;</div>
-<div class="line">            faOrderGroupPC.FaPercentage = <span class="stringliteral">&quot;100&quot;</span>;</div>
-<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);</div>
+<div class="line">            <span class="comment">//faOrderGroupPC.FaGroup = &quot;Pct_Change&quot;;</span></div>
+<div class="line">            <span class="comment">//faOrderGroupPC.FaMethod = &quot;PctChange&quot;;</span></div>
+<div class="line">           <span class="comment">// faOrderGroupPC.FaPercentage = &quot;100&quot;;</span></div>
+<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0); ;</div>
@@ -840,7 +841,7 @@ Financial Advisor Sample Orders</h1>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::EurGbpFx(), faOrderGroupPC);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0) </div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="comment"># You should not specify any order quantity for PctChange allocation method</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        faOrderGroupPC.faGroup = <span class="stringliteral">&quot;Pct_Change&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        faOrderGroupPC.faMethod = <span class="stringliteral">&quot;PctChange&quot;</span></div>
@@ -851,9 +852,9 @@ Financial Advisor Sample Orders</h1>
 <p><b>Place an Order for an Account Profile</b></p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            Order faOrderProfile = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
-<div class="line">            faOrderProfile.FaProfile = <span class="stringliteral">&quot;Percent_60_40&quot;</span>;</div>
-<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);</div>
+<div class="fragment"><div class="line">            <span class="comment">//Order faOrderProfile = OrderSamples.LimitOrder(&quot;BUY&quot;, 200, 100);</span></div>
+<div class="line">            <span class="comment">//faOrderProfile.FaProfile = &quot;Percent_60_40&quot;;</span></div>
+<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderProfile = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
@@ -941,7 +942,7 @@ Soft Dollar Tiers</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::softDollarTiers(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;SoftDollarTier&gt; &amp;tiers) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Soft dollar tiers (%lu):&quot;</span>, tiers.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Soft dollar tiers (%u):&quot;</span>, tiers.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; tiers.size(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot;%s\n&quot;</span>, tiers[i].displayName().c_str());</div>
@@ -950,9 +951,10 @@ Soft Dollar Tiers</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>softDollarTiers(self, reqId:int, tiers:list):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>softDollarTiers(self, reqId: int, tiers: list):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().softDollarTiers(reqId, tiers)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Soft Dollar Tiers:&quot;</span>, tiers)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

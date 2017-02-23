@@ -261,12 +261,13 @@ Receiving</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountSummary(self, reqId:int, account:str, tag:str, value:str, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                       currency:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountSummary(self, reqId: int, account: str, tag: str, value: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                       currency: str):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().accountSummary(reqId, account, tag, value, currency)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Acct Summary. ReqId:&quot;</span> , reqId , <span class="stringliteral">&quot;Acct:&quot;</span>, account, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;Tag: &quot;</span>, tag, <span class="stringliteral">&quot;Value:&quot;</span>, value, <span class="stringliteral">&quot;Currency:&quot;</span>, currency)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountSummaryEnd(self, reqId:int):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Acct Summary. ReqId:&quot;</span>, reqId, <span class="stringliteral">&quot;Acct:&quot;</span>, account,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot;Tag: &quot;</span>, tag, <span class="stringliteral">&quot;Value:&quot;</span>, value, <span class="stringliteral">&quot;Currency:&quot;</span>, currency)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>accountSummaryEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().accountSummaryEnd(reqId)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;AccountSummaryEnd. Req Id: &quot;</span>, reqId)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>

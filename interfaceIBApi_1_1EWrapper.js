@@ -23,6 +23,7 @@ var interfaceIBApi_1_1EWrapper =
     [ "familyCodes", "interfaceIBApi_1_1EWrapper.html#a35527542977d427f4ad6ce624aebc8b4", null ],
     [ "fundamentalData", "interfaceIBApi_1_1EWrapper.html#af209070fa9583fb4780be0f3ff1e61e4", null ],
     [ "headTimestamp", "interfaceIBApi_1_1EWrapper.html#a9d28aa8e55f93f2fc7699b952e2490e0", null ],
+    [ "histogramData", "interfaceIBApi_1_1EWrapper.html#a6fd225c9329f5ba3712fc646a3a29cc9", null ],
     [ "historicalData", "interfaceIBApi_1_1EWrapper.html#a5cfc0dff9d3e3470f4c9209163279cda", null ],
     [ "historicalDataEnd", "interfaceIBApi_1_1EWrapper.html#a715bb6750de66a0e072a910e697e20cf", null ],
     [ "historicalNews", "interfaceIBApi_1_1EWrapper.html#a4d87a50aa3a688d0e2a48519a369f962", null ],

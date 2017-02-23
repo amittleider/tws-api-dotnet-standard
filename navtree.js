@@ -73,7 +73,6 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Dynamic Data Exchange (DDE)", "dde_intro.html", "dde_intro" ],
-    [ "Exercising Options", "option_exercising.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -93,9 +92,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClient.html#ac48f75cf63bc2208cdee548ebcea8cf4",
-"classIBApi_1_1ScannerSubscription.html#a4d08f4109792b9003e534536c0458774",
-"interfaceIBApi_1_1EWrapper.html#a7ebfc18d5d03189ab5bf895db4a1a204"
+"classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016",
+"classIBApi_1_1ScannerSubscription.html#a2ff203d03fc853fe11d10bc5287c825c",
+"interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -200,15 +200,17 @@ Receiving</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>position(self, account:str, contract:Contract, position:float, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                 avgCost:float):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>position(self, account: str, contract: Contract, position: float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                 avgCost: float):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().position(account, contract, position, avgCost)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Position.&quot;</span>, account, <span class="stringliteral">&quot;Symbol:&quot;</span>, contract.symbol, <span class="stringliteral">&quot;SecType:&quot;</span>,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Avg cost:&quot;</span>, avgCost)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              <span class="stringliteral">&quot;Position:&quot;</span>, position, <span class="stringliteral">&quot;Avg cost:&quot;</span>, avgCost)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionEnd(self):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().positionEnd()</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;PositionEnd&quot;</span>)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="position_cancel"></a>
@@ -299,16 +301,18 @@ Models' Positions</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMulti(self, reqId:int, account:str, modelCode:str,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      contract:Contract, pos:float, avgCost:float):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMulti(self, reqId: int, account: str, modelCode: str,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      contract: Contract, pos: float, avgCost: float):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().positionMulti(reqId, account, modelCode, contract, pos, avgCost)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Position Multi. Request:&quot;</span>, reqId, <span class="stringliteral">&quot;Account:&quot;</span>, account,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Symbol:&quot;</span>, contract.symbol, <span class="stringliteral">&quot;SecType:&quot;</span>,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency, <span class="stringliteral">&quot;,Position:&quot;</span>, </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            pos, <span class="stringliteral">&quot;AvgCost:&quot;</span>, avgCost)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMultiEnd(self, reqId:int):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot;ModelCode:&quot;</span>, modelCode, <span class="stringliteral">&quot;Symbol:&quot;</span>, contract.symbol, <span class="stringliteral">&quot;SecType:&quot;</span>,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              contract.secType, <span class="stringliteral">&quot;Currency:&quot;</span>, contract.currency, <span class="stringliteral">&quot;,Position:&quot;</span>,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;              pos, <span class="stringliteral">&quot;AvgCost:&quot;</span>, avgCost)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>positionMultiEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().positionMultiEnd(reqId)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Position Multi End. Request:&quot;</span> , reqId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Position Multi End. Request:&quot;</span>, reqId)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

@@ -12,5 +12,6 @@ var historical_data =
       [ "Step Sizes", "historical_limitations.html#hd_step_sizes", null ],
       [ "Data Availability for Stocks", "historical_limitations.html#hd_availability", null ],
       [ "Unavailable Historical Data", "historical_limitations.html#non-available_hd", null ]
-    ] ]
+    ] ],
+    [ "Histograms Arriving Soon", "histograms.html", null ]
 ];

@@ -180,9 +180,10 @@ $(document).ready(function(){initNavTree('scanner_parameters.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>scannerParameters(self, xml:str):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>scannerParameters(self, xml: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().scannerParameters(xml)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        open(<span class="stringliteral">&#39;log/scanner.xml&#39;</span>, <span class="stringliteral">&#39;w&#39;</span>).write(xml)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> remember the TWS API is just an interface to the TWS. If you are having problems defining a scanner, always make sure you can create a similar scanner using the TWS' <a href="https://www.interactivebrokers.com/en/software/webtrader/webtrader/marketscanners/market%20scanners.htm" target="_blank" class="linkexternal">Advanced Market Scanner</a>.</p>

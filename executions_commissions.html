@@ -178,14 +178,15 @@ $(document).ready(function(){initNavTree('executions_commissions.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>execDetails(self, reqId:int, contract:Contract, execution:Execution):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>execDetails(self, reqId: int, contract: Contract, execution: Execution):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().execDetails(reqId, contract, execution)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ExecDetails. &quot;</span>, reqId, contract.symbol, contract.secType, contract.currency, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            execution.execId, execution.orderId, execution.shares)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>commissionReport(self, commissionReport:CommissionReport):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ExecDetails. &quot;</span>, reqId, contract.symbol, contract.secType, contract.currency,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;              execution.execId, execution.orderId, execution.shares)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>commissionReport(self, commissionReport: CommissionReport):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().commissionReport(commissionReport)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;CommissionReport. &quot;</span>, commissionReport.execId, commissionReport.commission,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            commissionReport.currency, commissionReport.realizedPNL)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;              commissionReport.currency, commissionReport.realizedPNL)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="execution_request"></a>
@@ -193,7 +194,7 @@ Requesting Executions</h1>
 <p><a class="el" href="classIBApi_1_1Execution.html">IBApi.Execution</a> and <a class="el" href="classIBApi_1_1CommissionReport.html">IBApi.CommissionReport</a> can be requested on demand via the <a class="el" href="classIBApi_1_1EClient.html#ae17dbb7d7c37591de983b2b74af2d9b5">IBApi.EClient.reqExecutions</a> method which receives a <a class="el" href="classIBApi_1_1ExecutionFilter.html">IBApi.ExecutionFilter</a> object as parameter to obtain only those executions matching the given criteria. An empty <a class="el" href="classIBApi_1_1ExecutionFilter.html">IBApi.ExecutionFilter</a> object can be passed to obtain all previous executions.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            client.reqExecutions(10001, <span class="keyword">new</span> ExecutionFilter());</div>
+<div class="fragment"><div class="line">            <span class="comment">//client.reqExecutions(10001, new ExecutionFilter());</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqExecutions(10001, <span class="keyword">new</span> ExecutionFilter());</div>
@@ -241,9 +242,10 @@ Requesting Executions</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>execDetailsEnd(self, reqId:int):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>execDetailsEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().execDetailsEnd(reqId)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ExecDetailsEnd. &quot;</span>,reqId)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;ExecDetailsEnd. &quot;</span>, reqId)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> only those executions occurring since the last <a href="https://www.interactivebrokers.com/en/?f=%2Fen%2Fsoftware%2FsystemStatus.php" target="_blank" class="linkexternal">IB server restart</a> for that particular account will be delivered. Older executions will generally not be available via the TWS API.</p>

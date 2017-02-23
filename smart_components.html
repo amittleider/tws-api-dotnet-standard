@@ -145,7 +145,8 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 <div class="fragment"><div class="line">        m_pClient-&gt;reqSmartComponents(13002, m_bboExchange);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># reqSmartComponents not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Requests description of map of single letter exchange codes to full exchange names</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqSmartComponents(1013, <span class="stringliteral">&quot;a6&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>For instance, a market data request for the IBKR US contract may return the exchange mapping identifier "a6" to tickReqParams. Invoking the function reqSmartComponents with the symbol "a9" will reveal the list of exchanges offering market data for the IBKR US contract, and their single letter codes. The code for "ARCA" may be "P". In that case if "P" is returned to the exchange tick types, that would indicate the quote was provided by ARCA.</p>
@@ -195,7 +196,7 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::smartComponents(<span class="keywordtype">int</span> reqId, SmartComponentsMap theMap) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Smart components: (%lu):\n&quot;</span>, theMap.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Smart components: (%u):\n&quot;</span>, theMap.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (SmartComponentsMap::iterator i = theMap.begin(); i != theMap.end(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot; bit number: %d exchange: %s exchange letter: %c\n&quot;</span>, i-&gt;first, std::get&lt;0&gt;(i-&gt;second).c_str(), std::get&lt;1&gt;(i-&gt;second));</div>
@@ -203,7 +204,11 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># smartComponents not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>smartComponents(self, reqId:int, map:SmartComponentMap):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().smartComponents(reqId, map)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;smartComponents: &quot;</span>)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">for</span> exch <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(exch.bitNumber, <span class="stringliteral">&quot;, Exchange Name: &quot;</span>, exch.exchange, <span class="stringliteral">&quot;, Letter: &quot;</span>, exch.exchangeLetter)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

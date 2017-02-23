@@ -181,14 +181,14 @@ Requesting Historical Data</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        queryTime = (datetime.datetime.today() -</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                    datetime.timedelta(days=180)).strftime(<span class="stringliteral">&quot;%Y%m%d %H:%M:%S&quot;</span>)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="comment">#String queryTime = DateTime.Now.AddMonths(-6).ToString(&quot;yyyyMMdd HH:mm:ss&quot;)</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqHistoricalData(4101, ContractSamples.USStockAtSmart(), queryTime, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                               <span class="stringliteral">&quot;1 M&quot;</span>, <span class="stringliteral">&quot;1 day&quot;</span>, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, 1, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        self.reqHistoricalData(4001, ContractSamples.EurGbpFx(), queryTime, </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                               <span class="stringliteral">&quot;1 M&quot;</span>, <span class="stringliteral">&quot;1 day&quot;</span>, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, 1, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                     datetime.timedelta(days=180)).strftime(<span class="stringliteral">&quot;%Y%m%d %H:%M:%S&quot;</span>)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="comment"># String queryTime = DateTime.Now.AddMonths(-6).ToString(&quot;yyyyMMdd HH:mm:ss&quot;)</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqHistoricalData(4101, ContractSamples.USStockAtSmart(), queryTime,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                               <span class="stringliteral">&quot;1 M&quot;</span>, <span class="stringliteral">&quot;1 day&quot;</span>, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, 1, [])</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        self.reqHistoricalData(4001, ContractSamples.EurGbpFx(), queryTime,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                               <span class="stringliteral">&quot;1 M&quot;</span>, <span class="stringliteral">&quot;1 day&quot;</span>, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, 1, [])</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        self.reqHistoricalData(4002, ContractSamples.EuropeanStock(), queryTime,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                                <span class="stringliteral">&quot;10 D&quot;</span>, <span class="stringliteral">&quot;1 min&quot;</span>, <span class="stringliteral">&quot;TRADES&quot;</span>, 1, 1, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                               <span class="stringliteral">&quot;10 D&quot;</span>, <span class="stringliteral">&quot;1 min&quot;</span>, <span class="stringliteral">&quot;TRADES&quot;</span>, 1, 1, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="reqHeadTimeStamp"></a>
@@ -208,7 +208,7 @@ Querying start of historical data</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqHeadTimestamp(14001, ContractSamples::EurGbpFx(), <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, 1);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># reqHeadTimeStamp is not yet available in Python</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqHeadTimeStamp(4103, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;TRADES&quot;</span>, 0, 1)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The resulting head timestamp is returned to the function IBApi::Client::headTimestamp</p>
@@ -239,13 +239,14 @@ Querying start of historical data</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::headTimestamp(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::string&amp; headTimestamp) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;HistoricalData. ReqId: %d - Head time stamp: %s,\n&quot;</span>, reqId, headTimestamp.c_str());</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Head time stamp. ReqId: %d - Head time stamp: %s,\n&quot;</span>, reqId, headTimestamp.c_str());</div>
 <div class="line"></div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="comment"># head timestamp not yet available in Python</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>headTimestamp(self, reqId:int, headTimestamp:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;HeadTimestamp: &quot;</span>, reqId, <span class="stringliteral">&quot; &quot;</span>, headTimestamp)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="hd_receive"></a>
@@ -301,17 +302,18 @@ Receiving Historical Data</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalData(self, reqId:TickerId , date:str, open:float, high:float, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                       low:float, close:float, volume:int, barCount:int, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        WAP:float, hasGaps:int):</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalData(self, reqId: TickerId, date: str, open: float, high: float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                       low: float, close: float, volume: int, barCount: int,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                       WAP: float, hasGaps: int):</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        super().historicalData(reqId, date, open, high, low, close, volume,</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                               barCount, WAP, hasGaps)</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        print(<span class="stringliteral">&quot;HistoricalData. &quot;</span>, reqId, <span class="stringliteral">&quot; Date:&quot;</span>, date, <span class="stringliteral">&quot;Open:&quot;</span>, open, </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;High:&quot;</span>, high, <span class="stringliteral">&quot;Low:&quot;</span>, low, <span class="stringliteral">&quot;Close:&quot;</span>, close, <span class="stringliteral">&quot;Volume:&quot;</span>, volume, </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="stringliteral">&quot;Count:&quot;</span>, barCount, <span class="stringliteral">&quot;WAP:&quot;</span>, WAP, <span class="stringliteral">&quot;HasGaps:&quot;</span>, hasGaps)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalDataEnd(self, reqId:int, start:str, end:str):</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        print(<span class="stringliteral">&quot;HistoricalData. &quot;</span>, reqId, <span class="stringliteral">&quot; Date:&quot;</span>, date, <span class="stringliteral">&quot;Open:&quot;</span>, open,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;              <span class="stringliteral">&quot;High:&quot;</span>, high, <span class="stringliteral">&quot;Low:&quot;</span>, low, <span class="stringliteral">&quot;Close:&quot;</span>, close, <span class="stringliteral">&quot;Volume:&quot;</span>, volume,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;              <span class="stringliteral">&quot;Count:&quot;</span>, barCount, <span class="stringliteral">&quot;WAP:&quot;</span>, WAP, <span class="stringliteral">&quot;HasGaps:&quot;</span>, hasGaps)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalDataEnd(self, reqId: int, start: str, end: str):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().historicalDataEnd(reqId, start, end)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;HistoricalDataEnd &quot;</span>, reqId, <span class="stringliteral">&quot;from&quot;</span>, start, <span class="stringliteral">&quot;to&quot;</span>, end)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="hd_duration"></a>
@@ -404,7 +406,7 @@ Historical Data Types (whatToShow)</h1>
 <td><b>FEE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A </td></tr>
 </table>
 <p><br/>
- </p>
+</p>
 <h1><a class="anchor" id="available_products_hd"></a>
 Available Data per Product</h1>
 <table class="doxtable">
@@ -441,6 +443,7 @@ Available Data per Product</h1>
 <tr>
 <td><center>CFDs*</center></td><td><center>N</center></td><td><center>Y</center></td><td><center>Y</center></td><td><center>Y</center></td><td><center>Y</center></td><td><center>N</center></td><td><center>N</center> </td></tr>
 </table>
+<p><a class="el" href="histograms.html">Histograms Arriving Soon</a></p>
 <p><br/>
 <br/>
  </p>
