@@ -31,10 +31,12 @@ import com.ib.client.OrderState;
 import com.ib.client.SoftDollarTier;
 import com.ib.client.TickAttr;
 
+import javax.swing.*;
+
 public class Test implements EWrapper {
-	EJavaSignal m_signal = new EJavaSignal();
-	EClientSocket m_s = new EClientSocket(this, m_signal);
-	int NextOrderId = -1;
+	private EJavaSignal m_signal = new EJavaSignal();
+	private EClientSocket m_s = new EClientSocket(this, m_signal);
+	private int NextOrderId = -1;
 
 	public static void main(String[] args) {
 		new Test().run();
@@ -47,28 +49,22 @@ public class Test implements EWrapper {
         
         reader.start();
        
-		new Thread() {
-			public void run() {
-				while (m_s.isConnected()) {
-					m_signal.waitForSignal();
-					try {
-						javax.swing.SwingUtilities
-								.invokeAndWait(new Runnable() {
-									@Override
-									public void run() {
-										try {
-											reader.processMsgs();
-										} catch (IOException e) {
-											error(e);
-										}
-									}
-								});
-					} catch (Exception e) {
-						error(e);
-					}
-				}
-			}
-		}.start();
+		new Thread(() -> {
+            while (m_s.isConnected()) {
+                m_signal.waitForSignal();
+                try {
+                    SwingUtilities.invokeAndWait(() -> {
+                    	try {
+                    		reader.processMsgs();
+                    	} catch (IOException e) {
+                    		error(e);
+                    	}
+                    });
+                } catch (Exception e) {
+                    error(e);
+                }
+            }
+        }).start();
 
 		if (NextOrderId < 0) {
 			sleep(1000);

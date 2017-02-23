@@ -3415,7 +3415,7 @@ public abstract class EClient {
         error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
     }
     
-	public synchronized String connectedHost() {
+	public String connectedHost() {
         return m_host;
     } // Host that was connected/redirected
 

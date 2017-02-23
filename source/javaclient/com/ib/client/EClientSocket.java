@@ -19,7 +19,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 		this.m_asyncEConnect = asyncEConnect;
 	}
 
-	public synchronized boolean isAsyncEConnect() {
+	public boolean isAsyncEConnect() {
 		return m_asyncEConnect;
 	}
 
@@ -100,7 +100,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	    }
 	}
 
-	public synchronized boolean allowRedirect() {
+	public boolean allowRedirect() {
 		return m_allowRedirect;
 	}
 
