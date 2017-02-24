@@ -48,7 +48,7 @@ public enum OrderType implements IApiEnum {
 
 	private String m_apiString;
 
-	private OrderType( String apiString) {
+	OrderType( String apiString) {
 		m_apiString = apiString;
 	}
 

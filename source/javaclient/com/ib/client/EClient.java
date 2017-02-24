@@ -3384,7 +3384,10 @@ public abstract class EClient {
         }
     }
 
-    /** @deprecated, never called. */
+    /**
+     * @deprecated This method is never called.
+     */
+    @Deprecated
     protected synchronized void error( String err) {
         m_eWrapper.error( err);
     }

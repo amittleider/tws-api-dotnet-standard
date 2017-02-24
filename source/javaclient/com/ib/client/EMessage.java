@@ -9,7 +9,7 @@ import java.io.InputStream;
 public class EMessage {
 	ByteArrayOutputStream m_buf;
 	
-	public EMessage(byte[] buf, int len) throws IOException {
+	public EMessage(byte[] buf, int len) {
 		m_buf = new ByteArrayOutputStream();
 		
 		m_buf.write(buf, 0, len);

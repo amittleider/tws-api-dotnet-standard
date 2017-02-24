@@ -79,7 +79,6 @@ public class Builder implements ObjectOutput {
         b[position+1] = (byte)(0xff & (val >> 16));
         b[position+2] = (byte)(0xff & (val >> 8));
         b[position+3] = (byte)(0xff & val);
-        return;
     }
     
     /** inner class: ByteBuffer - storage for bytes and direct access to buffer. */
