@@ -152,7 +152,6 @@ public class ComboLegDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 
@@ -167,7 +166,6 @@ public class ComboLegDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 
@@ -249,8 +247,8 @@ class ComboLegModel extends AbstractTableModel {
     }
 
     synchronized public Object getValueAt(int r, int c) {
-        ComboLeg comboLeg = (ComboLeg)m_comboLegData.get(r);
-        OrderComboLeg orderComboLeg = (OrderComboLeg)m_orderComboLegData.get(r);
+        ComboLeg comboLeg = m_comboLegData.get(r);
+        OrderComboLeg orderComboLeg = m_orderComboLegData.get(r);
 
         switch (c) {
             case 0:

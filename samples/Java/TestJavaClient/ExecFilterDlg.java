@@ -92,7 +92,7 @@ public class ExecFilterDlg extends JDialog {
             m_reqId = Integer.parseInt( m_reqIdTxt.getText());
 
             // set extended order fields
-            String clientId = m_clientID.getText().toString();
+            String clientId = m_clientID.getText();
             if(clientId.equals("")){
             	m_execFilter.clientId(0);
             }else{

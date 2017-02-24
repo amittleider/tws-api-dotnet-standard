@@ -4,10 +4,7 @@
 package apidemo.util;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.Timer;
@@ -15,8 +12,6 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
@@ -70,7 +65,7 @@ public class NewLookAndFeel extends MetalLookAndFeel {
 	    
 		@Override public void installUI(JComponent c) {
 	    	super.installUI(c);
-	    	((JCheckBox)c).setBorder( new EmptyBorder( 3, 0, 3, 0) );
+	    	c.setBorder( new EmptyBorder( 3, 0, 3, 0) );
 	    }
 	}
 
@@ -103,19 +98,11 @@ public class NewLookAndFeel extends MetalLookAndFeel {
 				col.setPreferredWidth( 40);
 			}
 
-	    	final Timer timer = new Timer( 300, new ActionListener() {
-				@Override public void actionPerformed(ActionEvent e) {
-					Util.resizeColumns( table);
-				}
-	    	});
+	    	final Timer timer = new Timer( 300, e -> Util.resizeColumns( table));
 	    	timer.setRepeats( false);
 	    	timer.start();
 	    	
-	    	table.getModel().addTableModelListener( new TableModelListener() {
-				@Override public void tableChanged(TableModelEvent e) {
-					timer.restart();
-				}
-	    	});
+	    	table.getModel().addTableModelListener(e -> timer.restart());
 	    }
 	}
 }

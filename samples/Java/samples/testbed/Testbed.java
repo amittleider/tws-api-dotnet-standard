@@ -105,7 +105,7 @@ public class Testbed {
         //! [faordergroupequalquantity]
         
         //! [faordergrouppctchange]
-        Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0); ;
+        Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0);
         // You should not specify any order quantity for PctChange allocation method
         faOrderGroupPC.faGroup("Pct_Change");
         faOrderGroupPC.faMethod("PctChange");
@@ -423,7 +423,7 @@ public class Testbed {
 		
 	}
 	
-	private static void hedgeSample(EClientSocket client, int nextOrderId) throws InterruptedException {
+	private static void hedgeSample(EClientSocket client, int nextOrderId) {
 		
 		//F Hedge order
 		//! [hedgesubmit]
@@ -526,7 +526,7 @@ public class Testbed {
                 
 	}
 	
-	private static void bracketSample(EClientSocket client, int nextOrderId) throws InterruptedException {
+	private static void bracketSample(EClientSocket client, int nextOrderId) {
 		
 		//BRACKET ORDER
         //! [bracketsubmit]

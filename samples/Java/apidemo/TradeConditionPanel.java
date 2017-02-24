@@ -14,9 +14,9 @@ public class TradeConditionPanel extends OnOKPanel {
 	public TradeConditionPanel(ExecutionCondition condition) {
 		m_condition = condition;
 		
-		m_secType.setText(m_condition.secType());;
+		m_secType.setText(m_condition.secType());
 		m_exchange.setText(m_condition.exchange());
-		m_symbol.setText(m_condition.symbol());;
+		m_symbol.setText(m_condition.symbol());
 		
 		add("Underlying", m_symbol);
 		add("Exchange", m_exchange);

@@ -17,10 +17,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -92,7 +89,7 @@ class SampleFrame extends JFrame implements EWrapper {
         getContentPane().add( buttonPanel, BorderLayout.EAST);
         setSize( 600, 800);
         setTitle( "Sample");
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
     	m_groupsDlg = new GroupsDlg(this, m_client);
     }

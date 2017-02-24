@@ -114,7 +114,6 @@ public class SmartComboRoutingParamsDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 
@@ -129,7 +128,6 @@ public class SmartComboRoutingParamsDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 

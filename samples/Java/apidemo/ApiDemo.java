@@ -9,14 +9,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import javax.swing.Box;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.ib.client.Types.NewsType;
@@ -120,7 +113,7 @@ public class ApiDemo implements IConnectionHandler {
         m_frame.add( bot, BorderLayout.SOUTH);
         m_frame.setSize( 1024, 768);
         m_frame.setVisible( true);
-        m_frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        m_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         // make initial connection to local host, port 7496, client id 0, no connection options
 		controller().connect( "127.0.0.1", 7496, 0, m_connectionConfiguration.getDefaultConnectOptions() != null ? "" : null );
