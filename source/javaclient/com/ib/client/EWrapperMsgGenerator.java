@@ -4,7 +4,6 @@
 package com.ib.client;
 
 import java.text.DateFormat;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -716,12 +715,12 @@ public class EWrapperMsgGenerator {
 		return "id=" + tickerId + " minTick = " + minTick + " bboExchange = " + bboExchange + " snapshotPermissions = " + snapshotPermissions;
 	}
 
-	public static String smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public static String smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("==== Smart Components Begin (total=" + theMap.entrySet().size() + ") reqId = " + reqId + "====\n");
 		
-		for (Map.Entry<Integer, SimpleEntry<String, Character>> item : theMap.entrySet()) {
+		for (Map.Entry<Integer, Entry<String, Character>> item : theMap.entrySet()) {
 			sb.append("bit number: " + item.getKey() + 
 					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue() + "\n");
 		}

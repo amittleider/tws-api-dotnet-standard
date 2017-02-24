@@ -1813,7 +1813,7 @@ class EDecoder implements ObjectInput {
     private void processSmartComponentsMsg() throws IOException {
     	int reqId = readInt();
     	int n = readInt();    	
-    	Map<Integer, SimpleEntry<String, Character>> theMap = new HashMap<>();
+    	Map<Integer, Entry<String, Character>> theMap = new HashMap<>();
     	
     	for (int i = 0; i < n; i++) {
     		int bitNumber = readInt();

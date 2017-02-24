@@ -4,8 +4,6 @@
 package com.ib.controller;
 
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
@@ -1480,12 +1478,12 @@ public class ApiController implements EWrapper {
 
 	public interface ISmartComponentsHandler {
 		
-		void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap);
+		void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap);
 		
 	}
 
 	@Override
-	public void smartComponents(int reqId, Map<Integer, AbstractMap.SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Map.Entry<String, Character>> theMap) {
 		ISmartComponentsHandler handler = m_smartComponentsHandler.get(reqId);
 		
 		if (handler != null) {

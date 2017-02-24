@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -146,8 +145,8 @@ public class MarketDataPanel extends JPanel {
         @Override public void closed() { m_smartComponentsResPanel = null; }
 
 		@Override
-		public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
-            for (Map.Entry<Integer, SimpleEntry<String, Character>> entry : theMap.entrySet()) {
+		public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
+            for (Map.Entry<Integer, Entry<String, Character>> entry : theMap.entrySet()) {
                 SmartComponentsRow symbolSamplesRow = new SmartComponentsRow(
                 		reqId,
                 		entry.getKey(),

@@ -6,7 +6,6 @@ package apidemo;
 import static apidemo.util.Util.sleep;
 
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -339,7 +338,7 @@ public class Test implements EWrapper {
 	}
 
 	@Override
-	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		System.out.println(EWrapperMsgGenerator.smartComponents(reqId, theMap));
 	}
 
