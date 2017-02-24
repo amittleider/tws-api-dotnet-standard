@@ -1,6 +1,5 @@
 package samples.testbed;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -524,10 +523,10 @@ public class EWrapperImpl implements EWrapper {
 
 	//! [smartcomponents]
 	@Override
-	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		System.out.println("smart components req id:" + reqId);
 		
-		for (Map.Entry<Integer, SimpleEntry<String, Character>> item : theMap.entrySet()) {
+		for (Map.Entry<Integer, Entry<String, Character>> item : theMap.entrySet()) {
 			System.out.println("bit number: " + item.getKey() + 
 					", exchange: " + item.getValue().getKey() + ", exchange letter: " + item.getValue().getValue());			
 		}
