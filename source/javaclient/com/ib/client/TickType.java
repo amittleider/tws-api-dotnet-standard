@@ -101,7 +101,7 @@ public enum TickType {
     public int index()    { return m_ndx; }
     public String field() { return m_field; }
 
-    private TickType(int ndx, String field) {
+    TickType(int ndx, String field) {
         m_ndx = ndx;
         m_field = field;
     }
