@@ -13,7 +13,7 @@ import samples.rfq.SimpleWrapper;
 
 
 public class SampleDNHedge extends SimpleWrapper {
-   private enum Status { None, SecDef, Order, Done, Error };
+   private enum Status { None, SecDef, Order, Done, Error }
 
    private static final int ParentAcked = 1;
    private static final int ChildAcked = 2;
@@ -152,7 +152,6 @@ public class SampleDNHedge extends SimpleWrapper {
          synchronized (m_mutex) {
             if (m_status == Status.SecDef) {
                error ("Could not find hedge contract id");
-               return;
             }
          }
       }

@@ -55,7 +55,7 @@ public class ContractSearchDlg extends JDialog {
 		buttons.add(new HtmlButton("search") { 			
 			@Override protected void actionPerformed() {
 				onSearch();
-			}; 
+			}
 		});
 		
 		m_contracts.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> onGetListCellRenderer(value, isSelected));

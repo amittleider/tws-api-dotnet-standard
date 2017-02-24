@@ -18,13 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javax.swing.Icon;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 
@@ -316,7 +310,7 @@ public class NewTabbedPanel extends JPanel {
         f.add( p);
         f.setSize( 200, 200);
         f.setVisible( true);
-        f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 	
 }

@@ -55,10 +55,6 @@ public class UpperField extends JTextField {
 			super.setText( "" + v);
 		}
 	}
-
-	@Override public void setText(String t) {
-		super.setText(t);
-	}
 	
 	public double getDouble() {
 		try {

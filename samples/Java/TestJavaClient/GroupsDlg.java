@@ -33,7 +33,7 @@ public class GroupsDlg extends JDialog {
     private JButton 	m_btnUnsubscribeFromGroupEvents = new JButton( "Unsubscribe From Group Events");
     private JButton 	m_btnUpdateDisplayGroup = new JButton( "Update Display Group");
 
-    private JComboBox 	m_cmbDisplayGroups = new JComboBox();
+    private JComboBox<String> 	m_cmbDisplayGroups = new JComboBox<>();
 
     private JButton 	m_btnReset = new JButton( "Reset");
     private JButton 	m_btnClose = new JButton( "Close");
@@ -135,7 +135,6 @@ public class GroupsDlg extends JDialog {
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
-            return;
         }
         
     }
@@ -153,7 +152,6 @@ public class GroupsDlg extends JDialog {
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
-            return;
         }
     }
 
@@ -168,7 +166,6 @@ public class GroupsDlg extends JDialog {
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
-            return;
         }
     }
 
@@ -187,7 +184,6 @@ public class GroupsDlg extends JDialog {
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);
-            return;
         }
     }
 

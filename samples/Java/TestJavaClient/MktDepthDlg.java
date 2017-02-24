@@ -78,7 +78,7 @@ class MktDepthDlg extends JDialog {
     void updateMktDepth( int tickerId, int position, String marketMaker,
         int operation, int side, double price, int size) {
         try {
-            MktDepthModel.MktDepthTableRow tmpRow = null;
+            MktDepthModel.MktDepthTableRow tmpRow;
 
             if (operation == OPERATION_INSERT )
             {
@@ -172,7 +172,7 @@ class MktDepthModel extends AbstractTableModel {
     {
         int     cumSize = 0;
         double  totalPrice = 0.0;
-        MktDepthTableRow	tmpRow = null;
+        MktDepthTableRow	tmpRow;
 
         if (baseRow > 0) {
             tmpRow = m_allData.get(baseRow - 1);

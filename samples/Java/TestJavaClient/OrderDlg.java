@@ -100,7 +100,7 @@ public class OrderDlg extends JDialog {
     private JTextField m_exerciseActionTextField = new JTextField("1");
     private JTextField m_exerciseQuantityTextField = new JTextField("1");
     private JTextField m_overrideTextField = new JTextField("0");
-    private JComboBox m_marketDataTypeCombo = new JComboBox(MarketDataType.getFields());
+    private JComboBox<String> m_marketDataTypeCombo = new JComboBox<>(MarketDataType.getFields());
 
     private JButton	    m_sharesAlloc = new JButton("FA Allocation Info...");
     private JButton 	m_comboLegs = new JButton( "Combo Legs");
@@ -545,7 +545,7 @@ public class OrderDlg extends JDialog {
             m_formatDate = Integer.parseInt( m_FormatDate.getText() );
             m_exerciseAction = Integer.parseInt( m_exerciseActionTextField.getText() );
             m_exerciseQuantity = Integer.parseInt( m_exerciseQuantityTextField.getText() );
-            m_override = Integer.parseInt( m_overrideTextField.getText() );;
+            m_override = Integer.parseInt( m_overrideTextField.getText() );
 
             // set market depth rows
             m_marketDepthRows = Integer.parseInt( m_marketDepthRowTextField.getText() );

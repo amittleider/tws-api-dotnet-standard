@@ -36,7 +36,7 @@ public class PegBenchPanel extends OnOKPanel {
 			protected void actionPerformed(int refConId, String refExchId) {
 				PegBenchPanel.this.m_order.referenceContractId(refConId);
 				PegBenchPanel.this.m_order.referenceExchangeId(refExchId);
-			}; 
+			}
 		};
 		
 		add("Starting price", m_startingPrice);

@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
@@ -85,8 +84,8 @@ class IBTextPanel extends JPanel {
     }
 
     public void add(Collection<String> lines) {
-        for (Iterator<String> iter = lines.iterator(); iter.hasNext(); ) {
-            add(iter.next());
+        for (String line : lines) {
+            add(line);
         }
     }
 

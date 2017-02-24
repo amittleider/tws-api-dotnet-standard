@@ -17,7 +17,7 @@ import com.ib.contracts.StkContract;
 
 
 public class SampleRfq extends SimpleWrapper {
-   private enum Status { None, SecDef, SecDefFMF, Rfq, Ticks, Done, Error };
+   private enum Status { None, SecDef, SecDefFMF, Rfq, Ticks, Done, Error }
 
    private static final int MaskBidPrice = 1;
    private static final int MaskAskPrice = 2;
