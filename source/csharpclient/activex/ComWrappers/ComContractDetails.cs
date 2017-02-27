@@ -186,6 +186,15 @@ namespace TWSLib
         }
 
         /**
+        * @brief Aggregated group
+        */
+        public int AggGroup
+        {
+            get { return data != null ? data.AggGroup : default(int); }
+            set { if (data != null) data.AggGroup = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -512,6 +521,11 @@ namespace TWSLib
         int TWSLib.IContractDetails.mdSizeMultiplier
         {
             get { return MdSizeMultiplier; }
+        }
+
+        int TWSLib.IContractDetails.aggGroup
+        {
+            get { return AggGroup; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

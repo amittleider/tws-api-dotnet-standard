@@ -1,9 +1,9 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+ IB API Commercial License, as applicable.
 """
- 
+
 """
 The known server versions.
 """
@@ -59,12 +59,20 @@ MIN_SERVER_VER_SOFT_DOLLAR_TIER       = 106
 MIN_SERVER_VER_REQ_FAMILY_CODES       = 107
 MIN_SERVER_VER_REQ_MATCHING_SYMBOLS   = 108
 MIN_SERVER_VER_PAST_LIMIT             = 109
+MIN_SERVER_VER_MD_SIZE_MULTIPLIER     = 110
+MIN_SERVER_VER_CASH_QTY               = 111
+MIN_SERVER_VER_REQ_MKT_DEPTH_EXCHANGES = 112
+MIN_SERVER_VER_TICK_NEWS              = 113
+MIN_SERVER_VER_REQ_SMART_COMPONENTS   = 114
+MIN_SERVER_VER_REQ_NEWS_PROVIDERS     = 115
+MIN_SERVER_VER_REQ_NEWS_ARTICLE       = 116
+MIN_SERVER_VER_REQ_HISTORICAL_NEWS    = 117
+MIN_SERVER_VER_REQ_HEAD_TIMESTAMP     = 118
+MIN_SERVER_VER_REQ_HISTOGRAM          = 119
+MIN_SERVER_VER_SERVICE_DATA_TYPE      = 120
 
 # 100+ messaging */
 # 100 = enhanced handshake, msg length prefixes
 
 MIN_CLIENT_VER = 100
-MAX_CLIENT_VER = MIN_SERVER_VER_PAST_LIMIT
-
-
- 
+MAX_CLIENT_VER = MIN_SERVER_VER_SERVICE_DATA_TYPE

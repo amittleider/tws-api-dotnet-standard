@@ -84,5 +84,7 @@ namespace TWSLib
         double evMultiplier { get; }
         [DispId(37)]
         int mdSizeMultiplier { get; }
+        [DispId(38)]
+        int aggGroup { get; }
     }
 }

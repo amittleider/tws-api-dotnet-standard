@@ -45,7 +45,7 @@ public class FAAllocationInfoDlg extends JDialog {
         }
     }
 
-    void jbInit() throws Exception {
+    void jbInit() {
         Color etchedColor = new Color(148, 145, 140);
         Border border1 = BorderFactory.createEtchedBorder(Color.white, etchedColor);
         Border border2 = BorderFactory.createEtchedBorder(Color.white, etchedColor);

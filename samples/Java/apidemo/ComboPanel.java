@@ -418,7 +418,7 @@ public class ComboPanel extends JPanel implements INewTab {
 				}
 				void addFutLeg(ContractDetails details) {
 					addLeg( details.contract(), Action.BUY, 1);
-				};
+				}
 			});
 
 			Contract stk = new Contract();

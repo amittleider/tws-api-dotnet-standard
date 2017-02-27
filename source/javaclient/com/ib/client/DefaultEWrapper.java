@@ -3,7 +3,6 @@
 
 package com.ib.client;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -407,7 +406,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		// TODO Auto-generated method stub
 		
 	}

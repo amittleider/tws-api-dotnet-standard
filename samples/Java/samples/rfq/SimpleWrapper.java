@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -433,7 +432,7 @@ public class SimpleWrapper implements EWrapper {
 	}
 
 	@Override
-	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		// TODO Auto-generated method stub
 		
 	}

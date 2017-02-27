@@ -134,7 +134,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.connectAck();
     } 
     
-    private boolean readMessageToInternalBuf(InputStream dis) throws IOException {
+    private boolean readMessageToInternalBuf(InputStream dis) {
   		m_messageReader = new PreV100MessageReader(dis);
     	return true;
     }
@@ -429,7 +429,7 @@ class EDecoder implements ObjectInput {
     	List<Entry<Double, Long>> items = new ArrayList<>(n);
     	
     	for (int i = 0; i < n; i++) {
-    		items.add(new SimpleEntry<Double, Long>(readDouble(), readLong()));
+    		items.add(new SimpleEntry<>(readDouble(), readLong()));
     	}
     	
     	m_EWrapper.histogramData(reqId, items);
@@ -966,6 +966,9 @@ class EDecoder implements ObjectInput {
 		        }
 		    }
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
+			contract.aggGroup(readInt());
+		}
 
 		m_EWrapper.bondContractDetails( reqId, contract);
 	}
@@ -1031,6 +1034,9 @@ class EDecoder implements ObjectInput {
 		                contract.secIdList().add(tagValue);
 		            }
 		        }
+		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
+			contract.aggGroup(readInt());
 		}
 
 		m_EWrapper.contractDetails( reqId, contract);
@@ -1807,7 +1813,7 @@ class EDecoder implements ObjectInput {
     private void processSmartComponentsMsg() throws IOException {
     	int reqId = readInt();
     	int n = readInt();    	
-    	Map<Integer, SimpleEntry<String, Character>> theMap = new HashMap<>();
+    	Map<Integer, Entry<String, Character>> theMap = new HashMap<>();
     	
     	for (int i = 0; i < n; i++) {
     		int bitNumber = readInt();
@@ -1885,7 +1891,7 @@ class EDecoder implements ObjectInput {
     	}
     	
     	@Override public String readStr() throws IOException {
-    		 StringBuffer buf = new StringBuffer();
+    		 StringBuilder sb = new StringBuilder();
     		    		 
  	         for(; true; m_msgLength++) {
  	            int c = m_din.read();
@@ -1897,10 +1903,10 @@ class EDecoder implements ObjectInput {
  	            	m_msgLength++;
  	                break;
  	            }
- 	            buf.append( (char)c);
+ 	            sb.append( (char)c);
  	        }
  	
- 	        String str = buf.toString();
+ 	        String str = sb.toString();
  	        return str.length() == 0 ? null : str;    
  	    }
     	

@@ -22,7 +22,7 @@ public class LogConfigDlg extends JDialog {
     public static int INFO_LOG = 4;
     public static int DETAIL_LOG = 5;
 
-    JComboBox 	m_cmbServerLogLevels = new JComboBox();
+    JComboBox<String> 	m_cmbServerLogLevels = new JComboBox<>();
     JButton 	m_ok = new JButton( "OK");
     JButton 	m_cancel = new JButton( "Cancel");
     int 	m_serverLogLevel;

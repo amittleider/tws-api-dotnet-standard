@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,10 +17,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.ib.client.CommissionReport;
 import com.ib.client.Contract;
@@ -93,7 +89,7 @@ class SampleFrame extends JFrame implements EWrapper {
         getContentPane().add( buttonPanel, BorderLayout.EAST);
         setSize( 600, 800);
         setTitle( "Sample");
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
     	m_groupsDlg = new GroupsDlg(this, m_client);
     }
@@ -1496,7 +1492,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
 	@Override
-	public void smartComponents(int reqId, Map<Integer, SimpleEntry<String, Character>> theMap) {
+	public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
 		String msg = EWrapperMsgGenerator.smartComponents(reqId, theMap);
 		
 		m_TWS.add(msg);

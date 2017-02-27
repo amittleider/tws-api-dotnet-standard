@@ -1,7 +1,7 @@
 """
 Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is
 subject to the terms and conditions of the IB API Non-Commercial License or the
- IB API Commercial License, as applicable. 
+ IB API Commercial License, as applicable.
 """
 
 
@@ -14,15 +14,15 @@ from ibapi.enum_implem import Enum
 
 # TickType
 TickType = int
-TickTypeEnum = Enum("BID_SIZE", 
-                "BID", 
-                "ASK", 
-                "ASK_SIZE", 
-                "LAST", 
+TickTypeEnum = Enum("BID_SIZE",
+                "BID",
+                "ASK",
+                "ASK_SIZE",
+                "LAST",
                 "LAST_SIZE",
-                "HIGH", 
-                "LOW", 
-                "VOLUME", 
+                "HIGH",
+                "LOW",
+                "VOLUME",
                 "CLOSE",
                 "BID_OPTION_COMPUTATION",
                 "ASK_OPTION_COMPUTATION",
@@ -94,7 +94,13 @@ TickTypeEnum = Enum("BID_SIZE",
                 "RT_TRD_VOLUME",
                 "CREDITMAN_MARK_PRICE",
                 "CREDITMAN_SLOW_MARK_PRICE",
+                "DELAYED_BID_OPTION",
+                "DELAYED_ASK_OPTION",
+                "DELAYED_LAST_OPTION",
+                "DELAYED_MODEL_OPTION",
+                "LAST_EXCH",
+                "LAST_REG_TIME",
                 "NOT_SET")
 
 
-  
+

@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Formats {
 	private static final Format FMT2 = new DecimalFormat( "#,##0.00");
@@ -38,6 +39,14 @@ public class Formats {
 	/** Format date/time for display. */
 	public static String fmtDate( long ms) {
 		return DATE_TIME_FORMAT_CACHE.get().format( new Date( ms) );
+	}
+	
+	public static String fmtDateGmt(long ms) {
+		SimpleDateFormat fmt = DATE_TIME_FORMAT_CACHE.get();
+		
+		fmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+		
+		return fmt.format(new Date(ms));
 	}
 
 	/** Format time for display. */

@@ -39,13 +39,13 @@ public class Profile {
 		}
 	}
 
-	public static enum Type {
+	public enum Type {
     	NONE, Percents, Ratios, Shares;
 
     	public static Type get( int ordinal) {
     		return Types.getEnum( ordinal, values() );
     	}
-    };
+    }
 
     public static class Allocation {
 		private String m_account;

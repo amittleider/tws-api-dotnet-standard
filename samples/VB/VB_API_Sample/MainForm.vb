@@ -2180,6 +2180,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evRule = " & contractDetails.EvRule)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evMultiplier = " & contractDetails.EvMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
 
         If (contract.SecType = "BOND") Then
 
@@ -2902,6 +2903,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evRule = " & contractDetails.EvRule)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evMultiplier = " & contractDetails.EvMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
 
         m_utils.addListItem(Utils.ListType.ServerResponses, "Bond Details:")
         m_utils.addListItem(Utils.ListType.ServerResponses, "  cusip = " & contractDetails.Cusip)

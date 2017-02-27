@@ -6,7 +6,6 @@ package apidemo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -48,7 +47,7 @@ public class Histogram extends JComponent {
 	}
 
 	long getMax() {
-		return m_rows.stream().map(i -> i.getValue()).max((a, b) -> Long.compare(a, b)).orElse((long) -1);
+		return m_rows.stream().map(Entry::getValue).max(Long::compare).orElse((long) -1);
 	}
 		
 	@Override public Dimension getPreferredSize() {// why on main screen 1 is okay but not here?

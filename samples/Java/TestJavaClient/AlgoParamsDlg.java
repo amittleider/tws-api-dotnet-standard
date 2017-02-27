@@ -123,7 +123,6 @@ public class AlgoParamsDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 
@@ -138,7 +137,6 @@ public class AlgoParamsDlg extends JDialog {
         }
         catch( Exception e) {
             reportError( "Error - ", e);
-            return;
         }
     }
 
