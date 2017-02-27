@@ -336,7 +336,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -434,7 +434,7 @@ class SampleFrame extends JFrame implements EWrapper {
     	// run m_orderDlg
         m_orderDlg.init("Mkt Data Options", true, "Market Data Options", m_mktDataOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         
         if( !m_orderDlg.m_rc ) {
             return;
@@ -451,7 +451,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("RTB Options", true, "Real Time Bars Options", m_realTimeBarsOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -465,7 +465,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private void onCancelRealTimeBars() {
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -474,7 +474,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     private void onScanner() {
-        m_scannerDlg.show();
+        m_scannerDlg.setVisible(true);
         
         if (m_scannerDlg.m_userSelection == ScannerDlg.CANCEL_SELECTION) {
             m_client.cancelScannerSubscription(m_scannerDlg.m_id);
@@ -497,7 +497,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -514,7 +514,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("Chart Options", true, "Chart Options", m_chartOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -531,7 +531,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelHistoricalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -543,7 +543,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onFundamentalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -554,7 +554,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelFundamentalData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -565,7 +565,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onReqContractData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -578,7 +578,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("Mkt Depth Options", true, "Market Depth Options", m_mktDepthOptions);
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -608,7 +608,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelMktData() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -620,7 +620,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelMktDepth() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -645,7 +645,7 @@ class SampleFrame extends JFrame implements EWrapper {
         // run m_orderDlg
         m_orderDlg.init("Order Misc Options", true, "Order Misc Options",  m_orderDlg.m_order.orderMiscOptions());
 
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -666,7 +666,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private void onExerciseOptions() {
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -680,7 +680,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelOrder() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -792,7 +792,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCalculateImpliedVolatility() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -803,7 +803,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelCalculateImpliedVolatility() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -814,7 +814,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCalculateOptionPrice() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -825,7 +825,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onCancelCalculateOptionPrice() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -840,7 +840,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onReqMarketDataType() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }
@@ -953,7 +953,7 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onRequestMatchingSymbols() {
         // run m_orderDlg
         m_orderDlg.init("Options", false);
-        m_orderDlg.show();
+        m_orderDlg.setVisible(true);
         if( !m_orderDlg.m_rc ) {
             return;
         }

@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -146,26 +144,10 @@ public class ScannerDlg extends JDialog {
         buttonPanel.add( m_cancel);
         buttonPanel.add( m_options);
 
-        m_requestParameters.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestParameters();
-            }
-        });
-        m_subscribe.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onSubscribe();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelSubscription();
-            }
-        });
-        m_options.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOptions();
-            }
-        });
+        m_requestParameters.addActionListener(e -> onRequestParameters());
+        m_subscribe.addActionListener(e -> onSubscribe());
+        m_cancel.addActionListener(e -> onCancelSubscription());
+        m_options.addActionListener(e -> onOptions());
 
         // create top panel
         JPanel topPanel = new JPanel();
@@ -198,7 +180,7 @@ public class ScannerDlg extends JDialog {
         }
     }
 
-    void onSubscribe() {
+    private void onSubscribe() {
         m_userSelection = NO_SELECTION;
 
         try {
@@ -237,18 +219,18 @@ public class ScannerDlg extends JDialog {
         setVisible( false);
     }
 
-    void onRequestParameters() {
+    private void onRequestParameters() {
         m_userSelection = REQUEST_PARAMETERS_SELECTION;
         setVisible( false);
     }
 
-    void onCancelSubscription() {
+    private void onCancelSubscription() {
         m_userSelection = CANCEL_SELECTION;
         m_id = Integer.parseInt( m_Id.getText().trim() );
         setVisible( false);
     }
 
-    void onOptions() {
+    private void onOptions() {
         SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Scanner Subscription Options", m_scannerSubscriptionOptions, this);
 
         // show smart combo routing params dialog
@@ -256,9 +238,12 @@ public class ScannerDlg extends JDialog {
         
         m_scannerSubscriptionOptions = smartComboRoutingParamsDlg.smartComboRoutingParams();
     }
-    
-    public void show() {
-        m_userSelection = NO_SELECTION;
-        super.show();
+
+    @Override
+    public void setVisible(final boolean b) {
+        if (b) {
+            m_userSelection = NO_SELECTION;
+        }
+        super.setVisible(b);
     }
 }

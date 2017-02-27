@@ -8,10 +8,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import java.util.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -569,9 +566,12 @@ public class OrderDlg extends JDialog {
         setVisible( false);
     }
 
-    public void show() {
-        m_rc = false;
-        super.show();
+    @Override
+    public void setVisible(boolean b) {
+        if (b) {
+            m_rc = false;
+        }
+        super.setVisible(b);
     }
 
     void setIdAtLeast( int id) {
