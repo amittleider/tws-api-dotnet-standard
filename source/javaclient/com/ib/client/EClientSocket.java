@@ -15,7 +15,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	private boolean m_connected = false;
 	private Socket m_socket;
 		
-	public synchronized void setAsyncEConnect(boolean asyncEConnect) {
+	public void setAsyncEConnect(boolean asyncEConnect) {
 		this.m_asyncEConnect = asyncEConnect;
 	}
 
