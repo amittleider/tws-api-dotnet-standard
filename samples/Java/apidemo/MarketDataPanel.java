@@ -756,7 +756,7 @@ public class MarketDataPanel extends JPanel {
 				long row = m_rows.get( rowIn);
 				
 				switch( col) {
-					case 0: return Formats.fmtDate(row * 1000);
+					case 0: return Formats.fmtDateGmt(row * 1000);
 					default: return null;
 				}
 			}
