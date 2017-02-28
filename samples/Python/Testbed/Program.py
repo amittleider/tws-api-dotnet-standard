@@ -1000,14 +1000,14 @@ class TestApp(TestWrapper, TestClient):
 
         for contractDescription in contractDescriptions:
             derivSecTypes = ""
-            for derivSecType in contractDescription.DerivativeSecTypes:
+            for derivSecType in contractDescription.derivativeSecTypes:
                 derivSecTypes += derivSecType
                 derivSecTypes += " "
             print("Contract: conId:%s, symbol:%s, secType:%s primExchange:%s, currency:%s, derivativeSecTypes:%s" % (
                 contractDescription.contract.conId,
                 contractDescription.contract.symbol,
                 contractDescription.contract.secType,
-                contractDescription.contract.primaryExch,
+                contractDescription.contract.primaryExchange,
                 contractDescription.contract.currency, derivSecTypes))
 
     # ! [symbolSamples]
