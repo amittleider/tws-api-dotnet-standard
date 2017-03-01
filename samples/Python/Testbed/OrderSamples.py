@@ -375,7 +375,26 @@ class OrderSamples:
         order.lmtPrice = limitPrice
         # ! [limitorder]
         return order
+        
+    """ <summary>            
+    #/ Forex orders can be placed in demonination of second currency in pair using cashQty field
+    #/ Requires TWS or IBG 963+
+    #/ https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+    </summary>"""
+        
+    @staticmethod
+    def LimitOrderWithCashQty(action:str, quantity:float, limitPrice:float, cashQty:float):
     
+        # ! [limitorderwithcashqty]
+        order = Order()
+        order.action = action
+        order.orderType = "LMT"
+        order.totalQuantity = quantity
+        order.lmtPrice = limitPrice
+        order.cashQty = cashQty
+        # ! [limitorderwithcashqty]
+        return order
+
 
     """ <summary>
     #/ A Limit if Touched is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is 

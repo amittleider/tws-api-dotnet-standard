@@ -1,7 +1,5 @@
 /*! \page histograms Histograms Arriving Soon
 
-	<b> This functionality not yet available </b>
-
 	Histogram support will require API v973.02+ and TWS 964+. Instead of returned data points as a function of time as with the function
 	IBApi::EClient::reqHistoricalData, histograms return data as a function of price level with function IBApi::EClient::reqHistogramData
 
