@@ -5,25 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.ib.client.CommissionReport;
-import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
-import com.ib.client.ContractDetails;
-import com.ib.client.DeltaNeutralContract;
-import com.ib.client.DepthMktDataDescription;
-import com.ib.client.EClientSocket;
-import com.ib.client.EJavaSignal;
-import com.ib.client.EReaderSignal;
-import com.ib.client.EWrapper;
-import com.ib.client.EWrapperMsgGenerator;
-import com.ib.client.Execution;
-import com.ib.client.FamilyCode;
-import com.ib.client.NewsProvider;
-import com.ib.client.Order;
-import com.ib.client.OrderState;
-import com.ib.client.SoftDollarTier;
-import com.ib.client.TickAttr;
-import com.ib.client.TickType;
+import com.ib.client.*;
 
 //! [ewrapperimpl]
 public class EWrapperImpl implements EWrapper {
@@ -582,7 +564,7 @@ public class EWrapperImpl implements EWrapper {
 	
 	//! [histogramData]
 	@Override
-	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
+	public void histogramData(int reqId, List<HistogramEntry> items) {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 	//! [histogramData]

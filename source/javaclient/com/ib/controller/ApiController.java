@@ -14,30 +14,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import com.ib.client.CommissionReport;
-import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
-import com.ib.client.ContractDetails;
-import com.ib.client.DeltaNeutralContract;
-import com.ib.client.DepthMktDataDescription;
-import com.ib.client.EClientErrors;
-import com.ib.client.EJavaSignal;
-import com.ib.client.EReader;
-import com.ib.client.EReaderSignal;
-import com.ib.client.EWrapper;
-import com.ib.client.Execution;
-import com.ib.client.ExecutionFilter;
-import com.ib.client.FamilyCode;
-import com.ib.client.MarketDataType;
-import com.ib.client.NewsProvider;
-import com.ib.client.Order;
-import com.ib.client.OrderState;
-import com.ib.client.OrderStatus;
-import com.ib.client.ScannerSubscription;
-import com.ib.client.SoftDollarTier;
-import com.ib.client.TagValue;
-import com.ib.client.TickAttr;
-import com.ib.client.TickType;
+import com.ib.client.*;
 import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DeepSide;
 import com.ib.client.Types.DeepType;
@@ -1619,7 +1596,7 @@ public class ApiController implements EWrapper {
 	
 	public interface IHistogramDataHandler {
 
-		void histogramData(int reqId, List<Entry<Double, Long>> items);		
+		void histogramData(int reqId, List<HistogramEntry> items);
 		
 	}
 	
@@ -1647,7 +1624,7 @@ public class ApiController implements EWrapper {
     }
 
 	@Override
-	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
+	public void histogramData(int reqId, List<HistogramEntry> items) {
 		IHistogramDataHandler handler = m_histogramDataMap.get(reqId);
 		
 		if (handler != null) {
