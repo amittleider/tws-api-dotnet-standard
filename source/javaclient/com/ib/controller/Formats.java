@@ -3,6 +3,7 @@
 
 package com.ib.controller;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -13,8 +14,13 @@ public class Formats {
 	private static final Format FMT2 = new DecimalFormat( "#,##0.00");
 	private static final Format FMT0 = new DecimalFormat( "#,##0");
 	private static final Format PCT = new DecimalFormat( "0.0%");
-	private static final ThreadLocal<SimpleDateFormat> DATE_TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss"));
-	private static final ThreadLocal<SimpleDateFormat> TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "HH:mm:ss"));
+	private static final ThreadLocal<DateFormat> GMT_DATE_TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> {
+		final DateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return format;
+	});
+    private static final ThreadLocal<DateFormat> DATE_TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss"));
+	private static final ThreadLocal<DateFormat> TIME_FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "HH:mm:ss"));
 
 	/** Format with two decimals. */
 	public static String fmt( double v) {
@@ -40,13 +46,9 @@ public class Formats {
 	public static String fmtDate( long ms) {
 		return DATE_TIME_FORMAT_CACHE.get().format( new Date( ms) );
 	}
-	
+
 	public static String fmtDateGmt(long ms) {
-		SimpleDateFormat fmt = DATE_TIME_FORMAT_CACHE.get();
-		
-		fmt.setTimeZone(TimeZone.getTimeZone("GMT"));
-		
-		return fmt.format(new Date(ms));
+		return GMT_DATE_TIME_FORMAT_CACHE.get().format( new Date( ms) );
 	}
 
 	/** Format time for display. */
