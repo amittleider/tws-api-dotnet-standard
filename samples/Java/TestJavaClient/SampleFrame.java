@@ -19,26 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.*;
 
-import com.ib.client.CommissionReport;
-import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
-import com.ib.client.ContractDetails;
-import com.ib.client.DeltaNeutralContract;
-import com.ib.client.DepthMktDataDescription;
-import com.ib.client.EClientSocket;
-import com.ib.client.EJavaSignal;
-import com.ib.client.EReader;
-import com.ib.client.EWrapper;
-import com.ib.client.EWrapperMsgGenerator;
-import com.ib.client.Execution;
-import com.ib.client.FamilyCode;
-import com.ib.client.MarketDataType;
-import com.ib.client.NewsProvider;
-import com.ib.client.Order;
-import com.ib.client.OrderState;
-import com.ib.client.SoftDollarTier;
-import com.ib.client.TagValue;
-import com.ib.client.TickAttr;
+import com.ib.client.*;
 
 class SampleFrame extends JFrame implements EWrapper {
     private static final int NOT_AN_FA_ACCOUNT_ERROR = 321 ;
@@ -1537,7 +1518,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
+	public void histogramData(int reqId, List<HistogramEntry> items) {
 		String msg = EWrapperMsgGenerator.histogramData(reqId, items);
 		
 		m_TWS.add(msg);		

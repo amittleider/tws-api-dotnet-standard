@@ -26,11 +26,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
-import com.ib.client.Contract;
-import com.ib.client.ContractDescription;
-import com.ib.client.ContractDetails;
-import com.ib.client.MarketDataType;
-import com.ib.client.ScannerSubscription;
+import com.ib.client.*;
 import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DeepSide;
 import com.ib.client.Types.DeepType;
@@ -766,7 +762,7 @@ public class MarketDataPanel extends JPanel {
 
 	static class HistogramResultsPanel extends NewTabPanel implements IHistogramDataHandler {
 		final HistogramModel m_model = new HistogramModel();
-		final List<Entry<Double, Long>> m_rows = new ArrayList<>();
+		final List<HistogramEntry> m_rows = new ArrayList<>();
 		final Histogram m_hist = new Histogram(m_rows);
 		
 		HistogramResultsPanel() {			
@@ -820,18 +816,18 @@ public class MarketDataPanel extends JPanel {
 			}
 
 			@Override public Object getValueAt(int rowIn, int col) {
-				Entry<Double, Long> row = m_rows.get(rowIn);
+				HistogramEntry row = m_rows.get(rowIn);
 				
 				switch(col) {
-					case 0: return row.getKey();
-					case 1: return row.getValue();
+					case 0: return row.price;
+					case 1: return row.size;
 					default: return null;
 				}
 			}
 		}
 
 		@Override
-		public void histogramData(int reqId, List<Entry<Double, Long>> items) {
+		public void histogramData(int reqId, List<HistogramEntry> items) {
 			m_rows.addAll(items);
 			fire();
 		}		
