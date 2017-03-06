@@ -1445,7 +1445,7 @@ void TestCppClient::securityDefinitionOptionalParameterEnd(int reqId) {
 
 //! [softDollarTiers]
 void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers) {
-	printf("Soft dollar tiers (%u):", tiers.size());
+	printf("Soft dollar tiers (%lu):", tiers.size());
 
 	for (unsigned int i = 0; i < tiers.size(); i++) {
 		printf("%s\n", tiers[i].displayName().c_str());
@@ -1455,7 +1455,7 @@ void TestCppClient::softDollarTiers(int reqId, const std::vector<SoftDollarTier>
 
 //! [familyCodes]
 void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
-	printf("Family codes (%u):\n", familyCodes.size());
+	printf("Family codes (%lu):\n", familyCodes.size());
 
 	for (unsigned int i = 0; i < familyCodes.size(); i++) {
 		printf("Family code [%d] - accountID: %s familyCodeStr: %s\n", i, familyCodes[i].accountID.c_str(), familyCodes[i].familyCodeStr.c_str());
@@ -1465,13 +1465,13 @@ void TestCppClient::familyCodes(const std::vector<FamilyCode> &familyCodes) {
 
 //! [symbolSamples]
 void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescription> &contractDescriptions) {
-	printf("Symbol Samples (total=%u) reqId: %d\n", contractDescriptions.size(), reqId);
+	printf("Symbol Samples (total=%lu) reqId: %d\n", contractDescriptions.size(), reqId);
 
 	for (unsigned int i = 0; i < contractDescriptions.size(); i++) {
 		Contract contract = contractDescriptions[i].contract;
 		std::vector<std::string> derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;
 		printf("Contract (%u): %ld %s %s %s %s, ", i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());
-		printf("Derivative Sec-types (%u):", derivativeSecTypes.size());
+		printf("Derivative Sec-types (%lu):", derivativeSecTypes.size());
 		for (unsigned int j = 0; j < derivativeSecTypes.size(); j++) {
 			printf(" %s", derivativeSecTypes[j].c_str());
 		}
@@ -1482,7 +1482,7 @@ void TestCppClient::symbolSamples(int reqId, const std::vector<ContractDescripti
 
 //! [mktDepthExchanges]
 void TestCppClient::mktDepthExchanges(const std::vector<DepthMktDataDescription> &depthMktDataDescriptions) {
-	printf("Mkt Depth Exchanges (%u):\n", depthMktDataDescriptions.size());
+	printf("Mkt Depth Exchanges (%lu):\n", depthMktDataDescriptions.size());
 
 	for (unsigned int i = 0; i < depthMktDataDescriptions.size(); i++) {
 		printf("Depth Mkt Data Description [%d] - exchange: %s secType: %s listingExch: %s serviceDataType: %s aggGroup: %s\n", i, 
@@ -1503,7 +1503,7 @@ void TestCppClient::tickNews(int tickerId, time_t timeStamp, const std::string& 
 
 //! [smartcomponents]]
 void TestCppClient::smartComponents(int reqId, SmartComponentsMap theMap) {
-	printf("Smart components: (%u):\n", theMap.size());
+	printf("Smart components: (%lu):\n", theMap.size());
 
 	for (SmartComponentsMap::iterator i = theMap.begin(); i != theMap.end(); i++) {
 		printf(" bit number: %d exchange: %s exchange letter: %c\n", i->first, std::get<0>(i->second).c_str(), std::get<1>(i->second));
@@ -1521,7 +1521,7 @@ void TestCppClient::tickReqParams(int tickerId, double minTick, std::string bboE
 
 //! [newsProviders]
 void TestCppClient::newsProviders(const std::vector<NewsProvider> &newsProviders) {
-	printf("News providers (%u):\n", newsProviders.size());
+	printf("News providers (%lu):\n", newsProviders.size());
 
 	for (unsigned int i = 0; i < newsProviders.size(); i++) {
 		printf("News provider [%d] - providerCode: %s providerName: %s\n", i, newsProviders[i].providerCode.c_str(), newsProviders[i].providerName.c_str());
@@ -1561,7 +1561,7 @@ void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {
 
 //! [histogramData]
 void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
-	printf("Histogram. ReqId: %d, data length: %d\n", reqId, data.size());
+	printf("Histogram. ReqId: %d, data length: %lu\n", reqId, data.size());
 
 	for (auto item : data) {
 		printf("\t price: %f, size: %lld\n", std::get<0>(item), std::get<1>(item));
