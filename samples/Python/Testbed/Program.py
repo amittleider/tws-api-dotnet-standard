@@ -198,6 +198,7 @@ class TestApp(TestWrapper, TestClient):
         self.permId2ord = {}
         self.reqId2nErr = collections.defaultdict(int)
         self.globalCancelOnly = False
+        self.simplePlaceOid = None
 
     def dumpTestCoverageSituation(self):
         for clntMeth in sorted(self.clntMeth2callCount.keys()):
@@ -1548,10 +1549,10 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqexecutions]
 
     def orderOperations_cancel(self):
-        # ! [cancelorder]
-        self.cancelOrder(self.simplePlaceOid)
-
-    # ! [cancelorder]
+        if self.simplePlaceOid is not None:
+            # ! [cancelorder]
+            self.cancelOrder(self.simplePlaceOid)
+            # ! [cancelorder]
 
     @iswrapper
     # ! [execdetails]

@@ -71,6 +71,10 @@ class Connection:
         logging.debug("acquiring lock")
         self.lock.acquire()
         logging.debug("acquired lock")
+        if not self.isConnected():
+            logging.debug("sendMsg attempted while not connected, releasing lock")
+            self.lock.release()
+            return 0
         try:
             nSent = self.socket.send(msg)
         except socket.error:
@@ -90,6 +94,10 @@ class Connection:
         logging.debug("acquiring lock")
         self.lock.acquire()
         logging.debug("acquired lock")
+        if not self.isConnected():
+            logging.debug("recvMsg attempted while not connected, releasing lock")
+            self.lock.release()
+            return b""
         try:
             buf = self._recvAllMsg()
         except socket.error:

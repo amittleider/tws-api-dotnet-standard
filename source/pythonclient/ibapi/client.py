@@ -189,10 +189,10 @@ class EClient(object):
         Calling this function does not cancel orders that have already been
         sent."""
 
+        self.setConnState(EClient.DISCONNECTED)
         if self.conn is not None:
             logging.info("disconnecting")
             self.conn.disconnect()
-            self.setConnState(EClient.DISCONNECTED)
             self.wrapper.connectionClosed()
             self.reset()
 
@@ -217,7 +217,7 @@ class EClient(object):
         """This is the function that has the message loop."""
 
         try:
-            while not self.done and (self.conn.isConnected()
+            while not self.done and (self.isConnected()
                         or not self.msg_queue.empty()):
                 try:
                     try:
@@ -242,7 +242,7 @@ class EClient(object):
                     self.conn.disconnect()
 
                 logging.debug("conn:%d queue.sz:%d",
-                             self.conn.isConnected(),
+                             self.isConnected(),
                              self.msg_queue.qsize())
         finally:
             self.disconnect()

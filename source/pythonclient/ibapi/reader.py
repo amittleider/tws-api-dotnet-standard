@@ -25,7 +25,6 @@ class EReader(Thread):
         self.msg_queue = msg_queue
         self.prevBuf = b""
 
-
     def run(self):
         while self.conn.isConnected():
         
