@@ -126,6 +126,9 @@
     <Compile Include="..\client\FamilyCode.cs">
       <Link>CSharpAPI\FamilyCode.cs</Link>
     </Compile>
+    <Compile Include="..\client\HistogramEntry.cs">
+      <Link>CSharpAPI\HistogramEntry.cs</Link>
+    </Compile>
     <Compile Include="..\client\IBParamsList.cs">
       <Link>CSharpAPI\IBParamsList.cs</Link>
     </Compile>
@@ -206,6 +209,7 @@
     <Compile Include="ComWrappers\comExecution.cs" />
     <Compile Include="ComWrappers\comExecutionFilter.cs" />
     <Compile Include="ComWrappers\ComFamilyCode.cs" />
+    <Compile Include="ComWrappers\ComHistogramEntry.cs" />
     <Compile Include="ComWrappers\ComList.cs" />
     <Compile Include="ComWrappers\ComNewsProvider.cs" />
     <Compile Include="ComWrappers\comOrder.cs" />

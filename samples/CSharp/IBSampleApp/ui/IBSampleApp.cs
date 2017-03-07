@@ -185,7 +185,7 @@ namespace IBSampleApp
         private void UpdateUI(HistogramDataMessage obj)
         {
             if (histogramSubscriptionList.Contains(obj.ReqId))
-                obj.Data.ToList().ForEach(i => histogramDataGridView.Rows.Add(new object[] { obj.ReqId, i.Item1, i.Item2 }));
+                obj.Data.ToList().ForEach(i => histogramDataGridView.Rows.Add(new object[] { obj.ReqId, i.Price, i.Size }));
         }
 
         void ibClient_Tick(TickSizeMessage msg)

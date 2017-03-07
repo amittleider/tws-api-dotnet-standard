@@ -3099,7 +3099,7 @@ Friend Class MainForm
         Dim displayString = New StringBuilder
 
         displayString.AppendFormat("Histogram data. Request Id: {0}, data size: {1}" & vbNewLine, e.requestId, e.data.Length)
-        e.data.ToList().ForEach(Sub(i) displayString.AppendFormat(vbTab & "Price: {0}, Size: {1}", i.Item1, i.Item2))
+        e.data.ToList().ForEach(Sub(i) displayString.AppendFormat(vbTab & "Price: {0}, Size: {1}", i.Price, i.Size))
         m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
     End Sub
 

@@ -2000,17 +2000,16 @@ const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPt
 	int reqId;
 	int n;
 	HistogramDataVector data;
-	double price;
-	long long size;
+	HistogramEntry entry;
 
 	DECODE_FIELD(reqId);
 	DECODE_FIELD(n);
 
 	for (int i = 0; i < n; i++) {
-		DECODE_FIELD(price);
-		DECODE_FIELD(size);
+		DECODE_FIELD(entry.price);
+		DECODE_FIELD(entry.size);
 
-		data.push_back(std::make_tuple(price, size));
+		data.push_back(entry);
 	}
 
 	m_pEWrapper->histogramData(reqId, data);

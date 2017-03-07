@@ -954,7 +954,7 @@ namespace IBSampleApp
 
         public event Action<HistogramDataMessage> HistogramData;
 
-        void EWrapper.histogramData(int reqId, Tuple<double, long>[] data)
+        void EWrapper.histogramData(int reqId, HistogramEntry[] data)
         {
             var tmp = HistogramData;
 

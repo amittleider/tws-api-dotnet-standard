@@ -5,6 +5,6 @@ Class HistogramDataEventArgs
 
     Property requestId As Integer
 
-    Property data As Tuple(Of Double, Long)()
+    Property data As IBApi.HistogramEntry()
 
 End Class
