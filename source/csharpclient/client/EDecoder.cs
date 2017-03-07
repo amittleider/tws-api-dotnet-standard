@@ -417,11 +417,12 @@ namespace IBApi
         {
             var reqId = ReadInt();
             var n = ReadInt();
-            var data = new Tuple<double, long>[n];
+            var data = new HistogramEntry[n];
 
             for (int i = 0; i < n; i++)
             {
-                data[i] = Tuple.Create(ReadDouble(), ReadLong());
+                data[i].Price = ReadDouble();
+                data[i].Size = ReadLong();
             }
 
             eWrapper.histogramData(reqId, data);
@@ -675,10 +676,6 @@ namespace IBApi
             bool isSuccessful = String.Compare(ReadString(), "true", true) == 0;
             string errorText = ReadString();
 
-            //if (isSuccessful)
-            //    parent.startApi();
-#warning TODO: implement call to start api in client
-
             eWrapper.verifyCompleted(isSuccessful, errorText);
         }
 
@@ -695,10 +692,6 @@ namespace IBApi
             int msgVersion = ReadInt();
             bool isSuccessful = String.Compare(ReadString(), "true", true) == 0;
             string errorText = ReadString();
-
-            //if (isSuccessful)
-            //    parent.startApi();
-#warning TODO: implement call to start api in client
 
             eWrapper.verifyAndAuthCompleted(isSuccessful, errorText);
         }

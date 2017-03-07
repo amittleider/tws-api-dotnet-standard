@@ -565,10 +565,10 @@ namespace Samples
         //! [headTimestamp]
 
         //! [histogramData]
-        public void histogramData(int reqId, Tuple<double, long>[] data)
+        public void histogramData(int reqId, HistogramEntry[] data)
         {
             Console.WriteLine("Histogram data. Request Id: {0}, data size: {1}", reqId, data.Length);
-            data.ToList().ForEach(i => Console.WriteLine("\tPrice: {0}, Size: {1}", i.Item1, i.Item2));
+            data.ToList().ForEach(i => Console.WriteLine("\tPrice: {0}, Size: {1}", i.Price, i.Size));
         }
         //! [histogramData]
     }

@@ -1082,7 +1082,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	m_state = ST_CONTRACTOPERATION;
+	//m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1106,7 +1106,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
-	//m_state = ST_REQHISTOGRAMDATA;
+	m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_PING;
 }
 
@@ -1564,7 +1564,7 @@ void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
 	printf("Histogram. ReqId: %d, data length: %lu\n", reqId, data.size());
 
 	for (auto item : data) {
-		printf("\t price: %f, size: %lld\n", std::get<0>(item), std::get<1>(item));
+		printf("\t price: %f, size: %lld\n", item.price, item.size);
 	}
 }
 //! [histogramData]

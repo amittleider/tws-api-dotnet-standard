@@ -174,6 +174,6 @@ namespace TWSLib
         [DispId(136)]
         void headTimestamp(int reqId, string timestamp);
         [DispId(137)]
-        void histogramData(int reqId, ArrayList[] data);
+        void histogramData(int reqId, ComHistogramEntry[] data);
     }
 }

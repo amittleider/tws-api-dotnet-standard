@@ -11,6 +11,7 @@
 #include "FamilyCode.h"
 #include "NewsProvider.h"
 #include "TickAttrib.h"
+#include "HistogramEntry.h"
 #include <string>
 #include <set>
 #include <map>
@@ -97,7 +98,7 @@ enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				NOT_SET };
 
 typedef std::map<int, std::tuple<std::string, char>> SmartComponentsMap;
-typedef std::vector<std::tuple<double, long long>> HistogramDataVector;
+typedef std::vector<HistogramEntry> HistogramDataVector;
 
 
 inline bool isPrice( TickType tickType) {

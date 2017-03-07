@@ -789,6 +789,6 @@ namespace IBApi
         * @param data - returned Tuple of histogram data, number of trades at specified price level
         * @sa EClient::reqHistogramData
         */
-        void histogramData(int reqId, Tuple<double, long>[] data);
+        void histogramData(int reqId, HistogramEntry[] data);
     }
 }

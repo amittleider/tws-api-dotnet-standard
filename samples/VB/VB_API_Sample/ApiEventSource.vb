@@ -32,7 +32,7 @@ Friend Class ApiEventSource
 
 #Region "IBApi.EWrapper"
 
-    Private Sub EWrapper_histogramdata(requestId As Integer, data As Tuple(Of Double, Long)()) Implements EWrapper.histogramData
+    Private Sub EWrapper_histogramdata(requestId As Integer, data As HistogramEntry()) Implements EWrapper.histogramData
         InvokeIfRequired(Sub()
                              RaiseEvent HistogramData(Me, New HistogramDataEventArgs With {
                                  .requestId = requestId,

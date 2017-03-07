@@ -1941,14 +1941,14 @@ namespace TWSLib
                 InvokeIfRequired(tmp, reqId, headTimestamp);
         }
 
-        public delegate void histogramDataDelegate(int reqId, ArrayList[] data);
+        public delegate void histogramDataDelegate(int reqId, ComHistogramEntry[] data);
         public event histogramDataDelegate histogramData;
-        void EWrapper.histogramData(int reqId, Tuple<double, long>[] data)
+        void EWrapper.histogramData(int reqId, HistogramEntry[] data)
         {
             var tmp = this.histogramData;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, data.Select(x => new ArrayList(new object[] { x.Item1, x.Item2 })).ToArray());
+                InvokeIfRequired(tmp, reqId, data.Select(x => (ComHistogramEntry)x).ToArray());
         }
 
         #endregion

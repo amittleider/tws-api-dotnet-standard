@@ -58,6 +58,7 @@
     <Compile Include="ContractCondition.cs" />
     <Compile Include="ContractDescription.cs" />
     <Compile Include="ContractDetails.cs" />
+    <Compile Include="HistogramEntry.cs" />
     <Compile Include="NewsProvider.cs" />
     <Compile Include="DepthMktDataDescription.cs" />
     <Compile Include="DefaultEWrapper.cs" />

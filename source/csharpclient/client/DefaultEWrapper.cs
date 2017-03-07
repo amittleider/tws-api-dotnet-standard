@@ -287,7 +287,7 @@ namespace IBApi
         }
 
 
-        public void histogramData(int reqId, Tuple<double, long>[] data)
+        public void histogramData(int reqId, HistogramEntry[] data)
         {
         }
     }
