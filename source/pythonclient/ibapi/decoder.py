@@ -921,6 +921,7 @@ class Decoder(Object):
             for idxDerivSecType in range(nDerivativeSecTypes):
                 derivSecType = decode(str, fields)
                 conDesc.derivativeSecTypes.append(derivSecType)
+            contractDescriptions.append(conDesc)
 
         self.wrapper.symbolSamples(reqId, contractDescriptions)
 

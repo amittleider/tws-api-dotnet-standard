@@ -5,6 +5,7 @@
 #ifndef depthmktdatadescription_def
 #define depthmktdatadescription_def
 
+#include <limits.h>
 #define UNSET_INTEGER INT_MAX
 
 struct DepthMktDataDescription

@@ -104,19 +104,7 @@ namespace IBApi
                     throw new EClientException(EClientErrors.BAD_LENGTH);
                 }
 
-                var buf = new List<byte>();
-                var offset = 0;
-
-                while (offset < msgSize)
-                {
-                    var readBuf = eClientSocket.ReadByteArray(msgSize - offset);
-
-                    buf.AddRange(readBuf);
-
-                    offset += readBuf.Length;
-                }
-
-                return new EMessage(buf.ToArray());
+                return new EMessage(eClientSocket.ReadByteArray(msgSize));
             }
 
             if (inBuf.Count == 0)
@@ -149,7 +137,7 @@ namespace IBApi
 
         private void AppendInBuf()
         {
-            inBuf.AddRange(eClientSocket.ReadByteArray(inBuf.Capacity - inBuf.Count));
+            inBuf.AddRange(eClientSocket.ReadAtLeastNBytes(inBuf.Capacity - inBuf.Count));
         }
     }
 }

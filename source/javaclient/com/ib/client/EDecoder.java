@@ -426,10 +426,10 @@ class EDecoder implements ObjectInput {
     private void processHistogramDataMsg() throws IOException {
     	int reqId = readInt();
     	int n = readInt();
-    	List<Entry<Double, Long>> items = new ArrayList<>(n);
+    	List<HistogramEntry> items = new ArrayList<>(n);
     	
     	for (int i = 0; i < n; i++) {
-    		items.add(new SimpleEntry<>(readDouble(), readLong()));
+    		items.add(new HistogramEntry(readDouble(), readLong()));
     	}
     	
     	m_EWrapper.histogramData(reqId, items);

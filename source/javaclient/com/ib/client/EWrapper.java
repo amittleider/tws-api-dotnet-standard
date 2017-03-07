@@ -91,6 +91,6 @@ public interface EWrapper {
     void historicalNews(int requestId, String time, String providerCode, String articleId, String headline);
     void historicalNewsEnd(int requestId, boolean hasMore);
 	void headTimestamp(int reqId, String headTimestamp);
-	void histogramData(int reqId, List<Entry<Double, Long>> items);
+	void histogramData(int reqId, List<HistogramEntry> items);
 }
 

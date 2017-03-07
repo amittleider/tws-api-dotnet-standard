@@ -449,7 +449,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void histogramData(int reqId, List<Entry<Double, Long>> items) {
+	public void histogramData(int reqId, List<HistogramEntry> items) {
 		// TODO Auto-generated method stub
 		
 	}

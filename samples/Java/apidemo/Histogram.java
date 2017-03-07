@@ -3,11 +3,12 @@
 
 package apidemo;
 
+import com.ib.client.HistogramEntry;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.JComponent;
 
@@ -17,11 +18,10 @@ public class Histogram extends JComponent {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int m_barHeight = 15;
-	private final List<Entry<Double, Long>> m_rows;
-	int m_width;
+	private final List<HistogramEntry> m_rows;
 	private static final int m_x0 = 40;
 	
-	public Histogram(List<Entry<Double, Long>> rows) {
+	public Histogram(List<HistogramEntry> rows) {
 		m_rows = rows;
 	}
 	
@@ -29,12 +29,12 @@ public class Histogram extends JComponent {
 		int y = 0;
 		long max = getMax();
 
-		m_width = getWidth() - m_x0;
+		int width = getWidth() - m_x0;
 		
-		for (Entry<Double, Long> bar : m_rows) {
-			int x1 = (int)((bar.getValue() * m_width) / max);
+		for (HistogramEntry bar : m_rows) {
+			int x1 = (int)((bar.size * width) / max);
 
-			String label = bar.getKey() + "";
+			String label = bar.price + "";
 			
 			g.setColor(Color.red);
 			g.fillRect(m_x0, y, x1, m_barHeight);
@@ -47,7 +47,7 @@ public class Histogram extends JComponent {
 	}
 
 	long getMax() {
-		return m_rows.stream().map(Entry::getValue).max(Long::compare).orElse((long) -1);
+		return m_rows.stream().map(entry -> entry.size).max(Long::compare).orElse((long) -1);
 	}
 		
 	@Override public Dimension getPreferredSize() {// why on main screen 1 is okay but not here?
