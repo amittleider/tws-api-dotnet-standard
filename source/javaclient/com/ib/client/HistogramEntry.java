@@ -39,4 +39,12 @@ public class HistogramEntry implements Comparable<HistogramEntry> {
         }
         return Long.compare(size, he.size);
     }
+
+    @Override
+    public String toString() {
+        return "HistogramEntry{" +
+                "price=" + price +
+                ", size=" + size +
+                '}';
+    }
 }
