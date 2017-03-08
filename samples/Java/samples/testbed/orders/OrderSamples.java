@@ -209,6 +209,23 @@ public class OrderSamples {
 		return order;
 	}
 	
+	// Forex orders can be placed in denomination of second currency in pair using cashQty field
+	// Requires TWS or IBG 963+
+	// https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+	
+	public static Order LimitOrderWithCashQty(String action, double quantity, double limitPrice, double cashQty) {
+		// ! [limitorderwithcashqty]
+		Order order = new Order();
+		order.action(action);
+		order.orderType("LMT");
+		order.totalQuantity(quantity);
+		order.lmtPrice(limitPrice);
+		order.cashQty(cashQty);
+		// ! [limitorderwithcashqty]
+		return order;
+	}
+	
+	
 	public static Order LimitIfTouched(String action, double quantity, double limitPrice, double triggerPrice) {
 		// ! [limitiftouched]
 		Order order = new Order();

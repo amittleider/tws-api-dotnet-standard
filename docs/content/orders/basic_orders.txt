@@ -456,6 +456,32 @@
 		</li>
 	</ul>
 	
+	\section limitorderwithcashqty Forex Cash Quantity Order
+	Forex orders can be placed in denomination of second currency in pair using cashQty field. <br>
+	Requires TWS or IBG 963+
+	<ul>
+		<li>Products: CASH</li>
+		<li><a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=23876#963-02">Forex Cash Quantity Orders</a></li>
+	</ul>
+	<ul id="tab">
+		<li class="active"> 
+			\snippet OrderSamples.cs  limitorderwithcashqty
+		</li>
+		<li> 
+			\snippet OrderSamples.java  limitorderwithcashqty
+		</li>
+		<li> 
+			\snippet OrderSamples.vb  limitorderwithcashqty
+		</li>
+		<li> 
+			\snippet OrderSamples.cpp  limitorderwithcashqty
+		</li>
+		<li> 
+			\snippet OrderSamples.py  limitorderwithcashqty
+		</li>
+	</ul>
+	
+	
 	\section limitiftouched Limit if Touched
 	 A <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/index.php?f=592">Limit if Touched</a>
 	 is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is 

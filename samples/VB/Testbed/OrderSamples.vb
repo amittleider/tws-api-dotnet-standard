@@ -368,6 +368,23 @@ Namespace Samples
             Return order
         End Function
 
+		''' <summary>
+		''' Forex orders can be placed in denomination of second currency in pair using cashQty field
+		''' Requires TWS or IBG 963+
+		''' https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+		''' </summary>
+		Public Shared Function LimitOrderWithCashQty(action As String, quantity As Double, limitPrice As Double, cashQty As Double) As Order
+            '! [limitorderwithcashqty]
+            Dim order As Order = New Order
+            order.Action = action
+            order.OrderType = "LMT"
+            order.TotalQuantity = quantity
+            order.LmtPrice = limitPrice
+            order.CashQty = cashQty
+            '! [limitorderwithcashqty]
+            Return order
+        End Function
+
         ''' <summary>
         ''' A Limit if Touched Is an order to buy (Or sell) a contract at a specified price Or better, below (Or above) the market. This order Is 
         ''' held in the system until the trigger price Is touched. An LIT order Is similar to a stop limit order, except that an LIT sell order Is 

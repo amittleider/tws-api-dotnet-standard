@@ -355,6 +355,26 @@ namespace Samples
             return order;
         }
 
+		/// <summary>
+		/// Forex orders can be placed in demonination of second currency in pair using cashQty field
+		/// Requires TWS or IBG 963+
+		/// https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+		/// <summary>
+
+        public static Order LimitOrderWithCashQty(string action, double quantity, double limitPrice, double cashQty)
+        {
+            // ! [limitorderwithcashqty]
+            Order order = new Order();
+            order.Action = action;
+            order.OrderType = "LMT";
+            order.TotalQuantity = quantity;
+            order.LmtPrice = limitPrice;
+            order.CashQty = cashQty;
+            // ! [limitorderwithcashqty]
+            return order;
+        }
+
+
         /// <summary>
         /// A Limit if Touched is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is 
         /// held in the system until the trigger price is touched. An LIT order is similar to a stop limit order, except that an LIT sell order is 

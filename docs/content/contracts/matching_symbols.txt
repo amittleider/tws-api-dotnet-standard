@@ -1,9 +1,7 @@
-/*! \page matching_symbols Contract Search
+/*! \page matching_symbols Stock Contract Search
 
-	<b>This function is still in development and not yet available.</b>
-
-	Starting in API v973.02, a function IBApi::EClient::reqMatchingSymbols can be used to search for contracts based on initial letters defining the ticker symbol. For instance, if the strings "I" or "IB" are specified to search for the IB ticker symbol "IBKR" it will be returned in the list of matching contracts. 
-
+	Starting in API v973.02, a function IBApi::EClient::reqMatchingSymbols is available to search for stock contracts. The input can be either the first few letters of the ticker symbol, or for longer strings, a character sequence matching a word in the security name. For instance to search for the stock symbol 'IBKR', the input 'I' or 'IB' can be used, as well as the word 'Interactive'. Up to 16 matching results are returned. 
+	
 	<ul id="tab">
 		<li class="active"> 
 			\snippet Program.cs reqmatchingsymbols
@@ -22,7 +20,7 @@
 		</li>
 	</ul>
 
-	The results are returned to IBApi::EWrapper::symbolSamples.
+	Matching stock contracts are returned to IBApi::EWrapper::symbolSamples with information about types of derivative contracts which exist (warrants, options, dutch warrants, futures).
 
 	<ul id="tab">
 		<li class="active">

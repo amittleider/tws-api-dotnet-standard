@@ -345,11 +345,11 @@ Order OrderSamples::LimitOrder(std::string action, double quantity, double limit
 }
 
 	/// <summary>
-	/// A Limit order is an order to buy or sell at a specified price or better. The Limit order ensures that if the order fills, 
-	/// it will not fill at a price less favorable than your limit price, but it does not guarantee a fill.
-	/// cashQty - order size in monetary terms
-	/// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
+	/// Forex orders can be placed in denomination of second currency in pair using cashQty field
+	/// Requires TWS or IBG 963+
+	/// https://www.interactivebrokers.com/en/index.php?f=23876#963-02
 	/// </summary>
+
 Order OrderSamples::LimitOrderWithCashQty(std::string action, double quantity, double limitPrice, double cashQty){
 	// ! [limitorderwithcashqty]
 	Order order;
