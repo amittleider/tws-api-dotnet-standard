@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -8,6 +8,7 @@ import static com.ib.controller.Formats.fmtPct;
 import static com.ib.controller.Formats.fmtTime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -19,9 +20,9 @@ import com.ib.controller.ApiController.TopMktDataAdapter;
 import com.ib.controller.Formats;
 
 class TopModel extends AbstractTableModel {
-	private ArrayList<TopRow> m_rows = new ArrayList<>();
-	MarketDataPanel m_parentPanel;
-	private final int CANCEL_CHBX_COL_INDEX = 21;
+	private List<TopRow> m_rows = new ArrayList<>();
+	private MarketDataPanel m_parentPanel;
+	private static final int CANCEL_CHBX_COL_INDEX = 21;
 
 	TopModel(MarketDataPanel parentPanel) {
 		m_parentPanel = parentPanel;

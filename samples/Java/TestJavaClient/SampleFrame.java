@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -372,12 +372,12 @@ class SampleFrame extends JFrame implements EWrapper {
         // connect to TWS
         m_disconnectInProgress = false;
         
-        m_client.OptionalCapabilities(dlg.m_retOptCapts);
+        m_client.optionalCapabilities(dlg.m_retOptCapts);
         m_client.eConnect( dlg.m_retIpAddress, dlg.m_retPort, dlg.m_retClientId);
         if (m_client.isConnected()) {
             m_TWS.add("Connected to Tws server version " +
                        m_client.serverVersion() + " at " +
-                       m_client.TwsConnectionTime());
+                       m_client.getTwsConnectionTime());
         }
         
         m_reader = new EReader(m_client, m_signal);

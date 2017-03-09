@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -269,17 +269,17 @@ public abstract class EClient {
 	}
 
     public int serverVersion()          { return m_serverVersion;   }
-    public String TwsConnectionTime()   { return m_TwsTime; }
+    public String getTwsConnectionTime()   { return m_TwsTime; }
     public EWrapper wrapper()           { return m_eWrapper; }
 //    public EReader reader()             { return m_reader; }
     public abstract boolean isConnected();
 
     // set
     protected synchronized void setExtraAuth(boolean extraAuth) { m_extraAuth = extraAuth; }
-    public void OptionalCapabilities(String val) 		{ m_optionalCapabilities = val; }
+    public void optionalCapabilities(String val) 		{ m_optionalCapabilities = val; }
 
     // get
-    public String OptionalCapabilities() { return m_optionalCapabilities; }
+    public String optionalCapabilities() { return m_optionalCapabilities; }
 
     public EClient( EWrapper eWrapper, EReaderSignal signal) {
         m_eWrapper = eWrapper;

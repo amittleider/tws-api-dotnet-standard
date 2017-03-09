@@ -3,7 +3,7 @@ package samples.testbed.advisor;
 public class FAMethodSamples {
 	
 	//! [faonegroup]
-	public static String FaOneGroup = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	public static final String FA_ONE_GROUP = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + "<ListOfGroups>"
             + "<Group>"
                 + "<name>Equal_Quantity</name>"
@@ -18,7 +18,7 @@ public class FAMethodSamples {
 	//! [faonegroup]
 	
 	//! [fatwogroups]
-    public static String FaTwoGroups = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    public static final String FA_TWO_GROUPS = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             +"<ListOfGroups>"
             + "<Group>"
                 + "<name>Equal_Quantity</name>"
@@ -42,7 +42,7 @@ public class FAMethodSamples {
     //! [fatwogroups]
     
   //! [faoneprofile]
-    public static String FaOneProfile = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    public static final String FA_ONE_PROFILE = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + "<ListOfAllocationProfiles>"
             + "<AllocationProfile>"
                 + "<name>Percent_60_40</name>"
@@ -64,7 +64,7 @@ public class FAMethodSamples {
     //! [faoneprofile]
     
     //! [fatwoprofiles]
-    public static String FaTwoProfiles = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    public static final String FA_TWO_PROFILES = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + "<ListOfAllocationProfiles>"
             + "<AllocationProfile>"
                 + "<name>Percent_60_40</name>"

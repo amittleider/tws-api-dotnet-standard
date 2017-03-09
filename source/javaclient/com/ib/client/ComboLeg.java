@@ -48,7 +48,7 @@ public class ComboLeg {
     public void designatedLocation(String v) { m_designatedLocation = v; }
     public void exchange(String v)           { m_exchange = v; }
     public void exemptCode(int v)            { m_exemptCode = v; }
-    public void openClose(OpenClose v)       { m_openClose = ( v == null ) ? null : v.ordinal(); }
+    public void openClose(OpenClose v)       { m_openClose = ( v == null ) ? 0 : v.ordinal(); }
     public void openClose(int v)             { m_openClose = v; }
     public void ratio(int v)                 { m_ratio = v; }
     public void shortSaleSlot(int v)         { m_shortSaleSlot = v; }

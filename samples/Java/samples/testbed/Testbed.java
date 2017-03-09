@@ -612,19 +612,19 @@ public class Testbed {
 		
 		/*** Replacing FA information - Fill in with the appropriate XML string. ***/
 		//! [replacefaonegroup]
-		client.replaceFA(FADataType.GROUPS.ordinal(), FAMethodSamples.FaOneGroup);
+		client.replaceFA(FADataType.GROUPS.ordinal(), FAMethodSamples.FA_ONE_GROUP);
 		//! [replacefaonegroup]
 		
 		//! [replacefatwogroups]
-		client.replaceFA(FADataType.GROUPS.ordinal(), FAMethodSamples.FaTwoGroups);
+		client.replaceFA(FADataType.GROUPS.ordinal(), FAMethodSamples.FA_TWO_GROUPS);
 		//! [replacefatwogroups]
 		
 		//! [replacefaoneprofile]
-		client.replaceFA(FADataType.PROFILES.ordinal(), FAMethodSamples.FaOneProfile);
+		client.replaceFA(FADataType.PROFILES.ordinal(), FAMethodSamples.FA_ONE_PROFILE);
 		//! [replacefaoneprofile]
 		
 		//! [replacefatwoprofiles]
-		client.replaceFA(FADataType.PROFILES.ordinal(), FAMethodSamples.FaTwoProfiles);
+		client.replaceFA(FADataType.PROFILES.ordinal(), FAMethodSamples.FA_TWO_PROFILES);
 		//! [replacefatwoprofiles]
 		
                 //! [reqSoftDollarTiers]
