@@ -1,11 +1,10 @@
 package apidemo;
 
 import com.ib.client.MarginCondition;
-import com.ib.client.OrderCondition;
 
-public class MarginContidionPanel extends OperatorConditionPanel<MarginCondition> {
+public class MarginConditionPanel extends OperatorConditionPanel<MarginCondition> {
 	
-	public MarginContidionPanel(MarginCondition condition) {
+	MarginConditionPanel(MarginCondition condition) {
 		super(condition);
 		
 		m_value.setText(condition().percent());
@@ -14,7 +13,7 @@ public class MarginContidionPanel extends OperatorConditionPanel<MarginCondition
 		add("Cushion (%)", m_value);
 	}
 	
-	public OrderCondition onOK() {
+	public MarginCondition onOK() {
 		super.onOK();
 		condition().percent(m_value.getInt());
 		

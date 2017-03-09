@@ -298,7 +298,7 @@ class EDecoder implements ObjectInput {
                 break;
             
             case DELTA_NEUTRAL_VALIDATION:
-                processDeltaNetrualValidationMsg();
+                processDeltaNeutralValidationMsg();
                 break;
             
             case TICK_SNAPSHOT_END:
@@ -318,7 +318,7 @@ class EDecoder implements ObjectInput {
                 break;
             
             case VERIFY_COMPLETED:
-                processVerivyCompletedMsg();
+                processVerifyCompletedMsg();
                 break;
             
             case DISPLAY_GROUP_LIST:
@@ -642,7 +642,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.displayGroupList(reqId, groups);
 	}
 
-	private void processVerivyCompletedMsg() throws IOException {
+	private void processVerifyCompletedMsg() throws IOException {
 		/*int version =*/ readInt();
 		String isSuccessfulStr = readStr();
 		boolean isSuccessful = "true".equals(isSuccessfulStr);
@@ -687,7 +687,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.tickSnapshotEnd( reqId);
 	}
 
-	private void processDeltaNetrualValidationMsg() throws IOException {
+	private void processDeltaNeutralValidationMsg() throws IOException {
 		/*int version =*/ readInt();
 		int reqId = readInt();
 

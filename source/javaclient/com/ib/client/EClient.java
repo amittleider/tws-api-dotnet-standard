@@ -24,7 +24,7 @@ public abstract class EClient {
     //      Added FA support - reqExecution has filter.
     //                       - reqAccountUpdates takes acct code.
     // 11 = Added permId to openOrder event.
-    // 12 = requsting open order attributes ignoreRth, hidden, and discretionary
+    // 12 = requesting open order attributes ignoreRth, hidden, and discretionary
     // 13 = added goodAfterTime
     // 14 = always send size on bid/ask/last tick
     // 15 = send allocation description string on openOrder
@@ -501,7 +501,7 @@ public abstract class EClient {
     }
 
     public synchronized void reqMktData(int tickerId, Contract contract,
-    		String genericTickList, boolean snapshot, boolean regulatorySnaphsot, List<TagValue> mktDataOptions) {
+    		String genericTickList, boolean snapshot, boolean regulatorySnapshot, List<TagValue> mktDataOptions) {
         if (!isConnected()) {
             error(EClientErrors.NO_VALID_ID, EClientErrors.NOT_CONNECTED, "");
             return;
@@ -616,7 +616,7 @@ public abstract class EClient {
             }
             
             if (m_serverVersion >= MIN_SERVER_VER_REQ_SMART_COMPONENTS) {
-            	b.send(regulatorySnaphsot);
+            	b.send(regulatorySnapshot);
             }
             
             // send mktDataOptions parameter
@@ -727,7 +727,7 @@ public abstract class EClient {
           if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
               if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
                   error(tickerId, EClientErrors.UPDATE_TWS,
-                      "  It does not support conId and tradingClass parameters in reqHistroricalData.");
+                      "  It does not support conId and tradingClass parameters in reqHistoricalData.");
                   return;
               }
           }
@@ -2622,7 +2622,7 @@ public abstract class EClient {
         
         if (m_serverVersion < MIN_SERVER_VER_SEC_DEF_OPT_PARAMS_REQ) {
             error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
-            "  It does not support security definiton option requests.");
+            "  It does not support security definition option requests.");
             return;
         }
         

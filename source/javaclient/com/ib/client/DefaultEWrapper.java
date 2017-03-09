@@ -279,7 +279,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void verifyAndAuthMessageAPI(String apiData, String xyzChallange) {
+	public void verifyAndAuthMessageAPI(String apiData, String xyzChallenge) {
 		// TODO Auto-generated method stub
 		
 	}

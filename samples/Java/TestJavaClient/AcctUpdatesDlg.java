@@ -60,7 +60,7 @@ public class AcctUpdatesDlg extends JDialog {
         vbox.add( row3);
         vbox.add( Box.createVerticalStrut(10));
 
-        // create accoun chooser panel
+        // create account chooser panel
         JPanel acctChooserPanel = new JPanel();
         acctChooserPanel.setBorder( BorderFactory.createTitledBorder( ""));
         acctChooserPanel.add(vbox);

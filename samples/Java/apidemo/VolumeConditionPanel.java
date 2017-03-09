@@ -1,13 +1,11 @@
 package apidemo;
 
-import com.ib.client.ContractCondition;
 import com.ib.client.ContractLookuper;
-import com.ib.client.OrderCondition;
 import com.ib.client.VolumeCondition;
 
 public class VolumeConditionPanel extends ContractConditionPanel<VolumeCondition> {
 
-	public VolumeConditionPanel(ContractCondition condition, ContractLookuper lookuper) {
+	VolumeConditionPanel(VolumeCondition condition, ContractLookuper lookuper) {
 		super(condition, lookuper);
 		
 		m_value.setText(condition().volume());
@@ -17,7 +15,7 @@ public class VolumeConditionPanel extends ContractConditionPanel<VolumeCondition
 	}
 
 	@Override
-	public OrderCondition onOK() {
+	public VolumeCondition onOK() {
 		super.onOK();
 		
 		condition().volume(m_value.getInt());

@@ -193,7 +193,7 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 
 	private synchronized void eDisconnect( boolean resetState ) {
 	    // not connected?
-	    if( m_dis == null & m_socketTransport == null) {
+	    if( m_dis == null && m_socketTransport == null) {
 	        return;
 	    }
 	

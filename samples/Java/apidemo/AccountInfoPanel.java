@@ -231,13 +231,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (!(obj instanceof MarginRow)) {
-				return false;
-			}
-			return compareTo((MarginRow) obj) == 0;
+			return this == obj || (obj instanceof MarginRow && compareTo((MarginRow) obj) == 0);
 		}
 
 		@Override

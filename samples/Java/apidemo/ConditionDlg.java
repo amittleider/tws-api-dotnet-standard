@@ -53,7 +53,7 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
 	
 	private ContractLookuper m_lookuper;
     
-    public ConditionDlg(OrderCondition condition, ContractLookuper lookuper) {
+    ConditionDlg(OrderCondition condition, ContractLookuper lookuper) {
         initComponents();
         
         m_condition = condition;
@@ -211,37 +211,37 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
 		m_conditionPanel.removeAll();
 		
 		if (m_rbMargin.isSelected()) {
-			m_conditionSubPanel = new MarginContidionPanel((MarginCondition)instanciateCondition(MarginCondition.conditionType));					
+			m_conditionSubPanel = new MarginConditionPanel((MarginCondition) instantiateCondition(MarginCondition.conditionType));
 		}
 		
 		if (m_rbPercent.isSelected()) {
-			m_conditionSubPanel = new PercentConditionPanel((PercentChangeCondition)instanciateCondition(PercentChangeCondition.conditionType), m_lookuper);
+			m_conditionSubPanel = new PercentConditionPanel((PercentChangeCondition) instantiateCondition(PercentChangeCondition.conditionType), m_lookuper);
 		}
 		
 		if (m_rbPrice.isSelected()) {
-			m_conditionSubPanel = new PriceConditionPanel((PriceCondition)instanciateCondition(PriceCondition.conditionType), m_lookuper);
+			m_conditionSubPanel = new PriceConditionPanel((PriceCondition) instantiateCondition(PriceCondition.conditionType), m_lookuper);
 		}
 		
 		if (m_rbTime.isSelected()) {
-			m_conditionSubPanel = new TimeConditionPanel((TimeCondition)instanciateCondition(TimeCondition.conditionType));
+			m_conditionSubPanel = new TimeConditionPanel((TimeCondition) instantiateCondition(TimeCondition.conditionType));
 		}
 		
 		if (m_rbTrade.isSelected()) {
-			m_conditionSubPanel = new TradeConditionPanel((ExecutionCondition)instanciateCondition(ExecutionCondition.conditionType));
+			m_conditionSubPanel = new TradeConditionPanel((ExecutionCondition) instantiateCondition(ExecutionCondition.conditionType));
 		}
 		
 		if (m_rbVolume.isSelected()) {
-			m_conditionSubPanel = new VolumeConditionPanel((VolumeCondition)instanciateCondition(VolumeCondition.conditionType), m_lookuper);
+			m_conditionSubPanel = new VolumeConditionPanel((VolumeCondition) instantiateCondition(VolumeCondition.conditionType), m_lookuper);
 		}
 		
 		m_conditionPanel.add(m_conditionSubPanel);
 		pack();
 	}
 	
-	private OrderCondition instanciateCondition(OrderConditionType type) {
-		if (m_condition.type() != type)
-			m_condition = OrderCondition.create(type);
-		
+	private OrderCondition instantiateCondition(OrderConditionType type) {
+		if (m_condition.type() != type) {
+            m_condition = OrderCondition.create(type);
+        }
 		return m_condition;
 	}
 	

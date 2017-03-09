@@ -216,7 +216,7 @@ public class EWrapperImpl implements EWrapper {
 	//! [receivefa]
 	@Override
 	public void receiveFA(int faDataType, String xml) {
-		System.out.println("Receing FA: "+faDataType+" - "+xml);
+		System.out.println("Receiving FA: "+faDataType+" - "+xml);
 	}
 	//! [receivefa]
 	
@@ -343,7 +343,7 @@ public class EWrapperImpl implements EWrapper {
 	}
 
 	@Override
-	public void verifyAndAuthMessageAPI(String apiData, String xyzChallange) {
+	public void verifyAndAuthMessageAPI(String apiData, String xyzChallenge) {
 		System.out.println("verifyAndAuthMessageAPI");
 	}
 

@@ -63,7 +63,7 @@ public interface EWrapper {
     void accountSummaryEnd(int reqId);
     void verifyMessageAPI( String apiData);
     void verifyCompleted( boolean isSuccessful, String errorText);
-    void verifyAndAuthMessageAPI( String apiData, String xyzChallange);
+    void verifyAndAuthMessageAPI( String apiData, String xyzChallenge);
     void verifyAndAuthCompleted( boolean isSuccessful, String errorText);
     void displayGroupList( int reqId, String groups);
     void displayGroupUpdated( int reqId, String contractInfo);

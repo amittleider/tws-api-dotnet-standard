@@ -479,35 +479,35 @@ public class ApiController implements EWrapper {
 		}
 	}
 
-    public void reqTopMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, ITopMktDataHandler handler) {
+    public void reqTopMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnapshot, ITopMktDataHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnapshot, Collections.emptyList() );
 		sendEOM();
     }
 
-    public void reqOptionMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, IOptHandler handler) {
+    public void reqOptionMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnapshot, IOptHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_optionCompMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnapshot, Collections.emptyList() );
 		sendEOM();
     }
 
-    public void reqEfpMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnaphsot, IEfpHandler handler) {
+    public void reqEfpMktData(Contract contract, String genericTickList, boolean snapshot, boolean regulatorySnapshot, IEfpHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_topMktDataMap.put( reqId, handler);
     	m_efpMap.put( reqId, handler);
-    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnaphsot, Collections.emptyList() );
+    	m_client.reqMktData( reqId, contract, genericTickList, snapshot, regulatorySnapshot, Collections.emptyList() );
 		sendEOM();
     }
 
@@ -1205,7 +1205,7 @@ public class ApiController implements EWrapper {
 	
 	// ---------------------------------------- Account Update Multi handling ----------------------------------------
 	public interface IAccountUpdateMultiHandler {
-		void accountUpdateMulti( String account, String modelCode, String key, String value, String curreny);
+		void accountUpdateMulti( String account, String modelCode, String key, String value, String currency);
 		void accountUpdateMultiEnd();
 	}
 
@@ -1248,7 +1248,7 @@ public class ApiController implements EWrapper {
 
 	@Override public void verifyMessageAPI( String apiData) {}
 	@Override public void verifyCompleted( boolean isSuccessful, String errorText) {}
-	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallange) {}
+	@Override public void verifyAndAuthMessageAPI( String apiData, String xyzChallenge) {}
 	@Override public void verifyAndAuthCompleted( boolean isSuccessful, String errorText) {}
 	@Override public void displayGroupList(int reqId, String groups) {}
 	@Override public void displayGroupUpdated(int reqId, String contractInfo) {}
