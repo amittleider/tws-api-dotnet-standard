@@ -124,7 +124,7 @@ public class MarketDataPanel extends JPanel {
 	private class SmartComponentsResPanel extends NewTabPanel implements ISmartComponentsHandler {
 		
         final SmartComponentsModel m_model = new SmartComponentsModel();
-        final ArrayList<SmartComponentsRow> m_rows = new ArrayList<>();
+        final List<SmartComponentsRow> m_rows = new ArrayList<>();
         final JTable m_table = new JTable(m_model);
 
         SmartComponentsResPanel() {
@@ -233,7 +233,7 @@ public class MarketDataPanel extends JPanel {
 
     static class SymbolSamplesPanel extends NewTabPanel implements ISymbolSamplesHandler {
         final SymbolSamplesModel m_model = new SymbolSamplesModel();
-        final ArrayList<SymbolSamplesRow> m_rows = new ArrayList<>();
+        final List<SymbolSamplesRow> m_rows = new ArrayList<>();
 
         SymbolSamplesPanel() {
             JTable table = new JTable( m_model);
@@ -496,7 +496,7 @@ public class MarketDataPanel extends JPanel {
 		}
 
 		static class DeepModel extends AbstractTableModel {
-			final ArrayList<DeepRow> m_rows = new ArrayList<>();
+			final List<DeepRow> m_rows = new ArrayList<>();
 
 			@Override public int getRowCount() {
 				return m_rows.size();
@@ -690,7 +690,7 @@ public class MarketDataPanel extends JPanel {
 	
 	static class HtsResultsPanel extends NewTabPanel implements IHeadTimestampHandler {
 		final BarModel m_model = new BarModel();
-		final ArrayList<Long> m_rows = new ArrayList<>();
+		final List<Long> m_rows = new ArrayList<>();
 		//final Chart m_chart = new Chart( m_rows);
 		
 		HtsResultsPanel() {
@@ -835,7 +835,7 @@ public class MarketDataPanel extends JPanel {
 	
 	static class BarResultsPanel extends NewTabPanel implements IHistoricalDataHandler, IRealTimeBarHandler {
 		final BarModel m_model = new BarModel();
-		final ArrayList<Bar> m_rows = new ArrayList<>();
+		final List<Bar> m_rows = new ArrayList<>();
 		final boolean m_historical;
 		final Chart m_chart = new Chart( m_rows);
 		

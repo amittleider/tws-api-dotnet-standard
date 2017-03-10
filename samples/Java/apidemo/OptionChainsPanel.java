@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -97,7 +98,7 @@ class OptionChainsPanel extends JPanel {
 		ApiDemo.INSTANCE.controller().reqContractDetails( m_underContract, this::onRecUnderDetails);
 	}
 
-	void onRecUnderDetails(ArrayList<ContractDetails> list) {
+	void onRecUnderDetails(List<ContractDetails> list) {
 		if (list.size() != 1) {
 			ApiDemo.INSTANCE.show( "Error: " + list.size() + " underlying contracts returned");
 			return;
@@ -173,7 +174,7 @@ class OptionChainsPanel extends JPanel {
 			m_callsModel.fireTableDataChanged();
 		}
 		
-		@Override public void contractDetails(ArrayList<ContractDetails> list) {
+		@Override public void contractDetails(List<ContractDetails> list) {
 			for (ContractDetails data : list) {
 				Contract contract = data.contract();
 				
@@ -197,7 +198,7 @@ class OptionChainsPanel extends JPanel {
                 return rc;
             };
 			
-			ArrayList<ChainRow> m_list = new ArrayList<>();
+			List<ChainRow> m_list = new ArrayList<>();
 			
             void desubscribe() {
                 for (ChainRow row : m_list) {

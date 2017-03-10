@@ -6,6 +6,7 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -66,7 +67,7 @@ public class MktDepthExchangesPanel extends NewTabPanel {
 	}
 
 	private class MktDepthExchangesModel extends AbstractTableModel implements IMktDepthExchangesHandler {
-		ArrayList<DepthMktDataDescriptionRow> m_list = new ArrayList<>();
+		List<DepthMktDataDescriptionRow> m_list = new ArrayList<>();
 
 		@Override public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
 			for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions){

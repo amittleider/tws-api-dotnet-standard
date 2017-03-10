@@ -4,7 +4,6 @@
 package com.ib.client;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ib.client.Types.SecType;
@@ -430,7 +429,7 @@ public abstract class EClient {
         }
     }
 
-    public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription, ArrayList<TagValue> scannerSubscriptionOptions) {
+    public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription, List<TagValue> scannerSubscriptionOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -848,7 +847,7 @@ public abstract class EClient {
     }
     
     
-    public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, ArrayList<TagValue> realTimeBarsOptions) {
+    public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, List<TagValue> realTimeBarsOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -1016,7 +1015,7 @@ public abstract class EClient {
         }
     }
 
-    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows, ArrayList<TagValue> mktDepthOptions) {
+    public synchronized void reqMktDepth( int tickerId, Contract contract, int numRows, List<TagValue> mktDepthOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -1575,7 +1574,7 @@ public abstract class EClient {
             }
 
             if(m_serverVersion >= MIN_SERVER_VER_SMART_COMBO_ROUTING_PARAMS && SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
-                ArrayList<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
+                List<TagValue> smartComboRoutingParams = order.smartComboRoutingParams();
                 int smartComboRoutingParamsCount = smartComboRoutingParams == null ? 0 : smartComboRoutingParams.size();
                 b.send( smartComboRoutingParamsCount);
                 if( smartComboRoutingParamsCount > 0) {
@@ -1761,7 +1760,7 @@ public abstract class EClient {
            if (m_serverVersion >= MIN_SERVER_VER_ALGO_ORDERS) {
         	   b.send( order.getAlgoStrategy());
                if( !IsEmpty(order.getAlgoStrategy())) {
-        		   ArrayList<TagValue> algoParams = order.algoParams();
+        		   List<TagValue> algoParams = order.algoParams();
         		   int algoParamsCount = algoParams.size();
         		   b.send( algoParamsCount);
         		   for( TagValue tagValue : algoParams ) {
@@ -1782,7 +1781,7 @@ public abstract class EClient {
            // send orderMiscOptions parameter
            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
                StringBuilder orderMiscOptionsStr = new StringBuilder();
-               ArrayList<TagValue> orderMiscOptions = order.orderMiscOptions();
+               List<TagValue> orderMiscOptions = order.orderMiscOptions();
                int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
                if( orderMiscOptionsCount > 0) {
                    for( TagValue tagValue : orderMiscOptions ) {

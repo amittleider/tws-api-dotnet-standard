@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -8,7 +8,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -80,7 +80,7 @@ class ContractInfoPanel extends JPanel {
 			add( scroll);
 		}
 
-		@Override public void contractDetails(ArrayList<ContractDetails> list) {
+		@Override public void contractDetails(List<ContractDetails> list) {
  			// set label
 			if (list.size() == 0) {
 				m_label.setText( "No matching contracts were found");

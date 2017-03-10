@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
@@ -18,14 +19,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 class IBTextPanel extends JPanel {
-    public static final Color  textBackgroundColor = new Color(5, 5, 5);
-    public static final Color  textForegroundColor = new Color(0, 245, 0);
-    public static final Font   textComponentFont = new JList().getFont();
-    public static final Color  textCaretColor = Color.WHITE;
-    public static final String lineSeparator = System.getProperty("line.separator");
+    private static final Color  textBackgroundColor = new Color(5, 5, 5);
+    private static final Color  textForegroundColor = new Color(0, 245, 0);
+    private static final Font   textComponentFont = new JList().getFont();
+    private static final Color  textCaretColor = Color.WHITE;
+    private static final String lineSeparator = System.getProperty("line.separator");
 
     private JTextArea m_textArea = new JTextArea();
-    private JScrollPane m_scrollPane = new JScrollPane(m_textArea);
     private final static String LF = "\n" ;
     private final static String TAB = "\t" ;
     private final static String EIGHT_SPACES = "        ";
@@ -46,7 +46,7 @@ class IBTextPanel extends JPanel {
         m_textArea.setFont(textComponentFont);
         m_textArea.setCaretColor(textCaretColor);
         m_textArea.setEditable(editable);
-        add(m_scrollPane);
+        add(new JScrollPane(m_textArea));
     }
 
     public void clear() {
@@ -90,11 +90,11 @@ class IBTextPanel extends JPanel {
     }
 
     public void addText(String text) {
-        add(tokenizedIntoArrayList(detabbed(text), LF));
+        add(tokenizedIntoList(detabbed(text), LF));
     }
 
-    public static ArrayList<String> tokenizedIntoArrayList(String source, String delimiter) {
-        ArrayList<String> list = new ArrayList<>();
+    public static List<String> tokenizedIntoList(String source, String delimiter) {
+        List<String> list = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(source, delimiter);
         while (st.hasMoreTokens()) {
             String temp = st.nextToken();

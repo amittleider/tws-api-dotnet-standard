@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -6,6 +6,7 @@ package com.ib.client;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,7 +30,7 @@ public class Util {
     	return NormalizeString(lhs).compareToIgnoreCase(NormalizeString(rhs));
     }
 
-    public static boolean ArrayEqualsUnordered(ArrayList<?> lhs, ArrayList<?> rhs) {
+    public static boolean listsEqualUnordered(List<?> lhs, List<?> rhs) {
     	if (lhs == rhs)
     		return true;
 
@@ -80,18 +81,18 @@ public class Util {
     }
     
     
-	public static ArrayList<ContractDetails> lookupContract(ApiController controller, Contract contract) {
+	public static List<ContractDetails> lookupContract(ApiController controller, Contract contract) {
 		if (controller == null) {
 			return new ArrayList<>();
 		}
-		final CompletableFuture<ArrayList<ContractDetails>> future = new CompletableFuture<>();
+		final CompletableFuture<List<ContractDetails>> future = new CompletableFuture<>();
 				
 		controller.reqContractDetails(contract, new IContractDetailsHandler() {
 
-			private final ArrayList<ContractDetails> contractDetails = new ArrayList<>();
+			private final List<ContractDetails> contractDetails = new ArrayList<>();
 
 			@Override
-			public void contractDetails(ArrayList<ContractDetails> list) {
+			public void contractDetails(List<ContractDetails> list) {
 				contractDetails.addAll(list);
 				future.complete(contractDetails);
 			}

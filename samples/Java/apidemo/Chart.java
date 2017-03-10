@@ -6,7 +6,7 @@ package apidemo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComponent;
 
@@ -17,12 +17,12 @@ public class Chart extends JComponent {
 	private int height;
 	private double min;
 	private double max;
-	private final ArrayList<Bar> m_rows;
+	private final List<Bar> m_rows;
 	private double m_current = 118;
 	
 	public void current( double v) { m_current = v; }
 	
-	public Chart(ArrayList<Bar> rows) {
+	public Chart(List<Bar> rows) {
 		m_rows = rows;
 	}
 	

@@ -1,6 +1,6 @@
 package apidemo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -26,10 +26,10 @@ public class ConditionsModel extends AbstractTableModel {
 		return col == 1;
 	}
 
-	ArrayList<OrderCondition> m_conditions;
+	List<OrderCondition> m_conditions;
 	ContractLookuper m_lookuper;
 	
-	public ConditionsModel(ArrayList<OrderCondition> conditions, ContractLookuper lookuper) {
+	public ConditionsModel(List<OrderCondition> conditions, ContractLookuper lookuper) {
 		m_conditions = conditions;
 		m_lookuper = lookuper;
 	}

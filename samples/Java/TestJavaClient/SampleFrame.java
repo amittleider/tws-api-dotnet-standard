@@ -43,12 +43,12 @@ class SampleFrame extends JFrame implements EWrapper {
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
 
-    private ArrayList<TagValue> m_mktDataOptions = new ArrayList<>();
-    private ArrayList<TagValue> m_chartOptions = new ArrayList<>();
-//    private ArrayList<TagValue> m_orderMiscOptions = new ArrayList<>();
-    private ArrayList<TagValue> m_mktDepthOptions = new ArrayList<>();
-//    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
-    private ArrayList<TagValue> m_realTimeBarsOptions = new ArrayList<>();
+    private List<TagValue> m_mktDataOptions = new ArrayList<>();
+    private List<TagValue> m_chartOptions = new ArrayList<>();
+//    private List<TagValue> m_orderMiscOptions = new ArrayList<>();
+    private List<TagValue> m_mktDepthOptions = new ArrayList<>();
+//    private List<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
+    private List<TagValue> m_realTimeBarsOptions = new ArrayList<>();
     
     private String faGroupXML ;
     private String faProfilesXML ;
@@ -83,13 +83,13 @@ class SampleFrame extends JFrame implements EWrapper {
     
     private final Map<Integer, ContractDetailsCallback> m_callbackMap = new HashMap<>();
     
-    ArrayList<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
-        final CompletableFuture<ArrayList<ContractDetails>> future = new CompletableFuture<>();
+    List<ContractDetails> lookupContract(Contract contract) throws InterruptedException {
+        final CompletableFuture<List<ContractDetails>> future = new CompletableFuture<>();
 
         synchronized (m_callbackMap) {
             m_callbackMap.put(m_orderDlg.m_id, new ContractDetailsCallback() {
 
-                private final ArrayList<ContractDetails> list = new ArrayList<>();
+                private final List<ContractDetails> list = new ArrayList<>();
 
                 @Override
                 public void onError(int errorCode, String errorMsg) {

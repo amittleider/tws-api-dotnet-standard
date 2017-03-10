@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -8,6 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -169,8 +171,8 @@ public class OrdersPanel extends JPanel {
 	}
 	
 	static class OrdersModel extends AbstractTableModel implements ILiveOrderHandler {
-		private HashMap<Long,OrderRow> m_map = new HashMap<>();
-		private ArrayList<OrderRow> m_orders = new ArrayList<>();
+		private Map<Long,OrderRow> m_map = new HashMap<>();
+		private List<OrderRow> m_orders = new ArrayList<>();
 
 		@Override public int getRowCount() {
 			return m_orders.size();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
@@ -39,35 +39,35 @@ public class ApiController implements EWrapper {
 	private IScannerHandler m_scannerHandler;
 	private ITimeHandler m_timeHandler;
 	private IBulletinHandler m_bulletinHandler;
-	private final HashMap<Integer,IInternalHandler> m_contractDetailsMap = new HashMap<>();
-	private final HashMap<Integer,IOptHandler> m_optionCompMap = new HashMap<>();
-	private final HashMap<Integer,IEfpHandler> m_efpMap = new HashMap<>();
-	private final HashMap<Integer,ITopMktDataHandler> m_topMktDataMap = new HashMap<>();
-	private final HashMap<Integer,IDeepMktDataHandler> m_deepMktDataMap = new HashMap<>();
-	private final HashMap<Integer, IScannerHandler> m_scannerMap = new HashMap<>();
-	private final HashMap<Integer, IRealTimeBarHandler> m_realTimeBarMap = new HashMap<>();
-	private final HashMap<Integer, IHistoricalDataHandler> m_historicalDataMap = new HashMap<>();
-	private final HashMap<Integer, IHeadTimestampHandler> m_headTimestampMap = new HashMap<>();
-	private final HashMap<Integer, IHistogramDataHandler> m_histogramDataMap = new HashMap<>();
-	private final HashMap<Integer, IFundamentalsHandler> m_fundMap = new HashMap<>();
-	private final HashMap<Integer, IOrderHandler> m_orderHandlers = new HashMap<>();
-	private final HashMap<Integer,IAccountSummaryHandler> m_acctSummaryHandlers = new HashMap<>();
-	private final HashMap<Integer,IMarketValueSummaryHandler> m_mktValSummaryHandlers = new HashMap<>();
-	private final ConcurrentHashSet<IPositionHandler> m_positionHandlers = new ConcurrentHashSet<>();
-	private final ConcurrentHashSet<IAccountHandler> m_accountHandlers = new ConcurrentHashSet<>();
-	private final ConcurrentHashSet<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<>();
-	private final HashMap<Integer, IPositionMultiHandler> m_positionMultiMap = new HashMap<>();
-	private final HashMap<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<>();
-	private final HashMap<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<>();
-	private final HashMap<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
-	private final ConcurrentHashSet<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<>();
-	private final HashMap<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<>();
-	private final ConcurrentHashSet<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<>();
-	private final HashMap<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<>();
-	private final HashMap<Integer, ISmartComponentsHandler> m_smartComponentsHandler = new HashMap<>();
-	private final ConcurrentHashSet<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<>();
-	private final HashMap<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
-	private final HashMap<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
+	private final Map<Integer,IInternalHandler> m_contractDetailsMap = new HashMap<>();
+	private final Map<Integer,IOptHandler> m_optionCompMap = new HashMap<>();
+	private final Map<Integer,IEfpHandler> m_efpMap = new HashMap<>();
+	private final Map<Integer,ITopMktDataHandler> m_topMktDataMap = new HashMap<>();
+	private final Map<Integer,IDeepMktDataHandler> m_deepMktDataMap = new HashMap<>();
+	private final Map<Integer, IScannerHandler> m_scannerMap = new HashMap<>();
+	private final Map<Integer, IRealTimeBarHandler> m_realTimeBarMap = new HashMap<>();
+	private final Map<Integer, IHistoricalDataHandler> m_historicalDataMap = new HashMap<>();
+	private final Map<Integer, IHeadTimestampHandler> m_headTimestampMap = new HashMap<>();
+	private final Map<Integer, IHistogramDataHandler> m_histogramDataMap = new HashMap<>();
+	private final Map<Integer, IFundamentalsHandler> m_fundMap = new HashMap<>();
+	private final Map<Integer, IOrderHandler> m_orderHandlers = new HashMap<>();
+	private final Map<Integer,IAccountSummaryHandler> m_acctSummaryHandlers = new HashMap<>();
+	private final Map<Integer,IMarketValueSummaryHandler> m_mktValSummaryHandlers = new HashMap<>();
+	private final Set<IPositionHandler> m_positionHandlers = new ConcurrentHashSet<>();
+	private final Set<IAccountHandler> m_accountHandlers = new ConcurrentHashSet<>();
+	private final Set<ILiveOrderHandler> m_liveOrderHandlers = new ConcurrentHashSet<>();
+	private final Map<Integer, IPositionMultiHandler> m_positionMultiMap = new HashMap<>();
+	private final Map<Integer, IAccountUpdateMultiHandler> m_accountUpdateMultiMap = new HashMap<>();
+	private final Map<Integer, ISecDefOptParamsReqHandler> m_secDefOptParamsReqMap = new HashMap<>();
+	private final Map<Integer, ISoftDollarTiersReqHandler> m_softDollarTiersReqMap = new HashMap<>();
+	private final Set<IFamilyCodesHandler> m_familyCodesHandlers = new ConcurrentHashSet<>();
+	private final Map<Integer, ISymbolSamplesHandler> m_symbolSamplesHandlerMap = new HashMap<>();
+	private final Set<IMktDepthExchangesHandler> m_mktDepthExchangesHandlers = new ConcurrentHashSet<>();
+	private final Map<Integer, ITickNewsHandler> m_tickNewsHandlerMap = new HashMap<>();
+	private final Map<Integer, ISmartComponentsHandler> m_smartComponentsHandler = new HashMap<>();
+	private final Set<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<>();
+	private final Map<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
+	private final Map<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -76,7 +76,7 @@ public class ApiController implements EWrapper {
 	public interface IConnectionHandler {
 		void connected();
 		void disconnected();
-		void accountList(ArrayList<String> list);
+		void accountList(List<String> list);
 		void error(Exception e);
 		void message(int id, int errorCode, String errorMsg);
 		void show(String string);
@@ -126,7 +126,7 @@ public class ApiController implements EWrapper {
 	}
 
 	@Override public void managedAccounts(String accounts) {
-		ArrayList<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 		for( StringTokenizer st = new StringTokenizer( accounts, ","); st.hasMoreTokens(); ) {
 			list.add( st.nextToken() );
 		}
@@ -194,7 +194,7 @@ public class ApiController implements EWrapper {
     }
 
 	@Override public void updateAccountValue(String tag, String value, String currency, String account) {
-		if (tag.equals( "Currency") ) { // ignore this, it is useless
+		if ("Currency".equals(tag)) { // ignore this, it is useless
 			return;
 		}
 
@@ -295,7 +295,7 @@ public class ApiController implements EWrapper {
 	}
 
 	@Override public void accountSummary( int reqId, String account, String tag, String value, String currency) {
-		if (tag.equals( "Currency") ) { // ignore this, it is useless
+		if ("Currency".equals(tag)) { // ignore this, it is useless
 			return;
 		}
 
@@ -366,14 +366,14 @@ public class ApiController implements EWrapper {
 
 	// ---------------------------------------- Contract Details ----------------------------------------
 	public interface IContractDetailsHandler {
-		void contractDetails(ArrayList<ContractDetails> list);
+		void contractDetails(List<ContractDetails> list);
 	}
 
 	public void reqContractDetails( Contract contract, final IContractDetailsHandler processor) {
 		if (!checkConnection())
 			return;
 
-		final ArrayList<ContractDetails> list = new ArrayList<>();
+		final List<ContractDetails> list = new ArrayList<>();
 		internalReqContractDetails( contract, new IInternalHandler() {
 			@Override public void contractDetails(ContractDetails data) {
 				list.add( data);
@@ -628,7 +628,7 @@ public class ApiController implements EWrapper {
 
     	int reqId = m_reqId++;
     	m_deepMktDataMap.put( reqId, handler);
-    	ArrayList<TagValue> mktDepthOptions = new ArrayList<>();
+    	List<TagValue> mktDepthOptions = new ArrayList<>();
     	m_client.reqMktDepth( reqId, contract, numRows, mktDepthOptions);
 		sendEOM();
     }
@@ -747,9 +747,9 @@ public class ApiController implements EWrapper {
 
 	// ---------------------------------------- Advisor info ----------------------------------------
 	public interface IAdvisorHandler {
-		void groups(ArrayList<Group> groups);
-		void profiles(ArrayList<Profile> profiles);
-		void aliases(ArrayList<Alias> aliases);
+		void groups(List<Group> groups);
+		void profiles(List<Profile> profiles);
+		void aliases(List<Alias> aliases);
 	}
 
 	public void reqAdvisorData( FADataType type, IAdvisorHandler handler) {
@@ -761,7 +761,7 @@ public class ApiController implements EWrapper {
 		sendEOM();
 	}
 
-	public void updateGroups( ArrayList<Group> groups) {
+	public void updateGroups( List<Group> groups) {
 		if (!checkConnection())
 			return;
 
@@ -769,7 +769,7 @@ public class ApiController implements EWrapper {
 		sendEOM();
 	}
 
-	public void updateProfiles(ArrayList<Profile> profiles) {
+	public void updateProfiles(List<Profile> profiles) {
 		if (!checkConnection())
 			return;
 
@@ -786,17 +786,17 @@ public class ApiController implements EWrapper {
 
 		switch( type) {
 			case GROUPS:
-				ArrayList<Group> groups = AdvisorUtil.getGroups( xml);
+				List<Group> groups = AdvisorUtil.getGroups( xml);
 				m_advisorHandler.groups(groups);
 				break;
 
 			case PROFILES:
-				ArrayList<Profile> profiles = AdvisorUtil.getProfiles( xml);
+				List<Profile> profiles = AdvisorUtil.getProfiles( xml);
 				m_advisorHandler.profiles(profiles);
 				break;
 
 			case ALIASES:
-				ArrayList<Alias> aliases = AdvisorUtil.getAliases( xml);
+				List<Alias> aliases = AdvisorUtil.getAliases( xml);
 				m_advisorHandler.aliases(aliases);
 				break;
 		}
@@ -954,7 +954,7 @@ public class ApiController implements EWrapper {
 
 		int reqId = m_reqId++;
 		m_scannerMap.put( reqId, handler);
-		ArrayList<TagValue> scannerSubscriptionOptions = new ArrayList<>();
+		List<TagValue> scannerSubscriptionOptions = new ArrayList<>();
 		m_client.reqScannerSubscription( reqId, sub, scannerSubscriptionOptions);
 		sendEOM();
 	}
@@ -1058,7 +1058,7 @@ public class ApiController implements EWrapper {
 
     	int reqId = m_reqId++;
     	m_realTimeBarMap.put( reqId, handler);
-    	ArrayList<TagValue> realTimeBarsOptions = new ArrayList<>();
+    	List<TagValue> realTimeBarsOptions = new ArrayList<>();
     	m_client.reqRealTimeBars(reqId, contract, 0, whatToShow.toString(), rthOnly, realTimeBarsOptions);
 		sendEOM();
     }
@@ -1272,7 +1272,7 @@ public class ApiController implements EWrapper {
 		m_connectionHandler.show( string);
 	}
 
-    private static <K,V> K getAndRemoveKey( HashMap<K,V> map, V value) {
+    private static <K,V> K getAndRemoveKey( Map<K,V> map, V value) {
     	for (Entry<K,V> entry : map.entrySet() ) {
     		if (entry.getValue() == value) {
     			map.remove( entry.getKey() );

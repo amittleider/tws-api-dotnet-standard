@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -49,7 +50,7 @@ public class AlgoParamsDlg extends JDialog {
         JPanel pParamList = new JPanel( new GridLayout( 0, 1, 10, 10) );
         pParamList.setBorder( BorderFactory.createTitledBorder( "Parameters") );
 
-        ArrayList<TagValue> algoParams = m_order.algoParams();
+        List<TagValue> algoParams = m_order.algoParams();
         if (algoParams != null) {
         	m_paramModel.algoParams().addAll(algoParams);
         }
@@ -124,7 +125,7 @@ public class AlgoParamsDlg extends JDialog {
     void onOk() {
     	m_order.algoStrategy(m_algoStrategy.getText());
 
-    	ArrayList<TagValue> algoParams = m_paramModel.algoParams();
+    	List<TagValue> algoParams = m_paramModel.algoParams();
     	m_order.algoParams(algoParams.isEmpty() ? null : algoParams);
 
         setVisible( false);
@@ -152,7 +153,7 @@ public class AlgoParamsDlg extends JDialog {
 }
 
 class AlgoParamModel extends AbstractTableModel {
-    private ArrayList<TagValue> m_allData = new ArrayList<>();
+    private List<TagValue> m_allData = new ArrayList<>();
 
     synchronized void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
@@ -205,7 +206,7 @@ class AlgoParamModel extends AbstractTableModel {
         }
     }
 
-    public ArrayList<TagValue> algoParams() {
+    public List<TagValue> algoParams() {
         return m_allData;
     }
 }

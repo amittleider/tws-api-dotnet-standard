@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -6,6 +6,8 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -71,8 +73,8 @@ public class PositionsPanel extends NewTabPanel {
 	}
 	
 	private class PositionModel extends AbstractTableModel implements IPositionHandler {
-		HashMap<PositionKey,PositionRow> m_map = new HashMap<>();
-		ArrayList<PositionRow> m_list = new ArrayList<>();
+		Map<PositionKey,PositionRow> m_map = new HashMap<>();
+		List<PositionRow> m_list = new ArrayList<>();
 
 		@Override public void position(String account, Contract contract, double position, double avgCost) {
 			PositionKey key = new PositionKey( account, contract.conid() );
