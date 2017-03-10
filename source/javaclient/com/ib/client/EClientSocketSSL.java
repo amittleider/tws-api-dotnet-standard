@@ -24,10 +24,7 @@ public class EClientSocketSSL extends EClientSocket  {
 			ctx = SSLContext.getInstance("TLS");
 			ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
 	        SSLContext.setDefault(ctx);
-		} catch (KeyManagementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
+		} catch (KeyManagementException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -71,7 +68,7 @@ public class EClientSocketSSL extends EClientSocket  {
 	}
 
 	@Override
-    protected void performRedirect( String address, int defaultPort ) throws IOException {
+    protected synchronized void performRedirect( String address, int defaultPort ) throws IOException {
 	    System.out.println("Server Redirect: " + address);
 	    
 	    // Get host:port from address string and reconnect (note: port is optional)
@@ -87,6 +84,6 @@ public class EClientSocketSSL extends EClientSocket  {
 	        newPort = defaultPort;
 	    }
 	    
-	    eConnect( (SSLSocket) SSLSocketFactory.getDefault().createSocket( m_host, newPort ) );
+	    eConnect( SSLSocketFactory.getDefault().createSocket( m_host, newPort ) );
 	}
 }
