@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -7,10 +7,7 @@ package apidemo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -130,8 +127,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	}
 	
 	private static class MarginModel extends AbstractTableModel {
-		HashMap<MarginRowKey,MarginRow> m_map = new HashMap<>();
-		ArrayList<MarginRow> m_list = new ArrayList<>();
+		Map<MarginRowKey,MarginRow> m_map = new HashMap<>();
+		List<MarginRow> m_list = new ArrayList<>();
 
 		void clear() {
 			m_map.clear();
@@ -267,8 +264,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	}
 	
 	static class MktValModel extends AbstractTableModel {
-		private HashMap<String,MktValRow> m_map = new HashMap<>();
-		private ArrayList<MktValRow> m_list = new ArrayList<>();
+		private Map<String,MktValRow> m_map = new HashMap<>();
+		private List<MktValRow> m_list = new ArrayList<>();
 		
 		void handle(String account, String currency, MarketValueTag mvTag, String value) {
 			String key = account + currency;
@@ -342,7 +339,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	private static class MktValRow {
 		String m_account;
 		String m_currency;
-		HashMap<MarketValueTag,String> m_map = new HashMap<>();
+		Map<MarketValueTag,String> m_map = new HashMap<>();
 		
 		MktValRow(String account, String currency) {
 			m_account = account;
@@ -360,8 +357,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 
 	/** Shared with ExercisePanel. */
 	static class PortfolioModel extends AbstractTableModel {
-		private HashMap<Integer,Position> m_portfolioMap = new HashMap<>();
-		private ArrayList<Integer> m_positions = new ArrayList<>(); // must store key because Position is overwritten
+		private Map<Integer,Position> m_portfolioMap = new HashMap<>();
+		private List<Integer> m_positions = new ArrayList<>(); // must store key because Position is overwritten
 		
 		void clear() {
 			m_positions.clear();

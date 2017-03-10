@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -6,6 +6,7 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -83,26 +84,26 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	@Override public void closed() {
 	}
 
-	public void groups(ArrayList<Group> groups) {
+	public void groups(List<Group> groups) {
 		m_groupModel.update( groups);
 	}
 
-	public void profiles(ArrayList<Profile> profiles) {
+	public void profiles(List<Profile> profiles) {
 		m_profileModel.update( profiles);
 	}
 
-	public void aliases(ArrayList<Alias> aliases) {
+	public void aliases(List<Alias> aliases) {
 		m_aliasModel.update( aliases);
 	}
 	
 	private static class AliasModel extends AbstractTableModel {
-		ArrayList<Alias> m_list = new ArrayList<>();
+		List<Alias> m_list = new ArrayList<>();
 		
 		@Override public int getRowCount() {
 			return m_list.size();
 		}
 
-		public void update(ArrayList<Alias> aliases) {
+		public void update(List<Alias> aliases) {
 			m_list.clear();
 			m_list.addAll( aliases);
 			fireTableDataChanged();
@@ -175,13 +176,13 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	private static class GroupModel extends AbstractTableModel {
 		TCombo<Method> combo = new TCombo<>(Method.values());
 		DefaultCellEditor EDITOR = new DefaultCellEditor( combo);
-		ArrayList<Group> m_groups = new ArrayList<>();
+		List<Group> m_groups = new ArrayList<>();
 		
 		GroupModel() {		
 			EDITOR.setClickCountToStart( 1);
 		}
 		
-		void update(ArrayList<Group> groups) {
+		void update(List<Group> groups) {
 			m_groups.clear();
 			m_groups.addAll( groups);
 			fireTableDataChanged();
@@ -288,14 +289,14 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 	private static class ProfileModel extends AbstractTableModel {
 		TCombo<Type> combo = new TCombo<>(Type.values());
 		DefaultCellEditor EDITOR = new DefaultCellEditor( combo);
-		ArrayList<Profile> m_profiles = new ArrayList<>();
+		List<Profile> m_profiles = new ArrayList<>();
 		
 		ProfileModel() {		
 			EDITOR.setClickCountToStart( 1);
 			combo.removeItemAt( 0);
 		}
 		
-		public void update(ArrayList<Profile> profiles) {
+		public void update(List<Profile> profiles) {
 			m_profiles.clear();
 			m_profiles.addAll( profiles);
 			fireTableDataChanged();

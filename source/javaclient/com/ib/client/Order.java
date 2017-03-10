@@ -4,6 +4,7 @@
 package com.ib.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ib.client.Types.Action;
 import com.ib.client.Types.AlgoStrategy;
@@ -112,12 +113,12 @@ public class Order {
 
     // algo orders
     private String              m_algoStrategy = "";
-    private ArrayList<TagValue> m_algoParams = new ArrayList<>();
+    private List<TagValue> m_algoParams = new ArrayList<>();
     private String              m_algoId;
 
     // combo orders
-    private ArrayList<TagValue>       m_smartComboRoutingParams = new ArrayList<>();
-    private ArrayList<OrderComboLeg>  m_orderComboLegs = new ArrayList<>();
+    private List<TagValue>       m_smartComboRoutingParams = new ArrayList<>();
+    private List<OrderComboLeg>  m_orderComboLegs = new ArrayList<>();
 
     // processing control
     private boolean m_whatIf;
@@ -161,7 +162,7 @@ public class Order {
     private boolean  m_notHeld;
 
     // order misc options
-    private ArrayList<TagValue> m_orderMiscOptions;
+    private List<TagValue> m_orderMiscOptions;
     
     //order algo id
 	private boolean m_solicited;
@@ -183,7 +184,7 @@ public class Order {
 	private int m_adjustableTrailingUnit;
 	private double m_lmtPriceOffset = Double.MAX_VALUE;
 	
-	private ArrayList<OrderCondition> m_conditions = new ArrayList<>();
+	private List<OrderCondition> m_conditions = new ArrayList<>();
 	private boolean m_conditionsCancelOrder;
 	private boolean m_conditionsIgnoreRth;
     
@@ -287,7 +288,7 @@ public class Order {
     public String activeStopTime()      { return m_activeStopTime; }
     public OrderType deltaNeutralOrderType() { return OrderType.get(m_deltaNeutralOrderType); }
     public String getDeltaNeutralOrderType() { return m_deltaNeutralOrderType; }
-    public ArrayList<OrderComboLeg> orderComboLegs() { return m_orderComboLegs; }
+    public List<OrderComboLeg> orderComboLegs() { return m_orderComboLegs; }
     public boolean overridePercentageConstraints()   { return m_overridePercentageConstraints; }
     public String openClose()           { return m_openClose; }
     public int    origin()              { return m_origin; }
@@ -299,8 +300,8 @@ public class Order {
     public String deltaNeutralClearingIntent()  { return m_deltaNeutralClearingIntent; }
     public ReferencePriceType referencePriceType() { return ReferencePriceType.get(m_referencePriceType); }
     public int getReferencePriceType()  { return m_referencePriceType; }
-    public ArrayList<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
-    public ArrayList<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
+    public List<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
+    public List<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
     public boolean randomizeSize() { return m_randomizeSize; }
     public boolean randomizePrice() { return m_randomizePrice; }
     public int referenceContractId() { return m_referenceContractId; }
@@ -315,7 +316,7 @@ public class Order {
 	public double adjustedTrailingAmount() { return m_adjustedTrailingAmount; }
 	public int adjustableTrailingUnit() { return m_adjustableTrailingUnit; }
 	public double lmtPriceOffset() { return m_lmtPriceOffset; }
-	public ArrayList<OrderCondition> conditions() {	return m_conditions; }
+	public List<OrderCondition> conditions() {	return m_conditions; }
 	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
 	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
     public String modelCode() { return m_modelCode; }
@@ -416,19 +417,19 @@ public class Order {
     public void triggerMethod(int v)            { m_triggerMethod = v; }
     public void activeStartTime(String v)       { m_activeStartTime = v; }
     public void activeStopTime(String v)        { m_activeStopTime = v; }
-    public void algoParams(ArrayList<TagValue> v) { m_algoParams = v; }
+    public void algoParams(List<TagValue> v) { m_algoParams = v; }
     public void volatility(double v)            { m_volatility = v; }
     public void volatilityType(VolatilityType v) { m_volatilityType = ( v == null ) ? 0 : v.ordinal(); }
     public void volatilityType(int v)           { m_volatilityType = v; }
     public void whatIf(boolean v)               { m_whatIf = v; }
     public void scaleTable(String v)            { m_scaleTable = v; }
     public void auctionStrategy(int v)          { m_auctionStrategy = v; }
-    public void orderComboLegs(ArrayList<OrderComboLeg> v) { m_orderComboLegs = v; }
+    public void orderComboLegs(List<OrderComboLeg> v) { m_orderComboLegs = v; }
     public void deltaNeutralSettlingFirm(String v)      { m_deltaNeutralSettlingFirm = v; }
     public void deltaNeutralClearingAccount(String v)   { m_deltaNeutralClearingAccount = v; }
     public void deltaNeutralClearingIntent(String v)    { m_deltaNeutralClearingIntent = v; }
-    public void smartComboRoutingParams(ArrayList<TagValue> v) { m_smartComboRoutingParams = v; }
-    public void orderMiscOptions(ArrayList<TagValue> v) { m_orderMiscOptions = v; }
+    public void smartComboRoutingParams(List<TagValue> v) { m_smartComboRoutingParams = v; }
+    public void orderMiscOptions(List<TagValue> v) { m_orderMiscOptions = v; }
     public void randomizeSize(boolean v) { m_randomizeSize = v; }
     public void randomizePrice(boolean v) { m_randomizePrice = v; }
     public void modelCode(String v) { m_modelCode = v; }
@@ -443,7 +444,7 @@ public class Order {
 	public void adjustedTrailingAmount(double v) { m_adjustedTrailingAmount = v; }
 	public void adjustableTrailingUnit(int v) { m_adjustableTrailingUnit = v; }
 	public void lmtPriceOffset(double v) { m_lmtPriceOffset = v; }
-	public void conditions(ArrayList<OrderCondition> v) { m_conditions = v; }
+	public void conditions(List<OrderCondition> v) { m_conditions = v; }
 	public void conditionsIgnoreRth(boolean v) { m_conditionsIgnoreRth = v; }
 	public void conditionsCancelOrder(boolean v) { m_conditionsCancelOrder = v; }
 	public void extOperator(String v) { m_extOperator = v; }
@@ -484,7 +485,7 @@ public class Order {
         m_softDollarTier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
     }
 
-    public ArrayList<TagValue> algoParams() { 
+    public List<TagValue> algoParams() {
         if( m_algoParams == null ) {
             m_algoParams = new ArrayList<>();
         }
@@ -616,20 +617,20 @@ public class Order {
         	return false;
         }
 
-        if (!Util.ArrayEqualsUnordered(m_algoParams, l_theOther.m_algoParams)) {
+        if (!Util.listsEqualUnordered(m_algoParams, l_theOther.m_algoParams)) {
         	return false;
         }
 
-        if (!Util.ArrayEqualsUnordered(m_smartComboRoutingParams, l_theOther.m_smartComboRoutingParams)) {
+        if (!Util.listsEqualUnordered(m_smartComboRoutingParams, l_theOther.m_smartComboRoutingParams)) {
         	return false;
         }
 
     	// compare order combo legs
-        if (!Util.ArrayEqualsUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
+        if (!Util.listsEqualUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
         	return false;
         }
         
-        if (!Util.ArrayEqualsUnordered(m_conditions, l_theOther.m_conditions)) {
+        if (!Util.listsEqualUnordered(m_conditions, l_theOther.m_conditions)) {
         	return false;
         }
         

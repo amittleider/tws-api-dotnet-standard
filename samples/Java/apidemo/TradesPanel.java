@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,8 +25,8 @@ import com.ib.controller.ApiController.ITradeReportHandler;
 import apidemo.util.HtmlButton;
 
 public class TradesPanel extends JPanel implements ITradeReportHandler {
-	private ArrayList<FullExec> m_trades = new ArrayList<>();
-	private HashMap<String,FullExec> m_map = new HashMap<>();
+	private List<FullExec> m_trades = new ArrayList<>();
+	private Map<String,FullExec> m_map = new HashMap<>();
 	private Model m_model = new Model();
 	
 	TradesPanel() {

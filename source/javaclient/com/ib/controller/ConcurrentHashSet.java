@@ -1,16 +1,17 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConcurrentHashSet<Key> extends AbstractSet<Key> {
     private static final Object OBJECT = new Object();
 
-    private ConcurrentHashMap<Key, Object> m_map = new ConcurrentHashMap<>(16,0.75f,1); // use write concurrency level 1 (last param) to decrease memory consumption by ConcurrentHashMap
+    private Map<Key, Object> m_map = new ConcurrentHashMap<>(16,0.75f,1); // use write concurrency level 1 (last param) to decrease memory consumption by ConcurrentHashMap
 
     /** return true if object was added as "first value" for this key */
     @Override

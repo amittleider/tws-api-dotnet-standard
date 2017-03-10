@@ -3,7 +3,7 @@ package com.ib.client;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ContractCondition extends OperatorCondition {
 
@@ -18,7 +18,7 @@ public abstract class ContractCondition extends OperatorCondition {
 		c.conid(conId());
 		c.exchange(exchange());
 		
-		ArrayList<ContractDetails> list = lookuper.lookupContract(c);		
+		List<ContractDetails> list = lookuper.lookupContract(c);
 		String strContract = list.size() > 0 ? 
 				list.get(0).contract().symbol() + " " + list.get(0).contract().secType() + " on " + list.get(0).contract().exchange() :
 				conId() + "";

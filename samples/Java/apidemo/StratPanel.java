@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.Box;
@@ -43,7 +45,7 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 	final private OrdersModel m_ordersModel = new OrdersModel();
 	final private TCombo<BarSize> m_barSize = new TCombo<>( BarSize.values() );
 	final private UpperField m_bars = new UpperField();
-	final private ArrayList<Bar> m_rows = new ArrayList<>();
+	final private List<Bar> m_rows = new ArrayList<>();
 	final private Chart m_chart = new Chart( m_rows);
 	private boolean m_req;
 	
@@ -127,8 +129,8 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 		addBar( bar);
 		m_chart.repaint();
 	}
-	
-	TreeMap<Long,Bar> m_map = new TreeMap<>();
+
+	private Map<Long, Bar> m_map = new TreeMap<>();
 	
 	@Override public void historicalData(Bar bar, boolean hasGaps) {
 		System.out.println( bar);

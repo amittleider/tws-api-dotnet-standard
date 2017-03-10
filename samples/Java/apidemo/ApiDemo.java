@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -34,7 +35,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final Logger m_inLogger = new Logger( m_inLog);
 	private final Logger m_outLogger = new Logger( m_outLog);
 	private ApiController m_controller;
-	private final ArrayList<String> m_acctList = new ArrayList<>();
+	private final List<String> m_acctList = new ArrayList<>();
 	private final JFrame m_frame = new JFrame();
 	private final NewTabbedPanel m_tabbedPanel = new NewTabbedPanel(true);
 	private final ConnectionPanel m_connectionPanel;
@@ -51,7 +52,7 @@ public class ApiDemo implements IConnectionHandler {
 	private final JTextArea m_msg = new JTextArea();
 
 	// getter methods
-	ArrayList<String> accountList() 	{ return m_acctList; }
+	List<String> accountList() 	{ return m_acctList; }
 	JFrame frame() 					{ return m_frame; }
 	ILogger getInLogger()            { return m_inLogger; }
 	ILogger getOutLogger()           { return m_outLogger; }
@@ -134,7 +135,7 @@ public class ApiDemo implements IConnectionHandler {
 		m_connectionPanel.m_status.setText( "disconnected");
 	}
 
-	@Override public void accountList(ArrayList<String> list) {
+	@Override public void accountList(List<String> list) {
 		show( "Received account list");
 		m_acctList.clear();
 		m_acctList.addAll( list);

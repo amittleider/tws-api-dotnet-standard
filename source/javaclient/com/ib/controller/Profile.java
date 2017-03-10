@@ -4,6 +4,7 @@
 package com.ib.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import com.ib.client.Types;
@@ -13,11 +14,11 @@ public class Profile {
 
     private String m_name;
 	private Type m_type;
-	private ArrayList<Allocation> m_allocations = new ArrayList<>();
+	private List<Allocation> m_allocations = new ArrayList<>();
 
 	public String name() { return m_name; }
 	public Type type() { return m_type; }
-	public ArrayList<Allocation> allocations() { return m_allocations; }
+	public List<Allocation> allocations() { return m_allocations; }
 
 	public void name( String v) { m_name = v; }
 	public void type( Type v) { m_type = v; }

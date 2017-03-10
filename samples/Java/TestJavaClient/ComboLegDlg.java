@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -27,8 +28,8 @@ public class ComboLegDlg extends JDialog {
     //private static String 	SELL = "SELL";
     //private static String 	SSHORT = "SSHORT";
 
-	private ArrayList<ComboLeg>      m_comboLegs;
-	private ArrayList<OrderComboLeg> m_orderComboLegs;
+	private List<ComboLeg>      m_comboLegs;
+	private List<OrderComboLeg> m_orderComboLegs;
 
     private JTextField 		m_conId = new JTextField( "0");
     private JTextField 		m_ratio = new JTextField( "0");
@@ -45,7 +46,7 @@ public class ComboLegDlg extends JDialog {
 
     public ComboLegModel comboLegModel() { return m_comboLegsModel; }
 
-    ComboLegDlg( ArrayList<ComboLeg> comboLegs, ArrayList<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
+    ComboLegDlg(List<ComboLeg> comboLegs, List<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
         super( owner, true);
 
         m_comboLegs = comboLegs;
@@ -186,8 +187,8 @@ public class ComboLegDlg extends JDialog {
 }
 
 class ComboLegModel extends AbstractTableModel {
-    private ArrayList<ComboLeg> m_comboLegData = new ArrayList<>();
-    private ArrayList<OrderComboLeg> m_orderComboLegData = new ArrayList<>();
+    private List<ComboLeg> m_comboLegData = new ArrayList<>();
+    private List<OrderComboLeg> m_orderComboLegData = new ArrayList<>();
 
     synchronized void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg) {
         m_comboLegData.add( comboLeg);
@@ -283,11 +284,11 @@ class ComboLegModel extends AbstractTableModel {
         }
     }
 
-    ArrayList<ComboLeg> comboLegData() {
+    List<ComboLeg> comboLegData() {
         return m_comboLegData;
     }
 
-    ArrayList<OrderComboLeg> orderComboLegData() {
+    List<OrderComboLeg> orderComboLegData() {
         return m_orderComboLegData;
     }
 

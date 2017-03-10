@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -28,12 +29,12 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     private SmartComboRoutingParamModel 	m_paramModel = new SmartComboRoutingParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
     private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
-    private ArrayList<TagValue> m_smartComboRoutingParams = new ArrayList<>();
+    private List<TagValue> m_smartComboRoutingParams = new ArrayList<>();
     
     public SmartComboRoutingParamModel paramModel() { return m_paramModel; }
-    public ArrayList<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
+    public List<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
 
-    SmartComboRoutingParamsDlg(String dlgTitle, ArrayList<TagValue> smartComboRoutingParams, JDialog owner) {
+    SmartComboRoutingParamsDlg(String dlgTitle, List<TagValue> smartComboRoutingParams, JDialog owner) {
         super( owner, dlgTitle, true);
 
         setTitle( dlgTitle);
@@ -115,7 +116,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
     }
 
     void onOk() {
-        ArrayList<TagValue> smartComboRoutingParams = m_paramModel.smartComboRoutingParams();
+        List<TagValue> smartComboRoutingParams = m_paramModel.smartComboRoutingParams();
     	
     	m_smartComboRoutingParams = smartComboRoutingParams.isEmpty() ? null : smartComboRoutingParams;
 
@@ -144,7 +145,7 @@ public class SmartComboRoutingParamsDlg extends JDialog {
 }
 
 class SmartComboRoutingParamModel extends AbstractTableModel {
-    private ArrayList<TagValue> m_allData = new ArrayList<>();
+    private List<TagValue> m_allData = new ArrayList<>();
 
     synchronized void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
@@ -198,7 +199,7 @@ class SmartComboRoutingParamModel extends AbstractTableModel {
         }
     }
 
-    public ArrayList<TagValue> smartComboRoutingParams() {
+    public List<TagValue> smartComboRoutingParams() {
         return m_allData;
     }
 }

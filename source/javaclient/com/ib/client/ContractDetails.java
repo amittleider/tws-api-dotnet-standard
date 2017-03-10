@@ -3,7 +3,7 @@
 
 package com.ib.client;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ContractDetails {
     private Contract m_contract;
@@ -24,7 +24,7 @@ public class ContractDetails {
     private String   m_evRule;
     private double   m_evMultiplier;
     private int      m_mdSizeMultiplier;
-    private ArrayList<TagValue> m_secIdList; // CUSIP/ISIN/etc.
+    private List<TagValue> m_secIdList; // CUSIP/ISIN/etc.
     private int      m_aggGroup;
 
     // BOND values
@@ -64,7 +64,7 @@ public class ContractDetails {
     public String evRule()              { return m_evRule; }
     public double evMultiplier()        { return m_evMultiplier; }
     public int mdSizeMultiplier()       { return m_mdSizeMultiplier; }
-    public ArrayList<TagValue> secIdList() { return m_secIdList; }
+    public List<TagValue> secIdList() { return m_secIdList; }
     public int aggGroup()               { return m_aggGroup; }
     
     public String cusip()               { return m_cusip; }
@@ -102,7 +102,7 @@ public class ContractDetails {
     public void evRule(String evRule)               { m_evRule = evRule; }
     public void evMultiplier(double evMultiplier)   { m_evMultiplier = evMultiplier; }
     public void mdSizeMultiplier(int mdSizeMultiplier) { m_mdSizeMultiplier = mdSizeMultiplier; }
-    public void secIdList(ArrayList<TagValue> secIdList) { m_secIdList = secIdList; }
+    public void secIdList(List<TagValue> secIdList) { m_secIdList = secIdList; }
     public void aggGroup(int aggGroup)              { m_aggGroup = aggGroup; }
     
     public void cusip(String cusip)             { m_cusip = cusip; }

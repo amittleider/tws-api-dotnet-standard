@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -153,7 +154,7 @@ class NewsPanel extends JPanel {
 
     static class NewsProvidersPanel extends NewTabPanel implements INewsProvidersHandler {
         final NewsProvidersModel m_model = new NewsProvidersModel();
-        final ArrayList<NewsProvidersRow> m_rows = new ArrayList<>();
+        final List<NewsProvidersRow> m_rows = new ArrayList<>();
 
         NewsProvidersPanel() {
             JTable table = new JTable( m_model);
@@ -275,7 +276,7 @@ class NewsPanel extends JPanel {
 
     class NewsTicksResultsPanel extends NewTabPanel implements ITickNewsHandler {
         final NewsTicksModel m_model = new NewsTicksModel();
-        final ArrayList<NewsTickRow> m_rows = new ArrayList<>();
+        final List<NewsTickRow> m_rows = new ArrayList<>();
 
         NewsTicksResultsPanel() {
             JTable table = new JTable( m_model);
@@ -413,7 +414,7 @@ class NewsPanel extends JPanel {
 
     class HistoricalNewsResultsPanel extends NewTabPanel implements IHistoricalNewsHandler {
         final HistoricalNewsModel m_model = new HistoricalNewsModel();
-        final ArrayList<HistoricalNewsRow> m_rows = new ArrayList<>();
+        final List<HistoricalNewsRow> m_rows = new ArrayList<>();
 
         HistoricalNewsResultsPanel() {
             JTable table = new JTable( m_model);

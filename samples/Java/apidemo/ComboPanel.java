@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -94,7 +95,7 @@ public class ComboPanel extends JPanel implements INewTab {
 		private final TCombo<Action> m_action = new TCombo<>( Action.values() );
 		private final UpperField m_ratio = new UpperField( "1");
 		private final ContractPanel m_contractPanel = new ComboContractPanel();
-		private final ArrayList<LegRow> m_legRows = new ArrayList<>();
+		private final List<LegRow> m_legRows = new ArrayList<>();
 		private final LegModel m_legsModel = new LegModel( m_legRows);
 		private final JTable m_legsTable = new JTable( m_legsModel);
 		private final TopModel m_mktDataModel;
@@ -332,7 +333,7 @@ public class ComboPanel extends JPanel implements INewTab {
 		private final UpperField m_futExch = new UpperField( "ONE");
 		private final UpperField m_lastTradeDate = new UpperField( "201309");
 		private final UpperField m_stkExch = new UpperField( "SMART");
-		private final ArrayList<LegRow> m_legRows = new ArrayList<>();
+		private final List<LegRow> m_legRows = new ArrayList<>();
 		private final LegModel m_legsModel = new LegModel( m_legRows);
 		private final JTable m_legsTable = new JTable( m_legsModel);
 		private final EfpModel m_efpModel;
@@ -402,7 +403,7 @@ public class ComboPanel extends JPanel implements INewTab {
 			fut.currency( "USD");
 			
 			ApiDemo.INSTANCE.controller().reqContractDetails( fut, new IContractDetailsHandler() {
-				@Override public void contractDetails(ArrayList<ContractDetails> list) {
+				@Override public void contractDetails(List<ContractDetails> list) {
 					// if two futures are returned, assume that the first is is no div prot and the 
 					// second one is div prot; unfortunately TWS does not send down the div prot flag
 					if (list.size() == 2) {
@@ -488,10 +489,10 @@ public class ComboPanel extends JPanel implements INewTab {
 		}
 
 		static class EfpModel extends AbstractTableModel {
-			ArrayList<EfpRow> m_rows = new ArrayList<>();
+			List<EfpRow> m_rows = new ArrayList<>();
 			MarketDataPanel m_parentPanel;
 			
-			public EfpModel(MarketDataPanel parentPanel) {
+			EfpModel(MarketDataPanel parentPanel) {
 				m_parentPanel = parentPanel;
 			}
 
@@ -576,16 +577,16 @@ public class ComboPanel extends JPanel implements INewTab {
 		Contract m_contract;
 		ComboLeg m_leg = new ComboLeg();
 
-		public LegRow(Contract c, ComboLeg leg) {
+		LegRow(Contract c, ComboLeg leg) {
 			m_contract = c;
 			m_leg = leg;
 		}
 	}
 
 	static class LegModel extends AbstractTableModel {
-		ArrayList<LegRow> m_legRows;
+		List<LegRow> m_legRows;
 
-		LegModel( ArrayList<LegRow> legRows) {
+		LegModel( List<LegRow> legRows) {
 			m_legRows = legRows;
 		}
 

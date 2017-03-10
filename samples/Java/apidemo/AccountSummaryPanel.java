@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -6,6 +6,8 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -70,8 +72,8 @@ public class AccountSummaryPanel extends NewTabPanel {
 	}
 	
 	private static class SummaryModel extends AbstractTableModel implements IAccountSummaryHandler {
-		ArrayList<SummaryRow> m_rows = new ArrayList<>();
-		HashMap<String,SummaryRow> m_map = new HashMap<>();
+		List<SummaryRow> m_rows = new ArrayList<>();
+		Map<String,SummaryRow> m_map = new HashMap<>();
 		boolean m_complete;
 
 		public void clear() {
@@ -144,7 +146,7 @@ public class AccountSummaryPanel extends NewTabPanel {
 	
 	private static class SummaryRow {
 		String m_account;
-		HashMap<AccountSummaryTag,String> m_map = new HashMap<>();
+		Map<AccountSummaryTag,String> m_map = new HashMap<>();
 		
 		public void update(String account, AccountSummaryTag tag, String value) {
 			m_account = account;

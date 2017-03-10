@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ib.client.Types.Method;
 import com.ib.controller.Profile.Allocation;
@@ -15,7 +16,7 @@ import com.ib.controller.Profile.Type;
 
 
 public class AdvisorUtil {
-	static ArrayList<Group> getGroups( String xml) {
+	static List<Group> getGroups( String xml) {
 		try {
 			return getGroups_( xml);
 		} catch (IOException e) {
@@ -24,8 +25,8 @@ public class AdvisorUtil {
 		}
 	}
 
-	static ArrayList<Group> getGroups_( String xml) throws IOException {
-		ArrayList<Group> list = new ArrayList<>();
+	static List<Group> getGroups_( String xml) throws IOException {
+		List<Group> list = new ArrayList<>();
 
 		Group group = null;
 
@@ -92,7 +93,7 @@ public class AdvisorUtil {
 		return list;
 	}
 
-	static ArrayList<Profile> getProfiles( String xml) {
+	static List<Profile> getProfiles( String xml) {
 		try {
 			return getProfiles_( xml);
 		} catch (IOException e) {
@@ -101,8 +102,8 @@ public class AdvisorUtil {
 		}
 	}
 
-	static ArrayList<Profile> getProfiles_( String xml) throws IOException {
-		ArrayList<Profile> list = new ArrayList<>();
+	static List<Profile> getProfiles_( String xml) throws IOException {
+		List<Profile> list = new ArrayList<>();
 
 		Profile profile = null;
 		Allocation alloc = null;
@@ -195,7 +196,7 @@ public class AdvisorUtil {
 		return list;
 	}
 
-	static ArrayList<Alias> getAliases( String xml) {
+	static List<Alias> getAliases( String xml) {
 		try {
 			return getAliases_( xml);
 		} catch (IOException e) {
@@ -204,8 +205,8 @@ public class AdvisorUtil {
 		}
 	}
 
-	static ArrayList<Alias> getAliases_( String xml) throws IOException {
-		ArrayList<Alias> list = new ArrayList<>();
+	static List<Alias> getAliases_( String xml) throws IOException {
+		List<Alias> list = new ArrayList<>();
 
 		Alias alias = null;
 
@@ -272,18 +273,18 @@ public class AdvisorUtil {
 
 	public static void main(String[] args) {
 		String str1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfGroups>\n	<Group>\n		<name>Group 1</name>\n		<ListOfAccts varName=\"list\">\n			<String>DU109949</String>\n			<String>DU109950</String>\n			<String>DU110a156</String>\n			<String>DU110157</String>\n			<String>DU110158</String>\n		</ListOfAccts>\n		<defaultMethod>AvailableEquity</defaultMethod>\n	</Group>\n	<Group>\n		<name>Group 2</name>\n		<ListOfAccts varName=\"list\">\n			<String>DU109950</String>\n			<String>DU110156</String>\n			<String>DU110157</String>\n		</ListOfAccts>\n		<defaultMethod>AvailableEquity</defaultMethod>\n	</Group>\n</ListOfGroups>\n";
-		ArrayList<Group> groups = getGroups( str1);
+		List<Group> groups = getGroups( str1);
 
 		String str2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAllocationProfiles>\n	<AllocationProfile>\n		<name>High Risk</name>\n		<type>1</type>\n		<ListOfAllocations varName=\"listOfAllocations\">\n			<Allocation>\n				<acct>DU110157</acct>\n				<amount>90.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n			<Allocation>\n				<acct>DU110158</acct>\n				<amount>10.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n		</ListOfAllocations>\n	</AllocationProfile>\n	<AllocationProfile>\n		<name>Profile</name>\n		<type>2</type>\n		<ListOfAllocations varName=\"listOfAllocations\">\n			<Allocation>\n				<acct>DU109949</acct>\n				<amount>1.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n		</ListOfAllocations>\n	</AllocationProfile>\n</ListOfAllocationProfiles>\n";
-		ArrayList<Profile> profiles = getProfiles( str2);
+		List<Profile> profiles = getProfiles( str2);
 
 		String str3 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAccountAliases>\n	<AccountAlias>\n		<account>DF109948</account>\n		<alias>DF109948</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109949</account>\n		<alias>DU109949</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109950</account>\n		<alias>DU109950</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110156</account>\n		<alias>DU110156</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110157</account>\n		<alias>DU110157</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110158</account>\n		<alias>DU110158</alias>\n	</AccountAlias>\n</ListOfAccountAliases>\n\n";
-		ArrayList<Alias> aliases = getAliases( str3);
+		List<Alias> aliases = getAliases( str3);
 
 		AdvisorUtil.err( aliases.toString() );
 	}
 
-	public static String getGroupsXml(ArrayList<Group> groups) {
+	public static String getGroupsXml(List<Group> groups) {
 		StringBuilder buf = new StringBuilder();
 		buf.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		buf.append( "<ListOfGroups>\n");
@@ -302,7 +303,7 @@ public class AdvisorUtil {
 		return buf.toString();
 	}
 
-	public static String getProfilesXml(ArrayList<Profile> profiles) {
+	public static String getProfilesXml(List<Profile> profiles) {
 		StringBuilder buf = new StringBuilder();
 		buf.append( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		buf.append( "<ListOfProfiles>\n");

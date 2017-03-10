@@ -56,7 +56,7 @@ public class OrderDlg extends JDialog {
     public int          m_override;
     public int          m_marketDataType;
     private String      m_optionsDlgTitle;
-    private ArrayList<TagValue> m_options = new ArrayList<>();
+    private List<TagValue> m_options = new ArrayList<>();
 
     private JTextField	m_Id = new JTextField( "0");
     private JTextField	m_BackfillEndTime = new JTextField(22);
@@ -563,7 +563,7 @@ public class OrderDlg extends JDialog {
 //    	m_optionsDlgTitle = title;
 //    }
   
-    void init(String btnText, boolean btnEnabled, String dlgTitle, ArrayList<TagValue> options) {
+    void init(String btnText, boolean btnEnabled, String dlgTitle, List<TagValue> options) {
     	init(btnText, btnEnabled);
     	m_options = options;
     	m_optionsDlgTitle = dlgTitle;
@@ -580,7 +580,7 @@ public class OrderDlg extends JDialog {
 //    	m_btnOptions.setText(name);
 //    }
     
-    ArrayList<TagValue> getOptions() {
+    List<TagValue> getOptions() {
     	return m_options;
     }
 //    void disableBtnOptions(){

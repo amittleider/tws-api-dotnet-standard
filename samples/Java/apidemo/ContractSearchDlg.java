@@ -6,7 +6,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -29,7 +29,7 @@ public class ContractSearchDlg extends JDialog {
 	private final JList<Contract> m_contracts = new JList<>(m_contractList);
 	private final ContractLookuper m_lookuper;
 	
-	private ArrayList<ContractDetails> lookupContract() {
+	private List<ContractDetails> lookupContract() {
 		//return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), m_contract);
 		return m_lookuper.lookupContract(m_contract);
 	}
@@ -41,7 +41,7 @@ public class ContractSearchDlg extends JDialog {
 			m_contract.conid(conId);
 			m_contract.exchange(exchange);
 			
-			ArrayList<ContractDetails> list = lookupContract();
+			List<ContractDetails> list = lookupContract();
 			
 			if (!list.isEmpty()) {
 				m_contract = list.get(0).contract();
@@ -114,7 +114,7 @@ public class ContractSearchDlg extends JDialog {
 		m_contract.conid(0);
 		m_contract.tradingClass(null);
 
-		ArrayList<ContractDetails> list = lookupContract();
+		List<ContractDetails> list = lookupContract();
 
 		m_contractList.clear();
 

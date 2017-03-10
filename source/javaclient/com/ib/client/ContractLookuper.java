@@ -1,7 +1,7 @@
 package com.ib.client;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ContractLookuper {
-	ArrayList<ContractDetails> lookupContract(Contract contract);
+	List<ContractDetails> lookupContract(Contract contract);
 }
