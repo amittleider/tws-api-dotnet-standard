@@ -18,8 +18,8 @@ public abstract class ContractCondition extends OperatorCondition {
 		c.conid(conId());
 		c.exchange(exchange());
 		
-		List<ContractDetails> list = lookuper.lookupContract(c);
-		String strContract = list.size() > 0 ? 
+		List<ContractDetails> list = lookuper == null ? null : lookuper.lookupContract(c);		
+		String strContract = list != null && !list.isEmpty() ? 
 				list.get(0).contract().symbol() + " " + list.get(0).contract().secType() + " on " + list.get(0).contract().exchange() :
 				conId() + "";
 		
