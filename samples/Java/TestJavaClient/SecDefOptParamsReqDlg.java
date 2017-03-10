@@ -1,8 +1,6 @@
 package TestJavaClient;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,12 +9,12 @@ import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
 public class SecDefOptParamsReqDlg extends JDialog {
-	final UpperField m_idFld = new UpperField("0");
-	final UpperField m_underlyingSymbolFld = new UpperField();
-	final UpperField m_futFopExchangeFld = new UpperField();
-//	final UpperField m_currencyFld = new UpperField();
-	final UpperField m_underlyingSecTypeFld = new UpperField();
-	final UpperField m_underlyingConIdFld = new UpperField();
+	private final UpperField m_idFld = new UpperField("0");
+	private final UpperField m_underlyingSymbolFld = new UpperField();
+	private final UpperField m_futFopExchangeFld = new UpperField();
+//	private final UpperField m_currencyFld = new UpperField();
+	private final UpperField m_underlyingSecTypeFld = new UpperField();
+	private final UpperField m_underlyingConIdFld = new UpperField();
 	private int m_id;
 	private String m_underlyingSymbol;
 	private String m_futFopExchange;
@@ -25,15 +23,15 @@ public class SecDefOptParamsReqDlg extends JDialog {
 	private int m_underlyingConId;
 	private boolean m_isOk;
 	
-	public SecDefOptParamsReqDlg(SampleFrame owner) {
+	SecDefOptParamsReqDlg(SampleFrame owner) {
 		super(owner);
 		
 		VerticalPanel paramsPanel = new VerticalPanel();
 		JButton ok = new JButton("OK");
 		JButton cancel = new JButton("Cancel");
 		
-		ok.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { onOK(); } });
-		cancel.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { onCancel(); } });
+		ok.addActionListener(e -> onOK());
+		cancel.addActionListener(e -> onCancel());
 		
 		paramsPanel.add("Req Id", m_idFld);			
 		paramsPanel.add("Underlying symbol", m_underlyingSymbolFld);			

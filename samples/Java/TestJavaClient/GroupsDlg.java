@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,14 +33,11 @@ public class GroupsDlg extends JDialog {
 
     private JComboBox<String> 	m_cmbDisplayGroups = new JComboBox<>();
 
-    private JButton 	m_btnReset = new JButton( "Reset");
-    private JButton 	m_btnClose = new JButton( "Close");
-
     private IBTextPanel m_txtGroupMessages = new IBTextPanel("Group Messages", false);
 
     private EClient  m_client;
     
-    public GroupsDlg( SampleFrame owner, EClient client) {
+    GroupsDlg( SampleFrame owner, EClient client) {
         super( owner, true);
 
         m_client = client;
@@ -72,8 +67,10 @@ public class GroupsDlg extends JDialog {
         
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_btnReset);
-        buttonPanel.add( m_btnClose);
+        JButton btnReset = new JButton("Reset");
+        buttonPanel.add(btnReset);
+        JButton btnClose = new JButton("Close");
+        buttonPanel.add(btnClose);
 
         m_cmbDisplayGroups.setEnabled(false);
         m_btnSubscribeToGroupEvents.setEnabled(false);
@@ -82,36 +79,12 @@ public class GroupsDlg extends JDialog {
         m_txtContractInfo.setEnabled(false);
         
         // create action listeners
-        m_btnQueryDisplayGroups.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onQueryDisplayGroups();
-            }
-        });
-        m_btnSubscribeToGroupEvents.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onSubscribeToGroupEvents();
-            }
-        });
-        m_btnUnsubscribeFromGroupEvents.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onUnsubscribeFromGroupEvents();
-            }
-        });
-        m_btnUpdateDisplayGroup.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onUpdateDisplayGroup();
-            }
-        });
-        m_btnReset.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReset();
-            }
-        });
-        m_btnClose.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onClose();
-            }
-        });
+        m_btnQueryDisplayGroups.addActionListener(e -> onQueryDisplayGroups());
+        m_btnSubscribeToGroupEvents.addActionListener(e -> onSubscribeToGroupEvents());
+        m_btnUnsubscribeFromGroupEvents.addActionListener(e -> onUnsubscribeFromGroupEvents());
+        m_btnUpdateDisplayGroup.addActionListener(e -> onUpdateDisplayGroup());
+        btnReset.addActionListener(e -> onReset());
+        btnClose.addActionListener(e -> onClose());
 
         // create dlg box
         getContentPane().add( groupsPanel, BorderLayout.NORTH);

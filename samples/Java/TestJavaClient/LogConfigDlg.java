@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,37 +14,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class LogConfigDlg extends JDialog {
-    public static int SYSTEM_LOG = 1;
-    public static int ERROR_LOG = 2;
-    public static int WARN_LOG = 3;
-    public static int INFO_LOG = 4;
-    public static int DETAIL_LOG = 5;
+    public static final int SYSTEM_LOG = 1;
+    public static final int ERROR_LOG = 2;
+    public static final int WARN_LOG = 3;
+    public static final int INFO_LOG = 4;
+    public static final int DETAIL_LOG = 5;
 
-    JComboBox<String> 	m_cmbServerLogLevels = new JComboBox<>();
-    JButton 	m_ok = new JButton( "OK");
-    JButton 	m_cancel = new JButton( "Cancel");
+    private JComboBox<String> 	m_cmbServerLogLevels = new JComboBox<>();
     int 	m_serverLogLevel;
     boolean 	m_rc;
 
-    public LogConfigDlg( Frame owner) {
+    LogConfigDlg( Frame owner) {
         super( owner, true);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         // create mid panel
         m_cmbServerLogLevels.addItem("System");

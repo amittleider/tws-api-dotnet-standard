@@ -5,8 +5,6 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,8 +27,6 @@ public class HistoricalNewsDlg extends JDialog {
     private JTextField 	m_startDateTime = new JTextField();
     private JTextField 	m_endDateTime = new JTextField();
     private JTextField 	m_totalResults = new JTextField("10");
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
 
     int m_retRequestId;
     int m_retConId;
@@ -39,7 +35,7 @@ public class HistoricalNewsDlg extends JDialog {
     String m_retEndDateTime;
     int m_retTotalResults;
 
-    public HistoricalNewsDlg( JFrame owner) {
+    HistoricalNewsDlg( JFrame owner) {
         super( owner, true);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
@@ -51,20 +47,14 @@ public class HistoricalNewsDlg extends JDialog {
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         // create mid summary panel
         JPanel midPanel = new JPanel( new GridLayout( 0, 1, 5, 5) );

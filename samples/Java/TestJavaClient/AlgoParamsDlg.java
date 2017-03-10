@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -29,17 +27,12 @@ public class AlgoParamsDlg extends JDialog {
     private JTextField 		m_algoStrategy = new JTextField( "");
     private JTextField 		m_tag = new JTextField( "");
     private JTextField 		m_value = new JTextField( "");
-    private JButton 		m_addParam = new JButton( "Add");
-    private JButton	 	    m_removeParam = new JButton( "Remove");
-    private JButton 		m_ok = new JButton( "OK");
-    private JButton	 	    m_cancel = new JButton( "Cancel");
     private AlgoParamModel 	m_paramModel = new AlgoParamModel();
     private JTable 		    m_paramTable = new JTable(m_paramModel);
-    private JScrollPane 	m_paramPane = new JScrollPane(m_paramTable);
 
     public AlgoParamModel paramModel() { return m_paramModel; }
 
-    public AlgoParamsDlg( Order order, JDialog owner) {
+    AlgoParamsDlg( Order order, JDialog owner) {
         super( owner, true);
 
         m_order = order;
@@ -60,7 +53,7 @@ public class AlgoParamsDlg extends JDialog {
         if (algoParams != null) {
         	m_paramModel.algoParams().addAll(algoParams);
         }
-        pParamList.add( m_paramPane);
+        pParamList.add(new JScrollPane(m_paramTable));
 
         // create combo details panel
         JPanel pParamListControl = new JPanel( new GridLayout( 0, 2, 10, 10) );
@@ -69,13 +62,17 @@ public class AlgoParamsDlg extends JDialog {
         pParamListControl.add( m_tag);
         pParamListControl.add( new JLabel( "Value:") );
         pParamListControl.add( m_value);
-        pParamListControl.add( m_addParam);
-        pParamListControl.add( m_removeParam);
+        JButton btnAddParam = new JButton("Add");
+        pParamListControl.add(btnAddParam);
+        JButton btnRemoveParam = new JButton("Remove");
+        pParamListControl.add(btnRemoveParam);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create wrapper panel
         JPanel topPanel = new JPanel();
@@ -89,32 +86,16 @@ public class AlgoParamsDlg extends JDialog {
         getContentPane().add( buttonPanel, BorderLayout.SOUTH);
 
         // create action listeners
-        m_addParam.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onAddParam();
-            }
-        });
-        m_removeParam.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRemoveParam();
-            }
-        });
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnAddParam.addActionListener(e -> onAddParam());
+        btnRemoveParam.addActionListener(e -> onRemoveParam());
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         setSize(250, 600);
         centerOnOwner( this);
     }
 
-     public void onAddParam() {
+     void onAddParam() {
         try {
             String tag = m_tag.getText();
             String value = m_value.getText();
@@ -126,7 +107,7 @@ public class AlgoParamsDlg extends JDialog {
         }
     }
 
-    public void onRemoveParam() {
+    void onRemoveParam() {
         try {
             if ( m_paramTable.getSelectedRowCount() != 0 ) {
                 int[] rows = m_paramTable.getSelectedRows();
@@ -173,12 +154,12 @@ public class AlgoParamsDlg extends JDialog {
 class AlgoParamModel extends AbstractTableModel {
     private ArrayList<TagValue> m_allData = new ArrayList<>();
 
-    synchronized public void addParam( TagValue tagValue) {
+    synchronized void addParam( TagValue tagValue) {
         m_allData.add( tagValue);
         fireTableDataChanged();
     }
 
-    synchronized public void removeParam( int index) {
+    synchronized void removeParam( int index) {
         m_allData.remove( index);
         fireTableDataChanged();
     }

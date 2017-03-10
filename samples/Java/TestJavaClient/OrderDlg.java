@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.BorderFactory;
@@ -33,13 +31,13 @@ import apidemo.OnOKPanel;
 import apidemo.PegBenchPanel;
 
 public class OrderDlg extends JDialog {
-    final static String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";
-    final static int OPERATION_INSERT = 0;
-    final static int OPERATION_UPDATE = 1;
-    final static int OPERATION_DELETE = 2;
+    private static final String ALL_GENERIC_TICK_TAGS = "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318";
+    private static final int OPERATION_INSERT = 0;
+    private static final int OPERATION_UPDATE = 1;
+    private static final int OPERATION_DELETE = 2;
 
-    final static int SIDE_ASK = 0;
-    final static int SIDE_BID = 1;
+    private static final int SIDE_ASK = 0;
+    private static final int SIDE_BID = 1;
 
     public boolean 		m_rc;
     public int 			m_id;
@@ -137,7 +135,7 @@ public class OrderDlg extends JDialog {
       panel.add(comp, gbc);
     }
 
-    public OrderDlg( SampleFrame owner) {
+    OrderDlg( SampleFrame owner) {
         super( owner, true);
 
         m_parent = owner;
@@ -303,65 +301,18 @@ public class OrderDlg extends JDialog {
         buttonPanel.add( m_cancel);
 
         // create action listeners
-        m_btnPeg2Bench.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onBtnPeg2Bench();
-			}
-		});
-        m_btnAdjStop.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onBtnAdjStop();
-			}
-		});
-        m_btnConditions.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onBtnConditions();
-			}
-		});
-        m_sharesAlloc.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onSharesAlloc();
-            }
-        });
+        m_btnPeg2Bench.addActionListener(e -> onBtnPeg2Bench());
+        m_btnAdjStop.addActionListener(e -> onBtnAdjStop());
+        m_btnConditions.addActionListener(e -> onBtnConditions());
+        m_sharesAlloc.addActionListener(e -> onSharesAlloc());
 
-        m_comboLegs.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onAddComboLegs();
-            }
-        });
-        m_btnUnderComp.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onBtnUnderComp();
-            }
-        });
-        m_btnAlgoParams.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onBtnAlgoParams();
-            }
-        });
-        m_btnSmartComboRoutingParams.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onBtnSmartComboRoutingParams();
-            }
-        });
-        m_btnOptions.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onBtnOptions();
-            }
-        });
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        m_comboLegs.addActionListener(e -> onAddComboLegs());
+        m_btnUnderComp.addActionListener(e -> onBtnUnderComp());
+        m_btnAlgoParams.addActionListener(e -> onBtnAlgoParams());
+        m_btnSmartComboRoutingParams.addActionListener(e -> onBtnSmartComboRoutingParams());
+        m_btnOptions.addActionListener(e -> onBtnOptions());
+        m_ok.addActionListener(e -> onOk());
+        m_cancel.addActionListener(e -> onCancel());
 
         // create top panel
         JPanel topPanel = new JPanel();
@@ -379,15 +330,11 @@ public class OrderDlg extends JDialog {
         pack();
     }
 
-    protected void onBtnAdjStop() {
-		showModalPanelDialog(new CallableWithParam() {@Override
-			public Object call(Object param) {
-				return new AdjustedPanel((JDialog)param, m_order);
-			} 
-		});
+    void onBtnAdjStop() {
+		showModalPanelDialog(param -> new AdjustedPanel((JDialog)param, m_order));
 	}
     
-	protected void onBtnPeg2Bench() {
+	void onBtnPeg2Bench() {
 		showModalPanelDialog(param -> new PegBenchPanel((JDialog)param, m_order,
                 contract -> {
                     try {
@@ -401,7 +348,7 @@ public class OrderDlg extends JDialog {
 	}
 
 	
-	protected void onBtnConditions() {
+	void onBtnConditions() {
 		showModalPanelDialog(param -> new ConditionsPanel((JDialog)param, m_order,
                 contract -> {
                   try {

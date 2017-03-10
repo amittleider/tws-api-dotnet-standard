@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,17 +6,13 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-public class FinancialAdvisorDlg extends JDialog {
-    private int DIALOG_WIDTH = 500;
-    private int EDITOR_HEIGHT = 240;
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
+class FinancialAdvisorDlg extends JDialog {
+    private static final int DIALOG_WIDTH = 500;
+    private static final int EDITOR_HEIGHT = 240;
     private IBTextPanel groupTextEditor = new IBTextPanel("Groups", true) ;
     private IBTextPanel profileTextEditor = new IBTextPanel("Allocation Profiles", true) ;
     private IBTextPanel aliasTextEditor = new IBTextPanel("Aliases", true) ;
@@ -25,7 +21,7 @@ public class FinancialAdvisorDlg extends JDialog {
     String      aliasesXML ;
     boolean 	m_rc = false;
 
-    public FinancialAdvisorDlg( Frame owner) {
+    FinancialAdvisorDlg( Frame owner) {
         super( owner, "Financial Advisor", true);
 
         IBGridBagPanel editPanel = new IBGridBagPanel();
@@ -38,20 +34,14 @@ public class FinancialAdvisorDlg extends JDialog {
         editPanel.setPreferredSize(editPanelSizeDimension) ;
 
         IBGridBagPanel buttonPanel = new IBGridBagPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         //setTitle( "Financial Advisor");
         getContentPane().add( editPanel, BorderLayout.NORTH);

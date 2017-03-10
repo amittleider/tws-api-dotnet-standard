@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -7,8 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,13 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ConnectDlg extends JDialog {
-    public static int LAST_CLIENT_ID = 0;
+class ConnectDlg extends JDialog {
+    private static int LAST_CLIENT_ID = 0;
 
-    JTextField 	m_ipAddress = new JTextField();
-    JTextField 	m_port = new JTextField( "7496");
-    JTextField 	m_clientId = new JTextField();
-    JTextField  m_optCapts = new JTextField();
+    private JTextField 	m_ipAddress = new JTextField();
+    private JTextField 	m_port = new JTextField( "7496");
+    private JTextField 	m_clientId = new JTextField();
+    private JTextField  m_optCapts = new JTextField();
     JButton 	m_ok = new JButton( "OK");
     JButton 	m_cancel = new JButton( "Cancel");
     String 	m_retIpAddress;
@@ -31,7 +29,7 @@ public class ConnectDlg extends JDialog {
     int 	m_retClientId;
     boolean 	m_rc;
 
-    public ConnectDlg( Frame owner) {
+    ConnectDlg( Frame owner) {
         super( owner, true);
 
         // create button panel
@@ -40,16 +38,8 @@ public class ConnectDlg extends JDialog {
         buttonPanel.add( m_cancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        m_ok.addActionListener(e -> onOk());
+        m_cancel.addActionListener(e -> onCancel());
 
         // create mid panel
         JPanel midPanel = new JPanel();
