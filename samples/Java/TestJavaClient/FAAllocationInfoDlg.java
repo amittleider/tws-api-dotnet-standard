@@ -1,10 +1,9 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,27 +13,27 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class FAAllocationInfoDlg extends JDialog {
-    IBGridBagPanel mainJPanel = new IBGridBagPanel();
-    IBGridBagPanel faGroupJPanel = new IBGridBagPanel();
-    IBGridBagPanel faProfileJPanel = new IBGridBagPanel();
+class FAAllocationInfoDlg extends JDialog {
+    private IBGridBagPanel mainJPanel = new IBGridBagPanel();
+    private IBGridBagPanel faGroupJPanel = new IBGridBagPanel();
+    private IBGridBagPanel faProfileJPanel = new IBGridBagPanel();
 
-    JLabel m_groupLabel = new JLabel("Group");
-    JLabel m_methodLabel = new JLabel("Method");
-    JLabel m_percentageLabel = new JLabel("Percentage");
-    JLabel m_profileLabel = new JLabel("Profile");
+    private JLabel m_groupLabel = new JLabel("Group");
+    private JLabel m_methodLabel = new JLabel("Method");
+    private JLabel m_percentageLabel = new JLabel("Percentage");
+    private JLabel m_profileLabel = new JLabel("Profile");
 
-    JTextField m_groupTextField = new JTextField(20);
-    JTextField m_methodTextField = new JTextField(20);
-    JTextField m_percentageTextField = new JTextField(20);
-    JTextField m_profileTextField = new JTextField(20);
+    private JTextField m_groupTextField = new JTextField(20);
+    private JTextField m_methodTextField = new JTextField(20);
+    private JTextField m_percentageTextField = new JTextField(20);
+    private JTextField m_profileTextField = new JTextField(20);
 
-    JButton m_okButton = new JButton("OK");
-    JButton m_closeButton = new JButton("Close");
+    private JButton m_okButton = new JButton("OK");
+    private JButton m_closeButton = new JButton("Close");
 
     private OrderDlg m_parent;
 
-    public FAAllocationInfoDlg(OrderDlg dlg) {
+    FAAllocationInfoDlg(OrderDlg dlg) {
         super(dlg, false);
         m_parent = dlg;
         try {
@@ -45,7 +44,7 @@ public class FAAllocationInfoDlg extends JDialog {
         }
     }
 
-    void jbInit() {
+    private void jbInit() {
         Color etchedColor = new Color(148, 145, 140);
         Border border1 = BorderFactory.createEtchedBorder(Color.white, etchedColor);
         Border border2 = BorderFactory.createEtchedBorder(Color.white, etchedColor);
@@ -75,16 +74,8 @@ public class FAAllocationInfoDlg extends JDialog {
         setSize( 600, 300);
 
 
-        m_okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOk();
-            }
-        });
-        m_closeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClose();
-            }
-        });
+        m_okButton.addActionListener(e -> onOk());
+        m_closeButton.addActionListener(e -> onClose());
     }
 
     void onOk() {

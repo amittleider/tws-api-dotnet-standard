@@ -5,8 +5,6 @@ package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,32 +21,24 @@ public class NewsArticleDlg extends JDialog {
     private JTextField 	m_requestId = new JTextField("0");
     private JTextField 	m_providerCode = new JTextField();
     private JTextField 	m_articleId = new JTextField();
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
 
     int m_retRequestId;
     String m_retProviderCode;
     String m_retArticleId;
 
-    public NewsArticleDlg( JFrame owner) {
+    NewsArticleDlg( JFrame owner) {
         super( owner, true);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
         
         // create mid summary panel
         JPanel midPanel = new JPanel( new GridLayout( 0, 1, 5, 5) );

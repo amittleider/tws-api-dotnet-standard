@@ -1,12 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 
 package TestJavaClient;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,20 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AcctUpdatesDlg extends JDialog {
-    JTextField 	m_txtAcctCode = new JTextField(10);
-    JButton 	m_btnSubscribe = new JButton("Subscribe");
-    JButton 	m_btnUnSubscribe = new JButton("UnSubscribe");
-    JButton 	m_btnClose = new JButton( "Close");
-    SampleFrame	m_parent;
+class AcctUpdatesDlg extends JDialog {
+    private JTextField 	m_txtAcctCode = new JTextField(10);
     String 		m_acctCode;
     boolean 	m_subscribe = false;
     boolean 	m_rc;
 
-    public AcctUpdatesDlg( SampleFrame owner) {
+    AcctUpdatesDlg( SampleFrame owner) {
         super( owner, true);
-
-        m_parent = owner;
 
         setTitle("Account Updates (FA Customers only)");
         setSize(200,300);
@@ -46,9 +38,11 @@ public class AcctUpdatesDlg extends JDialog {
         row2.add( m_txtAcctCode);
 
         Box row3 = Box.createHorizontalBox();
-        row3.add( m_btnSubscribe);
+        JButton btnSubscribe = new JButton("Subscribe");
+        row3.add(btnSubscribe);
         row3.add( Box.createHorizontalStrut(10));
-        row3.add( m_btnUnSubscribe);
+        JButton btnUnSubscribe = new JButton("UnSubscribe");
+        row3.add(btnUnSubscribe);
 
 
         Box vbox = Box.createVerticalBox();
@@ -67,24 +61,13 @@ public class AcctUpdatesDlg extends JDialog {
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_btnClose);
+        JButton btnClose = new JButton("Close");
+        buttonPanel.add(btnClose);
 
         // create action listeners
-        m_btnSubscribe.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onSubscribe();
-            }
-        });
-        m_btnUnSubscribe.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onUnSubscribe();
-            }
-        });
-        m_btnClose.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onClose();
-            }
-        });
+        btnSubscribe.addActionListener(e -> onSubscribe());
+        btnUnSubscribe.addActionListener(e -> onUnSubscribe());
+        btnClose.addActionListener(e -> onClose());
 
         // create dlg box
         getContentPane().add( acctChooserPanel, BorderLayout.CENTER);
@@ -92,7 +75,7 @@ public class AcctUpdatesDlg extends JDialog {
         pack();
     }
 
-    void onSubscribe() {
+    private void onSubscribe() {
         m_subscribe = true;
         m_acctCode = m_txtAcctCode.getText();
 
@@ -100,7 +83,7 @@ public class AcctUpdatesDlg extends JDialog {
         setVisible( false);
     }
 
-    void onUnSubscribe() {
+    private void onUnSubscribe() {
         m_subscribe = false;
         m_acctCode = m_txtAcctCode.getText();
 
@@ -108,7 +91,7 @@ public class AcctUpdatesDlg extends JDialog {
         setVisible( false);
     }
 
-    void onClose() {
+    private void onClose() {
         m_acctCode = "";
         m_rc = false;
         setVisible( false);

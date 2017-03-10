@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -42,18 +40,12 @@ public class ComboLegDlg extends JDialog {
     private JTextField      m_exemptCode = new JTextField( "-1");
     private JTextField      m_price = new JTextField( "");
 
-    private JButton 		m_addLeg = new JButton( "Add");
-    private JButton	 	    m_removeLeg = new JButton( "Remove");
-    private JButton 		m_ok = new JButton( "OK");
-    private JButton	 	    m_cancel = new JButton( "Cancel");
-
     private ComboLegModel 	m_comboLegsModel = new ComboLegModel();
     private JTable 		    m_comboTable = new JTable(m_comboLegsModel);
-    private JScrollPane 	m_comboLegsPane = new JScrollPane(m_comboTable);
 
     public ComboLegModel comboLegModel() { return m_comboLegsModel; }
 
-    public ComboLegDlg( ArrayList<ComboLeg> comboLegs, ArrayList<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
+    ComboLegDlg( ArrayList<ComboLeg> comboLegs, ArrayList<OrderComboLeg> orderComboLegs, String orderExchange, JDialog owner) {
         super( owner, true);
 
         m_comboLegs = comboLegs;
@@ -66,7 +58,7 @@ public class ComboLegDlg extends JDialog {
         pLegList.setBorder( BorderFactory.createTitledBorder( "Combination Order legs:") );
         m_comboLegsModel.comboLegData().addAll(comboLegs);
         m_comboLegsModel.orderComboLegData().addAll(orderComboLegs);
-        pLegList.add( m_comboLegsPane);
+        pLegList.add(new JScrollPane(m_comboTable));
 
         if (orderExchange != null && orderExchange.length() > 0) {
         	m_exchange.setText(orderExchange);
@@ -93,13 +85,17 @@ public class ComboLegDlg extends JDialog {
         pComboDetails.add( m_exemptCode);
         pComboDetails.add( new JLabel( "Price:") );
         pComboDetails.add( m_price);
-        pComboDetails.add( m_addLeg);
-        pComboDetails.add( m_removeLeg);
+        JButton btnAddLeg = new JButton("Add");
+        pComboDetails.add(btnAddLeg);
+        JButton btnRemoveLeg = new JButton("Remove");
+        pComboDetails.add(btnRemoveLeg);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create wrapper panel
         JPanel topPanel = new JPanel();
@@ -112,32 +108,16 @@ public class ComboLegDlg extends JDialog {
         getContentPane().add( buttonPanel, BorderLayout.SOUTH);
 
         // create action listeners
-        m_addLeg.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onAddLeg();
-            }
-        });
-        m_removeLeg.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRemoveLeg();
-            }
-        });
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnAddLeg.addActionListener(e -> onAddLeg());
+        btnRemoveLeg.addActionListener(e -> onRemoveLeg());
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         setSize(250, 600);
         centerOnOwner( this);
     }
 
-     public void onAddLeg() {
+     void onAddLeg() {
         try {
             int conId = Integer.parseInt( m_conId.getText());
             int ratio = Integer.parseInt( m_ratio.getText());
@@ -155,7 +135,7 @@ public class ComboLegDlg extends JDialog {
         }
     }
 
-    public void onRemoveLeg() {
+    void onRemoveLeg() {
         try {
             if ( m_comboTable.getSelectedRowCount() != 0 ) {
                 int[] rows = m_comboTable.getSelectedRows();
@@ -209,13 +189,13 @@ class ComboLegModel extends AbstractTableModel {
     private ArrayList<ComboLeg> m_comboLegData = new ArrayList<>();
     private ArrayList<OrderComboLeg> m_orderComboLegData = new ArrayList<>();
 
-    synchronized public void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg) {
+    synchronized void addComboLeg( ComboLeg comboLeg, OrderComboLeg orderComboLeg) {
         m_comboLegData.add( comboLeg);
         m_orderComboLegData.add( orderComboLeg);
         fireTableDataChanged();
     }
 
-    synchronized public void removeComboLeg( int index) {
+    synchronized void removeComboLeg( int index) {
         m_comboLegData.remove(index);
         m_orderComboLegData.remove(index);
         fireTableDataChanged();
@@ -303,11 +283,11 @@ class ComboLegModel extends AbstractTableModel {
         }
     }
 
-    public ArrayList<ComboLeg> comboLegData() {
+    ArrayList<ComboLeg> comboLegData() {
         return m_comboLegData;
     }
 
-    public ArrayList<OrderComboLeg> orderComboLegData() {
+    ArrayList<OrderComboLeg> orderComboLegData() {
         return m_orderComboLegData;
     }
 

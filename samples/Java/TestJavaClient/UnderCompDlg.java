@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,8 +6,6 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,45 +24,32 @@ public class UnderCompDlg extends JDialog {
     private JTextField 	m_txtDelta = new JTextField();
     private JTextField 	m_txtPrice = new JTextField();
 
-    private JButton 	m_btnOk = new JButton( "OK");
-    private JButton 	m_btnReset = new JButton( "Reset");
-    private JButton 	m_btnCancel = new JButton( "Cancel");
-
     private boolean m_ok = false;
     private boolean m_reset = false;
 
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
 
-    public UnderCompDlg(DeltaNeutralContract underComp, JDialog owner) {
+    UnderCompDlg(DeltaNeutralContract underComp, JDialog owner) {
     	super( owner, true);
 
     	m_underComp = underComp;
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_btnOk);
-        buttonPanel.add( m_btnReset);
-        buttonPanel.add( m_btnCancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnReset = new JButton("Reset");
+        buttonPanel.add(btnReset);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_btnOk.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_btnReset.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onReset();
-            }
-        });
-        m_btnCancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnReset.addActionListener(e -> onReset());
+        btnCancel.addActionListener(e -> onCancel());
 
-        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints() ;
+        GridBagConstraints gbc = new GridBagConstraints() ;
         gbc.fill = GridBagConstraints.BOTH ;
         gbc.anchor = GridBagConstraints.CENTER ;
         gbc.weighty = 100 ;

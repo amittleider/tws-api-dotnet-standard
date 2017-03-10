@@ -1,12 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,33 +23,25 @@ public class PositionsDlg extends JDialog {
     private JTextField 	m_account = new JTextField();
     private JTextField 	m_modelCode = new JTextField();
     private JCheckBox 	m_ledgerAndNLV = new JCheckBox("LedgerAndNLV", false);
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
 
     int m_retId;
     String m_retAccount;
     String m_retModelCode;
     boolean m_retLedgerAndNLV;
 
-    public PositionsDlg( JFrame owner) {
+    PositionsDlg( JFrame owner) {
         super( owner, true);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
         
         // create mid summary panel
         JPanel midPanel = new JPanel( new GridLayout( 0, 1, 5, 5) );

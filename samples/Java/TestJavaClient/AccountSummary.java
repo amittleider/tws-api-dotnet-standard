@@ -1,12 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,16 +18,13 @@ public class AccountSummary extends JDialog {
 
     public boolean m_rc;
 
-    public int m_reqId;
-    public String m_groupName;
-    public String m_tags;
+    int m_reqId;
+    String m_groupName;
+    String m_tags;
 
     private JTextField 	m_reqIdTxt = new JTextField("0");
     private JTextField 	m_groupNameTxt = new JTextField("All");
     private JTextField 	m_tagsTxt = new JTextField("AccruedCash,BuyingPower,NetLiquidation");
-
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
 
     public AccountSummary( JFrame owner) {
         super( owner, true);
@@ -47,20 +42,14 @@ public class AccountSummary extends JDialog {
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton okButton = new JButton("OK");
+        buttonPanel.add(okButton);
+        JButton cancelButton = new JButton("Cancel");
+        buttonPanel.add(cancelButton);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        okButton.addActionListener(e -> onOk());
+        cancelButton.addActionListener(e -> onCancel());
 
         // create dlg box
         getContentPane().add( accountSummaryPanel, BorderLayout.CENTER);
