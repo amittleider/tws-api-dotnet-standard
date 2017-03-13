@@ -75,5 +75,6 @@ namespace IBApi
         RequestHeadTimestamp = 87,
         RequestHistogramData = 88,
         CancelHistogramData = 89,
+        CancelHeadTimestamp = 90,
     }
 }

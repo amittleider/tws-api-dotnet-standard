@@ -1002,6 +1002,11 @@ namespace TWSLib
             this.socket.reqHeadTimestamp(tickerId, (Contract)(contract as ComContract), whatToShow, useRTH, formatDate);
         }
 
+        void ITws.cancelHeadTimestamp(int tickerId)
+        {
+            this.socket.cancelHeadTimestamp(tickerId);
+        }
+
         void ITws.reqHistogramData(int tickerId, IContract contract, bool useRTH, string period)
         {
             this.socket.reqHistogramData(tickerId, (Contract)(contract as ComContract), useRTH, period);

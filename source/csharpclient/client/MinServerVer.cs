@@ -82,5 +82,6 @@ namespace IBApi
         public const int SERVICE_DATA_TYPE = 120;
         public const int AGG_GROUP = 121;
         public const int UNDERLYING_INFO = 122;
+        public const int CANCEL_HEADTIMESTAMP = 123;
     }
 }

@@ -2555,6 +2555,23 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP);
         }
 
+        public void cancelHeadTimestamp(int tickerId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.CANCEL_HEADTIMESTAMP,
+                " It does not support head time stamp requests canceling."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelHeadTimestamp);
+            paramsList.AddParameter(tickerId);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELHEADTIMESTAMP);
+        }
+
 		/**
 		* @brief Returns data histogram of specified contract
 		* @params tickerId - an identifier for the request

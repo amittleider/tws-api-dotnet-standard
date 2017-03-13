@@ -73,12 +73,13 @@ const int MIN_SERVER_VER_REQ_HISTOGRAM			= 119;
 const int MIN_SERVER_VER_SERVICE_DATA_TYPE		= 120;
 const int MIN_SERVER_VER_AGG_GROUP				= 121;
 const int MIN_SERVER_VER_UNDERLYING_INFO		= 122;
+const int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP   = 123;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_UNDERLYING_INFO;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_CANCEL_HEADTIMESTAMP;
 
 
 // incoming msg id's
