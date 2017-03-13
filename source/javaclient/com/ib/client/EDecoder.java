@@ -1733,7 +1733,7 @@ class EDecoder implements ObjectInput {
 		m_EWrapper.tickPrice( tickerId, tickType, price, attribs);
 
 		if( version >= 2) {
-		    int sizeTickType = -1 ; // not a tick
+		    final int sizeTickType;
 		    switch (tickType) {
 		        case 1: // BID
 		            sizeTickType = 0 ; // BID_SIZE
@@ -1753,6 +1753,8 @@ class EDecoder implements ObjectInput {
 		        case 68: // DELAYED_LAST
 		            sizeTickType = 71 ; // DELAYED_LAST_SIZE
 		            break ;
+                default:
+                    sizeTickType = -1; // not a tick
 		    }
 		    if (sizeTickType != -1) {
 		        m_EWrapper.tickSize( tickerId, sizeTickType, size);

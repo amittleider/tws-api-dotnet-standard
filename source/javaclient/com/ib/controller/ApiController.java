@@ -799,6 +799,9 @@ public class ApiController implements EWrapper {
 				List<Alias> aliases = AdvisorUtil.getAliases( xml);
 				m_advisorHandler.aliases(aliases);
 				break;
+
+			default:
+				break;
 		}
 		recEOM();
 	}

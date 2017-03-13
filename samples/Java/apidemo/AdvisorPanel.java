@@ -240,6 +240,7 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 				case 0: row.name( (String)val); break;
 				case 1: row.defaultMethod( (Method)val); break;
 				case 2: row.setAllAccounts( (String)val); break;
+				default: break;
 			}
 		}
 	}
@@ -354,6 +355,7 @@ public class AdvisorPanel extends NewTabPanel implements IAdvisorHandler {
 				case 0: row.name( (String)val); break;
 				case 1: row.type( (Type)val); break;
 				case 2: row.setAllocations( (String)val); break;
+				default: break;
 			}
 		}
 	}

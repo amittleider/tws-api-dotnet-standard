@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
+import java.nio.charset.StandardCharsets;
 
 /** This class is used to build messages so the entire message can be
  *  sent to the socket in a single write. */
@@ -47,7 +48,7 @@ public class Builder implements ObjectOutput {
 
 	public void send( String a) {
 		if (a != null) {
-		    byte[] buffer = a.getBytes();
+		    byte[] buffer = a.getBytes(StandardCharsets.UTF_8);
 		    m_sb.write( buffer, 0, buffer.length );
 		}
 		m_sb.write( SEP);

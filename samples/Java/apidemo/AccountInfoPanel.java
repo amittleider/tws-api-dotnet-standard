@@ -171,9 +171,18 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 			}
 			
 			switch( type) {
-				case 0: row.m_val = value; break;
-				case 1: row.m_secVal = value; break;
-				case 2: row.m_comVal = value; break;
+				case 0:
+					row.m_val = value;
+					break;
+				case 1:
+					row.m_secVal = value;
+					break;
+				case 2:
+					row.m_comVal = value;
+					break;
+				default:
+					row.m_val = value;
+					break;
 			}
 			
 			SwingUtilities.invokeLater(this::fireTableDataChanged);

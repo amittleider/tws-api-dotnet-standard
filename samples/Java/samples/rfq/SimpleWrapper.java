@@ -352,7 +352,7 @@ public class SimpleWrapper implements EWrapper {
 
 	private void initNextOutput() {
 		try {
-			m_output = new PrintStream(new File("sysout_" + (++m_outputCounter) + ".log"));
+			m_output = new PrintStream(new File("sysout_" + (++m_outputCounter) + ".log"), "UTF-8");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}		

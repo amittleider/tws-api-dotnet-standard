@@ -4,6 +4,7 @@
 package com.ib.client;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.ib.client.Types.SecType;
@@ -3389,7 +3390,7 @@ public abstract class EClient {
     
     private void sendV100APIHeader() throws IOException {
     	Builder bos = new Builder(1024);
-    	bos.send("API\0".getBytes());
+    	bos.send("API\0".getBytes(StandardCharsets.UTF_8));
     
     	String out = "v" + (( MIN_VERSION < MAX_VERSION ) 
     			? MIN_VERSION + ".." + MAX_VERSION
@@ -3400,7 +3401,7 @@ public abstract class EClient {
     	}
 
     	int lengthPos = bos.allocateLengthHeader();
-    	bos.send( out.getBytes() );
+    	bos.send( out.getBytes(StandardCharsets.UTF_8) );
     	bos.updateLength( lengthPos );
 
     	sendMsg(new EMessage(bos));

@@ -5,6 +5,7 @@ package com.ib.controller;
 
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import com.ib.client.Contract;
 import com.ib.client.EClientErrors;
@@ -41,7 +42,7 @@ public class ApiConnection extends EClientSocket {
 		
 		byte[] buf = msg.getRawData();
 		
-		m_outLogger.log(new String(buf, 0, buf.length));
+		m_outLogger.log(new String(buf, 0, buf.length, StandardCharsets.UTF_8));
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class ApiConnection extends EClientSocket {
 	public int read(byte[] buf, int off, int len) throws IOException {
 		int n = super.read(buf, off, len);
 		
-		m_inLogger.log(new String(buf, 0, n));
+		m_inLogger.log(new String(buf, 0, n, StandardCharsets.UTF_8));
 		
 		return n;
 	}
