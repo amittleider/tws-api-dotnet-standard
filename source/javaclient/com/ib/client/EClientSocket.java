@@ -150,16 +150,14 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	        m_eWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS.code(), EClientErrors.UPDATE_TWS.msg());
 	        return;
 	    }
-	    
-	    if ( m_serverVersion >= 3 ){
-	        if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
-	            try {
-					send( m_clientId);
-				} catch (IOException e) {
-					m_eWrapper.error(e);
-				}
-	        }
-	    }
+
+	    if ( m_serverVersion < MIN_SERVER_VER_LINKING) {
+			try {
+				send( m_clientId);
+			} catch (IOException e) {
+				m_eWrapper.error(e);
+			}
+		}
 	    
 	    
 	    // set connected flag

@@ -87,6 +87,10 @@ public class AdvisorUtil {
 						group.addAccount( getVal( line) );
 					}
 					break;
+
+				// should not happen
+				default:
+					break;
 			}
 		}
 
@@ -190,6 +194,10 @@ public class AdvisorUtil {
 						err( line);
 					}
 					break;
+
+				// should not happen
+				default:
+					break;
 			}
 		}
 
@@ -253,6 +261,10 @@ public class AdvisorUtil {
 					else {
 						err( line);
 					}
+					break;
+
+				// should not happen
+				default:
 					break;
 			}
 		}

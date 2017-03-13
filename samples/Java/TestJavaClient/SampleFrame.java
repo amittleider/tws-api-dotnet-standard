@@ -1256,16 +1256,18 @@ class SampleFrame extends JFrame implements EWrapper {
 
     public void receiveFA(int faDataType, String xml) {
         displayXML(EWrapperMsgGenerator.FINANCIAL_ADVISOR + " " + EClientSocket.faMsgTypeName(faDataType), xml);
-      switch (faDataType) {
-        case EClientSocket.GROUPS:
-          faGroupXML = xml ;
-          break ;
-        case EClientSocket.PROFILES:
-          faProfilesXML = xml ;
-          break ;
-        case EClientSocket.ALIASES:
-          faAliasesXML = xml ;
-          break ;
+        switch (faDataType) {
+            case EClientSocket.GROUPS:
+                faGroupXML = xml;
+                break;
+            case EClientSocket.PROFILES:
+                faProfilesXML = xml;
+                break;
+            case EClientSocket.ALIASES:
+                faAliasesXML = xml;
+                break;
+            default:
+                return;
       }
 
       if (!faError &&

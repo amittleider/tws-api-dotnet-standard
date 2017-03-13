@@ -6,8 +6,8 @@ package apidemo;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 import javax.swing.Box;
@@ -153,8 +153,8 @@ class ContractInfoPanel extends JPanel {
 		void onView() {
 			try {
 				File file = File.createTempFile( "tws", ".xml");
-				try (FileWriter writer = new FileWriter( file)) {
-					writer.write(m_text.getText());
+				try (PrintStream ps = new PrintStream( file, "UTF-8")) {
+					ps.println(m_text.getText());
 				}
 				Desktop.getDesktop().open( file);
 			} catch(IOException e) {

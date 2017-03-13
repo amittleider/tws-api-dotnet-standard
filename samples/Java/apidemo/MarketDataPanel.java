@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo;
@@ -8,8 +8,8 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -54,7 +54,7 @@ import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 import apidemo.util.VerticalPanel.StackPanel;
 
-public class MarketDataPanel extends JPanel {
+class MarketDataPanel extends JPanel {
 	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_resultsPanel = new NewTabbedPanel();
 	private TopResultsPanel m_topResultPanel;
@@ -617,7 +617,7 @@ public class MarketDataPanel extends JPanel {
 			add( rightPanel);
 		}
 	
-		protected void onHistogram() {
+		void onHistogram() {
 			m_contractPanel.onOK();
 			
 			HistogramResultsPanel panel = new HistogramResultsPanel();
@@ -998,8 +998,8 @@ public class MarketDataPanel extends JPanel {
 		@Override public void scannerParameters(String xml) {
 			try {
 				File file = File.createTempFile( "pre", ".xml");
-				try (FileWriter writer = new FileWriter( file)) {
-					writer.write(xml);
+				try (PrintStream ps = new PrintStream( file, "UTF-8")) {
+					ps.println(xml);
 				}
 				Desktop.getDesktop().open( file);
 			} catch (IOException e) {

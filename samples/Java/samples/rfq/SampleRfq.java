@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.rfq;
@@ -102,78 +102,73 @@ public class SampleRfq extends SimpleWrapper {
    }
 
    private void obtainContract() {
-      switch (m_mode) {
-      case 0:
-            m_contract = new StkContract("IBM");
-            m_contract.currency("EUR");
-            break;
-      case 1:
-            m_contract = new FutContract("IBM", "200809");
-            break;
-      case 2:
-            m_contract = new OptContract("IBM", "200809", 120, "CALL");
-            break;
-      case 3:
-            m_contract = new OptContract("Z", "LIFFE", "200809", 54.75, "CALL");
-            m_contract.currency("GBP");
-            break;
-      case 4:
-            m_contract = new ComboContract("Z", "GBP", "LIFFE");
-            m_contract.comboLegs(new ArrayList<>(2));
-            {
-               Contract l1 = new OptContract("Z", "LIFFE", "200809", 54.75, "CALL");
-               l1.currency("GBP");
-               submitSecDef(1, l1);
-            }
-            {
-               Contract l2 = new OptContract("Z", "LIFFE", "200810", 55.00, "CALL");
-               l2.currency("GBP");
-               submitSecDef(2, l2);
-            }
-            m_status = Status.SecDef;
-            break;
-      case 5:
-            m_contract = new ComboContract("IBM");
-            m_contract.comboLegs(new ArrayList<>(1));
-
-            m_contract.underComp(new DeltaNeutralContract());
-            //m_contract.m_underComp.m_delta = 0.8;
-            //m_contract.m_underComp.m_price = 120;
-            {
-               Contract l1 = new OptContract("IBM", "200809", 120, "CALL");
-               submitSecDef(1, l1);
-            }
-
-            m_status = Status.SecDef;
-            break;
-      case 6:
-            m_contract = new ComboContract("RUT");
-            m_contract.comboLegs(new ArrayList<>(1));
-
-            m_contract.underComp(new DeltaNeutralContract());
-            m_needFrontMonthFuture = true;
-            {
-               Contract l1 = new OptContract("RUT", "200809", 740, "CALL");
-               submitSecDef(1, l1);
-            }
-
-            m_status = Status.SecDef;
-            break;
-      case 7:
-            m_contract = new ComboContract("Z", "GBP", "LIFFE");
-            m_contract.comboLegs(new ArrayList<>(1));
-
-            m_contract.underComp(new DeltaNeutralContract());
-            m_needFrontMonthFuture = true;
-            {
-               Contract l1 = new OptContract(
-                     "Z", "LIFFE", "200808", 55.00, "CALL");
-               l1.currency("GBP");
-               submitSecDef(1, l1);
-            }
-
-            m_status = Status.SecDef;
-            break;
+       switch (m_mode) {
+           case 0:
+               m_contract = new StkContract("IBM");
+               m_contract.currency("EUR");
+               break;
+           case 1:
+               m_contract = new FutContract("IBM", "200809");
+               break;
+           case 2:
+               m_contract = new OptContract("IBM", "200809", 120, "CALL");
+               break;
+           case 3:
+               m_contract = new OptContract("Z", "LIFFE", "200809", 54.75, "CALL");
+               m_contract.currency("GBP");
+               break;
+           case 4:
+               m_contract = new ComboContract("Z", "GBP", "LIFFE");
+               m_contract.comboLegs(new ArrayList<>(2));
+               {
+                   Contract l1 = new OptContract("Z", "LIFFE", "200809", 54.75, "CALL");
+                   l1.currency("GBP");
+                   submitSecDef(1, l1);
+               }
+               {
+                   Contract l2 = new OptContract("Z", "LIFFE", "200810", 55.00, "CALL");
+                   l2.currency("GBP");
+                   submitSecDef(2, l2);
+               }
+               m_status = Status.SecDef;
+               break;
+           case 5:
+               m_contract = new ComboContract("IBM");
+               m_contract.comboLegs(new ArrayList<>(1));
+               m_contract.underComp(new DeltaNeutralContract());
+               //m_contract.m_underComp.m_delta = 0.8;
+               // m_contract.m_underComp.m_price = 120;
+               {
+                   Contract l1 = new OptContract("IBM", "200809", 120, "CALL");
+                   submitSecDef(1, l1);
+               }
+               m_status = Status.SecDef;
+               break;
+           case 6:
+               m_contract = new ComboContract("RUT");
+               m_contract.comboLegs(new ArrayList<>(1));
+               m_contract.underComp(new DeltaNeutralContract());
+               m_needFrontMonthFuture = true;
+               {
+                   Contract l1 = new OptContract("RUT", "200809", 740, "CALL");
+                   submitSecDef(1, l1);
+               }
+               m_status = Status.SecDef;
+               break;
+           case 7:
+               m_contract = new ComboContract("Z", "GBP", "LIFFE");
+               m_contract.comboLegs(new ArrayList<>(1));
+               m_contract.underComp(new DeltaNeutralContract());
+               m_needFrontMonthFuture = true;
+               {
+                   Contract l1 = new OptContract("Z", "LIFFE", "200808", 55.00, "CALL");
+                   l1.currency("GBP");
+                   submitSecDef(1, l1);
+               }
+               m_status = Status.SecDef;
+               break;
+           default:
+               break;
       }
    }
 
