@@ -47,7 +47,6 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
     private JRadioButton m_rbTime;
     private JRadioButton m_rbTrade;
     private JRadioButton m_rbVolume;
-    private JTabbedPane m_tabbedPane;
     private OrderCondition m_condition;
 	private OnOKPanel m_conditionSubPanel;
 	
@@ -101,7 +100,7 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
 
 	private void initComponents() {
 
-        m_tabbedPane = new JTabbedPane();
+        JTabbedPane tabbedPane = new JTabbedPane();
         m_conditionTypePanel = new JPanel();
         m_rbPrice = new JRadioButton();
         m_rbMargin = new JRadioButton();
@@ -173,14 +172,14 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        m_tabbedPane.addTab("Condition type", m_conditionTypePanel);
-        m_tabbedPane.addTab("Condition", m_conditionPanel);
+        tabbedPane.addTab("Condition type", m_conditionTypePanel);
+        tabbedPane.addTab("Condition", m_conditionPanel);
         
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         GroupLayout layout = new GroupLayout(getContentPane());
         
-        mainPanel.add(m_tabbedPane);
+        mainPanel.add(tabbedPane);
         buttons.add(
         		new HtmlButton("Apply") {
         	protected void actionPerformed() {

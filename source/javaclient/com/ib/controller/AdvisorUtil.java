@@ -293,7 +293,9 @@ public class AdvisorUtil {
 		String str3 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAccountAliases>\n	<AccountAlias>\n		<account>DF109948</account>\n		<alias>DF109948</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109949</account>\n		<alias>DU109949</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109950</account>\n		<alias>DU109950</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110156</account>\n		<alias>DU110156</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110157</account>\n		<alias>DU110157</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110158</account>\n		<alias>DU110158</alias>\n	</AccountAlias>\n</ListOfAccountAliases>\n\n";
 		List<Alias> aliases = getAliases( str3);
 
-		AdvisorUtil.err( aliases.toString() );
+		if (aliases != null) {
+			AdvisorUtil.err(aliases.toString());
+		}
 	}
 
 	public static String getGroupsXml(List<Group> groups) {

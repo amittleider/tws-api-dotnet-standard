@@ -27,7 +27,7 @@ public class SampleRfq extends SimpleWrapper {
    private static final int MaskRecvAll = MaskBidPrice | MaskBidSize |
                                           MaskAskPrice | MaskAskSize ;
 
-   private Object m_mutex = new Object();
+   private final Object m_mutex = new Object();
    private Status m_status = Status.None;
 
    private int m_clientId;

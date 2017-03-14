@@ -34,11 +34,8 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 	private JList<String> m_accounts = new JList<>( m_acctList);
 	private String m_selAcct = "";
 	private MarginModel m_marginModel = new MarginModel();
-	private JTable m_marginTable = new Table( m_marginModel);
 	private PortfolioModel m_portfolioModel = new PortfolioModel();
-	private JTable m_portfolioTable = new Table( m_portfolioModel);
 	private MktValModel m_mktValModel = new MktValModel();
-	private JTable m_mktValTable = new Table( m_mktValModel, 2);
 	private JLabel m_lastUpdated = new JLabel();
 
 	AccountInfoPanel() {
@@ -48,9 +45,9 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 		JScrollPane acctScroll = new JScrollPane( m_accounts);
 		acctScroll.setBorder( new TitledBorder( "Select Account"));
 
-		JScrollPane marginScroll = new JScrollPane( m_marginTable);
-		JScrollPane mvScroll = new JScrollPane( m_mktValTable);
-		JScrollPane portScroll = new JScrollPane( m_portfolioTable);
+		JScrollPane marginScroll = new JScrollPane(new Table(m_marginModel));
+		JScrollPane mvScroll = new JScrollPane(new Table(m_mktValModel, 2));
+		JScrollPane portScroll = new JScrollPane(new Table(m_portfolioModel));
 		
 		NewTabbedPanel tabbedPanel = new NewTabbedPanel();
 		tabbedPanel.addTab( "Balances and Margin", marginScroll);

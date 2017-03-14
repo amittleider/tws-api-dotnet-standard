@@ -121,6 +121,7 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 		if (!m_req) {
 			BarSize barSize = m_barSize.getSelectedItem();
 			QueryLength queryLength = getQueryLength( barSize);
+			if (queryLength == null) return;
 			String date = Bar.format( bar.time() * 1000);
 			int duration = m_bars.getInt() * queryLength.m_units;
 			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, date, duration, queryLength.m_unit, barSize, WhatToShow.TRADES, false, this);

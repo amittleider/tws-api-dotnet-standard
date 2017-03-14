@@ -25,10 +25,10 @@ public class ConditionsPanel extends OnOKPanel {
 	 */
 	private final JDialog parentDlg;
 	private final Order m_order;
-	final ConditionsModel m_conditionList;
-	final JTable m_conditions;
-	final TCombo<String> m_cancelOrder = new TCombo<>("Submit order", "Cancel order");
-	final JCheckBox m_ignoreRth = new JCheckBox("Allow condition to be satisfied and activate order outside of regular trading hours");
+	private final ConditionsModel m_conditionList;
+	private final JTable m_conditions;
+	private final TCombo<String> m_cancelOrder = new TCombo<>("Submit order", "Cancel order");
+	private final JCheckBox m_ignoreRth = new JCheckBox("Allow condition to be satisfied and activate order outside of regular trading hours");
 
 	public ConditionsPanel(JDialog parentDlg, Order order, final ContractLookuper lookuper) {
 		this.parentDlg = parentDlg;

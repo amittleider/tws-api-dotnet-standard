@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package samples.dnhedge;
@@ -20,7 +20,7 @@ public class SampleDNHedge extends SimpleWrapper {
 
    private static final int AllAcked = ParentAcked | ChildAcked;
 
-   private Object m_mutex = new Object();
+   private final Object m_mutex = new Object();
    private Status m_status = Status.None;
 
    private int m_clientId;

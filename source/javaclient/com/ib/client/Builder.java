@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -43,7 +43,7 @@ public class Builder implements ObjectOutput {
 	}
 
 	public void send( IApiEnum a) {
-		send( a == null ? (String)null : a.getApiString() );
+		send( a == null ? null : a.getApiString() );
 	}
 
 	public void send( String a) {
@@ -75,8 +75,8 @@ public class Builder implements ObjectOutput {
     }
 
     // b[] must be at least b[position+4]
-    public static void intToBytes(int val, byte b[], int position) {
-        b[position+0] = (byte)(0xff & (val >> 24));
+    static void intToBytes(int val, byte b[], int position) {
+        b[position]   = (byte)(0xff & (val >> 24));
         b[position+1] = (byte)(0xff & (val >> 16));
         b[position+2] = (byte)(0xff & (val >> 8));
         b[position+3] = (byte)(0xff & val);
@@ -84,11 +84,11 @@ public class Builder implements ObjectOutput {
     
     /** inner class: ByteBuffer - storage for bytes and direct access to buffer. */
     private static class ByteBuffer extends ByteArrayOutputStream {
-        public ByteBuffer( int capacity ) {
+        ByteBuffer(int capacity) {
             super( capacity );
         }
 
-        public void updateLength( int lengthHeaderPosition ) {
+        void updateLength(int lengthHeaderPosition) {
             int len = this.count - EMPTY_LENGTH_HEADER.length - lengthHeaderPosition;
             if ( PADDING_SIZE > 1 ) {
                 int padding = PADDING_SIZE - len%PADDING_SIZE;
@@ -100,7 +100,7 @@ public class Builder implements ObjectOutput {
             intToBytes(len, this.buf, lengthHeaderPosition);
         }
         
-        public void writeTo( DataOutputStream out ) throws IOException {
+        void writeTo(DataOutputStream out) throws IOException {
             out.write( this.buf, 0, this.count );
         }
     }
