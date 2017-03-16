@@ -272,7 +272,7 @@ public:
 	void reqHistoricalData( TickerId id, const Contract& contract,
 		const std::string& endDateTime, const std::string& durationStr,
 		const std::string&  barSizeSetting, const std::string& whatToShow,
-		int useRTH, int formatDate, const TagValueListSPtr& chartOptions);
+		int useRTH, int formatDate, bool keepUpToDate, const TagValueListSPtr& chartOptions);
 	void exerciseOptions(TickerId tickerId, const Contract& contract,
 		int exerciseAction, int exerciseQuantity,
 		const std::string& account, int override);

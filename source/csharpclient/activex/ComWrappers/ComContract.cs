@@ -21,7 +21,7 @@ namespace TWSLib
         /**
         * @brief The unique contract's identifier
         */
-        public int ConId
+        int ConId
         {
             get { return data != null ? data.ConId : default(int); }
             set { if (data != null) data.ConId = value; }
@@ -31,7 +31,7 @@ namespace TWSLib
         /**
          * @brief The underlying's asset symbol
          */
-        public string Symbol
+        string Symbol
         {
             get { return data != null ? data.Symbol : default(string); }
             set { if (data != null) data.Symbol = value; }
@@ -48,7 +48,7 @@ namespace TWSLib
          *      BAG - combo
          *      WAR - warrant
          */
-        public string SecType
+        string SecType
         {
             get { return data != null ? data.SecType : default(string); }
             set { if (data != null) data.SecType = value; }
@@ -57,7 +57,7 @@ namespace TWSLib
         /**
         * @brief The contract's expiration date (i.e. Options and Futures)
         */
-        public string lastTradeDateOrContractMonth
+        string lastTradeDateOrContractMonth
         {
             get { return data != null ? data.LastTradeDateOrContractMonth : default(string); }
             set { if (data != null) data.LastTradeDateOrContractMonth = value; }
@@ -66,7 +66,7 @@ namespace TWSLib
         /**
          * @brief The option's strike price
          */
-        public double Strike
+        double Strike
         {
             get { return data != null ? data.Strike : default(double); }
             set { if (data != null) data.Strike = value; }
@@ -75,7 +75,7 @@ namespace TWSLib
         /**
          * @brief Either Put or Call (i.e. Options)
          */
-        public string Right
+        string Right
         {
             get { return data != null ? data.Right : default(string); }
             set { if (data != null) data.Right = value; }
@@ -84,7 +84,7 @@ namespace TWSLib
         /**
          * @brief The instrument's multiplier (i.e. options, futures).
          */
-        public string Multiplier
+        string Multiplier
         {
             get { return data != null ? data.Multiplier : default(string); }
             set { if (data != null) data.Multiplier = value; }
@@ -93,7 +93,7 @@ namespace TWSLib
         /**
          * @brief The destination exchange.
          */
-        public string Exchange
+        string Exchange
         {
             get { return data != null ? data.Exchange : default(string); }
             set { if (data != null) data.Exchange = value; }
@@ -102,7 +102,7 @@ namespace TWSLib
         /**
          * @brief The underlying's cuurrency
          */
-        public string Currency
+        string Currency
         {
             get { return data != null ? data.Currency : default(string); }
             set { if (data != null) data.Currency = value; }
@@ -111,7 +111,7 @@ namespace TWSLib
         /**
          * @brief The contract's symbol within its primary exchange
          */
-        public string LocalSymbol
+        string LocalSymbol
         {
             get { return data != null ? data.LocalSymbol : default(string); }
             set { if (data != null) data.LocalSymbol = value; }
@@ -120,7 +120,7 @@ namespace TWSLib
         /**
          * @brief The contract's primary exchange.
          */
-        public string PrimaryExch
+        string PrimaryExch
         {
             get { return data != null ? data.PrimaryExch : default(string); }
             set { if (data != null) data.PrimaryExch = value; }
@@ -130,7 +130,7 @@ namespace TWSLib
          * @brief The trading class name for this contract.
          * Available in TWS contract description window as well. For example, GBL Dec '13 future's trading class is "FGBL"
          */
-        public string TradingClass
+        string TradingClass
         {
             get { return data != null ? data.TradingClass : default(string); }
             set { if (data != null) data.TradingClass = value; }
@@ -140,7 +140,7 @@ namespace TWSLib
         * @brief If set to true, contract details requests and historical data queries can be performed pertaining to expired contracts.
         * Note: Historical data queries on expired contracts are limited to the last year of the contracts life, and are initially only supported for expired futures contracts.
         */
-        public bool IncludeExpired
+        bool IncludeExpired
         {
             get { return data != null ? data.IncludeExpired : default(bool); }
             set { if (data != null) data.IncludeExpired = value; }
@@ -153,7 +153,7 @@ namespace TWSLib
          *      SEDOL - Consists of 6-AN + check digit. Example: BAE: 0263494
          *      RIC - Consists of exchange-independent RIC Root and a suffix identifying the exchange. Example: AAPL.O for Apple on NASDAQ.
          */
-        public string SecIdType
+        string SecIdType
         {
             get { return data != null ? data.SecIdType : default(string); }
             set { if (data != null) data.SecIdType = value; }
@@ -163,7 +163,7 @@ namespace TWSLib
         * @brief Identifier of the security type
         * @sa secIdType
         */
-        public string SecId
+        string SecId
         {
             get { return data != null ? data.SecId : default(string); }
             set { if (data != null) data.SecId = value; }
@@ -172,7 +172,7 @@ namespace TWSLib
         /**
         * @brief Description of the combo legs.
         */
-        public string ComboLegsDescription
+        string ComboLegsDescription
         {
             get { return data != null ? data.ComboLegsDescription : default(string); }
             set { if (data != null) data.ComboLegsDescription = value; }
@@ -182,7 +182,7 @@ namespace TWSLib
          * @brief The legs of a combined contract definition
          * @sa ComboLeg
          */
-        public ComList<ComComboLeg, ComboLeg> ComboLegs
+        ComList<ComComboLeg, ComboLeg> ComboLegs
         {
             get { return data != null ? data.ComboLegs != null ? new ComList<ComComboLeg, ComboLeg>(data.ComboLegs) : null : null; }
             set { if (data != null) data.ComboLegs = value != null ? value.ConvertTo() : null; }
@@ -193,7 +193,7 @@ namespace TWSLib
          * Underlying (STK or FUT), delta and underlying price goes into this attribute.
          * @sa UnderComp
          */
-        public ComUnderComp UnderComp
+        ComUnderComp UnderComp
         {
             get { return (ComUnderComp)data.UnderComp; }
             set { if (data != null) data.UnderComp = (UnderComp)value; }

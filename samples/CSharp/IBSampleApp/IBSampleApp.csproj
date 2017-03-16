@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="backend\HeadTimestampMessage.cs" />
+    <Compile Include="messages\HeadTimestampMessage.cs" />
     <Compile Include="messages\HistogramDataMessage.cs" />
     <Compile Include="messages\AccountDownloadEndMessage.cs" />
     <Compile Include="messages\AccountSummaryEndMessage.cs" />

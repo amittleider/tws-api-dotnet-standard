@@ -21,7 +21,7 @@ namespace TWSLib
         /**
          * @brief The API account Id
          */
-        public string AccountID
+        string AccountID
         {
             get { return data != null ? data.AccountID : default(string); }
             set { if (data != null) data.AccountID = value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
          * @brief The API family code
          */
-        public string FamilyCodeStr
+        string FamilyCodeStr
         {
             get { return data != null ? data.FamilyCodeStr : default(string); }
             set { if (data != null) data.FamilyCodeStr = value; }

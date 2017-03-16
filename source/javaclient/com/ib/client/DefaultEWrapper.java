@@ -170,9 +170,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
 	@Override
-	public void historicalData(int reqId, String date, double open,
-			double high, double low, double close, int volume, int count,
-			double WAP, boolean hasGaps) {
+	public void historicalData(int reqId, Bar bar) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -453,4 +451,10 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void historicalDataUpdate(int reqId, Bar bar) {
+        // TODO Auto-generated method stub
+        
+    }
 }

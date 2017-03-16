@@ -15,7 +15,7 @@ namespace IBSampleApp.messages
         protected double high;
         protected double low;
         protected double close;
-        protected int volume;
+        protected long volume;
         protected int count;
         protected double wap;
         protected bool hasGaps;
@@ -57,7 +57,7 @@ namespace IBSampleApp.messages
             set { close = value; }
         }
         
-        public int Volume
+        public long Volume
         {
             get { return volume; }
             set { volume = value; }
@@ -81,18 +81,17 @@ namespace IBSampleApp.messages
             set { hasGaps = value; }
         }
 
-        public HistoricalDataMessage(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        public HistoricalDataMessage(int reqId, IBApi.Bar bar)
         {
             RequestId = reqId;
-            Date = date;
-            Open = open;
-            High = high;
-            Low = low;
-            Close = close;
-            Volume = volume;
-            Count = count;
-            Wap = WAP;
-            HasGaps = hasGaps;
+            Date = bar.Time;
+            Open = bar.Open;
+            High = bar.High;
+            Low = bar.Low;
+            Close = bar.Close;
+            Volume = bar.Volume;
+            Count = bar.Count;
+            Wap = bar.WAP;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace TWSLib
         /**
          * @brief A Contract object summarising this product.
          */
-        public ComContract Summary
+        ComContract Summary
         {
             get { return (ComContract)data.Summary; }
             set { if (data != null) data.Summary = (Contract)value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
         * @brief The market name for this product.
         */
-        public string MarketName
+        string MarketName
         {
             get { return data != null ? data.MarketName : default(string); }
             set { if (data != null) data.MarketName = value; }
@@ -40,7 +40,7 @@ namespace TWSLib
         * @brief The minimum allowed price variation.
          * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price.
         */
-        public double MinTick
+        double MinTick
         {
             get { return data != null ? data.MinTick : default(double); }
             set { if (data != null) data.MinTick = value; }
@@ -49,7 +49,7 @@ namespace TWSLib
         /**
         * @brief Allows execution and strike prices to be reported consistently with market data, historical data and the order price, i.e. Z on LIFFE is reported in Index points and not GBP.
         */
-        public int PriceMagnifier
+        int PriceMagnifier
         {
             get { return data != null ? data.PriceMagnifier : default(int); }
             set { if (data != null) data.PriceMagnifier = value; }
@@ -58,7 +58,7 @@ namespace TWSLib
         /**
         * @brief Supported order types for this product.
         */
-        public string OrderTypes
+        string OrderTypes
         {
             get { return data != null ? data.OrderTypes : default(string); }
             set { if (data != null) data.OrderTypes = value; }
@@ -67,7 +67,7 @@ namespace TWSLib
         /**
         * @brief Exchanges on which this product is traded.
         */
-        public string ValidExchanges
+        string ValidExchanges
         {
             get { return data != null ? data.ValidExchanges : default(string); }
             set { if (data != null) data.ValidExchanges = value; }
@@ -76,7 +76,7 @@ namespace TWSLib
         /**
         * @brief Underlying's contract Id
         */
-        public int UnderConId
+        int UnderConId
         {
             get { return data != null ? data.UnderConId : default(int); }
             set { if (data != null) data.UnderConId = value; }
@@ -85,7 +85,7 @@ namespace TWSLib
         /**
         * @brief Descriptive name of the product.
         */
-        public string LongName
+        string LongName
         {
             get { return data != null ? data.LongName : default(string); }
             set { if (data != null) data.LongName = value; }
@@ -94,7 +94,7 @@ namespace TWSLib
         /**
         * @brief Typically the contract month of the underlying for a Future contract.
         */
-        public string ContractMonth
+        string ContractMonth
         {
             get { return data != null ? data.ContractMonth : default(string); }
             set { if (data != null) data.ContractMonth = value; }
@@ -103,7 +103,7 @@ namespace TWSLib
         /**
         * @brief The industry classification of the underlying/product. For example, Financial.
         */
-        public string Industry
+        string Industry
         {
             get { return data != null ? data.Industry : default(string); }
             set { if (data != null) data.Industry = value; }
@@ -112,7 +112,7 @@ namespace TWSLib
         /**
         * @brief The industry category of the underlying. For example, InvestmentSvc.
         */
-        public string Category
+        string Category
         {
             get { return data != null ? data.Category : default(string); }
             set { if (data != null) data.Category = value; }
@@ -121,7 +121,7 @@ namespace TWSLib
         /**
         * @brief The industry subcategory of the underlying. For example, Brokerage.
         */
-        public string Subcategory
+        string Subcategory
         {
             get { return data != null ? data.Subcategory : default(string); }
             set { if (data != null) data.Subcategory = value; }
@@ -130,7 +130,7 @@ namespace TWSLib
         /**
         * @brief The ID of the time zone for the trading hours of the product. For example, EST.
         */
-        public string TimeZoneId
+        string TimeZoneId
         {
             get { return data != null ? data.TimeZoneId : default(string); }
             set { if (data != null) data.TimeZoneId = value; }
@@ -140,7 +140,7 @@ namespace TWSLib
         * @brief The trading hours of the product.
          * This value will contain the trading hours of the current day as well as the next's. For example, 20090507:0700-1830,1830-2330;20090508:CLOSED.
         */
-        public string TradingHours
+        string TradingHours
         {
             get { return data != null ? data.TradingHours : default(string); }
             set { if (data != null) data.TradingHours = value; }
@@ -150,7 +150,7 @@ namespace TWSLib
         * @brief The liquid hours of the product.
          * This value will contain the liquid hours of the current day as well as the next's. For example, 20090507:0700-1830,1830-2330;20090508:CLOSED.
         */
-        public string LiquidHours
+        string LiquidHours
         {
             get { return data != null ? data.LiquidHours : default(string); }
             set { if (data != null) data.LiquidHours = value; }
@@ -160,7 +160,7 @@ namespace TWSLib
         * @brief Contains the Economic Value Rule name and the respective optional argument.
          * The two values should be separated by a colon. For example, aussieBond:YearsToExpiration=3. When the optional argument is not present, the first value will be followed by a colon.
         */
-        public string EvRule
+        string EvRule
         {
             get { return data != null ? data.EvRule : default(string); }
             set { if (data != null) data.EvRule = value; }
@@ -170,7 +170,7 @@ namespace TWSLib
         * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1. 
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
         */
-        public double EvMultiplier
+        double EvMultiplier
         {
             get { return data != null ? data.EvMultiplier : default(double); }
             set { if (data != null) data.EvMultiplier = value; }
@@ -179,7 +179,7 @@ namespace TWSLib
         /**
         * @brief MD Size Multiplier
         */
-        public int MdSizeMultiplier
+        int MdSizeMultiplier
         {
             get { return data != null ? data.MdSizeMultiplier : default(int); }
             set { if (data != null) data.MdSizeMultiplier = value; }
@@ -188,7 +188,7 @@ namespace TWSLib
         /**
         * @brief Aggregated group
         */
-        public int AggGroup
+        int AggGroup
         {
             get { return data != null ? data.AggGroup : default(int); }
             set { if (data != null) data.AggGroup = value; }
@@ -197,7 +197,7 @@ namespace TWSLib
         /**
         * @brief Underlying symbol
         */
-        public string UnderSymbol
+        string UnderSymbol
         {
             get { return data != null ? data.UnderSymbol : default(string); }
             set { if (data != null) data.UnderSymbol = value; }
@@ -206,7 +206,7 @@ namespace TWSLib
         /**
         * @brief Underlying sec type
         */
-        public string UnderSecType
+        string UnderSecType
         {
             get { return data != null ? data.UnderSecType : default(string); }
             set { if (data != null) data.UnderSecType = value; }
@@ -216,7 +216,7 @@ namespace TWSLib
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
-        public ComList<ComTagValue, TagValue> SecIdList
+        ComList<ComTagValue, TagValue> SecIdList
         {
             get { return data != null ? data.SecIdList != null ? new ComList<ComTagValue, TagValue>(data.SecIdList) : null : null; }
             set { if (data != null) data.SecIdList = value != null ? value.ConvertTo() : null; }
@@ -226,7 +226,7 @@ namespace TWSLib
         * @brief The nine-character bond CUSIP or the 12-character SEDOL.
          * For Bonds only.
         */
-        public string Cusip
+        string Cusip
         {
             get { return data != null ? data.Cusip : default(string); }
             set { if (data != null) data.Cusip = value; }
@@ -236,7 +236,7 @@ namespace TWSLib
         * @brief Identifies the credit rating of the issuer.
          * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively.
         */
-        public string Ratings
+        string Ratings
         {
             get { return data != null ? data.Ratings : default(string); }
             set { if (data != null) data.Ratings = value; }
@@ -246,7 +246,7 @@ namespace TWSLib
         * @brief A description string containing further descriptive information about the bond.
          * For Bonds only.
         */
-        public string DescAppend
+        string DescAppend
         {
             get { return data != null ? data.DescAppend : default(string); }
             set { if (data != null) data.DescAppend = value; }
@@ -255,7 +255,7 @@ namespace TWSLib
         /**
         * @brief The type of bond, such as "CORP."
         */
-        public string BondType
+        string BondType
         {
             get { return data != null ? data.BondType : default(string); }
             set { if (data != null) data.BondType = value; }
@@ -265,7 +265,7 @@ namespace TWSLib
         * @brief The type of bond coupon.
          * For Bonds only.
         */
-        public string CouponType
+        string CouponType
         {
             get { return data != null ? data.CouponType : default(string); }
             set { if (data != null) data.CouponType = value; }
@@ -275,7 +275,7 @@ namespace TWSLib
         * @brief If true, the bond can be called by the issuer under certain conditions.
          * For Bonds only.
         */
-        public bool Callable
+        bool Callable
         {
             get { return data != null ? data.Callable : default(bool); }
             set { if (data != null) data.Callable = value; }
@@ -285,7 +285,7 @@ namespace TWSLib
         * @brief Values are True or False. If true, the bond can be sold back to the issuer under certain conditions.
          * For Bonds only.
         */
-        public bool Putable
+        bool Putable
         {
             get { return data != null ? data.Putable : default(bool); }
             set { if (data != null) data.Putable = value; }
@@ -295,7 +295,7 @@ namespace TWSLib
         * @brief The interest rate used to calculate the amount you will receive in interest payments over the course of the year.
          * For Bonds only.
         */
-        public double Coupon
+        double Coupon
         {
             get { return data != null ? data.Coupon : default(double); }
             set { if (data != null) data.Coupon = value; }
@@ -305,7 +305,7 @@ namespace TWSLib
         * @brief Values are True or False. If true, the bond can be converted to stock under certain conditions.
          * For Bonds only.
         */
-        public bool Convertible
+        bool Convertible
         {
             get { return data != null ? data.Convertible : default(bool); }
             set { if (data != null) data.Convertible = value; }
@@ -315,7 +315,7 @@ namespace TWSLib
         * @brief he date on which the issuer must repay the face value of the bond.
          * For Bonds only.
         */
-        public string Maturity
+        string Maturity
         {
             get { return data != null ? data.Maturity : default(string); }
             set { if (data != null) data.Maturity = value; }
@@ -325,7 +325,7 @@ namespace TWSLib
         * @brief The date the bond was issued. 
          * For Bonds only.
         */
-        public string IssueDate
+        string IssueDate
         {
             get { return data != null ? data.IssueDate : default(string); }
             set { if (data != null) data.IssueDate = value; }
@@ -335,7 +335,7 @@ namespace TWSLib
         * @brief Only if bond has embedded options. 
          * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
         */
-        public string NextOptionDate
+        string NextOptionDate
         {
             get { return data != null ? data.NextOptionDate : default(string); }
             set { if (data != null) data.NextOptionDate = value; }
@@ -345,7 +345,7 @@ namespace TWSLib
         * @brief Type of embedded option.
         * Only if bond has embedded options.
         */
-        public string NextOptionType
+        string NextOptionType
         {
             get { return data != null ? data.NextOptionType : default(string); }
             set { if (data != null) data.NextOptionType = value; }
@@ -355,7 +355,7 @@ namespace TWSLib
        * @brief Only if bond has embedded options.
         * For Bonds only.
        */
-        public bool NextOptionPartial
+        bool NextOptionPartial
         {
             get { return data != null ? data.NextOptionPartial : default(bool); }
             set { if (data != null) data.NextOptionPartial = value; }
@@ -365,7 +365,7 @@ namespace TWSLib
         * @brief If populated for the bond in IB's database.
          * For Bonds only.
         */
-        public string Notes
+        string Notes
         {
             get { return data != null ? data.Notes : default(string); }
             set { if (data != null) data.Notes = value; }

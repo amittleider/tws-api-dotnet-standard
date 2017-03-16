@@ -245,9 +245,9 @@ namespace Samples
         //! [fundamentaldata]
 
         //! [historicaldata]
-        public virtual void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        public virtual void historicalData(int reqId, Bar bar)
         {
-            Console.WriteLine("HistoricalData. "+reqId+" - Date: "+date+", Open: "+open+", High: "+high+", Low: "+low+", Close: "+close+", Volume: "+volume+", Count: "+count+", WAP: "+WAP+", HasGaps: "+hasGaps);
+            Console.WriteLine("HistoricalData. " + reqId + " - Time: " + bar.Time + ", Open: " + bar.Open + ", High: " + bar.High + ", Low: " + bar.Low + ", Close: " + bar.Close + ", Volume: " + bar.Volume + ", Count: " + bar.Count + ", WAP: " + bar.WAP);
         }
         //! [historicaldata]
 
@@ -571,5 +571,16 @@ namespace Samples
             data.ToList().ForEach(i => Console.WriteLine("\tPrice: {0}, Size: {1}", i.Price, i.Size));
         }
         //! [histogramData]
+
+
+        public void historicalDataUpdate(int reqId, Bar bar)
+        {
+            Console.WriteLine("HistoricalDataUpdate. " + reqId + " - Time: " + bar.Time + ", Open: " + bar.Open + ", High: " + bar.High + ", Low: " + bar.Low + ", Close: " + bar.Close + ", Volume: " + bar.Volume + ", Count: " + bar.Count + ", WAP: " + bar.WAP);
+        }
+
+        public void historicalDataUpdateEnd(int reqId, string start, string end)
+        {
+            Console.WriteLine("HistoricalDataUpdateEnd - " + reqId + " from " + start + " to " + end);
+        }
     }
 }

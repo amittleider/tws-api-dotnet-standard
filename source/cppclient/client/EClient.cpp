@@ -421,91 +421,99 @@ void EClient::cancelMktDepth( TickerId tickerId)
 	closeAndSend( msg.str());
 }
 
-void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
+void EClient::reqHistoricalData(TickerId tickerId, const Contract& contract,
 								const std::string& endDateTime, const std::string& durationStr,
 								const std::string&  barSizeSetting, const std::string& whatToShow,
-								int useRTH, int formatDate, const TagValueListSPtr& chartOptions)
+								int useRTH, int formatDate, bool keepUpToDate, const TagValueListSPtr& chartOptions)
 {
 	// not connected?
-	if( !isConnected()) {
-		m_pEWrapper->error( tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+	if (!isConnected()) {
+		m_pEWrapper->error(tickerId, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
 
 	// Not needed anymore validation
-	//if( m_serverVersion < 16) {
+	//if (m_serverVersion < 16) {
 	//	m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg());
 	//	return;
 	//}
 
 	if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
-		if( !contract.tradingClass.empty() || (contract.conId > 0)) {
-			m_pEWrapper->error( tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+		if (!contract.tradingClass.empty() || (contract.conId > 0)) {
+			m_pEWrapper->error(tickerId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
 				"  It does not support conId and tradingClass parameters in reqHistoricalData.");
 			return;
 		}
 	}
 
 	std::stringstream msg;
-	prepareBuffer( msg);
+	prepareBuffer(msg);
 
 	const int VERSION = 6;
 
-	ENCODE_FIELD( REQ_HISTORICAL_DATA);
-	ENCODE_FIELD( VERSION);
-	ENCODE_FIELD( tickerId);
+	ENCODE_FIELD(REQ_HISTORICAL_DATA);
+
+	if (m_serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+		ENCODE_FIELD(VERSION);
+	}
+	
+	ENCODE_FIELD(tickerId);
 
 	// send contract fields
-	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
-		ENCODE_FIELD( contract.conId);
+	if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+		ENCODE_FIELD(contract.conId);
 	}
-	ENCODE_FIELD( contract.symbol);
-	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.lastTradeDateOrContractMonth);
-	ENCODE_FIELD( contract.strike);
-	ENCODE_FIELD( contract.right);
-	ENCODE_FIELD( contract.multiplier);
-	ENCODE_FIELD( contract.exchange);
-	ENCODE_FIELD( contract.primaryExchange);
-	ENCODE_FIELD( contract.currency);
-	ENCODE_FIELD( contract.localSymbol);
-	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
-		ENCODE_FIELD( contract.tradingClass);
+	ENCODE_FIELD(contract.symbol);
+	ENCODE_FIELD(contract.secType);
+	ENCODE_FIELD(contract.lastTradeDateOrContractMonth);
+	ENCODE_FIELD(contract.strike);
+	ENCODE_FIELD(contract.right);
+	ENCODE_FIELD(contract.multiplier);
+	ENCODE_FIELD(contract.exchange);
+	ENCODE_FIELD(contract.primaryExchange);
+	ENCODE_FIELD(contract.currency);
+	ENCODE_FIELD(contract.localSymbol);
+	if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+		ENCODE_FIELD(contract.tradingClass);
 	}
-	ENCODE_FIELD( contract.includeExpired); // srv v31 and above
+	ENCODE_FIELD(contract.includeExpired); // srv v31 and above
 
-	ENCODE_FIELD( endDateTime); // srv v20 and above
-	ENCODE_FIELD( barSizeSetting); // srv v20 and above
+	ENCODE_FIELD(endDateTime); // srv v20 and above
+	ENCODE_FIELD(barSizeSetting); // srv v20 and above
 
-	ENCODE_FIELD( durationStr);
-	ENCODE_FIELD( useRTH);
-	ENCODE_FIELD( whatToShow);
-	ENCODE_FIELD( formatDate); // srv v16 and above
+	ENCODE_FIELD(durationStr);
+	ENCODE_FIELD(useRTH);
+	ENCODE_FIELD(whatToShow);
+	ENCODE_FIELD(formatDate); // srv v16 and above
 
 	// Send combo legs for BAG requests
-	if( contract.secType == "BAG")
+	if (contract.secType == "BAG")
 	{
 		const Contract::ComboLegList* const comboLegs = contract.comboLegs.get();
 		const int comboLegsCount = comboLegs ? comboLegs->size() : 0;
-		ENCODE_FIELD( comboLegsCount);
-		if( comboLegsCount > 0) {
-			for( int i = 0; i < comboLegsCount; ++i) {
+		ENCODE_FIELD(comboLegsCount);
+		if (comboLegsCount > 0) {
+			for(int i = 0; i < comboLegsCount; ++i) {
 				const ComboLeg* comboLeg = ((*comboLegs)[i]).get();
-				assert( comboLeg);
-				ENCODE_FIELD( comboLeg->conId);
-				ENCODE_FIELD( comboLeg->ratio);
-				ENCODE_FIELD( comboLeg->action);
-				ENCODE_FIELD( comboLeg->exchange);
+				assert(comboLeg);
+				ENCODE_FIELD(comboLeg->conId);
+				ENCODE_FIELD(comboLeg->ratio);
+				ENCODE_FIELD(comboLeg->action);
+				ENCODE_FIELD(comboLeg->exchange);
 			}
 		}
 	}
+	
+	if (m_serverVersion >= MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+		ENCODE_FIELD(keepUpToDate);
+    }
 
 	// send chartOptions parameter
-	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
+	if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
 		std::string chartOptionsStr("");
 		const int chartOptionsCount = chartOptions.get() ? chartOptions->size() : 0;
-		if( chartOptionsCount > 0) {
-			for( int i = 0; i < chartOptionsCount; ++i) {
+		if (chartOptionsCount > 0) {
+			for(int i = 0; i < chartOptionsCount; ++i) {
 				const TagValue* tagValue = ((*chartOptions)[i]).get();
 				chartOptionsStr += tagValue->tag;
 				chartOptionsStr += "=";
@@ -513,10 +521,10 @@ void EClient::reqHistoricalData( TickerId tickerId, const Contract& contract,
 				chartOptionsStr += ";";
 			}
 		}
-		ENCODE_FIELD( chartOptionsStr);
+		ENCODE_FIELD(chartOptionsStr);
 	}
 
-	closeAndSend( msg.str());
+	closeAndSend(msg.str());
 }
 
 void EClient::cancelHistoricalData(TickerId tickerId)

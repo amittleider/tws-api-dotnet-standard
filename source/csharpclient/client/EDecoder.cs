@@ -403,6 +403,11 @@ namespace IBApi
                         HistogramDataEvent();
                         break;
                     }
+                case IncomingMessage.HistogramDataUpdate:
+                    {
+                        HistoricalDataUpdateEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -412,6 +417,23 @@ namespace IBApi
 
             return true;
         }
+
+        private void HistoricalDataUpdateEvent()
+        {
+            int requestId = ReadInt();
+            int barCount = ReadInt();
+            string date = ReadString();
+            double open = ReadDouble();
+            double close = ReadDouble();
+            double high = ReadDouble();
+            double low = ReadDouble();
+            double WAP = ReadDouble();
+            long volume = ReadLong();
+
+            eWrapper.historicalDataUpdate(requestId, new Bar(date, open, high, low,
+                                    close, volume, barCount, WAP));
+        }
+
 
         private void HistogramDataEvent()
         {
@@ -1760,7 +1782,13 @@ namespace IBApi
 
         private void HistoricalDataEvent()
         {
-            int msgVersion = ReadInt();
+            int msgVersion = int.MaxValue;
+
+            if (serverVersion < MinServerVer.SYNT_REALTIME_BARS)
+            {
+                msgVersion = ReadInt();
+            }
+
             int requestId = ReadInt();
             string startDateStr = "";
             string endDateStr = "";
@@ -1780,9 +1808,14 @@ namespace IBApi
                 double high = ReadDouble();
                 double low = ReadDouble();
                 double close = ReadDouble();
-                int volume = ReadInt();
+                long volume = serverVersion < MinServerVer.SYNT_REALTIME_BARS ? ReadInt() : ReadLong();
                 double WAP = ReadDouble();
-                string hasGaps = ReadString();
+
+                if (serverVersion < MinServerVer.SYNT_REALTIME_BARS)
+                {
+                    /*string hasGaps = */ReadString();
+                }
+
                 int barCount = -1;
                 
                 if (msgVersion >= 3)
@@ -1790,9 +1823,8 @@ namespace IBApi
                     barCount = ReadInt();
                 }
 
-                eWrapper.historicalData(requestId, date, open, high, low,
-                                        close, volume, barCount, WAP,
-                                        Boolean.Parse(hasGaps));
+                eWrapper.historicalData(requestId, new Bar(date, open, high, low,
+                                        close, volume, barCount, WAP));
             }
 
             // send end of dataset marker.

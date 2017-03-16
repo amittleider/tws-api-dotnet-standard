@@ -157,9 +157,9 @@ Namespace Samples
         '! [fundamentaldata]
 
         '! [historicaldata]
-        Public Sub historicalData(reqId As Integer, [date] As String, open As Double, high As Double, low As Double, close As Double, volume As Integer, count As Integer, WAP As Double, hasGaps As Boolean) Implements IBApi.EWrapper.historicalData
-            Console.WriteLine("HistoricalData - ReqId [" & reqId & "] Date [" & [date] & "] Open [" & open & "] High [" &
-                          high & "] Low [" & low & "] Volume [" & volume & "] Count [" & count & "]")
+        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData, IBApi.EWrapper.historicalDataUpdate
+            Console.WriteLine("HistoricalData - ReqId [" & reqId & "] Date [" & bar.Time & "] Open [" & bar.Open & "] High [" &
+                          bar.High & "] Low [" & bar.Low & "] Volume [" & bar.Volume & "] Count [" & bar.Count & "]")
         End Sub
         '! [historicaldata]
 

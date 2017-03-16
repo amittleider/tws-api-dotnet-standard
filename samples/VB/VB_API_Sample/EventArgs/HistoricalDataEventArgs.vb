@@ -21,7 +21,5 @@ Class HistoricalDataEventArgs
 
     Property WAP As Double
 
-    Property hasGaps As Boolean
-
 End Class
 

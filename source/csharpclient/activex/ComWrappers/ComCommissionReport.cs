@@ -21,7 +21,7 @@ namespace TWSLib
         /**
         * @brief the execution's id this commission belongs to.
         */
-        public string ExecId
+        string ExecId
         {
             get { return data != null ? data.ExecId : default(string); }
             set { if (data != null) data.ExecId = value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
          * @brief the commissions cost.
          */
-        public double Commission
+        double Commission
         {
             get { return data != null ? data.Commission : default(double); }
             set { if (data != null) data.Commission = value; }
@@ -39,7 +39,7 @@ namespace TWSLib
         /**
         * @brief the reporting currency.
         */
-        public string Currency
+        string Currency
         {
             get { return data != null ? data.Currency : default(string); }
             set { if (data != null) data.Currency = value; }
@@ -48,7 +48,7 @@ namespace TWSLib
         /**
         * @brief the realised profit and loss
         */
-        public double RealizedPNL
+        double RealizedPNL
         {
             get { return data != null ? data.RealizedPNL : default(double); }
             set { if (data != null) data.RealizedPNL = value; }
@@ -57,7 +57,7 @@ namespace TWSLib
         /**
          * @brief The income return.
          */
-        public double Yield
+        double Yield
         {
             get { return data != null ? data.Yield : default(double); }
             set { if (data != null) data.Yield = value; }
@@ -66,7 +66,7 @@ namespace TWSLib
         /**
          * @brief date expressed in yyyymmdd format.
          */
-        public int YieldRedemptionDate
+        int YieldRedemptionDate
         {
             get { return data != null ? data.YieldRedemptionDate : default(int); }
             set { if (data != null) data.YieldRedemptionDate = value; }

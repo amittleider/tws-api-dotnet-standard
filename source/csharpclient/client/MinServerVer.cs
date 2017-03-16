@@ -83,5 +83,6 @@ namespace IBApi
         public const int AGG_GROUP = 121;
         public const int UNDERLYING_INFO = 122;
         public const int CANCEL_HEADTIMESTAMP = 123;
+        public const int SYNT_REALTIME_BARS = 124;
     }
 }

@@ -207,7 +207,7 @@ namespace TWSLib
         void reqHistoricalData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency, int isExpired,
                   string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
-                  int useRTH, int formatDate, ITagValueList options);
+                  int useRTH, int formatDate, bool keepUpToDate, ITagValueList options);
         [DispId(83)]
         void exerciseOptions(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency,
@@ -268,7 +268,7 @@ namespace TWSLib
            int exerciseQuantity, string account, int @override);
         [DispId(106)]
         void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
-           string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options);
+           string duration, string barSize, string whatToShow, bool useRTH, int formatDate, bool keepUpToDate, ITagValueList options);
         [DispId(107)]
         void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options);
         [DispId(108)]

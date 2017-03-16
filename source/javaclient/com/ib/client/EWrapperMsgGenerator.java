@@ -422,7 +422,7 @@ public class EWrapperMsgGenerator {
     }
     
     public static String historicalData(int reqId, String date, double open, double high, double low,
-                      					double close, int volume, int count, double WAP, boolean hasGaps) {
+                      					double close, long volume, int count, double WAP) {
     	return "id=" + reqId +
         " date = " + date +
         " open=" + open +
@@ -431,8 +431,7 @@ public class EWrapperMsgGenerator {
         " close=" + close +
         " volume=" + volume +
         " count=" + count +
-        " WAP=" + WAP +
-        " hasGaps=" + hasGaps;
+        " WAP=" + WAP;
     }
     public static String historicalDataEnd(int reqId, String startDate, String endDate) {
     	return "id=" + reqId +

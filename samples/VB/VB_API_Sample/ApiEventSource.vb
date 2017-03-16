@@ -189,20 +189,19 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
-    Private Sub EWrapper_HistoricalData(reqId As Integer, [date] As String, open As Double, high As Double, low As Double, close As Double, volume As Integer, count As Integer, WAP As Double, hasGaps As Boolean) Implements IBApi.EWrapper.historicalData
+    Private Sub EWrapper_HistoricalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData, EWrapper.historicalDataUpdate
         InvokeIfRequired(Sub()
                              RaiseEvent HistoricalData(Me, New HistoricalDataEventArgs With {
                                                                                                  .reqId = reqId,
-                                                                                                 .[date] = [date],
-                                                                                                 .open = open,
-                                                                                                 .high = high,
-                                                                                                 .low = low,
-                                                                                                 .close = close,
-                                                                                                 .volume = volume,
-                                                                                                 .count = count,
-                                                                                                 .WAP = WAP,
-                                                                                                 .hasGaps = hasGaps
-                                                                                             })
+                                                                                                 .[date] = bar.Time,
+                                                                                                 .open = bar.Open,
+                                                                                                 .high = bar.High,
+                                                                                                 .low = bar.Low,
+                                                                                                 .close = bar.Close,
+                                                                                                 .volume = bar.Volume,
+                                                                                                 .count = bar.Count,
+                                                                                                 .WAP = bar.WAP
+                                                                                            })
                          End Sub)
     End Sub
 

@@ -506,7 +506,7 @@ class SampleFrame extends JFrame implements EWrapper {
         m_client.reqHistoricalData( m_orderDlg.m_id, m_orderDlg.m_contract,
                                     m_orderDlg.m_backfillEndTime, m_orderDlg.m_backfillDuration,
                                     m_orderDlg.m_barSizeSetting, m_orderDlg.m_whatToShow,
-                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate, m_chartOptions );
+                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate, m_orderDlg.m_keepUpToDate, m_chartOptions );
     }
 
     private void onCancelHistoricalData() {
@@ -1217,9 +1217,8 @@ class SampleFrame extends JFrame implements EWrapper {
         m_TWS.add( msg);
     }
 
-    public void historicalData(int reqId, String date, double open, double high, double low,
-                               double close, int volume, int count, double WAP, boolean hasGaps) {
-        String msg = EWrapperMsgGenerator.historicalData(reqId, date, open, high, low, close, volume, count, WAP, hasGaps);
+    public void historicalData(int reqId, Bar bar) {
+        String msg = EWrapperMsgGenerator.historicalData(reqId, bar.time(), bar.open(), bar.high(), bar.low(), bar.close(), bar.volume(), bar.count(), bar.wap());
     	m_tickers.add( msg );
     }
     
@@ -1525,4 +1524,9 @@ class SampleFrame extends JFrame implements EWrapper {
 		
 		m_TWS.add(msg);		
 	}
+
+    @Override
+    public void historicalDataUpdate(int reqId, Bar bar) {
+        historicalData(reqId, bar);
+    }
 }

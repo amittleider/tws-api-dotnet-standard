@@ -75,5 +75,6 @@ namespace IBApi
         public const int HistoricalNewsEnd = 87;
         public const int HeadTimestamp = 88;
         public const int HistogramData = 89;
+        public const int HistogramDataUpdate = 90;
     }
 }

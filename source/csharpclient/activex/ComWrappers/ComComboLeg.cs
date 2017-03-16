@@ -21,7 +21,7 @@ namespace TWSLib
         /**
          * @brief The Contract's IB's unique id
          */
-        public int ConId
+        int ConId
         {
             get { return data !=null ? data.ConId : default(int); }
             set { if (data != null) data.ConId = value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
           * @brief Select the relative number of contracts for the leg you are constructing. To help determine the ratio for a specific combination order, refer to the Interactive Analytics section of the User's Guide.
           */
-        public int Ratio
+        int Ratio
         {
             get { return data !=null ? data.Ratio : default(int); }
             set { if (data != null) data.Ratio = value; }
@@ -40,7 +40,7 @@ namespace TWSLib
          * @brief The side (buy or sell) of the leg:\n
          *      - For individual accounts, only BUY and SELL are available. SSHORT is for institutions.
          */
-        public string Action
+        string Action
         {
             get { return data !=null ? data.Action : default(string); }
             set { if (data != null) data.Action = value; }
@@ -48,7 +48,7 @@ namespace TWSLib
         /**
          * @brief The destination exchange to which the order will be routed.
          */
-        public string Exchange
+        string Exchange
         {
             get { return data !=null ? data.Exchange : default(string); }
             set { if (data != null) data.Exchange = value; }
@@ -62,7 +62,7 @@ namespace TWSLib
         *      2 - Close. This value is only valid for institutional customers.\n
         *      3 - Unknown
         */
-        public int OpenClose
+        int OpenClose
         {
             get { return data !=null ? data.OpenClose : default(int); }
             set { if (data != null) data.OpenClose = value; }
@@ -72,7 +72,7 @@ namespace TWSLib
          * @brief For stock legs when doing short selling.
          * Set to 1 = clearing broker, 2 = third party
          */
-        public int ShortSaleSlot
+        int ShortSaleSlot
         {
             get { return data !=null ? data.ShortSaleSlot : default(int); }
             set { if (data != null) data.ShortSaleSlot = value; }
@@ -81,7 +81,7 @@ namespace TWSLib
         /**
          * @brief When ShortSaleSlot is 2, this field shall contain the designated location.
          */
-        public string DesignatedLocation
+        string DesignatedLocation
         {
             get { return data !=null ? data.DesignatedLocation : default(string); }
             set { if (data != null) data.DesignatedLocation = value; }
@@ -90,7 +90,7 @@ namespace TWSLib
         /**
          * @brief -
          */
-        public int ExemptCode
+        int ExemptCode
         {
             get { return data !=null ? data.ExemptCode : default(int); }
             set { if (data != null) data.ExemptCode = value; }

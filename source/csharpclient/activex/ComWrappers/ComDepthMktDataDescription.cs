@@ -20,7 +20,7 @@ namespace TWSLib
         /**
         * @brief exchange
         */
-        public string Exchange
+        string Exchange
         {
             get { return data != null ? data.Exchange : default(string); }
             set { if (data != null) data.Exchange = value; }
@@ -29,7 +29,7 @@ namespace TWSLib
         /**
         * @brief security type
         */
-        public string SecType
+        string SecType
         {
             get { return data != null ? data.SecType : default(string); }
             set { if (data != null) data.SecType = value; }
@@ -38,7 +38,7 @@ namespace TWSLib
         /**
         * @brief listing exchange
         */
-        public string ListingExch
+        string ListingExch
         {
             get { return data != null ? data.ListingExch : default(string); }
             set { if (data != null) data.ListingExch = value; }
@@ -47,7 +47,7 @@ namespace TWSLib
         /**
         * @brief service data type
         */
-        public string ServiceDataType
+        string ServiceDataType
         {
             get { return data != null ? data.ServiceDataType : default(string); }
             set { if (data != null) data.ServiceDataType = value; }
@@ -56,7 +56,7 @@ namespace TWSLib
         /**
         * @brief aggregated group
         */
-        public int AggGroup
+        int AggGroup
         {
             get { return data != null ? data.AggGroup : default(int); }
             set { if (data != null) data.AggGroup = value; }

@@ -52,6 +52,9 @@
     <Compile Include="..\client\AccountSummaryTags.cs">
       <Link>CSharpApi\AccountSummaryTags.cs</Link>
     </Compile>
+    <Compile Include="..\client\Bar.cs">
+      <Link>CSharpApi\Bar.cs</Link>
+    </Compile>
     <Compile Include="..\client\BitMask.cs">
       <Link>CSharpApi\BitMask.cs</Link>
     </Compile>

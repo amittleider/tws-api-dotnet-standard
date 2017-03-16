@@ -456,7 +456,9 @@ namespace IBApi
          * @param hasGaps indicates if the data has gaps or not.
          * @sa EClientSocket::reqHistoricalData
          */
-        void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps);
+        void historicalData(int reqId, Bar bar);
+        
+        void historicalDataUpdate(int reqId, Bar bar);
 
         /**
          * @brief Marks the ending of the historical bars reception.

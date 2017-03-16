@@ -440,8 +440,8 @@ void TestCppClient::historicalDataRequests()
     timeinfo = std::localtime(&rawtime);
 	std::strftime(queryTime, 80, "%Y%m%d %H:%M:%S", timeinfo);
 
-	m_pClient->reqHistoricalData(4001, ContractSamples::EurGbpFx(), queryTime, "1 M", "1 day", "MIDPOINT", 1, 1, TagValueListSPtr());
-	m_pClient->reqHistoricalData(4002, ContractSamples::EuropeanStock(), queryTime, "10 D", "1 min", "TRADES", 1, 1, TagValueListSPtr());
+	m_pClient->reqHistoricalData(4001, ContractSamples::EurGbpFx(), queryTime, "1 M", "1 day", "MIDPOINT", 1, 1, false, TagValueListSPtr());
+	m_pClient->reqHistoricalData(4002, ContractSamples::EuropeanStock(), queryTime, "10 D", "1 min", "TRADES", 1, 1, false, TagValueListSPtr());
 	//! [reqhistoricaldata]
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	/*** Canceling historical data requests ***/
@@ -1287,9 +1287,8 @@ void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {
 //! [receivefa]
 
 //! [historicaldata]
-void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
-                                   double low, double close, int volume, int barCount, double WAP, int hasGaps) {
-	printf( "HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g, HasGaps: %d\n", reqId, date.c_str(), open, high, low, close, volume, barCount, WAP, hasGaps);
+void TestCppClient::historicalData(TickerId reqId, Bar bar) {
+	printf( "HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
 }
 //! [historicaldata]
 
@@ -1569,3 +1568,7 @@ void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
 	}
 }
 //! [histogramData]
+
+void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) { 
+	printf( "HistoricalDataUpdate. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
+}

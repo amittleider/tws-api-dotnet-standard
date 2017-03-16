@@ -131,6 +131,8 @@ public:
 	void historicalNewsEnd(int requestId, bool hasMore);
 	void headTimestamp(int reqId, const std::string& headTimestamp);
 	void histogramData(int reqId, HistogramDataVector data);
+    void historicalDataUpdate(TickerId reqId, Bar bar);
+    void historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr);
 
 private:
     EReaderOSSignal m_osSignal;

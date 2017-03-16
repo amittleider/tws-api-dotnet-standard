@@ -136,9 +136,11 @@ namespace IBSampleApp
             ibClient.ExecDetailsEnd += reqId => addTextToBox("ExecDetailsEnd. " + reqId + "\n");
             ibClient.CommissionReport += commissionReport => orderManager.HandleCommissionMessage(new CommissionMessage(commissionReport));
             ibClient.FundamentalData += UpdateUI;
+            
             ibClient.HistoricalData += historicalDataManager.UpdateUI;
-
+            ibClient.HistoricalDataUpdate += historicalDataManager.UpdateUI;
             ibClient.HistoricalDataEnd += historicalDataManager.UpdateUI;
+            
             ibClient.MarketDataType += UpdateUI;
             ibClient.UpdateMktDepth += deepBookManager.UpdateUI;
             ibClient.UpdateMktDepthL2 += deepBookManager.UpdateUI;
@@ -473,7 +475,7 @@ namespace IBSampleApp
                 string barSize = hdRequest_BarSize.Text.Trim();
                 string whatToShow = hdRequest_WhatToShow.Text.Trim();
                 int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
-                historicalDataManager.AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
+                historicalDataManager.AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1, cbKeepUpToDate.Checked);
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
                 ShowTab(marketData_MDT, historicalDataTab);
             }

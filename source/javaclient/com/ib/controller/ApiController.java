@@ -997,20 +997,20 @@ public class ApiController implements EWrapper {
 
 	// ----------------------------------------- Historical data handling ----------------------------------------
 	public interface IHistoricalDataHandler {
-		void historicalData(Bar bar, boolean hasGaps);
+		void historicalData(Bar bar);
 		void historicalDataEnd();
 	}
 
 	/** @param endDateTime format is YYYYMMDD HH:MM:SS [TMZ]
 	 *  @param duration is number of durationUnits */
-    public void reqHistoricalData( Contract contract, String endDateTime, int duration, DurationUnit durationUnit, BarSize barSize, WhatToShow whatToShow, boolean rthOnly, IHistoricalDataHandler handler) {
+    public void reqHistoricalData(Contract contract, String endDateTime, int duration, DurationUnit durationUnit, BarSize barSize, WhatToShow whatToShow, boolean rthOnly, boolean keepUpToDate, IHistoricalDataHandler handler) {
 		if (!checkConnection())
 			return;
 
     	int reqId = m_reqId++;
     	m_historicalDataMap.put( reqId, handler);
     	String durationStr = duration + " " + durationUnit.toString().charAt( 0);
-    	m_client.reqHistoricalData(reqId, contract, endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2, Collections.emptyList() );
+    	m_client.reqHistoricalData(reqId, contract, endDateTime, durationStr, barSize.toString(), whatToShow.toString(), rthOnly ? 1 : 0, 2, keepUpToDate, Collections.emptyList());
 		sendEOM();
     }
 
@@ -1025,25 +1025,25 @@ public class ApiController implements EWrapper {
     	}
     }
 
-	@Override public void historicalData(int reqId, String date, double open, double high, double low, double close, int volume, int count, double wap, boolean hasGaps) {
+	@Override public void historicalData(int reqId, com.ib.client.Bar bar) {
 		IHistoricalDataHandler handler = m_historicalDataMap.get( reqId);
 		if (handler != null) {
-			if (date.startsWith( "finished")) {
+			if (bar.time().startsWith( "finished")) {
 				handler.historicalDataEnd();
 			}
 			else {
 				long longDate;
-				if (date.length() == 8) {
-					int year = Integer.parseInt( date.substring( 0, 4) );
-					int month = Integer.parseInt( date.substring( 4, 6) );
-					int day = Integer.parseInt( date.substring( 6) );
+				if (bar.time().length() == 8) {
+					int year = Integer.parseInt( bar.time().substring( 0, 4) );
+					int month = Integer.parseInt( bar.time().substring( 4, 6) );
+					int day = Integer.parseInt( bar.time().substring( 6) );
 					longDate = new GregorianCalendar( year, month - 1, day).getTimeInMillis() / 1000;
 				}
 				else {
-					longDate = Long.parseLong( date);
+					longDate = Long.parseLong( bar.time());
 				}
-				Bar bar = new Bar( longDate, high, low, open, close, wap, volume, count);
-				handler.historicalData(bar, hasGaps);
+				Bar bar2 = new Bar( longDate, bar.high(), bar.low(), bar.open(), bar.close(), bar.wap(), bar.volume(), bar.count());
+				handler.historicalData(bar2);
 			}
 		}
 		recEOM();
@@ -1636,4 +1636,9 @@ public class ApiController implements EWrapper {
 		
 		recEOM();
 	}
+
+    @Override
+    public void historicalDataUpdate(int reqId, com.ib.client.Bar bar) {
+        historicalData(reqId, bar);
+    }
 }

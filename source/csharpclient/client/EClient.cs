@@ -1477,7 +1477,7 @@ namespace IBApi
          * @sa EWrapper::historicalData
          */
         public void reqHistoricalData(int tickerId, Contract contract, string endDateTime,
-            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, List<TagValue> chartOptions)
+            string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, bool keepUpToDate, List<TagValue> chartOptions)
         {
             if (!CheckConnection())
                 return;
@@ -1496,7 +1496,12 @@ namespace IBApi
             var lengthPos = prepareBuffer(paramsList);
 
             paramsList.AddParameter(OutgoingMessages.RequestHistoricalData);
-            paramsList.AddParameter(VERSION);
+
+            if (serverVersion < MinServerVer.SYNT_REALTIME_BARS)
+            {
+                paramsList.AddParameter(VERSION);
+            }
+
             paramsList.AddParameter(tickerId);
             if (serverVersion >= MinServerVer.TRADING_CLASS)
                 paramsList.AddParameter(contract.ConId);
@@ -1547,6 +1552,11 @@ namespace IBApi
                         paramsList.AddParameter(comboLeg.Exchange);
                     }
                 }
+            }
+
+            if (serverVersion >= MinServerVer.SYNT_REALTIME_BARS)
+            {
+                paramsList.AddParameter(keepUpToDate);
             }
 
             if (serverVersion >= MinServerVer.LINKING)

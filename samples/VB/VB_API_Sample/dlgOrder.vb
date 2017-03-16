@@ -10,6 +10,8 @@ Friend Class dlgOrder
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
 
+    Dim m_keepUpToDate As Boolean
+
     Public Sub New()
         MyBase.New()
         If m_vb6FormDefInstance Is Nothing Then
@@ -29,6 +31,13 @@ Friend Class dlgOrder
         InitializeComponent()
         Form_Initialize_Renamed()
     End Sub
+
+    Public ReadOnly Property keepUpToDate As Boolean
+        Get
+            Return m_keepUpToDate
+        End Get
+    End Property
+
     'Form overrides dispose to clean up the component list.
     Protected Overloads Overrides Sub Dispose(Disposing As Boolean)
         If Disposing Then
@@ -135,6 +144,7 @@ Friend Class dlgOrder
     Public WithEvents txtCashQty As System.Windows.Forms.TextBox
     Public WithEvents labelCashQty As System.Windows.Forms.Label
     Friend WithEvents chkRegulatorySnapshotMktData As System.Windows.Forms.CheckBox
+    Friend WithEvents chkKeepUpToDate As System.Windows.Forms.CheckBox
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
@@ -185,6 +195,7 @@ Friend Class dlgOrder
         Me.Label58 = New System.Windows.Forms.Label()
         Me.txtReqId = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkRegulatorySnapshotMktData = New System.Windows.Forms.CheckBox()
         Me.chkSnapshotMktData = New System.Windows.Forms.CheckBox()
         Me.txtGenericTickTags = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
@@ -229,7 +240,7 @@ Friend Class dlgOrder
         Me.labelMarketDataType = New System.Windows.Forms.Label()
         Me.frameMarketDataType = New System.Windows.Forms.GroupBox()
         Me.cmbMarketDataType = New System.Windows.Forms.ComboBox()
-        Me.chkRegulatorySnapshotMktData = New System.Windows.Forms.CheckBox()
+        Me.chkKeepUpToDate = New System.Windows.Forms.CheckBox()
         Me.Frame1.SuspendLayout()
         Me.frameTickerDesc.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -243,6 +254,7 @@ Friend Class dlgOrder
         'Frame1
         '
         Me.Frame1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Frame1.Controls.Add(Me.chkKeepUpToDate)
         Me.Frame1.Controls.Add(Me.txtEndDateTime)
         Me.Frame1.Controls.Add(Me.Label24)
         Me.Frame1.Controls.Add(Me.txtBarSizeSetting)
@@ -260,7 +272,7 @@ Friend Class dlgOrder
         Me.Frame1.Location = New System.Drawing.Point(234, 485)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Frame1.Size = New System.Drawing.Size(232, 220)
+        Me.Frame1.Size = New System.Drawing.Size(232, 227)
         Me.Frame1.TabIndex = 6
         Me.Frame1.TabStop = False
         Me.Frame1.Text = "Historical Data"
@@ -951,6 +963,17 @@ Friend Class dlgOrder
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Market Data"
         '
+        'chkRegulatorySnapshotMktData
+        '
+        Me.chkRegulatorySnapshotMktData.AutoSize = True
+        Me.chkRegulatorySnapshotMktData.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.chkRegulatorySnapshotMktData.Location = New System.Drawing.Point(89, 41)
+        Me.chkRegulatorySnapshotMktData.Name = "chkRegulatorySnapshotMktData"
+        Me.chkRegulatorySnapshotMktData.Size = New System.Drawing.Size(127, 18)
+        Me.chkRegulatorySnapshotMktData.TabIndex = 3
+        Me.chkRegulatorySnapshotMktData.Text = "Regulatory Snapshot"
+        Me.chkRegulatorySnapshotMktData.UseVisualStyleBackColor = True
+        '
         'chkSnapshotMktData
         '
         Me.chkSnapshotMktData.AutoSize = True
@@ -1583,16 +1606,15 @@ Friend Class dlgOrder
         Me.cmbMarketDataType.Size = New System.Drawing.Size(120, 22)
         Me.cmbMarketDataType.TabIndex = 1
         '
-        'chkRegulatorySnapshotMktData
+        'chkKeepUpToDate
         '
-        Me.chkRegulatorySnapshotMktData.AutoSize = True
-        Me.chkRegulatorySnapshotMktData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkRegulatorySnapshotMktData.Location = New System.Drawing.Point(89, 41)
-        Me.chkRegulatorySnapshotMktData.Name = "chkRegulatorySnapshotMktData"
-        Me.chkRegulatorySnapshotMktData.Size = New System.Drawing.Size(127, 18)
-        Me.chkRegulatorySnapshotMktData.TabIndex = 3
-        Me.chkRegulatorySnapshotMktData.Text = "Regulatory Snapshot"
-        Me.chkRegulatorySnapshotMktData.UseVisualStyleBackColor = True
+        Me.chkKeepUpToDate.AutoSize = True
+        Me.chkKeepUpToDate.Location = New System.Drawing.Point(16, 209)
+        Me.chkKeepUpToDate.Name = "chkKeepUpToDate"
+        Me.chkKeepUpToDate.Size = New System.Drawing.Size(102, 18)
+        Me.chkKeepUpToDate.TabIndex = 10
+        Me.chkKeepUpToDate.Text = "Keep up to date"
+        Me.chkKeepUpToDate.UseVisualStyleBackColor = True
         '
         'dlgOrder
         '
@@ -1972,6 +1994,7 @@ Friend Class dlgOrder
         m_whatToShow = txtWhatToShow.Text
         m_useRTH = CInt(txtUseRTH.Text)
         m_formatDate = txtFormatDate.Text
+        m_keepUpToDate = chkKeepUpToDate.Checked
 
         m_marketDataType = cmbMarketDataType.SelectedIndex + 1
 

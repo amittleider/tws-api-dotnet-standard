@@ -251,9 +251,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_AGG_GROUP = 121;
     protected static final int MIN_SERVER_VER_UNDERLYING_INFO = 122;
     protected static final int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP = 123;
+    protected static final int MIN_SERVER_VER_SYNT_REALTIME_BARS = 124;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_CANCEL_HEADTIMESTAMP; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_SYNT_REALTIME_BARS; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -705,7 +706,7 @@ public abstract class EClient {
     public synchronized void reqHistoricalData( int tickerId, Contract contract,
                                                 String endDateTime, String durationStr,
                                                 String barSizeSetting, String whatToShow,
-                                                int useRTH, int formatDate, List<TagValue> chartOptions) {
+                                                int useRTH, int formatDate, boolean keepUpToDate, List<TagValue> chartOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -732,7 +733,11 @@ public abstract class EClient {
           Builder b = prepareBuffer(); 
 
           b.send(REQ_HISTORICAL_DATA);
-          b.send(VERSION);
+          
+          if (m_serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+              b.send(VERSION);
+          }
+          
           b.send(tickerId);
 
           // send contract fields
@@ -783,7 +788,11 @@ public abstract class EClient {
               }
           }
           
-          // send chartOptions parameter
+          if (m_serverVersion >= MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+              b.send(keepUpToDate);
+          }
+          
+         // send chartOptions parameter
           if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
               StringBuilder chartOptionsStr = new StringBuilder();
               int chartOptionsCount = chartOptions == null ? 0 : chartOptions.size();
@@ -795,6 +804,7 @@ public abstract class EClient {
               }
               b.send( chartOptionsStr.toString());
           }
+          
           closeAndSend(b);
         }
         catch (Exception e) {
