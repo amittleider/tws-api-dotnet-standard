@@ -106,6 +106,8 @@ namespace IBSampleApp.ui
             ContractDetailsGrid[10, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.Summary.ConId;
             ContractDetailsGrid[11, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.MdSizeMultiplier;
             ContractDetailsGrid[12, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.AggGroup;
+            ContractDetailsGrid[13, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.UnderSymbol;
+            ContractDetailsGrid[14, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.UnderSecType;
         }
 
         public void HandleRequestError(int requestId)

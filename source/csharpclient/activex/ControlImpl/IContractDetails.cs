@@ -86,5 +86,9 @@ namespace TWSLib
         int mdSizeMultiplier { get; }
         [DispId(38)]
         int aggGroup { get; }
+        [DispId(39)]
+        string underSymbol { get; }
+        [DispId(40)]
+        string underSecType { get; }
     }
 }
