@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwsRtdServer", "TwsRtdServer.csproj", "{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8900FAD-7FCC-4FF3-B2E4-2CEA9FFA128D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
