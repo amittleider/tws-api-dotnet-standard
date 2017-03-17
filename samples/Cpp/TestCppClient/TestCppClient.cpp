@@ -1082,7 +1082,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	//m_state = ST_CONTRACTOPERATION;
+	m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1106,7 +1106,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
-	m_state = ST_REQHISTOGRAMDATA;
+	//m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_PING;
 }
 
@@ -1223,16 +1223,17 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, MD Size Multiplier: %d, AggGroup: %d\n", reqId, 
+	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), contractDetails.mdSizeMultiplier, contractDetails.aggGroup);
+		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), 
+		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str());
 }
 //! [contractdetails]
 
 void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s, MD Size Multiplier: %d, AggGroup: %d\n", reqId, 
+	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), contractDetails.mdSizeMultiplier, contractDetails.aggGroup);
+		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str());
 }
 
 //! [contractdetailsend]

@@ -36,6 +36,8 @@ namespace IBApi
         private int mdSizeMultiplier;
         private int aggGroup;
         private List<TagValue> secIdList;
+        private string underSymbol;
+        private string underSecType;
        
         // BOND values
         private string cusip;
@@ -238,6 +240,24 @@ namespace IBApi
         {
             get { return secIdList; }
             set { secIdList = value; }
+        }
+
+        /**
+        * @brief Underlying symbol
+        */
+        public string UnderSymbol
+        {
+            get { return underSymbol; }
+            set { underSymbol = value; }
+        }
+
+        /**
+        * @brief Underlying secType
+        */
+        public string UnderSecType
+        {
+            get { return underSecType; }
+            set { underSecType = value; }
         }
 
         /**

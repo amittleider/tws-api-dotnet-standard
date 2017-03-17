@@ -145,6 +145,8 @@ struct ContractDetails
 	double		evMultiplier;
 	int			mdSizeMultiplier;
 	int			aggGroup;
+	std::string	underSymbol;
+	std::string	underSecType;
 
 	TagValueListSPtr secIdList;
 

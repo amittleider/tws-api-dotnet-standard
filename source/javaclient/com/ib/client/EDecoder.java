@@ -1038,6 +1038,10 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
 			contract.aggGroup(readInt());
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_UNDERLYING_INFO) {
+			contract.underSymbol(readStr());
+			contract.underSecType(readStr());
+		}
 
 		m_EWrapper.contractDetails( reqId, contract);
 	}

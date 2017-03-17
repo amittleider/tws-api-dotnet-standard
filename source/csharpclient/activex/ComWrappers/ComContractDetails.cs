@@ -195,6 +195,24 @@ namespace TWSLib
         }
 
         /**
+        * @brief Underlying symbol
+        */
+        public string UnderSymbol
+        {
+            get { return data != null ? data.UnderSymbol : default(string); }
+            set { if (data != null) data.UnderSymbol = value; }
+        }
+
+        /**
+        * @brief Underlying sec type
+        */
+        public string UnderSecType
+        {
+            get { return data != null ? data.UnderSecType : default(string); }
+            set { if (data != null) data.UnderSecType = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -526,6 +544,16 @@ namespace TWSLib
         int TWSLib.IContractDetails.aggGroup
         {
             get { return AggGroup; }
+        }
+
+        string TWSLib.IContractDetails.underSymbol
+        {
+            get { return UnderSymbol; }
+        }
+
+        string TWSLib.IContractDetails.underSecType
+        {
+            get { return UnderSecType; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

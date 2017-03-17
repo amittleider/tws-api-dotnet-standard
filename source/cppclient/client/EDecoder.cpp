@@ -857,6 +857,10 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 	if (m_serverVersion >= MIN_SERVER_VER_AGG_GROUP) {
 		DECODE_FIELD( contract.aggGroup);
 	}
+	if (m_serverVersion >= MIN_SERVER_VER_UNDERLYING_INFO) {
+		DECODE_FIELD( contract.underSymbol);
+		DECODE_FIELD( contract.underSecType);
+	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 

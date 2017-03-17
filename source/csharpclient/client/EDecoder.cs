@@ -1641,6 +1641,11 @@ namespace IBApi
             {
                 contract.AggGroup = ReadInt();
             }
+            if (serverVersion >= MinServerVer.UNDERLYING_INFO)
+            {
+                contract.UnderSymbol = ReadString();
+                contract.UnderSecType = ReadString();
+            }
 
             eWrapper.contractDetails(requestId, contract);
         }

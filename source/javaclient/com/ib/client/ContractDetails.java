@@ -26,6 +26,8 @@ public class ContractDetails {
     private int      m_mdSizeMultiplier;
     private List<TagValue> m_secIdList; // CUSIP/ISIN/etc.
     private int      m_aggGroup;
+    private String   m_underSymbol;
+    private String   m_underSecType;
 
     // BOND values
     private String   m_cusip;
@@ -64,8 +66,10 @@ public class ContractDetails {
     public String evRule()              { return m_evRule; }
     public double evMultiplier()        { return m_evMultiplier; }
     public int mdSizeMultiplier()       { return m_mdSizeMultiplier; }
-    public List<TagValue> secIdList() { return m_secIdList; }
+    public List<TagValue> secIdList()   { return m_secIdList; }
     public int aggGroup()               { return m_aggGroup; }
+    public String underSymbol()         { return m_underSymbol; }
+    public String underSecType()        { return m_underSecType; }
     
     public String cusip()               { return m_cusip; }
     public String ratings()             { return m_ratings; }
@@ -104,6 +108,8 @@ public class ContractDetails {
     public void mdSizeMultiplier(int mdSizeMultiplier) { m_mdSizeMultiplier = mdSizeMultiplier; }
     public void secIdList(List<TagValue> secIdList) { m_secIdList = secIdList; }
     public void aggGroup(int aggGroup)              { m_aggGroup = aggGroup; }
+    public void underSymbol(String underSymbol)     { m_underSymbol = underSymbol; }
+    public void underSecType(String underSecType)   { m_underSecType = underSecType; }
     
     public void cusip(String cusip)             { m_cusip = cusip; }
     public void ratings(String ratings)         { m_ratings = ratings; }
@@ -132,7 +138,8 @@ public class ContractDetails {
     		double p_minTick, String p_orderTypes, String p_validExchanges, int p_underConId, String p_longName,
     	    String p_contractMonth, String p_industry, String p_category, String p_subcategory,
     	    String p_timeZoneId, String	p_tradingHours, String p_liquidHours,
-    	    String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier, int p_aggGroup) {
+    	    String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier, int p_aggGroup,
+    	    String p_underSymbol, String p_underSecType) {
         m_contract = p_contract;
     	m_marketName = p_marketName;
     	m_minTick = p_minTick;
@@ -151,6 +158,8 @@ public class ContractDetails {
         m_evMultiplier = p_evMultiplier;
         m_mdSizeMultiplier = p_mdSizeMultiplier;
         m_aggGroup = p_aggGroup;
+        m_underSymbol = p_underSymbol;
+        m_underSecType = p_underSecType;
     }
 
     @Override public String toString() {
@@ -174,6 +183,8 @@ public class ContractDetails {
         add( sb, "evMultiplier", m_evMultiplier);
         add( sb, "mdSizeMultiplier", m_mdSizeMultiplier);
         add( sb, "aggGroup", m_aggGroup);
+        add( sb, "underSymbol", m_underSymbol);
+        add( sb, "underSecType", m_underSecType);
 
         add( sb, "cusip", m_cusip);
         add( sb, "ratings", m_ratings);

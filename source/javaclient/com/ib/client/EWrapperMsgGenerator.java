@@ -294,6 +294,8 @@ public class EWrapperMsgGenerator {
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + "mdSizeMultiplier = " + contractDetails.mdSizeMultiplier() + "\n"
         + "aggGroup = " + contractDetails.aggGroup() + "\n"
+        + "underSymbol = " + contractDetails.underSymbol() + "\n"
+        + "underSecType = " + contractDetails.underSecType() + "\n"
         + contractDetailsSecIdList(contractDetails);
     }
     

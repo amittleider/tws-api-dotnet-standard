@@ -2181,6 +2181,8 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evMultiplier = " & contractDetails.EvMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  underSymbol = " & contractDetails.UnderSymbol)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  underSecType = " & contractDetails.UnderSecType)
 
         If (contract.SecType = "BOND") Then
 
