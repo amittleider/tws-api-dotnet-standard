@@ -20,8 +20,6 @@ server and client.
 
 """
 
-import collections
-
 from ibapi.common import *
 from ibapi.utils import *
 from ibapi.contract import (Contract, ContractDetails, UnderComp)
@@ -379,21 +377,19 @@ class EWrapper:
         self.logAnswer(current_fn_name(), vars())
 
 
-    def realtimeBar(self, reqId:TickerId , time:int, open:float, high:float,
-                    low:float, close:float, volume:int, wap:float,
-                    count: int):
+    def realtimeBar(self, reqId:TickerId , bar: RealTimeBar):
         """ Updates the real time 5 seconds bars
 
         reqId - the request's identifier
-        date  - the bar's date and time (either as a yyyymmss hh:mm:ss
-            formatted string or as system time according to the request)
-        open  - the bar's open point
-        high  - the bar's high point
-        low   - the bar's low point
-        close - the bar's closing point
-        volume - the bar's traded volume if available
-        WAP   - the bar's Weighted Average Price
-        count - the number of trades during the bar's timespan (only available
+        bar.time  - start of bar in unix (or 'epoch') time
+        bar.endTime - for synthetic bars, the end time (requires TWS v964). Otherwise -1.
+        bar.open  - the bar's open value
+        bar.high  - the bar's high value
+        bar.low   - the bar's low value
+        bar.close - the bar's closing value
+        bar.volume - the bar's traded volume if available
+        bar.WAP   - the bar's Weighted Average Price
+        bar.count - the number of trades during the bar's timespan (only available
             for TRADES)."""
 
         self.logAnswer(current_fn_name(), vars())
@@ -607,9 +603,9 @@ class EWrapper:
         """ returns array of exchanges which return depth to UpdateMktDepthL2"""
         self.logAnswer(current_fn_name(), vars())
 
-    def tickNews(seld, tickerId: int, timeStamp:int, providerCode:str, articleId:str, headline:str, extraData:str):
+    def tickNews(self, tickerId: int, timeStamp:int, providerCode:str, articleId:str, headline:str, extraData:str):
         """ returns news headlines"""
-        seld.logAnswer(current_fn_name(), vars())
+        self.logAnswer(current_fn_name(), vars())
 
     def smartComponents(self, reqId:int, map:SmartComponentMap):
         """returns exchange component mapping"""

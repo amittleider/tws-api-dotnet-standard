@@ -69,6 +69,9 @@ def printWhenExecuting(fn):
 
     return fn2
 
+def printinstance(inst:Object):
+    attrs = vars(inst)
+    print(', '.join("%s: %s" % item for item in attrs.items()))
 
 class Activity(Object):
     def __init__(self, reqMsgId, ansMsgId, ansEndMsgId, reqId):
@@ -743,17 +746,11 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqrealtimebars]
 
     @iswrapper
-    # ! [realtimebar]
-    def realtimeBar(self, reqId: TickerId, time: int, open: float, high: float,
-                    low: float, close: float, volume: int, wap: float,
-                    count: int):
-        super().realtimeBar(reqId, time, open, high, low, close, volume, wap, count)
-        print("RealTimeBars. ", reqId, "Time:", time, "Open:", open,
-              "High:", high, "Low:", low, "Close:", close, "Volume:", volume,
-              "Count:", count, "WAP:", wap)
+    def realtimeBar(self, reqId: TickerId, bar: RealTimeBar):
+        super().realtimeBar(reqId, bar)
+        print("RealTimeBars. ", reqId, ": ", bar)
 
     # ! [realtimebar]
-
 
     @printWhenExecuting
     def realTimeBars_cancel(self):
@@ -805,7 +802,7 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [histogramData]
-    def histogramData(self, reqId:int, items:HistogramData):
+    def histogramData(self, reqId:int, items:HistogramDataList):
         print("HistogramData: ", reqId, " ", items)
     # ! [histogramData]
 
@@ -969,9 +966,7 @@ class TestApp(TestWrapper, TestClient):
     # ! [contractdetails]
     def contractDetails(self, reqId: int, contractDetails: ContractDetails):
         super().contractDetails(reqId, contractDetails)
-        print("ContractDetails. ReqId:", reqId, contractDetails.summary.symbol,
-              contractDetails.summary.secType, "ConId:", contractDetails.summary.conId,
-              "@", contractDetails.summary.exchange)
+        printinstance(contractDetails.summary)
 
     # ! [contractdetails]
 
@@ -1086,7 +1081,7 @@ class TestApp(TestWrapper, TestClient):
         super().mktDepthExchanges(depthMktDataDescriptions)
         print("mktDepthExchanges:")
         for desc in depthMktDataDescriptions:
-            print(desc)
+            printinstance(desc)
     # ! [mktDepthExchanges]
 
     @printWhenExecuting
@@ -1139,10 +1134,8 @@ class TestApp(TestWrapper, TestClient):
     def ocaSample(self):
         # OCA ORDER
         # ! [ocasubmit]
-        ocaOrders = []
-        ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 10))
-        ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 11))
-        ocaOrders.append(OrderSamples.LimitOrder("BUY", 1, 12))
+        ocaOrders = [OrderSamples.LimitOrder("BUY", 1, 10), OrderSamples.LimitOrder("BUY", 1, 11),
+                     OrderSamples.LimitOrder("BUY", 1, 12)]
         OrderSamples.OneCancelsAll("TestOCA_" + self.nextValidOrderId, ocaOrders, 2)
         for o in ocaOrders:
             self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), o)
@@ -1585,7 +1578,7 @@ class TestApp(TestWrapper, TestClient):
 def main():
     SetupLogger()
     logging.debug("now is %s", datetime.datetime.now())
-    logging.getLogger().setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.ERROR)
 
     cmdLineParser = argparse.ArgumentParser("api tests")
     # cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")
@@ -1635,6 +1628,7 @@ def main():
         print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),
                                                       app.twsConnectionTime()))
         # ! [connect]
+		
         app.run()
     except:
         raise

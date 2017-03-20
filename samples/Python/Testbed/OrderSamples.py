@@ -161,7 +161,7 @@ class OrderSamples:
         order = Order()
         order.action = action
         order.orderType = "PEG MKT"
-        order.totalQuantity = 100
+        order.totalQuantity = quantity
         order.auxPrice = marketOffset#Offset price
         #! [pegged_market]
         return order
@@ -543,10 +543,7 @@ class OrderSamples:
         #to activate all its predecessors
         stopLoss.transmit = True
 
-        bracketOrder = []
-        bracketOrder.append(parent)
-        bracketOrder.append(takeProfit)
-        bracketOrder.append(stopLoss)
+        bracketOrder = [parent, takeProfit, stopLoss]
         return bracketOrder
     
     #! [bracket]
@@ -936,7 +933,7 @@ class OrderSamples:
     
         #! [adjustable_stop]
         # Attached order is a conventional STP order in opposite direction
-        order = Stop("SELL" if parent.action == "BUY" else "BUY", 
+        order = OrderSamples.Stop("SELL" if parent.action == "BUY" else "BUY",
                      parent.totalQuantity, attachedOrderStopPrice)
         order.parentId = parent.orderId
         #When trigger price is penetrated
@@ -956,8 +953,8 @@ class OrderSamples:
     
         #! [adjustable_stop_limit]
         #Attached order is a conventional STP order
-        order = Stop("SELL" if parent.action == "BUY" else "BUY",
-                     parent.totalQuantity, attachedOrderStopPrice)
+        order = OrderSamples.Stop("SELL" if parent.action == "BUY" else "BUY",
+                                  parent.totalQuantity, attachedOrderStopPrice)
         order.parentId = parent.orderId
         #When trigger price is penetrated
         order.triggerPrice = triggerPrice
@@ -977,7 +974,7 @@ class OrderSamples:
                                  adjustedTrailAmount:float, trailUnit:int):
         #! [adjustable_trail]
         #Attached order is a conventional STP order
-        order = Stop("SELL" if parent.action == "BUY" else "BUY",
+        order = OrderSamples.Stop("SELL" if parent.action == "BUY" else "BUY",
                      parent.totalQuantity, attachedOrderStopPrice)
         order.ParentId = parent.OrderId
         #When trigger price is penetrated

@@ -511,6 +511,9 @@ class Decoder(Object):
                     tagValue.value = decode(str, fields)
                     contract.secIdList.append(tagValue)
 
+        if self.serverVersion >= MIN_SERVER_VER_AGG_GROUP:
+            contract.aggGroup = decode(int, fields)
+
         self.wrapper.contractDetails(reqId, contract)
 
 
@@ -565,6 +568,9 @@ class Decoder(Object):
                     tagValue.tag = decode(str, fields)
                     tagValue.value = decode(str, fields)
                     contract.secIdList.append(tagValue)
+
+        if self.serverVersion >= MIN_SERVER_VER_AGG_GROUP:
+            contract.aggGroup = decode(int, fields)
 
         self.wrapper.bondContractDetails(reqId, contract)
 
@@ -695,7 +701,26 @@ class Decoder(Object):
         # send end of dataset marker
         self.wrapper.historicalDataEnd(reqId, startDateStr, endDateStr)
 
+    def processRealTimeBarMsg(self, fields):
+        sMsgId = next(fields)
+        version = decode(int, fields)
+        reqId = decode(int, fields)
 
+        bar = BarData()
+        bar.date = decode(int, fields)
+
+        if self.serverVersion >= MIN_SERVER_VER_SYNT_REALTIME_BARS:
+            bar.endTime = decode(int, fields)
+
+        bar.open = decode(float, fields)
+        bar.high = decode(float, fields)
+        bar.low = decode(float, fields)
+        bar.close = decode(float, fields)
+        bar.volume = decode(int, fields)
+        bar.wap = decode(float, fields)
+        bar.count = decode(int, fields)
+
+        self.wrapper.realtimeBar(reqId, bar)
 
     def processTickOptionComputationMsg(self, fields):
         optPrice = None
@@ -1146,7 +1171,7 @@ class Decoder(Object):
         IN.TICK_STRING: HandleInfo(wrap=EWrapper.tickString),
         IN.TICK_EFP: HandleInfo(wrap=EWrapper.tickEFP),
         IN.CURRENT_TIME: HandleInfo(wrap=EWrapper.currentTime),
-        IN.REAL_TIME_BARS: HandleInfo(wrap=EWrapper.realtimeBar),
+        IN.REAL_TIME_BARS: HandleInfo(proc=processRealTimeBarMsg),
         IN.FUNDAMENTAL_DATA: HandleInfo(wrap=EWrapper.fundamentalData),
         IN.CONTRACT_DATA_END: HandleInfo(wrap=EWrapper.contractDetailsEnd),
         IN.OPEN_ORDER_END: HandleInfo(wrap=EWrapper.openOrderEnd),

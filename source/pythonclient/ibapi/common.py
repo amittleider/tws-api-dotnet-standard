@@ -34,7 +34,7 @@ ListOfContractDescription = list
 ListOfDepthExchanges = list
 ListOfNewsProviders = list
 SmartComponentMap = dict
-HistogramData = list
+HistogramDataList = list
 
 class BarData(Object):
     def __init__(self):
@@ -53,6 +53,22 @@ class BarData(Object):
         return "%s:%f,%f,%f,%f,%d,%f,%s,%d" % (self.date, self.open, self.high,
             self.low, self.close, self.volume, self.average, self.hasGaps,
             self.barCount)
+
+class RealTimeBar(Object):
+    def __init__(self):
+        self.time = 0
+        self.endTime = -1
+        self.open = 0.
+        self.high = 0.
+        self.low = 0.
+        self.close = 0.
+        self.volume = 0
+        self.wap = 0.
+        self.count = 0
+
+    def __str__(self):
+        return "%d:%d,%f,%f,%f,%f,%d,%f,%d" % (self.time, self.endTime, self.open, self.high,
+            self.low, self.close, self.volume, self.wap, self.count)
 
 class HistogramData(Object):
     def __init__(self):

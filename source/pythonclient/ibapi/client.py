@@ -1262,6 +1262,10 @@ class EClient(object):
 
         self.logRequest(current_fn_name(), vars())
 
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+		
         VERSION = 1
 
         msg = make_field(OUT.REQ_OPEN_ORDERS) \

@@ -130,6 +130,7 @@ class ContractDetails(Object):
         self.evRule = ""
         self.evMultiplier = 0
         self.mdSizeMultiplier = 0
+        self.aggGroup = 0
         self.secIdList = None
         # BOND values
         self.cusip = ""
@@ -168,6 +169,7 @@ class ContractDetails(Object):
             str(self.evRule),
             str(self.evMultiplier),
             str(self.mdSizeMultiplier),
+            str(self.aggGroup),
             str(self.secIdList),
             str(self.cusip),
             str(self.ratings),
