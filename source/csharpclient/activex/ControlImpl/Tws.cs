@@ -56,111 +56,111 @@ namespace TWSLib
 
         #region properties
         
-        public string account { get; set; }
+        string ITws.account { get; set; }
+
+        string ITws.tif { get; set; }
+
+        string ITws.oca { get; set; }
+
+        string ITws.orderRef { get; set; }
+
+        int ITws.origin { get; set; }
+
+        bool ITws.transmit { get; set; }
+
+        string ITws.openClose { get; set; }
+
+        int ITws.parentId { get; set; }
+
+        bool ITws.blockOrder { get; set; }
+
+        bool ITws.sweepToFill { get; set; }
+
+        int ITws.displaySize { get; set; }
+
+        int ITws.triggerMethod { get; set; }
+
+        bool ITws.outsideRth { get; set; }
+
+        bool ITws.hidden { get; set; }
+
+        int ITws.clientIdFilter { get; set; }
         
-        public string tif { get; set; }
+        string ITws.acctCodeFilter { get; set; }
         
-        public string oca { get; set; }
+        string ITws.timeFilter { get; set; }
         
-        public string orderRef { get; set; }
+        string ITws.symbolFilter { get; set; }
         
-        public int origin { get; set; }
+        string ITws.secTypeFilter { get; set; }
         
-        public bool transmit { get; set; }
+        string ITws.exchangeFilter { get; set; }
         
-        public string openClose { get; set; }
+        string ITws.sideFilter { get; set; }
         
-        public int parentId { get; set; }
+        double ITws.discretionaryAmt { get; set; }
         
-        public bool blockOrder { get; set; }
+        int ITws.shortSaleSlot { get; set; }
         
-        public bool sweepToFill { get; set; }
+        string ITws.designatedLocation { get; set; }
         
-        public int displaySize { get; set; }
+        int ITws.ocaType { get; set; }
         
-        public int triggerMethod { get; set; }
+        int ITws.exemptCode { get; set; }
         
-        public bool outsideRth { get; set; }
+        string ITws.rule80A { get; set; }
         
-        public bool hidden { get; set; }
+        string ITws.settlingFirm { get; set; }
         
-        public int clientIdFilter { get; set; }
+        bool ITws.allOrNone { get; set; }
         
-        public string acctCodeFilter { get; set; }
+        int ITws.minQty { get; set; }
         
-        public string timeFilter { get; set; }
+        double ITws.percentOffset { get; set; }
         
-        public string symbolFilter { get; set; }
+        bool ITws.eTradeOnly { get; set; }
         
-        public string secTypeFilter { get; set; }
+        bool ITws.firmQuoteOnly { get; set; }
         
-        public string exchangeFilter { get; set; }
+        double ITws.nbboPriceCap { get; set; }
         
-        public string sideFilter { get; set; }
+        int ITws.auctionStrategy { get; set; }
         
-        public double discretionaryAmt { get; set; }
+        double ITws.startingPrice { get; set; }
         
-        public int shortSaleSlot { get; set; }
+        double ITws.stockRefPrice { get; set; }
         
-        public string designatedLocation { get; set; }
+        double ITws.delta { get; set; }
         
-        public int ocaType { get; set; }
+        double ITws.stockRangeLower { get; set; }
         
-        public int exemptCode { get; set; }
+        double ITws.stockRangeUpper { get; set; }
         
-        public string rule80A { get; set; }
+        string ITws.TwsConnectionTime { get { return socket.ServerTime; } }
         
-        public string settlingFirm { get; set; }
+        int ITws.serverVersion { get; set; }
         
-        public bool allOrNone { get; set; }
+        bool ITws.overridePercentageConstraints { get; set; }
         
-        public int minQty { get; set; }
+        double ITws.volatility { get; set; }
         
-        public double percentOffset { get; set; }
+        int ITws.volatilityType { get; set; }
         
-        public bool eTradeOnly { get; set; }
+        string ITws.deltaNeutralOrderType { get; set; }
         
-        public bool firmQuoteOnly { get; set; }
+        double ITws.deltaNeutralAuxPrice { get; set; }
         
-        public double nbboPriceCap { get; set; }
+        int ITws.continuousUpdate { get; set; }
         
-        public int auctionStrategy { get; set; }
+        int ITws.referencePriceType { get; set; }
         
-        public double startingPrice { get; set; }
+        double ITws.trailStopPrice { get; set; }
         
-        public double stockRefPrice { get; set; }
+        int ITws.scaleInitLevelSize { get; set; }
         
-        public double delta { get; set; }
+        int ITws.scaleSubsLevelSize { get; set; }
         
-        public double stockRangeLower { get; set; }
-        
-        public double stockRangeUpper { get; set; }
-        
-        public string TwsConnectionTime { get { return socket.ServerTime; } }
-        
-        public int serverVersion { get; set; }
-        
-        public bool overridePercentageConstraints { get; set; }
-        
-        public double volatility { get; set; }
-        
-        public int volatilityType { get; set; }
-        
-        public string deltaNeutralOrderType { get; set; }
-        
-        public double deltaNeutralAuxPrice { get; set; }
-        
-        public int continuousUpdate { get; set; }
-        
-        public int referencePriceType { get; set; }
-        
-        public double trailStopPrice { get; set; }
-        
-        public int scaleInitLevelSize { get; set; }
-        
-        public int scaleSubsLevelSize { get; set; }
-        
-        public double scalePriceIncrement { get; set; }
+        double ITws.scalePriceIncrement { get; set; }
         #endregion
 
         #region methods
@@ -284,14 +284,15 @@ namespace TWSLib
         void ITws.reqExecutions()
         {
             ExecutionFilter filter = new ExecutionFilter();
+            var iThis = this as ITws;
 
-            filter.ClientId = this.clientIdFilter;
-            filter.AcctCode = this.acctCodeFilter;
-            filter.Time = this.timeFilter;
-            filter.Symbol = this.symbolFilter;
-            filter.SecType = this.secTypeFilter;
-            filter.Exchange = this.exchangeFilter;
-            filter.Side = this.sideFilter;
+            filter.ClientId = iThis.clientIdFilter;
+            filter.AcctCode = iThis.acctCodeFilter;
+            filter.Time = iThis.timeFilter;
+            filter.Symbol = iThis.symbolFilter;
+            filter.SecType = iThis.secTypeFilter;
+            filter.Exchange = iThis.exchangeFilter;
+            filter.Side = iThis.sideFilter;
 
             this.socket.reqExecutions(-1, filter);
         }
@@ -554,7 +555,7 @@ namespace TWSLib
             contract.Exchange = exchange;
             contract.Currency = curency;
 
-            this.socket.exerciseOptions(id, contract, exerciseAction, exerciseQuantity, this.account, @override);
+            this.socket.exerciseOptions(id, contract, exerciseAction, exerciseQuantity, (this as ITws).account, @override);
         }
 
         
@@ -614,59 +615,61 @@ namespace TWSLib
         
         void ITws.resetAllProperties()
         {
-            openClose = "O";
-            origin = 0;
-            transmit = true;
-            parentId = 0;
-            blockOrder = false;
-            sweepToFill = false;
-            displaySize = 0;
-            triggerMethod = 0;
-            outsideRth = false;
-            hidden = false;
-            shortSaleSlot = 0;
-            exemptCode = -1;
-            clientIdFilter = 0;
-            discretionaryAmt = 0;
-            ocaType = 0;
-            allOrNone = false;
-            minQty = int.MaxValue;
-            percentOffset = double.MaxValue;
-            eTradeOnly = false;
-            firmQuoteOnly = false;
-            nbboPriceCap = double.MaxValue;
-            auctionStrategy = 0;
-            startingPrice = double.MaxValue;
-            stockRefPrice = double.MaxValue;
-            delta = double.MaxValue;
-            stockRangeLower = double.MaxValue;
-            stockRangeUpper = double.MaxValue;
-            serverVersion = 0;
-            overridePercentageConstraints = false;
-            volatility = double.MaxValue;
-            volatilityType = int.MaxValue;
-            deltaNeutralAuxPrice = double.MaxValue;
-            continuousUpdate = 0;
-            referencePriceType = int.MaxValue;
-            account = "";
-            tif = "";
-            oca = "";
-            orderRef = "";
-            openClose = "";
-            acctCodeFilter = "";
-            timeFilter = "";
-            symbolFilter = "";
-            secTypeFilter = "";
-            exchangeFilter = "";
-            sideFilter = "";
-            designatedLocation = "";
-            rule80A = "";
-            settlingFirm = "";
-            deltaNeutralOrderType = "";
-            trailStopPrice = double.MaxValue;
-            scaleInitLevelSize = int.MaxValue;
-            scaleSubsLevelSize = int.MaxValue;
-            scalePriceIncrement = double.MaxValue;
+            var iThis = this as ITws;
+
+            iThis.openClose = "O";
+            iThis.origin = 0;
+            iThis.transmit = true;
+            iThis.parentId = 0;
+            iThis.blockOrder = false;
+            iThis.sweepToFill = false;
+            iThis.displaySize = 0;
+            iThis.triggerMethod = 0;
+            iThis.outsideRth = false;
+            iThis.hidden = false;
+            iThis.shortSaleSlot = 0;
+            iThis.exemptCode = -1;
+            iThis.clientIdFilter = 0;
+            iThis.discretionaryAmt = 0;
+            iThis.ocaType = 0;
+            iThis.allOrNone = false;
+            iThis.minQty = int.MaxValue;
+            iThis.percentOffset = double.MaxValue;
+            iThis.eTradeOnly = false;
+            iThis.firmQuoteOnly = false;
+            iThis.nbboPriceCap = double.MaxValue;
+            iThis.auctionStrategy = 0;
+            iThis.startingPrice = double.MaxValue;
+            iThis.stockRefPrice = double.MaxValue;
+            iThis.delta = double.MaxValue;
+            iThis.stockRangeLower = double.MaxValue;
+            iThis.stockRangeUpper = double.MaxValue;
+            iThis.serverVersion = 0;
+            iThis.overridePercentageConstraints = false;
+            iThis.volatility = double.MaxValue;
+            iThis.volatilityType = int.MaxValue;
+            iThis.deltaNeutralAuxPrice = double.MaxValue;
+            iThis.continuousUpdate = 0;
+            iThis.referencePriceType = int.MaxValue;
+            iThis.account = "";
+            iThis.tif = "";
+            iThis.oca = "";
+            iThis.orderRef = "";
+            iThis.openClose = "";
+            iThis.acctCodeFilter = "";
+            iThis.timeFilter = "";
+            iThis.symbolFilter = "";
+            iThis.secTypeFilter = "";
+            iThis.exchangeFilter = "";
+            iThis.sideFilter = "";
+            iThis.designatedLocation = "";
+            iThis.rule80A = "";
+            iThis.settlingFirm = "";
+            iThis.deltaNeutralOrderType = "";
+            iThis.trailStopPrice = double.MaxValue;
+            iThis.scaleInitLevelSize = int.MaxValue;
+            iThis.scaleSubsLevelSize = int.MaxValue;
+            iThis.scalePriceIncrement = double.MaxValue;
         }
 
         
@@ -1034,7 +1037,7 @@ namespace TWSLib
         public event connectionClosedDelegate connectionClosed;
         void EWrapper.connectionClosed()
         {
-            this.serverVersion = socket.ServerVersion;
+            (this as ITws).serverVersion = socket.ServerVersion;
 
             var t_connectionClosed = this.connectionClosed;
             if (t_connectionClosed != null)
@@ -1958,51 +1961,53 @@ namespace TWSLib
 
         void setExtendedOrderAttributes(Order order)
         {
-            order.Tif = this.tif;
-            order.OcaGroup = this.oca;
-            order.Account = this.account;
-            order.OpenClose = this.openClose;
-            order.Origin = this.origin;
-            order.OrderRef = this.orderRef;
-            order.Transmit = this.transmit;
-            order.ParentId = this.parentId;
-            order.BlockOrder = this.blockOrder;
-            order.SweepToFill = this.sweepToFill;
-            order.DisplaySize = this.displaySize;
-            order.TriggerMethod = this.triggerMethod;
-            order.OutsideRth = this.outsideRth;
-            order.Hidden = this.hidden;
-            order.DiscretionaryAmt = this.discretionaryAmt;
-            order.ShortSaleSlot = this.shortSaleSlot;
-            order.DesignatedLocation = this.designatedLocation;
-            order.ExemptCode = this.exemptCode;
-            order.OcaType = this.ocaType;
-            order.Rule80A = this.rule80A;
-            order.SettlingFirm = this.settlingFirm;
-            order.AllOrNone = this.allOrNone;
-            order.MinQty = this.minQty;
-            order.PercentOffset = this.percentOffset;
-            order.ETradeOnly = this.eTradeOnly;
-            order.FirmQuoteOnly = this.firmQuoteOnly;
-            order.NbboPriceCap = this.nbboPriceCap;
-            order.AuctionStrategy = this.auctionStrategy;
-            order.StartingPrice = this.startingPrice;
-            order.StockRefPrice = this.stockRefPrice;
-            order.Delta = this.delta;
-            order.StockRangeLower = this.stockRangeLower;
-            order.StockRangeUpper = this.stockRangeUpper;
-            order.OverridePercentageConstraints = this.overridePercentageConstraints;
+            var iThis = this as ITws;
+
+            order.Tif = iThis.tif;
+            order.OcaGroup = iThis.oca;
+            order.Account = iThis.account;
+            order.OpenClose = iThis.openClose;
+            order.Origin = iThis.origin;
+            order.OrderRef = iThis.orderRef;
+            order.Transmit = iThis.transmit;
+            order.ParentId = iThis.parentId;
+            order.BlockOrder = iThis.blockOrder;
+            order.SweepToFill = iThis.sweepToFill;
+            order.DisplaySize = iThis.displaySize;
+            order.TriggerMethod = iThis.triggerMethod;
+            order.OutsideRth = iThis.outsideRth;
+            order.Hidden = iThis.hidden;
+            order.DiscretionaryAmt = iThis.discretionaryAmt;
+            order.ShortSaleSlot = iThis.shortSaleSlot;
+            order.DesignatedLocation = iThis.designatedLocation;
+            order.ExemptCode = iThis.exemptCode;
+            order.OcaType = iThis.ocaType;
+            order.Rule80A = iThis.rule80A;
+            order.SettlingFirm = iThis.settlingFirm;
+            order.AllOrNone = iThis.allOrNone;
+            order.MinQty = iThis.minQty;
+            order.PercentOffset = iThis.percentOffset;
+            order.ETradeOnly = iThis.eTradeOnly;
+            order.FirmQuoteOnly = iThis.firmQuoteOnly;
+            order.NbboPriceCap = iThis.nbboPriceCap;
+            order.AuctionStrategy = iThis.auctionStrategy;
+            order.StartingPrice = iThis.startingPrice;
+            order.StockRefPrice = iThis.stockRefPrice;
+            order.Delta = iThis.delta;
+            order.StockRangeLower = iThis.stockRangeLower;
+            order.StockRangeUpper = iThis.stockRangeUpper;
+            order.OverridePercentageConstraints = iThis.overridePercentageConstraints;
             // VOLATILITY ORDERS ONLY
-            order.Volatility = this.volatility;
-            order.VolatilityType = this.volatilityType;     // 1=daily, 2=annual
-            order.DeltaNeutralOrderType = this.deltaNeutralOrderType;
-            order.DeltaNeutralAuxPrice = this.deltaNeutralAuxPrice;
-            order.ContinuousUpdate = this.continuousUpdate;
-            order.ReferencePriceType = this.referencePriceType; // 1=Average, 2 = BidOrAsk
-            order.TrailStopPrice = this.trailStopPrice;
-            order.ScaleInitLevelSize = this.scaleInitLevelSize;
-            order.ScaleSubsLevelSize = this.scaleSubsLevelSize;
-            order.ScalePriceIncrement = this.scalePriceIncrement;
+            order.Volatility = iThis.volatility;
+            order.VolatilityType = iThis.volatilityType;     // 1=daily, 2=annual
+            order.DeltaNeutralOrderType = iThis.deltaNeutralOrderType;
+            order.DeltaNeutralAuxPrice = iThis.deltaNeutralAuxPrice;
+            order.ContinuousUpdate = iThis.continuousUpdate;
+            order.ReferencePriceType = iThis.referencePriceType; // 1=Average, 2 = BidOrAsk
+            order.TrailStopPrice = iThis.trailStopPrice;
+            order.ScaleInitLevelSize = iThis.scaleInitLevelSize;
+            order.ScaleSubsLevelSize = iThis.scaleSubsLevelSize;
+            order.ScalePriceIncrement = iThis.scalePriceIncrement;
         }
 
         void InvokeIfRequired(Delegate method, params object[] args)
