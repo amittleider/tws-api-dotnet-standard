@@ -6,6 +6,9 @@ package com.ib.controller;
 import com.ib.client.Types;
 
 public enum MarketValueTag {
+	AccountOrGroup,
+	RealCurrency,
+	IssuerOptionValue,
 	NetLiquidationByCurrency,
 	CashBalance,
 	TotalCashBalance,
