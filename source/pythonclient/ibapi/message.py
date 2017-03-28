@@ -150,3 +150,4 @@ class OUT:
     REQ_HEAD_TIMESTAMP            = 87
     REQ_HISTOGRAM_DATA            = 88
     CANCEL_HISTOGRAM_DATA         = 89
+    CANCEL_HEAD_TIMESTAMP         = 90

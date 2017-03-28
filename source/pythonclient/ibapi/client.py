@@ -2190,6 +2190,26 @@ class EClient(object):
         msg = "".join(flds)
         self.sendMsg(msg)
 
+    def cancelHeadTimeStamp(self, reqId: TickerId):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_CANCEL_HEADTIMESTAMP:
+            self.wrapper.error(reqId, UPDATE_TWS.code(),
+                               UPDATE_TWS.msg() + "  It does not support head time stamp requests.")
+            return
+
+        flds = []
+        flds += [make_field(OUT.CANCEL_HEAD_TIMESTAMP),
+                 make_field(reqId) ]
+
+        msg = "".join(flds)
+        self.sendMsg(msg)
+
     def reqHistogramData(self, tickerId: int, contract: Contract,
                      useRTH: bool, timePeriod: str):
 
