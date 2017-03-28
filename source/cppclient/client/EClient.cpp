@@ -2919,6 +2919,27 @@ void EClient::reqHeadTimestamp(int tickerId, Contract contract, const std::strin
 	closeAndSend(msg.str());
 }
 
+void EClient::cancelHeadTimestamp(int tickerId) {
+	if( !isConnected()) {
+		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+		return;
+	}
+
+	if( m_serverVersion < MIN_SERVER_VER_CANCEL_HEADTIMESTAMP) {
+		m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+			"  It does not support head timestamp requests canceling.");
+		return;
+	}
+
+	std::stringstream msg;
+	prepareBuffer(msg);
+
+	ENCODE_FIELD(CANCEL_HEAD_TIMESTAMP);
+	ENCODE_FIELD(tickerId);
+
+	closeAndSend(msg.str());
+}
+
 void EClient::reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod) {
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());

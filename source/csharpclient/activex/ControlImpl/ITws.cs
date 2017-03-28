@@ -359,6 +359,8 @@ namespace TWSLib
         void reqHistogramData(int tickerId, IContract contract, bool useRTH, string period);
         [DispId(224)]
         void cancelHistogramData(int tickerId);
+        [DispId(225)]
+        void cancelHeadTimestamp(int tickerId);
 
         #endregion
     }

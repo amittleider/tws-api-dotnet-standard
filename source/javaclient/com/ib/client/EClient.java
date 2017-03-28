@@ -183,6 +183,7 @@ public abstract class EClient {
   	private static final int REQ_HEAD_TIMESTAMP = 87;
   	private static final int REQ_HISTOGRAM_DATA = 88;
     private static final int CANCEL_HISTOGRAM_DATA = 89;
+    private static final int CANCEL_HEAD_TIMESTAMP = 90;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -249,9 +250,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_SERVICE_DATA_TYPE = 120;
     protected static final int MIN_SERVER_VER_AGG_GROUP = 121;
     protected static final int MIN_SERVER_VER_UNDERLYING_INFO = 122;
+    protected static final int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP = 123;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_UNDERLYING_INFO; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_CANCEL_HEADTIMESTAMP; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -804,49 +806,73 @@ public abstract class EClient {
     /** Note that formatData parameter affects intra-day bars only; 1-day bars always return with date in YYYYMMDD format. */
     public synchronized void reqHeadTimestamp(int tickerId, Contract contract,
                                                 String whatToShow, int useRTH, int formatDate) {
-        // not connected?
-        if( !isConnected()) {
-            notConnected();
-            return;
-        }
+    	// not connected?
+    	if( !isConnected()) {
+    		notConnected();
+    		return;
+    	}
 
-        try {
-          if (m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {
-              if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
-                  error(tickerId, EClientErrors.UPDATE_TWS,
-                      "  It does not support head time stamp requests.");
-                  return;
-              }
-          }
+    	try {
+    		if (m_serverVersion < MIN_SERVER_VER_REQ_HEAD_TIMESTAMP) {              
+    			error(tickerId, EClientErrors.UPDATE_TWS,
+    					"  It does not support head time stamp requests.");
+    			return;
+    		}
 
-          Builder b = prepareBuffer(); 
+    		Builder b = prepareBuffer(); 
 
-          b.send(REQ_HEAD_TIMESTAMP);
-          b.send(tickerId);
-          b.send(contract.conid());
-          b.send(contract.symbol());
-          b.send(contract.getSecType());
-          b.send(contract.lastTradeDateOrContractMonth());
-          b.send(contract.strike());
-          b.send(contract.getRight());
-          b.send(contract.multiplier());
-          b.send(contract.exchange());
-          b.send(contract.primaryExch());
-          b.send(contract.currency());
-          b.send(contract.localSymbol());
-          b.send(contract.tradingClass());
-      	  b.send(contract.includeExpired() ? 1 : 0);
-          b.send(useRTH);
-          b.send(whatToShow);          
-          b.send(formatDate);
-          
-          closeAndSend(b);
+    		b.send(REQ_HEAD_TIMESTAMP);
+    		b.send(tickerId);
+    		b.send(contract.conid());
+    		b.send(contract.symbol());
+    		b.send(contract.getSecType());
+    		b.send(contract.lastTradeDateOrContractMonth());
+    		b.send(contract.strike());
+    		b.send(contract.getRight());
+    		b.send(contract.multiplier());
+    		b.send(contract.exchange());
+    		b.send(contract.primaryExch());
+    		b.send(contract.currency());
+    		b.send(contract.localSymbol());
+    		b.send(contract.tradingClass());
+    		b.send(contract.includeExpired() ? 1 : 0);
+    		b.send(useRTH);
+    		b.send(whatToShow);          
+    		b.send(formatDate);
+
+        	closeAndSend(b);
         }
         catch (Exception e) {
-          error(tickerId, EClientErrors.FAIL_SEND_REQHISTDATA, e.toString());
+          error(tickerId, EClientErrors.FAIL_SEND_REQHEADTIMESTAMP, e.toString());
           close();
         }
     }
+    
+    public synchronized void cancelHeadTimestamp(int tickerId) {
+    	// not connected?
+    	if( !isConnected()) {
+    		notConnected();
+    		return;
+    	}
+
+    	try {
+    		if (m_serverVersion < MIN_SERVER_VER_CANCEL_HEADTIMESTAMP) {
+    			error(tickerId, EClientErrors.UPDATE_TWS,
+    					"  It does not support head time stamp requests canceling.");
+    			return;
+    		}
+
+    		Builder b = prepareBuffer(); 
+
+    		b.send(CANCEL_HEAD_TIMESTAMP);
+    		b.send(tickerId);
+    		closeAndSend(b);
+    	}
+    	catch (Exception e) {
+    		error(tickerId, EClientErrors.FAIL_SEND_CANHEADTIMESTAMP, e.toString());
+    		close();
+        }
+   }
     
     
     public synchronized void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH, List<TagValue> realTimeBarsOptions) {
