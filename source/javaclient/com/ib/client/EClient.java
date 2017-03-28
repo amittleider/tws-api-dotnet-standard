@@ -3390,22 +3390,23 @@ public abstract class EClient {
     protected abstract void closeAndSend(Builder buf) throws IOException;
     
     private void sendV100APIHeader() throws IOException {
-    	Builder bos = new Builder(1024);
-    	bos.send("API\0".getBytes(StandardCharsets.UTF_8));
-    
-    	String out = "v" + (( MIN_VERSION < MAX_VERSION ) 
-    			? MIN_VERSION + ".." + MAX_VERSION
-				: MIN_VERSION);
-    	
-    	if ( !IsEmpty( m_connectOptions ) ) { 
-    		out += " " + m_connectOptions;
-    	}
+    	try (Builder builder = new Builder(1024)) {
+            builder.send("API\0".getBytes(StandardCharsets.UTF_8));
 
-    	int lengthPos = bos.allocateLengthHeader();
-    	bos.send( out.getBytes(StandardCharsets.UTF_8) );
-    	bos.updateLength( lengthPos );
+            String out = "v" + ((MIN_VERSION < MAX_VERSION)
+                    ? MIN_VERSION + ".." + MAX_VERSION
+                    : MIN_VERSION);
 
-    	sendMsg(new EMessage(bos));
+            if (!IsEmpty(m_connectOptions)) {
+                out += " " + m_connectOptions;
+            }
+
+            int lengthPos = builder.allocateLengthHeader();
+            builder.send(out.getBytes(StandardCharsets.UTF_8));
+            builder.updateLength(lengthPos);
+
+            sendMsg(new EMessage(builder));
+        }
     }
    
     protected void sendMsg(EMessage msg) throws IOException {
@@ -3427,8 +3428,9 @@ public abstract class EClient {
 	// Sends String without length prefix (pre-V100 style)
 	protected void send( String str) throws IOException {
 		// Write string to data buffer
-		Builder b = new Builder( 1024 );
-		b.send(str);
-		sendMsg(new EMessage(b));
+		try (Builder builder = new Builder( 1024 )) {
+            builder.send(str);
+            sendMsg(new EMessage(builder));
+        }
 	}
 }

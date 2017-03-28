@@ -14,14 +14,14 @@ import java.nio.charset.StandardCharsets;
 public class Builder implements ObjectOutput {
 	private static final char SEP = 0;
 	private static final int PADDING_SIZE = 1; // 1 disables padding, 4 is normal if padding is used
-	private static final byte[] EMPTY_LENGTH_HEADER = new byte[ 4 ]; 
-	        
+	private static final byte[] EMPTY_LENGTH_HEADER = new byte[ 4 ];
+
 	private final ByteBuffer m_sb;
-	
+
 	public Builder( int size ) {
 	    m_sb = new ByteBuffer( size );
-	}	
-	
+	}
+
 	public void send(int a) {
         send( String.valueOf(a) );
 	}
@@ -59,7 +59,7 @@ public class Builder implements ObjectOutput {
             m_sb.write(  bytes, 0, bytes.length );
         }
     }
-	
+
     public int allocateLengthHeader() {
         int lengthHeaderPosition = m_sb.size();
         m_sb.write( EMPTY_LENGTH_HEADER, 0, EMPTY_LENGTH_HEADER.length );
@@ -81,7 +81,7 @@ public class Builder implements ObjectOutput {
         b[position+2] = (byte)(0xff & (val >> 8));
         b[position+3] = (byte)(0xff & val);
     }
-    
+
     /** inner class: ByteBuffer - storage for bytes and direct access to buffer. */
     private static class ByteBuffer extends ByteArrayOutputStream {
         ByteBuffer(int capacity) {
@@ -99,7 +99,7 @@ public class Builder implements ObjectOutput {
             }
             intToBytes(len, this.buf, lengthHeaderPosition);
         }
-        
+
         void writeTo(DataOutputStream out) throws IOException {
             out.write( this.buf, 0, this.count );
         }
@@ -128,7 +128,9 @@ public class Builder implements ObjectOutput {
 	@Override
 	public void writeUTF(String arg0) throws IOException { send(arg0); }
 	@Override
-	public void close() throws IOException { }
+	public void close() throws IOException {
+        m_sb.close();
+	}
 	@Override
 	public void flush() throws IOException { }
 	@Override
@@ -139,5 +141,5 @@ public class Builder implements ObjectOutput {
 	public void write(byte[] arg0, int arg1, int arg2)
 			throws IOException { }
 	@Override
-	public void writeObject(Object arg0) throws IOException { } 
+	public void writeObject(Object arg0) throws IOException { }
 }
