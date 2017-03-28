@@ -206,7 +206,14 @@ public class EClientSocket extends EClient implements EClientMsgSink  {
 	
 	    FilterInputStream dis = m_dis;
 	    m_dis = null;
-	    m_socketTransport = null;
+	    if (m_socketTransport != null) {
+			try {
+				m_socketTransport.close();
+			} catch (IOException ignored) {
+			} finally {
+				m_socketTransport = null;
+			}
+		}
 	
 	    try {
 	        if (dis != null)
