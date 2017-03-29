@@ -284,14 +284,8 @@ public class AdvisorUtil {
 
 
 	public static void main(String[] args) {
-		String str1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfGroups>\n	<Group>\n		<name>Group 1</name>\n		<ListOfAccts varName=\"list\">\n			<String>DU109949</String>\n			<String>DU109950</String>\n			<String>DU110a156</String>\n			<String>DU110157</String>\n			<String>DU110158</String>\n		</ListOfAccts>\n		<defaultMethod>AvailableEquity</defaultMethod>\n	</Group>\n	<Group>\n		<name>Group 2</name>\n		<ListOfAccts varName=\"list\">\n			<String>DU109950</String>\n			<String>DU110156</String>\n			<String>DU110157</String>\n		</ListOfAccts>\n		<defaultMethod>AvailableEquity</defaultMethod>\n	</Group>\n</ListOfGroups>\n";
-		List<Group> groups = getGroups( str1);
-
-		String str2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAllocationProfiles>\n	<AllocationProfile>\n		<name>High Risk</name>\n		<type>1</type>\n		<ListOfAllocations varName=\"listOfAllocations\">\n			<Allocation>\n				<acct>DU110157</acct>\n				<amount>90.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n			<Allocation>\n				<acct>DU110158</acct>\n				<amount>10.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n		</ListOfAllocations>\n	</AllocationProfile>\n	<AllocationProfile>\n		<name>Profile</name>\n		<type>2</type>\n		<ListOfAllocations varName=\"listOfAllocations\">\n			<Allocation>\n				<acct>DU109949</acct>\n				<amount>1.0</amount>\n				<posEff>O</posEff>\n			</Allocation>\n		</ListOfAllocations>\n	</AllocationProfile>\n</ListOfAllocationProfiles>\n";
-		List<Profile> profiles = getProfiles( str2);
-
-		String str3 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAccountAliases>\n	<AccountAlias>\n		<account>DF109948</account>\n		<alias>DF109948</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109949</account>\n		<alias>DU109949</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109950</account>\n		<alias>DU109950</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110156</account>\n		<alias>DU110156</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110157</account>\n		<alias>DU110157</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110158</account>\n		<alias>DU110158</alias>\n	</AccountAlias>\n</ListOfAccountAliases>\n\n";
-		List<Alias> aliases = getAliases( str3);
+		String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListOfAccountAliases>\n	<AccountAlias>\n		<account>DF109948</account>\n		<alias>DF109948</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109949</account>\n		<alias>DU109949</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU109950</account>\n		<alias>DU109950</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110156</account>\n		<alias>DU110156</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110157</account>\n		<alias>DU110157</alias>\n	</AccountAlias>\n	<AccountAlias>\n		<account>DU110158</account>\n		<alias>DU110158</alias>\n	</AccountAlias>\n</ListOfAccountAliases>\n\n";
+		List<Alias> aliases = getAliases(str);
 
 		if (aliases != null) {
 			AdvisorUtil.err(aliases.toString());
