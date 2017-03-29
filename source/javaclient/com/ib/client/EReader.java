@@ -97,6 +97,8 @@ public class EReader extends Thread {
     static final int MAX_MSG_LENGTH = 0xffffff;
 
 	private static class InvalidMessageLengthException extends IOException {
+		private static final long serialVersionUID = 1L;
+
 		InvalidMessageLengthException(String message) {
 			super(message);
 		}
