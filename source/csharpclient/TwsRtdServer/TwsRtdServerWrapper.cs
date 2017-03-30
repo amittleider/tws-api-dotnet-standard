@@ -210,8 +210,8 @@ namespace TwsRtdServer
 
         public void rerouteMktDepthReq(int reqId, int conId, string exchange) { }
         public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) { }
-        public void pnl(int reqId, double dailyPnL, double unrealizedPnL) { }
-        public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) { }
+        public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) { }
+        public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) { }
         public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done) { }
         public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done) { }
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done) { }
