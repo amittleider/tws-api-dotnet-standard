@@ -96,6 +96,7 @@ public class OrderDlg extends JDialog {
     private JTextField m_exerciseQuantityTextField = new JTextField("1");
     private JTextField m_overrideTextField = new JTextField("0");
     private JComboBox<String> m_marketDataTypeCombo = new JComboBox<>(MarketDataType.getFields());
+    private JCheckBox   m_keepUpToDateCheckBox = new JCheckBox();
 
     private JButton	    m_sharesAlloc = new JButton("FA Allocation Info...");
     private JButton 	m_comboLegs = new JButton( "Combo Legs");
@@ -118,6 +119,7 @@ public class OrderDlg extends JDialog {
 	public  String      m_genericTicks;
 	public  boolean     m_snapshotMktData;
 	public	boolean		m_reqSnapshotMktData;
+    public  boolean     m_keepUpToDate;   
 
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
@@ -259,6 +261,8 @@ public class OrderDlg extends JDialog {
         addGBComponent(pBackfill, m_UseRTH, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         addGBComponent(pBackfill, new JLabel( "Date Format Style (1 or 2)"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         addGBComponent(pBackfill, m_FormatDate, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
+        addGBComponent(pBackfill, new JLabel( "Keep up to date"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
+        addGBComponent(pBackfill, m_keepUpToDateCheckBox, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
 
         // create marketDataType panel
         IBGridBagPanel pMarketDataType = new IBGridBagPanel();
@@ -490,6 +494,7 @@ public class OrderDlg extends JDialog {
             m_exerciseAction = Integer.parseInt( m_exerciseActionTextField.getText() );
             m_exerciseQuantity = Integer.parseInt( m_exerciseQuantityTextField.getText() );
             m_override = Integer.parseInt( m_overrideTextField.getText() );
+            m_keepUpToDate = m_keepUpToDateCheckBox.isSelected();
 
             // set market depth rows
             m_marketDepthRows = Integer.parseInt( m_marketDepthRowTextField.getText() );

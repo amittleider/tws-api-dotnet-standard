@@ -84,6 +84,7 @@ class EDecoder implements ObjectInput {
     private static final int HISTORICAL_NEWS_END = 87;
     private static final int HEAD_TIMESTAMP = 88;
     private static final int HISTOGRAM_DATA = 89;
+    private static final int HISTORICAL_DATA_UPDATE = 90;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -256,19 +257,19 @@ class EDecoder implements ObjectInput {
             case MANAGED_ACCTS:
                 processManagedAcctsMsg();
                 break;
-            
+
             case RECEIVE_FA:
-              processReceiveFaMsg();
-              break;
-            
+                processReceiveFaMsg();
+                break;
+
             case HISTORICAL_DATA:
-              processHistoricalDataMsg();
-              break;
-            
+                processHistoricalDataMsg();
+                break;
+
             case SCANNER_PARAMETERS:
                 processScannerParametersMsg();
                 break;
-            
+
             case CURRENT_TIME:
                 processCurrentTimeMsg();
                 break;
@@ -412,6 +413,10 @@ class EDecoder implements ObjectInput {
             case HISTOGRAM_DATA:
             	processHistogramDataMsg();
             	break;
+            	
+            case HISTORICAL_DATA_UPDATE:
+                processHistoricalDataUpdateMsg();
+                break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -421,6 +426,20 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processHistoricalDataUpdateMsg() throws IOException {
+        int reqId = readInt();
+        int barCount = readInt();
+        String date = readStr();
+        double open = readDouble();
+        double close = readDouble();
+        double high = readDouble();
+        double low = readDouble();
+        double WAP = readDouble();
+        long volume = readLong();
+
+        m_EWrapper.historicalDataUpdate(reqId, new Bar(date, open, high, low, close, volume, barCount, WAP));
     }
 
     private void processHistogramDataMsg() throws IOException {
@@ -752,42 +771,52 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processHistoricalDataMsg() throws IOException {
-		int version = readInt();
-		  int reqId = readInt();
-		  String startDateStr = "";
-		  String endDateStr = "";
-		  
-		  if (version >= 2) {
-			  startDateStr = readStr();
-			  endDateStr = readStr();
-		  }
-		  int itemCount = readInt();
-		  for (int ctr = 0; ctr < itemCount; ctr++) {
-		    String date = readStr();
-		    double open = readDouble();
-		    double high = readDouble();
-		    double low = readDouble();
-		    double close = readDouble();
-		    int volume = readInt();
-		    double WAP = readDouble();
-		    String hasGaps = readStr();
-		    int barCount = -1;
-		    if (version >= 3) {
-		    	barCount = readInt();
-		    }
-		    m_EWrapper.historicalData(reqId, date, open, high, low, close, volume, barCount, WAP,
-                                      Boolean.valueOf(hasGaps));
-		  }
-		  // send end of dataset marker
-		  m_EWrapper.historicalDataEnd(reqId, startDateStr, endDateStr);
+	    int version = Integer.MAX_VALUE;
+	    
+	    if (m_serverVersion < EClient.MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+	        version = readInt();
+	    }
+	    
+	    int reqId = readInt();
+	    String startDateStr = "";
+	    String endDateStr = "";
+
+	    if (version >= 2) {
+	        startDateStr = readStr();
+	        endDateStr = readStr();
+	    }
+	    int itemCount = readInt();
+	    for (int ctr = 0; ctr < itemCount; ctr++) {
+	        String date = readStr();
+	        double open = readDouble();
+	        double high = readDouble();
+	        double low = readDouble();
+	        double close = readDouble();
+            long volume = m_serverVersion < EClient.MIN_SERVER_VER_SYNT_REALTIME_BARS ? readInt() : readLong();
+	        double WAP = readDouble();
+	        
+	        if (m_serverVersion < EClient.MIN_SERVER_VER_SYNT_REALTIME_BARS) {	        
+	            /*String hasGaps = */readStr();
+	        }
+	        
+	        int barCount = -1;
+	        
+	        if (version >= 3) {
+	            barCount = readInt();
+	        }
+	        
+	        m_EWrapper.historicalData(reqId, new Bar(date, open, high, low, close, volume, barCount, WAP));
+	    }
+	    // send end of dataset marker
+	    m_EWrapper.historicalDataEnd(reqId, startDateStr, endDateStr);
 	}
 
 	private void processReceiveFaMsg() throws IOException {
-		/*int version =*/ readInt();
-		  int faDataType = readInt();
-		  String xml = readStr();
+	    /*int version =*/ readInt();
+	    int faDataType = readInt();
+	    String xml = readStr();
 
-		  m_EWrapper.receiveFA(faDataType, xml);
+	    m_EWrapper.receiveFA(faDataType, xml);
 	}
 
 	private void processManagedAcctsMsg() throws IOException {

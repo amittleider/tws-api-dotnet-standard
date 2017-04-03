@@ -269,6 +269,19 @@ namespace IBSampleApp
             this.contractInfoTab = new System.Windows.Forms.TabControl();
             this.contractDetailsPage = new System.Windows.Forms.TabPage();
             this.contractDetailsGrid = new System.Windows.Forms.DataGridView();
+            this.conResSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLocalSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fundamentalsPage = new System.Windows.Forms.TabPage();
             this.fundamentalsOutput = new System.Windows.Forms.TextBox();
             this.optionChainPage = new System.Windows.Forms.TabPage();
@@ -618,6 +631,7 @@ namespace IBSampleApp
             this.conResAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResUnderSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResUnderSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbKeepUpToDate = new System.Windows.Forms.CheckBox();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -3053,6 +3067,82 @@ namespace IBSampleApp
             this.contractDetailsGrid.Size = new System.Drawing.Size(1216, 231);
             this.contractDetailsGrid.TabIndex = 0;
             // 
+            // conResSymbol
+            // 
+            this.conResSymbol.HeaderText = "Symbol";
+            this.conResSymbol.Name = "conResSymbol";
+            this.conResSymbol.ReadOnly = true;
+            // 
+            // conResLocalSymbol
+            // 
+            this.conResLocalSymbol.HeaderText = "Local Symbol";
+            this.conResLocalSymbol.Name = "conResLocalSymbol";
+            this.conResLocalSymbol.ReadOnly = true;
+            // 
+            // conResSecType
+            // 
+            this.conResSecType.HeaderText = "Type";
+            this.conResSecType.Name = "conResSecType";
+            this.conResSecType.ReadOnly = true;
+            // 
+            // conResCurrency
+            // 
+            this.conResCurrency.HeaderText = "Currency";
+            this.conResCurrency.Name = "conResCurrency";
+            this.conResCurrency.ReadOnly = true;
+            // 
+            // conResExchange
+            // 
+            this.conResExchange.HeaderText = "Exchange";
+            this.conResExchange.Name = "conResExchange";
+            this.conResExchange.ReadOnly = true;
+            // 
+            // conResPrimaryExch
+            // 
+            this.conResPrimaryExch.HeaderText = "Primary Exch.";
+            this.conResPrimaryExch.Name = "conResPrimaryExch";
+            this.conResPrimaryExch.ReadOnly = true;
+            // 
+            // conResLastTradeDate
+            // 
+            this.conResLastTradeDate.HeaderText = "lastTradeDate";
+            this.conResLastTradeDate.Name = "conResLastTradeDate";
+            this.conResLastTradeDate.ReadOnly = true;
+            // 
+            // conResMultiplier
+            // 
+            this.conResMultiplier.HeaderText = "Multiplier";
+            this.conResMultiplier.Name = "conResMultiplier";
+            this.conResMultiplier.ReadOnly = true;
+            // 
+            // conResStrike
+            // 
+            this.conResStrike.HeaderText = "Strike";
+            this.conResStrike.Name = "conResStrike";
+            this.conResStrike.ReadOnly = true;
+            // 
+            // conResRight
+            // 
+            this.conResRight.HeaderText = "P/C";
+            this.conResRight.Name = "conResRight";
+            this.conResRight.ReadOnly = true;
+            // 
+            // conResConId
+            // 
+            this.conResConId.HeaderText = "ConId";
+            this.conResConId.Name = "conResConId";
+            this.conResConId.ReadOnly = true;
+            // 
+            // conResMdSizeMultiplier
+            // 
+            this.conResMdSizeMultiplier.HeaderText = "MD Size Mult";
+            this.conResMdSizeMultiplier.Name = "conResMdSizeMultiplier";
+            // 
+            // conResAggGroup
+            // 
+            this.conResAggGroup.HeaderText = "Agg Group";
+            this.conResAggGroup.Name = "conResAggGroup";
+            // 
             // fundamentalsPage
             // 
             this.fundamentalsPage.BackColor = System.Drawing.Color.LightGray;
@@ -5465,7 +5555,7 @@ namespace IBSampleApp
             // 
             // histogram_button
             // 
-            this.histogram_button.Location = new System.Drawing.Point(826, 152);
+            this.histogram_button.Location = new System.Drawing.Point(862, 152);
             this.histogram_button.Name = "histogram_button";
             this.histogram_button.Size = new System.Drawing.Size(75, 23);
             this.histogram_button.TabIndex = 60;
@@ -5476,7 +5566,7 @@ namespace IBSampleApp
             // ReqSmartComponents_Button
             // 
             this.ReqSmartComponents_Button.Enabled = false;
-            this.ReqSmartComponents_Button.Location = new System.Drawing.Point(1057, 78);
+            this.ReqSmartComponents_Button.Location = new System.Drawing.Point(1093, 78);
             this.ReqSmartComponents_Button.Name = "ReqSmartComponents_Button";
             this.ReqSmartComponents_Button.Size = new System.Drawing.Size(75, 23);
             this.ReqSmartComponents_Button.TabIndex = 2;
@@ -5488,9 +5578,9 @@ namespace IBSampleApp
             // 
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.bboExchange_comboBox);
-            this.groupBox6.Location = new System.Drawing.Point(1048, 12);
+            this.groupBox6.Location = new System.Drawing.Point(1084, 12);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(176, 98);
+            this.groupBox6.Size = new System.Drawing.Size(136, 98);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Smart Components";
@@ -5516,7 +5606,7 @@ namespace IBSampleApp
             // groupBoxMarketDataType_MDT
             // 
             this.groupBoxMarketDataType_MDT.Controls.Add(this.comboBoxMarketDataType_MDT);
-            this.groupBoxMarketDataType_MDT.Location = new System.Drawing.Point(826, 93);
+            this.groupBoxMarketDataType_MDT.Location = new System.Drawing.Point(862, 93);
             this.groupBoxMarketDataType_MDT.Name = "groupBoxMarketDataType_MDT";
             this.groupBoxMarketDataType_MDT.Size = new System.Drawing.Size(214, 50);
             this.groupBoxMarketDataType_MDT.TabIndex = 59;
@@ -5539,7 +5629,7 @@ namespace IBSampleApp
             this.deepBookGroupBox.Controls.Add(this.deepBookEntries);
             this.deepBookGroupBox.Controls.Add(this.deepBookEntriesLabel);
             this.deepBookGroupBox.Controls.Add(this.deepBook_Button);
-            this.deepBookGroupBox.Location = new System.Drawing.Point(826, 6);
+            this.deepBookGroupBox.Location = new System.Drawing.Point(862, 6);
             this.deepBookGroupBox.Name = "deepBookGroupBox";
             this.deepBookGroupBox.Size = new System.Drawing.Size(214, 80);
             this.deepBookGroupBox.TabIndex = 58;
@@ -5852,6 +5942,7 @@ namespace IBSampleApp
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbKeepUpToDate);
             this.groupBox1.Controls.Add(this.headTimestamp_button);
             this.groupBox1.Controls.Add(this.contractMDRTH);
             this.groupBox1.Controls.Add(this.realTime_Button);
@@ -5868,7 +5959,7 @@ namespace IBSampleApp
             this.groupBox1.Controls.Add(this.hdRequest_TimeUnit);
             this.groupBox1.Location = new System.Drawing.Point(508, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 179);
+            this.groupBox1.Size = new System.Drawing.Size(325, 179);
             this.groupBox1.TabIndex = 54;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bar request";
@@ -6248,6 +6339,16 @@ namespace IBSampleApp
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
+            // 
+            // cbKeepUpToDate
+            // 
+            this.cbKeepUpToDate.AutoSize = true;
+            this.cbKeepUpToDate.Location = new System.Drawing.Point(221, 66);
+            this.cbKeepUpToDate.Name = "cbKeepUpToDate";
+            this.cbKeepUpToDate.Size = new System.Drawing.Size(102, 17);
+            this.cbKeepUpToDate.TabIndex = 62;
+            this.cbKeepUpToDate.Text = "Keep up to date";
+            this.cbKeepUpToDate.UseVisualStyleBackColor = true;
             // 
             // conResSymbol
             // 
@@ -7092,6 +7193,7 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn conResAggGroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSecType;
+        private System.Windows.Forms.CheckBox cbKeepUpToDate;
     }
 }
 

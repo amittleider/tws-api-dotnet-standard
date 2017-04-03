@@ -491,13 +491,13 @@ namespace IBSampleApp
 
         public event Action<HistoricalDataMessage> HistoricalData;
 
-        void EWrapper.historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        void EWrapper.historicalData(int reqId, Bar bar)
         {
             var tmp = HistoricalData;
 
             if (tmp != null)
                 new Task(() =>
-                                tmp(new HistoricalDataMessage(reqId, date, open, high, low, close, volume, count, WAP, hasGaps))
+                                tmp(new HistoricalDataMessage(reqId, bar))
                 ).RunSynchronously(scheduler);
         }
 
@@ -870,7 +870,7 @@ namespace IBSampleApp
 
         public event Action<int, Dictionary<int, KeyValuePair<string, char>>> SmartComponents;
 
-        public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        void EWrapper.smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
         {
             var tmp = SmartComponents;
 
@@ -882,7 +882,7 @@ namespace IBSampleApp
 
         public event Action<TickReqParamsMessage> TickReqParams;
 
-        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
             var tmp = TickReqParams;
 
@@ -961,6 +961,19 @@ namespace IBSampleApp
             if (tmp != null)
                 new Task(() =>
                                 tmp(new HistogramDataMessage(reqId, data))
+                ).RunSynchronously(scheduler);
+        }
+
+
+        public event Action<HistoricalDataMessage> HistoricalDataUpdate;
+
+        void EWrapper.historicalDataUpdate(int reqId, Bar bar)
+        {
+            var tmp = HistoricalDataUpdate;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(new HistoricalDataMessage(reqId, bar))
                 ).RunSynchronously(scheduler);
         }
     }

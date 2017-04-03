@@ -22,7 +22,7 @@ namespace TWSLib
         /**
          * @brief A contract data
          */
-        public ComContract Contract
+        ComContract Contract
         {
             get { return (ComContract)data.Contract; }
             set { if (data != null) data.Contract = (Contract)value; }

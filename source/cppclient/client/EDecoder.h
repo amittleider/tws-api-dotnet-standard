@@ -74,12 +74,13 @@ const int MIN_SERVER_VER_SERVICE_DATA_TYPE		= 120;
 const int MIN_SERVER_VER_AGG_GROUP				= 121;
 const int MIN_SERVER_VER_UNDERLYING_INFO		= 122;
 const int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP   = 123;
+const int MIN_SERVER_VER_SYNT_REALTIME_BARS		= 124;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_CANCEL_HEADTIMESTAMP;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_SYNT_REALTIME_BARS;
 
 
 // incoming msg id's
@@ -147,6 +148,7 @@ const int HISTORICAL_NEWS = 86;
 const int HISTORICAL_NEWS_END = 87;
 const int HEAD_TIMESTAMP = 88;
 const int HISTOGRAM_DATA = 89;
+const int HISTORICAL_DATA_UPDATE = 90;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -155,18 +157,6 @@ const char API_SIGN[4] = { 'A', 'P', 'I', '\0' }; // "API"
 
 // helper structures
 namespace {
-
-struct BarData {
-	std::string date;
-	double open;
-	double high;
-	double low;
-	double close;
-	int volume;
-	double average;
-	std::string hasGaps;
-	int barCount;
-};
 
 struct ScanData {
 	ContractDetails contract;
@@ -260,6 +250,7 @@ class TWSAPIDLLEXP EDecoder
 	const char* processHistoricalNewsEndMsg(const char* ptr, const char* endPtr);
 	const char* processHeadTimestampMsg(const char* ptr, const char* endPtr);
 	const char* processHistogramDataMsg(const char* ptr, const char* endPtr);
+    const char* processHistoricalDataUpdateMsg(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);

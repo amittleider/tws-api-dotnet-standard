@@ -1105,12 +1105,15 @@ const char* EDecoder::processReceiveFaMsg(const char* ptr, const char* endPtr) {
 }
 
 const char* EDecoder::processHistoricalDataMsg(const char* ptr, const char* endPtr) {
-	int version;
+    int version = INT_MAX;
 	int reqId;
 	std::string startDateStr;
 	std::string endDateStr;
 
-	DECODE_FIELD( version);
+    if (m_serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+	    DECODE_FIELD(version);
+    }
+
 	DECODE_FIELD( reqId);
 	DECODE_FIELD( startDateStr); // ver 2 field
 	DECODE_FIELD( endDateStr); // ver 2 field
@@ -1118,23 +1121,39 @@ const char* EDecoder::processHistoricalDataMsg(const char* ptr, const char* endP
 	int itemCount;
 	DECODE_FIELD( itemCount);
 
-	typedef std::vector<BarData> BarDataList;
+	typedef std::vector<Bar> BarDataList;
 	BarDataList bars;
 
 	bars.reserve( itemCount);
 
 	for( int ctr = 0; ctr < itemCount; ++ctr) {
+		Bar bar;
 
-		BarData bar;
-		DECODE_FIELD( bar.date);
+		DECODE_FIELD( bar.time);
 		DECODE_FIELD( bar.open);
 		DECODE_FIELD( bar.high);
 		DECODE_FIELD( bar.low);
 		DECODE_FIELD( bar.close);
-		DECODE_FIELD( bar.volume);
-		DECODE_FIELD( bar.average);
-		DECODE_FIELD( bar.hasGaps);
-		DECODE_FIELD( bar.barCount); // ver 3 field
+
+        int vol;
+
+        if (m_serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+		    DECODE_FIELD( vol);
+
+            bar.volume = vol;
+        } else {
+            DECODE_FIELD( bar.volume);
+        }
+
+		DECODE_FIELD( bar.wap);
+
+        if (m_serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS) {
+	        std::string hasGaps;
+
+		    DECODE_FIELD( hasGaps);
+        }
+
+		DECODE_FIELD( bar.count); // ver 3 field
 
 		bars.push_back(bar);
 	}
@@ -1143,14 +1162,36 @@ const char* EDecoder::processHistoricalDataMsg(const char* ptr, const char* endP
 
 	for( int ctr = 0; ctr < itemCount; ++ctr) {
 
-		const BarData& bar = bars[ctr];
-		m_pEWrapper->historicalData( reqId, bar.date, bar.open, bar.high, bar.low,
-			bar.close, bar.volume, bar.barCount, bar.average,
-			bar.hasGaps == "true");
+		const Bar& bar = bars[ctr];
+
+		m_pEWrapper->historicalData( reqId, bar);
 	}
 
 	// send end of dataset marker
 	m_pEWrapper->historicalDataEnd( reqId, startDateStr, endDateStr);
+
+	return ptr;
+}
+
+const char* EDecoder::processHistoricalDataUpdateMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	std::string startDateStr;
+	std::string endDateStr;
+
+	DECODE_FIELD( reqId);
+
+	Bar bar;
+
+	DECODE_FIELD(bar.count);
+	DECODE_FIELD(bar.time);
+	DECODE_FIELD(bar.open);
+	DECODE_FIELD(bar.close);
+	DECODE_FIELD(bar.high);
+	DECODE_FIELD(bar.low);
+	DECODE_FIELD(bar.wap);
+	DECODE_FIELD(bar.volume);
+
+	m_pEWrapper->historicalDataUpdate( reqId, bar);
 
 	return ptr;
 }
@@ -2292,6 +2333,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case HISTOGRAM_DATA:
 			ptr = processHistogramDataMsg(ptr, endPtr);
+			break;
+
+		case HISTORICAL_DATA_UPDATE:
+			ptr = processHistoricalDataUpdateMsg(ptr, endPtr);
 			break;
 
 		default:

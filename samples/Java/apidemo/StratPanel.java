@@ -124,7 +124,7 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 			if (queryLength == null) return;
 			String date = Bar.format( bar.time() * 1000);
 			int duration = m_bars.getInt() * queryLength.m_units;
-			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, date, duration, queryLength.m_unit, barSize, WhatToShow.TRADES, false, this);
+			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, date, duration, queryLength.m_unit, barSize, WhatToShow.TRADES, false, false, this);
 			m_req = true;
 		}
 		addBar( bar);
@@ -133,7 +133,7 @@ public class StratPanel extends StackPanel implements IHistoricalDataHandler, IR
 
 	private Map<Long, Bar> m_map = new TreeMap<>();
 	
-	@Override public void historicalData(Bar bar, boolean hasGaps) {
+	@Override public void historicalData(Bar bar) {
 		System.out.println( bar);
 		addBar( bar);
 	}

@@ -133,7 +133,7 @@ namespace IBApi
         {
         }
 
-        public virtual void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        public virtual void historicalData(int reqId, Bar bar)
         {
         }
 
@@ -288,6 +288,14 @@ namespace IBApi
 
 
         public void histogramData(int reqId, HistogramEntry[] data)
+        {
+        }
+
+        public void historicalDataUpdate(int reqId, Bar bar)
+        {
+        }
+
+        public void historicalDataUpdateEnd(int reqId, string start, string end)
         {
         }
     }

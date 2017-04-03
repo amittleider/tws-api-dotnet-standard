@@ -219,5 +219,8 @@
     <ClInclude Include="NewsProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

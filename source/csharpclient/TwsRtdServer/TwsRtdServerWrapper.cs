@@ -144,7 +144,8 @@ namespace TwsRtdServer
         public void execDetailsEnd(int reqId) { }
         public void commissionReport(CommissionReport commissionReport) { }
         public void fundamentalData(int reqId, string data) { }
-        public void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps) { }
+        public void historicalData(int reqId, Bar bar) { }
+        public void historicalDataUpdate(int reqId, Bar bar) { }
         public void historicalDataEnd(int reqId, string start, string end) { }
         public void marketDataType(int reqId, int marketDataType) { }
         public void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size) { }

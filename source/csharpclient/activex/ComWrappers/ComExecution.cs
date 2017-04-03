@@ -21,7 +21,7 @@ namespace TWSLib
         /**
          * @brief The API client's order Id.
          */
-        public int OrderId
+        int OrderId
         {
             get { return data != null ? data.OrderId : default(int); }
             set { if (data != null) data.OrderId = value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
          * @brief The API client identifier which placed the order which originated this execution.
          */
-        public int ClientId
+        int ClientId
         {
             get { return data != null ? data.ClientId : default(int); }
             set { if (data != null) data.ClientId = value; }
@@ -39,7 +39,7 @@ namespace TWSLib
         /**
          * @brief The execution's identifier.
          */
-        public string ExecId
+        string ExecId
         {
             get { return data != null ? data.ExecId : default(string); }
             set { if (data != null) data.ExecId = value; }
@@ -48,7 +48,7 @@ namespace TWSLib
         /**
          * @brief The execution's server time.
          */
-        public string Time
+        string Time
         {
             get { return data != null ? data.Time : default(string); }
             set { if (data != null) data.Time = value; }
@@ -57,7 +57,7 @@ namespace TWSLib
         /**
          * @brief The account to which the order was allocated.
          */
-        public string AcctNumber
+        string AcctNumber
         {
             get { return data != null ? data.AcctNumber : default(string); }
             set { if (data != null) data.AcctNumber = value; }
@@ -66,7 +66,7 @@ namespace TWSLib
         /**
          * @brief The exchange where the execution took place.
          */
-        public string Exchange
+        string Exchange
         {
             get { return data != null ? data.Exchange : default(string); }
             set { if (data != null) data.Exchange = value; }
@@ -76,7 +76,7 @@ namespace TWSLib
          * @brief Specifies if the transaction was buy or sale
          * BOT for bought, SLD for sold
          */
-        public string Side
+        string Side
         {
             get { return data != null ? data.Side : default(string); }
             set { if (data != null) data.Side = value; }
@@ -85,7 +85,7 @@ namespace TWSLib
         /**
          * @brief The number of shares filled.
          */
-        public double Shares
+        double Shares
         {
             get { return data != null ? data.Shares : default(double); }
             set { if (data != null) data.Shares = value; }
@@ -94,7 +94,7 @@ namespace TWSLib
         /**
          * @brief The order's execution price excluding commissions.
          */
-        public double Price
+        double Price
         {
             get { return data != null ? data.Price : default(double); }
             set { if (data != null) data.Price = value; }
@@ -103,7 +103,7 @@ namespace TWSLib
         /**
          * @brief The TWS order identifier.
          */
-        public int PermId
+        int PermId
         {
             get { return data != null ? data.PermId : default(int); }
             set { if (data != null) data.PermId = value; }
@@ -112,7 +112,7 @@ namespace TWSLib
         /**
          * @brief Identifies the position as one to be liquidated last should the need arise.
          */
-        public int Liquidation
+        int Liquidation
         {
             get { return data != null ? data.Liquidation : default(int); }
             set { if (data != null) data.Liquidation = value; }
@@ -122,7 +122,7 @@ namespace TWSLib
          * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public double CumQty
+        double CumQty
         {
             get { return data != null ? data.CumQty : default(double); }
             set { if (data != null) data.CumQty = value; }
@@ -132,7 +132,7 @@ namespace TWSLib
          * @brief Average price. 
          * Used in regular trades, combo trades and legs of the combo. Includes commissions.
          */
-        public double AvgPrice
+        double AvgPrice
         {
             get { return data != null ? data.AvgPrice : default(double); }
             set { if (data != null) data.AvgPrice = value; }
@@ -141,7 +141,7 @@ namespace TWSLib
         /**
          * @brief Allows API client to add a reference to an order.
          */
-        public string OrderRef
+        string OrderRef
         {
             get { return data != null ? data.OrderRef : default(string); }
             set { if (data != null) data.OrderRef = value; }
@@ -151,7 +151,7 @@ namespace TWSLib
          * @brief The Economic Value Rule name and the respective optional argument.
          * The two values should be separated by a colon. For example, aussieBond:YearsToExpiration=3. When the optional argument is not present, the first value will be followed by a colon.
          */
-        public string EvRule
+        string EvRule
         {
             get { return data != null ? data.EvRule : default(string); }
             set { if (data != null) data.EvRule = value; }
@@ -161,7 +161,7 @@ namespace TWSLib
          * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1.
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
          */
-        public double EvMultiplier
+        double EvMultiplier
         {
             get { return data != null ? data.EvMultiplier : default(double); }
             set { if (data != null) data.EvMultiplier = value; }
@@ -170,7 +170,7 @@ namespace TWSLib
         /**
          * @brief model code
          */
-        public string ModelCode
+        string ModelCode
         {
             get { return data != null ? data.ModelCode : default(string); }
             set { if (data != null) data.ModelCode = value; }

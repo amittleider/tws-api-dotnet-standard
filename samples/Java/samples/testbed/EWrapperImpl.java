@@ -222,10 +222,8 @@ public class EWrapperImpl implements EWrapper {
 	
 	//! [historicaldata]
 	@Override
-	public void historicalData(int reqId, String date, double open,
-			double high, double low, double close, int volume, int count,
-			double WAP, boolean hasGaps) {
-		System.out.println("HistoricalData. "+reqId+" - Date: "+date+", Open: "+open+", High: "+high+", Low: "+low+", Close: "+close+", Volume: "+volume+", Count: "+count+", WAP: "+WAP+", HasGaps: "+hasGaps);
+	public void historicalData(int reqId, Bar bar) {
+		System.out.println("HistoricalData. "+reqId+" - Date: "+bar.time()+", Open: "+bar.open()+", High: "+bar.high()+", Low: "+bar.low()+", Close: "+bar.close()+", Volume: "+bar.volume()+", Count: "+bar.count()+", WAP: "+bar.wap());
 	}
 	//! [historicaldata]
 	
@@ -568,4 +566,8 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 	//! [histogramData]
+    @Override
+    public void historicalDataUpdate(int reqId, Bar bar) {
+        System.out.println("HistoricalDataUpdate. "+reqId+" - Date: "+bar.time()+", Open: "+bar.open()+", High: "+bar.high()+", Low: "+bar.low()+", Close: "+bar.close()+", Volume: "+bar.volume()+", Count: "+bar.count()+", WAP: "+bar.wap());
+    }
 }

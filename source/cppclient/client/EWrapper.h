@@ -12,6 +12,7 @@
 #include "NewsProvider.h"
 #include "TickAttrib.h"
 #include "HistogramEntry.h"
+#include "bar.h"
 #include <string>
 #include <set>
 #include <map>
@@ -155,8 +156,7 @@ public:
    virtual void updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) = 0;
    virtual void managedAccounts( const std::string& accountsList) = 0;
    virtual void receiveFA(faDataType pFaDataType, const std::string& cxml) = 0;
-   virtual void historicalData(TickerId reqId, const std::string& date, double open, double high, 
-	   double low, double close, int volume, int barCount, double WAP, int hasGaps) = 0;
+   virtual void historicalData(TickerId reqId, Bar bar) = 0;
    virtual void historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) = 0;
    virtual void scannerParameters(const std::string& xml) = 0;
    virtual void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
@@ -201,6 +201,7 @@ public:
    virtual void historicalNewsEnd(int requestId, bool hasMore) = 0;
    virtual void headTimestamp(int reqId, const std::string& headTimestamp) = 0;
    virtual void histogramData(int reqId, HistogramDataVector data) = 0;
+   virtual void historicalDataUpdate(TickerId reqId, Bar bar) = 0;
 };
 
 

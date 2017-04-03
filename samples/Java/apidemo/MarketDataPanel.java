@@ -575,14 +575,15 @@ class MarketDataPanel extends JPanel {
 		final TCombo<BarSize> m_barSize = new TCombo<>( BarSize.values() );
 		final TCombo<WhatToShow> m_whatToShow = new TCombo<>( WhatToShow.values() );
 		final JCheckBox m_rthOnly = new JCheckBox();
+		final JCheckBox m_keepUpToDate = new JCheckBox();
 		
 		HistRequestPanel() { 		
-			m_end.setText( "20120101 12:00:00");
-			m_duration.setText( "1");
-			m_durationUnit.setSelectedItem( DurationUnit.WEEK);
-			m_barSize.setSelectedItem( BarSize._1_hour);
+			m_end.setText("20120101 12:00:00");
+			m_duration.setText("1");
+			m_durationUnit.setSelectedItem(DurationUnit.WEEK);
+			m_barSize.setSelectedItem(BarSize._1_hour);
 			
-			HtmlButton button = new HtmlButton( "Request historical data") {
+			HtmlButton button = new HtmlButton("Request historical data") {
 				@Override protected void actionPerformed() {
 					onHistorical();
 				}
@@ -595,26 +596,27 @@ class MarketDataPanel extends JPanel {
 			};
 			
 	    	VerticalPanel paramPanel = new VerticalPanel();
-			paramPanel.add( "End", m_end);
-			paramPanel.add( "Duration", m_duration);
-			paramPanel.add( "Duration unit", m_durationUnit);
-			paramPanel.add( "Bar size", m_barSize);
-			paramPanel.add( "What to show", m_whatToShow);
-			paramPanel.add( "RTH only", m_rthOnly);
+			paramPanel.add("End", m_end);
+			paramPanel.add("Duration", m_duration);
+			paramPanel.add("Duration unit", m_durationUnit);
+			paramPanel.add("Bar size", m_barSize);
+			paramPanel.add("What to show", m_whatToShow);
+			paramPanel.add("RTH only", m_rthOnly);
+			paramPanel.add("Keep up to date", m_keepUpToDate);
 			
 			VerticalPanel butPanel = new VerticalPanel();
-			butPanel.add( button);
+			butPanel.add(button);
 			butPanel.add(button2);
 			
 			JPanel rightPanel = new StackPanel();
-			rightPanel.add( paramPanel);
-			rightPanel.add( Box.createVerticalStrut( 20));
-			rightPanel.add( butPanel);
+			rightPanel.add(paramPanel);
+			rightPanel.add(Box.createVerticalStrut(20));
+			rightPanel.add(butPanel);
 			
-			setLayout( new BoxLayout( this, BoxLayout.X_AXIS) );
-			add( m_contractPanel);
-			add( Box.createHorizontalStrut(20) );
-			add( rightPanel);
+			setLayout(new BoxLayout(this, BoxLayout.X_AXIS) );
+			add(m_contractPanel);
+			add(Box.createHorizontalStrut(20) );
+			add(rightPanel);
 		}
 	
 		void onHistogram() {
@@ -629,7 +631,7 @@ class MarketDataPanel extends JPanel {
 		void onHistorical() {
 			m_contractPanel.onOK();
 			BarResultsPanel panel = new BarResultsPanel( true);
-			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, m_end.getText(), m_duration.getInt(), m_durationUnit.getSelectedItem(), m_barSize.getSelectedItem(), m_whatToShow.getSelectedItem(), m_rthOnly.isSelected(), panel);
+			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, m_end.getText(), m_duration.getInt(), m_durationUnit.getSelectedItem(), m_barSize.getSelectedItem(), m_whatToShow.getSelectedItem(), m_rthOnly.isSelected(), m_keepUpToDate.isSelected(), panel);
 			m_resultsPanel.addTab( "Historical " + m_contract.symbol(), panel, true, true);
 		}
 	}
@@ -872,7 +874,7 @@ class MarketDataPanel extends JPanel {
 			}
 		}
 
-		@Override public void historicalData(Bar bar, boolean hasGaps) {
+		@Override public void historicalData(Bar bar) {
 			m_rows.add( bar);
 		}
 		

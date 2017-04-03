@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountSummaryTags.cs" />
+    <Compile Include="Bar.cs" />
     <Compile Include="BitMask.cs" />
     <Compile Include="ComboLeg.cs" />
     <Compile Include="CommissionReport.cs" />

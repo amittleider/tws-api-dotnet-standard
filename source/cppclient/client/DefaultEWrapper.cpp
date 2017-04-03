@@ -40,8 +40,7 @@ void DefaultEWrapper::updateMktDepthL2(TickerId id, int position, std::string ma
 void DefaultEWrapper::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) { }
 void DefaultEWrapper::managedAccounts( const std::string& accountsList) { }
 void DefaultEWrapper::receiveFA(faDataType pFaDataType, const std::string& cxml) { }
-void DefaultEWrapper::historicalData(TickerId reqId, const std::string& date, double open, double high, 
-	   double low, double close, int volume, int barCount, double WAP, int hasGaps) { }
+void DefaultEWrapper::historicalData(TickerId reqId, Bar bar) { }
 void DefaultEWrapper::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { }
 void DefaultEWrapper::scannerParameters(const std::string& xml) { }
 void DefaultEWrapper::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
@@ -86,5 +85,6 @@ void DefaultEWrapper::historicalNews(int requestId, const std::string& time, con
 void DefaultEWrapper::historicalNewsEnd(int requestId, bool hasMore) { }
 void DefaultEWrapper::headTimestamp(int reqId, const std::string& headTimestamp) { }
 void DefaultEWrapper::histogramData(int reqId, HistogramDataVector data) { }
+void DefaultEWrapper::historicalDataUpdate(TickerId reqId, Bar bar) { }
 
 

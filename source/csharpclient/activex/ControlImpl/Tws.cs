@@ -518,7 +518,7 @@ namespace TWSLib
         void ITws.reqHistoricalData(int id, string symbol, string secType, string lastTradeDateOrContractMonth, double strike,
                    string right, string multiplier, string exchange, string curency, int isExpired,
                    string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
-                   int useRTH, int formatDate, ITagValueList options)
+                   int useRTH, int formatDate, bool keepUpToDate, ITagValueList options)
         {
             Contract contract = new Contract();
 
@@ -536,7 +536,7 @@ namespace TWSLib
             contract.ComboLegs = this.comboLegs;
 
             // request historical data
-            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, ITagValueListToListTagValue(options));
+            this.socket.reqHistoricalData(id, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, keepUpToDate, ITagValueListToListTagValue(options));
         }
 
         
@@ -806,9 +806,9 @@ namespace TWSLib
 
         
         void ITws.reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
-            string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options)
+            string duration, string barSize, string whatToShow, bool useRTH, int formatDate, bool keepUpToDate, ITagValueList options)
         {
-            this.socket.reqHistoricalData(tickerId, (Contract)(contract as ComContract), endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, ITagValueListToListTagValue(options));
+            this.socket.reqHistoricalData(tickerId, (Contract)(contract as ComContract), endDateTime, duration, barSize, whatToShow, useRTH ? 1 : 0, formatDate, keepUpToDate, ITagValueListToListTagValue(options));
         }
 
         
@@ -1420,13 +1420,13 @@ namespace TWSLib
                 InvokeIfRequired(t_receiveFA, faDataType, faXmlData);
         }
 
-        public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP, int hasGaps);
+        public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP);
         public event historicalDataDelegate historicalData;
-        void EWrapper.historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        void EWrapper.historicalData(int reqId, Bar bar)
         {
             var t_historicalData = this.historicalData;
             if (t_historicalData != null)
-                InvokeIfRequired(t_historicalData, reqId, date, open, high, low, close, volume, count, WAP, hasGaps ? 1 : 0);
+                InvokeIfRequired(t_historicalData, reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume, bar.Count, bar.WAP);
         }
 
         public delegate void historicalDataEndDelegate(int reqId, string startDate, string endDate);
@@ -1436,6 +1436,14 @@ namespace TWSLib
             var t_historicalDataEnd = this.historicalDataEnd;
             if (t_historicalDataEnd != null)
                 InvokeIfRequired(t_historicalDataEnd, reqId, start, end);
+        }
+
+        public event historicalDataDelegate historicalDataUpdate;
+        void EWrapper.historicalDataUpdate(int reqId, Bar bar)
+        {
+            var t_historicalUpdateData = this.historicalDataUpdate;
+            if (t_historicalUpdateData != null)
+                InvokeIfRequired(t_historicalUpdateData, reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume, bar.Count, bar.WAP);
         }
 
         public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, bool convertible, bool callable, bool putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, bool nextOptionPartial, string notes);

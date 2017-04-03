@@ -44,8 +44,7 @@ public interface EWrapper {
     void updateNewsBulletin( int msgId, int msgType, String message, String origExchange);
     void managedAccounts( String accountsList);
     void receiveFA(int faDataType, String xml);
-    void historicalData(int reqId, String date, double open, double high, double low,
-                      double close, int volume, int count, double WAP, boolean hasGaps);
+    void historicalData(int reqId, Bar bar);
     void scannerParameters(String xml);
     void scannerData(int reqId, int rank, ContractDetails contractDetails, String distance,
     		String benchmark, String projection, String legsStr);
@@ -92,5 +91,6 @@ public interface EWrapper {
     void historicalNewsEnd(int requestId, boolean hasMore);
 	void headTimestamp(int reqId, String headTimestamp);
 	void histogramData(int reqId, List<HistogramEntry> items);
+    void historicalDataUpdate(int reqId, Bar bar);
 }
 

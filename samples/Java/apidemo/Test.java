@@ -177,8 +177,8 @@ public class Test implements EWrapper {
 		System.out.println(EWrapperMsgGenerator.receiveFA( faDataType, xml));
 	}
 
-	@Override public void historicalData(int reqId, String date, double open, double high, double low, double close, int volume, int count, double WAP, boolean hasGaps) {
-		System.out.println(EWrapperMsgGenerator.historicalData( reqId, date, open, high, low, close, volume, count, WAP, hasGaps));
+	@Override public void historicalData(int reqId, Bar bar) {
+		System.out.println(EWrapperMsgGenerator.historicalData( reqId, bar.time(), bar.open(), bar.high(), bar.low(), bar.close(), bar.volume(), bar.count(), bar.wap()));
 	}
 
 	@Override public void scannerParameters(String xml) {
@@ -355,4 +355,9 @@ public class Test implements EWrapper {
 	public void histogramData(int reqId, List<HistogramEntry> items) {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
+
+    @Override
+    public void historicalDataUpdate(int reqId, Bar bar) {
+        historicalData(reqId, bar);
+    }
 }

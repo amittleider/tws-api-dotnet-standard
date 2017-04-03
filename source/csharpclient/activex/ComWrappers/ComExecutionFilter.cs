@@ -21,7 +21,7 @@ namespace TWSLib
         /**
          * @brief The API client which placed the order
          */
-        public int ClientId
+        int ClientId
         {
             get { return data != null ? data.ClientId : default(int); }
             set { if (data != null) data.ClientId = value; }
@@ -30,7 +30,7 @@ namespace TWSLib
         /**
         * @brief The account to which the order was allocated to
         */
-        public string AcctCode
+        string AcctCode
         {
             get { return data != null ? data.AcctCode : default(string); }
             set { if (data != null) data.AcctCode = value; }
@@ -40,7 +40,7 @@ namespace TWSLib
          * @brief Time from which the executions will be brough yyyymmdd hh:mm:ss
          * Only those executions reported after the specified time will be returned.
          */
-        public string Time
+        string Time
         {
             get { return data != null ? data.Time : default(string); }
             set { if (data != null) data.Time = value; }
@@ -49,7 +49,7 @@ namespace TWSLib
         /**
         * @brief The instrument's symbol
         */
-        public string Symbol
+        string Symbol
         {
             get { return data != null ? data.Symbol : default(string); }
             set { if (data != null) data.Symbol = value; }
@@ -58,7 +58,7 @@ namespace TWSLib
         /**
          * @brief The Contract's security's type (i.e. STK, OPT...)
          */
-        public string SecType
+        string SecType
         {
             get { return data != null ? data.SecType : default(string); }
             set { if (data != null) data.SecType = value; }
@@ -67,7 +67,7 @@ namespace TWSLib
         /**
          * @brief The exchange at which the execution was produced
          */
-        public string Exchange
+        string Exchange
         {
             get { return data != null ? data.Exchange : default(string); }
             set { if (data != null) data.Exchange = value; }
@@ -76,7 +76,7 @@ namespace TWSLib
         /**
         * @brief The Contract's side (Put or Call).
         */
-        public string Side
+        string Side
         {
             get { return data != null ? data.Side : default(string); }
             set { if (data != null) data.Side = value; }

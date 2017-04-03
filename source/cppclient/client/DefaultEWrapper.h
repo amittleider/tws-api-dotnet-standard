@@ -44,8 +44,7 @@ public:
    virtual void updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch);
    virtual void managedAccounts( const std::string& accountsList);
    virtual void receiveFA(faDataType pFaDataType, const std::string& cxml);
-   virtual void historicalData(TickerId reqId, const std::string& date, double open, double high, 
-	   double low, double close, int volume, int barCount, double WAP, int hasGaps);
+   virtual void historicalData(TickerId reqId, Bar bar);
    virtual void historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr);
    virtual void scannerParameters(const std::string& xml);
    virtual void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
@@ -90,5 +89,6 @@ public:
    virtual void historicalNewsEnd(int requestId, bool hasMore);
    virtual void headTimestamp(int reqId, const std::string& headTimestamp);
    virtual void histogramData(int reqId, HistogramDataVector data);
+   virtual void historicalDataUpdate(TickerId reqId, Bar bar);
 };
 

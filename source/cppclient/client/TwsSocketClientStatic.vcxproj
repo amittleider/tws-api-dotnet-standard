@@ -190,6 +190,7 @@
     <ResourceCompile Include="TwsSocketClient.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bar.h" />
     <ClInclude Include="ContractCondition.h" />
     <ClInclude Include="DepthMktDataDescription.h" />
     <ClInclude Include="EClientMsgSink.h" />

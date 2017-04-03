@@ -1241,7 +1241,7 @@ Friend Class MainForm
 
             m_api.reqHistoricalData(m_dlgOrder.orderId, m_contractInfo,
                 m_dlgOrder.histEndDateTime, m_dlgOrder.histDuration, m_dlgOrder.histBarSizeSetting,
-                m_dlgOrder.whatToShow, m_dlgOrder.useRTH, m_dlgOrder.formatDate, m_chartOptions)
+                m_dlgOrder.whatToShow, m_dlgOrder.useRTH, m_dlgOrder.formatDate, m_dlgOrder.keepUpToDate, m_chartOptions)
         End If
     End Sub
 
@@ -2017,11 +2017,7 @@ Friend Class MainForm
         Dim mktDataStr = "id=" & e.reqId & " date=" & e.date & " open=" & e.open & " high=" & e.high &
                      " low=" & e.low & " close=" & e.close & " volume=" & e.volume &
                      " barCount=" & e.count & " WAP=" & e.WAP
-        If (e.hasGaps <> 0) Then
-            mktDataStr = mktDataStr & " has gaps"
-        Else
-            mktDataStr = mktDataStr & " no gaps"
-        End If
+
         m_utils.addListItem(Utils.ListType.MarketData, mktDataStr)
 
         ' move into view

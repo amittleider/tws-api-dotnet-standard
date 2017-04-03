@@ -300,3 +300,5 @@ void TestCppClient::historicalNews(int requestId, const std::string& time, const
 void TestCppClient::historicalNewsEnd(int requestId, bool hasMore) {}
 void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {}
 void TestCppClient::histogramData(int reqId, HistogramDataVector data) {}
+void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) {}
+void TestCppClient::historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr) {}

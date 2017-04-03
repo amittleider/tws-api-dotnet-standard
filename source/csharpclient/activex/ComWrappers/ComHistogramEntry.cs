@@ -16,8 +16,8 @@ namespace TWSLib
     [ComVisible(true)]
     public class ComHistogramEntry : ComWrapper<IBApi.HistogramEntry>, IHistogramEntry
     {
-        public double Price { get { return data.Price; } set { data.Price = value; } }
-        public long Size { get { return data.Size; } set { data.Size = value; } }
+        double IHistogramEntry.Price { get { return data.Price; } set { data.Price = value; } }
+        long IHistogramEntry.Size { get { return data.Size; } set { data.Size = value; } }
 
         public static explicit operator IBApi.HistogramEntry(ComHistogramEntry ctv)
         {
