@@ -4,40 +4,40 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
  IB API Commercial License, as applicable. 
 """
 
-import sys 
-import socket 
+import sys
+import socket
 import struct
 import array
 import datetime
 import inspect
 import time
 import argparse
-import logging
 
-import IBApi.decoder
-import IBApi.wrapper
-from IBApi.common import * 
-from IBApi.ticktype import TickType, TickTypeEnum
-from IBApi.comm import *
-from IBApi.message import IN, OUT
-from IBApi.client import EClient
-from IBApi.connection import Connection
-from IBApi.reader import EReader
-from IBApi.utils import *
-from IBApi.execution import ExecutionFilter
-from IBApi.scanner import ScannerSubscription
-from IBApi.order_condition import *
-from IBApi.contract import *
-from IBApi.order import *
-from IBApi.order_state import *
+import os.path
+
+from ibapi.wrapper import EWrapper
+import ibapi.decoder
+import ibapi.wrapper
+from ibapi.common import *
+from ibapi.ticktype import TickType, TickTypeEnum
+from ibapi.comm import *
+from ibapi.message import IN, OUT
+from ibapi.client import EClient
+from ibapi.connection import Connection
+from ibapi.reader import EReader
+from ibapi.utils import *
+from ibapi.execution import ExecutionFilter
+from ibapi.scanner import ScannerSubscription
+from ibapi.order_condition import *
+from ibapi.contract import *
+from ibapi.order import *
+from ibapi.order_state import *
 
 #import pdb; pdb.set_trace()
 #import code; code.interact(local=locals())
- #import code; code.interact(local=dict(globals(), **locals()))
+#import code; code.interact(local=dict(globals(), **locals()))
 
-
-
-class TestApp(EClient, wrapper.EWrapper):
+class TestApp(EClient, EWrapper):
     def __init__(self):
         EClient.__init__(self, self)
         self.nextValidOrderId = None
@@ -46,10 +46,8 @@ class TestApp(EClient, wrapper.EWrapper):
     @iswrapper
     def nextValidId(self, orderId:int):
         super().nextValidId(orderId)
-
         logging.debug("setting nextValidOrderId: %d", orderId)
         self.nextValidOrderId = orderId
-
 
     def placeOneOrder(self):
         con = Contract()
@@ -73,35 +71,29 @@ class TestApp(EClient, wrapper.EWrapper):
         self.nextValidOrderId += 1
         return id
 
-
     @iswrapper
     def error(self, *args):
         super().error(*args)
-        print(crt_fn_name(), vars())
-
+        print(current_fn_name(), vars())
 
     @iswrapper
     def winError(self, *args):
         super().error(*args)
-        print(crt_fn_name(), vars())
- 
+        print(current_fn_name(), vars())
 
     @iswrapper
     def openOrder(self, orderId:OrderId, contract:Contract, order:Order, 
                   orderState:OrderState):
         super().openOrder(orderId, contract, order, orderState)
-        print(crt_fn_name(), vars())
+        print(current_fn_name(), vars())
 
         order.contract = contract
         self.permId2ord[order.permId] = order
 
-
     @iswrapper
     def openOrderEnd(self, *args):
-        super().openOrderEnd(*args)
-
+        super().openOrderEnd()
         logging.debug("Received %d openOrders", len(self.permId2ord))
-
 
     @iswrapper
     def orderStatus(self, orderId:OrderId , status:str, filled:float,
@@ -111,24 +103,20 @@ class TestApp(EClient, wrapper.EWrapper):
         super().orderStatus(orderId, status, filled, remaining,
             avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)
 
-
     @iswrapper
     def tickPrice(self, tickerId: TickerId , tickType: TickType, price: float, attrib):
         super().tickPrice(tickerId, tickType, price, attrib)
-        print(crt_fn_name(), tickerId, TickTypeEnum.to_str(tickType), price, attrib, file=sys.stderr)
+        print(current_fn_name(), tickerId, TickTypeEnum.to_str(tickType), price, attrib, file=sys.stderr)
 
 
     @iswrapper
     def tickSize(self, tickerId: TickerId, tickType: TickType, size: int):
         super().tickSize(tickerId, tickType, size)
-        print(crt_fn_name(), tickerId, TickTypeEnum.to_str(tickType), size, file=sys.stderr)
-
+        print(current_fn_name(), tickerId, TickTypeEnum.to_str(tickType), size, file=sys.stderr)
 
     @iswrapper
     def scannerParameters(self, xml:str):
         open('scanner.xml', 'w').write(xml)
-
-
 
 def main():
 
@@ -139,12 +127,13 @@ def main():
         dest="port", default = 4005, help="The TCP port to use")
     args = cmdLineParser.parse_args()
     print("Using args", args)
+
+    import logging
     logging.debug("Using args %s", args)
     #print(args)
                                                                                                                                            
     logging.debug("now is %s", datetime.datetime.now())
-    import logging
-    #logging.setLevel(logging.ERROR)
+    logging.getLogger().setLevel(logging.ERROR)
 
     #enable logging when member vars are assigned
     import utils 
@@ -194,7 +183,6 @@ def main():
 
     #app.reqNewsBulletins(allMsgs=True)
     #app.cancelNewsBulletins()
-
     #app.requestFA(FaDataTypeEnum.GROUPS)
 
     #app.reqHistoricalData(5001, contract, "20161215 16:00:00", "2 D",
@@ -203,7 +191,6 @@ def main():
                                  
     #app.reqFundamentalData(6001, contract, "ReportSnapshot")
     #app.cancelFundamentalData(6001)
-
     #app.queryDisplayGroups(7001)
     #app.subscribeToGroupEvents(7002, 1)
     #app.unsubscribeFromGroupEvents(7002)
@@ -215,16 +202,11 @@ def main():
     ss.scanCode = "TOP_PERC_LOSE"
     #app.reqScannerSubscription(8001, ss, [])
     #app.cancelScannerSubscription(8001)
-
     #app.reqRealTimeBars(9001, contract, 5, "TRADES", 0, [])
-    #app.cancelRealTimeBars(9001) 
-
+    #app.cancelRealTimeBars(9001)
     #app.reqSecDefOptParams(10001, "AMD", "", "STK", 4391)
-
     #app.reqSoftDollarTiers(11001)
-
     #app.reqFamilyCodes()
-
     #app.reqMatchingSymbols(12001, "AMD")
 
     contract = Contract()
