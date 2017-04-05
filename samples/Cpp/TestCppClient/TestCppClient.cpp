@@ -263,6 +263,9 @@ void TestCppClient::processMessages() {
 		case ST_REQHISTOGRAMDATA:
 			reqHistogramData();
 			break;
+		case ST_REROUTECFD:
+			rerouteCFDOperations();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1068,6 +1071,28 @@ void TestCppClient::reqHistogramData() {
 	m_state = ST_REQHISTOGRAMDATA_ACK;
 }
 
+void TestCppClient::rerouteCFDOperations()
+{
+    //! [reqmktdata]
+	m_pClient->reqMktData(16001, ContractSamples::USStockCFD(), "", false, false, TagValueListSPtr());
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+	m_pClient->reqMktData(16002, ContractSamples::EuropeanStockCFD(), "", false, false, TagValueListSPtr());
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+	m_pClient->reqMktData(16003, ContractSamples::CashCFD(), "", false, false, TagValueListSPtr());
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	//! [reqmktdata]
+
+    //! [reqmktdepth]
+	m_pClient->reqMktDepth(16004, ContractSamples::USStockCFD(), 10, TagValueListSPtr());
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+	m_pClient->reqMktDepth(16005, ContractSamples::EuropeanStockCFD(), 10, TagValueListSPtr());
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+	m_pClient->reqMktDepth(16006, ContractSamples::CashCFD(), 10, TagValueListSPtr());
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	//! [reqmktdepth]
+
+	m_state = ST_REROUTECFD_ACK;
+}
 
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
@@ -1082,7 +1107,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	m_state = ST_CONTRACTOPERATION;
+	//m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1107,6 +1132,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
+	m_state = ST_REROUTECFD;
 	//m_state = ST_PING;
 }
 
@@ -1569,6 +1595,20 @@ void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
 }
 //! [histogramData]
 
+//! [historicalDataUpdate]
 void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) { 
 	printf( "HistoricalDataUpdate. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
 }
+//! [historicalDataUpdate]
+
+//! [rerouteMktDataReq]
+void TestCppClient::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) {
+	printf( "Re-route market data request. ReqId: %d, ConId: %d, Exchange: %s\n", reqId, conid, exchange.c_str());
+}
+//! [rerouteMktDataReq]
+
+//! [rerouteMktDepthReq]
+void TestCppClient::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) {
+	printf( "Re-route market depth request. ReqId: %d, ConId: %d, Exchange: %s\n", reqId, conid, exchange.c_str());
+}
+//! [rerouteMktDepthReq]

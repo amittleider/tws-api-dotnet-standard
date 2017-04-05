@@ -85,6 +85,8 @@ class EDecoder implements ObjectInput {
     private static final int HEAD_TIMESTAMP = 88;
     private static final int HISTOGRAM_DATA = 89;
     private static final int HISTORICAL_DATA_UPDATE = 90;
+    private static final int REROUTE_MKT_DATA_REQ = 91;
+    private static final int REROUTE_MKT_DEPTH_REQ = 92;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -418,6 +420,14 @@ class EDecoder implements ObjectInput {
                 processHistoricalDataUpdateMsg();
                 break;
 
+            case REROUTE_MKT_DATA_REQ:
+                processRerouteMktDataReq();
+                break;
+
+            case REROUTE_MKT_DEPTH_REQ:
+                processRerouteMktDepthReq();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -428,6 +438,22 @@ class EDecoder implements ObjectInput {
         return m_messageReader.msgLength();
     }
 
+    private void processRerouteMktDepthReq() throws IOException {
+        int reqId = readInt();
+        int conId = readInt();
+        String exchange = readStr();
+
+        m_EWrapper.rerouteMktDepthReq(reqId, conId, exchange);
+    }
+    
+    private void processRerouteMktDataReq() throws IOException {
+        int reqId = readInt();
+        int conId = readInt();
+        String exchange = readStr();
+
+        m_EWrapper.rerouteMktDataReq(reqId, conId, exchange);
+    }
+    
     private void processHistoricalDataUpdateMsg() throws IOException {
         int reqId = readInt();
         int barCount = readInt();

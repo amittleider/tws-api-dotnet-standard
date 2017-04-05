@@ -54,7 +54,8 @@ public class Testbed {
                 //historicalDataRequests(wrapper.getClient());
                 //accountOperations(wrapper.getClient());
                 //newsOperations(wrapper.getClient());
-                marketDepthOperations(wrapper.getClient());
+                //marketDepthOperations(wrapper.getClient());
+                rerouteCFDOperations(wrapper.getClient());
                 
                 Thread.sleep(100000);
                 m_client.eDisconnect();
@@ -689,6 +690,27 @@ public class Testbed {
 		//** Exercising options ***
 		client.exerciseOptions(5003, ContractSamples.OptionWithTradingClass(), 1, 1, "", 1);
 		//! [exercise_options]
+	}
+
+	private static void rerouteCFDOperations(EClientSocket client) throws InterruptedException {
+
+		//! [reqmktdata]
+		client.reqMktData(16001, ContractSamples.USStockCFD(), "", false, false, null);
+		Thread.sleep(1000);
+		client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), "", false, false, null);
+		Thread.sleep(1000);
+		client.reqMktData(16003, ContractSamples.CashCFD(), "", false, false, null);
+		Thread.sleep(1000);
+		//! [reqmktdata]
+
+		//! [reqmktdepth]
+		client.reqMktDepth(16004, ContractSamples.USStockCFD(), 10, null);
+		Thread.sleep(1000);
+		client.reqMktDepth(16005, ContractSamples.EuropeanStockCFD(), 10, null);
+		Thread.sleep(1000);
+		client.reqMktDepth(16006, ContractSamples.CashCFD(), 10, null);
+		Thread.sleep(1000);
+		//! [reqmktdepth]
 	}
 	
 }

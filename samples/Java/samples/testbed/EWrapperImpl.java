@@ -566,8 +566,25 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
 	}
 	//! [histogramData]
-    @Override
+
+	//! [historicalDataUpdate]
+	@Override
     public void historicalDataUpdate(int reqId, Bar bar) {
         System.out.println("HistoricalDataUpdate. "+reqId+" - Date: "+bar.time()+", Open: "+bar.open()+", High: "+bar.high()+", Low: "+bar.low()+", Close: "+bar.close()+", Volume: "+bar.volume()+", Count: "+bar.count()+", WAP: "+bar.wap());
     }
+	//! [historicalDataUpdate]
+	
+	//! [rerouteMktDataReq]
+	@Override
+	public void rerouteMktDataReq(int reqId, int conId, String exchange) {
+		System.out.println(EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange));
+	}
+	//! [rerouteMktDataReq]
+	
+	//! [rerouteMktDepthReq]
+	@Override
+	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));
+	}
+	//! [rerouteMktDepthReq]
 }

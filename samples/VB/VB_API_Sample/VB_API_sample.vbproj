@@ -183,6 +183,8 @@
     <Compile Include="EventArgs\CommissionReportEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEndEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\RerouteMktDepthReqEventArgs.vb" />
+    <Compile Include="EventArgs\RerouteMktDataReqEventArgs.vb" />
     <Compile Include="EventArgs\HistoricalNewsEndEventArgs.vb" />
     <Compile Include="EventArgs\HistoricalNewsEventArgs.vb" />
     <Compile Include="EventArgs\NewsArticleEventArgs.vb" />

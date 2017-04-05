@@ -66,7 +66,7 @@ Module MainModule
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
         '*******************************************************
-        marketDepthOperations(client)
+        'marketDepthOperations(client)
 
         '*********************************************************
         '** Real time market data operations  - Real Time Bars ***
@@ -150,6 +150,10 @@ Module MainModule
         '***********************
         'histogramData(client)
 
+        '***********************
+        '*** CFD re-route    ***
+        '***********************
+        rerouteCFDOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -165,9 +169,9 @@ Module MainModule
         End While
 
         client.cancelMktData(13001)
-	 ' [reqsmartcomponents]
+        ' [reqsmartcomponents]
         client.reqSmartComponents(13002, wrapperImpl.BboExchange)
- 	' [reqsmartcomponents]
+        ' [reqsmartcomponents]
     End Sub
 
     Private Sub tickDataOperations(client As EClientSocket)
@@ -850,6 +854,27 @@ Module MainModule
 		'! [cancelHistogramData]
         client.cancelHistogramData(15001)
 		'! [cancelHistogramData]
+    End Sub
+
+    Private Sub rerouteCFDOperations(client As EClientSocket)
+        ' [reqmktdata]
+        client.reqMktData(16001, ContractSamples.USStockCFD(), String.Empty, False, False, Nothing)
+        Thread.Sleep(1000)
+        client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), String.Empty, False, False, Nothing)
+        Thread.Sleep(1000)
+        client.reqMktData(16003, ContractSamples.CashCFD(), String.Empty, False, False, Nothing)
+        Thread.Sleep(1000)
+        ' [reqmktdata]
+
+        ' [reqmktdepth]
+        client.reqMarketDepth(16004, ContractSamples.USStockCFD(), 10, Nothing)
+        Thread.Sleep(1000)
+        client.reqMarketDepth(16005, ContractSamples.EuropeanStockCFD(), 10, Nothing)
+        Thread.Sleep(1000)
+        client.reqMarketDepth(16006, ContractSamples.CashCFD(), 10, Nothing)
+        Thread.Sleep(1000)
+        ' [reqmktdepth]
+
     End Sub
 
 End Module

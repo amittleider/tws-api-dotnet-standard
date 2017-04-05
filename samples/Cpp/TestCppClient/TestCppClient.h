@@ -82,6 +82,8 @@ enum State {
 	ST_REQHEADTIMESTAMP_ACK,
 	ST_REQHISTOGRAMDATA,
 	ST_REQHISTOGRAMDATA_ACK,
+	ST_REROUTECFD,
+	ST_REROUTECFD_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -138,6 +140,7 @@ private:
 	void reqHistoricalNews();
 	void reqHeadTimestamp();
 	void reqHistogramData();
+	void rerouteCFDOperations();
 
 	void reqCurrentTime();
 
@@ -225,6 +228,8 @@ public:
 	void headTimestamp(int reqId, const std::string& headTimestamp);
 	void histogramData(int reqId, HistogramDataVector data);
     void historicalDataUpdate(TickerId reqId, Bar bar);
+	void rerouteMktDataReq(int reqId, int conId, const std::string& exchange);
+	void rerouteMktDepthReq(int reqId, int conId, const std::string& exchange);
 
 private:
 	//! [socket_declare]

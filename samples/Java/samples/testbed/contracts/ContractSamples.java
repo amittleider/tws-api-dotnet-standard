@@ -98,6 +98,39 @@ public class ContractSamples {
 		return contract;
 	}
 	
+    public static Contract USStockCFD() {
+        //! [usstockcfd]
+        Contract contract = new Contract();
+        contract.symbol("IBM");
+        contract.secType("CFD");
+        contract.currency("USD");
+        contract.exchange("SMART");
+        //! [usstockcfd]
+        return contract;
+    }
+
+    public static Contract EuropeanStockCFD() {
+        //! [europeanstockcfd]
+        Contract contract = new Contract();
+        contract.symbol("BMW");
+        contract.secType("CFD");
+        contract.currency("EUR");
+        contract.exchange("SMART");
+        //! [europeanstockcfd]
+        return contract;
+    }
+
+    public static Contract CashCFD() {
+        //! [cashcfd]
+        Contract contract = new Contract();
+        contract.symbol("EUR");
+        contract.secType("CFD");
+        contract.currency("USD");
+        contract.exchange("SMART");
+        //! [cashcfd]
+        return contract;
+    }
+	
 	public static Contract EuropeanStock() {
 		Contract contract = new Contract();
 		contract.symbol("SMTPC");

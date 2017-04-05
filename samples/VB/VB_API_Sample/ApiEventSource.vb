@@ -697,6 +697,26 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Private Sub EWrapper_RerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements EWrapper.rerouteMktDataReq
+        InvokeIfRequired(Sub()
+                             RaiseEvent RerouteMktDataReq(Me, New RerouteMktDataReqEventArgs With {
+                                                            .reqId = reqId,
+                                                            .conId = conId,
+                                                            .exchange = exchange
+                                                            })
+                         End Sub)
+    End Sub
+
+    Private Sub EWrapper_RerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements EWrapper.rerouteMktDepthReq
+        InvokeIfRequired(Sub()
+                             RaiseEvent RerouteMktDepthReq(Me, New RerouteMktDepthReqEventArgs With {
+                                                            .reqId = reqId,
+                                                            .conId = conId,
+                                                            .exchange = exchange
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -767,6 +787,8 @@ Friend Class ApiEventSource
     Event NewsArticle(sender As Object, e As NewsArticleEventArgs)
     Event HistoricalNews(sender As Object, e As HistoricalNewsEventArgs)
     Event HistoricalNewsEnd(sender As Object, e As HistoricalNewsEndEventArgs)
+    Event RerouteMktDataReq(sender As Object, e As RerouteMktDataReqEventArgs)
+    Event RerouteMktDepthReq(sender As Object, e As RerouteMktDepthReqEventArgs)
 
 #End Region
 

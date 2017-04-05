@@ -76,5 +76,7 @@ namespace IBApi
         public const int HeadTimestamp = 88;
         public const int HistogramData = 89;
         public const int HistogramDataUpdate = 90;
+        public const int RerouteMktDataReq = 91;
+        public const int RerouteMktDepthReq = 92;
     }
 }

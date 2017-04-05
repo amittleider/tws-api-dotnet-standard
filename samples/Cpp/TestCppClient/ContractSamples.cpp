@@ -88,6 +88,39 @@ Contract ContractSamples::CFD(){
 	return contract;
 }
 
+Contract ContractSamples::USStockCFD(){
+	//! [usstockcfdcontract]
+	Contract contract;
+	contract.symbol = "IBM";
+	contract.secType = "CFD";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [usstockcfdcontract]
+	return contract;
+}
+
+Contract ContractSamples::EuropeanStockCFD(){
+	//! [europeanstockcfdcontract]
+	Contract contract;
+	contract.symbol = "BMW";
+	contract.secType = "CFD";
+	contract.currency = "EUR";
+	contract.exchange = "SMART";
+	//! [europeanstockcfdcontract]
+	return contract;
+}
+
+Contract ContractSamples::CashCFD(){
+	//! [cashcfdcontract]
+	Contract contract;
+	contract.symbol = "EUR";
+	contract.secType = "CFD";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [cashcfdcontract]
+	return contract;
+}
+
 Contract ContractSamples::EuropeanStock(){
 	Contract contract;
     contract.symbol = "SMTPC";

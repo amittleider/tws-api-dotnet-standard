@@ -964,7 +964,6 @@ namespace IBSampleApp
                 ).RunSynchronously(scheduler);
         }
 
-
         public event Action<HistoricalDataMessage> HistoricalDataUpdate;
 
         void EWrapper.historicalDataUpdate(int reqId, Bar bar)
@@ -976,5 +975,30 @@ namespace IBSampleApp
                                 tmp(new HistoricalDataMessage(reqId, bar))
                 ).RunSynchronously(scheduler);
         }
+
+        public event Action<int, int, string> RerouteMktDataReq;
+
+        void EWrapper.rerouteMktDataReq(int reqId, int conId, string exchange)
+        {
+            var tmp = RerouteMktDataReq;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(reqId, conId, exchange)
+                ).RunSynchronously(scheduler);
+        }
+
+        public event Action<int, int, string> RerouteMktDepthReq;
+
+        void EWrapper.rerouteMktDepthReq(int reqId, int conId, string exchange)
+        {
+            var tmp = RerouteMktDepthReq;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(reqId, conId, exchange)
+                ).RunSynchronously(scheduler);
+        }
+
     }
 }

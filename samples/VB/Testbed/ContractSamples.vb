@@ -50,6 +50,39 @@ Namespace Samples
             Return contract
         End Function
 
+        Public Shared Function USStockCFD() As Contract
+            '! [usstockcfd]
+            Dim contract As Contract = New Contract
+            contract.Symbol = "IBM"
+            contract.SecType = "CFD"
+            contract.Currency = "USD"
+            contract.Exchange = "SMART"
+            '! [usstockcfd]
+            Return contract
+        End Function
+
+        Public Shared Function EuropeanStockCFD() As Contract
+            '! [europeanstockcfd]
+            Dim contract As Contract = New Contract
+            contract.Symbol = "BMW"
+            contract.SecType = "CFD"
+            contract.Currency = "EUR"
+            contract.Exchange = "SMART"
+            '! [europeanstockcfd]
+            Return contract
+        End Function
+
+        Public Shared Function CashCFD() As Contract
+            '! [cashcfd]
+            Dim contract As Contract = New Contract
+            contract.Symbol = "EUR"
+            contract.SecType = "CFD"
+            contract.Currency = "USD"
+            contract.Exchange = "SMART"
+            '! [cashcfd]
+            Return contract
+        End Function
+
         Public Shared Function EuropeanStock() As Contract
             Dim contract As Contract = New Contract
             contract.Symbol = "SIE"

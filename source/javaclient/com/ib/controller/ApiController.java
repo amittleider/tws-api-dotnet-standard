@@ -1641,4 +1641,13 @@ public class ApiController implements EWrapper {
     public void historicalDataUpdate(int reqId, com.ib.client.Bar bar) {
         historicalData(reqId, bar);
     }
+
+	@Override public void rerouteMktDataReq(int reqId, int conId, String exchange) {
+		show( "Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange);
+	}
+
+	@Override public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		show( "Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange);
+	}
+
 }

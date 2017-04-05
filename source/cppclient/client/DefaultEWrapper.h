@@ -90,5 +90,7 @@ public:
    virtual void headTimestamp(int reqId, const std::string& headTimestamp);
    virtual void histogramData(int reqId, HistogramDataVector data);
    virtual void historicalDataUpdate(TickerId reqId, Bar bar);
+   virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
+   virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
 };
 

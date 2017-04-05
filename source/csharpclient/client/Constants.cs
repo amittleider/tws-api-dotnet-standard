@@ -18,7 +18,7 @@ namespace IBApi
         public const int FaProfiles = 2;
         public const int FaAliases = 3;
         public const int MinVersion = 100;
-        public const int MaxVersion = MinServerVer.SYNT_REALTIME_BARS;
+        public const int MaxVersion = MinServerVer.CFD_REROUTE;
         public const int MaxMsgSize = 0x00FFFFFF;
     }
 }
