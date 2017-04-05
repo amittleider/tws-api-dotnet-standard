@@ -792,5 +792,22 @@ namespace IBApi
         * @sa EClient::reqHistogramData
         */
         void histogramData(int reqId, HistogramEntry[] data);
+
+        /**
+        * @brief - returns conId and exchange for market data request re-route
+        * @param reqId 
+        * @param conId
+        * @param exchange
+        */
+        void rerouteMktDataReq(int reqId, int conId, string exchange);
+
+        /**
+        * @brief - returns conId and exchange for market depth request re-route
+        * @param reqId 
+        * @param conId
+        * @param exchange
+        */
+        void rerouteMktDepthReq(int reqId, int conId, string exchange);
+
     }
 }

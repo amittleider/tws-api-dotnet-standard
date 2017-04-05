@@ -202,6 +202,8 @@ public:
    virtual void headTimestamp(int reqId, const std::string& headTimestamp) = 0;
    virtual void histogramData(int reqId, HistogramDataVector data) = 0;
    virtual void historicalDataUpdate(TickerId reqId, Bar bar) = 0;
+   virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange) = 0;
+   virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) = 0;
 };
 
 

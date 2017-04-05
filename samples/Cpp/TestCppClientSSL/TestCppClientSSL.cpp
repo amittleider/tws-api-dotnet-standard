@@ -249,8 +249,7 @@ void TestCppClient::updateMktDepthL2(TickerId id, int position, std::string mark
 void TestCppClient::updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch) {}
 void TestCppClient::managedAccounts( const std::string& accountsList) {}
 void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {}
-void TestCppClient::historicalData(TickerId reqId, const std::string& date, double open, double high,
-                                   double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
+void TestCppClient::historicalData(TickerId reqId, Bar bar) {}
 void TestCppClient::scannerParameters(const std::string& xml) {}
 void TestCppClient::historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr) { 
 	std::cout << "HistoricalDataEnd. ReqId: " << reqId << " - Start Date: " << startDateStr << ", End Date: " << endDateStr << std::endl;	
@@ -302,3 +301,5 @@ void TestCppClient::headTimestamp(int reqId, const std::string& headTimestamp) {
 void TestCppClient::histogramData(int reqId, HistogramDataVector data) {}
 void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) {}
 void TestCppClient::historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr) {}
+void TestCppClient::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) {}
+void TestCppClient::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) {}

@@ -86,5 +86,7 @@ void DefaultEWrapper::historicalNewsEnd(int requestId, bool hasMore) { }
 void DefaultEWrapper::headTimestamp(int reqId, const std::string& headTimestamp) { }
 void DefaultEWrapper::histogramData(int reqId, HistogramDataVector data) { }
 void DefaultEWrapper::historicalDataUpdate(TickerId reqId, Bar bar) { }
+void DefaultEWrapper::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) { }
+void DefaultEWrapper::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) { }
 
 

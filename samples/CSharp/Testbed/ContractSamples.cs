@@ -61,6 +61,42 @@ namespace Samples
             return contract;
         }
 
+        public static Contract USStockCFD()
+        {
+            //! [usstockcfd]
+            Contract contract = new Contract();
+            contract.Symbol = "IBM";
+            contract.SecType = "CFD";
+            contract.Currency = "USD";
+            contract.Exchange = "SMART";
+            //! [usstockcfd]
+            return contract;
+        }
+
+        public static Contract EuropeanStockCFD()
+        {
+            //! [europeanstockcfd]
+            Contract contract = new Contract();
+            contract.Symbol = "BMW";
+            contract.SecType = "CFD";
+            contract.Currency = "EUR";
+            contract.Exchange = "SMART";
+            //! [europeanstockcfd]
+            return contract;
+        }
+
+        public static Contract CashCFD()
+        {
+            //! [cashcfd]
+            Contract contract = new Contract();
+            contract.Symbol = "EUR";
+            contract.SecType = "CFD";
+            contract.Currency = "USD";
+            contract.Exchange = "SMART";
+            //! [cashcfd]
+            return contract;
+        }
+
         public static Contract EuropeanStock()
         {
             Contract contract = new Contract();

@@ -408,6 +408,16 @@ namespace IBApi
                         HistoricalDataUpdateEvent();
                         break;
                     }
+                case IncomingMessage.RerouteMktDataReq:
+                    {
+                        RerouteMktDataReqEvent();
+                        break;
+                    }
+                case IncomingMessage.RerouteMktDepthReq:
+                    {
+                        RerouteMktDepthReqEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -416,6 +426,24 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void RerouteMktDepthReqEvent()
+        {
+            var reqId = ReadInt();
+            var conId = ReadInt();
+            string exchange = ReadString();
+
+            eWrapper.rerouteMktDepthReq(reqId, conId, exchange);
+        }
+
+        private void RerouteMktDataReqEvent()
+        {
+            var reqId = ReadInt();
+            var conId = ReadInt();
+            string exchange = ReadString();
+
+            eWrapper.rerouteMktDataReq(reqId, conId, exchange);
         }
 
         private void HistoricalDataUpdateEvent()

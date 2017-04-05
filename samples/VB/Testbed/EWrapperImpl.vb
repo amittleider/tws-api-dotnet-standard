@@ -519,6 +519,18 @@ Namespace Samples
         End Sub
         '! [histogramData]
 
+        '! [rerouteMktDataReq]
+        Public Sub rerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDataReq
+            Console.WriteLine("Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}", reqId, conId, exchange)
+        End Sub
+        '! [rerouteMktDataReq]
+
+        '! [rerouteMktDepthReq]
+        Public Sub rerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDepthReq
+            Console.WriteLine("Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}", reqId, conId, exchange)
+        End Sub
+        '! [rerouteMktDepthReq]
+
     End Class
 
 End Namespace

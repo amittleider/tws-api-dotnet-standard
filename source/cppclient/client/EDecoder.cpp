@@ -2062,6 +2062,34 @@ const char* EDecoder::processHistogramDataMsg(const char* ptr, const char* endPt
 	return ptr;
 }
 
+const char* EDecoder::processRerouteMktDataReqMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	int conId;
+	std::string exchange;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(conId);
+	DECODE_FIELD(exchange);
+
+	m_pEWrapper->rerouteMktDataReq(reqId, conId, exchange);
+	
+	return ptr;
+}
+
+const char* EDecoder::processRerouteMktDepthReqMsg(const char* ptr, const char* endPtr) {
+	int reqId;
+	int conId;
+	std::string exchange;
+
+	DECODE_FIELD(reqId);
+	DECODE_FIELD(conId);
+	DECODE_FIELD(exchange);
+
+	m_pEWrapper->rerouteMktDepthReq(reqId, conId, exchange);
+	
+	return ptr;
+}
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -2337,6 +2365,14 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case HISTORICAL_DATA_UPDATE:
 			ptr = processHistoricalDataUpdateMsg(ptr, endPtr);
+			break;
+
+		case REROUTE_MKT_DATA_REQ:
+			ptr = processRerouteMktDataReqMsg(ptr, endPtr);
+			break;
+
+		case REROUTE_MKT_DEPTH_REQ:
+			ptr = processRerouteMktDepthReqMsg(ptr, endPtr);
 			break;
 
 		default:

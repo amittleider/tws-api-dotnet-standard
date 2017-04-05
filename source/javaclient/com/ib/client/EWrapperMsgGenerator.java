@@ -745,4 +745,13 @@ public class EWrapperMsgGenerator {
 		items.forEach(i -> sb.append("\tPrice: ").append(i.price).append(", Size: ").append(i.size).append("\n"));
 		return sb.toString();
 	}
+	
+	public static String rerouteMktDataReq(int reqId, int conId, String exchange) {
+		return "Re-route market data request. Req Id: " + reqId + ", Con Id: " + conId + ", Exchange: " + exchange;
+	}
+
+	public static String rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		return "Re-route market depth request. Req Id: " + reqId + ", Con Id: " + conId + ", Exchange: " + exchange;
+	}
+	
 }

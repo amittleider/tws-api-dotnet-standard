@@ -14,6 +14,9 @@ public:
 	static Contract EurGbpFx();
 	static Contract Index();
 	static Contract CFD();
+	static Contract USStockCFD();
+	static Contract EuropeanStockCFD();
+	static Contract CashCFD();
 	static Contract EuropeanStock();
 	static Contract OptionAtIse();
 	static Contract USStock();

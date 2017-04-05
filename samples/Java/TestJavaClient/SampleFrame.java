@@ -1529,4 +1529,18 @@ class SampleFrame extends JFrame implements EWrapper {
     public void historicalDataUpdate(int reqId, Bar bar) {
         historicalData(reqId, bar);
     }
+
+	@Override
+	public void rerouteMktDataReq(int reqId, int conId, String exchange) {
+		String msg = EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange);
+		
+		m_TWS.add(msg);		
+	}
+
+	@Override
+	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		String msg = EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange);
+		
+		m_TWS.add(msg);		
+	}
 }

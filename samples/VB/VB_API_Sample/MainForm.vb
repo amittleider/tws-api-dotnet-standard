@@ -3101,6 +3101,25 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
     End Sub
 
+    '--------------------------------------------------------------------------------
+    ' Re-route market data request
+    '--------------------------------------------------------------------------------
+    Private Sub m_apiEvents_RerouteMktDataReq(sender As ApiEventSource, e As RerouteMktDataReqEventArgs) Handles m_apiEvents.RerouteMktDataReq
+        Dim displayString = New StringBuilder
+
+        displayString.AppendFormat("Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}", e.reqId, e.conId, e.exchange)
+        m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Re-route market depth request
+    '--------------------------------------------------------------------------------
+    Private Sub m_apiEvents_RerouteMktDepthReq(sender As ApiEventSource, e As RerouteMktDepthReqEventArgs) Handles m_apiEvents.RerouteMktDepthReq
+        Dim displayString = New StringBuilder
+
+        displayString.AppendFormat("Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}", e.reqId, e.conId, e.exchange)
+        m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
+    End Sub
 
 #End Region
 

@@ -85,8 +85,7 @@ public:
 	void updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch);
 	void managedAccounts(const std::string& accountsList);
 	void receiveFA(faDataType pFaDataType, const std::string& cxml);
-	void historicalData(TickerId reqId, const std::string& date, double open, double high,
-		double low, double close, int volume, int barCount, double WAP, int hasGaps);
+	void historicalData(TickerId reqId, Bar bar);
 	void historicalDataEnd(int reqId, std::string startDateStr, std::string endDateStr);
 	void scannerParameters(const std::string& xml);
 	void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
@@ -133,6 +132,8 @@ public:
 	void histogramData(int reqId, HistogramDataVector data);
     void historicalDataUpdate(TickerId reqId, Bar bar);
     void historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr);
+    void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
+    void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
 
 private:
     EReaderOSSignal m_osSignal;

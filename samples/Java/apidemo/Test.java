@@ -360,4 +360,14 @@ public class Test implements EWrapper {
     public void historicalDataUpdate(int reqId, Bar bar) {
         historicalData(reqId, bar);
     }
+
+	@Override
+	public void rerouteMktDataReq(int reqId, int conId, String exchange) {
+		System.out.println(EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange));
+	}
+
+	@Override
+	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));
+	}
 }

@@ -60,7 +60,7 @@ namespace Samples
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
             /********************************************************/
-            marketDepthOperations(client);
+            //marketDepthOperations(client);
 
             /**********************************************************/
             /*** Real time market data operations  - Real Time Bars ***/
@@ -147,10 +147,35 @@ namespace Samples
             /***********************/
             //histogramData(client);
 
+            /***********************/
+            /*** CFD re-route    ***/
+            /***********************/
+            rerouteCFDOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void rerouteCFDOperations(EClientSocket client)
+        {
+            //! [reqmktdata]
+            client.reqMktData(16001, ContractSamples.USStockCFD(), string.Empty, false, false, null);
+            Thread.Sleep(1000);
+            client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), string.Empty, false, false, null);
+            Thread.Sleep(1000);
+            client.reqMktData(16003, ContractSamples.CashCFD(), string.Empty, false, false, null);
+            Thread.Sleep(1000);
+            //! [reqmktdata]
+
+            //! [reqmktdepth]
+            client.reqMarketDepth(16004, ContractSamples.USStockCFD(), 10, null);
+            Thread.Sleep(1000);
+            client.reqMarketDepth(16005, ContractSamples.EuropeanStockCFD(), 10, null);
+            Thread.Sleep(1000);
+            client.reqMarketDepth(16006, ContractSamples.CashCFD(), 10, null);
+            Thread.Sleep(1000);
+            //! [reqmktdepth]
         }
 
         private static void histogramData(EClientSocket client)

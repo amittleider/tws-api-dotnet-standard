@@ -182,6 +182,8 @@ namespace IBSampleApp
             ibClient.HistoricalNewsEnd += newsManager.UpdateUI;
             ibClient.HeadTimestamp += UpdateUI;
             ibClient.HistogramData += UpdateUI;
+            ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
+            ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
         }
 
         private void UpdateUI(HistogramDataMessage obj)

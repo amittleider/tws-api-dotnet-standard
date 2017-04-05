@@ -175,5 +175,9 @@ namespace TWSLib
         void headTimestamp(int reqId, string timestamp);
         [DispId(137)]
         void histogramData(int reqId, ComHistogramEntry[] data);
+        [DispId(138)]
+        void rerouteMktDataReq(int reqId, int conId, string exchange);
+        [DispId(139)]
+        void rerouteMktDepthReq(int reqId, int conId, string exchange);
     }
 }

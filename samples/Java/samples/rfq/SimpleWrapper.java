@@ -468,4 +468,16 @@ public class SimpleWrapper implements EWrapper {
         
     }
 
+	@Override
+	public void rerouteMktDataReq(int reqId, int conId, String exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

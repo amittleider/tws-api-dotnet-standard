@@ -572,15 +572,33 @@ namespace Samples
         }
         //! [histogramData]
 
-
+        //! [historicalDataUpdate]
         public void historicalDataUpdate(int reqId, Bar bar)
         {
             Console.WriteLine("HistoricalDataUpdate. " + reqId + " - Time: " + bar.Time + ", Open: " + bar.Open + ", High: " + bar.High + ", Low: " + bar.Low + ", Close: " + bar.Close + ", Volume: " + bar.Volume + ", Count: " + bar.Count + ", WAP: " + bar.WAP);
         }
+        //! [historicalDataUpdate]
 
+        //! [historicalDataUpdateEnd]
         public void historicalDataUpdateEnd(int reqId, string start, string end)
         {
             Console.WriteLine("HistoricalDataUpdateEnd - " + reqId + " from " + start + " to " + end);
         }
+        //! [historicalDataUpdateEnd]
+
+        //! [rerouteMktDataReq]
+        public void rerouteMktDataReq(int reqId, int conId, string exchange)
+        {
+            Console.WriteLine("Re-route market data request. Req Id: {0}, ConId: {1}, Exchange: {2}", reqId, conId, exchange);
+        }
+        //! [rerouteMktDataReq]
+
+        //! [rerouteMktDepthReq]
+        public void rerouteMktDepthReq(int reqId, int conId, string exchange)
+        {
+            Console.WriteLine("Re-route market depth request. Req Id: {0}, ConId: {1}, Exchange: {2}", reqId, conId, exchange);
+        }
+        //! [rerouteMktDepthReq]
+
     }
 }

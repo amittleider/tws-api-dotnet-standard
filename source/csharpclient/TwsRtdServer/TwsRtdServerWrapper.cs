@@ -184,5 +184,18 @@ namespace TwsRtdServer
         public void historicalNewsEnd(int requestId, bool hasMore) { }
         public void headTimestamp(int reqId, string headTimestamp) { }
         public void histogramData(int reqId, HistogramEntry[] data) { }
+
+        public void rerouteMktDataReq(int reqId, int conId, string exchange)
+        {
+            TwsRtdServerMktDataRequest mktDataRequest = m_connection.GetMktDataRequest(reqId);
+            String errorMsg = "Re-route market data request to conId:" + conId + " exchange:" + exchange;
+            if (mktDataRequest != null)
+            {
+                mktDataRequest.SetError(TwsRtdServerErrors.REQUEST_MKT_DATA_ERROR, errorMsg);
+            }
+            SetAllTopicsValues(reqId, "TwsRtdServer error: " + errorMsg);
+        }
+
+        public void rerouteMktDepthReq(int reqId, int conId, string exchange) { }
     }
 }

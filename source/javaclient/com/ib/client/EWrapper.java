@@ -92,5 +92,7 @@ public interface EWrapper {
 	void headTimestamp(int reqId, String headTimestamp);
 	void histogramData(int reqId, List<HistogramEntry> items);
     void historicalDataUpdate(int reqId, Bar bar);
+	void rerouteMktDataReq(int reqId, int conId, String exchange);
+	void rerouteMktDepthReq(int reqId, int conId, String exchange);
 }
 

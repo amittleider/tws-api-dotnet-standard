@@ -1967,6 +1967,26 @@ namespace TWSLib
                 InvokeIfRequired(tmp, reqId, data.Select(x => (ComHistogramEntry)x).ToArray());
         }
 
+        public delegate void rerouteMktDataReqDelegate(int reqId, int conId, string exchange);
+        public event rerouteMktDataReqDelegate rerouteMktDataReq;
+        void EWrapper.rerouteMktDataReq(int reqId, int conId, string exchange)
+        {
+            var tmp = this.rerouteMktDataReq;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, conId, exchange);
+        }
+
+        public delegate void rerouteMktDepthReqDelegate(int reqId, int conId, string exchange);
+        public event rerouteMktDepthReqDelegate rerouteMktDepthReq;
+        void EWrapper.rerouteMktDepthReq(int reqId, int conId, string exchange)
+        {
+            var tmp = this.rerouteMktDepthReq;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, conId, exchange);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
