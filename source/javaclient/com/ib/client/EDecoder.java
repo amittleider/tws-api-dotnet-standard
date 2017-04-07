@@ -2028,7 +2028,7 @@ class EDecoder implements ObjectInput {
 	public int read() throws IOException { throw new UnsupportedOperationException(); }
 	
 	@Override
-	public void close() throws IOException { throw new UnsupportedOperationException(); }
+	public void close() throws IOException { m_messageReader.close(); }
 	
 	@Override
 	public int available() throws IOException { throw new UnsupportedOperationException(); }
