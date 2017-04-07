@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace IBSampleApp.ui
 {
-    public class OrderManager
+    class OrderManager
     {        
         private OrderDialog orderDialog;
         private IBClient ibClient;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class MarketDataTypeMessage
+    class MarketDataTypeMessage
     {
         protected int requestId;
         protected int marketDataType;

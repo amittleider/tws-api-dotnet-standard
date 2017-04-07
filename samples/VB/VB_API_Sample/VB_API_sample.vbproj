@@ -120,6 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEventSource.vb" />
+    <Compile Include="EventArgs\DailyPnLSingleEventArgs.vb" />
+    <Compile Include="EventArgs\DailyPnLEventArgs.vb" />
     <Compile Include="dlgMarketRule.vb">
       <SubType>Form</SubType>
     </Compile>

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AdvisorDataMessage 
+    class AdvisorDataMessage 
     {
         private int faDataType;
         private string data;

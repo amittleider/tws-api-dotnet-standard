@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IBSampleApp
 {
-    public class IBClient : EWrapper
+    class IBClient : EWrapper
     {
         private EClientSocket clientSocket;
         private int nextOrderId;
@@ -1009,6 +1009,30 @@ namespace IBSampleApp
             if (tmp != null)
                 new Task(() =>
                                 tmp(new MarketRuleMessage(marketRuleId, priceIncrements))
+                ).RunSynchronously(scheduler);
+        }
+
+        public event Action<DailyPnLMessage> DailyPnL;
+
+        void EWrapper.dailyPnL(int reqId, double dailyPnL)
+        {
+            var tmp = DailyPnL;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(new DailyPnLMessage(reqId, dailyPnL))
+                ).RunSynchronously(scheduler);
+        }
+
+        public event Action<DailyPnLSingleMessage> DailyPnLSingle;
+
+        void EWrapper.dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        {
+            var tmp = DailyPnLSingle;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(new DailyPnLSingleMessage(reqId, pos, dailyPnL, value))
                 ).RunSynchronously(scheduler);
         }
     }

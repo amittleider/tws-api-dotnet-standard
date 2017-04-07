@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ContractDetailsEndMessage
+    class ContractDetailsEndMessage
     {
         public ContractDetailsEndMessage()
         {

@@ -28,44 +28,60 @@ public class Testbed {
 		m_client.eConnect("127.0.0.1", 7497, 0);
 		//! [connect]
 		//! [ereader]
-		final EReader reader = new EReader(m_client, m_signal);        
-                reader.start();
-				//An additional thread is created in this program design to empty the messaging queue
-                new Thread(() -> {
-                    while (m_client.isConnected()) {
-                        m_signal.waitForSignal();
-                        try {
-                            reader.processMsgs();
-                        } catch (Exception e) {
-                            System.out.println("Exception: "+e.getMessage());
-                        }
-                    }
-                }).start();
-                //! [ereader]
-				// A pause to give the application time to establish the connection
-				// In a production application, it would be best to wait for callbacks to confirm the connection is complete
-                Thread.sleep(1000);
-               
-                //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
-                //contractOperations(wrapper.getClient());
-                //hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
-                //testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
-                //bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
-                //bulletins(wrapper.getClient());
-                //reutersFundamentals(wrapper.getClient());
-                //marketDataType(wrapper.getClient());
-                //historicalDataRequests(wrapper.getClient());
-                //accountOperations(wrapper.getClient());
-                //newsOperations(wrapper.getClient());
-                //marketDepthOperations(wrapper.getClient());
-                //rerouteCFDOperations(wrapper.getClient());
-                //marketRuleOperations(wrapper.getClient());
-                tickDataOperations(wrapper.getClient());
-                
-                Thread.sleep(100000);
-                m_client.eDisconnect();
-        }
-	private static void orderOperations(EClientSocket client, int nextOrderId) throws InterruptedException {
+		final EReader reader = new EReader(m_client, m_signal);   
+		
+		reader.start();
+		//An additional thread is created in this program design to empty the messaging queue
+		new Thread(() -> {
+		    while (m_client.isConnected()) {
+		        m_signal.waitForSignal();
+		        try {
+		            reader.processMsgs();
+		        } catch (Exception e) {
+		            System.out.println("Exception: "+e.getMessage());
+		        }
+		    }
+		}).start();
+		//! [ereader]
+		// A pause to give the application time to establish the connection
+		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
+		Thread.sleep(1000);
+
+		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
+		//contractOperations(wrapper.getClient());
+		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
+		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
+		//bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
+		//bulletins(wrapper.getClient());
+		//reutersFundamentals(wrapper.getClient());
+		//marketDataType(wrapper.getClient());
+		//historicalDataRequests(wrapper.getClient());
+		//accountOperations(wrapper.getClient());
+		//newsOperations(wrapper.getClient());
+		//marketDepthOperations(wrapper.getClient());
+		//rerouteCFDOperations(wrapper.getClient());
+		//marketRuleOperations(wrapper.getClient());
+		//tickDataOperations(wrapper.getClient());
+		dailyPnLSingle(wrapper.getClient());
+
+		Thread.sleep(100000);
+		m_client.eDisconnect();
+	}
+
+	private static void dailyPnL(EClientSocket client) throws InterruptedException {
+        client.reqDailyPnL(17001, "DUC00042", "");
+        Thread.sleep(1000);
+        client.cancelDailyPnL(17001);        
+    }
+	
+    private static void dailyPnLSingle(EClientSocket client) throws InterruptedException
+    {
+        client.reqDailyPnLSingle(17001, "DUC00042", "", 268084);
+        Thread.sleep(1000);
+        client.cancelDailyPnLSingle(17001);
+    }
+
+    private static void orderOperations(EClientSocket client, int nextOrderId) throws InterruptedException {
 		
 		/*** Requesting the next valid id ***/
 		//! [reqids]

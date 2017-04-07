@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class TickOptionMessage : MarketDataMessage
+    class TickOptionMessage : MarketDataMessage
     {
         private double impliedVolatility;
         private double delta;

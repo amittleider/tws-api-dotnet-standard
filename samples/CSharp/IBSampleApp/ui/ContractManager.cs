@@ -11,7 +11,7 @@ using IBSampleApp.types;
 
 namespace IBSampleApp.ui
 {
-    public class ContractManager
+    class ContractManager
     {
         private IBClient ibClient;
         private TextBox fundamentals;

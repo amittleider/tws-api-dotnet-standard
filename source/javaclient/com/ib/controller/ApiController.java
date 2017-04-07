@@ -5,6 +5,7 @@ package com.ib.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -69,6 +70,8 @@ public class ApiController implements EWrapper {
 	private final Map<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
 	private final Map<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
 	private final Set<IMarketRuleHandler> m_marketRuleHandlers = new ConcurrentHashSet<>();
+    private final Map<Integer, IDailyPnLHandler> m_dailyPnLMap = new HashMap<>();
+    private final Map<Integer, IDailyPnLSingleHandler> m_dailyPnLSingleMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1672,4 +1675,84 @@ public class ApiController implements EWrapper {
         recEOM();
     }
 
+	
+	public interface IDailyPnLHandler {
+
+        void dailyPnL(int reqId, double dailyPnL);
+	    
+	}
+
+	public void reqDailyPnL(String account, IDailyPnLHandler handler) {
+	    if (!checkConnection())
+	        return;
+
+	    int reqId = m_reqId++;
+
+	    m_dailyPnLMap.put(reqId, handler);
+
+	    m_client.reqDailyPnL(reqId, "", account);
+	}
+
+	public void cancelDailyPnL(IDailyPnLHandler handler) {
+	    if (!checkConnection())
+	        return;
+
+	    Integer reqId = getAndRemoveKey(m_dailyPnLMap, handler);
+
+	    if (reqId != null) {
+	        m_client.cancelDailyPnL(reqId);
+	        sendEOM();
+	    }
+	}	
+
+    @Override
+    public void dailyPnL(int reqId, double dailyPnL) {
+        IDailyPnLHandler handler = m_dailyPnLMap.get(reqId);
+        
+        if (handler != null) {
+            handler.dailyPnL(reqId, dailyPnL);
+        }
+        
+        recEOM();
+    }
+    
+    public interface IDailyPnLSingleHandler {
+
+        void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
+        
+    }
+
+    public void reqDailyPnLSingle(String account, Contract contract, IDailyPnLSingleHandler handler) {
+        if (!checkConnection())
+            return;
+
+        int reqId = m_reqId++;
+
+        m_dailyPnLSingleMap.put(reqId, handler);
+
+        m_client.reqDailyPnLSingle(reqId, account, "", contract.conid());
+    }
+
+    public void cancelDailyPnLSingle(IDailyPnLSingleHandler handler) {
+        if (!checkConnection())
+            return;
+
+        Integer reqId = getAndRemoveKey(m_dailyPnLSingleMap, handler);
+
+        if (reqId != null) {
+            m_client.cancelDailyPnLSingle(reqId);
+            sendEOM();
+        }
+    }    
+
+    @Override
+    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+        IDailyPnLSingleHandler handler = m_dailyPnLSingleMap.get(reqId);
+        
+        if (handler != null) {
+            handler.dailyPnLSingle(reqId, pos, dailyPnL, value);
+        }
+        
+        recEOM();
+    }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ManagedAccountsMessage
+    class ManagedAccountsMessage
     {
         List<string> managedAccounts;
 

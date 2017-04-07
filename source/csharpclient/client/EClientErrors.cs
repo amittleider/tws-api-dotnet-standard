@@ -88,6 +88,10 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_CANCELHISTOGRAMDATA = new CodeMsgPair(568, "Cancel Request Histogram Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELHEADTIMESTAMP = new CodeMsgPair(569, "Cancel Head Time Stamp Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(570, "Request Market Rule Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQDAILYPNL = new CodeMsgPair(567, "Request Daily PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELDAILYPNL = new CodeMsgPair(568, "Cancel Daily PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQDAILYPNLSINGLE = new CodeMsgPair(567, "Request Daily PnL Single Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELDAILYPNLSINGLE = new CodeMsgPair(568, "Cancel Daily PnL Single Sending Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     

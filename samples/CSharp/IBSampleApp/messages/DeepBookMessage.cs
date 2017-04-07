@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class DeepBookMessage
+    class DeepBookMessage
     {
         private int requestId;
         private int position;

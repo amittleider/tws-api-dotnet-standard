@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace IBSampleApp.ui
 {
-    public partial class ConditionDialog : Form
+    partial class ConditionDialog : Form
     {
         Dictionary<RadioButton, Tuple<Panel, OrderConditionType>> radioMap = new Dictionary<RadioButton, Tuple<Panel, OrderConditionType>>();
         IEnumerable<RadioButton> radioButtons;

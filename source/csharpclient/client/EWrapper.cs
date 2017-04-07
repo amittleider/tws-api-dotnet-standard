@@ -821,5 +821,7 @@ namespace IBApi
         * @sa EClient::reqMarketRule
         */
         void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
+        void dailyPnL(int reqId, double dailyPnL);
+        void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
     }
 }

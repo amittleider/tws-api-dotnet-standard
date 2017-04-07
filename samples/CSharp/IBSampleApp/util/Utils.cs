@@ -6,7 +6,7 @@ using IBApi;
 
 namespace IBSampleApp.util
 {
-    public class Utils
+    class Utils
     {
         public static string UnixMillisecondsToString(long milliseconds, string dateFormat)
         {

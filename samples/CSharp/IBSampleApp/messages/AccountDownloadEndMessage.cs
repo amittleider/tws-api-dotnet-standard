@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class AccountDownloadEndMessage
+    class AccountDownloadEndMessage
     {
         private string account;
         

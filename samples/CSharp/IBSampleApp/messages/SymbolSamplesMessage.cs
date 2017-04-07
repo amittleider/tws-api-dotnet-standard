@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class SymbolSamplesMessage
+    class SymbolSamplesMessage
     {
         public int ReqId { get; private set; }
         public ContractDescription[] ContractDescriptions { get; private set; }

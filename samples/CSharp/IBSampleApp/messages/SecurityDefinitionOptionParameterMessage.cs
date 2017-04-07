@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class SecurityDefinitionOptionParameterMessage
+    class SecurityDefinitionOptionParameterMessage
     {
         public int ReqId { get; private set; }
         public string Exchange { get; private set; }

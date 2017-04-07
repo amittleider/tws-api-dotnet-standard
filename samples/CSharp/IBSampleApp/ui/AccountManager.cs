@@ -10,7 +10,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class AccountManager
+    class AccountManager
     {
         private const int ACCOUNT_ID_BASE = 50000000;
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class HistoricalDataEndMessage
+    class HistoricalDataEndMessage
     {
         private int requestId;
         private string startDate;

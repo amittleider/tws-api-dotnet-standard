@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerParametersMessage
+    class ScannerParametersMessage
     {
         private string xmlData;
         

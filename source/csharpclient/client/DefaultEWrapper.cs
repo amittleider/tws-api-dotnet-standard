@@ -306,8 +306,6 @@ namespace IBApi
         {
         }
 
-
-
         public virtual void rerouteMktDataReq(int reqId, int conId, string exchange)
         {
         }
@@ -318,6 +316,17 @@ namespace IBApi
 
         public virtual void marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
         {
+        }
+
+
+        public virtual void dailyPnL(int reqId, double dailyPnL)
+        {
+
+        }
+
+        public virtual void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        {
+
         }
     }
 }

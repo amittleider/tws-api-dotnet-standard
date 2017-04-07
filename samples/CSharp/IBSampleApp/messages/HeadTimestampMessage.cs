@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class HeadTimestampMessage
+    class HeadTimestampMessage
     {
         public int ReqId { get; private set; }
         public string HeadTimestamp { get; private set; }

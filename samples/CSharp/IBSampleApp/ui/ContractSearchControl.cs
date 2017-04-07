@@ -11,7 +11,7 @@ using IBApi;
 
 namespace IBSampleApp.ui
 {
-    public partial class ContractSearchControl : Control
+    partial class ContractSearchControl : Control
     {
         private ContractSearchDialog contractSearchDlg;
 

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace IBSampleApp.types
 {
-    public class IBType
+    class IBType
     {
         private string name;
         private object value;
@@ -35,7 +35,7 @@ namespace IBSampleApp.types
         }
     }
 
-    public class TriggerMethod
+    class TriggerMethod
     {
         public static object[] GetAll()
         {
@@ -50,7 +50,7 @@ namespace IBSampleApp.types
         public static IBType Midpoint = new IBType("Midpoint", 6);
     }
 
-    public class Rule80A
+    class Rule80A
     {
         public static object[] GetAll()
         {
@@ -65,7 +65,7 @@ namespace IBSampleApp.types
         public static IBType InstSmallNonArb = new IBType("InstSmallNonArb", "A");
     }
 
-    public class OCAType
+    class OCAType
     {
         public static object[] GetAll()
         {
@@ -77,7 +77,7 @@ namespace IBSampleApp.types
         public static IBType ReduceWithoutBlocking = new IBType("ReduceWithoutBlocking", 3);
     }
 
-    public class HedgeType
+    class HedgeType
     {
         public static object[] GetAll()
         {
@@ -90,7 +90,7 @@ namespace IBSampleApp.types
         public static IBType Pair = new IBType("Pair", "P");
     }
 
-    public class VolatilityType
+    class VolatilityType
     {
         public static object[] GetAll()
         {
@@ -101,7 +101,7 @@ namespace IBSampleApp.types
         public static IBType Annual = new IBType("Annual", 1);
     }
 
-    public class ReferencePriceType
+    class ReferencePriceType
     {
         public static object[] GetAll()
         {
@@ -112,7 +112,7 @@ namespace IBSampleApp.types
         public static IBType BidOrAsk = new IBType("BidOrAsk", 2);
     }
 
-    public class FaMethod
+    class FaMethod
     {
         public static object[] GetAll()
         {
@@ -125,7 +125,7 @@ namespace IBSampleApp.types
         public static IBType PctChange = new IBType("PctChange", "PctChange");
     }
 
-    public class ContractRight
+    class ContractRight
     {
         public static object[] GetAll()
         {
@@ -137,7 +137,7 @@ namespace IBSampleApp.types
         public static IBType Call = new IBType("Call", "C");
     }
 
-    public class FundamentalsReport
+    class FundamentalsReport
     {
         public static object[] GetAll()
         {
@@ -149,7 +149,7 @@ namespace IBSampleApp.types
         public static IBType RESC = new IBType("Analyst estimates", "RESC");
     }
 
-    public class FinancialAdvisorDataType
+    class FinancialAdvisorDataType
     {
         public static object[] GetAll()
         {
@@ -161,7 +161,7 @@ namespace IBSampleApp.types
         public static IBType Aliases = new IBType("Alias", 3);
     }
 
-    public class AllocationGroupMethod
+    class AllocationGroupMethod
     {
         //The DataTable will then properly populate the grid's ComboBox cell
         public static DataTable GetAsData()
@@ -182,7 +182,7 @@ namespace IBSampleApp.types
         public static IBType PercentChange = new IBType("Percent change", "PctChange");
     }
 
-    public class AllocationProfileType
+    class AllocationProfileType
     {
         public static DataTable GetAsData()
         {
@@ -196,7 +196,7 @@ namespace IBSampleApp.types
         }
     }
 
-    public class MarketDataType
+    class MarketDataType
     {
         public static object[] GetAll()
         {

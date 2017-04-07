@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class UpdateAccountTimeMessage
+    class UpdateAccountTimeMessage
     {
         private string timestamp;
         

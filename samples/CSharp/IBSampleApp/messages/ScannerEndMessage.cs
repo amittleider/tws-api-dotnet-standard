@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerEndMessage
+    class ScannerEndMessage
     {
         private int requestId;
 

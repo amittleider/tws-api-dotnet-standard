@@ -92,7 +92,7 @@ namespace IBApi
 
         /**
          * @brief Notifies whether or not a socket connection exists between the API client and the Host.
-		 * Note this does not check the connection between TWS/IBG and the IB server.
+         * Note this does not check the connection between TWS/IBG and the IB server.
          * @returns true if connection has been established, false if it has not.
          */
         public bool IsConnected()
@@ -982,7 +982,8 @@ namespace IBApi
 
             if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
             {
-                if (order.OrderType == "PEG BENCH") {
+                if (order.OrderType == "PEG BENCH")
+                {
                     paramsList.AddParameter(order.ReferenceContractId);
                     paramsList.AddParameter(order.IsPeggedChangeAmountDecrease);
                     paramsList.AddParameter(order.PeggedChangeAmount);
@@ -1085,7 +1086,7 @@ namespace IBApi
         /**
          * @brief Requests a specific account's summary.
          * This method will subscribe to the account summary as presented in the TWS' Account Summary tab. The data is returned at EWrapper::accountSummary
-		 * https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm
+         * https://www.interactivebrokers.com/en/software/tws/accountwindowtop.htm
          * @param reqId the unique request identifier.
          * @param group set to "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration.
          * @param tags a comma separated list with the desired tags:
@@ -1625,7 +1626,7 @@ namespace IBApi
          *      - 411 	Realtime Historical Volatility 
          *      - 456 	IBDividends
          * @param snapshot for users with corresponding real time market data subscriptions. A true value will return a one-time snapshot, while a false value will provide streaming data. 
-	 * @param regulatory snapshot requests NBBO snapshots for users which have "US Securities Snapshot Bundle" subscription but not corresponding Network A, B, or C subscription necessary for streaming 		 * market data. One-time snapshot of current market price that will incur a fee of 1 cent to the account per snapshot. 
+     * @param regulatory snapshot requests NBBO snapshots for users which have "US Securities Snapshot Bundle" subscription but not corresponding Network A, B, or C subscription necessary for streaming 		 * market data. One-time snapshot of current market price that will incur a fee of 1 cent to the account per snapshot. 
          * @sa cancelMktData, EWrapper::tickPrice, EWrapper::tickSize, EWrapper::tickString, EWrapper::tickEFP, EWrapper::tickGeneric, EWrapper::tickOptionComputation, EWrapper::tickSnapshotEnd
          */
         public void reqMktData(int tickerId, Contract contract, string genericTickList, bool snapshot, bool regulatorySnaphsot, List<TagValue> mktDataOptions)
@@ -1714,7 +1715,7 @@ namespace IBApi
             {
                 paramsList.AddParameter(genericTickList);
             }
-            
+
             if (serverVersion >= MinServerVer.SNAPSHOT_MKT_DATA)
             {
                 paramsList.AddParameter(snapshot);
@@ -2382,11 +2383,11 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQFAMILYCODES);
         }
 
-         /**
-         * @brief Requests matching symbols (implements 'google-like' suggestions as user starts typing symbol or contract name)
-         * @params pattern - user typed string pattern
-         * @sa EWrapper::symbolSamples
-         */
+        /**
+        * @brief Requests matching symbols (implements 'google-like' suggestions as user starts typing symbol or contract name)
+        * @params pattern - user typed string pattern
+        * @sa EWrapper::symbolSamples
+        */
         public void reqMatchingSymbols(int reqId, string pattern)
         {
             if (!CheckConnection())
@@ -2395,7 +2396,7 @@ namespace IBApi
             if (!CheckServerVersion(MinServerVer.REQ_MATCHING_SYMBOLS,
                 " It does not support mathing symbols requests."))
                 return;
-            
+
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 
@@ -2425,10 +2426,10 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMKTDEPTHEXCHANGES);
         }
 
-	/**
-	 * @brief Returns the mapping of single letter codes to exchange names given the mapping identifier
-	 * @sa EWrapper::smartComponents
-         */
+        /**
+         * @brief Returns the mapping of single letter codes to exchange names given the mapping identifier
+         * @sa EWrapper::smartComponents
+             */
         public void reqSmartComponents(int reqId, String bboExchange)
         {
             if (!CheckConnection())
@@ -2522,13 +2523,13 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
         }
 
-		/**
-		* @brief Returns the timestamp of earliest available historical data for a contract and data type
-		* @params tickerId - an identifier for the request
-		* @params contract - contract object for which head timestamp is being requested
-		* @params whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc
-		* @params useRTH - use regular trading hours only, 1 for yes or 0 for no
-		* @params formatDate - @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
+        /**
+        * @brief Returns the timestamp of earliest available historical data for a contract and data type
+        * @params tickerId - an identifier for the request
+        * @params contract - contract object for which head timestamp is being requested
+        * @params whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc
+        * @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+        * @params formatDate - @param formatDate set to 1 to obtain the bars' time as yyyyMMdd HH:mm:ss, set to 2 to obtain it like system time format in seconds
         * @sa headTimeStamp
         */
 
@@ -2591,6 +2592,15 @@ namespace IBApi
 		* @sa histogramData
 		*/
 			
+        /**
+        * @brief Returns data histogram of specified contract
+        * @params tickerId - an identifier for the request
+        * @params contract - Contract object for which histogram is being requested
+        * @params useRTH - use regular trading hours only, 1 for yes or 0 for no
+        * @params period - period of which data is being requested, e.g. "3 days"
+        * @sa histogramData
+        */
+
         public void reqHistogramData(int tickerId, Contract contract, bool useRTH, string period)
         {
             if (!CheckConnection())
@@ -2623,12 +2633,12 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTOGRAMDATA);
         }
 
-		/**
-		* @brief Cancels an active data histogram request
-		* @params tickerId - identifier specified in reqHistogramData request
-		* @sa reqHistogramData, histogramData
-		*/
-		
+        /**
+        * @brief Cancels an active data histogram request
+        * @params tickerId - identifier specified in reqHistogramData request
+        * @sa reqHistogramData, histogramData
+        */
+
         public void cancelHistogramData(int tickerId)
         {
             if (!CheckConnection())
@@ -2670,6 +2680,82 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETRULE);
         }
 
+        public void reqDailyPnL(int reqId, string account, string modelCode)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
+                    "  It does not support daily PnL requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.ReqDailyPnL);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNL);
+        }
+
+        public void cancelDailyPnL(int reqId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
+                    "  It does not support daily PnL requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelDailyPnL);
+            paramsList.AddParameter(reqId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELDAILYPNL);
+        }
+
+        public void reqDailyPnLSingle(int reqId, string account, string modelCode, int conId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
+                    "  It does not support daily PnL requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.ReqDailyPnLSingle);
+            paramsList.AddParameter(reqId);
+            paramsList.AddParameter(account);
+            paramsList.AddParameter(modelCode);
+            paramsList.AddParameter(conId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNLSINGLE);
+        }
+
+        public void cancelDailyPnLSingle(int reqId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
+                    "  It does not support daily PnL requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelDailyPnLSingle);
+            paramsList.AddParameter(reqId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNLSINGLE);
+        }
 
         protected bool CheckServerVersion(int requiredVersion)
         {
@@ -3063,7 +3149,7 @@ namespace IBApi
             }
 
             return true;
-        }        
+        }
 
         private bool IsEmpty(string str)
         {

@@ -109,6 +109,16 @@ void TestCppClient::processMessages() {
     /* Below are few quick-to-test examples on the IB API functions grouped by functionality. Uncomment the relevant methods. */
     /*****************************************************************/
 	switch (m_state) {
+		case ST_DAILYPNLSINGLE:
+			dailyPnLSingleOperation();
+			break;
+		case ST_DAILYPNLSINGLE_ACK:
+			break;
+		case ST_DAILYPNL:
+			dailyPnLOperation();
+			break;
+		case ST_DAILYPNL_ACK:
+			break;
 		case ST_TICKDATAOPERATION:
 			tickDataOperation();
 			break;
@@ -318,6 +328,28 @@ void TestCppClient::reqCurrentTime()
 	m_state = ST_PING_ACK;
 
 	m_pClient->reqCurrentTime();
+}
+
+void TestCppClient::dailyPnLOperation()
+{
+    m_pClient->reqDailyPnL(7001, "DUC00042", "");
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    m_pClient->cancelDailyPnL(7001);
+
+    m_state = ST_DAILYPNL_ACK;
+}
+
+void TestCppClient::dailyPnLSingleOperation()
+{
+    m_pClient->reqDailyPnLSingle(7002, "DUC00042", "", 268084);
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    m_pClient->cancelDailyPnLSingle(7002);
+
+    m_state = ST_DAILYPNLSINGLE_ACK;
 }
 
 void TestCppClient::tickDataOperation()
@@ -1136,7 +1168,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-	m_state = ST_TICKDATAOPERATION; 
+    m_state = ST_DAILYPNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
@@ -1659,3 +1691,10 @@ void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncremen
 	}
 }
 //! [marketRule]
+void TestCppClient::dailyPnL(int reqId, double dailyPnL) {
+	printf("Daily PnL. ReqId: %d, daily PnL: %f\n", reqId, dailyPnL);
+}
+
+void TestCppClient::dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+	printf("Daily PnL Single. ReqId: %d, pos: %f, daily PnL: %f, value: %f\n", reqId, pos, dailyPnL, value);
+}

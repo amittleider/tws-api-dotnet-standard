@@ -10,7 +10,7 @@ using IBSampleApp.types;
 
 namespace IBSampleApp.util
 {
-    public class XmlHelper
+    class XmlHelper
     {
         private static string LIST_OF_ALIASES = "ListOfAccountAliases";
         private static string LIST_OF_GROUPS = "ListOfGroups";

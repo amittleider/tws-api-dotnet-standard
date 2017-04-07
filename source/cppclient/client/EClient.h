@@ -175,6 +175,10 @@ const int REQ_HISTOGRAM_DATA			= 88;
 const int CANCEL_HISTOGRAM_DATA			= 89;
 const int CANCEL_HEAD_TIMESTAMP			= 90;
 const int REQ_MARKET_RULE				= 91;
+const int REQ_DAILY_PNL     			= 92;
+const int CANCEL_DAILY_PNL				= 93;
+const int REQ_DAILY_PNL_SINGLE			= 94;
+const int CANCEL_DAILY_PNL_SINGLE		= 95;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -238,10 +242,10 @@ public:
 	// access to protected variables
 	EWrapper * getWrapper() const;
 protected:
-	void setClientId( int clientId);
-	void setExtraAuth( bool extraAuth);
-	void setHost( const std::string& host);
-	void setPort( unsigned port);
+	void setClientId(int clientId);
+	void setExtraAuth(bool extraAuth);
+	void setHost(const std::string& host);
+	void setPort(unsigned port);
 
 public:
 
@@ -270,7 +274,7 @@ public:
 	void reqManagedAccts();
 	void requestFA(faDataType pFaDataType);
 	void replaceFA(faDataType pFaDataType, const std::string& cxml);
-	void reqHistoricalData( TickerId id, const Contract& contract,
+	void reqHistoricalData(TickerId id, const Contract& contract,
 		const std::string& endDateTime, const std::string& durationStr,
 		const std::string&  barSizeSetting, const std::string& whatToShow,
 		int useRTH, int formatDate, bool keepUpToDate, const TagValueListSPtr& chartOptions);
@@ -295,20 +299,20 @@ public:
 	void reqMarketDataType(int marketDataType);
 	void reqPositions();
 	void cancelPositions();
-	void reqAccountSummary( int reqId, const std::string& groupName, const std::string& tags);
-	void cancelAccountSummary( int reqId);
-	void verifyRequest( const std::string& apiName, const std::string& apiVersion);
-	void verifyMessage( const std::string& apiData);
-	void verifyAndAuthRequest( const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey);
-	void verifyAndAuthMessage( const std::string& apiData, const std::string& xyzResponse);
-	void queryDisplayGroups( int reqId);
-	void subscribeToGroupEvents( int reqId, int groupId);
-	void updateDisplayGroup( int reqId, const std::string& contractInfo);
-	void unsubscribeFromGroupEvents( int reqId);
-	void reqPositionsMulti( int reqId, const std::string& account, const std::string& modelCode);
-	void cancelPositionsMulti( int reqId);
-	void reqAccountUpdatessMulti( int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV);
-	void cancelAccountUpdatesMulti( int reqId);
+	void reqAccountSummary(int reqId, const std::string& groupName, const std::string& tags);
+	void cancelAccountSummary(int reqId);
+	void verifyRequest(const std::string& apiName, const std::string& apiVersion);
+	void verifyMessage(const std::string& apiData);
+	void verifyAndAuthRequest(const std::string& apiName, const std::string& apiVersion, const std::string& opaqueIsvKey);
+	void verifyAndAuthMessage(const std::string& apiData, const std::string& xyzResponse);
+	void queryDisplayGroups(int reqId);
+	void subscribeToGroupEvents(int reqId, int groupId);
+	void updateDisplayGroup(int reqId, const std::string& contractInfo);
+	void unsubscribeFromGroupEvents(int reqId);
+	void reqPositionsMulti(int reqId, const std::string& account, const std::string& modelCode);
+	void cancelPositionsMulti(int reqId);
+	void reqAccountUpdatessMulti(int reqId, const std::string& account, const std::string& modelCode, bool ledgerAndNLV);
+	void cancelAccountUpdatesMulti(int reqId);
 	void reqSecDefOptParams(int reqId, const std::string& underlyingSymbol, const std::string& futFopExchange, const std::string& underlyingSecType, int underlyingConId);
 	void reqSoftDollarTiers(int reqId);
 	void reqFamilyCodes();
@@ -324,6 +328,10 @@ public:
 	void cancelHistogramData(int reqId);
 	void reqMarketRule(int marketRuleId);
 
+	void reqDailyPnL(int reqId, const std::string& account, const std::string& modelCode);
+	void cancelDailyPnL(int reqId);
+	void reqDailyPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId);
+	void cancelDailyPnLSingle(int reqId);
 private:
 
 	virtual int receive(char* buf, size_t sz) = 0;

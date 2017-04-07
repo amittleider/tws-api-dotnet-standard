@@ -89,5 +89,6 @@ void DefaultEWrapper::historicalDataUpdate(TickerId reqId, Bar bar) { }
 void DefaultEWrapper::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) { }
 void DefaultEWrapper::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) { }
 void DefaultEWrapper::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) { }
-
+void DefaultEWrapper::dailyPnL(int reqId, double dailyPnL) { }
+void DefaultEWrapper::dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) { }
 

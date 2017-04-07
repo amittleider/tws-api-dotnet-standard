@@ -363,6 +363,14 @@ namespace TWSLib
         void cancelHeadTimestamp(int tickerId);
         [DispId(226)]
         void reqMarketRule(int marketRuleId);
+        [DispId(227)]
+        void reqDailyPnL(int reqId, string account, string modelCode);
+        [DispId(228)]
+        void cancelDailyPnL(int reqId);
+        [DispId(229)]
+        void reqDailyPnLSingle(int reqId, string account, string modelCode, int conId);
+        [DispId(230)]
+        void cancelDailyPnLSingle(int reqId);
 
         #endregion
     }

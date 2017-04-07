@@ -77,5 +77,9 @@ namespace IBApi
         CancelHistogramData = 89,
         CancelHeadTimestamp = 90,
         RequestMarketRule = 91,
+        ReqDailyPnL = 92,
+        CancelDailyPnL = 93,
+        ReqDailyPnLSingle = 94,
+        CancelDailyPnLSingle = 95,
     }
 }

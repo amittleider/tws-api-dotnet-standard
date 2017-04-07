@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.types
 {
-    public class AccountAlias
+    class AccountAlias
     {
         private string account;
         private string alias;
@@ -42,7 +42,7 @@ namespace IBSampleApp.types
         }
     }
 
-    public class AdvisorGroup
+    class AdvisorGroup
     {
         private string name;
         private string defaultMethod;
@@ -106,7 +106,7 @@ namespace IBSampleApp.types
         }
     }
 
-    public class AllocationProfile
+    class AllocationProfile
     {
         private string name;
         private int type;
@@ -184,7 +184,7 @@ namespace IBSampleApp.types
         }
     }
 
-    public class Allocation
+    class Allocation
     {
         private string account;
         private double amount;

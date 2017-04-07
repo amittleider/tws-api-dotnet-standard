@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class AccountUpdateMultiMessage 
+    class AccountUpdateMultiMessage 
     {
         private int reqId;
         private string account;

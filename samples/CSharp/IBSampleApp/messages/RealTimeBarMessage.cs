@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class RealTimeBarMessage : HistoricalDataMessage
+    class RealTimeBarMessage : HistoricalDataMessage
     {
         private long timestamp;
         private long longVolume;

@@ -11,7 +11,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class AdvisorManager
+    class AdvisorManager
     {
         private IBClient ibClient;
         private DataGridView aliasesGrid;

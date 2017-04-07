@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class FundamentalsMessage
+    class FundamentalsMessage
     {
         private string data;
         

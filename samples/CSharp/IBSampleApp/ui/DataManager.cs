@@ -9,7 +9,7 @@ using IBApi;
 
 namespace IBSampleApp.ui
 {
-    public abstract class DataManager
+    abstract class DataManager
     {
         protected Control uiControl;
         protected IBClient ibClient;

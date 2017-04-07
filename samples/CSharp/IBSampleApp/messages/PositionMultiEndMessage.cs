@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class PositionMultiEndMessage 
+    class PositionMultiEndMessage 
     {
         private int reqId;
         

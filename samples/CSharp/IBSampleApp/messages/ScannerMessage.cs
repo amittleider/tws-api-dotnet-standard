@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ScannerMessage
+    class ScannerMessage
     {
         private int requestId;
         private int rank;
