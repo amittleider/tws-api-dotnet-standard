@@ -522,7 +522,7 @@ class ContractSamples:
 
 
 def Test():
-    from utils import ExerciseStaticMethods
+    from ibapi.utils import ExerciseStaticMethods
     ExerciseStaticMethods(ContractSamples)
 
 
