@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72+: Introducing EWrapper and EClientSocket</title>
+<title>TWS API v9.72+: EWrapper and EClientSocket Classes</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('client_wrapper.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Introducing EWrapper and EClientSocket </div>  </div>
+<div class="title">EWrapper and EClientSocket Classes </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Once the TWS is up and running and actively listening for incoming connections we are ready to write our code. This draws our attention to the TWS API's two major components: the <a class="el" href="interfaceIBApi_1_1EWrapper.html">IBApi.EWrapper</a> interface and the <a class="el" href="classIBApi_1_1EClientSocket.html">IBApi.EClientSocket</a></p>
@@ -205,7 +205,7 @@ The EClientSocket class</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        TestWrapper.__init__(self)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        TestClient.__init__(self, wrapper=self)</div>
-</div><!-- fragment --> <em><b>Note: </b> The EReaderSignal class is not used for Python API.</em>  </li>
+</div><!-- fragment --> <em><b>Note: </b> The EReaderSignal class is not used for Python API. The Python Queue module is used for inter-thread communication and data exchange.</em>  </li>
 </ul>
 <p><br/>
 <br/>

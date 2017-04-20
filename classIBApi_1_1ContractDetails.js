@@ -1,7 +1,8 @@
 var classIBApi_1_1ContractDetails =
 [
     [ "ContractDetails", "classIBApi_1_1ContractDetails.html#a7c2c02140be66ee03d07c24da4e9529a", null ],
-    [ "ContractDetails", "classIBApi_1_1ContractDetails.html#ac0a7a2cd0e92483af3a23d9d5a985c7d", null ],
+    [ "ContractDetails", "classIBApi_1_1ContractDetails.html#a9bae11b29d1141a77578a3de6fcd78b7", null ],
+    [ "AggGroup", "classIBApi_1_1ContractDetails.html#ae27c23ae5137ce374361cc251c8defd5", null ],
     [ "BondType", "classIBApi_1_1ContractDetails.html#a4d26bb95e4fae101eab04fe10f4d3f36", null ],
     [ "Callable", "classIBApi_1_1ContractDetails.html#a84f918c752324da53c392b3213fd4575", null ],
     [ "Category", "classIBApi_1_1ContractDetails.html#a7e6e73c9a52bff0d9092caf7f77dd8fe", null ],
@@ -35,5 +36,7 @@ var classIBApi_1_1ContractDetails =
     [ "TimeZoneId", "classIBApi_1_1ContractDetails.html#aa4434636ba3f3356fb804d9cf257f452", null ],
     [ "TradingHours", "classIBApi_1_1ContractDetails.html#a2a6f950c506280e2f2d3904126a3349d", null ],
     [ "UnderConId", "classIBApi_1_1ContractDetails.html#a6d2b19f1b0c552f7a946185fa1167510", null ],
+    [ "UnderSecType", "classIBApi_1_1ContractDetails.html#ad744d78e3755b0b98df43af67d8dd576", null ],
+    [ "UnderSymbol", "classIBApi_1_1ContractDetails.html#a9d4406acfdd1a384193631364a128c1f", null ],
     [ "ValidExchanges", "classIBApi_1_1ContractDetails.html#a63e528469d3e0c066c2a12eff1659b5e", null ]
 ];

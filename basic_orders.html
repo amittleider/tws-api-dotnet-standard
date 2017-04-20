@@ -447,7 +447,7 @@ Products: STK </li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG MKT&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = 100</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = marketOffset<span class="comment">#Offset price</span></div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -885,6 +885,58 @@ Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR </li>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
+<h1><a class="anchor" id="limitorderwithcashqty"></a>
+Forex Cash Quantity Order</h1>
+<p>Forex orders can be placed in denomination of second currency in pair using cashQty field. <br/>
+ Requires TWS or IBG 963+ </p>
+<ul>
+<li>
+Products: CASH </li>
+<li>
+<a href="https://www.interactivebrokers.com/en/index.php?f=23876#963-02" target="_blank" class="linkexternal">Forex Cash Quantity Orders</a> </li>
+</ul>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Order order = <span class="keyword">new</span> Order();</div>
+<div class="line">            order.Action = action;</div>
+<div class="line">            order.OrderType = <span class="stringliteral">&quot;LMT&quot;</span>;</div>
+<div class="line">            order.TotalQuantity = quantity;</div>
+<div class="line">            order.LmtPrice = limitPrice;</div>
+<div class="line">            order.CashQty = cashQty;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Order order = <span class="keyword">new</span> Order();</div>
+<div class="line">        order.action(action);</div>
+<div class="line">        order.orderType(<span class="stringliteral">&quot;LMT&quot;</span>);</div>
+<div class="line">        order.totalQuantity(quantity);</div>
+<div class="line">        order.lmtPrice(limitPrice);</div>
+<div class="line">        order.cashQty(cashQty);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim order As Order = New Order</div>
+<div class="line">            order.Action = action</div>
+<div class="line">            order.OrderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line">            order.TotalQuantity = quantity</div>
+<div class="line">            order.LmtPrice = limitPrice</div>
+<div class="line">            order.CashQty = cashQty</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Order order;</div>
+<div class="line">    order.action = action;</div>
+<div class="line">    order.orderType = <span class="stringliteral">&quot;LMT&quot;</span>;</div>
+<div class="line">    order.totalQuantity = quantity;</div>
+<div class="line">    order.lmtPrice = limitPrice;</div>
+<div class="line">    order.cashQty = cashQty;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order.action = action</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;LMT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.lmtPrice = limitPrice</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.cashQty = cashQty</div>
+</div><!-- fragment -->  </li>
+</ul>
 <h1><a class="anchor" id="limitiftouched"></a>
 Limit if Touched</h1>
 <p>A <a href="https://www.interactivebrokers.com/en/index.php?f=592" target="_blank" class="linkexternal">Limit if Touched</a> is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is held in the system until the trigger price is touched. An LIT order is similar to a stop limit order, except that an LIT sell order is placed above the current market price, and a stop limit sell order is placed below. </p>
@@ -1095,6 +1147,7 @@ Products: STK </li>
 <div class="line">            order.OrderType = <span class="stringliteral">&quot;PEG MID&quot;</span>;</div>
 <div class="line">            order.TotalQuantity = quantity;</div>
 <div class="line">            order.AuxPrice = offset;</div>
+<div class="line">            order.LmtPrice = limitPrice;</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order order = <span class="keyword">new</span> Order();</div>
@@ -1102,6 +1155,7 @@ Products: STK </li>
 <div class="line">        order.orderType(<span class="stringliteral">&quot;PEG MID&quot;</span>);</div>
 <div class="line">        order.totalQuantity(quantity);</div>
 <div class="line">        order.auxPrice(offset);</div>
+<div class="line">        order.lmtPrice(limitPrice);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">            Dim order As Order = New Order</div>
@@ -1109,6 +1163,7 @@ Products: STK </li>
 <div class="line">            order.OrderType = <span class="stringliteral">&quot;PEG MID&quot;</span></div>
 <div class="line">            order.TotalQuantity = quantity</div>
 <div class="line">            order.AuxPrice = offset</div>
+<div class="line">            order.LmtPrice = limitPrice</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Order order;</div>
@@ -1116,6 +1171,7 @@ Products: STK </li>
 <div class="line">    order.orderType = <span class="stringliteral">&quot;PEG MID&quot;</span>;</div>
 <div class="line">    order.totalQuantity = quantity;</div>
 <div class="line">    order.auxPrice = offset;</div>
+<div class="line">    order.lmtPrice = limitPrice;</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        order = Order()</div>
@@ -1123,6 +1179,7 @@ Products: STK </li>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        order.orderType = <span class="stringliteral">&quot;PEG MID&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.totalQuantity = quantity</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        order.auxPrice = offset</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.lmtPrice = limitPrice</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="markettolimit"></a>

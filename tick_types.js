@@ -6,5 +6,5 @@ var tick_types =
     [ "RT Trade Volume", "tick_types.html#rt_trd_volume", null ],
     [ "IB Dividends", "tick_types.html#ib_dividends", null ],
     [ "Delayed Data", "tick_types.html#delayed", null ],
-    [ "Available Fundamental Ratios", "fundamental_ratios_tags.html", null ]
+    [ "Fundamental Ratios", "fundamental_ratios_tags.html", null ]
 ];

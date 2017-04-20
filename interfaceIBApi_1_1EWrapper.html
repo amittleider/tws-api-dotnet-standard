@@ -208,7 +208,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memdesc:a05f35c1d896eeee696487d483110354f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies when all the account's information has finished.  <a href="#a05f35c1d896eeee696487d483110354f">More...</a><br/></td></tr>
 <tr class="separator:a05f35c1d896eeee696487d483110354f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a225c060ff9653cfaeff7304033eb76b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">orderStatus</a> (int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)</td></tr>
-<tr class="memdesc:a225c060ff9653cfaeff7304033eb76b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the up-to-date information of an order every time it changes.  <a href="#a225c060ff9653cfaeff7304033eb76b3">More...</a><br/></td></tr>
+<tr class="memdesc:a225c060ff9653cfaeff7304033eb76b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the up-to-date information of an order every time it changes. Often there are duplicate orderStatus messages.  <a href="#a225c060ff9653cfaeff7304033eb76b3">More...</a><br/></td></tr>
 <tr class="separator:a225c060ff9653cfaeff7304033eb76b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa05258f1d005accd3efc0d60bc151407"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">openOrder</a> (int orderId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, <a class="el" href="classIBApi_1_1Order.html">Order</a> order, <a class="el" href="classIBApi_1_1OrderState.html">OrderState</a> orderState)</td></tr>
 <tr class="memdesc:aa05258f1d005accd3efc0d60bc151407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feeds in currently open orders.  <a href="#aa05258f1d005accd3efc0d60bc151407">More...</a><br/></td></tr>
@@ -234,9 +234,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:af209070fa9583fb4780be0f3ff1e61e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#af209070fa9583fb4780be0f3ff1e61e4">fundamentalData</a> (int reqId, string data)</td></tr>
 <tr class="memdesc:af209070fa9583fb4780be0f3ff1e61e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Reuters' Fundamental data  <a href="#af209070fa9583fb4780be0f3ff1e61e4">More...</a><br/></td></tr>
 <tr class="separator:af209070fa9583fb4780be0f3ff1e61e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cfc0dff9d3e3470f4c9209163279cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a5cfc0dff9d3e3470f4c9209163279cda">historicalData</a> (int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)</td></tr>
-<tr class="memdesc:a5cfc0dff9d3e3470f4c9209163279cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the requested historical data bars  <a href="#a5cfc0dff9d3e3470f4c9209163279cda">More...</a><br/></td></tr>
-<tr class="separator:a5cfc0dff9d3e3470f4c9209163279cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac943e5b81f6de111ddf71a1f05ab6282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ac943e5b81f6de111ddf71a1f05ab6282">historicalData</a> (int reqId, Bar bar)</td></tr>
+<tr class="memdesc:ac943e5b81f6de111ddf71a1f05ab6282"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the requested historical data bars  <a href="#ac943e5b81f6de111ddf71a1f05ab6282">More...</a><br/></td></tr>
+<tr class="separator:ac943e5b81f6de111ddf71a1f05ab6282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c168da3a812b667421bec4e6e2a5b2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a8c168da3a812b667421bec4e6e2a5b2d">historicalDataUpdate</a> (int reqId, Bar bar)</td></tr>
+<tr class="memdesc:a8c168da3a812b667421bec4e6e2a5b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.  <a href="#a8c168da3a812b667421bec4e6e2a5b2d">More...</a><br/></td></tr>
+<tr class="separator:a8c168da3a812b667421bec4e6e2a5b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a715bb6750de66a0e072a910e697e20cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a715bb6750de66a0e072a910e697e20cf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a715bb6750de66a0e072a910e697e20cf">historicalDataEnd</a> (int reqId, string start, string end)</td></tr>
 <tr class="memdesc:a715bb6750de66a0e072a910e697e20cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the ending of the historical bars reception. <br/></td></tr>
@@ -357,9 +360,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 </ul>
  <a href="#a9d28aa8e55f93f2fc7699b952e2490e0">More...</a><br/></td></tr>
 <tr class="separator:a9d28aa8e55f93f2fc7699b952e2490e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fd225c9329f5ba3712fc646a3a29cc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a6fd225c9329f5ba3712fc646a3a29cc9">histogramData</a> (int reqId, Tuple&lt; double, long &gt;[] data)</td></tr>
-<tr class="memdesc:a6fd225c9329f5ba3712fc646a3a29cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns data histogram  <a href="#a6fd225c9329f5ba3712fc646a3a29cc9">More...</a><br/></td></tr>
-<tr class="separator:a6fd225c9329f5ba3712fc646a3a29cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f1e6770be6c88bf8948b756647ef23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a36f1e6770be6c88bf8948b756647ef23">histogramData</a> (int reqId, HistogramEntry[] data)</td></tr>
+<tr class="memdesc:a36f1e6770be6c88bf8948b756647ef23"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns data histogram  <a href="#a36f1e6770be6c88bf8948b756647ef23">More...</a><br/></td></tr>
+<tr class="separator:a36f1e6770be6c88bf8948b756647ef23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5842c4697f678debff53febb8c8b62d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a5842c4697f678debff53febb8c8b62d0">rerouteMktDataReq</a> (int reqId, int conId, string exchange)</td></tr>
+<tr class="memdesc:a5842c4697f678debff53febb8c8b62d0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><ul>
+<li>returns conId and exchange for CFD market data request re-route </li>
+</ul>
+ <a href="#a5842c4697f678debff53febb8c8b62d0">More...</a><br/></td></tr>
+<tr class="separator:a5842c4697f678debff53febb8c8b62d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c8b54c60cd4f78233efae1dd8903cd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9c8b54c60cd4f78233efae1dd8903cd7">rerouteMktDepthReq</a> (int reqId, int conId, string exchange)</td></tr>
+<tr class="memdesc:a9c8b54c60cd4f78233efae1dd8903cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><ul>
+<li>returns conId and exchange for market depth request re-route </li>
+</ul>
+ <a href="#a9c8b54c60cd4f78233efae1dd8903cd7">More...</a><br/></td></tr>
+<tr class="separator:a9c8b54c60cd4f78233efae1dd8903cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This interface's methods are used by the TWS/Gateway to communicate with the API client. Every API client application needs to implement this interface in order to handle all the events generated by the TWS/Gateway. Almost every <a class="el" href="classIBApi_1_1EClientSocket.html" title="TWS/Gateway client class This client class contains all the available methods to communicate with IB...">EClientSocket</a> method call will result in at least one event delivered here. </p>
@@ -1105,7 +1120,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
-<a class="anchor" id="a6fd225c9329f5ba3712fc646a3a29cc9"></a>
+<a class="anchor" id="a36f1e6770be6c88bf8948b756647ef23"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1118,7 +1133,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Tuple&lt; double, long &gt;[]&#160;</td>
+          <td class="paramtype">HistogramEntry[]&#160;</td>
           <td class="paramname"><em>data</em>&#160;</td>
         </tr>
         <tr>
@@ -1141,7 +1156,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
-<a class="anchor" id="a5cfc0dff9d3e3470f4c9209163279cda"></a>
+<a class="anchor" id="ac943e5b81f6de111ddf71a1f05ab6282"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1154,56 +1169,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>date</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>open</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>high</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>low</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>close</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>volume</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>WAP</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hasGaps</em>&#160;</td>
+          <td class="paramtype">Bar&#160;</td>
+          <td class="paramname"><em>bar</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1225,11 +1192,46 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
     <tr><td class="paramname">volume</td><td>the bar's traded volume if available </td></tr>
     <tr><td class="paramname">count</td><td>the number of trades during the bar's timespan (only available for TRADES). </td></tr>
     <tr><td class="paramname">WAP</td><td>the bar's Weighted Average Price </td></tr>
-    <tr><td class="paramname">hasGaps</td><td>indicates if the data has gaps or not. </td></tr>
+    <tr><td class="paramname">hasGaps</td><td>(deprecated and no longer used) indicates if the data has gaps or not. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a72fc193c4d50f738b6092a174988f093" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">EClientSocket::reqHistoricalData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a5eac5b7908b62c224985cf8577a8350c" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">EClientSocket::reqHistoricalData</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8c168da3a812b667421bec4e6e2a5b2d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void historicalDataUpdate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Bar&#160;</td>
+          <td class="paramname"><em>bar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reqId</td><td>the requests identifier </td></tr>
+    <tr><td class="paramname">bar</td><td>the historical data bar. Smallest size is 5 seconds. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1545,7 +1547,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">openOrderEnd</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">EClientSocket::placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">EClientSocket::reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">EClientSocket::reqAutoOpenOrders</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">openOrderEnd</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">EClientSocket::placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">EClientSocket::reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">EClientSocket::reqAutoOpenOrders</a> </dd></dl>
 
 </div>
 </div>
@@ -1563,7 +1565,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 </div><div class="memdoc">
 
 <p>Notifies the end of the open orders' reception. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">openOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">EClientSocket::placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">EClientSocket::reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">EClientSocket::reqAutoOpenOrders</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">openOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">EClientSocket::placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">EClientSocket::reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">EClientSocket::reqAutoOpenOrders</a> </dd></dl>
 
 </div>
 </div>
@@ -1639,16 +1641,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
       </table>
 </div><div class="memdoc">
 
-<p>Gives the up-to-date information of an order every time it changes. </p>
+<p>Gives the up-to-date information of an order every time it changes. Often there are duplicate orderStatus messages. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orderId</td><td>the order's client id. </td></tr>
-    <tr><td class="paramname">status</td><td>the current status of the order: PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is submitted. PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. You may still receive an execution while your cancellation request is pending. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is canceled. PreSubmitted - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified . Submitted - indicates that your order has been accepted at the order destination and is working. ApiCanceled - after an order has been submitted and before it has been acknowledged, an API client client can request its cancelation, producing this state. Cancelled - indicates that the balance of your order has been confirmed canceled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order. Filled - indicates that the order has been completely filled. Inactive - indicates that the order has been accepted by the system (simulated orders) or an exchange (native orders) but that currently the order is inactive due to system, exchange or other issues. </td></tr>
+    <tr><td class="paramname">status</td><td>the current status of the order. Possible values: PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. It is not guaranteed that the cancellation will be successful. PreSubmitted - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified . Submitted - indicates that your order has been accepted by the system. ApiCanceled - after an order has been submitted and before it has been acknowledged, an API client client can request its cancelation, producing this state. Cancelled - indicates that the balance of your order has been confirmed canceled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order. Filled - indicates that the order has been completely filled. Market orders executions will not always trigger a Filled status. Inactive - indicates that the order was received by the system but is no longer active because it was rejected or canceled. </td></tr>
     <tr><td class="paramname">filled</td><td>number of filled positions. </td></tr>
     <tr><td class="paramname">remaining</td><td>the remnant positions. </td></tr>
     <tr><td class="paramname">avgFillPrice</td><td>average filling price. </td></tr>
-    <tr><td class="paramname">permId</td><td>the order's permId used by the TWs to identify orders. </td></tr>
-    <tr><td class="paramname">parentId</td><td>parent's id. Used for bracker and auto trailing stop orders. </td></tr>
+    <tr><td class="paramname">permId</td><td>the order's permId used by the TWS to identify orders. </td></tr>
+    <tr><td class="paramname">parentId</td><td>parent's id. Used for bracket and auto trailing stop orders. </td></tr>
     <tr><td class="paramname">lastFillPrice</td><td>price at which the last positions were filled. </td></tr>
     <tr><td class="paramname">clientId</td><td>API client which submitted the order. </td></tr>
     <tr><td class="paramname">whyHeld</td><td>this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'. </td></tr>
@@ -1931,6 +1933,96 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </dd>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a298083eaed0207ac8d3e69894dd81c82" title="Requests the FA configuration A Financial Advisor can define three different configurations: ...">EClientSocket::requestFA</a>, <a class="el" href="classIBApi_1_1EClient.html#a7ff2dbde6ec82a3d6dc5036168ddd38a" title="Replaces Financial Advisor&#39;s settings A Financial Advisor can define three different configurations: ...">EClientSocket::replaceFA</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5842c4697f678debff53febb8c8b62d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rerouteMktDataReq </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>conId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>exchange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><ul>
+<li>returns conId and exchange for CFD market data request re-route </li>
+</ul>
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reqId</td><td></td></tr>
+    <tr><td class="paramname">conId</td><td></td></tr>
+    <tr><td class="paramname">exchange</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c8b54c60cd4f78233efae1dd8903cd7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rerouteMktDepthReq </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>reqId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>conId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>exchange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><ul>
+<li>returns conId and exchange for market depth request re-route </li>
+</ul>
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reqId</td><td></td></tr>
+    <tr><td class="paramname">conId</td><td></td></tr>
+    <tr><td class="paramname">exchange</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

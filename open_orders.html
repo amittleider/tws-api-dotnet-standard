@@ -129,10 +129,10 @@ $(document).ready(function(){initNavTree('open_orders.html','');});
 <div class="title">Retrieving currently active orders </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>As long as an order is active, it is possible to retrieve it using the TWS API. Orders submitted via the TWS API will always be bound to the client application (i.e. client Id) they were submitted from meaning only the submitting client will be able to modify the placed order. Three different methods are provided to allow for maximum flexibility. Active orders will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">IBApi.EWrapper.openOrder</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> methods as already described in <a class="el" href="order_submission.html#open_order">The openOrder method</a> and <a class="el" href="order_submission.html#order_status">The orderStatus method</a> sections</p>
+<div class="textblock"><p>As long as an order is active, it is possible to retrieve it using the TWS API. Orders submitted via the TWS API will always be bound to the client application (i.e. client Id) they were submitted from meaning only the submitting client will be able to modify the placed order. Three different methods are provided to allow for maximum flexibility. Active orders will be returned via the <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">IBApi.EWrapper.openOrder</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> methods as already described in <a class="el" href="order_submission.html#open_order">The openOrder callback</a> and <a class="el" href="order_submission.html#order_status">The orderStatus callback</a> sections</p>
 <p><b>Note:</b> it is not possible to obtain cancelled or fully filled orders.</p>
 <h1><a class="anchor" id="connected_client_orders"></a>
-Connected client's own orders</h1>
+API client's orders</h1>
 <p>The <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05">IBApi.EClient.reqOpenOrders</a> method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS. If client 0 invokes reqOpenOrders, it will cause <b>currently</b> open orders placed from TWS manually to be 'bound', i.e. assigned an order ID so that they can be modified or cancelled by the API client 0. In the API settings in Global Configuration, is a setting checked by default "Use negative numbers to bind automatic orders" which will specify how manual TWS orders are assigned an API order ID.</p>
 <ul id="tab">
 <li class="active">
@@ -152,7 +152,7 @@ Connected client's own orders</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="all_api_orders"></a>
-All API submitted orders</h1>
+All submitted orders</h1>
 <p>To obtain those orders created via the TWS API regardless of the submitting client application, make use of the <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c">IBApi.EClient.reqAllOpenOrders</a> function.</p>
 <ul id="tab">
 <li class="active">
@@ -172,7 +172,7 @@ All API submitted orders</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="manually_submitted"></a>
-Manually submitted TWS orders</h1>
+Manually submitted orders</h1>
 <p>Finally, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016">IBApi.EClient.reqAutoOpenOrders</a> can only be invoked by client with ID 0. It will cause future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0.</p>
 <ul id="tab">
 <li class="active">
@@ -197,8 +197,8 @@ Manually submitted TWS orders</h1>
 <img src="tws_autobind.png" alt="tws_autobind.png"/>
 </div>
 <h1><a class="anchor" id="receiving_orders"></a>
-Receiving Active Orders from the TWS</h1>
-<p>Active orders will be delivered via <a class="el" href="order_submission.html#open_order">The openOrder method</a> and <a class="el" href="order_submission.html#order_status">The orderStatus method</a> callbacks. When all orders have been sent to the client application you will receive a <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1">IBApi.EWrapper.openOrderEnd</a> event:</p>
+Receiving Order Information</h1>
+<p>Active orders will be delivered via <a class="el" href="order_submission.html#open_order">The openOrder callback</a> and <a class="el" href="order_submission.html#order_status">The orderStatus callback</a> callbacks. When all orders have been sent to the client application you will receive a <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1">IBApi.EWrapper.openOrderEnd</a> event:</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>

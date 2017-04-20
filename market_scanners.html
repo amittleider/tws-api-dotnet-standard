@@ -149,7 +149,8 @@ $(document).ready(function(){initNavTree('market_scanners.html','');});
 </div><!-- fragment -->  </li>
 </ul>
 <p>The available API filters and and parameters are defined in the <a class="el" href="classIBApi_1_1ScannerSubscription.html">IBApi.ScannerSubscription</a> object, including [AbovePrice, BelowPrice, AboveVolume, ...] . Some <a class="el" href="market_scanners.html#scanner_examples">Market Scanner Examples</a> are listed at the bottom of this page.</p>
-<p>Results are delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461">IBApi.EWrapper.scannerData</a> and the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a54d829186800287ac87c77a6a38a1917">IBApi.EWrapper.scannerDataEnd</a> marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters market data subscriptions are generally required.</p>
+<p>Only 10 API scans can be active at a time.</p>
+<p>Results are delivered via <a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461">IBApi.EWrapper.scannerData</a> and the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a54d829186800287ac87c77a6a38a1917">IBApi.EWrapper.scannerDataEnd</a> marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters, market data subscriptions <b>are</b> generally required.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keyword">class </span>EWrapperImpl : EWrapper </div>
@@ -238,6 +239,7 @@ $(document).ready(function(){initNavTree('market_scanners.html','');});
 </ul>
 <h1><a class="anchor" id="scanner_examples"></a>
 Market Scanner Examples</h1>
+<p>The available API scans are defined by the fields in the ScannerSubscription object, i.e. <em>abovePrice, aboveVolume, belowPrice</em>, etc. Some market scanner examples are below.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            <span class="comment">//Hot US stocks by volume</span></div>

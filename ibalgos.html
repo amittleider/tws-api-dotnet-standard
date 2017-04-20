@@ -191,10 +191,11 @@ Adaptive Algo</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillAdaptiveParams(baseOrder, <span class="stringliteral">&quot;Normal&quot;</span>)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillAdaptiveParams(baseOrder:Order, priority:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillAdaptiveParams(baseOrder: Order, priority: str):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;Adaptive&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;adaptivePriority&quot;</span>, priority))</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="arrivalprice"></a>
@@ -208,9 +209,9 @@ ArrivalPrice</h1>
 <tr>
 <td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -306,10 +307,10 @@ ArrivalPrice</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                   <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">True</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillArrivalPriceParams(baseOrder:Order, maxPctVol:float, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                    riskAversion:str, startTime:str, endTime:str, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                    forceCompletion:bool, allowPastTime:bool,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                    monetaryValue:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillArrivalPriceParams(baseOrder: Order, maxPctVol: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                               riskAversion: str, startTime: str, endTime: str,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                               forceCompletion: bool, allowPastTime: bool,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                               monetaryValue: float):</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;ArrivalPx&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
@@ -321,6 +322,7 @@ ArrivalPrice</h1>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>,</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                             int(allowPastTime)))</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="closepx"></a>
@@ -334,7 +336,7 @@ Close Price</h1>
 <tr>
 <td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -415,16 +417,18 @@ Close Price</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillClosePriceParams(baseOrder, 0.5, <span class="stringliteral">&quot;Neutral&quot;</span>,</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                 <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>FillClosePriceParams(baseOrder:Order, maxPctVol:float, riskAversion:str, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                             startTime:str, forceCompletion:bool, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                             monetaryValue:float):</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ClosePx&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.AlgoParams = []</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion))</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, int(forceCompletion)))</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillClosePriceParams(baseOrder: Order, maxPctVol: float, riskAversion: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                             startTime: str, forceCompletion: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                             monetaryValue: float):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;ClosePx&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoParams = []</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>, int(forceCompletion)))</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="darkice"></a>
@@ -436,9 +440,9 @@ DarkIce</h1>
 <tr>
 <td>displaySize</td><td>Order size to be displayed</td><td></td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -521,9 +525,9 @@ DarkIce</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                              <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillDarkIceParams(baseOrder:Order, displaySize:int, startTime:str,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                          endTime:str, allowPastEndTime:bool,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                          monetaryValue:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillDarkIceParams(baseOrder: Order, displaySize: int, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                          endTime: str, allowPastEndTime: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                          monetaryValue: float):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;DarkIce&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;displaySize&quot;</span>, displaySize))</div>
@@ -532,6 +536,7 @@ DarkIce</h1>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>,</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                             int(allowPastEndTime)))</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="ad"></a>
@@ -555,9 +560,9 @@ Accumulate/Distribute</h1>
 <tr>
 <td>waitForFill</td><td>Wait for current order to fill before submitting next order</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 </table>
 <p><br/>
 </p>
@@ -663,10 +668,10 @@ Accumulate/Distribute</h1>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                                           <span class="stringliteral">&quot;20161010-12:00:00 GMT&quot;</span>, <span class="stringliteral">&quot;20161010-16:00:00 GMT&quot;</span>)</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillAccumulateDistributeParams(baseOrder:Order, componentSize:int, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            timeBetweenOrders:int, randomizeTime20:bool, randomizeSize55:bool,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            giveUp:int, catchUp:bool, waitForFill:bool, startTime:str, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            endTime:str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillAccumulateDistributeParams(baseOrder: Order, componentSize: int,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                       timeBetweenOrders: int, randomizeTime20: bool, randomizeSize55: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                       giveUp: int, catchUp: bool, waitForFill: bool, startTime: str,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                       endTime: str):</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;AD&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;componentSize&quot;</span>, componentSize))</div>
@@ -680,6 +685,7 @@ Accumulate/Distribute</h1>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;waitForFill&quot;</span>, int(waitForFill)))</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pctvol"></a>
@@ -691,9 +697,9 @@ Percentage of Volume</h1>
 <tr>
 <td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -773,9 +779,9 @@ Percentage of Volume</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                             <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillPctVolParams(baseOrder:Order, pctVol:float, startTime:str,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                         endTime:str, noTakeLiq:bool,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                         monetaryValue:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillPctVolParams(baseOrder: Order, pctVol: float, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                         endTime: str, noTakeLiq: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                         monetaryValue: float):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;PctVol&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol))</div>
@@ -783,6 +789,7 @@ Percentage of Volume</h1>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="twap"></a>
@@ -794,9 +801,9 @@ TWAP</h1>
 <tr>
 <td>strategyType</td><td>Trade strategy</td><td>Marketable, Matching, Midpoint, Matching Same Side, Matching Last </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -879,9 +886,9 @@ TWAP</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                           <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillTwapParams(baseOrder:Order, strategyType:str, startTime:str,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        endTime:str, allowPastEndTime:bool,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                        monetaryValue:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillTwapParams(baseOrder: Order, strategyType: str, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                       endTime: str, allowPastEndTime: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                       monetaryValue: float):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;Twap&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;strategyType&quot;</span>, strategyType))</div>
@@ -890,6 +897,7 @@ TWAP</h1>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;allowPastEndTime&quot;</span>,</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                             int(allowPastEndTime)))</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pctvolpx"></a>
@@ -907,9 +915,9 @@ Price Variant Percentage of Volume Strategy</h1>
 <tr>
 <td>maxPctVol4Px</td><td>Maximum Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -1008,21 +1016,23 @@ Price Variant Percentage of Volume Strategy</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                         0.1, 0.05, 0.01, 0.2, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">True</span>,</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                         100000)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>FillPriceVariantPctVolParams(baseOrder:Order, pctVol:float, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                     deltaPctVol:float, minPctVol4Px:float, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                     maxPctVol4Px:float, startTime:str,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                     endTime:str, noTakeLiq:bool, </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                     monetaryValue:float):</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolPx&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams = []</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol))</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, deltaPctVol))</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, minPctVol4Px))</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, maxPctVol4Px))</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillPriceVariantPctVolParams(baseOrder: Order, pctVol: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                     deltaPctVol: float, minPctVol4Px: float,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                     maxPctVol4Px: float, startTime: str,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                     endTime: str, noTakeLiq: bool,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                     monetaryValue: float):</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolPx&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams = []</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;pctVol&quot;</span>, pctVol))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;deltaPctVol&quot;</span>, deltaPctVol))</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;minPctVol4Px&quot;</span>, minPctVol4Px))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol4Px&quot;</span>, maxPctVol4Px))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pctvolsz"></a>
@@ -1036,9 +1046,9 @@ Size Variant Percentage of Volume Strategy</h1>
 <tr>
 <td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -1126,18 +1136,20 @@ Size Variant Percentage of Volume Strategy</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder,</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                        0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>FillSizeVariantPctVolParams(baseOrder:Order, startPctVol:float, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                    endPctVol:float, startTime:str, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    endTime:str, noTakeLiq:bool, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                    monetaryValue:float):</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolSz&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoParams = []</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol))</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol))</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillSizeVariantPctVolParams(baseOrder: Order, startPctVol: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    endPctVol: float, startTime: str,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                    endTime: str, noTakeLiq: bool,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                    monetaryValue: float):</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolSz&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams = []</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="pctvoltm"></a>
@@ -1151,9 +1163,9 @@ Time Variant Percentage of Volume Strategy</h1>
 <tr>
 <td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -1242,18 +1254,19 @@ Time Variant Percentage of Volume Strategy</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder,</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                        0.2, 0.4, <span class="stringliteral">&quot;12:00:00 EST&quot;</span>, <span class="stringliteral">&quot;14:00:00 EST&quot;</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>FillTimeVariantPctVolParams(baseOrder:Order, startPctVol:float, </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                    endPctVol:float, startTime:str, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    endTime:str, noTakeLiq:bool, </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                    monetaryValue:float):</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolTm&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoParams = []</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol))</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol))</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillTimeVariantPctVolParams(baseOrder: Order, startPctVol: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    endPctVol: float, startTime: str,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                    endTime: str, noTakeLiq: bool,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                    monetaryValue: float):</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.AlgoStrategy = <span class="stringliteral">&quot;PctVolTm&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.AlgoParams = []</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startPctVol&quot;</span>, startPctVol))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endPctVol&quot;</span>, endPctVol))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;startTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;endTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.AlgoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="vwap"></a>
@@ -1267,9 +1280,9 @@ VWAP</h1>
 <tr>
 <td>maxPctVol</td><td>Maximum percentage of average daily volume</td><td>0.1 (10%) - 0.5 (50%) </td></tr>
 <tr>
-<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ </td></tr>
+<td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
-<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ </td></tr>
+<td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ </td></tr>
 <tr>
 <td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false) </td></tr>
 <tr>
@@ -1367,9 +1380,9 @@ VWAP</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                           <span class="stringliteral">&quot;09:00:00 CET&quot;</span>, <span class="stringliteral">&quot;16:00:00 CET&quot;</span>, <span class="keyword">True</span>, <span class="keyword">True</span>, 100000)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillVwapParams(baseOrder:Order, maxPctVol:float, startTime:str,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                        endTime:str, allowPastEndTime:bool, noTakeLiq:bool,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                        monetaryValue:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillVwapParams(baseOrder: Order, maxPctVol: float, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                       endTime: str, allowPastEndTime: bool, noTakeLiq: bool,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                       monetaryValue: float):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;Vwap&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
@@ -1379,6 +1392,7 @@ VWAP</h1>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                             int(allowPastEndTime)))</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;noTakeLiq&quot;</span>, int(noTakeLiq)))</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;monetaryValue&quot;</span>, monetaryValue))</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="balanceimpact"></a>
@@ -1457,14 +1471,15 @@ Balance Impact Risk</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                        <span class="stringliteral">&quot;Aggressive&quot;</span>, <span class="keyword">True</span>)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USOptionContract(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillBalanceImpactRiskParams(baseOrder:Order, maxPctVol:float, </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    riskAversion:str, forceCompletion:bool):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillBalanceImpactRiskParams(baseOrder: Order, maxPctVol: float,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                    riskAversion: str, forceCompletion: bool):</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;BalanceImpactRisk&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;riskAversion&quot;</span>, riskAversion))</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;forceCompletion&quot;</span>,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                                                int(forceCompletion)))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                                             int(forceCompletion)))</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="minimpact"></a>
@@ -1529,10 +1544,11 @@ Minimise Impact</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USOptionContract(), baseOrder)</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillMinImpactParams(baseOrder:Order, maxPctVol:float):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillMinImpactParams(baseOrder: Order, maxPctVol: float):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;MinImpact&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        baseOrder.algoParams = []</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;maxPctVol&quot;</span>, maxPctVol))</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

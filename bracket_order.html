@@ -342,12 +342,9 @@ $(document).ready(function(){initNavTree('bracket_order.html','');});
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">#to activate all its predecessors</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        stopLoss.transmit = <span class="keyword">True</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        bracketOrder = []</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        bracketOrder.append(parent)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        bracketOrder.append(takeProfit)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        bracketOrder.append(stopLoss)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> bracketOrder</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        bracketOrder = [parent, takeProfit, stopLoss]</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> bracketOrder</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        bracket = OrderSamples.BracketOrder(self.nextOrderId(), <span class="stringliteral">&quot;BUY&quot;</span>, 100, 30, 40, 20)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="keywordflow">for</span> o <span class="keywordflow">in</span> bracket:</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            self.placeOrder(o.orderId, ContractSamples.EuropeanStock(), o)</div>

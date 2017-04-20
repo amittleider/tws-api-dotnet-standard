@@ -129,11 +129,36 @@ $(document).ready(function(){initNavTree('dde_intro.html','');});
 <div class="title">Dynamic Data Exchange (DDE) </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The Dynamic Data Exchange protocol is a method of inter-process communication developed by Microsoft. Thanks to it, it is possible for the TWS to communicate with other applications such as MS Excel.</p>
+<div class="textblock"><p>The Dynamic Data Exchange protocol is a method of inter-process communication developed by Microsoft to establish communication between Windows applications running on the same computer. The DDE API is available for Windows computers to create a means of communication between Microsoft Excel and TWS or IB Gateway.</p>
+<p><b>Requirements for the DDE API</b></p>
+<ul>
+<li>Windows OS</li>
+<li><b>32 bit version</b> of TWS or IB Gateway</li>
+<li>Microsoft Excel</li>
+<li>TWS API installed to the C: drive</li>
+</ul>
 <p>Interactive Brokers does not offer any programming assistance and therefore it is strongly advised to anyone willing to use any of the TWS DDE API to become familiar with the technologies involved such as the DDE protocol and VBA.</p>
-<p><b>Important:</b> The 32-bit version of TWS or IB Gateway is required to use the DDE API.</p>
-<p>Note that other programs running on the same computer which use DDE can interfere with the communication between Excel and TWS and cause Excel to 'hang' or 'freeze' after making the initial request. The only solution to this problem is to close other programs using DDE one-by-one to find the culprit. Programs which are known to cause this issue include Google Chrome, Microsoft OneNote, Skype and Adobe Creative Cloud.</p>
-<p>You can get started by following the <a class="el" href="dde_tutorial.html">Tutorial</a> and learn how to use DDE to communicate with TWS. </p>
+<p>You can get started by following the <a class="el" href="dde_tutorial.html">Tutorial</a> and learn how to use DDE to communicate with TWS.</p>
+<h1><a class="anchor" id="dde_issues"></a>
+Troubleshooting Excel DDE</h1>
+<ul>
+<li><b>Error: "Remote Data Not Accessible..." causes</b></li>
+</ul>
+<p>When this error is encountered in using a DDE formula in an Excel spreadsheet it indicates a general problem in the DDE connection between Excel and TWS. This can have any of the following causes:</p>
+<ul>
+<li><b>1)</b> TWS is not 32 bit. By default 64 bit TWS is installed on modern computers. It is necessary to select the 32 bit version when downloading to use the DDE API.</li>
+<li><b>2)</b> The API is not installed to the C: drive. The API can be downloaded from <a href="http://interactivebrokers.github.io/">http://interactivebrokers.github.io/</a> . After installation, there should be a folder "TWS API" on the C: drive. If the API installs to any other drive this can cause issues.</li>
+<li><b>3)</b> "Enable DDE" is not checked in the TWS (or IB Gateway Global Configuration). In TWS this setting is at Global Configuration -&gt; API -&gt; Settings -&gt; "Enable DDE".</li>
+<li><b>4)</b> The incorrect username is input into a formula in Excel. The username in the spreadsheet must match the username used to login to TWS. For paper accounts, it must be the paper and not the live username.</li>
+</ul>
+<p><b>(5)</b> In rare cases it is necessary to run Excel as Administrator to use DDE.</p>
+<p><b>Note:</b> Other programs running on the same computer which use DDE can interfere with the communication between Excel and TWS and cause Excel to 'hang' or 'freeze' after making the initial request. The only solution to this problem is to close other programs using DDE one-by-one to find the culprit. Programs which are known to cause this issue include Google Chrome, Microsoft OneNote, Skype and Adobe Creative Cloud.</p>
+<h1><a class="anchor" id="excel_limitations"></a>
+Limitations of Microsoft Excel</h1>
+<p>By design, Microsoft Excel gives precedence to the user interface over the data connection to other applications. For that reason, Excel only receives updates when it is in a 'ready' state, and may ignore data sent for instance when a modal dialogue box is displayed to the user, a cell is being edited, or Excel is busy doing other things. A new Excel Real Time Data server (RTD) API is being introduced to help address some of these deficiencies, but unfortunately these limitations are inherent to Excel as a trading application and not specific to an API technology.</p>
+<p><br/>
+<br/>
+ </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.4-->
