@@ -30,6 +30,7 @@ public class Testbed {
 		//! [ereader]
 		final EReader reader = new EReader(m_client, m_signal);        
                 reader.start();
+				//An additional thread is created in this program design to empty the messaging queue
                 new Thread(() -> {
                     while (m_client.isConnected()) {
                         m_signal.waitForSignal();
@@ -41,6 +42,8 @@ public class Testbed {
                     }
                 }).start();
                 //! [ereader]
+				// A pause to give the application time to establish the connection
+				// In a production application, it would be best to wait for callbacks to confirm the connection is complete
                 Thread.sleep(1000);
                
                 //orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -172,16 +175,19 @@ public class Testbed {
 		client.reqMktData(1003, ContractSamples.FutureComboContract(), "", true, false, null);
 		//! [reqmktdata_snapshot]
 
-		//! [regulatorysnapshot]
+		/* 
+		//! [regulatorysnapshot] 
 		// Each regulatory snapshot request incurs a 0.01 USD fee
-		// client.reqMktData(1014, ContractSamples.USStock(), "", false, true, null);
+		client.reqMktData(1014, ContractSamples.USStock(), "", false, true, null);
 		//! [regulatorysnapshot]
-
+		*/
+		
 		//! [reqmktdata_genticks]
 		//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
 		client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, false, null);
 		//! [reqmktdata_genticks]
 		//! [reqmktdata_contractnews]
+		// Without the API news subscription this will generate an "invalid tick type" error
 		client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, false, null);
 		client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, false, null);
 		client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, false, null);
@@ -215,6 +221,10 @@ public class Testbed {
 		client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
 		//! [reqHeadTimeStamp]
 
+		//! [cancelHeadTimestamp]
+		client.cancelHeadTimestamp(4003);
+		//! [cancelHeadTimestamp]
+		
 		//! [reqhistoricaldata]
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -6);

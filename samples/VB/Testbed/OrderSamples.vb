@@ -476,13 +476,14 @@ Namespace Samples
         ''' Supported Exchanges: https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=pegmid
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/pegmid.php?ib_entity=llc
         ''' </summary>
-        Public Shared Function PeggedToMidpoint(action As String, quantity As Double, offset As Double) As Order
+        Public Shared Function PeggedToMidpoint(action As String, quantity As Double, offset As Double, limitPrice As Double) As Order
             '! [pegged_midpoint]
             Dim order As Order = New Order
             order.Action = action
             order.OrderType = "PEG MID"
             order.TotalQuantity = quantity
             order.AuxPrice = offset
+			order.LmtPrice = limitPrice
             '! [pegged_midpoint]
             Return order
         End Function

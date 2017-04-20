@@ -39,15 +39,12 @@ int main(int argc, char** argv)
 		if( connectOptions) {
 			client.setConnectOptions( connectOptions);
 		}
-		//! [connect]
+		
 		client.connect( host, port, clientId);
-		//! [connect]
-		//! [ereader]
-		//Unlike the C# and Java clients, there is no need to explicitely create an EReader object nor a thread
+		
 		while( client.isConnected()) {
 			client.processMessages();
 		}
-		//! [ereader]
 		if( attempt >= MAX_ATTEMPTS) {
 			break;
 		}

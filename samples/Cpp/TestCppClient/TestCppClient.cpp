@@ -63,15 +63,17 @@ bool TestCppClient::connect(const char *host, unsigned int port, int clientId)
 {
 	// trying to connect
 	printf( "Connecting to %s:%d clientId:%d\n", !( host && *host) ? "127.0.0.1" : host, port, clientId);
-
+	
+	//! [connect]
 	bool bRes = m_pClient->eConnect( host, port, clientId, m_extraAuth);
-
+	//! [connect]
+	
 	if (bRes) {
 		printf( "Connected to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
-
+		//! [ereader]
         m_pReader = new EReader(m_pClient, &m_osSignal);
-
 		m_pReader->start();
+		//! [ereader]
 	}
 	else
 		printf( "Cannot connect to %s:%d clientId:%d\n", m_pClient->host().c_str(), m_pClient->port(), clientId);
@@ -321,23 +323,26 @@ void TestCppClient::tickDataOperation()
     std::this_thread::sleep_for(std::chrono::seconds(1));
     //! [reqmktdata]
 	m_pClient->reqMktData(1001, ContractSamples::StockComboContract(), "", false, false, TagValueListSPtr());
-	m_pClient->reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), "", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1002, ContractSamples::OptionWithLocalSymbol(), "", false, false, TagValueListSPtr());
 	//! [reqmktdata]
 	//! [reqmktdata_snapshot]
 	m_pClient->reqMktData(1003, ContractSamples::FutureComboContract(), "", true, false, TagValueListSPtr());
 	//! [reqmktdata_snapshot]
 
+	/*
 	//! [regulatorysnapshot]
 	// Each regulatory snapshot incurs a fee of 0.01 USD
-	// m_pClient->reqMktData(1013, ContractSamples::USStock(), "", false, true, TagValueListSPtr());
+	m_pClient->reqMktData(1013, ContractSamples::USStock(), "", false, true, TagValueListSPtr());
 	//! [regulatorysnapshot]
-
+	*/
+	
 	//! [reqmktdata_genticks]
 	//Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
 	m_pClient->reqMktData(1004, ContractSamples::USStock(), "233,236,258", false, false, TagValueListSPtr());
 	//! [reqmktdata_genticks]
 
 	//! [reqmktdata_contractnews]
+	// Without the API news subscription this will generate an "invalid tick type" error
 	m_pClient->reqMktData(1005, ContractSamples::USStock(), "mdoff,292:BZ", false, false, TagValueListSPtr());
 	m_pClient->reqMktData(1006, ContractSamples::USStock(), "mdoff,292:BT", false, false, TagValueListSPtr());
 	m_pClient->reqMktData(1007, ContractSamples::USStock(), "mdoff,292:FLY", false, false, TagValueListSPtr());
@@ -1056,7 +1061,10 @@ void TestCppClient::reqHeadTimestamp() {
 	m_pClient->reqHeadTimestamp(14001, ContractSamples::EurGbpFx(), "MIDPOINT", 1, 1);
 	//! [reqHeadTimeStamp]	
 	std::this_thread::sleep_for(std::chrono::seconds(1));
-
+	//! [cancelHeadTimestamp]
+	m_pClient->cancelHeadTimestamp(14001);
+	//! [cancelHeadTimestamp]
+	
 	m_state = ST_REQHEADTIMESTAMP_ACK;
 }
 

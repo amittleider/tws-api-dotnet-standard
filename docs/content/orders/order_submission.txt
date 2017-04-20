@@ -68,7 +68,7 @@
 
 	\image html order_id_reset.png
 
-	\section submission Order Submission
+	\section submission Placing Orders
 	
 	Orders are submitted via the @ref IBApi::EClient::placeOrder method. From the snippet below, note how a variable holding the nextValidId is incremented automatically:
   
@@ -92,7 +92,9 @@
 
 	Immediately after the order was submitted correctly, the TWS will start sending events concerning the order's activity via @ref IBApi::EWrapper::openOrder and @ref IBApi::EWrapper::orderStatus
 	
-	\section open_order The openOrder method
+	- An order can be sent to TWS but not transmitted to the IB server by setting the IBApi.Order.Transmit flag in the order class to <b>False</b>. Untransmitted orders will only be available within that TWS session (not for other usernames) and will be cleared on restart. Also, they can be cancelled or transmitted from the API but not viewed while they remain in the "untransmitted" state. 
+	
+	\section open_order The openOrder callback
 	
 	The @ref IBApi::EWrapper::openOrder method delivers an @ref IBApi::Order object representing the open order within the system. Additionally, an @ref IBApi::OrderState object containing margin
 	and commission information about this particular order.
@@ -125,7 +127,7 @@
 		</li>
 	</ul>
 	
-	\section order_status The orderStatus method
+	\section order_status The orderStatus callback
 	 
 	The @ref IBApi::EWrapper::orderStatus method contains all relevant information on the current status of the order execution-wise (i.e. amount filled and pending, filling price, etc.).
 	
@@ -157,19 +159,30 @@
 		</li>
 	</ul>
 	
-	There are several different categories a client might fall into which determine the orderStatus messages it receives:
+	<b>Automatic Order Status Messages</b> (without invoking reqOpenOrders or reqAllOpenOrders)
 	
-	->Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.
+	- Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.
 	
-	->The client with @ref master_client (set in TWS/IBG) will receive order status messages for all clients. 
+	- The client with @ref master_client (set in TWS/IBG) will receive order status messages for all clients. 
 	
-	->Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS. 
+	- Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS. 
 	
-	Other important points concerning @ref IBApi::EWrapper::orderStatus :
+	<b>Possible Order States</b>
 	
-	->Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange. 
+	- <b>PendingSubmit</b> - indicates the order was sent to TWS, but confirmation has not been received that it has been received by the IB server.
+	- <b>PendingCancel</b> - indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation.
+	- <b>PreSubmitted</b> - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified. 
+	- <b>Submitted</b> - indicates that your order has been accepted at the order destination and is working. 
+	- <b>ApiCanceled</b> - after an order has been submitted and before it has been acknowledged, an API client client can request its cancellation, producing this state. 
+	- <b>Cancelled</b> - indicates that the balance of your order has been confirmed cancelled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order. 
+	- <b>Filled</b> - indicates that the order has been completely filled. 
+	- <b>Inactive</b> - indicates an order is not working because it is invalid or triggered an error.
 	
-	->There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the @ref IBApi::EWrapper::execDetails function in addition to @ref IBApi::EWrapper::orderStatus.
+	<b>Important notes</b> concerning @ref IBApi::EWrapper::orderStatus :
+	
+	- Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange. 
+	
+	- There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the @ref IBApi::EWrapper::execDetails function in addition to @ref IBApi::EWrapper::orderStatus.
 	
 	\section order_attach Attaching Orders
 	

@@ -59,24 +59,23 @@
 			</td>
 		</tr>
 		<tr>
-			<td>2103</td><td>A market data farm is disconnected.</td><td></td>
+			<td>2103</td><td>A market data farm is disconnected.</td><td>Indicates a connectivity problem to an IB server. Outside of the nightly IB server reset, this typically indicates an underlying ISP connectivity issue.</td>
 		</tr>
 		<tr>
 			<td>2104</td><td>Market data farm connection is OK</td>
-			<td>It is perfectly normal to receive this message shortly after connecting to the TWS/IB Gateway. You can safely ignore this message.</td>
+			<td>A notification that connection to the market data server is ok. This is a notification and <b>not</b> a true error condition, and is expected on first establishing connection.</td>
 		</tr>
 		<tr>
-			<td>2105</td><td>A historical data farm is disconnected.</td><td></td>
+			<td>2105</td><td>A historical data farm is disconnected.</td><td>Indicates a connectivity problem to an IB server. Outside of the nightly IB server reset, this typically indicates an underlying ISP connectivity issue.</td>
 		</tr>
 		<tr>
 			<td>2106</td><td>A historical data farm is connected.</td>
-			<td>It is perfectly normal to receive this message shortly after connecting to the TWS/IB Gateway. You can safely ignore this message.</td>
+			<td>A notification that connection to the market data server is ok. This is a notification and <b>not</b> a true error condition, and is expected on first establishing connection.</td>
 		</tr>
 		<tr>
 			<td>2107</td><td>A historical data farm connection has become inactive but should be available upon demand.</td>
 			<td>
-				Whenever a connection to our data farms is not needed, it will become dormant. There is nothing abnormal nor wrong with your client application nor with the TWS. 
-				You can safely ignore this message.
+				Whenever a connection to the historical data farm is not being used because there is not an active historical data request, the connection will go inactive in IB Gateway. This does <b>not</b> indicate any connectivity issue or problem with IB Gateway. As soon as a historical data request is made the status will change back to active.
 			</td>
 		</tr>
 		<tr>
@@ -87,10 +86,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td>2109</td><td>Order Event Warning: Attribute "Outside Regular Trading Hours" is ignored based on the order type and destination. PlaceOrder is now processed.</td><td></td>
+			<td>2109</td><td>Order Event Warning: Attribute "Outside Regular Trading Hours" is ignored based on the order type and destination. PlaceOrder is now processed.</td><td>Indicates the outsideRth flag was set for an order for which there is not a regular vs outside regular trading hour distinction</td>
 		</tr>
 		<tr>
-			<td>2110</td><td>Connectivity between TWS and server is broken. It will be restored automatically.</td><td></td>
+			<td>2110</td><td>Connectivity between TWS and server is broken. It will be restored automatically.</td><td>Indicates a connectivity problem between TWS or IBG and the IB server. This will usually only occur during the IB nightly server reset; cases at other times indicate a problem in the local ISP connectivity.</td>
 		</tr>
 			<tr>
 			<td>2137</td><td>Cross Side Warning</td><td>This warning message occurs in TWS version 955 and higher. It occurs when an order will change the position in an account from long to short or from short to long. 
@@ -118,7 +117,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>503</td><td>The TWS is out of date and must be upgraded.</td><td></td>
+			<td>503</td><td>The TWS is out of date and must be upgraded.</td><td>Indicates TWS or IBG is too old for use with the current API version. Can also be triggered if the TWS version does not support a specific API function.</td>
 		</tr>
 		<tr>
 			<td>504</td><td>Not connected.</td>
@@ -430,7 +429,7 @@
 		</tr>
 		<tr>
 			<td>303</td><td>Invalid action:</td>
-			<td>An action field in an order was specified with value other than BUY, SELL, SSLONG, SSHORT</td>
+			<td>An action field was specified that is not available for the account. For most accounts this is only BUY or SELL. Some institional accounts also have the options SSELL or SLONG available.</td>
 		</tr>
 		<tr>
 			<td>304</td><td>Invalid account value action:</td>
@@ -527,7 +526,7 @@
 		</tr>
 		<tr>
 			<td>328</td><td>Trailing stop orders can be attached to limit or stop-limit orders only.</td>
-			<td></td>
+			<td>Indicates attempt to attach trail stop to order which was not a limit or stop-limit.</td>
 		</tr>
 		<tr>
 			<td>329</td><td>Order modify failed. Cannot change to the new order type.</td>
@@ -1011,6 +1010,10 @@
 		<tr>
 			<td>449</td><td>Unexpected scale price adjustment amount or interval.</td>
 			<td>ScalePriceAdjustValue or ScalePriceAdjustInterval specified is invalid</td>
+		</tr>
+		<tr>
+			<td>507</td><td>Bad Message Length (Java-only)</td>
+			<td>Indicates EOF exception was caught while reading from the socket. This can occur if there is an attempt to connect to TWS with a client ID that is already in use, or if TWS closes or breaks the connection. It should be handled by the client application and used to indicate that the socket connection is not valid.</td>
 		</tr>
 		<tr>
 			<td>10000</td><td>Cross currency combo error.</td>

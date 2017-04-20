@@ -460,7 +460,7 @@ namespace Samples
         /// to be more aggressive. If the market moves in the opposite direction, the order will execute.
         /// Products: STK
         /// </summary>
-        public static Order PeggedToMidpoint(string action, double quantity, double offset)
+        public static Order PeggedToMidpoint(string action, double quantity, double offset, double limitPrice)
         {
             // ! [pegged_midpoint]
             Order order = new Order();
@@ -468,6 +468,7 @@ namespace Samples
             order.OrderType = "PEG MID";
             order.TotalQuantity = quantity;
             order.AuxPrice = offset;
+			order.LmtPrice = limitPrice;
             // ! [pegged_midpoint]
             return order;
         }

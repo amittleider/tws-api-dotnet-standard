@@ -135,6 +135,7 @@ Namespace Samples
             Contract.currency = "USD"
             Contract.exchange = "SMART"
             'Specify the Primary Exchange attribute to avoid contract ambiguity
+			'(there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
             Contract.PrimaryExch = "ISLAND"
             '! [stkcontractwithprimary]
             Return Contract
@@ -266,6 +267,19 @@ Namespace Samples
             Return contract
         End Function
 
+		' Dutch Warrants (IOPTs) can be defined using the local symbol or conid
+		
+		Public Shared Function DutchWarrant() As Contract
+            '! [ioptcontract]
+            Dim contract As Contract = New Contract()
+            contract.LocalSymbol = "B881G"
+            contract.SecType = "IOPT"
+            contract.Exchange = "SBF"
+            contract.Currency = "EUR"
+            '! [ioptcontract]
+            Return contract
+        End Function
+		
         '
         ' Future contracts also require an expiration date but are less complicated than options.
         '
@@ -493,6 +507,35 @@ Namespace Samples
 
         End Function
 
+		Public Shared Function SmartFutureComboContract() As Contract
+
+            '! [smartfuturespread]
+            Dim contract As Contract = New Contract
+            contract.Symbol = "WTI" ' WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD")
+            contract.SecType = "BAG"
+            contract.Currency = "USD"
+            contract.Exchange = "SMART"
+
+            Dim leg1 As ComboLeg = New ComboLeg
+            leg1.ConId = 55928698 ' WTI future June 2017
+            leg1.Ratio = 1
+            leg1.Action = "BUY"
+            leg1.Exchange = "IPE"
+
+            Dim leg2 As ComboLeg = New ComboLeg
+            leg2.ConId = 55850663 ' COIL future June 2017
+            leg2.Ratio = 1
+            leg2.Action = "SELL"
+            leg2.Exchange = "IPE"
+
+            contract.ComboLegs = New List(Of ComboLeg)
+            contract.ComboLegs.Add(leg1)
+            contract.ComboLegs.Add(leg2)
+            '! [smartfuturespread]
+            Return contract
+
+        End Function
+		
         Public Shared Function InterCmdtyFuturesContract() As Contract
 
             '! [intcmdfutcontract]

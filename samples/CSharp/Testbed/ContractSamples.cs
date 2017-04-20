@@ -185,6 +185,7 @@ namespace Samples
 			contract.Currency = "USD";
 			contract.Exchange = "SMART";
 			//Specify the Primary Exchange attribute to avoid contract ambiguity
+			// (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
             contract.PrimaryExch = "ISLAND";
 			//! [stkcontractwithprimary]
 			return contract;
@@ -270,6 +271,23 @@ namespace Samples
             return contract;
         }
 
+		/*
+		 * Dutch Warrants (IOPTs) can be defined using the local symbol or conid
+		 */
+		 
+		public static Contract DutchWarrant()
+        {
+            //! [ioptcontract]
+            Contract contract = new Contract();
+            contract.LocalSymbol = "B881G";
+            contract.SecType = "IOPT";
+            contract.Exchange = "SBF";
+            contract.Currency = "EUR";
+            //! [ioptcontract]
+            return contract;
+        }
+		
+		
         /*
          * Future contracts also require an expiration date but are less complicated than options.
          */
@@ -489,6 +507,35 @@ namespace Samples
             return contract;
         }
 
+		public static Contract SmartFutureComboContract()
+        {
+            //! [smartfuturespread]
+            Contract contract = new Contract();
+            contract.Symbol = "WTI"; // WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD").
+            contract.SecType = "BAG";
+            contract.Currency = "USD";
+            contract.Exchange = "SMART";
+
+            ComboLeg leg1 = new ComboLeg();
+            leg1.ConId = 55928698;//WTI future June 2017
+            leg1.Ratio = 1;
+            leg1.Action = "BUY";
+            leg1.Exchange = "IPE";
+
+            ComboLeg leg2 = new ComboLeg();
+            leg2.ConId = 55850663;//COIL future June 2017
+            leg2.Ratio = 1;
+            leg2.Action = "SELL";
+            leg2.Exchange = "IPE";
+
+            contract.ComboLegs = new List<ComboLeg>();
+            contract.ComboLegs.Add(leg1);
+            contract.ComboLegs.Add(leg2);
+            //! [smartfuturespread]
+            return contract;
+        }
+		
+		
         public static Contract InterCmdtyFuturesContract()
         {
             //! [intcmdfutcontract]

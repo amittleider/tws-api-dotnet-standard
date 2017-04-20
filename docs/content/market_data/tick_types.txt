@@ -28,7 +28,7 @@
 		<tr><td>Low 52 Weeks</td><td>19</td><td>Lowest price for the last 52 weeks.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>165</td></tr>
 		<tr><td>High 52 Weeks</td><td>20</td><td>Highest price for the last 52 weeks.</td><td>@ref IBApi::EWrapper::tickPrice</td><td>165</td></tr>
 		<tr><td>Average Volume</td><td>21</td><td>The average daily trading volume over 90 days (multiply this value times 100).</td><td>@ref IBApi::EWrapper::tickSize</td><td>165</td></tr>
-		<tr><td>Open Interest</td><td>22</td><td>Total number of options that were not closed.</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
+		<tr><td>Open Interest</td><td>22</td><td>(Deprecated, not currently in use) Total number of options that are not closed.</td><td>@ref IBApi::EWrapper::tickSize</td><td>-</td></tr>
 		<tr><td>Option Historical Volatility</td><td>23</td><td>The 30-day historical volatility (currently for stocks).</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>104</td></tr>
 		<tr><td>Option Implied Volatility</td><td>24</td><td>A prediction of how volatile an underlying will be in the future. The IB 30-day volatility is the at-market volatility estimated for a maturity thirty calendar days forward of the current trading day, and is based on option prices from two consecutive expiration months.</td><td>@ref IBApi::EWrapper::tickGeneric</td><td>106</td></tr>
 		<tr><td>Option Bid Exchange</td><td>25</td><td>Not Used.</td><td>@ref IBApi::EWrapper::tickString</td><td>-</td></tr>

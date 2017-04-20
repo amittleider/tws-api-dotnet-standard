@@ -225,6 +225,8 @@ namespace IBApi
 
         /**
         * @brief Aggregated group
+		* Indicates the smart-routing group to which a contract belongs.
+		* contracts which cannot be smart-routed have aggGroup = -1
         */
         public int AggGroup
         {

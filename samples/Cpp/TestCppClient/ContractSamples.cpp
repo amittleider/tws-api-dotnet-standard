@@ -180,7 +180,8 @@ Contract ContractSamples::USStockWithPrimaryExch(){
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";
-	//Specify the Primary Exchange attribute to avoid contract ambiguity
+	// Specify the Primary Exchange attribute to avoid contract ambiguity
+	// (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
 	contract.primaryExchange = "ISLAND";
 	//! [stkcontractwithprimary]
 	return contract;
@@ -299,7 +300,7 @@ Contract ContractSamples::OptionWithTradingClass(){
 /*
  * Using the contract's own symbol (localSymbol) can greatly simplify a contract description
  */
-Contract ContractSamples::OptionWithLoacalSymbol(){
+Contract ContractSamples::OptionWithLocalSymbol(){
 	//! [optcontract_localsymbol]
 	Contract contract;
 	//Watch out for the spaces within the local symbol!
@@ -308,6 +309,21 @@ Contract ContractSamples::OptionWithLoacalSymbol(){
 	contract.exchange = "DTB";
 	contract.currency = "EUR";
 	//! [optcontract_localsymbol]
+	return contract;
+}
+
+/*
+ * Dutch Warrants (IOPTs) can be defined using the local symbol or conid
+ */
+
+Contract ContractSamples::DutchWarrant(){
+	//! [ioptcontract]
+	Contract contract;
+	contract.localSymbol = "B881G";
+	contract.secType = "IOPT";
+	contract.exchange = "SBF";
+	contract.currency = "EUR";
+	//! [ioptcontract]
 	return contract;
 }
 
@@ -516,6 +532,33 @@ Contract ContractSamples::FutureComboContract(){
 	contract.comboLegs->push_back(leg1);
 	contract.comboLegs->push_back(leg2);
 	//! [bagfutcontract]
+	return contract;
+}
+
+Contract ContractSamples::SmartFutureComboContract(){
+	//! [smartfuturespread]
+	Contract contract;
+	contract.symbol = "WTI"; // WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD").
+	contract.secType = "BAG";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+
+	ComboLegSPtr leg1(new ComboLeg);
+	leg1->conId = 55928698; // WTI future June 2017
+	leg1->action = "BUY";
+	leg1->ratio = 1;
+	leg1->exchange = "IPE";
+
+	ComboLegSPtr leg2(new ComboLeg);
+	leg2->conId = 55850663; // COIL future June 2017
+	leg2->action = "SELL";
+	leg2->ratio = 1;
+	leg2->exchange = "IPE";
+
+	contract.comboLegs.reset(new Contract::ComboLegList());
+	contract.comboLegs->push_back(leg1);
+	contract.comboLegs->push_back(leg2);
+	//! [smartfuturespread]
 	return contract;
 }
 

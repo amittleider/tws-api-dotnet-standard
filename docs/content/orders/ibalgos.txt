@@ -68,8 +68,8 @@
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>maxPctVol</td><td>Maximum percentage of ADV</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
@@ -126,7 +126,7 @@
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>maxPctVol</td><td>Maximum percentage of ADV</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>riskAversion</td><td>Urgency/risk aversion</td><td>Get Done, Aggressive, Neutral, Passive</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>forceCompletion</td><td>Attempt completion by the end of the day</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -183,8 +183,8 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>displaySize</td><td>Order size to be displayed</td><td></td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -247,8 +247,8 @@
 		<tr><td>giveUp</td><td>Number associated with the clearing</td><td></td></tr>
 		<tr><td>catchUp</td><td>Catch up in time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>waitForFill</td><td>Wait for current order to fill before submitting next order</td><td>1 (true) or 0 (false)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 	</table>
 	
 	<br>
@@ -301,8 +301,8 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>pctVol</td><td>Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -359,8 +359,8 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>strategyType</td><td>Trade strategy</td><td>Marketable, Matching, Midpoint, Matching Same Side, Matching Last</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -416,8 +416,8 @@
 		<tr><td>deltaPctVol</td><td>Target Percentage Change Rate</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>minPctVol4Px</td><td>Minimum Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>maxPctVol4Px</td><td>Maximum Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -471,8 +471,8 @@
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -526,8 +526,8 @@
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>startPctVol</td><td>Initial Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
 		<tr><td>endPctVol</td><td>Terminal Target Percentage</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>monetaryValue</td><td>Cash Quantity</td><td></td></tr>
 	</table>
@@ -588,8 +588,8 @@
 	<table>
 		<tr><th>Parameter</th><th>Description</th><th>Values</th></tr>
 		<tr><td>maxPctVol</td><td>Maximum percentage of average daily volume</td><td>0.1 (10%) - 0.5 (50%)</td></tr>
-		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ</td></tr>
-		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ</td></tr>
+		<tr><td>startTime</td><td>Algorithm starting time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
+		<tr><td>endTime</td><td>Algorithm ending time</td><td>hh:mm:ss TMZ or YYYYMMDD-hh:mm:ss TMZ</td></tr>
 		<tr><td>allowPastEndTime</td><td>Allow trading past end time</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>noTakeLiq</td><td>Attempt to never take liquidity</td><td>1 (true) or 0 (false)</td></tr>
 		<tr><td>speedUp</td><td>Compensate for the decreased fill rate due to presence of limit price</td><td>1 (true) or 0 (false)</td></tr>
