@@ -5,7 +5,7 @@
   
 	<table>
 		<tr><th>Product</th><th>Frequency</th></tr>
-		<tr><td>Default</td><td>250 ms</td></tr>
+		<tr><td>Stocks, Futures and others</td><td>250 ms</td></tr>
 		<tr><td>US Options</td><td>100 ms</td></tr>
 		<tr><td>FX pairs</td><td>5 ms</td></tr>
 	</table>

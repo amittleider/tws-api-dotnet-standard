@@ -1,0 +1,39 @@
+/*! \page rtd_fqa_errors Troubleshooting Common Errors for RTD
+	
+	\section rtd_common_errors Troubleshooting Common Errors
+	
+	 - \ref rtd_common_errors_cannot_connect
+	 - \ref rtd_common_errors_no_security
+	 - \ref rtd_common_errors_ambiguity
+	 - \ref rtd_common_errors_invalid_gentick
+	 - \ref rtd_common_errors_maxmktdata
+	
+	\subsection rtd_common_errors_cannot_connect TwsRtdServer error: Cannot connect to TWS.
+	
+	This error message is most likely triggered because your TWS has not been configured properly for API socket connection. Please make sure to \ref enable_api "Enable ActiveX and Socket Client" settings in your TWS.
+	Also bear in mind that TWS Rtd Server connects to socket port 7496 by default. You will see the above error message if the socket port configured in your TWS API settings does not match what RTD is trying to connect to. 
+	See more details in \ref rtd_what_you_will_need .
+	
+	\subsection rtd_common_errors_no_security TwsRtdServer error: No security definition has been found for the request.
+	
+	This error message is triggered to indicate the contract definition provided in your RTD formula cannot be found by TWS. 
+	Usually it is caused by incorrect contract attribute definitions or typo. You are suggested to refer to some \ref rtd_examples "Syntax Samples" and find out the issue in your RTD formula.
+	
+	\subsection rtd_common_errors_ambiguity TwsRtdServer error: The contract description specified for <SYMBOL> is ambiguous.
+	
+	This error message indicates the contract definition provided by you does not uniquely define one single contract. It is mostly triggered for stock symbols, such as MSFT and CSCO, that are listed on multiple primary exchanges.
+	Specifying the <b>PrimaryExchange</b> will resolve the issue. Please refer to \ref rtd_samples_stk "Syntax Sample for MSFT" .
+	
+	\subsection rtd_common_errors_invalid_gentick TwsRtdServer error: Error validating request:-'zd':cause - Incorrect generic tick list of <list>
+	
+	As explained in \ref rtd_what_you_will_need , TWS Build 963+ is required because there are some generic tick types requested by RTD by default that are not supported in older TWS builds. <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">Upgrade TWS</a> to any build above 963 will resolve the issue. 
+	
+	\subsection rtd_common_errors_maxmktdata Some data show '0' when requesting data for many securities
+	
+	This is most likely because you have exceeded the limit of \ref market_lines . You can verify if this is reason by going to TWS and hold <b>Ctrl_Alt_=</b> at the same time. 
+	This should show a small pop-up window and indicate the maximum allowed market data lines as well as the currently subscribed top market data count. If you are subscribed to more than the maximum allowed, some of the data point will show '0'.
+	
+	\image html rtd_maxdataline.PNG
+	
+	<br><br>
+*/

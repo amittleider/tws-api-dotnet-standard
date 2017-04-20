@@ -122,3 +122,15 @@ ul#tab li.active {
 .navpath li.navelem a:hover{
 	color:white;
 }
+
+tr.gray{
+	background-color:#DEDEDE;
+}
+
+td.separator{
+	background-color:#434343;
+}
+
+.rtd_formula{
+	background-color:#FFEEEE;
+}
