@@ -531,6 +531,16 @@ Namespace Samples
         End Sub
         '! [rerouteMktDepthReq]
 
+        '! [marketRule]
+        Public Sub marketRule(marketRuleId As Integer, priceIncrements As PriceIncrement()) Implements EWrapper.marketRule
+            Console.WriteLine("Market Rule Id:" & marketRuleId)
+
+            For Each priceIncrement In priceIncrements
+                Console.WriteLine("LowEdge: " & CDec(priceIncrement.LowEdge) & " Increment: " & CDec(priceIncrement.Increment))
+            Next
+        End Sub
+        '! [marketRule]
+
     End Class
 
 End Namespace

@@ -174,6 +174,7 @@ const int REQ_HEAD_TIMESTAMP			= 87;
 const int REQ_HISTOGRAM_DATA			= 88;
 const int CANCEL_HISTOGRAM_DATA			= 89;
 const int CANCEL_HEAD_TIMESTAMP			= 90;
+const int REQ_MARKET_RULE				= 91;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -321,6 +322,8 @@ public:
 	void cancelHeadTimestamp(int tickerId);
 	void reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod);
 	void cancelHistogramData(int reqId);
+	void reqMarketRule(int marketRuleId);
+
 private:
 
 	virtual int receive(char* buf, size_t sz) = 0;

@@ -68,6 +68,7 @@ public class ApiController implements EWrapper {
 	private final Set<INewsProvidersHandler> m_newsProvidersHandlers = new ConcurrentHashSet<>();
 	private final Map<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
 	private final Map<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
+	private final Set<IMarketRuleHandler> m_marketRuleHandlers = new ConcurrentHashSet<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1649,5 +1650,26 @@ public class ApiController implements EWrapper {
 	@Override public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
 		show( "Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange);
 	}
+
+    public interface IMarketRuleHandler {
+        void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
+    }
+
+    public void reqMarketRule(int marketRuleId, IMarketRuleHandler handler) {
+        if (!checkConnection())
+            return;
+
+        m_marketRuleHandlers.add(handler);
+        m_client.reqMarketRule(marketRuleId);
+        sendEOM();
+    }
+
+    @Override
+    public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+        for( IMarketRuleHandler handler : m_marketRuleHandlers) {
+            handler.marketRule(marketRuleId, priceIncrements);
+        }
+        recEOM();
+    }
 
 }

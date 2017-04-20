@@ -13,6 +13,7 @@
 #include "TickAttrib.h"
 #include "HistogramEntry.h"
 #include "bar.h"
+#include "PriceIncrement.h"
 #include <string>
 #include <set>
 #include <map>
@@ -204,6 +205,7 @@ public:
    virtual void historicalDataUpdate(TickerId reqId, Bar bar) = 0;
    virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange) = 0;
    virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) = 0;
+   virtual void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) = 0;
 };
 
 

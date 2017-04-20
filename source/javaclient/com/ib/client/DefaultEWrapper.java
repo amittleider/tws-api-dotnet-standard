@@ -469,4 +469,10 @@ class DefaultEWrapper implements EWrapper {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		// TODO Auto-generated method stub
+		
+	}
 }

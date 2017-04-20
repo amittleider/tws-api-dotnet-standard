@@ -480,4 +480,10 @@ public class SimpleWrapper implements EWrapper {
 		
 	}
 
+	@Override
+	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

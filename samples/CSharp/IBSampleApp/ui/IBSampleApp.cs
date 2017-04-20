@@ -61,7 +61,7 @@ namespace IBSampleApp
             scannerManager = new ScannerManager(ibClient, scannerGrid, scannerParamsOutput);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid, familyCodesGrid);
-            contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid, bondContractDetailsGrid);
+            contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid, bondContractDetailsGrid, comboBoxMarketRuleId, dataGridViewMarketRule, labelMarketRuleIdRes);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid, listViewOptionParams);
             acctPosMultiManager = new AcctPosMultiManager(ibClient, positionsMultiGrid, accountUpdatesMultiGrid);
@@ -184,6 +184,7 @@ namespace IBSampleApp
             ibClient.HistogramData += UpdateUI;
             ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
+            ibClient.MarketRule += contractManager.HandleMarketRuleMessage;
         }
 
         private void UpdateUI(HistogramDataMessage obj)
@@ -1152,6 +1153,17 @@ namespace IBSampleApp
             histogramSubscriptionList.Remove(reqId);
             ibClient.ClientSocket.cancelHistogramData(reqId);
             histogramDataGridView.Rows.Clear();
+        }
+
+        private void buttonReqMarketRule_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                int marketRuleId = 0;
+                Int32.TryParse(comboBoxMarketRuleId.Text, out marketRuleId);
+                ibClient.ClientSocket.reqMarketRule(marketRuleId);
+                ShowTab(contractInfoTab, marketRulePage);
+            }
         }
     }
 }

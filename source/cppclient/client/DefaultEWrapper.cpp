@@ -88,5 +88,6 @@ void DefaultEWrapper::histogramData(int reqId, HistogramDataVector data) { }
 void DefaultEWrapper::historicalDataUpdate(TickerId reqId, Bar bar) { }
 void DefaultEWrapper::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) { }
 void DefaultEWrapper::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) { }
+void DefaultEWrapper::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) { }
 
 

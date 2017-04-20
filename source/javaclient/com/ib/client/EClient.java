@@ -184,6 +184,7 @@ public abstract class EClient {
   	private static final int REQ_HISTOGRAM_DATA = 88;
     private static final int CANCEL_HISTOGRAM_DATA = 89;
     private static final int CANCEL_HEAD_TIMESTAMP = 90;
+    private static final int REQ_MARKET_RULE = 91;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -253,9 +254,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP = 123;
     protected static final int MIN_SERVER_VER_SYNT_REALTIME_BARS = 124;
     protected static final int MIN_SERVER_VER_CFD_REROUTE = 125;
+    protected static final int MIN_SERVER_VER_MARKET_RULES = 126;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_CFD_REROUTE; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_MARKET_RULES; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -3401,6 +3403,34 @@ public abstract class EClient {
         }
     }
 
+    public synchronized void reqMarketRule( int marketRuleId) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_MARKET_RULES) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+                    "  It does not support market rule requests.");
+            return;
+        }
+
+        // send request market rule msg
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(REQ_MARKET_RULE);
+            b.send(marketRuleId);
+
+            closeAndSend(b);
+        }
+        catch( Exception e) {
+            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQMARKETRULE, e.toString());
+            close();
+        }
+    }
+    
     /**
      * @deprecated This method is never called.
      */

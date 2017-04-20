@@ -1016,6 +1016,12 @@ namespace TWSLib
         {
             this.socket.cancelHistogramData(tickerId);
         }
+
+        void ITws.reqMarketRule(int marketRuleId)
+        {
+            socket.reqMarketRule(marketRuleId);
+        }
+
         #endregion
 
         #region events
@@ -1985,6 +1991,16 @@ namespace TWSLib
 
             if (tmp != null)
                 InvokeIfRequired(tmp, reqId, conId, exchange);
+        }
+
+        public delegate void marketRuleDelegate(int marketRuleId, IPriceIncrementList priceIncrements);
+        public event marketRuleDelegate marketRule;
+        void EWrapper.marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
+        {
+            var t_marketRule = this.marketRule;
+
+            if (t_marketRule != null)
+                InvokeIfRequired(t_marketRule, marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null);
         }
 
         #endregion

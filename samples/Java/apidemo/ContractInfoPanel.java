@@ -5,13 +5,18 @@ package apidemo;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.DecimalFormat;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,9 +24,11 @@ import javax.swing.JTextArea;
 
 import com.ib.client.Contract;
 import com.ib.client.ContractDetails;
+import com.ib.client.PriceIncrement;
 import com.ib.client.Types.FundamentalType;
 import com.ib.controller.ApiController.IContractDetailsHandler;
 import com.ib.controller.ApiController.IFundamentalsHandler;
+import com.ib.controller.ApiController.IMarketRuleHandler;
 
 import apidemo.util.HtmlButton;
 import apidemo.util.NewTabbedPanel;
@@ -32,11 +39,14 @@ import apidemo.util.VerticalPanel;
 class ContractInfoPanel extends JPanel {
 	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
+	private static HashSet<Integer> m_marketRuleIds = new HashSet<Integer>();
+    private final MarketRuleRequestPanel m_marketRuleRequestPanel = new MarketRuleRequestPanel();
 	
 	ContractInfoPanel() {
-		final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
+	    NewTabbedPanel m_requestPanels = new NewTabbedPanel();
 		m_requestPanels.addTab( "Contract details", new DetailsRequestPanel() );
 		m_requestPanels.addTab( "Fundamentals", new FundaRequestPanel() );
+		m_requestPanels.addTab( "Market Rules", m_marketRuleRequestPanel );
 		
 		setLayout( new BorderLayout() );
 		add( m_requestPanels, BorderLayout.NORTH);
@@ -68,7 +78,7 @@ class ContractInfoPanel extends JPanel {
 		}
 	}
 
-	static class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
+	class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
 		JLabel m_label = new JLabel();
 		JTextArea m_text = new JTextArea();
 		
@@ -98,6 +108,12 @@ class ContractInfoPanel extends JPanel {
 			}
 			else {
 				m_text.setText( list.get( 0).toString() );
+			}
+			if (list.size() > 0 && list.get( 0).marketRuleIds() != null) {
+				for (String s : list.get( 0).marketRuleIds().split(",")){
+					m_marketRuleIds.add(Integer.parseInt(s));
+				}
+				m_marketRuleRequestPanel.m_marketRuleIdCombo.setModel(new DefaultComboBoxModel(m_marketRuleIds.toArray()));
 			}
 		}
 	}
@@ -176,4 +192,67 @@ class ContractInfoPanel extends JPanel {
 			m_text.setText( str);
 		}
 	}
+	
+	class MarketRuleRequestPanel extends JPanel {
+		JComboBox m_marketRuleIdCombo = new JComboBox();
+		
+		MarketRuleRequestPanel() {
+			m_marketRuleIdCombo.setPreferredSize(new Dimension(130, 20));
+			m_marketRuleIdCombo.setEditable(true);
+			
+			HtmlButton but = new HtmlButton( "Request Market Rule") {
+				@Override protected void actionPerformed() {
+					onRequestMarketRule();
+				}
+			};
+
+			VerticalPanel paramsPanel = new VerticalPanel();
+			paramsPanel.add( "Market Rule Id", m_marketRuleIdCombo, Box.createHorizontalStrut(100), but);
+			setLayout( new BorderLayout() );
+			add( paramsPanel, BorderLayout.NORTH);
+		}
+		
+		void onRequestMarketRule() {
+			MarketRuleResultsPanel panel = new MarketRuleResultsPanel();
+			if (!m_marketRuleIdCombo.getEditor().getItem().toString().isEmpty()) {
+				int marketRuleId = Integer.parseInt(m_marketRuleIdCombo.getEditor().getItem().toString());
+				m_resultsPanels.addTab( "Market Rule Id: " + m_marketRuleIdCombo.getEditor().getItem(), panel, true, true);
+				ApiDemo.INSTANCE.controller().reqMarketRule(marketRuleId, panel);
+			}
+		}
+	}
+	
+	class MarketRuleResultsPanel extends JPanel implements IMarketRuleHandler {
+		JLabel m_label = new JLabel();
+		JTextArea m_text = new JTextArea();
+		
+		MarketRuleResultsPanel() {
+			JScrollPane scroll = new JScrollPane( m_text);
+
+			setLayout( new BorderLayout() );
+			add( m_label, BorderLayout.NORTH);
+			add( scroll);
+		}
+
+		@Override
+		public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+			// set text
+			if (priceIncrements.length == 0) {
+				m_text.setText( null);
+			}
+			else {
+				StringBuilder sb = new StringBuilder(256);
+				DecimalFormat df = new DecimalFormat("#.#");
+				df.setMaximumFractionDigits(340);
+				
+				sb.append("Market Rule Id: " + marketRuleId + "\n");
+				for (int i = 0; i < priceIncrements.length; i++){
+					sb.append("Low Edge: " + df.format(priceIncrements[i].lowEdge()) + ", ");
+					sb.append("Increment: " + df.format(priceIncrements[i].increment()) + "\n");
+				}
+				m_text.setText( sb.toString());
+			}
+		}
+
+	}	
 }

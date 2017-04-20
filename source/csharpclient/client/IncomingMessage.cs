@@ -78,5 +78,6 @@ namespace IBApi
         public const int HistogramDataUpdate = 90;
         public const int RerouteMktDataReq = 91;
         public const int RerouteMktDepthReq = 92;
+        public const int MarketRule = 93;
     }
 }

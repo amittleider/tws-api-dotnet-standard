@@ -418,6 +418,11 @@ namespace IBApi
                         RerouteMktDepthReqEvent();
                         break;
                     }
+                case IncomingMessage.MarketRule:
+                    {
+                        MarketRuleEvent();
+                        break;
+                    }
                 default:
                     {
                         eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
@@ -426,6 +431,25 @@ namespace IBApi
             }
 
             return true;
+        }
+
+        private void MarketRuleEvent()
+        {
+            int marketRuleId = ReadInt();
+            PriceIncrement[] priceIncrements = new PriceIncrement[0];
+            int nPriceIncrements = ReadInt();
+
+            if (nPriceIncrements > 0)
+            {
+                Array.Resize(ref priceIncrements, nPriceIncrements);
+
+                for (int i = 0; i < nPriceIncrements; ++i)
+                {
+                    priceIncrements[i] = new PriceIncrement(ReadDouble(), ReadDouble());
+                }
+            }
+
+            eWrapper.marketRule(marketRuleId, priceIncrements);
         }
 
         private void RerouteMktDepthReqEvent()
@@ -1073,6 +1097,10 @@ namespace IBApi
             {
                 contract.AggGroup = ReadInt();
             }
+            if (serverVersion >= MinServerVer.MARKET_RULES)
+            {
+                contract.MarketRuleIds = ReadString();
+            }
 
             eWrapper.bondContractDetails(requestId, contract);
         }
@@ -1695,6 +1723,10 @@ namespace IBApi
             {
                 contract.UnderSymbol = ReadString();
                 contract.UnderSecType = ReadString();
+            }
+            if (serverVersion >= MinServerVer.MARKET_RULES)
+            {
+                contract.MarketRuleIds = ReadString();
             }
 
             eWrapper.contractDetails(requestId, contract);

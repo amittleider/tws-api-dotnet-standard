@@ -809,5 +809,12 @@ namespace IBApi
         */
         void rerouteMktDepthReq(int reqId, int conId, string exchange);
 
+        /**
+        * @brief returns marketRuleId and array of price increments
+        * @param marketRuleId
+        * @param PriceIncrement[]
+        * @sa EClient::reqMarketRule
+        */
+        void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
     }
 }

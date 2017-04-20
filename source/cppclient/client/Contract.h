@@ -147,6 +147,7 @@ struct ContractDetails
 	int			aggGroup;
 	std::string	underSymbol;
 	std::string	underSecType;
+	std::string marketRuleIds;
 
 	TagValueListSPtr secIdList;
 

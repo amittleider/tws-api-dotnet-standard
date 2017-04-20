@@ -150,7 +150,12 @@ namespace Samples
             /***********************/
             /*** CFD re-route    ***/
             /***********************/
-            rerouteCFDOperations(client);
+            //rerouteCFDOperations(client);
+
+            /***********************/
+            /*** Market rule     ***/
+            /***********************/
+            marketRuleOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -845,6 +850,21 @@ namespace Samples
             //! [subscribefromgroupevents]
             client.unsubscribeFromGroupEvents(9002);
             //! [subscribefromgroupevents]
+        }
+
+        private static void marketRuleOperations(EClientSocket client) 
+        {
+            //! [reqcontractdetails]
+            client.reqContractDetails(17001, ContractSamples.USStock());
+            client.reqContractDetails(17002, ContractSamples.Bond());
+            //! [reqcontractdetails]
+
+            Thread.Sleep(2000);
+
+            //! [reqmarketrule]
+            client.reqMarketRule(26);
+            client.reqMarketRule(240);
+            //! [reqmarketrule]
         }
 
     }

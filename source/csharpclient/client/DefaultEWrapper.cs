@@ -307,5 +307,8 @@ namespace IBApi
         {
         }
 
+        public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
+        {
+        }
     }
 }

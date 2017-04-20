@@ -15,6 +15,7 @@
 #include "TwsSocketClientErrors.h"
 #include "EDecoder.h"
 #include "EClientMsgSink.h"
+#include "PriceIncrement.h"
 #include <string.h>
 #include <cstdlib>
 
@@ -861,6 +862,9 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 		DECODE_FIELD( contract.underSymbol);
 		DECODE_FIELD( contract.underSecType);
 	}
+	if (m_serverVersion >= MIN_SERVER_VER_MARKET_RULES) {
+		DECODE_FIELD( contract.marketRuleIds);
+	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 
@@ -929,6 +933,9 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 	}
 	if (m_serverVersion >= MIN_SERVER_VER_AGG_GROUP) {
 		DECODE_FIELD( contract.aggGroup);
+	}
+	if (m_serverVersion >= MIN_SERVER_VER_MARKET_RULES) {
+		DECODE_FIELD( contract.marketRuleIds);
 	}
 
 	m_pEWrapper->bondContractDetails( reqId, contract);
@@ -1930,6 +1937,29 @@ const char* EDecoder::processHistoricalNewsEndMsg(const char* ptr, const char* e
 	return ptr;
 }
 
+const char* EDecoder::processMarketRuleMsg(const char* ptr, const char* endPtr)
+{
+	int marketRuleId;
+	typedef std::vector<PriceIncrement> PriceIncrementList;
+	PriceIncrementList priceIncrements;
+	int nPriceIncrements = 0;
+
+	DECODE_FIELD( marketRuleId);
+	DECODE_FIELD( nPriceIncrements);
+
+	if (nPriceIncrements > 0) {
+		priceIncrements.resize(nPriceIncrements);
+		for( int i = 0; i < nPriceIncrements; ++i) {
+			DECODE_FIELD( priceIncrements[i].lowEdge);
+			DECODE_FIELD( priceIncrements[i].increment);
+		}
+	}
+
+	m_pEWrapper->marketRule(marketRuleId, priceIncrements);
+
+	return ptr;
+}
+
 int EDecoder::processConnectAck(const char*& beginPtr, const char* endPtr)
 {
 	// process a connect Ack message from the buffer;
@@ -2373,6 +2403,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
 		case REROUTE_MKT_DEPTH_REQ:
 			ptr = processRerouteMktDepthReqMsg(ptr, endPtr);
+			break;
+
+		case MARKET_RULE:
+			ptr = processMarketRuleMsg(ptr, endPtr);
 			break;
 
 		default:

@@ -120,6 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEventSource.vb" />
+    <Compile Include="dlgMarketRule.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dlgSmartComponents.Designer.vb">
       <DependentUpon>dlgSmartComponents.vb</DependentUpon>
     </Compile>
@@ -183,6 +186,7 @@
     <Compile Include="EventArgs\CommissionReportEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEndEventArgs.vb" />
     <Compile Include="EventArgs\ContractDetailsEventArgs.vb" />
+    <Compile Include="EventArgs\MarketRuleEventArgs.vb" />
     <Compile Include="EventArgs\RerouteMktDepthReqEventArgs.vb" />
     <Compile Include="EventArgs\RerouteMktDataReqEventArgs.vb" />
     <Compile Include="EventArgs\HistoricalNewsEndEventArgs.vb" />
@@ -307,6 +311,10 @@
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="dlgMarketRule.resX">
+      <DependentUpon>dlgMarketRule.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgHistoricalNews.resX">
       <DependentUpon>dlgHistoricalNews.vb</DependentUpon>
       <SubType>Designer</SubType>

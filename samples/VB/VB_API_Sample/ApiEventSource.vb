@@ -717,6 +717,15 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Private Sub EWrapper_MarketRule(marketRuleId As Integer, priceIncrements() As PriceIncrement) Implements EWrapper.marketRule
+        InvokeIfRequired(Sub()
+                             RaiseEvent MarketRule(Me, New MarketRuleEventArgs With {
+                                                            .marketRuleId = marketRuleId,
+                                                            .priceIncrements = priceIncrements
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -789,6 +798,7 @@ Friend Class ApiEventSource
     Event HistoricalNewsEnd(sender As Object, e As HistoricalNewsEndEventArgs)
     Event RerouteMktDataReq(sender As Object, e As RerouteMktDataReqEventArgs)
     Event RerouteMktDepthReq(sender As Object, e As RerouteMktDepthReqEventArgs)
+    Event MarketRule(sender As Object, e As MarketRuleEventArgs)
 
 #End Region
 

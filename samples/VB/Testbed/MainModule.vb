@@ -153,7 +153,12 @@ Module MainModule
         '***********************
         '*** CFD re-route    ***
         '***********************
-        rerouteCFDOperations(client)
+        'rerouteCFDOperations(client)
+
+        '***********************
+        '*** MarketRule      ***
+        '***********************
+        marketRuleOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -874,6 +879,22 @@ Module MainModule
         client.reqMarketDepth(16006, ContractSamples.CashCFD(), 10, Nothing)
         Thread.Sleep(1000)
         ' [reqmktdepth]
+
+    End Sub
+
+    Private Sub marketRuleOperations(client As EClientSocket)
+
+        '! [reqcontractdetails]
+        client.reqContractDetails(17001, ContractSamples.USStock())
+        client.reqContractDetails(17002, ContractSamples.Bond())
+        '! [reqcontractdetails]
+
+        Thread.Sleep(2000)
+
+        '! [reqmarketrule]
+        client.reqMarketRule(26)
+        client.reqMarketRule(240)
+        '! [reqmarketrule]
 
     End Sub
 

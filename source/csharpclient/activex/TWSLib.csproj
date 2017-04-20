@@ -177,6 +177,9 @@
     <Compile Include="..\client\PriceCondition.cs">
       <Link>CSharpAPI\PriceCondition.cs</Link>
     </Compile>
+    <Compile Include="..\client\PriceIncrement.cs">
+      <Link>CSharpAPI\PriceIncrement.cs</Link>
+    </Compile>
     <Compile Include="..\client\ScannerSubscription.cs">
       <Link>CSharpAPI\ScannerSubscription.cs</Link>
     </Compile>
@@ -224,6 +227,9 @@
     <Compile Include="ComWrappers\comUnderComp.cs" />
     <Compile Include="ComWrappers\ComWrapper.cs" />
     <Compile Include="ComWrappers\ComDepthMktDataDescription.cs" />
+    <Compile Include="ComWrappers\ComPriceIncrement.cs" />
+    <Compile Include="ControlImpl\IPriceIncrementList.cs" />
+    <Compile Include="ControlImpl\IPriceIncrement.cs" />
     <Compile Include="ControlImpl\IDepthMktDataDescriptionList.cs" />
     <Compile Include="ControlImpl\IDepthMktDataDescription.cs" />
     <Compile Include="ControlImpl\IComboLeg.cs" />

@@ -59,6 +59,7 @@
     <Compile Include="ContractCondition.cs" />
     <Compile Include="ContractDescription.cs" />
     <Compile Include="ContractDetails.cs" />
+    <Compile Include="PriceIncrement.cs" />
     <Compile Include="HistogramEntry.cs" />
     <Compile Include="NewsProvider.cs" />
     <Compile Include="DepthMktDataDescription.cs" />

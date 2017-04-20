@@ -370,4 +370,9 @@ public class Test implements EWrapper {
 	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
 		System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));
 	}
+
+	@Override
+	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		System.out.println(EWrapperMsgGenerator.marketRule(marketRuleId, priceIncrements));
+	}
 }

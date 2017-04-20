@@ -92,5 +92,6 @@ public:
    virtual void historicalDataUpdate(TickerId reqId, Bar bar);
    virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
    virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
+   virtual void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
 };
 

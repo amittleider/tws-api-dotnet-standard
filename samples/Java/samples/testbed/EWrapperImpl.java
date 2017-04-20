@@ -1,5 +1,6 @@
 package samples.testbed;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -587,4 +588,17 @@ public class EWrapperImpl implements EWrapper {
 		System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));
 	}
 	//! [rerouteMktDepthReq]
+	
+	//! [marketRule]
+	@Override
+	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		DecimalFormat df = new DecimalFormat("#.#");
+		df.setMaximumFractionDigits(340);
+		System.out.println("Market Rule Id: " + marketRuleId);
+		for (PriceIncrement pi : priceIncrements) {
+			System.out.println("Price Increment. Low Edge: " + df.format(pi.lowEdge()) + ", Increment: " + df.format(pi.increment()));
+		}
+	}
+	//! [marketRule]
+	
 }

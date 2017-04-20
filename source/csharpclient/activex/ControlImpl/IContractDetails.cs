@@ -90,5 +90,7 @@ namespace TWSLib
         string underSymbol { get; }
         [DispId(40)]
         string underSecType { get; }
+        [DispId(41)]
+        string marketRuleIds { get; }
     }
 }

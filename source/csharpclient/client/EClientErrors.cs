@@ -87,6 +87,7 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_REQHISTOGRAMDATA = new CodeMsgPair(567, "Request Histogram Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELHISTOGRAMDATA = new CodeMsgPair(568, "Cancel Request Histogram Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELHEADTIMESTAMP = new CodeMsgPair(569, "Cancel Head Time Stamp Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(570, "Request Market Rule Sending Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     

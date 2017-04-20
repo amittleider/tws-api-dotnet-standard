@@ -94,5 +94,6 @@ public interface EWrapper {
     void historicalDataUpdate(int reqId, Bar bar);
 	void rerouteMktDataReq(int reqId, int conId, String exchange);
 	void rerouteMktDepthReq(int reqId, int conId, String exchange);
+    void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
 }
 

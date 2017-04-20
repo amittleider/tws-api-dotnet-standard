@@ -2647,6 +2647,30 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELHISTOGRAMDATA);
         }
 
+        /**
+        * @brief Requests market rule
+        * @params marketRuleId - the id of market rule
+        * @sa EWrapper::marketRule
+        */
+        public void reqMarketRule(int marketRuleId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.MARKET_RULES,
+                " It does not support market rule requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.RequestMarketRule);
+            paramsList.AddParameter(marketRuleId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETRULE);
+        }
+
+
         protected bool CheckServerVersion(int requiredVersion)
         {
             return CheckServerVersion(requiredVersion, "");
