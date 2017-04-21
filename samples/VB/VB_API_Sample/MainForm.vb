@@ -107,6 +107,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqHistoricalNews As System.Windows.Forms.Button
     Public WithEvents cmdReqHeadTimestamp As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistogramData As System.Windows.Forms.Button
+    Friend WithEvents cmdReqMarketRule As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -172,6 +173,7 @@ Friend Class MainForm
         Me.cmdReqHistoricalNews = New System.Windows.Forms.Button()
         Me.cmdReqHeadTimestamp = New System.Windows.Forms.Button()
         Me.cmdReqHistogramData = New System.Windows.Forms.Button()
+        Me.cmdReqMarketRule = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -325,7 +327,7 @@ Friend Class MainForm
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 59
+        Me.cmdClearForm.TabIndex = 62
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -340,7 +342,7 @@ Friend Class MainForm
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClose.TabIndex = 60
+        Me.cmdClose.TabIndex = 63
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -497,7 +499,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 168)
-        Me.lstErrors.TabIndex = 58
+        Me.lstErrors.TabIndex = 61
         '
         'lstServerResponses
         '
@@ -512,7 +514,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
-        Me.lstServerResponses.TabIndex = 56
+        Me.lstServerResponses.TabIndex = 59
         '
         'lstMktData
         '
@@ -527,7 +529,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 168)
-        Me.lstMktData.TabIndex = 54
+        Me.lstMktData.TabIndex = 57
         '
         'Label3
         '
@@ -539,7 +541,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 57
+        Me.Label3.TabIndex = 60
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -552,7 +554,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 55
+        Me.Label2.TabIndex = 58
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -565,7 +567,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 53
+        Me.Label1.TabIndex = 56
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -915,7 +917,7 @@ Friend Class MainForm
         Me.cmdReqHeadTimestamp.Name = "cmdReqHeadTimestamp"
         Me.cmdReqHeadTimestamp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdReqHeadTimestamp.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqHeadTimestamp.TabIndex = 61
+        Me.cmdReqHeadTimestamp.TabIndex = 53
         Me.cmdReqHeadTimestamp.Text = "Req Head Time Stamp..."
         Me.cmdReqHeadTimestamp.UseVisualStyleBackColor = True
         '
@@ -924,15 +926,25 @@ Friend Class MainForm
         Me.cmdReqHistogramData.Location = New System.Drawing.Point(543, 722)
         Me.cmdReqHistogramData.Name = "cmdReqHistogramData"
         Me.cmdReqHistogramData.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqHistogramData.TabIndex = 62
+        Me.cmdReqHistogramData.TabIndex = 54
         Me.cmdReqHistogramData.Text = "Req Histogram Data"
         Me.cmdReqHistogramData.UseVisualStyleBackColor = True
+        '
+        'cmdReqMarketRule
+        '
+        Me.cmdReqMarketRule.Location = New System.Drawing.Point(683, 722)
+        Me.cmdReqMarketRule.Name = "cmdReqMarketRule"
+        Me.cmdReqMarketRule.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMarketRule.TabIndex = 55
+        Me.cmdReqMarketRule.Text = "Req Market Rule"
+        Me.cmdReqMarketRule.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 779)
+        Me.Controls.Add(Me.cmdReqMarketRule)
         Me.Controls.Add(Me.cmdReqHistogramData)
         Me.Controls.Add(Me.cmdReqHeadTimestamp)
         Me.Controls.Add(Me.cmdReqHistoricalNews)
@@ -1830,6 +1842,19 @@ Friend Class MainForm
         End If
     End Sub
 
+    Private Sub cmdReqMarketRule_Click(sender As Object, e As EventArgs) Handles cmdReqMarketRule.Click
+
+        Dim dlgMarketRule As New dlgMarketRule
+
+        dlgMarketRule.init()
+        dlgMarketRule.ShowDialog()
+
+        If dlgMarketRule.ok Then
+            m_api.reqMarketRule(dlgMarketRule.marketRuleId)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "API event handlers"
@@ -2179,6 +2204,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  underSymbol = " & contractDetails.UnderSymbol)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  underSecType = " & contractDetails.UnderSecType)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  marketRuleIds = " & contractDetails.MarketRuleIds)
 
         If (contract.SecType = "BOND") Then
 
@@ -2902,6 +2928,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  evMultiplier = " & contractDetails.EvMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  marketRuleIds = " & contractDetails.MarketRuleIds)
 
         m_utils.addListItem(Utils.ListType.ServerResponses, "Bond Details:")
         m_utils.addListItem(Utils.ListType.ServerResponses, "  cusip = " & contractDetails.Cusip)
@@ -3119,6 +3146,25 @@ Friend Class MainForm
 
         displayString.AppendFormat("Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}", e.reqId, e.conId, e.exchange)
         m_utils.addListItem(Utils.ListType.ServerResponses, displayString.ToString())
+    End Sub
+
+    '--------------------------------------------------------------------------------
+    ' Market rule
+    '--------------------------------------------------------------------------------
+    Private Sub m_apiEvents_MarketRule(sender As Object, e As MarketRuleEventArgs) Handles m_apiEvents.MarketRule
+        Dim offset = lstServerResponses.Items.Count
+
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== Market Rule Begin (marketRuleId=" & e.marketRuleId & ") ====")
+        Dim count = 0
+        For Each priceIncrement As PriceIncrement In e.priceIncrements
+            m_utils.addListItem(Utils.ListType.ServerResponses, "LowEdge=" & priceIncrement.LowEdge & ", Increment=" & priceIncrement.Increment)
+            count += 1
+        Next
+        m_utils.addListItem(Utils.ListType.ServerResponses, " ==== Market Rule End (marketRuleId=" & e.marketRuleId & ") ====")
+
+        ' move into view
+        lstServerResponses.TopIndex = offset
+
     End Sub
 
 #End Region

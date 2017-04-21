@@ -303,3 +303,4 @@ void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) {}
 void TestCppClient::historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr) {}
 void TestCppClient::rerouteMktDataReq(int reqId, int conid, const std::string& exchange) {}
 void TestCppClient::rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) {}
+void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) {}

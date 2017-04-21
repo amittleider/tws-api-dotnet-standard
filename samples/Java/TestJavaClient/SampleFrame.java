@@ -42,6 +42,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
+	private MarketRuleDlg   m_marketRuleDlg = new MarketRuleDlg(this);
 
     private List<TagValue> m_mktDataOptions = new ArrayList<>();
     private List<TagValue> m_chartOptions = new ArrayList<>();
@@ -232,6 +233,8 @@ class SampleFrame extends JFrame implements EWrapper {
         butHistogram.addActionListener(e -> onHistogram());
         JButton butHistogramCancel = new JButton("Cancel Histogram");
         butHistogramCancel.addActionListener(e -> onHistogramCancel());
+        JButton butReqMarketRule = new JButton("Req Market Rule");
+        butReqMarketRule.addActionListener(e -> onReqMarketRule());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -301,12 +304,23 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add(butHeadTimestamp);
         buttonPanel.add(butHistogram);
         buttonPanel.add(butHistogramCancel);
+        buttonPanel.add(butReqMarketRule);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
         buttonPanel.add( butClose );
 
         return buttonPanel;
+    }
+
+    private void onReqMarketRule() {
+        // run m_marketRulerDlg
+        m_marketRuleDlg.setVisible(true);
+        if( !m_marketRuleDlg.rc() ) {
+            return;
+        }
+
+        m_client.reqMarketRule(m_marketRuleDlg.m_retMarketRuleId);
     }
 
 	private void onHistogramCancel() {
@@ -1540,6 +1554,13 @@ class SampleFrame extends JFrame implements EWrapper {
 	@Override
 	public void rerouteMktDepthReq(int reqId, int conId, String exchange) {
 		String msg = EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange);
+		
+		m_TWS.add(msg);		
+	}
+
+	@Override
+	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		String msg = EWrapperMsgGenerator.marketRule(marketRuleId, priceIncrements);
 		
 		m_TWS.add(msg);		
 	}

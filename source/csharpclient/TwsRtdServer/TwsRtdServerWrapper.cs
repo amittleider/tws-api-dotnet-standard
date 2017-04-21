@@ -197,5 +197,6 @@ namespace TwsRtdServer
         }
 
         public void rerouteMktDepthReq(int reqId, int conId, string exchange) { }
+        public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) { }
     }
 }

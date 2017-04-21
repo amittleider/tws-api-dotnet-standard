@@ -1000,5 +1000,16 @@ namespace IBSampleApp
                 ).RunSynchronously(scheduler);
         }
 
+        public event Action<MarketRuleMessage> MarketRule;
+
+        void EWrapper.marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
+        {
+            var tmp = MarketRule;
+
+            if (tmp != null)
+                new Task(() =>
+                                tmp(new MarketRuleMessage(marketRuleId, priceIncrements))
+                ).RunSynchronously(scheduler);
+        }
     }
 }

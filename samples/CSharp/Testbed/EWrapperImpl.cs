@@ -600,5 +600,15 @@ namespace Samples
         }
         //! [rerouteMktDepthReq]
 
+        //! [marketRule]
+        public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) 
+        {
+            Console.WriteLine("Market Rule Id: " + marketRuleId);
+            foreach (var priceIncrement in priceIncrements) 
+            {
+                Console.WriteLine("Low Edge: {0}, Increment: {1}", ((decimal)priceIncrement.LowEdge).ToString(), ((decimal)priceIncrement.Increment).ToString());
+            }
+        }
+        //! [marketRule]
     }
 }

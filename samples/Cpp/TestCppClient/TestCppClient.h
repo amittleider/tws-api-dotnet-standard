@@ -84,6 +84,8 @@ enum State {
 	ST_REQHISTOGRAMDATA_ACK,
 	ST_REROUTECFD,
 	ST_REROUTECFD_ACK,
+	ST_MARKETRULE,
+	ST_MARKETRULE_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -141,6 +143,7 @@ private:
 	void reqHeadTimestamp();
 	void reqHistogramData();
 	void rerouteCFDOperations();
+	void marketRuleOperations();
 
 	void reqCurrentTime();
 
@@ -230,6 +233,7 @@ public:
     void historicalDataUpdate(TickerId reqId, Bar bar);
 	void rerouteMktDataReq(int reqId, int conId, const std::string& exchange);
 	void rerouteMktDepthReq(int reqId, int conId, const std::string& exchange);
+	void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
 
 private:
 	//! [socket_declare]

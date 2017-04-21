@@ -187,6 +187,9 @@
     <Compile Include="..\client\PriceCondition.cs">
       <Link>CSharpApi\PriceCondition.cs</Link>
     </Compile>
+    <Compile Include="..\client\PriceIncrement.cs">
+      <Link>CSharpApi\PriceIncrement.cs</Link>
+    </Compile>
     <Compile Include="..\client\ScannerSubscription.cs">
       <Link>CSharpApi\ScannerSubscription.cs</Link>
     </Compile>

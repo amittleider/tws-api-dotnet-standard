@@ -55,7 +55,8 @@ public class Testbed {
                 //accountOperations(wrapper.getClient());
                 //newsOperations(wrapper.getClient());
                 //marketDepthOperations(wrapper.getClient());
-                rerouteCFDOperations(wrapper.getClient());
+                //rerouteCFDOperations(wrapper.getClient());
+                marketRuleOperations(wrapper.getClient());
                 
                 Thread.sleep(100000);
                 m_client.eDisconnect();
@@ -711,6 +712,20 @@ public class Testbed {
 		client.reqMktDepth(16006, ContractSamples.CashCFD(), 10, null);
 		Thread.sleep(1000);
 		//! [reqmktdepth]
+	}
+
+	private static void marketRuleOperations(EClientSocket client) throws InterruptedException {
+		//! [reqcontractdetails]
+		client.reqContractDetails(17001, ContractSamples.USStock());
+		client.reqContractDetails(17002, ContractSamples.Bond());
+		//! [reqcontractdetails]
+
+		Thread.sleep(2000);
+		
+		//! [reqmarketrule]
+		client.reqMarketRule(26);
+		client.reqMarketRule(240);
+		//! [reqmarketrule]
 	}
 	
 }

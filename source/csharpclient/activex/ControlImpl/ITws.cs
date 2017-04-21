@@ -361,6 +361,8 @@ namespace TWSLib
         void cancelHistogramData(int tickerId);
         [DispId(225)]
         void cancelHeadTimestamp(int tickerId);
+        [DispId(226)]
+        void reqMarketRule(int marketRuleId);
 
         #endregion
     }

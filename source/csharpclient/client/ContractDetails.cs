@@ -38,6 +38,7 @@ namespace IBApi
         private List<TagValue> secIdList;
         private string underSymbol;
         private string underSecType;
+        private string marketRuleIds;
        
         // BOND values
         private string cusip;
@@ -258,6 +259,15 @@ namespace IBApi
         {
             get { return underSecType; }
             set { underSecType = value; }
+        }
+
+        /**
+        * @brief The list of market rule IDs separated by comma
+        */
+        public string MarketRuleIds
+        {
+            get { return marketRuleIds; }
+            set { marketRuleIds = value; }
         }
 
         /**

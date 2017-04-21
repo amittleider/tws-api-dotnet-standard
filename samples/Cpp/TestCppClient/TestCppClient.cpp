@@ -266,6 +266,9 @@ void TestCppClient::processMessages() {
 		case ST_REROUTECFD:
 			rerouteCFDOperations();
 			break;
+		case ST_MARKETRULE:
+			marketRuleOperations();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1094,6 +1097,24 @@ void TestCppClient::rerouteCFDOperations()
 	m_state = ST_REROUTECFD_ACK;
 }
 
+void TestCppClient::marketRuleOperations()
+{
+	//! [reqcontractdetails]
+	m_pClient->reqContractDetails(17001, ContractSamples::IBMBond());
+	m_pClient->reqContractDetails(17002, ContractSamples::IBKRStk());
+	//! [reqcontractdetails]
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	//! [reqmarketrule]
+	m_pClient->reqMarketRule(26);
+	m_pClient->reqMarketRule(635);
+	m_pClient->reqMarketRule(1388);
+	//! [reqmarketrule]
+
+	m_state = ST_MARKETRULE_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1132,7 +1153,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
-	m_state = ST_REROUTECFD;
+	//m_state = ST_REROUTECFD;
+	m_state = ST_MARKETRULE;
 	//m_state = ST_PING;
 }
 
@@ -1249,17 +1271,19 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s\n", reqId, 
+	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), 
 		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), 
-		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str());
+		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(),
+		contractDetails.marketRuleIds.c_str());
 }
 //! [contractdetails]
 
 void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s\n", reqId, 
+	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s, MarketRuleIds: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str());
+		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(),
+		contractDetails.marketRuleIds.c_str());
 }
 
 //! [contractdetailsend]
@@ -1612,3 +1636,12 @@ void TestCppClient::rerouteMktDepthReq(int reqId, int conid, const std::string& 
 	printf( "Re-route market depth request. ReqId: %d, ConId: %d, Exchange: %s\n", reqId, conid, exchange.c_str());
 }
 //! [rerouteMktDepthReq]
+
+//! [marketRule]
+void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) {
+	printf("Market Rule Id: %d\n", marketRuleId);
+	for (unsigned int i = 0; i < priceIncrements.size(); i++) {
+		printf("Low Edge: %g, Increment: %g\n", priceIncrements[i].lowEdge, priceIncrements[i].increment);
+	}
+}
+//! [marketRule]

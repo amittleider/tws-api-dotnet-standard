@@ -4,6 +4,7 @@
 package com.ib.client;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -296,6 +297,7 @@ public class EWrapperMsgGenerator {
         + "aggGroup = " + contractDetails.aggGroup() + "\n"
         + "underSymbol = " + contractDetails.underSymbol() + "\n"
         + "underSecType = " + contractDetails.underSecType() + "\n"
+        + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
         + contractDetailsSecIdList(contractDetails);
     }
     
@@ -348,6 +350,7 @@ public class EWrapperMsgGenerator {
         + "evMultiplier = " + contractDetails.evMultiplier() + "\n"
         + "mdSizeMultiplier = " + contractDetails.mdSizeMultiplier() + "\n"
         + "aggGroup = " + contractDetails.aggGroup() + "\n"
+        + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
         + contractDetailsSecIdList(contractDetails)
         + " ---- Bond Contract Details End ----\n";
     }
@@ -752,6 +755,20 @@ public class EWrapperMsgGenerator {
 
 	public static String rerouteMktDepthReq(int reqId, int conId, String exchange) {
 		return "Re-route market depth request. Req Id: " + reqId + ", Con Id: " + conId + ", Exchange: " + exchange;
+	}
+	
+	public static String marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
+		DecimalFormat df = new DecimalFormat("#.#");
+		df.setMaximumFractionDigits(340);
+		StringBuilder sb = new StringBuilder(256);
+		sb.append("==== Market Rule Begin (marketRuleId=").append(marketRuleId).append(") ====\n");
+		for (int i = 0; i < priceIncrements.length; i++) {
+			sb.append("Low Edge: ").append(df.format(priceIncrements[i].lowEdge()));
+			sb.append(", Increment: ").append(df.format(priceIncrements[i].increment()));
+			sb.append("\n");
+		}
+		sb.append("==== Market Rule End (marketRuleId=").append(marketRuleId).append(") ====\n");
+		return sb.toString();
 	}
 	
 }

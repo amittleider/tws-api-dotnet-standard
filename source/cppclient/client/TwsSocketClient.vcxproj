@@ -215,6 +215,7 @@
     <ClInclude Include="OrderCondition.h" />
     <ClInclude Include="PercentChangeCondition.h" />
     <ClInclude Include="PriceCondition.h" />
+    <ClInclude Include="PriceIncrement.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SoftDollarTier.h" />
     <ClInclude Include="StdAfx.h" />

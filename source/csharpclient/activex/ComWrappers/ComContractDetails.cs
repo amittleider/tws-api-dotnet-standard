@@ -213,6 +213,15 @@ namespace TWSLib
         }
 
         /**
+        * @brief Market Rule Ids
+        */
+        string MarketRuleIds
+        {
+            get { return data != null ? data.MarketRuleIds : default(string); }
+            set { if (data != null) data.MarketRuleIds = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -554,6 +563,11 @@ namespace TWSLib
         string TWSLib.IContractDetails.underSecType
         {
             get { return UnderSecType; }
+        }
+
+        string TWSLib.IContractDetails.marketRuleIds
+        {
+            get { return MarketRuleIds; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

@@ -87,6 +87,7 @@ class EDecoder implements ObjectInput {
     private static final int HISTORICAL_DATA_UPDATE = 90;
     private static final int REROUTE_MKT_DATA_REQ = 91;
     private static final int REROUTE_MKT_DEPTH_REQ = 92;
+    private static final int MARKET_RULE = 93;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -428,6 +429,10 @@ class EDecoder implements ObjectInput {
                 processRerouteMktDepthReq();
                 break;
 
+            case MARKET_RULE:
+                processMarketRuleMsg();
+                break;
+
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -436,6 +441,23 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processMarketRuleMsg() throws IOException {
+        int marketRuleId = readInt();
+        
+        PriceIncrement[] priceIncrements = new PriceIncrement[0];
+        int nPriceIncrements = readInt();
+        
+        if (nPriceIncrements > 0) {
+            priceIncrements = new PriceIncrement[nPriceIncrements];
+
+            for (int i = 0; i < nPriceIncrements; i++){
+                priceIncrements[i] = new PriceIncrement(readDouble(), readDouble());
+            }
+        }
+
+        m_EWrapper.marketRule(marketRuleId, priceIncrements);
     }
 
     private void processRerouteMktDepthReq() throws IOException {
@@ -1024,7 +1046,10 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_AGG_GROUP) {
 			contract.aggGroup(readInt());
 		}
-
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_RULES) {
+			contract.marketRuleIds(readStr());
+		}
+		
 		m_EWrapper.bondContractDetails( reqId, contract);
 	}
 
@@ -1096,6 +1121,9 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_UNDERLYING_INFO) {
 			contract.underSymbol(readStr());
 			contract.underSecType(readStr());
+		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_RULES) {
+			contract.marketRuleIds(readStr());
 		}
 
 		m_EWrapper.contractDetails( reqId, contract);

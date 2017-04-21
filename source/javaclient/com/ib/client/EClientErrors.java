@@ -74,8 +74,9 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_REQNEWSPROVIDERS = new CodeMsgPair(563, "Request News Providers Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQNEWSARTICLE = new CodeMsgPair(564, "Request News Article Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQHISTORICALNEWS = new CodeMsgPair(565, "Request Historical News Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_REQHEADTIMESTAMP = new CodeMsgPair(565, "Request Head Time Stamp Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_CANHEADTIMESTAMP = new CodeMsgPair(565, "Cancel Head Time Stamp Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQHEADTIMESTAMP = new CodeMsgPair(566, "Request Head Time Stamp Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_CANHEADTIMESTAMP = new CodeMsgPair(567, "Cancel Head Time Stamp Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(568, "Request Market Rule Sending Error - ");
 
     public EClientErrors() {
     }

@@ -222,5 +222,8 @@
     <ClInclude Include="bar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PriceIncrement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
