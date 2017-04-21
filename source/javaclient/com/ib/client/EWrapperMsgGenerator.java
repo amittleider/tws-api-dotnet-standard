@@ -762,9 +762,9 @@ public class EWrapperMsgGenerator {
 		df.setMaximumFractionDigits(340);
 		StringBuilder sb = new StringBuilder(256);
 		sb.append("==== Market Rule Begin (marketRuleId=").append(marketRuleId).append(") ====\n");
-		for (int i = 0; i < priceIncrements.length; i++) {
-			sb.append("Low Edge: ").append(df.format(priceIncrements[i].lowEdge()));
-			sb.append(", Increment: ").append(df.format(priceIncrements[i].increment()));
+		for (PriceIncrement priceIncrement : priceIncrements) {
+			sb.append("Low Edge: ").append(df.format(priceIncrement.lowEdge()));
+			sb.append(", Increment: ").append(df.format(priceIncrement.increment()));
 			sb.append("\n");
 		}
 		sb.append("==== Market Rule End (marketRuleId=").append(marketRuleId).append(") ====\n");
