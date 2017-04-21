@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -39,7 +40,7 @@ import apidemo.util.VerticalPanel;
 class ContractInfoPanel extends JPanel {
 	private final Contract m_contract = new Contract();
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
-	private static HashSet<Integer> m_marketRuleIds = new HashSet<Integer>();
+	private static Set<Integer> m_marketRuleIds = new HashSet<>();
     private final MarketRuleRequestPanel m_marketRuleRequestPanel = new MarketRuleRequestPanel();
 	
 	ContractInfoPanel() {
@@ -222,7 +223,7 @@ class ContractInfoPanel extends JPanel {
 		}
 	}
 	
-	class MarketRuleResultsPanel extends JPanel implements IMarketRuleHandler {
+	static class MarketRuleResultsPanel extends JPanel implements IMarketRuleHandler {
 		JLabel m_label = new JLabel();
 		JTextArea m_text = new JTextArea();
 		
@@ -245,10 +246,10 @@ class ContractInfoPanel extends JPanel {
 				DecimalFormat df = new DecimalFormat("#.#");
 				df.setMaximumFractionDigits(340);
 				
-				sb.append("Market Rule Id: " + marketRuleId + "\n");
-				for (int i = 0; i < priceIncrements.length; i++){
-					sb.append("Low Edge: " + df.format(priceIncrements[i].lowEdge()) + ", ");
-					sb.append("Increment: " + df.format(priceIncrements[i].increment()) + "\n");
+				sb.append("Market Rule Id: ").append(marketRuleId).append("\n");
+				for (PriceIncrement priceIncrement : priceIncrements) {
+					sb.append("Low Edge: ").append(df.format(priceIncrement.lowEdge())).append(", ")
+					  .append("Increment: ").append(df.format(priceIncrement.increment())).append("\n");
 				}
 				m_text.setText( sb.toString());
 			}
