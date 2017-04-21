@@ -445,16 +445,16 @@ class EDecoder implements ObjectInput {
 
     private void processMarketRuleMsg() throws IOException {
         int marketRuleId = readInt();
-        
-        PriceIncrement[] priceIncrements = new PriceIncrement[0];
+
+        PriceIncrement[] priceIncrements;
         int nPriceIncrements = readInt();
-        
         if (nPriceIncrements > 0) {
             priceIncrements = new PriceIncrement[nPriceIncrements];
-
             for (int i = 0; i < nPriceIncrements; i++){
                 priceIncrements[i] = new PriceIncrement(readDouble(), readDouble());
             }
+        } else {
+            priceIncrements = new PriceIncrement[0];
         }
 
         m_EWrapper.marketRule(marketRuleId, priceIncrements);
