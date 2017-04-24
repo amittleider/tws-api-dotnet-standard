@@ -295,10 +295,6 @@ namespace IBApi
         {
         }
 
-        public void historicalDataUpdateEnd(int reqId, string start, string end)
-        {
-        }
-
         public void rerouteMktDataReq(int reqId, int conId, string exchange)
         {
         }
