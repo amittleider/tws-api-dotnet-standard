@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
  *  sent to the socket in a single write. */
 public class Builder implements ObjectOutput {
 	private static final char SEP = 0;
-	private static final int PADDING_SIZE = 1; // 1 disables padding, 4 is normal if padding is used
 	private static final byte[] EMPTY_LENGTH_HEADER = new byte[ 4 ];
 
 	private final ByteBuffer m_sb;
@@ -84,16 +83,19 @@ public class Builder implements ObjectOutput {
 
     /** inner class: ByteBuffer - storage for bytes and direct access to buffer. */
     private static class ByteBuffer extends ByteArrayOutputStream {
+        private final int paddingSize; // 1 disables padding, 4 is normal if padding is used
+
         ByteBuffer(int capacity) {
             super( capacity );
+            paddingSize = 1;
         }
 
         void updateLength(int lengthHeaderPosition) {
             int len = this.count - EMPTY_LENGTH_HEADER.length - lengthHeaderPosition;
-            if ( PADDING_SIZE > 1 ) {
-                int padding = PADDING_SIZE - len%PADDING_SIZE;
-                if ( padding < PADDING_SIZE ) {
-                    this.write( EMPTY_LENGTH_HEADER, 0, PADDING_SIZE ); // extra padding at the end
+            if ( paddingSize > 1 ) {
+                int padding = paddingSize - len%paddingSize;
+                if ( padding < paddingSize ) {
+                    this.write( EMPTY_LENGTH_HEADER, 0, paddingSize ); // extra padding at the end
                     len = this.count - EMPTY_LENGTH_HEADER.length - lengthHeaderPosition;
                 }
             }
