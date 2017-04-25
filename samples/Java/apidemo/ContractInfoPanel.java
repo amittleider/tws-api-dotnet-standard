@@ -42,21 +42,21 @@ class ContractInfoPanel extends JPanel {
 	private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 	private static Set<Integer> m_marketRuleIds = new HashSet<>();
     private final MarketRuleRequestPanel m_marketRuleRequestPanel = new MarketRuleRequestPanel();
-	
+
 	ContractInfoPanel() {
 	    NewTabbedPanel m_requestPanels = new NewTabbedPanel();
 		m_requestPanels.addTab( "Contract details", new DetailsRequestPanel() );
 		m_requestPanels.addTab( "Fundamentals", new FundaRequestPanel() );
 		m_requestPanels.addTab( "Market Rules", m_marketRuleRequestPanel );
-		
+
 		setLayout( new BorderLayout() );
 		add( m_requestPanels, BorderLayout.NORTH);
 		add( m_resultsPanels);
 	}
-	
+
 	class DetailsRequestPanel extends JPanel {
 		ContractPanel m_contractPanel = new ContractPanel( m_contract);
-		
+
 		DetailsRequestPanel() {
 			HtmlButton but = new HtmlButton( "Query") {
 				@Override protected void actionPerformed() {
@@ -69,10 +69,10 @@ class ContractInfoPanel extends JPanel {
 			add( Box.createHorizontalStrut(20));
 			add( but);
 		}
-		
+
 		void onQuery() {
 			m_contractPanel.onOK();
-			
+
 			DetailsResultsPanel panel = new DetailsResultsPanel();
 			m_resultsPanels.addTab( m_contract.symbol() + " " + "Description", panel, true, true);
 			ApiDemo.INSTANCE.controller().reqContractDetails(m_contract, panel);
@@ -82,7 +82,7 @@ class ContractInfoPanel extends JPanel {
 	class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
 		JLabel m_label = new JLabel();
 		JTextArea m_text = new JTextArea();
-		
+
 		DetailsResultsPanel() {
 			JScrollPane scroll = new JScrollPane( m_text);
 
@@ -102,7 +102,7 @@ class ContractInfoPanel extends JPanel {
 			else {
 				m_label.setText( null);
 			}
-			
+
 			// set text
 			if (list.size() == 0) {
 				m_text.setText( null);
@@ -114,25 +114,25 @@ class ContractInfoPanel extends JPanel {
 				for (String s : list.get( 0).marketRuleIds().split(",")){
 					m_marketRuleIds.add(Integer.parseInt(s));
 				}
-				m_marketRuleRequestPanel.m_marketRuleIdCombo.setModel(new DefaultComboBoxModel(m_marketRuleIds.toArray()));
+				m_marketRuleRequestPanel.m_marketRuleIdCombo.setModel(new DefaultComboBoxModel<>(m_marketRuleIds.toArray(new Integer[m_marketRuleIds.size()])));
 			}
 		}
 	}
-	
+
 	public class FundaRequestPanel extends JPanel {
 		ContractPanel m_contractPanel = new ContractPanel( m_contract);
 		TCombo<FundamentalType> m_type = new TCombo<>( FundamentalType.values() );
-		
+
 		FundaRequestPanel() {
 			HtmlButton but = new HtmlButton( "Query") {
 				@Override protected void actionPerformed() {
 					onQuery();
 				}
 			};
-			
+
 			VerticalPanel rightPanel = new VerticalPanel();
 			rightPanel.add( "Report type", m_type);
-			
+
 			setLayout( new BoxLayout( this, BoxLayout.X_AXIS));
 			add( m_contractPanel);
 			add( Box.createHorizontalStrut(20));
@@ -140,16 +140,16 @@ class ContractInfoPanel extends JPanel {
 			add( Box.createHorizontalStrut(10));
 			add( but);
 		}
-		
+
 		void onQuery() {
 			m_contractPanel.onOK();
 			FundaResultPanel panel = new FundaResultPanel();
 			FundamentalType type = m_type.getSelectedItem();
 			m_resultsPanels.addTab( m_contract.symbol() + " " + type, panel, true, true);
-			ApiDemo.INSTANCE.controller().reqFundamentals( m_contract, type, panel); 
+			ApiDemo.INSTANCE.controller().reqFundamentals( m_contract, type, panel);
 		}
-	}	
-	
+	}
+
 	class FundaResultPanel extends JPanel implements INewTab, IFundamentalsHandler {
 		String m_data;
 		JTextArea m_text = new JTextArea();
@@ -183,7 +183,7 @@ class ContractInfoPanel extends JPanel {
 		@Override public void activated() {
 			ApiDemo.INSTANCE.controller().reqFundamentals(m_contract, FundamentalType.ReportRatios, this);
 		}
-		
+
 		/** Called when the tab is closed by clicking the X. */
 		@Override public void closed() {
 		}
@@ -193,14 +193,14 @@ class ContractInfoPanel extends JPanel {
 			m_text.setText( str);
 		}
 	}
-	
+
 	class MarketRuleRequestPanel extends JPanel {
-		JComboBox m_marketRuleIdCombo = new JComboBox();
-		
+		JComboBox<Integer> m_marketRuleIdCombo = new JComboBox<>();
+
 		MarketRuleRequestPanel() {
 			m_marketRuleIdCombo.setPreferredSize(new Dimension(130, 20));
 			m_marketRuleIdCombo.setEditable(true);
-			
+
 			HtmlButton but = new HtmlButton( "Request Market Rule") {
 				@Override protected void actionPerformed() {
 					onRequestMarketRule();
@@ -212,21 +212,29 @@ class ContractInfoPanel extends JPanel {
 			setLayout( new BorderLayout() );
 			add( paramsPanel, BorderLayout.NORTH);
 		}
-		
+
 		void onRequestMarketRule() {
 			MarketRuleResultsPanel panel = new MarketRuleResultsPanel();
-			if (!m_marketRuleIdCombo.getEditor().getItem().toString().isEmpty()) {
-				int marketRuleId = Integer.parseInt(m_marketRuleIdCombo.getEditor().getItem().toString());
-				m_resultsPanels.addTab( "Market Rule Id: " + m_marketRuleIdCombo.getEditor().getItem(), panel, true, true);
-				ApiDemo.INSTANCE.controller().reqMarketRule(marketRuleId, panel);
-			}
+			final Object item = m_marketRuleIdCombo.getEditor().getItem();
+			if (item != null) {
+                final String itemString = item.toString();
+                if (!itemString.isEmpty()) {
+                    try {
+                        int marketRuleId = Integer.parseInt(itemString);
+                        m_resultsPanels.addTab("Market Rule Id: " + itemString, panel, true, true);
+                        ApiDemo.INSTANCE.controller().reqMarketRule(marketRuleId, panel);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 		}
 	}
-	
+
 	static class MarketRuleResultsPanel extends JPanel implements IMarketRuleHandler {
 		JLabel m_label = new JLabel();
 		JTextArea m_text = new JTextArea();
-		
+
 		MarketRuleResultsPanel() {
 			JScrollPane scroll = new JScrollPane( m_text);
 
@@ -245,7 +253,7 @@ class ContractInfoPanel extends JPanel {
 				StringBuilder sb = new StringBuilder(256);
 				DecimalFormat df = new DecimalFormat("#.#");
 				df.setMaximumFractionDigits(340);
-				
+
 				sb.append("Market Rule Id: ").append(marketRuleId).append("\n");
 				for (PriceIncrement priceIncrement : priceIncrements) {
 					sb.append("Low Edge: ").append(df.format(priceIncrement.lowEdge())).append(", ")
@@ -254,6 +262,5 @@ class ContractInfoPanel extends JPanel {
 				m_text.setText( sb.toString());
 			}
 		}
-
-	}	
+	}
 }
