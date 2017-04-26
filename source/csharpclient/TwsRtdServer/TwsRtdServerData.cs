@@ -138,6 +138,18 @@ namespace TwsRtdServer{
         public const string GEN_TICK_SHORT_TERM_VOLUME_3_MIN = "SHORTTERMVOLUME3MIN";
         public const string GEN_TICK_SHORT_TERM_VOLUME_5_MIN = "SHORTTERMVOLUME5MIN";
         public const string GEN_TICK_SHORT_TERM_VOLUME_10_MIN = "SHORTTERMVOLUME10MIN";
+        // DELAYED_TICKS
+        public const string DELAYED_BID = "DELAYEDBID";
+        public const string DELAYED_ASK = "DELAYEDASK";
+        public const string DELAYED_LAST = "DELAYEDLAST";
+        public const string DELAYED_BID_SIZE = "DELAYEDBIDSIZE";
+        public const string DELAYED_ASK_SIZE = "DELAYEDASKSIZE";
+        public const string DELAYED_LAST_SIZE = "DELAYEDLASTSIZE";
+        public const string DELAYED_HIGH = "DELAYEDHIGH";
+        public const string DELAYED_LOW = "DELAYEDLOW";
+        public const string DELAYED_VOLUME = "DELAYEDVOLUME";
+        public const string DELAYED_CLOSE = "DELAYEDCLOSE";
+        public const string DELAYED_OPEN = "DELAYEDOPEN";
 
 
         // mktData request related
@@ -199,6 +211,10 @@ namespace TwsRtdServer{
             GEN_TICK_AVERAGE_VOLUME, GEN_TICK_WEEK_13_HI, GEN_TICK_WEEK_13_LO, GEN_TICK_WEEK_26_HI, GEN_TICK_WEEK_26_LO, GEN_TICK_WEEK_52_HI, GEN_TICK_WEEK_52_LO, // MISCSTATS (165)
             GEN_TICK_SHORT_TERM_VOLUME_3_MIN, GEN_TICK_SHORT_TERM_VOLUME_5_MIN, GEN_TICK_SHORT_TERM_VOLUME_10_MIN, // SHORT_TERM_VOLUME (595)
 
+            // delayed ticks
+            DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
+            DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN
+
         };
 
         private static Dictionary<int, string> m_tickToTopicMap = new Dictionary<int, string> { 
@@ -249,17 +265,17 @@ namespace TwsRtdServer{
             { 64, GEN_TICK_SHORT_TERM_VOLUME_5_MIN },
             { 65, GEN_TICK_SHORT_TERM_VOLUME_10_MIN },
             // delayed
-            { 66, BID },
-            { 67, ASK },
-            { 68, LAST },
-            { 69, BIDSIZE },
-            { 70, ASKSIZE },
-            { 71, LASTSIZE },
-            { 72, HIGH },
-            { 73, LOW },
-            { 74, VOLUME },
-            { 75, CLOSE },
-            { 76, OPEN },
+            { 66, DELAYED_BID },
+            { 67, DELAYED_ASK },
+            { 68, DELAYED_LAST },
+            { 69, DELAYED_BID_SIZE },
+            { 70, DELAYED_ASK_SIZE },
+            { 71, DELAYED_LAST_SIZE },
+            { 72, DELAYED_HIGH },
+            { 73, DELAYED_LOW },
+            { 74, DELAYED_VOLUME },
+            { 75, DELAYED_CLOSE },
+            { 76, DELAYED_OPEN },
        
             { 78, GEN_TICK_CREDITMAN_MARK_PRICE },
             { 79, GEN_TICK_CREDITMAN_SLOW_MARK_PRICE },
