@@ -3460,9 +3460,7 @@ public abstract class EClient {
     	try (Builder builder = new Builder(1024)) {
             builder.send("API\0".getBytes(StandardCharsets.UTF_8));
 
-            String out = "v" + ((MIN_VERSION < MAX_VERSION)
-                    ? MIN_VERSION + ".." + MAX_VERSION
-                    : MIN_VERSION);
+            String out = buildVersionString(MIN_VERSION, MAX_VERSION);
 
             if (!IsEmpty(m_connectOptions)) {
                 out += " " + m_connectOptions;
@@ -3475,7 +3473,12 @@ public abstract class EClient {
             sendMsg(new EMessage(builder));
         }
     }
-   
+
+    private String buildVersionString(int minVersion, int maxVersion) {
+      return "v" + ((minVersion < maxVersion)
+          ? minVersion + ".." + maxVersion : minVersion);
+    }
+
     protected void sendMsg(EMessage msg) throws IOException {
     	m_socketTransport.send(msg);
     }
