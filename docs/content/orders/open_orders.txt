@@ -6,7 +6,7 @@
 	
 	<b>Note:</b> it is not possible to obtain cancelled or fully filled orders.
 	
-	\section connected_client_orders Connected client's own orders
+	\section connected_client_orders API client's orders
 	
 	The @ref IBApi::EClient::reqOpenOrders method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS. If client 0 invokes reqOpenOrders, it will cause <b>currently</b> open orders placed from TWS manually to be 'bound', i.e. assigned an order ID so that they can be modified or cancelled by the API client 0. In the API settings in Global Configuration, is a setting checked by default "Use negative numbers to bind automatic orders" which will specify how manual TWS orders are assigned an API order ID.
 	
@@ -28,7 +28,7 @@
 		</li>
 	</ul>
 	
-	\section all_api_orders All API submitted orders
+	\section all_api_orders All submitted orders
 	
 	To obtain those orders created via the TWS API regardless of the submitting client application, make use of the @ref IBApi::EClient::reqAllOpenOrders function. 
 	
@@ -50,7 +50,7 @@
 		</li>
 	</ul>
 	
-	\section manually_submitted Manually submitted TWS orders
+	\section manually_submitted Manually submitted orders
 	
 	Finally, @ref IBApi::EClient::reqAutoOpenOrders can only be invoked by client with ID 0. It will cause future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0.
 	
@@ -79,7 +79,7 @@
 	
 	\image html tws_autobind.png
 	
-	\section receiving_orders Receiving Active Orders from the TWS
+	\section receiving_orders Receiving Order Information
 	
 	Active orders will be delivered via @ref open_order and @ref order_status callbacks. When all orders have been sent to the client application you will receive a @ref IBApi::EWrapper::openOrderEnd event:
 	

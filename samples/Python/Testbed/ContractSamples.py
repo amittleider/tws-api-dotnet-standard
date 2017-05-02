@@ -143,7 +143,8 @@ class ContractSamples:
         contract.currency = "USD"
         contract.exchange = "SMART"
         #Specify the Primary Exchange attribute to avoid contract ambiguity 
-        contract.primaryExch = "ISLAND"
+		#(there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
+        contract.primaryExchange = "ISLAND"
         #! [stkcontractwithprimary]
         return contract
 
@@ -227,7 +228,20 @@ class ContractSamples:
         #! [optcontract_localsymbol]
         return contract
 
-
+    """ Dutch Warrants (IOPTs) can be defined using the local symbol or conid 
+    """
+	
+    @staticmethod
+    def DutchWarrant():
+        #! [ioptcontract]
+        contract = Contract()
+        contract.localSymbol = "B881G"
+        contract.secType = "IOPT"
+        contract.exchange = "SBF"
+        contract.currency = "EUR"
+        #! [ioptcontract]
+        return contract
+		
     """ Future contracts also require an expiration date but are less
     complicated than options."""
 
@@ -438,12 +452,38 @@ class ContractSamples:
         #! [bagfutcontract]
         return contract
 
+    @staticmethod
+    def SmartFutureComboContract():
+        #! [smartfuturespread]
+        contract = Contract()
+        contract.symbol = "WTI" # WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD")
+        contract.secType = "BAG"
+        contract.currency = "USD"
+        contract.exchange = "SMART"
+
+        leg1 = ComboLeg()
+        leg1.conId = 55928698 # WTI future June 2017
+        leg1.ratio = 1
+        leg1.action = "BUY"
+        leg1.exchange = "IPE"
+
+        leg2 = ComboLeg()
+        leg2.conId = 55850663 # COIL future June 2017
+        leg2.ratio = 1
+        leg2.action = "SELL"
+        leg2.exchange = "IPE"
+
+        contract.comboLegs = []
+        contract.comboLegs.append(leg1)
+        contract.comboLegs.append(leg2)
+        #! [smartfuturespread]
+        return contract
 
     @staticmethod
     def InterCmdtyFuturesContract():
         #! [intcmdfutcontract]
         contract = Contract()
-        contract.symbol = "CL.bZ"
+        contract.symbol = "CL.BZ" #symbol is 'local symbol' of intercommodity spread. 
         contract.secType = "BAG"
         contract.currency = "USD"
         contract.exchange = "NYMEX"

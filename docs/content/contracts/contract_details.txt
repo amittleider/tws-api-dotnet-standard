@@ -5,9 +5,11 @@
 	IBApi::EWrapper::contractDetails function. The one exception is Bond contracts, which will be returned to the function IBApi::EWrapper::bondContractDetails. Because of market data license restrictions, there are only
 	a few available fields to be returned in a bond contract description, namely the minTick, exchange, currency, and short name. 
 
+	<b>Note</b>: Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency. 
+	
 	One particular use of the IBApi::EClient::reqContractDetails function is to request an option chain. See @ref option_chains for more details. 
 	
-	\section broadtape_list  Obtaining BroadTape List of News
+	\section broadtape_list  BroadTape News List
 	
 	The example below shows an "incomplete" news @ref IBApi::Contract with no symbol or currency defined. In most cases using such a contract would result in an invalid 
 	contract details error since a symbol or localSymbol is required. @ref IBApi::EClient::reqContractDetails will instead use it to obtain the whole BroadTape news chain from the TWS.

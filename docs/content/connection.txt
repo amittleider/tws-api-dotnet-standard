@@ -19,7 +19,7 @@
 		\snippet MainModule.vb connect
 		</li>
 		<li>
-		\snippet Main.cpp connect
+		\snippet TestCppClient.cpp connect
 		</li>
 		<li>
 		\snippet Program.py connect
@@ -29,9 +29,8 @@
 	\section connect_ack Acknowledging the connection
 	
 	After the socket connection is established between the TWS and the client, both applications need to exchange important information
-	such as their respective versions and in the case of the client application, its unique client Id. The API connection supports synchronous
-	and asynchronous connection requests. When the client application decides to connect asynchronously, it will have to wait for an acknowledgment
-	from the TWS before attempting to send the information described at the beginning of this paragraph. This acknowledgment is received via the 
+	such as their respective versions and in the case of the client application, its unique client Id. The API program can connect in an 'async' mode, in which the @ref IBApi::EClientSocket::startApi method is not immediately invoked following the socket connection, or the far more common 'synchronous' mode in which @ref IBApi::EClientSocket::startApi method is immedaitely invoked. If the client application decides to connect asynchronously, it will have to wait for an acknowledgement
+	from the TWS before attempting to send the information described at the beginning of this paragraph. This acknowledgement is received via the 
 	@ref IBApi::EWrapper::connectAck method. When this event is triggered within an asynchronous context, the client application will have to 
 	start the flow of information to the TWS via the @ref IBApi::EClientSocket::startApi method.
 	
@@ -61,12 +60,12 @@
 		</li>
 	</ul>
 	
-	Note: all our sample code connects synchronously to the TWS.
+	Note: all IB sample code connects using AsyncEConnect = False.
 	
 	\section ereader Consuming TWS data
 	
 	The final step on this procedure is to consume the incoming data within a separate execution thread. The class in charge of reading and parsing the raw messages from
-	the TWS is the @ref IBApi::EReader class. Internally, whenever there are messages ready to be consumed by the EReader object, a signal will be issued to this reading thread
+	the TWS is the @ref IBApi::EReader class and adding them to the queue. Internally, whenever there are messages ready to be consumed by the EReader object, a signal will be issued to this reading thread
 	indicating so. The process is better illustrated through an example:
 	
 	<ul id="tab">
@@ -82,20 +81,20 @@
 		\snippet MainModule.vb ereader_thread
 		</li>
 		<li>
-		\snippet Main.cpp ereader
+		\snippet TestCppClient.cpp ereader
 		</li>
 		<li> 
 		\snippet Program.py ereader
 		</li>
 	</ul>
 	
-	Now it is time to revisit the role of @ref IBApi::EReaderSignal initially introduced in @ref client_socket. As mentioned in the previous paragraph, the EReader's thread will need
-	to be notified whenever there is information ready to be consumed. This is done via the @ref IBApi::EReaderSignal object we initiated within the @ref IBApi::EWrapper's implementor.
+	Now it is time to revisit the role of @ref IBApi::EReaderSignal initially introduced in @ref client_socket. As mentioned in the previous paragraph, the thread responsible for decoding and processing messages in the queue will need
+	to be notified whenever there is information ready to be consumed. This is done via the @ref IBApi::EReaderSignal object we initiated within the @ref IBApi::EWrapper's implementer.
 
 	The client application is now ready to work with the Trader Workstation! As soon as the connection has been fully established, you will immediately start receiving
-	events from the TWS such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts
+	events from the TWS such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts. In TWS (not IB Gateway) at the time of initial connection, if there is valid connection to the IB server there will also be callbacks to IBApi::EWrapper::error with errorCode=<i>2104</i> or <i>2106</i> and messages of the type "Market Data Server is ok" to indicate there is an active connection to the IB market data server. It is best to wait until this message has been received before sending messages to TWS, since they may be dropped if there is not an active connection. 
 	
-	\section accept_connections Accepting the connection on the TWS side.
+	\section accept_connections Accepting an API connection from TWS
 	
 	To prevent unwanted connections by default, the TWS is not configured to automatically accept any incoming connection request. Whenever a client application tries to
 	connect to the TWS and the TWS is not configured to accept incoming connection requests from the host the client application is in, a prompt window will appear
@@ -109,8 +108,15 @@
 	\image html tws_allow_connections.png
 	
 	<b>Note:</b> you have to make sure the connection has been fully established before attempting to do any requests to the TWS. Failure to do so will result in the TWS
-	closing the connection. The safest way to prevent this situation is simply to wait until one of @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts
-	events is triggered before attempting to request anything from the TWS.
+	closing the connection. Typically this can be done by waiting for a callback from an event and the end of the initial connection handshake, such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts. 
+	
+	However in rare cases in which IB Gateway or TWS has a momentarily delay in establishing connecting to the IB servers, messages sent immediately after receiving the nextValidId can be dropped and would need to be resent. The safest procedure then is to wait until callbacks have been received both for a TWS callback such as @ref IBApi::EWrapper::nextValidId or @ref IBApi::EWrapper::managedAccounts, and also a callback to @ref IBApi::EWrapper::error with code 2104 "Market data server is ok" before sending messages across the socket.
+	
+	\section broken Broken API socket connection
+	
+	If there is a problem with the socket connection between TWS and the API client, for instance if TWS suddenly closes, this will trigger an exception in the EReader thread which is reading from the socket. This exception will also occur if an API client attempts to connect with a client ID that is already in use. 
+	
+	The socket EOF is handled slightly differently in different API languages. For instance in Java, it is caught and sent to the client application to IBApi::EWrapper::error with errorCode 507: "Bad Message". In C# it is caught and sent to IBApi::EWrapper::error with errorCode -1. The client application needs to handle this error message and use it to indicate that an exception has been thrown in the socket connection. Associated functions such as IBApi::EWrapper::connectionClosed and IBApi::EClient::IsConnected functions are not called automatically by the API code but need to be handled at the API client-level.
 	
 	<br><br>
 

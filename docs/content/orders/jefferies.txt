@@ -2,7 +2,7 @@
 
 	\section jefferies_params Jefferies Algorithm Parameters
 	
-	The ActiveX, C++, C# and Java APIs support the following Jefferies Algo strategies:
+	The Jefferies Algos will soon be available with the socket-based API languages (Java, C#/.NET, Python, C++).
 	
 	\ref v_wap "VWAP"
 	

@@ -1,4 +1,4 @@
-/*! \page client_wrapper Introducing EWrapper and EClientSocket
+/*! \page client_wrapper EWrapper and EClientSocket Classes
 
 	Once the TWS is up and running and actively listening for incoming connections we are ready to write our code. This draws our attention to the TWS API's two major components:
 	the @ref IBApi::EWrapper interface and the @ref IBApi::EClientSocket
@@ -59,7 +59,7 @@
 		...
 		\snippet Program.py socket_init
 		
-		<i><b>Note: </b> The EReaderSignal class is not used for Python API.</i>
+		<i><b>Note: </b> The EReaderSignal class is not used for Python API. The Python Queue module is used for inter-thread communication and data exchange.</i>
 		</li>
 	</ul>
 	

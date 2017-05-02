@@ -443,13 +443,14 @@ Order OrderSamples::PassiveRelative(std::string action, double quantity, double 
     /// to be more aggressive. If the market moves in the opposite direction, the order will execute.
     /// Products: STK
     /// </summary>
-Order OrderSamples::PeggedToMidpoint(std::string action, double quantity, double offset){
+Order OrderSamples::PeggedToMidpoint(std::string action, double quantity, double offset, double limitPrice){
 	// ! [pegged_midpoint]
 	Order order;
 	order.action = action;
 	order.orderType = "PEG MID";
 	order.totalQuantity = quantity;
 	order.auxPrice = offset;
+	order.lmtPrice = limitPrice;
 	// ! [pegged_midpoint]
 	return order;
 }

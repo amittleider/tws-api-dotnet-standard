@@ -31,7 +31,8 @@ public:
 	static Contract OptionAtBox();
 	static Contract NormalOption();
 	static Contract OptionWithTradingClass();
-	static Contract OptionWithLoacalSymbol();
+	static Contract OptionWithLocalSymbol();
+	static Contract DutchWarrant();
 	static Contract SimpleFuture();
 	static Contract FutureWithLocalSymbol();
 	static Contract FutureWithMultiplier();
@@ -42,6 +43,7 @@ public:
 	static Contract OptionForQuery();
 	static Contract StockComboContract();
 	static Contract FutureComboContract();
+	static Contract SmartFutureComboContract();
 	static Contract OptionComboContract();
 	static Contract InterCmdtyFuturesContract();
 	static Contract NewsFeedForQuery();

@@ -1,8 +1,10 @@
 /*! \page historical_limitations Historical Data Limitations
 
+	The maximum number of simultaneous open historical data requests from the API is 50. In practice, it will probably be more efficient to have a much smaller number of requests pending at a time.
+
 	\section pacing_violations Pacing Violations for historical bar sizes of 30 seconds or less
 	
-	Although Interactive Brokers offers our clients high quality market data, IB is not a specialised market data provider and as such it is forced to put in place severe restrictions to limit traffic which is not directly associated to trading. 
+	Although Interactive Brokers offers our clients high quality market data, IB is not a specialised market data provider and as such it is forced to put in place restrictions to limit traffic which is not directly associated to trading. 
 	A <b>Pacing Violation<sup>1</sup></b> occurs whenever one or more of the following restrictions is not observed:
 	
 	 - Making identical historical data requests within 15 seconds.
@@ -89,13 +91,14 @@
 	- Data for continuous futures contracts
 	- Expired options, FOPs, warrants and structured products.
 	- End of Day (EOD) data for options, FOPs, warrants and structured products.
+	- Data for expired future spreads
+	- Data for securities which are no longer trading.
 	
-		
 	<i>
 		<i><b>Note:</b></i> 
 		
 		<i>1. At this time Historical Data Limitations for barSize = "1 mins" and greater have been lifted. However, please use caution when requesting large amounts of historical data or sending historical data requests too frequently.
-		Though IB has lifted the "hard" limit, we still implement a "soft" slow to load-balance client requests vs. server response. Requesting too much historical data can lead to throttling and eventual disconnect of the API client.</i>
+		Though IB has lifted the "hard" limit, we still implement a "soft" slow to load-balance client requests vs. server response. Requesting too much historical data can lead to throttling and eventual disconnect of the API client. If a request requires more than several minutes to return data, it would be best to cancel the request using the @ref IBApi::EClient::cancelHistoricalData function. </i>
 	</i>	
 	
 	<br><br>

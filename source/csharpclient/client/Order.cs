@@ -50,7 +50,7 @@ namespace IBApi
         // 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK
         private int ocaType;
         private string orderRef;
-        // if false, order will be created but not transmited
+        // if false, order will be created but not transmitted
         private bool transmit;
         // Parent order Id, to associate Auto STP or TRAIL orders with the original order.
         private int parentId;
@@ -208,9 +208,11 @@ namespace IBApi
 
         /**
          * @brief Identifies the side.
-         * Possible values are BUY, SELL, SSHORT
+         * Generally available values are BUY, SELL. 
+		 * Additionally, SSHORT, SLONG are available in some institutional-accounts only.
+		 * For general account types, a SELL order will be able to enter a short position automatically if the order quantity is larger than your current long position.
          * SSHORT is only supported for institutional account configured with Long/Short account segments or clearing with a separate account.
-         * For general account types, a SELL order will be able to enter a short position automatically if the order quantity is larger than your current long position.
+		 * SLONG is available in specially-configured institutional accounts to indicate that long position not yet delivered is being sold.	
          */
         public string Action
         {
@@ -533,8 +535,10 @@ namespace IBApi
 
 
         /**
-         * @brief For institutional customers only.
-         * Available for institutional clients to determine if this order is to open or close a position. Valid values are O (open), C (close).
+         * @brief For institutional customers only. Valid values are O (open), C (close).
+         * Available for institutional clients to determine if this order is to open or close a position. 
+		 * When Action = "BUY" and OpenClose = "O" this will open a new position. 
+		 * When Action = "BUY" and OpenClose = "C" this will close and existing short position.
          */
         public string OpenClose
         {

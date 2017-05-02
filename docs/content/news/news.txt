@@ -2,7 +2,7 @@
 	
 	Four news providers offer news articles from the API. News from the API requires separate subscriptions, and each has different data fees, than the same news services in TWS. The API functions which handle news are able to query available news provides, subscribe to news in real time to receive headlines as they are released, request specific news articles, and return a historical list of news stories that are cached in the system. 
 
-	\section news_providers Querying subscribed API news
+	\section news_providers Subscribed News Sources
 
 	The available API news subscriptions current are Briefing Trader, Benzinga Pro, Fly on the Wall, and Midnight Trader. Signing up for API news is done through Account Management. In Account Management it is also possible to view current subscriptions, or from the API this can be done with the function IBApi::EClient::reqNewsProviders. Note this function is only available starting in API v973.02.
 
@@ -51,6 +51,8 @@
 	<b>Important:</b> in order to obtain news feeds via the TWS API you need to acquire the relevant API-specific subscriptions via your Account Management.
 	
 	When invoking @ref IBApi::EClient::reqMktData, for a specific @ref IBApi::Contract you will follow the same format convention as any other @ref basic_contracts. The News Source is identified by the <b>genericTickList</b>.
+	
+	Note: The error message "invalid tick type" will be returned if the username has not added the appropriate API news subscription.
 	
 	<ul id="tab">
 		<li class="active">
@@ -199,9 +201,9 @@
 		</li>
 	</ul>
 
-	\section historical_news Requesting historical news headlines
+	\section historical_news Historical News Headlines
 
-	With the appropriate API news subscription, historical news headlines can be requested from the API using the function IBApi::EClient::reqHistoricalNews starting in API v.973.02. The resulting headlines are returned to IBApi::EWrapper::historicalNews.
+	With the appropriate API news subscription, historical news headlines can be requested from the API using the function IBApi::EClient::reqHistoricalNews starting in API v973.02. The resulting headlines are returned to IBApi::EWrapper::historicalNews.
 
 	<ul id="tab">
 		<li class="active">
@@ -222,7 +224,7 @@
 	</ul>
 
 
-	\section news_articles Requesting news articles
+	\section news_articles Requesting News Articles
 
 	After requesting news headlines using one of the above functions, the body of a news article can be requested with the article ID returned by invoking the function IBApi::EClient::reqNewsArticle starting in API v973.02. The body of the news article is returned to the function IBApi::EWrapper::newsArticle.
 

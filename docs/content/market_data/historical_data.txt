@@ -1,19 +1,26 @@
 /*! \page historical_data Historical Data
 
-	To receive historical data from the API a user must have level 1 market data subscriptions for that contract. Historical data is available in TWS charts for many types of instruments without having market data subscriptions, but will not be available to the API unless all the requirements for @ref market_subscriptions are met. When retrieving historical data from the TWS, be aware of the \subpage historical_limitations.
+	To receive historical data from the API a user must have level 1 market data subscriptions for that contract. The API historical data functionality simply pulls certain types of data from TWS charts, so if data is not available in a TWS chart it will also not be available from the API. TWS charts can be created for many types of instruments without market data subscriptions, but API historical data always requires that the @ref market_subscriptions are met. 
+	
+	-For European stocks, a smart-routed historical data requests requires subscriptions to all available exchanges.
+	
+	-Beginning with API v973.03 and TWS v965, the option to subscribe to historical data is available so that data is continually returned in real time as new bars are available. This is indicated by specifying <i><b>keepUpToDate</b></i> = True.
+	
+	-When retrieving historical data from the TWS, be aware of the \subpage historical_limitations.
 
 	\section hd_request Requesting Historical Data
 
 	Historical data is obtained from the the TWS via the @ref IBApi::EClient::reqHistoricalData function. Every request needs:
-	- A unique identifier which will serve to identify the incoming data.
-	- The @ref IBApi::Contract you are interested in.
-	- The request's end date and time. 
-	- The amount of time (or @ref hd_duration) to go back from the request's given end date and time.
-	- The data's granularity or @ref hd_barsize
-	- The type of data to retrieve. See @ref hd_what_to_show
-	- Whether or not to retrieve data generated only within Regular Trading Hours (RTH)
-	- The format in which the incoming bars' date should be presented. Note that for day bars, only yyyyMMdd format is available.
-
+	- <i><b>tickerId</b></i>, A unique identifier which will serve to identify the incoming data.
+	- <i><b>contract</b></i>, The @ref IBApi::Contract you are interested in.
+	- <i><b>endDateTime</b></i>, The request's end date and time (empty string can be used to indicate current time). 
+	- <i><b>durationString</b></i>, The amount of time (or @ref hd_duration) to go back from the request's given end date and time.
+	- <i><b>barSizeSetting</b></i>, The data's granularity or @ref hd_barsize
+	- <i><b>whatToShow</b></i>, The type of data to retrieve. See @ref hd_what_to_show
+	- <i><b>useRTH</b></i>, Whether (1) or not (0) to retrieve data generated only within Regular Trading Hours (RTH)
+	- <i><b>formatDate</b></i>, The format in which the incoming bars' date should be presented. Note that for day bars, only yyyyMMdd format is available.
+	- <i><b>keepUpToDate</b></i>, Whether a subscription is made to return real time bars as they are available (True), or all data is returned on a one-time basis (False). <i>Available starting with API v973.03+ and TWS v965+</i>.
+	
 	For example, making a request with an end date and time of "20160127 23:59:59", a duration string of "3 D" and a bar size of "1 hour" will return three days worth of 1 hour bars data in which the most recent bar will be the closest possible 	to 20160127 23:59:59.
 
 	<ul id="tab">
@@ -34,7 +41,7 @@
 		</li>
 	</ul>
 	
-	\section reqHeadTimeStamp Querying start of historical data
+	\section reqHeadTimeStamp Earliest Available Data
 
 	To find the earliest available data point for a given instrument and data type a function is in the API starting in v973.02 and v963 of TWS/IBG, IBApi::EClient::reqHeadTimestamp
 
@@ -56,7 +63,7 @@
 		</li>
 	</ul>
 
-	The resulting head timestamp is returned to the function IBApi::Client::headTimestamp
+	The resulting head timestamp is returned to the function @ref IBApi::EWrapper::headTimestamp
 
 	<ul id="tab">
 		<li class="active">
@@ -85,11 +92,31 @@
 			\snippet Program.py headTimestamp
 		</li>
 	</ul>
-
+	
+	A reqHeadTimeStamp request can be cancelled with @ref IBApi::EClient::cancelHeadTimestamp
+	
+	<ul id="tab">
+		<li class="active"> 
+			\snippet Program.cs cancelHeadTimestamp
+		</li>
+		<li>
+			\snippet Testbed.java cancelHeadTimestamp
+		</li>
+		<li>
+			\snippet MainModule.vb cancelHeadTimestamp
+		</li>
+		<li>
+			\snippet TestCppClient.cpp cancelHeadTimestamp
+		</li>
+		<li>
+			\snippet Program.py cancelHeadTimestamp
+		</li>
+	</ul>
+	
 	\section hd_receive Receiving Historical Data
 	
-	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. Once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
-	marker will be sent
+	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. If reqHistoricalData was invoked with <i><b>keepUpToDate = false</b></i>, once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
+	marker will be sent. Otherwise bars will continue to be returned in real time to IBApi::EWrapper::historicalDataUpdate. The keepUpToDate functionality can only be used with bar sizes 5 seconds or greater and requires the endDate is set as the empty string. 
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -129,6 +156,26 @@
 		</li>
 	</ul>
 
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs historicalDataUpdate
+		</li>
+		<li>
+			\snippet EWrapperImpl.java historicalDataUpdate
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb historicalDataUpdate
+		</li>
+		<li>
+			\snippet TestCppClient.cpp historicalDataUpdate
+		</li>
+		<li>
+			\snippet Program.py historicalDataUpdate
+		</li>
+	</ul>
+	
 	\section hd_duration Valid Duration String units
 	
 	<table>
@@ -144,30 +191,31 @@
 	
 	<table>
 		<tr><th>Size</th></tr>
-		<tr><td>1 secs</td></tr>
-		<tr><td>5 secs</td></tr>
-		<tr><td>10 secs</td></tr>
-		<tr><td>15 secs</td></tr>
-		<tr><td>30 secs</td></tr>
-		<tr><td>1 min</td></tr>
-		<tr><td>2 mins</td></tr>
-		<tr><td>3 mins</td></tr>
-		<tr><td>5 mins</td></tr>
-		<tr><td>10 mins</td></tr>
-		<tr><td>15 mins</td></tr>
-		<tr><td>20 mins</td></tr>
-		<tr><td>30 mins</td></tr>
-		<tr><td>1 hour</td></tr>
-		<tr><td>2 hours</td></tr>
-		<tr><td>3 hours</td></tr>
-		<tr><td>4 hours</td></tr>
-		<tr><td>8 hours</td></tr>
+		<tr><td>1 secs</td>
+		<td>5 secs</td>
+		<td>10 secs</td>
+		<td>15 secs</td>
+		<td>30 secs</td></tr>
+		<tr><td>1 min</td>
+		<td>2 mins</td>
+		<td>3 mins</td>
+		<td>5 mins</td>
+		<td>10 mins</td>
+		<td>15 mins</td>
+		<td>20 mins</td>
+		<td>30 mins</td></tr>
+		<tr><td>1 hour</td>
+		<td>2 hours</td>
+		<td>3 hours</td>
+		<td>4 hours</td>
+		<td>8 hours</td></tr>
 		<tr><td>1 day</td></tr>
 		<tr><td>1 week</td></tr>
 		<tr><td>1 month</td></tr>
 	</table>
 	
-	\section hd_what_to_show Historical Data Types (whatToShow)
+	\section hd_what_to_show Historical Data Types 
+	<b>(whatToShow)</b>
 	
 	All different kinds of historical data are returned in the form of candlesticks and as such the values return represent the state of the market <b>during the period covered by the candlestick</b>.
 	For instance, it might appear obvious but a TRADES day bar's 'close' value does <b>NOT</b> represent the product's closing price but rather the last traded price registered.
@@ -183,30 +231,39 @@
 		<tr><td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A</td></tr>
 		<tr><td><b>REBATE_RATE</b></td><td>Starting rebate rate</td><td>Highest rebate rate</td><td>Lowest rebate rate</td><td>Last rebate rate</td><td>N/A</td></tr>
 		<tr><td><b>FEE_RATE</b></td><td>Starting fee rate</td><td>Highest fee rate</td><td>Lowest fee rate</td><td>Last fee rate</td><td>N/A</td></tr>
+		<tr><td><b>YIELD_BID</b></td><td>Starting bid yield</td><td>Highest bid yield</td><td>Lowest bid yield</td><td>Last bid yield </td><td>N/A</td></tr>
+		<tr><td><b>YIELD_ASK</b></td><td>Starting ask yield</td><td>Highest ask yield</td><td>Lowest ask yield</td><td>Last ask yield</td><td>N/A</td></tr>
+		<tr><td><b>YIELD_BID_ASK</b></td><td>Time average bid yield</td><td>Highest ask yield</td><td>Lowest bid yield</td><td>Time average ask yield</td><td>N/A</td></tr>
+		<tr><td><b>YIELD_LAST</b></td><td>Starting last yield</td><td>Highest last yield</td><td>Lowest last yield</td><td>Last last yield</td><td>N/A</td></tr>
+		
 	</table>
 	<br>
 	
 	\section available_products_hd Available Data per Product
 	
 	<table>
-		<tr><th><CENTER>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th></tr>
-		<tr><td>Stocks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
-		<tr><td>Commodities</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Options</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Futures</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>FOPs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>ETFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
-		<tr><td>Warrants</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Structured Products</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>SSFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Forex</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Metals</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Indices</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>Y</td></tr>
-		<tr><td>Bonds</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>Funds</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr>
-		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr></CENTER>
+		<tr><th><CENTER>Product Type</th><th>TRADES</th><th>MIDPOINT</th><th>BID</th><th>ASK</th><th>BID_ASK</th><th>HISTORICAL_VOLATILITY</th><th>OPTION_IMPLIED_VOLATILITY</th><th>YIELD_BID</th><th>YIELD_ASK</th><th>YIELD_BID_ASK</th><th>YIELD_LAST</th></tr>
+		<tr><td>Stocks</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Commodities</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Options</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Futures</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>FOPs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>ETFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Warrants</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Structured Products</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>SSFs</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Forex</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Metals</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Indices</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>Bonds*</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+		<tr><td>Funds</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr>
+		<tr><td>CFDs*</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td><td>N</td></tr></CENTER>
 	</table> 
 
+	-Yield historical data only available for corporate bonds
+	
+	\section histogramdata Requesting Histograms
+	
 	\subpage histograms 
 
 	<br><br>

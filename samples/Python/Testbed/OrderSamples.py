@@ -487,7 +487,7 @@ class OrderSamples:
     #/ Products: STK
     </summary>"""
     @staticmethod
-    def PeggedToMidpoint(action:str, quantity:float, offset:float):
+    def PeggedToMidpoint(action:str, quantity:float, offset:float, limitPrice:float):
     
         # ! [pegged_midpoint]
         order = Order()
@@ -495,6 +495,7 @@ class OrderSamples:
         order.orderType = "PEG MID"
         order.totalQuantity = quantity
         order.auxPrice = offset
+        order.lmtPrice = limitPrice
         # ! [pegged_midpoint]
         return order
     
@@ -976,7 +977,7 @@ class OrderSamples:
         #Attached order is a conventional STP order
         order = OrderSamples.Stop("SELL" if parent.action == "BUY" else "BUY",
                      parent.totalQuantity, attachedOrderStopPrice)
-        order.ParentId = parent.OrderId
+        order.ParentId = parent.orderId
         #When trigger price is penetrated
         order.TriggerPrice = triggerPrice
         #The parent order will be turned into a TRAIL order

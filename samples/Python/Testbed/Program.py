@@ -600,6 +600,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqmktdata_snapshot]
 
         # ! [regulatorysnapshot]
+        # Each regulatory snapshot request incurs a 0.01 USD fee
         # self.reqMktData(1014, ContractSamples.USStock(), "", False, True, [])
         # ! [regulatorysnapshot]
 
@@ -609,6 +610,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqmktdata_genticks]
 
         # ! [reqmktdata_contractnews]
+        # Without the API news subscription this will generate an "invalid tick type" error
         self.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", False, False, [])
         self.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", False, False, [])
         self.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", False, False, [])
@@ -766,6 +768,13 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqHeadTimeStamp]
         self.reqHeadTimeStamp(4103, ContractSamples.USStockAtSmart(), "TRADES", 0, 1)
         # ! [reqHeadTimeStamp]
+
+        time.sleep(1)
+
+        # ! [cancelHeadTimestamp]
+        self.cancelHeadTimeStamp(4103)
+        # ! [cancelHeadTimestamp]
+
         # ! [reqhistoricaldata]
         queryTime = (datetime.datetime.today() -
                      datetime.timedelta(days=180)).strftime("%Y%m%d %H:%M:%S")
@@ -1345,11 +1354,6 @@ class TestApp(TestWrapper, TestClient):
 
     @printWhenExecuting
     def linkingOperations(self):
-        self.verifyRequest("a name", "9.71")
-        self.verifyMessage("apiData")
-        self.verifyAndAuthMessage("apiData", "xyz")
-        self.verifyAndAuthRequest("a name", "9.71", "key")
-
         # ! [querydisplaygroups]
         self.queryDisplayGroups(19001)
         # ! [querydisplaygroups]
@@ -1628,7 +1632,7 @@ def main():
         print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),
                                                       app.twsConnectionTime()))
         # ! [connect]
-		
+
         app.run()
     except:
         raise
