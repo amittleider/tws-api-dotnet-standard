@@ -2,9 +2,9 @@ var contracts =
 [
     [ "Overview", "contracts.html#Overview", null ],
     [ "Requesting Contract Details", "contract_details.html", [
-      [ "Obtaining BroadTape List of News", "contract_details.html#broadtape_list", null ]
+      [ "BroadTape News List", "contract_details.html#broadtape_list", null ]
     ] ],
-    [ "Contract Search", "matching_symbols.html", null ],
+    [ "Stock Contract Search", "matching_symbols.html", null ],
     [ "Basic Contracts", "basic_contracts.html", [
       [ "FX Pairs", "basic_contracts.html#cash", null ],
       [ "Stocks", "basic_contracts.html#stk", null ],
@@ -15,12 +15,14 @@ var contracts =
       [ "Futures on Options", "basic_contracts.html#fop", null ],
       [ "Bonds", "basic_contracts.html#Bonds", null ],
       [ "Mutual Funds", "basic_contracts.html#funds", null ],
-      [ "Commodities", "basic_contracts.html#Commodities", null ]
+      [ "Commodities", "basic_contracts.html#Commodities", null ],
+      [ "Dutch Warrants", "basic_contracts.html#iopts", null ]
     ] ],
     [ "Spreads", "spread_contracts.html", [
       [ "Stock Spread", "spread_contracts.html#bag_stk", null ],
-      [ "Futures Spread", "spread_contracts.html#bag_fut", null ],
       [ "Options Spread", "spread_contracts.html#bag_opt", null ],
+      [ "Guaranteed Futures Spread", "spread_contracts.html#bag_fut", null ],
+      [ "Smart-Routed Futures Spread", "spread_contracts.html#bag_smartfuture", null ],
       [ "Inter-Commodity Futures", "spread_contracts.html#bag_intcmdfut", null ]
     ] ]
 ];

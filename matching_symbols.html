@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72+: Contract Search</title>
+<title>TWS API v9.72+: Stock Contract Search</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,11 +126,10 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Contract Search </div>  </div>
+<div class="title">Stock Contract Search </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>This function is still in development and not yet available.</b></p>
-<p>Starting in API v973.02, a function <a class="el" href="classIBApi_1_1EClient.html#aa0bff193c5cbaa73e89dccdd0f027195" title="Requests matching symbols (implements &#39;google-like&#39; suggestions as user starts typing symbol or contr...">IBApi::EClient::reqMatchingSymbols</a> can be used to search for contracts based on initial letters defining the ticker symbol. For instance, if the strings "I" or "IB" are specified to search for the IB ticker symbol "IBKR" it will be returned in the list of matching contracts.</p>
+<div class="textblock"><p>Starting in API <b>v973.02</b> and TWS <b>v964</b>, a function <a class="el" href="classIBApi_1_1EClient.html#aa0bff193c5cbaa73e89dccdd0f027195" title="Requests matching symbols (implements &#39;google-like&#39; suggestions as user starts typing symbol or contr...">IBApi::EClient::reqMatchingSymbols</a> is available to search for stock contracts. The input can be either the first few letters of the ticker symbol, or for longer strings, a character sequence matching a word in the security name. For instance to search for the stock symbol 'IBKR', the input 'I' or 'IB' can be used, as well as the word 'Interactive'. Up to 16 matching results are returned.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqMatchingSymbols(211, <span class="stringliteral">&quot;IB&quot;</span>);</div>
@@ -148,7 +147,7 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMatchingSymbols(212, <span class="stringliteral">&quot;IB&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>The results are returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a82cfd0c663944c5e6d4fee8ebd482ecf" title="returns array of sample contract descriptions ">IBApi::EWrapper::symbolSamples</a>.</p>
+<p>Matching stock contracts are returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a82cfd0c663944c5e6d4fee8ebd482ecf" title="returns array of sample contract descriptions ">IBApi::EWrapper::symbolSamples</a> with information about types of derivative contracts which exist (warrants, options, dutch warrants, futures).</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> symbolSamples(<span class="keywordtype">int</span> reqId, ContractDescription[] contractDescriptions) </div>
@@ -209,13 +208,13 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::symbolSamples(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;ContractDescription&gt; &amp;contractDescriptions) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Symbol Samples (total=%u) reqId: %d\n&quot;</span>, contractDescriptions.size(), reqId);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Symbol Samples (total=%lu) reqId: %d\n&quot;</span>, contractDescriptions.size(), reqId);</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; contractDescriptions.size(); i++) {</div>
 <div class="line">        Contract contract = contractDescriptions[i].contract;</div>
 <div class="line">        std::vector&lt;std::string&gt; derivativeSecTypes = contractDescriptions[i].derivativeSecTypes;</div>
 <div class="line">        printf(<span class="stringliteral">&quot;Contract (%u): %ld %s %s %s %s, &quot;</span>, i, contract.conId, contract.symbol.c_str(), contract.secType.c_str(), contract.primaryExchange.c_str(), contract.currency.c_str());</div>
-<div class="line">        printf(<span class="stringliteral">&quot;Derivative Sec-types (%u):&quot;</span>, derivativeSecTypes.size());</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Derivative Sec-types (%lu):&quot;</span>, derivativeSecTypes.size());</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; derivativeSecTypes.size(); j++) {</div>
 <div class="line">            printf(<span class="stringliteral">&quot; %s&quot;</span>, derivativeSecTypes[j].c_str());</div>
 <div class="line">        }</div>
@@ -231,14 +230,14 @@ $(document).ready(function(){initNavTree('matching_symbols.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="keywordflow">for</span> contractDescription <span class="keywordflow">in</span> contractDescriptions:</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            derivSecTypes = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="keywordflow">for</span> derivSecType <span class="keywordflow">in</span> contractDescription.DerivativeSecTypes:</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="keywordflow">for</span> derivSecType <span class="keywordflow">in</span> contractDescription.derivativeSecTypes:</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                derivSecTypes += derivSecType</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                derivSecTypes += <span class="stringliteral">&quot; &quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            print(<span class="stringliteral">&quot;Contract: conId:%s, symbol:%s, secType:%s primExchange:%s, currency:%s, derivativeSecTypes:%s&quot;</span> % (</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                contractDescription.contract.conId,</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                contractDescription.contract.symbol,</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                contractDescription.contract.secType,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                contractDescription.contract.primaryExch,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                contractDescription.contract.primaryExchange,</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                contractDescription.contract.currency, derivSecTypes))</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 </div><!-- fragment -->  </li>

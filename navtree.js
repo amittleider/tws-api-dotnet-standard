@@ -20,7 +20,7 @@ var NAVTREE =
       [ "Installing the API source", "initial_setup.html#install", null ],
       [ "Changing the installed API version", "initial_setup.html#changing", null ]
     ] ],
-    [ "Introducing EWrapper and EClientSocket", "client_wrapper.html", [
+    [ "EWrapper and EClientSocket Classes", "client_wrapper.html", [
       [ "Implementing the EWrapper interface", "client_wrapper.html#ewrapper_impl", null ],
       [ "The EClientSocket class", "client_wrapper.html#client_socket", null ]
     ] ],
@@ -28,16 +28,17 @@ var NAVTREE =
       [ "Connecting", "connection.html#connect", null ],
       [ "Acknowledging the connection", "connection.html#connect_ack", null ],
       [ "Consuming TWS data", "connection.html#ereader", null ],
-      [ "Accepting the connection on the TWS side.", "connection.html#accept_connections", null ]
+      [ "Accepting an API connection from TWS", "connection.html#accept_connections", null ],
+      [ "Broken API socket connection", "connection.html#broken", null ]
     ] ],
     [ "Contracts", "contracts.html", "contracts" ],
     [ "Orders", "orders.html", "orders" ],
     [ "Market Data", "market_data.html", "market_data" ],
     [ "News", "news.html", [
-      [ "Querying subscribed API news", "news.html#news_providers", null ],
+      [ "Subscribed News Sources", "news.html#news_providers", null ],
       [ "Contract Specific News", "news.html#news_contract", null ],
-      [ "Requesting historical news headlines", "news.html#historical_news", null ],
-      [ "Requesting news articles", "news.html#news_articles", null ]
+      [ "Historical News Headlines", "news.html#historical_news", null ],
+      [ "Requesting News Articles", "news.html#news_articles", null ]
     ] ],
     [ "Options", "options.html", "options" ],
     [ "Account & Portfolio", "account_portfolio.html", "account_portfolio" ],
@@ -92,9 +93,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016",
-"classIBApi_1_1ScannerSubscription.html#a2ff203d03fc853fe11d10bc5287c825c",
-"interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2"
+"classIBApi_1_1EClient.html#aaf743e93e4dc4045f97c40e476fb0fd6",
+"classIBApi_1_1PriceCondition.html#aca7cab88f4bd1723a1439cef22aec340",
+"interfaceIBApi_1_1EWrapper.html#a40b122cde44711d81929df50f3a3f342"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

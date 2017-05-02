@@ -190,7 +190,7 @@ Adjusted to Stop</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Attached order is a conventional STP order in opposite direction</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>, </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = OrderSamples.Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.parentId = parent.orderId</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
@@ -269,8 +269,8 @@ Adjusted to Stop Limit</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#Attached order is a conventional STP order</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = OrderSamples.Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                  parent.totalQuantity, attachedOrderStopPrice)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.parentId = parent.orderId</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.triggerPrice = triggerPrice</div>
@@ -313,7 +313,7 @@ Adjusted to Trail</h1>
 <div class="line">        order.adjustedOrderType(OrderType.TRAIL);</div>
 <div class="line">        <span class="comment">//With a stop price of...</span></div>
 <div class="line">        order.adjustedStopPrice(adjustStopPrice);</div>
-<div class="line">        <span class="comment">//traling by and amount (0) or a percent (1)...</span></div>
+<div class="line">        <span class="comment">//trailing by and amount (0) or a percent (1)...</span></div>
 <div class="line">        order.adjustableTrailingUnit(trailUnit);</div>
 <div class="line">        <span class="comment">//of...</span></div>
 <div class="line">        order.adjustedTrailingAmount(adjustedTrailAmount);</div>
@@ -358,9 +358,9 @@ Adjusted to Trail</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment">#Attached order is a conventional STP order</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        order = OrderSamples.Stop(<span class="stringliteral">&quot;SELL&quot;</span> <span class="keywordflow">if</span> parent.action == <span class="stringliteral">&quot;BUY&quot;</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;BUY&quot;</span>,</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                     parent.totalQuantity, attachedOrderStopPrice)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.ParentId = parent.OrderId</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        order.ParentId = parent.orderId</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        <span class="comment">#When trigger price is penetrated</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        order.TriggerPrice = triggerPrice</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment">#The parent order will be turned into a TRAIL order</span></div>

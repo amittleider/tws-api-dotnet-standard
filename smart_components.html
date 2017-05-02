@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72+: Receiving exchange components</title>
+<title>TWS API v9.72+: Component Exchanges</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,10 +126,10 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Receiving exchange components </div>  </div>
+<div class="title">Component Exchanges </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A single data request from the API can receive aggregate quotes from multiple exchanges. With API versions 9.72.18 and TWS 9.62 and higher, the tick types 'bidExch' (tick type 32), 'askExch' (tick type 33), 'lastExch' (tick type 84) are used to identify the source of a quote. To preserve bandwidth, the data returned to these tick types consists of a sequence of capital letters rather than a long list of exchange names for every returned exchange name field. To find the full exchange name corresponding to a single letter code returned in tick types 32, 33, or 84, and API function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a> is available.</p>
+<div class="textblock"><p>A single data request from the API can receive aggregate quotes from multiple exchanges. With API versions <b>9.72.18</b> and TWS <b>9.62</b> and higher, the tick types 'bidExch' (tick type 32), 'askExch' (tick type 33), 'lastExch' (tick type 84) are used to identify the source of a quote. To preserve bandwidth, the data returned to these tick types consists of a sequence of capital letters rather than a long list of exchange names for every returned exchange name field. To find the full exchange name corresponding to a single letter code returned in tick types 32, 33, or 84, and API function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a> is available. <b>Note:</b> This function can only be used when the exchange is open.</p>
 <p>Different IB contracts have a different exchange map containing the set of exchanges on which they trade. Each exchange map has a different code, such as "a6" or "a9". This exchange mapping code is returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#acdc6b7acebacd83078af3b5c24f23b33" title="tick with BOO exchange and snapshot permissions ">IBApi::EWrapper::tickReqParams</a> immediately after a market data request is made by a user with market data subscriptions. To find a particular map of single letter codes to full exchange names, the function reqSmartComponents is invoked with the exchange mapping code returned to tickReqParams.</p>
 <ul id="tab">
 <li class="active">
@@ -170,10 +170,10 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    @Override</div>
-<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> smartComponents(<span class="keywordtype">int</span> reqId, Map&lt;Integer, SimpleEntry&lt;String, Character&gt;&gt; theMap) {</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> smartComponents(<span class="keywordtype">int</span> reqId, Map&lt;Integer, Entry&lt;String, Character&gt;&gt; theMap) {</div>
 <div class="line">        System.out.println(<span class="stringliteral">&quot;smart components req id:&quot;</span> + reqId);</div>
 <div class="line">        </div>
-<div class="line">        <span class="keywordflow">for</span> (Map.Entry&lt;Integer, SimpleEntry&lt;String, Character&gt;&gt; item : theMap.entrySet()) {</div>
+<div class="line">        <span class="keywordflow">for</span> (Map.Entry&lt;Integer, Entry&lt;String, Character&gt;&gt; item : theMap.entrySet()) {</div>
 <div class="line">            System.out.println(<span class="stringliteral">&quot;bit number: &quot;</span> + item.getKey() + </div>
 <div class="line">                    <span class="stringliteral">&quot;, exchange: &quot;</span> + item.getValue().getKey() + <span class="stringliteral">&quot;, exchange letter: &quot;</span> + item.getValue().getValue());            </div>
 <div class="line">        }</div>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::smartComponents(<span class="keywordtype">int</span> reqId, SmartComponentsMap theMap) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Smart components: (%u):\n&quot;</span>, theMap.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Smart components: (%lu):\n&quot;</span>, theMap.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (SmartComponentsMap::iterator i = theMap.begin(); i != theMap.end(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot; bit number: %d exchange: %s exchange letter: %c\n&quot;</span>, i-&gt;first, std::get&lt;0&gt;(i-&gt;second).c_str(), std::get&lt;1&gt;(i-&gt;second));</div>

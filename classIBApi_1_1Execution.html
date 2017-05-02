@@ -150,7 +150,7 @@ override bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (
 Properties</h2></td></tr>
 <tr class="memitem:ac2926db25ae147030a1cf519c07d86a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2926db25ae147030a1cf519c07d86a6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#ac2926db25ae147030a1cf519c07d86a6">OrderId</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:ac2926db25ae147030a1cf519c07d86a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API client's order Id. <br/></td></tr>
+<tr class="memdesc:ac2926db25ae147030a1cf519c07d86a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API client's order Id. May not be unique to an account. <br/></td></tr>
 <tr class="separator:ac2926db25ae147030a1cf519c07d86a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a776a8855d7e7ba3b6401d3db760a0f54"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a776a8855d7e7ba3b6401d3db760a0f54"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a776a8855d7e7ba3b6401d3db760a0f54">ClientId</a><code> [get, set]</code></td></tr>
@@ -158,7 +158,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="separator:a776a8855d7e7ba3b6401d3db760a0f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d4e55a65837dbaccb20000206d1c4d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d4e55a65837dbaccb20000206d1c4d8"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a6d4e55a65837dbaccb20000206d1c4d8">ExecId</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a6d4e55a65837dbaccb20000206d1c4d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The execution's identifier. <br/></td></tr>
+<tr class="memdesc:a6d4e55a65837dbaccb20000206d1c4d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The execution's unique identifier. Each partial fill has a separate ExecId. <br/></td></tr>
 <tr class="separator:a6d4e55a65837dbaccb20000206d1c4d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e05cace0aa52d809654c7248e052ef2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e05cace0aa52d809654c7248e052ef2"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a2e05cace0aa52d809654c7248e052ef2">Time</a><code> [get, set]</code></td></tr>
@@ -198,11 +198,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="separator:a4a7c4605bc95e39a0a931323aab38a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a7969b6c97d13c269de61ea89b7feac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a7969b6c97d13c269de61ea89b7feac"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a3a7969b6c97d13c269de61ea89b7feac">AvgPrice</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a3a7969b6c97d13c269de61ea89b7feac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average price. Used in regular trades, combo trades and legs of the combo. Includes commissions. <br/></td></tr>
+<tr class="memdesc:a3a7969b6c97d13c269de61ea89b7feac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average price. Used in regular trades, combo trades and legs of the combo. Does not include commissions. <br/></td></tr>
 <tr class="separator:a3a7969b6c97d13c269de61ea89b7feac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aa003d6c9f80b79d822a426e0fd5f5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9aa003d6c9f80b79d822a426e0fd5f5b"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a9aa003d6c9f80b79d822a426e0fd5f5b">OrderRef</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a9aa003d6c9f80b79d822a426e0fd5f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows API client to add a reference to an order. <br/></td></tr>
+<tr class="memdesc:a9aa003d6c9f80b79d822a426e0fd5f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The OrderRef is a user-customizable string that can be set from the API or TWS and will be associated with an order for its lifetime. <br/></td></tr>
 <tr class="separator:a9aa003d6c9f80b79d822a426e0fd5f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d9a590a4c9d90758cb9a3f43f354023"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d9a590a4c9d90758cb9a3f43f354023"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a1d9a590a4c9d90758cb9a3f43f354023">EvRule</a><code> [get, set]</code></td></tr>

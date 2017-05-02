@@ -132,7 +132,12 @@ $(document).ready(function(){initNavTree('md_request.html','');});
 <div class="textblock"><p>In order to receive live quotes, you must first make the request call via <a class="el" href="classIBApi_1_1EClient.html#a7a19258a3a2087c07c1c57b93f659b63">IBApi.EClient.reqMktData</a> within your API program. Every request needs a unique identifier which will serve to identify the returned data:</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            client.reqMktData(1001, ContractSamples.StockComboContract(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
+<div class="fragment"><div class="line">            client.reqMktData(16001, ContractSamples.USStockCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
+<div class="line">            Thread.Sleep(1000);</div>
+<div class="line">            client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
+<div class="line">            Thread.Sleep(1000);</div>
+<div class="line">            client.reqMktData(16003, ContractSamples.CashCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
+<div class="line">            Thread.Sleep(1000);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqMktData(1001, ContractSamples.StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
@@ -143,7 +148,7 @@ $(document).ready(function(){initNavTree('md_request.html','');});
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktData(1001, ContractSamples::StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
-<div class="line">    m_pClient-&gt;reqMktData(1002, ContractSamples::OptionWithLoacalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
+<div class="line">    m_pClient-&gt;reqMktData(1002, ContractSamples::OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1101, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
@@ -177,7 +182,7 @@ Generic Tick Types</h1>
 </ul>
 <p>For a list of available tick types please refer to <a class="el" href="tick_types.html">Available Tick Types</a></p>
 <h1><a class="anchor" id="md_snapshot"></a>
-Snapshots available with streaming market data subscription</h1>
+Streaming Data Snapshots</h1>
 <p>With an exchange market data subscription, such as Network A (NYSE), Network B(ARCA), or Network C(NASDAQ) for US stocks, it is possible to request a snapshot of the current state of the market once instead of requesting a stream of updates continuously as market values change. By invoking the <a class="el" href="classIBApi_1_1EClient.html#a7a19258a3a2087c07c1c57b93f659b63" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">IBApi::EClient::reqMktData</a> function passing in <b>true</b> for the snapshot parameter, the client application will receive the currently available market data once before a <a class="el" href="interfaceIBApi_1_1EWrapper.html#a2d1c80705657202c82a0b8708ad0e169">IBApi.EWrapper.tickSnapshotEnd</a> event is sent 11 seconds later. Snapshot requests can only be made for the default tick types; no generic ticks can be specified. It is important to note that a snapshot request will only return available data over the 11 second span; in many cases values for all default ticks will not be returned. However snapshots are allowed a higher rate limit than the normal 50 messages per second limitation of other EClientSocket functions. </p>
 <h4>Snapshot request:</h4>
 <ul id="tab">
@@ -237,30 +242,31 @@ Snapshots available with streaming market data subscription</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="regulatory_snapshot"></a>
-Regulatory Snapshots for Stocks</h1>
-<p>The fifth argument to reqMktData specifies a regulatory snapshot request to a US stock. Regulatory snapshots require TWS/IBG v963 and API 9.73.02 or higher.</p>
+Regulatory Snapshots</h1>
+<p>The fifth argument to reqMktData specifies a regulatory snapshot request to US stocks and options. Regulatory snapshots require TWS/IBG <b>v963</b> and API <b>973.02</b> or higher and specific market data subscriptions.</p>
 <p>For stocks, there are individual exchange-specific market data subscriptions necessary to receive streaming quotes. For instance, for NYSE stocks this subscription is known as "Network A", for ARCA/AMEX stocks it is called "Network B" and for NASDAQ stocks it is "Network C". Each subscription is added a la carte and has a separate market data fee.</p>
 <p>Alternatively, there is also a "US Securities Snapshot Bundle" subscription which does not provide streaming data but which allows for real time calculated snapshots of US market NBBO prices. By setting the 5th parameter in the function <a class="el" href="classIBApi_1_1EClient.html#a7a19258a3a2087c07c1c57b93f659b63" title="Requests real time market data. This function will return the product&#39;s market data. It is important to notice that only real time data can be delivered via the API. ">IBApi::EClient::reqMktData</a> to <b>True</b>, a regulatory snapshot request can be made from the API. The returned value is a calculation of the current market state based on data from all available exchanges.</p>
 <p><b>Important: Each regulatory snapshot made will incur a fee of 0.01 USD to the account. This applies to both live <em>and</em> paper accounts.</b>. If the monthly fee for regulatory snapshots reaches the price of a particular 'Network' subscription, the user will automatically be subscribed to that Network subscription for continuous streaming quotes and charged the associated fee for that month. At the end of the month the subscription will be terminated. Each listing exchange will be capped independently and will not be combined across listing exchanges.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">        <span class="comment">// Each regulatory snapshot incurs a 0.01 USD fee</span></div>
-<div class="line">        <span class="comment">//client.reqMktData(1005, ContractSamples.USStock(), &quot;&quot;, false, true, null);</span></div>
+<div class="fragment"><div class="line">            <span class="comment">// Each regulatory snapshot incurs a 0.01 USD fee</span></div>
+<div class="line">            client.reqMktData(1005, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="comment">// Each regulatory snapshot request incurs a 0.01 USD fee</span></div>
-<div class="line">        <span class="comment">// client.reqMktData(1014, ContractSamples.USStock(), &quot;&quot;, false, true, null);</span></div>
+<div class="line">        client.reqMktData(1014, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    <span class="stringliteral">&#39; Each regulatory snapshot request will incur a fee of 0.01 USD </span></div>
-<div class="line"><span class="stringliteral">    &#39;</span>client.reqMktData(1004, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, False, True, Nothing)</div>
+<div class="fragment"><div class="line">        <span class="stringliteral">&#39; Each regulatory snapshot request will incur a fee of 0.01 USD </span></div>
+<div class="line"><span class="stringliteral">        &#39;</span> client.reqMktData(1004, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, False, True, Nothing)</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    <span class="comment">// Each regulatory snapshot incurs a fee of 0.01 USD</span></div>
-<div class="line">    <span class="comment">// m_pClient-&gt;reqMktData(1013, ContractSamples::USStock(), &quot;&quot;, false, true, TagValueListSPtr());</span></div>
+<div class="line">    m_pClient-&gt;reqMktData(1013, ContractSamples::USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># self.reqMktData(1014, ContractSamples.USStock(), &quot;&quot;, False, True, [])</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Each regulatory snapshot request incurs a 0.01 USD fee</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="comment"># self.reqMktData(1014, ContractSamples.USStock(), &quot;&quot;, False, True, [])</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The following table lists the cost and maximum allocation for regulatory snapshot quotes:</p>

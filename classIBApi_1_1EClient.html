@@ -257,9 +257,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a66ad7a4820c5be21ebde521d59a50053"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053">reqGlobalCancel</a> ()</td></tr>
 <tr class="memdesc:a66ad7a4820c5be21ebde521d59a50053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels all the active orders. This method will cancel ALL open orders including those placed directly from TWS.  <a href="#a66ad7a4820c5be21ebde521d59a50053">More...</a><br/></td></tr>
 <tr class="separator:a66ad7a4820c5be21ebde521d59a50053"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72fc193c4d50f738b6092a174988f093"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a72fc193c4d50f738b6092a174988f093">reqHistoricalData</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, string endDateTime, string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt; chartOptions)</td></tr>
-<tr class="memdesc:a72fc193c4d50f738b6092a174988f093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests contracts' historical data. When requesting historical data, a finishing time and date is required along with a duration string. For example, having:  <a href="#a72fc193c4d50f738b6092a174988f093">More...</a><br/></td></tr>
-<tr class="separator:a72fc193c4d50f738b6092a174988f093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eac5b7908b62c224985cf8577a8350c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a5eac5b7908b62c224985cf8577a8350c">reqHistoricalData</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, string endDateTime, string durationString, string barSizeSetting, string whatToShow, int useRTH, int formatDate, bool keepUpToDate, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt; chartOptions)</td></tr>
+<tr class="memdesc:a5eac5b7908b62c224985cf8577a8350c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests contracts' historical data. When requesting historical data, a finishing time and date is required along with a duration string. For example, having:  <a href="#a5eac5b7908b62c224985cf8577a8350c">More...</a><br/></td></tr>
+<tr class="separator:a5eac5b7908b62c224985cf8577a8350c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecea365530f40e7b56529238c9dd2f4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#aecea365530f40e7b56529238c9dd2f4a">reqIds</a> (int numIds)</td></tr>
 <tr class="memdesc:aecea365530f40e7b56529238c9dd2f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the next valid order ID at the current moment.  <a href="#aecea365530f40e7b56529238c9dd2f4a">More...</a><br/></td></tr>
 <tr class="separator:aecea365530f40e7b56529238c9dd2f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -376,6 +376,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a059b5072d1e8e8e96394e53366eb81f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a059b5072d1e8e8e96394e53366eb81f3">reqHeadTimestamp</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, string whatToShow, int useRTH, int formatDate)</td></tr>
 <tr class="memdesc:a059b5072d1e8e8e96394e53366eb81f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp of earliest available historical data for a contract and data type  tickerId - an identifier for the request  contract - contract object for which head timestamp is being requested  whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc  useRTH - use regular trading hours only, 1 for yes or 0 for no  formatDate -.  <a href="#a059b5072d1e8e8e96394e53366eb81f3">More...</a><br/></td></tr>
 <tr class="separator:a059b5072d1e8e8e96394e53366eb81f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2554e34a45d6b58658810934d49f11a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2554e34a45d6b58658810934d49f11a7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cancelHeadTimestamp</b> (int tickerId)</td></tr>
+<tr class="separator:a2554e34a45d6b58658810934d49f11a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9156783cbd4ebcc5012f6394072b9aa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a9156783cbd4ebcc5012f6394072b9aa1">reqHistogramData</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, bool useRTH, string period)</td></tr>
 <tr class="memdesc:a9156783cbd4ebcc5012f6394072b9aa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns data histogram of specified contract  tickerId - an identifier for the request  contract - <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> object for which histogram is being requested  useRTH - use regular trading hours only, 1 for yes or 0 for no  period - period of which data is being requested, e.g. "3 days".  <a href="#a9156783cbd4ebcc5012f6394072b9aa1">More...</a><br/></td></tr>
 <tr class="separator:a9156783cbd4ebcc5012f6394072b9aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -385,6 +388,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:acc9a6d7c7f6db257ec75b61d8e906bb6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc9a6d7c7f6db257ec75b61d8e906bb6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>ReadInt</b> ()</td></tr>
 <tr class="separator:acc9a6d7c7f6db257ec75b61d8e906bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adee147daeee2320b9f67d79ccf759393"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adee147daeee2320b9f67d79ccf759393"></a>
+byte[]&#160;</td><td class="memItemRight" valign="bottom"><b>ReadAtLeastNBytes</b> (int msgSize)</td></tr>
+<tr class="separator:adee147daeee2320b9f67d79ccf759393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf33b0c140093f975338b62657f81057"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf33b0c140093f975338b62657f81057"></a>
 byte[]&#160;</td><td class="memItemRight" valign="bottom"><b>ReadByteArray</b> (int msgSize)</td></tr>
 <tr class="separator:acf33b0c140093f975338b62657f81057"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -879,7 +885,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a72fc193c4d50f738b6092a174988f093" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">reqHistoricalData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a5eac5b7908b62c224985cf8577a8350c" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">reqHistoricalData</a> </dd></dl>
 
 </div>
 </div>
@@ -1303,7 +1309,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a09c07727efd297e438690ab42838d332" title="Receives next valid order id. ">EWrapper::nextValidId</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="classIBApi_1_1Order.html" title="The order&#39;s description. ">Order</a>, <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a09c07727efd297e438690ab42838d332" title="Receives next valid order id. ">EWrapper::nextValidId</a>, <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">EWrapper::orderStatus</a>, <a class="el" href="classIBApi_1_1Order.html" title="The order&#39;s description. ">Order</a>, <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> </dd></dl>
 
 </div>
 </div>
@@ -1556,7 +1562,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests all <em>current</em> open orders in all associated accounts. The existing orders will be received via the openOrder and orderStatus events. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
 
 </div>
 </div>
@@ -1589,7 +1595,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05" title="Requests all open orders places by this specific API client (identified by the API client id)...">reqOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">EWrapper::orderStatus</a> </dd></dl>
 
 </div>
 </div>
@@ -1934,7 +1940,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 
 </div>
 </div>
-<a class="anchor" id="a72fc193c4d50f738b6092a174988f093"></a>
+<a class="anchor" id="a5eac5b7908b62c224985cf8577a8350c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1992,6 +1998,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>keepUpToDate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td>
           <td class="paramname"><em>chartOptions</em>&#160;</td>
         </tr>
@@ -2011,7 +2023,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <p>Requests contracts' historical data. When requesting historical data, a finishing time and date is required along with a duration string. For example, having: </p>
 <pre class="fragment"> - endDateTime: 20130701 23:59:59 GMT
  - durationStr: 3 D
-</pre><p> will return three days of data counting backwards from July 1st 2013 at 23:59:59 GMT resulting in all the available bars of the last three days until the date and time specified. It is possible to specify a timezone optionally. The resulting bars will be returned in <a class="el" href="interfaceIBApi_1_1EWrapper.html#a5cfc0dff9d3e3470f4c9209163279cda" title="returns the requested historical data bars ">EWrapper::historicalData</a> </p>
+</pre><p> will return three days of data counting backwards from July 1st 2013 at 23:59:59 GMT resulting in all the available bars of the last three days until the date and time specified. It is possible to specify a timezone optionally. The resulting bars will be returned in <a class="el" href="interfaceIBApi_1_1EWrapper.html#ac943e5b81f6de111ddf71a1f05ab6282" title="returns the requested historical data bars ">EWrapper::historicalData</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tickerId</td><td>the request's unique identifier. </td></tr>
@@ -2057,7 +2069,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a5cfc0dff9d3e3470f4c9209163279cda" title="returns the requested historical data bars ">EWrapper::historicalData</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#ac943e5b81f6de111ddf71a1f05ab6282" title="returns the requested historical data bars ">EWrapper::historicalData</a> </dd></dl>
 
 </div>
 </div>
@@ -2544,7 +2556,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 </div><div class="memdoc">
 
 <p>Requests all open orders places by this specific API client (identified by the API client id). For client ID 0, this will bind previous manual TWS orders. </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. ">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c" title="Requests all current open orders in all associated accounts. The existing orders will be received via...">reqAllOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016" title="Requests status updates about future orders placed from TWS. Can only be used with client ID 0...">reqAutoOpenOrders</a>, <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c" title="Places or modifies an order. ">placeOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#adb0a6963779be4904439fb1f24a8cce8" title="Cancels an active order placed by that specific client (one with the same client ID) ...">cancelOrder</a>, <a class="el" href="classIBApi_1_1EClient.html#a66ad7a4820c5be21ebde521d59a50053" title="Cancels all the active orders. This method will cancel ALL open orders including those placed directl...">reqGlobalCancel</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407" title="Feeds in currently open orders. ">EWrapper::openOrder</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3" title="Gives the up-to-date information of an order every time it changes. Often there are duplicate orderSt...">EWrapper::orderStatus</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#ab86caf7ed61e14d9b5609e8dd60b93e1" title="Notifies the end of the open orders&#39; reception. ">EWrapper::openOrderEnd</a> </dd></dl>
 
 </div>
 </div>

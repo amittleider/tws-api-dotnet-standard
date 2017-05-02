@@ -139,9 +139,9 @@ $(document).ready(function(){initNavTree('classIBApi_1_1ContractDetails.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac0a7a2cd0e92483af3a23d9d5a985c7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0a7a2cd0e92483af3a23d9d5a985c7d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ContractDetails</b> (<a class="el" href="classIBApi_1_1Contract.html">Contract</a> summary, String marketName, double minTick, String orderTypes, String validExchanges, int underConId, String longName, String contractMonth, String industry, String category, String subcategory, String timeZoneId, String tradingHours, String liquidHours, String evRule, double evMultiplier)</td></tr>
-<tr class="separator:ac0a7a2cd0e92483af3a23d9d5a985c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bae11b29d1141a77578a3de6fcd78b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9bae11b29d1141a77578a3de6fcd78b7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ContractDetails</b> (<a class="el" href="classIBApi_1_1Contract.html">Contract</a> summary, String marketName, double minTick, String orderTypes, String validExchanges, int underConId, String longName, String contractMonth, String industry, String category, String subcategory, String timeZoneId, String tradingHours, String liquidHours, String evRule, double evMultiplier, int aggGroup)</td></tr>
+<tr class="separator:a9bae11b29d1141a77578a3de6fcd78b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -217,10 +217,22 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#aea3e9ded7f1e8a604bea3cbf2bd9c35e">MdSizeMultiplier</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments. <br/></td></tr>
 <tr class="separator:aea3e9ded7f1e8a604bea3cbf2bd9c35e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27c23ae5137ce374361cc251c8defd5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae27c23ae5137ce374361cc251c8defd5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#ae27c23ae5137ce374361cc251c8defd5">AggGroup</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae27c23ae5137ce374361cc251c8defd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aggregated group Indicates the smart-routing group to which a contract belongs. contracts which cannot be smart-routed have aggGroup = -1. <br/></td></tr>
+<tr class="separator:ae27c23ae5137ce374361cc251c8defd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78cf9be62898771e4f47a73d3b07dc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad78cf9be62898771e4f47a73d3b07dc5"></a>
 List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#ad78cf9be62898771e4f47a73d3b07dc5">SecIdList</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:ad78cf9be62898771e4f47a73d3b07dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of contract identifiers that the customer is allowed to view. CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription. <br/></td></tr>
 <tr class="separator:ad78cf9be62898771e4f47a73d3b07dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d4406acfdd1a384193631364a128c1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d4406acfdd1a384193631364a128c1f"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a9d4406acfdd1a384193631364a128c1f">UnderSymbol</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a9d4406acfdd1a384193631364a128c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Underlying symbol. <br/></td></tr>
+<tr class="separator:a9d4406acfdd1a384193631364a128c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad744d78e3755b0b98df43af67d8dd576"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad744d78e3755b0b98df43af67d8dd576"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#ad744d78e3755b0b98df43af67d8dd576">UnderSecType</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad744d78e3755b0b98df43af67d8dd576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Underlying secType. <br/></td></tr>
+<tr class="separator:ad744d78e3755b0b98df43af67d8dd576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ec8acefd0343cef5400cee429bcabfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ec8acefd0343cef5400cee429bcabfa"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1ContractDetails.html#a6ec8acefd0343cef5400cee429bcabfa">Cusip</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a6ec8acefd0343cef5400cee429bcabfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The nine-character bond CUSIP or the 12-character SEDOL. For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription. <br/></td></tr>

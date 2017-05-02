@@ -17,6 +17,7 @@ var available_orders =
       [ "Block", "basic_orders.html#block", null ],
       [ "Box Top", "basic_orders.html#boxtop", null ],
       [ "Limit Order", "basic_orders.html#limitorder", null ],
+      [ "Forex Cash Quantity Order", "basic_orders.html#limitorderwithcashqty", null ],
       [ "Limit if Touched", "basic_orders.html#limitiftouched", null ],
       [ "Limit on Close", "basic_orders.html#limitonclose", null ],
       [ "Limit on Open", "basic_orders.html#limitonopen", null ],

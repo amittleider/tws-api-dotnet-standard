@@ -129,40 +129,44 @@ $(document).ready(function(){initNavTree('initial_setup.html','');});
 <div class="title">Initial Setup </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="tws"></a>
+<div class="textblock"><p>The TWS API is an interface to IB's standalone trading applications, TWS and IB Gateway. These are both standalone, Java-based trading applications which were designed to require the use of a graphical user interface for the security of user authentication. For that reason, "headless" operation is not supported.</p>
+<h1><a class="anchor" id="tws"></a>
 The Trader Workstation</h1>
-<p>Our market maker-designed IB Trader Workstation (TWS) lets traders, investors and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide from a single account. The TWS API is a programming interface to the TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72+ of the API, it is necessary to have TWS version 952 or higher.</p>
+<p>Our market maker-designed IB Trader Workstation (TWS) lets traders, investors, and institutions trade stocks, options, futures, forex, bonds and funds on over 100 markets worldwide from a single account. The TWS API is a programming interface to TWS and as such, it forcefully requires a TWS to connect to. To use version 9.72+ of the API, it is necessary to have TWS version 952 or higher.</p>
 <h1><a class="anchor" id="gateway"></a>
 The IB Gateway</h1>
-<p>The only alternative to the TWS is the IB Gateway. From the TWS API perspective, the IB Gateway and the TWS are identical: both represent nothing but a server to which it can open a socket connection. From the user perspective however the IB Gateway is a lightweight application through which he can only make use of the TWS API. As opposed to the TWS' rich user interface, the IB Gateway does not provide the end user with anything else than the very basic features to handle API connections. On the other hand, the IB Gateway does not need to be restarted every 24 hours and can therefore be used to run indefinitely.</p>
+<p>As an alternative to TWS for API users, IB also offers IB Gateway (IBG). From the perspective of an API application, IB Gateway and TWS are essentially identical; both represent a server to which an API client application can open a socket connection once the user has first authenticated a session. In either case (TWS or IBG), the user must authenticate a session by manually entering credentials into the login window- for security reasons, a headless session of TWS or IBG without a GUI is not supported. From the user's perspective, IB Gateway is a lighter application which consumes about 40% fewer resources and has some advantages over using an API connection to TWS- most noticeably, it does not have the designed limitation that an autologoff time is programmed when it must shutdown to be restarted.</p>
+<p>-<em>There are however some times in which it will also be necessary to restart IB Gateway</em>, for instance if there is a change to IB's contract database because of a ticker symbol changed or the introduction of a new contract, it will be necessary to restart IBG to access the updated contract information.</p>
+<p>The advantages of TWS over IBG is that it provides the end user with many tools (Risk Navigator, OptionTrader, BookTrader, etc) and a graphical user interface which can be used to monitor an account or place orders. For beginning API users, it is recommended to first become acquainted with TWS before using IBG.</p>
 <p><b>For simplicity, this guide will mostly refer to the TWS although the reader should understand that for the TWS API's purposes, TWS and IB Gateway are synonymous.</b></p>
 <h1><a class="anchor" id="enable_api"></a>
 Enable API connections</h1>
-<p>Before any client application can connect to the Trader Workstation, the TWS needs to be configured to listen for incoming API connections on a very specific port. To do this simply access the TWS' API settings via Edit -&gt; Global Configuration -&gt; API -&gt; Settings and make sure the "Enable ActiveX and Socket Clients" option is activated as shown below:</p>
+<p>Before any client application can connect to the Trader Workstation, the TWS needs to be configured to listen for incoming API connections on a very specific port. By default when TWS is first installed it will not allow API connections. IBG by contrast accepts socket-based API connections by default. To enable API access in TWS, navigate to the TWS' API settings at Edit -&gt; Global Configuration -&gt; API -&gt; Settings and make sure the "Enable ActiveX and Socket Clients" option is activated as shown below:</p>
 <div class="image">
 <img src="enable_socket.png" alt="enable_socket.png"/>
 </div>
-<p>Also important to mention is the "Socket port". By default the TWS will listen on ports <b>7496</b> or <b>7497</b> although this value can be changed to whichever port number as long as the specific port is available. This is particularly important to remember in case multiple TWS are running on the same computer (i.e. live and paper trading). Since only one application can listen on one port at a time you will need to assign different ports to each running TWS.</p>
+<p>Also important to mention is the "Socket port". By default a production account TWS session will be set for socket port 7496, and a paper account session will listen on socket port 7497. However these are just default values chosen because they are almost always available on any computer. They can be changed to any open socket port, as long as the socket ports specified in the API client and TWS settings match. If there are multiple TWS sessions on one computer, the socket port is used to distinguish the TWS session. Since only one application can listen on one port at a time you will need to assign different ports to each running TWS.</p>
 <p><b>Important: when running paper and live TWS on the same computer, make sure your client application is connecting to the right TWS!</b></p>
 <h1><a class="anchor" id="read_only"></a>
 Read Only API</h1>
-<p>The API Settings dialogue allows you to configure the TWS not to accept any orders being sent via the TWS API. This is enabled by default and is an additional security measure you can enable when the API client is only intended to request information from the TWS. Note that no information about orders will be available to the API when read-only mode is enabled.</p>
+<p>The API Settings dialogue allows you to configure TWS to note accept API orders with the "Read Only" setting. By default, "Read Only" is enabled as an additional precautionary measure. Information about orders is not available to the API when read-only mode is enabled.</p>
 <h1><a class="anchor" id="master_client"></a>
 Master Client ID</h1>
-<p>By default the "Master Client ID" field is unset. To specify that a certain client should automatically receive updates about all open orders, as well as to receive commission reports from an execution resulting from an order being placed by any client, that client's ID should be set as the Master Client ID in TWS or IBG Global Configuration. The clientID is one of the parameters specified from an API client application in the initial function call to <a class="el" href="classIBApi_1_1EClientSocket.html#a315a7f7a34afc504d84c4f0ca462d924">IBApi::EClientSocket::eConnect</a>.</p>
+<p>By default the "Master Client ID" field is unset. To specify that a certain client should <em>automatically</em> receive updates about all open orders, as well as commission reports from orders placed from all clients, the client's ID should be set as the Master Client ID in TWS or IBG Global Configuration. The clientID is specified from an API client application in the initial function call to <a class="el" href="classIBApi_1_1EClientSocket.html#a315a7f7a34afc504d84c4f0ca462d924">IBApi::EClientSocket::eConnect</a>.</p>
 <h1><a class="anchor" id="install"></a>
 Installing the API source</h1>
 <p>The API itself can be downloaded and installed from:</p>
 <p><a href="http://interactivebrokers.github.io/">http://interactivebrokers.github.io/</a></p>
 <p>Many third party applications already have their own version of the API which is installed in the process of installing the third party application. If using a third party product, it should first be verified if the API must be separately installed and what version of the API is needed- many third party products are only compatible with a specific API version.</p>
-<p>The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. It is important that the API installs to the C: drive, as otherwise API applications may not be able to find the associated files.</p>
+<p>The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><em>It is important that the API installs to the <b>C</b>: drive</em></b>, as otherwise API applications may not be able to find the associated files.</p>
 <h1><a class="anchor" id="changing"></a>
 Changing the installed API version</h1>
 <p>(On Windows Only)</p>
 <p>If a different version of the ActiveX (v9.71 or lower) or C++ API is required than the one currently installed on the system, there are additional steps required to uninstall the previous API version to manually remove a file called "TwsSocketClient.dll":</p>
 <p>1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual</p>
-<p>2) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.</p>
-<p>3) Restart the computer before installing a different API version.</p>
+<p>2) Delete the C: API\ folder if any files are still remaining to prevent a version mismatch.</p>
+<p>3) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.</p>
+<p>4) Restart the computer before installing a different API version.</p>
 <p><br/>
 <br/>
  </p>

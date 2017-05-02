@@ -178,7 +178,7 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Average Volume</td><td>21</td><td>The average daily trading volume over 90 days (multiply this value times 100).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>165 </td></tr>
 <tr>
-<td>Open Interest</td><td>22</td><td>Total number of options that were not closed.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
+<td>Open Interest</td><td>22</td><td>(Deprecated, not currently in use) Total number of options that are not closed.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>- </td></tr>
 <tr>
 <td>Option Historical Volatility</td><td>23</td><td>The 30-day historical volatility (currently for stocks).</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26">IBApi.EWrapper.tickGeneric</a></td><td>104 </td></tr>
 <tr>
@@ -198,9 +198,9 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Index Future Premium</td><td>31</td><td>The number of points that the index is over the cash index.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26">IBApi.EWrapper.tickGeneric</a></td><td>162 </td></tr>
 <tr>
-<td>Bid Exchange</td><td>32</td><td>For stock and options, identifies the exchange(s) posting the bid price. See <a class="el" href="smart_components.html">Receiving exchange components</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>- </td></tr>
+<td>Bid Exchange</td><td>32</td><td>For stock and options, identifies the exchange(s) posting the bid price. See <a class="el" href="smart_components.html">Component Exchanges</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>- </td></tr>
 <tr>
-<td>Ask Exchange</td><td>33</td><td>For stock and options, identifies the exchange(s) posting the ask price. See <a class="el" href="smart_components.html">Receiving exchange components</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>- </td></tr>
+<td>Ask Exchange</td><td>33</td><td>For stock and options, identifies the exchange(s) posting the ask price. See <a class="el" href="smart_components.html">Component Exchanges</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a19cb7c5bbd4ab05ccc5f9e686ed07a9e">IBApi.EWrapper.tickString</a></td><td>- </td></tr>
 <tr>
 <td>Auction Volume</td><td>34</td><td>The number of shares that would trade if no new orders were received and the auction were held now.</td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a></td><td>225 </td></tr>
 <tr>
@@ -228,7 +228,7 @@ $(document).ready(function(){initNavTree('tick_types.html','');});
 <tr>
 <td>Shortable</td><td>46</td><td>Describes the level of difficulty with which the contract can be sold short. See <a class="el" href="tick_types.html#shortable">Shortable</a></td><td><a class="el" href="interfaceIBApi_1_1EWrapper.html#a9901f14408b7a6f75b1d06e3e6196a26">IBApi.EWrapper.tickGeneric</a></td><td>236 </td></tr>
 <tr>
-<td>Fundamental Ratios</td><td>47</td><td>Provides the available Reuter's Fundamental Ratios. See <a class="el" href="fundamental_ratios_tags.html">Available Fundamental Ratios</a> <br/>
+<td>Fundamental Ratios</td><td>47</td><td>Provides the available Reuter's Fundamental Ratios. See <a class="el" href="fundamental_ratios_tags.html">Fundamental Ratios</a> <br/>
 <br/>
 <em>Note: For some tags the value returned may be -99999.99. This is Reuters' way of indicating data is not available for that tag for the company.</em><br/>
 <br/>

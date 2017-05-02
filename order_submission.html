@@ -205,7 +205,7 @@ The Next Valid Identifier</h1>
 <img src="order_id_reset.png" alt="order_id_reset.png"/>
 </div>
 <h1><a class="anchor" id="submission"></a>
-Order Submission</h1>
+Placing Orders</h1>
 <p>Orders are submitted via the <a class="el" href="classIBApi_1_1EClient.html#aa6ff6f6455c551bef9d66c34d1c8586c">IBApi.EClient.placeOrder</a> method. From the snippet below, note how a variable holding the nextValidId is incremented automatically:</p>
 <ul id="tab">
 <li class="active">
@@ -227,8 +227,11 @@ Order Submission</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <p>Immediately after the order was submitted correctly, the TWS will start sending events concerning the order's activity via <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">IBApi.EWrapper.openOrder</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a></p>
+<ul>
+<li>An order can be sent to TWS but not transmitted to the IB server by setting the <a class="el" href="classIBApi_1_1Order.html#aaa1c4f31b9580ee0715edcd78a51cbec" title="Specifies whether the order will be transmitted by TWS. If set to false, the order will be created at...">IBApi.Order.Transmit</a> flag in the order class to <b>False</b>. Untransmitted orders will only be available within that TWS session (not for other usernames) and will be cleared on restart. Also, they can be cancelled or transmitted from the API but not viewed while they remain in the "untransmitted" state.</li>
+</ul>
 <h1><a class="anchor" id="open_order"></a>
-The openOrder method</h1>
+The openOrder callback</h1>
 <p>The <a class="el" href="interfaceIBApi_1_1EWrapper.html#aa05258f1d005accd3efc0d60bc151407">IBApi.EWrapper.openOrder</a> method delivers an <a class="el" href="classIBApi_1_1Order.html">IBApi.Order</a> object representing the open order within the system. Additionally, an <a class="el" href="classIBApi_1_1OrderState.html">IBApi.OrderState</a> object containing margin and commission information about this particular order.</p>
 <ul id="tab">
 <li class="active">
@@ -274,7 +277,7 @@ The openOrder method</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="order_status"></a>
-The orderStatus method</h1>
+The orderStatus callback</h1>
 <p>The <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> method contains all relevant information on the current status of the order execution-wise (i.e. amount filled and pending, filling price, etc.).</p>
 <ul id="tab">
 <li class="active">
@@ -330,13 +333,28 @@ The orderStatus method</h1>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>There are several different categories a client might fall into which determine the orderStatus messages it receives:</p>
-<p>-&gt;Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.</p>
-<p>-&gt;The client with <a class="el" href="initial_setup.html#master_client">Master Client ID</a> (set in TWS/IBG) will receive order status messages for all clients.</p>
-<p>-&gt;Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS.</p>
-<p>Other important points concerning <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> :</p>
-<p>-&gt;Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange.</p>
-<p>-&gt;There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a09f82de3d0666d13b00b5168e8b9313d">IBApi.EWrapper.execDetails</a> function in addition to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a>.</p>
+<p><b>Automatic Order Status Messages</b> (without invoking reqOpenOrders or reqAllOpenOrders)</p>
+<ul>
+<li>Clients with the ID of the client submitting the order will receive order status messages indicating changes in the order status.</li>
+<li>The client with <a class="el" href="initial_setup.html#master_client">Master Client ID</a> (set in TWS/IBG) will receive order status messages for all clients.</li>
+<li>Client ID 0 will receive order status messages for its own (client ID 0) orders and also for orders submitted manually from TWS.</li>
+</ul>
+<p><b>Possible Order States</b></p>
+<ul>
+<li><b>PendingSubmit</b> - indicates the order was sent to TWS, but confirmation has not been received that it has been received by the IB server.</li>
+<li><b>PendingCancel</b> - indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation.</li>
+<li><b>PreSubmitted</b> - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified.</li>
+<li><b>Submitted</b> - indicates that your order has been accepted at the order destination and is working.</li>
+<li><b>ApiCanceled</b> - after an order has been submitted and before it has been acknowledged, an API client client can request its cancellation, producing this state.</li>
+<li><b>Cancelled</b> - indicates that the balance of your order has been confirmed cancelled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order.</li>
+<li><b>Filled</b> - indicates that the order has been completely filled.</li>
+<li><b>Inactive</b> - indicates an order is not working because it is invalid or triggered an error.</li>
+</ul>
+<p><b>Important notes</b> concerning <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a> :</p>
+<ul>
+<li>Typically there are duplicate orderStatus messages with the same information that will be received by a client. This corresponds to messages sent back from TWS, the IB server, or the exchange.</li>
+<li>There are not guaranteed to be orderStatus callbacks for every change in order status. For example with market orders when the order is accepted and executes immediately, there commonly will not be any corresponding orderStatus callbacks. For that reason it is recommended to monitor the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a09f82de3d0666d13b00b5168e8b9313d">IBApi.EWrapper.execDetails</a> function in addition to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a225c060ff9653cfaeff7304033eb76b3">IBApi.EWrapper.orderStatus</a>.</li>
+</ul>
 <h1><a class="anchor" id="order_attach"></a>
 Attaching Orders</h1>
 <p>Advanced orders such as <a class="el" href="bracket_order.html">Bracket Orders</a> or <a class="el" href="hedging.html">Hedging</a> involve attaching child orders to a parent. This can be easily done via the <a class="el" href="classIBApi_1_1Order.html#a37c8c925a01a8a35a1dfb942afeba264">IBApi.Order.ParentId</a> attribute by assigning a child order's <a class="el" href="classIBApi_1_1Order.html#a37c8c925a01a8a35a1dfb942afeba264">IBApi.Order.ParentId</a> to an existing order's <a class="el" href="classIBApi_1_1Order.html#ac2926db25ae147030a1cf519c07d86a6">IBApi.Order.OrderId</a>. When an order is attached to another, the system will keep the child order 'on hold' until its parent fills. Once the parent order is completely filled, its children will automatically become active.</p>

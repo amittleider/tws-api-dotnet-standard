@@ -221,6 +221,7 @@ Stocks</h1>
 <div class="line">            contract.Currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
 <div class="line">            contract.Exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
 <div class="line">            <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">            <span class="comment">// (there is an ambiguity because there is also a MSFT contract with primary exchange = &quot;AEB&quot;)</span></div>
 <div class="line">            contract.PrimaryExch = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -229,7 +230,8 @@ Stocks</h1>
 <div class="line">        contract.secType(<span class="stringliteral">&quot;STK&quot;</span>);</div>
 <div class="line">        contract.currency(<span class="stringliteral">&quot;USD&quot;</span>);</div>
 <div class="line">        contract.exchange(<span class="stringliteral">&quot;SMART&quot;</span>);</div>
-<div class="line">        <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">        <span class="comment">// Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">        <span class="comment">// (there is an ambiguity because there is also a MSFT contract with primary exchange = &quot;AEB&quot;)</span></div>
 <div class="line">        contract.primaryExch(<span class="stringliteral">&quot;ISLAND&quot;</span>);</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -239,7 +241,8 @@ Stocks</h1>
 <div class="line">            Contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
 <div class="line">            Contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
 <div class="line">            <span class="stringliteral">&#39;Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
-<div class="line"><span class="stringliteral">            Contract.PrimaryExch = &quot;ISLAND&quot;</span></div>
+<div class="line"><span class="stringliteral">            &#39;</span>(there is an ambiguity because there is also a MSFT contract with primary exchange = <span class="stringliteral">&quot;AEB&quot;</span>)</div>
+<div class="line">            Contract.PrimaryExch = <span class="stringliteral">&quot;ISLAND&quot;</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    Contract contract;</div>
@@ -247,7 +250,8 @@ Stocks</h1>
 <div class="line">    contract.secType = <span class="stringliteral">&quot;STK&quot;</span>;</div>
 <div class="line">    contract.currency = <span class="stringliteral">&quot;USD&quot;</span>;</div>
 <div class="line">    contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span>;</div>
-<div class="line">    <span class="comment">//Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">    <span class="comment">// Specify the Primary Exchange attribute to avoid contract ambiguity</span></div>
+<div class="line">    <span class="comment">// (there is an ambiguity because there is also a MSFT contract with primary exchange = &quot;AEB&quot;)</span></div>
 <div class="line">    contract.primaryExchange = <span class="stringliteral">&quot;ISLAND&quot;</span>;</div>
 </div><!-- fragment -->  </li>
 <li>
@@ -257,7 +261,8 @@ Stocks</h1>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="comment">#Specify the Primary Exchange attribute to avoid contract ambiguity </span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        contract.primaryExch = <span class="stringliteral">&quot;ISLAND&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment">#(there is an ambiguity because there is also a MSFT contract with primary exchange = &quot;AEB&quot;)</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        contract.primaryExchange = <span class="stringliteral">&quot;ISLAND&quot;</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>As an alternative to defining the exchange and primary exchange fields, it is possible to specify the exchange field as "Exchange:Primary Exchange", e.g. "SMART:NASDAQ". The colon ":" or slash "/" separating this fields is known as the "Component Exchange Separator" and defined in the API Settings in Global Configuration.</p>
@@ -422,7 +427,7 @@ Futures</h1>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.localSymbol = <span class="stringliteral">&quot;ESU6&quot;</span></div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>Occasionally, you can expect to have more than a single future contract for the same underlying expiring on the same month. To rule out the ambiguity, the contract's <b>multiplier</b> can be given as shown below:</p>
+<p>Occasionally, you can expect to have more than a single future contract for the same underlying with the same expiry. To rule out the ambiguity, the contract's <b>multiplier</b> can be given as shown below:</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
@@ -846,6 +851,46 @@ Commodities</h1>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            contract.secType = <span class="stringliteral">&quot;CMDTY&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            contract.exchange = <span class="stringliteral">&quot;SMART&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment -->  </li>
+</ul>
+<h1><a class="anchor" id="iopts"></a>
+Dutch Warrants</h1>
+<p>Dutch Warrants (IOPTs) can be defined with the local symbol or contract ID (conid), but not the ISIN.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">            contract.LocalSymbol = <span class="stringliteral">&quot;B881G&quot;</span>;</div>
+<div class="line">            contract.SecType = <span class="stringliteral">&quot;IOPT&quot;</span>;</div>
+<div class="line">            contract.Exchange = <span class="stringliteral">&quot;SBF&quot;</span>;</div>
+<div class="line">            contract.Currency = <span class="stringliteral">&quot;EUR&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Contract contract = <span class="keyword">new</span> Contract();</div>
+<div class="line">        contract.localSymbol(<span class="stringliteral">&quot;B881G&quot;</span>);</div>
+<div class="line">        contract.secType(<span class="stringliteral">&quot;IOPT&quot;</span>);</div>
+<div class="line">        contract.exchange(<span class="stringliteral">&quot;SBF&quot;</span>);</div>
+<div class="line">        contract.currency(<span class="stringliteral">&quot;EUR&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">            Dim contract As Contract = New Contract()</div>
+<div class="line">            contract.LocalSymbol = &quot;B881G&quot;</div>
+<div class="line">            contract.SecType = &quot;IOPT&quot;</div>
+<div class="line">            contract.Exchange = &quot;SBF&quot;</div>
+<div class="line">            contract.Currency = &quot;EUR&quot;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    Contract contract;</div>
+<div class="line">    contract.localSymbol = <span class="stringliteral">&quot;B881G&quot;</span>;</div>
+<div class="line">    contract.secType = <span class="stringliteral">&quot;IOPT&quot;</span>;</div>
+<div class="line">    contract.exchange = <span class="stringliteral">&quot;SBF&quot;</span>;</div>
+<div class="line">    contract.currency = <span class="stringliteral">&quot;EUR&quot;</span>;</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.localSymbol = <span class="stringliteral">&quot;B881G&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;IOPT&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.exchange = <span class="stringliteral">&quot;SBF&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.currency = <span class="stringliteral">&quot;EUR&quot;</span></div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

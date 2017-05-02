@@ -288,8 +288,64 @@ Exchange Component Mapping</h1>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;tickReqParams: &quot;</span>, tickerId, <span class="stringliteral">&quot; minTick: &quot;</span>, minTick, <span class="stringliteral">&quot; bboExchange: &quot;</span>, bboExchange, <span class="stringliteral">&quot; snapshotPermissions: &quot;</span>, snapshotPermissions)</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>The exchange mapping identifier <em>bboExchange</em> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a>. More information about <a class="el" href="smart_components.html">Receiving exchange components</a>.</p>
+<p>The exchange mapping identifier <em>bboExchange</em> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a>. More information about <a class="el" href="smart_components.html">Component Exchanges</a>.</p>
 <p><a class="el" href="classIBApi_1_1ContractDetails.html#ad854e501feeba56e8f8e7938de5b6adf" title="The minimum allowed price variation. Note that many securities vary their minimum tick size according...">IBApi::ContractDetails::MinTick</a> will represent the smallest possible minimum increment for the contract on any exchange and at any price. For complicated minimum increment structures, such as is common for European stocks, there might be different minimum increments at different price and size levels, so the 'minTick' of the contract may not necessarily represent the minimum increment at which it is presently trading. For complete information about the minimum increment, it is necessary to consult the IB Contracts and Securities search site.</p>
+<h1><a class="anchor" id="rerouting"></a>
+Re-Routing CFDs</h1>
+<p>IB does not provide market data for certain types of instruments, such as stock and forex CFDs. If a stock or forex CFD is entered into a TWS watchlist, TWS will automatically display market data for the underlying ticker and show a 'U' icon next to the instrument name to indicate that the data is for an underlying.</p>
+<p>From the API, when market data is requested for a stock or forex CFD, a callback is made from TWS to the <a class="el" href="interfaceIBApi_1_1EWrapper.html#a5842c4697f678debff53febb8c8b62d0" title="returns conId and exchange for CFD market data request re-route ">IBApi::EWrapper::rerouteMktDataReq</a> or <a class="el" href="interfaceIBApi_1_1EWrapper.html#a9c8b54c60cd4f78233efae1dd8903cd7" title="returns conId and exchange for market depth request re-route ">IBApi::EWrapper::rerouteMktDepthReq</a> with information about the underlying instrument which has market data in IB's database.</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, <span class="keywordtype">string</span> exchange)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market data request. Req Id: {0}, ConId: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, String exchange) {</div>
+<div class="line">        System.out.println(EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Public Sub rerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDataReq</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Re-route market data request. ReqId: %d, ConId: %d, Exchange: %s\n&quot;</span>, reqId, conid, exchange.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, <span class="keywordtype">string</span> exchange)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market depth request. Req Id: {0}, ConId: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, String exchange) {</div>
+<div class="line">        System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Public Sub rerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDepthReq</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Re-route market depth request. ReqId: %d, ConId: %d, Exchange: %s\n&quot;</span>, reqId, conid, exchange.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
 <p><br/>
 <br/>
  </p>

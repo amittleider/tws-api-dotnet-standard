@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72+: Histograms Arriving Soon</title>
+<title>TWS API v9.72+: Histograms</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,11 +126,10 @@ $(document).ready(function(){initNavTree('histograms.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Histograms Arriving Soon </div>  </div>
+<div class="title">Histograms </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b> This functionality not yet available </b></p>
-<p>Histogram support will require API v973.02+ and TWS 964+. Instead of returned data points as a function of time as with the function <a class="el" href="classIBApi_1_1EClient.html#a72fc193c4d50f738b6092a174988f093" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">IBApi::EClient::reqHistoricalData</a>, histograms return data as a function of price level with function <a class="el" href="classIBApi_1_1EClient.html#a9156783cbd4ebcc5012f6394072b9aa1" title="Returns data histogram of specified contract  tickerId - an identifier for the request  contract - Co...">IBApi::EClient::reqHistogramData</a></p>
+<div class="textblock"><p>Histogram data requires API v973.02+ and TWS 964+. Instead of returned data points as a function of time as with the function <a class="el" href="classIBApi_1_1EClient.html#a5eac5b7908b62c224985cf8577a8350c" title="Requests contracts&#39; historical data. When requesting historical data, a finishing time and date is re...">IBApi::EClient::reqHistoricalData</a>, histograms return data as a function of price level with function <a class="el" href="classIBApi_1_1EClient.html#a9156783cbd4ebcc5012f6394072b9aa1" title="Returns data histogram of specified contract  tickerId - an identifier for the request  contract - Co...">IBApi::EClient::reqHistogramData</a></p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch(), <span class="keyword">false</span>, <span class="stringliteral">&quot;1 week&quot;</span>);</div>
@@ -148,38 +147,38 @@ $(document).ready(function(){initNavTree('histograms.html','');});
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqHistogramData(4104, ContractSamples.USStock(), <span class="keyword">False</span>, <span class="stringliteral">&quot;3 days&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>and data is returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a6fd225c9329f5ba3712fc646a3a29cc9" title="returns data histogram ">IBApi::EWrapper::histogramData</a></p>
+<p>and data is returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a36f1e6770be6c88bf8948b756647ef23" title="returns data histogram ">IBApi::EWrapper::histogramData</a></p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> histogramData(<span class="keywordtype">int</span> reqId, Tuple&lt;double, long&gt;[] data)</div>
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> histogramData(<span class="keywordtype">int</span> reqId, HistogramEntry[] data)</div>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Histogram data. Request Id: {0}, data size: {1}&quot;</span>, reqId, data.Length);</div>
-<div class="line">            data.ToList().ForEach(i =&gt; Console.WriteLine(<span class="stringliteral">&quot;\tPrice: {0}, Size: {1}&quot;</span>, i.Item1, i.Item2));</div>
+<div class="line">            data.ToList().ForEach(i =&gt; Console.WriteLine(<span class="stringliteral">&quot;\tPrice: {0}, Size: {1}&quot;</span>, i.Price, i.Size));</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    @Override</div>
-<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> histogramData(<span class="keywordtype">int</span> reqId, List&lt;Entry&lt;Double, Long&gt;&gt; items) {</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> histogramData(<span class="keywordtype">int</span> reqId, List&lt;HistogramEntry&gt; items) {</div>
 <div class="line">        System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        Public Sub histogramData(reqId As Integer, data As Tuple(Of Double, Long)()) Implements EWrapper.histogramData</div>
+<div class="fragment"><div class="line">        Public Sub histogramData(reqId As Integer, data As HistogramEntry()) Implements EWrapper.histogramData</div>
 <div class="line">            Console.WriteLine(&quot;Histogram data. Request Id: {0}, data size: {1}<span class="stringliteral">&quot;, reqId, data.Length)</span></div>
-<div class="line"><span class="stringliteral">            data.ToList().ForEach(Sub(i) Console.WriteLine(vbTab &amp; &quot;</span>Price: {0}, Size: {1}<span class="stringliteral">&quot;, i.Item1, i.Item2))</span></div>
+<div class="line"><span class="stringliteral">            data.ToList().ForEach(Sub(i) Console.WriteLine(vbTab &amp; &quot;</span>Price: {0}, Size: {1}<span class="stringliteral">&quot;, i.Price, i.Size))</span></div>
 <div class="line"><span class="stringliteral">        End Sub</span></div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::histogramData(<span class="keywordtype">int</span> reqId, HistogramDataVector data) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Histogram. ReqId: %d, data length: %d\n&quot;</span>, reqId, data.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Histogram. ReqId: %d, data length: %lu\n&quot;</span>, reqId, data.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> item : data) {</div>
-<div class="line">        printf(<span class="stringliteral">&quot;\t price: %f, size: %lld\n&quot;</span>, std::get&lt;0&gt;(item), std::get&lt;1&gt;(item));</div>
+<div class="line">        printf(<span class="stringliteral">&quot;\t price: %f, size: %lld\n&quot;</span>, item.price, item.size);</div>
 <div class="line">    }</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>histogramData(self, reqId:int, items:HistogramData):</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>histogramData(self, reqId:int, items:HistogramDataList):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        print(<span class="stringliteral">&quot;HistogramData: &quot;</span>, reqId, <span class="stringliteral">&quot; &quot;</span>, items)</div>
 </div><!-- fragment -->  </li>
 </ul>

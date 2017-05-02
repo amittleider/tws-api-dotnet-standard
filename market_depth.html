@@ -226,7 +226,7 @@ Exchanges supplying Market Makers</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::mktDepthExchanges(<span class="keyword">const</span> std::vector&lt;DepthMktDataDescription&gt; &amp;depthMktDataDescriptions) {</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Mkt Depth Exchanges (%u):\n&quot;</span>, depthMktDataDescriptions.size());</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Mkt Depth Exchanges (%lu):\n&quot;</span>, depthMktDataDescriptions.size());</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; depthMktDataDescriptions.size(); i++) {</div>
 <div class="line">        printf(<span class="stringliteral">&quot;Depth Mkt Data Description [%d] - exchange: %s secType: %s listingExch: %s serviceDataType: %s aggGroup: %s\n&quot;</span>, i, </div>
@@ -243,7 +243,7 @@ Exchanges supplying Market Makers</h1>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().mktDepthExchanges(depthMktDataDescriptions)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;mktDepthExchanges:&quot;</span>)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">for</span> desc <span class="keywordflow">in</span> depthMktDataDescriptions:</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(desc)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            printinstance(desc)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="receive"></a>
