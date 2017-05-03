@@ -104,6 +104,49 @@
 
 	IBApi::ContractDetails::MinTick will represent the smallest possible minimum increment for the contract on any exchange and at any price. For complicated minimum increment structures, such as is common for European stocks, there might be different minimum increments at different price and size levels, so the 'minTick' of the contract may not necessarily represent the minimum increment at which it is presently trading. For complete information about the minimum increment, it is necessary to consult the IB Contracts and Securities search site. 
 	
+	\section rerouting Re-Routing CFDs
+	
+	IB does not provide market data for certain types of instruments, such as stock and forex CFDs. If a stock or forex CFD is entered into a TWS watchlist, TWS will automatically display market data for the underlying ticker and show a 'U' icon next to the instrument name to indicate that the data is for an underlying. 
+	
+	From the API, when market data is requested for a stock or forex CFD, a callback is made from TWS to the IBApi::EWrapper::rerouteMktDataReq or IBApi::EWrapper::rerouteMktDepthReq with information about the underlying instrument which has market data in IB's database. 
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs rerouteMktDataReq
+		</li>
+		<li>
+			\snippet EWrapperImpl.java rerouteMktDataReq
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb rerouteMktDataReq
+		</li>
+		<li>
+			\snippet TestCppClient.cpp rerouteMktDataReq
+		</li>
+		<li>
+			\snippet Program.py rerouteMktDataReq
+		</li>
+	</ul>
+	
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs rerouteMktDepthReq
+		</li>
+		<li>
+			\snippet EWrapperImpl.java rerouteMktDepthReq
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb rerouteMktDepthReq
+		</li>
+		<li>
+			\snippet TestCppClient.cpp rerouteMktDepthReq
+		</li>
+		<li>
+			\snippet Program.py rerouteMktDepthReq
+		</li>
+	</ul>
+	
 	<br><br>
 	
 */

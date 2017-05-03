@@ -18,7 +18,7 @@ Module MainModule
         Dim socketClient As EClientSocket = wrapperImpl.socketClient
 
         ' [connect]
-        socketClient.eConnect("127.0.0.1", 7496, 0)
+        socketClient.eConnect("127.0.0.1", 7497, 0)
         ' [connect]
         ' [ereader]
         'Once the messages are in the queue, an additional thread need to fetch them
@@ -191,10 +191,10 @@ Module MainModule
         client.reqMktData(1003, ContractSamples.FutureComboContract(), String.Empty, True, False, Nothing)
         ' [reqmktdata_snapshot]
 
-	' [regulatorysnapshot]
-	' Each regulatory snapshot request will incur a fee of 0.01 USD 
-	'client.reqMktData(1004, ContractSamples.USStock(), "", False, True, Nothing)
-	' [regulatorysnapshot]
+		' [regulatorysnapshot]
+		' Each regulatory snapshot request will incur a fee of 0.01 USD 
+		' client.reqMktData(1004, ContractSamples.USStock(), "", False, True, Nothing)
+		' [regulatorysnapshot]
 
         '! [reqmktdata_genticks]
         'Requesting RTVolume (Time & Sales), shortable And Fundamental Ratios generic ticks
@@ -202,6 +202,7 @@ Module MainModule
         '! [reqmktdata_genticks]
 
         '! [reqmktdata_contractnews]
+		' Without the API news subscription this will generate an "invalid tick type" error
         client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", False, False, Nothing)
         client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", False, False, Nothing)
         client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", False, False, Nothing)
@@ -849,6 +850,10 @@ Module MainModule
 		'! [reqHeadTimeStamp]
         client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
 		'! [reqHeadTimeStamp]
+		Thread.Sleep(500)
+		'! [cancelHeadTimestamp]
+		client.cancelHeadTimestamp(14001)
+		'! [cancelHeadTimestamp]		
     End Sub
 
     Private Sub histogramData(client As EClientSocket)

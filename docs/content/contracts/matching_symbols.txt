@@ -1,6 +1,6 @@
 /*! \page matching_symbols Stock Contract Search
 
-	Starting in API v973.02, a function IBApi::EClient::reqMatchingSymbols is available to search for stock contracts. The input can be either the first few letters of the ticker symbol, or for longer strings, a character sequence matching a word in the security name. For instance to search for the stock symbol 'IBKR', the input 'I' or 'IB' can be used, as well as the word 'Interactive'. Up to 16 matching results are returned. 
+	Starting in API <b>v973.02</b> and TWS <b>v964</b>, a function IBApi::EClient::reqMatchingSymbols is available to search for stock contracts. The input can be either the first few letters of the ticker symbol, or for longer strings, a character sequence matching a word in the security name. For instance to search for the stock symbol 'IBKR', the input 'I' or 'IB' can be used, as well as the word 'Interactive'. Up to 16 matching results are returned. 
 	
 	<ul id="tab">
 		<li class="active"> 

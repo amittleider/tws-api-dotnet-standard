@@ -272,13 +272,14 @@ public class OrderSamples {
 		return order;
 	}
 	
-	public static Order PeggedToMidpoint(String action, double quantity, double offset) {
+	public static Order PeggedToMidpoint(String action, double quantity, double offset, double limitPrice) {
 		// ! [pegged_midpoint]
 		Order order = new Order();
 		order.action(action);
 		order.orderType("PEG MID");
 		order.totalQuantity(quantity);
 		order.auxPrice(offset);
+		order.lmtPrice(limitPrice);
 		// ! [pegged_midpoint]
 		return order;
 	}

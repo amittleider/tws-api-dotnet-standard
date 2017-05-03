@@ -45,7 +45,7 @@
 	
 	For a list of available tick types please refer to \subpage tick_types
 
-	\section md_snapshot Snapshots available with streaming market data subscription
+	\section md_snapshot Streaming Data Snapshots
 
 	With an exchange market data subscription, such as Network A (NYSE), Network B(ARCA), or Network C(NASDAQ) for US stocks, it is possible to request a snapshot of the current state of the market once instead of requesting a stream of updates continuously as market values change. By invoking the IBApi::EClient::reqMktData function 
 	passing in <b>true</b> for the snapshot parameter, the client application will receive the currently available market data once before a @ref IBApi::EWrapper::tickSnapshotEnd
@@ -97,9 +97,9 @@
 		</li>
 	</ul>
 	
-	\section regulatory_snapshot Regulatory Snapshots for Stocks
+	\section regulatory_snapshot Regulatory Snapshots
 
-	The fifth argument to reqMktData specifies a regulatory snapshot request to a US stock. Regulatory snapshots require TWS/IBG v963 and API 9.73.02 or higher. 
+	The fifth argument to reqMktData specifies a regulatory snapshot request to US stocks and options. Regulatory snapshots require TWS/IBG <b>v963</b> and API <b>973.02</b> or higher and specific market data subscriptions. 
 
 	For stocks, there are individual exchange-specific market data subscriptions necessary to receive streaming quotes. For instance, for NYSE stocks this subscription is known as "Network A", for ARCA/AMEX stocks it is called "Network B" and for NASDAQ stocks it is "Network C". Each subscription is added a la carte and has a separate market data fee. 
 	

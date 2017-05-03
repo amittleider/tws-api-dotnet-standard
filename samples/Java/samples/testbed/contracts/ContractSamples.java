@@ -15,7 +15,8 @@ public class ContractSamples {
 		contract.secType("STK");
 		contract.currency("USD");
 		contract.exchange("SMART");
-		//Specify the Primary Exchange attribute to avoid contract ambiguity
+		// Specify the Primary Exchange attribute to avoid contract ambiguity
+		// (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
 		contract.primaryExch("ISLAND");
 		//! [stkcontractwithprimary]
 		return contract;
@@ -230,6 +231,17 @@ public class ContractSamples {
 		return contract;
 	}
 	
+	public static Contract DutchWarrant() {
+		//! [ioptcontract]
+		Contract contract = new Contract();
+		contract.localSymbol("B881G");
+		contract.secType("IOPT");
+		contract.exchange("SBF");
+		contract.currency("EUR");
+		//! [ioptcontract]
+		return contract;
+	}
+	
 	public static Contract SimpleFuture() {
 		//! [futcontract]
 		Contract contract = new Contract();
@@ -413,6 +425,38 @@ public class ContractSamples {
 		contract.comboLegs(addAllLegs);
 		//! [bagfutcontract]
 				
+		return contract;
+	}
+	
+		public static Contract SmartFutureComboContract() {
+		//! [smartfuturespread]
+		Contract contract = new Contract();
+		contract.symbol("WTI");  // WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD").
+		contract.secType("BAG");
+		contract.currency("USD");
+		contract.exchange("SMART"); // smart-routed rather than direct routed
+
+		ComboLeg leg1 = new ComboLeg();
+		ComboLeg leg2 = new ComboLeg();
+
+		List<ComboLeg> addAllLegs = new ArrayList<>();
+
+		leg1.conid(55928698);// WTI future June 2017
+		leg1.ratio(1);
+		leg1.action("BUY");
+		leg1.exchange("IPE");
+
+		leg2.conid(55850663);// COIL future June 2017
+		leg2.ratio(1);
+		leg2.action("SELL");
+		leg2.exchange("IPE");
+
+		addAllLegs.add(leg1);
+		addAllLegs.add(leg2);
+
+		contract.comboLegs(addAllLegs);
+		//! [smartfuturespread]
+
 		return contract;
 	}
 	

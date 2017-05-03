@@ -32,7 +32,7 @@ public:
 	static Order LimitOnClose(std::string action, double quantity, double limitPrice);
 	static Order LimitOnOpen(std::string action, double quantity, double limitPrice);
 	static Order PassiveRelative(std::string action, double quantity, double offset);
-	static Order PeggedToMidpoint(std::string action, double quantity, double offset);
+	static Order PeggedToMidpoint(std::string action, double quantity, double offset, double limitPrice);
 	static void BracketOrder(int parentOrderId, Order& parent, Order& takeProfit, Order& stopLoss, std::string action, double quantity, double limitPrice, double takeProfitLimitPrice, double stopLossPrice);
 	static Order MarketToLimit(std::string action, double quantity);
 	static Order MarketWithProtection(std::string action, double quantity);

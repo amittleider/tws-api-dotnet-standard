@@ -356,22 +356,22 @@ namespace IBApi
         void accountDownloadEnd(string account);
 
         /**
-         * @brief Gives the up-to-date information of an order every time it changes.
+         * @brief Gives the up-to-date information of an order every time it changes. Often there are duplicate orderStatus messages.
          * @param orderId the order's client id.
-         * @param status the current status of the order:
-         *      PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is submitted.
-         *      PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. You may still receive an execution while your cancellation request is pending. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is canceled.
+         * @param status the current status of the order. Possible values:
+         *      PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. 
+         *      PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. It is not guaranteed that the cancellation will be successful. 
          *      PreSubmitted - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified .
-         *      Submitted - indicates that your order has been accepted at the order destination and is working.
+         *      Submitted - indicates that your order has been accepted by the system.
          *      ApiCanceled - after an order has been submitted and before it has been acknowledged, an API client client can request its cancelation, producing this state.
          *      Cancelled - indicates that the balance of your order has been confirmed canceled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order.
-         *      Filled - indicates that the order has been completely filled.
-         *      Inactive - indicates that the order has been accepted by the system (simulated orders) or an exchange (native orders) but that currently the order is inactive due to system, exchange or other issues.
+         *      Filled - indicates that the order has been completely filled. Market orders executions will not always trigger a Filled status.
+         *      Inactive - indicates that the order was received by the system but is no longer active because it was rejected or canceled.
          * @param filled number of filled positions.
          * @param remaining the remnant positions.
          * @param avgFillPrice average filling price.
-         * @param permId the order's permId used by the TWs to identify orders.
-         * @param parentId parent's id. Used for bracker and auto trailing stop orders.
+         * @param permId the order's permId used by the TWS to identify orders.
+         * @param parentId parent's id. Used for bracket and auto trailing stop orders.
          * @param lastFillPrice price at which the last positions were filled.
          * @param clientId API client which submitted the order.
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
@@ -453,11 +453,16 @@ namespace IBApi
          * @param volume the bar's traded volume if available
          * @param count the number of trades during the bar's timespan (only available for TRADES).
          * @param WAP the bar's Weighted Average Price
-         * @param hasGaps indicates if the data has gaps or not.
+         * @param hasGaps (deprecated and no longer used) indicates if the data has gaps or not.
          * @sa EClientSocket::reqHistoricalData
          */
         void historicalData(int reqId, Bar bar);
         
+		/**
+         * @brief Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.
+		 * @param reqId the requests identifier
+		 * @param bar the historical data bar. Smallest size is 5 seconds. 
+         */
         void historicalDataUpdate(int reqId, Bar bar);
 
         /**
@@ -794,7 +799,7 @@ namespace IBApi
         void histogramData(int reqId, HistogramEntry[] data);
 
         /**
-        * @brief - returns conId and exchange for market data request re-route
+        * @brief - returns conId and exchange for CFD market data request re-route
         * @param reqId 
         * @param conId
         * @param exchange

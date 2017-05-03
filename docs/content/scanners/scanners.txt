@@ -23,7 +23,9 @@
 	
 	The available API filters and and parameters are defined in the @ref IBApi::ScannerSubscription object, including [AbovePrice, BelowPrice, AboveVolume, ...] . Some @ref scanner_examples are listed at the bottom of this page.
 	
-	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters market data subscriptions are generally required.
+	Only 10 API scans can be active at a time.
+	
+	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters, market data subscriptions <b>are</b> generally required.
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -84,6 +86,8 @@
 	</ul>
 	
 	\section scanner_examples Market Scanner Examples
+	
+	The available API scans are defined by the fields in the ScannerSubscription object, i.e. <i>abovePrice, aboveVolume, belowPrice</i>, etc. Some market scanner examples are below.
 	
 	<ul id="tab">
 		<li class="active"> 

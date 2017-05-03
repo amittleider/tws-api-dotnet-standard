@@ -1,4 +1,4 @@
-/*! \page fundamental_ratios_tags Available Fundamental Ratios
+/*! \page fundamental_ratios_tags Fundamental Ratios
 
 	The Fundamental Ratios tick type is delivered as is from Thomson Reuters. IB does not reformat/re-parse Reuters XML Data, and provides a maximum of 105 tags.
 	

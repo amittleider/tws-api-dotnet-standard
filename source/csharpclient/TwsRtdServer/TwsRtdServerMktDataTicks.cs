@@ -58,6 +58,18 @@ namespace TwsRtdServer
         private int m_genTickShortTermVolume5Min = 0;
         private int m_genTickShortTermVolume10Min = 0;
 
+        // delayed ticks
+        private double m_delayed_lastPrice = 0.0;
+        private double m_delayed_bidPrice = 0.0;
+        private double m_delayed_askPrice = 0.0;
+        private int m_delayed_lastSize = 0;
+        private int m_delayed_bidSize = 0;
+        private int m_delayed_askSize = 0;
+        private double m_delayed_high = 0.0;
+        private double m_delayed_low = 0.0;
+        private int m_delayed_volume = 0;
+        private double m_delayed_close = 0.0;
+        private double m_delayed_open = 0.0;
 
         // constructor
         public TwsRtdServerMktDataTicks(){
@@ -213,6 +225,41 @@ namespace TwsRtdServer
                 case TwsRtdServerData.GEN_TICK_SHORT_TERM_VOLUME_10_MIN:
                     m_genTickShortTermVolume10Min = (int)value;
                     break;
+                
+                // delayed ticks
+                case TwsRtdServerData.DELAYED_LAST:
+                    m_delayed_lastPrice = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_BID:
+                    m_delayed_bidPrice = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_ASK:
+                    m_delayed_askPrice = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_LAST_SIZE:
+                    m_delayed_lastSize = (int)value;
+                    break;
+                case TwsRtdServerData.DELAYED_BID_SIZE:
+                    m_delayed_bidSize = (int)value;
+                    break;
+                case TwsRtdServerData.DELAYED_ASK_SIZE:
+                    m_delayed_askSize = (int)value;
+                    break;
+                case TwsRtdServerData.DELAYED_HIGH:
+                    m_delayed_high = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_LOW:
+                    m_delayed_low = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_VOLUME:
+                    m_delayed_volume = (int)value;
+                    break;
+                case TwsRtdServerData.DELAYED_CLOSE:
+                    m_delayed_close = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_OPEN:
+                    m_delayed_open = (double)value;
+                    break;
             }
         }
 
@@ -366,6 +413,41 @@ namespace TwsRtdServer
                     break;
                 case TwsRtdServerData.GEN_TICK_SHORT_TERM_VOLUME_10_MIN:
                     value = m_genTickShortTermVolume10Min;
+                    break;
+
+                // delayed ticks
+                case TwsRtdServerData.DELAYED_LAST:
+                    value = m_delayed_lastPrice;
+                    break;
+                case TwsRtdServerData.DELAYED_BID:
+                    value = m_delayed_bidPrice;
+                    break;
+                case TwsRtdServerData.DELAYED_ASK:
+                    value = m_delayed_askPrice;
+                    break;
+                case TwsRtdServerData.DELAYED_LAST_SIZE:
+                    value = m_delayed_lastSize;
+                    break;
+                case TwsRtdServerData.DELAYED_BID_SIZE:
+                    value = m_delayed_bidSize;
+                    break;
+                case TwsRtdServerData.DELAYED_ASK_SIZE:
+                    value = m_delayed_askSize;
+                    break;
+                case TwsRtdServerData.DELAYED_HIGH:
+                    value = m_delayed_high;
+                    break;
+                case TwsRtdServerData.DELAYED_LOW:
+                    value = m_delayed_low;
+                    break;
+                case TwsRtdServerData.DELAYED_VOLUME:
+                    value = m_delayed_volume;
+                    break;
+                case TwsRtdServerData.DELAYED_CLOSE:
+                    value = m_delayed_close;
+                    break;
+                case TwsRtdServerData.DELAYED_OPEN:
+                    value = m_delayed_open;
                     break;
             }
             return value;

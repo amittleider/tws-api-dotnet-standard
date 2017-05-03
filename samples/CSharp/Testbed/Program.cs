@@ -21,13 +21,13 @@ namespace Samples
             EClientSocket clientSocket = testImpl.ClientSocket;
             EReaderSignal readerSignal = testImpl.Signal;
             //! [connect]
-            clientSocket.eConnect("127.0.0.1", 7496, 0);
+            clientSocket.eConnect("127.0.0.1", 7497, 0);
             //! [connect]
             //! [ereader]
             //Create a reader to consume messages from the TWS. The EReader will consume the incoming messages and put them in a queue
             var reader = new EReader(clientSocket, readerSignal);
             reader.Start();
-            //Once the messages are in the queue, an additional thread need to fetch them
+            //Once the messages are in the queue, an additional thread can be created to fetch them
             new Thread(() => { while (clientSocket.IsConnected()) { readerSignal.waitForSignal(); reader.processMsgs(); } }) { IsBackground = true }.Start();
             //! [ereader]
             /*************************************************************************************************************************************************/
@@ -198,7 +198,12 @@ namespace Samples
         {
 			//! [reqHeadTimeStamp]
             client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1);
-			//! [reqHeadTimeStamp]
+            //! [reqHeadTimeStamp]
+            Thread.Sleep(1000);
+            //! [cancelHeadTimestamp]
+            client.cancelHeadTimestamp(14001);
+			//! [cancelHeadTimestamp]
+	
 	}
 
         private static void smartComponents(EClientSocket client)
@@ -227,17 +232,20 @@ namespace Samples
             client.reqMktData(1003, ContractSamples.FutureComboContract(), string.Empty, true, false, null);
             //! [reqmktdata_snapshot]
 
-		//! [regulatorysnapshot]
-		// Each regulatory snapshot incurs a 0.01 USD fee
-		//client.reqMktData(1005, ContractSamples.USStock(), "", false, true, null);
-		//! [regulatorysnapshot]
-
+			/*
+			//! [regulatorysnapshot]
+			// Each regulatory snapshot incurs a 0.01 USD fee
+			client.reqMktData(1005, ContractSamples.USStock(), "", false, true, null);
+			//! [regulatorysnapshot]
+			*/
+			
             //! [reqmktdata_genticks]
             //Requesting RTVolume (Time & Sales), shortable and Fundamental Ratios generic ticks
             client.reqMktData(1004, ContractSamples.USStock(), "233,236,258", false, false, null);
             //! [reqmktdata_genticks]
 
             //! [reqmktdata_contractnews]
+			// Without the API news subscription this will generate an "invalid tick type" error
             client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", false, false, null);
             client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", false, false, null);
             client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", false, false, null);

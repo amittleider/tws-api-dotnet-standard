@@ -35,7 +35,7 @@ namespace IBApi
         private string modelCode;
 
         /**
-         * @brief The API client's order Id.
+         * @brief The API client's order Id. May not be unique to an account.
          */
         public int OrderId
         {
@@ -53,7 +53,7 @@ namespace IBApi
         }
 
         /**
-         * @brief The execution's identifier.
+         * @brief The execution's unique identifier. Each partial fill has a separate ExecId. 
          */
         public string ExecId
         {
@@ -146,7 +146,7 @@ namespace IBApi
 
         /**
          * @brief Average price. 
-         * Used in regular trades, combo trades and legs of the combo. Includes commissions.
+         * Used in regular trades, combo trades and legs of the combo. Does not include commissions.
          */
         public double AvgPrice
         {
@@ -155,7 +155,7 @@ namespace IBApi
         }
 
         /**
-         * @brief Allows API client to add a reference to an order.
+         * @brief The OrderRef is a user-customizable string that can be set from the API or TWS and will be associated with an order for its lifetime.
          */
         public string OrderRef
         {

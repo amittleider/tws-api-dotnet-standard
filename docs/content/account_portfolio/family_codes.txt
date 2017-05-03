@@ -1,7 +1,6 @@
 /*! \page family_codes Family Codes
 
-	It is possible to determine from the API whether an account exists under an account family, and find the family code using the 
-	function reqFamilyCodes. 
+	Starting with API <b>v973.02</b> and TWS <b>v964</b>, it is possible to determine from the API whether an account exists under an account family, and find the family code using the function reqFamilyCodes. 
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -21,7 +20,7 @@
 		</li>
 	</ul>
 	
-	If a managed account is part of an account family, that family will be returned to the function IBApi::EWrapper:familyCodes.
+	If a managed account is part of an account family (for instance an individual account under a Financial Advisor or IBroker), that family will be returned to the function IBApi::EWrapper:familyCodes. Otherwise it will return an empty string.
 
 	<ul id="tab">
 		<li class="active">
