@@ -9,6 +9,17 @@ namespace IBApi
 {
     public class DefaultEWrapper : EWrapper
     {
+		//
+		// Note to updaters:
+		//
+		//
+		// Please ensure that implementations of new EWrapper methods are declared
+		// as virtual, since the only purpose for this class to be public is so that
+		// API clients that only wish to consume a subset of the EWrapper interface
+		// can create a class that inherits from it and then override just the methods
+		// needed (ie Adapter pattern), rather than implementing EWrapper directly.
+		//
+		
         public virtual void error(Exception e)
         {
         }
@@ -258,15 +269,15 @@ namespace IBApi
         {
         }
 
-        public void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        public virtual void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
         {
         }
 
-        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        public virtual void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
         }
 
-        public void newsProviders(NewsProvider[] newsProviders)
+        public virtual void newsProviders(NewsProvider[] newsProviders)
         {
         }
 
@@ -282,32 +293,32 @@ namespace IBApi
         {
         }
 
-        public void headTimestamp(int reqId, string headTimestamp)
+        public virtual void headTimestamp(int reqId, string headTimestamp)
         {
         }
 
 
-        public void histogramData(int reqId, HistogramEntry[] data)
+        public virtual void histogramData(int reqId, HistogramEntry[] data)
         {
         }
 
-        public void historicalDataUpdate(int reqId, Bar bar)
+        public virtual void historicalDataUpdate(int reqId, Bar bar)
         {
         }
 
-        public void historicalDataUpdateEnd(int reqId, string start, string end)
+        public virtual void historicalDataUpdateEnd(int reqId, string start, string end)
         {
         }
 
-        public void rerouteMktDataReq(int reqId, int conId, string exchange)
+        public virtual void rerouteMktDataReq(int reqId, int conId, string exchange)
         {
         }
 
-        public void rerouteMktDepthReq(int reqId, int conId, string exchange)
+        public virtual void rerouteMktDepthReq(int reqId, int conId, string exchange)
         {
         }
 
-        public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
+        public virtual void marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
         {
         }
     }
