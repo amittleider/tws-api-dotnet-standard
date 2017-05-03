@@ -82,6 +82,7 @@ class IN:
     HISTORICAL_NEWS_END       = 87
     HEAD_TIMESTAMP            = 88
     HISTOGRAM_DATA            = 89
+    HISTORICAL_DATA_UPDATE    = 90
 
 # outgoing msg id's
 class OUT:

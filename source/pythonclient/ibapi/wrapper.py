@@ -319,10 +319,7 @@ class EWrapper:
 
         self.logAnswer(current_fn_name(), vars())
 
-
-    def historicalData(self, reqId:TickerId , date:str, open:float, high:float,
-                       low:float, close:float, volume:int, barCount:int,
-                        WAP:float, hasGaps:int):
+    def historicalData(self, reqId: int, bar: BarData):
         """ returns the requested historical data bars
 
         reqId - the request's identifier
@@ -377,7 +374,9 @@ class EWrapper:
         self.logAnswer(current_fn_name(), vars())
 
 
-    def realtimeBar(self, reqId:TickerId , bar: RealTimeBar):
+    def realtimeBar(self, reqId: TickerId, time:int, open: float, high: float, low: float, close: float,
+                        volume: int, wap: float, count: int):
+
         """ Updates the real time 5 seconds bars
 
         reqId - the request's identifier
@@ -637,4 +636,8 @@ class EWrapper:
 
     def histogramData(self, reqId:int, items:HistogramData):
         """returns histogram data for a contract"""
+        self.logAnswer(current_fn_name(), vars())
+
+    def historicalDataUpdate(self, reqId: int, bar: BarData):
+        """returns updates in real time when keepUpToDate is set to True"""
         self.logAnswer(current_fn_name(), vars())
