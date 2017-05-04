@@ -362,6 +362,11 @@ void TestCppClient::tickDataOperation()
 	//Requesting data for an option contract will return the greek values
 	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, false, TagValueListSPtr());
 	//! [reqoptiondatagenticks]
+	
+	//! [reqfuturesopeninterest]
+	//Requesting data for a futures contract will return the futures open interest
+	m_pClient->reqMktData(1014, ContractSamples::SimpleFuture(), "mdoff,588", false, false, TagValueListSPtr());
+	//! [reqfuturesopeninterest]
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	/*** Canceling the market data subscription ***/
@@ -369,6 +374,7 @@ void TestCppClient::tickDataOperation()
 	m_pClient->cancelMktData(1001);
 	m_pClient->cancelMktData(1002);
 	m_pClient->cancelMktData(1003);
+	m_pClient->cancelMktData(1014);
 	//! [cancelmktdata]
 
 	m_state = ST_TICKDATAOPERATION_ACK;
@@ -1130,7 +1136,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-	//m_state = ST_TICKDATAOPERATION; 
+	m_state = ST_TICKDATAOPERATION; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
@@ -1162,7 +1168,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_REROUTECFD;
-	m_state = ST_MARKETRULE;
+	//m_state = ST_MARKETRULE;
 	//m_state = ST_PING;
 }
 

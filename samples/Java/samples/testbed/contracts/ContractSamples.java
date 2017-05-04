@@ -245,11 +245,11 @@ public class ContractSamples {
 	public static Contract SimpleFuture() {
 		//! [futcontract]
 		Contract contract = new Contract();
-		contract.symbol("ES");
+		contract.symbol("ZL");
 		contract.secType("FUT");
 		contract.currency("USD");
-		contract.exchange("GLOBEX");
-		contract.lastTradeDateOrContractMonth("201612");
+		contract.exchange("ECBOT");
+		contract.lastTradeDateOrContractMonth("20170814");
 		//! [futcontract]
 		return contract;
 	}

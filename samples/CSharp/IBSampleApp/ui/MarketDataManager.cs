@@ -27,6 +27,7 @@ namespace IBSampleApp.ui
         private const int OPEN_PRICE_INDEX = 10;
         private const int HIGH_PRICE_INDEX = 11;
         private const int LOW_PRICE_INDEX = 12;
+        private const int FUTURES_OPEN_INTEREST_INDEX = 13;
 
         private const int BID_SIZE_INDEX = 2;
         private const int ASK_SIZE_INDEX = 5;
@@ -228,6 +229,13 @@ namespace IBSampleApp.ui
                         grid[VOLUME_SIZE_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Size;
                         break;
                     }
+                case 86:
+                    {
+                        //FUTURES_OPEN_INTEREST
+                        grid[FUTURES_OPEN_INTEREST_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Size;
+                        break;
+                    }
+
             }
         }
 

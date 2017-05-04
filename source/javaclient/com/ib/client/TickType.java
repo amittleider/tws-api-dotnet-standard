@@ -91,6 +91,7 @@ public enum TickType {
     DELAYED_MODEL_OPTION( 83, "delayedModelOptComp" ),
     LAST_EXCH(84, "lastExchange"),
     LAST_REG_TIME(85, "lastRegTime"),
+    FUTURES_OPEN_INTEREST(86, "futuresOpenInterest"),
 
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
 

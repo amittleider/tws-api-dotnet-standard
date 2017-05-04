@@ -57,6 +57,7 @@ namespace TwsRtdServer
         private int m_genTickShortTermVolume3Min = 0;
         private int m_genTickShortTermVolume5Min = 0;
         private int m_genTickShortTermVolume10Min = 0;
+        private int m_futuresOpenInterest = 0;
 
         // delayed ticks
         private double m_delayed_lastPrice = 0.0;
@@ -224,6 +225,9 @@ namespace TwsRtdServer
                     break;
                 case TwsRtdServerData.GEN_TICK_SHORT_TERM_VOLUME_10_MIN:
                     m_genTickShortTermVolume10Min = (int)value;
+                    break;
+                case TwsRtdServerData.FUTURES_OPEN_INTEREST:
+                    m_futuresOpenInterest = (int)value;
                     break;
                 
                 // delayed ticks
@@ -413,6 +417,9 @@ namespace TwsRtdServer
                     break;
                 case TwsRtdServerData.GEN_TICK_SHORT_TERM_VOLUME_10_MIN:
                     value = m_genTickShortTermVolume10Min;
+                    break;
+                case TwsRtdServerData.FUTURES_OPEN_INTEREST:
+                    value = m_futuresOpenInterest;
                     break;
 
                 // delayed ticks

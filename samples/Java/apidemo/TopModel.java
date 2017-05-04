@@ -22,7 +22,7 @@ import com.ib.controller.Formats;
 class TopModel extends AbstractTableModel {
 	private List<TopRow> m_rows = new ArrayList<>();
 	private MarketDataPanel m_parentPanel;
-	private static final int CANCEL_CHBX_COL_INDEX = 21;
+	private static final int CANCEL_CHBX_COL_INDEX = 22;
 
 	TopModel(MarketDataPanel parentPanel) {
 		m_parentPanel = parentPanel;
@@ -31,7 +31,7 @@ class TopModel extends AbstractTableModel {
 	void addRow( Contract contract) {
 		TopRow row = new TopRow( this, contract.description(), m_parentPanel );
 		m_rows.add( row);
-		ApiDemo.INSTANCE.controller().reqTopMktData(contract, "", false, false, row);
+		ApiDemo.INSTANCE.controller().reqTopMktData(contract, "588", false, false, row);
 		fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
 	}
 
@@ -100,6 +100,7 @@ class TopModel extends AbstractTableModel {
 			case 18: return "Close";
 			case 19: return "Open";
 			case 20: return "Market Data Type";
+			case 21: return "Futures Open Interest";
 			case CANCEL_CHBX_COL_INDEX: return "Cancel";
 
 			default: return null;
@@ -130,6 +131,7 @@ class TopModel extends AbstractTableModel {
 			case 18: return fmt( row.m_close);
 			case 19: return fmt( row.m_open);
 			case 20: return row.m_marketDataType;
+			case 21: return row.m_futuresOpenInterest;
 			case CANCEL_CHBX_COL_INDEX: return row.m_cancel;
 			default: return null;
 		}
@@ -172,6 +174,7 @@ class TopModel extends AbstractTableModel {
 		String m_bboExch;
 		int m_snapshotPermissions;
 		int m_bidMask, m_askMask;
+		int m_futuresOpenInterest;
 		
 		TopRow( AbstractTableModel model, String description, MarketDataPanel parentPanel) {
 			m_model = model;
@@ -243,6 +246,9 @@ class TopModel extends AbstractTableModel {
 				case VOLUME:
 				case DELAYED_VOLUME:
 					m_volume = size;
+					break;
+				case FUTURES_OPEN_INTEREST:
+					m_futuresOpenInterest = size;
 					break;
                 default: break; 
 			}
