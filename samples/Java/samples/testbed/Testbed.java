@@ -59,7 +59,8 @@ public class Testbed {
                 //newsOperations(wrapper.getClient());
                 //marketDepthOperations(wrapper.getClient());
                 //rerouteCFDOperations(wrapper.getClient());
-                marketRuleOperations(wrapper.getClient());
+                //marketRuleOperations(wrapper.getClient());
+                tickDataOperations(wrapper.getClient());
                 
                 Thread.sleep(100000);
                 m_client.eDisconnect();
@@ -204,12 +205,17 @@ public class Testbed {
         //Requesting data for an option contract will return the greek values
         client.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), "", false, false, null);
         //! [reqoptiondatagenticks]
+		//! [reqfuturesopeninterest]
+        //Requesting data for a futures contract will return the futures open interest
+        client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", false, false, null);
+		//! [reqfuturesopeninterest]
 		
 		Thread.sleep(10000);
 		//! [cancelmktdata]
 		client.cancelMktData(1001);
 		client.cancelMktData(1002);
 		client.cancelMktData(1003);
+		client.cancelMktData(1014);
 		//! [cancelmktdata]
 		
 	}

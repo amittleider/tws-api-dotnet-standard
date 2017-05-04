@@ -99,6 +99,7 @@ namespace IBApi
         public const int DELAYED_MODEL_OPTION = 83;
         public const int LAST_EXCH = 84;
         public const int LAST_REG_TIME = 85;
+        public const int FUTURES_OPEN_INTEREST = 86;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -188,6 +189,7 @@ namespace IBApi
                 case DELAYED_MODEL_OPTION:        return "delayedModelOptComp";
                 case LAST_EXCH:                   return "lastExchange";
                 case LAST_REG_TIME:               return "lastRegTime";
+                case FUTURES_OPEN_INTEREST:       return "futuresOpenInterest";
 
                 default:                          return "unknown";
             }

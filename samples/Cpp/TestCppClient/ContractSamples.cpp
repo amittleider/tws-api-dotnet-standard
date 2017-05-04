@@ -333,11 +333,11 @@ Contract ContractSamples::DutchWarrant(){
 Contract ContractSamples::SimpleFuture(){
 	//! [futcontract]
 	Contract contract;
-	contract.symbol = "ES";
+	contract.symbol = "ZL";
 	contract.secType = "FUT";
-	contract.exchange = "GLOBEX";
+	contract.exchange = "ECBOT";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "201612";
+	contract.lastTradeDateOrContractMonth = "20170814";
 	//! [futcontract]
 	return contract;
 }

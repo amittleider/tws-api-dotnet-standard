@@ -90,6 +90,9 @@ Friend Class Utils
         DelayedAskOptComp
         DelayedLastOptComp
         DelayedModelOptComp
+        LastExchange
+        LastRegTime
+        FuturesOpenInterest
         Unknown
     End Enum
 

@@ -295,11 +295,11 @@ namespace Samples
         {
             //! [futcontract]
             Contract contract = new Contract();
-            contract.Symbol = "ES";
+            contract.Symbol = "ZL";
             contract.SecType = "FUT";
-            contract.Exchange = "GLOBEX";
+            contract.Exchange = "ECBOT";
             contract.Currency = "USD";
-            contract.LastTradeDateOrContractMonth = "201612";
+            contract.LastTradeDateOrContractMonth = "20170814";
             //! [futcontract]
             return contract;
         }

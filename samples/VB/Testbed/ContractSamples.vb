@@ -286,11 +286,11 @@ Namespace Samples
         Public Shared Function SimpleFuture() As Contract
             '! [futcontract]
             Dim contract As Contract = New Contract
-            contract.Symbol = "ES"
+            contract.Symbol = "ZL"
             contract.SecType = "FUT"
-            contract.Exchange = "GLOBEX"
+            contract.Exchange = "ECBOT"
             contract.Currency = "USD"
-            contract.LastTradeDateOrContractMonth = "201612"
+            contract.LastTradeDateOrContractMonth = "20170814"
             '! [futcontract]
             Return contract
         End Function
