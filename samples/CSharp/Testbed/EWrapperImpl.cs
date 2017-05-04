@@ -579,13 +579,6 @@ namespace Samples
         }
         //! [historicalDataUpdate]
 
-        //! [historicalDataUpdateEnd]
-        public void historicalDataUpdateEnd(int reqId, string start, string end)
-        {
-            Console.WriteLine("HistoricalDataUpdateEnd - " + reqId + " from " + start + " to " + end);
-        }
-        //! [historicalDataUpdateEnd]
-
         //! [rerouteMktDataReq]
         public void rerouteMktDataReq(int reqId, int conId, string exchange)
         {

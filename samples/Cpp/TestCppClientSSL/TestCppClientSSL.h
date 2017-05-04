@@ -131,7 +131,6 @@ public:
 	void headTimestamp(int reqId, const std::string& headTimestamp);
 	void histogramData(int reqId, HistogramDataVector data);
     void historicalDataUpdate(TickerId reqId, Bar bar);
-    void historicalDataUpdateEnd(int reqId, std::string startDateStr, std::string endDateStr);
     void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
     void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
     void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);

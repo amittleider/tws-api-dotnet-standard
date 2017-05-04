@@ -306,9 +306,7 @@ namespace IBApi
         {
         }
 
-        public virtual void historicalDataUpdateEnd(int reqId, string start, string end)
-        {
-        }
+
 
         public virtual void rerouteMktDataReq(int reqId, int conId, string exchange)
         {
