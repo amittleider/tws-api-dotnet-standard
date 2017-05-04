@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace IBSampleApp.ui
 {
-    public partial class ContractSearchDialog : Form
+    partial class ContractSearchDialog : Form
     {
         IBClient ibClient;
         List<Contract> contracts = new List<Contract>();

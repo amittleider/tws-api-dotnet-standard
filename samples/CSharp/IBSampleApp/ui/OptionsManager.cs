@@ -11,7 +11,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class OptionsManager
+    class OptionsManager
     {
         public const int OPTIONS_ID_BASE = 70000000;
         private const int OPTIONS_DATA_CALL_BASE = OPTIONS_ID_BASE + 100000;

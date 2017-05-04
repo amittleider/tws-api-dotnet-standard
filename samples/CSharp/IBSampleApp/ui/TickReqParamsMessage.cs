@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class TickReqParamsMessage
+    class TickReqParamsMessage
     {
         public int TickerId { get; private set; }
         public double MinTick { get; private set; }

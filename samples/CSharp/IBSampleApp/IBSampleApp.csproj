@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="messages\MarketRuleMessage.cs" />
     <Compile Include="messages\HeadTimestampMessage.cs" />
+    <Compile Include="messages\DailyPnLSingleMessage.cs" />
+    <Compile Include="messages\DailyPnLMessage.cs" />
     <Compile Include="messages\HistogramDataMessage.cs" />
     <Compile Include="messages\AccountDownloadEndMessage.cs" />
     <Compile Include="messages\AccountSummaryEndMessage.cs" />

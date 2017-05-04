@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class TickPriceMessage : MarketDataMessage
+    class TickPriceMessage : MarketDataMessage
     {
         private double price;
         private TickAttrib attribs;

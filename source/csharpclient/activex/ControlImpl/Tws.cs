@@ -1021,6 +1021,25 @@ namespace TWSLib
         {
             socket.reqMarketRule(marketRuleId);
         }
+        void ITws.reqDailyPnL(int reqId, string account, string modelCode)
+        {
+            this.socket.reqDailyPnL(reqId, account, modelCode);
+        }
+
+        void ITws.cancelDailyPnL(int reqId)
+        {
+            this.socket.cancelDailyPnL(reqId);
+        }
+
+        void ITws.reqDailyPnLSingle(int reqId, string account, string modelCode, int conId)
+        {
+            this.socket.reqDailyPnLSingle(reqId, account, modelCode, conId);
+        }
+
+        void ITws.cancelDailyPnLSingle(int reqId)
+        {
+            this.socket.cancelDailyPnLSingle(reqId);
+        }
 
         #endregion
 
@@ -2003,6 +2022,26 @@ namespace TWSLib
                 InvokeIfRequired(t_marketRule, marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null);
         }
 
+        public delegate void dailyPnLDelegate(int reqId, double dailyPnL);
+        public event dailyPnLDelegate dailyPnL;
+        void EWrapper.dailyPnL(int reqId, double dailyPnL)
+        {
+            var tmp = this.dailyPnL;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, dailyPnL);
+        }
+
+        public delegate void dailyPnLSingleDelegate(int reqId, int pos, double dailyPnL, double value);
+        public event dailyPnLSingleDelegate dailyPnLSingle;
+        void EWrapper.dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        {
+            var tmp = this.dailyPnLSingle;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, pos, dailyPnL, value);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -2127,5 +2166,6 @@ namespace TWSLib
 
             return rval;
         }
+
     }
 }

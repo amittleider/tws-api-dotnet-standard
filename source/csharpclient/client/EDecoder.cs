@@ -82,352 +82,288 @@ namespace IBApi
             switch (incomingMessage)
             {
                 case IncomingMessage.TickPrice:
-                    {
-                        TickPriceEvent();
-                        break;
-                    }
+                    TickPriceEvent();
+                    break;
 
                 case IncomingMessage.TickSize:
-                    {
-                        TickSizeEvent();
-                        break;
-                    }
+                    TickSizeEvent();
+                    break;
 
                 case IncomingMessage.Tickstring:
-                    {
-                        TickStringEvent();
-                        break;
-                    }
+                    TickStringEvent();
+                    break;
+
                 case IncomingMessage.TickGeneric:
-                    {
-                        TickGenericEvent();
-                        break;
-                    }
+                    TickGenericEvent();
+                    break;
+
                 case IncomingMessage.TickEFP:
-                    {
-                        TickEFPEvent();
-                        break;
-                    }
+                    TickEFPEvent();
+                    break;
+
                 case IncomingMessage.TickSnapshotEnd:
-                    {
-                        TickSnapshotEndEvent();
-                        break;
-                    }
+                    TickSnapshotEndEvent();
+                    break;
+
                 case IncomingMessage.Error:
-                    {
-                        ErrorEvent();
-                        break;
-                    }
+                    ErrorEvent();
+                    break;
+
                 case IncomingMessage.CurrentTime:
-                    {
-                        CurrentTimeEvent();
-                        break;
-                    }
+                    CurrentTimeEvent();
+                    break;
+
                 case IncomingMessage.ManagedAccounts:
-                    {
-                        ManagedAccountsEvent();
-                        break;
-                    }
+                    ManagedAccountsEvent();
+                    break;
+
                 case IncomingMessage.NextValidId:
-                    {
-                        NextValidIdEvent();
-                        break;
-                    }
+                    NextValidIdEvent();
+                    break;
+
                 case IncomingMessage.DeltaNeutralValidation:
-                    {
-                        DeltaNeutralValidationEvent();
-                        break;
-                    }
+                    DeltaNeutralValidationEvent();
+                    break;
+
                 case IncomingMessage.TickOptionComputation:
-                    {
-                        TickOptionComputationEvent();
-                        break;
-                    }
+                    TickOptionComputationEvent();
+                    break;
+
                 case IncomingMessage.AccountSummary:
-                    {
-                        AccountSummaryEvent();
-                        break;
-                    }
+                    AccountSummaryEvent();
+                    break;
+
                 case IncomingMessage.AccountSummaryEnd:
-                    {
-                        AccountSummaryEndEvent();
-                        break;
-                    }
+                    AccountSummaryEndEvent();
+                    break;
+
                 case IncomingMessage.AccountValue:
-                    {
-                        AccountValueEvent();
-                        break;
-                    }
+                    AccountValueEvent();
+                    break;
+
                 case IncomingMessage.PortfolioValue:
-                    {
-                        PortfolioValueEvent();
-                        break;
-                    }
+                    PortfolioValueEvent();
+                    break;
+
                 case IncomingMessage.AccountUpdateTime:
-                    {
-                        AccountUpdateTimeEvent();
-                        break;
-                    }
+                    AccountUpdateTimeEvent();
+                    break;
+
                 case IncomingMessage.AccountDownloadEnd:
-                    {
-                        AccountDownloadEndEvent();
-                        break;
-                    }
+                    AccountDownloadEndEvent();
+                    break;
+
                 case IncomingMessage.OrderStatus:
-                    {
-                        OrderStatusEvent();
-                        break;
-                    }
+                    OrderStatusEvent();
+                    break;
+
                 case IncomingMessage.OpenOrder:
-                    {
-                        OpenOrderEvent();
-                        break;
-                    }
+                    OpenOrderEvent();
+                    break;
+
                 case IncomingMessage.OpenOrderEnd:
-                    {
-                        OpenOrderEndEvent();
-                        break;
-                    }
+                    OpenOrderEndEvent();
+                    break;
+
                 case IncomingMessage.ContractData:
-                    {
-                        ContractDataEvent();
-                        break;
-                    }
+                    ContractDataEvent();
+                    break;
+
                 case IncomingMessage.ContractDataEnd:
-                    {
-                        ContractDataEndEvent();
-                        break;
-                    }
+                    ContractDataEndEvent();
+                    break;
+
                 case IncomingMessage.ExecutionData:
-                    {
-                        ExecutionDataEvent();
-                        break;
-                    }
+                    ExecutionDataEvent();
+                    break;
+
                 case IncomingMessage.ExecutionDataEnd:
-                    {
-                        ExecutionDataEndEvent();
-                        break;
-                    }
+                    ExecutionDataEndEvent();
+                    break;
+
                 case IncomingMessage.CommissionsReport:
-                    {
-                        CommissionReportEvent();
-                        break;
-                    }
+                    CommissionReportEvent();
+                    break;
+
                 case IncomingMessage.FundamentalData:
-                    {
-                        FundamentalDataEvent();
-                        break;
-                    }
+                    FundamentalDataEvent();
+                    break;
+
                 case IncomingMessage.HistoricalData:
-                    {
-                        HistoricalDataEvent();
-                        break;
-                    }
+                    HistoricalDataEvent();
+                    break;
+
                 case IncomingMessage.MarketDataType:
-                    {
-                        MarketDataTypeEvent();
-                        break;
-                    }
+                    MarketDataTypeEvent();
+                    break;
+
                 case IncomingMessage.MarketDepth:
-                    {
-                        MarketDepthEvent();
-                        break;
-                    }
+                    MarketDepthEvent();
+                    break;
+
                 case IncomingMessage.MarketDepthL2:
-                    {
-                        MarketDepthL2Event();
-                        break;
-                    }
+                    MarketDepthL2Event();
+                    break;
+
                 case IncomingMessage.NewsBulletins:
-                    {
-                        NewsBulletinsEvent();
-                        break;
-                    }
+                    NewsBulletinsEvent();
+                    break;
+
                 case IncomingMessage.Position:
-                    {
-                        PositionEvent();
-                        break;
-                    }
+                    PositionEvent();
+                    break;
+
                 case IncomingMessage.PositionEnd:
-                    {
-                        PositionEndEvent();
-                        break;
-                    }
+                    PositionEndEvent();
+                    break;
+
                 case IncomingMessage.RealTimeBars:
-                    {
-                        RealTimeBarsEvent();
-                        break;
-                    }
+                    RealTimeBarsEvent();
+                    break;
+
                 case IncomingMessage.ScannerParameters:
-                    {
-                        ScannerParametersEvent();
-                        break;
-                    }
+                    ScannerParametersEvent();
+                    break;
+
                 case IncomingMessage.ScannerData:
-                    {
-                        ScannerDataEvent();
-                        break;
-                    }
+                    ScannerDataEvent();
+                    break;
+
                 case IncomingMessage.ReceiveFA:
-                    {
-                        ReceiveFAEvent();
-                        break;
-                    }
+                    ReceiveFAEvent();
+                    break;
+
                 case IncomingMessage.BondContractData:
-                    {
-                        BondContractDetailsEvent();
-                        break;
-                    }
+                    BondContractDetailsEvent();
+                    break;
+
                 case IncomingMessage.VerifyMessageApi:
-                    {
-                        VerifyMessageApiEvent();
-                        break;
-                    }
+                    VerifyMessageApiEvent();
+                    break;
+
                 case IncomingMessage.VerifyCompleted:
-                    {
-                        VerifyCompletedEvent();
-                        break;
-                    }
+                    VerifyCompletedEvent();
+                    break;
+
                 case IncomingMessage.DisplayGroupList:
-                    {
-                        DisplayGroupListEvent();
-                        break;
-                    }
+                    DisplayGroupListEvent();
+                    break;
+
                 case IncomingMessage.DisplayGroupUpdated:
-                    {
-                        DisplayGroupUpdatedEvent();
-                        break;
-                    }
+                    DisplayGroupUpdatedEvent();
+                    break;
+
                 case IncomingMessage.VerifyAndAuthMessageApi:
-                    {
-                        VerifyAndAuthMessageApiEvent();
-                        break;
-                    }
+                    VerifyAndAuthMessageApiEvent();
+                    break;
+
                 case IncomingMessage.VerifyAndAuthCompleted:
-                    {
-                        VerifyAndAuthCompletedEvent();
-                        break;
-                    }
+                    VerifyAndAuthCompletedEvent();
+                    break;
+
                 case IncomingMessage.PositionMulti:
-                    {
-                        PositionMultiEvent();
-                        break;
-                    }
+                    PositionMultiEvent();
+                    break;
+
                 case IncomingMessage.PositionMultiEnd:
-                    {
-                        PositionMultiEndEvent();
-                        break;
-                    }
+                    PositionMultiEndEvent();
+                    break;
+
                 case IncomingMessage.AccountUpdateMulti:
-                    {
-                        AccountUpdateMultiEvent();
-                        break;
-                    }
+                    AccountUpdateMultiEvent();
+                    break;
+
                 case IncomingMessage.AccountUpdateMultiEnd:
-                    {
-                        AccountUpdateMultiEndEvent();
-                        break;
-                    }
+                    AccountUpdateMultiEndEvent();
+                    break;
+
                 case IncomingMessage.SecurityDefinitionOptionParameter:
-                    {
-                        SecurityDefinitionOptionParameterEvent();
-                        break;
-                    }
+                    SecurityDefinitionOptionParameterEvent();
+                    break;
+
                 case IncomingMessage.SecurityDefinitionOptionParameterEnd:
-                    {
-                        SecurityDefinitionOptionParameterEndEvent();
-                        break;
-                    }
+                    SecurityDefinitionOptionParameterEndEvent();
+                    break;
+
                 case IncomingMessage.SoftDollarTier:
-                    {
-                        SoftDollarTierEvent();
-                        break;
-                    }
+                    SoftDollarTierEvent();
+                    break;
+
                 case IncomingMessage.FamilyCodes:
-                    {
-                        FamilyCodesEvent();
-                        break;
-                    }
+                    FamilyCodesEvent();
+                    break;
+
                 case IncomingMessage.SymbolSamples:
-                    {
-                        SymbolSamplesEvent();
-                        break;
-                    }
+                    SymbolSamplesEvent();
+                    break;
+
                 case IncomingMessage.MktDepthExchanges:
-                    {
-                        MktDepthExchangesEvent();
-                        break;
-                    }
+                    MktDepthExchangesEvent();
+                    break;
+
                 case IncomingMessage.TickNews:
-                    {
-                        TickNewsEvent();
-                        break;
-                    }
+                    TickNewsEvent();
+                    break;
+
                 case IncomingMessage.TickReqParams:
-                    {
-                        TickReqParamsEvent();
-                        break;
-                    }
+                    TickReqParamsEvent();
+                    break;
+
                 case IncomingMessage.SmartComponents:
-                    {
-                        SmartComponentsEvent();
-                        break;
-                    }
+                    SmartComponentsEvent();
+                    break;
+
                 case IncomingMessage.NewsProviders:
-                    {
-                        NewsProvidersEvent();
-                        break;
-                    }
+                    NewsProvidersEvent();
+                    break;
+
                 case IncomingMessage.NewsArticle:
-                    {
-                        NewsArticleEvent();
-                        break;
-                    }
+                    NewsArticleEvent();
+                    break;
+
                 case IncomingMessage.HistoricalNews:
-                    {
-                        HistoricalNewsEvent();
-                        break;
-                    }
+                    HistoricalNewsEvent();
+                    break;
+
                 case IncomingMessage.HistoricalNewsEnd:
-                    {
-                        HistoricalNewsEndEvent();
-                        break;
-                    }
+                    HistoricalNewsEndEvent();
+                    break;
+
                 case IncomingMessage.HeadTimestamp:
-                    {
-                        HeadTimestampEvent();
-                        break;
-                    }
+                    HeadTimestampEvent();
+                    break;
+
                 case IncomingMessage.HistogramData:
-                    {
-                        HistogramDataEvent();
-                        break;
-                    }
+                    HistogramDataEvent();
+                    break;
+
                 case IncomingMessage.HistogramDataUpdate:
-                    {
-                        HistoricalDataUpdateEvent();
-                        break;
-                    }
+                    HistoricalDataUpdateEvent();
+                    break;
+
                 case IncomingMessage.RerouteMktDataReq:
-                    {
-                        RerouteMktDataReqEvent();
-                        break;
-                    }
+                    RerouteMktDataReqEvent();
+                    break;
+
                 case IncomingMessage.RerouteMktDepthReq:
-                    {
-                        RerouteMktDepthReqEvent();
-                        break;
-                    }
+                    RerouteMktDepthReqEvent();
+                    break;
+
                 case IncomingMessage.MarketRule:
-                    {
-                        MarketRuleEvent();
-                        break;
-                    }
+                    MarketRuleEvent();
+                    break;
+
+                case IncomingMessage.DailyPnL:
+                    DailyPnlEvent();
+                    break;
+
+                case IncomingMessage.DailyPnLSingle:
+                    DailyPnlSingleEvent();
+                    break;
+
                 default:
-                    {
-                        eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
-                        return false;
-                    }
+                    eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
+                    return false;
             }
 
             return true;
@@ -486,6 +422,24 @@ namespace IBApi
                                     close, volume, barCount, WAP));
         }
 
+
+        private void DailyPnlSingleEvent()
+        {
+            int reqId = ReadInt();
+            int pos = ReadInt();
+            double dailyPnL = ReadDouble();
+            double value = ReadDouble();
+
+            eWrapper.dailyPnLSingle(reqId, pos, dailyPnL, value);
+        }
+
+        private void DailyPnlEvent()
+        {
+            int reqId = ReadInt();
+            double dailyPnL = ReadDouble();
+
+            eWrapper.dailyPnL(reqId, dailyPnL);
+        }
 
         private void HistogramDataEvent()
         {

@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class TickNewsMessage
+    class TickNewsMessage
     {
         public int TickerId { get; private set; }
         public long TimeStamp { get; private set; }

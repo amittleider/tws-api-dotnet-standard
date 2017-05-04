@@ -207,6 +207,8 @@ public:
    virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange) = 0;
    virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange) = 0;
    virtual void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) = 0;
+   virtual void dailyPnL(int reqId, double dailyPnL) = 0;
+   virtual void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) = 0;
 };
 
 

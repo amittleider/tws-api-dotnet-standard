@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class HistogramDataMessage
+    class HistogramDataMessage
     {
         public int ReqId { get; private set; }
         public IBApi.HistogramEntry[] Data { get; private set; }

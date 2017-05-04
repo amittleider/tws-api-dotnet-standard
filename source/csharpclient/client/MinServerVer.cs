@@ -86,5 +86,6 @@ namespace IBApi
         public const int SYNT_REALTIME_BARS = 124;
         public const int CFD_REROUTE = 125;
         public const int MARKET_RULES = 126;
+        public const int DAILY_PNL = 127;
     }
 }

@@ -13,7 +13,7 @@ using IBSampleApp.messages;
 
 namespace IBSampleApp.ui
 {
-    public partial class ComboContractResults : Form
+    partial class ComboContractResults : Form
     {
         public ComboContractResults()
         {

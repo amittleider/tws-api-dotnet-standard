@@ -88,6 +88,8 @@ class EDecoder implements ObjectInput {
     private static final int REROUTE_MKT_DATA_REQ = 91;
     private static final int REROUTE_MKT_DEPTH_REQ = 92;
     private static final int MARKET_RULE = 93;
+    private static final int DAILY_PNL = 94;
+    private static final int DAILY_PNL_SINGLE = 95;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -264,11 +266,11 @@ class EDecoder implements ObjectInput {
             case RECEIVE_FA:
                 processReceiveFaMsg();
                 break;
-
+            
             case HISTORICAL_DATA:
                 processHistoricalDataMsg();
                 break;
-
+            
             case SCANNER_PARAMETERS:
                 processScannerParametersMsg();
                 break;
@@ -432,6 +434,14 @@ class EDecoder implements ObjectInput {
             case MARKET_RULE:
                 processMarketRuleMsg();
                 break;
+                
+            case DAILY_PNL:
+            	processDailyPnlMsg();
+            	break;
+            	
+            case DAILY_PNL_SINGLE:
+            	processDailyPnlSingleMsg();
+            	break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -489,6 +499,22 @@ class EDecoder implements ObjectInput {
 
         m_EWrapper.historicalDataUpdate(reqId, new Bar(date, open, high, low, close, volume, barCount, WAP));
     }
+
+    private void processDailyPnlSingleMsg() throws IOException {
+    	int reqId = readInt();
+    	int pos = readInt();
+    	double dailyPnL = readDouble();
+    	double value = readDouble();
+    	
+    	m_EWrapper.dailyPnLSingle(reqId, pos, dailyPnL, value);
+	}
+
+	private void processDailyPnlMsg() throws IOException {
+		int reqId = readInt();
+		double dailyPnL = readDouble();
+		
+		m_EWrapper.dailyPnL(reqId, dailyPnL);
+	}
 
     private void processHistogramDataMsg() throws IOException {
     	int reqId = readInt();

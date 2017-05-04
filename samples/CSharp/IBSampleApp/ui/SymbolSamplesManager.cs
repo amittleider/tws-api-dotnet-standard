@@ -11,7 +11,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class SymbolSamplesManager : DataManager
+    class SymbolSamplesManager : DataManager
     {
         protected bool active = false;
         int activeReqId = 0;

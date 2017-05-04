@@ -9,7 +9,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class NewsProvidersMessage
+    class NewsProvidersMessage
     {
         public NewsProvider[] NewsProviders { get; private set; }
 

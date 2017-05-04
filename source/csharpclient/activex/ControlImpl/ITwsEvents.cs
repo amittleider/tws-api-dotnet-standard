@@ -181,5 +181,9 @@ namespace TWSLib
         void rerouteMktDepthReq(int reqId, int conId, string exchange);
         [DispId(140)]
         void marketRule(int marketRuleId, IPriceIncrementList priceIncrements);
+        [DispId(141)]
+        void dailyPnL(int reqId, double dailyPnL);
+        [DispId(142)]
+        void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
     }
 }

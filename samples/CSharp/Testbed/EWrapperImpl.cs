@@ -603,5 +603,15 @@ namespace Samples
             }
         }
         //! [marketRule]
+
+        public void dailyPnL(int reqId, double dailyPnL)
+        {
+            Console.WriteLine("Daily PnL. Request Id: {0}, daily PnL: {1}", reqId, dailyPnL);
+        }
+
+        public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        {
+            Console.WriteLine("Daily PnL Single. Request Id: {0}, pos {1}, daily PnL {2}, value: {3}", reqId, pos, dailyPnL, value);
+        }
     }
 }

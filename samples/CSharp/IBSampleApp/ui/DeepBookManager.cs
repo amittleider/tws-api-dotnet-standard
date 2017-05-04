@@ -10,7 +10,7 @@ using IBApi;
 
 namespace IBSampleApp.ui
 {
-    public class DeepBookManager : DataManager
+    class DeepBookManager : DataManager
     {
         public const int TICK_ID_BASE = 20000000;
 

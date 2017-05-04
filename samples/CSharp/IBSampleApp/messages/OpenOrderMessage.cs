@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class OpenOrderMessage : OrderMessage
+    class OpenOrderMessage : OrderMessage
     {
         private Contract contract;
         private Order order;

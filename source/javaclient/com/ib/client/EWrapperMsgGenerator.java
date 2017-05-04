@@ -771,4 +771,18 @@ public class EWrapperMsgGenerator {
 		return sb.toString();
 	}
 	
+
+    public static String dailyPnL(int reqId, double dailyPnL) {
+        StringBuilder sb = new StringBuilder(); 
+        
+        sb.append("Daily PnL. Req Id: ").append(reqId).append(", daily PnL: ").append(dailyPnL);
+        return sb.toString();
+    }
+    
+    public static String dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+        StringBuilder sb = new StringBuilder(); 
+        
+        sb.append("Daily PnL Single. Req Id: ").append(reqId).append(", pos: ").append(pos).append(", daily PnL: ").append(dailyPnL).append(", value: ").append(value);
+        return sb.toString();
+    }
 }

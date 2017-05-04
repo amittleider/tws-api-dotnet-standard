@@ -2120,6 +2120,30 @@ const char* EDecoder::processRerouteMktDepthReqMsg(const char* ptr, const char* 
 	return ptr;
 }
 
+const char* EDecoder::processDailyPnlMsg(const char* ptr, const char* endPtr) {
+    int reqId;
+    double dailyPnL;
+
+    DECODE_FIELD(reqId);
+    DECODE_FIELD(dailyPnL);
+
+    m_pEWrapper->dailyPnL(reqId, dailyPnL);
+}
+
+const char* EDecoder::processDailyPnlSingleMsg(const char* ptr, const char* endPtr) {
+    int reqId;
+    int pos;
+    double dailyPnL;
+    double value;
+
+    DECODE_FIELD(reqId);
+    DECODE_FIELD(pos);
+    DECODE_FIELD(dailyPnL);
+    DECODE_FIELD(value);
+
+    m_pEWrapper->dailyPnLSingle(reqId, pos, dailyPnL, value);
+}
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -2408,6 +2432,14 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 		case MARKET_RULE:
 			ptr = processMarketRuleMsg(ptr, endPtr);
 			break;
+
+        case DAILY_PNL:
+            ptr = processDailyPnlMsg(ptr, endPtr);
+            break;
+
+        case DAILY_PNL_SINGLE:
+            ptr = processDailyPnlSingleMsg(ptr, endPtr);
+            break;
 
 		default:
 			{

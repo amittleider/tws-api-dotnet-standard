@@ -11,7 +11,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class NewsManager
+    class NewsManager
     {
         private const int TICK_NEWS_ID_BASE = 90000000;
         private const int TICK_NEWS_ID = TICK_NEWS_ID_BASE;

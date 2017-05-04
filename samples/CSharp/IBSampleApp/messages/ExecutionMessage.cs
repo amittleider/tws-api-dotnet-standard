@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ExecutionMessage
+    class ExecutionMessage
     {
         private int reqId;
         private Contract contract;

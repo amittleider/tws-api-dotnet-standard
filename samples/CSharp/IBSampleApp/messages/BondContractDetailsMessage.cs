@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class BondContractDetailsMessage
+    class BondContractDetailsMessage
     {
         private int requestId;
         private ContractDetails contractDetails;

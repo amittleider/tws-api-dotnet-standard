@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class MktDepthExchangesMessage
+    class MktDepthExchangesMessage
     {
         public IBApi.DepthMktDataDescription[] Descriptions { get; private set; }
 

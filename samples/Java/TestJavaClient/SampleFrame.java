@@ -1564,4 +1564,18 @@ class SampleFrame extends JFrame implements EWrapper {
 		
 		m_TWS.add(msg);		
 	}
+
+    @Override
+    public void dailyPnL(int reqId, double dailyPnL) {
+        String msg = EWrapperMsgGenerator.dailyPnL(reqId, dailyPnL);
+        
+        m_TWS.add(msg);
+    }
+
+    @Override
+    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+        String msg = EWrapperMsgGenerator.dailyPnLSingle(reqId, pos, dailyPnL, value);
+        
+        m_TWS.add(msg);
+    }
 }

@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class CommissionMessage
+    class CommissionMessage
     {
         private CommissionReport commissionReport;
 

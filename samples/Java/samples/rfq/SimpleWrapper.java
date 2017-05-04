@@ -468,6 +468,12 @@ public class SimpleWrapper implements EWrapper {
         
     }
 
+    @Override
+    public void dailyPnL(int reqId, double dailyPnL) {
+        // TODO Auto-generated method stub
+        
+    }
+
 	@Override
 	public void rerouteMktDataReq(int reqId, int conId, String exchange) {
 		// TODO Auto-generated method stub
@@ -486,4 +492,9 @@ public class SimpleWrapper implements EWrapper {
 		
 	}
 
+    @Override
+    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+        // TODO Auto-generated method stub
+        
+    }
 }

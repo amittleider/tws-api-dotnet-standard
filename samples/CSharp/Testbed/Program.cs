@@ -157,9 +157,25 @@ namespace Samples
             /***********************/
             //marketRuleOperations(client);
 
+            dailyPnLSingle(client);
+
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void dailyPnL(EClientSocket client)
+        {
+            client.reqDailyPnL(17001, "DUC00042", "");
+            Thread.Sleep(1000);
+            client.cancelDailyPnL(17001);
+        }
+
+        private static void dailyPnLSingle(EClientSocket client)
+        {
+            client.reqDailyPnLSingle(17001, "DUC00042", "", 268084);
+            Thread.Sleep(1000);
+            client.cancelDailyPnLSingle(17001);
         }
 
         private static void rerouteCFDOperations(EClientSocket client)

@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace IBSampleApp
 {
-    public partial class IBSampleAppDialog : Form
+    partial class IBSampleAppDialog : Form
     {
         private MarketDataManager marketDataManager;
         private DeepBookManager deepBookManager;

@@ -63,6 +63,7 @@ Module MainModule
         '**************************************************
         tickDataOperations(client)
 
+
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
         '*******************************************************
@@ -160,9 +161,25 @@ Module MainModule
         '***********************
         'marketRuleOperations(client)
 
+        dailyPnLSingle(client)
+
+
         Thread.Sleep(15000)
         Console.WriteLine("Done")
         Thread.Sleep(500000)
+    End Sub
+
+
+    Private Sub dailyPnL(client As EClientSocket)
+        client.reqDailyPnL(17001, "DUC00042", "")
+        Thread.Sleep(1000)
+        client.cancelDailyPnL(17001)
+    End Sub
+
+    Private Sub dailyPnLSingle(client As EClientSocket)
+        client.reqDailyPnLSingle(17001, "DUC00042", "", 268084)
+        Thread.Sleep(1000)
+        client.cancelDailyPnLSingle(17001)
     End Sub
 
     Private Sub smartComponents(client As EClientSocket)
@@ -191,10 +208,10 @@ Module MainModule
         client.reqMktData(1003, ContractSamples.FutureComboContract(), String.Empty, True, False, Nothing)
         ' [reqmktdata_snapshot]
 
-		' [regulatorysnapshot]
-		' Each regulatory snapshot request will incur a fee of 0.01 USD 
-		' client.reqMktData(1004, ContractSamples.USStock(), "", False, True, Nothing)
-		' [regulatorysnapshot]
+        ' [regulatorysnapshot]
+        ' Each regulatory snapshot request will incur a fee of 0.01 USD 
+        ' client.reqMktData(1004, ContractSamples.USStock(), "", False, True, Nothing)
+        ' [regulatorysnapshot]
 
         '! [reqmktdata_genticks]
         'Requesting RTVolume (Time & Sales), shortable And Fundamental Ratios generic ticks
@@ -202,7 +219,7 @@ Module MainModule
         '! [reqmktdata_genticks]
 
         '! [reqmktdata_contractnews]
-		' Without the API news subscription this will generate an "invalid tick type" error
+        ' Without the API news subscription this will generate an "invalid tick type" error
         client.reqMktData(1005, ContractSamples.USStock(), "mdoff,292:BZ", False, False, Nothing)
         client.reqMktData(1006, ContractSamples.USStock(), "mdoff,292:BT", False, False, Nothing)
         client.reqMktData(1007, ContractSamples.USStock(), "mdoff,292:FLY", False, False, Nothing)
@@ -323,11 +340,11 @@ Module MainModule
     Private Sub contractOperations(client As EClientSocket)
 
         '! [reqcontractdetails]
-		client.reqContractDetails(209, ContractSamples.EurGbpFx())
+        client.reqContractDetails(209, ContractSamples.EurGbpFx())
         client.reqContractDetails(210, ContractSamples.OptionForQuery())
-		client.reqContractDetails(211, ContractSamples.Bond())
+        client.reqContractDetails(211, ContractSamples.Bond())
         '! [reqcontractdetails]
-		
+
         '! [reqcontractdetailsnews]
         client.reqContractDetails(211, ContractSamples.NewsFeedForQuery())
         '! [reqcontractdetailsnews]
@@ -577,13 +594,13 @@ Module MainModule
         'client.placeOrder(increment(nextOrderId), ContractSamples.EuropeanStock(), OrderSamples.AttachAdjustableToTrail(lmtParent, 34, 32, 33, 0.008, 0))
 
         'Thread.Sleep(3000)
-	'! [cancelorder]
-        client.cancelOrder(nextOrderId -1)
-	'! [cancelorder]
-	'** Cancel all orders for all accounts ***
-	'! [reqglobalcancel]
+        '! [cancelorder]
+        client.cancelOrder(nextOrderId - 1)
+        '! [cancelorder]
+        '** Cancel all orders for all accounts ***
+        '! [reqglobalcancel]
         'client.reqGlobalCancel()
-	'! [reqglobalcancel]
+        '! [reqglobalcancel]
         '** Request the day's executions ***
         '! [reqexecutions]
         client.reqExecutions(10001, New ExecutionFilter())
@@ -603,7 +620,7 @@ Module MainModule
         ' [cancelNewsTicks]
         client.cancelMktData(10001)
         ' [cancelNewsTicks]
-        
+
         ' Requesting news providers
         Thread.Sleep(2000)
         ' [reqNewsProviders]
@@ -853,23 +870,23 @@ Module MainModule
     End Sub
 
     Private Sub headTimestamp(client As EClientSocket)
-		'! [reqHeadTimeStamp]
+        '! [reqHeadTimeStamp]
         client.reqHeadTimestamp(14001, ContractSamples.USStock(), "TRADES", 1, 1)
-		'! [reqHeadTimeStamp]
-		Thread.Sleep(500)
-		'! [cancelHeadTimestamp]
-		client.cancelHeadTimestamp(14001)
-		'! [cancelHeadTimestamp]		
+        '! [reqHeadTimeStamp]
+        Thread.Sleep(500)
+        '! [cancelHeadTimestamp]
+        client.cancelHeadTimestamp(14001)
+        '! [cancelHeadTimestamp]		
     End Sub
 
     Private Sub histogramData(client As EClientSocket)
-		'! [reqHistogramData]
+        '! [reqHistogramData]
         client.reqHistogramData(15001, ContractSamples.USStockWithPrimaryExch, False, "1 week")
         '! [reqHistogramData]
-		Thread.Sleep(2000)
-		'! [cancelHistogramData]
+        Thread.Sleep(2000)
+        '! [cancelHistogramData]
         client.cancelHistogramData(15001)
-		'! [cancelHistogramData]
+        '! [cancelHistogramData]
     End Sub
 
     Private Sub rerouteCFDOperations(client As EClientSocket)

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace IBSampleApp.ui
 {
-    public class HistoricalDataManager : DataManager
+    class HistoricalDataManager : DataManager
     {
         public const int HISTORICAL_ID_BASE = 30000000;
 

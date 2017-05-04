@@ -375,4 +375,14 @@ public class Test implements EWrapper {
 	public void marketRule(int marketRuleId, PriceIncrement[] priceIncrements) {
 		System.out.println(EWrapperMsgGenerator.marketRule(marketRuleId, priceIncrements));
 	}
+	
+	@Override
+    public void dailyPnL(int reqId, double dailyPnL) {
+        System.out.println(EWrapperMsgGenerator.dailyPnL(reqId, dailyPnL));
+    }
+
+    @Override
+    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
+        System.out.println(EWrapperMsgGenerator.dailyPnLSingle(reqId, pos, dailyPnL, value));
+    }
 }

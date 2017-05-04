@@ -185,6 +185,10 @@ public abstract class EClient {
     private static final int CANCEL_HISTOGRAM_DATA = 89;
     private static final int CANCEL_HEAD_TIMESTAMP = 90;
     private static final int REQ_MARKET_RULE = 91;
+    private static final int REQ_DAILY_PNL = 92;
+    private static final int CANCEL_DAILY_PNL = 93;
+    private static final int REQ_DAILY_PNL_SINGLE = 94;
+    private static final int CANCEL_DAILY_PNL_SINGLE = 95;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -255,9 +259,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_SYNT_REALTIME_BARS = 124;
     protected static final int MIN_SERVER_VER_CFD_REROUTE = 125;
     protected static final int MIN_SERVER_VER_MARKET_RULES = 126;
+    protected static final int MIN_SERVER_VER_DAILY_PNL = 127;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_MARKET_RULES; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_DAILY_PNL; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -3431,6 +3436,111 @@ public abstract class EClient {
         }
     }
     
+    public synchronized void reqDailyPnL(int reqId, String account, String modelCode) {
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        	error(reqId, EClientErrors.UPDATE_TWS,
+        			"  It does not support daily PnL requests.");
+        	return;
+        }
+        
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(REQ_DAILY_PNL);
+            b.send(reqId);
+            b.send(account);
+            b.send(modelCode);
+
+            closeAndSend(b);
+        } catch(Exception e) {
+            error(reqId, EClientErrors.FAIL_SEND_REQDAILYPNL, e.toString());
+            close();
+        }
+    }
+    
+    public synchronized void cancelDailyPnL(int reqId) {
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        	error(reqId, EClientErrors.UPDATE_TWS,
+        			"  It does not support daily PnL requests.");
+        	return;
+        }
+        
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(CANCEL_DAILY_PNL);
+            b.send(reqId);
+
+            closeAndSend(b);
+        } catch(Exception e) {
+            error(reqId, EClientErrors.FAIL_SEND_CANDAILYPNL, e.toString());
+            close();
+        }
+    }
+
+    public synchronized void reqDailyPnLSingle(int reqId, String account, String modelCode, int conId) {
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        	error(reqId, EClientErrors.UPDATE_TWS,
+        			"  It does not support daily PnL requests.");
+        	return;
+        }
+        
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(REQ_DAILY_PNL_SINGLE);
+            b.send(reqId);
+            b.send(account);
+            b.send(modelCode);
+            b.send(conId);
+
+            closeAndSend(b);
+        } catch(Exception e) {
+            error(reqId, EClientErrors.FAIL_SEND_REQDAILYPNL_SINGLE, e.toString());
+            close();
+        }
+    }
+    
+    public synchronized void cancelDailyPnLSingle(int reqId) {
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        	error(reqId, EClientErrors.UPDATE_TWS,
+        			"  It does not support daily PnL requests.");
+        	return;
+        }
+        
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(CANCEL_DAILY_PNL_SINGLE);
+            b.send(reqId);
+
+            closeAndSend(b);
+        } catch(Exception e) {
+            error(reqId, EClientErrors.FAIL_SEND_CANDAILYPNL_SINGLE, e.toString());
+            close();
+        }
+    }
+  
     /**
      * @deprecated This method is never called.
      */

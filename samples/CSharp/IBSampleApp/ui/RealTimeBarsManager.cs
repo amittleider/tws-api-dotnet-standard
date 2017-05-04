@@ -11,7 +11,7 @@ using IBSampleApp.messages;
 
 namespace IBSampleApp.ui
 {
-    public class RealTimeBarsManager : HistoricalDataManager
+    class RealTimeBarsManager : HistoricalDataManager
     {
         public const int RT_BARS_ID_BASE = 40000000;
 

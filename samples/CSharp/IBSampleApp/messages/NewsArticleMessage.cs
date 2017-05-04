@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class NewsArticleMessage
+    class NewsArticleMessage
     {
         public int RequestId { get; private set; }
         public int ArticleType { get; private set; }

@@ -2996,7 +2996,7 @@ void EClient::cancelHistogramData(int reqId) {
 		return;
 	}
 
-		std::stringstream msg;
+	std::stringstream msg;
 	prepareBuffer(msg);
 
 	ENCODE_FIELD(CANCEL_HISTOGRAM_DATA);
@@ -3024,6 +3024,95 @@ void EClient::reqMarketRule(int marketRuleId) {
 	ENCODE_FIELD(marketRuleId);
 
 	closeAndSend(msg.str());
+}
+
+void EClient::reqDailyPnL(int reqId, const std::string& account, const std::string& modelCode) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support daily PnL requests.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(REQ_DAILY_PNL);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(account);
+    ENCODE_FIELD(modelCode);
+
+    closeAndSend(msg.str());
+}
+
+void EClient::cancelDailyPnL(int reqId) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support daily PnL requests.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(CANCEL_DAILY_PNL);
+    ENCODE_FIELD(reqId);
+
+    closeAndSend(msg.str());
+}
+
+void EClient::reqDailyPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support daily PnL requests.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(REQ_DAILY_PNL_SINGLE);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(account);
+    ENCODE_FIELD(modelCode);
+    ENCODE_FIELD(conId);
+
+    closeAndSend(msg.str());
+}
+
+void EClient::cancelDailyPnLSingle(int reqId) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support daily PnL requests.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(CANCEL_DAILY_PNL_SINGLE);
+    ENCODE_FIELD(reqId);
+
+    closeAndSend(msg.str());
 }
 
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
@@ -3079,7 +3168,7 @@ int EClient::processOnePrefixedMsg(const char*& beginPtr, const char* endPtr, me
 
 	int consumed = msgEnd - beginPtr;
 	beginPtr = msgEnd;
-	return consumed;
+    return consumed;
 }
 
 bool EClient::extraAuth() {

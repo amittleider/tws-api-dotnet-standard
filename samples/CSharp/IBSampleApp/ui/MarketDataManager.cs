@@ -12,7 +12,7 @@ using IBSampleApp.types;
 
 namespace IBSampleApp.ui
 {
-    public class MarketDataManager : DataManager
+    class MarketDataManager : DataManager
     {
         public const int TICK_ID_BASE = 10000000;
 

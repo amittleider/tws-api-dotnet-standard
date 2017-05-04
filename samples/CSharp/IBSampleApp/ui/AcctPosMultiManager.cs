@@ -10,7 +10,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class AcctPosMultiManager
+    class AcctPosMultiManager
     {
         private const int ACCTPOSMULTI_ID_BASE = 80000000;
 

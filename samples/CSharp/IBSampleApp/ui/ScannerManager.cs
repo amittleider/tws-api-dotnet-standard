@@ -11,7 +11,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class ScannerManager : DataManager
+    class ScannerManager : DataManager
     {
         private int rowCounter = -1;
 

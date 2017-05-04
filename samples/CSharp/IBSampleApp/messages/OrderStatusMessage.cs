@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class OrderStatusMessage : OrderMessage
+    class OrderStatusMessage : OrderMessage
     {
         private string status;
         private double filled;

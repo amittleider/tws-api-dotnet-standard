@@ -32,6 +32,26 @@ Friend Class ApiEventSource
 
 #Region "IBApi.EWrapper"
 
+    Private Sub EWrapper_dailyPnL(reqId As Integer, dailyPnL As Double) Implements EWrapper.dailyPnL
+        InvokeIfRequired(Sub()
+                             RaiseEvent DailyPnL(Me, New DailyPnLEventArgs With {
+                                 .requestId = reqId,
+                                 .dailyPnL = dailyPnL
+                                         })
+                         End Sub)
+    End Sub
+
+    Private Sub EWrapper_dailyPnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, value As Double) Implements EWrapper.dailyPnLSingle
+        InvokeIfRequired(Sub()
+                             RaiseEvent DailyPnLSingle(Me, New DailyPnLSingleEventArgs With {
+                                 .requestId = reqId,
+                                 .pos = pos,
+                                 .dailyPnL = dailyPnL,
+                                 .value = value
+                                         })
+                         End Sub)
+    End Sub
+
     Private Sub EWrapper_histogramdata(requestId As Integer, data As HistogramEntry()) Implements EWrapper.histogramData
         InvokeIfRequired(Sub()
                              RaiseEvent HistogramData(Me, New HistogramDataEventArgs With {
@@ -730,6 +750,8 @@ Friend Class ApiEventSource
 
 #Region "Event declarations"
 
+    Event DailyPnLSingle(sender As ApiEventSource, e As DailyPnLSingleEventArgs)
+    Event DailyPnL(sender As ApiEventSource, e As DailyPnLEventArgs)
     Event HistogramData(sender As ApiEventSource, e As HistogramDataEventArgs)
     Event HeadTimestamp(sender As ApiEventSource, e As HeadTimestampEventArgs)
     Event NextValidId(sender As Object, e As NextValidIdEventArgs)

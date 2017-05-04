@@ -8,7 +8,7 @@ using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class FamilyCodesMessage
+    class FamilyCodesMessage
     {
         public FamilyCode[] FamilyCodes { get; private set; }
 

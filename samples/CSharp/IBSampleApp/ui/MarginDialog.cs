@@ -14,7 +14,7 @@ using IBApi;
 
 namespace IBSampleApp.ui
 {
-    public partial class MarginDialog : Form
+    partial class MarginDialog : Form
     {
         delegate void UpdateMarginInformationDelegate(OrderState state);
 

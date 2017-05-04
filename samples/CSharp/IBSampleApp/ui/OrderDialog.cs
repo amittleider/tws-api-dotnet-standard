@@ -16,7 +16,7 @@ using IBSampleApp.types;
 
 namespace IBSampleApp
 {
-    public partial class OrderDialog : Form
+    partial class OrderDialog : Form
     {
         private MarginDialog marginDialog;
         private OrderManager orderManager;
