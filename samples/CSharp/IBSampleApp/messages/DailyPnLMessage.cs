@@ -12,7 +12,6 @@ namespace IBSampleApp.messages
 
         public DailyPnLMessage(int reqId, double dailyPnL)
         {
-            // TODO: Complete member initialization
             this.ReqId = reqId;
             this.DailyPnL = dailyPnL;
         }

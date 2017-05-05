@@ -1682,7 +1682,7 @@ public class ApiController implements EWrapper {
 	    
 	}
 
-	public void reqDailyPnL(String account, IDailyPnLHandler handler) {
+	public void reqDailyPnL(String account, String modelCode, IDailyPnLHandler handler) {
 	    if (!checkConnection())
 	        return;
 
@@ -1690,7 +1690,7 @@ public class ApiController implements EWrapper {
 
 	    m_dailyPnLMap.put(reqId, handler);
 
-	    m_client.reqDailyPnL(reqId, "", account);
+	    m_client.reqDailyPnL(reqId, account, modelCode);
 	}
 
 	public void cancelDailyPnL(IDailyPnLHandler handler) {
@@ -1722,7 +1722,7 @@ public class ApiController implements EWrapper {
         
     }
 
-    public void reqDailyPnLSingle(String account, Contract contract, IDailyPnLSingleHandler handler) {
+    public void reqDailyPnLSingle(String account, String modelCode, int conId, IDailyPnLSingleHandler handler) {
         if (!checkConnection())
             return;
 
@@ -1730,7 +1730,7 @@ public class ApiController implements EWrapper {
 
         m_dailyPnLSingleMap.put(reqId, handler);
 
-        m_client.reqDailyPnLSingle(reqId, account, "", contract.conid());
+        m_client.reqDailyPnLSingle(reqId, account, modelCode, conId);
     }
 
     public void cancelDailyPnLSingle(IDailyPnLSingleHandler handler) {

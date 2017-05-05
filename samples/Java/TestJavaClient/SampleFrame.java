@@ -43,6 +43,8 @@ class SampleFrame extends JFrame implements EWrapper {
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
 	private MarketRuleDlg   m_marketRuleDlg = new MarketRuleDlg(this);
+    private DailyPnLDlg     m_dailyPnLDlg = new DailyPnLDlg(this);
+    private DailyPnLSingleDlg   m_dailyPnLSingleDlg = new DailyPnLSingleDlg(this);
 
     private List<TagValue> m_mktDataOptions = new ArrayList<>();
     private List<TagValue> m_chartOptions = new ArrayList<>();
@@ -235,6 +237,14 @@ class SampleFrame extends JFrame implements EWrapper {
         butHistogramCancel.addActionListener(e -> onHistogramCancel());
         JButton butReqMarketRule = new JButton("Req Market Rule");
         butReqMarketRule.addActionListener(e -> onReqMarketRule());
+        JButton butReqDailyPnL = new JButton("Req Daily PnL");
+        butReqDailyPnL.addActionListener(e -> onReqDailyPnL());
+        JButton butCancelDailyPnL = new JButton("Cancel Daily PnL");
+        butCancelDailyPnL.addActionListener(e -> onCancelDailyPnL());
+        JButton butReqDailyPnLSingle = new JButton("Req Daily PnL Single");
+        butReqDailyPnLSingle.addActionListener(e -> onReqDailyPnLSingle());
+        JButton butCancelDailyPnLSingle = new JButton("Cancel Daily PnL Single");
+        butCancelDailyPnLSingle.addActionListener(e -> onCancelDailyPnLSingle());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -305,12 +315,45 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add(butHistogram);
         buttonPanel.add(butHistogramCancel);
         buttonPanel.add(butReqMarketRule);
+        buttonPanel.add(butReqDailyPnL);
+        buttonPanel.add(butCancelDailyPnL);
+        buttonPanel.add(butReqDailyPnLSingle);
+        buttonPanel.add(butCancelDailyPnLSingle);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
         buttonPanel.add( butClose );
 
         return buttonPanel;
+    }
+
+    private void onCancelDailyPnLSingle() {
+        m_client.cancelDailyPnLSingle(m_dailyPnLSingleDlg.m_reqId);
+    }
+
+    private void onCancelDailyPnL() {
+        m_client.cancelDailyPnL(m_dailyPnLDlg.m_reqId);
+    }
+
+    private void onReqDailyPnLSingle() {
+        m_dailyPnLSingleDlg.setVisible(true);
+        
+        if (!m_dailyPnLSingleDlg.isOk()) {
+            return;
+        }
+        
+        m_client.reqDailyPnLSingle(m_dailyPnLSingleDlg.m_reqId, m_dailyPnLSingleDlg.m_account, m_dailyPnLSingleDlg.m_modelCode, 
+                m_dailyPnLSingleDlg.m_conId);
+    }
+
+    private void onReqDailyPnL() {
+        m_dailyPnLDlg.setVisible(true);
+        
+        if (!m_dailyPnLDlg.isOk()) {
+            return;
+        }
+        
+        m_client.reqDailyPnL(m_dailyPnLDlg.m_reqId, m_dailyPnLDlg.m_account, m_dailyPnLDlg.m_modelCode);
     }
 
     private void onReqMarketRule() {

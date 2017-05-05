@@ -127,6 +127,7 @@
     <Compile Include="ui\ContractSearchDialog.Designer.cs">
       <DependentUpon>ContractSearchDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\DailyPnLManager.cs" />
     <Compile Include="ui\NewsManager.cs" />
     <Compile Include="ui\SmartComponentsMessage.cs" />
     <Compile Include="ui\SymbolSamplesManager.cs" />
