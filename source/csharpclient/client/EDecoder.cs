@@ -337,7 +337,7 @@ namespace IBApi
                     HistogramDataEvent();
                     break;
 
-                case IncomingMessage.HistogramDataUpdate:
+                case IncomingMessage.HistoricalDataUpdate:
                     HistoricalDataUpdateEvent();
                     break;
 
