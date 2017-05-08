@@ -120,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiEventSource.vb" />
+    <Compile Include="dlgDailyPnL.Designer.vb">
+      <DependentUpon>dlgDailyPnL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgDailyPnL.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EventArgs\DailyPnLSingleEventArgs.vb" />
     <Compile Include="EventArgs\DailyPnLEventArgs.vb" />
     <Compile Include="dlgMarketRule.vb">
@@ -313,6 +319,9 @@
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="dlgDailyPnL.resx">
+      <DependentUpon>dlgDailyPnL.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dlgMarketRule.resX">
       <DependentUpon>dlgMarketRule.vb</DependentUpon>
       <SubType>Designer</SubType>

@@ -108,6 +108,10 @@ Friend Class MainForm
     Public WithEvents cmdReqHeadTimestamp As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistogramData As System.Windows.Forms.Button
     Friend WithEvents cmdReqMarketRule As System.Windows.Forms.Button
+    Friend WithEvents cmdCancelDailyPnlSingle As System.Windows.Forms.Button
+    Friend WithEvents cmdReqDailyPnlSingle As System.Windows.Forms.Button
+    Public WithEvents cmdCancelDailyPnl As System.Windows.Forms.Button
+    Friend WithEvents cmdReqDailyPnl As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -174,6 +178,10 @@ Friend Class MainForm
         Me.cmdReqHeadTimestamp = New System.Windows.Forms.Button()
         Me.cmdReqHistogramData = New System.Windows.Forms.Button()
         Me.cmdReqMarketRule = New System.Windows.Forms.Button()
+        Me.cmdCancelDailyPnlSingle = New System.Windows.Forms.Button()
+        Me.cmdReqDailyPnlSingle = New System.Windows.Forms.Button()
+        Me.cmdCancelDailyPnl = New System.Windows.Forms.Button()
+        Me.cmdReqDailyPnl = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -323,7 +331,7 @@ Friend Class MainForm
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(224, 743)
+        Me.cmdClearForm.Location = New System.Drawing.Point(224, 818)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
@@ -338,7 +346,7 @@ Friend Class MainForm
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(320, 743)
+        Me.cmdClose.Location = New System.Drawing.Point(320, 818)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(89, 25)
@@ -939,11 +947,56 @@ Friend Class MainForm
         Me.cmdReqMarketRule.Text = "Req Market Rule"
         Me.cmdReqMarketRule.UseVisualStyleBackColor = True
         '
+        'cmdCancelDailyPnlSingle
+        '
+        Me.cmdCancelDailyPnlSingle.Location = New System.Drawing.Point(681, 776)
+        Me.cmdCancelDailyPnlSingle.Name = "cmdCancelDailyPnlSingle"
+        Me.cmdCancelDailyPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelDailyPnlSingle.TabIndex = 67
+        Me.cmdCancelDailyPnlSingle.Text = "Cancel Daily PnL Single"
+        Me.cmdCancelDailyPnlSingle.UseVisualStyleBackColor = True
+        '
+        'cmdReqDailyPnlSingle
+        '
+        Me.cmdReqDailyPnlSingle.Location = New System.Drawing.Point(543, 776)
+        Me.cmdReqDailyPnlSingle.Name = "cmdReqDailyPnlSingle"
+        Me.cmdReqDailyPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqDailyPnlSingle.TabIndex = 66
+        Me.cmdReqDailyPnlSingle.Text = "Req Daily PnL Single..."
+        Me.cmdReqDailyPnlSingle.UseVisualStyleBackColor = True
+        '
+        'cmdCancelDailyPnl
+        '
+        Me.cmdCancelDailyPnl.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdCancelDailyPnl.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdCancelDailyPnl.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancelDailyPnl.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdCancelDailyPnl.Location = New System.Drawing.Point(681, 749)
+        Me.cmdCancelDailyPnl.Name = "cmdCancelDailyPnl"
+        Me.cmdCancelDailyPnl.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdCancelDailyPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelDailyPnl.TabIndex = 65
+        Me.cmdCancelDailyPnl.Text = "Cancel Daily PnL"
+        Me.cmdCancelDailyPnl.UseVisualStyleBackColor = True
+        '
+        'cmdReqDailyPnl
+        '
+        Me.cmdReqDailyPnl.Location = New System.Drawing.Point(543, 749)
+        Me.cmdReqDailyPnl.Name = "cmdReqDailyPnl"
+        Me.cmdReqDailyPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqDailyPnl.TabIndex = 64
+        Me.cmdReqDailyPnl.Text = "Req Daily PnL..."
+        Me.cmdReqDailyPnl.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(823, 779)
+        Me.ClientSize = New System.Drawing.Size(823, 854)
+        Me.Controls.Add(Me.cmdCancelDailyPnlSingle)
+        Me.Controls.Add(Me.cmdReqDailyPnlSingle)
+        Me.Controls.Add(Me.cmdCancelDailyPnl)
+        Me.Controls.Add(Me.cmdReqDailyPnl)
         Me.Controls.Add(Me.cmdReqMarketRule)
         Me.Controls.Add(Me.cmdReqHistogramData)
         Me.Controls.Add(Me.cmdReqHeadTimestamp)
@@ -1057,6 +1110,7 @@ Friend Class MainForm
     Private m_mktDepthOptions As List(Of IBApi.TagValue)
     Private m_realTimeBarsOptions As List(Of IBApi.TagValue)
 
+    Private m_dlgPnL As New dlgDailyPnL
     Private m_dlgOrder As New dlgOrder
     Private m_dlgConnect As New dlgConnect
     Private m_dlgMktDepth As New dlgMktDepth
@@ -1858,6 +1912,14 @@ Friend Class MainForm
 #End Region
 
 #Region "API event handlers"
+
+    Private Sub m_apiEvents_DailyPnL(sender As ApiEventSource, e As DailyPnLEventArgs) Handles m_apiEvents.DailyPnL
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Daily PnL, req id: {0}, Daily PnL: {1}", e.requestId, e.dailyPnL))
+    End Sub
+
+    Private Sub m_apiEvents_DailyPnLSingle(sender As ApiEventSource, e As DailyPnLSingleEventArgs) Handles m_apiEvents.DailyPnLSingle
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Daily PnL Single, req id: {0}, Pos:{1}, Daily PnL: {2}, Value: {3}", e.requestId, e.pos, e.dailyPnL, e.value))
+    End Sub
 
     '--------------------------------------------------------------------------------
     ' Returns the next valid order id upon connection - triggered by the connect() and
@@ -3316,4 +3378,25 @@ Friend Class MainForm
                 m_dlgOrder.useRTH, m_dlgOrder.histDuration)
         End If
     End Sub
+
+    Private Sub cmdReqDailyPnl_Click(sender As Object, e As EventArgs) Handles cmdReqDailyPnl.Click
+        If m_dlgPnL.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.reqDailyPnL(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode)
+        End If
+    End Sub
+
+    Private Sub cmdCancelDailyPnl_Click(sender As Object, e As EventArgs) Handles cmdCancelDailyPnl.Click
+        m_api.cancelDailyPnL(m_dlgPnL.ReqId)
+    End Sub
+
+    Private Sub cmdReqDailyPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdReqDailyPnlSingle.Click
+        If m_dlgPnL.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.reqDailyPnLSingle(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode, m_dlgPnL.ConId)
+        End If
+    End Sub
+
+    Private Sub cmdCancelDailyPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdCancelDailyPnlSingle.Click
+        m_api.cancelDailyPnLSingle(m_dlgPnL.ReqId)
+    End Sub
+
 End Class

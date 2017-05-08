@@ -49,6 +49,8 @@ namespace IBSampleApp
 
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
+        private DataTable dailyPnLdataTable = new DataTable(), dailyPnLSingledataTable = new DataTable();
+
 
         public IBSampleAppDialog()
         {
@@ -68,6 +70,13 @@ namespace IBSampleApp
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
             newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders, textBoxNewsArticle, dataGridViewHistoricalNews);
+            dailyPnLMgr = new DailyPnLManager(ibClient);
+
+            dailyPnLdataTable.Columns.Add("Daily PnL");
+            dailyPnLSingledataTable.Columns.Add("Pos");
+            dailyPnLSingledataTable.Columns.Add("Daily PnL");
+            dailyPnLSingledataTable.Columns.Add("Value");
+
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
 
@@ -185,6 +194,18 @@ namespace IBSampleApp
             ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.MarketRule += contractManager.HandleMarketRuleMessage;
+            ibClient.DailyPnL += UpdateUI;
+            ibClient.DailyPnLSingle += UpdateUI;
+        }
+
+        private void UpdateUI(DailyPnLSingleMessage obj)
+        {
+            dailyPnLSingledataTable.Rows.Add(obj.Pos, obj.DailyPnL, obj.Value);
+        }
+
+        private void UpdateUI(DailyPnLMessage obj)
+        {
+            dailyPnLdataTable.Rows.Add(obj.DailyPnL); 
         }
 
         private void UpdateUI(HistogramDataMessage obj)
@@ -1164,6 +1185,43 @@ namespace IBSampleApp
                 ibClient.ClientSocket.reqMarketRule(marketRuleId);
                 ShowTab(contractInfoTab, marketRulePage);
             }
+        }
+
+        DailyPnLManager dailyPnLMgr;
+
+        private void btnReqDailyPnL_Click(object sender, EventArgs e)
+        {
+            dailyPnLMgr.CancelDailyPnLSingle();
+            dailyPnLdataTable.Clear();
+
+            dataGridViewDailyPnL.DataSource = dailyPnLdataTable;
+
+            dailyPnLMgr.ReqDailyPnL(accountSelector.SelectedItem + "", tbModelCode.Text);
+        }
+
+        private void btnReqDailyPnLSingle_Click(object sender, EventArgs e)
+        {
+            dailyPnLMgr.CancelDailyPnL();
+            dailyPnLSingledataTable.Clear();
+
+            dataGridViewDailyPnL.DataSource = dailyPnLSingledataTable;
+
+            var conId = 0;
+
+            if (int.TryParse(tbConId.Text, out conId))
+            {
+                dailyPnLMgr.ReqDailyPnLSingle(accountSelector.SelectedItem + "", tbModelCode.Text, conId);
+            }
+        }
+
+        private void btnCancelDailyPnl_Click(object sender, EventArgs e)
+        {
+            dailyPnLMgr.CancelDailyPnL();
+        }
+
+        private void btnCancelDailyPnlSingle_Click(object sender, EventArgs e)
+        {
+            dailyPnLMgr.CancelDailyPnLSingle();
         }
     }
 }
