@@ -298,6 +298,7 @@ public class EWrapperMsgGenerator {
         + "underSymbol = " + contractDetails.underSymbol() + "\n"
         + "underSecType = " + contractDetails.underSecType() + "\n"
         + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
+        + "bestMarketRuleId = " + contractDetails.bestMarketRuleId() + "\n"
         + contractDetailsSecIdList(contractDetails);
     }
     
@@ -351,6 +352,7 @@ public class EWrapperMsgGenerator {
         + "mdSizeMultiplier = " + contractDetails.mdSizeMultiplier() + "\n"
         + "aggGroup = " + contractDetails.aggGroup() + "\n"
         + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
+        + "bestMarketRuleId = " + contractDetails.bestMarketRuleId() + "\n"
         + contractDetailsSecIdList(contractDetails)
         + " ---- Bond Contract Details End ----\n";
     }

@@ -1055,6 +1055,10 @@ namespace IBApi
             {
                 contract.MarketRuleIds = ReadString();
             }
+            if (serverVersion >= MinServerVer.BEST_MARKET_RULE_ID)
+            {
+                contract.BestMarketRuleId = ReadInt();
+            }
 
             eWrapper.bondContractDetails(requestId, contract);
         }
@@ -1681,6 +1685,10 @@ namespace IBApi
             if (serverVersion >= MinServerVer.MARKET_RULES)
             {
                 contract.MarketRuleIds = ReadString();
+            }
+            if (serverVersion >= MinServerVer.BEST_MARKET_RULE_ID)
+            {
+                contract.BestMarketRuleId = ReadInt();
             }
 
             eWrapper.contractDetails(requestId, contract);
