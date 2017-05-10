@@ -865,9 +865,6 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 	if (m_serverVersion >= MIN_SERVER_VER_MARKET_RULES) {
 		DECODE_FIELD( contract.marketRuleIds);
 	}
-	if (m_serverVersion >= MIN_SERVER_VER_BEST_MARKET_RULE_ID) {
-		DECODE_FIELD( contract.bestMarketRuleId);
-	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 
@@ -939,9 +936,6 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 	}
 	if (m_serverVersion >= MIN_SERVER_VER_MARKET_RULES) {
 		DECODE_FIELD( contract.marketRuleIds);
-	}
-	if (m_serverVersion >= MIN_SERVER_VER_BEST_MARKET_RULE_ID) {
-		DECODE_FIELD( contract.bestMarketRuleId);
 	}
 
 	m_pEWrapper->bondContractDetails( reqId, contract);

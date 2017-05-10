@@ -260,10 +260,9 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_CFD_REROUTE = 125;
     protected static final int MIN_SERVER_VER_MARKET_RULES = 126;
     protected static final int MIN_SERVER_VER_DAILY_PNL = 127;
-    protected static final int MIN_SERVER_VER_BEST_MARKET_RULE_ID = 128;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_BEST_MARKET_RULE_ID; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_DAILY_PNL; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler

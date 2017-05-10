@@ -1075,9 +1075,6 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_RULES) {
 			contract.marketRuleIds(readStr());
 		}
-		if (m_serverVersion >= EClient.MIN_SERVER_VER_BEST_MARKET_RULE_ID) {
-			contract.bestMarketRuleId(readInt());
-		}
 		
 		m_EWrapper.bondContractDetails( reqId, contract);
 	}
@@ -1153,9 +1150,6 @@ class EDecoder implements ObjectInput {
 		}
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_RULES) {
 			contract.marketRuleIds(readStr());
-		}
-		if (m_serverVersion >= EClient.MIN_SERVER_VER_BEST_MARKET_RULE_ID) {
-			contract.bestMarketRuleId(readInt());
 		}
 
 		m_EWrapper.contractDetails( reqId, contract);
