@@ -222,15 +222,6 @@ namespace TWSLib
         }
 
         /**
-        * @brief Best market rule id
-        */
-        int BestMarketRuleId
-        {
-            get { return data != null ? data.BestMarketRuleId : default(int); }
-            set { if (data != null) data.BestMarketRuleId = value; }
-        }
-
-        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -577,11 +568,6 @@ namespace TWSLib
         string TWSLib.IContractDetails.marketRuleIds
         {
             get { return MarketRuleIds; }
-        }
-
-        int TWSLib.IContractDetails.bestMarketRuleId
-        {
-            get { return BestMarketRuleId; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

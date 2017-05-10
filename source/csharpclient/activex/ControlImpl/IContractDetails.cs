@@ -92,7 +92,5 @@ namespace TWSLib
         string underSecType { get; }
         [DispId(41)]
         string marketRuleIds { get; }
-        [DispId(42)]
-        int bestMarketRuleId { get; }
     }
 }

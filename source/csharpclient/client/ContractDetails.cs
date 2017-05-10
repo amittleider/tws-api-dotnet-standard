@@ -39,7 +39,6 @@ namespace IBApi
         private string underSymbol;
         private string underSecType;
         private string marketRuleIds;
-        private int bestMarketRuleId;
        
         // BOND values
         private string cusip;
@@ -274,15 +273,6 @@ namespace IBApi
         }
 
         /**
-        * @brief Best market rule id
-        */
-        public int BestMarketRuleId
-        {
-            get { return bestMarketRuleId; }
-            set { bestMarketRuleId = value; }
-        }
-
-        /**
         * @brief The nine-character bond CUSIP or the 12-character SEDOL.
          * For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription.
         */
@@ -440,16 +430,14 @@ namespace IBApi
         }
 
         public ContractDetails(Contract summary, String marketName,
-                double minTick, int priceMagnifier, String orderTypes, String validExchanges, int underConId, String longName,
+                double minTick, String orderTypes, String validExchanges, int underConId, String longName,
                 String contractMonth, String industry, String category, String subcategory,
                 String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, double evMultiplier, int mdSizeMultiplier, int aggGroup, List<TagValue> secIdList,
-                String underSymbol, String underSecType, String marketRuleIds, int bestMarketRuleId)
+                String evRule, double evMultiplier, int aggGroup)
         {
             Summary = summary;
             MarketName = marketName;
             MinTick = minTick;
-            PriceMagnifier = priceMagnifier;
             OrderTypes = orderTypes;
             ValidExchanges = validExchanges;
             UnderConId = underConId;
@@ -463,13 +451,7 @@ namespace IBApi
             LiquidHours = liquidHours;
             EvRule = evRule;
             EvMultiplier = evMultiplier;
-            MdSizeMultiplier = mdSizeMultiplier;
             AggGroup = aggGroup;
-            SecIdList = secIdList;
-            UnderSymbol = underSymbol;
-            UnderSecType = underSecType;
-            MarketRuleIds = marketRuleIds;
-            BestMarketRuleId = bestMarketRuleId;
         }
     }
 }
