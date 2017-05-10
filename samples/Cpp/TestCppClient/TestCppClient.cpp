@@ -1168,13 +1168,13 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_DAILYPNLSINGLE; 
+    //m_state = ST_DAILYPNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	//m_state = ST_CONTRACTOPERATION;
+	m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1317,20 +1317,20 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n", reqId, 
+	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Under Symbol: %s, Under SecType: %s, Best Market Rule Id: %ld\n"
+		, reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), 
-		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(),
-		contractDetails.marketRuleIds.c_str());
+		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(), contractDetails.bestMarketRuleId);
 }
 //! [contractdetails]
 
+//! [bondcontractdetails]
 void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s, MarketRuleIds: %s\n", reqId, 
+	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Best Market Rule Id: %ld\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(),
-		contractDetails.marketRuleIds.c_str());
+		contractDetails.bestMarketRuleId);
 }
+//! [bondcontractdetails]
 
 //! [contractdetailsend]
 void TestCppClient::contractDetailsEnd( int reqId) {

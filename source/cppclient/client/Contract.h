@@ -118,6 +118,9 @@ struct ContractDetails
 		, priceMagnifier(0)
 		, underConId(0)
 		, evMultiplier(0)
+		, mdSizeMultiplier(0)
+		, aggGroup(0)
+		, bestMarketRuleId(0)
 		, callable(false)
 		, putable(false)
 		, coupon(0)
@@ -148,6 +151,7 @@ struct ContractDetails
 	std::string	underSymbol;
 	std::string	underSecType;
 	std::string marketRuleIds;
+	int			bestMarketRuleId;
 
 	TagValueListSPtr secIdList;
 
