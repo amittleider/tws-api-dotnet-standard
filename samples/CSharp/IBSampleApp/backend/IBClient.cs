@@ -7,6 +7,7 @@ using System.Text;
 using IBApi;
 using System.Windows.Forms;
 using IBSampleApp.messages;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IBSampleApp
@@ -110,13 +111,12 @@ namespace IBSampleApp
             set { clientId = value; }
         }
 
-        TaskScheduler scheduler;
+        SynchronizationContext sc;
 
         public IBClient(EReaderSignal signal)
         {
             clientSocket = new EClientSocket(this, signal);
-
-            scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            sc = SynchronizationContext.Current;
         }
 
         public EClientSocket ClientSocket
@@ -138,9 +138,7 @@ namespace IBSampleApp
             var tmp = Error;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(0, 0, null, e)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(0, 0, null, e), null);
         }
 
         void EWrapper.error(string str)
@@ -148,9 +146,7 @@ namespace IBSampleApp
             var tmp = Error;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(0, 0, str, null)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(0, 0, str, null), null);
         }
 
         void EWrapper.error(int id, int errorCode, string errorMsg)
@@ -158,9 +154,7 @@ namespace IBSampleApp
             var tmp = Error;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(id, errorCode, errorMsg, null)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(id, errorCode, errorMsg, null), null);
         }
 
         public event Action ConnectionClosed;
@@ -170,9 +164,7 @@ namespace IBSampleApp
             var tmp = ConnectionClosed;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp()
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(), null);
         }
 
         public event Action<long> CurrentTime;
@@ -182,9 +174,7 @@ namespace IBSampleApp
             var tmp = CurrentTime;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(time)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(time), null);
         }
 
         public event Action<TickPriceMessage> TickPrice;
@@ -194,9 +184,7 @@ namespace IBSampleApp
             var tmp = TickPrice;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new TickPriceMessage(tickerId, field, price, attribs))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new TickPriceMessage(tickerId, field, price, attribs)), null);
         }
 
         public event Action<TickSizeMessage> TickSize;
@@ -206,9 +194,7 @@ namespace IBSampleApp
             var tmp = TickSize;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new TickSizeMessage(tickerId, field, size))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new TickSizeMessage(tickerId, field, size)), null);
         }
 
         public event Action<int, int, string> TickString;
@@ -218,9 +204,7 @@ namespace IBSampleApp
             var tmp = TickString;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(tickerId, tickType, value)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(tickerId, tickType, value), null);
         }
 
         public event Action<int, int, double> TickGeneric;
@@ -230,9 +214,7 @@ namespace IBSampleApp
             var tmp = TickGeneric;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(tickerId, field, value)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(tickerId, field, value), null);
         }
 
         public event Action<int, int, double, string, double, int, string, double, double> TickEFP;
@@ -242,9 +224,7 @@ namespace IBSampleApp
             var tmp = TickEFP;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate), null);
         }
 
         public event Action<int> TickSnapshotEnd;
@@ -254,9 +234,7 @@ namespace IBSampleApp
             var tmp = TickSnapshotEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(tickerId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(tickerId), null);
         }
 
         public event Action<ConnectionStatusMessage> NextValidId;
@@ -266,9 +244,7 @@ namespace IBSampleApp
             var tmp = NextValidId;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new ConnectionStatusMessage(true))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new ConnectionStatusMessage(true)), null);
 
             NextOrderId = orderId;
         }
@@ -280,9 +256,7 @@ namespace IBSampleApp
             var tmp = DeltaNeutralValidation;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, underComp)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, underComp), null);
         }
 
         public event Action<ManagedAccountsMessage> ManagedAccounts;
@@ -292,9 +266,7 @@ namespace IBSampleApp
             var tmp = ManagedAccounts;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new ManagedAccountsMessage(accountsList))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new ManagedAccountsMessage(accountsList)), null);
         }
 
         public event Action<TickOptionMessage> TickOptionCommunication;
@@ -304,9 +276,7 @@ namespace IBSampleApp
             var tmp = TickOptionCommunication;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new TickOptionMessage(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new TickOptionMessage(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice)), null);
         }
 
         public event Action<AccountSummaryMessage> AccountSummary;
@@ -316,9 +286,7 @@ namespace IBSampleApp
             var tmp = AccountSummary;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AccountSummaryMessage(reqId, account, tag, value, currency))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AccountSummaryMessage(reqId, account, tag, value, currency)), null);
         }
 
         public event Action<AccountSummaryEndMessage> AccountSummaryEnd;
@@ -328,9 +296,7 @@ namespace IBSampleApp
             var tmp = AccountSummaryEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AccountSummaryEndMessage(reqId))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AccountSummaryEndMessage(reqId)), null);
         }
 
         public event Action<AccountValueMessage> UpdateAccountValue;
@@ -340,9 +306,7 @@ namespace IBSampleApp
             var tmp = UpdateAccountValue;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AccountValueMessage(key, value, currency, accountName))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AccountValueMessage(key, value, currency, accountName)), null);
         }
 
         public event Action<UpdatePortfolioMessage> UpdatePortfolio;
@@ -352,9 +316,7 @@ namespace IBSampleApp
             var tmp = UpdatePortfolio;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName)), null);
         }
 
         public event Action<UpdateAccountTimeMessage> UpdateAccountTime;
@@ -364,9 +326,7 @@ namespace IBSampleApp
             var tmp = UpdateAccountTime;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new UpdateAccountTimeMessage(timestamp))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new UpdateAccountTimeMessage(timestamp)), null);
         }
 
         public event Action<AccountDownloadEndMessage> AccountDownloadEnd;
@@ -376,9 +336,7 @@ namespace IBSampleApp
             var tmp = AccountDownloadEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AccountDownloadEndMessage(account))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AccountDownloadEndMessage(account)), null);
         }
 
         public event Action<OrderStatusMessage> OrderStatus;
@@ -388,9 +346,7 @@ namespace IBSampleApp
             var tmp = OrderStatus;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new OrderStatusMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new OrderStatusMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)), null);
         }
 
         public event Action<OpenOrderMessage> OpenOrder;
@@ -400,9 +356,7 @@ namespace IBSampleApp
             var tmp = OpenOrder;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new OpenOrderMessage(orderId, contract, order, orderState))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new OpenOrderMessage(orderId, contract, order, orderState)), null);
         }
 
         public event Action OpenOrderEnd;
@@ -412,9 +366,7 @@ namespace IBSampleApp
             var tmp = OpenOrderEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp()
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(), null);
         }
 
         public event Action<ContractDetailsMessage> ContractDetails;
@@ -424,9 +376,7 @@ namespace IBSampleApp
             var tmp = ContractDetails;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new ContractDetailsMessage(reqId, contractDetails))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new ContractDetailsMessage(reqId, contractDetails)), null);
         }
 
         public event Action<int> ContractDetailsEnd;
@@ -436,9 +386,7 @@ namespace IBSampleApp
             var tmp = ContractDetailsEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<ExecutionMessage> ExecDetails;
@@ -448,9 +396,7 @@ namespace IBSampleApp
             var tmp = ExecDetails;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new ExecutionMessage(reqId, contract, execution))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new ExecutionMessage(reqId, contract, execution)), null);
         }
 
         public event Action<int> ExecDetailsEnd;
@@ -460,9 +406,7 @@ namespace IBSampleApp
             var tmp = ExecDetailsEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<CommissionReport> CommissionReport;
@@ -472,9 +416,7 @@ namespace IBSampleApp
             var tmp = CommissionReport;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(commissionReport)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(commissionReport), null);
         }
 
         public event Action<FundamentalsMessage> FundamentalData;
@@ -484,9 +426,7 @@ namespace IBSampleApp
             var tmp = FundamentalData;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new FundamentalsMessage(data))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new FundamentalsMessage(data)), null);
         }
 
         public event Action<HistoricalDataMessage> HistoricalData;
@@ -496,9 +436,7 @@ namespace IBSampleApp
             var tmp = HistoricalData;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistoricalDataMessage(reqId, bar))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistoricalDataMessage(reqId, bar)), null);
         }
 
         public event Action<HistoricalDataEndMessage> HistoricalDataEnd;
@@ -508,9 +446,7 @@ namespace IBSampleApp
             var tmp = HistoricalDataEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistoricalDataEndMessage(reqId, startDate, endDate))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistoricalDataEndMessage(reqId, startDate, endDate)), null);
         }
 
         public event Action<MarketDataTypeMessage> MarketDataType;
@@ -520,9 +456,7 @@ namespace IBSampleApp
             var tmp = MarketDataType;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new MarketDataTypeMessage(reqId, marketDataType))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new MarketDataTypeMessage(reqId, marketDataType)), null);
         }
 
         public event Action<DeepBookMessage> UpdateMktDepth;
@@ -532,9 +466,7 @@ namespace IBSampleApp
             var tmp = UpdateMktDepth;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new DeepBookMessage(tickerId, position, operation, side, price, size, ""))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new DeepBookMessage(tickerId, position, operation, side, price, size, "")), null);
         }
 
         public event Action<DeepBookMessage> UpdateMktDepthL2;
@@ -544,9 +476,7 @@ namespace IBSampleApp
             var tmp = UpdateMktDepthL2;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new DeepBookMessage(tickerId, position, operation, side, price, size, marketMaker))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new DeepBookMessage(tickerId, position, operation, side, price, size, marketMaker)), null);
         }
 
         public event Action<int, int, String, String> UpdateNewsBulletin;
@@ -556,9 +486,7 @@ namespace IBSampleApp
             var tmp = UpdateNewsBulletin;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(msgId, msgType, message, origExchange)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(msgId, msgType, message, origExchange), null);
         }
 
         public event Action<PositionMessage> Position;
@@ -568,9 +496,7 @@ namespace IBSampleApp
             var tmp = Position;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new PositionMessage(account, contract, pos, avgCost))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new PositionMessage(account, contract, pos, avgCost)), null);
         }
 
         public event Action PositionEnd;
@@ -580,9 +506,7 @@ namespace IBSampleApp
             var tmp = PositionEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp()
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(), null);
         }
 
         public event Action<RealTimeBarMessage> RealtimeBar;
@@ -592,9 +516,7 @@ namespace IBSampleApp
             var tmp = RealtimeBar;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new RealTimeBarMessage(reqId, time, open, high, low, close, volume, WAP, count))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new RealTimeBarMessage(reqId, time, open, high, low, close, volume, WAP, count)), null);
         }
 
         public event Action<string> ScannerParameters;
@@ -604,9 +526,7 @@ namespace IBSampleApp
             var tmp = ScannerParameters;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(xml)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(xml), null);
         }
 
         public event Action<ScannerMessage> ScannerData;
@@ -616,9 +536,7 @@ namespace IBSampleApp
             var tmp = ScannerData;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new ScannerMessage(reqId, rank, contractDetails, distance, benchmark, projection, legsStr))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new ScannerMessage(reqId, rank, contractDetails, distance, benchmark, projection, legsStr)), null);
         }
 
         public event Action<int> ScannerDataEnd;
@@ -628,9 +546,7 @@ namespace IBSampleApp
             var tmp = ScannerDataEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<AdvisorDataMessage> ReceiveFA;
@@ -640,9 +556,7 @@ namespace IBSampleApp
             var tmp = ReceiveFA;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AdvisorDataMessage(faDataType, faXmlData))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AdvisorDataMessage(faDataType, faXmlData)), null);
         }
 
         public event Action<BondContractDetailsMessage> BondContractDetails;
@@ -652,9 +566,7 @@ namespace IBSampleApp
             var tmp = BondContractDetails;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new BondContractDetailsMessage(requestId, contractDetails))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new BondContractDetailsMessage(requestId, contractDetails)), null);
         }
 
         public event Action<string> VerifyMessageAPI;
@@ -664,9 +576,7 @@ namespace IBSampleApp
             var tmp = VerifyMessageAPI;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(apiData)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(apiData), null);
         }
         public event Action<bool, string> VerifyCompleted;
 
@@ -675,9 +585,7 @@ namespace IBSampleApp
             var tmp = VerifyCompleted;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(isSuccessful, errorText)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(isSuccessful, errorText), null);
         }
 
         public event Action<string, string> VerifyAndAuthMessageAPI;
@@ -687,9 +595,7 @@ namespace IBSampleApp
             var tmp = VerifyAndAuthMessageAPI;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(apiData, xyzChallenge)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(apiData, xyzChallenge), null);
         }
 
         public event Action<bool, string> VerifyAndAuthCompleted;
@@ -699,9 +605,7 @@ namespace IBSampleApp
             var tmp = VerifyAndAuthCompleted;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(isSuccessful, errorText)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(isSuccessful, errorText), null);
         }
 
         public event Action<int, string> DisplayGroupList;
@@ -711,9 +615,7 @@ namespace IBSampleApp
             var tmp = DisplayGroupList;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, groups)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, groups), null);
         }
 
         public event Action<int, string> DisplayGroupUpdated;
@@ -723,9 +625,7 @@ namespace IBSampleApp
             var tmp = DisplayGroupUpdated;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, contractInfo)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, contractInfo), null);
         }
 
 
@@ -742,9 +642,7 @@ namespace IBSampleApp
             var tmp = PositionMulti;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new PositionMultiMessage(reqId, account, modelCode, contract, pos, avgCost))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new PositionMultiMessage(reqId, account, modelCode, contract, pos, avgCost)), null);
         }
 
         public event Action<int> PositionMultiEnd;
@@ -754,9 +652,7 @@ namespace IBSampleApp
             var tmp = PositionMultiEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<AccountUpdateMultiMessage> AccountUpdateMulti;
@@ -766,9 +662,7 @@ namespace IBSampleApp
             var tmp = AccountUpdateMulti;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new AccountUpdateMultiMessage(reqId, account, modelCode, key, value, currency))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new AccountUpdateMultiMessage(reqId, account, modelCode, key, value, currency)), null);
         }
 
         public event Action<int> AccountUpdateMultiEnd;
@@ -778,9 +672,7 @@ namespace IBSampleApp
             var tmp = AccountUpdateMultiEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<SecurityDefinitionOptionParameterMessage> SecurityDefinitionOptionParameter;
@@ -790,9 +682,7 @@ namespace IBSampleApp
             var tmp = SecurityDefinitionOptionParameter;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new SecurityDefinitionOptionParameterMessage(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new SecurityDefinitionOptionParameterMessage(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes)), null);
         }
 
         public event Action<int> SecurityDefinitionOptionParameterEnd;
@@ -802,9 +692,7 @@ namespace IBSampleApp
             var tmp = SecurityDefinitionOptionParameterEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId), null);
         }
 
         public event Action<SoftDollarTiersMessage> SoftDollarTiers;
@@ -814,9 +702,7 @@ namespace IBSampleApp
             var tmp = SoftDollarTiers;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new SoftDollarTiersMessage(reqId, tiers))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new SoftDollarTiersMessage(reqId, tiers)), null);
         }
 
         public event Action<FamilyCode[]> FamilyCodes;
@@ -826,9 +712,7 @@ namespace IBSampleApp
             var tmp = FamilyCodes;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(familyCodes)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(familyCodes), null);
         }
 
         public event Action<SymbolSamplesMessage> SymbolSamples;
@@ -838,9 +722,7 @@ namespace IBSampleApp
             var tmp = SymbolSamples;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new SymbolSamplesMessage(reqId, contractDescriptions))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new SymbolSamplesMessage(reqId, contractDescriptions)), null);
         }
 
 
@@ -851,9 +733,7 @@ namespace IBSampleApp
             var tmp = MktDepthExchanges;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(depthMktDataDescriptions)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(depthMktDataDescriptions), null);
         }
 
         public event Action<TickNewsMessage> TickNews;
@@ -863,9 +743,7 @@ namespace IBSampleApp
             var tmp = TickNews;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new TickNewsMessage(tickerId, timeStamp, providerCode, articleId, headline, extraData))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new TickNewsMessage(tickerId, timeStamp, providerCode, articleId, headline, extraData)), null);
         }
 
         public event Action<int, Dictionary<int, KeyValuePair<string, char>>> SmartComponents;
@@ -875,9 +753,7 @@ namespace IBSampleApp
             var tmp = SmartComponents;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, theMap)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, theMap), null);
         }
 
         public event Action<TickReqParamsMessage> TickReqParams;
@@ -887,9 +763,7 @@ namespace IBSampleApp
             var tmp = TickReqParams;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new TickReqParamsMessage(tickerId, minTick, bboExchange, snapshotPermissions))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new TickReqParamsMessage(tickerId, minTick, bboExchange, snapshotPermissions)), null);
         }
 
         public event Action<NewsProvider[]> NewsProviders;
@@ -899,9 +773,7 @@ namespace IBSampleApp
             var tmp = NewsProviders;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(newsProviders)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(newsProviders), null);
         }
 
         public event Action<NewsArticleMessage> NewsArticle;
@@ -911,9 +783,7 @@ namespace IBSampleApp
             var tmp = NewsArticle;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new NewsArticleMessage(requestId, articleType, articleText))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new NewsArticleMessage(requestId, articleType, articleText)), null);
         }
 
         public event Action<HistoricalNewsMessage> HistoricalNews;
@@ -923,9 +793,7 @@ namespace IBSampleApp
             var tmp = HistoricalNews;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistoricalNewsMessage(requestId, time, providerCode, articleId, headline))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistoricalNewsMessage(requestId, time, providerCode, articleId, headline)), null);
         }
 
         public event Action<HistoricalNewsEndMessage> HistoricalNewsEnd;
@@ -935,9 +803,7 @@ namespace IBSampleApp
             var tmp = HistoricalNewsEnd;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistoricalNewsEndMessage(requestId, hasMore))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistoricalNewsEndMessage(requestId, hasMore)), null);
         }
 
         public event Action<HeadTimestampMessage> HeadTimestamp;
@@ -947,9 +813,7 @@ namespace IBSampleApp
             var tmp = HeadTimestamp;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HeadTimestampMessage(reqId, headTimestamp))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HeadTimestampMessage(reqId, headTimestamp)), null);
         }
 
         public event Action<HistogramDataMessage> HistogramData;
@@ -959,9 +823,7 @@ namespace IBSampleApp
             var tmp = HistogramData;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistogramDataMessage(reqId, data))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistogramDataMessage(reqId, data)), null);
         }
 
         public event Action<HistoricalDataMessage> HistoricalDataUpdate;
@@ -971,9 +833,7 @@ namespace IBSampleApp
             var tmp = HistoricalDataUpdate;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new HistoricalDataMessage(reqId, bar))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new HistoricalDataMessage(reqId, bar)), null);
         }
 
         public event Action<int, int, string> RerouteMktDataReq;
@@ -983,9 +843,7 @@ namespace IBSampleApp
             var tmp = RerouteMktDataReq;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, conId, exchange)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, conId, exchange), null);
         }
 
         public event Action<int, int, string> RerouteMktDepthReq;
@@ -995,9 +853,7 @@ namespace IBSampleApp
             var tmp = RerouteMktDepthReq;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(reqId, conId, exchange)
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(reqId, conId, exchange), null);
         }
 
         public event Action<MarketRuleMessage> MarketRule;
@@ -1007,9 +863,7 @@ namespace IBSampleApp
             var tmp = MarketRule;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new MarketRuleMessage(marketRuleId, priceIncrements))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new MarketRuleMessage(marketRuleId, priceIncrements)), null);
         }
 
         public event Action<DailyPnLMessage> DailyPnL;
@@ -1019,9 +873,7 @@ namespace IBSampleApp
             var tmp = DailyPnL;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new DailyPnLMessage(reqId, dailyPnL))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new DailyPnLMessage(reqId, dailyPnL)), null);
         }
 
         public event Action<DailyPnLSingleMessage> DailyPnLSingle;
@@ -1031,9 +883,7 @@ namespace IBSampleApp
             var tmp = DailyPnLSingle;
 
             if (tmp != null)
-                new Task(() =>
-                                tmp(new DailyPnLSingleMessage(reqId, pos, dailyPnL, value))
-                ).RunSynchronously(scheduler);
+                sc.Post((t) => tmp(new DailyPnLSingleMessage(reqId, pos, dailyPnL, value)), null);
         }
     }
 }
