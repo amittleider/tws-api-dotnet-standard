@@ -246,7 +246,7 @@ public class Types {
 		_30_mins("30 mins"),
 		_1_hour("1 hour"),
 		_4_hours("4 hours"),
-		_1_day("1_day"),
+		_1_day("1 day"),
 		_1_week("1 week");
 
 		private final String description;
