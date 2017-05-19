@@ -107,7 +107,7 @@ namespace IBApi
          * After establishing a connection successfully, the Host will provide the next valid order id, server's current time, managed accounts and open orders among others depending on the Host version.
          * @param host the Host's IP address. Leave blank for localhost.
          * @param port the Host's port. 7496 by default for the TWS, 4001 by default on the Gateway.
-         * @param clientId Every API client program requires a unique id which can be any integer. Note that up to eight clients can be connected simultaneously to a single Host.
+         * @param clientId Every API client program requires a unique id which can be any integer. Note that up to 32 clients can be connected simultaneously to a single Host.
          * @sa EWrapper, EWrapper::nextValidId, EWrapper::currentTime
          */
 
