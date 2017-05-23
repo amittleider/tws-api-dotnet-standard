@@ -396,14 +396,14 @@ public class Testbed {
 		
 		/*** Requesting news article ***/
 		//! [reqNewsArticle]
-		client.reqNewsArticle(10002, "BZ", "BZ$04507322");
+		client.reqNewsArticle(10002, "BZ", "BZ$04507322", null);
 		//! [reqNewsArticle]
 
 		Thread.sleep(5000);
 
 		/*** Requesting historical news ***/
 		//! [reqHistoricalNews]
-		client.reqHistoricalNews(10003, 8314, "BZ+FLY", "", "", 10);
+		client.reqHistoricalNews(10003, 8314, "BZ+FLY", "", "", 10, null);
 		//! [reqHistoricalNews]
 	}
 

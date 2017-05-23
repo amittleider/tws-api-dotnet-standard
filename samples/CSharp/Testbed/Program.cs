@@ -654,13 +654,13 @@ namespace Samples
             // Requesting news article
             Thread.Sleep(2000);
             //! [reqNewsArticle]
-            client.reqNewsArticle(12002, "BZ", "BZ$04507322");
+            client.reqNewsArticle(12002, "BZ", "BZ$04507322", null);
             //! [reqNewsArticle]
 
             // Requesting historical news
             Thread.Sleep(2000);
             //! [reqHistoricalNews]
-            client.reqHistoricalNews(12003, 8314, "BZ+FLY", "", "", 10);
+            client.reqHistoricalNews(12003, 8314, "BZ+FLY", "", "", 10, null);
             //! [reqHistoricalNews]
 
         }

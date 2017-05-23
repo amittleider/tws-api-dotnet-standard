@@ -1529,7 +1529,7 @@ public class ApiController implements EWrapper {
 		int requestId = m_reqId++;
 
 		m_newsArticleHandlerMap.put(requestId, handler);
-		m_client.reqNewsArticle(requestId, providerCode, articleId);
+		m_client.reqNewsArticle(requestId, providerCode, articleId, Collections.emptyList());
 		sendEOM();
 	}
 
@@ -1554,7 +1554,7 @@ public class ApiController implements EWrapper {
 
 		int requestId = m_reqId++;
 		m_historicalNewsHandlerMap.put( requestId, handler);
-		m_client.reqHistoricalNews( requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
+		m_client.reqHistoricalNews( requestId, conId, providerCodes, startDateTime, endDateTime, totalResults, Collections.emptyList());
 		sendEOM();
 	}
 

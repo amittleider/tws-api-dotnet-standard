@@ -2472,7 +2472,7 @@ namespace IBApi
          * @brief Requests news article body given articleId.
          * @sa EWrapper::newsArticle, 
          */
-        public void reqNewsArticle(int requestId, string providerCode, string articleId)
+        public void reqNewsArticle(int requestId, string providerCode, string articleId, List<TagValue>newsArticleOptions)
         {
             if (!CheckConnection())
                 return;
@@ -2488,6 +2488,10 @@ namespace IBApi
             paramsList.AddParameter(requestId);
             paramsList.AddParameter(providerCode);
             paramsList.AddParameter(articleId);
+            if (serverVersion >= MinServerVer.NEWS_QUERY_ORIGINS)
+            {
+                paramsList.AddParameter(TagValueListToString(newsArticleOptions));
+            }
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQNEWSARTICLE);
         }
 
@@ -2501,7 +2505,7 @@ namespace IBApi
         * @params totalResults - the maximum number of headlines to fetch (1 - 300)
         * @sa EWrapper::historicalNews, EWrapper::historicalNewsEnd
         */
-        public void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        public void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults, List<TagValue> historicalNewsOptions)
         {
             if (!CheckConnection())
                 return;
@@ -2520,6 +2524,10 @@ namespace IBApi
             paramsList.AddParameter(startDateTime);
             paramsList.AddParameter(endDateTime);
             paramsList.AddParameter(totalResults);
+            if (serverVersion >= MinServerVer.NEWS_QUERY_ORIGINS)
+            {
+                paramsList.AddParameter(TagValueListToString(historicalNewsOptions));
+            }
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQHISTORICALNEWS);
         }
 

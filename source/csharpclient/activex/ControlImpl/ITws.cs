@@ -350,9 +350,9 @@ namespace TWSLib
         [DispId(219)]
         void reqNewsProviders();
         [DispId(220)]
-        void reqNewsArticle(int requestId, string providerCode, string articleId);
+        void reqNewsArticle(int requestId, string providerCode, string articleId, ITagValueList options);
         [DispId(221)]
-        void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults);
+        void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults, ITagValueList options);
         [DispId(222)]
         void reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate);
         [DispId(223)]

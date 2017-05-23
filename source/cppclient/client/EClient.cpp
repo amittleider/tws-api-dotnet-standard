@@ -2838,7 +2838,7 @@ void EClient::reqNewsProviders()
 	closeAndSend(msg.str());
 }
 
-void EClient::reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId)
+void EClient::reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId, const TagValueListSPtr& newsArticleOptions)
 {
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
@@ -2859,10 +2859,27 @@ void EClient::reqNewsArticle(int requestId, const std::string& providerCode, con
 	ENCODE_FIELD(providerCode);
 	ENCODE_FIELD(articleId);
 
+	// send newsArticleOptions parameter
+	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
+		std::string newsArticleOptionsStr("");
+		const int newsArticleOptionsCount = newsArticleOptions.get() ? newsArticleOptions->size() : 0;
+		if( newsArticleOptionsCount > 0) {
+			for( int i = 0; i < newsArticleOptionsCount; ++i) {
+				const TagValue* tagValue = ((*newsArticleOptions)[i]).get();
+				newsArticleOptionsStr += tagValue->tag;
+				newsArticleOptionsStr += "=";
+				newsArticleOptionsStr += tagValue->value;
+				newsArticleOptionsStr += ";";
+			}
+		}
+		ENCODE_FIELD( newsArticleOptionsStr);
+	}
+
 	closeAndSend(msg.str());
 }
 
-void EClient::reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults)
+void EClient::reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults,
+								const TagValueListSPtr& historicalNewsOptions)
 {
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
@@ -2885,6 +2902,22 @@ void EClient::reqHistoricalNews(int requestId, int conId, const std::string& pro
 	ENCODE_FIELD(startDateTime);
 	ENCODE_FIELD(endDateTime);
 	ENCODE_FIELD(totalResults);
+
+	// send historicalNewsOptions parameter
+	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
+		std::string historicalNewsOptionsStr("");
+		const int historicalNewsOptionsCount = historicalNewsOptions.get() ? historicalNewsOptions->size() : 0;
+		if( historicalNewsOptionsCount > 0) {
+			for( int i = 0; i < historicalNewsOptionsCount; ++i) {
+				const TagValue* tagValue = ((*historicalNewsOptions)[i]).get();
+				historicalNewsOptionsStr += tagValue->tag;
+				historicalNewsOptionsStr += "=";
+				historicalNewsOptionsStr += tagValue->value;
+				historicalNewsOptionsStr += ";";
+			}
+		}
+		ENCODE_FIELD( historicalNewsOptionsStr);
+	}
 
 	closeAndSend(msg.str());
 }

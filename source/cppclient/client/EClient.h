@@ -320,8 +320,9 @@ public:
 	void reqMktDepthExchanges();
 	void reqSmartComponents(int reqId, std::string bboExchange);
 	void reqNewsProviders();
-	void reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId);
-	void reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults);
+	void reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId, const TagValueListSPtr& newsArticleOptions);
+	void reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults, 
+		const TagValueListSPtr& historicalNewsOptions);
 	void reqHeadTimestamp(int tickerId, Contract contract, const std::string& whatToShow, int useRTH, int formatDate);
 	void cancelHeadTimestamp(int tickerId);
 	void reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod);

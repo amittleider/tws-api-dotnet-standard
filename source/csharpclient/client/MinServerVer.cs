@@ -87,5 +87,6 @@ namespace IBApi
         public const int CFD_REROUTE = 125;
         public const int MARKET_RULES = 126;
         public const int DAILY_PNL = 127;
+        public const int NEWS_QUERY_ORIGINS = 128;
     }
 }

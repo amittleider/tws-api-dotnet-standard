@@ -3,6 +3,9 @@
 
 
 Option Explicit On
+
+Imports System.Collections.Generic
+
 Friend Class dlgNewsArticle
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
@@ -43,6 +46,7 @@ Friend Class dlgNewsArticle
     Public WithEvents txtReqNewsArticleRequestId As System.Windows.Forms.TextBox
     Public WithEvents labelReqNewsArticleArticleId As System.Windows.Forms.Label
     Public WithEvents labelReqNewsArticleProviderCode As System.Windows.Forms.Label
+    Public WithEvents cmdMiscOptions As System.Windows.Forms.Button
     Public WithEvents labelReqNewsArticleRequestId As System.Windows.Forms.Label
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -58,6 +62,7 @@ Friend Class dlgNewsArticle
         Me.labelReqNewsArticleArticleId = New System.Windows.Forms.Label()
         Me.labelReqNewsArticleProviderCode = New System.Windows.Forms.Label()
         Me.labelReqNewsArticleRequestId = New System.Windows.Forms.Label()
+        Me.cmdMiscOptions = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -67,7 +72,7 @@ Friend Class dlgNewsArticle
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(57, 99)
+        Me.cmdOk.Location = New System.Drawing.Point(57, 132)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -82,7 +87,7 @@ Friend Class dlgNewsArticle
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(136, 99)
+        Me.cmdCancel.Location = New System.Drawing.Point(136, 132)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -176,11 +181,27 @@ Friend Class dlgNewsArticle
         Me.labelReqNewsArticleRequestId.TabIndex = 0
         Me.labelReqNewsArticleRequestId.Text = "Request Id"
         '
+        'cmdMiscOptions
+        '
+        Me.cmdMiscOptions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdMiscOptions.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdMiscOptions.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdMiscOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdMiscOptions.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdMiscOptions.Location = New System.Drawing.Point(19, 101)
+        Me.cmdMiscOptions.Name = "cmdMiscOptions"
+        Me.cmdMiscOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdMiscOptions.Size = New System.Drawing.Size(249, 25)
+        Me.cmdMiscOptions.TabIndex = 9
+        Me.cmdMiscOptions.Text = "Misc Options"
+        Me.cmdMiscOptions.UseVisualStyleBackColor = True
+        '
         'dlgNewsArticle
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(280, 136)
+        Me.ClientSize = New System.Drawing.Size(280, 169)
+        Me.Controls.Add(Me.cmdMiscOptions)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.txtReqNewsArticleProviderCode)
@@ -230,6 +251,7 @@ Friend Class dlgNewsArticle
     Private m_providerCode As String
     Private m_articleId As String
     Private m_ok As Boolean = False
+    Private m_options As List(Of IBApi.TagValue)
 
     ' ===============================================================================
     ' Get/Set Properties
@@ -255,6 +277,12 @@ Friend Class dlgNewsArticle
     Public ReadOnly Property ok() As Boolean
         Get
             ok = m_ok
+        End Get
+    End Property
+
+    Public ReadOnly Property options() As List(Of IBApi.TagValue)
+        Get
+            options = m_options
         End Get
     End Property
 
@@ -294,13 +322,23 @@ Friend Class dlgNewsArticle
     '--------------------------------------------------------------------------------
     ' Sets the dialog field and button states based on the dialog type
     '--------------------------------------------------------------------------------
-    Public Sub init()
+    Public Sub init(options As List(Of IBApi.TagValue))
         m_ok = False
 
         txtReqNewsArticleRequestId.Enabled = True
         txtReqNewsArticleProviderCode.Enabled = True
         txtReqNewsArticleArticleId.Enabled = True
+        m_options = options
 
     End Sub
 
+    Private Sub cmdMiscOptions_Click(sender As Object, e As EventArgs) Handles cmdMiscOptions.Click
+        Dim dlg As New dlgSmartComboRoutingParams
+        dlg.init(m_options, "Misc Options")
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = DialogResult.OK Then
+            m_options = dlg.smartComboRoutingParams
+        End If
+    End Sub
 End Class
