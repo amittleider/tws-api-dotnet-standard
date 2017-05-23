@@ -1,0 +1,35 @@
+/*! \page rtd_throttle Change Data Refresh Rate
+	
+	It is important to mention that our real time market data is not tick-by-tick, meaning you will not obtain every single price movement happening in the market. Instead, real time data is given as snapshots generated at a fixed given pace:
+	
+	<table>
+		<tr><th>Product</th><th>Frequency</th></tr>
+		<tr><td>Stocks, Futures and others</td><td>250 ms</td></tr>
+		<tr><td>US Options</td><td>100 ms</td></tr>
+		<tr><td>FX pairs</td><td>5 ms</td></tr>
+	</table>
+	
+	Microsoft RTD interface has a <a href="https://msdn.microsoft.com/en-us/library/microsoft.office.interop.excel.rtd.throttleinterval.aspx" target="_blank" class="linkexternal">ThrottleInterval</a> property that determines the interval between data refreshes. By default, the value is set to 2000 milliseconds, which means Excel waits at least 2000 milliseconds between checks for updates. You are able to manually change the Throttle Interval to a smaller value* so as to increase the refresh rate of real time data. 
+	
+	The easiest way to change the ThrottleInterval property is through VBA:
+	
+	1. In Excel, go to the Visual Basic Editor window by pressing <b>Alt_F11</b>.
+	2. On the Visual Basic Editor window, click on <b>View -> Immediate Window</b> or hold <b>Ctrl_G</b> to open the <b>Immediate Window</b>.
+	3. On the <b>Immediate Window</b>, type in the following code and then click <b>Enter</b>:
+	<br><br>
+		<DFN  class="rtd_formula">Application.RTD.ThrottleInterval=250</DFN>
+	<br><br>
+	4. To verify that it is set correctly, type this line of code on the <b>Immediate Window</b> and click <b>Enter</b>:
+	<br><br>
+		<DFN class="rtd_formula">? Application.RTD.ThrottleInterval</DFN>
+	<br><br>
+	5. Verify the next line should display 250. If this value is changed, the new value will persist when Microsoft Excel is restarted.
+	
+	<i><b>*Warning: </b>As the <a href="https://msdn.microsoft.com/en-us/library/microsoft.office.interop.excel.rtd.throttleinterval.aspx" target="_blank" class="linkexternal">ThrottleInterval</a> is lowered, updates can come in so frequently and that Excelthat Excel is continuously updating values and doing calculations, Excel might end up in a state where it never gives the user a chance to do anything, effectively getting in a hung state. If this happens, set the Excel throttle interval higher.</i>
+	
+	\image html rtd_throttle_interval.PNG
+	
+	<small><i>Source: Microsoft Real-Time Data: Frequently Asked Questions <a href="https://msdn.microsoft.com/en-us/library/aa140060(office.10).aspx#odc_xlrtdfaq_howconfigrtdthrottle" target="_blank" class="linkexternal">How Do I Configure the RTD Throttle Interval in Excel?</a>. </i></small>
+	
+	<br><br>
+*/

@@ -763,6 +763,8 @@ INPUT                   += ./content/dde
 INPUT                   += ./content/dde/tutorial
 INPUT                   += ./content/financial_advisor
 INPUT                   += ./content/display_groups
+INPUT                   += ./content/tws_rtd_server
+INPUT                   += ./content/tws_rtd_server/syntax
 
 #Javadoc-style input source files. We cannot add the entire directory since only these classes are relevant to the user
 INPUT                  += ../source/csharpclient/client/EClient.cs
