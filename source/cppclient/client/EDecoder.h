@@ -78,12 +78,13 @@ const int MIN_SERVER_VER_SYNT_REALTIME_BARS	        = 124;
 const int MIN_SERVER_VER_CFD_REROUTE                = 125;
 const int MIN_SERVER_VER_MARKET_RULES               = 126;
 const int MIN_SERVER_VER_DAILY_PNL                  = 127;
+const int MIN_SERVER_VER_NEWS_QUERY_ORIGINS         = 128;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_DAILY_PNL;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_NEWS_QUERY_ORIGINS;
 
 
 // incoming msg id's

@@ -42,6 +42,7 @@ class SampleFrame extends JFrame implements EWrapper {
 	private SecDefOptParamsReqDlg m_secDefOptParamsReq = new SecDefOptParamsReqDlg(this);
 	private SmartComponentsParamsReqDlg m_smartComponentsParamsReq = new SmartComponentsParamsReqDlg(this);
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
+    private NewsArticleDlg m_newsArticleDlg = new NewsArticleDlg(this);
 	private MarketRuleDlg   m_marketRuleDlg = new MarketRuleDlg(this);
     private DailyPnLDlg     m_dailyPnLDlg = new DailyPnLDlg(this);
     private DailyPnLSingleDlg   m_dailyPnLSingleDlg = new DailyPnLSingleDlg(this);
@@ -52,6 +53,8 @@ class SampleFrame extends JFrame implements EWrapper {
     private List<TagValue> m_mktDepthOptions = new ArrayList<>();
 //    private List<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
     private List<TagValue> m_realTimeBarsOptions = new ArrayList<>();
+    private List<TagValue> m_historicalNewsOptions = new ArrayList<>();
+    private List<TagValue> m_newsArticleOptions = new ArrayList<>();
     
     private String faGroupXML ;
     private String faProfilesXML ;
@@ -1006,28 +1009,37 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
     private void onReqNewsArticle() {
-        NewsArticleDlg dlg = new NewsArticleDlg(this);
+        // run m_newsArticleDlg
+        m_newsArticleDlg.init(m_newsArticleOptions);
+        m_newsArticleDlg.setVisible(true);
 
-        dlg.setVisible(true);
-        if ( dlg.m_rc ) {
-            // request news article
-            m_client.reqNewsArticle( dlg.m_retRequestId, dlg.m_retProviderCode, dlg.m_retArticleId);
+        if ( !m_newsArticleDlg.m_rc ) {
+            return;
         }
+
+        m_newsArticleOptions = m_newsArticleDlg.getOptions();
+        
+        // request news article
+        m_client.reqNewsArticle( m_newsArticleDlg.m_retRequestId, m_newsArticleDlg.m_retProviderCode, 
+        		m_newsArticleDlg.m_retArticleId, m_newsArticleOptions);
     }
 
 
     private void onReqHistoricalNews() {
         // run m_historicalNewsDlg
+    	m_historicalNewsDlg.init(m_historicalNewsOptions);
         m_historicalNewsDlg.setVisible(true);
         
         if( !m_historicalNewsDlg.m_rc ) {
             return;
         }
 
+        m_historicalNewsOptions = m_historicalNewsDlg.getOptions();
+
         // reqHistoricalNews
         m_client.reqHistoricalNews( m_historicalNewsDlg.m_retRequestId, m_historicalNewsDlg.m_retConId,
                 m_historicalNewsDlg.m_retProviderCodes, m_historicalNewsDlg.m_retStartDateTime, 
-                m_historicalNewsDlg.m_retEndDateTime, m_historicalNewsDlg.m_retTotalResults);
+                m_historicalNewsDlg.m_retEndDateTime, m_historicalNewsDlg.m_retTotalResults, m_historicalNewsOptions);
     }
 
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs) {

@@ -134,6 +134,8 @@ public:
     void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
     void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
     void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
+    void dailyPnL(int reqId, double dailyPnL);
+    void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
 
 private:
     EReaderOSSignal m_osSignal;

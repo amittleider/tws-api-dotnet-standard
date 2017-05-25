@@ -1079,7 +1079,9 @@ void TestCppClient::reqNewsArticle()
 {
 	/*** Request TWS' news article ***/
 	//! [reqNewsArticle]
-	m_pClient->reqNewsArticle(12001, "BZ", "BZ$04507322");
+	TagValueList* list = new TagValueList();
+	list->push_back((TagValueSPtr)new TagValue("manual", "1"));
+	m_pClient->reqNewsArticle(12001, "BZ", "BZ$04507322", TagValueListSPtr(list));
 	//! [reqNewsArticle]
 
 	m_state = ST_REQNEWSARTICLE_ACK;
@@ -1088,7 +1090,9 @@ void TestCppClient::reqNewsArticle()
 void TestCppClient::reqHistoricalNews(){
 
 	//! [reqHistoricalNews]
-	m_pClient->reqHistoricalNews(12001, 8314, "BZ+FLY", "", "", 5);
+	TagValueList* list = new TagValueList();
+	list->push_back((TagValueSPtr)new TagValue("manual", "1"));
+	m_pClient->reqHistoricalNews(12001, 8314, "BZ+FLY", "", "", 5, TagValueListSPtr(list));
 	//! [reqHistoricalNews]
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -1168,7 +1172,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_DAILYPNLSINGLE; 
+    //m_state = ST_DAILYPNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
@@ -1196,7 +1200,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
-	//m_state = ST_REQHISTORICALNEWS;
+	m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_REROUTECFD;

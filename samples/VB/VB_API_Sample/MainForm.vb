@@ -1109,6 +1109,8 @@ Friend Class MainForm
     Private m_chartOptions As List(Of IBApi.TagValue)
     Private m_mktDepthOptions As List(Of IBApi.TagValue)
     Private m_realTimeBarsOptions As List(Of IBApi.TagValue)
+    Private m_newsArticleOptions As List(Of IBApi.TagValue)
+    Private m_historicalNewsOptions As List(Of IBApi.TagValue)
 
     Private m_dlgPnL As New dlgDailyPnL
     Private m_dlgOrder As New dlgOrder
@@ -1875,24 +1877,31 @@ Friend Class MainForm
         Dim dlgNewsArticle As New dlgNewsArticle
 
         ' Set the dialog state
-        dlgNewsArticle.init()
+        dlgNewsArticle.init(m_newsArticleOptions)
         dlgNewsArticle.ShowDialog()
 
-        If dlgNewsArticle.ok Then
-            m_api.reqNewsArticle(dlgNewsArticle.requestId, dlgNewsArticle.providerCode, dlgNewsArticle.articleId)
-        End If
+        m_newsArticleOptions = dlgNewsArticle.options
 
+        If dlgNewsArticle.ok Then
+            m_api.reqNewsArticle(dlgNewsArticle.requestId, dlgNewsArticle.providerCode, dlgNewsArticle.articleId, m_newsArticleOptions)
+        End If
     End Sub
 
     '--------------------------------------------------------------------------------
     ' Request Historical News
     '--------------------------------------------------------------------------------
     Private Sub cmdReqHistoricalNews_Click(sender As Object, e As EventArgs) Handles cmdReqHistoricalNews.Click
-        Dim dlg = New dlgHistoricalNews()
-        dlg.ShowDialog()
+        Dim dlgHistoricalNews As New dlgHistoricalNews
 
-        If dlg.ok Then
-            m_api.reqHistoricalNews(dlg.requestId, dlg.conId, dlg.providerCodes, dlg.startDateTime, dlg.endDateTime, dlg.totalResults)
+        ' Set the dialog state
+        dlgHistoricalNews.init(m_historicalNewsOptions)
+        dlgHistoricalNews.ShowDialog()
+
+        m_historicalNewsOptions = dlgHistoricalNews.options
+
+        If dlgHistoricalNews.ok Then
+            m_api.reqHistoricalNews(dlgHistoricalNews.requestId, dlgHistoricalNews.conId, dlgHistoricalNews.providerCodes,
+                                    dlgHistoricalNews.startDateTime, dlgHistoricalNews.endDateTime, dlgHistoricalNews.totalResults, m_historicalNewsOptions)
         End If
     End Sub
 

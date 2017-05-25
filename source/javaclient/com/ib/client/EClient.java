@@ -260,9 +260,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_CFD_REROUTE = 125;
     protected static final int MIN_SERVER_VER_MARKET_RULES = 126;
     protected static final int MIN_SERVER_VER_DAILY_PNL = 127;
+    protected static final int MIN_SERVER_VER_NEWS_QUERY_ORIGINS = 128;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_DAILY_PNL; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_NEWS_QUERY_ORIGINS; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -3276,7 +3277,7 @@ public abstract class EClient {
         }
     }
 
-    public synchronized void reqNewsArticle(int requestId, String providerCode, String articleId) {
+    public synchronized void reqNewsArticle(int requestId, String providerCode, String articleId, List<TagValue> newsArticleOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -3296,6 +3297,19 @@ public abstract class EClient {
         b.send( providerCode);
         b.send( articleId);
 
+        // send newsArticleOptions parameter
+        if (m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
+            StringBuilder newsArticleOptionsStr = new StringBuilder();
+            int newsArticleOptionsCount = newsArticleOptions == null ? 0 : newsArticleOptions.size();
+            if( newsArticleOptionsCount > 0) {
+                for( int i = 0; i < newsArticleOptionsCount; ++i) {
+                    TagValue tagValue = newsArticleOptions.get(i);
+                    newsArticleOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
+                }
+            }
+            b.send( newsArticleOptionsStr.toString());
+        }
+        
         try {
             closeAndSend(b);
         }
@@ -3305,7 +3319,7 @@ public abstract class EClient {
     }
 
     public synchronized void reqHistoricalNews( int requestId, int conId, String providerCodes, 
-            String startDateTime, String endDateTime, int totalResults) {
+            String startDateTime, String endDateTime, int totalResults, List<TagValue> historicalNewsOptions) {
 
         // not connected?
         if( !isConnected()) {
@@ -3328,6 +3342,19 @@ public abstract class EClient {
         b.send( startDateTime);
         b.send( endDateTime);
         b.send( totalResults);
+
+        // send historicalNewsOptions parameter
+        if (m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
+            StringBuilder historicalNewsOptionsStr = new StringBuilder();
+            int historicalNewsOptionsCount = historicalNewsOptions == null ? 0 : historicalNewsOptions.size();
+            if( historicalNewsOptionsCount > 0) {
+                for( int i = 0; i < historicalNewsOptionsCount; ++i) {
+                    TagValue tagValue = historicalNewsOptions.get(i);
+                    historicalNewsOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
+                }
+            }
+            b.send( historicalNewsOptionsStr.toString());
+        }
 
         try {
             closeAndSend(b);

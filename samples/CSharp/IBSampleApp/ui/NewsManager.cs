@@ -102,7 +102,7 @@ namespace IBSampleApp.ui
         public void RequestNewsArticle(string providerCode, string articleId)
         {
             textBoxArticleText.Clear();
-            ibClient.ClientSocket.reqNewsArticle(NEWS_ARTICLE_ID, providerCode, articleId);
+            ibClient.ClientSocket.reqNewsArticle(NEWS_ARTICLE_ID, providerCode, articleId, new List<TagValue>());
         }
 
         public void ClearArticleText()
@@ -152,7 +152,7 @@ namespace IBSampleApp.ui
                 HistoricalNewsGrid.Visible = true;
 
             ClearHistoricalNews();
-            IbClient.ClientSocket.reqHistoricalNews(HISTORICAL_NEWS_ID, conId, providerCodes, startDateTime, endDateTime, totalResults);
+            IbClient.ClientSocket.reqHistoricalNews(HISTORICAL_NEWS_ID, conId, providerCodes, startDateTime, endDateTime, totalResults, new List<TagValue>());
         }
 
         public void ClearHistoricalNews() {

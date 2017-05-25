@@ -987,14 +987,14 @@ namespace TWSLib
             socket.reqNewsProviders();
         }
 
-        void ITws.reqNewsArticle(int requestId, string providerCode, string articleId)
+        void ITws.reqNewsArticle(int requestId, string providerCode, string articleId, ITagValueList options)
         {
-            socket.reqNewsArticle(requestId, providerCode, articleId);
+            socket.reqNewsArticle(requestId, providerCode, articleId, ITagValueListToListTagValue(options));
         }
 
-        void ITws.reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)
+        void ITws.reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults, ITagValueList options)
         {
-            socket.reqHistoricalNews(requestId, conId, providerCodes, startDateTime, endDateTime, totalResults);
+            socket.reqHistoricalNews(requestId, conId, providerCodes, startDateTime, endDateTime, totalResults, ITagValueListToListTagValue(options));
         }
 
         void ITws.reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate)

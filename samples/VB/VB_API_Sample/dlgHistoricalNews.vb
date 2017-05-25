@@ -3,6 +3,9 @@
 
 
 Option Explicit On
+
+Imports System.Collections.Generic
+
 Friend Class dlgHistoricalNews
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
@@ -49,6 +52,7 @@ Friend Class dlgHistoricalNews
     Public WithEvents txtHistoricalNewsStartDateTime As System.Windows.Forms.TextBox
     Public WithEvents txtHistoricalNewsEndDateTime As System.Windows.Forms.TextBox
     Public WithEvents txtHistoricalNewsTotalResults As System.Windows.Forms.TextBox
+    Public WithEvents cmdMiscOptions As System.Windows.Forms.Button
     Public WithEvents labelHistoricalNewsRequestId As System.Windows.Forms.Label
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -70,6 +74,7 @@ Friend Class dlgHistoricalNews
         Me.txtHistoricalNewsStartDateTime = New System.Windows.Forms.TextBox()
         Me.txtHistoricalNewsEndDateTime = New System.Windows.Forms.TextBox()
         Me.txtHistoricalNewsTotalResults = New System.Windows.Forms.TextBox()
+        Me.cmdMiscOptions = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -79,7 +84,7 @@ Friend Class dlgHistoricalNews
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(60, 194)
+        Me.cmdOk.Location = New System.Drawing.Point(60, 203)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -94,7 +99,7 @@ Friend Class dlgHistoricalNews
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(148, 194)
+        Me.cmdCancel.Location = New System.Drawing.Point(148, 203)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -274,11 +279,27 @@ Friend Class dlgHistoricalNews
         Me.txtHistoricalNewsTotalResults.TabIndex = 11
         Me.txtHistoricalNewsTotalResults.Text = "10"
         '
+        'cmdMiscOptions
+        '
+        Me.cmdMiscOptions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdMiscOptions.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdMiscOptions.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdMiscOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdMiscOptions.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdMiscOptions.Location = New System.Drawing.Point(19, 172)
+        Me.cmdMiscOptions.Name = "cmdMiscOptions"
+        Me.cmdMiscOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdMiscOptions.Size = New System.Drawing.Size(249, 25)
+        Me.cmdMiscOptions.TabIndex = 14
+        Me.cmdMiscOptions.Text = "Misc Options"
+        Me.cmdMiscOptions.UseVisualStyleBackColor = True
+        '
         'dlgHistoricalNews
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(280, 227)
+        Me.ClientSize = New System.Drawing.Size(280, 236)
+        Me.Controls.Add(Me.cmdMiscOptions)
         Me.Controls.Add(Me.txtHistoricalNewsTotalResults)
         Me.Controls.Add(Me.txtHistoricalNewsEndDateTime)
         Me.Controls.Add(Me.txtHistoricalNewsStartDateTime)
@@ -337,6 +358,7 @@ Friend Class dlgHistoricalNews
     Private m_endDateTime As String
     Private m_totalResults As Integer
     Private m_ok As Boolean = False
+    Private m_options As List(Of IBApi.TagValue)
 
     ' ===============================================================================
     ' Get/Set Properties
@@ -383,6 +405,12 @@ Friend Class dlgHistoricalNews
         End Get
     End Property
 
+    Public ReadOnly Property options() As List(Of IBApi.TagValue)
+        Get
+            options = m_options
+        End Get
+    End Property
+
     ' ========================================================
     ' Button Events
     ' ========================================================
@@ -416,4 +444,25 @@ Friend Class dlgHistoricalNews
             Text2Int = text
         End If
     End Function
+
+    ' ========================================================
+    ' Public Methods
+    ' ========================================================
+    '--------------------------------------------------------------------------------
+    ' Sets the dialog field and button states based on the dialog type
+    '--------------------------------------------------------------------------------
+    Public Sub init(options As List(Of IBApi.TagValue))
+        m_ok = False
+        m_options = options
+    End Sub
+
+    Private Sub cmdMiscOptions_Click(sender As Object, e As EventArgs) Handles cmdMiscOptions.Click
+        Dim dlg As New dlgSmartComboRoutingParams
+        dlg.init(m_options, "Misc Options")
+        Dim res As DialogResult
+        res = dlg.ShowDialog()
+        If res = DialogResult.OK Then
+            m_options = dlg.smartComboRoutingParams
+        End If
+    End Sub
 End Class

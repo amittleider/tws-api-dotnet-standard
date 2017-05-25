@@ -7,7 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.ib.client.TagValue;
 
 public class HistoricalNewsDlg extends JDialog {
 
@@ -27,6 +30,7 @@ public class HistoricalNewsDlg extends JDialog {
     private JTextField 	m_startDateTime = new JTextField();
     private JTextField 	m_endDateTime = new JTextField();
     private JTextField 	m_totalResults = new JTextField("10");
+    private List<TagValue> m_options = new ArrayList<>();
 
     int m_retRequestId;
     int m_retConId;
@@ -70,6 +74,11 @@ public class HistoricalNewsDlg extends JDialog {
         midPanel.add( m_endDateTime);
         midPanel.add( new JLabel( "Total Results") );
         midPanel.add( m_totalResults);
+        
+        // misc options button
+        JButton btnOptions = new JButton("Misc Options");
+        midPanel.add(btnOptions);
+        btnOptions.addActionListener(e -> onBtnOptions());
 
         // create dlg box
         getContentPane().add( midPanel, BorderLayout.CENTER);
@@ -78,6 +87,23 @@ public class HistoricalNewsDlg extends JDialog {
         pack();
     }
 
+    void init(List<TagValue> options) {
+    	m_options = options;
+    }
+    
+    void onBtnOptions() {
+    	SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Misc Options", m_options, this);
+
+        // show smart combo routing params dialog
+        smartComboRoutingParamsDlg.setVisible( true);
+        
+        m_options = smartComboRoutingParamsDlg.smartComboRoutingParams();
+    }
+
+    List<TagValue> getOptions() {
+    	return m_options;
+    }
+    
     void onOk() {
         m_rc = false;
 
