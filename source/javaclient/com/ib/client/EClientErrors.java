@@ -77,10 +77,10 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_REQHEADTIMESTAMP = new CodeMsgPair(566, "Request Head Time Stamp Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANHEADTIMESTAMP = new CodeMsgPair(567, "Cancel Head Time Stamp Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(568, "Request Market Rule Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_REQDAILYPNL = new CodeMsgPair(566, "Request Daily PnL Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_CANDAILYPNL = new CodeMsgPair(567, "Cancel Daily PnL Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_REQDAILYPNL_SINGLE = new CodeMsgPair(568, "Request Daily PnL Single Sending Error - ");
-    static final CodeMsgPair FAIL_SEND_CANDAILYPNL_SINGLE = new CodeMsgPair(569, "Cancel Daily PnL Single Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQPNL = new CodeMsgPair(566, "Request PnL Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_CANPNL = new CodeMsgPair(567, "Cancel PnL Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_REQPNL_SINGLE = new CodeMsgPair(568, "Request PnL Single Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_CANPNL_SINGLE = new CodeMsgPair(569, "Cancel PnL Single Sending Error - ");
 
     public EClientErrors() {
     }

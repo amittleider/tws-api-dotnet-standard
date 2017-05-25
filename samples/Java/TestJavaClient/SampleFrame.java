@@ -44,8 +44,8 @@ class SampleFrame extends JFrame implements EWrapper {
     private HistoricalNewsDlg m_historicalNewsDlg = new HistoricalNewsDlg(this);
     private NewsArticleDlg m_newsArticleDlg = new NewsArticleDlg(this);
 	private MarketRuleDlg   m_marketRuleDlg = new MarketRuleDlg(this);
-    private DailyPnLDlg     m_dailyPnLDlg = new DailyPnLDlg(this);
-    private DailyPnLSingleDlg   m_dailyPnLSingleDlg = new DailyPnLSingleDlg(this);
+    private PnLDlg     m_pnlDlg = new PnLDlg(this);
+    private PnLSingleDlg   m_pnlSingleDlg = new PnLSingleDlg(this);
 
     private List<TagValue> m_mktDataOptions = new ArrayList<>();
     private List<TagValue> m_chartOptions = new ArrayList<>();
@@ -240,14 +240,14 @@ class SampleFrame extends JFrame implements EWrapper {
         butHistogramCancel.addActionListener(e -> onHistogramCancel());
         JButton butReqMarketRule = new JButton("Req Market Rule");
         butReqMarketRule.addActionListener(e -> onReqMarketRule());
-        JButton butReqDailyPnL = new JButton("Req Daily PnL");
-        butReqDailyPnL.addActionListener(e -> onReqDailyPnL());
-        JButton butCancelDailyPnL = new JButton("Cancel Daily PnL");
-        butCancelDailyPnL.addActionListener(e -> onCancelDailyPnL());
-        JButton butReqDailyPnLSingle = new JButton("Req Daily PnL Single");
-        butReqDailyPnLSingle.addActionListener(e -> onReqDailyPnLSingle());
-        JButton butCancelDailyPnLSingle = new JButton("Cancel Daily PnL Single");
-        butCancelDailyPnLSingle.addActionListener(e -> onCancelDailyPnLSingle());
+        JButton butReqPnL = new JButton("Req PnL");
+        butReqPnL.addActionListener(e -> onReqPnL());
+        JButton butCancelPnL = new JButton("Cancel PnL");
+        butCancelPnL.addActionListener(e -> onCancelPnL());
+        JButton butReqPnLSingle = new JButton("Req PnL Single");
+        butReqPnLSingle.addActionListener(e -> onReqPnLSingle());
+        JButton butCancelPnLSingle = new JButton("Cancel PnL Single");
+        butCancelPnLSingle.addActionListener(e -> onCancelPnLSingle());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -318,10 +318,10 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add(butHistogram);
         buttonPanel.add(butHistogramCancel);
         buttonPanel.add(butReqMarketRule);
-        buttonPanel.add(butReqDailyPnL);
-        buttonPanel.add(butCancelDailyPnL);
-        buttonPanel.add(butReqDailyPnLSingle);
-        buttonPanel.add(butCancelDailyPnLSingle);
+        buttonPanel.add(butReqPnL);
+        buttonPanel.add(butCancelPnL);
+        buttonPanel.add(butReqPnLSingle);
+        buttonPanel.add(butCancelPnLSingle);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butClear );
@@ -330,33 +330,33 @@ class SampleFrame extends JFrame implements EWrapper {
         return buttonPanel;
     }
 
-    private void onCancelDailyPnLSingle() {
-        m_client.cancelDailyPnLSingle(m_dailyPnLSingleDlg.m_reqId);
+    private void onCancelPnLSingle() {
+        m_client.cancelPnLSingle(m_pnlSingleDlg.m_reqId);
     }
 
-    private void onCancelDailyPnL() {
-        m_client.cancelDailyPnL(m_dailyPnLDlg.m_reqId);
+    private void onCancelPnL() {
+        m_client.cancelPnL(m_pnlDlg.m_reqId);
     }
 
-    private void onReqDailyPnLSingle() {
-        m_dailyPnLSingleDlg.setVisible(true);
+    private void onReqPnLSingle() {
+        m_pnlSingleDlg.setVisible(true);
         
-        if (!m_dailyPnLSingleDlg.isOk()) {
+        if (!m_pnlSingleDlg.isOk()) {
             return;
         }
         
-        m_client.reqDailyPnLSingle(m_dailyPnLSingleDlg.m_reqId, m_dailyPnLSingleDlg.m_account, m_dailyPnLSingleDlg.m_modelCode, 
-                m_dailyPnLSingleDlg.m_conId);
+        m_client.reqPnLSingle(m_pnlSingleDlg.m_reqId, m_pnlSingleDlg.m_account, m_pnlSingleDlg.m_modelCode, 
+                m_pnlSingleDlg.m_conId);
     }
 
-    private void onReqDailyPnL() {
-        m_dailyPnLDlg.setVisible(true);
+    private void onReqPnL() {
+        m_pnlDlg.setVisible(true);
         
-        if (!m_dailyPnLDlg.isOk()) {
+        if (!m_pnlDlg.isOk()) {
             return;
         }
         
-        m_client.reqDailyPnL(m_dailyPnLDlg.m_reqId, m_dailyPnLDlg.m_account, m_dailyPnLDlg.m_modelCode);
+        m_client.reqPnL(m_pnlDlg.m_reqId, m_pnlDlg.m_account, m_pnlDlg.m_modelCode);
     }
 
     private void onReqMarketRule() {
@@ -1621,15 +1621,15 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
     @Override
-    public void dailyPnL(int reqId, double dailyPnL) {
-        String msg = EWrapperMsgGenerator.dailyPnL(reqId, dailyPnL);
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+        String msg = EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL);
         
         m_TWS.add(msg);
     }
 
     @Override
-    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
-        String msg = EWrapperMsgGenerator.dailyPnLSingle(reqId, pos, dailyPnL, value);
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+        String msg = EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
         
         m_TWS.add(msg);
     }

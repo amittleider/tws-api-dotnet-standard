@@ -49,7 +49,7 @@ namespace IBSampleApp
 
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
-        private DataTable dailyPnLdataTable = new DataTable(), dailyPnLSingledataTable = new DataTable();
+        private DataTable pnldataTable = new DataTable(), pnlSingledataTable = new DataTable();
 
 
         public IBSampleAppDialog()
@@ -70,12 +70,14 @@ namespace IBSampleApp
             symbolSamplesManagerData = new SymbolSamplesManager(ibClient, symbolSamplesDataGridData);
             symbolSamplesManagerContractInfo = new SymbolSamplesManager(ibClient, symbolSamplesDataGridContractInfo);
             newsManager = new NewsManager(ibClient, dataGridViewNewsTicks, dataGridViewNewsProviders, textBoxNewsArticle, dataGridViewHistoricalNews);
-            dailyPnLMgr = new DailyPnLManager(ibClient);
+            pnlMgr = new PnLManager(ibClient);
 
-            dailyPnLdataTable.Columns.Add("Daily PnL");
-            dailyPnLSingledataTable.Columns.Add("Pos");
-            dailyPnLSingledataTable.Columns.Add("Daily PnL");
-            dailyPnLSingledataTable.Columns.Add("Value");
+            pnldataTable.Columns.Add("Daily PnL");
+            pnldataTable.Columns.Add("Unrealized PnL");
+            pnlSingledataTable.Columns.Add("Pos");
+            pnlSingledataTable.Columns.Add("Daily PnL");
+            pnlSingledataTable.Columns.Add("Unrealized PnL");
+            pnlSingledataTable.Columns.Add("Value");
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -194,18 +196,18 @@ namespace IBSampleApp
             ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.MarketRule += contractManager.HandleMarketRuleMessage;
-            ibClient.DailyPnL += UpdateUI;
-            ibClient.DailyPnLSingle += UpdateUI;
+            ibClient.pnl += UpdateUI;
+            ibClient.pnlSingle += UpdateUI;
         }
 
-        private void UpdateUI(DailyPnLSingleMessage obj)
+        private void UpdateUI(PnLSingleMessage obj)
         {
-            dailyPnLSingledataTable.Rows.Add(obj.Pos, obj.DailyPnL, obj.Value);
+            pnlSingledataTable.Rows.Add(obj.Pos, obj.DailyPnL, obj.UnrealizedPnL, obj.Value);
         }
 
-        private void UpdateUI(DailyPnLMessage obj)
+        private void UpdateUI(PnLMessage obj)
         {
-            dailyPnLdataTable.Rows.Add(obj.DailyPnL); 
+            pnldataTable.Rows.Add(obj.DailyPnL, obj.UnrealizedPnL); 
         }
 
         private void UpdateUI(HistogramDataMessage obj)
@@ -1187,41 +1189,41 @@ namespace IBSampleApp
             }
         }
 
-        DailyPnLManager dailyPnLMgr;
+        PnLManager pnlMgr;
 
-        private void btnReqDailyPnL_Click(object sender, EventArgs e)
+        private void btnReqPnL_Click(object sender, EventArgs e)
         {
-            dailyPnLMgr.CancelDailyPnLSingle();
-            dailyPnLdataTable.Clear();
+            pnlMgr.CancelPnLSingle();
+            pnldataTable.Clear();
 
-            dataGridViewDailyPnL.DataSource = dailyPnLdataTable;
+            dataGridViewPnL.DataSource = pnldataTable;
 
-            dailyPnLMgr.ReqDailyPnL(accountSelector.SelectedItem + "", tbModelCode.Text);
+            pnlMgr.ReqPnL(accountSelector.SelectedItem + "", tbModelCode.Text);
         }
 
-        private void btnReqDailyPnLSingle_Click(object sender, EventArgs e)
+        private void btnReqPnLSingle_Click(object sender, EventArgs e)
         {
-            dailyPnLMgr.CancelDailyPnL();
-            dailyPnLSingledataTable.Clear();
+            pnlMgr.CancelPnL();
+            pnlSingledataTable.Clear();
 
-            dataGridViewDailyPnL.DataSource = dailyPnLSingledataTable;
+            dataGridViewPnL.DataSource = pnlSingledataTable;
 
             var conId = 0;
 
             if (int.TryParse(tbConId.Text, out conId))
             {
-                dailyPnLMgr.ReqDailyPnLSingle(accountSelector.SelectedItem + "", tbModelCode.Text, conId);
+                pnlMgr.ReqPnLSingle(accountSelector.SelectedItem + "", tbModelCode.Text, conId);
             }
         }
 
-        private void btnCancelDailyPnl_Click(object sender, EventArgs e)
+        private void btnCancelPnL_Click(object sender, EventArgs e)
         {
-            dailyPnLMgr.CancelDailyPnL();
+            pnlMgr.CancelPnL();
         }
 
-        private void btnCancelDailyPnlSingle_Click(object sender, EventArgs e)
+        private void btnCancelPnLSingle_Click(object sender, EventArgs e)
         {
-            dailyPnLMgr.CancelDailyPnLSingle();
+            pnlMgr.CancelPnLSingle();
         }
     }
 }

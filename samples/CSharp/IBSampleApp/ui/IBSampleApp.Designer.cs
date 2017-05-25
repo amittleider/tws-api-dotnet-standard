@@ -402,16 +402,16 @@ namespace IBSampleApp
             this.familyCodesGrid = new System.Windows.Forms.DataGridView();
             this.familyCodesGridColumnAccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familyCodesGridColumnFamilyCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dailyPnLTab = new System.Windows.Forms.TabPage();
-            this.btnCancelDailyPnlSingle = new System.Windows.Forms.Button();
-            this.btnCancelDailyPnl = new System.Windows.Forms.Button();
-            this.btnReqDailyPnLSingle = new System.Windows.Forms.Button();
+            this.pnlTab = new System.Windows.Forms.TabPage();
+            this.btnCancelPnLSingle = new System.Windows.Forms.Button();
+            this.btnCancelPnL = new System.Windows.Forms.Button();
+            this.btnReqPnLSingle = new System.Windows.Forms.Button();
             this.tbConId = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tbModelCode = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnReqDailyPnL = new System.Windows.Forms.Button();
-            this.dataGridViewDailyPnL = new System.Windows.Forms.DataGridView();
+            this.btnReqPnL = new System.Windows.Forms.Button();
+            this.dataGridViewPnL = new System.Windows.Forms.DataGridView();
             this.accountSelectorLabel = new System.Windows.Forms.Label();
             this.accountSelector = new System.Windows.Forms.ComboBox();
             this.tradingTab = new System.Windows.Forms.TabPage();
@@ -717,8 +717,8 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.positionsGrid)).BeginInit();
             this.familyCodesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.familyCodesGrid)).BeginInit();
-            this.dailyPnLTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDailyPnL)).BeginInit();
+            this.pnlTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPnL)).BeginInit();
             this.tradingTab.SuspendLayout();
             this.execFilterGroup.SuspendLayout();
             this.executionsGroup.SuspendLayout();
@@ -3822,7 +3822,7 @@ namespace IBSampleApp
             this.tabControl1.Controls.Add(this.accUpdatesTab);
             this.tabControl1.Controls.Add(this.positionsTab);
             this.tabControl1.Controls.Add(this.familyCodesTab);
-            this.tabControl1.Controls.Add(this.dailyPnLTab);
+            this.tabControl1.Controls.Add(this.pnlTab);
             this.tabControl1.Location = new System.Drawing.Point(6, 30);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -4182,53 +4182,53 @@ namespace IBSampleApp
             this.familyCodesGridColumnFamilyCode.ReadOnly = true;
             this.familyCodesGridColumnFamilyCode.Width = 300;
             // 
-            // dailyPnLTab
+            // pnlTab
             // 
-            this.dailyPnLTab.BackColor = System.Drawing.Color.LightGray;
-            this.dailyPnLTab.Controls.Add(this.btnCancelDailyPnlSingle);
-            this.dailyPnLTab.Controls.Add(this.btnCancelDailyPnl);
-            this.dailyPnLTab.Controls.Add(this.btnReqDailyPnLSingle);
-            this.dailyPnLTab.Controls.Add(this.tbConId);
-            this.dailyPnLTab.Controls.Add(this.label13);
-            this.dailyPnLTab.Controls.Add(this.tbModelCode);
-            this.dailyPnLTab.Controls.Add(this.label9);
-            this.dailyPnLTab.Controls.Add(this.btnReqDailyPnL);
-            this.dailyPnLTab.Controls.Add(this.dataGridViewDailyPnL);
-            this.dailyPnLTab.Location = new System.Drawing.Point(4, 22);
-            this.dailyPnLTab.Name = "dailyPnLTab";
-            this.dailyPnLTab.Size = new System.Drawing.Size(1228, 398);
-            this.dailyPnLTab.TabIndex = 4;
-            this.dailyPnLTab.Text = "Daily PnL";
+            this.pnlTab.BackColor = System.Drawing.Color.LightGray;
+            this.pnlTab.Controls.Add(this.btnCancelPnLSingle);
+            this.pnlTab.Controls.Add(this.btnCancelPnL);
+            this.pnlTab.Controls.Add(this.btnReqPnLSingle);
+            this.pnlTab.Controls.Add(this.tbConId);
+            this.pnlTab.Controls.Add(this.label13);
+            this.pnlTab.Controls.Add(this.tbModelCode);
+            this.pnlTab.Controls.Add(this.label9);
+            this.pnlTab.Controls.Add(this.btnReqPnL);
+            this.pnlTab.Controls.Add(this.dataGridViewPnL);
+            this.pnlTab.Location = new System.Drawing.Point(4, 22);
+            this.pnlTab.Name = "pnlTab";
+            this.pnlTab.Size = new System.Drawing.Size(1228, 398);
+            this.pnlTab.TabIndex = 4;
+            this.pnlTab.Text = "PnL";
             // 
-            // btnCancelDailyPnlSingle
+            // btnCancelPnLSingle
             // 
-            this.btnCancelDailyPnlSingle.Location = new System.Drawing.Point(893, 29);
-            this.btnCancelDailyPnlSingle.Name = "btnCancelDailyPnlSingle";
-            this.btnCancelDailyPnlSingle.Size = new System.Drawing.Size(151, 23);
-            this.btnCancelDailyPnlSingle.TabIndex = 8;
-            this.btnCancelDailyPnlSingle.Text = "Cancel Daily PnL Single";
-            this.btnCancelDailyPnlSingle.UseVisualStyleBackColor = true;
-            this.btnCancelDailyPnlSingle.Click += new System.EventHandler(this.btnCancelDailyPnlSingle_Click);
+            this.btnCancelPnLSingle.Location = new System.Drawing.Point(893, 29);
+            this.btnCancelPnLSingle.Name = "btnCancelPnLSingle";
+            this.btnCancelPnLSingle.Size = new System.Drawing.Size(151, 23);
+            this.btnCancelPnLSingle.TabIndex = 8;
+            this.btnCancelPnLSingle.Text = "Cancel PnL Single";
+            this.btnCancelPnLSingle.UseVisualStyleBackColor = true;
+            this.btnCancelPnLSingle.Click += new System.EventHandler(this.btnCancelPnLSingle_Click);
             // 
-            // btnCancelDailyPnl
+            // btnCancelPnL
             // 
-            this.btnCancelDailyPnl.Location = new System.Drawing.Point(893, 3);
-            this.btnCancelDailyPnl.Name = "btnCancelDailyPnl";
-            this.btnCancelDailyPnl.Size = new System.Drawing.Size(151, 23);
-            this.btnCancelDailyPnl.TabIndex = 7;
-            this.btnCancelDailyPnl.Text = "Cancel Daily PnL";
-            this.btnCancelDailyPnl.UseVisualStyleBackColor = true;
-            this.btnCancelDailyPnl.Click += new System.EventHandler(this.btnCancelDailyPnl_Click);
+            this.btnCancelPnL.Location = new System.Drawing.Point(893, 3);
+            this.btnCancelPnL.Name = "btnCancelPnL";
+            this.btnCancelPnL.Size = new System.Drawing.Size(151, 23);
+            this.btnCancelPnL.TabIndex = 7;
+            this.btnCancelPnL.Text = "Cancel PnL";
+            this.btnCancelPnL.UseVisualStyleBackColor = true;
+            this.btnCancelPnL.Click += new System.EventHandler(this.btnCancelPnL_Click);
             // 
-            // btnReqDailyPnLSingle
+            // btnReqPnLSingle
             // 
-            this.btnReqDailyPnLSingle.Location = new System.Drawing.Point(736, 29);
-            this.btnReqDailyPnLSingle.Name = "btnReqDailyPnLSingle";
-            this.btnReqDailyPnLSingle.Size = new System.Drawing.Size(151, 23);
-            this.btnReqDailyPnLSingle.TabIndex = 6;
-            this.btnReqDailyPnLSingle.Text = "Request Daily PnL Single";
-            this.btnReqDailyPnLSingle.UseVisualStyleBackColor = true;
-            this.btnReqDailyPnLSingle.Click += new System.EventHandler(this.btnReqDailyPnLSingle_Click);
+            this.btnReqPnLSingle.Location = new System.Drawing.Point(736, 29);
+            this.btnReqPnLSingle.Name = "btnReqPnLSingle";
+            this.btnReqPnLSingle.Size = new System.Drawing.Size(151, 23);
+            this.btnReqPnLSingle.TabIndex = 6;
+            this.btnReqPnLSingle.Text = "Request PnL Single";
+            this.btnReqPnLSingle.UseVisualStyleBackColor = true;
+            this.btnReqPnLSingle.Click += new System.EventHandler(this.btnReqPnLSingle_Click);
             // 
             // tbConId
             // 
@@ -4263,26 +4263,26 @@ namespace IBSampleApp
             this.label9.TabIndex = 2;
             this.label9.Text = "Model code:";
             // 
-            // btnReqDailyPnL
+            // btnReqPnL
             // 
-            this.btnReqDailyPnL.Location = new System.Drawing.Point(736, 3);
-            this.btnReqDailyPnL.Name = "btnReqDailyPnL";
-            this.btnReqDailyPnL.Size = new System.Drawing.Size(151, 23);
-            this.btnReqDailyPnL.TabIndex = 1;
-            this.btnReqDailyPnL.Text = "Request Daily PnL";
-            this.btnReqDailyPnL.UseVisualStyleBackColor = true;
-            this.btnReqDailyPnL.Click += new System.EventHandler(this.btnReqDailyPnL_Click);
+            this.btnReqPnL.Location = new System.Drawing.Point(736, 3);
+            this.btnReqPnL.Name = "btnReqPnL";
+            this.btnReqPnL.Size = new System.Drawing.Size(151, 23);
+            this.btnReqPnL.TabIndex = 1;
+            this.btnReqPnL.Text = "Request PnL";
+            this.btnReqPnL.UseVisualStyleBackColor = true;
+            this.btnReqPnL.Click += new System.EventHandler(this.btnReqPnL_Click);
             // 
-            // dataGridViewDailyPnL
+            // dataGridViewPnL
             // 
-            this.dataGridViewDailyPnL.AllowUserToAddRows = false;
-            this.dataGridViewDailyPnL.AllowUserToDeleteRows = false;
-            this.dataGridViewDailyPnL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDailyPnL.Location = new System.Drawing.Point(6, 3);
-            this.dataGridViewDailyPnL.Name = "dataGridViewDailyPnL";
-            this.dataGridViewDailyPnL.ReadOnly = true;
-            this.dataGridViewDailyPnL.Size = new System.Drawing.Size(497, 360);
-            this.dataGridViewDailyPnL.TabIndex = 0;
+            this.dataGridViewPnL.AllowUserToAddRows = false;
+            this.dataGridViewPnL.AllowUserToDeleteRows = false;
+            this.dataGridViewPnL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPnL.Location = new System.Drawing.Point(6, 3);
+            this.dataGridViewPnL.Name = "dataGridViewPnL";
+            this.dataGridViewPnL.ReadOnly = true;
+            this.dataGridViewPnL.Size = new System.Drawing.Size(497, 360);
+            this.dataGridViewPnL.TabIndex = 0;
             // 
             // accountSelectorLabel
             // 
@@ -6714,9 +6714,9 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.positionsGrid)).EndInit();
             this.familyCodesTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.familyCodesGrid)).EndInit();
-            this.dailyPnLTab.ResumeLayout(false);
-            this.dailyPnLTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDailyPnL)).EndInit();
+            this.pnlTab.ResumeLayout(false);
+            this.pnlTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPnL)).EndInit();
             this.tradingTab.ResumeLayout(false);
             this.tradingTab.PerformLayout();
             this.execFilterGroup.ResumeLayout(false);
@@ -7371,16 +7371,16 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn highTickerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lowTickerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn futuresOpenInterestTickerColumn;
-        private System.Windows.Forms.TabPage dailyPnLTab;
-        private System.Windows.Forms.Button btnReqDailyPnLSingle;
+        private System.Windows.Forms.TabPage pnlTab;
+        private System.Windows.Forms.Button btnReqPnLSingle;
         private System.Windows.Forms.TextBox tbConId;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbModelCode;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnReqDailyPnL;
-        private System.Windows.Forms.DataGridView dataGridViewDailyPnL;
-        private System.Windows.Forms.Button btnCancelDailyPnlSingle;
-        private System.Windows.Forms.Button btnCancelDailyPnl;
+        private System.Windows.Forms.Button btnReqPnL;
+        private System.Windows.Forms.DataGridView dataGridViewPnL;
+        private System.Windows.Forms.Button btnCancelPnLSingle;
+        private System.Windows.Forms.Button btnCancelPnL;
     }
 }
 

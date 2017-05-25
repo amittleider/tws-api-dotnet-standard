@@ -602,12 +602,12 @@ public class EWrapperImpl implements EWrapper {
 	//! [marketRule]
 	
     @Override
-    public void dailyPnL(int reqId, double dailyPnL) {
-        System.out.println(EWrapperMsgGenerator.dailyPnL(reqId, dailyPnL));
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+        System.out.println(EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL));
         
     }
     @Override
-    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
-        System.out.println(EWrapperMsgGenerator.dailyPnLSingle(reqId, pos, dailyPnL, value));                
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+        System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value));                
     }
 }

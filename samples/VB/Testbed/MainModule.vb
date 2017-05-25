@@ -61,7 +61,7 @@ Module MainModule
         '**************************************************
         '** Real time market data operations  - Tickers ***
         '**************************************************
-        tickDataOperations(client)
+        'tickDataOperations(client)
 
 
         '*******************************************************
@@ -161,7 +161,7 @@ Module MainModule
         '***********************
         'marketRuleOperations(client)
 
-        dailyPnLSingle(client)
+        pnlSingle(client)
 
 
         Thread.Sleep(15000)
@@ -170,16 +170,16 @@ Module MainModule
     End Sub
 
 
-    Private Sub dailyPnL(client As EClientSocket)
-        client.reqDailyPnL(17001, "DUC00042", "")
+    Private Sub pnl(client As EClientSocket)
+        client.reqPnL(17001, "DUC00042", "")
         Thread.Sleep(1000)
-        client.cancelDailyPnL(17001)
+        client.cancelPnL(17001)
     End Sub
 
-    Private Sub dailyPnLSingle(client As EClientSocket)
-        client.reqDailyPnLSingle(17001, "DUC00042", "", 268084)
+    Private Sub pnlSingle(client As EClientSocket)
+        client.reqPnLSingle(17001, "DUC00042", "", 268084)
         Thread.Sleep(1000)
-        client.cancelDailyPnLSingle(17001)
+        client.cancelPnLSingle(17001)
     End Sub
 
     Private Sub smartComponents(client As EClientSocket)

@@ -88,8 +88,8 @@ class EDecoder implements ObjectInput {
     private static final int REROUTE_MKT_DATA_REQ = 91;
     private static final int REROUTE_MKT_DEPTH_REQ = 92;
     private static final int MARKET_RULE = 93;
-    private static final int DAILY_PNL = 94;
-    private static final int DAILY_PNL_SINGLE = 95;
+    private static final int PNL = 94;
+    private static final int PNL_SINGLE = 95;
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -435,12 +435,12 @@ class EDecoder implements ObjectInput {
                 processMarketRuleMsg();
                 break;
                 
-            case DAILY_PNL:
-            	processDailyPnlMsg();
+            case PNL:
+            	processPnLMsg();
             	break;
             	
-            case DAILY_PNL_SINGLE:
-            	processDailyPnlSingleMsg();
+            case PNL_SINGLE:
+            	processPnLSingleMsg();
             	break;
 
             default: {
@@ -500,20 +500,32 @@ class EDecoder implements ObjectInput {
         m_EWrapper.historicalDataUpdate(reqId, new Bar(date, open, high, low, close, volume, barCount, WAP));
     }
 
-    private void processDailyPnlSingleMsg() throws IOException {
+    private void processPnLSingleMsg() throws IOException {
     	int reqId = readInt();
     	int pos = readInt();
     	double dailyPnL = readDouble();
-    	double value = readDouble();
+    	double unrealizedPnL = Double.MAX_VALUE;
     	
-    	m_EWrapper.dailyPnLSingle(reqId, pos, dailyPnL, value);
+    	if (m_serverVersion >= EClient.MIN_SERVER_VER_UNREALIZED_PNL) {
+    	    unrealizedPnL = readDouble();
+    	}
+
+    	double value = readDouble();
+
+    	
+    	m_EWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
 	}
 
-	private void processDailyPnlMsg() throws IOException {
+	private void processPnLMsg() throws IOException {
 		int reqId = readInt();
 		double dailyPnL = readDouble();
+		double unrealizedPnL = Double.MAX_VALUE;
 		
-		m_EWrapper.dailyPnL(reqId, dailyPnL);
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_UNREALIZED_PNL) {
+		    unrealizedPnL = readDouble();
+		}
+		
+		m_EWrapper.pnl(reqId, dailyPnL, unrealizedPnL);
 	}
 
     private void processHistogramDataMsg() throws IOException {

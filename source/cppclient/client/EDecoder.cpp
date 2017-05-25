@@ -2120,28 +2120,44 @@ const char* EDecoder::processRerouteMktDepthReqMsg(const char* ptr, const char* 
 	return ptr;
 }
 
-const char* EDecoder::processDailyPnlMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processPnLMsg(const char* ptr, const char* endPtr) {
     int reqId;
     double dailyPnL;
+    double unrealizedPnL = DBL_MAX;
 
     DECODE_FIELD(reqId);
     DECODE_FIELD(dailyPnL);
 
-    m_pEWrapper->dailyPnL(reqId, dailyPnL);
+    if (m_serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL) {
+        DECODE_FIELD(unrealizedPnL)
+    }
+
+    m_pEWrapper->pnl(reqId, dailyPnL, unrealizedPnL);
+    
+    return ptr;
 }
 
-const char* EDecoder::processDailyPnlSingleMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processPnLSingleMsg(const char* ptr, const char* endPtr) {
     int reqId;
     int pos;
     double dailyPnL;
+    double unrealizedPnL = DBL_MAX;
     double value;
 
     DECODE_FIELD(reqId);
     DECODE_FIELD(pos);
     DECODE_FIELD(dailyPnL);
+
+    if (m_serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL) {
+        DECODE_FIELD(unrealizedPnL)
+    }
+
     DECODE_FIELD(value);
 
-    m_pEWrapper->dailyPnLSingle(reqId, pos, dailyPnL, value);
+
+    m_pEWrapper->pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+
+    return ptr;
 }
 
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
@@ -2433,12 +2449,12 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			ptr = processMarketRuleMsg(ptr, endPtr);
 			break;
 
-        case DAILY_PNL:
-            ptr = processDailyPnlMsg(ptr, endPtr);
+        case PNL:
+            ptr = processPnLMsg(ptr, endPtr);
             break;
 
-        case DAILY_PNL_SINGLE:
-            ptr = processDailyPnlSingleMsg(ptr, endPtr);
+        case PNL_SINGLE:
+            ptr = processPnLSingleMsg(ptr, endPtr);
             break;
 
 		default:

@@ -69,8 +69,8 @@ public class ApiController implements EWrapper {
 	private final Map<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
 	private final Map<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
 	private final Set<IMarketRuleHandler> m_marketRuleHandlers = new ConcurrentHashSet<>();
-    private final Map<Integer, IDailyPnLHandler> m_dailyPnLMap = new HashMap<>();
-    private final Map<Integer, IDailyPnLSingleHandler> m_dailyPnLSingleMap = new HashMap<>();
+    private final Map<Integer, IPnLHandler> m_PnLMap = new HashMap<>();
+    private final Map<Integer, IPnLSingleHandler> m_PnLSingleMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1675,81 +1675,81 @@ public class ApiController implements EWrapper {
     }
 
 	
-	public interface IDailyPnLHandler {
+	public interface IPnLHandler {
 
-        void dailyPnL(int reqId, double dailyPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL);
 	    
 	}
 
-	public void reqDailyPnL(String account, String modelCode, IDailyPnLHandler handler) {
+	public void reqPnL(String account, String modelCode, IPnLHandler handler) {
 	    if (!checkConnection())
 	        return;
 
 	    int reqId = m_reqId++;
 
-	    m_dailyPnLMap.put(reqId, handler);
+	    m_PnLMap.put(reqId, handler);
 
-	    m_client.reqDailyPnL(reqId, account, modelCode);
+	    m_client.reqPnL(reqId, account, modelCode);
 	}
 
-	public void cancelDailyPnL(IDailyPnLHandler handler) {
+	public void cancelPnL(IPnLHandler handler) {
 	    if (!checkConnection())
 	        return;
 
-	    Integer reqId = getAndRemoveKey(m_dailyPnLMap, handler);
+	    Integer reqId = getAndRemoveKey(m_PnLMap, handler);
 
 	    if (reqId != null) {
-	        m_client.cancelDailyPnL(reqId);
+	        m_client.cancelPnL(reqId);
 	        sendEOM();
 	    }
 	}	
 
     @Override
-    public void dailyPnL(int reqId, double dailyPnL) {
-        IDailyPnLHandler handler = m_dailyPnLMap.get(reqId);
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+        IPnLHandler handler = m_PnLMap.get(reqId);
         
         if (handler != null) {
-            handler.dailyPnL(reqId, dailyPnL);
+            handler.pnl(reqId, dailyPnL, unrealizedPnL);
         }
         
         recEOM();
     }
     
-    public interface IDailyPnLSingleHandler {
+    public interface IPnLSingleHandler {
 
-        void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
         
     }
 
-    public void reqDailyPnLSingle(String account, String modelCode, int conId, IDailyPnLSingleHandler handler) {
+    public void reqPnLSingle(String account, String modelCode, int conId, IPnLSingleHandler handler) {
         if (!checkConnection())
             return;
 
         int reqId = m_reqId++;
 
-        m_dailyPnLSingleMap.put(reqId, handler);
+        m_PnLSingleMap.put(reqId, handler);
 
-        m_client.reqDailyPnLSingle(reqId, account, modelCode, conId);
+        m_client.reqPnLSingle(reqId, account, modelCode, conId);
     }
 
-    public void cancelDailyPnLSingle(IDailyPnLSingleHandler handler) {
+    public void cancelPnLSingle(IPnLSingleHandler handler) {
         if (!checkConnection())
             return;
 
-        Integer reqId = getAndRemoveKey(m_dailyPnLSingleMap, handler);
+        Integer reqId = getAndRemoveKey(m_PnLSingleMap, handler);
 
         if (reqId != null) {
-            m_client.cancelDailyPnLSingle(reqId);
+            m_client.cancelPnLSingle(reqId);
             sendEOM();
         }
     }    
 
     @Override
-    public void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
-        IDailyPnLSingleHandler handler = m_dailyPnLSingleMap.get(reqId);
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+        IPnLSingleHandler handler = m_PnLSingleMap.get(reqId);
         
         if (handler != null) {
-            handler.dailyPnLSingle(reqId, pos, dailyPnL, value);
+            handler.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
         }
         
         recEOM();

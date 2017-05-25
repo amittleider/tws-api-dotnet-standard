@@ -78,13 +78,15 @@ const int MIN_SERVER_VER_SYNT_REALTIME_BARS	        = 124;
 const int MIN_SERVER_VER_CFD_REROUTE                = 125;
 const int MIN_SERVER_VER_MARKET_RULES               = 126;
 const int MIN_SERVER_VER_DAILY_PNL                  = 127;
+const int MIN_SERVER_VER_PNL                        = 127;
 const int MIN_SERVER_VER_NEWS_QUERY_ORIGINS         = 128;
+const int MIN_SERVER_VER_UNREALIZED_PNL             = 129;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_NEWS_QUERY_ORIGINS;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_UNREALIZED_PNL;
 
 
 // incoming msg id's
@@ -156,8 +158,8 @@ const int HISTORICAL_DATA_UPDATE                    = 90;
 const int REROUTE_MKT_DATA_REQ                      = 91;
 const int REROUTE_MKT_DEPTH_REQ                     = 92;
 const int MARKET_RULE                               = 93;
-const int DAILY_PNL                                 = 94;
-const int DAILY_PNL_SINGLE                          = 95;
+const int PNL                                 = 94;
+const int PNL_SINGLE                          = 95;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -275,8 +277,8 @@ class TWSAPIDLLEXP EDecoder
 	const char* processRerouteMktDataReqMsg(const char* ptr, const char* endPtr);
 	const char* processRerouteMktDepthReqMsg(const char* ptr, const char* endPtr);
 	const char* processMarketRuleMsg(const char* ptr, const char* endPtr);
-    const char* processDailyPnlMsg(const char* ptr, const char* endPtr);
-    const char* processDailyPnlSingleMsg(const char* ptr, const char* endPtr);
+    const char* processPnLMsg(const char* ptr, const char* endPtr);
+    const char* processPnLSingleMsg(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);

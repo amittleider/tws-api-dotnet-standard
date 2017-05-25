@@ -108,10 +108,10 @@ Friend Class MainForm
     Public WithEvents cmdReqHeadTimestamp As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistogramData As System.Windows.Forms.Button
     Friend WithEvents cmdReqMarketRule As System.Windows.Forms.Button
-    Friend WithEvents cmdCancelDailyPnlSingle As System.Windows.Forms.Button
-    Friend WithEvents cmdReqDailyPnlSingle As System.Windows.Forms.Button
-    Public WithEvents cmdCancelDailyPnl As System.Windows.Forms.Button
-    Friend WithEvents cmdReqDailyPnl As System.Windows.Forms.Button
+    Friend WithEvents cmdCancelPnlSingle As System.Windows.Forms.Button
+    Friend WithEvents cmdReqPnlSingle As System.Windows.Forms.Button
+    Public WithEvents cmdCancelPnl As System.Windows.Forms.Button
+    Friend WithEvents cmdReqPnl As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -178,10 +178,10 @@ Friend Class MainForm
         Me.cmdReqHeadTimestamp = New System.Windows.Forms.Button()
         Me.cmdReqHistogramData = New System.Windows.Forms.Button()
         Me.cmdReqMarketRule = New System.Windows.Forms.Button()
-        Me.cmdCancelDailyPnlSingle = New System.Windows.Forms.Button()
-        Me.cmdReqDailyPnlSingle = New System.Windows.Forms.Button()
-        Me.cmdCancelDailyPnl = New System.Windows.Forms.Button()
-        Me.cmdReqDailyPnl = New System.Windows.Forms.Button()
+        Me.cmdCancelPnlSingle = New System.Windows.Forms.Button()
+        Me.cmdReqPnlSingle = New System.Windows.Forms.Button()
+        Me.cmdCancelPnl = New System.Windows.Forms.Button()
+        Me.cmdReqPnl = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -947,56 +947,56 @@ Friend Class MainForm
         Me.cmdReqMarketRule.Text = "Req Market Rule"
         Me.cmdReqMarketRule.UseVisualStyleBackColor = True
         '
-        'cmdCancelDailyPnlSingle
+        'cmdCancelPnlSingle
         '
-        Me.cmdCancelDailyPnlSingle.Location = New System.Drawing.Point(681, 776)
-        Me.cmdCancelDailyPnlSingle.Name = "cmdCancelDailyPnlSingle"
-        Me.cmdCancelDailyPnlSingle.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelDailyPnlSingle.TabIndex = 67
-        Me.cmdCancelDailyPnlSingle.Text = "Cancel Daily PnL Single"
-        Me.cmdCancelDailyPnlSingle.UseVisualStyleBackColor = True
+        Me.cmdCancelPnlSingle.Location = New System.Drawing.Point(681, 776)
+        Me.cmdCancelPnlSingle.Name = "cmdCancelPnlSingle"
+        Me.cmdCancelPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPnlSingle.TabIndex = 67
+        Me.cmdCancelPnlSingle.Text = "Cancel PnL Single"
+        Me.cmdCancelPnlSingle.UseVisualStyleBackColor = True
         '
-        'cmdReqDailyPnlSingle
+        'cmdReqPnlSingle
         '
-        Me.cmdReqDailyPnlSingle.Location = New System.Drawing.Point(543, 776)
-        Me.cmdReqDailyPnlSingle.Name = "cmdReqDailyPnlSingle"
-        Me.cmdReqDailyPnlSingle.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqDailyPnlSingle.TabIndex = 66
-        Me.cmdReqDailyPnlSingle.Text = "Req Daily PnL Single..."
-        Me.cmdReqDailyPnlSingle.UseVisualStyleBackColor = True
+        Me.cmdReqPnlSingle.Location = New System.Drawing.Point(543, 776)
+        Me.cmdReqPnlSingle.Name = "cmdReqPnlSingle"
+        Me.cmdReqPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPnlSingle.TabIndex = 66
+        Me.cmdReqPnlSingle.Text = "Req PnL Single..."
+        Me.cmdReqPnlSingle.UseVisualStyleBackColor = True
         '
-        'cmdCancelDailyPnl
+        'cmdCancelPnl
         '
-        Me.cmdCancelDailyPnl.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdCancelDailyPnl.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdCancelDailyPnl.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancelDailyPnl.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelDailyPnl.Location = New System.Drawing.Point(681, 749)
-        Me.cmdCancelDailyPnl.Name = "cmdCancelDailyPnl"
-        Me.cmdCancelDailyPnl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelDailyPnl.Size = New System.Drawing.Size(134, 21)
-        Me.cmdCancelDailyPnl.TabIndex = 65
-        Me.cmdCancelDailyPnl.Text = "Cancel Daily PnL"
-        Me.cmdCancelDailyPnl.UseVisualStyleBackColor = True
+        Me.cmdCancelPnl.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdCancelPnl.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmdCancelPnl.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancelPnl.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmdCancelPnl.Location = New System.Drawing.Point(681, 749)
+        Me.cmdCancelPnl.Name = "cmdCancelPnl"
+        Me.cmdCancelPnl.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.cmdCancelPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPnl.TabIndex = 65
+        Me.cmdCancelPnl.Text = "Cancel PnL"
+        Me.cmdCancelPnl.UseVisualStyleBackColor = True
         '
-        'cmdReqDailyPnl
+        'cmdReqPnl
         '
-        Me.cmdReqDailyPnl.Location = New System.Drawing.Point(543, 749)
-        Me.cmdReqDailyPnl.Name = "cmdReqDailyPnl"
-        Me.cmdReqDailyPnl.Size = New System.Drawing.Size(134, 21)
-        Me.cmdReqDailyPnl.TabIndex = 64
-        Me.cmdReqDailyPnl.Text = "Req Daily PnL..."
-        Me.cmdReqDailyPnl.UseVisualStyleBackColor = True
+        Me.cmdReqPnl.Location = New System.Drawing.Point(543, 749)
+        Me.cmdReqPnl.Name = "cmdReqPnl"
+        Me.cmdReqPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPnl.TabIndex = 64
+        Me.cmdReqPnl.Text = "Req PnL..."
+        Me.cmdReqPnl.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(823, 854)
-        Me.Controls.Add(Me.cmdCancelDailyPnlSingle)
-        Me.Controls.Add(Me.cmdReqDailyPnlSingle)
-        Me.Controls.Add(Me.cmdCancelDailyPnl)
-        Me.Controls.Add(Me.cmdReqDailyPnl)
+        Me.Controls.Add(Me.cmdCancelPnlSingle)
+        Me.Controls.Add(Me.cmdReqPnlSingle)
+        Me.Controls.Add(Me.cmdCancelPnl)
+        Me.Controls.Add(Me.cmdReqPnl)
         Me.Controls.Add(Me.cmdReqMarketRule)
         Me.Controls.Add(Me.cmdReqHistogramData)
         Me.Controls.Add(Me.cmdReqHeadTimestamp)
@@ -1112,7 +1112,7 @@ Friend Class MainForm
     Private m_newsArticleOptions As List(Of IBApi.TagValue)
     Private m_historicalNewsOptions As List(Of IBApi.TagValue)
 
-    Private m_dlgPnL As New dlgDailyPnL
+    Private m_dlgPnL As New dlgPnL
     Private m_dlgOrder As New dlgOrder
     Private m_dlgConnect As New dlgConnect
     Private m_dlgMktDepth As New dlgMktDepth
@@ -1922,12 +1922,12 @@ Friend Class MainForm
 
 #Region "API event handlers"
 
-    Private Sub m_apiEvents_DailyPnL(sender As ApiEventSource, e As DailyPnLEventArgs) Handles m_apiEvents.DailyPnL
-        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Daily PnL, req id: {0}, Daily PnL: {1}", e.requestId, e.dailyPnL))
+    Private Sub m_apiEvents_PnL(sender As ApiEventSource, e As PnLEventArgs) Handles m_apiEvents.PnL
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL, req id: {0}, Daily PnL: {1}, Unrealized PnL: {2}", e.requestId, e.dailyPnL, e.unrealizedPnL))
     End Sub
 
-    Private Sub m_apiEvents_DailyPnLSingle(sender As ApiEventSource, e As DailyPnLSingleEventArgs) Handles m_apiEvents.DailyPnLSingle
-        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Daily PnL Single, req id: {0}, Pos:{1}, Daily PnL: {2}, Value: {3}", e.requestId, e.pos, e.dailyPnL, e.value))
+    Private Sub m_apiEvents_PnLSingle(sender As ApiEventSource, e As PnLSingleEventArgs) Handles m_apiEvents.PnLSingle
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL Single, req id: {0}, Pos:{1}, Daily PnL: {2}, Unrealized PnL: {3}, Value: {4}", e.requestId, e.pos, e.dailyPnL, e.unrealizedPnL, e.value))
     End Sub
 
     '--------------------------------------------------------------------------------
@@ -3388,24 +3388,24 @@ Friend Class MainForm
         End If
     End Sub
 
-    Private Sub cmdReqDailyPnl_Click(sender As Object, e As EventArgs) Handles cmdReqDailyPnl.Click
+    Private Sub cmdReqPnl_Click(sender As Object, e As EventArgs) Handles cmdReqPnl.Click
         If m_dlgPnL.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            m_api.reqDailyPnL(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode)
+            m_api.reqPnL(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode)
         End If
     End Sub
 
-    Private Sub cmdCancelDailyPnl_Click(sender As Object, e As EventArgs) Handles cmdCancelDailyPnl.Click
-        m_api.cancelDailyPnL(m_dlgPnL.ReqId)
+    Private Sub cmdCancelPnl_Click(sender As Object, e As EventArgs) Handles cmdCancelPnl.Click
+        m_api.cancelPnL(m_dlgPnL.ReqId)
     End Sub
 
-    Private Sub cmdReqDailyPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdReqDailyPnlSingle.Click
+    Private Sub cmdReqPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdReqPnlSingle.Click
         If m_dlgPnL.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            m_api.reqDailyPnLSingle(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode, m_dlgPnL.ConId)
+            m_api.reqPnLSingle(m_dlgPnL.ReqId, m_dlgPnL.Account, m_dlgPnL.ModelCode, m_dlgPnL.ConId)
         End If
     End Sub
 
-    Private Sub cmdCancelDailyPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdCancelDailyPnlSingle.Click
-        m_api.cancelDailyPnLSingle(m_dlgPnL.ReqId)
+    Private Sub cmdCancelPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdCancelPnlSingle.Click
+        m_api.cancelPnLSingle(m_dlgPnL.ReqId)
     End Sub
 
 End Class

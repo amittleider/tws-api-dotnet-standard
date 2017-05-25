@@ -353,12 +353,12 @@ namespace IBApi
                     MarketRuleEvent();
                     break;
 
-                case IncomingMessage.DailyPnL:
-                    DailyPnlEvent();
+                case IncomingMessage.PnL:
+                    PnLEvent();
                     break;
 
-                case IncomingMessage.DailyPnLSingle:
-                    DailyPnlSingleEvent();
+                case IncomingMessage.PnLSingle:
+                    PnLSingleEvent();
                     break;
 
                 default:
@@ -423,22 +423,35 @@ namespace IBApi
         }
 
 
-        private void DailyPnlSingleEvent()
+        private void PnLSingleEvent()
         {
             int reqId = ReadInt();
             int pos = ReadInt();
             double dailyPnL = ReadDouble();
+            double unrealizedPnL = double.MaxValue;
+
+            if (serverVersion >= MinServerVer.UNREALIZED_PNL)
+            {
+                unrealizedPnL = ReadDouble();
+            }
+
             double value = ReadDouble();
 
-            eWrapper.dailyPnLSingle(reqId, pos, dailyPnL, value);
+            eWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
         }
 
-        private void DailyPnlEvent()
+        private void PnLEvent()
         {
             int reqId = ReadInt();
             double dailyPnL = ReadDouble();
+            double unrealizedPnL = double.MaxValue;
 
-            eWrapper.dailyPnL(reqId, dailyPnL);
+            if (serverVersion >= MinServerVer.UNREALIZED_PNL)
+            {
+                unrealizedPnL = ReadDouble();
+            }
+
+            eWrapper.pnl(reqId, dailyPnL, unrealizedPnL);
         }
 
         private void HistogramDataEvent()

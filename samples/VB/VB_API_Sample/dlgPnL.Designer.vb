@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class dlgDailyPnL
+Partial Class dlgPnL
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -122,7 +122,7 @@ Partial Class dlgDailyPnL
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Con Id:"
         '
-        'dlgDailyPnL
+        'dlgPnL
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -138,8 +138,8 @@ Partial Class dlgDailyPnL
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Name = "dlgDailyPnL"
-        Me.Text = "Req Daily PnL"
+        Me.Name = "dlgPnL"
+        Me.Text = "Req PnL"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

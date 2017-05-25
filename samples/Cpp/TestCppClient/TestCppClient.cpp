@@ -109,15 +109,15 @@ void TestCppClient::processMessages() {
     /* Below are few quick-to-test examples on the IB API functions grouped by functionality. Uncomment the relevant methods. */
     /*****************************************************************/
 	switch (m_state) {
-		case ST_DAILYPNLSINGLE:
-			dailyPnLSingleOperation();
+		case ST_PNLSINGLE:
+			pnlSingleOperation();
 			break;
-		case ST_DAILYPNLSINGLE_ACK:
+		case ST_PNLSINGLE_ACK:
 			break;
-		case ST_DAILYPNL:
-			dailyPnLOperation();
+		case ST_PNL:
+			pnlOperation();
 			break;
-		case ST_DAILYPNL_ACK:
+		case ST_PNL_ACK:
 			break;
 		case ST_TICKDATAOPERATION:
 			tickDataOperation();
@@ -330,26 +330,26 @@ void TestCppClient::reqCurrentTime()
 	m_pClient->reqCurrentTime();
 }
 
-void TestCppClient::dailyPnLOperation()
+void TestCppClient::pnlOperation()
 {
-    m_pClient->reqDailyPnL(7001, "DUC00042", "");
+    m_pClient->reqPnL(7001, "DUC00042", "");
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    m_pClient->cancelDailyPnL(7001);
+    m_pClient->cancelPnL(7001);
 
-    m_state = ST_DAILYPNL_ACK;
+    m_state = ST_PNL_ACK;
 }
 
-void TestCppClient::dailyPnLSingleOperation()
+void TestCppClient::pnlSingleOperation()
 {
-    m_pClient->reqDailyPnLSingle(7002, "DUC00042", "", 268084);
+    m_pClient->reqPnLSingle(7002, "DUC00042", "", 268084);
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    m_pClient->cancelDailyPnLSingle(7002);
+    m_pClient->cancelPnLSingle(7002);
 
-    m_state = ST_DAILYPNLSINGLE_ACK;
+    m_state = ST_PNLSINGLE_ACK;
 }
 
 void TestCppClient::tickDataOperation()
@@ -1172,7 +1172,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    //m_state = ST_DAILYPNLSINGLE; 
+    m_state = ST_PNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
@@ -1200,7 +1200,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
 	//m_state = ST_REQNEWSARTICLE;
-	m_state = ST_REQHISTORICALNEWS;
+	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
 	//m_state = ST_REROUTECFD;
@@ -1695,10 +1695,10 @@ void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncremen
 	}
 }
 //! [marketRule]
-void TestCppClient::dailyPnL(int reqId, double dailyPnL) {
-	printf("Daily PnL. ReqId: %d, daily PnL: %f\n", reqId, dailyPnL);
+void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+	printf("PnL. ReqId: %d, daily PnL: %g, unrealized PnL: %g\n", reqId, dailyPnL, unrealizedPnL);
 }
 
-void TestCppClient::dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
-	printf("Daily PnL Single. ReqId: %d, pos: %f, daily PnL: %f, value: %f\n", reqId, pos, dailyPnL, value);
+void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+	printf("PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, value: %g\n", reqId, pos, dailyPnL, unrealizedPnL, value);
 }

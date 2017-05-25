@@ -2688,81 +2688,81 @@ namespace IBApi
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQMARKETRULE);
         }
 
-        public void reqDailyPnL(int reqId, string account, string modelCode)
+        public void reqPnL(int reqId, string account, string modelCode)
         {
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
-                    "  It does not support daily PnL requests."))
+            if (!CheckServerVersion(MinServerVer.PNL,
+                    "  It does not support PnL requests."))
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 
-            paramsList.AddParameter(OutgoingMessages.ReqDailyPnL);
+            paramsList.AddParameter(OutgoingMessages.ReqPnL);
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(account);
             paramsList.AddParameter(modelCode);
 
-            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNL);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPNL);
         }
 
-        public void cancelDailyPnL(int reqId)
+        public void cancelPnL(int reqId)
         {
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
-                    "  It does not support daily PnL requests."))
+            if (!CheckServerVersion(MinServerVer.PNL,
+                    "  It does not support PnL requests."))
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 
-            paramsList.AddParameter(OutgoingMessages.CancelDailyPnL);
+            paramsList.AddParameter(OutgoingMessages.CancelPnL);
             paramsList.AddParameter(reqId);
 
-            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELDAILYPNL);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELPNL);
         }
 
-        public void reqDailyPnLSingle(int reqId, string account, string modelCode, int conId)
+        public void reqPnLSingle(int reqId, string account, string modelCode, int conId)
         {
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
-                    "  It does not support daily PnL requests."))
+            if (!CheckServerVersion(MinServerVer.PNL,
+                    "  It does not support PnL requests."))
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 
-            paramsList.AddParameter(OutgoingMessages.ReqDailyPnLSingle);
+            paramsList.AddParameter(OutgoingMessages.ReqPnLSingle);
             paramsList.AddParameter(reqId);
             paramsList.AddParameter(account);
             paramsList.AddParameter(modelCode);
             paramsList.AddParameter(conId);
 
-            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNLSINGLE);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPNLSINGLE);
         }
 
-        public void cancelDailyPnLSingle(int reqId)
+        public void cancelPnLSingle(int reqId)
         {
             if (!CheckConnection())
                 return;
 
-            if (!CheckServerVersion(MinServerVer.DAILY_PNL,
-                    "  It does not support daily PnL requests."))
+            if (!CheckServerVersion(MinServerVer.PNL,
+                    "  It does not support PnL requests."))
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
             var lengthPos = prepareBuffer(paramsList);
 
-            paramsList.AddParameter(OutgoingMessages.CancelDailyPnLSingle);
+            paramsList.AddParameter(OutgoingMessages.CancelPnLSingle);
             paramsList.AddParameter(reqId);
 
-            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQDAILYPNLSINGLE);
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQPNLSINGLE);
         }
 
         protected bool CheckServerVersion(int requiredVersion)

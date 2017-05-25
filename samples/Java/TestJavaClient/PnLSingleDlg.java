@@ -5,13 +5,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
-public class DailyPnLSingleDlg extends DailyPnLDlg {
+public class PnLSingleDlg extends PnLDlg {
 
     int m_conId;
 
     private JTextField m_conIdField = new JTextField();
     
-    public DailyPnLSingleDlg(JFrame parent) {
+    public PnLSingleDlg(JFrame parent) {
         super(parent);
         
         m_editsPanel.add(new JLabel("Con Id"));
