@@ -21,7 +21,7 @@ public class DailyPnLSingleModel extends AbstractTableModel {
         }
     }
 
-    class Row {
+    static class Row {
         int m_pos;
         double m_dailyPnL;
         double m_value;

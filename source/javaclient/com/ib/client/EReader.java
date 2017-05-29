@@ -147,7 +147,7 @@ public class EReader extends Thread {
 				  }
 				}
 				break;
-			} catch (Exception e) {
+			} catch (IOException e) {
 				if (m_iBufLen >= m_iBuf.length * 3/4) {
 					byte[] tmp = new byte[m_iBuf.length * 2];
 					

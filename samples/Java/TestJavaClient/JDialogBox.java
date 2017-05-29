@@ -1,7 +1,6 @@
 package TestJavaClient;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
