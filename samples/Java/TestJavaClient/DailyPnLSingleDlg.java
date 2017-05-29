@@ -1,6 +1,5 @@
 package TestJavaClient;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
