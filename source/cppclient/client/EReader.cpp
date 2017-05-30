@@ -92,9 +92,11 @@ bool EReader::putMessageToQueue() {
 	if (msg == 0)
 		return false;
 
-	m_csMsgQueue.Enter();
-	m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
-	m_csMsgQueue.Leave();
+	{
+		EMutexGuard lock(m_csMsgQueue);
+		m_msgQueue.push_back(ibapi::shared_ptr<EMessage>(msg));
+	}
+
 	m_pEReaderSignal->issueSignal();
 
 	return true;
@@ -251,18 +253,14 @@ EMessage * EReader::readSingleMsg() {
 }
 
 ibapi::shared_ptr<EMessage> EReader::getMsg(void) {
-	m_csMsgQueue.Enter();
+	EMutexGuard lock(m_csMsgQueue);
 
 	if (m_msgQueue.size() == 0) {
-		m_csMsgQueue.Leave();
-
 		return ibapi::shared_ptr<EMessage>();
 	}
 
 	ibapi::shared_ptr<EMessage> msg = m_msgQueue.front();
-
 	m_msgQueue.pop_front();
-	m_csMsgQueue.Leave();
 
 	return msg;
 }
