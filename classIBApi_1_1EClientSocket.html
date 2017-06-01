@@ -134,7 +134,7 @@ $(document).ready(function(){initNavTree('classIBApi_1_1EClientSocket.html','');
 </div><!--header-->
 <div class="contents">
 
-<p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.  
+<p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to 32 clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.  
  <a href="classIBApi_1_1EClientSocket.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for EClientSocket:</div>
@@ -379,12 +379,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a0f4e6f5e10cf0ed4b4116734c25f43a7 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a0f4e6f5e10cf0ed4b4116734c25f43a7">reqNewsProviders</a> ()</td></tr>
 <tr class="memdesc:a0f4e6f5e10cf0ed4b4116734c25f43a7 inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests news providers which the user has subscribed to.  <a href="#a0f4e6f5e10cf0ed4b4116734c25f43a7">More...</a><br/></td></tr>
 <tr class="separator:a0f4e6f5e10cf0ed4b4116734c25f43a7 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a38d57be0a0027ec9af0a757b42e47c inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a3a38d57be0a0027ec9af0a757b42e47c">reqNewsArticle</a> (int requestId, string providerCode, string articleId)</td></tr>
-<tr class="memdesc:a3a38d57be0a0027ec9af0a757b42e47c inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests news article body given articleId.  <a href="#a3a38d57be0a0027ec9af0a757b42e47c">More...</a><br/></td></tr>
-<tr class="separator:a3a38d57be0a0027ec9af0a757b42e47c inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f5231671e10fe6de28fbce0af144e7c inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a0f5231671e10fe6de28fbce0af144e7c">reqHistoricalNews</a> (int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults)</td></tr>
-<tr class="memdesc:a0f5231671e10fe6de28fbce0af144e7c inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests historical news headlines  requestId  conId - contract id of ticker  providerCodes - a '+'-separated list of provider codes  startDateTime - marks the (exclusive) start of the date range. The format is yyyy-MM-dd HH:mm:ss.0  endDateTime - marks the (inclusive) end of the date range. The format is yyyy-MM-dd HH:mm:ss.0  totalResults - the maximum number of headlines to fetch (1 - 300)  <a href="#a0f5231671e10fe6de28fbce0af144e7c">More...</a><br/></td></tr>
-<tr class="separator:a0f5231671e10fe6de28fbce0af144e7c inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a350493851c7f941bdb2a42f6d46b4bda inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a350493851c7f941bdb2a42f6d46b4bda">reqNewsArticle</a> (int requestId, string providerCode, string articleId, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;newsArticleOptions)</td></tr>
+<tr class="memdesc:a350493851c7f941bdb2a42f6d46b4bda inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests news article body given articleId.  <a href="#a350493851c7f941bdb2a42f6d46b4bda">More...</a><br/></td></tr>
+<tr class="separator:a350493851c7f941bdb2a42f6d46b4bda inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd58660daa6865b75844a7c02bf5b68e inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#abd58660daa6865b75844a7c02bf5b68e">reqHistoricalNews</a> (int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults, List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt; historicalNewsOptions)</td></tr>
+<tr class="memdesc:abd58660daa6865b75844a7c02bf5b68e inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests historical news headlines  requestId  conId - contract id of ticker  providerCodes - a '+'-separated list of provider codes  startDateTime - marks the (exclusive) start of the date range. The format is yyyy-MM-dd HH:mm:ss.0  endDateTime - marks the (inclusive) end of the date range. The format is yyyy-MM-dd HH:mm:ss.0  totalResults - the maximum number of headlines to fetch (1 - 300)  <a href="#abd58660daa6865b75844a7c02bf5b68e">More...</a><br/></td></tr>
+<tr class="separator:abd58660daa6865b75844a7c02bf5b68e inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a059b5072d1e8e8e96394e53366eb81f3 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a059b5072d1e8e8e96394e53366eb81f3">reqHeadTimestamp</a> (int tickerId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, string whatToShow, int useRTH, int formatDate)</td></tr>
 <tr class="memdesc:a059b5072d1e8e8e96394e53366eb81f3 inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp of earliest available historical data for a contract and data type  tickerId - an identifier for the request  contract - contract object for which head timestamp is being requested  whatToShow - type of data for head timestamp - "BID", "ASK", "TRADES", etc  useRTH - use regular trading hours only, 1 for yes or 0 for no  formatDate -.  <a href="#a059b5072d1e8e8e96394e53366eb81f3">More...</a><br/></td></tr>
 <tr class="separator:a059b5072d1e8e8e96394e53366eb81f3 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -397,6 +397,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>cancelHeadTimestamp</
 <tr class="memitem:a89403a8270811979921492c457ce4c6e inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#a89403a8270811979921492c457ce4c6e">cancelHistogramData</a> (int tickerId)</td></tr>
 <tr class="memdesc:a89403a8270811979921492c457ce4c6e inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels an active data histogram request  tickerId - identifier specified in reqHistogramData request.  <a href="#a89403a8270811979921492c457ce4c6e">More...</a><br/></td></tr>
 <tr class="separator:a89403a8270811979921492c457ce4c6e inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e8c23a0d1e480ce84320b9e6b525dd inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#af4e8c23a0d1e480ce84320b9e6b525dd">reqMarketRule</a> (int marketRuleId)</td></tr>
+<tr class="memdesc:af4e8c23a0d1e480ce84320b9e6b525dd inherit pub_methods_classIBApi_1_1EClient"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests market rule  marketRuleId - the id of market rule.  <a href="#af4e8c23a0d1e480ce84320b9e6b525dd">More...</a><br/></td></tr>
+<tr class="separator:af4e8c23a0d1e480ce84320b9e6b525dd inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abee17ad94cad0396ca70e0419f5adbb1 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abee17ad94cad0396ca70e0419f5adbb1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>reqDailyPnL</b> (int reqId, string account, string modelCode)</td></tr>
+<tr class="separator:abee17ad94cad0396ca70e0419f5adbb1 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9619e4d5e23b167703202ebdbc9154 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed9619e4d5e23b167703202ebdbc9154"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cancelDailyPnL</b> (int reqId)</td></tr>
+<tr class="separator:aed9619e4d5e23b167703202ebdbc9154 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a426dd8c2628924b6bec254f2487eda53 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a426dd8c2628924b6bec254f2487eda53"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>reqDailyPnLSingle</b> (int reqId, string account, string modelCode, int conId)</td></tr>
+<tr class="separator:a426dd8c2628924b6bec254f2487eda53 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55eceb47ad090ac7b8428f3f297ced0a inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55eceb47ad090ac7b8428f3f297ced0a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cancelDailyPnLSingle</b> (int reqId)</td></tr>
+<tr class="separator:a55eceb47ad090ac7b8428f3f297ced0a inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc9a6d7c7f6db257ec75b61d8e906bb6 inherit pub_methods_classIBApi_1_1EClient"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc9a6d7c7f6db257ec75b61d8e906bb6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>ReadInt</b> ()</td></tr>
 <tr class="separator:acc9a6d7c7f6db257ec75b61d8e906bb6 inherit pub_methods_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -521,7 +536,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 <tr class="separator:aacf95fe1db1afe29b687a4fa78ef4609 inherit properties_classIBApi_1_1EClient"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host. </p>
+<div class="textblock"><p>TWS/Gateway client class This client class contains all the available methods to communicate with IB. Up to 32 clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a315a7f7a34afc504d84c4f0ca462d924"></a>
 <div class="memitem">
@@ -580,7 +595,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 		font family: Arial, sans-serif;
 		border-color: #000100;
 		background-color: #000000;
-		width:250px;
+		width:260px;
 		height: 20px;
 		padding-top: 6px;
 	}

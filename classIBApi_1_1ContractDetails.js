@@ -19,6 +19,7 @@ var classIBApi_1_1ContractDetails =
     [ "LiquidHours", "classIBApi_1_1ContractDetails.html#acc32af802190468b3d03e5cf37c5ef79", null ],
     [ "LongName", "classIBApi_1_1ContractDetails.html#a6d760eaf625cb5e63153ee13a0481360", null ],
     [ "MarketName", "classIBApi_1_1ContractDetails.html#af016b758ae39fa9ed2b3e5b52e85f373", null ],
+    [ "MarketRuleIds", "classIBApi_1_1ContractDetails.html#a1da6a98621652daa972aa5b8e45ab76b", null ],
     [ "Maturity", "classIBApi_1_1ContractDetails.html#a0529525f5a8f43b10ceb558577763c15", null ],
     [ "MdSizeMultiplier", "classIBApi_1_1ContractDetails.html#aea3e9ded7f1e8a604bea3cbf2bd9c35e", null ],
     [ "MinTick", "classIBApi_1_1ContractDetails.html#ad854e501feeba56e8f8e7938de5b6adf", null ],

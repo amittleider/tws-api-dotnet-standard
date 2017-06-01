@@ -413,7 +413,7 @@ Contract Specific News</h1>
 </div><!-- fragment -->  </li>
 </ul>
 <p><b>Important:</b> For Briefing Trader live head lines via the API is only offered on a case-by-case basis directly from Briefing.com offers Briefing Trader subscribers access to the subscription live head lines via the API. For more information and to submit an API entitlement application, please contact Briefing.com directly at <a href="#" onclick="location.href='mai'+'lto:'+'dbe'+'as'+'ley'+'@b'+'rie'+'fi'+'ng.'+'co'+'m'; return false;">dbeas<span style="display: none;">.nosp@m.</span>ley@<span style="display: none;">.nosp@m.</span>brief<span style="display: none;">.nosp@m.</span>ing.<span style="display: none;">.nosp@m.</span>com</a>.</p>
-<p>The resulting news headlines are returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#ac2cf5a12822959fb0ce7e9f816157ea8" title="ticks with news headline ">IBApi::EWrapper::tickNews</a> with the news headline, timestamp, and article ID. The article ID can be used to retrieve the body of the news article using the function <a class="el" href="classIBApi_1_1EClient.html#a3a38d57be0a0027ec9af0a757b42e47c" title="Requests news article body given articleId. ">IBApi::EClient::reqNewsArticle</a> below.</p>
+<p>The resulting news headlines are returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#ac2cf5a12822959fb0ce7e9f816157ea8" title="ticks with news headline ">IBApi::EWrapper::tickNews</a> with the news headline, timestamp, and article ID. The article ID can be used to retrieve the body of the news article using the function <a class="el" href="classIBApi_1_1EClient.html#a350493851c7f941bdb2a42f6d46b4bda" title="Requests news article body given articleId. ">IBApi::EClient::reqNewsArticle</a> below.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> tickNews(<span class="keywordtype">int</span> tickerId, <span class="keywordtype">long</span> timeStamp, <span class="keywordtype">string</span> providerCode, <span class="keywordtype">string</span> articleId, <span class="keywordtype">string</span> headline, <span class="keywordtype">string</span> extraData)</div>
@@ -445,19 +445,21 @@ Contract Specific News</h1>
 </ul>
 <h1><a class="anchor" id="historical_news"></a>
 Historical News Headlines</h1>
-<p>With the appropriate API news subscription, historical news headlines can be requested from the API using the function <a class="el" href="classIBApi_1_1EClient.html#a0f5231671e10fe6de28fbce0af144e7c" title="Requests historical news headlines  requestId  conId - contract id of ticker  providerCodes - a &#39;+&#39;-s...">IBApi::EClient::reqHistoricalNews</a> starting in API v973.02. The resulting headlines are returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a4d87a50aa3a688d0e2a48519a369f962" title="returns news headline ">IBApi::EWrapper::historicalNews</a>.</p>
+<p>With the appropriate API news subscription, historical news headlines can be requested from the API using the function <a class="el" href="classIBApi_1_1EClient.html#abd58660daa6865b75844a7c02bf5b68e" title="Requests historical news headlines  requestId  conId - contract id of ticker  providerCodes - a &#39;+&#39;-s...">IBApi::EClient::reqHistoricalNews</a> starting in API v973.02. The resulting headlines are returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#a4d87a50aa3a688d0e2a48519a369f962" title="returns news headline ">IBApi::EWrapper::historicalNews</a>.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            client.reqHistoricalNews(12003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10);</div>
+<div class="fragment"><div class="line">            client.reqHistoricalNews(12003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.reqHistoricalNews(10003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10);</div>
+<div class="fragment"><div class="line">        client.reqHistoricalNews(10003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.reqHistoricalNews(10003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10)</div>
+<div class="fragment"><div class="line">        client.reqHistoricalNews(10003, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, Nothing)</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    m_pClient-&gt;reqHistoricalNews(12001, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 5);</div>
+<div class="fragment"><div class="line">    TagValueList* list = <span class="keyword">new</span> TagValueList();</div>
+<div class="line">    list-&gt;push_back((TagValueSPtr)<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;manual&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
+<div class="line">    m_pClient-&gt;reqHistoricalNews(12001, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 5, TagValueListSPtr(list));</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqHistoricalNews(215, 8314, <span class="stringliteral">&quot;BZ+FLY&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10)</div>
@@ -465,19 +467,21 @@ Historical News Headlines</h1>
 </ul>
 <h1><a class="anchor" id="news_articles"></a>
 Requesting News Articles</h1>
-<p>After requesting news headlines using one of the above functions, the body of a news article can be requested with the article ID returned by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3a38d57be0a0027ec9af0a757b42e47c" title="Requests news article body given articleId. ">IBApi::EClient::reqNewsArticle</a> starting in API v973.02. The body of the news article is returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0338a042127bcd160d5f272991ac7e52" title="called when receives News Article ">IBApi::EWrapper::newsArticle</a>.</p>
+<p>After requesting news headlines using one of the above functions, the body of a news article can be requested with the article ID returned by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a350493851c7f941bdb2a42f6d46b4bda" title="Requests news article body given articleId. ">IBApi::EClient::reqNewsArticle</a> starting in API v973.02. The body of the news article is returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0338a042127bcd160d5f272991ac7e52" title="called when receives News Article ">IBApi::EWrapper::newsArticle</a>.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            client.reqNewsArticle(12002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>);</div>
+<div class="fragment"><div class="line">            client.reqNewsArticle(12002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.reqNewsArticle(10002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>);</div>
+<div class="fragment"><div class="line">        client.reqNewsArticle(10002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.reqNewsArticle(10002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>)</div>
+<div class="fragment"><div class="line">        client.reqNewsArticle(10002, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>, Nothing)</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    m_pClient-&gt;reqNewsArticle(12001, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>);</div>
+<div class="fragment"><div class="line">    TagValueList* list = <span class="keyword">new</span> TagValueList();</div>
+<div class="line">    list-&gt;push_back((TagValueSPtr)<span class="keyword">new</span> TagValue(<span class="stringliteral">&quot;manual&quot;</span>, <span class="stringliteral">&quot;1&quot;</span>));</div>
+<div class="line">    m_pClient-&gt;reqNewsArticle(12001, <span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>, TagValueListSPtr(list));</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqNewsArticle(214,<span class="stringliteral">&quot;BZ&quot;</span>, <span class="stringliteral">&quot;BZ$04507322&quot;</span>)</div>
@@ -501,7 +505,7 @@ Requesting News Articles</h1>
 		font family: Arial, sans-serif;
 		border-color: #000100;
 		background-color: #000000;
-		width:250px;
+		width:260px;
 		height: 20px;
 		padding-top: 6px;
 	}
