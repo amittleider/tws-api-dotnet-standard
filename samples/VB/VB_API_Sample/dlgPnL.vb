@@ -1,4 +1,4 @@
-﻿Public Class dlgDailyPnL
+﻿Public Class dlgPnL
 
     Public Property ReqId As Integer
 

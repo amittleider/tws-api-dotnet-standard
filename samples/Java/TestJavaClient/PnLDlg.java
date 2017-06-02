@@ -4,7 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
-public class DailyPnLDlg extends JDialogBox {
+public class PnLDlg extends JDialogBox {
 
     int m_reqId;
     String m_account;
@@ -16,7 +16,7 @@ public class DailyPnLDlg extends JDialogBox {
 
     protected JPanel m_editsPanel = new JPanel(new GridLayout(0, 1));
 
-    public DailyPnLDlg(JFrame parent) {
+    public PnLDlg(JFrame parent) {
         super(parent);
         
         m_editsPanel.add(new JLabel("Req id"));

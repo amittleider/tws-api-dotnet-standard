@@ -772,11 +772,11 @@ public class EWrapperMsgGenerator {
 	}
 	
 
-    public static String dailyPnL(int reqId, double dailyPnL) {
-		return "Daily PnL. Req Id: " + reqId + ", daily PnL: " + dailyPnL;
+    public static String pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+		return "Daily PnL. Req Id: " + reqId + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL;
     }
     
-    public static String dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {
-		return "Daily PnL Single. Req Id: " + reqId + ", pos: " + pos + ", daily PnL: " + dailyPnL + ", value: " + value;
+    public static String pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+		return "Daily PnL Single. Req Id: " + reqId + ", pos: " + pos + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL + ", value: " + value;
     }
 }

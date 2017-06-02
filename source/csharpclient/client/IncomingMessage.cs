@@ -79,7 +79,7 @@ namespace IBApi
         public const int RerouteMktDataReq = 91;
         public const int RerouteMktDepthReq = 92;
         public const int MarketRule = 93;
-        public const int DailyPnL = 94;
-        public const int DailyPnLSingle = 95;
+        public const int PnL = 94;
+        public const int PnLSingle = 95;
     }
 }

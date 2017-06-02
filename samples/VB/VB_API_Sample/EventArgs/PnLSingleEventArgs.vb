@@ -1,5 +1,5 @@
 ﻿
-Class DailyPnLSingleEventArgs
+Class PnLSingleEventArgs
 
     Property requestId As Object
 
@@ -8,5 +8,7 @@ Class DailyPnLSingleEventArgs
     Property dailyPnL As Double
 
     Property value As Double
+
+    Property unrealizedPnL As Double
 
 End Class

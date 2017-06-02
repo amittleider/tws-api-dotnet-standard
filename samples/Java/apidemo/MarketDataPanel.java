@@ -32,8 +32,8 @@ import com.ib.client.Types.DeepSide;
 import com.ib.client.Types.DeepType;
 import com.ib.client.Types.DurationUnit;
 import com.ib.client.Types.WhatToShow;
-import com.ib.controller.ApiController.IDailyPnLHandler;
-import com.ib.controller.ApiController.IDailyPnLSingleHandler;
+import com.ib.controller.ApiController.IPnLHandler;
+import com.ib.controller.ApiController.IPnLSingleHandler;
 import com.ib.controller.ApiController.IDeepMktDataHandler;
 import com.ib.controller.ApiController.IHeadTimestampHandler;
 import com.ib.controller.ApiController.IHistogramDataHandler;
@@ -76,7 +76,7 @@ class MarketDataPanel extends JPanel {
 		requestPanel.addTab("Matching Symbols", new RequestMatchingSymbolsPanel());
 		requestPanel.addTab("Market Depth Exchanges", new MktDepthExchangesPanel());
 		requestPanel.addTab("Smart Components", m_smartComponentsPanel);
-		requestPanel.addTab("Daily PnL", new DailyPnLPanel());
+		requestPanel.addTab("PnL", new PnLPanel());
 		
 		setLayout( new BorderLayout() );
 		add( requestPanel, BorderLayout.NORTH);
@@ -1024,80 +1024,81 @@ class MarketDataPanel extends JPanel {
 		}
 	}
 	
-	class DailyPnLPanel extends JPanel {
+	class PnLPanel extends JPanel {
 
 	    final UpperField m_account = new UpperField();
 	    final UpperField m_modelCode = new UpperField();
 	    final UpperField m_conId = new UpperField();
 
-	    DailyPnLPanel() {
+	    PnLPanel() {
 	        VerticalPanel paramsPanel = new VerticalPanel();
-            HtmlButton reqDailyPnL = 
-                    new HtmlButton("Request Daily PnL") { @Override protected void actionPerformed() { onReqDailyPnL(); } };
-            HtmlButton reqDailyPnLSingle = 
-                    new HtmlButton("Request Daily PnL Single") { @Override protected void actionPerformed() { onReqDailyPnLSingle(); } };
+            HtmlButton reqPnL = 
+                    new HtmlButton("Request PnL") { @Override protected void actionPerformed() { onReqPnL(); } };
+            HtmlButton reqPnLSingle = 
+                    new HtmlButton("Request PnL Single") { @Override protected void actionPerformed() { onReqPnLSingle(); } };
             
             paramsPanel.add("Account", m_account);           
             paramsPanel.add("Model Code", m_modelCode);          
             paramsPanel.add("Con Id", m_conId);           
-            paramsPanel.add(reqDailyPnL);
-            paramsPanel.add(reqDailyPnLSingle);
+            paramsPanel.add(reqPnL);
+            paramsPanel.add(reqPnLSingle);
             setLayout(new BorderLayout());
             add(paramsPanel, BorderLayout.NORTH);
 	    }
 
-        protected void onReqDailyPnLSingle() {
-            final DailyPnLSingleModel dailyPnLSingleModel = new DailyPnLSingleModel();
-            DailyPnLResultsPanel resultsPanel = new DailyPnLResultsPanel(dailyPnLSingleModel);
+        protected void onReqPnLSingle() {
+            final PnLSingleModel pnlSingleModel = new PnLSingleModel();
+            PnLResultsPanel resultsPanel = new PnLResultsPanel(pnlSingleModel);
             String account = m_account.getText();
             String modelCode = m_modelCode.getText();
             int conId = m_conId.getInt();
             
             m_resultsPanel.addTab(account + " " + modelCode + " " + conId, resultsPanel, true, true);
             
-            IDailyPnLSingleHandler handler = (reqId, pos, dailyPnL, value) -> 
-                SwingUtilities.invokeLater(() -> dailyPnLSingleModel.addRow(pos, dailyPnL, value));
+            IPnLSingleHandler handler = (reqId, pos, dailyPnL, unrealizedPnL, value) -> 
+                SwingUtilities.invokeLater(() -> pnlSingleModel.addRow(pos, dailyPnL, unrealizedPnL, value));
             
             resultsPanel.handler(handler);
-            ApiDemo.INSTANCE.controller().reqDailyPnLSingle(account, modelCode, conId, handler);
+            ApiDemo.INSTANCE.controller().reqPnLSingle(account, modelCode, conId, handler);
             
         }
 
-        void onReqDailyPnL() { 
-            final DailyPnLModel dailyPnLModel = new DailyPnLModel();
-            DailyPnLResultsPanel resultsPanel = new DailyPnLResultsPanel(dailyPnLModel);
+        void onReqPnL() { 
+            final PnLModel pnlModel = new PnLModel();
+            PnLResultsPanel resultsPanel = new PnLResultsPanel(pnlModel);
             String account = m_account.getText();
             String modelCode = m_modelCode.getText();
             
             m_resultsPanel.addTab(account + " " + modelCode, resultsPanel, true, true);
             
-            IDailyPnLHandler handler = (reqId, dailyPnL) -> SwingUtilities.invokeLater(() -> dailyPnLModel.addRow(dailyPnL));
+            IPnLHandler handler = (reqId, dailyPnL, unrealizedPnL) -> 
+                SwingUtilities.invokeLater(() -> pnlModel.addRow(dailyPnL, unrealizedPnL));
             
             resultsPanel.handler(handler);
-            ApiDemo.INSTANCE.controller().reqDailyPnL(account, modelCode, handler);
+            ApiDemo.INSTANCE.controller().reqPnL(account, modelCode, handler);
         }
         
 	}
 	
     
-    static class DailyPnLResultsPanel extends NewTabPanel {
+    static class PnLResultsPanel extends NewTabPanel {
         
-        public DailyPnLResultsPanel(AbstractTableModel dailyPnLModel) {
-            JTable table = new JTable(dailyPnLModel);
+        public PnLResultsPanel(AbstractTableModel pnlModel) {
+            JTable table = new JTable(pnlModel);
             JScrollPane scroll = new JScrollPane(table);
             
             setLayout(new BorderLayout());
             add(scroll);
         }
         
-        private IDailyPnLHandler m_handler;
-        private IDailyPnLSingleHandler m_singleHandler;
+        private IPnLHandler m_handler;
+        private IPnLSingleHandler m_singleHandler;
         
-        public void handler(IDailyPnLHandler v) {
+        public void handler(IPnLHandler v) {
             m_handler = v;            
         }
         
-        public void handler(IDailyPnLSingleHandler v) {
+        public void handler(IPnLSingleHandler v) {
             m_singleHandler = v;
         }
 
@@ -1110,9 +1111,9 @@ class MarketDataPanel extends JPanel {
         @Override
         public void closed() {
             if (m_handler != null) {
-                ApiDemo.INSTANCE.controller().cancelDailyPnL(m_handler);
+                ApiDemo.INSTANCE.controller().cancelPnL(m_handler);
             } else if (m_singleHandler != null) {
-                ApiDemo.INSTANCE.controller().cancelDailyPnLSingle(m_singleHandler);
+                ApiDemo.INSTANCE.controller().cancelPnLSingle(m_singleHandler);
             }
         }
         

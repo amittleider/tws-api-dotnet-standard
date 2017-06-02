@@ -62,23 +62,23 @@ public class Testbed {
 		//rerouteCFDOperations(wrapper.getClient());
 		//marketRuleOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
-		dailyPnLSingle(wrapper.getClient());
+		pnlSingle(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
 	}
 
-	private static void dailyPnL(EClientSocket client) throws InterruptedException {
-        client.reqDailyPnL(17001, "DUC00042", "");
+	private static void pnl(EClientSocket client) throws InterruptedException {
+        client.reqPnL(17001, "DUC00042", "");
         Thread.sleep(1000);
-        client.cancelDailyPnL(17001);        
+        client.cancelPnL(17001);        
     }
 	
-    private static void dailyPnLSingle(EClientSocket client) throws InterruptedException
+    private static void pnlSingle(EClientSocket client) throws InterruptedException
     {
-        client.reqDailyPnLSingle(17001, "DUC00042", "", 268084);
+        client.reqPnLSingle(17001, "DUC00042", "", 268084);
         Thread.sleep(1000);
-        client.cancelDailyPnLSingle(17001);
+        client.cancelPnLSingle(17001);
     }
 
     private static void orderOperations(EClientSocket client, int nextOrderId) throws InterruptedException {

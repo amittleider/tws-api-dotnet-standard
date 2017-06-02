@@ -866,24 +866,24 @@ namespace IBSampleApp
                 sc.Post((t) => tmp(new MarketRuleMessage(marketRuleId, priceIncrements)), null);
         }
 
-        public event Action<DailyPnLMessage> DailyPnL;
+        public event Action<PnLMessage> pnl;
 
-        void EWrapper.dailyPnL(int reqId, double dailyPnL)
+        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL)
         {
-            var tmp = DailyPnL;
+            var tmp = pnl;
 
             if (tmp != null)
-                sc.Post((t) => tmp(new DailyPnLMessage(reqId, dailyPnL)), null);
+                sc.Post((t) => tmp(new PnLMessage(reqId, dailyPnL, unrealizedPnL)), null);
         }
 
-        public event Action<DailyPnLSingleMessage> DailyPnLSingle;
+        public event Action<PnLSingleMessage> pnlSingle;
 
-        void EWrapper.dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
         {
-            var tmp = DailyPnLSingle;
+            var tmp = pnlSingle;
 
             if (tmp != null)
-                sc.Post((t) => tmp(new DailyPnLSingleMessage(reqId, pos, dailyPnL, value)), null);
+                sc.Post((t) => tmp(new PnLSingleMessage(reqId, pos, dailyPnL, unrealizedPnL, value)), null);
         }
     }
 }

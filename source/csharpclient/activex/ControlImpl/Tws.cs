@@ -1021,24 +1021,24 @@ namespace TWSLib
         {
             socket.reqMarketRule(marketRuleId);
         }
-        void ITws.reqDailyPnL(int reqId, string account, string modelCode)
+        void ITws.reqPnL(int reqId, string account, string modelCode)
         {
-            this.socket.reqDailyPnL(reqId, account, modelCode);
+            this.socket.reqPnL(reqId, account, modelCode);
         }
 
-        void ITws.cancelDailyPnL(int reqId)
+        void ITws.cancelPnL(int reqId)
         {
-            this.socket.cancelDailyPnL(reqId);
+            this.socket.cancelPnL(reqId);
         }
 
-        void ITws.reqDailyPnLSingle(int reqId, string account, string modelCode, int conId)
+        void ITws.reqPnLSingle(int reqId, string account, string modelCode, int conId)
         {
-            this.socket.reqDailyPnLSingle(reqId, account, modelCode, conId);
+            this.socket.reqPnLSingle(reqId, account, modelCode, conId);
         }
 
-        void ITws.cancelDailyPnLSingle(int reqId)
+        void ITws.cancelPnLSingle(int reqId)
         {
-            this.socket.cancelDailyPnLSingle(reqId);
+            this.socket.cancelPnLSingle(reqId);
         }
 
         #endregion
@@ -2022,24 +2022,24 @@ namespace TWSLib
                 InvokeIfRequired(t_marketRule, marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null);
         }
 
-        public delegate void dailyPnLDelegate(int reqId, double dailyPnL);
-        public event dailyPnLDelegate dailyPnL;
-        void EWrapper.dailyPnL(int reqId, double dailyPnL)
+        public delegate void PnLDelegate(int reqId, double dailyPnL, double unrealizedPnL);
+        public event PnLDelegate pnl;
+        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL)
         {
-            var tmp = this.dailyPnL;
+            var tmp = this.pnl;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, dailyPnL);
+                InvokeIfRequired(tmp, reqId, dailyPnL, unrealizedPnL);
         }
 
-        public delegate void dailyPnLSingleDelegate(int reqId, int pos, double dailyPnL, double value);
-        public event dailyPnLSingleDelegate dailyPnLSingle;
-        void EWrapper.dailyPnLSingle(int reqId, int pos, double dailyPnL, double value)
+        public delegate void PnLSingleDelegate(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        public event PnLSingleDelegate pnlSingle;
+        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
         {
-            var tmp = this.dailyPnLSingle;
+            var tmp = this.pnlSingle;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, pos, dailyPnL, value);
+                InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, value);
         }
 
         #endregion

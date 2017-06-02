@@ -5,19 +5,21 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    class DailyPnLSingleMessage
+    class PnLSingleMessage
     {
         public int ReqId { get; private set; }
         public int Pos { get; private set; }
         public double DailyPnL { get; private set; }
         public double Value { get; private set; }
+        public double UnrealizedPnL { get; private set; }
 
-        public DailyPnLSingleMessage(int reqId, int pos, double dailyPnL, double value)
+        public PnLSingleMessage(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
         {
-            this.ReqId = reqId;
-            this.Pos = pos;
-            this.DailyPnL = dailyPnL;
-            this.Value = value;
+            ReqId = reqId;
+            Pos = pos;
+            DailyPnL = dailyPnL;
+            Value = value;
+            UnrealizedPnL = unrealizedPnL;
         }
     }
 }

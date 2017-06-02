@@ -541,12 +541,12 @@ Namespace Samples
         End Sub
         '! [marketRule]
 
-        Public Sub dailyPnL(reqId As Integer, dailyPnL As Double) Implements EWrapper.dailyPnL
-            Console.WriteLine("Daily PnL. Request Id: {0}, daily PnL: {1}", reqId, dailyPnL)
+        Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double) Implements EWrapper.pnl
+            Console.WriteLine("PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL {2}", reqId, dailyPnL, unrealizedPnL)
         End Sub
 
-        Public Sub dailyPnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, value As Double) Implements EWrapper.dailyPnLSingle
-            Console.WriteLine("Daily PnL Single. Request Id: {0}, pos {1}, daily PnL {2}, value: {3}", reqId, pos, dailyPnL, value)
+        Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
+            Console.WriteLine("PnL Single. Request Id: {0}, pos {1}, daily PnL {2}, unrealized PnL {3}, value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value)
         End Sub
 
     End Class

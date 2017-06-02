@@ -161,24 +161,24 @@ const int REQ_POSITIONS_MULTI           = 74;
 const int CANCEL_POSITIONS_MULTI        = 75;
 const int REQ_ACCOUNT_UPDATES_MULTI     = 76;
 const int CANCEL_ACCOUNT_UPDATES_MULTI  = 77;
-const int REQ_SEC_DEF_OPT_PARAMS		= 78;
-const int REQ_SOFT_DOLLAR_TIERS			= 79;
-const int REQ_FAMILY_CODES				= 80;
-const int REQ_MATCHING_SYMBOLS			= 81;
-const int REQ_MKT_DEPTH_EXCHANGES		= 82;
-const int REQ_SMART_COMPONENTS			= 83;
-const int REQ_NEWS_ARTICLE				= 84;
-const int REQ_NEWS_PROVIDERS			= 85;
-const int REQ_HISTORICAL_NEWS			= 86;
-const int REQ_HEAD_TIMESTAMP			= 87;
-const int REQ_HISTOGRAM_DATA			= 88;
-const int CANCEL_HISTOGRAM_DATA			= 89;
-const int CANCEL_HEAD_TIMESTAMP			= 90;
-const int REQ_MARKET_RULE				= 91;
-const int REQ_DAILY_PNL     			= 92;
-const int CANCEL_DAILY_PNL				= 93;
-const int REQ_DAILY_PNL_SINGLE			= 94;
-const int CANCEL_DAILY_PNL_SINGLE		= 95;
+const int REQ_SEC_DEF_OPT_PARAMS        = 78;
+const int REQ_SOFT_DOLLAR_TIERS         = 79;
+const int REQ_FAMILY_CODES              = 80;
+const int REQ_MATCHING_SYMBOLS          = 81;
+const int REQ_MKT_DEPTH_EXCHANGES       = 82;
+const int REQ_SMART_COMPONENTS          = 83;
+const int REQ_NEWS_ARTICLE              = 84;
+const int REQ_NEWS_PROVIDERS            = 85;
+const int REQ_HISTORICAL_NEWS           = 86;
+const int REQ_HEAD_TIMESTAMP            = 87;
+const int REQ_HISTOGRAM_DATA            = 88;
+const int CANCEL_HISTOGRAM_DATA         = 89;
+const int CANCEL_HEAD_TIMESTAMP         = 90;
+const int REQ_MARKET_RULE               = 91;
+const int REQ_PNL                       = 92;
+const int CANCEL_PNL                    = 93;
+const int REQ_PNL_SINGLE                = 94;
+const int CANCEL_PNL_SINGLE             = 95;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -329,10 +329,10 @@ public:
 	void cancelHistogramData(int reqId);
 	void reqMarketRule(int marketRuleId);
 
-	void reqDailyPnL(int reqId, const std::string& account, const std::string& modelCode);
-	void cancelDailyPnL(int reqId);
-	void reqDailyPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId);
-	void cancelDailyPnLSingle(int reqId);
+	void reqPnL(int reqId, const std::string& account, const std::string& modelCode);
+	void cancelPnL(int reqId);
+	void reqPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId);
+	void cancelPnLSingle(int reqId);
 private:
 
 	virtual int receive(char* buf, size_t sz) = 0;

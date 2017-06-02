@@ -86,10 +86,10 @@ enum State {
 	ST_REROUTECFD_ACK,
 	ST_MARKETRULE,
 	ST_MARKETRULE_ACK,
-    ST_DAILYPNL,
-    ST_DAILYPNL_ACK,
-    ST_DAILYPNLSINGLE,
-    ST_DAILYPNLSINGLE_ACK,
+    ST_PNL,
+    ST_PNL_ACK,
+    ST_PNLSINGLE,
+    ST_PNLSINGLE_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -114,8 +114,8 @@ public:
 	bool isConnected() const;
 
 private:
-    void dailyPnLOperation();
-    void dailyPnLSingleOperation();
+    void pnlOperation();
+    void pnlSingleOperation();
 	void tickDataOperation();
 	void delayedTickDataOperation();
 	void marketDepthOperations();
@@ -240,8 +240,8 @@ public:
 	void rerouteMktDataReq(int reqId, int conId, const std::string& exchange);
 	void rerouteMktDepthReq(int reqId, int conId, const std::string& exchange);
 	void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
-    void dailyPnL(int reqId, double dailyPnL);
-    void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
+    void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+    void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
 
 private:
 	//! [socket_declare]

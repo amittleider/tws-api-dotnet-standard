@@ -182,8 +182,8 @@ namespace TWSLib
         [DispId(140)]
         void marketRule(int marketRuleId, IPriceIncrementList priceIncrements);
         [DispId(141)]
-        void dailyPnL(int reqId, double dailyPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL);
         [DispId(142)]
-        void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
     }
 }

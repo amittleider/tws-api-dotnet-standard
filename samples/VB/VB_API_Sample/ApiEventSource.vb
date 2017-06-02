@@ -32,22 +32,24 @@ Friend Class ApiEventSource
 
 #Region "IBApi.EWrapper"
 
-    Private Sub EWrapper_dailyPnL(reqId As Integer, dailyPnL As Double) Implements EWrapper.dailyPnL
+    Private Sub EWrapper_PnL(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double) Implements EWrapper.PnL
         InvokeIfRequired(Sub()
-                             RaiseEvent DailyPnL(Me, New DailyPnLEventArgs With {
+                             RaiseEvent PnL(Me, New PnLEventArgs With {
                                  .requestId = reqId,
-                                 .dailyPnL = dailyPnL
+                                 .dailyPnL = dailyPnL,
+                                 .unrealizedPnL = unrealizedPnL
                                          })
                          End Sub)
     End Sub
 
-    Private Sub EWrapper_dailyPnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, value As Double) Implements EWrapper.dailyPnLSingle
+    Private Sub EWrapper_PnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, value As Double) Implements EWrapper.PnLSingle
         InvokeIfRequired(Sub()
-                             RaiseEvent DailyPnLSingle(Me, New DailyPnLSingleEventArgs With {
+                             RaiseEvent PnLSingle(Me, New PnLSingleEventArgs With {
                                  .requestId = reqId,
                                  .pos = pos,
                                  .dailyPnL = dailyPnL,
-                                 .value = value
+                                 .value = value,
+                                 .unrealizedPnL = unrealizedPnL
                                          })
                          End Sub)
     End Sub
@@ -750,8 +752,8 @@ Friend Class ApiEventSource
 
 #Region "Event declarations"
 
-    Event DailyPnLSingle(sender As ApiEventSource, e As DailyPnLSingleEventArgs)
-    Event DailyPnL(sender As ApiEventSource, e As DailyPnLEventArgs)
+    Event PnLSingle(sender As ApiEventSource, e As PnLSingleEventArgs)
+    Event PnL(sender As ApiEventSource, e As PnLEventArgs)
     Event HistogramData(sender As ApiEventSource, e As HistogramDataEventArgs)
     Event HeadTimestamp(sender As ApiEventSource, e As HeadTimestampEventArgs)
     Event NextValidId(sender As Object, e As NextValidIdEventArgs)

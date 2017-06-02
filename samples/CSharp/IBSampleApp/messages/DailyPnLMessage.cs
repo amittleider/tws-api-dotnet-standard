@@ -5,15 +5,17 @@ using System.Text;
 
 namespace IBSampleApp.messages
 {
-    class DailyPnLMessage
+    class PnLMessage
     {
         public int ReqId { get; private set; }
         public double DailyPnL { get; private set; }
+        public double UnrealizedPnL { get; private set; }
 
-        public DailyPnLMessage(int reqId, double dailyPnL)
+        public PnLMessage(int reqId, double dailyPnL, double unrealizedPnL)
         {
-            this.ReqId = reqId;
-            this.DailyPnL = dailyPnL;
+            ReqId = reqId;
+            DailyPnL = dailyPnL;
+            UnrealizedPnL = unrealizedPnL;
         }
     }
 }

@@ -3059,22 +3059,22 @@ void EClient::reqMarketRule(int marketRuleId) {
 	closeAndSend(msg.str());
 }
 
-void EClient::reqDailyPnL(int reqId, const std::string& account, const std::string& modelCode) {
+void EClient::reqPnL(int reqId, const std::string& account, const std::string& modelCode) {
     if( !isConnected()) {
         m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
         return;
     }
 
-    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+    if( m_serverVersion < MIN_SERVER_VER_PNL) {
         m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-            "  It does not support daily PnL requests.");
+            "  It does not support PnL requests.");
         return;
     }
 
     std::stringstream msg;
     prepareBuffer(msg);
 
-    ENCODE_FIELD(REQ_DAILY_PNL);
+    ENCODE_FIELD(REQ_PNL);
     ENCODE_FIELD(reqId);
     ENCODE_FIELD(account);
     ENCODE_FIELD(modelCode);
@@ -3082,43 +3082,43 @@ void EClient::reqDailyPnL(int reqId, const std::string& account, const std::stri
     closeAndSend(msg.str());
 }
 
-void EClient::cancelDailyPnL(int reqId) {
+void EClient::cancelPnL(int reqId) {
     if( !isConnected()) {
         m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
         return;
     }
 
-    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+    if( m_serverVersion < MIN_SERVER_VER_PNL) {
         m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-            "  It does not support daily PnL requests.");
+            "  It does not support PnL requests.");
         return;
     }
 
     std::stringstream msg;
     prepareBuffer(msg);
 
-    ENCODE_FIELD(CANCEL_DAILY_PNL);
+    ENCODE_FIELD(CANCEL_PNL);
     ENCODE_FIELD(reqId);
 
     closeAndSend(msg.str());
 }
 
-void EClient::reqDailyPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId) {
+void EClient::reqPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId) {
     if( !isConnected()) {
         m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
         return;
     }
 
-    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+    if( m_serverVersion < MIN_SERVER_VER_PNL) {
         m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-            "  It does not support daily PnL requests.");
+            "  It does not support PnL requests.");
         return;
     }
 
     std::stringstream msg;
     prepareBuffer(msg);
 
-    ENCODE_FIELD(REQ_DAILY_PNL_SINGLE);
+    ENCODE_FIELD(REQ_PNL_SINGLE);
     ENCODE_FIELD(reqId);
     ENCODE_FIELD(account);
     ENCODE_FIELD(modelCode);
@@ -3127,22 +3127,22 @@ void EClient::reqDailyPnLSingle(int reqId, const std::string& account, const std
     closeAndSend(msg.str());
 }
 
-void EClient::cancelDailyPnLSingle(int reqId) {
+void EClient::cancelPnLSingle(int reqId) {
     if( !isConnected()) {
         m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
         return;
     }
 
-    if( m_serverVersion < MIN_SERVER_VER_DAILY_PNL) {
+    if( m_serverVersion < MIN_SERVER_VER_PNL) {
         m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-            "  It does not support daily PnL requests.");
+            "  It does not support PnL requests.");
         return;
     }
 
     std::stringstream msg;
     prepareBuffer(msg);
 
-    ENCODE_FIELD(CANCEL_DAILY_PNL_SINGLE);
+    ENCODE_FIELD(CANCEL_PNL_SINGLE);
     ENCODE_FIELD(reqId);
 
     closeAndSend(msg.str());

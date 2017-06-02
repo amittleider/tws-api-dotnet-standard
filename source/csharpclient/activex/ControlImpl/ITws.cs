@@ -364,13 +364,13 @@ namespace TWSLib
         [DispId(226)]
         void reqMarketRule(int marketRuleId);
         [DispId(227)]
-        void reqDailyPnL(int reqId, string account, string modelCode);
+        void reqPnL(int reqId, string account, string modelCode);
         [DispId(228)]
-        void cancelDailyPnL(int reqId);
+        void cancelPnL(int reqId);
         [DispId(229)]
-        void reqDailyPnLSingle(int reqId, string account, string modelCode, int conId);
+        void reqPnLSingle(int reqId, string account, string modelCode, int conId);
         [DispId(230)]
-        void cancelDailyPnLSingle(int reqId);
+        void cancelPnLSingle(int reqId);
 
         #endregion
     }
