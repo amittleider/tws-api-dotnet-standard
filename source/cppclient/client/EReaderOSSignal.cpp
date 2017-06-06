@@ -4,14 +4,12 @@
 #include "StdAfx.h"
 #include "EReaderOSSignal.h"
 #if defined(IB_POSIX)
-#if defined(__MACH__)
-#include <sys/time.h>
-#else
+#if defined(IBAPI_MONOTONIC_TIME)
 #include <time.h>
+#else
+#include <sys/time.h>
 #endif
 #endif
-
-#define MS_IN_SEC 1000
 
 
 EReaderOSSignal::EReaderOSSignal(unsigned long waitTimeout) throw (std::runtime_error)
@@ -21,14 +19,14 @@ EReaderOSSignal::EReaderOSSignal(unsigned long waitTimeout) throw (std::runtime_
 #if defined(IB_POSIX)
     int rc1 = pthread_mutex_init(&m_mutex, NULL);
     int rc2 = pthread_cond_init(&m_evMsgs, NULL);
-#if defined(__MACH__)
-    ok = rc1 == 0 && rc2 == 0;
-#else
+#if defined(IBAPI_MONOTONIC_TIME)
     pthread_condattr_t attr;
     int rc3 = pthread_condattr_init(&attr);
     int rc4 = pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
     pthread_condattr_destroy(&attr);
     ok = rc1 == 0 && rc2 == 0 && rc3 == 0 && rc4 == 0;
+#else
+    ok = rc1 == 0 && rc2 == 0;
 #endif
     open = false; 
 #elif defined(IB_WIN32)
@@ -76,21 +74,21 @@ void EReaderOSSignal::waitForSignal() {
             pthread_cond_wait(&m_evMsgs, &m_mutex);
         }
         else {
-#if defined(__MACH__)
-// on Mac OS X, clock_gettime is not available, stick to gettimeofday for the moment
             struct timespec ts;
+#if defined(IBAPI_MONOTONIC_TIME)
+            clock_gettime(CLOCK_MONOTONIC, &ts);
+#else
+// on Mac OS X, clock_gettime is not available, stick to gettimeofday for the moment
             struct timeval tv;
             gettimeofday(&tv, NULL);
-            ts.tv_sec = tv.tv_sec+m_waitTimeout/MS_IN_SEC;
-            ts.tv_nsec = (m_waitTimeout%MS_IN_SEC)*1000/*us/ms*/*1000/*ns/us*/;
-#else
-            struct timespec ts;
-            clock_gettime(CLOCK_MONOTONIC, &ts);
-            ts.tv_sec += m_waitTimeout/ MS_IN_SEC;
-            ts.tv_nsec += MS_IN_SEC * MS_IN_SEC * (m_waitTimeout % MS_IN_SEC);
-            ts.tv_sec += ts.tv_nsec / (MS_IN_SEC * MS_IN_SEC * MS_IN_SEC);
-            ts.tv_nsec %= (MS_IN_SEC * MS_IN_SEC * MS_IN_SEC);
+
+            ts.sec = tv.sec;
+            ts.nsec = tv.usec * 1000;
 #endif
+            ts.tv_sec += m_waitTimeout / 1000;
+            ts.tv_nsec += 1000 * 1000 * (m_waitTimeout % 1000);
+            ts.tv_sec += ts.tv_nsec / (1000 * 1000 * 1000);
+            ts.tv_nsec %= (1000 * 1000 * 1000);
             pthread_cond_timedwait(&m_evMsgs, &m_mutex, &ts);
         }
     }
