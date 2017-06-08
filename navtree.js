@@ -74,6 +74,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Dynamic Data Exchange (DDE)", "dde_intro.html", "dde_intro" ],
+    [ "TWS RTD Server for Excel", "tws_rtd_server.html", "tws_rtd_server" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -93,9 +94,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClient.html#aaf743e93e4dc4045f97c40e476fb0fd6",
-"classIBApi_1_1PriceCondition.html#aca7cab88f4bd1723a1439cef22aec340",
-"interfaceIBApi_1_1EWrapper.html#a40b122cde44711d81929df50f3a3f342"
+"classIBApi_1_1EClient.html#aacf95fe1db1afe29b687a4fa78ef4609",
+"classIBApi_1_1PriceCondition.html#a31d04dce23937b25d6defb689d2a67ba",
+"interfaceIBApi_1_1EWrapper.html#a24890ab0ae2ed757f93b505e5b05dacc",
+"rtd_throttle.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

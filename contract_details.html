@@ -206,10 +206,11 @@ BroadTape News List</h1>
 <div class="fragment"><div class="line"><span class="keyword">class </span>TestCppClient : <span class="keyword">public</span> EWrapper</div>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetails( <span class="keywordtype">int</span> reqId, <span class="keyword">const</span> ContractDetails&amp; contractDetails) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s\n&quot;</span>, reqId, </div>
+<div class="line">    printf( <span class="stringliteral">&quot;ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n&quot;</span>, reqId, </div>
 <div class="line">        contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), </div>
 <div class="line">        contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), </div>
-<div class="line">        contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str());</div>
+<div class="line">        contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(),</div>
+<div class="line">        contractDetails.marketRuleIds.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetailsEnd( <span class="keywordtype">int</span> reqId) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ContractDetailsEnd. %d\n&quot;</span>, reqId);</div>
@@ -245,7 +246,7 @@ BroadTape News List</h1>
 		font family: Arial, sans-serif;
 		border-color: #000100;
 		background-color: #000000;
-		width:250px;
+		width:260px;
 		height: 20px;
 		padding-top: 6px;
 	}
