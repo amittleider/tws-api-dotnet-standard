@@ -96,8 +96,8 @@ namespace IBSampleApp.ui
                     accountPortfolioGrid[2, i].Value = updatePortfolioMessage.MarketPrice;
                     accountPortfolioGrid[3, i].Value = updatePortfolioMessage.MarketValue;
                     accountPortfolioGrid[4, i].Value = updatePortfolioMessage.AverageCost;
-                    accountPortfolioGrid[5, i].Value = updatePortfolioMessage.UnrealisedPNL;
-                    accountPortfolioGrid[6, i].Value = updatePortfolioMessage.RealisedPNL;
+                    accountPortfolioGrid[5, i].Value = updatePortfolioMessage.UnrealizedPNL;
+                    accountPortfolioGrid[6, i].Value = updatePortfolioMessage.RealizedPNL;
                     return;
                 }
             }
@@ -108,8 +108,8 @@ namespace IBSampleApp.ui
             accountPortfolioGrid[2, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.MarketPrice;
             accountPortfolioGrid[3, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.MarketValue;
             accountPortfolioGrid[4, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.AverageCost;
-            accountPortfolioGrid[5, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.UnrealisedPNL;
-            accountPortfolioGrid[6, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.RealisedPNL;
+            accountPortfolioGrid[5, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.UnrealizedPNL;
+            accountPortfolioGrid[6, accountPortfolioGrid.Rows.Count - 1].Value = updatePortfolioMessage.RealizedPNL;
         }
 
         public void HandlePosition(PositionMessage positionMessage)

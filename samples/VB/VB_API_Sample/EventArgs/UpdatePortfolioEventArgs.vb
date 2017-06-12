@@ -13,9 +13,9 @@ Class UpdatePortfolioEventArgs
 
     Property averageCost As Double
 
-    Property unrealisedPNL As Double
+    Property unrealizedPNL As Double
 
-    Property realisedPNL As Double
+    Property realizedPNL As Double
 
     Property accountName As String
 

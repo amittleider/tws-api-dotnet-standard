@@ -1299,7 +1299,7 @@ namespace TWSLib
         public delegate void updatePortfolioExDelegate(IContract contract, double position, double marketPrice,
             double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
         public event updatePortfolioExDelegate updatePortfolioEx;
-        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
         {
             var t_updatePortfolio = this.updatePortfolio;
             if (t_updatePortfolio != null)
@@ -1315,13 +1315,13 @@ namespace TWSLib
                                 marketPrice,
                                 marketValue,
                                 averageCost,
-                                unrealisedPNL,
-                                realisedPNL,
+                                unrealizedPNL,
+                                realizedPNL,
                                 accountName);
 
             var t_updatePortfolioEx = this.updatePortfolioEx;
             if (t_updatePortfolioEx != null)
-                InvokeIfRequired(t_updatePortfolioEx, (ComContract)contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName);
+                InvokeIfRequired(t_updatePortfolioEx, (ComContract)contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName);
         }
 
         public delegate void orderStatusDelegate(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);

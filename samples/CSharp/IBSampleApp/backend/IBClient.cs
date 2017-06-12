@@ -311,12 +311,12 @@ namespace IBSampleApp
 
         public event Action<UpdatePortfolioMessage> UpdatePortfolio;
 
-        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        void EWrapper.updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
         {
             var tmp = UpdatePortfolio;
 
             if (tmp != null)
-                sc.Post((t) => tmp(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealisedPNL, realisedPNL, accountName)), null);
+                sc.Post((t) => tmp(new UpdatePortfolioMessage(contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName)), null);
         }
 
         public event Action<UpdateAccountTimeMessage> UpdateAccountTime;

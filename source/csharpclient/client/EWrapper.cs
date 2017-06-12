@@ -339,7 +339,7 @@ namespace IBApi
          * @sa updateAccountTime, accountDownloadEnd, updateAccountValue, EClientSocket::reqAccountUpdates
          */
         void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
-            double averageCost, double unrealisedPNL, double realisedPNL, string accountName);
+            double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
         /**
          * @brief Receives the last time on which the account was updated.

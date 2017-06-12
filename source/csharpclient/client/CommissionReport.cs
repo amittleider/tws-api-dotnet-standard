@@ -51,7 +51,7 @@ namespace IBApi
         }
 
         /**
-        * @brief the realised profit and loss
+        * @brief the realized profit and loss
         */
         public double RealizedPNL
         {
