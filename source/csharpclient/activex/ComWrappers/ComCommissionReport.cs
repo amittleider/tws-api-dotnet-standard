@@ -46,7 +46,7 @@ namespace TWSLib
         }
 
         /**
-        * @brief the realised profit and loss
+        * @brief the realized profit and loss
         */
         double RealizedPNL
         {

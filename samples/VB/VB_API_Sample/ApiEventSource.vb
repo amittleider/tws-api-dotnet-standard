@@ -488,7 +488,7 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
-    Private Sub EWrapper_UpdatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
+    Private Sub EWrapper_UpdatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealizedPNL As Double, realizedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
         InvokeIfRequired(Sub()
                              RaiseEvent UpdatePortfolio(Me, New UpdatePortfolioEventArgs With {
                                                                      .contract = contract,
@@ -496,8 +496,8 @@ Friend Class ApiEventSource
                                                                       .marketPrice = marketPrice,
                                                                       .marketValue = marketValue,
                                                                       .averageCost = averageCost,
-                                                                      .unrealisedPNL = unrealisedPNL,
-                                                                      .realisedPNL = realisedPNL,
+                                                                      .unrealizedPNL = unrealizedPNL,
+                                                                      .realizedPNL = realizedPNL,
                                                                       .accountName = accountName
                                                                      })
                          End Sub)

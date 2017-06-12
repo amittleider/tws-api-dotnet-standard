@@ -131,7 +131,7 @@ namespace TwsRtdServer
         public void bondContractDetails(int reqId, ContractDetails contract) { }
         public void updateAccountValue(string key, string value, string currency, string accountName) { }
         public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
-            double averageCost, double unrealisedPNL, double realisedPNL, string accountName) { }
+            double averageCost, double unrealizedPNL, double realizedPNL, string accountName) { }
         public void updateAccountTime(string timestamp) { }
         public void accountDownloadEnd(string account) { }
         public void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,

@@ -37,8 +37,8 @@ namespace IBSampleApp.ui
         private const int POS_MARKET_PRICE_IDX = 3;
         private const int POS_MARKET_VALUE_IDX = 4;
         private const int POS_AVG_COST_IDX = 5;
-        private const int POS_UNREALISED_PNL_IDX = 6;
-        private const int POS_REALISED_PNL_IDX = 7;
+        private const int POS_UNREALIZED_PNL_IDX = 6;
+        private const int POS_REALIZED_PNL_IDX = 7;
 
         private int currentMktDataCallRequest = OPTIONS_DATA_CALL_BASE;
         private int currentMktDataPutRequest = OPTIONS_DATA_PUT_BASE;
@@ -136,8 +136,8 @@ namespace IBSampleApp.ui
                         positionsGrid[POS_MARKET_PRICE_IDX, i].Value = positionMessage.MarketPrice;
                         positionsGrid[POS_MARKET_VALUE_IDX, i].Value = positionMessage.MarketValue;
                         positionsGrid[POS_AVG_COST_IDX, i].Value = positionMessage.AverageCost;
-                        positionsGrid[POS_UNREALISED_PNL_IDX, i].Value = positionMessage.UnrealisedPNL;
-                        positionsGrid[POS_REALISED_PNL_IDX, i].Value = positionMessage.RealisedPNL;
+                        positionsGrid[POS_UNREALIZED_PNL_IDX, i].Value = positionMessage.UnrealizedPNL;
+                        positionsGrid[POS_REALIZED_PNL_IDX, i].Value = positionMessage.RealizedPNL;
                         return;
                     }
                 }

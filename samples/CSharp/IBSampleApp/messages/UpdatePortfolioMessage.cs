@@ -15,19 +15,19 @@ namespace IBSampleApp.messages
         private double marketPrice;
         private double marketValue;
         private double averageCost;
-        private double unrealisedPNL;
-        private double realisedPNL;
+        private double unrealizedPNL;
+        private double realizedPNL;
         private string accountName;
 
-        public UpdatePortfolioMessage(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealisedPNL, double realisedPNL, string accountName)
+        public UpdatePortfolioMessage(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
         {
             Contract = contract;
             Position = position;
             MarketPrice = marketPrice;
             MarketValue = marketValue;
             AverageCost = averageCost;
-            UnrealisedPNL = unrealisedPNL;
-            RealisedPNL = realisedPNL;
+            UnrealizedPNL = unrealizedPNL;
+            RealizedPNL = realizedPNL;
             AccountName = accountName;
         }
 
@@ -61,16 +61,16 @@ namespace IBSampleApp.messages
             set { averageCost = value; }
         }
         
-        public double UnrealisedPNL
+        public double UnrealizedPNL
         {
-            get { return unrealisedPNL; }
-            set { unrealisedPNL = value; }
+            get { return unrealizedPNL; }
+            set { unrealizedPNL = value; }
         }
         
-        public double RealisedPNL
+        public double RealizedPNL
         {
-            get { return realisedPNL; }
-            set { realisedPNL = value; }
+            get { return realizedPNL; }
+            set { realizedPNL = value; }
         }
         
         public string AccountName

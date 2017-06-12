@@ -218,8 +218,8 @@ namespace IBSampleApp
             this.optionMarketPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.optionMarketValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.optionAverageCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.optionUnrealisedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.optionRealisedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optionUnrealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optionRealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.overrideOption = new System.Windows.Forms.CheckBox();
             this.lapseOption = new System.Windows.Forms.Button();
             this.exerciseOption = new System.Windows.Forms.Button();
@@ -381,8 +381,8 @@ namespace IBSampleApp
             this.updatePortfolioMarketPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updatePortfolioMarketValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updatePortfolioAvgCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatePortfolioUnrealisedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatePortfolioRealisedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatePortfolioUnrealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatePortfolioRealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountValuesGrid = new System.Windows.Forms.DataGridView();
             this.accUpdatesKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accUpdatesValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -448,7 +448,7 @@ namespace IBSampleApp
             this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commissionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RealisedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.liveOrdersGroup = new System.Windows.Forms.GroupBox();
             this.liveOrdersGrid = new System.Windows.Forms.DataGridView();
             this.permIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -2504,8 +2504,8 @@ namespace IBSampleApp
             this.optionMarketPrice,
             this.optionMarketValue,
             this.optionAverageCost,
-            this.optionUnrealisedPnL,
-            this.optionRealisedPnL});
+            this.optionUnrealizedPnL,
+            this.optionRealizedPnL});
             this.optionPositionsGrid.Location = new System.Drawing.Point(10, 19);
             this.optionPositionsGrid.Name = "optionPositionsGrid";
             this.optionPositionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2549,19 +2549,19 @@ namespace IBSampleApp
             this.optionAverageCost.Name = "optionAverageCost";
             this.optionAverageCost.ReadOnly = true;
             // 
-            // optionUnrealisedPnL
+            // optionUnrealizedPnL
             // 
-            this.optionUnrealisedPnL.HeaderText = "Unrealised P&L";
-            this.optionUnrealisedPnL.Name = "optionUnrealisedPnL";
-            this.optionUnrealisedPnL.ReadOnly = true;
-            this.optionUnrealisedPnL.Width = 120;
+            this.optionUnrealizedPnL.HeaderText = "Unrealized P&L";
+            this.optionUnrealizedPnL.Name = "optionUnrealizedPnL";
+            this.optionUnrealizedPnL.ReadOnly = true;
+            this.optionUnrealizedPnL.Width = 120;
             // 
-            // optionRealisedPnL
+            // optionRealizedPnL
             // 
-            this.optionRealisedPnL.HeaderText = "Realised P&L";
-            this.optionRealisedPnL.Name = "optionRealisedPnL";
-            this.optionRealisedPnL.ReadOnly = true;
-            this.optionRealisedPnL.Width = 120;
+            this.optionRealizedPnL.HeaderText = "Realized P&L";
+            this.optionRealizedPnL.Name = "optionRealizedPnL";
+            this.optionRealizedPnL.ReadOnly = true;
+            this.optionRealizedPnL.Width = 120;
             // 
             // overrideOption
             // 
@@ -3949,8 +3949,8 @@ namespace IBSampleApp
             this.updatePortfolioMarketPrice,
             this.updatePortfolioMarketValue,
             this.updatePortfolioAvgCost,
-            this.updatePortfolioUnrealisedPnL,
-            this.updatePortfolioRealisedPnL});
+            this.updatePortfolioUnrealizedPnL,
+            this.updatePortfolioRealizedPnL});
             this.accountPortfolioGrid.Location = new System.Drawing.Point(376, 35);
             this.accountPortfolioGrid.Name = "accountPortfolioGrid";
             this.accountPortfolioGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -3988,19 +3988,19 @@ namespace IBSampleApp
             this.updatePortfolioAvgCost.Name = "updatePortfolioAvgCost";
             this.updatePortfolioAvgCost.ReadOnly = true;
             // 
-            // updatePortfolioUnrealisedPnL
+            // updatePortfolioUnrealizedPnL
             // 
-            this.updatePortfolioUnrealisedPnL.HeaderText = "Unrealised P&L";
-            this.updatePortfolioUnrealisedPnL.Name = "updatePortfolioUnrealisedPnL";
-            this.updatePortfolioUnrealisedPnL.ReadOnly = true;
-            this.updatePortfolioUnrealisedPnL.Width = 120;
+            this.updatePortfolioUnrealizedPnL.HeaderText = "Unrealized P&L";
+            this.updatePortfolioUnrealizedPnL.Name = "updatePortfolioUnrealizedPnL";
+            this.updatePortfolioUnrealizedPnL.ReadOnly = true;
+            this.updatePortfolioUnrealizedPnL.Width = 120;
             // 
-            // updatePortfolioRealisedPnL
+            // updatePortfolioRealizedPnL
             // 
-            this.updatePortfolioRealisedPnL.HeaderText = "Realised P&L";
-            this.updatePortfolioRealisedPnL.Name = "updatePortfolioRealisedPnL";
-            this.updatePortfolioRealisedPnL.ReadOnly = true;
-            this.updatePortfolioRealisedPnL.Width = 120;
+            this.updatePortfolioRealizedPnL.HeaderText = "Realized P&L";
+            this.updatePortfolioRealizedPnL.Name = "updatePortfolioRealizedPnL";
+            this.updatePortfolioRealizedPnL.ReadOnly = true;
+            this.updatePortfolioRealizedPnL.Width = 120;
             // 
             // accountValuesGrid
             // 
@@ -4552,7 +4552,7 @@ namespace IBSampleApp
             this.descriptionExecColumn,
             this.priceExecColumn,
             this.commissionExecColumn,
-            this.RealisedPnL});
+            this.RealizedPnL});
             this.tradeLogGrid.Location = new System.Drawing.Point(6, 19);
             this.tradeLogGrid.Name = "tradeLogGrid";
             this.tradeLogGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4612,11 +4612,11 @@ namespace IBSampleApp
             this.commissionExecColumn.Name = "commissionExecColumn";
             this.commissionExecColumn.ReadOnly = true;
             // 
-            // RealisedPnL
+            // RealizedPnL
             // 
-            this.RealisedPnL.HeaderText = "RealisedPnL";
-            this.RealisedPnL.Name = "RealisedPnL";
-            this.RealisedPnL.ReadOnly = true;
+            this.RealizedPnL.HeaderText = "RealizedPnL";
+            this.RealizedPnL.Name = "RealizedPnL";
+            this.RealizedPnL.ReadOnly = true;
             // 
             // liveOrdersGroup
             // 
@@ -6942,8 +6942,8 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn optionMarketPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn optionMarketValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn optionAverageCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn optionUnrealisedPnL;
-        private System.Windows.Forms.DataGridViewTextBoxColumn optionRealisedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optionUnrealizedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optionRealizedPnL;
         private System.Windows.Forms.CheckBox overrideOption;
         private System.Windows.Forms.Button lapseOption;
         private System.Windows.Forms.Button exerciseOption;
@@ -7068,8 +7068,8 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioMarketPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioMarketValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioAvgCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioUnrealisedPnL;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioRealisedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioUnrealizedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatePortfolioRealizedPnL;
         private System.Windows.Forms.DataGridView accountValuesGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn accUpdatesKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn accUpdatesValue;
@@ -7125,7 +7125,7 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionExecColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceExecColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RealisedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RealizedPnL;
         private System.Windows.Forms.GroupBox liveOrdersGroup;
         private System.Windows.Forms.DataGridView liveOrdersGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;

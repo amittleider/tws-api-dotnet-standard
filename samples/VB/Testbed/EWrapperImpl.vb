@@ -346,10 +346,10 @@ Namespace Samples
         '! [updatenewsbulletin]
 
         '! [updateportfolio]
-        Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
+        Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealizedPNL As Double, realizedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
             Console.WriteLine("UpdatePortfolio. " & contract.Symbol & ", " & contract.SecType & " @ " & contract.Exchange &
                 ": Position: " & position & ", MarketPrice: " & marketPrice & ", MarketValue: " & marketValue & ", AverageCost: " & averageCost &
-                ", UnrealisedPNL: " & unrealisedPNL & ", RealisedPNL: " & realisedPNL & ", AccountName: " & accountName)
+                ", UnrealizedPNL: " & unrealizedPNL & ", RealizedPNL: " & realizedPNL & ", AccountName: " & accountName)
         End Sub
         '! [updateportfolio]
 

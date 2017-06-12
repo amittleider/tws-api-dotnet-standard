@@ -2575,7 +2575,7 @@ Friend Class MainForm
     ' Notification of an updated/new portfolio position - triggered by the reqAcctUpdates() method
     '--------------------------------------------------------------------------------
     Private Sub Api_updatePortfolio(sender As Object, e As UpdatePortfolioEventArgs) Handles m_apiEvents.UpdatePortfolio
-        m_dlgAcctData.updatePortfolio(e.contract, e.position, e.marketPrice, e.marketValue, e.averageCost, e.unrealisedPNL, e.realisedPNL, e.accountName)
+        m_dlgAcctData.updatePortfolio(e.contract, e.position, e.marketPrice, e.marketValue, e.averageCost, e.unrealizedPNL, e.realizedPNL, e.accountName)
     End Sub
 
     '--------------------------------------------------------------------------------
