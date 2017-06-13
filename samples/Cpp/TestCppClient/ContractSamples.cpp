@@ -642,3 +642,14 @@ Contract ContractSamples::MTbroadtapeNewsFeed()
 	//! [newscontractmt]
 	return contract;
 }
+
+Contract ContractSamples::ContFut()
+{
+	//! [continuousfuturescontract]
+	Contract contract;
+	contract.symbol = "ES";
+	contract.secType = "CONTFUT";
+	contract.exchange = "GLOBEX";
+	//! [continuousfuturescontract]
+	return contract;
+}

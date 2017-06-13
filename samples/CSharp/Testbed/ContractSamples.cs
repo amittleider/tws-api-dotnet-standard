@@ -618,5 +618,16 @@ namespace Samples
             return contract;
         }
 
+        public static Contract ContFut()
+        {
+            //! [continuousfuturescontract]
+            Contract contract = new Contract();
+            contract.Symbol = "ES";
+            contract.SecType = "CONTFUT";
+            contract.Exchange = "GLOBEX";
+            //! [continuousfuturescontract]
+            return contract;
+        }
+
     }
 }

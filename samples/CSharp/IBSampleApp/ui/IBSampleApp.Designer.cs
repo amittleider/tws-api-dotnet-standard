@@ -2944,6 +2944,7 @@ namespace IBSampleApp
             "STK",
             "OPT",
             "FUT",
+            "CONTFUT",
             "CASH",
             "BOND",
             "CFD",
@@ -6062,6 +6063,7 @@ namespace IBSampleApp
             "STK",
             "OPT",
             "FUT",
+            "CONTFUT",
             "CASH",
             "BOND",
             "CFD",
@@ -6340,7 +6342,9 @@ namespace IBSampleApp
             "15 mins",
             "30 mins",
             "1 hour",
-            "1 day"});
+            "1 day",
+            "1 week",
+            "1 month"});
             this.hdRequest_BarSize.Location = new System.Drawing.Point(59, 66);
             this.hdRequest_BarSize.Name = "hdRequest_BarSize";
             this.hdRequest_BarSize.Size = new System.Drawing.Size(156, 21);

@@ -92,7 +92,8 @@ Namespace Samples
 
         '! [contractdetails]
         Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
-            Console.WriteLine("ContractDetails - ReqId [" & reqId & "] ContractDetails [" & contractDetails.Summary.Symbol & "]")
+            Console.WriteLine("ContractDetails - ReqId [" & reqId & "] ContractDetails [" & contractDetails.Summary.Symbol & "], [" & contractDetails.Summary.SecType & "], ConId: [" &
+                              contractDetails.Summary.ConId & "] @ [" & contractDetails.Summary.Exchange & "]")
         End Sub
         '! [contractdetails]
 

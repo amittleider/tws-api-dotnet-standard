@@ -540,5 +540,14 @@ public class ContractSamples {
 		//! [newscontractmt]
 		return contract;
 	}
-	
+
+	public static Contract ContFut() {
+		//! [continuousfuturescontract]
+		Contract contract = new Contract();
+		contract.symbol("ES");
+		contract.secType("CONTFUT");
+		contract.exchange("GLOBEX");
+		//! [continuousfuturescontract]
+		return contract;
+	}
 }

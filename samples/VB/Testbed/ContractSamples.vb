@@ -616,6 +616,16 @@ Namespace Samples
             Return contract
         End Function
 
+        Public Shared Function ContFut() As Contract
+            '! [continuousfuturescontract]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "ES"
+            contract.SecType = "CONTFUT"
+            contract.Exchange = "GLOBEX"
+            '! [continuousfuturescontract]
+            Return contract
+        End Function
+
     End Class
 
 End Namespace

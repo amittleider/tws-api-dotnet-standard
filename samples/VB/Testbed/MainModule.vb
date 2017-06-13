@@ -161,8 +161,12 @@ Module MainModule
         '***********************
         'marketRuleOperations(client)
 
-        pnlSingle(client)
+        'pnlSingle(client)
 
+        '**************************
+        '*** Continuous futures ***
+        '**************************
+        continuousFuturesOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -925,5 +929,21 @@ Module MainModule
         '! [reqmarketrule]
 
     End Sub
+
+    Private Sub continuousFuturesOperations(client As EClientSocket)
+
+        '! [reqcontractdetails]
+        client.reqContractDetails(18001, ContractSamples.ContFut())
+        '! [reqcontractdetails]
+
+        '! [reqhistoricaldata]
+        Dim queryTime As String = DateTime.Now.ToString("yyyyMMdd HH:mm:ss")
+        client.reqHistoricalData(18002, ContractSamples.ContFut(), queryTime, "1 Y", "1 month", "TRADES", 0, 1, False, Nothing)
+        Thread.Sleep(10000)
+        client.cancelHistoricalData(18002)
+        '! [reqhistoricaldata]
+
+    End Sub
+
 
 End Module
