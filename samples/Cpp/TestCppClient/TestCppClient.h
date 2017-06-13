@@ -90,6 +90,8 @@ enum State {
     ST_PNL_ACK,
     ST_PNLSINGLE,
     ST_PNLSINGLE_ACK,
+    ST_CONTFUT,
+    ST_CONTFUT_ACK,
 	ST_PING,
 	ST_PING_ACK,
 	ST_IDLE
@@ -150,6 +152,7 @@ private:
 	void reqHistogramData();
 	void rerouteCFDOperations();
 	void marketRuleOperations();
+	void continuousFuturesOperations();
 
 	void reqCurrentTime();
 

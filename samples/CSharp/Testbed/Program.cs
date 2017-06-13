@@ -157,7 +157,12 @@ namespace Samples
             /***********************/
             //marketRuleOperations(client);
 
-            pnLSingle(client);
+            //pnLSingle(client);
+
+            /**************************/
+            /*** Continuous futures ***/
+            /**************************/
+            continuousFuturesOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -897,5 +902,18 @@ namespace Samples
             //! [reqmarketrule]
         }
 
+        private static void continuousFuturesOperations(EClientSocket client) 
+        {
+            //! [reqcontractdetails]
+            client.reqContractDetails(18001, ContractSamples.ContFut());
+            //! [reqcontractdetails]
+
+            //! [reqhistoricaldata]
+            String queryTime = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            client.reqHistoricalData(18002, ContractSamples.ContFut(), queryTime, "1 Y", "1 month", "TRADES", 0, 1, false, null);
+            Thread.Sleep(10000);
+            client.cancelHistoricalData(18002);
+            //! [reqhistoricaldata]
+        }
     }
 }

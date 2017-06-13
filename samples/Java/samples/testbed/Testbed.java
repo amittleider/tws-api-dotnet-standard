@@ -62,7 +62,8 @@ public class Testbed {
 		//rerouteCFDOperations(wrapper.getClient());
 		//marketRuleOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
-		pnlSingle(wrapper.getClient());
+		//pnlSingle(wrapper.getClient());
+		continuousFuturesOperations(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
@@ -759,5 +760,23 @@ public class Testbed {
 		client.reqMarketRule(240);
 		//! [reqmarketrule]
 	}
-	
+
+	private static void continuousFuturesOperations(EClientSocket client) throws InterruptedException {
+
+		/*** Requesting continuous futures contract details ***/
+		//! [reqcontractdetails]
+		client.reqContractDetails(18001, ContractSamples.ContFut());
+		//! [reqcontractdetails]
+
+		/*** Requesting historical data for continuous futures ***/
+		//! [reqhistoricaldata]
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat form = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+		String formatted = form.format(cal.getTime());
+		client.reqHistoricalData(18002, ContractSamples.ContFut(), formatted, "1 Y", "1 month", "TRADES", 0, 1, false, null);
+		Thread.sleep(10000);
+		/*** Canceling historical data request for continuous futures ***/
+		client.cancelHistoricalData(18002);
+		//! [reqhistoricaldata]
+	}
 }

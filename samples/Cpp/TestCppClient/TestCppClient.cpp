@@ -281,6 +281,9 @@ void TestCppClient::processMessages() {
 		case ST_MARKETRULE:
 			marketRuleOperations();
 			break;
+		case ST_CONTFUT:
+			continuousFuturesOperations();
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1165,6 +1168,31 @@ void TestCppClient::marketRuleOperations()
 	m_state = ST_MARKETRULE_ACK;
 }
 
+void TestCppClient::continuousFuturesOperations()
+{
+	//! [reqcontractdetails]
+	m_pClient->reqContractDetails(18001, ContractSamples::ContFut());
+	//! [reqcontractdetails]
+
+	//! [reqhistoricaldata]
+	std::time_t rawtime;
+    std::tm* timeinfo;
+    char queryTime [80];
+
+	std::time(&rawtime);
+    timeinfo = std::localtime(&rawtime);
+	std::strftime(queryTime, 80, "%Y%m%d %H:%M:%S", timeinfo);
+
+	m_pClient->reqHistoricalData(18002, ContractSamples::ContFut(), queryTime, "1 Y", "1 month", "TRADES", 0, 1, false, TagValueListSPtr());
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+	m_pClient->cancelHistoricalData(18002);
+	//! [reqhistoricaldata]
+
+	m_state = ST_CONTFUT_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1172,7 +1200,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_PNLSINGLE; 
+    m_state = ST_CONTFUT; 
+    //m_state = ST_PNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
@@ -1321,18 +1350,16 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Trading Hours: %s, Liquid Hours: %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n", reqId, 
+	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(), 
 		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(),
 		contractDetails.marketRuleIds.c_str());
 }
 //! [contractdetails]
 
 void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, Trading Hours: %s, Liquid Hours: %s, MarketRuleIds: %s\n", reqId, 
+	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, MarketRuleIds: %s\n", reqId, 
 		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), 
-		contractDetails.tradingHours.c_str(), contractDetails.liquidHours.c_str(),
 		contractDetails.marketRuleIds.c_str());
 }
 

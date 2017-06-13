@@ -247,7 +247,8 @@ public class Types {
 		_1_hour("1 hour"),
 		_4_hours("4 hours"),
 		_1_day("1 day"),
-		_1_week("1 week");
+		_1_week("1 week"),
+		_1_month("1 month");
 
 		private final String description;
 
@@ -310,7 +311,7 @@ public class Types {
 	}
 
 	public enum SecType implements IApiEnum {
-		None, STK, OPT, FUT, CASH, BOND, CFD, FOP, WAR, IOPT, FWD, BAG, IND, BILL, FUND, FIXED, SLB, NEWS, CMDTY, BSK, ICU, ICS;
+		None, STK, OPT, FUT, CONTFUT, CASH, BOND, CFD, FOP, WAR, IOPT, FWD, BAG, IND, BILL, FUND, FIXED, SLB, NEWS, CMDTY, BSK, ICU, ICS;
 
         public static SecType get(String str) {
             return getValueOf(str, values(), None);
