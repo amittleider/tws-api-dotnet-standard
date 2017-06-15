@@ -82,8 +82,8 @@ void EReaderOSSignal::waitForSignal() {
             struct timeval tv;
             gettimeofday(&tv, NULL);
 
-            ts.sec = tv.sec;
-            ts.nsec = tv.usec * 1000;
+            ts.tv_sec = tv.tv_sec;
+            ts.tv_nsec = tv.tv_usec * 1000;
 #endif
             ts.tv_sec += m_waitTimeout / 1000;
             ts.tv_nsec += 1000 * 1000 * (m_waitTimeout % 1000);
