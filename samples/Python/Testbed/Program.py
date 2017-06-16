@@ -748,10 +748,10 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqrealtimebars]
 
     @iswrapper
-    def realtimeBar(self, reqId: TickerId, bar: RealTimeBar):
-        super().realtimeBar(reqId, bar)
-        print("RealTimeBars. ", reqId, ": ", bar)
-
+    # ! [realtimebar]
+    def realtimeBar(self, reqId:TickerId, time:int, open:float, high:float, low:float, close:float, volume:int, wap:float, count:int):
+        super().realtimeBar(reqId, time, open, high, low, close, volume, wap, count)
+        print("RealTimeBars. ", reqId, ": time ", time, ", open: ",open, ", high: ", high, ", low: ", low, ", close: ", close, ", volume: ", volume, ", wap: ", wap, ", count: ", count)
     # ! [realtimebar]
 
     @printWhenExecuting
@@ -778,13 +778,12 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqhistoricaldata]
         queryTime = (datetime.datetime.today() -
                      datetime.timedelta(days=180)).strftime("%Y%m%d %H:%M:%S")
-        # String queryTime = DateTime.Now.AddMonths(-6).ToString("yyyyMMdd HH:mm:ss")
         self.reqHistoricalData(4101, ContractSamples.USStockAtSmart(), queryTime,
-                               "1 M", "1 day", "MIDPOINT", 1, 1, [])
+                               "1 M", "1 day", "MIDPOINT", 1, 1, False, [])
         self.reqHistoricalData(4001, ContractSamples.EurGbpFx(), queryTime,
-                               "1 M", "1 day", "MIDPOINT", 1, 1, [])
+                               "1 M", "1 day", "MIDPOINT", 1, 1, False, [])
         self.reqHistoricalData(4002, ContractSamples.EuropeanStock(), queryTime,
-                               "10 D", "1 min", "TRADES", 1, 1, [])
+                               "10 D", "1 min", "TRADES", 1, 1, False, [])
         # ! [reqhistoricaldata]
 
         # ! [reqHistogramData]
@@ -817,14 +816,10 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [historicaldata]
-    def historicalData(self, reqId: TickerId, date: str, open: float, high: float,
-                       low: float, close: float, volume: int, barCount: int,
-                       WAP: float, hasGaps: int):
-        super().historicalData(reqId, date, open, high, low, close, volume,
-                               barCount, WAP, hasGaps)
-        print("HistoricalData. ", reqId, " Date:", date, "Open:", open,
-              "High:", high, "Low:", low, "Close:", close, "Volume:", volume,
-              "Count:", barCount, "WAP:", WAP, "HasGaps:", hasGaps)
+    def historicalData(self, reqId:int, bar: BarData):
+        print("HistoricalData. ", reqId, " Date:", bar.date, "Open:", bar.open,
+              "High:", bar.high, "Low:", bar.low, "Close:", bar.close, "Volume:", bar.volume,
+              "Count:", bar.barCount, "WAP:", bar.average)
     # ! [historicaldata]
 
     @iswrapper
@@ -832,9 +827,15 @@ class TestApp(TestWrapper, TestClient):
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         super().historicalDataEnd(reqId, start, end)
         print("HistoricalDataEnd ", reqId, "from", start, "to", end)
-
     # ! [historicaldataend]
 
+    @iswrapper
+    #! [historicalDataUpdate]
+    def historicalDataUpdate(self, reqId: int, bar: BarData):
+        print("HistoricalDataUpdate. ", reqId, " Date:", bar.date, "Open:", bar.open,
+              "High:", bar.high, "Low:", bar.low, "Close:", bar.close, "Volume:", bar.volume,
+              "Count:", bar.barCount, "WAP:", bar.average)
+    #! [historicalDataUpdate]
 
     @printWhenExecuting
     def optionsOperations_req(self):

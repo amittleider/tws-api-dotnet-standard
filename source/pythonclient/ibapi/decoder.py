@@ -514,6 +514,10 @@ class Decoder(Object):
         if self.serverVersion >= MIN_SERVER_VER_AGG_GROUP:
             contract.aggGroup = decode(int, fields)
 
+        if self.serverVersion >= MIN_SERVER_VER_UNDERLYING_INFO:
+            contract.underSymbol = decode(str, fields)
+            contract.underSecType = decode(str, fields)
+
         self.wrapper.contractDetails(reqId, contract)
 
 
@@ -670,14 +674,17 @@ class Decoder(Object):
 
     def processHistoricalDataMsg(self, fields):
         sMsgId = next(fields)
-        version = decode(int, fields)
+        version = UNSET_INTEGER
+
+        if self.serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS:
+            version = decode(int, fields)
+
         reqId = decode(int, fields)
         startDateStr = decode(str, fields) # ver 2 field
         endDateStr = decode(str, fields) # ver 2 field
 
         itemCount = decode(int, fields)
 
-        bars = []
         for idxBar in range(itemCount):
             bar = BarData()
             bar.date = decode(str, fields)
@@ -687,19 +694,30 @@ class Decoder(Object):
             bar.close = decode(float, fields)
             bar.volume = decode(int, fields)
             bar.average = decode(float, fields)
-            bar.hasGaps = decode(str, fields)
+
+            if self.serverVersion < MIN_SERVER_VER_SYNT_REALTIME_BARS:
+                hasGaps = decode(str, fields)
+
             bar.barCount = decode(int, fields) # ver 3 field
 
-            bars.append(bar)
-
-            self.wrapper.historicalData(reqId, bar.date, bar.open, bar.high,
-                bar.low, bar.close, bar.volume, bar.barCount, bar.average,
-                bar.hasGaps == "true")
-
-        #assert len(bars() == itemCount
+            self.wrapper.historicalData(reqId, bar)
 
         # send end of dataset marker
         self.wrapper.historicalDataEnd(reqId, startDateStr, endDateStr)
+
+    def processHistoricalDataUpdateMsg(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        bar = BarData()
+        bar.barCount = decode(int, fields)
+        bar.date = decode(str, fields)
+        bar.open = decode(float, fields)
+        bar.close = decode(float, fields)
+        bar.high = decode(float, fields)
+        bar.low = decode(float, fields)
+        bar.average = decode(float, fields)
+        bar.volume = decode(int, fields)
+        self.wrapper.historicalDataUpdate(reqId, bar)
 
     def processRealTimeBarMsg(self, fields):
         sMsgId = next(fields)
@@ -708,10 +726,6 @@ class Decoder(Object):
 
         bar = BarData()
         bar.date = decode(int, fields)
-
-        if self.serverVersion >= MIN_SERVER_VER_SYNT_REALTIME_BARS:
-            bar.endTime = decode(int, fields)
-
         bar.open = decode(float, fields)
         bar.high = decode(float, fields)
         bar.low = decode(float, fields)
@@ -720,7 +734,7 @@ class Decoder(Object):
         bar.wap = decode(float, fields)
         bar.count = decode(int, fields)
 
-        self.wrapper.realtimeBar(reqId, bar)
+        self.wrapper.realtimeBar(reqId, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume, bar.wap, bar.count)
 
     def processTickOptionComputationMsg(self, fields):
         optPrice = None
@@ -1163,6 +1177,7 @@ class Decoder(Object):
         IN.MANAGED_ACCTS: HandleInfo(wrap=EWrapper.managedAccounts),
         IN.RECEIVE_FA: HandleInfo(wrap=EWrapper.receiveFA),
         IN.HISTORICAL_DATA: HandleInfo(proc=processHistoricalDataMsg),
+        IN.HISTORICAL_DATA_UPDATE: HandleInfo(proc=processHistoricalDataUpdateMsg),
         IN.BOND_CONTRACT_DATA: HandleInfo(proc=processBondContractDataMsg),
         IN.SCANNER_PARAMETERS: HandleInfo(wrap=EWrapper.scannerParameters),
         IN.SCANNER_DATA: HandleInfo(proc=processScannerDataMsg),

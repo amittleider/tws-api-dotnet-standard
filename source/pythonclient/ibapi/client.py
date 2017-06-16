@@ -2008,7 +2008,7 @@ class EClient(object):
 
     def reqHistoricalData(self, reqId:TickerId , contract:Contract, endDateTime:str,
                           durationStr:str, barSizeSetting:str, whatToShow:str,
-                          useRTH:int, formatDate:int, chartOptions:TagValueList):
+                          useRTH:int, formatDate:int, keepUpToDate:bool, chartOptions:TagValueList):
         """Requests contracts' historical data. When requesting historical data, a
         finishing time and date is required along with a duration string. The
         resulting bars will be returned in EWrapper.historicalData()
@@ -2081,9 +2081,12 @@ class EClient(object):
 
         # send req mkt data msg
         flds = []
-        flds += [make_field(OUT.REQ_HISTORICAL_DATA),
-            make_field(VERSION),
-            make_field(reqId)]
+        flds += [make_field(OUT.REQ_HISTORICAL_DATA),]
+
+        if self.serverVersion() < MIN_SERVER_VER_SYNT_REALTIME_BARS:
+            flds += [make_field(VERSION),]
+
+        flds += [make_field(reqId),]
 
         # send contract fields
         if self.serverVersion() >= MIN_SERVER_VER_TRADING_CLASS:
@@ -2116,6 +2119,9 @@ class EClient(object):
                     make_field( comboLeg.ratio),
                     make_field( comboLeg.action),
                     make_field( comboLeg.exchange)]
+
+        if self.serverVersion() >= MIN_SERVER_VER_SYNT_REALTIME_BARS:
+            flds += [make_field(keepUpToDate), ]
 
         # send chartOptions parameter
         if self.serverVersion() >= MIN_SERVER_VER_LINKING:
