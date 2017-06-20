@@ -2799,10 +2799,7 @@ namespace IBApi
         {
             try
             {
-                lock (this)
-                {
-                    CloseAndSend(paramsList, lengthPos);
-                }
+                CloseAndSend(paramsList, lengthPos);
             }
             catch (Exception)
             {
@@ -2854,10 +2851,7 @@ namespace IBApi
             paramsList.AddParameter(reqId);
             try
             {
-                lock (this)
-                {
-                    CloseAndSend(paramsList, lengthPos);
-                }
+                CloseAndSend(paramsList, lengthPos);
             }
             catch (Exception)
             {
@@ -2875,10 +2869,7 @@ namespace IBApi
             paramsList.AddParameter(version);
             try
             {
-                lock (this)
-                {
-                    CloseAndSend(paramsList, lengthPos);
-                }
+                CloseAndSend(paramsList, lengthPos);
             }
             catch (Exception)
             {
