@@ -575,7 +575,7 @@ public class Order {
         	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
         	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
         	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset ||
-        	m_softDollarTier.equals(l_theOther.m_softDollarTier) ||
+        	!m_softDollarTier.equals(l_theOther.m_softDollarTier) ||
         	m_cashQty != l_theOther.m_cashQty) {
         	return false;
         }
