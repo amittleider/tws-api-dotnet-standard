@@ -12,6 +12,7 @@ namespace IBApi
     class ESocket : ETransport, IDisposable
     {
         BinaryWriter tcpWriter;
+        object tcpWriterLock = new object();
 
         public ESocket(Stream socketStream)
         {
@@ -20,7 +21,10 @@ namespace IBApi
 
         public void Send(EMessage msg)
         {
-            tcpWriter.Write(msg.GetBuf());
+            lock (tcpWriterLock)
+            {
+                tcpWriter.Write(msg.GetBuf());
+            }
         }
 
         public void Dispose()
