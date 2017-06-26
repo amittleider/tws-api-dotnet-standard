@@ -141,7 +141,7 @@ What You Will Need</h1>
 <p>Since the TWS RTD Server API technology directly refers to the C# API client source functions, it is supported on <a href="https://www.interactivebrokers.com/en/index.php?f=1658&amp;nhf=T" target="_blank">Windows Environment</a> only.</p>
 <h2><a class="anchor" id="rtd_req_api"></a>
 - API version 9.73.03+</h2>
-<p>The TWS RTD Server API is currently only available in IB API Beta version, which is hosted on the private TWS-API Github Repository. A downloadable production version of API 9.73.03 is not available at the moment, but should be expected to come out soon. For users like to acquire access to the TWS-API Github Repository, please follow the instructions for accessing <a href="http://interactivebrokers.github.io/" target="_blank">IB API Beta</a>.</p>
+<p>You need to download <a href="http://interactivebrokers.github.io/" target="_blank">IB API</a> Windows version 9.73.03 or higher and install on your computer. Once you have installed the API, you can verify the API Version by checking <em>C:\TWS API\API_VersionNum.txt</em> by default.</p>
 <h2><a class="anchor" id="rtd_req_tws"></a>
 - TWS (or IB Gateway) Build 963+</h2>
 <p>By default, market data requests sent via TWS RTD Server will automatically request for all possible <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_gen_ticks">Generic Tick Types</a>. There are several generic tick types being requested that are only supported in TWS 963 or higher. Sending any RTD market data request with default generic tick list to an old build of TWS will trigger a "TwsRtdServer error" indicating incorrect generic tick list is sent. Make sure a <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">TWS builds 963+</a> is downloaded from IB website and kept running at the background for TWS RTD Server API to function properly.</p>
@@ -149,6 +149,9 @@ What You Will Need</h1>
 - Enable Socket Client in TWS (or IB Gateway)</h2>
 <p>Since the TWS RTD Server API directly refers to the C# API source, RTD market data requests will be sent via the socket layer. Please make sure to <a class="el" href="initial_setup.html#enable_api">Enable ActiveX and Socket Client</a> settings in your TWS.</p>
 <p>Please also be mindful of the socket port that you configure in your TWS API settings. The default socket port TWS will listen on is <b>7496</b> for a live session, and <b>7497</b> for a paper session. It is further discussed in section <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_conn">Connection Parameters</a> that TWS RTD Server connects to port <b>7496</b> by default, and you are able to customize the port number to connect by specifying pre-defined <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_conn">Connection Parameters</a> or using rtd_complex_syntax string "port=&lt;port&gt;". You can use any valid port for connection as you wish, and you just need to make sure that the port you are trying to connect to via the API is the same port your TWS is listening on.</p>
+<h2><a class="anchor" id="rtd_req_excel"></a>
+- Microsoft Excel®</h2>
+<p>After installing the API, the pre-compiled RTD library file (located at <em>C:\TWS API\source\csharpclient\TwsRtdServer\bin\Release\TwsRtdServer.dll</em> by default) registered on your computer will be in 32-bit by default. If you are using 64-bit Microsoft Excel, you would need to re-compile RTD server dll file into 64-bit and register the library by re-building the RTD source solution using Visual Studio. Please refer to the <a href="https://attendee.gotowebinar.com/register/7412660386944689921" target="_blank">TWS Excel APIs, featuring the RealTimeData Server</a> recorded webinar for detailed instructions.</p>
 <h1><a class="anchor" id="rtd_syntax_headline"></a>
 TWS RTD Server Formula Syntax</h1>
 <p>Customer can request market data by entering the following formula with corresponding parameters into an Excel spreadsheet cell:</p>
@@ -182,6 +185,7 @@ Syntax Samples</h1>
 <li><a class="el" href="rtd_examples.html#rtd_samples_cmdty">Commodities</a></li>
 <li><a class="el" href="rtd_examples.html#rtd_samples_spread">Spreads</a></li>
 </ul>
+<p>Besides reading through the written documentation, you can also watch the <a href="https://attendee.gotowebinar.com/register/7412660386944689921" target="_blank">TWS Excel APIs, featuring the RealTimeData Server</a> recorded webinar for a more interactive tutorial video.</p>
 <h1><a class="anchor" id="rtd_throttle_headline"></a>
 Change Data Refresh Rate</h1>
 <ul>
