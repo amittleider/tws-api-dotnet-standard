@@ -25,7 +25,7 @@
 	<br><br>
 	5. Verify the next line should display 250. If this value is changed, the new value will persist when Microsoft Excel is restarted.
 	
-	<i><b>*Warning: </b>As the <a href="https://msdn.microsoft.com/en-us/library/microsoft.office.interop.excel.rtd.throttleinterval.aspx" target="_blank" class="linkexternal">ThrottleInterval</a> is lowered, updates can come in so frequently and that Excelthat Excel is continuously updating values and doing calculations, Excel might end up in a state where it never gives the user a chance to do anything, effectively getting in a hung state. If this happens, set the Excel throttle interval higher.</i>
+	<i><b>*Warning: </b>As the <a href="https://msdn.microsoft.com/en-us/library/microsoft.office.interop.excel.rtd.throttleinterval.aspx" target="_blank" class="linkexternal">ThrottleInterval</a> is lowered, updates can come in so frequently that Excel is continuously updating values and doing calculations, Excel might end up in a state where it never gives the user a chance to do anything, effectively getting in a hung state. If this happens, set the Excel throttle interval higher.</i>
 	
 	\image html rtd_throttle_interval.PNG
 	
