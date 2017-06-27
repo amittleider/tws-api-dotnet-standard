@@ -284,6 +284,8 @@ Generic Tick Types</h2>
 <td>Short-Term Volume 5 Minutes</td><td>"ShortTermVolume5Min"</td><td>The past five minutes volume. Interpolation may be applied.</td><td>595 </td></tr>
 <tr>
 <td>Short-Term Volume 10 Minutes</td><td>"ShortTermVolume10Min"</td><td>The past ten minutes volume. Interpolation may be applied.</td><td>595 </td></tr>
+<tr>
+<td>Futures Open Interest</td><td>"FuturesOpenInterest"</td><td>Total number of outstanding futures contracts (TWS Build 965+ is required)</td><td>588 </td></tr>
 </table>
 <p>By default, all <b>Generic Tick Types</b> are automatically requested. User just need to directly specify the <b>Topic</b> as the name of a generic tick type to populate the data to Excel.</p>
 <p>In order to consume less data resource and make your market data request more efficient, you can directly specify the <b>Generic Tick Type</b> to be requested by defining string <em>"genticks=id1,id2,..."</em>.</p>

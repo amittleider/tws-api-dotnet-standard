@@ -5,7 +5,8 @@ var tws_rtd_server =
       [ "- Windows Operating System", "tws_rtd_server.html#rtd_req_env", null ],
       [ "- API version 9.73.03+", "tws_rtd_server.html#rtd_req_api", null ],
       [ "- TWS (or IB Gateway) Build 963+", "tws_rtd_server.html#rtd_req_tws", null ],
-      [ "- Enable Socket Client in TWS (or IB Gateway)", "tws_rtd_server.html#rtd_req_socket", null ]
+      [ "- Enable Socket Client in TWS (or IB Gateway)", "tws_rtd_server.html#rtd_req_socket", null ],
+      [ "- Microsoft Excel®", "tws_rtd_server.html#rtd_req_excel", null ]
     ] ],
     [ "TWS RTD Server Formula Syntax", "tws_rtd_server.html#rtd_syntax_headline", null ],
     [ "Syntax Samples", "tws_rtd_server.html#rtd_examples_headline", null ],

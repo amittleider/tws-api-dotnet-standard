@@ -44,6 +44,7 @@ var NAVTREEINDEX4 =
 "tws_rtd_server.html#rtd_introduction":[20,0],
 "tws_rtd_server.html#rtd_req_api":[20,1,1],
 "tws_rtd_server.html#rtd_req_env":[20,1,0],
+"tws_rtd_server.html#rtd_req_excel":[20,1,4],
 "tws_rtd_server.html#rtd_req_socket":[20,1,3],
 "tws_rtd_server.html#rtd_req_tws":[20,1,2],
 "tws_rtd_server.html#rtd_syntax_headline":[20,2],
