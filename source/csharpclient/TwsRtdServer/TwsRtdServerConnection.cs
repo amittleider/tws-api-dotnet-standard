@@ -70,7 +70,7 @@ namespace TwsRtdServer
 
                 // wait 5 seconds till fully connected
                 int i = 0;
-                while (m_eClientSocket.ServerVersion <= 0 && i < 50)
+                while (m_twsRtdServerWrapper.NextOrderId <= 0 && i < 50)
                 {
                     Thread.Sleep(100);
                     i++;

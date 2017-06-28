@@ -10,6 +10,7 @@ namespace TwsRtdServer
     {
         private TwsRtdServer m_server;
         private TwsRtdServerConnection m_connection;
+        private int nextOrderId;
 
         // constructor
         public TwsRtdServerWrapper() {}
@@ -18,6 +19,12 @@ namespace TwsRtdServer
         {
             m_server = server;
             m_connection = connection;
+        }
+
+        public int NextOrderId
+        {
+            get { return nextOrderId; }
+            set { nextOrderId = value; }
         }
 
         void SetTopicValue(int tickerId, int field, object value)
@@ -123,7 +130,9 @@ namespace TwsRtdServer
         }
 
         public void tickSnapshotEnd(int tickerId) { }
-        public void nextValidId(int orderId) { }
+        public void nextValidId(int orderId) {
+            NextOrderId = orderId;
+        }
         public void managedAccounts(string accountsList) { }
         public void connectionClosed() { }
         public void accountSummary(int reqId, string account, string tag, string value, string currency) { }
