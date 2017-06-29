@@ -18,6 +18,16 @@ class IBGridBagPanel extends JPanel {
         setLayout(m_layout);
     }
 
+    public void addGBComponent(Component comp,
+            GridBagConstraints gbc, int weightx, int gridwidth)
+    {
+        gbc.weightx = weightx;
+        gbc.gridwidth = gridwidth;
+        
+        setConstraints(comp, gbc);
+        add(comp, gbc);
+    }
+
     public void setConstraints(Component comp, GridBagConstraints constraints) {
         m_layout.setConstraints(comp, constraints);
     }

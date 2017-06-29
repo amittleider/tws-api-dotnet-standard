@@ -4,6 +4,7 @@
 package TestJavaClient;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -74,7 +75,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
         getContentPane().add( scrollingWindowDisplayPanel, BorderLayout.CENTER);
         getContentPane().add( buttonPanel, BorderLayout.EAST);
-        setSize( 600, 800);
+        setSize( 900, 800);
         setTitle( "Sample");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -254,33 +255,24 @@ class SampleFrame extends JFrame implements EWrapper {
         JButton butClose = new JButton( "Close");
         butClose.addActionListener(e -> onClose());
 
-
         buttonPanel.add( new JPanel() );
-        buttonPanel.add( butConnect);
-        buttonPanel.add( butDisconnect);
+        
+        BtnPairSlot pairSlot = new BtnPairSlot(buttonPanel);
 
-        buttonPanel.add( new JPanel() );
-        buttonPanel.add( butMktData);
-        buttonPanel.add( butCancelMktData);
-        buttonPanel.add( butMktDepth);
-        buttonPanel.add( butCancelMktDepth);
-        buttonPanel.add( butHistoricalData);
-        buttonPanel.add( butCancelHistoricalData);
-        buttonPanel.add( butFundamentalData);
-        buttonPanel.add( butCancelFundamentalData);
-        buttonPanel.add( butRealTimeBars);
-        buttonPanel.add( butCancelRealTimeBars);
-        buttonPanel.add( butScanner);
-        buttonPanel.add( butCurrentTime);
-        buttonPanel.add( butCalculateImpliedVolatility);
-        buttonPanel.add( butCancelCalculateImpliedVolatility);
-        buttonPanel.add( butCalculateOptionPrice);
-        buttonPanel.add( butCancelCalculateOptionPrice);
+        pairSlot.add(butConnect, butDisconnect);
+        pairSlot.add(butMktData, butCancelMktData);
+        pairSlot.add(butMktDepth, butCancelMktDepth);
+        pairSlot.add(butHistoricalData, butCancelHistoricalData);
+        pairSlot.add(butFundamentalData, butCancelFundamentalData);
+        pairSlot.add(butRealTimeBars, butCancelRealTimeBars);
+        pairSlot.add(butRealTimeBars, butCancelRealTimeBars);
+        pairSlot.add(butScanner, butCurrentTime);
+        pairSlot.add(butCalculateImpliedVolatility, butCancelCalculateImpliedVolatility);
+        pairSlot.add(butCalculateOptionPrice, butCancelCalculateOptionPrice);
 
         buttonPanel.add( new JPanel() );
         buttonPanel.add( butWhatIfOrder);
-        buttonPanel.add( butPlaceOrder);
-        buttonPanel.add( butCancelOrder);
+        pairSlot.add(butPlaceOrder, butCancelOrder);
         buttonPanel.add( butExerciseOptions);
         buttonPanel.add( butExtendedOrder);
 
@@ -297,37 +289,50 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add( butFinancialAdvisor ) ;
         buttonPanel.add( butGlobalCancel ) ;
         buttonPanel.add( butReqMarketDataType ) ;
-        buttonPanel.add( butRequestPositions ) ;
-        buttonPanel.add( butCancelPositions ) ;
-        buttonPanel.add( butRequestAccountSummary ) ;
-        buttonPanel.add( butCancelAccountSummary ) ;
-        buttonPanel.add( butRequestPositionsMulti ) ;
-        buttonPanel.add( butCancelPositionsMulti ) ;
-        buttonPanel.add( butRequestAccountUpdatesMulti ) ;
-        buttonPanel.add( butCancelAccountUpdatesMulti ) ;
+
+        pairSlot.add(butRequestPositions, butCancelPositions);
+        pairSlot.add(butRequestAccountSummary, butCancelAccountSummary);
+        pairSlot.add(butRequestPositionsMulti, butCancelPositionsMulti);
+        pairSlot.add(butRequestAccountUpdatesMulti, butCancelAccountUpdatesMulti);
+
         buttonPanel.add(butRequestSecurityDefinitionOptionParameters);
-        buttonPanel.add( butGroups ) ;
-        buttonPanel.add( butRequestFamilyCodes ) ;
-        buttonPanel.add( butRequestMatchingSymbols ) ;
-        buttonPanel.add( butReqMktDepthExchanges ) ;
+        buttonPanel.add(butGroups);
+        buttonPanel.add(butRequestFamilyCodes);
+        buttonPanel.add(butRequestMatchingSymbols);
+        buttonPanel.add(butReqMktDepthExchanges);
         buttonPanel.add(butReqSmartComponents);
-        buttonPanel.add( butRequestNewsProviders ) ;
-        buttonPanel.add( butReqNewsArticle ) ;
-        buttonPanel.add( butReqHistoricalNews ) ;
+        buttonPanel.add(butRequestNewsProviders);
+        buttonPanel.add(butReqNewsArticle);
+        buttonPanel.add(butReqHistoricalNews);
         buttonPanel.add(butHeadTimestamp);
-        buttonPanel.add(butHistogram);
-        buttonPanel.add(butHistogramCancel);
+
+        pairSlot.add(butHistogram, butHistogramCancel);
         buttonPanel.add(butReqMarketRule);
-        buttonPanel.add(butReqPnL);
-        buttonPanel.add(butCancelPnL);
-        buttonPanel.add(butReqPnLSingle);
-        buttonPanel.add(butCancelPnLSingle);
+        pairSlot.add(butReqPnL, butCancelPnL);
+        pairSlot.add(butReqPnLSingle, butCancelPnLSingle);
 
         buttonPanel.add( new JPanel() );
-        buttonPanel.add( butClear );
-        buttonPanel.add( butClose );
+        pairSlot.add(butClear, butClose);
 
         return buttonPanel;
+    }
+
+    class BtnPairSlot {
+        
+        private JPanel m_parentPanel;
+
+        public BtnPairSlot(JPanel parentPanel) {
+            m_parentPanel = parentPanel;
+        }
+        
+        public void add(JButton left, JButton right) {
+            JPanel subPanel = new JPanel(new GridLayout(0, 2));
+            
+            subPanel.add(left);
+            subPanel.add(right);
+            m_parentPanel.add(subPanel);
+        }
+        
     }
 
     private void onCancelPnLSingle() {
