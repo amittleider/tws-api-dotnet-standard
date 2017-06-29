@@ -1,6 +1,7 @@
 package TestJavaClient;
 
 import java.awt.BorderLayout;
+import java.awt.Window;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,8 +16,8 @@ public class JDialogBox extends JDialog {
         return m_isOk;
     }
 
-    public JDialogBox(JFrame parent) {
-        super(parent, true);
+    public JDialogBox(Window parent) {
+        super(parent, ModalityType.APPLICATION_MODAL);
         
         JPanel buttonPanel = new JPanel();
         JButton btnOk = new JButton("OK");
