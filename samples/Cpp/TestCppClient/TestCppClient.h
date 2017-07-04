@@ -171,7 +171,7 @@ public:
 		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 	void orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
-		double lastFillPrice, int clientId, const std::string& whyHeld);
+		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice);
 	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
 	void openOrderEnd();
 	void winError(const std::string& str, int lastError);

@@ -23,5 +23,7 @@ Class OrderStatusEventArgs
 
     Property whyHeld As String
 
+    Property mktCapPrice As Double
+
 End Class
 

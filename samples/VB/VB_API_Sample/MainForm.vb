@@ -2253,7 +2253,7 @@ Friend Class MainForm
         Dim msg = "order status: orderId=" & e.orderId & " client id=" & e.clientId & " permId=" & e.permId &
               " status=" & e.status & " filled=" & e.filled & " remaining=" & e.remaining &
               " avgFillPrice=" & e.avgFillPrice & " lastFillPrice=" & e.lastFillPrice &
-              " parentId=" & e.parentId & " whyHeld=" & e.whyHeld
+              " parentId=" & e.parentId & " whyHeld=" & e.whyHeld & " mktCapPrice=" & e.mktCapPrice
 
         m_utils.addListItem(Utils.ListType.ServerResponses, msg)
 

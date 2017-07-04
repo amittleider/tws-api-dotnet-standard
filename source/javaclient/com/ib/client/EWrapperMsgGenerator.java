@@ -59,11 +59,11 @@ public class EWrapperMsgGenerator {
     
     public static String orderStatus( int orderId, String status, double filled, double remaining,
             double avgFillPrice, int permId, int parentId, double lastFillPrice,
-            int clientId, String whyHeld) {
+            int clientId, String whyHeld, double mktCapPrice) {
     	return "order status: orderId=" + orderId + " clientId=" + clientId + " permId=" + permId +
         " status=" + status + " filled=" + filled + " remaining=" + remaining +
         " avgFillPrice=" + avgFillPrice + " lastFillPrice=" + lastFillPrice +
-        " parent Id=" + parentId + " whyHeld=" + whyHeld;
+        " parent Id=" + parentId + " whyHeld=" + whyHeld + " mktCapPrice=" + mktCapPrice;
     }
     
     public static String openOrder( int orderId, Contract contract, Order order, OrderState orderState) {

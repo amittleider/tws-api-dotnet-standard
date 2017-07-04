@@ -377,8 +377,8 @@ namespace IBApi
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
-        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, 
-            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
+            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice);
 
         /**
          * @brief Feeds in currently open orders.

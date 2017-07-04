@@ -1226,7 +1226,7 @@ namespace IBApi
 
         private void OrderStatusEvent()
         {
-            int msgVersion = ReadInt();
+            int msgVersion = serverVersion >= MinServerVer.MARKET_CAP_PRICE ? int.MaxValue : ReadInt();
             int id = ReadInt();
             string status = ReadString();
             double filled = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
@@ -1263,7 +1263,14 @@ namespace IBApi
                 whyHeld = ReadString();
             }
 
-            eWrapper.orderStatus(id, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+            double mktCapPrice = double.MaxValue;
+
+            if (serverVersion >= MinServerVer.MARKET_CAP_PRICE)
+            {
+                mktCapPrice = ReadDouble();
+            }
+
+            eWrapper.orderStatus(id, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
         }
 
         private void OpenOrderEvent()

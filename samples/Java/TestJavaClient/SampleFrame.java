@@ -1100,10 +1100,10 @@ class SampleFrame extends JFrame implements EWrapper {
 
     public void orderStatus( int orderId, String status, double filled, double remaining,
     						 double avgFillPrice, int permId, int parentId,
-    						 double lastFillPrice, int clientId, String whyHeld) {
+    						 double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
         // received order status
     	String msg = EWrapperMsgGenerator.orderStatus( orderId, status, filled, remaining,
-    	        avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+    	        avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
         m_TWS.add(  msg);
 
         // make sure id for next order is at least orderId+1

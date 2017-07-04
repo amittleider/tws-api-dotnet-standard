@@ -88,10 +88,10 @@ public class EWrapperImpl implements EWrapper {
 	@Override
 	public void orderStatus(int orderId, String status, double filled,
 			double remaining, double avgFillPrice, int permId, int parentId,
-			double lastFillPrice, int clientId, String whyHeld) {
+			double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 		System.out.println("OrderStatus. Id: "+orderId+", Status: "+status+", Filled"+filled+", Remaining: "+remaining
                 +", AvgFillPrice: "+avgFillPrice+", PermId: "+permId+", ParentId: "+parentId+", LastFillPrice: "+lastFillPrice+
-                ", ClientId: "+clientId+", WhyHeld: "+whyHeld);
+                ", ClientId: "+clientId+", WhyHeld: "+whyHeld+", MktCapPrice: "+mktCapPrice);
 	}
 	//! [orderstatus]
 	

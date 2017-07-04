@@ -18,7 +18,7 @@ public:
 	   double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
    virtual void orderStatus( OrderId orderId, const std::string& status, double filled,
 	   double remaining, double avgFillPrice, int permId, int parentId,
-	   double lastFillPrice, int clientId, const std::string& whyHeld);
+	   double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice);
    virtual void openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&);
    virtual void openOrderEnd();
    virtual void winError( const std::string& str, int lastError);
