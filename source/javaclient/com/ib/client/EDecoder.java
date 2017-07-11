@@ -1851,6 +1851,9 @@ class EDecoder implements ObjectInput {
 				
 				attribs.canAutoExecute(mask.get(0));
 				attribs.pastLimit(mask.get(1));
+				if (m_serverVersion >= EClient.MIN_SERVER_VER_PRE_OPEN_BID_ASK) {
+					attribs.preOpen(mask.get(2));
+				}
 			}
 		}
 

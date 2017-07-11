@@ -61,8 +61,7 @@ Module MainModule
         '**************************************************
         '** Real time market data operations  - Tickers ***
         '**************************************************
-        'tickDataOperations(client)
-
+        tickDataOperations(client)
 
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
@@ -166,7 +165,7 @@ Module MainModule
         '**************************
         '*** Continuous futures ***
         '**************************
-        continuousFuturesOperations(client)
+        'continuousFuturesOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -246,6 +245,11 @@ Module MainModule
         client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", False, False, Nothing)
         '! [reqfuturesopeninterest]
 
+        '! [reqmktdatapreopenbidask]
+        'Requesting data for a futures contract will return the pre-open bid/ask flag
+        client.reqMktData(1015, ContractSamples.SimpleFuture(), "", False, False, Nothing)
+        '! [reqmktData_preopenbidask]
+
         Thread.Sleep(10000)
         ' Canceling the market data subscription 
         ' [cancelmktdata]
@@ -255,6 +259,7 @@ Module MainModule
         client.cancelMktData(1004)
         client.cancelMktData(1005)
         client.cancelMktData(1014)
+        client.cancelMktData(1015)
         ' [cancelmktdata]
     End Sub
 

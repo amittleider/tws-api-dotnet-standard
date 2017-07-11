@@ -22,7 +22,7 @@ import com.ib.controller.Formats;
 class TopModel extends AbstractTableModel {
 	private List<TopRow> m_rows = new ArrayList<>();
 	private MarketDataPanel m_parentPanel;
-	private static final int CANCEL_CHBX_COL_INDEX = 22;
+	private static final int CANCEL_CHBX_COL_INDEX = 24;
 
 	TopModel(MarketDataPanel parentPanel) {
 		m_parentPanel = parentPanel;
@@ -85,22 +85,24 @@ class TopModel extends AbstractTableModel {
 			case 3: return "Bid Mask";
 			case 4: return "Bid Can Auto Execute";
 			case 5: return "Bid Past Limit";
-			case 6: return "Ask";
-			case 7: return "Ask Size";
-			case 8: return "Ask Mask";
-			case 9: return "Ask Can Auto Execute";
-			case 10: return "Ask Past Limit";
-			case 11: return "Last";
-			case 12: return "Time";
-			case 13: return "Change";
-			case 14: return "Volume";
-			case 15: return "Min Tick";
-			case 16: return "BBO Exchange";
-			case 17: return "Snapshot Permissions";
-			case 18: return "Close";
-			case 19: return "Open";
-			case 20: return "Market Data Type";
-			case 21: return "Futures Open Interest";
+			case 6: return "Pre Open Bid";
+			case 7: return "Ask";
+			case 8: return "Ask Size";
+			case 9: return "Ask Mask";
+			case 10: return "Ask Can Auto Execute";
+			case 11: return "Ask Past Limit";
+			case 12: return "Pre Open Ask";
+			case 13: return "Last";
+			case 14: return "Time";
+			case 15: return "Change";
+			case 16: return "Volume";
+			case 17: return "Min Tick";
+			case 18: return "BBO Exchange";
+			case 19: return "Snapshot Permissions";
+			case 20: return "Close";
+			case 21: return "Open";
+			case 22: return "Market Data Type";
+			case 23: return "Futures Open Interest";
 			case CANCEL_CHBX_COL_INDEX: return "Cancel";
 
 			default: return null;
@@ -116,22 +118,24 @@ class TopModel extends AbstractTableModel {
 			case 3: return row.m_bidMask;
 			case 4: return row.m_bidCanAutoExecute;
 			case 5: return row.m_bidPastLimit;
-			case 6: return fmt( row.m_ask);
-			case 7: return row.m_askSize;
-			case 8: return row.m_askMask;
-			case 9: return row.m_askCanAutoExecute;
-			case 10: return row.m_askPastLimit;
-			case 11: return fmt( row.m_last);
-			case 12: return fmtTime( row.m_lastTime);
-			case 13: return row.change();
-			case 14: return Formats.fmt0( row.m_volume);
-			case 15: return row.m_minTick;
-			case 16: return row.m_bboExch;
-			case 17: return row.m_snapshotPermissions;
-			case 18: return fmt( row.m_close);
-			case 19: return fmt( row.m_open);
-			case 20: return row.m_marketDataType;
-			case 21: return row.m_futuresOpenInterest;
+			case 6: return row.m_preOpenBid;
+			case 7: return fmt( row.m_ask);
+			case 8: return row.m_askSize;
+			case 9: return row.m_askMask;
+			case 10: return row.m_askCanAutoExecute;
+			case 11: return row.m_askPastLimit;
+			case 12: return row.m_preOpenAsk;
+			case 13: return fmt( row.m_last);
+			case 14: return fmtTime( row.m_lastTime);
+			case 15: return row.change();
+			case 16: return Formats.fmt0( row.m_volume);
+			case 17: return row.m_minTick;
+			case 18: return row.m_bboExch;
+			case 19: return row.m_snapshotPermissions;
+			case 20: return fmt( row.m_close);
+			case 21: return fmt( row.m_open);
+			case 22: return row.m_marketDataType;
+			case 23: return row.m_futuresOpenInterest;
 			case CANCEL_CHBX_COL_INDEX: return row.m_cancel;
 			default: return null;
 		}
@@ -170,6 +174,7 @@ class TopModel extends AbstractTableModel {
 		boolean m_frozen;
 		boolean m_bidCanAutoExecute, m_askCanAutoExecute;
 		boolean m_bidPastLimit, m_askPastLimit;
+		boolean m_preOpenBid, m_preOpenAsk;
 		double m_minTick;
 		String m_bboExch;
 		int m_snapshotPermissions;
@@ -202,12 +207,14 @@ class TopModel extends AbstractTableModel {
 					m_bid = price;
 					m_bidCanAutoExecute = attribs.canAutoExecute();
 					m_bidPastLimit = attribs.pastLimit();
+					m_preOpenBid = attribs.preOpen();
 					break;
 				case ASK:
 				case DELAYED_ASK:
 					m_ask = price;
 					m_askCanAutoExecute = attribs.canAutoExecute();
 					m_askPastLimit = attribs.pastLimit();
+					m_preOpenAsk = attribs.preOpen();
 					break;
 				case LAST:
 				case DELAYED_LAST:

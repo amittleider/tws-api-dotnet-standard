@@ -771,6 +771,11 @@ namespace IBApi
 
                     attr.CanAutoExecute = mask[0];
                     attr.PastLimit = mask[1];
+
+                    if (serverVersion >= MinServerVer.PRE_OPEN_BID_ASK)
+                    {
+                        attr.PreOpen = mask[2];
+                    }
                 }
             }
 

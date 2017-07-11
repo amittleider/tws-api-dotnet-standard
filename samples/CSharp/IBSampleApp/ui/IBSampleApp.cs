@@ -233,7 +233,7 @@ namespace IBSampleApp
 
         void ibClient_Tick(TickPriceMessage msg)
         {
-            addTextToBox("Tick Price. Ticker Id:" + msg.RequestId + ", Type: " + TickType.getField(msg.Field) + ", Price: " + msg.Price + "\n");
+            addTextToBox("Tick Price. Ticker Id:" + msg.RequestId + ", Type: " + TickType.getField(msg.Field) + ", Price: " + msg.Price + ", Pre-Open: " + msg.Attribs.PreOpen +"\n");
 
             if (msg.RequestId < OptionsManager.OPTIONS_ID_BASE)
             {

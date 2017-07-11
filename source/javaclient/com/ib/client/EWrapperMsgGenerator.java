@@ -17,7 +17,8 @@ public class EWrapperMsgGenerator {
     
 	public static String tickPrice( int tickerId, int field, double price, TickAttr attribs) {
     	return "id=" + tickerId + "  " + TickType.getField( field) + "=" + price + " " + 
-        (attribs.canAutoExecute() ? " canAutoExecute" : " noAutoExecute") + " pastLimit = " + attribs.pastLimit();
+        (attribs.canAutoExecute() ? " canAutoExecute" : " noAutoExecute") + " pastLimit = " + attribs.pastLimit() +
+        (field == TickType.BID.index() || field == TickType.ASK.index() ? " preOpen = " + attribs.preOpen() : "");
     }
 	
     public static String tickSize( int tickerId, int field, int size) {
