@@ -120,7 +120,7 @@ Namespace Samples
         Public Shared Function USStockAtSmart() As Contract
 
             Dim Contract As Contract = New Contract
-            Contract.Symbol = "IBKR"
+            Contract.Symbol = "IBM"
             Contract.SecType = "STK"
             Contract.Currency = "USD"
             Contract.Exchange = "SMART"
@@ -286,11 +286,11 @@ Namespace Samples
         Public Shared Function SimpleFuture() As Contract
             '! [futcontract]
             Dim contract As Contract = New Contract
-            contract.Symbol = "ZL"
+            contract.Symbol = "ZC"
             contract.SecType = "FUT"
             contract.Exchange = "ECBOT"
             contract.Currency = "USD"
-            contract.LastTradeDateOrContractMonth = "20170814"
+            contract.LastTradeDateOrContractMonth = "20170914"
             '! [futcontract]
             Return contract
         End Function

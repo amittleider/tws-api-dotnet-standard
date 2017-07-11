@@ -572,13 +572,16 @@ class MarketDataPanel extends JPanel {
 
 	private class HistRequestPanel extends JPanel {
 		final ContractPanel m_contractPanel = new ContractPanel(m_contract);
-		final UpperField m_end = new UpperField();
+        final UpperField m_begin = new UpperField();
+        final UpperField m_end = new UpperField();
+        final UpperField m_nTicks = new UpperField();
 		final UpperField m_duration = new UpperField();
 		final TCombo<DurationUnit> m_durationUnit = new TCombo<>( DurationUnit.values() );
 		final TCombo<BarSize> m_barSize = new TCombo<>( BarSize.values() );
 		final TCombo<WhatToShow> m_whatToShow = new TCombo<>( WhatToShow.values() );
 		final JCheckBox m_rthOnly = new JCheckBox();
 		final JCheckBox m_keepUpToDate = new JCheckBox();
+		final JCheckBox m_ignoreSize = new JCheckBox();
 		
 		HistRequestPanel() { 		
 			m_end.setText("20120101 12:00:00");
@@ -586,30 +589,40 @@ class MarketDataPanel extends JPanel {
 			m_durationUnit.setSelectedItem(DurationUnit.WEEK);
 			m_barSize.setSelectedItem(BarSize._1_hour);
 			
-			HtmlButton button = new HtmlButton("Request historical data") {
+			HtmlButton bReqHistoricalData = new HtmlButton("Request historical data") {
 				@Override protected void actionPerformed() {
 					onHistorical();
 				}
 			};
 			
-			HtmlButton button2 = new HtmlButton("Request histogram data") {
+			HtmlButton bReqHistogramData = new HtmlButton("Request histogram data") {
 				@Override protected void actionPerformed() {
 					onHistogram();
 				}
 			};
 			
+			HtmlButton bReqHistoricalTick = new HtmlButton("Request historical tick") {
+			    @Override protected void actionPerformed() {
+                    onHistoricalTick();
+                }
+			};
+			
 	    	VerticalPanel paramPanel = new VerticalPanel();
+	    	paramPanel.add("Begin", m_begin);
 			paramPanel.add("End", m_end);
+			paramPanel.add("Number of ticks", m_nTicks);
 			paramPanel.add("Duration", m_duration);
 			paramPanel.add("Duration unit", m_durationUnit);
 			paramPanel.add("Bar size", m_barSize);
 			paramPanel.add("What to show", m_whatToShow);
 			paramPanel.add("RTH only", m_rthOnly);
 			paramPanel.add("Keep up to date", m_keepUpToDate);
+			paramPanel.add("Ignore size", m_ignoreSize);
 			
 			VerticalPanel butPanel = new VerticalPanel();
-			butPanel.add(button);
-			butPanel.add(button2);
+			butPanel.add(bReqHistoricalData);
+			butPanel.add(bReqHistogramData);
+			butPanel.add(bReqHistoricalTick);
 			
 			JPanel rightPanel = new StackPanel();
 			rightPanel.add(paramPanel);
@@ -622,19 +635,35 @@ class MarketDataPanel extends JPanel {
 			add(rightPanel);
 		}
 	
-		void onHistogram() {
+		protected void onHistoricalTick() {
+		    m_contractPanel.onOK();
+		    
+		    HistoricalTickResultsPanel panel = new HistoricalTickResultsPanel();
+		    
+		    ApiDemo.INSTANCE.controller().reqHistoricalTicks(m_contract, m_begin.getText(), m_end.getText(), 
+		            m_nTicks.getInt(), m_whatToShow.getSelectedItem().name(), m_rthOnly.isSelected() ? 1 : 0, 
+		                    m_ignoreSize.isSelected(), panel);
+		    m_resultsPanel.addTab("Historical tick " + m_contract.symbol(), panel, true, true);
+        }
+
+        void onHistogram() {
 			m_contractPanel.onOK();
 			
 			HistogramResultsPanel panel = new HistogramResultsPanel();
 			
-			ApiDemo.INSTANCE.controller().reqHistogramData(m_contract, m_duration.getInt(), m_durationUnit.getSelectedItem(), m_rthOnly.isSelected(), panel);
+			ApiDemo.INSTANCE.controller().reqHistogramData(m_contract, m_duration.getInt(), 
+			        m_durationUnit.getSelectedItem(), m_rthOnly.isSelected(), panel);
 			m_resultsPanel.addTab("Histogram " + m_contract.symbol(), panel, true, true);
 		}
 
 		void onHistorical() {
 			m_contractPanel.onOK();
+			
 			BarResultsPanel panel = new BarResultsPanel( true);
-			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, m_end.getText(), m_duration.getInt(), m_durationUnit.getSelectedItem(), m_barSize.getSelectedItem(), m_whatToShow.getSelectedItem(), m_rthOnly.isSelected(), m_keepUpToDate.isSelected(), panel);
+			
+			ApiDemo.INSTANCE.controller().reqHistoricalData(m_contract, m_end.getText(), m_duration.getInt(), 
+			        m_durationUnit.getSelectedItem(), m_barSize.getSelectedItem(), m_whatToShow.getSelectedItem(), 
+			        m_rthOnly.isSelected(), m_keepUpToDate.isSelected(), panel);
 			m_resultsPanel.addTab( "Historical " + m_contract.symbol(), panel, true, true);
 		}
 	}
@@ -1123,7 +1152,6 @@ class MarketDataPanel extends JPanel {
 		
 		final UpperField m_underlyingSymbol = new UpperField();
 		final UpperField m_futFopExchange = new UpperField();
-//		final UpperField m_currency = new UpperField();
 		final UpperField m_underlyingSecType = new UpperField();
 		final UpperField m_underlyingConId = new UpperField();
 		
@@ -1134,7 +1162,6 @@ class MarketDataPanel extends JPanel {
 			m_underlyingConId.setText(Integer.MAX_VALUE);			
 			paramsPanel.add("Underlying symbol", m_underlyingSymbol);			
 			paramsPanel.add("FUT-FOP exchange", m_futFopExchange);			
-//			paramsPanel.add("Currency", m_currency);			
 			paramsPanel.add("Underlying security type", m_underlyingSecType);			
 			paramsPanel.add("Underlying contract id", m_underlyingConId);			
 			paramsPanel.add(go);
@@ -1145,14 +1172,12 @@ class MarketDataPanel extends JPanel {
 		void onGo() {
 			String underlyingSymbol = m_underlyingSymbol.getText();
 			String futFopExchange = m_futFopExchange.getText();
-//			String currency = m_currency.getText();
 			String underlyingSecType = m_underlyingSecType.getText();
 			int underlyingConId = m_underlyingConId.getInt();
 			
 			ApiDemo.INSTANCE.controller().reqSecDefOptParams( 
 					underlyingSymbol,
 					futFopExchange,
-//					currency,
 					underlyingSecType,
 					underlyingConId,
 					new ISecDefOptParamsReqHandler() {

@@ -40,9 +40,9 @@ public class OrderDlg extends JDialog {
     private static final int SIDE_BID = 1;
 
     public boolean 		m_rc;
-    public int 			m_id;
+    private int 			m_id;
     public int          m_marketDepthRows;
-    public Contract 	m_contract = new Contract();
+    private Contract 	m_contract = new Contract();
     public Order 		m_order = new Order();
     public DeltaNeutralContract	m_underComp = new DeltaNeutralContract();
     public int          m_exerciseAction;
@@ -101,14 +101,6 @@ public class OrderDlg extends JDialog {
     private JButton 	m_cancel = new JButton( "Cancel");
     private SampleFrame m_parent;
 
-    String       m_backfillEndTime;
-    String       m_backfillDuration;
-    String       m_barSizeSetting;
-    int          m_useRTH;
-    int          m_formatDate;
-    String       m_whatToShow;
-    boolean      m_keepUpToDate;
-    
     private String      m_faGroup;
     private String      m_faProfile;
     private String      m_faMethod;
@@ -296,15 +288,6 @@ public class OrderDlg extends JDialog {
     private void onHistoricalData() {
         m_historicalDataDlg.setVisible(true);
         
-        if (m_historicalDataDlg.isOk()) {
-            m_backfillEndTime = m_historicalDataDlg.backfillEndTime();
-            m_backfillDuration = m_historicalDataDlg.backfillDuration();
-            m_barSizeSetting = m_historicalDataDlg.barSizeSetting();
-            m_useRTH = m_historicalDataDlg.useRTH() ? 1 : 0;
-            m_formatDate = m_historicalDataDlg.formatDate();
-            m_whatToShow = m_historicalDataDlg.whatToshow();
-            m_keepUpToDate = m_historicalDataDlg.keepUpToDate();
-        }
     }
     void onBtnAdjStop() {
 		showModalPanelDialog(param -> new AdjustedPanel((JDialog)param, m_order));
@@ -529,10 +512,6 @@ public class OrderDlg extends JDialog {
         return Double.parseDouble(value);
     }
     
-//    void setOptionsDlgTitle(String title){
-//    	m_optionsDlgTitle = title;
-//    }
-  
     void init(String btnText, boolean btnEnabled, String dlgTitle, List<TagValue> options) {
     	init(btnText, btnEnabled);
     	m_options = options;
@@ -544,23 +523,57 @@ public class OrderDlg extends JDialog {
     	m_btnOptions.setText(btnText);
     	m_btnOptions.setEnabled(btnEnabled);
     }
-//    void setOptions(Vector<TagValue> options) {
-//    	m_options = options;
-//    }
     
-//    void setOptionsBtnName(String name){
-//    	m_btnOptions.setText(name);
-//    }
-    
-    List<TagValue> getOptions() {
+    List<TagValue> options() {
     	return m_options;
     }
-//    void disableBtnOptions(){
-  //      m_btnOptions.setText("Options");
-//        m_btnOptions.setEnabled(false);
-  //  }
-//    void enableBtnOptions(){
-  //  	m_btnOptions.setEnabled(true);
-//    }
+
+    public boolean ignoreSize() {        
+        return m_historicalDataDlg.ignoreSize();
+    }
+    
+    public int numberOfTicks() {        
+        return m_historicalDataDlg.numberOfTicks();
+    }
+    
+    public String startDateTime() {
+        return m_historicalDataDlg.startTime();
+    }
+
+    String backfillEndTime() {
+        return m_historicalDataDlg.backfillEndTime();
+    }
+    
+    String backfillDuration() {
+        return m_historicalDataDlg.backfillDuration();
+    }
+    
+    String barSizeSetting() {
+        return m_historicalDataDlg.barSizeSetting();
+    }
+
+    int useRTH() {
+        return m_historicalDataDlg.useRTH() ? 1 : 0;
+    }
+
+    int formatDate() {
+        return m_historicalDataDlg.formatDate();
+    }
+
+    String whatToShow() {
+        return m_historicalDataDlg.whatToshow();
+    }
+ 
+    boolean keepUpToDate() {
+        return m_historicalDataDlg.keepUpToDate();
+    }
+    
+    public Contract contract() {
+        return m_contract;
+    }    
+    
+    public int id() {
+        return m_id;
+    }        
     
 }

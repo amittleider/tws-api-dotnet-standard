@@ -58,6 +58,22 @@ public class Builder implements ObjectOutput {
             m_sb.write(  bytes, 0, bytes.length );
         }
     }
+	
+	public void send(Contract contract) {
+        send(contract.conid());
+        send(contract.symbol());
+        send(contract.getSecType());
+        send(contract.lastTradeDateOrContractMonth());
+        send(contract.strike());
+        send(contract.getRight());
+        send(contract.multiplier());
+        send(contract.exchange());
+        send(contract.primaryExch());
+        send(contract.currency());
+        send(contract.localSymbol());
+        send(contract.tradingClass());
+        send(contract.includeExpired() ? 1 : 0);
+	}
 
     public int allocateLengthHeader() {
         int lengthHeaderPosition = m_sb.size();

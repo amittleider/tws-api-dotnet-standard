@@ -49,12 +49,17 @@ namespace IBSampleApp
 
         private EReaderMonitorSignal signal = new EReaderMonitorSignal();
 
-        private DataTable pnldataTable = new DataTable(), pnlSingledataTable = new DataTable();
+        private DataTable pnldataTable = new DataTable(), 
+            pnlSingledataTable = new DataTable(),
+            historicalTickTable = new DataTable(),
+            historicalTickBidAskTable = new DataTable(),
+            historicalTickLastTable = new DataTable();
 
 
         public IBSampleAppDialog()
         {
             InitializeComponent();
+
             ibClient = new IBClient(signal);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid, mktDepthExchangesGrid_MDT);
@@ -74,10 +79,19 @@ namespace IBSampleApp
 
             pnldataTable.Columns.Add("Daily PnL");
             pnldataTable.Columns.Add("Unrealized PnL");
+
             pnlSingledataTable.Columns.Add("Pos");
             pnlSingledataTable.Columns.Add("Daily PnL");
             pnlSingledataTable.Columns.Add("Unrealized PnL");
             pnlSingledataTable.Columns.Add("Value");
+
+            Func<string, DataColumn> toDataColumn = i => new DataColumn() { ColumnName = i };
+
+            historicalTickTable.Columns.AddRange(new[] { "Time", "Price", "Size" }.Select(toDataColumn).ToArray());
+            historicalTickBidAskTable.Columns.AddRange(
+                new[] { "Time", "Mask", "Price bid", "Price ask", "Size bid", "Size ask" }.Select(toDataColumn).ToArray());
+            historicalTickLastTable.Columns.AddRange(
+                new[] { "Time", "Mask", "Price", "Size", "Exchange", "Special Conditions" }.Select(toDataColumn).ToArray());
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -196,18 +210,32 @@ namespace IBSampleApp
             ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.MarketRule += contractManager.HandleMarketRuleMessage;
-            ibClient.pnl += UpdateUI;
-            ibClient.pnlSingle += UpdateUI;
+            ibClient.pnl += msg => pnldataTable.Rows.Add(msg.DailyPnL, msg.UnrealizedPnL);
+            ibClient.pnlSingle += msg => pnlSingledataTable.Rows.Add(msg.Pos, msg.DailyPnL, msg.UnrealizedPnL, msg.Value);
+            ibClient.historicalTick += UpdateUI;
+            ibClient.historicalTickBidAsk += UpdateUI;
+            ibClient.historicalTickLast += UpdateUI;
         }
 
-        private void UpdateUI(PnLSingleMessage obj)
+        private void UpdateUI(HistoricalTickLastMessage msg)
         {
-            pnlSingledataTable.Rows.Add(obj.Pos, obj.DailyPnL, obj.UnrealizedPnL, obj.Value);
+            dataGridViewHistoricalTicks.DataSource = historicalTickLastTable;
+            
+            historicalTickLastTable.Rows.Add(msg.Time, msg.Mask, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions);
         }
 
-        private void UpdateUI(PnLMessage obj)
+        private void UpdateUI(HistoricalTickBidAskMessage msg)
         {
-            pnldataTable.Rows.Add(obj.DailyPnL, obj.UnrealizedPnL); 
+            dataGridViewHistoricalTicks.DataSource = historicalTickBidAskTable;
+
+            historicalTickBidAskTable.Rows.Add(msg.Time, msg.Mask, msg.PriceBid, msg.PriceAsk, msg.SizeBid, msg.SizeAsk);
+        }
+
+        private void UpdateUI(HistoricalTickMessage msg)
+        {
+            dataGridViewHistoricalTicks.DataSource = historicalTickTable;
+            
+            historicalTickTable.Rows.Add(msg.Time, msg.Price, msg.Size);
         }
 
         private void UpdateUI(HistogramDataMessage obj)
@@ -233,7 +261,7 @@ namespace IBSampleApp
 
         void ibClient_Tick(TickPriceMessage msg)
         {
-            addTextToBox("Tick Price. Ticker Id:" + msg.RequestId + ", Type: " + TickType.getField(msg.Field) + ", Price: " + msg.Price + "\n");
+            addTextToBox("Tick Price. Ticker Id:" + msg.RequestId + ", Type: " + TickType.getField(msg.Field) + ", Price: " + msg.Price + ", Pre-Open: " + msg.Attribs.PreOpen +"\n");
 
             if (msg.RequestId < OptionsManager.OPTIONS_ID_BASE)
             {
@@ -1193,6 +1221,10 @@ namespace IBSampleApp
 
         private void btnReqPnL_Click(object sender, EventArgs e)
         {
+            if (!IsConnected)
+                return;
+
+            ShowTab(contractInfoTab, pnlTab);
             pnlMgr.CancelPnLSingle();
             pnldataTable.Clear();
 
@@ -1203,6 +1235,10 @@ namespace IBSampleApp
 
         private void btnReqPnLSingle_Click(object sender, EventArgs e)
         {
+            if (!IsConnected)
+                return;
+
+            ShowTab(contractInfoTab, pnlTab);
             pnlMgr.CancelPnL();
             pnlSingledataTable.Clear();
 
@@ -1224,6 +1260,43 @@ namespace IBSampleApp
         private void btnCancelPnLSingle_Click(object sender, EventArgs e)
         {
             pnlMgr.CancelPnLSingle();
+        }
+
+        private void MDT_Selected(object sender, TabControlEventArgs e)
+        {
+            var page = e.TabPage;
+
+            if (page.Name == historicalTicks_MDT.Name || page.Name == topMktData_MDT.Name)
+            {
+                page.Controls.Add(groupBox2);
+            }
+        }
+
+        private void btnRequestHistoricalTicks_Click(object sender, EventArgs e)
+        {
+            if (!IsConnected)
+                return;
+
+            Contract contract = GetMDContract();
+            int reqId = new Random(DateTime.Now.Millisecond).Next(), numOfTicks;
+
+            if (!int.TryParse(tbNumOfTicks.Text, out numOfTicks))
+                return;
+
+            clearHistoricalTicksDataSources();
+            ShowTab(marketData_MDT, historicalTicksTabPage);
+            ibClient.ClientSocket.reqHistoricalTicks(reqId, contract, tbStartDate.Text, tbEndDate.Text, numOfTicks, cbWhatToShow.Text,
+                cbRthOnly.Checked ? 1 : 0, cbIgnoreSize.Checked, new List<TagValue>());
+        }
+
+        private void clearHistoricalTicksDataSources()
+        {
+            new[] { historicalTickTable, historicalTickBidAskTable, historicalTickLastTable }.ToList().ForEach(i => i.Clear());
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            clearHistoricalTicksDataSources();
         }
     }
 }

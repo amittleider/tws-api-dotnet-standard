@@ -63,7 +63,6 @@ Module MainModule
         '**************************************************
         'tickDataOperations(client)
 
-
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
         '*******************************************************
@@ -166,13 +165,20 @@ Module MainModule
         '**************************
         '*** Continuous futures ***
         '**************************
-        continuousFuturesOperations(client)
+        'continuousFuturesOperations(client)
+
+        historicalTicks(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
         Thread.Sleep(500000)
     End Sub
 
+    Private Sub historicalTicks(client As EClientSocket)
+        client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "TRADES", 1, True, Nothing)
+        client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "BID_ASK", 1, True, Nothing)
+        client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "MIDPOINT", 1, True, Nothing)
+    End Sub
 
     Private Sub pnl(client As EClientSocket)
         client.reqPnL(17001, "DUC00042", "")
@@ -246,6 +252,11 @@ Module MainModule
         client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", False, False, Nothing)
         '! [reqfuturesopeninterest]
 
+        '! [reqmktdatapreopenbidask]
+        'Requesting data for a futures contract will return the pre-open bid/ask flag
+        client.reqMktData(1015, ContractSamples.SimpleFuture(), "", False, False, Nothing)
+        '! [reqmktData_preopenbidask]
+
         Thread.Sleep(10000)
         ' Canceling the market data subscription 
         ' [cancelmktdata]
@@ -255,6 +266,7 @@ Module MainModule
         client.cancelMktData(1004)
         client.cancelMktData(1005)
         client.cancelMktData(1014)
+        client.cancelMktData(1015)
         ' [cancelmktdata]
     End Sub
 
@@ -719,7 +731,7 @@ Module MainModule
         '! [algo_base_order]
 
         '! [arrivalpx]
-        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.1, "Aggressive", "09:00:00 CET", "16:00:00 CET", True, True, 100000)
+        AvailableAlgoParams.FillArrivalPriceParams(baseOrder, 0.10000000000000001, "Aggressive", "09:00:00 CET", "16:00:00 CET", True, True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [arrivalpx]
 
@@ -748,21 +760,21 @@ Module MainModule
         Thread.Sleep(500)
 
         '! [vwap]
-        AvailableAlgoParams.FillVwapParams(baseOrder, 0.2, "09:00:00 CET", "16:00:00 CET", True, True, True, 100000)
+        AvailableAlgoParams.FillVwapParams(baseOrder, 0.20000000000000001, "09:00:00 CET", "16:00:00 CET", True, True, True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [vwap]
 
         Thread.Sleep(500)
 
         '! [balanceimpactrisk]
-        AvailableAlgoParams.FillBalanceImpactRiskParams(baseOrder, 0.1, "Aggressive", True)
+        AvailableAlgoParams.FillBalanceImpactRiskParams(baseOrder, 0.10000000000000001, "Aggressive", True)
         client.placeOrder(increment(nextOrderId), ContractSamples.USOptionContract(), baseOrder)
         '! [balanceimpactrisk]
 
         Thread.Sleep(500)
 
         '! [minimpact]
-        AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.3)
+        AvailableAlgoParams.FillMinImpactParams(baseOrder, 0.29999999999999999)
         client.placeOrder(increment(nextOrderId), ContractSamples.USOptionContract(), baseOrder)
         '! [minimpact]
 
@@ -782,17 +794,17 @@ Module MainModule
         '! [pctvol]               
 
         '! [pctvolpx]
-        AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.1, 0.05, 0.01, 0.2, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        AvailableAlgoParams.FillPriceVariantPctVolParams(baseOrder, 0.10000000000000001, 0.050000000000000003, 0.01, 0.20000000000000001, "12:00:00 EST", "14:00:00 EST", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [pctvolpx]
 
         '! [pctvolsz]
-        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        AvailableAlgoParams.FillSizeVariantPctVolParams(baseOrder, 0.20000000000000001, 0.40000000000000002, "12:00:00 EST", "14:00:00 EST", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [pctvolsz]
 
         '! [pctvoltm]
-        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", True, 100000)
+        AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.20000000000000001, 0.40000000000000002, "12:00:00 EST", "14:00:00 EST", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [pctvoltm]
     End Sub

@@ -132,6 +132,15 @@
     <Compile Include="..\client\HistogramEntry.cs">
       <Link>CSharpAPI\HistogramEntry.cs</Link>
     </Compile>
+    <Compile Include="..\client\HistoricalTick.cs">
+      <Link>CSharpAPI\HistoricalTick.cs</Link>
+    </Compile>
+    <Compile Include="..\client\HistoricalTickBidAsk.cs">
+      <Link>CSharpAPI\HistoricalTickBidAsk.cs</Link>
+    </Compile>
+    <Compile Include="..\client\HistoricalTickLast.cs">
+      <Link>CSharpAPI\HistoricalTickLast.cs</Link>
+    </Compile>
     <Compile Include="..\client\IBParamsList.cs">
       <Link>CSharpAPI\IBParamsList.cs</Link>
     </Compile>

@@ -69,8 +69,9 @@ public class ApiController implements EWrapper {
 	private final Map<Integer, INewsArticleHandler> m_newsArticleHandlerMap = new HashMap<>();
 	private final Map<Integer, IHistoricalNewsHandler> m_historicalNewsHandlerMap = new HashMap<>();
 	private final Set<IMarketRuleHandler> m_marketRuleHandlers = new ConcurrentHashSet<>();
-    private final Map<Integer, IPnLHandler> m_PnLMap = new HashMap<>();
-    private final Map<Integer, IPnLSingleHandler> m_PnLSingleMap = new HashMap<>();
+    private final Map<Integer, IPnLHandler> m_pnlMap = new HashMap<>();
+    private final Map<Integer, IPnLSingleHandler> m_pnlSingleMap = new HashMap<>();
+    private final Map<Integer, IHistoricalTickHandler> m_historicalTicksMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1687,7 +1688,7 @@ public class ApiController implements EWrapper {
 
 	    int reqId = m_reqId++;
 
-	    m_PnLMap.put(reqId, handler);
+	    m_pnlMap.put(reqId, handler);
 
 	    m_client.reqPnL(reqId, account, modelCode);
 	}
@@ -1696,7 +1697,7 @@ public class ApiController implements EWrapper {
 	    if (!checkConnection())
 	        return;
 
-	    Integer reqId = getAndRemoveKey(m_PnLMap, handler);
+	    Integer reqId = getAndRemoveKey(m_pnlMap, handler);
 
 	    if (reqId != null) {
 	        m_client.cancelPnL(reqId);
@@ -1706,7 +1707,7 @@ public class ApiController implements EWrapper {
 
     @Override
     public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
-        IPnLHandler handler = m_PnLMap.get(reqId);
+        IPnLHandler handler = m_pnlMap.get(reqId);
         
         if (handler != null) {
             handler.pnl(reqId, dailyPnL, unrealizedPnL);
@@ -1727,7 +1728,7 @@ public class ApiController implements EWrapper {
 
         int reqId = m_reqId++;
 
-        m_PnLSingleMap.put(reqId, handler);
+        m_pnlSingleMap.put(reqId, handler);
 
         m_client.reqPnLSingle(reqId, account, modelCode, conId);
     }
@@ -1736,7 +1737,7 @@ public class ApiController implements EWrapper {
         if (!checkConnection())
             return;
 
-        Integer reqId = getAndRemoveKey(m_PnLSingleMap, handler);
+        Integer reqId = getAndRemoveKey(m_pnlSingleMap, handler);
 
         if (reqId != null) {
             m_client.cancelPnLSingle(reqId);
@@ -1746,10 +1747,63 @@ public class ApiController implements EWrapper {
 
     @Override
     public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
-        IPnLSingleHandler handler = m_PnLSingleMap.get(reqId);
+        IPnLSingleHandler handler = m_pnlSingleMap.get(reqId);
         
         if (handler != null) {
             handler.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+        }
+        
+        recEOM();
+    }
+    
+    public interface IHistoricalTickHandler {
+
+        void historicalTick(int reqId, List<HistoricalTick> ticks);        
+        void historicalTickBidAsk(int reqId, List<HistoricalTickBidAsk> ticks);        
+        void historicalTickLast(int reqId, List<HistoricalTickLast> ticks);
+        
+    }
+
+    public void reqHistoricalTicks(Contract contract, String startDateTime,
+            String endDateTime, int numberOfTicks, String whatToShow, int useRth, boolean ignoreSize, IHistoricalTickHandler handler) {
+        if (!checkConnection())
+            return;
+
+        int reqId = m_reqId++;
+
+        m_historicalTicksMap.put(reqId, handler);
+
+        m_client.reqHistoricalTicks(reqId, contract, startDateTime, endDateTime, numberOfTicks, whatToShow, useRth, ignoreSize, Collections.emptyList());
+    }   
+
+    @Override
+    public void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean last) {
+        IHistoricalTickHandler handler = m_historicalTicksMap.get(reqId);
+        
+        if (handler != null) {
+            handler.historicalTick(reqId, ticks);
+        }
+        
+        recEOM();
+    }
+    
+    @Override
+    public void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done) {
+        IHistoricalTickHandler handler = m_historicalTicksMap.get(reqId);
+        
+        if (handler != null) {
+            handler.historicalTickBidAsk(reqId, ticks);
+        }
+        
+        recEOM();
+    }
+
+    @Override
+    public void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done) {
+        IHistoricalTickHandler handler = m_historicalTicksMap.get(reqId);
+        
+        if (handler != null) {
+            handler.historicalTickLast(reqId, ticks);
         }
         
         recEOM();

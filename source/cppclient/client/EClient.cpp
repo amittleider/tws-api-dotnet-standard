@@ -33,25 +33,63 @@ using namespace ibapi::client_constants;
 ///////////////////////////////////////////////////////////
 // encoders
 template<class T>
-void EClient::EncodeField(std::ostream& os, T value)
+void EClient::EncodeField(std::ostream& os, const T &value)
 {
 	os << value << '\0';
 }
 
 template<>
-void EClient::EncodeField<bool>(std::ostream& os, bool boolValue)
+void EClient::EncodeField<bool>(std::ostream& os, const bool &boolValue)
 {
 	EncodeField<int>(os, boolValue ? 1 : 0);
 }
 
 template<>
-void EClient::EncodeField<double>(std::ostream& os, double doubleValue)
+void EClient::EncodeField<double>(std::ostream& os, const double &doubleValue)
 {
 	char str[128];
 
 	snprintf(str, sizeof(str), "%.10g", doubleValue);
 
 	EncodeField<const char*>(os, str);
+}
+
+template<>
+void EClient::EncodeField<Contract>(std::ostream& os, const Contract &contract)
+{
+	EncodeField(os, contract.conId);
+	EncodeField(os, contract.symbol);
+	EncodeField(os, contract.secType);
+	EncodeField(os, contract.lastTradeDateOrContractMonth);
+	EncodeField(os, contract.strike);
+	EncodeField(os, contract.right);
+	EncodeField(os, contract.multiplier);
+	EncodeField(os, contract.exchange);
+	EncodeField(os, contract.primaryExchange);
+	EncodeField(os, contract.currency);
+	EncodeField(os, contract.localSymbol);
+	EncodeField(os, contract.tradingClass);
+	EncodeField(os, contract.includeExpired);
+}
+
+template<> 
+void EClient::EncodeField<TagValueListSPtr>(std::ostream& os, const TagValueListSPtr &tagValueList) 
+{
+    std::string tagValueListStr("");
+    const int tagValueListCount = tagValueList.get() ? tagValueList->size() : 0;
+    
+    if (tagValueListCount > 0) {
+        for (int i = 0; i < tagValueListCount; ++i) {
+            const TagValue* tagValue = ((*tagValueList)[i]).get();
+
+            tagValueListStr += tagValue->tag;
+            tagValueListStr += "=";
+            tagValueListStr += tagValue->value;
+            tagValueListStr += ";";
+        }
+    }
+
+    EncodeField(os, tagValueListStr);
 }
 
 ///////////////////////////////////////////////////////////
@@ -283,18 +321,7 @@ void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 
 	// send mktDataOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string mktDataOptionsStr("");
-		const int mktDataOptionsCount = mktDataOptions.get() ? mktDataOptions->size() : 0;
-		if( mktDataOptionsCount > 0) {
-			for( int i = 0; i < mktDataOptionsCount; ++i) {
-				const TagValue* tagValue = ((*mktDataOptions)[i]).get();
-				mktDataOptionsStr += tagValue->tag;
-				mktDataOptionsStr += "=";
-				mktDataOptionsStr += tagValue->value;
-				mktDataOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( mktDataOptionsStr);
+		ENCODE_FIELD(mktDataOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -375,18 +402,7 @@ void EClient::reqMktDepth( TickerId tickerId, const Contract& contract, int numR
 
 	// send mktDepthOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string mktDepthOptionsStr("");
-		const int mktDepthOptionsCount = mktDepthOptions.get() ? mktDepthOptions->size() : 0;
-		if( mktDepthOptionsCount > 0) {
-			for( int i = 0; i < mktDepthOptionsCount; ++i) {
-				const TagValue* tagValue = ((*mktDepthOptions)[i]).get();
-				mktDepthOptionsStr += tagValue->tag;
-				mktDepthOptionsStr += "=";
-				mktDepthOptionsStr += tagValue->value;
-				mktDepthOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( mktDepthOptionsStr);
+		ENCODE_FIELD(mktDepthOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -510,18 +526,7 @@ void EClient::reqHistoricalData(TickerId tickerId, const Contract& contract,
 
 	// send chartOptions parameter
 	if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string chartOptionsStr("");
-		const int chartOptionsCount = chartOptions.get() ? chartOptions->size() : 0;
-		if (chartOptionsCount > 0) {
-			for(int i = 0; i < chartOptionsCount; ++i) {
-				const TagValue* tagValue = ((*chartOptions)[i]).get();
-				chartOptionsStr += tagValue->tag;
-				chartOptionsStr += "=";
-				chartOptionsStr += tagValue->value;
-				chartOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD(chartOptionsStr);
+		ENCODE_FIELD(chartOptions);
 	}
 
 	closeAndSend(msg.str());
@@ -611,18 +616,7 @@ void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
 
 	// send realTimeBarsOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string realTimeBarsOptionsStr("");
-		const int realTimeBarsOptionsCount = realTimeBarsOptions.get() ? realTimeBarsOptions->size() : 0;
-		if( realTimeBarsOptionsCount > 0) {
-			for( int i = 0; i < realTimeBarsOptionsCount; ++i) {
-				const TagValue* tagValue = ((*realTimeBarsOptions)[i]).get();
-				realTimeBarsOptionsStr += tagValue->tag;
-				realTimeBarsOptionsStr += "=";
-				realTimeBarsOptionsStr += tagValue->value;
-				realTimeBarsOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( realTimeBarsOptionsStr);
+		ENCODE_FIELD(realTimeBarsOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -732,18 +726,7 @@ void EClient::reqScannerSubscription(int tickerId,
 
 	// send scannerSubscriptionOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string scannerSubscriptionOptionsStr("");
-		const int scannerSubscriptionOptionsCount = scannerSubscriptionOptions.get() ? scannerSubscriptionOptions->size() : 0;
-		if( scannerSubscriptionOptionsCount > 0) {
-			for( int i = 0; i < scannerSubscriptionOptionsCount; ++i) {
-				const TagValue* tagValue = ((*scannerSubscriptionOptions)[i]).get();
-				scannerSubscriptionOptionsStr += tagValue->tag;
-				scannerSubscriptionOptionsStr += "=";
-				scannerSubscriptionOptionsStr += tagValue->value;
-				scannerSubscriptionOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( scannerSubscriptionOptionsStr);
+		ENCODE_FIELD(scannerSubscriptionOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -2858,21 +2841,11 @@ void EClient::reqNewsArticle(int requestId, const std::string& providerCode, con
 	ENCODE_FIELD(requestId);
 	ENCODE_FIELD(providerCode);
 	ENCODE_FIELD(articleId);
+    
 
 	// send newsArticleOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-		std::string newsArticleOptionsStr("");
-		const int newsArticleOptionsCount = newsArticleOptions.get() ? newsArticleOptions->size() : 0;
-		if( newsArticleOptionsCount > 0) {
-			for( int i = 0; i < newsArticleOptionsCount; ++i) {
-				const TagValue* tagValue = ((*newsArticleOptions)[i]).get();
-				newsArticleOptionsStr += tagValue->tag;
-				newsArticleOptionsStr += "=";
-				newsArticleOptionsStr += tagValue->value;
-				newsArticleOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( newsArticleOptionsStr);
+		ENCODE_FIELD(newsArticleOptions);
 	}
 
 	closeAndSend(msg.str());
@@ -2905,24 +2878,13 @@ void EClient::reqHistoricalNews(int requestId, int conId, const std::string& pro
 
 	// send historicalNewsOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-		std::string historicalNewsOptionsStr("");
-		const int historicalNewsOptionsCount = historicalNewsOptions.get() ? historicalNewsOptions->size() : 0;
-		if( historicalNewsOptionsCount > 0) {
-			for( int i = 0; i < historicalNewsOptionsCount; ++i) {
-				const TagValue* tagValue = ((*historicalNewsOptions)[i]).get();
-				historicalNewsOptionsStr += tagValue->tag;
-				historicalNewsOptionsStr += "=";
-				historicalNewsOptionsStr += tagValue->value;
-				historicalNewsOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( historicalNewsOptionsStr);
+		ENCODE_FIELD(historicalNewsOptions);
 	}
 
 	closeAndSend(msg.str());
 }
 
-void EClient::reqHeadTimestamp(int tickerId, Contract contract, const std::string& whatToShow, int useRTH, int formatDate)
+void EClient::reqHeadTimestamp(int tickerId, const Contract &contract, const std::string& whatToShow, int useRTH, int formatDate)
 {
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
@@ -2981,7 +2943,7 @@ void EClient::cancelHeadTimestamp(int tickerId) {
 	closeAndSend(msg.str());
 }
 
-void EClient::reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod) {
+void EClient::reqHistogramData(int reqId, const Contract &contract, bool useRTH, const std::string& timePeriod) {
 	if( !isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
@@ -2998,19 +2960,7 @@ void EClient::reqHistogramData(int reqId, Contract contract, bool useRTH, const 
 
 	ENCODE_FIELD(REQ_HISTOGRAM_DATA);
 	ENCODE_FIELD(reqId);
-	ENCODE_FIELD(contract.conId);
-	ENCODE_FIELD(contract.symbol);
-	ENCODE_FIELD(contract.secType);
-	ENCODE_FIELD(contract.lastTradeDateOrContractMonth);
-	ENCODE_FIELD(contract.strike);
-	ENCODE_FIELD(contract.right);
-	ENCODE_FIELD(contract.multiplier);
-	ENCODE_FIELD(contract.exchange);
-	ENCODE_FIELD(contract.primaryExchange);
-	ENCODE_FIELD(contract.currency);
-	ENCODE_FIELD(contract.localSymbol);
-	ENCODE_FIELD(contract.tradingClass);
-	ENCODE_FIELD(contract.includeExpired);
+	ENCODE_FIELD(contract);
 	ENCODE_FIELD(useRTH);
 	ENCODE_FIELD(timePeriod);          
 
@@ -3146,6 +3096,36 @@ void EClient::cancelPnLSingle(int reqId) {
     ENCODE_FIELD(reqId);
 
     closeAndSend(msg.str());
+}
+
+void EClient::reqHistoricalTicks(int reqId, const Contract &contract, const std::string& startDateTime,
+            const std::string& endDateTime, int numberOfTicks, const std::string& whatToShow, int useRth, bool ignoreSize, const TagValueListSPtr& miscOptions) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_HISTORICAL_TICKS) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support historical ticks request request.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(REQ_HISTORICAL_TICKS);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD(contract);
+    ENCODE_FIELD(startDateTime);
+    ENCODE_FIELD(endDateTime);
+    ENCODE_FIELD(numberOfTicks);
+    ENCODE_FIELD(whatToShow);
+    ENCODE_FIELD(useRth);
+    ENCODE_FIELD(ignoreSize);
+    ENCODE_FIELD(miscOptions);
+
+    closeAndSend(msg.str());    
 }
 
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)

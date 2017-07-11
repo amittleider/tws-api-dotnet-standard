@@ -71,7 +71,8 @@ namespace Samples
         //! [tickprice]
         public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs) 
         {
-            Console.WriteLine("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+attribs.CanAutoExecute + ", PastLimit" + attribs.PastLimit);
+            Console.WriteLine("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+attribs.CanAutoExecute + 
+                ", PastLimit: " + attribs.PastLimit + ", PreOpen: " + attribs.PreOpen);
         }
         //! [tickprice]
         
@@ -612,6 +613,32 @@ namespace Samples
         public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
         {
             Console.WriteLine("PnL Single. Request Id: {0}, Pos {1}, Daily PnL {2}, Unrealized PnL {3}, Value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value);
+        }
+
+        public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+            foreach (var tick in ticks)
+            {
+                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, tick.Time, tick.Price, tick.Size);
+            }
+        }
+
+        public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+            foreach (var tick in ticks)
+            {
+                Console.WriteLine("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
+                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk);
+            }
+        }
+
+        public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+            foreach (var tick in ticks)
+            {
+                Console.WriteLine("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
+                    reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions);
+            }
         }
     }
 }

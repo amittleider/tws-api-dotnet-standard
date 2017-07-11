@@ -51,6 +51,11 @@ const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
 
 		attrib.canAutoExecute = mask[0];
 		attrib.pastLimit = mask[1];
+
+		if (m_serverVersion >= MIN_SERVER_VER_PRE_OPEN_BID_ASK)
+		{
+			attrib.preOpen = mask[2];
+		}
 	}
 
 	m_pEWrapper->tickPrice( tickerId, (TickType)tickTypeInt, price, attrib);
@@ -2160,6 +2165,87 @@ const char* EDecoder::processPnLSingleMsg(const char* ptr, const char* endPtr) {
     return ptr;
 }
 
+template<typename T>
+const char* EDecoder::processHistoricalTicks(const char* ptr, const char* endPtr) {
+    int reqId, nTicks;
+    bool done;
+
+    DECODE_FIELD(reqId);
+    DECODE_FIELD(nTicks);
+
+    std::vector<T> ticks(nTicks);
+
+    for (int i = 0; i < nTicks; i++) {
+        T &tick = ticks[i];
+
+        ptr = decodeTick(tick, ptr, endPtr);
+    }
+
+    DECODE_FIELD(done);
+
+    callEWrapperCallBack(reqId, ticks, done);
+
+    return ptr;
+}
+
+
+const char* EDecoder::decodeTick(HistoricalTick& tick, const char* ptr, const char* endPtr) {
+    int nope;
+
+    DECODE_FIELD(tick.time);
+    DECODE_FIELD(nope);
+    DECODE_FIELD(tick.price);
+    DECODE_FIELD(tick.size);
+
+    return ptr;
+}
+
+void EDecoder::callEWrapperCallBack(int reqId, const std::vector<HistoricalTick> &ticks, bool done) {
+    m_pEWrapper->historicalTicks(reqId, ticks, done);
+}
+
+const char* EDecoder::decodeTick(HistoricalTickBidAsk& tick, const char* ptr, const char* endPtr) {
+    DECODE_FIELD(tick.time);
+    DECODE_FIELD(tick.mask);
+    DECODE_FIELD(tick.priceBid);
+    DECODE_FIELD(tick.priceAsk);
+    DECODE_FIELD(tick.sizeBid);
+    DECODE_FIELD(tick.sizeAsk);
+
+    return ptr;
+}
+
+void EDecoder::callEWrapperCallBack(int reqId, const std::vector<HistoricalTickBidAsk> &ticks, bool done) {
+    m_pEWrapper->historicalTicksBidAsk(reqId, ticks, done);
+}
+
+const char* EDecoder::decodeTick(HistoricalTickLast& tick, const char* ptr, const char* endPtr) {
+    DECODE_FIELD(tick.time);
+    DECODE_FIELD(tick.mask);
+    DECODE_FIELD(tick.price);
+    DECODE_FIELD(tick.size);
+    DECODE_FIELD(tick.exchange);
+    DECODE_FIELD(tick.specialConditions);
+
+    return ptr;
+}
+
+void EDecoder::callEWrapperCallBack(int reqId, const std::vector<HistoricalTickLast> &ticks, bool done) {
+    m_pEWrapper->historicalTicksLast(reqId, ticks, done);
+}
+
+const char* EDecoder::processHistoricalTicks(const char* ptr, const char* endPtr) {
+    return processHistoricalTicks<HistoricalTick>(ptr, endPtr);
+}
+
+const char* EDecoder::processHistoricalTicksBidAsk(const char* ptr, const char* endPtr) {
+    return processHistoricalTicks<HistoricalTickBidAsk>(ptr, endPtr);
+}
+
+const char* EDecoder::processHistoricalTicksLast(const char* ptr, const char* endPtr) {
+    return processHistoricalTicks<HistoricalTickLast>(ptr, endPtr);
+}
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -2455,6 +2541,18 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
         case PNL_SINGLE:
             ptr = processPnLSingleMsg(ptr, endPtr);
+            break;
+
+		case HISTORICAL_TICKS:
+			ptr = processHistoricalTicks(ptr, endPtr);
+			break;
+
+        case HISTORICAL_TICKS_BID_ASK:
+            ptr = processHistoricalTicksBidAsk(ptr, endPtr);
+            break;
+
+        case HISTORICAL_TICKS_LAST:
+            ptr = processHistoricalTicksLast(ptr, endPtr);
             break;
 
 		default:

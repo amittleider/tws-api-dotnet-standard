@@ -176,7 +176,7 @@ Contract ContractSamples::IBMUSStockAtSmart(){
 Contract ContractSamples::USStockWithPrimaryExch(){
 	//! [stkcontractwithprimary]
 	Contract contract;
-	contract.symbol = "MSFT";
+	contract.symbol = "AAPL";
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";
@@ -333,11 +333,11 @@ Contract ContractSamples::DutchWarrant(){
 Contract ContractSamples::SimpleFuture(){
 	//! [futcontract]
 	Contract contract;
-	contract.symbol = "ZL";
+	contract.symbol = "ZC";
 	contract.secType = "FUT";
 	contract.exchange = "ECBOT";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "20170814";
+	contract.lastTradeDateOrContractMonth = "20170914";
 	//! [futcontract]
 	return contract;
 }

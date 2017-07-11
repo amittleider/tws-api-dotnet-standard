@@ -17,7 +17,8 @@ public class EWrapperMsgGenerator {
     
 	public static String tickPrice( int tickerId, int field, double price, TickAttr attribs) {
     	return "id=" + tickerId + "  " + TickType.getField( field) + "=" + price + " " + 
-        (attribs.canAutoExecute() ? " canAutoExecute" : " noAutoExecute") + " pastLimit = " + attribs.pastLimit();
+        (attribs.canAutoExecute() ? " canAutoExecute" : " noAutoExecute") + " pastLimit = " + attribs.pastLimit() +
+        (field == TickType.BID.index() || field == TickType.ASK.index() ? " preOpen = " + attribs.preOpen() : "");
     }
 	
     public static String tickSize( int tickerId, int field, int size) {
@@ -778,5 +779,22 @@ public class EWrapperMsgGenerator {
     
     public static String pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
 		return "Daily PnL Single. Req Id: " + reqId + ", pos: " + pos + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL + ", value: " + value;
+    }
+
+    public static String historicalTick(int reqId, long time, double price, long size) {
+        return "Historical Tick. Req Id: " + reqId + ", time: " + time + ", price: " + price + ", size: " 
+                + size;
+    }
+
+    public static String historicalTickBidAsk(int reqId, long time, int mask, double priceBid, double priceAsk,
+            long sizeBid, long sizeAsk) {
+        return "Historical Tick Bid/Ask. Req Id: " + reqId + ", time: " + time + ", bid price: " + priceBid 
+                + ", ask price: " + priceAsk + ", bid size: " + sizeBid + ", ask size: " + sizeAsk;
+    }
+
+    public static String historicalTickLast(int reqId, long time, int mask, double price, long size, String exchange,
+            String specialConditions) {        
+        return "Historical Tick Last. Req Id: " + reqId + ", time: " + time + ", price: " + price + ", size: " 
+                + size + ", exchange: " + exchange + ", special conditions:" + specialConditions;
     }
 }

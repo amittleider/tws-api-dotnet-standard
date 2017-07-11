@@ -1045,13 +1045,13 @@ namespace TWSLib
 
         #region events
 
-        public delegate void tickPriceDelegate(int id, int tickType, double price, bool canAutoExecute, bool pastLimit);
+        public delegate void tickPriceDelegate(int id, int tickType, double price, bool canAutoExecute, bool pastLimit, bool preOpen);
         public event tickPriceDelegate tickPrice;
         void EWrapper.tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
             var t_tickPrice = this.tickPrice;
             if (t_tickPrice != null)
-                InvokeIfRequired(t_tickPrice, tickerId, field, price, attribs.CanAutoExecute, attribs.PastLimit);
+                InvokeIfRequired(t_tickPrice, tickerId, field, price, attribs.CanAutoExecute, attribs.PastLimit, attribs.PreOpen);
         }
 
         public delegate void tickSizeDelegate(int id, int tickType, int size);
@@ -2042,6 +2042,37 @@ namespace TWSLib
                 InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, value);
         }
 
+        public delegate void HistoricalTickDelegate(int reqId, HistoricalTick[] ticks, bool done);
+        public event HistoricalTickDelegate historicalTicks;
+        void EWrapper.historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+            var tmp = this.historicalTicks;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
+
+        public delegate void HistoricalTickBidAskDelegate(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+        public event HistoricalTickBidAskDelegate historicalTicksBidAsk;
+        void EWrapper.historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+            var tmp = this.historicalTicksBidAsk;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
+        public delegate void HistoricalTickLastDelegate(int reqId, HistoricalTickLast[] ticks, bool done);
+        public event HistoricalTickLastDelegate historicalTicksLast;
+        void EWrapper.historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+            var tmp = this.historicalTicksLast;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -2166,6 +2197,5 @@ namespace TWSLib
 
             return rval;
         }
-
     }
 }

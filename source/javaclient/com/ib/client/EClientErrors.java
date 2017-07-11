@@ -81,6 +81,7 @@ public class EClientErrors {
     static final CodeMsgPair FAIL_SEND_CANPNL = new CodeMsgPair(567, "Cancel PnL Sending Error - ");
     static final CodeMsgPair FAIL_SEND_REQPNL_SINGLE = new CodeMsgPair(568, "Request PnL Single Sending Error - ");
     static final CodeMsgPair FAIL_SEND_CANPNL_SINGLE = new CodeMsgPair(569, "Cancel PnL Single Sending Error - ");
+    static final CodeMsgPair FAIL_SEND_HISTORICAL_TICK = new CodeMsgPair(569, "Request Historical Ticks Sending Error - ");
 
     public EClientErrors() {
     }

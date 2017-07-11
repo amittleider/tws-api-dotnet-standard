@@ -487,4 +487,23 @@ class DefaultEWrapper implements EWrapper {
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean last) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done) {
+        // TODO Auto-generated method stub
+        
+    }
 }

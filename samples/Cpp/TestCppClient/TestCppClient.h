@@ -94,6 +94,8 @@ enum State {
     ST_CONTFUT_ACK,
 	ST_PING,
 	ST_PING_ACK,
+    ST_REQHISTORICALTICKS,
+    ST_REQHISTORICALTICKS_ACK,
 	ST_IDLE
 };
 
@@ -153,6 +155,7 @@ private:
 	void rerouteCFDOperations();
 	void marketRuleOperations();
 	void continuousFuturesOperations();
+    void reqHistoricalTicks();
 
 	void reqCurrentTime();
 
@@ -242,9 +245,12 @@ public:
     void historicalDataUpdate(TickerId reqId, Bar bar);
 	void rerouteMktDataReq(int reqId, int conId, const std::string& exchange);
 	void rerouteMktDepthReq(int reqId, int conId, const std::string& exchange);
-	void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
+    void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
     void pnl(int reqId, double dailyPnL, double unrealizedPnL);
     void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+    void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
+    void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
+    void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
 
 private:
 	//! [socket_declare]

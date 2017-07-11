@@ -26,14 +26,6 @@ public class Position {
 	public double position() 			{ return m_position;}
 	public String account() 		{ return m_account;}
 
-//	public void account(String v) 		{ m_account = v;}
-//	public void averageCost(double v) 	{ m_averageCost = v;}
-//	public void marketPrice(double v) 	{ m_marketPrice = v;}
-//	public void marketValue(double v) 	{ m_marketValue = v;}
-//	public void position(int v) 		{ m_position = v;}
-//	public void realPnl(double v) 		{ m_realPnl = v;}
-//	public void unrealPnl(double v) 	{ m_unrealPnl = v;}
-
 	public Position( Contract contract, String account, double position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl) {
 		m_contract = contract;
 		m_account = account;

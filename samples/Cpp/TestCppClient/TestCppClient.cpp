@@ -284,6 +284,11 @@ void TestCppClient::processMessages() {
 		case ST_CONTFUT:
 			continuousFuturesOperations();
 			break;
+        case ST_REQHISTORICALTICKS:
+            reqHistoricalTicks();
+            break;
+        case ST_REQHISTORICALTICKS_ACK:
+            break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -403,6 +408,11 @@ void TestCppClient::tickDataOperation()
 	m_pClient->reqMktData(1014, ContractSamples::SimpleFuture(), "mdoff,588", false, false, TagValueListSPtr());
 	//! [reqfuturesopeninterest]
 
+	//! [reqpreopenbidask]
+	//Requesting data for a futures contract will return the pre-open bid/ask flag
+	m_pClient->reqMktData(1015, ContractSamples::SimpleFuture(), "", false, false, TagValueListSPtr());
+	//! [reqpreopenbidask]
+
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	/*** Canceling the market data subscription ***/
 	//! [cancelmktdata]
@@ -410,6 +420,7 @@ void TestCppClient::tickDataOperation()
 	m_pClient->cancelMktData(1002);
 	m_pClient->cancelMktData(1003);
 	m_pClient->cancelMktData(1014);
+	m_pClient->cancelMktData(1015);
 	//! [cancelmktdata]
 
 	m_state = ST_TICKDATAOPERATION_ACK;
@@ -1193,6 +1204,15 @@ void TestCppClient::continuousFuturesOperations()
 	m_state = ST_CONTFUT_ACK;
 }
 
+void TestCppClient::reqHistoricalTicks() 
+{
+    m_pClient->reqHistoricalTicks(19001, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "BID_ASK", 1, true, TagValueListSPtr());
+    m_pClient->reqHistoricalTicks(19002, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "MIDPOINT", 1, true, TagValueListSPtr());
+    m_pClient->reqHistoricalTicks(19003, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "TRADES", 1, true, TagValueListSPtr());
+    
+    m_state = ST_REQHISTORICALTICKS_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1200,7 +1220,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_CONTFUT; 
+    m_state = ST_REQHISTORICALTICKS; 
+    //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
@@ -1261,7 +1282,7 @@ void TestCppClient::error(const int id, const int errorCode, const std::string e
 
 //! [tickprice]
 void TestCppClient::tickPrice( TickerId tickerId, TickType field, double price, const TickAttrib& attribs) {
-	printf( "Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d\n, PastLimit: %d\n", tickerId, (int)field, price, attribs.canAutoExecute, attribs.pastLimit);
+	printf( "Tick Price. Ticker Id: %ld, Field: %d, Price: %g, CanAutoExecute: %d, PastLimit: %d, PreOpen: %d\n", tickerId, (int)field, price, attribs.canAutoExecute, attribs.pastLimit, attribs.preOpen);
 }
 //! [tickprice]
 
@@ -1722,10 +1743,41 @@ void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncremen
 	}
 }
 //! [marketRule]
+
+//! [pnl]
 void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {
 	printf("PnL. ReqId: %d, daily PnL: %g, unrealized PnL: %g\n", reqId, dailyPnL, unrealizedPnL);
 }
+//! [pnl]
 
+//! [pnlSingle]
 void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
 	printf("PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, value: %g\n", reqId, pos, dailyPnL, unrealizedPnL, value);
 }
+//! [pnlSingle]
+
+//! [historicalTicks]
+void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) {
+    for (HistoricalTick tick : ticks) {
+	    printf("Historical tick. ReqId: %d, time: %d, price: %g, size: %d\n", reqId, tick.time, tick.price, tick.size);
+    }
+}
+//! [historicalTicks]
+
+//! [historicalTicksBidAsk]
+void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) {
+    for (HistoricalTickBidAsk tick : ticks) {
+        printf("Historical tick bid/ask. ReqId: %d, time: %d, mask: %d, price bid: %g, price ask: %g, size bid: %d, size ask: %d\n", reqId, 
+            tick.time, tick.mask, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk);
+    }
+}
+//! [historicalTicksBidAsk]
+
+//! [historicalTicksLast]
+void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) {
+    for (HistoricalTickLast tick : ticks) {
+        std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << tick.time << ", mask: " << tick.mask << ", price: "<< tick.price <<
+            ", size: " << tick.size << ", exchange: " << tick.exchange << ", special conditions: " << tick.specialConditions << std::endl;
+    }
+}
+//! [historicalTicksLast]

@@ -47,6 +47,7 @@ public class Testbed {
 		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
 		Thread.sleep(1000);
 
+		tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -63,10 +64,18 @@ public class Testbed {
 		//marketRuleOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
 		//pnlSingle(wrapper.getClient());
-		continuousFuturesOperations(wrapper.getClient());
+		//continuousFuturesOperations(wrapper.getClient());
+
+		historicalTicks(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
+	}
+	
+	private static void historicalTicks(EClientSocket client) {
+        client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
+        client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
+        client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
 	}
 
 	private static void pnl(EClientSocket client) throws InterruptedException {
@@ -226,13 +235,19 @@ public class Testbed {
         //Requesting data for a futures contract will return the futures open interest
         client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", false, false, null);
 		//! [reqfuturesopeninterest]
-		
+
+		//! [reqmktdata_preopenbidask]
+        //Requesting data for a futures contract will return the pre-open bid/ask flag
+        client.reqMktData(1015, ContractSamples.SimpleFuture(), "", false, false, null);
+		//! [reqmktData_preopenbidask]
+        
 		Thread.sleep(10000);
 		//! [cancelmktdata]
 		client.cancelMktData(1001);
 		client.cancelMktData(1002);
 		client.cancelMktData(1003);
 		client.cancelMktData(1014);
+		client.cancelMktData(1015);
 		//! [cancelmktdata]
 		
 	}

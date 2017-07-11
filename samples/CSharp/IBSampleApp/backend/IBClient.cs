@@ -885,5 +885,37 @@ namespace IBSampleApp
             if (tmp != null)
                 sc.Post((t) => tmp(new PnLSingleMessage(reqId, pos, dailyPnL, unrealizedPnL, value)), null);
         }
+
+        public event Action<HistoricalTickMessage> historicalTick;
+
+        void EWrapper.historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+            var tmp = historicalTick;
+
+            if (tmp != null)
+                ticks.ToList().ForEach(tick => sc.Post((t) => tmp(new HistoricalTickMessage(reqId, tick.Time, tick.Price, tick.Size)), null));
+        }
+
+        public event Action<HistoricalTickBidAskMessage> historicalTickBidAsk;
+
+        void EWrapper.historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+            var tmp = historicalTickBidAsk;
+
+            if (tmp != null)
+                ticks.ToList().ForEach(tick => sc.Post((t) =>
+                    tmp(new HistoricalTickBidAskMessage(reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)), null));
+        }
+
+        public event Action<HistoricalTickLastMessage> historicalTickLast;
+
+        void EWrapper.historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+            var tmp = historicalTickLast;
+
+            if (tmp != null)
+                ticks.ToList().ForEach(tick => sc.Post((t) => 
+                    tmp(new HistoricalTickLastMessage(reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)), null));
+        }
     }
 }

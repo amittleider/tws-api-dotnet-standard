@@ -361,12 +361,91 @@ namespace IBApi
                     PnLSingleEvent();
                     break;
 
+                case IncomingMessage.HistoricalTick:
+                    HistoricalTickEvent();
+                    break;
+
+                case IncomingMessage.HistoricalTickBidAsk:
+                    HistoricalTickBidAskEvent();
+                    break;
+
+                case IncomingMessage.HistoricalTickLast:
+                    HistoricalTickLastEvent();
+                    break;
+
                 default:
                     eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
                     return false;
             }
 
             return true;
+        }
+
+        private void HistoricalTickLastEvent()
+        {
+            int reqId = ReadInt();
+            int nTicks = ReadInt();
+            HistoricalTickLast[] ticks = new HistoricalTickLast[nTicks];
+
+            for (int i = 0; i < nTicks; i++)
+            {
+                var time = ReadLong();
+                var mask = ReadInt();
+                var price = ReadDouble();
+                var size = ReadLong();
+                var exchange = ReadString();
+                var specialConditions = ReadString();
+
+                ticks[i] = new HistoricalTickLast(time, mask, price, size, exchange, specialConditions);
+            }
+
+            bool done = ReadBoolFromInt();
+
+            eWrapper.historicalTicksLast(reqId, ticks, done);
+        }
+
+        private void HistoricalTickBidAskEvent()
+        {
+            int reqId = ReadInt();
+            int nTicks = ReadInt();
+            HistoricalTickBidAsk[] ticks = new HistoricalTickBidAsk[nTicks];
+
+            for (int i = 0; i < nTicks; i++)
+            {
+                var time = ReadLong();
+                var mask = ReadInt();
+                var priceBid = ReadDouble();
+                var priceAsk = ReadDouble();
+                var sizeBid = ReadLong();
+                var sizeAsk = ReadLong();
+
+                ticks[i] = new HistoricalTickBidAsk(time, mask, priceBid, priceAsk, sizeBid, sizeAsk);
+            }
+
+            bool done = ReadBoolFromInt();
+
+            eWrapper.historicalTicksBidAsk(reqId, ticks, done);
+        }
+
+        private void HistoricalTickEvent()
+        {
+            int reqId = ReadInt();
+            int nTicks = ReadInt();
+            HistoricalTick[] ticks = new HistoricalTick[nTicks];
+
+            for (int i = 0; i < nTicks; i++)
+            {
+                var time = ReadLong();
+                ReadInt();// for consistency
+                var price = ReadDouble();
+                var size = ReadLong();
+
+                ticks[i] = new HistoricalTick(time, price, size);
+            }
+
+            bool done = ReadBoolFromInt();
+
+            eWrapper.historicalTicks(reqId, ticks, done);
         }
 
         private void MarketRuleEvent()
@@ -771,6 +850,11 @@ namespace IBApi
 
                     attr.CanAutoExecute = mask[0];
                     attr.PastLimit = mask[1];
+
+                    if (serverVersion >= MinServerVer.PRE_OPEN_BID_ASK)
+                    {
+                        attr.PreOpen = mask[2];
+                    }
                 }
             }
 

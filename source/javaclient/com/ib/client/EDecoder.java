@@ -90,6 +90,10 @@ class EDecoder implements ObjectInput {
     private static final int MARKET_RULE = 93;
     private static final int PNL = 94;
     private static final int PNL_SINGLE = 95;
+    private static final int HISTORICAL_TICKS = 96;
+    private static final int HISTORICAL_TICKS_BID_ASK = 97;
+    private static final int HISTORICAL_TICKS_LAST = 98;
+    
 
     static final int MAX_MSG_LENGTH = 0xffffff;
     private static final int REDIRECT_MSG_ID = -1;
@@ -212,7 +216,6 @@ class EDecoder implements ObjectInput {
 
             case PORTFOLIO_VALUE:
                 processPortfolioValueMsg();
-
                 break;
 
             case ACCT_UPDATE_TIME:
@@ -442,6 +445,18 @@ class EDecoder implements ObjectInput {
             case PNL_SINGLE:
             	processPnLSingleMsg();
             	break;
+            	
+            case HISTORICAL_TICKS:
+                processHistoricalTicks();
+                break;
+                
+            case HISTORICAL_TICKS_BID_ASK:
+                processHistoricalTicksBidAsk();
+                break;
+                
+            case HISTORICAL_TICKS_LAST:
+                processHistoricalTicksLast();
+                break;
 
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
@@ -451,6 +466,70 @@ class EDecoder implements ObjectInput {
         
         m_messageReader.close();
         return m_messageReader.msgLength();
+    }
+
+    private void processHistoricalTicksLast() throws IOException {
+        int reqId = readInt(),
+            tickCount = readInt();
+                
+        List<HistoricalTickLast> ticks = new ArrayList<>();
+        
+        for (int i = 0; i < tickCount; i++) {
+            long time = readLong();
+            int mask = readInt();
+            double price = readDouble();
+            long size = readLong();
+            String exchange = readStr(),
+                   specialConditions = readStr();
+
+            ticks.add(new HistoricalTickLast(time, mask, price, size, exchange, specialConditions));
+        }
+
+        boolean done = readBoolean();
+
+        m_EWrapper.historicalTicksLast(reqId, ticks, done);
+    }
+
+    private void processHistoricalTicksBidAsk() throws IOException {
+        int reqId = readInt(),
+            tickCount = readInt();
+            
+        List<HistoricalTickBidAsk> ticks = new ArrayList<>();
+        
+        for (int i = 0; i < tickCount; i++) {
+            long time = readLong();
+            int mask = readInt();
+            double priceBid = readDouble(),
+                   priceAsk = readDouble();
+            long sizeBid = readLong(),
+                 sizeAsk = readLong();
+
+            ticks.add(new HistoricalTickBidAsk(time, mask, priceBid, priceAsk, sizeBid, sizeAsk));
+        }
+
+        boolean done = readBoolean();
+
+        m_EWrapper.historicalTicksBidAsk(reqId, ticks, done);       
+    }
+
+    private void processHistoricalTicks() throws IOException {
+        int reqId = readInt(),
+            tickCount = readInt();
+        
+        List<HistoricalTick> ticks = new ArrayList<>();
+        
+        for (int i = 0; i < tickCount; i++) {
+            long time = readLong();
+            readInt();//for consistency
+            double price = readDouble();
+            long size = readLong();
+            
+            ticks.add(new HistoricalTick(time, price, size));
+        }
+        
+        boolean done = readBoolean();
+
+        m_EWrapper.historicalTicks(reqId, ticks, done);       
     }
 
     private void processMarketRuleMsg() throws IOException {
@@ -1851,6 +1930,9 @@ class EDecoder implements ObjectInput {
 				
 				attribs.canAutoExecute(mask.get(0));
 				attribs.pastLimit(mask.get(1));
+				if (m_serverVersion >= EClient.MIN_SERVER_VER_PRE_OPEN_BID_ASK) {
+					attribs.preOpen(mask.get(2));
+				}
 			}
 		}
 

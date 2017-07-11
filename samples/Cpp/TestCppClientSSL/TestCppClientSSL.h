@@ -136,6 +136,8 @@ public:
     void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
     void dailyPnL(int reqId, double dailyPnL);
     void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
+	void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+	void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
 
 private:
     EReaderOSSignal m_osSignal;

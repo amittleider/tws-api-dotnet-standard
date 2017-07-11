@@ -92,6 +92,7 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_CANCELPNL = new CodeMsgPair(568, "Cancel PnL Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQPNLSINGLE = new CodeMsgPair(567, "Request PnL Single Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELPNLSINGLE = new CodeMsgPair(568, "Cancel PnL Single Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHISTORICALTICKS = new CodeMsgPair(567, "Request Historical Ticks Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     

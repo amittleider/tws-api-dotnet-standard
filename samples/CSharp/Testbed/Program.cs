@@ -162,11 +162,20 @@ namespace Samples
             /**************************/
             /*** Continuous futures ***/
             /**************************/
-            continuousFuturesOperations(client);
+            //continuousFuturesOperations(client);
+
+            historicalTicks(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void historicalTicks(EClientSocket client)
+        {
+            client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
+            client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
+            client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
         }
 
         private static void pnl(EClientSocket client)
@@ -289,6 +298,11 @@ namespace Samples
             client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", false, false, null);
             //! [reqfuturesopeninterest]
 
+            //! [reqmktdatapreopenbidask]
+            //Requesting data for a futures contract will return the pre-open bid/ask flag
+            client.reqMktData(1015, ContractSamples.SimpleFuture(), "", false, false, null);
+            //! [reqmktDatapreopenbidask]
+
             Thread.Sleep(10000);
             /*** Canceling the market data subscription ***/
             //! [cancelmktdata]
@@ -296,6 +310,7 @@ namespace Samples
             client.cancelMktData(1002);
             client.cancelMktData(1003);
             client.cancelMktData(1014);
+            client.cancelMktData(1015);
             //! [cancelmktdata]
         }
 

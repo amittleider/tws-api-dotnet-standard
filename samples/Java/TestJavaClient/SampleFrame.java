@@ -50,9 +50,7 @@ class SampleFrame extends JFrame implements EWrapper {
 
     private List<TagValue> m_mktDataOptions = new ArrayList<>();
     private List<TagValue> m_chartOptions = new ArrayList<>();
-//    private List<TagValue> m_orderMiscOptions = new ArrayList<>();
     private List<TagValue> m_mktDepthOptions = new ArrayList<>();
-//    private List<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
     private List<TagValue> m_realTimeBarsOptions = new ArrayList<>();
     private List<TagValue> m_historicalNewsOptions = new ArrayList<>();
     private List<TagValue> m_newsArticleOptions = new ArrayList<>();
@@ -94,7 +92,7 @@ class SampleFrame extends JFrame implements EWrapper {
         final CompletableFuture<List<ContractDetails>> future = new CompletableFuture<>();
 
         synchronized (m_callbackMap) {
-            m_callbackMap.put(m_orderDlg.m_id, new ContractDetailsCallback() {
+            m_callbackMap.put(m_orderDlg.id(), new ContractDetailsCallback() {
 
                 private final List<ContractDetails> list = new ArrayList<>();
 
@@ -114,14 +112,14 @@ class SampleFrame extends JFrame implements EWrapper {
                 }
             });
         }
-        m_client.reqContractDetails(m_orderDlg.m_id, contract);
+        m_client.reqContractDetails(m_orderDlg.id(), contract);
     	try {
             return future.get();
         } catch (final ExecutionException e) {
     	    return null;
         } finally {
     	    synchronized (m_callbackMap) {
-    	        m_callbackMap.remove(m_orderDlg.m_id);
+    	        m_callbackMap.remove(m_orderDlg.id());
             }
         }
     }
@@ -249,6 +247,8 @@ class SampleFrame extends JFrame implements EWrapper {
         butReqPnLSingle.addActionListener(e -> onReqPnLSingle());
         JButton butCancelPnLSingle = new JButton("Cancel PnL Single");
         butCancelPnLSingle.addActionListener(e -> onCancelPnLSingle());
+        JButton butReqHistoricalTicks = new JButton("Req Historical Ticks");
+        butReqHistoricalTicks.addActionListener(e -> onReqHistoricalTicks());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -310,6 +310,7 @@ class SampleFrame extends JFrame implements EWrapper {
         buttonPanel.add(butReqMarketRule);
         pairSlot.add(butReqPnL, butCancelPnL);
         pairSlot.add(butReqPnLSingle, butCancelPnLSingle);
+        buttonPanel.add(butReqHistoricalTicks);
 
         buttonPanel.add( new JPanel() );
         pairSlot.add(butClear, butClose);
@@ -333,6 +334,18 @@ class SampleFrame extends JFrame implements EWrapper {
             m_parentPanel.add(subPanel);
         }
         
+    }
+    
+    private void onReqHistoricalTicks() {
+        m_orderDlg.init("Misc Options", true);
+        m_orderDlg.setVisible(true);
+        
+        if (m_orderDlg.m_rc) {
+            m_client.reqHistoricalTicks(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.startDateTime(), 
+                    m_orderDlg.backfillEndTime(), m_orderDlg.numberOfTicks(), m_orderDlg.whatToShow(), 
+                    m_orderDlg.useRTH(), m_orderDlg.ignoreSize(),
+                    m_orderDlg.options());
+        }
     }
 
     private void onCancelPnLSingle() {
@@ -375,7 +388,7 @@ class SampleFrame extends JFrame implements EWrapper {
     }
 
 	private void onHistogramCancel() {
-		m_client.cancelHistogramData(m_orderDlg.m_id);
+		m_client.cancelHistogramData(m_orderDlg.id());
 	}
 
 	private void onHistogram() {
@@ -387,9 +400,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_chartOptions = m_orderDlg.getOptions();
-
-        m_client.reqHistogramData(m_orderDlg.m_id, m_orderDlg.m_contract, m_orderDlg.m_useRTH == 1, m_orderDlg.m_backfillDuration);
+        m_client.reqHistogramData(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.useRTH() == 1, m_orderDlg.backfillDuration());
     }
 
 	private void onReqSmartComponents() {
@@ -414,7 +425,6 @@ class SampleFrame extends JFrame implements EWrapper {
 		
 		String underlyingSymbol = m_secDefOptParamsReq.underlyingSymbol();
 		String futFopExchange = m_secDefOptParamsReq.futFopExchange();
-//		String currency = m_secDefOptParamsReq.currency();
 		String underlyingSecType = m_secDefOptParamsReq.underlyingSecType();
 		int underlyingConId = m_secDefOptParamsReq.underlyingConId();		
 		
@@ -486,10 +496,10 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         
-        m_mktDataOptions = m_orderDlg.getOptions();
+        m_mktDataOptions = m_orderDlg.options();
         
         // req mkt data
-        m_client.reqMktData( m_orderDlg.m_id, m_orderDlg.m_contract,
+        m_client.reqMktData( m_orderDlg.id(), m_orderDlg.contract(),
         		m_orderDlg.m_genericTicks, m_orderDlg.m_snapshotMktData, m_orderDlg.m_reqSnapshotMktData, m_mktDataOptions);
     }
 
@@ -501,12 +511,12 @@ class SampleFrame extends JFrame implements EWrapper {
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_realTimeBarsOptions = m_orderDlg.getOptions();
+        m_realTimeBarsOptions = m_orderDlg.options();
 
         // req real time bars
-        m_client.reqRealTimeBars( m_orderDlg.m_id, m_orderDlg.m_contract,
+        m_client.reqRealTimeBars( m_orderDlg.id(), m_orderDlg.contract(),
         		5 /* TODO: parse and use m_orderDlg.m_barSizeSetting */,
-        		m_orderDlg.m_whatToShow, m_orderDlg.m_useRTH > 0, m_realTimeBarsOptions);
+        		m_orderDlg.whatToShow(), m_orderDlg.useRTH() > 0, m_realTimeBarsOptions);
     }
 
     private void onCancelRealTimeBars() {
@@ -516,7 +526,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         // cancel market data
-        m_client.cancelRealTimeBars( m_orderDlg.m_id );
+        m_client.cancelRealTimeBars( m_orderDlg.id() );
     }
 
     private void onScanner() {
@@ -548,11 +558,9 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_chartOptions = m_orderDlg.getOptions();
-
         // req head timestamp
-        m_client.reqHeadTimestamp(m_orderDlg.m_id, m_orderDlg.m_contract, m_orderDlg.m_whatToShow,
-                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate);
+        m_client.reqHeadTimestamp(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.whatToShow(),
+                                    m_orderDlg.useRTH(), m_orderDlg.formatDate());
     }
 
     private void onHistoricalData() {
@@ -565,13 +573,13 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_chartOptions = m_orderDlg.getOptions();
+        m_chartOptions = m_orderDlg.options();
         
         // req historical data
-        m_client.reqHistoricalData( m_orderDlg.m_id, m_orderDlg.m_contract,
-                                    m_orderDlg.m_backfillEndTime, m_orderDlg.m_backfillDuration,
-                                    m_orderDlg.m_barSizeSetting, m_orderDlg.m_whatToShow,
-                                    m_orderDlg.m_useRTH, m_orderDlg.m_formatDate, m_orderDlg.m_keepUpToDate, m_chartOptions );
+        m_client.reqHistoricalData( m_orderDlg.id(), m_orderDlg.contract(),
+                                    m_orderDlg.backfillEndTime(), m_orderDlg.backfillDuration(),
+                                    m_orderDlg.barSizeSetting(), m_orderDlg.whatToShow(),
+                                    m_orderDlg.useRTH(), m_orderDlg.formatDate(), m_orderDlg.keepUpToDate(), m_chartOptions );
     }
 
     private void onCancelHistoricalData() {
@@ -583,7 +591,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel historical data
-        m_client.cancelHistoricalData( m_orderDlg.m_id );
+        m_client.cancelHistoricalData( m_orderDlg.id() );
     }
 
     private void onFundamentalData() {
@@ -593,8 +601,8 @@ class SampleFrame extends JFrame implements EWrapper {
         if( !m_orderDlg.m_rc ) {
             return;
         }
-       	m_client.reqFundamentalData(m_orderDlg.m_id, m_orderDlg.m_contract,
-        			/* reportType */ m_orderDlg.m_whatToShow);
+       	m_client.reqFundamentalData(m_orderDlg.id(), m_orderDlg.contract(),
+        			/* reportType */ m_orderDlg.whatToShow());
     }
 
     private void onCancelFundamentalData() {
@@ -605,7 +613,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_client.cancelFundamentalData(m_orderDlg.m_id);
+        m_client.cancelFundamentalData(m_orderDlg.id());
     }
 
     private void onReqContractData() {
@@ -617,7 +625,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // req mkt data
-        m_client.reqContractDetails( m_orderDlg.m_id, m_orderDlg.m_contract );
+        m_client.reqContractDetails( m_orderDlg.id(), m_orderDlg.contract() );
     }
 
     private void onReqMktDepth() {
@@ -628,9 +636,9 @@ class SampleFrame extends JFrame implements EWrapper {
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_mktDepthOptions = m_orderDlg.getOptions();
+        m_mktDepthOptions = m_orderDlg.options();
 
-        final Integer dialogId = m_orderDlg.m_id;
+        final Integer dialogId = m_orderDlg.id();
         MktDepthDlg depthDialog = m_mapRequestToMktDepthDlg.get(dialogId);
         if ( depthDialog == null ) {
             depthDialog = new MktDepthDlg("Market Depth ID ["+dialogId+"]", this);
@@ -647,7 +655,7 @@ class SampleFrame extends JFrame implements EWrapper {
         depthDialog.setParams( m_client, dialogId);
 
         // req mkt data
-        m_client.reqMktDepth( dialogId, m_orderDlg.m_contract, m_orderDlg.m_marketDepthRows, m_mktDepthOptions );
+        m_client.reqMktDepth( dialogId, m_orderDlg.contract(), m_orderDlg.m_marketDepthRows, m_mktDepthOptions );
         depthDialog.setVisible(true);
     }
 
@@ -660,7 +668,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel market data
-        m_client.cancelMktData( m_orderDlg.m_id );
+        m_client.cancelMktData( m_orderDlg.id() );
     }
 
     private void onCancelMktDepth() {
@@ -672,7 +680,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel market data
-        m_client.cancelMktDepth( m_orderDlg.m_id );
+        m_client.cancelMktDepth( m_orderDlg.id() );
     }
 
     private void onReqOpenOrders() {
@@ -697,14 +705,14 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         Order order = m_orderDlg.m_order;
-        order.orderMiscOptions(m_orderDlg.getOptions());
+        order.orderMiscOptions(m_orderDlg.options());
 
         // save old and set new value of whatIf attribute
         boolean savedWhatIf = order.whatIf();
         order.whatIf(whatIf);
 
         // place order
-        m_client.placeOrder( m_orderDlg.m_id, m_orderDlg.m_contract, order );
+        m_client.placeOrder( m_orderDlg.id(), m_orderDlg.contract(), order );
 
         // restore whatIf attribute
         order.whatIf(savedWhatIf);
@@ -718,7 +726,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel order
-        m_client.exerciseOptions( m_orderDlg.m_id, m_orderDlg.m_contract,
+        m_client.exerciseOptions( m_orderDlg.id(), m_orderDlg.contract(),
                                   m_orderDlg.m_exerciseAction, m_orderDlg.m_exerciseQuantity,
                                   m_orderDlg.m_order.account(), m_orderDlg.m_override);
     }
@@ -732,7 +740,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // cancel order
-        m_client.cancelOrder( m_orderDlg.m_id );
+        m_client.cancelOrder( m_orderDlg.id() );
     }
 
     private void onExtendedOrder() {
@@ -842,7 +850,7 @@ class SampleFrame extends JFrame implements EWrapper {
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_client.calculateImpliedVolatility( m_orderDlg.m_id, m_orderDlg.m_contract,
+        m_client.calculateImpliedVolatility( m_orderDlg.id(), m_orderDlg.contract(),
                 m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
@@ -854,7 +862,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_client.cancelCalculateImpliedVolatility( m_orderDlg.m_id);
+        m_client.cancelCalculateImpliedVolatility( m_orderDlg.id());
     }
 
     private void onCalculateOptionPrice() {
@@ -864,7 +872,7 @@ class SampleFrame extends JFrame implements EWrapper {
         if( !m_orderDlg.m_rc ) {
             return;
         }
-        m_client.calculateOptionPrice( m_orderDlg.m_id, m_orderDlg.m_contract,
+        m_client.calculateOptionPrice( m_orderDlg.id(), m_orderDlg.contract(),
                 m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
     }
 
@@ -876,7 +884,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
 
-        m_client.cancelCalculateOptionPrice( m_orderDlg.m_id);
+        m_client.cancelCalculateOptionPrice( m_orderDlg.id());
     }
 
     private void onGlobalCancel() {
@@ -986,9 +994,6 @@ class SampleFrame extends JFrame implements EWrapper {
     private void onGroups() {
 
         m_groupsDlg.setVisible(true);
-//        if ( dlg.m_rc ) {
-
-//        }
     }
 
     private void onRequestFamilyCodes() {
@@ -1005,7 +1010,7 @@ class SampleFrame extends JFrame implements EWrapper {
         }
 
         // request matching symbols
-        m_client.reqMatchingSymbols( m_orderDlg.m_id, m_orderDlg.m_contract.symbol());
+        m_client.reqMatchingSymbols( m_orderDlg.id(), m_orderDlg.contract().symbol());
     }
 
     private void onRequestNewsProviders() {
@@ -1638,4 +1643,44 @@ class SampleFrame extends JFrame implements EWrapper {
         
         m_TWS.add(msg);
     }
+
+    @Override
+    public void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean last) {
+        StringBuilder msg = new StringBuilder();
+        
+        for (HistoricalTick tick : ticks) {
+            msg.append(EWrapperMsgGenerator.historicalTick(reqId, tick.time(), tick.price(), tick.size()));
+            msg.append("\n");
+        }
+        
+        m_TWS.add(msg.toString());
+    }
+
+    @Override
+    public void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done) {
+        StringBuilder msg = new StringBuilder();
+        
+        for (HistoricalTickBidAsk tick : ticks) {
+            msg.append(EWrapperMsgGenerator.historicalTickBidAsk(reqId, tick.time(), tick.mask(), tick.priceBid(), tick.priceAsk(), tick.sizeBid(), 
+                    tick.sizeAsk()));
+            msg.append("\n");
+        }
+        
+        m_TWS.add(msg.toString());
+    }
+
+
+    @Override
+    public void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done) {
+        StringBuilder msg = new StringBuilder();
+        
+        for (HistoricalTickLast tick : ticks) {
+            msg.append(EWrapperMsgGenerator.historicalTickLast(reqId, tick.time(), tick.mask(), tick.price(), tick.size(), tick.exchange(), 
+                    tick.specialConditions()));
+            msg.append("\n");
+        }
+        
+        m_TWS.add(msg.toString());
+    }
+
 }
