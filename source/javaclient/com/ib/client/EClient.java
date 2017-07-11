@@ -262,9 +262,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_PNL = 127;
     protected static final int MIN_SERVER_VER_NEWS_QUERY_ORIGINS = 128;
     protected static final int MIN_SERVER_VER_UNREALIZED_PNL = 129;
+    protected static final int MIN_SERVER_VER_PRE_OPEN_BID_ASK = 132;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_UNREALIZED_PNL; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_PRE_OPEN_BID_ASK; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler

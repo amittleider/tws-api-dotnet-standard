@@ -13,5 +13,7 @@ namespace IBApi
         public bool CanAutoExecute { get; set; }
 
         public bool PastLimit { get; set; }
+
+        public bool PreOpen { get; set; }
     }
 }

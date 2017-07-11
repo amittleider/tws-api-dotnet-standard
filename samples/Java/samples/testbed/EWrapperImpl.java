@@ -40,7 +40,7 @@ public class EWrapperImpl implements EWrapper {
 	@Override
 	public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
 		System.out.println("Tick Price. Ticker Id:"+tickerId+", Field: "+field+", Price: "+price+", CanAutoExecute: "+ attribs.canAutoExecute()
-		+ ", pastLimit: " + attribs.pastLimit());
+		+ ", pastLimit: " + attribs.pastLimit() + ", pre-open: " + attribs.preOpen());
 	}
 	//! [tickprice]
 	

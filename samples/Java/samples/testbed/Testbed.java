@@ -47,6 +47,7 @@ public class Testbed {
 		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
 		Thread.sleep(1000);
 
+		tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -63,7 +64,7 @@ public class Testbed {
 		//marketRuleOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
 		//pnlSingle(wrapper.getClient());
-		continuousFuturesOperations(wrapper.getClient());
+		//continuousFuturesOperations(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
@@ -226,13 +227,19 @@ public class Testbed {
         //Requesting data for a futures contract will return the futures open interest
         client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", false, false, null);
 		//! [reqfuturesopeninterest]
-		
+
+		//! [reqmktdata_preopenbidask]
+        //Requesting data for a futures contract will return the pre-open bid/ask flag
+        client.reqMktData(1015, ContractSamples.SimpleFuture(), "", false, false, null);
+		//! [reqmktData_preopenbidask]
+        
 		Thread.sleep(10000);
 		//! [cancelmktdata]
 		client.cancelMktData(1001);
 		client.cancelMktData(1002);
 		client.cancelMktData(1003);
 		client.cancelMktData(1014);
+		client.cancelMktData(1015);
 		//! [cancelmktdata]
 		
 	}

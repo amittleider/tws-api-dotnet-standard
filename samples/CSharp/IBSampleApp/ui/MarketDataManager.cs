@@ -21,18 +21,20 @@ namespace IBSampleApp.ui
         private const int MARKET_DATA_TYPE_INDEX = 1;
 
         private const int BID_PRICE_INDEX = 3;
-        private const int ASK_PRICE_INDEX = 4;
-        private const int CLOSE_PRICE_INDEX = 9;
-        private const int LAST_PRICE_INDEX = 6;
-        private const int OPEN_PRICE_INDEX = 10;
-        private const int HIGH_PRICE_INDEX = 11;
-        private const int LOW_PRICE_INDEX = 12;
-        private const int FUTURES_OPEN_INTEREST_INDEX = 13;
+        private const int ASK_PRICE_INDEX = 6;
+        private const int CLOSE_PRICE_INDEX = 11;
+        private const int LAST_PRICE_INDEX = 8;
+        private const int OPEN_PRICE_INDEX = 12;
+        private const int HIGH_PRICE_INDEX = 13;
+        private const int LOW_PRICE_INDEX = 14;
+        private const int FUTURES_OPEN_INTEREST_INDEX = 15;
 
         private const int BID_SIZE_INDEX = 2;
-        private const int ASK_SIZE_INDEX = 5;
-        private const int LAST_SIZE_INDEX = 7;
-        private const int VOLUME_SIZE_INDEX = 8;
+        private const int ASK_SIZE_INDEX = 7;
+        private const int LAST_SIZE_INDEX = 9;
+        private const int VOLUME_SIZE_INDEX = 10;
+        private const int PRE_OPEN_BID = 4;
+        private const int PRE_OPEN_ASK = 5;
 
         private bool active = false;
 
@@ -140,6 +142,7 @@ namespace IBSampleApp.ui
                     {
                         //BID, DELAYED_BID
                         grid[BID_PRICE_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Price;
+                        grid[PRE_OPEN_BID, GetIndex(dataMessage.RequestId)].Value = dataMessage.Attribs.PreOpen;
                         break;
                     }
                 case 2:
@@ -147,6 +150,7 @@ namespace IBSampleApp.ui
                     {
                         //ASK, DELAYED_ASK
                         grid[ASK_PRICE_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Price;
+                        grid[PRE_OPEN_ASK, GetIndex(dataMessage.RequestId)].Value = dataMessage.Attribs.PreOpen;
                         break;
                     }
                 case 9:

@@ -1980,7 +1980,9 @@ Friend Class MainForm
             mktDataStr = mktDataStr & " noAutoExecute"
         End If
 
-        mktDataStr = mktDataStr & " " & e.attribs.PastLimit
+        mktDataStr = mktDataStr & " pastLimit=" & e.attribs.PastLimit
+
+        mktDataStr = mktDataStr & " preOpen=" & e.attribs.PreOpen
 
         m_utils.addListItem(Utils.ListType.MarketData, mktDataStr)
 

@@ -89,5 +89,6 @@ namespace IBApi
         public const int PNL = 127;
         public const int NEWS_QUERY_ORIGINS = 128;
         public const int UNREALIZED_PNL = 129;
+        public const int PRE_OPEN_BID_ASK = 132;
     }
 }

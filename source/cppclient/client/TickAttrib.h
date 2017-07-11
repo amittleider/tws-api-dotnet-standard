@@ -9,6 +9,7 @@ struct TickAttrib
 {
 	bool canAutoExecute;
 	bool pastLimit;
+	bool preOpen;
 };
 
 #endif

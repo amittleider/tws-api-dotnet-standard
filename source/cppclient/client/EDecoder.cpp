@@ -51,6 +51,11 @@ const char* EDecoder::processTickPriceMsg(const char* ptr, const char* endPtr) {
 
 		attrib.canAutoExecute = mask[0];
 		attrib.pastLimit = mask[1];
+
+		if (m_serverVersion >= MIN_SERVER_VER_PRE_OPEN_BID_ASK)
+		{
+			attrib.preOpen = mask[2];
+		}
 	}
 
 	m_pEWrapper->tickPrice( tickerId, (TickType)tickTypeInt, price, attrib);

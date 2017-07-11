@@ -55,7 +55,7 @@ namespace Samples
             /***************************************************/
             /*** Real time market data operations  - Tickers ***/
             /***************************************************/
-            //tickDataOperations(client);
+            tickDataOperations(client);
 
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
@@ -162,7 +162,7 @@ namespace Samples
             /**************************/
             /*** Continuous futures ***/
             /**************************/
-            continuousFuturesOperations(client);
+            //continuousFuturesOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -289,6 +289,11 @@ namespace Samples
             client.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", false, false, null);
             //! [reqfuturesopeninterest]
 
+            //! [reqmktdatapreopenbidask]
+            //Requesting data for a futures contract will return the pre-open bid/ask flag
+            client.reqMktData(1015, ContractSamples.SimpleFuture(), "", false, false, null);
+            //! [reqmktDatapreopenbidask]
+
             Thread.Sleep(10000);
             /*** Canceling the market data subscription ***/
             //! [cancelmktdata]
@@ -296,6 +301,7 @@ namespace Samples
             client.cancelMktData(1002);
             client.cancelMktData(1003);
             client.cancelMktData(1014);
+            client.cancelMktData(1015);
             //! [cancelmktdata]
         }
 

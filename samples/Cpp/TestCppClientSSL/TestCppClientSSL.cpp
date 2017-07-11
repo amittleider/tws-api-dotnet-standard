@@ -305,3 +305,5 @@ void TestCppClient::rerouteMktDepthReq(int reqId, int conid, const std::string& 
 void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) {}
 void TestCppClient::dailyPnL(int reqId, double dailyPnL) {}
 void TestCppClient::dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {}
+void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {}
+void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {}
