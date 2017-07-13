@@ -315,32 +315,7 @@ public class AccountInfoPanel extends JPanel implements INewTab, IAccountHandler
 				default: return format( row.get( MarketValueTag.get( col - 2) ), null);
 			}
 		}
-	}
-	
-//	private static class MktValKey {
-//		String m_account;
-//		String m_currency;
-//
-//		public MktValKey(String account, String currency) {
-//			m_account = account;
-//			m_currency = currency;
-//		}
-//
-//		@Override public int hashCode() {
-//			return m_account.hashCode() + m_currency.hashCode();
-//		}
-//
-//		@Override public boolean equals(Object obj) {
-//			if (this == obj) {
-//				return true;
-//			}
-//			if (!(obj instanceof MktValKey)) {
-//				return false;
-//			}
-//			MktValKey other = (MktValKey)obj;
-//			return m_account.equals( other.m_account) && m_currency.equals( other.m_currency);
-//		}
-//	}
+	}	
 	
 	private static class MktValRow {
 		String m_account;

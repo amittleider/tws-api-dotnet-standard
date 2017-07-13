@@ -2042,6 +2042,37 @@ namespace TWSLib
                 InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, value);
         }
 
+        public delegate void HistoricalTickDelegate(int reqId, HistoricalTick[] ticks, bool done);
+        public event HistoricalTickDelegate historicalTicks;
+        void EWrapper.historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+            var tmp = this.historicalTicks;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
+
+        public delegate void HistoricalTickBidAskDelegate(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+        public event HistoricalTickBidAskDelegate historicalTicksBidAsk;
+        void EWrapper.historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+            var tmp = this.historicalTicksBidAsk;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
+        public delegate void HistoricalTickLastDelegate(int reqId, HistoricalTickLast[] ticks, bool done);
+        public event HistoricalTickLastDelegate historicalTicksLast;
+        void EWrapper.historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+            var tmp = this.historicalTicksLast;
+
+            if (tmp != null)
+                InvokeIfRequired(tmp, reqId, ticks, done);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();
@@ -2166,6 +2197,5 @@ namespace TWSLib
 
             return rval;
         }
-
     }
 }

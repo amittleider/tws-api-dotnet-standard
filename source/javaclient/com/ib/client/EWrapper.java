@@ -97,5 +97,8 @@ public interface EWrapper {
     void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
 	void pnl(int reqId, double dailyPnL, double unrealizedPnL);
 	void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+    void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean done);
+    void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done);
+    void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done);
 }
 

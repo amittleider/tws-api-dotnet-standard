@@ -209,6 +209,9 @@
     <ClInclude Include="executioncondition.h" />
     <ClInclude Include="FamilyCode.h" />
     <ClInclude Include="HistogramEntry.h" />
+    <ClInclude Include="HistoricalTick.h" />
+    <ClInclude Include="HistoricalTickBidAsk.h" />
+    <ClInclude Include="HistoricalTickLast.h" />
     <ClInclude Include="IExternalizable.h" />
     <ClInclude Include="MarginCondition.h" />
     <ClInclude Include="OperatorCondition.h" />

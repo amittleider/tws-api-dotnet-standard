@@ -823,5 +823,8 @@ namespace IBApi
         void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
         void pnl(int reqId, double dailyPnL, double unrealizedPnL);
         void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
+        void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+        void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
     }
 }

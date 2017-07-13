@@ -185,5 +185,11 @@ namespace TWSLib
         void pnl(int reqId, double dailyPnL, double unrealizedPnL);
         [DispId(142)]
         void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        [DispId(143)]
+        void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
+        [DispId(144)]
+        void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+        [DispId(145)]
+        void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
     }
 }

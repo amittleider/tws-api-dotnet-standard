@@ -195,7 +195,7 @@ namespace Samples
         public static Contract USStockAtSmart()
         {
             Contract contract = new Contract();
-            contract.Symbol = "IBKR";
+            contract.Symbol = "IBM";
             contract.SecType = "STK";
             contract.Currency = "USD";
             contract.Exchange = "SMART";

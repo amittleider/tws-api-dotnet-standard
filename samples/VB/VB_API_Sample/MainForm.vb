@@ -112,6 +112,7 @@ Friend Class MainForm
     Friend WithEvents cmdReqPnlSingle As System.Windows.Forms.Button
     Public WithEvents cmdCancelPnl As System.Windows.Forms.Button
     Friend WithEvents cmdReqPnl As System.Windows.Forms.Button
+    Friend WithEvents cmdReqHistoricalTicks As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -182,6 +183,7 @@ Friend Class MainForm
         Me.cmdReqPnlSingle = New System.Windows.Forms.Button()
         Me.cmdCancelPnl = New System.Windows.Forms.Button()
         Me.cmdReqPnl = New System.Windows.Forms.Button()
+        Me.cmdReqHistoricalTicks = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -190,10 +192,10 @@ Friend Class MainForm
         Me.cmdReqHistoricalData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqHistoricalData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqHistoricalData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqHistoricalData.Location = New System.Drawing.Point(544, 60)
+        Me.cmdReqHistoricalData.Location = New System.Drawing.Point(542, 67)
         Me.cmdReqHistoricalData.Name = "cmdReqHistoricalData"
         Me.cmdReqHistoricalData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqHistoricalData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHistoricalData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqHistoricalData.TabIndex = 6
         Me.cmdReqHistoricalData.Text = "Historical Data..."
         Me.cmdReqHistoricalData.UseVisualStyleBackColor = True
@@ -204,10 +206,10 @@ Friend Class MainForm
         Me.cmdFinancialAdvisor.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdFinancialAdvisor.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdFinancialAdvisor.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdFinancialAdvisor.Location = New System.Drawing.Point(543, 437)
+        Me.cmdFinancialAdvisor.Location = New System.Drawing.Point(870, 36)
         Me.cmdFinancialAdvisor.Name = "cmdFinancialAdvisor"
         Me.cmdFinancialAdvisor.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdFinancialAdvisor.Size = New System.Drawing.Size(134, 21)
+        Me.cmdFinancialAdvisor.Size = New System.Drawing.Size(133, 22)
         Me.cmdFinancialAdvisor.TabIndex = 34
         Me.cmdFinancialAdvisor.Text = "Financial Advisor"
         Me.cmdFinancialAdvisor.UseVisualStyleBackColor = True
@@ -218,10 +220,10 @@ Friend Class MainForm
         Me.cmdReqAccts.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqAccts.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqAccts.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqAccts.Location = New System.Drawing.Point(684, 410)
+        Me.cmdReqAccts.Location = New System.Drawing.Point(1009, 5)
         Me.cmdReqAccts.Name = "cmdReqAccts"
         Me.cmdReqAccts.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqAccts.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAccts.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAccts.TabIndex = 33
         Me.cmdReqAccts.Text = "Req Accounts"
         Me.cmdReqAccts.UseVisualStyleBackColor = True
@@ -232,10 +234,10 @@ Friend Class MainForm
         Me.cmdReqAllOpenOrders.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqAllOpenOrders.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqAllOpenOrders.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqAllOpenOrders.Location = New System.Drawing.Point(544, 329)
+        Me.cmdReqAllOpenOrders.Location = New System.Drawing.Point(542, 377)
         Me.cmdReqAllOpenOrders.Name = "cmdReqAllOpenOrders"
         Me.cmdReqAllOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqAllOpenOrders.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAllOpenOrders.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAllOpenOrders.TabIndex = 26
         Me.cmdReqAllOpenOrders.Text = "Req All Open Orders"
         Me.cmdReqAllOpenOrders.UseVisualStyleBackColor = True
@@ -246,10 +248,10 @@ Friend Class MainForm
         Me.cmdReqAutoOpenOrders.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqAutoOpenOrders.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqAutoOpenOrders.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqAutoOpenOrders.Location = New System.Drawing.Point(684, 329)
+        Me.cmdReqAutoOpenOrders.Location = New System.Drawing.Point(681, 377)
         Me.cmdReqAutoOpenOrders.Name = "cmdReqAutoOpenOrders"
         Me.cmdReqAutoOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqAutoOpenOrders.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAutoOpenOrders.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAutoOpenOrders.TabIndex = 27
         Me.cmdReqAutoOpenOrders.Text = "Req Auto Open Orders"
         Me.cmdReqAutoOpenOrders.UseVisualStyleBackColor = True
@@ -260,10 +262,10 @@ Friend Class MainForm
         Me.cmdServerLogLevel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdServerLogLevel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdServerLogLevel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdServerLogLevel.Location = New System.Drawing.Point(544, 410)
+        Me.cmdServerLogLevel.Location = New System.Drawing.Point(870, 4)
         Me.cmdServerLogLevel.Name = "cmdServerLogLevel"
         Me.cmdServerLogLevel.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdServerLogLevel.Size = New System.Drawing.Size(134, 21)
+        Me.cmdServerLogLevel.Size = New System.Drawing.Size(133, 22)
         Me.cmdServerLogLevel.TabIndex = 32
         Me.cmdServerLogLevel.Text = "Log Configuration..."
         Me.cmdServerLogLevel.UseVisualStyleBackColor = True
@@ -274,10 +276,10 @@ Friend Class MainForm
         Me.cmdReqNews.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqNews.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqNews.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqNews.Location = New System.Drawing.Point(683, 383)
+        Me.cmdReqNews.Location = New System.Drawing.Point(681, 439)
         Me.cmdReqNews.Name = "cmdReqNews"
         Me.cmdReqNews.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqNews.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNews.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqNews.TabIndex = 31
         Me.cmdReqNews.Text = "Req News Bulletins..."
         Me.cmdReqNews.UseVisualStyleBackColor = True
@@ -288,10 +290,10 @@ Friend Class MainForm
         Me.cmdReqAcctData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqAcctData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqAcctData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqAcctData.Location = New System.Drawing.Point(544, 356)
+        Me.cmdReqAcctData.Location = New System.Drawing.Point(542, 408)
         Me.cmdReqAcctData.Name = "cmdReqAcctData"
         Me.cmdReqAcctData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqAcctData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAcctData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAcctData.TabIndex = 28
         Me.cmdReqAcctData.Text = "Req Acct Data..."
         Me.cmdReqAcctData.UseVisualStyleBackColor = True
@@ -302,10 +304,10 @@ Friend Class MainForm
         Me.cmdReqExecutions.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqExecutions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqExecutions.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqExecutions.Location = New System.Drawing.Point(684, 356)
+        Me.cmdReqExecutions.Location = New System.Drawing.Point(681, 408)
         Me.cmdReqExecutions.Name = "cmdReqExecutions"
         Me.cmdReqExecutions.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqExecutions.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqExecutions.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqExecutions.TabIndex = 29
         Me.cmdReqExecutions.Text = "Req Executions..."
         Me.cmdReqExecutions.UseVisualStyleBackColor = True
@@ -316,10 +318,10 @@ Friend Class MainForm
         Me.cmdReqIds.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqIds.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqIds.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqIds.Location = New System.Drawing.Point(543, 383)
+        Me.cmdReqIds.Location = New System.Drawing.Point(542, 439)
         Me.cmdReqIds.Name = "cmdReqIds"
         Me.cmdReqIds.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqIds.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqIds.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqIds.TabIndex = 30
         Me.cmdReqIds.Text = "Req Next Id..."
         Me.cmdReqIds.UseVisualStyleBackColor = True
@@ -331,7 +333,7 @@ Friend Class MainForm
         Me.cmdClearForm.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClearForm.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClearForm.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClearForm.Location = New System.Drawing.Point(224, 818)
+        Me.cmdClearForm.Location = New System.Drawing.Point(957, 601)
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
@@ -346,10 +348,10 @@ Friend Class MainForm
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdClose.Location = New System.Drawing.Point(320, 818)
+        Me.cmdClose.Location = New System.Drawing.Point(1052, 601)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdClose.Size = New System.Drawing.Size(89, 25)
+        Me.cmdClose.Size = New System.Drawing.Size(90, 25)
         Me.cmdClose.TabIndex = 63
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
@@ -374,10 +376,10 @@ Friend Class MainForm
         Me.cmdReqMktData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqMktData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqMktData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqMktData.Location = New System.Drawing.Point(544, 6)
+        Me.cmdReqMktData.Location = New System.Drawing.Point(542, 5)
         Me.cmdReqMktData.Name = "cmdReqMktData"
         Me.cmdReqMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqMktData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMktData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMktData.TabIndex = 2
         Me.cmdReqMktData.Text = "Req Mkt Data..."
         Me.cmdReqMktData.UseVisualStyleBackColor = True
@@ -388,10 +390,10 @@ Friend Class MainForm
         Me.cmdReqMktDepth.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqMktDepth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqMktDepth.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqMktDepth.Location = New System.Drawing.Point(544, 33)
+        Me.cmdReqMktDepth.Location = New System.Drawing.Point(542, 36)
         Me.cmdReqMktDepth.Name = "cmdReqMktDepth"
         Me.cmdReqMktDepth.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqMktDepth.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMktDepth.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMktDepth.TabIndex = 4
         Me.cmdReqMktDepth.Text = "Req Mkt Depth..."
         Me.cmdReqMktDepth.UseVisualStyleBackColor = True
@@ -402,10 +404,10 @@ Friend Class MainForm
         Me.cmdCancelMktDepth.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelMktDepth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelMktDepth.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelMktDepth.Location = New System.Drawing.Point(684, 33)
+        Me.cmdCancelMktDepth.Location = New System.Drawing.Point(681, 36)
         Me.cmdCancelMktDepth.Name = "cmdCancelMktDepth"
         Me.cmdCancelMktDepth.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelMktDepth.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelMktDepth.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelMktDepth.TabIndex = 5
         Me.cmdCancelMktDepth.Text = "Cancel Mkt Depth..."
         Me.cmdCancelMktDepth.UseVisualStyleBackColor = True
@@ -416,10 +418,10 @@ Friend Class MainForm
         Me.cmdPlaceOrder.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdPlaceOrder.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdPlaceOrder.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdPlaceOrder.Location = New System.Drawing.Point(543, 248)
+        Me.cmdPlaceOrder.Location = New System.Drawing.Point(542, 284)
         Me.cmdPlaceOrder.Name = "cmdPlaceOrder"
         Me.cmdPlaceOrder.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdPlaceOrder.Size = New System.Drawing.Size(134, 21)
+        Me.cmdPlaceOrder.Size = New System.Drawing.Size(133, 22)
         Me.cmdPlaceOrder.TabIndex = 20
         Me.cmdPlaceOrder.Text = "Place Order..."
         Me.cmdPlaceOrder.UseVisualStyleBackColor = True
@@ -430,10 +432,10 @@ Friend Class MainForm
         Me.cmdCancelOrder.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelOrder.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelOrder.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelOrder.Location = New System.Drawing.Point(684, 248)
+        Me.cmdCancelOrder.Location = New System.Drawing.Point(681, 284)
         Me.cmdCancelOrder.Name = "cmdCancelOrder"
         Me.cmdCancelOrder.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelOrder.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelOrder.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelOrder.TabIndex = 21
         Me.cmdCancelOrder.Text = "Cancel Order..."
         Me.cmdCancelOrder.UseVisualStyleBackColor = True
@@ -444,10 +446,10 @@ Friend Class MainForm
         Me.cmdExtendedOrderAtribs.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdExtendedOrderAtribs.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdExtendedOrderAtribs.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdExtendedOrderAtribs.Location = New System.Drawing.Point(684, 275)
+        Me.cmdExtendedOrderAtribs.Location = New System.Drawing.Point(681, 315)
         Me.cmdExtendedOrderAtribs.Name = "cmdExtendedOrderAtribs"
         Me.cmdExtendedOrderAtribs.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdExtendedOrderAtribs.Size = New System.Drawing.Size(134, 21)
+        Me.cmdExtendedOrderAtribs.Size = New System.Drawing.Size(133, 22)
         Me.cmdExtendedOrderAtribs.TabIndex = 23
         Me.cmdExtendedOrderAtribs.Text = "Extended..."
         Me.cmdExtendedOrderAtribs.UseVisualStyleBackColor = True
@@ -458,10 +460,10 @@ Friend Class MainForm
         Me.cmdReqContractData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqContractData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqContractData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqContractData.Location = New System.Drawing.Point(544, 302)
+        Me.cmdReqContractData.Location = New System.Drawing.Point(542, 346)
         Me.cmdReqContractData.Name = "cmdReqContractData"
         Me.cmdReqContractData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqContractData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqContractData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqContractData.TabIndex = 24
         Me.cmdReqContractData.Text = "Req Contract Data..."
         Me.cmdReqContractData.UseVisualStyleBackColor = True
@@ -472,10 +474,10 @@ Friend Class MainForm
         Me.cmdReqOpenOrders.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqOpenOrders.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqOpenOrders.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqOpenOrders.Location = New System.Drawing.Point(684, 302)
+        Me.cmdReqOpenOrders.Location = New System.Drawing.Point(681, 346)
         Me.cmdReqOpenOrders.Name = "cmdReqOpenOrders"
         Me.cmdReqOpenOrders.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqOpenOrders.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqOpenOrders.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqOpenOrders.TabIndex = 25
         Me.cmdReqOpenOrders.Text = "Req Open Orders"
         Me.cmdReqOpenOrders.UseVisualStyleBackColor = True
@@ -506,7 +508,7 @@ Friend Class MainForm
         Me.lstErrors.Location = New System.Drawing.Point(8, 447)
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lstErrors.Size = New System.Drawing.Size(529, 168)
+        Me.lstErrors.Size = New System.Drawing.Size(529, 140)
         Me.lstErrors.TabIndex = 61
         '
         'lstServerResponses
@@ -521,7 +523,7 @@ Friend Class MainForm
         Me.lstServerResponses.Location = New System.Drawing.Point(8, 248)
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lstServerResponses.Size = New System.Drawing.Size(529, 168)
+        Me.lstServerResponses.Size = New System.Drawing.Size(529, 140)
         Me.lstServerResponses.TabIndex = 59
         '
         'lstMktData
@@ -536,7 +538,7 @@ Friend Class MainForm
         Me.lstMktData.Location = New System.Drawing.Point(8, 49)
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lstMktData.Size = New System.Drawing.Size(529, 168)
+        Me.lstMktData.Size = New System.Drawing.Size(529, 140)
         Me.lstMktData.TabIndex = 57
         '
         'Label3
@@ -584,10 +586,10 @@ Friend Class MainForm
         Me.cmdExerciseOptions.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdExerciseOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdExerciseOptions.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdExerciseOptions.Location = New System.Drawing.Point(544, 275)
+        Me.cmdExerciseOptions.Location = New System.Drawing.Point(542, 315)
         Me.cmdExerciseOptions.Name = "cmdExerciseOptions"
         Me.cmdExerciseOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdExerciseOptions.Size = New System.Drawing.Size(134, 21)
+        Me.cmdExerciseOptions.Size = New System.Drawing.Size(133, 22)
         Me.cmdExerciseOptions.TabIndex = 22
         Me.cmdExerciseOptions.Text = "Exercise Options..."
         Me.cmdExerciseOptions.UseVisualStyleBackColor = True
@@ -598,10 +600,10 @@ Friend Class MainForm
         Me.cmdCancelHistData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelHistData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelHistData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelHistData.Location = New System.Drawing.Point(684, 60)
+        Me.cmdCancelHistData.Location = New System.Drawing.Point(681, 67)
         Me.cmdCancelHistData.Name = "cmdCancelHistData"
         Me.cmdCancelHistData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelHistData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelHistData.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelHistData.TabIndex = 7
         Me.cmdCancelHistData.Text = "Cancel Hist. Data..."
         Me.cmdCancelHistData.UseVisualStyleBackColor = True
@@ -612,10 +614,10 @@ Friend Class MainForm
         Me.cmdScanner.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdScanner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdScanner.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdScanner.Location = New System.Drawing.Point(684, 140)
+        Me.cmdScanner.Location = New System.Drawing.Point(681, 160)
         Me.cmdScanner.Name = "cmdScanner"
         Me.cmdScanner.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdScanner.Size = New System.Drawing.Size(134, 21)
+        Me.cmdScanner.Size = New System.Drawing.Size(133, 22)
         Me.cmdScanner.TabIndex = 13
         Me.cmdScanner.Text = "Market Scanner..."
         Me.cmdScanner.UseVisualStyleBackColor = True
@@ -626,10 +628,10 @@ Friend Class MainForm
         Me.cmdReqRealTimeBars.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqRealTimeBars.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqRealTimeBars.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqRealTimeBars.Location = New System.Drawing.Point(544, 113)
+        Me.cmdReqRealTimeBars.Location = New System.Drawing.Point(542, 129)
         Me.cmdReqRealTimeBars.Name = "cmdReqRealTimeBars"
         Me.cmdReqRealTimeBars.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqRealTimeBars.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqRealTimeBars.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqRealTimeBars.TabIndex = 10
         Me.cmdReqRealTimeBars.Text = "Real Time Bars"
         Me.cmdReqRealTimeBars.UseVisualStyleBackColor = True
@@ -640,10 +642,10 @@ Friend Class MainForm
         Me.cmdCancelRealTimeBars.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelRealTimeBars.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelRealTimeBars.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelRealTimeBars.Location = New System.Drawing.Point(684, 113)
+        Me.cmdCancelRealTimeBars.Location = New System.Drawing.Point(681, 129)
         Me.cmdCancelRealTimeBars.Name = "cmdCancelRealTimeBars"
         Me.cmdCancelRealTimeBars.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelRealTimeBars.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelRealTimeBars.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelRealTimeBars.TabIndex = 11
         Me.cmdCancelRealTimeBars.Text = "Canc Real Time Bars"
         Me.cmdCancelRealTimeBars.UseVisualStyleBackColor = True
@@ -654,10 +656,10 @@ Friend Class MainForm
         Me.cmdReqCurrentTime.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqCurrentTime.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqCurrentTime.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqCurrentTime.Location = New System.Drawing.Point(544, 140)
+        Me.cmdReqCurrentTime.Location = New System.Drawing.Point(542, 160)
         Me.cmdReqCurrentTime.Name = "cmdReqCurrentTime"
         Me.cmdReqCurrentTime.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqCurrentTime.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqCurrentTime.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqCurrentTime.TabIndex = 12
         Me.cmdReqCurrentTime.Text = "Current Time"
         Me.cmdReqCurrentTime.UseVisualStyleBackColor = True
@@ -668,64 +670,64 @@ Friend Class MainForm
         Me.cmdWhatIf.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdWhatIf.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdWhatIf.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdWhatIf.Location = New System.Drawing.Point(544, 221)
+        Me.cmdWhatIf.Location = New System.Drawing.Point(542, 253)
         Me.cmdWhatIf.Name = "cmdWhatIf"
         Me.cmdWhatIf.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdWhatIf.Size = New System.Drawing.Size(134, 21)
+        Me.cmdWhatIf.Size = New System.Drawing.Size(133, 22)
         Me.cmdWhatIf.TabIndex = 18
         Me.cmdWhatIf.Text = "What If..."
         Me.cmdWhatIf.UseVisualStyleBackColor = True
         '
         'cmdCalcImpliedVolatility
         '
-        Me.cmdCalcImpliedVolatility.Location = New System.Drawing.Point(543, 167)
+        Me.cmdCalcImpliedVolatility.Location = New System.Drawing.Point(542, 191)
         Me.cmdCalcImpliedVolatility.Name = "cmdCalcImpliedVolatility"
-        Me.cmdCalcImpliedVolatility.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCalcImpliedVolatility.Size = New System.Drawing.Size(133, 22)
         Me.cmdCalcImpliedVolatility.TabIndex = 14
         Me.cmdCalcImpliedVolatility.Text = "Calc Implied Volatility"
         Me.cmdCalcImpliedVolatility.UseVisualStyleBackColor = True
         '
         'cmdCalcOptionPrice
         '
-        Me.cmdCalcOptionPrice.Location = New System.Drawing.Point(543, 194)
+        Me.cmdCalcOptionPrice.Location = New System.Drawing.Point(542, 222)
         Me.cmdCalcOptionPrice.Name = "cmdCalcOptionPrice"
-        Me.cmdCalcOptionPrice.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCalcOptionPrice.Size = New System.Drawing.Size(133, 22)
         Me.cmdCalcOptionPrice.TabIndex = 16
         Me.cmdCalcOptionPrice.Text = "Calc Option Price"
         Me.cmdCalcOptionPrice.UseVisualStyleBackColor = True
         '
         'cmdCancelCalcImpliedVolatility
         '
-        Me.cmdCancelCalcImpliedVolatility.Location = New System.Drawing.Point(684, 167)
+        Me.cmdCancelCalcImpliedVolatility.Location = New System.Drawing.Point(681, 191)
         Me.cmdCancelCalcImpliedVolatility.Name = "cmdCancelCalcImpliedVolatility"
-        Me.cmdCancelCalcImpliedVolatility.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelCalcImpliedVolatility.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelCalcImpliedVolatility.TabIndex = 15
         Me.cmdCancelCalcImpliedVolatility.Text = "Cancel Calc Impl Vol"
         Me.cmdCancelCalcImpliedVolatility.UseVisualStyleBackColor = True
         '
         'cmdCancelCalcOptionPrice
         '
-        Me.cmdCancelCalcOptionPrice.Location = New System.Drawing.Point(684, 194)
+        Me.cmdCancelCalcOptionPrice.Location = New System.Drawing.Point(681, 222)
         Me.cmdCancelCalcOptionPrice.Name = "cmdCancelCalcOptionPrice"
-        Me.cmdCancelCalcOptionPrice.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelCalcOptionPrice.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelCalcOptionPrice.TabIndex = 17
         Me.cmdCancelCalcOptionPrice.Text = "Cancel Calc Opt Price"
         Me.cmdCancelCalcOptionPrice.UseVisualStyleBackColor = True
         '
         'cmdReqGlobalCancel
         '
-        Me.cmdReqGlobalCancel.Location = New System.Drawing.Point(684, 437)
+        Me.cmdReqGlobalCancel.Location = New System.Drawing.Point(1009, 36)
         Me.cmdReqGlobalCancel.Name = "cmdReqGlobalCancel"
-        Me.cmdReqGlobalCancel.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqGlobalCancel.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqGlobalCancel.TabIndex = 35
         Me.cmdReqGlobalCancel.Text = "Global Cancel"
         Me.cmdReqGlobalCancel.UseVisualStyleBackColor = True
         '
         'cmdReqMarketDataType
         '
-        Me.cmdReqMarketDataType.Location = New System.Drawing.Point(544, 464)
+        Me.cmdReqMarketDataType.Location = New System.Drawing.Point(870, 70)
         Me.cmdReqMarketDataType.Name = "cmdReqMarketDataType"
-        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(134, 36)
+        Me.cmdReqMarketDataType.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMarketDataType.TabIndex = 36
         Me.cmdReqMarketDataType.Text = "Req Mkt Data Type"
         Me.cmdReqMarketDataType.UseVisualStyleBackColor = True
@@ -736,181 +738,181 @@ Friend Class MainForm
         Me.cmdCancelMktData.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelMktData.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelMktData.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelMktData.Location = New System.Drawing.Point(684, 6)
+        Me.cmdCancelMktData.Location = New System.Drawing.Point(681, 5)
         Me.cmdCancelMktData.Name = "cmdCancelMktData"
         Me.cmdCancelMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelMktData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelMktData.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelMktData.TabIndex = 3
         Me.cmdCancelMktData.Text = "Cancel Mkt Data..."
         Me.cmdCancelMktData.UseVisualStyleBackColor = True
         '
         'cmdReqPositions
         '
-        Me.cmdReqPositions.Location = New System.Drawing.Point(544, 506)
+        Me.cmdReqPositions.Location = New System.Drawing.Point(870, 98)
         Me.cmdReqPositions.Name = "cmdReqPositions"
-        Me.cmdReqPositions.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPositions.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqPositions.TabIndex = 38
         Me.cmdReqPositions.Text = "Req Positions"
         Me.cmdReqPositions.UseVisualStyleBackColor = True
         '
         'cmdReqAccountSummary
         '
-        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(544, 532)
+        Me.cmdReqAccountSummary.Location = New System.Drawing.Point(870, 129)
         Me.cmdReqAccountSummary.Name = "cmdReqAccountSummary"
-        Me.cmdReqAccountSummary.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAccountSummary.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAccountSummary.TabIndex = 40
         Me.cmdReqAccountSummary.Text = "Req Acct Summary"
         Me.cmdReqAccountSummary.UseVisualStyleBackColor = True
         '
         'cmdCancelAccountSummary
         '
-        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(683, 533)
+        Me.cmdCancelAccountSummary.Location = New System.Drawing.Point(1009, 129)
         Me.cmdCancelAccountSummary.Name = "cmdCancelAccountSummary"
-        Me.cmdCancelAccountSummary.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelAccountSummary.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelAccountSummary.TabIndex = 41
         Me.cmdCancelAccountSummary.Text = "Cancel Acct Summary"
         Me.cmdCancelAccountSummary.UseVisualStyleBackColor = True
         '
         'cmdCancelPositions
         '
-        Me.cmdCancelPositions.Location = New System.Drawing.Point(683, 506)
+        Me.cmdCancelPositions.Location = New System.Drawing.Point(1009, 98)
         Me.cmdCancelPositions.Name = "cmdCancelPositions"
-        Me.cmdCancelPositions.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPositions.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelPositions.TabIndex = 39
         Me.cmdCancelPositions.Text = "Cancel Positions"
         Me.cmdCancelPositions.UseVisualStyleBackColor = True
         '
         'cmdGroups
         '
-        Me.cmdGroups.Location = New System.Drawing.Point(545, 560)
+        Me.cmdGroups.Location = New System.Drawing.Point(870, 160)
         Me.cmdGroups.Name = "cmdGroups"
-        Me.cmdGroups.Size = New System.Drawing.Size(133, 21)
+        Me.cmdGroups.Size = New System.Drawing.Size(133, 22)
         Me.cmdGroups.TabIndex = 42
         Me.cmdGroups.Text = "Groups"
         Me.cmdGroups.UseVisualStyleBackColor = True
         '
         'cmdReqFundamentalData
         '
-        Me.cmdReqFundamentalData.Location = New System.Drawing.Point(545, 87)
+        Me.cmdReqFundamentalData.Location = New System.Drawing.Point(542, 98)
         Me.cmdReqFundamentalData.Name = "cmdReqFundamentalData"
-        Me.cmdReqFundamentalData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqFundamentalData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqFundamentalData.TabIndex = 8
         Me.cmdReqFundamentalData.Text = "Fundamental Data..."
         Me.cmdReqFundamentalData.UseVisualStyleBackColor = True
         '
         'cmdCancelFundamentalData
         '
-        Me.cmdCancelFundamentalData.Location = New System.Drawing.Point(684, 87)
+        Me.cmdCancelFundamentalData.Location = New System.Drawing.Point(681, 98)
         Me.cmdCancelFundamentalData.Name = "cmdCancelFundamentalData"
-        Me.cmdCancelFundamentalData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelFundamentalData.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelFundamentalData.TabIndex = 9
         Me.cmdCancelFundamentalData.Text = "Cancel Fund. Data..."
         Me.cmdCancelFundamentalData.UseVisualStyleBackColor = True
         '
         'cmdReqPositionsMulti
         '
-        Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(544, 587)
+        Me.cmdReqPositionsMulti.Location = New System.Drawing.Point(870, 191)
         Me.cmdReqPositionsMulti.Name = "cmdReqPositionsMulti"
-        Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPositionsMulti.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqPositionsMulti.TabIndex = 44
         Me.cmdReqPositionsMulti.Text = "Req Positions Multi"
         Me.cmdReqPositionsMulti.UseVisualStyleBackColor = True
         '
         'cmdCancelPositionsMulti
         '
-        Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(683, 587)
+        Me.cmdCancelPositionsMulti.Location = New System.Drawing.Point(1009, 191)
         Me.cmdCancelPositionsMulti.Name = "cmdCancelPositionsMulti"
-        Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPositionsMulti.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelPositionsMulti.TabIndex = 45
         Me.cmdCancelPositionsMulti.Text = "Cancel Positions Multi"
         Me.cmdCancelPositionsMulti.UseVisualStyleBackColor = True
         '
         'cmdReqAccountUpdatesMulti
         '
-        Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(543, 614)
+        Me.cmdReqAccountUpdatesMulti.Location = New System.Drawing.Point(870, 221)
         Me.cmdReqAccountUpdatesMulti.Name = "cmdReqAccountUpdatesMulti"
-        Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqAccountUpdatesMulti.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqAccountUpdatesMulti.TabIndex = 46
         Me.cmdReqAccountUpdatesMulti.Text = "Req Acct Upd Multi"
         Me.cmdReqAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
         'cmdCancelAccountUpdatesMulti
         '
-        Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(683, 614)
+        Me.cmdCancelAccountUpdatesMulti.Location = New System.Drawing.Point(1009, 221)
         Me.cmdCancelAccountUpdatesMulti.Name = "cmdCancelAccountUpdatesMulti"
-        Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelAccountUpdatesMulti.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelAccountUpdatesMulti.TabIndex = 47
         Me.cmdCancelAccountUpdatesMulti.Text = "Cancel Acct Upd Multi"
         Me.cmdCancelAccountUpdatesMulti.UseVisualStyleBackColor = True
         '
         'cmdReqSecDefOptParams
         '
-        Me.cmdReqSecDefOptParams.Location = New System.Drawing.Point(683, 464)
+        Me.cmdReqSecDefOptParams.Location = New System.Drawing.Point(1009, 70)
         Me.cmdReqSecDefOptParams.Name = "cmdReqSecDefOptParams"
-        Me.cmdReqSecDefOptParams.Size = New System.Drawing.Size(134, 36)
+        Me.cmdReqSecDefOptParams.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqSecDefOptParams.TabIndex = 37
         Me.cmdReqSecDefOptParams.Text = "Req Sec Def Opt Params"
         Me.cmdReqSecDefOptParams.UseVisualStyleBackColor = True
         '
         'cmdFamilyCodes
         '
-        Me.cmdFamilyCodes.Location = New System.Drawing.Point(684, 221)
+        Me.cmdFamilyCodes.Location = New System.Drawing.Point(681, 253)
         Me.cmdFamilyCodes.Name = "cmdFamilyCodes"
-        Me.cmdFamilyCodes.Size = New System.Drawing.Size(133, 21)
+        Me.cmdFamilyCodes.Size = New System.Drawing.Size(133, 22)
         Me.cmdFamilyCodes.TabIndex = 19
         Me.cmdFamilyCodes.Text = "Req Family Codes"
         Me.cmdFamilyCodes.UseVisualStyleBackColor = True
         '
         'cmdReqMatchingSymbols
         '
-        Me.cmdReqMatchingSymbols.Location = New System.Drawing.Point(684, 560)
+        Me.cmdReqMatchingSymbols.Location = New System.Drawing.Point(1009, 160)
         Me.cmdReqMatchingSymbols.Name = "cmdReqMatchingSymbols"
-        Me.cmdReqMatchingSymbols.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMatchingSymbols.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMatchingSymbols.TabIndex = 43
         Me.cmdReqMatchingSymbols.Text = "Req Matching Symbols"
         Me.cmdReqMatchingSymbols.UseVisualStyleBackColor = True
         '
         'cmdReqMktDepthExchanges
         '
-        Me.cmdReqMktDepthExchanges.Location = New System.Drawing.Point(543, 641)
+        Me.cmdReqMktDepthExchanges.Location = New System.Drawing.Point(870, 253)
         Me.cmdReqMktDepthExchanges.Name = "cmdReqMktDepthExchanges"
-        Me.cmdReqMktDepthExchanges.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMktDepthExchanges.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMktDepthExchanges.TabIndex = 48
         Me.cmdReqMktDepthExchanges.Text = "Req Mkt Depth Exch"
         Me.cmdReqMktDepthExchanges.UseVisualStyleBackColor = True
         '
         'cmdReqSmartComponents
         '
-        Me.cmdReqSmartComponents.Location = New System.Drawing.Point(545, 668)
+        Me.cmdReqSmartComponents.Location = New System.Drawing.Point(870, 284)
         Me.cmdReqSmartComponents.Name = "cmdReqSmartComponents"
-        Me.cmdReqSmartComponents.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqSmartComponents.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqSmartComponents.TabIndex = 50
         Me.cmdReqSmartComponents.Text = "Req Smart Components"
         Me.cmdReqSmartComponents.UseVisualStyleBackColor = True
         '
         'cmdReqNewsProviders
         '
-        Me.cmdReqNewsProviders.Location = New System.Drawing.Point(684, 641)
+        Me.cmdReqNewsProviders.Location = New System.Drawing.Point(1009, 253)
         Me.cmdReqNewsProviders.Name = "cmdReqNewsProviders"
-        Me.cmdReqNewsProviders.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNewsProviders.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqNewsProviders.TabIndex = 49
         Me.cmdReqNewsProviders.Text = "Req News Providers"
         Me.cmdReqNewsProviders.UseVisualStyleBackColor = True
         '
         'cmdReqNewsArticle
         '
-        Me.cmdReqNewsArticle.Location = New System.Drawing.Point(685, 668)
+        Me.cmdReqNewsArticle.Location = New System.Drawing.Point(1009, 284)
         Me.cmdReqNewsArticle.Name = "cmdReqNewsArticle"
-        Me.cmdReqNewsArticle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqNewsArticle.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqNewsArticle.TabIndex = 51
         Me.cmdReqNewsArticle.Text = "Req News Article"
         Me.cmdReqNewsArticle.UseVisualStyleBackColor = True
         '
         'cmdReqHistoricalNews
         '
-        Me.cmdReqHistoricalNews.Location = New System.Drawing.Point(545, 695)
+        Me.cmdReqHistoricalNews.Location = New System.Drawing.Point(870, 315)
         Me.cmdReqHistoricalNews.Name = "cmdReqHistoricalNews"
-        Me.cmdReqHistoricalNews.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHistoricalNews.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqHistoricalNews.TabIndex = 52
         Me.cmdReqHistoricalNews.Text = "Req Historical News"
         Me.cmdReqHistoricalNews.UseVisualStyleBackColor = True
@@ -921,46 +923,46 @@ Friend Class MainForm
         Me.cmdReqHeadTimestamp.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdReqHeadTimestamp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdReqHeadTimestamp.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdReqHeadTimestamp.Location = New System.Drawing.Point(683, 695)
+        Me.cmdReqHeadTimestamp.Location = New System.Drawing.Point(1009, 315)
         Me.cmdReqHeadTimestamp.Name = "cmdReqHeadTimestamp"
         Me.cmdReqHeadTimestamp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdReqHeadTimestamp.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHeadTimestamp.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqHeadTimestamp.TabIndex = 53
         Me.cmdReqHeadTimestamp.Text = "Req Head Time Stamp..."
         Me.cmdReqHeadTimestamp.UseVisualStyleBackColor = True
         '
         'cmdReqHistogramData
         '
-        Me.cmdReqHistogramData.Location = New System.Drawing.Point(543, 722)
+        Me.cmdReqHistogramData.Location = New System.Drawing.Point(870, 346)
         Me.cmdReqHistogramData.Name = "cmdReqHistogramData"
-        Me.cmdReqHistogramData.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqHistogramData.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqHistogramData.TabIndex = 54
         Me.cmdReqHistogramData.Text = "Req Histogram Data"
         Me.cmdReqHistogramData.UseVisualStyleBackColor = True
         '
         'cmdReqMarketRule
         '
-        Me.cmdReqMarketRule.Location = New System.Drawing.Point(683, 722)
+        Me.cmdReqMarketRule.Location = New System.Drawing.Point(1009, 346)
         Me.cmdReqMarketRule.Name = "cmdReqMarketRule"
-        Me.cmdReqMarketRule.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqMarketRule.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqMarketRule.TabIndex = 55
         Me.cmdReqMarketRule.Text = "Req Market Rule"
         Me.cmdReqMarketRule.UseVisualStyleBackColor = True
         '
         'cmdCancelPnlSingle
         '
-        Me.cmdCancelPnlSingle.Location = New System.Drawing.Point(681, 776)
+        Me.cmdCancelPnlSingle.Location = New System.Drawing.Point(1009, 408)
         Me.cmdCancelPnlSingle.Name = "cmdCancelPnlSingle"
-        Me.cmdCancelPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPnlSingle.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelPnlSingle.TabIndex = 67
         Me.cmdCancelPnlSingle.Text = "Cancel PnL Single"
         Me.cmdCancelPnlSingle.UseVisualStyleBackColor = True
         '
         'cmdReqPnlSingle
         '
-        Me.cmdReqPnlSingle.Location = New System.Drawing.Point(543, 776)
+        Me.cmdReqPnlSingle.Location = New System.Drawing.Point(870, 408)
         Me.cmdReqPnlSingle.Name = "cmdReqPnlSingle"
-        Me.cmdReqPnlSingle.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPnlSingle.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqPnlSingle.TabIndex = 66
         Me.cmdReqPnlSingle.Text = "Req PnL Single..."
         Me.cmdReqPnlSingle.UseVisualStyleBackColor = True
@@ -971,28 +973,38 @@ Friend Class MainForm
         Me.cmdCancelPnl.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancelPnl.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancelPnl.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancelPnl.Location = New System.Drawing.Point(681, 749)
+        Me.cmdCancelPnl.Location = New System.Drawing.Point(1009, 380)
         Me.cmdCancelPnl.Name = "cmdCancelPnl"
         Me.cmdCancelPnl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cmdCancelPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdCancelPnl.Size = New System.Drawing.Size(133, 22)
         Me.cmdCancelPnl.TabIndex = 65
         Me.cmdCancelPnl.Text = "Cancel PnL"
         Me.cmdCancelPnl.UseVisualStyleBackColor = True
         '
         'cmdReqPnl
         '
-        Me.cmdReqPnl.Location = New System.Drawing.Point(543, 749)
+        Me.cmdReqPnl.Location = New System.Drawing.Point(870, 380)
         Me.cmdReqPnl.Name = "cmdReqPnl"
-        Me.cmdReqPnl.Size = New System.Drawing.Size(134, 21)
+        Me.cmdReqPnl.Size = New System.Drawing.Size(133, 22)
         Me.cmdReqPnl.TabIndex = 64
         Me.cmdReqPnl.Text = "Req PnL..."
         Me.cmdReqPnl.UseVisualStyleBackColor = True
+        '
+        'cmdReqHistoricalTicks
+        '
+        Me.cmdReqHistoricalTicks.Location = New System.Drawing.Point(870, 439)
+        Me.cmdReqHistoricalTicks.Name = "cmdReqHistoricalTicks"
+        Me.cmdReqHistoricalTicks.Size = New System.Drawing.Size(133, 22)
+        Me.cmdReqHistoricalTicks.TabIndex = 68
+        Me.cmdReqHistoricalTicks.Text = "Req Historical Ticks"
+        Me.cmdReqHistoricalTicks.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(823, 854)
+        Me.ClientSize = New System.Drawing.Size(1154, 638)
+        Me.Controls.Add(Me.cmdReqHistoricalTicks)
         Me.Controls.Add(Me.cmdCancelPnlSingle)
         Me.Controls.Add(Me.cmdReqPnlSingle)
         Me.Controls.Add(Me.cmdCancelPnl)
@@ -1921,6 +1933,26 @@ Friend Class MainForm
 #End Region
 
 #Region "API event handlers"
+
+    Private Sub m_apiEvents_HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs) Handles m_apiEvents.HistoricalTicks
+        For Each tick In e.ticks
+            m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", e.reqId, tick.Time, tick.Price, tick.Size))
+        Next
+    End Sub
+
+    Private Sub m_apiEvents_HistoricalTicksBidAsk(sender As Object, e As HistoricalTicksBidAskEventArgs) Handles m_apiEvents.HistoricalTicksBidAsk
+        For Each tick In e.ticks
+            m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
+                    e.reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk))
+        Next
+    End Sub
+
+    Private Sub m_apiEvents_HistoricalTicksLast(sender As Object, e As HistoricalTicksLastEventArgs) Handles m_apiEvents.HistoricalTicksLast
+        For Each tick In e.ticks
+            m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
+                    e.reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions))
+        Next
+    End Sub
 
     Private Sub m_apiEvents_PnL(sender As ApiEventSource, e As PnLEventArgs) Handles m_apiEvents.PnL
         m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL, req id: {0}, Daily PnL: {1}, Unrealized PnL: {2}", e.requestId, e.dailyPnL, e.unrealizedPnL))
@@ -3408,6 +3440,16 @@ Friend Class MainForm
 
     Private Sub cmdCancelPnlSingle_Click(sender As Object, e As EventArgs) Handles cmdCancelPnlSingle.Click
         m_api.cancelPnLSingle(m_dlgPnL.ReqId)
+    End Sub
+
+    Private Sub cmdReqHistoricalTicks_Click(sender As Object, e As EventArgs) Handles cmdReqHistoricalTicks.Click
+        m_dlgOrder.init(dlgOrder.DialogType.RequestHistoricalTicks,
+            m_contractInfo, m_orderInfo, m_underComp, m_mktDataOptions, Me)
+
+        If m_dlgOrder.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.reqHistoricalTicks(m_dlgOrder.orderId, m_contractInfo, m_dlgOrder.histStartDateTime, m_dlgOrder.histEndDateTime, m_dlgOrder.numberOfTicks,
+                                     m_dlgOrder.whatToShow, m_dlgOrder.useRTH, m_dlgOrder.ignoreSize, m_dlgOrder.options)
+        End If
     End Sub
 
 End Class

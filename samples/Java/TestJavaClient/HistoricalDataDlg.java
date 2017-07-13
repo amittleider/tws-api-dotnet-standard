@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 public class HistoricalDataDlg extends JDialogBox {
     private IBGridBagPanel m_panel = new IBGridBagPanel();
+    private JTextField  m_StartTime = new JTextField(22);
     private JTextField  m_BackfillEndTime = new JTextField(22);
     private JTextField  m_BackfillDuration = new JTextField( "1 M");
     private JTextField  m_BarSizeSetting = new JTextField("1 day");
@@ -21,22 +22,19 @@ public class HistoricalDataDlg extends JDialogBox {
     private JTextField  m_FormatDate = new JTextField( "1");
     private JTextField  m_WhatToShow = new JTextField( "TRADES");
     private JCheckBox   m_keepUpToDateCheckBox = new JCheckBox();
+    private JCheckBox m_ignoreSize = new JCheckBox();
+    private JTextField m_numberOfTicks = new JTextField("0");
     
-    private String       m_backfillEndTime;
-    private String       m_backfillDuration;
-    private String       m_barSizeSetting;
-    private boolean          m_useRTH;
-    private int          m_formatDate;
-    private String       m_whatToShow;
-    private boolean      m_keepUpToDate;
-    
-    public String backfillEndTime() { return m_backfillEndTime; }
-    public String backfillDuration() { return m_backfillDuration; }
-    public String barSizeSetting() { return m_barSizeSetting; }
-    public boolean useRTH() { return m_useRTH; }
-    public int formatDate() { return m_formatDate; }
-    public String whatToshow() { return m_whatToShow; }
-    public boolean keepUpToDate() { return m_keepUpToDate; }
+    public String startTime() { return m_StartTime.getText(); }
+    public String backfillEndTime() { return m_BackfillEndTime.getText(); }
+    public String backfillDuration() { return m_BackfillDuration.getText(); }
+    public String barSizeSetting() { return m_BarSizeSetting.getText(); }
+    public boolean useRTH() { return m_UseRTH.isSelected(); }
+    public int formatDate() { return Integer.parseInt(m_FormatDate.getText()); }
+    public String whatToshow() { return m_WhatToShow.getText(); }
+    public boolean keepUpToDate() { return m_keepUpToDateCheckBox.isSelected(); }
+    public boolean ignoreSize() { return m_ignoreSize.isSelected(); }
+    public int numberOfTicks() { return Integer.parseInt(m_numberOfTicks.getText()); }
     
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
@@ -67,8 +65,12 @@ public class HistoricalDataDlg extends JDialogBox {
         gbc.gridheight = 1;
 
         m_BackfillEndTime.setText(dateTime);
+        m_panel.addGBComponent(new JLabel( "Start Date/Time"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
+        m_panel.addGBComponent(m_StartTime, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         m_panel.addGBComponent(new JLabel( "End Date/Time"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         m_panel.addGBComponent(m_BackfillEndTime, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
+        m_panel.addGBComponent(new JLabel( "Number of ticks"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
+        m_panel.addGBComponent(m_numberOfTicks, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         m_panel.addGBComponent(new JLabel( "Duration"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         m_panel.addGBComponent(m_BackfillDuration, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         m_panel.addGBComponent(new JLabel( "Bar Size Setting (1 to 11)"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
@@ -81,6 +83,8 @@ public class HistoricalDataDlg extends JDialogBox {
         m_panel.addGBComponent(m_FormatDate, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER) ;
         m_panel.addGBComponent(new JLabel( "Keep up to date"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         m_panel.addGBComponent(m_keepUpToDateCheckBox, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
+        m_panel.addGBComponent(new JLabel( "Ignore size"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
+        m_panel.addGBComponent(m_ignoreSize, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         
         getContentPane().add(m_panel);
         pack();
@@ -88,19 +92,6 @@ public class HistoricalDataDlg extends JDialogBox {
     
     private static String pad(int val) {
         return val < 10 ? "0" + val : "" + val;
-    }
-    
-    @Override
-    protected void onOk() {
-        m_backfillEndTime = m_BackfillEndTime.getText();
-        m_backfillDuration = m_BackfillDuration.getText();
-        m_barSizeSetting = m_BarSizeSetting.getText();
-        m_useRTH = m_UseRTH.isSelected();
-        m_whatToShow = m_WhatToShow.getText();
-        m_formatDate = Integer.parseInt( m_FormatDate.getText() );
-        m_keepUpToDate = m_keepUpToDateCheckBox.isSelected();
-        
-        super.onOk();
-    }    
+    }   
 
 }

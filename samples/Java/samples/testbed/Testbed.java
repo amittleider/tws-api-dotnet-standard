@@ -66,8 +66,16 @@ public class Testbed {
 		//pnlSingle(wrapper.getClient());
 		//continuousFuturesOperations(wrapper.getClient());
 
+		historicalTicks(wrapper.getClient());
+
 		Thread.sleep(100000);
 		m_client.eDisconnect();
+	}
+	
+	private static void historicalTicks(EClientSocket client) {
+        client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
+        client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
+        client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
 	}
 
 	private static void pnl(EClientSocket client) throws InterruptedException {

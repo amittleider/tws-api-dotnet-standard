@@ -225,5 +225,8 @@
     <ClInclude Include="PriceIncrement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HistoricalTick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

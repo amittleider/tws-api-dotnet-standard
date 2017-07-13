@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="messages\HistoricalTickLastMessage.cs" />
+    <Compile Include="messages\HistoricalTickLastEndMessage.cs" />
+    <Compile Include="messages\HistoricalTickBidAsk.cs" />
+    <Compile Include="messages\HistoricalTickEndMessage.cs" />
+    <Compile Include="messages\HistoricalTickBidAskEndMessage.cs" />
+    <Compile Include="messages\HistoricalTickMessage.cs" />
     <Compile Include="messages\MarketRuleMessage.cs" />
     <Compile Include="messages\HeadTimestampMessage.cs" />
     <Compile Include="messages\DailyPnLSingleMessage.cs" />

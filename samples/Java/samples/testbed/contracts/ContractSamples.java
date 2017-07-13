@@ -168,7 +168,7 @@ public class ContractSamples {
 	
 	public static Contract USStockAtSmart() {
 		Contract contract = new Contract();
-		contract.symbol("IBKR");
+		contract.symbol("IBM");
 		contract.secType("STK");
 		contract.currency("USD");
 		contract.exchange("SMART");

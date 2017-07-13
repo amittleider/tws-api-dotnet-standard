@@ -120,7 +120,7 @@ Namespace Samples
         Public Shared Function USStockAtSmart() As Contract
 
             Dim Contract As Contract = New Contract
-            Contract.Symbol = "IBKR"
+            Contract.Symbol = "IBM"
             Contract.SecType = "STK"
             Contract.Currency = "USD"
             Contract.Exchange = "SMART"

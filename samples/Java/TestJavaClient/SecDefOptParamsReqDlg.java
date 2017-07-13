@@ -12,14 +12,12 @@ public class SecDefOptParamsReqDlg extends JDialog {
 	private final UpperField m_idFld = new UpperField("0");
 	private final UpperField m_underlyingSymbolFld = new UpperField();
 	private final UpperField m_futFopExchangeFld = new UpperField();
-//	private final UpperField m_currencyFld = new UpperField();
 	private final UpperField m_underlyingSecTypeFld = new UpperField();
 	private final UpperField m_underlyingConIdFld = new UpperField();
 	private int m_id;
 	private String m_underlyingSymbol;
 	private String m_futFopExchange;
 	private String m_underlyingSecType;
-//	private String m_currency;
 	private int m_underlyingConId;
 	private boolean m_isOk;
 	
@@ -55,7 +53,6 @@ public class SecDefOptParamsReqDlg extends JDialog {
 		m_id = m_idFld.getInt();
 		m_underlyingSymbol = m_underlyingSymbolFld.getText();
 		m_futFopExchange = m_futFopExchangeFld.getText();
-//		m_currency = m_currencyFld.getText();
 		m_underlyingSecType = m_underlyingSecTypeFld.getText();
 		m_underlyingConId = m_underlyingConIdFld.getInt();
 		m_isOk = true;
@@ -87,7 +84,4 @@ public class SecDefOptParamsReqDlg extends JDialog {
 		return m_underlyingConId;
 	}
 	
-//	public String currency() {
-//		return m_currency;
-//	}
 }

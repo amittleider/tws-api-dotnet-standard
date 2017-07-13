@@ -12,6 +12,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.ib.client.*;
+import com.ib.client.HistoricalTick;
+import com.ib.client.HistoricalTickBidAsk;
+import com.ib.client.HistoricalTickLast;
 
 import javax.swing.*;
 
@@ -385,4 +388,28 @@ public class Test implements EWrapper {
     public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
         System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value));
     }
+    
+    @Override
+    public void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean done) {
+        for (HistoricalTick tick : ticks) {
+            System.out.println(EWrapperMsgGenerator.historicalTick(reqId, tick.time(), tick.price(), tick.size()));
+        }
+    }
+    
+    @Override
+    public void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done) {
+        for (HistoricalTickBidAsk tick : ticks) {
+            System.out.println(EWrapperMsgGenerator.historicalTickBidAsk(reqId, tick.time(), tick.mask(), tick.priceBid(), tick.priceAsk(), tick.sizeBid(),
+                    tick.sizeAsk()));
+        }
+    }   
+    
+    @Override
+    public void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done) {
+        for (HistoricalTickLast tick : ticks) {
+            System.out.println(EWrapperMsgGenerator.historicalTickLast(reqId, tick.time(), tick.mask(), tick.price(), tick.size(), tick.exchange(), 
+                tick.specialConditions()));
+        }
+    }
+
 }

@@ -5,6 +5,10 @@
 #ifndef ewrapper_def
 #define ewrapper_def
 
+#include <string>
+#include <set>
+#include <map>
+#include <tuple>
 #include "CommonDefs.h"
 #include "SoftDollarTier.h"
 #include "DepthMktDataDescription.h"
@@ -14,10 +18,9 @@
 #include "HistogramEntry.h"
 #include "bar.h"
 #include "PriceIncrement.h"
-#include <string>
-#include <set>
-#include <map>
-#include <tuple>
+#include "HistoricalTick.h"
+#include "HistoricalTickBidAsk.h"
+#include "HistoricalTickLast.h"
 
 enum TickType { BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE,
 				HIGH, LOW, VOLUME, CLOSE,
@@ -209,6 +212,9 @@ public:
    virtual void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) = 0;
    virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL) = 0;
    virtual void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) = 0;
+   virtual void historicalTicks(int reqId, const std::vector<HistoricalTick> &ticks, bool done) = 0;
+   virtual void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk> &ticks, bool done) = 0;
+   virtual void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast> &ticks, bool done) = 0;
 };
 
 

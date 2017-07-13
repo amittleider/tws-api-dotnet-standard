@@ -91,4 +91,6 @@ void DefaultEWrapper::rerouteMktDepthReq(int reqId, int conid, const std::string
 void DefaultEWrapper::marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements) { }
 void DefaultEWrapper::pnl(int reqId, double dailyPnL, double unrealizedPnL) { }
 void DefaultEWrapper::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) { }
-
+void DefaultEWrapper::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) { }
+void DefaultEWrapper::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) { }
+void DefaultEWrapper::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) { }

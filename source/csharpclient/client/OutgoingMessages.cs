@@ -81,5 +81,6 @@ namespace IBApi
         CancelPnL = 93,
         ReqPnLSingle = 94,
         CancelPnLSingle = 95,
+        ReqHistoricalTicks = 96
     }
 }

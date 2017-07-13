@@ -12,6 +12,7 @@
 #include <iosfwd>
 #include "CommonDefs.h"
 #include "TagValue.h"
+#include "Contract.h"
 
 namespace ibapi {
 namespace client_constants {
@@ -179,6 +180,7 @@ const int REQ_PNL                       = 92;
 const int CANCEL_PNL                    = 93;
 const int REQ_PNL_SINGLE                = 94;
 const int CANCEL_PNL_SINGLE             = 95;
+const int REQ_HISTORICAL_TICKS          = 96;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -323,9 +325,9 @@ public:
 	void reqNewsArticle(int requestId, const std::string& providerCode, const std::string& articleId, const TagValueListSPtr& newsArticleOptions);
 	void reqHistoricalNews(int requestId, int conId, const std::string& providerCodes, const std::string& startDateTime, const std::string& endDateTime, int totalResults, 
 		const TagValueListSPtr& historicalNewsOptions);
-	void reqHeadTimestamp(int tickerId, Contract contract, const std::string& whatToShow, int useRTH, int formatDate);
+	void reqHeadTimestamp(int tickerId, const Contract &contract, const std::string& whatToShow, int useRTH, int formatDate);
 	void cancelHeadTimestamp(int tickerId);
-	void reqHistogramData(int reqId, Contract contract, bool useRTH, const std::string& timePeriod);
+	void reqHistogramData(int reqId, const Contract &contract, bool useRTH, const std::string& timePeriod);
 	void cancelHistogramData(int reqId);
 	void reqMarketRule(int marketRuleId);
 
@@ -333,6 +335,8 @@ public:
 	void cancelPnL(int reqId);
 	void reqPnLSingle(int reqId, const std::string& account, const std::string& modelCode, int conId);
 	void cancelPnLSingle(int reqId);
+    void reqHistoricalTicks(int reqId, const Contract &contract, const std::string& startDateTime,
+            const std::string& endDateTime, int numberOfTicks, const std::string& whatToShow, int useRth, bool ignoreSize, const TagValueListSPtr& miscOptions);
 private:
 
 	virtual int receive(char* buf, size_t sz) = 0;
@@ -361,7 +365,7 @@ public:
 
 
 	// encoders
-	template<class T> static void EncodeField(std::ostream&, T);
+	template<class T> static void EncodeField(std::ostream&, const T&);
 
 	// "max" encoders
 	static void EncodeFieldMax(std::ostream& os, int);
@@ -407,8 +411,10 @@ protected:
 
 };
 
-template<> void EClient::EncodeField<bool>(std::ostream& os, bool);
-template<> void EClient::EncodeField<double>(std::ostream& os, double);
+template<> void EClient::EncodeField<bool>(std::ostream& os, const bool&);
+template<> void EClient::EncodeField<double>(std::ostream& os, const double&);
+template<> void EClient::EncodeField<Contract>(std::ostream& os, const Contract &contract);
+template<> void EClient::EncodeField<TagValueListSPtr>(std::ostream& os, const TagValueListSPtr &tagValueList);
 
 #define ENCODE_FIELD(x) EClient::EncodeField(msg, x);
 #define ENCODE_FIELD_MAX(x) EClient::EncodeFieldMax(msg, x);

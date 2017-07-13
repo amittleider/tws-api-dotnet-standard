@@ -328,5 +328,17 @@ namespace IBApi
         {
 
         }
+
+        public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+        }
+
+        public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+        }
+
+        public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+        }
     }
 }

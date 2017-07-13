@@ -176,7 +176,7 @@ Contract ContractSamples::IBMUSStockAtSmart(){
 Contract ContractSamples::USStockWithPrimaryExch(){
 	//! [stkcontractwithprimary]
 	Contract contract;
-	contract.symbol = "MSFT";
+	contract.symbol = "AAPL";
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";

@@ -55,7 +55,7 @@ namespace Samples
             /***************************************************/
             /*** Real time market data operations  - Tickers ***/
             /***************************************************/
-            tickDataOperations(client);
+            //tickDataOperations(client);
 
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
@@ -164,9 +164,18 @@ namespace Samples
             /**************************/
             //continuousFuturesOperations(client);
 
+            historicalTicks(client);
+
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
+        }
+
+        private static void historicalTicks(EClientSocket client)
+        {
+            client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
+            client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
+            client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
         }
 
         private static void pnl(EClientSocket client)

@@ -748,6 +748,33 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_HistoricalTicks(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistoricalTicks(Me, New HistoricalTicksEventArgs With {
+                                                            .reqId = reqId,
+                                                            .ticks = ticks
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub EWrapper_HistoricalTicksBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistoricalTicksBidAsk(Me, New HistoricalTicksBidAskEventArgs With {
+                                                            .reqId = reqId,
+                                                            .ticks = ticks
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub EWrapper_HistoricalTicksLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast
+        InvokeIfRequired(Sub()
+                             RaiseEvent HistoricalTicksLast(Me, New HistoricalTicksLastEventArgs With {
+                                                            .reqId = reqId,
+                                                            .ticks = ticks
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -823,6 +850,9 @@ Friend Class ApiEventSource
     Event RerouteMktDataReq(sender As Object, e As RerouteMktDataReqEventArgs)
     Event RerouteMktDepthReq(sender As Object, e As RerouteMktDepthReqEventArgs)
     Event MarketRule(sender As Object, e As MarketRuleEventArgs)
+    Event HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs)
+    Event HistoricalTicksBidAsk(sender As Object, e As HistoricalTicksBidAskEventArgs)
+    Event HistoricalTicksLast(sender As Object, e As HistoricalTicksLastEventArgs)
 
 #End Region
 

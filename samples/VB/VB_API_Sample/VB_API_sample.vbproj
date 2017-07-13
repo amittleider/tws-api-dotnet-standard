@@ -312,6 +312,12 @@
     <Compile Include="EventArgs\SmartComponentsEventArgs.vb" />
     <Compile Include="EventArgs\TickReqParamsEventArgs.vb" />
     <Compile Include="EventArgs\HistogramDataEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalTickBidAskEnd.vb" />
+    <Compile Include="EventArgs\HistoricalTickBidAskEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalTickEndEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalTickEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalTickLastEndEventArgs.vb" />
+    <Compile Include="EventArgs\HistoricalTickLastEventArgs.vb" />
     <Compile Include="Tws.vb" />
     <Compile Include="Utils.vb">
       <SubType>Code</SubType>

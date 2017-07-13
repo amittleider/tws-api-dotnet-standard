@@ -4,6 +4,9 @@
 #pragma once
 
 #include "Contract.h"
+#include "HistoricalTick.h"
+#include "HistoricalTickBidAsk.h"
+#include "HistoricalTickLast.h"
 
 
 
@@ -74,13 +77,14 @@ const int MIN_SERVER_VER_SERVICE_DATA_TYPE          = 120;
 const int MIN_SERVER_VER_AGG_GROUP                  = 121;
 const int MIN_SERVER_VER_UNDERLYING_INFO            = 122;
 const int MIN_SERVER_VER_CANCEL_HEADTIMESTAMP       = 123;
-const int MIN_SERVER_VER_SYNT_REALTIME_BARS	        = 124;
+const int MIN_SERVER_VER_SYNT_REALTIME_BARS         = 124;
 const int MIN_SERVER_VER_CFD_REROUTE                = 125;
 const int MIN_SERVER_VER_MARKET_RULES               = 126;
 const int MIN_SERVER_VER_DAILY_PNL                  = 127;
 const int MIN_SERVER_VER_PNL                        = 127;
 const int MIN_SERVER_VER_NEWS_QUERY_ORIGINS         = 128;
 const int MIN_SERVER_VER_UNREALIZED_PNL             = 129;
+const int MIN_SERVER_VER_HISTORICAL_TICKS           = 130;
 const int MIN_SERVER_VER_PRE_OPEN_BID_ASK           = 132;
 
 /* 100+ messaging */
@@ -159,8 +163,11 @@ const int HISTORICAL_DATA_UPDATE                    = 90;
 const int REROUTE_MKT_DATA_REQ                      = 91;
 const int REROUTE_MKT_DEPTH_REQ                     = 92;
 const int MARKET_RULE                               = 93;
-const int PNL                                 = 94;
-const int PNL_SINGLE                          = 95;
+const int PNL                                       = 94;
+const int PNL_SINGLE                                = 95;
+const int HISTORICAL_TICKS                          = 96;
+const int HISTORICAL_TICKS_BID_ASK                  = 97;
+const int HISTORICAL_TICKS_LAST                     = 98;
 
 const int HEADER_LEN = 4; // 4 bytes for msg length
 const int MAX_MSG_LEN = 0xFFFFFF; // 16Mb - 1byte
@@ -280,9 +287,20 @@ class TWSAPIDLLEXP EDecoder
 	const char* processMarketRuleMsg(const char* ptr, const char* endPtr);
     const char* processPnLMsg(const char* ptr, const char* endPtr);
     const char* processPnLSingleMsg(const char* ptr, const char* endPtr);
+    const char* processHistoricalTicks(const char* ptr, const char* endPtr);
+    const char* processHistoricalTicksBidAsk(const char* ptr, const char* endPtr);
+    const char* processHistoricalTicksLast(const char* ptr, const char* endPtr);
 
 
     int processConnectAck(const char*& beginPtr, const char* endPtr);
+
+    static const char* decodeTick(HistoricalTick& tick, const char* ptr, const char* endPtr);
+    static const char* decodeTick(HistoricalTickBidAsk& tick, const char* ptr, const char* endPtr);
+    static const char* decodeTick(HistoricalTickLast& tick, const char* ptr, const char* endPtr);
+    void callEWrapperCallBack(int reqId, const std::vector<HistoricalTick> &ticks, bool done);
+    void callEWrapperCallBack(int reqId, const std::vector<HistoricalTickBidAsk> &ticks, bool done);
+    void callEWrapperCallBack(int reqId, const std::vector<HistoricalTickLast> &ticks, bool done);
+    template<typename T> const char* processHistoricalTicks(const char* ptr, const char* endPtr);
 
 public:
     static bool CheckOffset(const char* ptr, const char* endPtr);

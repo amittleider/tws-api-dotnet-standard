@@ -81,5 +81,8 @@ namespace IBApi
         public const int MarketRule = 93;
         public const int PnL = 94;
         public const int PnLSingle = 95;
+        public const int HistoricalTick = 96;
+        public const int HistoricalTickBidAsk = 97;
+        public const int HistoricalTickLast = 98;
     }
 }
