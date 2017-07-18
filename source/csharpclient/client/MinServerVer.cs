@@ -90,6 +90,7 @@ namespace IBApi
         public const int NEWS_QUERY_ORIGINS = 128;
         public const int UNREALIZED_PNL = 129;
         public const int HISTORICAL_TICKS = 130;
+        public const int MARKET_CAP_PRICE = 131;
         public const int PRE_OPEN_BID_ASK = 132;
     }
 }

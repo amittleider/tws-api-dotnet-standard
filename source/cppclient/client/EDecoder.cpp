@@ -237,7 +237,7 @@ const char* EDecoder::processTickEfpMsg(const char* ptr, const char* endPtr) {
 }
 
 const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr) {
-	int version;
+    int version = INT_MAX;
 	int orderId;
 	std::string status;
 	double filled;
@@ -249,8 +249,12 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
 	int clientId;
 	std::string whyHeld;
 
-	DECODE_FIELD( version);
-	DECODE_FIELD( orderId);
+    if (m_serverVersion < MIN_SERVER_VER_MARKET_CAP_PRICE) 
+    {
+	    DECODE_FIELD( version);
+    }
+	
+    DECODE_FIELD( orderId);
 	DECODE_FIELD( status);
 
 	if (m_serverVersion >= MIN_SERVER_VER_FRACTIONAL_POSITIONS)
@@ -287,8 +291,15 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
 	DECODE_FIELD( clientId); // ver 5 field
 	DECODE_FIELD( whyHeld); // ver 6 field
 
+    double mktCapPrice;
+
+    if (m_serverVersion >= MIN_SERVER_VER_MARKET_CAP_PRICE)
+    {
+        DECODE_FIELD(mktCapPrice);
+    }
+
 	m_pEWrapper->orderStatus( orderId, status, filled, remaining,
-		avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+		avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
 
 
 	return ptr;

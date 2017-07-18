@@ -1730,7 +1730,7 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processOrderStatusMsg() throws IOException {
-		int version = readInt();
+		int version = m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_CAP_PRICE ? Integer.MAX_VALUE : readInt();
 		int id = readInt();
 		String status = readStr();
 		double filled = m_serverVersion >= EClient.MIN_SERVER_VER_FRACTIONAL_POSITIONS ? readDouble() : readInt();
@@ -1761,9 +1761,15 @@ class EDecoder implements ObjectInput {
 		if( version >= 6) {
 			whyHeld = readStr();
 		}
+		
+		double mktCapPrice = Double.MAX_VALUE;
+		
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_CAP_PRICE) {
+		    mktCapPrice = readDouble();
+		}
 
 		m_EWrapper.orderStatus( id, status, filled, remaining, avgFillPrice,
-		                permId, parentId, lastFillPrice, clientId, whyHeld);
+		                permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
 	}
 
 	private void processTickEFPMsg() throws IOException {

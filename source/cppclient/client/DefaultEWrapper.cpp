@@ -14,7 +14,7 @@ void DefaultEWrapper::tickEFP(TickerId tickerId, TickType tickType, double basis
 	   double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) { }
 void DefaultEWrapper::orderStatus( OrderId orderId, const std::string& status, double filled,
 	   double remaining, double avgFillPrice, int permId, int parentId,
-	   double lastFillPrice, int clientId, const std::string& whyHeld) { }
+	   double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice) { }
 void DefaultEWrapper::openOrder( OrderId orderId, const Contract&, const Order&, const OrderState&) { }
 void DefaultEWrapper::openOrderEnd() { }
 void DefaultEWrapper::winError( const std::string& str, int lastError) { }

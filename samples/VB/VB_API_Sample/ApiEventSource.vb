@@ -277,7 +277,7 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
-    Private Sub EWrapper_OrderStatus(orderId As Integer, status As String, filled As Double, remaining As Double, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
+    Private Sub EWrapper_OrderStatus(orderId As Integer, status As String, filled As Double, remaining As Double, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String, mktCapPrice As Double) Implements IBApi.EWrapper.orderStatus
         InvokeIfRequired(Sub()
                              RaiseEvent OrderStatus(Me, New OrderStatusEventArgs With {
                                                                      .orderId = orderId,
@@ -289,7 +289,8 @@ Friend Class ApiEventSource
                                                                       .parentId = parentId,
                                                                       .lastFillPrice = lastFillPrice,
                                                                       .clientId = clientId,
-                                                                      .whyHeld = whyHeld
+                                                                      .whyHeld = whyHeld,
+                                                                      .mktCapPrice = mktCapPrice
                                                                      })
                          End Sub)
     End Sub

@@ -144,7 +144,7 @@ namespace TwsRtdServer
         public void updateAccountTime(string timestamp) { }
         public void accountDownloadEnd(string account) { }
         public void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
-            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld) { }
+            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice) { }
         public void openOrder(int orderId, Contract contract, Order order, OrderState orderState) { }
         public void openOrderEnd() { }
         public void contractDetails(int reqId, ContractDetails contractDetails) { }

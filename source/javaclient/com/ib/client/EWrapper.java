@@ -24,7 +24,7 @@ public interface EWrapper {
 			String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
     void orderStatus( int orderId, String status, double filled, double remaining,
             double avgFillPrice, int permId, int parentId, double lastFillPrice,
-            int clientId, String whyHeld);
+            int clientId, String whyHeld, double mktCapPrice);
     void openOrder( int orderId, Contract contract, Order order, OrderState orderState);
     void openOrderEnd();
     void updateAccountValue(String key, String value, String currency, String accountName);
