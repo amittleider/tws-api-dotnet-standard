@@ -48,22 +48,33 @@ namespace TwsRtdServer
                     if (topicStr == null && s.ToLower().IndexOf(TwsRtdServerData.QT) >= 0)
                     {
                         // parse string like "qt=Bid"
+                        // "qt" string should have priority than topic specified at other places
                         topicStr = s.Substring(TwsRtdServerData.QT.Length, s.Length - TwsRtdServerData.QT.Length).ToUpper();
 
-                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) < 0)
+                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) >= 0)
                         {
-                            return null; // topic is not allowed
+                            return topicStr; 
+                        }
+                        else
+                        {
+                            topicStr = null;
+                            continue;
                         }
                     }
-
+                    
                     if (topicStr == null && !s.ToLower().Contains(TwsRtdServerData.LOCALSYMBOL_STR) && s.ToLower().Contains(TwsRtdServerData.CHAR_SPACE.ToString()))
                     {
-                        // pasre string like "IBM Bid"
-                        topicStr = s.Substring(s.IndexOf(TwsRtdServerData.CHAR_SPACE) + 1, s.Length - 1 - s.IndexOf(TwsRtdServerData.CHAR_SPACE)).ToUpper();
+                        // pasre string like "IBM Bid" or "BRK B Bid"
+                        topicStr = s.Substring(s.LastIndexOf(TwsRtdServerData.CHAR_SPACE) + 1, s.Length - 1 - s.LastIndexOf(TwsRtdServerData.CHAR_SPACE)).ToUpper();
 
-                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) < 0)
+                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) >= 0)
                         {
-                            return null; // topic is not allowed
+                            return topicStr;
+                        }
+                        else
+                        {
+                            topicStr = null;
+                            continue;
                         }
                     }
 
@@ -72,9 +83,14 @@ namespace TwsRtdServer
                         // pasre string like "Bid"
                         topicStr = s.ToUpper();
 
-                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) < 0)
+                        if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), topicStr) >= 0)
+                        {
+                            return topicStr;
+                        }
+                        else
                         {
                             topicStr = null;
+                            continue;
                         }
                     }
 
