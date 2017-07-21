@@ -437,7 +437,13 @@ namespace TwsRtdServer
                     {
                         if (tickerStr.IndexOf(TwsRtdServerData.CHAR_SPACE) >= 0)
                         {
-                            tickerStr = tickerStr.ToUpper().Substring(0, tickerStr.IndexOf(TwsRtdServerData.CHAR_SPACE));
+                            // parse ticker string like IBM@SMART Bid, BRK B@SMART Bid, where the topic is specified within the ticker string itself
+                            string lastStr = tickerStr.Substring(tickerStr.LastIndexOf(TwsRtdServerData.CHAR_SPACE) + 1, tickerStr.Length - 1 - tickerStr.LastIndexOf(TwsRtdServerData.CHAR_SPACE)).ToUpper();
+
+                            if (Array.IndexOf(TwsRtdServerData.AllowedTopics(), lastStr) >= 0)
+                            {
+                                tickerStr = tickerStr.ToUpper().Substring(0, tickerStr.LastIndexOf(TwsRtdServerData.CHAR_SPACE));
+                            }
                         }
 
                         if (tickerStr.IndexOf(TwsRtdServerData.CHAR_DOT) >= 0 && tickerStr.ToLower().IndexOf(TwsRtdServerData.HOST_STR) < 0 &&
