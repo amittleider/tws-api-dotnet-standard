@@ -214,11 +214,30 @@ namespace TwsRtdServer{
             GEN_TICK_AVERAGE_VOLUME, GEN_TICK_WEEK_13_HI, GEN_TICK_WEEK_13_LO, GEN_TICK_WEEK_26_HI, GEN_TICK_WEEK_26_LO, GEN_TICK_WEEK_52_HI, GEN_TICK_WEEK_52_LO, // MISCSTATS (165)
             GEN_TICK_SHORT_TERM_VOLUME_3_MIN, GEN_TICK_SHORT_TERM_VOLUME_5_MIN, GEN_TICK_SHORT_TERM_VOLUME_10_MIN, // SHORT_TERM_VOLUME (595)
             FUTURES_OPEN_INTEREST, // FUTURES_OPEN_INTEREST (588)
-            
+
             // delayed ticks
             DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
             DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN
+        };
 
+        private static string[] m_allowedDelayedTopics = new string[]{ 
+            // delayed ticks
+            DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
+            DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN,
+
+            // generic tick types that are provided when delayed data is enabled
+            // 232
+            GEN_TICK_PL_PRICE, 
+            //221
+            GEN_TICK_CREDITMAN_MARK_PRICE,
+            //236
+            GEN_TICK_SHORTABLE,
+            //165
+            GEN_TICK_AVERAGE_VOLUME, GEN_TICK_WEEK_13_HI, GEN_TICK_WEEK_13_LO, GEN_TICK_WEEK_26_HI, GEN_TICK_WEEK_26_LO, GEN_TICK_WEEK_52_HI, GEN_TICK_WEEK_52_LO,
+            // 106
+            GEN_TICK_OPTION_IMPLIED_VOL,
+            // 101
+            GEN_TICK_CALL_OPTION_OPEN_INTEREST, GEN_TICK_PUT_OPTION_OPEN_INTEREST
         };
 
         private static Dictionary<int, string> m_tickToTopicMap = new Dictionary<int, string> { 
@@ -291,6 +310,7 @@ namespace TwsRtdServer{
         // gets
         public static string[] AllowedTopics() { return m_allowedTopics; }
 
+        public static string[] DelayedTopics() { return m_allowedDelayedTopics; }
 
         public static string GetTopicStrByTickType(int tickType)
         {

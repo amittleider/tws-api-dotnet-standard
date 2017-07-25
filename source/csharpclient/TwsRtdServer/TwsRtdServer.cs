@@ -119,23 +119,31 @@ namespace TwsRtdServer
                 {
                     // save topicId -> connection/mktDataRequest/topicStr map
                     m_topicIdMap.Add(topicId, new TwsRtdServerTopicIdMap(connectionStr, mktDataRequest.TwsReqId(), topicStr));
-                    if (mktDataRequest.GetErrorCode() != -1)
+                    if (mktDataRequest.GetErrorCode() != -1 
+                        && mktDataRequest.GetErrorCode() != TwsRtdServerErrors.REQUESTED_MARKET_DATA_NOT_SUBSCRIBED)
                     {
                         // error creating market data request
-                        errorStr = "TwsRtdServer error: " + mktDataRequest.GetErrorText();
+                        return errorStr = "TwsRtdServer error: " + mktDataRequest.GetErrorText();
                     }
                 } 
                 else
                 {
                     // error creating market data request
-                    errorStr = "TwsRtdServer error: market data request creation error";
+                    return errorStr = "TwsRtdServer error: market data request creation error";
                 }
 
                 TwsRtdServerTopic topic = mktDataRequest.GetOrAddTopic(topicStr, topicId);
                 if (topic == null)
                 {
                     // error creating topic
-                    errorStr = "TwsRtdServer error: topic creation error";
+                    return errorStr = "TwsRtdServer error: topic creation error";
+                }
+
+                // check if topic is delayed type
+                if (topic != null && Array.IndexOf(TwsRtdServerData.DelayedTopics(), topic.TopicStr()) < 0 
+                    && mktDataRequest.GetErrorCode() == TwsRtdServerErrors.REQUESTED_MARKET_DATA_NOT_SUBSCRIBED)
+                {
+                    errorStr = "TwsRtdServer error: " + mktDataRequest.GetErrorText();
                 }
 
                 return ((topic != null && errorStr == null) ? topic.TopicValue() : errorStr);

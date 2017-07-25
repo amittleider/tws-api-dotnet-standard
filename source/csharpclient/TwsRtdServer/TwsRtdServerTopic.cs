@@ -57,8 +57,8 @@ namespace TwsRtdServer
                         }
                         else
                         {
-                            topicStr = null;
-                            continue;
+                            // if invalid "qt" is specified
+                            return null; 
                         }
                     }
                     

@@ -111,6 +111,22 @@ namespace TwsRtdServer
             return m_updatedTopicIds;
         }
 
+        public List<int> SetAllLiveTopicsValues(string value)
+        {
+            // set all live topic values to value (e.g. in case of error) and return list of updated topic ids
+            List<int> m_updatedTopicIds = new List<int>();
+            foreach (TwsRtdServerTopic topic in m_topics.Values)
+            {
+                if (Array.IndexOf(TwsRtdServerData.DelayedTopics(), topic.TopicStr()) < 0)
+                {
+                    topic.TopicValue(value);
+                    m_updatedTopicIds.Add(topic.TopicId());
+                }
+            }
+
+            return m_updatedTopicIds;
+        }
+
         public TwsRtdServerTopic GetOrAddTopic(string topicStr, int topicId)
         {
             // find topic (to reuse existing topic and not create new one)
