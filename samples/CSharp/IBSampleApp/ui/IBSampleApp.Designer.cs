@@ -6290,7 +6290,8 @@ namespace IBSampleApp
             "YIELD_BID",
             "YIELD_ASK",
             "YIELD_BID_ASK",
-            "YIELD_LAST"});
+            "YIELD_LAST",
+            "ADJUTSTED_LAST"});
             this.hdRequest_WhatToShow.Location = new System.Drawing.Point(59, 92);
             this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
             this.hdRequest_WhatToShow.Size = new System.Drawing.Size(156, 20);
