@@ -26,6 +26,11 @@ public:
 			std::string startTime, std::string endTime, bool noTakeLiq, double monetaryValue);
 	static void FillTimeVariantPctVolParams(Order baseOrder, double startPctVol, double endPctVol, std::string startTime, 
 			std::string endTime, bool noTakeLiq, double monetaryValue);
+	static void FillJefferiesVWAPParams(Order baseOrder, std::string startTime, std::string endTime, double relativeLimit, 
+		double maxVolumeRate, std::string excludeAuctions, double triggerPrice, double wowPrice, int minFillSize, double wowOrderPct, 
+		std::string wowMode, bool isBuyBack, std::string wowReference);
+	static void FillCSFBInlineParams(Order baseOrder, std::string startTime, std::string endTime, std::string execStyle, int minPercent,
+		int maxPercent, int displaySize, std::string auction, bool blockFinder, double blockPrice, int minBlockSize, int maxBlockSize, double iWouldPrice);
 };
 
 #endif

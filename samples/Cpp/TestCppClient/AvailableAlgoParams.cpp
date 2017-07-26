@@ -235,5 +235,72 @@ void AvailableAlgoParams::FillTimeVariantPctVolParams(Order baseOrder, double st
 	baseOrder.algoParams->push_back(tag5);
 	baseOrder.algoParams->push_back(tag6);
 }
-
 //! [pctvoltm_params]
+
+//! [jefferies_vwap_params]
+void AvailableAlgoParams::FillJefferiesVWAPParams(Order baseOrder, std::string startTime, std::string endTime, double relativeLimit, 
+		double maxVolumeRate, std::string excludeAuctions, double triggerPrice, double wowPrice, int minFillSize, double wowOrderPct, 
+		std::string wowMode, bool isBuyBack, std::string wowReference){
+	baseOrder.algoStrategy = "VWAP";
+	baseOrder.algoParams.reset(new TagValueList());
+	TagValueSPtr tag1(new TagValue("StartTime", startTime));
+	TagValueSPtr tag2(new TagValue("EndTime", endTime));
+	TagValueSPtr tag3(new TagValue("RelativeLimit", std::to_string(relativeLimit)));
+	TagValueSPtr tag4(new TagValue("MaxVolumeRate", std::to_string(maxVolumeRate)));
+	TagValueSPtr tag5(new TagValue("ExcludeAuctions", excludeAuctions));
+	TagValueSPtr tag6(new TagValue("TriggerPrice", std::to_string(triggerPrice)));
+	TagValueSPtr tag7(new TagValue("WowPrice", std::to_string(wowPrice)));
+	TagValueSPtr tag8(new TagValue("MinFillSize", std::to_string(minFillSize)));
+	TagValueSPtr tag9(new TagValue("WowOrderPct", std::to_string(wowOrderPct)));
+	TagValueSPtr tag10(new TagValue("WowMode", wowMode));
+	TagValueSPtr tag11(new TagValue("IsBuyBack", isBuyBack ? "1" : "0"));
+	TagValueSPtr tag12(new TagValue("WowReference", wowReference));
+	baseOrder.algoParams->push_back(tag1);
+	baseOrder.algoParams->push_back(tag2);
+	baseOrder.algoParams->push_back(tag3);
+	baseOrder.algoParams->push_back(tag4);
+	baseOrder.algoParams->push_back(tag5);
+	baseOrder.algoParams->push_back(tag6);
+	baseOrder.algoParams->push_back(tag7);
+	baseOrder.algoParams->push_back(tag8);
+	baseOrder.algoParams->push_back(tag9);
+	baseOrder.algoParams->push_back(tag10);
+	baseOrder.algoParams->push_back(tag11);
+	baseOrder.algoParams->push_back(tag12);
+}
+//! [jefferies_vwap_params]
+
+//! [csfb_inline_params]
+void AvailableAlgoParams::FillCSFBInlineParams(Order baseOrder, std::string startTime, std::string endTime, std::string execStyle, int minPercent,
+		int maxPercent, int displaySize, std::string auction, bool blockFinder, double blockPrice, int minBlockSize, int maxBlockSize, double iWouldPrice){
+	
+	// must be direct-routed to "CSFBALGO"
+
+	baseOrder.algoStrategy = "INLINE";
+	baseOrder.algoParams.reset(new TagValueList());
+	TagValueSPtr tag1(new TagValue("StartTime", startTime));
+	TagValueSPtr tag2(new TagValue("EndTime", endTime));
+	TagValueSPtr tag3(new TagValue("ExecStyle", execStyle));
+	TagValueSPtr tag4(new TagValue("MinPercent", std::to_string(minPercent)));
+	TagValueSPtr tag5(new TagValue("MaxPercent", std::to_string(maxPercent)));
+	TagValueSPtr tag6(new TagValue("DisplaySize", std::to_string(displaySize)));
+	TagValueSPtr tag7(new TagValue("Auction", auction));
+	TagValueSPtr tag8(new TagValue("BlockFinder", blockFinder ? "1" : "0"));
+	TagValueSPtr tag9(new TagValue("BlockPrice", std::to_string(blockPrice)));
+	TagValueSPtr tag10(new TagValue("MinBlockSize", std::to_string(minBlockSize)));
+	TagValueSPtr tag11(new TagValue("MaxBlockSize", std::to_string(maxBlockSize)));
+	TagValueSPtr tag12(new TagValue("IWouldPrice", std::to_string(iWouldPrice)));
+	baseOrder.algoParams->push_back(tag1);
+	baseOrder.algoParams->push_back(tag2);
+	baseOrder.algoParams->push_back(tag3);
+	baseOrder.algoParams->push_back(tag4);
+	baseOrder.algoParams->push_back(tag5);
+	baseOrder.algoParams->push_back(tag6);
+	baseOrder.algoParams->push_back(tag7);
+	baseOrder.algoParams->push_back(tag8);
+	baseOrder.algoParams->push_back(tag9);
+	baseOrder.algoParams->push_back(tag10);
+	baseOrder.algoParams->push_back(tag11);
+	baseOrder.algoParams->push_back(tag12);
+}
+//! [csfb_inline_params]

@@ -1,8 +1,14 @@
 /*! \page jefferies Jefferies Algorithms
 
-	\section jefferies_params Jefferies Algorithm Parameters
+	\section jefferies_params Jefferies Algorithm
 	
-	The Jefferies Algos will soon be available with the socket-based API languages (Java, C#/.NET, Python, C++).
+	The Jefferies Algos are available with the socket-based API languages (Java, C#/.NET, Python, C++).
+	
+	- It is recommended to first try to <a href="https://www.interactivebrokers.com/en/software/tws/jeffalgostop.htm" target="_blank" class="linkexternal"> create the Jefferies algo in TWS</a> to see the most current available field values.
+	- Jefferies algos are only available in live accounts.
+	- Some fields have default values and are optional in TWS but must be explicitly specified in the API.
+	
+	\section available_jefferies_algos Available Jefferies Algos
 	
 	\ref v_wap "VWAP"
 	
@@ -63,7 +69,7 @@
             <td>EndTime</td>
             <td>End time</td>
             <td>Time</td>
-            <td15:00:00 EST</td>
+            <td>15:00:00 EST</td>
         </tr>
         <tr>
             <td>Relative Limit</td>
@@ -126,7 +132,48 @@
             <td>"Yes", "No"</td>
         </tr>
 	</table>
+	
 	<br>
+	Example Jefferies VWAP Algo
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs jefferies_contract
+			...
+			\snippet Program.cs jeff_vwap_algo
+			...
+			\snippet AvailableAlgoParams.cs jefferies_vwap_params
+		</li>
+		<li>
+			\snippet ContractSamples.java jefferies_contract
+			...
+			\snippet Testbed.java jeff_vwap_algo
+			...
+			\snippet AvailableAlgoParams.java jefferies_vwap_params
+		</li>
+		<li>
+			\snippet ContractSamples.vb jefferies_contract
+			...
+			\snippet MainModule.vb jeff_vwap_algo
+			...
+			\snippet AvailableAlgoParams.vb jefferies_vwap_params
+		</li>
+		<li>
+			\snippet ContractSamples.cpp jefferies_contract
+			...
+			\snippet TestCppClient.cpp jeff_vwap_algo
+			...
+			\snippet AvailableAlgoParams.cpp jefferies_vwap_params
+		</li>
+		<li>
+			\snippet ContractSamples.py jefferies_contract
+			...
+			\snippet Program.py jeff_vwap_algo
+			...
+			\snippet AvailableAlgoParams.py jefferies_vwap_params
+		</li>
+	</ul>
 	
 	\section t_wap TWAP (TWAP)
 	

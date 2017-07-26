@@ -5,7 +5,8 @@
 	\page connection Connectivity
 	\page contracts Contracts
 	\page orders Orders
-	\page market_data Market Data
+	\page market_data Streaming Market Data
+	\page historical_data Historical Market Data
 	\page news News
 	\page options Options
 	\page account_portfolio Account & Portfolio
@@ -15,8 +16,7 @@
 	\page ib_bulletins IB Bulletins
 	\page display_groups Display Groups
 	\page error_handling Error Handling
+	\page excel_apis Excel APIs
 	\page support Troubleshooting & Support
 	\page third_party Third Party Software
-	\page dde_intro Dynamic Data Exchange (DDE)
-	\page tws_rtd_server TWS RTD Server for Excel
 */

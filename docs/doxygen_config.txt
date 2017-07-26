@@ -749,6 +749,7 @@ INPUT					= ./content
 INPUT					+= ./content/page_order.dox
 INPUT					+= ./content/orders
 INPUT					+= ./content/market_data
+INPUT					+= ./content/historical_data
 INPUT					+= ./content/contracts
 INPUT					+= ./content/news
 INPUT					+= ./content/options
@@ -759,12 +760,13 @@ INPUT					+= ./content/scanners
 INPUT                   += ./content/fundamentals
 INPUT                   += ./content/bulletins
 INPUT                   += ./content/errors
-INPUT                   += ./content/dde
-INPUT                   += ./content/dde/tutorial
 INPUT                   += ./content/financial_advisor
 INPUT                   += ./content/display_groups
-INPUT                   += ./content/tws_rtd_server
-INPUT                   += ./content/tws_rtd_server/syntax
+INPUT					+= ./content/excel_apis
+INPUT					+= ./content/excel_apis/dde
+INPUT					+= ./content/excel_apis/dde/tutorial
+INPUT					+= ./content/excel_apis/tws_rtd_server
+INPUT					+= ./content/excel_apis/tws_rtd_server/syntax
 
 #Javadoc-style input source files. We cannot add the entire directory since only these classes are relevant to the user
 INPUT                  += ../source/csharpclient/client/EClient.cs

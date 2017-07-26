@@ -1013,7 +1013,7 @@
 		</tr>
 		<tr>
 			<td>507</td><td>Bad Message Length (Java-only)</td>
-			<td>Indicates EOF exception was caught while reading from the socket. This can occur if there is an attempt to connect to TWS with a client ID that is already in use, or if TWS closes or breaks the connection. It should be handled by the client application and used to indicate that the socket connection is not valid.</td>
+			<td>Indicates EOF exception was caught while reading from the socket. This can occur if there is an attempt to connect to TWS with a client ID that is already in use, or if TWS is locked, closes, or breaks the connection. It should be handled by the client application and used to indicate that the socket connection is not valid.</td>
 		</tr>
 		<tr>
 			<td>10000</td><td>Cross currency combo error.</td>
@@ -1123,7 +1123,10 @@
 			<td>10027</td><td>Invalid combo routing tag API.</td>
 			<td>This error is deprecated</td>
 		</tr>
-		
+		<tr>
+			<td>10090</td><td>Part of requested market data is not subscribed.</td>
+			<td>Indicates that some tick types requested require additional market data subscriptions not held in the account. This commonly occurs for instance if a user has options subscriptions but not the underlying stock so the system cannot calculate the real time greek values (other default ticks will be returned). Or alternatively, if generic tick types are specified in a market data request without the associated subscriptions.</td>
+		</tr>
 		
 	</table>
 	

@@ -2,13 +2,15 @@
 
    \section market_data_return Receiving Market Data
 
+   Real time data is accessed in the API using a subscribe-and-publish model that is also used with other functionality such as retrieving positon or account values. After a streaming market data subscription request for a particular contract in IB's database is made, a continuous stream of market data is returned by TWS and separated to different functions in EWrapper depending on the data type (integer vs decimal vs string). Since the subscribe-and-publish model is inherently asynchronous, the returned data is linked to the initial request using a numerical label specified in the request called the request ID (reqID). 
+   
    After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement 
    these methods to manipulate the data relayed back to the client. Notice how market data callbacks such as @ref IBApi::EWrapper::tickPrice and @ref IBApi::EWrapper::tickSize methods contain the request id with
-   which the response can be mapped to its originating request.
+   which the response can be mapped to its originating request. By default, there are certain 'default tick types' that are always returned. These include fields such as the bid price, ask price, bid size, ask size, etc. There are additional types of data available with the real time data that are requested by specifying certain "generic tick types" in the market data request. For more information, \genticks.
    
-   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is no data currently available. Most commonly this occurs when requesting data from markets that are closed. It can also occur for infrequently trading instruments which do not have open bids or offers at that time of the request. To receive frozen quotes (the last available bid/ask recorded by the system) invoke the function @ref IBApi::EClient::reqMarketDataType with argument 2. Frozen data is exclusive to default tick types- \ref genticks are not available- and requires market data subscriptions.
+   When IBApi::EWrapper::tickPrice and IBApi::EWrapper::tickSize are reported as -1, this indicates that there is no data currently available. Most commonly this occurs when requesting data from markets that are closed. It can also occur for infrequently trading instruments which do not have open bids or offers at that time of the request. To receive frozen quotes (the last available bid/ask recorded by the system) invoke the function @ref IBApi::EClient::reqMarketDataType with argument 2. Alternatively, to receive "delayed frozen" data from tickers without holding market data subscriptions, specify a market data type of 4. Frozen data is exclusive to default tick types- \ref genticks are not available- and requires market data subscriptions.
    
-   Following every IBApi::EWrapper::tickPrice callback there will be a IBApi::EWrapper::tickSize. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive IBApi::EWrapper::tickSize value. 
+   Following every IBApi::EWrapper::tickPrice callback there will be a IBApi::EWrapper::tickSize. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive IBApi::EWrapper::tickSize value. IBApi::EWrapper::tickSize is also invoked every time there is a change in the size of the last traded price. For that reason, there will be duplicate tickSize events when both the price and size of a trade changes. 
    
    <ul id="tab">
 		<li class="active"> 
@@ -102,13 +104,13 @@
 
 	The exchange mapping identifier <i>bboExchange</i> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function IBApi::EClient::reqSmartComponents. More information about @ref smart_components.
 
-	IBApi::ContractDetails::MinTick will represent the smallest possible minimum increment for the contract on any exchange and at any price. For complicated minimum increment structures, such as is common for European stocks, there might be different minimum increments at different price and size levels, so the 'minTick' of the contract may not necessarily represent the minimum increment at which it is presently trading. For complete information about the minimum increment, it is necessary to consult the IB Contracts and Securities search site. 
+	IBApi::ContractDetails::MinTick will represent the smallest possible minimum increment for the contract on any exchange and at any price. For complicated minimum increment structures, such as is common for European stocks, there might be different minimum increments at different price and size levels, so the 'minTick' of the contract will sometimes not represent the minimum increment at which it is presently trading. It is possible to retrieve the complete minimum price increment struture from the API using the function IBApi.EClient.reqMarketRule, or to consult the IB Contracts and Securities search site. 
 	
 	\section rerouting Re-Routing CFDs
 	
-	IB does not provide market data for certain types of instruments, such as stock and forex CFDs. If a stock or forex CFD is entered into a TWS watchlist, TWS will automatically display market data for the underlying ticker and show a 'U' icon next to the instrument name to indicate that the data is for an underlying. 
+	IB does not provide market data for certain types of instruments, such as stock CFDs and forex CFDs. If a stock CFD or forex CFD is entered into a TWS watchlist, TWS will automatically display market data for the underlying ticker and show a 'U' icon next to the instrument name to indicate that the data is for the underlying instrument. 
 	
-	From the API, when market data is requested for a stock or forex CFD, a callback is made from TWS to the IBApi::EWrapper::rerouteMktDataReq or IBApi::EWrapper::rerouteMktDepthReq with information about the underlying instrument which has market data in IB's database. 
+	From the API, when level 1 or level 2 market data is requested for a stock CFD or a forex CFD, a callback is made to the functions IBApi::EWrapper::rerouteMktDataReq or IBApi::EWrapper::rerouteMktDepthReq respectively with details about the underlying instrument in IB's database which does have market data. 
 	
 	<ul id="tab">
 		<li class="active">

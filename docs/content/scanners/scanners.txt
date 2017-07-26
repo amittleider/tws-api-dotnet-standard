@@ -23,7 +23,7 @@
 	
 	The available API filters and and parameters are defined in the @ref IBApi::ScannerSubscription object, including [AbovePrice, BelowPrice, AboveVolume, ...] . Some @ref scanner_examples are listed at the bottom of this page.
 	
-	Only 10 API scans can be active at a time.
+	Scans are limited to a maximum result of 50 results per scan code, and only 10 API scans can be active at a time.
 	
 	Results are delivered via @ref IBApi::EWrapper::scannerData and the @ref IBApi::EWrapper::scannerDataEnd marker will indicate when all results have been delivered. The returned results to scannerData simply consist of a list of contracts. There are no market data fields (bid, ask, last, volume, ...) returned from the scanner, and so if these are desired they have to be requested separately with the reqMktData function. Since the scanner results do not include any market data fields, it is not necessary to have market data subscriptions to use the API scanner. However to use filters, market data subscriptions <b>are</b> generally required.
 	

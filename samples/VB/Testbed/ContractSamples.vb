@@ -626,6 +626,28 @@ Namespace Samples
             Return contract
         End Function
 
+        Public Shared Function JefferiesContract() As Contract
+            '! [jefferies_contract]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "AAPL"
+            contract.SecType = "STK"
+            contract.Exchange = "JEFFALGO" 'must me direct-routed to JEFFALGO
+            contract.Currency = "USD" 'only available for US stocks
+            '! [jefferies_contract]
+            Return contract
+        End Function
+
+        Public Shared Function CSFBContract() As Contract
+            '! [csfb_contract]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "IBKR"
+            contract.SecType = "STK"
+            contract.Exchange = "CSFBALGO" 'must be direct-routed to CSFBALGO
+            contract.Currency = "USD" 'only available for US stocks
+            '! [csfb_contract]
+            Return contract
+        End Function
+
     End Class
 
 End Namespace

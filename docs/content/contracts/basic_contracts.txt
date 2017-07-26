@@ -61,6 +61,8 @@
 	As an alternative to defining the exchange and primary exchange fields, it is possible to specify the exchange field as "Exchange:Primary Exchange", e.g. "SMART:NASDAQ". The colon ":" or slash "/" separating this fields is known as the "Component Exchange Separator" and defined in the API Settings in Global Configuration. 
 	
 	\section ind Indexes
+	ISINs for indices which are available in IB's database are available in the API as of TWS 965+.
+	
 	<ul id="tab">
 		<li class="active">
 		 \snippet ContractSamples.cs indcontract
@@ -101,7 +103,7 @@
 	
 	\section fut Futures
 
-	A Future contract by definition requires an expiration date and its <b>underlying's</b> symbol:
+	A regular futures contract is commonly defined using an expiry and the symbol field defined as the symbol of the underlying. 
 	
 	<ul id="tab">
 		<li class="active">
@@ -121,7 +123,8 @@
 		</li>
 	</ul>
 	
-	Although the expiration and underlying symbol can be replaced with the contract's own symbol, also known as <b>local symbol</b> (named as Symbol within the TWS' Contract Description dialog):
+	By contract the 'local symbol' field is IB's symbol for the future itself (the Symbol within the TWS' Contract Description dialog).
+	Since a local symbol uniquely defines a future, an expiry is not necessary.
 	
 	<ul id="tab">
 		<li class="active">
@@ -162,6 +165,48 @@
 		</li>
 	</ul>
 
+	It is possible to use <b>continuous futures</b> contracts to receive historical data, real time bars, or contract details (requires TWS v966+). Continuous futures cannot be used with real time data or to place orders. 
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs continuousfuturescontract
+		</li>
+		<li>
+			\snippet ContractSamples.java continuousfuturescontract
+		</li>
+		<li>
+			\snippet ContractSamples.vb continuousfuturescontract
+		</li>
+		<li>
+		\snippet ContractSamples.cpp continuousfuturescontract
+		</li>
+		<li>
+			\snippet ContractSamples.py continuousfuturescontract
+		</li>
+	</ul>
+	
+	The security type "FUT+CONTFUT" can be used to request contract details about the futures and continuous futures on an underlying. 
+	This security type cannot be used with other functionality.
+	
+	<ul id="tab">
+		<li class="active">
+		 \snippet ContractSamples.cs contandexpiringfut
+		</li>
+		<li>
+			\snippet ContractSamples.java contandexpiringfut
+		</li>
+		<li>
+			\snippet ContractSamples.vb contandexpiringfut
+		</li>
+		<li>
+		\snippet ContractSamples.cpp contandexpiringfut
+		</li>
+		<li>
+			\snippet ContractSamples.py contandexpiringfut
+		</li>
+	</ul>
+	
+	
 	\section opt Options
 	
 	Options, like futures, also require an expiration date plus a <b>strike</b> and a <b>multiplier</b>:
@@ -205,7 +250,7 @@
 		</li>
 	</ul>
 	
-	Using the contract's own symbol (local symbol in the API side) instead of its underlying can greatly simplify an option's description
+	The OCC options symbol can be used to define an option contract in the API through the option's 'local symbol' field. 
 	
 	<ul id="tab">
 		<li class="active">

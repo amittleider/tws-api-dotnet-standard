@@ -121,49 +121,53 @@ namespace Samples
             return contract;
         }
 
-		public static Contract BondWithCusip() {
-			//! [bondwithcusip]
-			Contract contract = new Contract();
-			// enter CUSIP as symbol
-			contract.Symbol= "912828C57";
-			contract.SecType = "BOND";
-			contract.Exchange = "SMART";
-			contract.Currency = "USD";
-			//! [bondwithcusip]
-			return contract;
-		}
-	
-		public static Contract Bond() {
-			//! [bond]
-			Contract contract = new Contract();
-			contract.ConId = 147554578;
-			contract.Exchange = "SMART";
-			//! [bond]
-			return contract;
-		}
-	
-		public static Contract MutualFund() {
-			//! [fundcontract]
-			Contract contract = new Contract();
-			contract.Symbol = "VINIX";
-			contract.SecType = "FUND";
-			contract.Exchange = "FUNDSERV";
-			contract.Currency = "USD";
-			//! [fundcontract]
-			return contract;
-		}
-	
-		public static Contract Commodity() {
-			//! [commoditycontract]
-			Contract contract = new Contract();
-			contract.Symbol = "XAUUSD";
-			contract.SecType = "CMDTY";
-			contract.Exchange = "SMART";
-			contract.Currency = "USD";
-			//! [commoditycontract]
-			return contract;
-		}
-		
+        public static Contract BondWithCusip()
+        {
+            //! [bondwithcusip]
+            Contract contract = new Contract();
+            // enter CUSIP as symbol
+            contract.Symbol = "912828C57";
+            contract.SecType = "BOND";
+            contract.Exchange = "SMART";
+            contract.Currency = "USD";
+            //! [bondwithcusip]
+            return contract;
+        }
+
+        public static Contract Bond()
+        {
+            //! [bond]
+            Contract contract = new Contract();
+            contract.ConId = 147554578;
+            contract.Exchange = "SMART";
+            //! [bond]
+            return contract;
+        }
+
+        public static Contract MutualFund()
+        {
+            //! [fundcontract]
+            Contract contract = new Contract();
+            contract.Symbol = "VINIX";
+            contract.SecType = "FUND";
+            contract.Exchange = "FUNDSERV";
+            contract.Currency = "USD";
+            //! [fundcontract]
+            return contract;
+        }
+
+        public static Contract Commodity()
+        {
+            //! [commoditycontract]
+            Contract contract = new Contract();
+            contract.Symbol = "XAUUSD";
+            contract.SecType = "CMDTY";
+            contract.Exchange = "SMART";
+            contract.Currency = "USD";
+            //! [commoditycontract]
+            return contract;
+        }
+
         public static Contract USStock()
         {
             //! [stkcontract]
@@ -177,21 +181,22 @@ namespace Samples
             return contract;
         }
 
-		public static Contract USStockWithPrimaryExch() {
-			//! [stkcontractwithprimary]
-			Contract contract = new Contract();
-			contract.Symbol = "MSFT";
-			contract.SecType = "STK";
-			contract.Currency = "USD";
-			contract.Exchange = "SMART";
-			//Specify the Primary Exchange attribute to avoid contract ambiguity
-			// (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
+        public static Contract USStockWithPrimaryExch()
+        {
+            //! [stkcontractwithprimary]
+            Contract contract = new Contract();
+            contract.Symbol = "MSFT";
+            contract.SecType = "STK";
+            contract.Currency = "USD";
+            contract.Exchange = "SMART";
+            //Specify the Primary Exchange attribute to avoid contract ambiguity
+            // (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
             contract.PrimaryExch = "ISLAND";
-			//! [stkcontractwithprimary]
-			return contract;
-		}
-		
-		
+            //! [stkcontractwithprimary]
+            return contract;
+        }
+
+
         public static Contract USStockAtSmart()
         {
             Contract contract = new Contract();
@@ -271,11 +276,11 @@ namespace Samples
             return contract;
         }
 
-		/*
+        /*
 		 * Dutch Warrants (IOPTs) can be defined using the local symbol or conid
 		 */
-		 
-		public static Contract DutchWarrant()
+
+        public static Contract DutchWarrant()
         {
             //! [ioptcontract]
             Contract contract = new Contract();
@@ -286,8 +291,8 @@ namespace Samples
             //! [ioptcontract]
             return contract;
         }
-		
-		
+
+
         /*
          * Future contracts also require an expiration date but are less complicated than options.
          */
@@ -507,7 +512,7 @@ namespace Samples
             return contract;
         }
 
-		public static Contract SmartFutureComboContract()
+        public static Contract SmartFutureComboContract()
         {
             //! [smartfuturespread]
             Contract contract = new Contract();
@@ -534,8 +539,8 @@ namespace Samples
             //! [smartfuturespread]
             return contract;
         }
-		
-		
+
+
         public static Contract InterCmdtyFuturesContract()
         {
             //! [intcmdfutcontract]
@@ -578,7 +583,7 @@ namespace Samples
         {
             //! [newscontractbt]
             Contract contract = new Contract();
-            contract.Symbol  = "BT:BT_ALL"; //BroadTape All News
+            contract.Symbol = "BT:BT_ALL"; //BroadTape All News
             contract.SecType = "NEWS";
             contract.Exchange = "BT"; //Briefing Trader
             //! [newscontractbt]
@@ -600,10 +605,10 @@ namespace Samples
         {
             //! [newscontractfly]
             Contract contract = new Contract();
-            contract.Symbol  = "FLY:FLY_ALL"; //BroadTape All News
+            contract.Symbol = "FLY:FLY_ALL"; //BroadTape All News
             contract.SecType = "NEWS";
             contract.Exchange = "FLY"; //Fly on the Wall
-           //! [newscontractfly]
+                                       //! [newscontractfly]
             return contract;
         }
 
@@ -629,5 +634,39 @@ namespace Samples
             return contract;
         }
 
+        public static Contract ContAndExpiringFut()
+        {
+            //! [contandexpiringfut]
+            Contract contract = new Contract();
+            contract.Symbol = "ES";
+            contract.SecType = "FUT+CONTFUT";
+            contract.Exchange = "GLOBEX";
+            //! [contandexpiringfut]
+            return contract;
+        }
+	    
+	public static Contract JefferiesContract()
+        {
+            //! [jefferies_contract]
+            Contract contract = new Contract();
+            contract.Symbol = "AAPL";
+            contract.SecType = "STK";
+            contract.Exchange = "JEFFALGO"; // must be direct-routed to JEFFALGO
+            contract.Currency = "USD"; // only available for US stocks
+            //! [jefferies_contract]
+            return contract;
+        }
+
+        public static Contract CSFBContract()
+        {
+            //! [csfb_contract]
+            Contract contract = new Contract();
+            contract.Symbol = "IBKR";
+            contract.SecType = "STK";
+            contract.Exchange = "CSFBALGO"; // must be direct-routed to CSFBALGO
+            contract.Currency = "USD"; // only available for US stocks
+            //! [csfb_contract]
+            return contract;
+        }
     }
 }

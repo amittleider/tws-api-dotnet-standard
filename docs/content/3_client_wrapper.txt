@@ -1,12 +1,13 @@
-/*! \page client_wrapper EWrapper and EClientSocket Classes
+/*! \page client_wrapper API Software Architecture
 
-	Once the TWS is up and running and actively listening for incoming connections we are ready to write our code. This draws our attention to the TWS API's two major components:
+	\section The EClientSocket and EWrapper Classes
+
+	Once the TWS is up and running and actively listening for incoming connections we are ready to write our code. This brings us to the TWS API's two major classes:
 	the @ref IBApi::EWrapper interface and the @ref IBApi::EClientSocket
 	
-	\section ewrapper_impl Implementing the EWrapper interface
+	\section ewrapper_impl Implementing the EWrapper Interface
 	
-	The @ref IBApi::EWrapper interface is the mechanism through which the TWS delivers information to the API client application. By implementing this interface the client application will be 
-	able to receive and handle the information coming from the TWS. For further information on how to implement interfaces, refer to your programming language's documentation.
+	The @ref IBApi::EWrapper interface is the mechanism through which the TWS delivers information to the API client application. By implementing this interface the client application will be able to receive and handle the information coming from the TWS. For further information on how to implement interfaces, refer to your programming language's documentation.
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -26,12 +27,11 @@
 		</li>
 	</ul>
 	
-	\section client_socket The EClientSocket class
+	\section client_socket The EClientSocket Class
 	
-	Just as the EWrapper implementing class receives information from the TWS, an @ref IBApi::EClientSocket object is used to send requests to the the TWS. Note this class
-	requires an implementation of the @ref IBApi::EWrapper interface as part of its constructor parameters. Behind the curtains the @ref IBApi::EClientSocket requires this object to
-	invoke the @ref IBApi::EWrapper interface methods after reading the incoming data from the TWS. Another crucial element is the @ref IBApi::EReaderSignal object passed to the
-	EClientSocket's constructor. We will discuss this object in more detail in the @ref ereader section.
+	The class used to send messages to TWS is @ref IBApi::EClientSocket. Unlike EWrapper, this class is not overriden as the provided functions in EClientSocket are invoked to send messages to TWS. To use EClientSocket, first it may be necessary to implement the @ref IBApi::EWrapper interface as part of its constructor parameters so that the application can handle all returned messages. Messages sent from TWS as a response to function calls in @ref IBApi::EClientSocket require a EWrapper implementation so they can processed to meet the needs of the API client. 
+	
+	Another crucial element is the @ref IBApi::EReaderSignal object passed to theEClientSocket's constructor. With the exception of Python, this object is used in APIs to signal a message is ready for processing in the queue. (In Python the Queue class handles this task directly). We will discuss this object in more detail in the @ref ereader section.
 	
 	<ul id="tab">
 		<li class="active"> 

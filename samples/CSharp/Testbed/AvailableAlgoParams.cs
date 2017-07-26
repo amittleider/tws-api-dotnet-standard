@@ -188,5 +188,51 @@ namespace Samples
             baseOrder.AlgoParams.Add(new TagValue("monetaryValue", monetaryValue.ToString()));
         }
         //! [pctvoltm_params]
+        
+        //! [jefferies_vwap_params]
+        public static void FillJefferiesVWAPParams(Order baseOrder, string startTime, string endTime, double relativeLimit,
+        double maxVolumeRate, string excludeAuctions, double triggerPrice, double wowPrice, int minFillSize, double wowOrderPct,
+            string wowMode, bool isBuyBack, string wowReference)
+        {
+            baseOrder.AlgoStrategy = "VWAP";
+            baseOrder.AlgoParams = new List<TagValue>();
+            baseOrder.AlgoParams.Add(new TagValue("startTime", startTime));
+            baseOrder.AlgoParams.Add(new TagValue("endTime", endTime));
+            baseOrder.AlgoParams.Add(new TagValue("relativeLimit", relativeLimit.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("maxVolumeRate", maxVolumeRate.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("excludeAuctions", excludeAuctions));
+            baseOrder.AlgoParams.Add(new TagValue("triggerPrice", triggerPrice.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("wowPrice", wowPrice.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("minFillSize", minFillSize.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("wowOrderPct", wowOrderPct.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("wowMode", wowMode));
+            baseOrder.AlgoParams.Add(new TagValue("IsBuyBack", isBuyBack ? "1" : "0"));
+            baseOrder.AlgoParams.Add(new TagValue("wowReference", wowReference));
+        }
+        //! [jefferies_vwap_params]
+
+        //! [csfb_inline_params]
+        public static void FillCSFBInlineParams(Order baseOrder, string startTime, string endTime, string execStyle, int minPercent,
+        int maxPercent, int displaySize, string auction, bool blockFinder, double blockPrice, int minBlockSize, int maxBlockSize, double iWouldPrice)
+        {
+
+            // must be direct-routed to "CSFBALGO"
+
+            baseOrder.AlgoStrategy = "INLINE";
+            baseOrder.AlgoParams = new List<TagValue>();
+            baseOrder.AlgoParams.Add(new TagValue("startTime", startTime));
+            baseOrder.AlgoParams.Add(new TagValue("endTime", endTime));
+            baseOrder.AlgoParams.Add(new TagValue("execStyle", execStyle));
+            baseOrder.AlgoParams.Add(new TagValue("minPercent", minPercent.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("maxPercent", maxPercent.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("displaySize", displaySize.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("auction", auction));
+            baseOrder.AlgoParams.Add(new TagValue("blockFinder", blockFinder ? "1" : "0"));
+            baseOrder.AlgoParams.Add(new TagValue("blockPrice", blockPrice.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("minBlockSize", minBlockSize.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("maxBlockSize", maxBlockSize.ToString()));
+            baseOrder.AlgoParams.Add(new TagValue("iWouldPrice", iWouldPrice.ToString()));
+        }
+        //! [csfb_inline_params] 
     }
 }

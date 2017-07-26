@@ -1,0 +1,51 @@
+/*! \page minimum_increment Minimum Price Increment
+
+	The minimum increment is the minimum difference between price levels at which a contract can trade. Some trades have constant price increments at all price levels. However some contracts have difference minimum increments on different exchanges on which they trade and/or different minimum increments at different price levels. In the contractDetails class, there is a field 'minTick' which specifies the smallest possible minimum increment encountered on any exchange or price. For complete information about minimum price increment structure, there is the IB Contracts and Securities search site, or the API function reqMarketRule starting in API v973.03 and TWS 966. 
+
+	The function reqContractDetails when used with a Contract object will return contractDetails object to the contractDetails function which has a list of the valid exchanges where the instrument trades. Also within the contractDetails object is a field called marketRuleIDs which has a list of "market rules". A market rule is defined as a rule which defines the minimum price increment given the price. The market rule list returned in contractDetails has a list of market rules in the same order as the list of valid exchanges. In this way, the market rule ID for a contract on a particular exchange can be determined. 
+
+	With the market rule ID number, the corresponding rule can be found with the API function IBApi::EClient::reqMarketRule:
+
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqmarketrule
+		</li>
+		<li> 
+			\snippet Testbed.java reqmarketrule
+		</li>
+		<li> 
+			\snippet MainModule.vb reqmarketrule
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqmarketrule
+		</li>
+		<li>
+			\snippet Program.py reqmarketrule
+		</li>
+	</ul>
+
+	The rule is returned to the function IBApi::EWrapper::marketRule
+
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs marketRule
+		</li>
+		<li>
+			\snippet EWrapperImpl.java marketRule
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb marketRule
+		</li>
+		<li>
+			\snippet TestCppClient.cpp marketRule
+		</li>
+		<li>
+			\snippet Program.py marketRule
+		</li>
+	</ul>
+
+	- For forex, there is an option in TWS/IB Gateway configuration which allows trading in 1/10 pips instead of 1/5 pips (the default). 
+	- TWS Global Configuration -> Display -> Ticker Row -> Allow Forex trading in 1/10 pips 
+	
+	<br><br>
+*/

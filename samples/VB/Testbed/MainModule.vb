@@ -163,6 +163,11 @@ Module MainModule
         'pnlSingle(client)
 
         '**************************
+        '*** Algo Orders ***
+        '**************************
+        'TestAlgoSamples(client, nextValidId)
+
+        '**************************
         '*** Continuous futures ***
         '**************************
         'continuousFuturesOperations(client)
@@ -175,21 +180,31 @@ Module MainModule
     End Sub
 
     Private Sub historicalTicks(client As EClientSocket)
+		' [reqhistoricalticks]
         client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "TRADES", 1, True, Nothing)
         client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "BID_ASK", 1, True, Nothing)
         client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", Nothing, 10, "MIDPOINT", 1, True, Nothing)
+		' [reqhistoricalticks]
     End Sub
 
     Private Sub pnl(client As EClientSocket)
+		' [reqpnl]
         client.reqPnL(17001, "DUC00042", "")
+		' [reqpnl]
         Thread.Sleep(1000)
+		' [cancelpnl]
         client.cancelPnL(17001)
+		' [cancelpnl]
     End Sub
 
     Private Sub pnlSingle(client As EClientSocket)
+		' [reqpnlsingle]
         client.reqPnLSingle(17001, "DUC00042", "", 268084)
+		' [reqpnlsingle]
         Thread.Sleep(1000)
+		' [cancelpnlsingle]
         client.cancelPnLSingle(17001)
+		' [cancelpnlsingle]
     End Sub
 
     Private Sub smartComponents(client As EClientSocket)
@@ -552,6 +567,13 @@ Module MainModule
         client.placeOrder(increment(nextOrderId), ContractSamples.EuropeanStock(), faOrderProfile)
         '! [faorderprofile]
 
+        '! [modelorder]
+        Dim modelOrder As Order = OrderSamples.LimitOrder("BUY", 200, 100)
+        modelOrder.Account = "DF12345" 'master FA account number
+        modelOrder.ModelCode = "Technology" 'model for tech stocks first created in TWS
+        client.placeOrder(increment(nextOrderId), ContractSamples.USStock(), modelOrder)
+        '! [modelorder]
+
         'client.placeOrder(increment(nextOrderId), ContractSamples.OptionAtBOX(), OrderSamples.Block("BUY", 50, 20))
         'client.placeOrder(increment(nextOrderId), ContractSamples.OptionAtBOX(), OrderSamples.BoxTop("SELL", 10))
         'client.placeOrder(increment(nextOrderId), ContractSamples.FutureComboContract(), OrderSamples.ComboLimitOrder("SELL", 1, 1, False))
@@ -807,6 +829,16 @@ Module MainModule
         AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.20000000000000001, 0.40000000000000002, "12:00:00 EST", "14:00:00 EST", True, 100000)
         client.placeOrder(increment(nextOrderId), ContractSamples.USStockAtSmart(), baseOrder)
         '! [pctvoltm]
+
+        '! [jeff_vwap_algo]
+        AvailableAlgoParams.FillJefferiesVWAPParams(baseOrder, "10:00:00 EST", "16:00:00 EST", 10, 10, "Exclude_Both", 130, 135, 1, 10, "Patience", False, "Midpoint")
+        client.placeOrder(increment(nextOrderId), ContractSamples.JefferiesContract(), baseOrder)
+        '! [jeff_vwap_algo]
+
+        '! [csfb_inline_algo]
+        AvailableAlgoParams.FillCSFBInlineParams(baseOrder, "10:00:00 EST", "16:00:00 EST", "Patient", 10, 20, 100, "Default", False, 40, 100, 100, 35)
+        client.placeOrder(increment(nextOrderId), ContractSamples.CSFBContract(), baseOrder)
+        '! [csfb_inline_algo]
     End Sub
 
 

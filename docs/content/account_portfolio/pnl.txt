@@ -1,0 +1,137 @@
+/*! \page pnl Profit and Loss Updates
+
+	Beginning in API v973.03, subscriptions can be made for real time daily and unrealized PnL updates for individual positions and for accounts. 
+	
+	- Account and position unrealized PnL is also available via the IBApi.EWrapper.updateAccountValue function. This information corresponds to the data in the TWS Account Window and updates are sent when there is a position change, or at 3 minute intervals. 
+	
+	<h2>PnL subscription requests for individual positions</h2>
+
+	Subscribe using the IBApi::EClient::reqPnLSingle function
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqpnlsingle
+		</li>
+		<li> 
+			\snippet Testbed.java reqpnlsingle
+		</li>
+		<li> 
+			\snippet MainModule.vb reqpnlsingle
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqpnlsingle
+		</li>
+		<li> 
+			\snippet Program.py reqpnlsingle
+		</li>
+	</ul>
+	
+	Updates are returned to IBApi.EWrapper.pnlSingle
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs pnlsingle
+		</li>
+		<li>
+			\snippet EWrapperImpl.java pnlsingle
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb pnlsingle
+		</li>
+		<li>
+			\snippet TestCppClient.cpp pnlsingle
+		</li>
+		<li>
+			\snippet Program.py pnlsingle
+		</li>
+	</ul>
+	
+	- If a PnL subscription request is made for an invalid conId or contract not in the account, there will not be a response. 
+	
+	Subscriptions are cancelled using the IBApi::EClient::cancelPnLSingle function:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs cancelpnlsingle
+		</li>
+		<li> 
+			\snippet Testbed.java cancelpnlsingle
+		</li>
+		<li> 
+			\snippet MainModule.vb cancelpnlsingle
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp cancelpnlsingle
+		</li>
+		<li> 
+			\snippet Program.py cancelpnlsingle
+		</li>
+	</ul>
+	
+	<h2>PnL subscription requests for accounts</h2>
+	
+	Subscribe using the IBApi::EClient::reqPnL function:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs reqpnl
+		</li>
+		<li> 
+			\snippet Testbed.java reqpnl
+		</li>
+		<li> 
+			\snippet MainModule.vb reqpnl
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp reqpnl
+		</li>
+		<li> 
+			\snippet Program.py reqpnl
+		</li>
+	</ul>
+
+	- With requests for advisor accounts with many subaccounts and/or positions can take several seconds for aggregated PnL to be computed and returned. 
+	
+	Updates are made to IBApi.EWrapper.pnl
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet EWrapperImpl.cs pnl
+		</li>
+		<li>
+			\snippet EWrapperImpl.java pnl
+		</li>
+		<li>
+			\snippet EWrapperImpl.vb pnl
+		</li>
+		<li>
+			\snippet TestCppClient.cpp pnl
+		</li>
+		<li>
+			\snippet Program.py pnl
+		</li>
+	</ul>
+	
+	Cancel subscriptions with the IBApi::EClient::cancelPnL function:
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet Program.cs cancelpnl
+		</li>
+		<li> 
+			\snippet Testbed.java cancelpnl
+		</li>
+		<li> 
+			\snippet MainModule.vb cancelpnl
+		</li>
+		<li> 
+			\snippet TestCppClient.cpp cancelpnl
+		</li>
+		<li> 
+			\snippet Program.py cancelpnl
+		</li>
+	</ul>
+	
+<br><br>
+
+*/

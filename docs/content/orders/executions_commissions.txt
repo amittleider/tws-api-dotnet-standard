@@ -43,6 +43,8 @@
 		</li>
 	</ul>
 	
+	- Note if a correction to an execution is published it will be received as an additional @ref IBApi::EWrapper::execDetails callback with all parameters identical except for the execID in the Execution object. The execID will differ only in the digits after the final period.
+	
 	\section execution_request Requesting Executions
 	
 	@ref IBApi::Execution and @ref IBApi::CommissionReport can be requested on demand via the @ref IBApi::EClient::reqExecutions method which receives a @ref IBApi::ExecutionFilter object as parameter

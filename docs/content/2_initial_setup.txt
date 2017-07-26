@@ -9,9 +9,9 @@
 	\section gateway The IB Gateway
 	
 	As an alternative to TWS for API users, IB also offers IB Gateway (IBG). From the perspective of an API application, IB Gateway and TWS are essentially identical; both represent a server to which an API client application can open a
-	socket connection once the user has first authenticated a session. In either case (TWS or IBG), the user must authenticate a session by manually entering credentials into the login window- for security reasons, a headless session of TWS or IBG without a GUI is not supported. From the user's perspective, IB Gateway is a lighter application which consumes about 40% fewer resources and has some advantages over using an API connection to TWS- most noticeably, it does not have the designed limitation that an autologoff time is programmed when it must shutdown to be restarted. 
+	socket connection once the user has first authenticated a session. In either case (TWS or IBG), the user must authenticate a session by manually entering credentials into the login window- for security reasons, a headless session of TWS or IBG without a GUI is not supported. From the user's perspective, IB Gateway is a lighter application which consumes about 40% fewer resources and has some advantages over using an API connection to TWS- most noticeably, it does not have the designed limitation that an autologoff time is programmed when it must shutdown to be restarted. IB Gateway does not update automatically and it is recommended to upgrade to a current version from the website every few months or less.  
 	
-	-<i>There are however some times in which it will also be necessary to restart IB Gateway</i>, for instance if there is a change to IB's contract database because of a ticker symbol changed or the introduction of a new contract, it will be necessary to restart IBG to access the updated contract information.
+	- <i>There are however some times in which it will also be necessary to restart IB Gateway</i>, for instance if there is a change to IB's contract database because of a ticker symbol changed or the introduction of a new contract, it will be necessary to restart IBG to access the updated contract information.
 
 	The advantages of TWS over IBG is that it provides the end user with many tools (Risk Navigator, OptionTrader, BookTrader, etc) and a graphical user interface which can be used to monitor an account or place orders. For beginning API users, it is recommended to first become acquainted with TWS before using IBG. 
 	
@@ -45,7 +45,7 @@
 	
 	Many third party applications already have their own version of the API which is installed in the process of installing the third party application. If using a third party product, it should first be verified if the API must be separately installed and what version of the API is needed- many third party products are only compatible with a specific API version. 
 	
-	The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><i>It is important that the API installs to the <b>C</b>: drive</i></b>, as otherwise API applications may not be able to find the associated files. 
+	The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><i>It is important that the API installs to the <b>C</b>: drive</i></b>, as otherwise API applications may not be able to find the associated files. The Windows installer also copies compiled dynamic linked libraries (DLL) of the 32 versions of the ActiveX control TWSLib.dll, C# API CSharpAPI.dll, and C++ API TwsSocketClient.dll. Starting in version 973.03, the Windows installer also installs a 32 bit version of the RTDServer control. To use a 64 bit application which loads the API as a dynamic library, it is necessary to compile and install a 64 bit version of the desired control. 
 	
 	\section changing Changing the installed API version
 	

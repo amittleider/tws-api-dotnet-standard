@@ -158,6 +158,11 @@ namespace Samples
             //marketRuleOperations(client);
 
             //pnLSingle(client);
+		
+	    /**************************/
+            /*** Algo Orders ***/
+            /**************************/
+            //TestAlgoSamples(client, nextValidId);
 
             /**************************/
             /*** Continuous futures ***/
@@ -173,23 +178,34 @@ namespace Samples
 
         private static void historicalTicks(EClientSocket client)
         {
+			//! [reqhistoricalticks]
             client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
             client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
             client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
+			//! [reqhistoricalticks]
         }
 
         private static void pnl(EClientSocket client)
         {
+			//! [reqpnl]
             client.reqPnL(17001, "DUC00042", "");
+			//! [reqpnl]
             Thread.Sleep(1000);
+			//! [cancelpnl]
             client.cancelPnL(17001);
+			//! [cancelpnl]
         }
 
         private static void pnLSingle(EClientSocket client)
         {
+			//! [reqpnlsingle]
             client.reqPnLSingle(17001, "DUC00042", "", 268084);
+			//! [reqpnlsingle]
             Thread.Sleep(1000);
+			//! [cancelpnlsingle]
             client.cancelPnLSingle(17001);
+			//! [cancelpnlsingle]
+			
         }
 
         private static void rerouteCFDOperations(EClientSocket client)
@@ -583,6 +599,13 @@ namespace Samples
             //faOrderProfile.FaProfile = "Percent_60_40";
             //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
             //! [faorderprofile]
+		
+	    //! [modelorder]
+            //Order modelOrder = OrderSamples.LimitOrder("BUY", 200, 100);
+            //modelOrder.Account = "DF12345";  // master FA account number
+            //modelOrder.ModelCode = "Technology"; // model for tech stocks first created in TWS
+            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);
+            //! [modelorder]
 
             //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.Block("BUY", 50, 20));
             //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.BoxTop("SELL", 10));
@@ -833,6 +856,16 @@ namespace Samples
             AvailableAlgoParams.FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", true, 100000);
             client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
             //! [pctvoltm]
+		
+            //! [jeff_vwap_algo]
+            AvailableAlgoParams.FillJefferiesVWAPParams(baseOrder, "10:00:00 EST", "16:00:00 EST", 10, 10, "Exclude_Both", 130, 135, 1, 10, "Patience", false, "Midpoint");
+            client.placeOrder(nextOrderId++, ContractSamples.JefferiesContract(), baseOrder);
+            //! [jeff_vwap_algo]
+
+            //! [csfb_inline_algo]
+            AvailableAlgoParams.FillCSFBInlineParams(baseOrder, "10:00:00 EST", "16:00:00 EST", "Patient", 10, 20, 100, "Default", false, 40, 100, 100, 35);
+            client.placeOrder(nextOrderId++, ContractSamples.CSFBContract(), baseOrder);
+            //! [csfb_inline_algo]
         }
 
         private static void financialAdvisorOperations(EClientSocket client)

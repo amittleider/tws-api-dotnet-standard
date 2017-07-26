@@ -601,24 +601,30 @@ public class EWrapperImpl implements EWrapper {
 	}
 	//! [marketRule]
 	
+	//! [pnl]
     @Override
     public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
         System.out.println(EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL));
-        
     }
-    
+    //! [pnl]
+	
+	//! [pnlsingle]
     @Override
     public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
         System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value));                
     }
-    
+    //! [pnlsingle]
+	
+	//! [historicalticks]
     @Override
     public void historicalTicks(int reqId, List<HistoricalTick> ticks, boolean done) {
         for (HistoricalTick tick : ticks) {
             System.out.println(EWrapperMsgGenerator.historicalTick(reqId, tick.time(), tick.price(), tick.size()));
         }
     }
-    
+    //! [historicalticks]
+	
+	//! [historicalticksbidask]
     @Override
     public void historicalTicksBidAsk(int reqId, List<HistoricalTickBidAsk> ticks, boolean done) {
         for (HistoricalTickBidAsk tick : ticks) {
@@ -626,13 +632,15 @@ public class EWrapperImpl implements EWrapper {
                     tick.sizeAsk()));
         }
     }   
-    
+    //! [historicalticksbidask]
+	
     @Override
+	//! [historicaltickslast]
     public void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done) {
         for (HistoricalTickLast tick : ticks) {
             System.out.println(EWrapperMsgGenerator.historicalTickLast(reqId, tick.time(), tick.mask(), tick.price(), tick.size(), tick.exchange(), 
                 tick.specialConditions()));
         }
     }
-    
+    //! [historicaltickslast]
 }

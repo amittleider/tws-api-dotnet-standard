@@ -550,4 +550,27 @@ public class ContractSamples {
 		//! [continuousfuturescontract]
 		return contract;
 	}
+	
+	public static Contract JefferiesContract() {
+		//! [jefferies_contract]
+		Contract contract = new Contract();
+		contract.symbol("AAPL");
+		contract.secType("STK");
+		contract.exchange("JEFFALGO"); // must be direct-routed to JEFFALGO
+		contract.currency("USD");    // only available for US stocks
+		//! [jefferies_contract]
+		return contract;
+	}
+
+	public static Contract CSFBContract() {
+		//! [csfb_contract]
+		Contract contract = new Contract();
+		contract.symbol("IBKR");
+		contract.secType("STK");
+		contract.exchange("CSFBALGO"); // must be direct-routed to CSFBALGO
+		contract.currency("USD");    // only available for US stocks
+		//! [csfb_contract]
+		return contract;
+	}
+
 }

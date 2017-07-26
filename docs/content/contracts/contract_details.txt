@@ -1,12 +1,12 @@
 /*! \page contract_details Requesting Contract Details
 
-	@ref IBApi::ContractDetails can be received from the API by the @ref IBApi::EClient::reqContractDetails function. This method takes as argument a @ref IBApi::Contract object which may be incompletely-defined and so
-	not matching a single contract in IB's database unambiguously. In reply, fully-defined contract objects with all fields specified which match the supplied Contract's parameters will be individually returned to the
-	IBApi::EWrapper::contractDetails function. The one exception is Bond contracts, which will be returned to the function IBApi::EWrapper::bondContractDetails. Because of market data license restrictions, there are only
-	a few available fields to be returned in a bond contract description, namely the minTick, exchange, currency, and short name. 
-
+	Complete details about a contract in IB's database can be retrieved using the function @ref IBApi::EClient::reqContractDetails. This includes information about a contracts conID, symbol, local symbol, currency, etc. which is returned in a @ref IBApi::ContractDetails object IBApi.EWrapper.contractDetail. reqContractDetails takes as an argument a Contract object which may uniquely match an argument, and unlike other API functions it can also take a Contract object which matches multiple contracts in IB's database. When there are multiple matches, they will each be returned individually to the function IBApi::EWrapper::contractDetails. 
+	
 	<b>Note</b>: Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency. 
 	
+	Request for Bond details will be returned to  IBApi::EWrapper::bondContractDetails instead. Because of bond market data license restrictions, there are only
+	a few available fields to be returned in a bond contract description, namely the minTick, exchange, currency, and short name. 
+
 	One particular use of the IBApi::EClient::reqContractDetails function is to request an option chain. See @ref option_chains for more details. 
 	
 	\section broadtape_list  BroadTape News List
