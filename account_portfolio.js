@@ -7,7 +7,7 @@ var account_portfolio =
       [ "Receiving", "account_updates.html#acct_update_receive", null ],
       [ "Cancelling", "account_updates.html#acct_update_cancel", null ],
       [ "Identifying the Account Keys", "account_updates.html#acct_keys", null ],
-      [ "Models", "account_updates.html#acct_updates_multi", null ]
+      [ "Account Value Update Subscriptions by Model", "account_updates.html#acct_updates_multi", null ]
     ] ],
     [ "Account Summary", "account_summary.html", [
       [ "Requesting", "account_summary.html#acct_summary_req", null ],
@@ -18,6 +18,7 @@ var account_portfolio =
       [ "Requesting", "positions.html#position_request", null ],
       [ "Receiving", "positions.html#position_receive", null ],
       [ "Cancelling", "positions.html#position_cancel", null ],
-      [ "Models' Positions", "positions.html#position_multi", null ]
-    ] ]
+      [ "Position Update Subscription by Model", "positions.html#position_multi", null ]
+    ] ],
+    [ "Profit and Loss Updates", "pnl.html", null ]
 ];
