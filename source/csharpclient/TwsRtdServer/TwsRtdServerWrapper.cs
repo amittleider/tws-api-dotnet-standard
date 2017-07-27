@@ -58,42 +58,45 @@ namespace TwsRtdServer
             }
         }
 
+        void SetAllLiveTopicsValues(int tickerId, string value)
+        {
+            TwsRtdServerMktDataRequest mktDataRequest = m_connection.GetMktDataRequest(tickerId);
+            if (mktDataRequest != null)
+            {
+                m_server.AddUpdatedTopicIds(mktDataRequest.SetAllLiveTopicsValues(value));
+            }
+        }
+
         public void error(Exception e) { }
         public void error(string str) { }
         public void error(int id, int errorCode, string errorMsg) 
         {
-            // errors
-            // 502 - Couldn't connect to TWS
-            if (id == -1 && errorCode == 502) 
+            if (id == -1 && Array.IndexOf(TwsRtdServerErrors.TwsServerErrors(), errorCode) >= 0) 
             {
                 m_connection.SetError(TwsRtdServerErrors.CANNOT_CONNECT_TO_TWS, errorMsg);
             }
-            // mktDataRequest error
-            // 429 - delta neutral combo only
-            // 313 - invalid combo legs
-            // 321 - validate req error
-            // 200 - no secdef found
-            // 10154 - leg not supported
-            // 322 - process req error
-            // 10089 - API data requires subscription
-            // 354 - market data not subscribed
-            if (id != -1 && 
-                (   errorCode == 429 || 
-                    errorCode == 313 || 
-                    errorCode == 321 ||
-                    errorCode == 200 ||
-                    errorCode == 10154 ||
-                    errorCode == 322 ||
-                    errorCode == 10089 ||
-                    errorCode == 354
-                 ))
+
+            if (id != -1 && Array.IndexOf(TwsRtdServerErrors.TwsTickerErrors(), errorCode) >= 0)
             {
                 TwsRtdServerMktDataRequest mktDataRequest = m_connection.GetMktDataRequest(id);
                 if (mktDataRequest != null)
                 {
-                    mktDataRequest.SetError(TwsRtdServerErrors.REQUEST_MKT_DATA_ERROR, errorMsg);
+                    mktDataRequest.SetError(errorCode, errorMsg);
                 }
-                SetAllTopicsValues(id, "TwsRtdServer error: " + errorMsg);
+
+                switch (errorCode)
+                {
+                    case 10167:
+                        {
+                            SetAllLiveTopicsValues(id, "TwsRtdServer error: " + errorMsg);
+                            break;
+                        }
+                    default:
+                        {
+                            SetAllTopicsValues(id, "TwsRtdServer error: " + errorMsg);
+                            break;
+                        }
+                }
             }
         }
 
