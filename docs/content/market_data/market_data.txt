@@ -3,12 +3,11 @@
 	It is possible to fetch different kinds market data from the TWS:
 	- \subpage top_data
 	- \subpage market_depth
-	- \subpage historical_data
 	- \subpage realtime_bars
 	
 	\section market_subscriptions Live Market Data
 	
-	In order to receive top-of-book, depth-of-book, or historical market data from the API it is necessary have live market data subscriptions for the requested instruments in TWS. The full list of requirements for real time data:
+	In order to receive real time top-of-book, depth-of-book, or historical market data from the API it is necessary have live market data subscriptions for the requested instruments in TWS. The full list of requirements for real time data:
 	
 	(1) trading permissions for the specified instruments 
 	
@@ -64,6 +63,9 @@
 	
 	<b>Note: </b>It is important to understand the concept of market data lines since it has an impact not only on the live real time requests but also for requesting market depth and real time bars.
 	
+	<br>
+	
+	-\subpage delayed
 	
 	<br><br>
 

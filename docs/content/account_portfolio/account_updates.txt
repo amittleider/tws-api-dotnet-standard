@@ -3,8 +3,8 @@
 	\section acct_update_request Requesting
 
 	The @ref IBApi::EClient::reqAccountUpdates function creates a subscription to the TWS through which account and portfolio information is delivered. This information is the exact same
-	as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription. Just as with the
-	TWS' Account Window, this information is updated every <b>three</b> minutes. 
+	as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription. In a single account structure, the account number is not necessary. Just as with the
+	TWS' Account Window, unless there is a position change this information is updated at a fixed interval of <b>three</b> minutes. 
 	
 	<ul id="tab">
 		<li class="active">
@@ -126,7 +126,7 @@
 	
 	For further information, please refer to <a href="https://institutions.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/the_account_window.htm" target="_blank" class="linkexternal">the Account Window.</a>
 	
-	\section acct_updates_multi Models
+	\section acct_updates_multi Account Value Update Subscriptions by Model
 	
 	The @ref IBApi::EClient::reqAccountUpdatesMulti can be used with multiple account structures to subscribe to updates in real time for multiple accounts and/or models. As with @ref IBApi::EClient::reqAccountUpdates this information is the exact same as the one displayed within the TWS' Account Window. Note this function receives a specific account along with a flag indicating whether to start or stop the subscription.
 		

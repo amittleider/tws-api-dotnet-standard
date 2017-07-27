@@ -3,6 +3,7 @@
 	\section csfb_params CSFB Algorithm Parameters
 	
 	The socket-based APIs support the following CSFB Algo Strategies:
+	CSFB Algos are not available in paper accounts.
 	
     @ref Inline
 	
@@ -128,6 +129,49 @@
             <td></td>
         </tr>
 	</table>
+	
+	<br>
+	Example CSFB Inline Algo
+	<br>
+	
+	<ul id="tab">
+		<li class="active">
+			\snippet ContractSamples.cs csfb_contract
+			...
+			\snippet Program.cs csfb_inline_algo
+			...
+			\snippet AvailableAlgoParams.cs csfb_inline_params
+		</li>
+		<li>
+			\snippet ContractSamples.java csfb_contract
+			...
+			\snippet Testbed.java csfb_inline_algo
+			...
+			\snippet AvailableAlgoParams.java csfb_inline_params
+		</li>
+		<li>
+			\snippet ContractSamples.vb csfb_contract
+			...
+			\snippet MainModule.vb csfb_inline_algo
+			...
+			\snippet AvailableAlgoParams.vb csfb_inline_params
+		</li>
+		<li>
+			\snippet ContractSamples.cpp csfb_contract
+			...
+			\snippet TestCppClient.cpp csfb_inline_algo
+			...
+			\snippet AvailableAlgoParams.cpp csfb_inline_params
+		</li>
+		<li>
+			\snippet ContractSamples.py csfb_contract
+			...
+			\snippet Program.py csfb_inline_algo
+			...
+			\snippet AvailableAlgoParams.py csfb_inline_params
+		</li>
+	</ul>
+	
 	
     \subsection Pathfinder
     

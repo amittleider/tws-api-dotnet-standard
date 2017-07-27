@@ -5,6 +5,6 @@
 
 	- \subpage ibalgos
 	- \subpage csfb
-	- \subpage jefferies available soon
+	- \subpage jefferies
 
 */

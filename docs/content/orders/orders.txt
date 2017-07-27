@@ -6,5 +6,7 @@
   
   - \subpage available_orders
   - \subpage order_management
+  - \subpage minimum_increment
+  - \subpage margin
     
 */

@@ -192,12 +192,6 @@
 	
 	<b>Important:</b> When attaching orders and to prevent accidental executions it is a very good idea to make use of the @ref IBApi::Order::Transmit flag as demonstrated in @ref bracket_order
 	
-	\section order_margin Checking Margin Requirements
-	
-	It is possible to obtain the margin and commissions information for a given order *before* submitting it by assigning the @ref IBApi::Order::WhatIf flag to true. Invoking placeOrder with the whatif 
-	flag set to true will result in the order not being actually placed but rather used as a query. The margin and commissions information will be returned via 
-	the @ref IBApi::EWrapper::openOrder callback through its @ref IBApi::OrderState object.
-	
 	<br><br>
 	
 */

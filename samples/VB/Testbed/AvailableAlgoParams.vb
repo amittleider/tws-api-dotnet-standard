@@ -203,5 +203,51 @@ Namespace Samples
         End Sub
         '! [pctvoltm_params]
 
+        '! [jefferies_vwap_params]
+        Public Shared Sub FillJefferiesVWAPParams(baseOrder As Order, startTime As String, endTime As String, relativeLimit As Double, maxVolumeRate As Double, excludeAuctions As String,
+            triggerPrice As Double, wowPrice As Double, minFillSize As Integer, wowOrderPct As Double, wowMode As String, isBuyBack As Boolean, wowReference As String)
+
+            'Must be direct-routed to "JEFFALGO"
+
+            baseOrder.AlgoStrategy = "VWAP"
+            baseOrder.AlgoParams = New List(Of TagValue)
+            baseOrder.AlgoParams.Add(New TagValue("startTime", startTime))
+            baseOrder.AlgoParams.Add(New TagValue("endTime", endTime))
+            baseOrder.AlgoParams.Add(New TagValue("relativeLimit", relativeLimit.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("maxVolumeRate", maxVolumeRate.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("excludeAuctions", excludeAuctions))
+            baseOrder.AlgoParams.Add(New TagValue("triggerPrice", triggerPrice.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("wowPrice", wowPrice.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("minFillSize", minFillSize.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("wowOrderPct", wowOrderPct.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("wowMode", wowMode))
+            baseOrder.AlgoParams.Add(New TagValue("isBuyBack", BooleantoString(isBuyBack)))
+            baseOrder.AlgoParams.Add(New TagValue("wowReference", wowReference))
+        End Sub
+        '! [jefferies_vwap_params]
+
+        '! [csfb_inline_params]
+        Public Shared Sub FillCSFBInlineParams(baseOrder As Order, startTime As String, endTime As String, execStyle As String, minPercent As Integer, maxPercent As Integer, displaySize As Integer, auction As String,
+            blockFinder As Boolean, blockPrice As Double, minBlockSize As Integer, maxBlockSize As Integer, iWouldPrice As Double)
+
+            'Must be direct-routed to "CSFBALGO"
+
+            baseOrder.AlgoStrategy = "INLINE"
+            baseOrder.AlgoParams = New List(Of TagValue)
+            baseOrder.AlgoParams.Add(New TagValue("startTime", startTime))
+            baseOrder.AlgoParams.Add(New TagValue("endTime", endTime))
+            baseOrder.AlgoParams.Add(New TagValue("execStyle", execStyle))
+            baseOrder.AlgoParams.Add(New TagValue("minPercent", minPercent.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("maxPercent", maxPercent.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("displaySize", displaySize.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("auction", auction))
+            baseOrder.AlgoParams.Add(New TagValue("blockFinder", BooleantoString(blockFinder)))
+            baseOrder.AlgoParams.Add(New TagValue("blockPrice", blockPrice.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("minBlockSize", minBlockSize.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("maxBlockSize", maxBlockSize.ToString()))
+            baseOrder.AlgoParams.Add(New TagValue("iWouldPrice", iWouldPrice.ToString()))
+        End Sub
+        '! [csfb_inline_params]
+
     End Class
 End Namespace

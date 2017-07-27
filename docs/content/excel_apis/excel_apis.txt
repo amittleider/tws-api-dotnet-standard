@@ -1,0 +1,34 @@
+/*! \page excel_apis Excel APIs
+
+	\section available_excel_apis Available Excel APIs
+
+	There are several API technologies available for Microsoft Excel. Since they utilize Windows technologies they require the Windows OS.
+
+	- \subpage tws_rtd_server
+  
+	- \subpage dde_intro
+	
+	- \subpage activex
+	
+	Recorded webinars providing an introduction to Excel API technologies are available from the IB website at: <a href="https://www.interactivebrokers.com/en/index.php?f=1350&t=recorded&q=Excel%20API&p=1" target="_blank">Recorded Excel API Webinars</a>
+	
+	\section excel_api_comparison Excel API comparison
+	
+	<table>
+		<tr><th></th><th>RTDServer</th><th>DDE</th><th>ActiveX</th></tr>
+		<tr><td>Full API functionality</td><td>Not currently</td><td>No</td><td>Yes</td></tr>
+		<tr><td>Easy to use formulas</td><td>Yes</td><td>Sometimes</td><td>No</td></tr>
+		<tr><td>Use without VBA</td><td>Yes</td><td>Sometimes</td><td>No</td></tr>
+		<tr><td>Designed to not overwhelm Excel</td><td>Yes</td><td>No</td><td>No</td></tr>
+		<tr><td>Open Source</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+		<tr><td>Market Data Refresh rate</td><td>250 ms</td><td>250 ms</td><td>1 sec</td></tr>
+		<tr><td>Sample compatible with 64 bit Excel</td><td>No</td><td>Yes</td><td>No</td>	</tr>
+	</table>
+
+	\section excel_limitations Limitations of Microsoft Excel APIs
+	
+	By design, Microsoft Excel gives precedence to the user interface over the data connection to other applications. For that reason, Excel only receives updates when it is in a 'ready' state, and may ignore data sent for instance when a modal dialogue box is displayed to the user, a cell is being edited, or Excel is busy doing other things. A new Excel Real Time Data server (RTD) API has been introduced to help address some of these limitations, but they are inherent to Excel as a trading application and not specific to an API technology. 
+
+	<br><br>
+	
+*/

@@ -542,33 +542,43 @@ Namespace Samples
         End Sub
         '! [marketRule]
 
+		'! [pnl]
         Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double) Implements EWrapper.pnl
             Console.WriteLine("PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL {2}", reqId, dailyPnL, unrealizedPnL)
         End Sub
-
+		'! [pnl]
+		
+		'! [pnlsingle]
         Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
             Console.WriteLine("PnL Single. Request Id: {0}, pos {1}, daily PnL {2}, unrealized PnL {3}, value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value)
         End Sub
-
+		'! [pnlsingle]
+		
+		'! [historicalticks]
         Public Sub historicalTick(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks
             For Each tick In ticks
                 Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, tick.Time, tick.Price, tick.Size)
             Next
         End Sub
+		'! [historicalticks]
 
+		'! [historicalticksbidask]
         Public Sub historicalTickBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk
             For Each tick In ticks
                 Console.WriteLine("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
                     reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)
             Next
         End Sub
+		'! [historicalticksbidask]
 
+		'! [historicaltickslast]
         Public Sub historicalTickLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast
             For Each tick In ticks
                 Console.WriteLine("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
                     reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)
             Next
         End Sub
+		'! [historicaltickslast]
     End Class
 
 End Namespace

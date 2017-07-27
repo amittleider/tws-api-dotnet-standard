@@ -30,26 +30,27 @@ namespace IBApi
         
         /**
          * @brief Errors sent by the TWS are received here.
-         * @param id the request identifier which generated the error.
+         * @param id the request identifier which generated the error. Note: -1 will indicate a notification and not true error condition.
          * @param errorCode the code identifying the error.
-         * @param errorMsg error's description.
+         * @param errorMsg error's description. Currently Latin-1 encoded error messages are supported. If logged into TWS in a different language it is recommended to enabled the setting in TWS Global Configuration -> API -> Settings -> Show API errors in English.  
          *  
          */
         void error(int id, int errorCode, string errorMsg);
 
         /**
-         * @brief Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime
+         * @brief TWS's current time. TWS is synchronized with the server (not local computer) using NTP and this function will receive the current time in TWS.
          * @sa EClient::reqCurrentTime
          */
         void currentTime(long time);
 
         /**
          * @brief Market data tick price callback.
-         * Handles all price related ticks.
+         * Handles all price related ticks. Every tickPrice callback is followed by a tickSize. A tickPrice value of -1 or 0 followed by a tickSize of 0 indicates there is no data for this field currently available, whereas a tickPrice with a positive tickSize indicates an active quote of 0 (typically for a combo contract).
          * @param tickerId the request's unique identifier.
          * @param field the type of the price being received (i.e. ask price).
          * @param price the actual price.
          * @param canAutoExecute Specifies whether the price tick is available for automatic execution (1) or not (0).
+		 * @param pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask
          * @sa TickType, tickSize, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickPrice(int tickerId, int field, double price, TickAttrib attribs);
@@ -59,16 +60,16 @@ namespace IBApi
          * Handles all size-related ticks.
          * @param tickerId the request's unique identifier.
          * @param field the type of size being received (i.e. bid size)
-         * @param size the actual size.
+         * @param size the actual size. US stocks have a multiplier of 100.
          * @sa TickType, tickPrice, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickSize(int tickerId, int field, int size);
 
         /**
          * @brief Market data callback.
+		 * Every tickPrice is followed by a tickSize. There are also independent tickSize callbacks anytime the tickSize changes, and so there will be duplicate tickSize messages following a tickPrice.
          * @param tickerId the request's unique identifier.
          * @param field the type of the tick being received
-         * @param value
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickString(int tickerId, int field, string value);
@@ -126,26 +127,28 @@ namespace IBApi
         void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
 
         /**
-         * @brief When requesting market data snapshots, this market will indicate the snapshot reception is finished.
+         * @brief When requesting market data snapshots, this market will indicate the snapshot reception is finished. Expected to occur 11 seconds after beginning of request. 
          * 
          */
         void tickSnapshotEnd(int tickerId);
 
         /**
-         * @brief Receives next valid order id.
+         * @brief Receives next valid order id. Will be invoked automatically upon successfull API client connection, or after call to EClient::reqIds
+		 * Important: the next valid order ID is only valid at the time it is received.
          * @param orderId the next order id
          * @sa EClientSocket::reqIds
          */
         void nextValidId(int orderId);
 
         /**
-         * @brief Receives a comma-separated string with the managed account ids
+         * @brief Receives a comma-separated string with the managed account ids. Occurs automatically on initial API client connection.
          * @sa EClientSocket::reqManagedAccts
          */
         void managedAccounts(string accountsList);
 
         /**
-         * @brief Notifes when the API-TWS connectivity has been closed.
+         * @brief Callback to indicate the API connection has closed. 
+		 * Following a API <-> TWS broken socket connection, this function is not called automatically but must be triggered by API client code.
          * @sa EClientSocket::eDisconnect
          */
         void connectionClosed();
@@ -193,6 +196,7 @@ namespace IBApi
 
         /**
          * @brief notifies when all the accounts' information has ben received.
+		 * Requires TWS 967+ to receive accountSummaryEnd in linked account structures. 
          * @param reqId the request's identifier.
          * @sa accountSummary, EClientSocket::reqAccountSummary
          */
@@ -208,7 +212,8 @@ namespace IBApi
 
         /**
          * @brief Receives the subscribed account's information.
-         * Only one account can be subscribed at a time.
+         * Only one account can be subscribed at a time. 
+		 * After the initial callback to updateAccountValue, callbacks only occur for values which have changed. This occurs at the time of a position change, or every 3 minutes at most. This frequency cannot be adjusted.
          * @param key the value being updated.
          *      - AccountCode — The account ID number
          *      - AccountOrGroup — "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration
@@ -332,6 +337,7 @@ namespace IBApi
         /**
          * @brief Receives the subscribed account's portfolio.
          * This function will receive only the portfolio of the subscribed account. If the portfolios of all managed accounts are needed, refer to EClientSocket::reqPosition
+		 * After the initial callback to updatePortfolio, callbacks only occur for positions which have changed.
          * @param contract the Contract for which a position is held.
          * @param position the number of positions held.
          * @param marketPrice instrument's unitary price
@@ -375,6 +381,7 @@ namespace IBApi
          * @param lastFillPrice price at which the last positions were filled.
          * @param clientId API client which submitted the order.
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
+		 * @param mktCapPrice If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. 
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
         void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
@@ -445,15 +452,15 @@ namespace IBApi
         /**
          * @brief returns the requested historical data bars
          * @param reqId the request's identifier
-         * @param date the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request)
+         * @param date the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login.
          * @param open the bar's open point
          * @param high the bar's high point
          * @param low the bar's low point
          * @param close the bar's closing point
-         * @param volume the bar's traded volume if available
-         * @param count the number of trades during the bar's timespan (only available for TRADES).
-         * @param WAP the bar's Weighted Average Price
-         * @param hasGaps (deprecated and no longer used) indicates if the data has gaps or not.
+         * @param volume the bar's traded volume if available (only available for TRADES)
+         * @param count the number of trades during the bar's timespan (only available for TRADES)
+         * @param WAP the bar's Weighted Average Price (only available for TRADES)
+         * @param hasGaps (deprecated and no longer used)
          * @sa EClientSocket::reqHistoricalData
          */
         void historicalData(int reqId, Bar bar);
@@ -461,7 +468,7 @@ namespace IBApi
 		/**
          * @brief Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.
 		 * @param reqId the requests identifier
-		 * @param bar the historical data bar. Smallest size is 5 seconds. 
+		 * @param bar the OHLC historical data bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
          */
         void historicalDataUpdate(int reqId, Bar bar);
 
@@ -546,15 +553,15 @@ namespace IBApi
          * @param high the bar's high point
          * @param low the bar's low point
          * @param close the bar's closing point
-         * @param volume the bar's traded volume if available
-         * @param WAP the bar's Weighted Average Price
+         * @param volume the bar's traded volume (only returned for TRADES data)
+         * @param WAP the bar's Weighted Average Price rounded to minimum increment (only available for TRADES).
          * @param count the number of trades during the bar's timespan (only available for TRADES).
          * @sa EClientSocket::reqRealTimeBars
          */
         void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count);
 
         /**
-         * @brief provides the xml-formatted parameters available to create a market scanner.
+         * @brief provides the xml-formatted parameters available from TWS market scanners (not all available in API).
          * @param xml the xml-formatted string with the available parameters.
          * @sa scannerData, EClientSocket::reqScannerParameters
          */
@@ -592,22 +599,22 @@ namespace IBApi
         void receiveFA(int faDataType, string faXmlData);
 
         /**
-        * @brief Deprecated Function.
+        * @brief Not generally available.
         */
         void verifyMessageAPI(string apiData);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyCompleted(bool isSuccessful, string errorText);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
 
@@ -628,7 +635,8 @@ namespace IBApi
         void displayGroupUpdated(int reqId, string contractInfo);
 
         /**
-        * @brief callback signifying completion of successful connection
+        * @brief callback initially acknowledging connection attempt
+		* connection handshake not complete until nextValidID is received
         */
         void connectAck();
 
@@ -639,7 +647,7 @@ namespace IBApi
          * @param modelCode the model code holding the position.
          * @param contract the position's Contract
          * @param pos the number of positions held.
-         * @Param avgCost the average cost of the position.
+         * @param avgCost the average cost of the position.
          * @sa positionMultiEnd, EClientSocket::reqPositionsMulti
          */
         void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost);
@@ -730,7 +738,7 @@ namespace IBApi
         void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData);
 
         /**
-        * @brief bit number to exchange + exchange apprevation dictionary
+        * @brief bit number to exchange + exchange abbreviation dictionary
         * @param reqId
         * @param theMap
         * sa EClient::reqSmartComponents
@@ -748,7 +756,7 @@ namespace IBApi
         void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
 
         /**
-        * @brief returns array of news providers
+        * @brief returns array of subscribed API news providers for this user
         * @param NewsProvider[]
         * @sa EClient::reqNewsProviders
         */
@@ -801,13 +809,13 @@ namespace IBApi
         /**
         * @brief - returns conId and exchange for CFD market data request re-route
         * @param reqId 
-        * @param conId
-        * @param exchange
+        * @param conId of the underlying instrument which has market data
+        * @param exchange of the underlying
         */
         void rerouteMktDataReq(int reqId, int conId, string exchange);
 
         /**
-        * @brief - returns conId and exchange for market depth request re-route
+        * @brief returns the conId and exchange for an underlying contract when a request is made for level 2 data for an instrument which does not have data in IB's database. For example stock CFDs and index CFDs.  
         * @param reqId 
         * @param conId
         * @param exchange
@@ -815,16 +823,57 @@ namespace IBApi
         void rerouteMktDepthReq(int reqId, int conId, string exchange);
 
         /**
-        * @brief returns marketRuleId and array of price increments
+        * @brief returns minimum price increment structure for a particular market rule ID
+		* market rule IDs for an instrument on valid exchanges can be obtained from the contractDetails object for that contract
         * @param marketRuleId
         * @param PriceIncrement[]
         * @sa EClient::reqMarketRule
         */
         void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
-        void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+		
+		/**
+		* @brief receives PnL updates in real time for the daily PnL and the total unrealized PnL for an account 
+		* @param reqId
+		* @param dailyPnL dailyPnL updates for the account in real time
+		* @param unrealizedPnL total unRealized PnL updates for the account in real time
+        * @sa EClient::reqPnL
+		*/
+		void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+		
+		/** 
+		* @brief receives real time updates for single position daily PnL values
+		* @param reqId
+		* @param pos current size of the position
+		* @param dailyPnL dailyPnL for the position
+		* @param unrealizedPnL total unrealized PnL for the position (since inception) updating in real time
+		* @param value current market value of the position
+		* @sa EClient::reqSinglePnL
+		*/
         void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+			
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks
+		* @param done
+		*/
         void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
+		
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks
+		* @param done
+		*/
         void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+		
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks
+		* @param done
+		*/
         void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
+		
     }
 }

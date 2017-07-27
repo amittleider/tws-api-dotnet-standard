@@ -195,4 +195,74 @@ public class AvailableAlgoParams {
 		baseOrder.algoParams().add(new TagValue("monetaryValue", String.valueOf(monetaryValue)));
 	}
 	//! [pctvoltm_params]
+	
+	//! [csfb_params]
+		public static void FillCSFBParams(Order baseOrder, double startPctVol, double endPctVol, 
+			String startTime, String endTime, boolean noTakeLiq, double monetaryValue){
+        
+		// must be direct-routed to "CSFB"
+		
+		baseOrder.algoStrategy("PctVolTm");
+		baseOrder.algoParams(new ArrayList<>());
+		baseOrder.algoParams().add(new TagValue("startPctVol", String.valueOf(startPctVol)));
+		baseOrder.algoParams().add(new TagValue("endPctVol", String.valueOf(endPctVol)));
+		baseOrder.algoParams().add(new TagValue("startTime", startTime));
+		baseOrder.algoParams().add(new TagValue("endTime", endTime));
+		baseOrder.algoParams().add(new TagValue("noTakeLiq", noTakeLiq ? "1" : "0"));
+		baseOrder.algoParams().add(new TagValue("monetaryValue", String.valueOf(monetaryValue)));
+	}
+	//! [csfb_params]
+	
+	//! [jefferies_vwap_params]
+		public static void FillJefferiesVWAPParams(Order baseOrder, String startTime, String endTime, double relativeLimit, 
+			double maxVolumeRate, String excludeAuctions, double triggerPrice, double wowPrice, int minFillSize, double wowOrderPct, 
+			String wowMode, boolean isBuyBack, String wowReference) {
+
+		// must be direct-routed to "JEFFALGO"	
+		
+		baseOrder.algoStrategy("VWAP");
+		
+		baseOrder.algoParams(new ArrayList<>());
+		baseOrder.algoParams().add(new TagValue("StartTime", startTime));
+		baseOrder.algoParams().add(new TagValue("EndTime", endTime));
+		baseOrder.algoParams().add(new TagValue("RelativeLimit", String.valueOf(relativeLimit)));
+		baseOrder.algoParams().add(new TagValue("MaxVolumeRate", String.valueOf(maxVolumeRate)));
+		baseOrder.algoParams().add(new TagValue("ExcludeAuctions", excludeAuctions));
+		baseOrder.algoParams().add(new TagValue("TriggerPrice", String.valueOf(triggerPrice)));
+		baseOrder.algoParams().add(new TagValue("WowPrice", String.valueOf(wowPrice)));
+		baseOrder.algoParams().add(new TagValue("MinFillSize", String.valueOf(minFillSize)));
+		baseOrder.algoParams().add(new TagValue("WowOrderPct", String.valueOf(wowOrderPct)));
+		baseOrder.algoParams().add(new TagValue("WowMode", wowMode));
+		baseOrder.algoParams().add(new TagValue("IsBuyBack", isBuyBack ? "1" : "0"));
+		baseOrder.algoParams().add(new TagValue("WowReference", wowReference));
+		
+	}
+	//! [jefferies_vwap_params]
+
+	//! [csfb_inline_params]
+	public static void FillCSFBInlineParams(Order baseOrder, String startTime, String endTime, String execStyle, int minPercent,
+											int maxPercent, int displaySize, String auction, boolean blockFinder, double blockPrice,
+											int minBlockSize, int maxBlockSize, double iWouldPrice) {
+
+		// must be direct-routed to "CSFBALGO"
+
+		baseOrder.algoStrategy("INLINE");
+
+		baseOrder.algoParams(new ArrayList<>());
+		baseOrder.algoParams().add(new TagValue("StartTime", startTime));
+		baseOrder.algoParams().add(new TagValue("EndTime", endTime));
+		baseOrder.algoParams().add(new TagValue("ExecStyle", execStyle));
+		baseOrder.algoParams().add(new TagValue("MinPercent", String.valueOf(minPercent)));
+		baseOrder.algoParams().add(new TagValue("MaxPercent", String.valueOf(maxPercent)));
+		baseOrder.algoParams().add(new TagValue("DisplaySize", String.valueOf(displaySize)));
+		baseOrder.algoParams().add(new TagValue("Auction", auction));
+		baseOrder.algoParams().add(new TagValue("BlockFinder", blockFinder ? "1" : "0"));
+		baseOrder.algoParams().add(new TagValue("BlockPrice", String.valueOf(blockPrice)));
+		baseOrder.algoParams().add(new TagValue("MinBlockSize", String.valueOf(minBlockSize)));
+		baseOrder.algoParams().add(new TagValue("MaxBlockSize", String.valueOf(maxBlockSize)));
+		baseOrder.algoParams().add(new TagValue("IWouldPrice", String.valueOf(iWouldPrice)));
+
+	}
+	//! [csfb_inline_params]
+	
 }

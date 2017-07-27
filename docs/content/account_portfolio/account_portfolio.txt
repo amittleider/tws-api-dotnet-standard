@@ -8,5 +8,5 @@
 	- \subpage account_updates 
 	- \subpage account_summary 
 	- \subpage positions 
-
+	- \subpage pnl
 */

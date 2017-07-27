@@ -52,6 +52,9 @@ public:
 	static Contract FLYbroadtapeNewsFeed();
 	static Contract MTbroadtapeNewsFeed();
 	static Contract ContFut();
+	static Contract ContAndExpiringFut();
+	static Contract JefferiesContract();
+	static Contract CSFBContract();
 };
 
 #endif

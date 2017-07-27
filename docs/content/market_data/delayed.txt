@@ -1,0 +1,11 @@
+/*! \page delayed Delayed Streaming Data
+
+10-15 minute delayed streaming data is available for many types of instruments without market data subscriptions. By default, the API is in the real time market data mode, so the function IBApi::EClient::reqMktData will request real time data. To switch to delayed streaming data, the function IBApi::EClient::reqMarketDataType must be invoked with a parameter of 3 (for delayed) or 4 (for delayed-frozen) quotes, see also @ref market_data_type. Subsequent calls to IBApi::EClient::reqMktData will then result in requests for delayed data which will be returned to the delayed tick types @ref tick_types. If live data is available, it will always be returned instead of delayed data. 
+
+- Delayed data has a limited number of generic tick types that can be specified: 101, 106, 165, 221, 232, 236, 258. See also @ref tick_types
+
+- It is important to note that historical data still requires market data subscriptions @ref historical_data
+
+<br><br>
+
+*/

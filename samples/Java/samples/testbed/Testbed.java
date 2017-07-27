@@ -71,22 +71,32 @@ public class Testbed {
 	}
 	
 	private static void historicalTicks(EClientSocket client) {
+		//! [reqhistoricalticks]
         client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "TRADES", 1, true, null);
         client.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "BID_ASK", 1, true, null);
         client.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", null, 10, "MIDPOINT", 1, true, null);
+		//! [reqhistoricalticks]
 	}
 
 	private static void pnl(EClientSocket client) throws InterruptedException {
+		//! [reqpnl]
         client.reqPnL(17001, "DUC00042", "");
+		//! [reqpnl]
         Thread.sleep(1000);
+		//! [cancelpnl]
         client.cancelPnL(17001);        
+		//! [cancelpnl]
     }
 	
     private static void pnlSingle(EClientSocket client) throws InterruptedException
     {
+		//! [reqpnlsingle]
         client.reqPnLSingle(17001, "DUC00042", "", 268084);
+		//! [reqpnlsingle]
         Thread.sleep(1000);
+		//! [cancelpnlsingle]
         client.cancelPnLSingle(17001);
+		//! [cancelpnlsingle]
     }
 
     private static void orderOperations(EClientSocket client, int nextOrderId) throws InterruptedException {
@@ -144,10 +154,16 @@ public class Testbed {
         //! [faorderprofile]
         Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
         faOrderProfile.faProfile("Percent_60_40");
-        int cancelID = nextOrderId;
 		client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
         //! [faorderprofile]
         
+		//! [modelorder]
+        Order modelOrder = OrderSamples.LimitOrder("BUY", 200, 100);
+		modelOrder.account("DF12345");  // master FA account number
+		modelOrder.modelCode("Technology"); // model for tech stocks first created in TWS
+		client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);
+        //! [modelorder]
+		
 		//client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.PeggedToMarket("BUY", 10, 0.01));
 		//client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), OrderSamples.MarketOrder("BUY", 10));
         //client.placeOrder(nextOrderId++, ContractSamples.USStock(), OrderSamples.Discretionary("SELL", 1, 45, 0.5));
@@ -156,6 +172,7 @@ public class Testbed {
         client.reqExecutions(10001, new ExecutionFilter());
         //! [reqexecutions]
 
+		int cancelID = nextOrderId -1;
 		//! [cancelorder]
 		client.cancelOrder(cancelID);
 		//! [cancelorder]
@@ -570,6 +587,16 @@ public class Testbed {
 		client.placeOrder(nextOrderId++, ContractSamples.USStockAtSmart(), baseOrder);
 		//! [pctvoltm]
                 
+		//! [jeff_vwap_algo]
+		AvailableAlgoParams.FillJefferiesVWAPParams(baseOrder, "10:00:00 EST", "16:00:00 EST", 10, 10, "Exclude_Both", 130, 135, 1, 10, "Patience", false, "Midpoint");
+		client.placeOrder(nextOrderId++, ContractSamples.JefferiesContract(), baseOrder);
+		//! [jeff_vwap_algo]
+
+		//! [csfb_inline_algo]
+		AvailableAlgoParams.FillCSFBInlineParams(baseOrder, "10:00:00 EST", "16:00:00 EST", "Patient", 10, 20, 100, "Default", false, 40, 100, 100, 35 );
+		client.placeOrder(nextOrderId++, ContractSamples.CSFBContract(), baseOrder);
+		//! [csfb_inline_algo]
+
 	}
 	
 	private static void bracketSample(EClientSocket client, int nextOrderId) {

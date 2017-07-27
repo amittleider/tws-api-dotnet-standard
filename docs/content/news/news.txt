@@ -1,10 +1,23 @@
 /*! \page news News
 	
-	Four news providers offer news articles from the API. News from the API requires separate subscriptions, and each has different data fees, than the same news services in TWS. The API functions which handle news are able to query available news provides, subscribe to news in real time to receive headlines as they are released, request specific news articles, and return a historical list of news stories that are cached in the system. 
+	API news requires news subscriptions that are specific to the API; most news services in TWS are not also available in the API. Beginning in <i>TWS v966</i>, three API news services are enabled in accounts by default and available from the API. They are: 
+	
+	- Briefing.com General Market Columns (BRFG)
+	- Briefing.com Analyst Actions (BRFUPDN)
+	- Dow Jones Newsletters (DJNL)
+	
+	There are also four additional news services available with all TWS versions which require <b>API-specific subscriptions</b> to first be made in Account Management. They have different data fees than the subscription for the same news in TWS-only. As with all susbcriptions, they only apply to the specific TWS username under which they were made: 
+	
+	- Briefing Trader (BT)
+	- Benzinga Pro (BZ)
+	- Fly on the Wall (FLY)
+	- Midnight Trader (MT)
+	
+	The API functions which handle news are able to query available news provides, subscribe to news in real time to receive headlines as they are released, request specific news articles, and return a historical list of news stories that are cached in the system. 
 
-	\section news_providers Subscribed News Sources
+	\section news_providers Checking Subscribed News Sources
 
-	The available API news subscriptions current are Briefing Trader, Benzinga Pro, Fly on the Wall, and Midnight Trader. Signing up for API news is done through Account Management. In Account Management it is also possible to view current subscriptions, or from the API this can be done with the function IBApi::EClient::reqNewsProviders. Note this function is only available starting in API v973.02.
+	Adding or removing API news subscriptions from an account is accomplished through Account Management. From the API, currently subscribed news sources can be retrieved using the function IBApi::EClient::reqNewsProviders. Note this function is only available starting in API v973.02.
 
 	<ul id="tab">
 		<li class="active">
@@ -76,8 +89,7 @@
 	
 	For <b>BroadTape</b> News you specify the @ref IBApi::Contract for the specific news source. This is uniquely identified by the symbol and exchange. The symbol of an instrument can easily be obtained via the @ref IBApi::EClientSocket::reqContractDetails request.
 	
-	<h1> Four currently available API news sources for subscription</h1>
-	<br>
+	<h2> Examples of news contracts</h2>
 
 	<h2> Briefing Trader </h2>
 	

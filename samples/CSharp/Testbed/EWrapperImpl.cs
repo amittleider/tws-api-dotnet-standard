@@ -605,16 +605,21 @@ namespace Samples
         }
         //! [marketRule]
 
+		//! [pnl]
         public void pnl(int reqId, double dailyPnL, double unrealizedPnL)
         {
             Console.WriteLine("PnL. Request Id: {0}, Daily PnL: {1}, Unrealized PnL: {2}", reqId, dailyPnL, unrealizedPnL);
         }
+		//! [pnl]
 
+		//! [pnlsingle]
         public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
         {
             Console.WriteLine("PnL Single. Request Id: {0}, Pos {1}, Daily PnL {2}, Unrealized PnL {3}, Value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value);
         }
+		//! [pnlsingle]
 
+		//! [historicalticks]
         public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {
             foreach (var tick in ticks)
@@ -622,7 +627,9 @@ namespace Samples
                 Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, tick.Time, tick.Price, tick.Size);
             }
         }
+		//! [historicalticks]
 
+		//! [historicalticksbidask]
         public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
         {
             foreach (var tick in ticks)
@@ -631,7 +638,9 @@ namespace Samples
                     reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk);
             }
         }
+		//! [historicalticksbidask]
 
+		//! [historicaltickslast]
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
             foreach (var tick in ticks)
@@ -640,5 +649,6 @@ namespace Samples
                     reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions);
             }
         }
+		//! [historicaltickslast]
     }
 }

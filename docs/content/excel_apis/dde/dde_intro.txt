@@ -7,11 +7,18 @@
 	- <b>32 bit version</b> of TWS or IB Gateway
 	- Microsoft Excel
 	- TWS API installed to the C: drive
- 
+	- Excel must be set to the US settings for commas and periods. That is, commas denote thousands and periods denote decimals. 
+	
 	Interactive Brokers does not offer any programming assistance and therefore it is strongly advised to anyone willing to use any of the TWS DDE API to become familiar with 
 	the technologies involved such as the DDE protocol and VBA.
 	
 	You can get started by following the \subpage dde_tutorial and learn how to use DDE to communicate with TWS.
+	
+	<b>Limitations specific to DDE</b>
+	- DDE does not have the full range of tick types available to the socket-based APIs
+	- DDE requires live market data in TWS to receive any market data. It is not compatible with delayed data.
+	- Other applications running DDE in the background can interfere with Excel DDE and cannot be used simultaneously.
+	
 	
 	\section dde_issues Troubleshooting Excel DDE
 	
@@ -25,13 +32,15 @@
 	
 	- <b>3)</b> "Enable DDE" is not checked in the TWS (or IB Gateway Global Configuration). In TWS this setting is at Global Configuration -> API -> Settings -> "Enable DDE".
 	
-	- <b>4)</b> The incorrect username is input into a formula in Excel. The username in the spreadsheet must match the username used to login to TWS. For paper accounts, it must be the paper and not the live username. 
+	- <b>4)</b> The incorrect username is input into a formula in Excel. The username in the spreadsheet must match the username used to login to TWS. For paper accounts, it must be the paper account username and not the live username (every paper account has a distinct username). 
 	
 	<b>(5)</b> In rare cases it is necessary to run Excel as Administrator to use DDE.
 	
 	<b>Note:</b> Other programs running on the same computer which use DDE can interfere with the communication between Excel and TWS and cause Excel to 'hang' or 'freeze' after making the initial request. 
 	The only solution to this problem is to close other programs using DDE one-by-one to find the culprit. Programs which are known to cause this issue include Google Chrome, Microsoft OneNote, Skype 
 	and Adobe Creative Cloud.
+	
+	- The DDE API is now considered completed and will not have additional functionality that is added to socket-based APIs.
 	
 	\section excel_limitations Limitations of Microsoft Excel
 	

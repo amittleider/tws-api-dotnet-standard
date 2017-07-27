@@ -1,0 +1,21 @@
+/*! \page historical_data Historical Data
+
+	In order to receive historical data from the API, there are the same requirements as to receive Level 1 real time market data @ref market_subscriptions. The API historical data functionality simply pulls certain types of data from TWS charts or the historical Time&Sales Window, so if data is not available for a contract in a specified period there, it will also not be available from the API. In TWS, charts can be created for most instruments without market data subscriptions, but in the API its always necessary to have L1 real time data available in order to receive historical data. 
+	
+	- For non-US stocks, a smart-routed historical data requests requires subscriptions to all exchanges on which a contract trades.
+	
+	- When retrieving historical data from the TWS, be aware of the \subpage historical_limitations.
+	
+	<h2>Types of Historical Data Available</h2>
+	
+	- \subpage historical_bars
+	- \subpage histograms
+	- \subpage historical_time_and_sales
+
+	Finding earliest date historical data is available for an instrument
+	
+	- \subpage head_timestamp
+
+	<br><br>
+
+*/

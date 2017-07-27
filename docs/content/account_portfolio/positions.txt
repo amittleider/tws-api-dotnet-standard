@@ -86,7 +86,7 @@
 		</li>
 	</ul>
 	
-	\section position_multi Models' Positions
+	\section position_multi Position Update Subscription by Model
 	
 	The function @ref IBApi::EClient::reqPositionsMulti can be used with multiple account structures to subscribe to positions updates for multiple accounts and/or models. The account and model parameters are optional.
 	<ul id="tab">

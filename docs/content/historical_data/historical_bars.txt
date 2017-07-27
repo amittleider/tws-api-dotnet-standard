@@ -1,25 +1,17 @@
-/*! \page historical_data Historical Data
+/*! \page historical_bars Historical Bar Data
 
-	To receive historical data from the API a user must have level 1 market data subscriptions for that contract. The API historical data functionality simply pulls certain types of data from TWS charts, so if data is not available in a TWS chart it will also not be available from the API. TWS charts can be created for many types of instruments without market data subscriptions, but API historical data always requires that the @ref market_subscriptions are met. 
-	
-	-For European stocks, a smart-routed historical data requests requires subscriptions to all available exchanges.
-	
-	-Beginning with API v973.03 and TWS v965, the option to subscribe to historical data is available so that data is continually returned in real time as new bars are available. This is indicated by specifying <i><b>keepUpToDate</b></i> = True.
-	
-	-When retrieving historical data from the TWS, be aware of the \subpage historical_limitations.
-
-	\section hd_request Requesting Historical Data
+	\section hd_request Requesting Historical Bar Data
 
 	Historical data is obtained from the the TWS via the @ref IBApi::EClient::reqHistoricalData function. Every request needs:
 	- <i><b>tickerId</b></i>, A unique identifier which will serve to identify the incoming data.
 	- <i><b>contract</b></i>, The @ref IBApi::Contract you are interested in.
-	- <i><b>endDateTime</b></i>, The request's end date and time (empty string can be used to indicate current time). 
+	- <i><b>endDateTime</b></i>, The request's end date and time (the empty string indicates current present moment). 
 	- <i><b>durationString</b></i>, The amount of time (or @ref hd_duration) to go back from the request's given end date and time.
 	- <i><b>barSizeSetting</b></i>, The data's granularity or @ref hd_barsize
 	- <i><b>whatToShow</b></i>, The type of data to retrieve. See @ref hd_what_to_show
 	- <i><b>useRTH</b></i>, Whether (1) or not (0) to retrieve data generated only within Regular Trading Hours (RTH)
 	- <i><b>formatDate</b></i>, The format in which the incoming bars' date should be presented. Note that for day bars, only yyyyMMdd format is available.
-	- <i><b>keepUpToDate</b></i>, Whether a subscription is made to return real time bars as they are available (True), or all data is returned on a one-time basis (False). <i>Available starting with API v973.03+ and TWS v965+</i>.
+	- <i><b>keepUpToDate</b></i>, Whether a subscription is made to return updates of unfinished real time bars as they are available (True), or all data is returned on a one-time basis (False). <i>Available starting with API v973.03+ and TWS v965+</i>. If <i>True</i>, and endDateTime cannot be specified.
 	
 	For example, making a request with an end date and time of "20160127 23:59:59", a duration string of "3 D" and a bar size of "1 hour" will return three days worth of 1 hour bars data in which the most recent bar will be the closest possible 	to 20160127 23:59:59.
 
@@ -41,82 +33,15 @@
 		</li>
 	</ul>
 	
-	\section reqHeadTimeStamp Earliest Available Data
-
-	To find the earliest available data point for a given instrument and data type a function is in the API starting in v973.02 and v963 of TWS/IBG, IBApi::EClient::reqHeadTimestamp
-
-	<ul id="tab">
-		<li class="active"> 
-			\snippet Program.cs reqHeadTimeStamp
-		</li>
-		<li>
-			\snippet Testbed.java reqHeadTimeStamp
-		</li>
-		<li>
-			\snippet MainModule.vb reqHeadTimeStamp
-		</li>
-		<li>
-			\snippet TestCppClient.cpp reqHeadTimeStamp
-		</li>
-		<li>
-			\snippet Program.py reqHeadTimeStamp
-		</li>
-	</ul>
-
-	The resulting head timestamp is returned to the function @ref IBApi::EWrapper::headTimestamp
-
-	<ul id="tab">
-		<li class="active">
-			\snippet EWrapperImpl.cs ewrapperimpl
-		   ...
-			\snippet EWrapperImpl.cs headTimestamp
-		</li>
-		<li>
-			\snippet EWrapperImpl.java ewrapperimpl
-			...
-			\snippet EWrapperImpl.java headTimestamp
-		</li>
-		<li>
-			\snippet EWrapperImpl.vb ewrapperimpl
-		   ...
-			\snippet EWrapperImpl.vb headTimestamp
-		</li>
-		<li>
-			\snippet TestCppClient.h ewrapperimpl
-		   ...
-			\snippet TestCppClient.cpp headTimestamp
-		</li>
-		<li>
-			\snippet Program.py ewrapperimpl
-		   ...
-			\snippet Program.py headTimestamp
-		</li>
-	</ul>
+	The daily bar size has several unique characteristics. This is true both in TWS and the API:
 	
-	A reqHeadTimeStamp request can be cancelled with @ref IBApi::EClient::cancelHeadTimestamp
+	- For futures, the close price of daily bars can be the <i>settlement</i> price if provided by the exchange. 
+	- A daily bar will refer to a trading session which may cross calendar days. In that case the date of the bar will correspond to the day on which the bar closes. 
 	
-	<ul id="tab">
-		<li class="active"> 
-			\snippet Program.cs cancelHeadTimestamp
-		</li>
-		<li>
-			\snippet Testbed.java cancelHeadTimestamp
-		</li>
-		<li>
-			\snippet MainModule.vb cancelHeadTimestamp
-		</li>
-		<li>
-			\snippet TestCppClient.cpp cancelHeadTimestamp
-		</li>
-		<li>
-			\snippet Program.py cancelHeadTimestamp
-		</li>
-	</ul>
+	\section hd_receive Receiving Historical Bar Data
 	
-	\section hd_receive Receiving Historical Data
-	
-	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. If reqHistoricalData was invoked with <i><b>keepUpToDate = false</b></i>, once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
-	marker will be sent. Otherwise bars will continue to be returned in real time to IBApi::EWrapper::historicalDataUpdate. The keepUpToDate functionality can only be used with bar sizes 5 seconds or greater and requires the endDate is set as the empty string. 
+	The historical data will be delivered via the IBApi::EWrapper::historicalData method in the form of <b>candlesticks</b>. The time zone of returned bars is the time zone chosen in TWS on the login screen. If reqHistoricalData was invoked with <i><b>keepUpToDate = false</b></i>, once all candlesticks have been received the @ref IBApi::EWrapper::historicalDataEnd
+	marker will be sent. Otherwise updates of the most recent partial five-second bar will continue to be returned in real time to IBApi::EWrapper::historicalDataUpdate. The keepUpToDate functionality can only be used with bar sizes 5 seconds or greater and requires the endDate is set as the empty string. 
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -175,8 +100,8 @@
 			\snippet Program.py historicalDataUpdate
 		</li>
 	</ul>
-	
-	\section hd_duration Valid Duration String units
+
+		\section hd_duration Valid Duration String units
 	
 	<table>
 		<tr><th>Unit</th><th>Description</th></tr>
@@ -227,6 +152,7 @@
 		<tr><td><b>BID</b></td><td>Starting bid price</td><td>Highest bid price</td><td>Lowest bid price</td><td>Last bid price</td><td>N/A</td></tr>
 		<tr><td><b>ASK</b></td><td>Starting ask price</td><td>Highest ask price</td><td>Lowest ask price</td><td>Last ask price</td><td>N/A</td></tr>
 		<tr><td><b>BID_ASK</b></td><td>Time average bid</td><td>Max Ask</td><td>Min Bid</td><td>Time average ask</td><td>N/A</td></tr>
+		<tr><td><b>ADJUSTED_LAST</b></td><td>Dividend-adjusted first traded price</td><td>Dividend-adjusted high trade</td><td>Dividend-adjusted low trade</td><td>Dividend-adjusted last trade</td><td>Total traded volume</td></tr>
 		<tr><td><b>HISTORICAL_VOLATILITY</b></td><td>Starting volatility</td><td>Highest volatility</td><td>Lowest volatility</td><td>Last volatility</td><td>N/A</td></tr>
 		<tr><td><b>OPTION_IMPLIED_VOLATILITY</b></td><td>Starting implied volatility</td><td>Highest implied volatility</td><td>Lowest implied volatility</td><td>Last implied volatility</td><td>N/A</td></tr>
 		<tr><td><b>REBATE_RATE</b></td><td>Starting rebate rate</td><td>Highest rebate rate</td><td>Lowest rebate rate</td><td>Last rebate rate</td><td>N/A</td></tr>
@@ -238,6 +164,9 @@
 		
 	</table>
 	<br>
+	
+	- TRADES data is adjusted for splits, but not dividends
+	- ADJUSTED_LAST data is adjusted for splits and dividends. Requires TWS 967+.
 	
 	\section available_products_hd Available Data per Product
 	
@@ -262,10 +191,6 @@
 
 	-Yield historical data only available for corporate bonds
 	
-	\section histogramdata Requesting Histograms
-	
-	\subpage histograms 
-
 	<br><br>
-
+	
 */

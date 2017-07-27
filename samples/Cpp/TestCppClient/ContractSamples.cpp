@@ -653,3 +653,35 @@ Contract ContractSamples::ContFut()
 	//! [continuousfuturescontract]
 	return contract;
 }
+
+Contract ContractSamples::ContAndExpiringFut(){
+	//! [contandexpiringfut]
+	Contract contract;
+	contract.symbol = "ES";
+	contract.secType = "FUT+CONTFUT";
+	contract.exchange = "GLOBEX";
+	//! [contandexpiringfut]
+	return contract;
+}
+
+Contract ContractSamples::JefferiesContract(){
+	//! [jefferies_contract]
+	Contract contract;
+	contract.symbol = "AAPL";
+	contract.secType = "STK";
+	contract.exchange = "JEFFALGO"; // must be direct-routed to JEFALGO
+	contract.currency = "USD"; // only available for US stocks
+	//! [jefferies_contract]
+	return contract;
+}
+
+Contract ContractSamples::CSFBContract(){
+	//! [csfb_contract]
+	Contract contract;
+	contract.symbol = "IBKR";
+	contract.secType = "STK";
+	contract.exchange = "CSFBALGO";
+	contract.currency = "USD";
+	//! [csfb_contract]
+	return contract;
+}

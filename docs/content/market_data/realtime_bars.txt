@@ -24,6 +24,10 @@
 		</li>
 	</ul>
 	
+	
+	- To receive volume, VWAP, or trade count data, it is necessary to specify whatToShow as TRADES.
+	- It may be necessary to remake real time bars subscriptions after the IB server reset or between trading sessions. 
+	
 	\section rt_bars_rec Receiving
 	
 	Once invoked, historical data bars of five seconds will start being delivered through the @ref IBApi::EWrapper::realtimeBar callback:
@@ -55,6 +59,8 @@
 			\snippet Program.py realtimebar
 		</li>
 	</ul>
+	
+	-Volume for US stocks has a multiplier of 100
 	
 	\section rt_bars_cancel Canceling
 	

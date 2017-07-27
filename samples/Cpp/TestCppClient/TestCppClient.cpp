@@ -340,23 +340,31 @@ void TestCppClient::reqCurrentTime()
 
 void TestCppClient::pnlOperation()
 {
+	//! [reqpnl]
     m_pClient->reqPnL(7001, "DUC00042", "");
-
+	//! [reqpnl]
+	
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
+	//! [cancelpnl]
     m_pClient->cancelPnL(7001);
-
+	//! [cancelpnl] 
+	
     m_state = ST_PNL_ACK;
 }
 
 void TestCppClient::pnlSingleOperation()
 {
+	//! [reqpnlsingle]
     m_pClient->reqPnLSingle(7002, "DUC00042", "", 268084);
-
+	//! [reqpnlsingle]
+	
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
+	//! [cancelpnlsingle]
     m_pClient->cancelPnLSingle(7002);
-
+	//! [cancelpnlsingle]
+	
     m_state = ST_PNLSINGLE_ACK;
 }
 
@@ -895,6 +903,16 @@ void TestCppClient::testAlgoSamples(){
     AvailableAlgoParams::FillTimeVariantPctVolParams(baseOrder, 0.2, 0.4, "12:00:00 EST", "14:00:00 EST", true, 100000);
     m_pClient->placeOrder(m_orderId++, ContractSamples::USStockAtSmart(), baseOrder);
     //! [pctvoltm]
+
+	//! [jeff_vwap_algo]
+	AvailableAlgoParams::FillJefferiesVWAPParams(baseOrder, "10:00:00 EST", "16:00:00 EST", 10, 10, "Exclude_Both", 130, 135, 1, 10, "Patience", false, "Midpoint");
+	m_pClient->placeOrder(m_orderId++, ContractSamples::JefferiesContract(), baseOrder);
+	//! [jeff_vwap_algo]
+
+	//! [csfb_inline_algo]
+	AvailableAlgoParams::FillCSFBInlineParams(baseOrder, "10:00:00 EST", "16:00:00 EST", "Patient", 10, 20, 100, "Default", false, 40, 100, 100, 35);
+	m_pClient->placeOrder(m_orderId++, ContractSamples::CSFBContract(), baseOrder);
+	//! [csfb_inline_algo]
 	
 	m_state = ST_TESTALGOSAMPLES_ACK;
 }
@@ -934,6 +952,13 @@ void TestCppClient::financialAdvisorOrderSamples()
 	faOrderProfile.faProfile = "Percent_60_40";
 	m_pClient->placeOrder(m_orderId++, ContractSamples::EuropeanStock(), faOrderProfile);
 	//! [faorderprofile]
+
+	//! [modelorder]
+	Order modelOrder = OrderSamples::LimitOrder("BUY", 200, 100);
+	modelOrder.account = "DF12345";
+	modelOrder.modelCode = "Technology";
+	m_pClient->placeOrder(m_orderId++, ContractSamples::USStock(), modelOrder);
+	//! [modelorder]
 
 	m_state = ST_FAORDERSAMPLES_ACK;
 }
@@ -1206,10 +1231,11 @@ void TestCppClient::continuousFuturesOperations()
 
 void TestCppClient::reqHistoricalTicks() 
 {
+	//! [reqhistoricalticks]
     m_pClient->reqHistoricalTicks(19001, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "BID_ASK", 1, true, TagValueListSPtr());
     m_pClient->reqHistoricalTicks(19002, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "MIDPOINT", 1, true, TagValueListSPtr());
     m_pClient->reqHistoricalTicks(19003, ContractSamples::IBMUSStockAtSmart(), "20170621 09:38:33", "", 10, "TRADES", 1, true, TagValueListSPtr());
-    
+    //! [reqhistoricalticks]
     m_state = ST_REQHISTORICALTICKS_ACK;
 }
 
@@ -1750,34 +1776,34 @@ void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {
 }
 //! [pnl]
 
-//! [pnlSingle]
+//! [pnlsingle]
 void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
 	printf("PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, value: %g\n", reqId, pos, dailyPnL, unrealizedPnL, value);
 }
-//! [pnlSingle]
+//! [pnlsingle]
 
-//! [historicalTicks]
+//! [historicalticks]
 void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) {
     for (HistoricalTick tick : ticks) {
 	    printf("Historical tick. ReqId: %d, time: %d, price: %g, size: %d\n", reqId, tick.time, tick.price, tick.size);
     }
 }
-//! [historicalTicks]
+//! [historicalticks]
 
-//! [historicalTicksBidAsk]
+//! [historicalticksbidask]
 void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) {
     for (HistoricalTickBidAsk tick : ticks) {
         printf("Historical tick bid/ask. ReqId: %d, time: %d, mask: %d, price bid: %g, price ask: %g, size bid: %d, size ask: %d\n", reqId, 
             tick.time, tick.mask, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk);
     }
 }
-//! [historicalTicksBidAsk]
+//! [historicalticksbidask]
 
-//! [historicalTicksLast]
+//! [historicaltickslast]
 void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) {
     for (HistoricalTickLast tick : ticks) {
         std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << tick.time << ", mask: " << tick.mask << ", price: "<< tick.price <<
             ", size: " << tick.size << ", exchange: " << tick.exchange << ", special conditions: " << tick.specialConditions << std::endl;
     }
 }
-//! [historicalTicksLast]
+//! [historicaltickslast]
