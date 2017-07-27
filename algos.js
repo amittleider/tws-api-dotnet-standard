@@ -39,7 +39,8 @@ var algos =
       ] ]
     ] ],
     [ "Jefferies Algorithms", "jefferies.html", [
-      [ "Jefferies Algorithm Parameters", "jefferies.html#jefferies_params", null ],
+      [ "Jefferies Algorithm", "jefferies.html#jefferies_params", null ],
+      [ "Available Jefferies Algos", "jefferies.html#available_jefferies_algos", null ],
       [ "VWAP (VWAP)", "jefferies.html#v_wap", null ],
       [ "TWAP (TWAP)", "jefferies.html#t_wap", null ],
       [ "VolPart (VOLPART)", "jefferies.html#vol_part", null ],

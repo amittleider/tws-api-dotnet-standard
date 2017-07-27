@@ -5,8 +5,7 @@ var order_management =
       [ "Placing Orders", "order_submission.html#submission", null ],
       [ "The openOrder callback", "order_submission.html#open_order", null ],
       [ "The orderStatus callback", "order_submission.html#order_status", null ],
-      [ "Attaching Orders", "order_submission.html#order_attach", null ],
-      [ "Checking Margin Requirements", "order_submission.html#order_margin", null ]
+      [ "Attaching Orders", "order_submission.html#order_attach", null ]
     ] ],
     [ "Modifying Orders", "modifying_orders.html", null ],
     [ "Cancelling Orders", "cancel_order.html", null ],

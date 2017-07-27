@@ -4,7 +4,7 @@ var support =
       [ "Logging Level", "support.html#logging_level", null ],
       [ "API Log Files", "support.html#api_logs", null ],
       [ "Log file locations", "support.html#log_files", null ],
-      [ "Uploading Log Files to API Support", "support.html#uploading_logs", null ]
+      [ "How to Upload Log Files to API Support", "support.html#uploading_logs", null ]
     ] ],
     [ "Log File Locations", "logs.html", [
       [ "Location of API Log Files", "logs.html#api_log", [
