@@ -1127,11 +1127,9 @@ class Decoder(Object):
                 args.append(arg)
                 fieldIdx += 1
 
-        #handleInfo.wrapperMeth(self.wrapper, *args)
-        method = getattr(self.wrapper.__class__, handleInfo.wrapperMeth.__name__)
+        method = getattr(self.wrapper, handleInfo.wrapperMeth.__name__)
         logging.debug("calling %s with %s %s", method, self.wrapper, args)
-        method(self.wrapper, *args)
-
+        method(*args)
 
     def interpret(self, fields):
         if len(fields) == 0:
