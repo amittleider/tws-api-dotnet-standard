@@ -85,7 +85,7 @@ namespace Samples
             /****************************/
             /*** Contract information ***/
             /****************************/
-            //contractOperations(client);
+            contractOperations(client);
 
             /***********************/
             /*** Market Scanners ***/
@@ -159,7 +159,7 @@ namespace Samples
 
             //pnLSingle(client);
 		
-	    /**************************/
+	        /**************************/
             /*** Algo Orders ***/
             /**************************/
             //TestAlgoSamples(client, nextValidId);
@@ -169,7 +169,7 @@ namespace Samples
             /**************************/
             //continuousFuturesOperations(client);
 
-            historicalTicks(client);
+            //historicalTicks(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -414,6 +414,7 @@ namespace Samples
             client.reqContractDetails(209, ContractSamples.OptionForQuery());
             client.reqContractDetails(210, ContractSamples.EurGbpFx());
             client.reqContractDetails(211, ContractSamples.Bond());
+            client.reqContractDetails(212, ContractSamples.FuturesOnOptions());
             //! [reqcontractdetails]
 
             Thread.Sleep(2000);

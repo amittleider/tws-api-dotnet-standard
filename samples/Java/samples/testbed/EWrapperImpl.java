@@ -155,12 +155,12 @@ public class EWrapperImpl implements EWrapper {
 	//! [contractdetails]
 	@Override
 	public void contractDetails(int reqId, ContractDetails contractDetails) {
-		System.out.println("ContractDetails. ReqId: ["+reqId+"] - ["+contractDetails.contract().symbol()+"], ["+contractDetails.contract().secType()+"], ConId: ["+contractDetails.contract().conid()+"] @ ["+contractDetails.contract().exchange()+"]");
+		System.out.println(EWrapperMsgGenerator.contractDetails(reqId, contractDetails)); 
 	}
 	//! [contractdetails]
 	@Override
 	public void bondContractDetails(int reqId, ContractDetails contractDetails) {
-		System.out.println("bondContractDetails");
+		System.out.println(EWrapperMsgGenerator.bondContractDetails(reqId, contractDetails)); 
 	}
 	//! [contractdetailsend]
 	@Override

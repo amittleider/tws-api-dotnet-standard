@@ -68,7 +68,9 @@ Namespace Samples
 
         '! [bondcontractdetails]
         Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
-            Console.WriteLine("BondContractDetails - ReqId [" & reqId & "] Contract [" & contract.Summary.Symbol & ", " & contract.Summary.Currency & "]")
+            Console.WriteLine("BondContractDetails begin. ReqId: " & reqId)
+            printBondContractDetailsMsg(contract)
+            Console.WriteLine("BondContractDetails end. ReqId: " & reqId)
         End Sub
         '! [bondcontractdetails]
 
@@ -92,10 +94,99 @@ Namespace Samples
 
         '! [contractdetails]
         Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
-            Console.WriteLine("ContractDetails - ReqId [" & reqId & "] ContractDetails [" & contractDetails.Summary.Symbol & "], [" & contractDetails.Summary.SecType & "], ConId: [" &
-                              contractDetails.Summary.ConId & "] @ [" & contractDetails.Summary.Exchange & "]")
+            Console.WriteLine("ContractDetails begin. ReqId: " & reqId)
+            printContractMsg(contractDetails.Summary)
+            printContractDetailsMsg(contractDetails)
+            Console.WriteLine("ContractDetails end. ReqId: " & reqId)
         End Sub
         '! [contractdetails]
+
+        Public Sub printContractMsg(contract As IBApi.Contract)
+            Console.WriteLine(vbTab & "ConId: " & contract.ConId)
+            Console.WriteLine(vbTab & "Symbol: " & contract.Symbol)
+            Console.WriteLine(vbTab & "SecType: " & contract.SecType)
+            Console.WriteLine(vbTab & "LastTradeDateOrContractMonth: " & contract.LastTradeDateOrContractMonth)
+            Console.WriteLine(vbTab & "Strike: " & contract.Strike)
+            Console.WriteLine(vbTab & "Right: " & contract.Right)
+            Console.WriteLine(vbTab & "Multiplier: " & contract.Multiplier)
+            Console.WriteLine(vbTab & "Exchange: " & contract.Exchange)
+            Console.WriteLine(vbTab & "PrimaryExchange: " & contract.PrimaryExch)
+            Console.WriteLine(vbTab & "Currency: " & contract.Currency)
+            Console.WriteLine(vbTab & "LocalSymbol: " & contract.LocalSymbol)
+            Console.WriteLine(vbTab & "TradingClass: " & contract.TradingClass)
+        End Sub
+
+        Public Sub printContractDetailsMsg(contractDetails As IBApi.ContractDetails)
+            Console.WriteLine(vbTab & "MarketName: " & contractDetails.MarketName)
+            Console.WriteLine(vbTab & "MinTick: " & contractDetails.MinTick)
+            Console.WriteLine(vbTab & "PriceMagnifier: " & contractDetails.PriceMagnifier)
+            Console.WriteLine(vbTab & "OrderTypes: " & contractDetails.OrderTypes)
+            Console.WriteLine(vbTab & "ValidExchanges: " & contractDetails.ValidExchanges)
+            Console.WriteLine(vbTab & "UnderConId: " & contractDetails.UnderConId)
+            Console.WriteLine(vbTab & "LongName: " & contractDetails.LongName)
+            Console.WriteLine(vbTab & "ContractMonth: " & contractDetails.ContractMonth)
+            Console.WriteLine(vbTab & "Indystry: " & contractDetails.Industry)
+            Console.WriteLine(vbTab & "Category: " & contractDetails.Category)
+            Console.WriteLine(vbTab & "SubCategory: " & contractDetails.Subcategory)
+            Console.WriteLine(vbTab & "TimeZoneId: " & contractDetails.TimeZoneId)
+            Console.WriteLine(vbTab & "TradingHours: " & contractDetails.TradingHours)
+            Console.WriteLine(vbTab & "LiquidHours: " & contractDetails.LiquidHours)
+            Console.WriteLine(vbTab & "EvRule: " & contractDetails.EvRule)
+            Console.WriteLine(vbTab & "EvMultiplier: " & contractDetails.EvMultiplier)
+            Console.WriteLine(vbTab & "MdSizeMultiplier: " & contractDetails.MdSizeMultiplier)
+            Console.WriteLine(vbTab & "AggGroup: " & contractDetails.AggGroup)
+            Console.WriteLine(vbTab & "UnderSymbol: " & contractDetails.UnderSymbol)
+            Console.WriteLine(vbTab & "UnderSecType: " & contractDetails.UnderSecType)
+            Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
+            Console.WriteLine(vbTab & "RealExpirationDate: " & contractDetails.RealExpirationDate)
+            printContractDetailsSecIdList(contractDetails.SecIdList)
+        End Sub
+
+        Public Sub printContractDetailsSecIdList(secIdList As List(Of IBApi.TagValue))
+            If Not secIdList Is Nothing Then
+                Console.Write(vbTab & "SecIdList: {")
+                For Each tagValue In secIdList
+                    Console.Write(tagValue.Tag & "=" & tagValue.Value & ";")
+                Next
+                Console.WriteLine("}")
+            End If
+        End Sub
+
+        Public Sub printBondContractDetailsMsg(contractDetails As IBApi.ContractDetails)
+            Console.WriteLine(vbTab & "Symbol: " & contractDetails.Summary.Symbol)
+            Console.WriteLine(vbTab & "SecType: " & contractDetails.Summary.SecType)
+            Console.WriteLine(vbTab & "Cusip: " & contractDetails.Cusip)
+            Console.WriteLine(vbTab & "Coupon: " & contractDetails.Coupon)
+            Console.WriteLine(vbTab & "Maturity: " & contractDetails.Maturity)
+            Console.WriteLine(vbTab & "IssueDate: " & contractDetails.IssueDate)
+            Console.WriteLine(vbTab & "Ratings: " & contractDetails.Ratings)
+            Console.WriteLine(vbTab & "BondType: " & contractDetails.BondType)
+            Console.WriteLine(vbTab & "CouponType: " & contractDetails.CouponType)
+            Console.WriteLine(vbTab & "Convertible: " & contractDetails.Convertible)
+            Console.WriteLine(vbTab & "Callable: " & contractDetails.Callable)
+            Console.WriteLine(vbTab & "Putable: " & contractDetails.Putable)
+            Console.WriteLine(vbTab & "DescAppend: " & contractDetails.DescAppend)
+            Console.WriteLine(vbTab & "Exchange: " & contractDetails.Summary.Exchange)
+            Console.WriteLine(vbTab & "Currency: " & contractDetails.Summary.Currency)
+            Console.WriteLine(vbTab & "MarketName: " & contractDetails.MarketName)
+            Console.WriteLine(vbTab & "TradingClass: " & contractDetails.Summary.TradingClass)
+            Console.WriteLine(vbTab & "ConId: " & contractDetails.Summary.ConId)
+            Console.WriteLine(vbTab & "MinTick: " & contractDetails.MinTick)
+            Console.WriteLine(vbTab & "MdSizeMultiplier: " & contractDetails.MdSizeMultiplier)
+            Console.WriteLine(vbTab & "OrderTypes: " & contractDetails.OrderTypes)
+            Console.WriteLine(vbTab & "ValidExchanges: " & contractDetails.ValidExchanges)
+            Console.WriteLine(vbTab & "NextOptionDate: " & contractDetails.NextOptionDate)
+            Console.WriteLine(vbTab & "NextOptionType: " & contractDetails.NextOptionType)
+            Console.WriteLine(vbTab & "NextOptionPartial: " & contractDetails.NextOptionPartial)
+            Console.WriteLine(vbTab & "Notes: " & contractDetails.Notes)
+            Console.WriteLine(vbTab & "Long Name: " & contractDetails.LongName)
+            Console.WriteLine(vbTab & "EvRule: " & contractDetails.EvRule)
+            Console.WriteLine(vbTab & "EvMultiplier: " & contractDetails.EvMultiplier)
+            Console.WriteLine(vbTab & "AggGroup: " & contractDetails.AggGroup)
+            Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
+            printContractDetailsSecIdList(contractDetails.SecIdList)
+        End Sub
+
 
         '! [contractdetailsend]
         Public Sub contractDetailsEnd(reqId As Integer) Implements IBApi.EWrapper.contractDetailsEnd

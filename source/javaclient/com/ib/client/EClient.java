@@ -268,9 +268,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_HISTORICAL_TICKS = 130;
     protected static final int MIN_SERVER_VER_MARKET_CAP_PRICE = 131;
     protected static final int MIN_SERVER_VER_PRE_OPEN_BID_ASK = 132;
+    protected static final int MIN_SERVER_VER_REAL_EXPIRATION_DATE = 134;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_PRE_OPEN_BID_ASK; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_REAL_EXPIRATION_DATE; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler

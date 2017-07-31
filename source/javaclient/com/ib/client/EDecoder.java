@@ -1242,6 +1242,9 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_MARKET_RULES) {
 			contract.marketRuleIds(readStr());
 		}
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_REAL_EXPIRATION_DATE) {
+			contract.realExpirationDate(readStr());
+		}
 
 		m_EWrapper.contractDetails( reqId, contract);
 	}

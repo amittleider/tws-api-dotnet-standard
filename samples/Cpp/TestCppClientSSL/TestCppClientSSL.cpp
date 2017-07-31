@@ -173,8 +173,7 @@ void TestCppClient::cancelOrder()
 // events
 void TestCppClient::orderStatus( OrderId orderId, const std::string& status, double filled,
 	                            double remaining, double avgFillPrice, int permId, int parentId,
-	                            double lastFillPrice, int clientId, const std::string& whyHeld)
-
+	                            double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice)
 {
 	if( orderId == m_orderId) {
 		if( m_state == ST_PLACEORDER_ACK && (status == "PreSubmitted" || status == "Submitted"))
@@ -307,3 +306,6 @@ void TestCppClient::dailyPnL(int reqId, double dailyPnL) {}
 void TestCppClient::dailyPnLSingle(int reqId, int pos, double dailyPnL, double value) {}
 void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {}
 void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {}
+void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) {}
+void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) {}
+void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) {}

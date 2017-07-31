@@ -138,7 +138,7 @@ namespace Samples
         {
             //! [bond]
             Contract contract = new Contract();
-            contract.ConId = 147554578;
+            contract.ConId = 267433416;
             contract.Exchange = "SMART";
             //! [bond]
             return contract;
@@ -357,14 +357,14 @@ namespace Samples
         {
             //! [fopcontract]
             Contract contract = new Contract();
-            contract.Symbol = "ES";
+            contract.Symbol = "SPX";
             contract.SecType = "FOP";
             contract.Exchange = "GLOBEX";
             contract.Currency = "USD";
-            contract.LastTradeDateOrContractMonth = "20160617";
-            contract.Strike = 1810;
+            contract.LastTradeDateOrContractMonth = "20180315";
+            contract.Strike = 1025;
             contract.Right = "C";
-            contract.Multiplier = "50";
+            contract.Multiplier = "250";
             //! [fopcontract]
             return contract;
         }

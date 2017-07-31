@@ -1786,6 +1786,10 @@ namespace IBApi
             {
                 contract.MarketRuleIds = ReadString();
             }
+            if (serverVersion >= MinServerVer.REAL_EXPIRATION_DATE)
+            {
+                contract.RealExpirationDate = ReadString();
+            }
 
             eWrapper.contractDetails(requestId, contract);
         }

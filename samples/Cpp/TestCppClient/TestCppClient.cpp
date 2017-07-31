@@ -558,6 +558,8 @@ void TestCppClient::contractOperations()
 	m_pClient->reqContractDetails(210, ContractSamples::OptionForQuery());
 	m_pClient->reqContractDetails(212, ContractSamples::IBMBond());
 	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
+	m_pClient->reqContractDetails(214, ContractSamples::Bond());
+	m_pClient->reqContractDetails(215, ContractSamples::FuturesOnOptions());
 	//! [reqcontractdetails]
 
 	//! [reqcontractdetailsnews]
@@ -1246,7 +1248,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_REQHISTORICALTICKS; 
+    //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
@@ -1254,7 +1256,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	//m_state = ST_CONTRACTOPERATION;
+	m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1397,17 +1399,107 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "ContractDetails. ReqId: %d - %s, %s, ConId: %ld @ %s, Under Symbol: %s, Under SecType: %s, MarketRuleIds: %s\n", reqId, 
-		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.conId, contractDetails.summary.exchange.c_str(), 
-		contractDetails.underSymbol.c_str(), contractDetails.underSecType.c_str(),
-		contractDetails.marketRuleIds.c_str());
+	printf( "ContractDetails begin. ReqId: %d\n", reqId);
+	printContractMsg(contractDetails.summary);
+	printContractDetailsMsg(contractDetails);
+	printf( "ContractDetails end. ReqId: %d\n", reqId);
 }
 //! [contractdetails]
 
+//! [bondcontractdetails]
 void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contractDetails) {
-	printf( "Bond. ReqId: %d, Symbol: %s, Security Type: %s, Currency: %s, MarketRuleIds: %s\n", reqId, 
-		contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), 
-		contractDetails.marketRuleIds.c_str());
+	printf( "BondContractDetails begin. ReqId: %d\n", reqId);
+	printBondContractDetailsMsg(contractDetails);
+	printf( "BondContractDetails end. ReqId: %d\n", reqId);
+}
+//! [bondcontractdetails]
+
+void TestCppClient::printContractMsg(const Contract& contract) {
+	printf("\tConId: %d\n", contract.conId);
+	printf("\tSymbol: %s\n", contract.symbol.c_str());
+	printf("\tSecType: %s\n", contract.secType.c_str());
+	printf("\tLastTradeDateOrContractMonth: %s\n", contract.lastTradeDateOrContractMonth.c_str());
+	printf("\tStrike: %g\n", contract.strike);
+	printf("\tRight: %s\n", contract.right.c_str());
+	printf("\tMultiplier: %g\n", contract.multiplier);
+	printf("\tExchange: %s\n", contract.exchange.c_str());
+	printf("\tPrimaryExchange: %s\n", contract.primaryExchange.c_str());
+	printf("\tCurrency: %s\n", contract.currency.c_str());
+	printf("\tLocalSymbol: %s\n", contract.localSymbol.c_str());
+	printf("\tTradingClass: %s\n", contract.tradingClass.c_str());
+}
+
+void TestCppClient::printContractDetailsMsg(const ContractDetails& contractDetails) {
+	printf("\tMarketName: %s\n", contractDetails.marketName.c_str());
+	printf("\tMinTick: %g\n", contractDetails.minTick);
+	printf("\tPriceMagnifier: %d\n", contractDetails.priceMagnifier);
+	printf("\tOrderTypes: %s\n", contractDetails.orderTypes.c_str());
+	printf("\tValidExchanges: %s\n", contractDetails.validExchanges.c_str());
+	printf("\tUnderConId: %d\n", contractDetails.underConId);
+	printf("\tLongName: %s\n", contractDetails.longName.c_str());
+	printf("\tContractMonth: %s\n", contractDetails.contractMonth.c_str());
+	printf("\tIndystry: %s\n", contractDetails.industry.c_str());
+	printf("\tCategory: %s\n", contractDetails.category.c_str());
+	printf("\tSubCategory: %s\n", contractDetails.subcategory.c_str());
+	printf("\tTimeZoneId: %s\n", contractDetails.timeZoneId.c_str());
+	printf("\tTradingHours: %s\n", contractDetails.tradingHours.c_str());
+	printf("\tLiquidHours: %s\n", contractDetails.liquidHours.c_str());
+	printf("\tEvRule: %s\n", contractDetails.evRule.c_str());
+	printf("\tEvMultiplier: %g\n", contractDetails.evMultiplier);
+	printf("\tMdSizeMultiplier: %d\n", contractDetails.mdSizeMultiplier);
+	printf("\tAggGroup: %d\n", contractDetails.aggGroup);
+	printf("\tUnderSymbol: %s\n", contractDetails.underSymbol.c_str());
+	printf("\tUnderSecType: %s\n", contractDetails.underSecType.c_str());
+	printf("\tMarketRuleIds: %s\n", contractDetails.marketRuleIds.c_str());
+	printf("\tRealExpirationDate: %s\n", contractDetails.realExpirationDate.c_str());
+	printContractDetailsSecIdList(contractDetails.secIdList);
+}
+
+void TestCppClient::printContractDetailsSecIdList(const TagValueListSPtr &secIdList) {
+	const int secIdListCount = secIdList.get() ? secIdList->size() : 0;
+	if (secIdListCount > 0) {
+		printf("\tSecIdList: {");
+		for (int i = 0; i < secIdListCount; ++i) {
+			const TagValue* tagValue = ((*secIdList)[i]).get();
+			printf("%s=%s;",tagValue->tag.c_str(), tagValue->value.c_str());
+		}
+		printf("}\n");
+	}
+}
+
+void TestCppClient::printBondContractDetailsMsg(const ContractDetails& contractDetails) {
+	printf("\tSymbol: %s\n", contractDetails.summary.symbol.c_str());
+	printf("\tSecType: %s\n", contractDetails.summary.secType.c_str());
+	printf("\tCusip: %s\n", contractDetails.cusip.c_str());
+	printf("\tCoupon: %g\n", contractDetails.coupon);
+	printf("\tMaturity: %s\n", contractDetails.maturity.c_str());
+	printf("\tIssueDate: %s\n", contractDetails.issueDate.c_str());
+	printf("\tRatings: %s\n", contractDetails.ratings.c_str());
+	printf("\tBondType: %s\n", contractDetails.bondType.c_str());
+	printf("\tCouponType: %s\n", contractDetails.couponType.c_str());
+	printf("\tConvertible: %s\n", contractDetails.convertible ? "yes" : "no");
+	printf("\tCallable: %s\n", contractDetails.callable ? "yes" : "no");
+	printf("\tPutable: %s\n", contractDetails.putable ? "yes" : "no");
+	printf("\tDescAppend: %s\n", contractDetails.descAppend.c_str());
+	printf("\tExchange: %s\n", contractDetails.summary.exchange.c_str());
+	printf("\tCurrency: %s\n", contractDetails.summary.currency.c_str());
+	printf("\tMarketName: %s\n", contractDetails.marketName.c_str());
+	printf("\tTradingClass: %s\n", contractDetails.summary.tradingClass.c_str());
+	printf("\tConId: %d\n", contractDetails.summary.conId);
+	printf("\tMinTick: %g\n", contractDetails.minTick);
+	printf("\tMdSizeMultiplier: %d\n", contractDetails.mdSizeMultiplier);
+	printf("\tOrderTypes: %s\n", contractDetails.orderTypes.c_str());
+	printf("\tValidExchanges: %s\n", contractDetails.validExchanges.c_str());
+	printf("\tNextOptionDate: %s\n", contractDetails.nextOptionDate.c_str());
+	printf("\tNextOptionType: %s\n", contractDetails.nextOptionType.c_str());
+	printf("\tNextOptionPartial: %s\n", contractDetails.nextOptionPartial ? "yes" : "no");
+	printf("\tNotes: %s\n", contractDetails.notes.c_str());
+	printf("\tLong Name: %s\n", contractDetails.longName.c_str());
+	printf("\tEvRule: %s\n", contractDetails.evRule.c_str());
+	printf("\tEvMultiplier: %g\n", contractDetails.evMultiplier);
+	printf("\tAggGroup: %d\n", contractDetails.aggGroup);
+	printf("\tMarketRuleIds: %s\n", contractDetails.marketRuleIds.c_str());
+	printContractDetailsSecIdList(contractDetails.secIdList);
 }
 
 //! [contractdetailsend]

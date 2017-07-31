@@ -156,7 +156,7 @@ Namespace Samples
         Public Shared Function Bond() As Contract
             '! [bond]
             Dim Contract As Contract = New Contract
-            Contract.conid = 147554578
+            Contract.ConId = 267433416
             Contract.exchange = "SMART"
             '! [bond]
             Return Contract
@@ -341,14 +341,14 @@ Namespace Samples
 
             '! [fopcontract]
             Dim contract As Contract = New Contract
-            contract.Symbol = "ES"
+            contract.Symbol = "SPX"
             contract.SecType = "FOP"
             contract.Exchange = "GLOBEX"
             contract.Currency = "USD"
-            contract.LastTradeDateOrContractMonth = "20160617"
-            contract.Strike = 1810
+            contract.LastTradeDateOrContractMonth = "20180315"
+            contract.Strike = 1025
             contract.Right = "C"
-            contract.Multiplier = "50"
+            contract.Multiplier = "250"
             '! [fopcontract]
             Return contract
 

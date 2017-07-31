@@ -222,6 +222,15 @@ namespace TWSLib
         }
 
         /**
+        * @brief real expiration date
+        */
+        string RealExpirationDate
+        {
+            get { return data != null ? data.RealExpirationDate : default(string); }
+            set { if (data != null) data.RealExpirationDate = value; }
+        }
+
+        /**
         * @brief A list of contract identifiers that the customer is allowed to view.
          * CUSIP/ISIN/etc.
         */
@@ -568,6 +577,11 @@ namespace TWSLib
         string TWSLib.IContractDetails.marketRuleIds
         {
             get { return MarketRuleIds; }
+        }
+
+        string TWSLib.IContractDetails.realExpirationDate
+        {
+            get { return RealExpirationDate; }
         }
 
         public static explicit operator ComContractDetails(ContractDetails cd)

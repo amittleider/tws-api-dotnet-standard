@@ -253,6 +253,12 @@ public:
     void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
 
 private:
+	void printContractMsg(const Contract& contract);
+	void printContractDetailsMsg(const ContractDetails& contractDetails);
+	void printContractDetailsSecIdList(const TagValueListSPtr &secIdList);
+	void printBondContractDetailsMsg(const ContractDetails& contractDetails);
+
+private:
 	//! [socket_declare]
 	EReaderOSSignal m_osSignal;
 	EClientSocket * const m_pClient;

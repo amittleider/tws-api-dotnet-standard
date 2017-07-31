@@ -49,7 +49,7 @@ public class Testbed {
 
 		//tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
-		//contractOperations(wrapper.getClient());
+		contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -470,6 +470,7 @@ public class Testbed {
 		client.reqContractDetails(210, ContractSamples.OptionForQuery());
 		client.reqContractDetails(211, ContractSamples.EurGbpFx());
 		client.reqContractDetails(212, ContractSamples.Bond());
+		client.reqContractDetails(213, ContractSamples.FuturesOnOptions());
 		//! [reqcontractdetails]
 
 		//! [reqmatchingsymbols]

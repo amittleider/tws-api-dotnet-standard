@@ -881,6 +881,9 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 	if (m_serverVersion >= MIN_SERVER_VER_MARKET_RULES) {
 		DECODE_FIELD( contract.marketRuleIds);
 	}
+	if (m_serverVersion >= MIN_SERVER_VER_REAL_EXPIRATION_DATE) {
+		DECODE_FIELD( contract.realExpirationDate);
+	}
 
 	m_pEWrapper->contractDetails( reqId, contract);
 
