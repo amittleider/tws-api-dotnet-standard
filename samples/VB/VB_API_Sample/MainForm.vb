@@ -2310,6 +2310,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  underSymbol = " & contractDetails.UnderSymbol)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  underSecType = " & contractDetails.UnderSecType)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  marketRuleIds = " & contractDetails.MarketRuleIds)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  realExpirationDate = " & contractDetails.RealExpirationDate)
 
         If (contract.SecType = "BOND") Then
 

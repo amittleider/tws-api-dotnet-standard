@@ -92,5 +92,6 @@ namespace IBApi
         public const int HISTORICAL_TICKS = 130;
         public const int MARKET_CAP_PRICE = 131;
         public const int PRE_OPEN_BID_ASK = 132;
+        public const int REAL_EXPIRATION_DATE = 134;
     }
 }

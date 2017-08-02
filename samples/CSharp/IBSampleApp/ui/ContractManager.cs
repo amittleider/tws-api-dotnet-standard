@@ -118,6 +118,7 @@ namespace IBSampleApp.ui
             ContractDetailsGrid[13, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.UnderSymbol;
             ContractDetailsGrid[14, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.UnderSecType;
             ContractDetailsGrid[15, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.MarketRuleIds;
+            ContractDetailsGrid[16, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.RealExpirationDate;
 
             UpdateMakretRuleIdsComboBox(contractDetailsMessage.ContractDetails.MarketRuleIds);
         }

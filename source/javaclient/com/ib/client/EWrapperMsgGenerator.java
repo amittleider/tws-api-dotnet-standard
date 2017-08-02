@@ -299,6 +299,7 @@ public class EWrapperMsgGenerator {
         + "underSymbol = " + contractDetails.underSymbol() + "\n"
         + "underSecType = " + contractDetails.underSecType() + "\n"
         + "marketRuleIds = " + contractDetails.marketRuleIds() + "\n"
+        + "realExpirationDate = " + contractDetails.realExpirationDate() + "\n"
         + contractDetailsSecIdList(contractDetails);
     }
     

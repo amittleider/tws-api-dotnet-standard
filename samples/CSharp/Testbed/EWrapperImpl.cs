@@ -206,9 +206,104 @@ namespace Samples
         //! [contractdetails]
         public virtual void contractDetails(int reqId, ContractDetails contractDetails)
         {
-            Console.WriteLine("ContractDetails. ReqId: "+reqId+" - "+contractDetails.Summary.Symbol+", "+contractDetails.Summary.SecType+", ConId: "+contractDetails.Summary.ConId+" @ "+contractDetails.Summary.Exchange);
+            Console.WriteLine("ContractDetails begin. ReqId: " + reqId);
+            printContractMsg(contractDetails.Summary);
+            printContractDetailsMsg(contractDetails);
+            Console.WriteLine("ContractDetails end. ReqId: " + reqId);
         }
         //! [contractdetails]
+
+        public void printContractMsg(Contract contract)
+        {
+            Console.WriteLine("\tConId: " + contract.ConId);
+            Console.WriteLine("\tSymbol: " + contract.Symbol);
+            Console.WriteLine("\tSecType: " + contract.SecType);
+            Console.WriteLine("\tLastTradeDateOrContractMonth: " + contract.LastTradeDateOrContractMonth);
+            Console.WriteLine("\tStrike: " + contract.Strike);
+            Console.WriteLine("\tRight: " + contract.Right);
+            Console.WriteLine("\tMultiplier: " + contract.Multiplier);
+            Console.WriteLine("\tExchange: " + contract.Exchange);
+            Console.WriteLine("\tPrimaryExchange: " + contract.PrimaryExch);
+            Console.WriteLine("\tCurrency: " + contract.Currency);
+            Console.WriteLine("\tLocalSymbol: " + contract.LocalSymbol);
+            Console.WriteLine("\tTradingClass: " + contract.TradingClass);
+        }
+
+        public void printContractDetailsMsg(ContractDetails contractDetails)
+        {
+            Console.WriteLine("\tMarketName: " + contractDetails.MarketName);
+            Console.WriteLine("\tMinTick: " + contractDetails.MinTick);
+            Console.WriteLine("\tPriceMagnifier: " + contractDetails.PriceMagnifier);
+            Console.WriteLine("\tOrderTypes: " + contractDetails.OrderTypes);
+            Console.WriteLine("\tValidExchanges: " + contractDetails.ValidExchanges);
+            Console.WriteLine("\tUnderConId: " + contractDetails.UnderConId);
+            Console.WriteLine("\tLongName: " + contractDetails.LongName);
+            Console.WriteLine("\tContractMonth: " + contractDetails.ContractMonth);
+            Console.WriteLine("\tIndystry: " + contractDetails.Industry);
+            Console.WriteLine("\tCategory: " + contractDetails.Category);
+            Console.WriteLine("\tSubCategory: " + contractDetails.Subcategory);
+            Console.WriteLine("\tTimeZoneId: " + contractDetails.TimeZoneId);
+            Console.WriteLine("\tTradingHours: " + contractDetails.TradingHours);
+            Console.WriteLine("\tLiquidHours: " + contractDetails.LiquidHours);
+            Console.WriteLine("\tEvRule: " + contractDetails.EvRule);
+            Console.WriteLine("\tEvMultiplier: " + contractDetails.EvMultiplier);
+            Console.WriteLine("\tMdSizeMultiplier: " + contractDetails.MdSizeMultiplier);
+            Console.WriteLine("\tAggGroup: " + contractDetails.AggGroup);
+            Console.WriteLine("\tUnderSymbol: " + contractDetails.UnderSymbol);
+            Console.WriteLine("\tUnderSecType: " + contractDetails.UnderSecType);
+            Console.WriteLine("\tMarketRuleIds: " + contractDetails.MarketRuleIds);
+            Console.WriteLine("\tRealExpirationDate: " + contractDetails.RealExpirationDate);
+            printContractDetailsSecIdList(contractDetails.SecIdList);
+        }
+
+        public void printContractDetailsSecIdList(List<TagValue> secIdList)
+        {
+            if (secIdList != null && secIdList.Count > 0) {
+                Console.Write("\tSecIdList: {");
+                foreach (TagValue tagValue in secIdList)
+                {
+                    Console.Write(tagValue.Tag + "=" + tagValue.Value + ";");
+                }
+                Console.WriteLine("}");
+            }
+        }
+
+        public void printBondContractDetailsMsg(ContractDetails contractDetails)
+        {
+            Console.WriteLine("\tSymbol: " + contractDetails.Summary.Symbol);
+            Console.WriteLine("\tSecType: " + contractDetails.Summary.SecType);
+            Console.WriteLine("\tCusip: " + contractDetails.Cusip);
+            Console.WriteLine("\tCoupon: " + contractDetails.Coupon);
+            Console.WriteLine("\tMaturity: " + contractDetails.Maturity);
+            Console.WriteLine("\tIssueDate: " + contractDetails.IssueDate);
+            Console.WriteLine("\tRatings: " + contractDetails.Ratings);
+            Console.WriteLine("\tBondType: " + contractDetails.BondType);
+            Console.WriteLine("\tCouponType: " + contractDetails.CouponType);
+            Console.WriteLine("\tConvertible: " + contractDetails.Convertible);
+            Console.WriteLine("\tCallable: " + contractDetails.Callable);
+            Console.WriteLine("\tPutable: " + contractDetails.Putable);
+            Console.WriteLine("\tDescAppend: " + contractDetails.DescAppend);
+            Console.WriteLine("\tExchange: " + contractDetails.Summary.Exchange);
+            Console.WriteLine("\tCurrency: " + contractDetails.Summary.Currency);
+            Console.WriteLine("\tMarketName: " + contractDetails.MarketName);
+            Console.WriteLine("\tTradingClass: " + contractDetails.Summary.TradingClass);
+            Console.WriteLine("\tConId: " + contractDetails.Summary.ConId);
+            Console.WriteLine("\tMinTick: " + contractDetails.MinTick);
+            Console.WriteLine("\tMdSizeMultiplier: " + contractDetails.MdSizeMultiplier);
+            Console.WriteLine("\tOrderTypes: " + contractDetails.OrderTypes);
+            Console.WriteLine("\tValidExchanges: " + contractDetails.ValidExchanges);
+            Console.WriteLine("\tNextOptionDate: " + contractDetails.NextOptionDate);
+            Console.WriteLine("\tNextOptionType: " + contractDetails.NextOptionType);
+            Console.WriteLine("\tNextOptionPartial: " + contractDetails.NextOptionPartial);
+            Console.WriteLine("\tNotes: " + contractDetails.Notes);
+            Console.WriteLine("\tLong Name: " + contractDetails.LongName);
+            Console.WriteLine("\tEvRule: " + contractDetails.EvRule);
+            Console.WriteLine("\tEvMultiplier: " + contractDetails.EvMultiplier);
+            Console.WriteLine("\tAggGroup: " + contractDetails.AggGroup);
+            Console.WriteLine("\tMarketRuleIds: " + contractDetails.MarketRuleIds);
+            printContractDetailsSecIdList(contractDetails.SecIdList);
+        }
+
 
         //! [contractdetailsend]
         public virtual void contractDetailsEnd(int reqId)
@@ -332,7 +427,9 @@ namespace Samples
 
         public virtual void bondContractDetails(int requestId, ContractDetails contractDetails)
         {
-            Console.WriteLine("Bond. Symbol "+contractDetails.Summary.Symbol+", "+contractDetails.Summary);
+            Console.WriteLine("BondContractDetails begin. ReqId: " + requestId);
+            printBondContractDetailsMsg(contractDetails);
+            Console.WriteLine("BondContractDetails end. ReqId: " + requestId);
         }
 
         //! [historicaldataend]

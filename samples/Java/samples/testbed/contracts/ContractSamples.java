@@ -37,7 +37,7 @@ public class ContractSamples {
 	public static Contract Bond() {
 		//! [bond]
 		Contract contract = new Contract();
-		contract.conid(147554578);
+		contract.conid(267433416);
 		contract.exchange("SMART");
 		//! [bond]
 		return contract;
@@ -291,14 +291,14 @@ public class ContractSamples {
 	public static Contract FuturesOnOptions() {
 		//! [fopcontract]
 		Contract contract = new Contract();
-		contract.symbol("ES");
+		contract.symbol("SPX");
 		contract.secType("FOP");
 		contract.currency("USD");
 		contract.exchange("GLOBEX");
-		contract.lastTradeDateOrContractMonth("20160617");
+		contract.lastTradeDateOrContractMonth("20180315");
 		contract.right("C");
-		contract.strike(1810);
-		contract.multiplier("50");
+		contract.strike(1025);
+		contract.multiplier("250");
 		//! [fopcontract]
 		return contract;
 	}

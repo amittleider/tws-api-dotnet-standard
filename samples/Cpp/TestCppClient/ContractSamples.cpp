@@ -202,7 +202,7 @@ Contract ContractSamples::BondWithCusip() {
 Contract ContractSamples::Bond() {
 	//! [bond]
 	Contract contract;
-	contract.conId = 147554578;
+	contract.conId = 267433416;
 	contract.exchange = "SMART";
 	//! [bond]
 	return contract;
@@ -386,14 +386,14 @@ Contract ContractSamples::WrongContract(){
 Contract ContractSamples::FuturesOnOptions(){
 	//! [fopcontract]
 	Contract contract;
-	contract.symbol = "ES";
+	contract.symbol = "SPX";
 	contract.secType = "FOP";
 	contract.exchange = "GLOBEX";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "20160617";
-	contract.strike = 1810;
+	contract.lastTradeDateOrContractMonth = "20180315";
+	contract.strike = 1025;
 	contract.right = "C";
-	contract.multiplier = "50";
+	contract.multiplier = "250";
 	//! [fopcontract]
 	return contract;
 }

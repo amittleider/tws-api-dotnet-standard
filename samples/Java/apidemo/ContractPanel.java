@@ -17,6 +17,7 @@ import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
 
 public class ContractPanel extends JPanel {
+	protected UpperField m_conId = new UpperField();
 	protected UpperField m_symbol = new UpperField();
 	protected TCombo<SecType> m_secType = new TCombo<>( SecType.values() );
 	protected UpperField m_lastTradeDateOrContractMonth = new UpperField();
@@ -56,6 +57,7 @@ public class ContractPanel extends JPanel {
 		}
 		
 		VerticalPanel p = new VerticalPanel();
+    	p.add( "ConId", m_conId);
     	p.add( "Symbol", m_symbol);
     	p.add( "Sec type", m_secType);
     	p.add( "Last trade date or contract month", m_lastTradeDateOrContractMonth);
@@ -85,6 +87,7 @@ public class ContractPanel extends JPanel {
 		String exch = m_exchange.getText().toUpperCase(); 
 		String compExch = exch.equals( "SMART") || exch.equals( "BEST") ? m_compExch.getText().toUpperCase() : null; 		
 		
+		m_contract.conid( m_conId.getInt() ); 
 		m_contract.symbol( m_symbol.getText().toUpperCase() ); 
 		m_contract.secType( m_secType.getSelectedItem() ); 
 		m_contract.lastTradeDateOrContractMonth( m_lastTradeDateOrContractMonth.getText() ); 

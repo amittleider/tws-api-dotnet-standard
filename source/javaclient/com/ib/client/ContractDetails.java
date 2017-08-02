@@ -29,6 +29,7 @@ public class ContractDetails {
     private String   m_underSymbol;
     private String   m_underSecType;
     private String   m_marketRuleIds;
+    private String   m_realExpirationDate;
 
     // BOND values
     private String   m_cusip;
@@ -72,6 +73,7 @@ public class ContractDetails {
     public String underSymbol()         { return m_underSymbol; }
     public String underSecType()        { return m_underSecType; }
     public String marketRuleIds()       { return m_marketRuleIds; }
+    public String realExpirationDate()  { return m_realExpirationDate; }
     
     public String cusip()               { return m_cusip; }
     public String ratings()             { return m_ratings; }
@@ -113,6 +115,7 @@ public class ContractDetails {
     public void underSymbol(String underSymbol)     { m_underSymbol = underSymbol; }
     public void underSecType(String underSecType)   { m_underSecType = underSecType; }
     public void marketRuleIds(String marketRuleIds) { m_marketRuleIds = marketRuleIds; }
+    public void realExpirationDate(String realExpirationDate) { m_realExpirationDate = realExpirationDate; }
     
     public void cusip(String cusip)             { m_cusip = cusip; }
     public void ratings(String ratings)         { m_ratings = ratings; }
@@ -142,7 +145,7 @@ public class ContractDetails {
     	    String p_contractMonth, String p_industry, String p_category, String p_subcategory,
     	    String p_timeZoneId, String	p_tradingHours, String p_liquidHours,
     	    String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier, int p_aggGroup,
-    	    String p_underSymbol, String p_underSecType, String p_marketRuleIds) {
+    	    String p_underSymbol, String p_underSecType, String p_marketRuleIds, String p_realExpirationDate) {
         m_contract = p_contract;
     	m_marketName = p_marketName;
     	m_minTick = p_minTick;
@@ -164,6 +167,7 @@ public class ContractDetails {
         m_underSymbol = p_underSymbol;
         m_underSecType = p_underSecType;
         m_marketRuleIds = p_marketRuleIds;
+        m_realExpirationDate = p_realExpirationDate;
     }
 
     @Override public String toString() {
@@ -190,6 +194,7 @@ public class ContractDetails {
         add( sb, "underSymbol", m_underSymbol);
         add( sb, "underSecType", m_underSecType);
         add( sb, "marketRuleIds", m_marketRuleIds);
+        add( sb, "realExpirationDate", m_realExpirationDate);
 
         add( sb, "cusip", m_cusip);
         add( sb, "ratings", m_ratings);

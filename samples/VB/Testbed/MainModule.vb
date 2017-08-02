@@ -91,7 +91,7 @@ Module MainModule
         '***************************
         '** Contract information ***
         '***************************
-        'contractOperations(client)
+        contractOperations(client)
 
         '**********************
         '** Market Scanners ***
@@ -172,7 +172,7 @@ Module MainModule
         '**************************
         'continuousFuturesOperations(client)
 
-        historicalTicks(client)
+        'historicalTicks(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -374,6 +374,7 @@ Module MainModule
         client.reqContractDetails(209, ContractSamples.EurGbpFx())
         client.reqContractDetails(210, ContractSamples.OptionForQuery())
         client.reqContractDetails(211, ContractSamples.Bond())
+        client.reqContractDetails(212, ContractSamples.FuturesOnOptions())
         '! [reqcontractdetails]
 
         '! [reqcontractdetailsnews]

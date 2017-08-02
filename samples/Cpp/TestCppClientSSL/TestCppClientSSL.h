@@ -59,7 +59,7 @@ public:
 		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 	void orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
-		double lastFillPrice, int clientId, const std::string& whyHeld);
+		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice);
 	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
 	void openOrderEnd();
 	void winError(const std::string& str, int lastError);
@@ -138,6 +138,9 @@ public:
     void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
 	void pnl(int reqId, double dailyPnL, double unrealizedPnL);
 	void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+    void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
+    void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
+    void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
 
 private:
     EReaderOSSignal m_osSignal;
