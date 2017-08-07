@@ -67,6 +67,8 @@ public class EReader extends Thread {
         		else {
         			eWrapper().error( ex);
         		}
+        		
+        		parent().eDisconnect();
         	//}
         } 
         
