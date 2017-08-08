@@ -46,7 +46,7 @@ namespace IBApi
                     if (!putMessageToQueue())
                         break;
 
-                eReaderSignal.issueSignal();
+                eClientSocket.eDisconnect();
             }) { IsBackground = true }.Start();
         }
 
@@ -83,7 +83,7 @@ namespace IBApi
             catch (Exception ex)
             {
                 if (eClientSocket.IsConnected())
-                    eClientSocket.Wrapper.error(ex);
+                    eClientSocket.Wrapper.error(ex.Message);
 
                 return false;
             }
