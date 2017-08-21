@@ -641,3 +641,15 @@ class EWrapper:
     def historicalDataUpdate(self, reqId: int, bar: BarData):
         """returns updates in real time when keepUpToDate is set to True"""
         self.logAnswer(current_fn_name(), vars())
+
+    def rerouteMktDataReq(self, reqId: int, conId: int, exchange: str):
+        """returns reroute CFD contract information for market data request"""
+        self.logAnswer(current_fn_name(), vars())
+
+    def rerouteMktDepthReq(self, reqId: int, conId: int, exchange: str):
+        """returns reroute CFD contract information for market depth request"""
+        self.logAnswer(current_fn_name(), vars())
+
+    def marketRule(self, marketRuleId: int, priceIncrements: ListOfPriceIncrements):
+        """returns minimum price increment structure for a particular market rule ID"""
+        self.logAnswer(current_fn_name(), vars())

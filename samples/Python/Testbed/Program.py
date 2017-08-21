@@ -251,23 +251,24 @@ class TestApp(TestWrapper, TestClient):
             self.reqGlobalCancel()
         else:
             print("Executing requests")
-            self.reqGlobalCancel()
-            self.marketDataType_req()
-            self.accountOperations_req()
-            self.tickDataOperations_req()
-            self.marketDepthOperations_req()
-            self.realTimeBars_req()
-            self.historicalDataRequests_req()
-            self.optionsOperations_req()
-            self.marketScanners_req()
-            self.reutersFundamentals_req()
-            self.bulletins_req()
-            self.contractOperations_req()
-            self.contractNewsFeed_req()
-            self.miscelaneous_req()
-            self.linkingOperations()
-            self.financialAdvisorOperations()
-            self.orderOperations_req()
+            #self.reqGlobalCancel()
+            #self.marketDataType_req()
+            #self.accountOperations_req()
+            #self.tickDataOperations_req()
+            #self.marketDepthOperations_req()
+            #self.realTimeBars_req()
+            #self.historicalDataRequests_req()
+            #self.optionsOperations_req()
+            #self.marketScanners_req()
+            #self.reutersFundamentals_req()
+            #self.bulletins_req()
+            #self.contractOperations_req()
+            #self.contractNewsFeed_req()
+            #self.miscelaneous_req()
+            #self.linkingOperations()
+            #self.financialAdvisorOperations()
+            #self.orderOperations_req()
+            #self.marketRuleOperations()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -692,6 +693,22 @@ class TestApp(TestWrapper, TestClient):
 
     # ! [ticksnapshotend]
 
+    @iswrapper
+    # ! [rerouteMktDataReq]
+    def rerouteMktDataReq(self, reqId: int, conId: int, exchange: str):
+        super().rerouteMktDataReq(reqId, conId, exchange)
+        print("Re-route market data request. Req Id: ", reqId, ", ConId: ", conId, " Exchange: ", exchange)
+
+    # ! [rerouteMktDataReq]
+
+    @iswrapper
+    # ! [marketRule]
+    def marketRule(self, marketRuleId: int, priceIncrements: ListOfPriceIncrements):
+        super().marketRule(marketRuleId, priceIncrements)
+        print("Market Rule ID: ", marketRuleId)
+        for priceIncrement in priceIncrements:
+            print("Price Increment. Low Edge: ", priceIncrement.lowEdge, ", Increment: ", priceIncrement.increment)
+    # ! [marketRule]
 
     @printWhenExecuting
     def marketDepthOperations_req(self):
@@ -729,7 +746,12 @@ class TestApp(TestWrapper, TestClient):
 
     # ! [updatemktdepthl2]
 
-
+    @iswrapper
+    # ! [rerouteMktDepthReq]
+    def rerouteMktDepthReq(self, reqId: int, conId: int, exchange: str):
+        super().rerouteMktDataReq(reqId, conId, exchange)
+        print("Re-route market data request. Req Id: ", reqId, ", ConId: ", conId, " Exchange: ", exchange)
+    # ! [rerouteMktDepthReq]
 
     @printWhenExecuting
     def marketDepthOperations_cancel(self):
@@ -1552,6 +1574,18 @@ class TestApp(TestWrapper, TestClient):
             self.cancelOrder(self.simplePlaceOid)
             # ! [cancelorder]
 
+    def marketRuleOperations(self):
+        # ! [reqcontractdetails]
+        self.reqContractDetails(17001, ContractSamples.USStock())
+        self.reqContractDetails(17002, ContractSamples.Bond())
+        # ! [reqcontractdetails]
+        time.sleep(1)
+
+        # ! [reqmarketrule]
+        self.reqMarketRule(26)
+        self.reqMarketRule(240)
+        # ! [reqmarketrule]
+
     @iswrapper
     # ! [execdetails]
     def execDetails(self, reqId: int, contract: Contract, execution: Execution):
@@ -1583,7 +1617,7 @@ class TestApp(TestWrapper, TestClient):
 def main():
     SetupLogger()
     logging.debug("now is %s", datetime.datetime.now())
-    logging.getLogger().setLevel(logging.ERROR)
+    logging.getLogger().setLevel(logging.DEBUG)
 
     cmdLineParser = argparse.ArgumentParser("api tests")
     # cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")

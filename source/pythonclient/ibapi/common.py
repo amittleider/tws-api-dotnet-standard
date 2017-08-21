@@ -35,6 +35,7 @@ ListOfDepthExchanges = list
 ListOfNewsProviders = list
 SmartComponentMap = dict
 HistogramDataList = list
+ListOfPriceIncrements = list
 
 class BarData(Object):
     def __init__(self):
@@ -123,5 +124,14 @@ class FamilyCode(Object):
 
     def __str__(self):
         return "%s,%s" % (self.accountID, self.familyCodeStr)
+
+class PriceIncrement(Object):
+    def __init__(self):
+        self.lowEdge = 0.
+        self.increment = 0.
+
+    def __str__(self):
+        return "%f,%f" % (self.lowEdge, self.increment)
+
 
 

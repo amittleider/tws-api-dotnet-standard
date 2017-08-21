@@ -83,6 +83,9 @@ class IN:
     HEAD_TIMESTAMP            = 88
     HISTOGRAM_DATA            = 89
     HISTORICAL_DATA_UPDATE    = 90
+    REROUTE_MKT_DATA_REQ      = 91
+    REROUTE_MKT_DEPTH_REQ     = 92
+    MARKET_RULE               = 93
 
 # outgoing msg id's
 class OUT:
@@ -152,3 +155,4 @@ class OUT:
     REQ_HISTOGRAM_DATA            = 88
     CANCEL_HISTOGRAM_DATA         = 89
     CANCEL_HEAD_TIMESTAMP         = 90
+    REQ_MARKET_RULE               = 91

@@ -133,6 +133,7 @@ class ContractDetails(Object):
         self.aggGroup = 0
         self.underSymbol = ""
         self.underSecType = ""
+        self.marketRuleIds = ""
         self.secIdList = None
         # BOND values
         self.cusip = ""
@@ -173,6 +174,7 @@ class ContractDetails(Object):
             str(self.mdSizeMultiplier),
             str(self.underSymbol),
             str(self.underSecType),
+            str(self.marketRuleIds),
             str(self.aggGroup),
             str(self.secIdList),
             str(self.cusip),

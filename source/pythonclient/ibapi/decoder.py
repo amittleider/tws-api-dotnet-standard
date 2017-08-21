@@ -518,6 +518,9 @@ class Decoder(Object):
             contract.underSymbol = decode(str, fields)
             contract.underSecType = decode(str, fields)
 
+        if self.serverVersion >= MIN_SERVER_VER_MARKET_RULES:
+            contract.marketRuleIds = decode(str, fields)
+
         self.wrapper.contractDetails(reqId, contract)
 
 
@@ -575,6 +578,9 @@ class Decoder(Object):
 
         if self.serverVersion >= MIN_SERVER_VER_AGG_GROUP:
             contract.aggGroup = decode(int, fields)
+
+        if self.serverVersion >= MIN_SERVER_VER_MARKET_RULES:
+            contract.marketRuleIds = decode(str, fields)
 
         self.wrapper.bondContractDetails(reqId, contract)
 
@@ -1072,6 +1078,39 @@ class Decoder(Object):
 
         self.wrapper.histogramData(reqId,histogram)
 
+    def processRerouteMktDataReq(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        conId = decode(int, fields)
+        exchange = decode(str, fields)
+
+        self.wrapper.rerouteMktDataReq(reqId, conId, exchange)
+
+    def processRerouteMktDepthReq(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        conId = decode(int, fields)
+        exchange = decode(str, fields)
+
+        self.wrapper.rerouteMktDepthReq(reqId, conId, exchange)
+
+    def processMarketRuleMsg(self, fields):
+        sMsgId = next(fields)
+        marketRuleId = decode(int, fields)
+
+        nPriceIncrements = decode(int, fields)
+        priceIncrements = []
+
+        if(nPriceIncrements > 0):
+            for idxPrcInc in range(nPriceIncrements):
+                prcInc = PriceIncrement()
+                prcInc.lowEdge = decode(float, fields)
+                prcInc.increment = decode(float, fields)
+                priceIncrements.append(prcInc)
+
+        self.wrapper.marketRule(marketRuleId, priceIncrements)
+
+
     ######################################################################
 
     def discoverParams(self):
@@ -1102,7 +1141,7 @@ class Decoder(Object):
 
     def interpretWithSignature(self, fields, handleInfo):
         if handleInfo.wrapperParams is None:
-            logging.debug("%s: no param info in ", fields, handleInfo)
+            logging.debug("%s: no param info in", fields, handleInfo)
             return
 
         nIgnoreFields = 2 #bypass msgId and versionId faster this way
@@ -1149,6 +1188,7 @@ class Decoder(Object):
 
         try:
             if handleInfo.wrapperMeth is not None:
+                logging.debug("In interpret(), handleInfo: %s", handleInfo)
                 self.interpretWithSignature(fields, handleInfo)
             elif handleInfo.processMeth is not None:
                 handleInfo.processMeth(self, iter(fields))
@@ -1224,7 +1264,10 @@ class Decoder(Object):
         IN.NEWS_ARTICLE: HandleInfo(proc=processNewsArticle),
         IN.HISTORICAL_NEWS: HandleInfo(proc=processHistoricalNews),
         IN.HISTORICAL_NEWS_END: HandleInfo(proc=processHistoricalNewsEnd),
-        IN.HISTOGRAM_DATA: HandleInfo(proc=processHistogramData)
+        IN.HISTOGRAM_DATA: HandleInfo(proc=processHistogramData),
+        IN.REROUTE_MKT_DATA_REQ: HandleInfo(proc=processRerouteMktDataReq),
+        IN.REROUTE_MKT_DEPTH_REQ: HandleInfo(proc=processRerouteMktDepthReq),
+        IN.MARKET_RULE: HandleInfo(proc=processMarketRuleMsg)
    }
 
 

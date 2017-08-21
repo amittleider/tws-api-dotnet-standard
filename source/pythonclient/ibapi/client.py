@@ -497,6 +497,23 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    def reqMarketRule(self, marketRuleId: int):
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_MARKET_RULES:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               " It does not support market rule requests.")
+            return
+
+        msg = make_field(OUT.REQ_MARKET_RULE) \
+            + make_field(marketRuleId)
+
+        self.sendMsg(msg)
+
     ##########################################################################
     ################## Options
     ##########################################################################
