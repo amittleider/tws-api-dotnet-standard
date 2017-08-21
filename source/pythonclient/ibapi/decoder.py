@@ -1110,6 +1110,31 @@ class Decoder(Object):
 
         self.wrapper.marketRule(marketRuleId, priceIncrements)
 
+    def processPnLMsg(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        dailyPnL = decode(float, fields)
+        unrealizedPnL = None
+
+        if self.serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL:
+            unrealizedPnL = decode(float, fields)
+
+        self.wrapper.pnl(reqId, dailyPnL, unrealizedPnL)
+
+    def processPnLSingleMsg(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        pos = decode(int, fields)
+        dailyPnL = decode(float, fields)
+        unrealizedPnL = None
+
+        if(self.serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL):
+            unrealizedPnL = decode(float, fields)
+
+        value = decode(float, fields)
+
+        self.wrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value)
+
 
     ######################################################################
 
@@ -1267,7 +1292,9 @@ class Decoder(Object):
         IN.HISTOGRAM_DATA: HandleInfo(proc=processHistogramData),
         IN.REROUTE_MKT_DATA_REQ: HandleInfo(proc=processRerouteMktDataReq),
         IN.REROUTE_MKT_DEPTH_REQ: HandleInfo(proc=processRerouteMktDepthReq),
-        IN.MARKET_RULE: HandleInfo(proc=processMarketRuleMsg)
+        IN.MARKET_RULE: HandleInfo(proc=processMarketRuleMsg),
+        IN.PNL: HandleInfo(proc=processPnLMsg),
+        IN.PNL_SINGLE: HandleInfo(proc=processPnLSingleMsg)
    }
 
 

@@ -1653,6 +1653,87 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    #########################################################################
+    ################## Daily PnL
+    #########################################################################
+
+
+    def reqPnL(self, reqId: int, account: str, modelCode: str):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.REQ_PNL) \
+            + make_field(reqId) \
+            + make_field(account) \
+            + make_field(modelCode)
+
+        self.sendMsg(msg)
+
+    def cancelPnL(self, reqId: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.CANCEL_PNL) \
+            + make_field(reqId)
+
+        self.sendMsg(msg)
+
+    def reqPnLSingle(self, reqId: int, account: str, modelCode: str, conid: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.REQ_PNL_SINGLE) \
+            + make_field(reqId) \
+            + make_field(account) \
+            + make_field(modelCode) \
+            + make_field(conid)
+
+        self.sendMsg(msg)
+
+    def cancelPnLSingle(self, reqId: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.CANCEL_PNL_SINGLE) \
+            + make_field(reqId)
+
+        self.sendMsg(msg)
 
     #########################################################################
     ################## Executions

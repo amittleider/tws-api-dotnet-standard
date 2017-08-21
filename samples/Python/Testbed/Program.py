@@ -269,6 +269,7 @@ class TestApp(TestWrapper, TestClient):
             #self.financialAdvisorOperations()
             #self.orderOperations_req()
             #self.marketRuleOperations()
+            self.pnlOperations()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -419,6 +420,23 @@ class TestApp(TestWrapper, TestClient):
         # ! [cancelpositionsmulti]
         self.cancelPositionsMulti(9006)
         # ! [cancelpositionsmulti]
+
+    def pnlOperations(self):
+        # ! [reqpnl]
+        self.reqPnL(17001, "DU242650", "")
+        # ! [reqpnl]
+        time.sleep(1)
+        # ! [cancelpnl]
+        #self.cancelPnL(17001)
+        # ! [cancelpnl]
+
+        # ! [reqpnlsingle]
+        self.reqPnLSingle(17001, "DU242650", "", 268084);
+        # ! [reqpnlsingle]
+        time.sleep(1)
+        # ! [cancelpnlsingle]
+        #self.cancelPnLSingle(17001);
+        # ! [cancelpnlsingle]
 
     @iswrapper
     # ! [managedaccounts]
@@ -571,6 +589,20 @@ class TestApp(TestWrapper, TestClient):
 
     # ! [familyCodes]
 
+    @iswrapper
+    # ! [pnl]
+    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float):
+        super().pnl(reqId, dailyPnL, unrealizedPnL)
+        print("Daily PnL. Req Id: ", reqId, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ", unrealizedPnL)
+    # ! [pnl]
+
+    @iswrapper
+    # ! [pnlsingle]
+    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, value: float):
+        super().pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value)
+        print("Daily PnL Single. Req Id: ", reqId, ", pos: ", pos, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ",
+              unrealizedPnL, ", value: ", value)
+    # ! [pnlsingle]
 
     def marketDataType_req(self):
         # ! [reqmarketdatatype]
