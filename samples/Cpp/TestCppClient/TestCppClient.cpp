@@ -1421,7 +1421,7 @@ void TestCppClient::printContractMsg(const Contract& contract) {
 	printf("\tLastTradeDateOrContractMonth: %s\n", contract.lastTradeDateOrContractMonth.c_str());
 	printf("\tStrike: %g\n", contract.strike);
 	printf("\tRight: %s\n", contract.right.c_str());
-	printf("\tMultiplier: %g\n", contract.multiplier);
+	printf("\tMultiplier: %s\n", contract.multiplier.c_str());
 	printf("\tExchange: %s\n", contract.exchange.c_str());
 	printf("\tPrimaryExchange: %s\n", contract.primaryExchange.c_str());
 	printf("\tCurrency: %s\n", contract.currency.c_str());
