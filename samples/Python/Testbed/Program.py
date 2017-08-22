@@ -270,7 +270,7 @@ class TestApp(TestWrapper, TestClient):
             #self.orderOperations_req()
             #self.marketRuleOperations()
             #self.pnlOperations()
-            self.historicalTicksRequests_req()
+            #self.historicalTicksRequests_req()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -340,13 +340,13 @@ class TestApp(TestWrapper, TestClient):
     def orderStatus(self, orderId: OrderId, status: str, filled: float,
                     remaining: float, avgFillPrice: float, permId: int,
                     parentId: int, lastFillPrice: float, clientId: int,
-                    whyHeld: str):
+                    whyHeld: str, mktCapPrice: float):
         super().orderStatus(orderId, status, filled, remaining,
-                            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)
-        print("OrderStatus. Id:", orderId, "Status:", status, "Filled:", filled,
-              "Remaining:", remaining, "AvgFillPrice:", avgFillPrice,
-              "PermId:", permId, "ParentId:", parentId, "LastFillPrice:",
-              lastFillPrice, "ClientId:", clientId, "WhyHeld:", whyHeld)
+                            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice)
+        print("OrderStatus. Id: ", orderId, ", Status: ", status, ", Filled: ", filled,
+              ", Remaining: ", remaining, ", AvgFillPrice: ", avgFillPrice,
+              ", PermId: ", permId, ", ParentId: ", parentId, ", LastFillPrice: ",
+              lastFillPrice, ", ClientId: ", clientId, ", WhyHeld: ", whyHeld, ", MktCapPrice: ", mktCapPrice)
 
     # ! [orderstatus]
 

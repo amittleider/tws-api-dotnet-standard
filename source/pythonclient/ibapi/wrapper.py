@@ -124,7 +124,7 @@ class EWrapper:
     def orderStatus(self, orderId:OrderId , status:str, filled:float,
                     remaining:float, avgFillPrice:float, permId:int,
                     parentId:int, lastFillPrice:float, clientId:int,
-                    whyHeld:str):
+                    whyHeld:str, mktCapPrice: float):
         """This event is called whenever the status of an order changes. It is
         also fired after reconnecting to TWS if the client has any open orders.
 

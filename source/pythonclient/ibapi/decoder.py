@@ -97,7 +97,10 @@ class Decoder(Object):
     def processOrderStatusMsg(self, fields):
 
         sMsgId = next(fields)
-        version = decode(int, fields)
+        if self.serverVersion >= MIN_SERVER_VER_MARKET_CAP_PRICE:
+            version = None
+        else:
+            version = decode(int, fields)
         orderId = decode(int, fields)
         status = decode(str, fields)
 
@@ -119,8 +122,13 @@ class Decoder(Object):
         clientId = decode(int, fields) # ver 5 field
         whyHeld = decode(str, fields) # ver 6 field
 
+        if self.serverVersion >= MIN_SERVER_VER_MARKET_CAP_PRICE:
+            mktCapPrice = decode(float, fields)
+        else:
+            mktCapPrice = None
+
         self.wrapper.orderStatus(orderId, status, filled, remaining,
-            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)
+            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice)
 
 
     def processOpenOrder(self, fields):
