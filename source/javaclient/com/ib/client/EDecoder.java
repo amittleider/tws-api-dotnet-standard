@@ -584,27 +584,36 @@ class EDecoder implements ObjectInput {
     	int pos = readInt();
     	double dailyPnL = readDouble();
     	double unrealizedPnL = Double.MAX_VALUE;
+        double realizedPnL = Double.MAX_VALUE;
     	
-    	if (m_serverVersion >= EClient.MIN_SERVER_VER_UNREALIZED_PNL) {
-    	    unrealizedPnL = readDouble();
-    	}
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_UNREALIZED_PNL) {
+            unrealizedPnL = readDouble();
+        }
+
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_REALIZED_PNL) {
+            realizedPnL = readDouble();
+        }
 
     	double value = readDouble();
-
     	
-    	m_EWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+        m_EWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
 	}
 
 	private void processPnLMsg() throws IOException {
 		int reqId = readInt();
 		double dailyPnL = readDouble();
 		double unrealizedPnL = Double.MAX_VALUE;
+		double realizedPnL = Double.MAX_VALUE;
 		
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_UNREALIZED_PNL) {
 		    unrealizedPnL = readDouble();
 		}
 		
-		m_EWrapper.pnl(reqId, dailyPnL, unrealizedPnL);
+		if (m_serverVersion >= EClient.MIN_SERVER_VER_REALIZED_PNL) {
+		    realizedPnL = readDouble();
+		}
+		
+		m_EWrapper.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
 	}
 
     private void processHistogramDataMsg() throws IOException {

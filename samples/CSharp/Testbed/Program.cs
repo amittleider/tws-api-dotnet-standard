@@ -85,7 +85,7 @@ namespace Samples
             /****************************/
             /*** Contract information ***/
             /****************************/
-            contractOperations(client);
+            //contractOperations(client);
 
             /***********************/
             /*** Market Scanners ***/
@@ -157,7 +157,9 @@ namespace Samples
             /***********************/
             //marketRuleOperations(client);
 
-            //pnLSingle(client);
+            //pnl(client);
+
+            pnlSingle(client);
 		
 	        /**************************/
             /*** Algo Orders ***/
@@ -188,7 +190,7 @@ namespace Samples
         private static void pnl(EClientSocket client)
         {
 			//! [reqpnl]
-            client.reqPnL(17001, "DUC00042", "");
+            client.reqPnL(17001, "DUD00029", "");
 			//! [reqpnl]
             Thread.Sleep(1000);
 			//! [cancelpnl]
@@ -196,10 +198,10 @@ namespace Samples
 			//! [cancelpnl]
         }
 
-        private static void pnLSingle(EClientSocket client)
+        private static void pnlSingle(EClientSocket client)
         {
 			//! [reqpnlsingle]
-            client.reqPnLSingle(17001, "DUC00042", "", 268084);
+            client.reqPnLSingle(17001, "DUD00029", "", 268084);
 			//! [reqpnlsingle]
             Thread.Sleep(1000);
 			//! [cancelpnlsingle]

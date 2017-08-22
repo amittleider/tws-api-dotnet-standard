@@ -634,14 +634,14 @@ Namespace Samples
         '! [marketRule]
 
 		'! [pnl]
-        Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double) Implements EWrapper.pnl
-            Console.WriteLine("PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL {2}", reqId, dailyPnL, unrealizedPnL)
+        Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double) Implements EWrapper.pnl
+            Console.WriteLine("PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL: {2}, realized PnL: {3}", reqId, dailyPnL, unrealizedPnL, realizedPnL)
         End Sub
 		'! [pnl]
 		
 		'! [pnlsingle]
-        Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
-            Console.WriteLine("PnL Single. Request Id: {0}, pos {1}, daily PnL {2}, unrealized PnL {3}, value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value)
+        Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
+            Console.WriteLine("PnL Single. Request Id: {0}, pos: {1}, daily PnL: {2}, unrealized PnL: {3}, realized PnL: {4}, value: {5}", reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)
         End Sub
 		'! [pnlsingle]
 		

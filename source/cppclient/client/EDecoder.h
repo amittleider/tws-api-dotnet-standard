@@ -88,12 +88,13 @@ const int MIN_SERVER_VER_HISTORICAL_TICKS           = 130;
 const int MIN_SERVER_VER_MARKET_CAP_PRICE           = 131;
 const int MIN_SERVER_VER_PRE_OPEN_BID_ASK           = 132;
 const int MIN_SERVER_VER_REAL_EXPIRATION_DATE       = 134;
+const int MIN_SERVER_VER_REALIZED_PNL               = 135;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REAL_EXPIRATION_DATE;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_REALIZED_PNL;
 
 
 // incoming msg id's

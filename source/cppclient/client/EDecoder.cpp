@@ -2143,15 +2143,20 @@ const char* EDecoder::processPnLMsg(const char* ptr, const char* endPtr) {
     int reqId;
     double dailyPnL;
     double unrealizedPnL = DBL_MAX;
+    double realizedPnL = DBL_MAX;
 
-    DECODE_FIELD(reqId);
-    DECODE_FIELD(dailyPnL);
+    DECODE_FIELD(reqId)
+    DECODE_FIELD(dailyPnL)
 
     if (m_serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL) {
         DECODE_FIELD(unrealizedPnL)
     }
 
-    m_pEWrapper->pnl(reqId, dailyPnL, unrealizedPnL);
+    if (m_serverVersion >= MIN_SERVER_VER_REALIZED_PNL) {
+        DECODE_FIELD(realizedPnL)
+    }
+
+    m_pEWrapper->pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
     
     return ptr;
 }
@@ -2161,6 +2166,7 @@ const char* EDecoder::processPnLSingleMsg(const char* ptr, const char* endPtr) {
     int pos;
     double dailyPnL;
     double unrealizedPnL = DBL_MAX;
+    double realizedPnL = DBL_MAX;
     double value;
 
     DECODE_FIELD(reqId);
@@ -2171,10 +2177,14 @@ const char* EDecoder::processPnLSingleMsg(const char* ptr, const char* endPtr) {
         DECODE_FIELD(unrealizedPnL)
     }
 
+    if (m_serverVersion >= MIN_SERVER_VER_REALIZED_PNL) {
+        DECODE_FIELD(realizedPnL)
+    }
+
     DECODE_FIELD(value);
 
 
-    m_pEWrapper->pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+    m_pEWrapper->pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
 
     return ptr;
 }

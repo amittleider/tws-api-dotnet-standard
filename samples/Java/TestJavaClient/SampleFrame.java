@@ -1631,15 +1631,15 @@ class SampleFrame extends JFrame implements EWrapper {
 	}
 
     @Override
-    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
-        String msg = EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL);
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
+        String msg = EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
         
         m_TWS.add(msg);
     }
 
     @Override
-    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
-        String msg = EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
+        String msg = EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         
         m_TWS.add(msg);
     }

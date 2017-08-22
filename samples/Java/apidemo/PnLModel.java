@@ -11,9 +11,10 @@ public class PnLModel extends AbstractTableModel {
 
     private class PnLItem {
         
-        public PnLItem(double dailyPnL, double unrealizedPnL) {
+        public PnLItem(double dailyPnL, double unrealizedPnL, double realizedPnL) {
             m_dailyPnL = dailyPnL;
             m_unrealizedPnL = unrealizedPnL;
+            m_realizedPnL = realizedPnL;
         }
         
         public double dailyPnL() {
@@ -22,10 +23,15 @@ public class PnLModel extends AbstractTableModel {
 
         public double unrealizedPnL() {
             return m_unrealizedPnL;
+        }        
+        
+        public double realizedPnL() {
+            return m_realizedPnL;
         }
 
         private double m_dailyPnL;
         private double m_unrealizedPnL;
+        private double m_realizedPnL;
         
     }
     
@@ -35,6 +41,7 @@ public class PnLModel extends AbstractTableModel {
     static {
         columnNames.put(0, "Daily Pnl");
         columnNames.put(1, "Unrealized PnL");
+        columnNames.put(2, "Realized PnL");       
     }
     
     @Override
@@ -49,18 +56,29 @@ public class PnLModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         PnLItem item = m_rows.get(rowIndex);
         
-        return columnIndex == 0 ? item.dailyPnL() : item.unrealizedPnL();
+        switch (columnIndex) {
+        case 0:
+            return item.dailyPnL();
+            
+        case 1:
+            return item.unrealizedPnL();
+            
+        case 2:
+            return item.realizedPnL();
+        }
+        
+        return null;
     }
 
-    public void addRow(double dailyPnL, double unrealizedPnL) {
-        m_rows.add(new PnLItem(dailyPnL, unrealizedPnL));
+    public void addRow(double dailyPnL, double unrealizedPnL, double realizedPnL) {
+        m_rows.add(new PnLItem(dailyPnL, unrealizedPnL, realizedPnL));
         
         fireTableDataChanged();
     }

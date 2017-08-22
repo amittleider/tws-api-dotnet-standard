@@ -11,4 +11,6 @@ Class PnLSingleEventArgs
 
     Property unrealizedPnL As Double
 
+    Property realizedPnL As Double
+
 End Class

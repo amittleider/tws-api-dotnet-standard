@@ -17,6 +17,8 @@ public class PnLSingleModel extends AbstractTableModel {
             case 2:
                 return "Unrealized PnL";
             case 3:
+                return "Realized PnL";
+            case 4:
                 return "Value";
             default:
                 return super.getColumnName(column);
@@ -27,12 +29,14 @@ public class PnLSingleModel extends AbstractTableModel {
         int m_pos;
         double m_dailyPnL;
         double m_unrealizedPnL;
+        double m_realizedPnL;
         double m_value;
         
-        public Row(int pos, double dailyPnL, double unrealizedPnL, double value) {
+        public Row(int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
             m_pos = pos;
             m_dailyPnL = dailyPnL;
             m_unrealizedPnL = unrealizedPnL;
+            m_realizedPnL = realizedPnL;
             m_value = value;
         }
     }
@@ -46,7 +50,7 @@ public class PnLSingleModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -61,14 +65,16 @@ public class PnLSingleModel extends AbstractTableModel {
             case 2:
                 return r.m_unrealizedPnL;
             case 3:
+                return r.m_realizedPnL;
+            case 4:
                 return r.m_value;
             default:
                 return null;
         }
     }
 
-    public void addRow(int pos, double dailyPnL, double unrealizedPnL, double value) {
-        m_rows.add(new Row(pos, dailyPnL, unrealizedPnL, value));
+    public void addRow(int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
+        m_rows.add(new Row(pos, dailyPnL, unrealizedPnL, realizedPnL, value));
         
         fireTableDataChanged();
     }

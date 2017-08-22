@@ -341,7 +341,7 @@ void TestCppClient::reqCurrentTime()
 void TestCppClient::pnlOperation()
 {
 	//! [reqpnl]
-    m_pClient->reqPnL(7001, "DUC00042", "");
+    m_pClient->reqPnL(7001, "DUD00029", "");
 	//! [reqpnl]
 	
     std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -356,7 +356,7 @@ void TestCppClient::pnlOperation()
 void TestCppClient::pnlSingleOperation()
 {
 	//! [reqpnlsingle]
-    m_pClient->reqPnLSingle(7002, "DUC00042", "", 268084);
+    m_pClient->reqPnLSingle(7002, "DUD00029", "", 268084);
 	//! [reqpnlsingle]
 	
     std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -1250,13 +1250,14 @@ void TestCppClient::nextValidId( OrderId orderId)
 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
-    //m_state = ST_PNLSINGLE; 
+    m_state = ST_PNLSINGLE; 
+    //m_state = ST_PNL; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	m_state = ST_CONTRACTOPERATION;
+	//m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1863,14 +1864,14 @@ void TestCppClient::marketRule(int marketRuleId, const std::vector<PriceIncremen
 //! [marketRule]
 
 //! [pnl]
-void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL) {
-	printf("PnL. ReqId: %d, daily PnL: %g, unrealized PnL: %g\n", reqId, dailyPnL, unrealizedPnL);
+void TestCppClient::pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
+	printf("PnL. ReqId: %d, daily PnL: %g, unrealized PnL: %g, realized PnL: %g\n", reqId, dailyPnL, unrealizedPnL, realizedPnL);
 }
 //! [pnl]
 
 //! [pnlsingle]
-void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
-	printf("PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, value: %g\n", reqId, pos, dailyPnL, unrealizedPnL, value);
+void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
+	printf("PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, realized PnL: %g, value: %g\n", reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
 }
 //! [pnlsingle]
 

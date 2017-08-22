@@ -93,8 +93,8 @@ public:
    virtual void rerouteMktDataReq(int reqId, int conid, const std::string& exchange);
    virtual void rerouteMktDepthReq(int reqId, int conid, const std::string& exchange);
    virtual void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
-   virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL);
-   virtual void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+   virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
+   virtual void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
    virtual void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
    virtual void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
    virtual void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);

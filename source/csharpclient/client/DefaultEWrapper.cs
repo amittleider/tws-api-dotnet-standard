@@ -319,12 +319,12 @@ namespace IBApi
         }
 
 
-        public virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL)
+        public virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
         {
 
         }
 
-        public virtual void pnlSingle(int reqId, int pos, double dailyPnL, double value, double unrealizedPnL)
+        public virtual void pnlSingle(int reqId, int pos, double dailyPnL, double realizedPnL, double value, double unrealizedPnL)
         {
 
         }

@@ -703,16 +703,16 @@ namespace Samples
         //! [marketRule]
 
 		//! [pnl]
-        public void pnl(int reqId, double dailyPnL, double unrealizedPnL)
+        public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
         {
-            Console.WriteLine("PnL. Request Id: {0}, Daily PnL: {1}, Unrealized PnL: {2}", reqId, dailyPnL, unrealizedPnL);
+            Console.WriteLine("PnL. Request Id: {0}, Daily PnL: {1}, Unrealized PnL: {2}, Realized PnL: {3}", reqId, dailyPnL, unrealizedPnL, realizedPnL);
         }
 		//! [pnl]
 
 		//! [pnlsingle]
-        public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
+        public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
         {
-            Console.WriteLine("PnL Single. Request Id: {0}, Pos {1}, Daily PnL {2}, Unrealized PnL {3}, Value: {4}", reqId, pos, dailyPnL, unrealizedPnL, value);
+            Console.WriteLine("PnL Single. Request Id: {0}, Pos {1}, Daily PnL {2}, Unrealized PnL {3}, Realized PnL: {4}, Value: {5}", reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
 		//! [pnlsingle]
 

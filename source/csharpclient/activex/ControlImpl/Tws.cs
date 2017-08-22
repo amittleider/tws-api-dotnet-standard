@@ -2022,24 +2022,24 @@ namespace TWSLib
                 InvokeIfRequired(t_marketRule, marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null);
         }
 
-        public delegate void PnLDelegate(int reqId, double dailyPnL, double unrealizedPnL);
+        public delegate void PnLDelegate(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
         public event PnLDelegate pnl;
-        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL)
+        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
         {
             var tmp = this.pnl;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, dailyPnL, unrealizedPnL);
+                InvokeIfRequired(tmp, reqId, dailyPnL, unrealizedPnL, realizedPnL);
         }
 
-        public delegate void PnLSingleDelegate(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        public delegate void PnLSingleDelegate(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
         public event PnLSingleDelegate pnlSingle;
-        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
+        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
         {
             var tmp = this.pnlSingle;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, value);
+                InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
 
         public delegate void HistoricalTickDelegate(int reqId, HistoricalTick[] ticks, bool done);

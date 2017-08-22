@@ -1678,7 +1678,7 @@ public class ApiController implements EWrapper {
 	
 	public interface IPnLHandler {
 
-        void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
 	    
 	}
 
@@ -1706,11 +1706,11 @@ public class ApiController implements EWrapper {
 	}	
 
     @Override
-    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
         IPnLHandler handler = m_pnlMap.get(reqId);
         
         if (handler != null) {
-            handler.pnl(reqId, dailyPnL, unrealizedPnL);
+            handler.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
         }
         
         recEOM();
@@ -1718,7 +1718,7 @@ public class ApiController implements EWrapper {
     
     public interface IPnLSingleHandler {
 
-        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
         
     }
 
@@ -1746,11 +1746,11 @@ public class ApiController implements EWrapper {
     }    
 
     @Override
-    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
         IPnLSingleHandler handler = m_pnlSingleMap.get(reqId);
         
         if (handler != null) {
-            handler.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+            handler.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
         
         recEOM();

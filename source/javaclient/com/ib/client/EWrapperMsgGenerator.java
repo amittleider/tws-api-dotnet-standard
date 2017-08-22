@@ -774,12 +774,12 @@ public class EWrapperMsgGenerator {
 	}
 	
 
-    public static String pnl(int reqId, double dailyPnL, double unrealizedPnL) {
-		return "Daily PnL. Req Id: " + reqId + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL;
+    public static String pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
+		return "Daily PnL. Req Id: " + reqId + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL + ", realizedPnL: " + realizedPnL;
     }
     
-    public static String pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
-		return "Daily PnL Single. Req Id: " + reqId + ", pos: " + pos + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL + ", value: " + value;
+    public static String pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
+		return "Daily PnL Single. Req Id: " + reqId + ", pos: " + pos + ", daily PnL: " + dailyPnL + ", unrealizedPnL: " + unrealizedPnL + ", realizedPnL: " + realizedPnL + ", value: " + value;
     }
 
     public static String historicalTick(int reqId, long time, double price, long size) {

@@ -91,7 +91,7 @@ Module MainModule
         '***************************
         '** Contract information ***
         '***************************
-        contractOperations(client)
+        'contractOperations(client)
 
         '**********************
         '** Market Scanners ***
@@ -160,7 +160,8 @@ Module MainModule
         '***********************
         'marketRuleOperations(client)
 
-        'pnlSingle(client)
+        'pnl(client)
+        pnlSingle(client)
 
         '**************************
         '*** Algo Orders ***
@@ -189,7 +190,7 @@ Module MainModule
 
     Private Sub pnl(client As EClientSocket)
 		' [reqpnl]
-        client.reqPnL(17001, "DUC00042", "")
+        client.reqPnL(17001, "DUD00029", "")
 		' [reqpnl]
         Thread.Sleep(1000)
 		' [cancelpnl]
@@ -199,7 +200,7 @@ Module MainModule
 
     Private Sub pnlSingle(client As EClientSocket)
 		' [reqpnlsingle]
-        client.reqPnLSingle(17001, "DUC00042", "", 268084)
+        client.reqPnLSingle(17001, "DUD00029", "", 268084)
 		' [reqpnlsingle]
         Thread.Sleep(1000)
 		' [cancelpnlsingle]

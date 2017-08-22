@@ -838,7 +838,7 @@ namespace IBApi
 		* @param unrealizedPnL total unRealized PnL updates for the account in real time
         * @sa EClient::reqPnL
 		*/
-		void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
 		
 		/** 
 		* @brief receives real time updates for single position daily PnL values
@@ -849,7 +849,7 @@ namespace IBApi
 		* @param value current market value of the position
 		* @sa EClient::reqSinglePnL
 		*/
-        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
 			
 		/**
 		* @brief

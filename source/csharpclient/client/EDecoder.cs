@@ -508,15 +508,21 @@ namespace IBApi
             int pos = ReadInt();
             double dailyPnL = ReadDouble();
             double unrealizedPnL = double.MaxValue;
+            double realizedPnL = double.MaxValue;
 
             if (serverVersion >= MinServerVer.UNREALIZED_PNL)
             {
                 unrealizedPnL = ReadDouble();
             }
 
+            if (serverVersion >= MinServerVer.REALIZED_PNL)
+            {
+                realizedPnL = ReadDouble();
+            }
+
             double value = ReadDouble();
 
-            eWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value);
+            eWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
 
         private void PnLEvent()
@@ -524,13 +530,19 @@ namespace IBApi
             int reqId = ReadInt();
             double dailyPnL = ReadDouble();
             double unrealizedPnL = double.MaxValue;
+            double realizedPnL = double.MaxValue;
 
             if (serverVersion >= MinServerVer.UNREALIZED_PNL)
             {
                 unrealizedPnL = ReadDouble();
             }
 
-            eWrapper.pnl(reqId, dailyPnL, unrealizedPnL);
+            if (serverVersion >= MinServerVer.REALIZED_PNL)
+            {
+                realizedPnL = ReadDouble();
+            }
+
+            eWrapper.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
         }
 
         private void HistogramDataEvent()
