@@ -2367,6 +2367,53 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    def reqHistoricalTicks(self, reqId: int, contract: Contract, startDateTime: str,
+                           endDateTime: str, numberOfTicks: int, whatToShow: str, useRth: int,
+                           ignoreSize: bool, miscOptions: TagValueList):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_HISTORICAL_TICKS:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support historical ticks requests..")
+            return
+
+        flds = []
+        flds += [make_field(OUT.REQ_HISTORICAL_TICKS),
+                 make_field(reqId),
+                 make_field(contract.conId),
+                 make_field(contract.symbol),
+                 make_field(contract.secType),
+                 make_field(contract.lastTradeDateOrContractMonth),
+                 make_field(contract.strike),
+                 make_field(contract.right),
+                 make_field(contract.multiplier),
+                 make_field(contract.exchange),
+                 make_field(contract.primaryExchange),
+                 make_field(contract.currency),
+                 make_field(contract.localSymbol),
+                 make_field(contract.tradingClass),
+                 make_field(contract.includeExpired),
+                 make_field(startDateTime),
+                 make_field(endDateTime),
+                 make_field(numberOfTicks),
+                 make_field(whatToShow),
+                 make_field(useRth),
+                 make_field(ignoreSize)]
+
+        miscOptionsString = ""
+        if miscOptions:
+            for tagValue in miscOptions:
+                miscOptionsString += str(tagValue)
+        flds += [make_field(miscOptionsString),]
+
+        msg = "".join(flds)
+        self.sendMsg(msg)
+
 
     #########################################################################
     ################## Market Scanners

@@ -36,6 +36,9 @@ ListOfNewsProviders = list
 SmartComponentMap = dict
 HistogramDataList = list
 ListOfPriceIncrements = list
+ListOfHistoricalTick = list
+ListOfHistoricalTickBidAsk = list
+ListOfHistoricalTickLast = list
 
 class BarData(Object):
     def __init__(self):
@@ -133,5 +136,37 @@ class PriceIncrement(Object):
     def __str__(self):
         return "%f,%f" % (self.lowEdge, self.increment)
 
+class HistoricalTick(Object):
+    def __init__(self):
+        self.time = 0
+        self.price = 0.
+        self.size = 0
+
+    def __str__(self):
+        return "%d,%f,%d" % (self.time, self.price, self.size)
+
+class HistoricalTickBidAsk(Object):
+    def __init__(self):
+        self.time = 0
+        self.mask = 0
+        self.priceBid = 0.
+        self.priceAsk = 0.
+        self.sizeBid = 0
+        self.sizeAsk = 0
+
+    def __str__(self):
+        return "%d,%d,%f,%f,%d,%d" % (self.time, self.mask, self.priceBid, self.priceAsk, self.sizeBid, self.sizeAsk)
+
+class HistoricalTickLast(Object):
+    def __init__(self):
+        self.time = 0
+        self.mask = 0
+        self.price = 0.
+        self.size = 0
+        self.exchange = ""
+        self.specialConditions = ""
+
+    def __str__(self):
+        return "%d,%d,%f,%d,%s,%s" % (self.time, self.mask, self.price, self.size, self.exchange, self.specialConditions)
 
 

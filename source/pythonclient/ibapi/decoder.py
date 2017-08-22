@@ -1135,6 +1135,67 @@ class Decoder(Object):
 
         self.wrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value)
 
+    def processHistoricalTicks(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        tickCount = decode(int, fields)
+
+        ticks = []
+
+        for i in range(tickCount):
+            historicalTick = HistoricalTick()
+            historicalTick.time = decode(int, fields)
+            next(fields) # for consistency
+            historicalTick.price = decode(float, fields)
+            historicalTick.size = decode(int, fields)
+            ticks.append(historicalTick)
+
+        done = decode(bool, fields)
+
+        self.wrapper.historicalTicks(reqId, ticks, done)
+
+    def processHistoricalTicksBidAsk(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        tickCount = decode(int, fields)
+
+        ticks = []
+
+        for i in range(tickCount):
+            historicalTickBidAsk = HistoricalTickBidAsk()
+            historicalTickBidAsk.time = decode(int, fields)
+            historicalTickBidAsk.mask = decode(int, fields)
+            historicalTickBidAsk.priceBid = decode(float, fields)
+            historicalTickBidAsk.priceAsk = decode(float, fields)
+            historicalTickBidAsk.sizeBid = decode(int, fields)
+            historicalTickBidAsk.sizeAsk = decode(int, fields)
+            ticks.append(historicalTickBidAsk)
+
+        done = decode(bool, fields)
+
+        self.wrapper.historicalTicksBidAsk(reqId, ticks, done)
+
+    def processHistoricalTicksLast(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        tickCount = decode(int, fields)
+
+        ticks = []
+
+        for i in range(tickCount):
+            historicalTickLast = HistoricalTickLast()
+            historicalTickLast.time = decode(int, fields)
+            historicalTickLast.mask = decode(int, fields)
+            historicalTickLast.price = decode(float, fields)
+            historicalTickLast.size = decode(int, fields)
+            historicalTickLast.exchange = decode(str, fields)
+            historicalTickLast.specialConditions = decode(str, fields)
+            ticks.append(historicalTickLast)
+
+        done = decode(bool, fields)
+
+        self.wrapper.historicalTicksLast(reqId, ticks, done)
+
 
     ######################################################################
 
@@ -1294,7 +1355,10 @@ class Decoder(Object):
         IN.REROUTE_MKT_DEPTH_REQ: HandleInfo(proc=processRerouteMktDepthReq),
         IN.MARKET_RULE: HandleInfo(proc=processMarketRuleMsg),
         IN.PNL: HandleInfo(proc=processPnLMsg),
-        IN.PNL_SINGLE: HandleInfo(proc=processPnLSingleMsg)
+        IN.PNL_SINGLE: HandleInfo(proc=processPnLSingleMsg),
+        IN.HISTORICAL_TICKS: HandleInfo(proc=processHistoricalTicks),
+        IN.HISTORICAL_TICKS_BID_ASK: HandleInfo(proc=processHistoricalTicksBidAsk),
+        IN.HISTORICAL_TICKS_LAST: HandleInfo(proc=processHistoricalTicksLast)
    }
 
 

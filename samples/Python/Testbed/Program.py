@@ -270,6 +270,7 @@ class TestApp(TestWrapper, TestClient):
             #self.orderOperations_req()
             #self.marketRuleOperations()
             #self.pnlOperations()
+            self.historicalTicksRequests_req()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -856,6 +857,14 @@ class TestApp(TestWrapper, TestClient):
         self.cancelHistoricalData(4001)
         self.cancelHistoricalData(4002)
 
+    @printWhenExecuting
+    def historicalTicksRequests_req(self):
+        # ! [reqhistoricalticks]
+        self.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "TRADES", 1, True, [])
+        self.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "BID_ASK", 1, True, [])
+        self.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "MIDPOINT", 1, True, [])
+        # ! [reqhistoricalticks]
+
     @iswrapper
     # ! [headTimestamp]
     def headTimestamp(self, reqId:int, headTimestamp:str):
@@ -884,12 +893,36 @@ class TestApp(TestWrapper, TestClient):
     # ! [historicaldataend]
 
     @iswrapper
-    #! [historicalDataUpdate]
+    # ! [historicalDataUpdate]
     def historicalDataUpdate(self, reqId: int, bar: BarData):
         print("HistoricalDataUpdate. ", reqId, " Date:", bar.date, "Open:", bar.open,
               "High:", bar.high, "Low:", bar.low, "Close:", bar.close, "Volume:", bar.volume,
               "Count:", bar.barCount, "WAP:", bar.average)
-    #! [historicalDataUpdate]
+    # ! [historicalDataUpdate]
+
+    @iswrapper
+    # ! [historicalticks]
+    def historicalTicks(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):
+        for tick in ticks:
+            print("Historical Tick. Req Id: ", reqId, ", time: ", tick.time, ", price: ", tick.price,
+              ", size: ", tick.size)
+    # ! [historicalticks]
+
+    @iswrapper
+    # ! [historicalticksbidask]
+    def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTickBidAsk, done: bool):
+        for tick in ticks:
+            print("Historical Tick Bid/Ask. Req Id: ", reqId, ", time: ", tick.time, ", bid price: ", tick.priceBid
+               , ", ask price: ", tick.priceAsk, ", bid size: ", tick.sizeBid, ", ask size: ", tick.sizeAsk)
+    # ! [historicalticksbidask]
+
+    @iswrapper
+    # ! [historicaltickslast]
+    def historicalTicksLast(self, reqId: int, ticks: ListOfHistoricalTickLast, done: bool):
+        for tick in ticks:
+            print("Historical Tick Last. Req Id: ", reqId, ", time: ", tick.time, ", price: ", tick.price, ", size: "
+               , tick.size, ", exchange: ", tick.exchange, ", special conditions:", tick.specialConditions)
+    # ! [historicaltickslast]
 
     @printWhenExecuting
     def optionsOperations_req(self):

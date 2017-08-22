@@ -661,3 +661,15 @@ class EWrapper:
     def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, value: float):
         """returns the daily PnL for a single position in the account"""
         self.logAnswer(current_fn_name(), vars())
+
+    def historicalTicks(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):
+        """returns historical tick data when whatToShow=MIDPOINT"""
+        self.logAnswer(current_fn_name(), vars())
+
+    def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTickBidAsk, done: bool):
+        """returns historical tick data when whatToShow=BID_ASK"""
+        self.logAnswer(current_fn_name(), vars())
+
+    def historicalTicksLast(self, reqId: int, ticks: ListOfHistoricalTickLast, done: bool):
+        """returns historical tick data when whatToShow=TRADES"""
+        self.logAnswer(current_fn_name(), vars())

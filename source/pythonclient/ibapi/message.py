@@ -88,6 +88,9 @@ class IN:
     MARKET_RULE               = 93
     PNL                       = 94
     PNL_SINGLE                = 95
+    HISTORICAL_TICKS          = 96
+    HISTORICAL_TICKS_BID_ASK  = 97
+    HISTORICAL_TICKS_LAST     = 98
 
 # outgoing msg id's
 class OUT:
@@ -162,3 +165,4 @@ class OUT:
     CANCEL_PNL                    = 93
     REQ_PNL_SINGLE                = 94
     CANCEL_PNL_SINGLE             = 95
+    REQ_HISTORICAL_TICKS          = 96
