@@ -31,6 +31,7 @@ var classIBApi_1_1ContractDetails =
     [ "PriceMagnifier", "classIBApi_1_1ContractDetails.html#aac37c42dd9b9c3f92a22c3d5b6007018", null ],
     [ "Putable", "classIBApi_1_1ContractDetails.html#a12d487894aa4406460f64f95325be137", null ],
     [ "Ratings", "classIBApi_1_1ContractDetails.html#ab8f7eb6bbc0ec3429e26a67da0070675", null ],
+    [ "RealExpirationDate", "classIBApi_1_1ContractDetails.html#ac5d4c764340bfa44a9d75d9cdaa759e9", null ],
     [ "SecIdList", "classIBApi_1_1ContractDetails.html#ad78cf9be62898771e4f47a73d3b07dc5", null ],
     [ "Subcategory", "classIBApi_1_1ContractDetails.html#a751de8689d02dc04046cc5fec2091447", null ],
     [ "Summary", "classIBApi_1_1ContractDetails.html#a40a338fa317ee374f497d7363969e7e4", null ],
