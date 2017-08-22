@@ -2695,7 +2695,7 @@ class EClient(object):
         self.sendMsg(msg)
 
 
-    def reqNewsArticle(self, reqId: int, providerCode: str, articleId: str):
+    def reqNewsArticle(self, reqId: int, providerCode: str, articleId: str, newsArticleOptions: TagValueList):
 
         self.logRequest(current_fn_name(), vars())
 
@@ -2708,16 +2708,27 @@ class EClient(object):
                        "  It does not support news article request.")
             return
 
-        msg = make_field(OUT.REQ_NEWS_ARTICLE) \
-            + make_field(reqId) \
-            + make_field(providerCode) \
-            + make_field(articleId)
+        flds = []
 
+        flds += [make_field(OUT.REQ_NEWS_ARTICLE),
+                 make_field(reqId),
+                 make_field(providerCode),
+                 make_field(articleId)]
+
+        # send newsArticleOptions parameter
+        if self.serverVersion() >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS:
+            newsArticleOptionsStr = ""
+            if newsArticleOptions:
+                for tagValue in newsArticleOptions:
+                    newsArticleOptionsStr += str(tagValue)
+            flds += [make_field(newsArticleOptionsStr),]
+
+        msg = "".join(flds)
         self.sendMsg(msg)
 
 
     def reqHistoricalNews(self, reqId: int, conId: int, providerCodes: str,
-                      startDateTime: str, endDateTime: str, totalResults: int):
+                      startDateTime: str, endDateTime: str, totalResults: int, historicalNewsOptions: TagValueList):
 
         self.logRequest(current_fn_name(), vars())
 
@@ -2730,14 +2741,25 @@ class EClient(object):
                        "  It does not support historical news request.")
             return
 
-        msg = make_field(OUT.REQ_HISTORICAL_NEWS) \
-            + make_field(reqId) \
-            + make_field(conId) \
-            + make_field(providerCodes) \
-            + make_field(startDateTime) \
-            + make_field(endDateTime) \
-            + make_field(totalResults)
+        flds = []
 
+        flds += [make_field(OUT.REQ_HISTORICAL_NEWS),
+                 make_field(reqId),
+                 make_field(conId),
+                 make_field(providerCodes),
+                 make_field(startDateTime),
+                 make_field(endDateTime),
+                 make_field(totalResults)]
+
+        # send historicalNewsOptions parameter
+        if self.serverVersion() >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS:
+            historicalNewsOptionsStr = ""
+            if historicalNewsOptions:
+                for tagValue in historicalNewsOptionsStr:
+                    historicalNewsOptionsStr += str(tagValue)
+            flds += [make_field(historicalNewsOptionsStr),]
+
+        msg = "".join(flds)
         self.sendMsg(msg)
 
 

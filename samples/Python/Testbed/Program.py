@@ -269,7 +269,7 @@ class TestApp(TestWrapper, TestClient):
             #self.financialAdvisorOperations()
             #self.orderOperations_req()
             #self.marketRuleOperations()
-            self.pnlOperations()
+            #self.pnlOperations()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -984,12 +984,12 @@ class TestApp(TestWrapper, TestClient):
 
         # Returns body of news article given article ID
         # ! [reqNewsArticle]
-        self.reqNewsArticle(214,"BZ", "BZ$04507322")
+        self.reqNewsArticle(214,"BZ", "BZ$04507322", [])
         # ! [reqNewsArticle]
 
         # Returns list of historical news headlines with IDs
         # ! [reqHistoricalNews]
-        self.reqHistoricalNews(215, 8314, "BZ+FLY", "", "", 10)
+        self.reqHistoricalNews(215, 8314, "BZ+FLY", "", "", 10, [])
         # ! [reqHistoricalNews]
 
     @iswrapper
