@@ -33,19 +33,19 @@ using namespace ibapi::client_constants;
 ///////////////////////////////////////////////////////////
 // encoders
 template<class T>
-void EClient::EncodeField(std::ostream& os, const T &value)
+void EClient::EncodeField(std::ostream& os, T value)
 {
 	os << value << '\0';
 }
 
 template<>
-void EClient::EncodeField<bool>(std::ostream& os, const bool &boolValue)
+void EClient::EncodeField<bool>(std::ostream& os, bool boolValue)
 {
 	EncodeField<int>(os, boolValue ? 1 : 0);
 }
 
 template<>
-void EClient::EncodeField<double>(std::ostream& os, const double &doubleValue)
+void EClient::EncodeField<double>(std::ostream& os, double doubleValue)
 {
 	char str[128];
 
@@ -54,8 +54,7 @@ void EClient::EncodeField<double>(std::ostream& os, const double &doubleValue)
 	EncodeField<const char*>(os, str);
 }
 
-template<>
-void EClient::EncodeField<Contract>(std::ostream& os, const Contract &contract)
+void EClient::EncodeContract(std::ostream& os, const Contract &contract)
 {
 	EncodeField(os, contract.conId);
 	EncodeField(os, contract.symbol);
@@ -72,8 +71,7 @@ void EClient::EncodeField<Contract>(std::ostream& os, const Contract &contract)
 	EncodeField(os, contract.includeExpired);
 }
 
-template<> 
-void EClient::EncodeField<TagValueListSPtr>(std::ostream& os, const TagValueListSPtr &tagValueList) 
+void EClient::EncodeTagValueList(std::ostream& os, const TagValueListSPtr &tagValueList) 
 {
     std::string tagValueListStr("");
     const int tagValueListCount = tagValueList.get() ? tagValueList->size() : 0;
@@ -321,7 +319,7 @@ void EClient::reqMktData(TickerId tickerId, const Contract& contract,
 
 	// send mktDataOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		ENCODE_FIELD(mktDataOptions);
+		ENCODE_TAGVALUELIST(mktDataOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -402,7 +400,7 @@ void EClient::reqMktDepth( TickerId tickerId, const Contract& contract, int numR
 
 	// send mktDepthOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		ENCODE_FIELD(mktDepthOptions);
+		ENCODE_TAGVALUELIST(mktDepthOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -526,7 +524,7 @@ void EClient::reqHistoricalData(TickerId tickerId, const Contract& contract,
 
 	// send chartOptions parameter
 	if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		ENCODE_FIELD(chartOptions);
+		ENCODE_TAGVALUELIST(chartOptions);
 	}
 
 	closeAndSend(msg.str());
@@ -616,7 +614,7 @@ void EClient::reqRealTimeBars(TickerId tickerId, const Contract& contract,
 
 	// send realTimeBarsOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		ENCODE_FIELD(realTimeBarsOptions);
+		ENCODE_TAGVALUELIST(realTimeBarsOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -726,7 +724,7 @@ void EClient::reqScannerSubscription(int tickerId,
 
 	// send scannerSubscriptionOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		ENCODE_FIELD(scannerSubscriptionOptions);
+		ENCODE_TAGVALUELIST(scannerSubscriptionOptions);
 	}
 
 	closeAndSend( msg.str());
@@ -2845,7 +2843,7 @@ void EClient::reqNewsArticle(int requestId, const std::string& providerCode, con
 
 	// send newsArticleOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-		ENCODE_FIELD(newsArticleOptions);
+		ENCODE_TAGVALUELIST(newsArticleOptions);
 	}
 
 	closeAndSend(msg.str());
@@ -2878,7 +2876,7 @@ void EClient::reqHistoricalNews(int requestId, int conId, const std::string& pro
 
 	// send historicalNewsOptions parameter
 	if( m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-		ENCODE_FIELD(historicalNewsOptions);
+		ENCODE_TAGVALUELIST(historicalNewsOptions);
 	}
 
 	closeAndSend(msg.str());
@@ -2960,7 +2958,7 @@ void EClient::reqHistogramData(int reqId, const Contract &contract, bool useRTH,
 
 	ENCODE_FIELD(REQ_HISTOGRAM_DATA);
 	ENCODE_FIELD(reqId);
-	ENCODE_FIELD(contract);
+	ENCODE_CONTRACT(contract);
 	ENCODE_FIELD(useRTH);
 	ENCODE_FIELD(timePeriod);          
 
@@ -3116,14 +3114,14 @@ void EClient::reqHistoricalTicks(int reqId, const Contract &contract, const std:
 
     ENCODE_FIELD(REQ_HISTORICAL_TICKS);
     ENCODE_FIELD(reqId);
-    ENCODE_FIELD(contract);
+    ENCODE_CONTRACT(contract);
     ENCODE_FIELD(startDateTime);
     ENCODE_FIELD(endDateTime);
     ENCODE_FIELD(numberOfTicks);
     ENCODE_FIELD(whatToShow);
     ENCODE_FIELD(useRth);
     ENCODE_FIELD(ignoreSize);
-    ENCODE_FIELD(miscOptions);
+    ENCODE_TAGVALUELIST(miscOptions);
 
     closeAndSend(msg.str());    
 }

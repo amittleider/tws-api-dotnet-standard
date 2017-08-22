@@ -365,7 +365,10 @@ public:
 
 
 	// encoders
-	template<class T> static void EncodeField(std::ostream&, const T&);
+	template<class T> static void EncodeField(std::ostream&, T);
+
+    void EncodeContract(std::ostream& os, const Contract &contract);
+    void EncodeTagValueList(std::ostream& os, const TagValueListSPtr &tagValueList);
 
 	// "max" encoders
 	static void EncodeFieldMax(std::ostream& os, int);
@@ -411,11 +414,11 @@ protected:
 
 };
 
-template<> void EClient::EncodeField<bool>(std::ostream& os, const bool&);
-template<> void EClient::EncodeField<double>(std::ostream& os, const double&);
-template<> void EClient::EncodeField<Contract>(std::ostream& os, const Contract &contract);
-template<> void EClient::EncodeField<TagValueListSPtr>(std::ostream& os, const TagValueListSPtr &tagValueList);
+template<> void EClient::EncodeField<bool>(std::ostream& os, bool);
+template<> void EClient::EncodeField<double>(std::ostream& os, double);
 
+#define ENCODE_CONTRACT(x) EClient::EncodeContract(msg, x);
+#define ENCODE_TAGVALUELIST(x) EClient::EncodeTagValueList(msg, x);
 #define ENCODE_FIELD(x) EClient::EncodeField(msg, x);
 #define ENCODE_FIELD_MAX(x) EClient::EncodeFieldMax(msg, x);
 
