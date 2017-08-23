@@ -686,7 +686,7 @@ class TestApp(TestWrapper, TestClient):
         super().tickPrice(reqId, tickType, price, attrib)
         printMsg = "Tick Price. Ticker Id: " + str(reqId) + ", tickType: " + str(tickType) + ", Price: " + \
             str(price) + ", CanAutoExecute: " + str(attrib.canAutoExecute) + ", PastLimit: " + str(attrib.pastLimit)
-        if tickType == 1 or tickType == 2:
+        if tickType == TickTypeEnum.BID or tickType == TickTypeEnum.ASK:
             printMsg += ", PreOpen: " + str(attrib.preOpen)
         print(printMsg)
 
@@ -1000,6 +1000,7 @@ class TestApp(TestWrapper, TestClient):
         self.reqContractDetails(209, ContractSamples.EurGbpFx())
         self.reqContractDetails(210, ContractSamples.OptionForQuery())
         self.reqContractDetails(211, ContractSamples.Bond())
+        self.reqContractDetails(212, ContractSamples.FuturesOnOptions())
         # ! [reqcontractdetails]
 
         # ! [reqmatchingsymbols]
@@ -1684,7 +1685,7 @@ class TestApp(TestWrapper, TestClient):
 def main():
     SetupLogger()
     logging.debug("now is %s", datetime.datetime.now())
-    logging.getLogger().setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.ERROR)
 
     cmdLineParser = argparse.ArgumentParser("api tests")
     # cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")

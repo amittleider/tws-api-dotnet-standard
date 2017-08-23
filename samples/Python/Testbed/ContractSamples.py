@@ -91,7 +91,7 @@ class ContractSamples:
     def Bond():
             #! [bond]
             contract = Contract()
-            contract.conId = 29105549
+            contract.conId = 267433416
             contract.exchange = "SMART"
             #! [bond]
             return contract
@@ -303,14 +303,14 @@ class ContractSamples:
     def FuturesOnOptions():
         #! [fopcontract]
         contract = Contract()
-        contract.symbol = "ES"
+        contract.symbol = "SPX"
         contract.secType = "FOP"
         contract.exchange = "GLOBEX"
         contract.currency = "USD"
-        contract.lastTradeDateOrContractMonth = "20160617"
-        contract.strike = 1810
+        contract.lastTradeDateOrContractMonth = "20180315"
+        contract.strike = 1025
         contract.right = "C"
-        contract.multiplier = "50"
+        contract.multiplier = "250"
         #! [fopcontract]
         return contract
 

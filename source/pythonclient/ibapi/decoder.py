@@ -531,6 +531,9 @@ class Decoder(Object):
         if self.serverVersion >= MIN_SERVER_VER_MARKET_RULES:
             contract.marketRuleIds = decode(str, fields)
 
+        if self.serverVersion >= MIN_SERVER_VER_REAL_EXPIRATION_DATE:
+            contract.realExpirationDate = decode(str, fields)
+
         self.wrapper.contractDetails(reqId, contract)
 
 
