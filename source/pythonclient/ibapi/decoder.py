@@ -72,6 +72,8 @@ class Decoder(Object):
         if self.serverVersion >= MIN_SERVER_VER_PAST_LIMIT:
             attrib.canAutoExecute = attrMask & 1 != 0
             attrib.pastLimit = attrMask & 2 != 0
+            if self.serverVersion >= MIN_SERVER_VER_PRE_OPEN_BID_ASK:
+                attrib.preOpen = attrMask & 4 != 0
 
         self.wrapper.tickPrice(reqId, tickType, price, attrib)
 

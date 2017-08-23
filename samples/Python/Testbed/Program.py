@@ -684,9 +684,11 @@ class TestApp(TestWrapper, TestClient):
     def tickPrice(self, reqId: TickerId, tickType: TickType, price: float,
                   attrib: TickAttrib):
         super().tickPrice(reqId, tickType, price, attrib)
-        print("Tick Price. Ticker Id:", reqId, "tickType:", tickType, "Price:",
-              price, "CanAutoExecute:", attrib.canAutoExecute,
-              "PastLimit", attrib.pastLimit)
+        printMsg = "Tick Price. Ticker Id: " + str(reqId) + ", tickType: " + str(tickType) + ", Price: " + \
+            str(price) + ", CanAutoExecute: " + str(attrib.canAutoExecute) + ", PastLimit: " + str(attrib.pastLimit)
+        if tickType == 1 or tickType == 2:
+            printMsg += ", PreOpen: " + str(attrib.preOpen)
+        print(printMsg)
 
     # ! [tickprice]
 

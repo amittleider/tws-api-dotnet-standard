@@ -115,9 +115,10 @@ class TickAttrib(Object):
     def __init__(self):
         self.canAutoExecute = False
         self.pastLimit = False
+        self.preOpen = False
 
     def __str__(self):
-        return "%d,%d" % (self.canAutoExecute, self.pastLimit)
+        return "%d,%d,%d" % (self.canAutoExecute, self.pastLimit, self.preOpen)
 
 
 class FamilyCode(Object):
