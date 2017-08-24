@@ -182,9 +182,9 @@ namespace TWSLib
         [DispId(140)]
         void marketRule(int marketRuleId, IPriceIncrementList priceIncrements);
         [DispId(141)]
-        void pnl(int reqId, double dailyPnL, double unrealizedPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
         [DispId(142)]
-        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
         [DispId(143)]
         void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
         [DispId(144)]

@@ -868,22 +868,22 @@ namespace IBSampleApp
 
         public event Action<PnLMessage> pnl;
 
-        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL)
+        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
         {
             var tmp = pnl;
 
             if (tmp != null)
-                sc.Post((t) => tmp(new PnLMessage(reqId, dailyPnL, unrealizedPnL)), null);
+                sc.Post((t) => tmp(new PnLMessage(reqId, dailyPnL, unrealizedPnL, realizedPnL)), null);
         }
 
         public event Action<PnLSingleMessage> pnlSingle;
 
-        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
+        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
         {
             var tmp = pnlSingle;
 
             if (tmp != null)
-                sc.Post((t) => tmp(new PnLSingleMessage(reqId, pos, dailyPnL, unrealizedPnL, value)), null);
+                sc.Post((t) => tmp(new PnLSingleMessage(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)), null);
         }
 
         public event Action<HistoricalTickMessage> historicalTick;

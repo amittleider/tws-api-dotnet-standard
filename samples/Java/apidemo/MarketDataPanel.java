@@ -1084,8 +1084,8 @@ class MarketDataPanel extends JPanel {
             
             m_resultsPanel.addTab(account + " " + modelCode + " " + conId, resultsPanel, true, true);
             
-            IPnLSingleHandler handler = (reqId, pos, dailyPnL, unrealizedPnL, value) -> 
-                SwingUtilities.invokeLater(() -> pnlSingleModel.addRow(pos, dailyPnL, unrealizedPnL, value));
+            IPnLSingleHandler handler = (reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value) -> 
+                SwingUtilities.invokeLater(() -> pnlSingleModel.addRow(pos, dailyPnL, unrealizedPnL, realizedPnL, value));
             
             resultsPanel.handler(handler);
             ApiDemo.INSTANCE.controller().reqPnLSingle(account, modelCode, conId, handler);
@@ -1100,8 +1100,8 @@ class MarketDataPanel extends JPanel {
             
             m_resultsPanel.addTab(account + " " + modelCode, resultsPanel, true, true);
             
-            IPnLHandler handler = (reqId, dailyPnL, unrealizedPnL) -> 
-                SwingUtilities.invokeLater(() -> pnlModel.addRow(dailyPnL, unrealizedPnL));
+            IPnLHandler handler = (reqId, dailyPnL, unrealizedPnL, realizedPnL) -> 
+                SwingUtilities.invokeLater(() -> pnlModel.addRow(dailyPnL, unrealizedPnL, realizedPnL));
             
             resultsPanel.handler(handler);
             ApiDemo.INSTANCE.controller().reqPnL(account, modelCode, handler);

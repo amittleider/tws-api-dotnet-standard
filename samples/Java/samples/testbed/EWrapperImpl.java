@@ -603,15 +603,15 @@ public class EWrapperImpl implements EWrapper {
 	
 	//! [pnl]
     @Override
-    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
-        System.out.println(EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL));
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
+        System.out.println(EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL));
     }
     //! [pnl]
 	
 	//! [pnlsingle]
     @Override
-    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
-        System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value));                
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
+        System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value));                
     }
     //! [pnlsingle]
 	

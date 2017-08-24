@@ -32,25 +32,27 @@ Friend Class ApiEventSource
 
 #Region "IBApi.EWrapper"
 
-    Private Sub EWrapper_PnL(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double) Implements EWrapper.PnL
+    Private Sub EWrapper_PnL(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double) Implements EWrapper.pnl
         InvokeIfRequired(Sub()
                              RaiseEvent PnL(Me, New PnLEventArgs With {
                                  .requestId = reqId,
                                  .dailyPnL = dailyPnL,
-                                 .unrealizedPnL = unrealizedPnL
+                                 .unrealizedPnL = unrealizedPnL,
+                                 .realizedPnL = realizedPnL
                                          })
                          End Sub)
     End Sub
 
-    Private Sub EWrapper_PnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, value As Double) Implements EWrapper.PnLSingle
+    Private Sub EWrapper_PnLSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
         InvokeIfRequired(Sub()
                              RaiseEvent PnLSingle(Me, New PnLSingleEventArgs With {
                                  .requestId = reqId,
                                  .pos = pos,
                                  .dailyPnL = dailyPnL,
                                  .value = value,
-                                 .unrealizedPnL = unrealizedPnL
-                                         })
+                                 .unrealizedPnL = unrealizedPnL,
+                                 .realizedPnL = realizedPnL
+                                        })
                          End Sub)
     End Sub
 

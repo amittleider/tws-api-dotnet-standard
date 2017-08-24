@@ -459,7 +459,7 @@ class DefaultEWrapper implements EWrapper {
     }
 
     @Override
-    public void pnl(int reqId, double dailyPnL, double unrealizedPnL) {
+    public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL) {
         // TODO Auto-generated method stub
         
     }
@@ -483,7 +483,7 @@ class DefaultEWrapper implements EWrapper {
 	}
 
     @Override
-    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value) {
+    public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value) {
         // TODO Auto-generated method stub
         
     }

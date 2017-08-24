@@ -79,10 +79,12 @@ namespace IBSampleApp
 
             pnldataTable.Columns.Add("Daily PnL");
             pnldataTable.Columns.Add("Unrealized PnL");
+            pnldataTable.Columns.Add("Realized PnL");
 
             pnlSingledataTable.Columns.Add("Pos");
             pnlSingledataTable.Columns.Add("Daily PnL");
             pnlSingledataTable.Columns.Add("Unrealized PnL");
+            pnlSingledataTable.Columns.Add("Realized PnL");
             pnlSingledataTable.Columns.Add("Value");
 
             Func<string, DataColumn> toDataColumn = i => new DataColumn() { ColumnName = i };
@@ -210,8 +212,8 @@ namespace IBSampleApp
             ibClient.RerouteMktDataReq += (reqId, conId, exchange) => addTextToBox("Re-route market data request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.RerouteMktDepthReq += (reqId, conId, exchange) => addTextToBox("Re-route market depth request. ReqId: " + reqId + ", ConId: " + conId + ", Exchange: " + exchange + "\n");
             ibClient.MarketRule += contractManager.HandleMarketRuleMessage;
-            ibClient.pnl += msg => pnldataTable.Rows.Add(msg.DailyPnL, msg.UnrealizedPnL);
-            ibClient.pnlSingle += msg => pnlSingledataTable.Rows.Add(msg.Pos, msg.DailyPnL, msg.UnrealizedPnL, msg.Value);
+            ibClient.pnl += msg => pnldataTable.Rows.Add(msg.DailyPnL, msg.UnrealizedPnL, msg.RealizedPnL);
+            ibClient.pnlSingle += msg => pnlSingledataTable.Rows.Add(msg.Pos, msg.DailyPnL, msg.UnrealizedPnL, msg.RealizedPnL, msg.Value);
             ibClient.historicalTick += UpdateUI;
             ibClient.historicalTickBidAsk += UpdateUI;
             ibClient.historicalTickLast += UpdateUI;
@@ -1224,7 +1226,7 @@ namespace IBSampleApp
             if (!IsConnected)
                 return;
 
-            ShowTab(contractInfoTab, pnlTab);
+            ShowTab(tabControl1, pnlTab);
             pnlMgr.CancelPnLSingle();
             pnldataTable.Clear();
 
@@ -1238,7 +1240,7 @@ namespace IBSampleApp
             if (!IsConnected)
                 return;
 
-            ShowTab(contractInfoTab, pnlTab);
+            ShowTab(tabControl1, pnlTab);
             pnlMgr.CancelPnL();
             pnlSingledataTable.Clear();
 

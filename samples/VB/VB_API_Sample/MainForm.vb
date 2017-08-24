@@ -1955,11 +1955,11 @@ Friend Class MainForm
     End Sub
 
     Private Sub m_apiEvents_PnL(sender As ApiEventSource, e As PnLEventArgs) Handles m_apiEvents.PnL
-        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL, req id: {0}, Daily PnL: {1}, Unrealized PnL: {2}", e.requestId, e.dailyPnL, e.unrealizedPnL))
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL, req id: {0}, Daily PnL: {1}, Unrealized PnL: {2}, Realized PnL: {3}", e.requestId, e.dailyPnL, e.unrealizedPnL, e.realizedPnL))
     End Sub
 
     Private Sub m_apiEvents_PnLSingle(sender As ApiEventSource, e As PnLSingleEventArgs) Handles m_apiEvents.PnLSingle
-        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL Single, req id: {0}, Pos:{1}, Daily PnL: {2}, Unrealized PnL: {3}, Value: {4}", e.requestId, e.pos, e.dailyPnL, e.unrealizedPnL, e.value))
+        m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("PnL Single, req id: {0}, Pos:{1}, Daily PnL: {2}, Unrealized PnL: {3}, Realized PnL: {4}, Value: {5}", e.requestId, e.pos, e.dailyPnL, e.unrealizedPnL, e.realizedPnL, e.value))
     End Sub
 
     '--------------------------------------------------------------------------------

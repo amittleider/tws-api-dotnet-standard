@@ -7,4 +7,6 @@ Class PnLEventArgs
 
     Property unrealizedPnL As Double
 
+    Property realizedPnL As Double
+
 End Class

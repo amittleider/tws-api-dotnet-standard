@@ -246,8 +246,8 @@ public:
 	void rerouteMktDataReq(int reqId, int conId, const std::string& exchange);
 	void rerouteMktDepthReq(int reqId, int conId, const std::string& exchange);
     void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
-    void pnl(int reqId, double dailyPnL, double unrealizedPnL);
-    void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+    void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
+    void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
     void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
     void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
     void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);

@@ -12,14 +12,16 @@ namespace IBSampleApp.messages
         public double DailyPnL { get; private set; }
         public double Value { get; private set; }
         public double UnrealizedPnL { get; private set; }
+        public double RealizedPnL { get; private set; }
 
-        public PnLSingleMessage(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)
+        public PnLSingleMessage(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
         {
             ReqId = reqId;
             Pos = pos;
             DailyPnL = dailyPnL;
             Value = value;
             UnrealizedPnL = unrealizedPnL;
+            RealizedPnL = realizedPnL;
         }
     }
 }

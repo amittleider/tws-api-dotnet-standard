@@ -49,7 +49,7 @@ public class Testbed {
 
 		//tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
-		contractOperations(wrapper.getClient());
+		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -65,6 +65,7 @@ public class Testbed {
 		//tickDataOperations(wrapper.getClient());
 		//pnlSingle(wrapper.getClient());
 		//continuousFuturesOperations(wrapper.getClient());
+		pnlSingle(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
@@ -80,7 +81,7 @@ public class Testbed {
 
 	private static void pnl(EClientSocket client) throws InterruptedException {
 		//! [reqpnl]
-        client.reqPnL(17001, "DUC00042", "");
+        client.reqPnL(17001, "DUD00029", "");
 		//! [reqpnl]
         Thread.sleep(1000);
 		//! [cancelpnl]
@@ -91,7 +92,7 @@ public class Testbed {
     private static void pnlSingle(EClientSocket client) throws InterruptedException
     {
 		//! [reqpnlsingle]
-        client.reqPnLSingle(17001, "DUC00042", "", 268084);
+        client.reqPnLSingle(17001, "DUD00029", "", 268084);
 		//! [reqpnlsingle]
         Thread.sleep(1000);
 		//! [cancelpnlsingle]
