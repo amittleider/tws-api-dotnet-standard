@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"rtd_examples.html#rtd_samples_spread_stk_mixed":[18,3,9,10,0,1],
+"rtd_examples.html#rtd_samples_stk":[18,3,9,1],
 "rtd_fqa_errors.html":[18,3,11],
 "rtd_fqa_errors.html#rtd_common_errors":[18,3,11,0],
 "rtd_fqa_errors.html#rtd_common_errors_ambiguity":[18,3,11,0,2],

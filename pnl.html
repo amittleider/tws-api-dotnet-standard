@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>TWS API v9.72+: Profit and Loss Updates</title>
+<title>TWS API v9.72+: Profit And Loss (P&amp;L)</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="https://www.interactivebrokers.com/favicon.ico" rel="shortcut icon">
@@ -126,141 +126,156 @@ $(document).ready(function(){initNavTree('pnl.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">Profit and Loss Updates </div>  </div>
+<div class="title">Profit And Loss (P&amp;L) </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><pre class="fragment">Beginning in API v973.03, subscriptions can be made for real time daily and unrealized PnL updates for individual positions and for accounts. 
-
-- Account and position unrealized PnL is also available via the IBApi.EWrapper.updateAccountValue function. This information corresponds to the data in the TWS Account Window and updates are sent when there is a position change, or at 3 minute intervals. 
-
-&lt;h2&gt;PnL subscription requests for individual positions&lt;/h2&gt;
-
-Subscribe using the IBApi::EClient::reqPnLSingle function
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet Program.cs reqpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Testbed.java reqpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet MainModule.vb reqpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet TestCppClient.cpp reqpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Program.py reqpnlsingle
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-Updates are returned to IBApi.EWrapper.pnlSingle
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet EWrapperImpl.cs pnlsingle
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet EWrapperImpl.java pnlsingle
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet EWrapperImpl.vb pnlsingle
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet TestCppClient.cpp pnlsingle
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet Program.py pnlsingle
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-- If a PnL subscription request is made for an invalid conId or contract not in the account, there will not be a response. 
-
-Subscriptions are cancelled using the IBApi::EClient::cancelPnLSingle function:
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet Program.cs cancelpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Testbed.java cancelpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet MainModule.vb cancelpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet TestCppClient.cpp cancelpnlsingle
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Program.py cancelpnlsingle
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;PnL subscription requests for accounts&lt;/h2&gt;
-
-Subscribe using the IBApi::EClient::reqPnL function:
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet Program.cs reqpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Testbed.java reqpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet MainModule.vb reqpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet TestCppClient.cpp reqpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Program.py reqpnl
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-- With requests for advisor accounts with many subaccounts and/or positions can take several seconds for aggregated PnL to be computed and returned. 
-
-Updates are made to IBApi.EWrapper.pnl
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet EWrapperImpl.cs pnl
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet EWrapperImpl.java pnl
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet EWrapperImpl.vb pnl
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet TestCppClient.cpp pnl
-    &lt;/li&gt;
-    &lt;li&gt;
-        \snippet Program.py pnl
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-Cancel subscriptions with the IBApi::EClient::cancelPnL function:
-
-&lt;ul id="tab"&gt;
-    &lt;li class="active"&gt;
-        \snippet Program.cs cancelpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Testbed.java cancelpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet MainModule.vb cancelpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet TestCppClient.cpp cancelpnl
-    &lt;/li&gt;
-    &lt;li&gt; 
-        \snippet Program.py cancelpnl
-    &lt;/li&gt;
-&lt;/ul&gt;
-</pre><p><br/>
+<div class="textblock"><h1><a class="anchor" id="account_window_pnl"></a>
+P&amp;L data in the Account Window</h1>
+<p>UnRealized and Realized P&amp;L is sent to the API function <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae15a34084d9f26f279abd0bdeab1b9b5" title="Receives the subscribed account&#39;s information. Only one account can be subscribed at a time...">IBApi.EWrapper.updateAccountValue</a> function after a subscription request is made with <a class="el" href="classIBApi_1_1EClient.html#aea1b0d9b6b85a4e0b18caf13a51f837f" title="Subscribes to an specific account&#39;s information and portfolio Through this method, a single account&#39;s subscription can be started/stopped. As a result from the subscription, the account&#39;s information, portfolio and last update time will be received at EWrapper::updateAccountValue, EWrapper::updateAccountPortfolio, EWrapper::updateAccountTime respectively. All account values and positions will be returned initially, and then there will only be updates when there is a change in a position, or to an account value every 3 minutes if it has changed. Only one account can be subscribed at a time. A second subscription request for another account when the previous one is still active will cause the first one to be canceled in favour of the second one. Consider user reqPositions if you want to retrieve all your accounts&#39; portfolios directly. ">IBApi.EClient.reqAccountUpdates</a>. This information corresponds to the data in the TWS Account Window, and has a different source of information, a different update frequency, and different reset schedule than PnL data in the TWS Portfolio Window and associated API functions (below). In particular, the unrealized P&amp;L information shown in the TWS Account Window which is sent to updatePortfolioValue will update either <b>(1)</b> when a trade for that particular instrument occurs or <b>(2)</b> every 3 mintues. The realized P&amp;L data in the TWS <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/the_account_window.htm" target="_blank">Account Window</a> is reset to 0 once per day.</p>
+<ul>
+<li>It is important to keep in mind that the P&amp;L data shown in the Account Window and Portfolio Window will sometimes differ because there is a different source of information and a different reset schedule.</li>
+</ul>
+<h1><a class="anchor" id="portfolio_window_pnl"></a>
+P&amp;L data in the Portfolio Window</h1>
+<p>Beginning with API v973.03, requests can be made to receive real time updates about the daily P&amp;L and unrealized P&amp;L for an account, or for individual positions. Financial Advisors can also request P&amp;L figures for a FA group, or portfolio model. In API v973.05+/TWS v968+ this is further extended to include realized P&amp;L information at the account or individual position level.</p>
+<ul>
+<li>Note in Python the P&amp;L functions are available starting in v973.05.</li>
+</ul>
+<p>These newer P&amp;L API functions demonstrated below return the data which is displayed in the TWS <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/profitloss.htm" target="_blank">Portfolio Window</a> in current versions of TWS (v963+). As such, the P&amp;L values are calculated based on the reset schedule specifed in TWS Global Configuration (by default an instrument-specific reset schedule) and this setting affects values sent to the associated API functions as well. Also in TWS, P&amp;L data from virtual forex positions will be included in the account P&amp;L if and only if the Virtual Fx section of the Account Window is expanded.</p>
+<h2>P&amp;L subscription requests for individual positions</h2>
+<p>Subscribe using the <a class="el" href="classIBApi_1_1EClient.html#a9ba0dc47f80ff9e836a235a0dea791b3" title="Requests real time updates for daily PnL of individual positions. ">IBApi::EClient::reqPnLSingle</a> function</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqPnLSingle(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 268084);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqPnLSingle(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 268084);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqPnLSingle(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 268084)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqPnLSingle(7002, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 268084);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<p>Currently updates are returned to <a class="el" href="interfaceIBApi_1_1EWrapper.html#aebeb008f2b763d7bed2969b66bbd1b33" title="receives real time updates for single position daily PnL values ">IBApi.EWrapper.pnlSingle</a> approximately once per second. *subject to change in the future</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> pnlSingle(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> pos, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL, <span class="keywordtype">double</span> value)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;PnL Single. Request Id: {0}, Pos {1}, Daily PnL {2}, Unrealized PnL {3}, Realized PnL: {4}, Value: {5}&quot;</span>, reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> pnlSingle(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> pos, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL, <span class="keywordtype">double</span> value) {</div>
+<div class="line">        System.out.println(EWrapperMsgGenerator.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value));                </div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double, value As Double) Implements EWrapper.pnlSingle</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;PnL Single. Request Id: {0}, pos: {1}, daily PnL: {2}, unrealized PnL: {3}, realized PnL: {4}, value: {5}&quot;</span>, reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::pnlSingle(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> pos, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL, <span class="keywordtype">double</span> value) {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;PnL Single. ReqId: %d, pos: %d, daily PnL: %g, unrealized PnL: %g, realized PnL: %g, value: %g\n&quot;</span>, reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<ul>
+<li>If a P&amp;L subscription request is made for an invalid conId or contract not in the account, there will not be a response.</li>
+<li>As elsewhere in the API, a max double value will indicate an 'unset' value. This corresponds to an empty cell in TWS.</li>
+</ul>
+<p>Subscriptions are cancelled using the <a class="el" href="classIBApi_1_1EClient.html#accd383725ef440070775654a9ab4bf47" title="Cancels real time subscription for a positions daily PnL information. ">IBApi::EClient::cancelPnLSingle</a> function:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.cancelPnLSingle(17001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPnLSingle(17001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPnLSingle(17001)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;cancelPnLSingle(7002);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<h2>P&amp;L subscription requests for accounts</h2>
+<p>Subscribe using the <a class="el" href="classIBApi_1_1EClient.html#a0351f22a77b5ba0c0243122baf72fa45" title="Creates subscription for real time daily PnL and unrealized PnL updates. ">IBApi::EClient::reqPnL</a> function:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.reqPnL(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqPnL(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.reqPnL(17001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;reqPnL(7001, <span class="stringliteral">&quot;DUD00029&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<ul>
+<li>For FA accounts, if 'All' is specified as the accound code, aggregated data for all subaccounts is returned.</li>
+<li>With requests for advisor accounts with many subaccounts and/or positions can take several seconds for aggregated P&amp;L to be computed and returned.</li>
+<li>For account P&amp;L data the TWS setting "Prepare portfolio PnL data when downloading positions" must be checked.</li>
+</ul>
+<p>Updates are sent to <a class="el" href="interfaceIBApi_1_1EWrapper.html#ad19e3db5eaded96b4ed7aefe886d9d59" title="receives PnL updates in real time for the daily PnL and the total unrealized PnL for an account ...">IBApi.EWrapper.pnl</a></p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> pnl(<span class="keywordtype">int</span> reqId, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL)</div>
+<div class="line">        {</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;PnL. Request Id: {0}, Daily PnL: {1}, Unrealized PnL: {2}, Realized PnL: {3}&quot;</span>, reqId, dailyPnL, unrealizedPnL, realizedPnL);</div>
+<div class="line">        }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> pnl(<span class="keywordtype">int</span> reqId, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL) {</div>
+<div class="line">        System.out.println(EWrapperMsgGenerator.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL));</div>
+<div class="line">    }</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double) Implements EWrapper.pnl</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL: {2}, realized PnL: {3}&quot;</span>, reqId, dailyPnL, unrealizedPnL, realizedPnL)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::pnl(<span class="keywordtype">int</span> reqId, <span class="keywordtype">double</span> dailyPnL, <span class="keywordtype">double</span> unrealizedPnL, <span class="keywordtype">double</span> realizedPnL) {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;PnL. ReqId: %d, daily PnL: %g, unrealized PnL: %g, realized PnL: %g\n&quot;</span>, reqId, dailyPnL, unrealizedPnL, realizedPnL);</div>
+<div class="line">}</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<p>Cancel unnecessary subscriptions with the <a class="el" href="classIBApi_1_1EClient.html#a5a805731fedd8f40130a51a459328572" title="cancels subscription for real time updated daily PnL params reqId ">IBApi::EClient::cancelPnL</a> function:</p>
+<ul id="tab">
+<li class="active">
+<div class="fragment"><div class="line">            client.cancelPnL(17001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPnL(17001);        </div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">        client.cancelPnL(17001)</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"><div class="line">    m_pClient-&gt;cancelPnL(7001);</div>
+</div><!-- fragment -->  </li>
+<li>
+<div class="fragment"></div><!-- fragment -->  </li>
+</ul>
+<p><br/>
 <br/>
  </p>
 </div></div><!-- contents -->

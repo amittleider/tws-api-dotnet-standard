@@ -20,5 +20,8 @@ var account_portfolio =
       [ "Cancelling", "positions.html#position_cancel", null ],
       [ "Position Update Subscription by Model", "positions.html#position_multi", null ]
     ] ],
-    [ "Profit and Loss Updates", "pnl.html", null ]
+    [ "Profit And Loss (P&L)", "pnl.html", [
+      [ "P&L data in the Account Window", "pnl.html#account_window_pnl", null ],
+      [ "P&L data in the Portfolio Window", "pnl.html#portfolio_window_pnl", null ]
+    ] ]
 ];
