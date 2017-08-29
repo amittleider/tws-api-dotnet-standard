@@ -97,7 +97,7 @@ var NAVTREEINDEX =
 "classIBApi_1_1EClient.html#a9f5074e274c1b99cf2341709c072aafb",
 "classIBApi_1_1PercentChangeCondition.html#a2938125df7dcf6ed27d834e228ff1327",
 "interfaceIBApi_1_1EWrapper.html#a09f82de3d0666d13b00b5168e8b9313d",
-"rtd_fqa_errors.html"
+"rtd_examples.html#rtd_samples_spread_stk_mixed"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

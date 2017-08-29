@@ -375,12 +375,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:a0f6fb4db17b7e1cb5c4092f40d947827"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a0f6fb4db17b7e1cb5c4092f40d947827">marketRule</a> (int marketRuleId, PriceIncrement[] priceIncrements)</td></tr>
 <tr class="memdesc:a0f6fb4db17b7e1cb5c4092f40d947827"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns minimum price increment structure for a particular market rule ID market rule IDs for an instrument on valid exchanges can be obtained from the contractDetails object for that contract  <a href="#a0f6fb4db17b7e1cb5c4092f40d947827">More...</a><br/></td></tr>
 <tr class="separator:a0f6fb4db17b7e1cb5c4092f40d947827"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f3bcd7cbe7c0a64af7ac67e04678487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a6f3bcd7cbe7c0a64af7ac67e04678487">pnl</a> (int reqId, double dailyPnL, double unrealizedPnL)</td></tr>
-<tr class="memdesc:a6f3bcd7cbe7c0a64af7ac67e04678487"><td class="mdescLeft">&#160;</td><td class="mdescRight">receives PnL updates in real time for the daily PnL and the total unrealized PnL for an account  <a href="#a6f3bcd7cbe7c0a64af7ac67e04678487">More...</a><br/></td></tr>
-<tr class="separator:a6f3bcd7cbe7c0a64af7ac67e04678487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca937349ae8e3d432b70bfbcc032a957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aca937349ae8e3d432b70bfbcc032a957">pnlSingle</a> (int reqId, int pos, double dailyPnL, double unrealizedPnL, double value)</td></tr>
-<tr class="memdesc:aca937349ae8e3d432b70bfbcc032a957"><td class="mdescLeft">&#160;</td><td class="mdescRight">receives real time updates for single position daily PnL values  <a href="#aca937349ae8e3d432b70bfbcc032a957">More...</a><br/></td></tr>
-<tr class="separator:aca937349ae8e3d432b70bfbcc032a957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad19e3db5eaded96b4ed7aefe886d9d59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ad19e3db5eaded96b4ed7aefe886d9d59">pnl</a> (int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)</td></tr>
+<tr class="memdesc:ad19e3db5eaded96b4ed7aefe886d9d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">receives PnL updates in real time for the daily PnL and the total unrealized PnL for an account  <a href="#ad19e3db5eaded96b4ed7aefe886d9d59">More...</a><br/></td></tr>
+<tr class="separator:ad19e3db5eaded96b4ed7aefe886d9d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebeb008f2b763d7bed2969b66bbd1b33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aebeb008f2b763d7bed2969b66bbd1b33">pnlSingle</a> (int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)</td></tr>
+<tr class="memdesc:aebeb008f2b763d7bed2969b66bbd1b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">receives real time updates for single position daily PnL values  <a href="#aebeb008f2b763d7bed2969b66bbd1b33">More...</a><br/></td></tr>
+<tr class="separator:aebeb008f2b763d7bed2969b66bbd1b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaef348882e2a2c1c21ad8dd2167b2229"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aaef348882e2a2c1c21ad8dd2167b2229">historicalTicks</a> (int reqId, HistoricalTick[] ticks, bool done)</td></tr>
 <tr class="separator:aaef348882e2a2c1c21ad8dd2167b2229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aceda2894391ebddeb4409447fc453a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aceda2894391ebddeb4409447fc453a4b">historicalTicksBidAsk</a> (int reqId, HistoricalTickBidAsk[] ticks, bool done)</td></tr>
@@ -1836,7 +1836,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
-<a class="anchor" id="a6f3bcd7cbe7c0a64af7ac67e04678487"></a>
+<a class="anchor" id="ad19e3db5eaded96b4ed7aefe886d9d59"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1856,7 +1856,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>unrealizedPnL</em>&#160;</td>
+          <td class="paramname"><em>unrealizedPnL</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>realizedPnL</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1879,7 +1885,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 
 </div>
 </div>
-<a class="anchor" id="aca937349ae8e3d432b70bfbcc032a957"></a>
+<a class="anchor" id="aebeb008f2b763d7bed2969b66bbd1b33"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1906,6 +1912,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
           <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>unrealizedPnL</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>realizedPnL</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
