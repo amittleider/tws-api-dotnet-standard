@@ -35,3 +35,5 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyVersion("8.4.0.0")> 
 
 
+
+<Assembly: ComVisibleAttribute(False)> 

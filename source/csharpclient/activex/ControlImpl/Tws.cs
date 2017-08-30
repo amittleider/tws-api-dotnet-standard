@@ -35,7 +35,7 @@ namespace TWSLib
         [ComRegisterFunction]
         public static void Register(Type t)
         {
-            var clsidSubKey = Registry.ClassesRoot.OpenSubKey("CLSID", true).CreateSubKey("{" + GetCustomAtribute<GuidAttribute>(new StackFrame().GetMethod().DeclaringType).Value + "}");
+            var clsidSubKey = Registry.ClassesRoot.OpenSubKey("CLSID", true).CreateSubKey("{" + GetCustomAtribute<GuidAttribute>(typeof(Tws)).Value + "}");
             var typelibguid = "{" + GetCustomAtribute<GuidAttribute>(Assembly.GetExecutingAssembly()).Value + "}";
 
             clsidSubKey.CreateSubKey("Control");
@@ -45,9 +45,14 @@ namespace TWSLib
 
         EClientSocket socket;
         EReaderSignal eReaderSignal = new EReaderMonitorSignal();
+        SynchronizationContext sc;
 
         public Tws()
         {
+            sc = SynchronizationContext.Current;
+
+            Debug.Assert(sc != null);
+
             socket = new EClientSocket(this, eReaderSignal);
 
             (this as ITws).resetAllProperties();
@@ -1051,7 +1056,7 @@ namespace TWSLib
         {
             var t_tickPrice = this.tickPrice;
             if (t_tickPrice != null)
-                InvokeIfRequired(t_tickPrice, tickerId, field, price, attribs.CanAutoExecute, attribs.PastLimit, attribs.PreOpen);
+                sc.Post(state => t_tickPrice(tickerId, field, price, attribs.CanAutoExecute, attribs.PastLimit, attribs.PreOpen), null);
         }
 
         public delegate void tickSizeDelegate(int id, int tickType, int size);
@@ -1060,7 +1065,7 @@ namespace TWSLib
         {
             var t_tickSize = this.tickSize;
             if (t_tickSize != null)
-                InvokeIfRequired(t_tickSize, tickerId, field, size);
+                sc.Post(state => t_tickSize(tickerId, field, size), null);
         }
 
         public delegate void connectionClosedDelegate();
@@ -1071,7 +1076,7 @@ namespace TWSLib
 
             var t_connectionClosed = this.connectionClosed;
             if (t_connectionClosed != null)
-                InvokeIfRequired(t_connectionClosed);
+                sc.Post(state => t_connectionClosed(), null);
         }
 
 
@@ -1093,7 +1098,7 @@ namespace TWSLib
         {
             var t_openOrder1 = this.openOrder1;
             if (t_openOrder1 != null)
-                InvokeIfRequired(t_openOrder1,
+                sc.Post(state => t_openOrder1(
                     orderId,
                     contract.Symbol,
                     contract.SecType,
@@ -1102,12 +1107,12 @@ namespace TWSLib
                     contract.Right,
                     contract.Exchange,
                     contract.Currency,
-                    contract.LocalSymbol);
+                    contract.LocalSymbol), null);
 
             // send order fields
             var t_openOrder2 = this.openOrder2;
             if (t_openOrder2 != null)
-                InvokeIfRequired(t_openOrder2,
+                sc.Post(state => t_openOrder2(
                                 orderId,
                                 order.Action,
                                 order.TotalQuantity,
@@ -1120,12 +1125,12 @@ namespace TWSLib
                                 order.OpenClose,
                                 order.Origin,
                                 order.OrderRef,
-                                order.ClientId);
+                                order.ClientId), null);
 
             // send order and contract fields
             var t_openOrder3 = this.openOrder3;
             if (t_openOrder3 != null)
-                InvokeIfRequired(t_openOrder3,
+                sc.Post(state => t_openOrder3(
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
@@ -1154,12 +1159,12 @@ namespace TWSLib
                                 order.FaPercentage,
                                 order.FaProfile,
                                 order.GoodAfterTime,
-                                order.GoodTillDate);
+                                order.GoodTillDate), null);
 
             // send order and contract fields, and etended order attributes
             var t_openOrder4 = this.openOrder4;
             if (t_openOrder4 != null)
-                InvokeIfRequired(t_openOrder4,
+                sc.Post(state => t_openOrder4(
                                 orderId,
                                 contract.Symbol,
                                 contract.SecType,
@@ -1226,7 +1231,7 @@ namespace TWSLib
                                 contract.ComboLegsDescription,
                                 order.ScaleInitLevelSize,
                                 order.ScaleSubsLevelSize,
-                                order.ScalePriceIncrement);
+                                order.ScalePriceIncrement), null);
 
             /*
              * Note: all of the above events are deprecated
@@ -1236,7 +1241,7 @@ namespace TWSLib
 
             var t_openOrderEx = this.openOrderEx;
             if (t_openOrderEx != null)
-                InvokeIfRequired(t_openOrderEx, orderId, (ComContract)contract, (ComOrder)order, (ComOrderState)orderState);
+                sc.Post(state => t_openOrderEx(orderId, (ComContract)contract, (ComOrder)order, (ComOrderState)orderState), null);
         }
 
         public delegate void updateAccountTimeDelegate(string timeStamp);
@@ -1245,7 +1250,7 @@ namespace TWSLib
         {
             var t_updateAccountTime = this.updateAccountTime;
             if (t_updateAccountTime != null)
-                InvokeIfRequired(t_updateAccountTime, timestamp);
+                sc.Post(state => t_updateAccountTime(timestamp), null);
         }
 
         public delegate void updateAccountValueDelegate(string key, string value, string curency, string accountName);
@@ -1254,7 +1259,7 @@ namespace TWSLib
         {
             var t_updateAccountValue = this.updateAccountValue;
             if (t_updateAccountValue != null)
-                InvokeIfRequired(t_updateAccountValue, key, value, currency, accountName);
+                sc.Post(state => t_updateAccountValue(key, value, currency, accountName), null);
         }
 
         public delegate void nextValidIdDelegate(int id);
@@ -1263,7 +1268,7 @@ namespace TWSLib
         {
             var t_nextValidId = this.nextValidId;
             if (t_nextValidId != null)
-                InvokeIfRequired(t_nextValidId, orderId);
+                sc.Post(state => t_nextValidId(orderId), null);
         }
 
         public delegate void permIdDelegate(int id, int permId);
@@ -1275,21 +1280,21 @@ namespace TWSLib
         {
             var t_errMsg = this.errMsg;
             if (t_errMsg != null)
-                InvokeIfRequired(t_errMsg, -1, -1, e.Message);
+                sc.Post(state => t_errMsg(-1, -1, e.Message), null);
         }
 
         void EWrapper.error(string str)
         {
             var t_errMsg = this.errMsg;
             if (t_errMsg != null)
-                InvokeIfRequired(t_errMsg, -1, -1, str);
+                sc.Post(state => t_errMsg(-1, -1, str), null);
         }
 
         void EWrapper.error(int id, int errorCode, string errorMsg)
         {
             var t_errMsg = this.errMsg;
             if (t_errMsg != null)
-                InvokeIfRequired(t_errMsg, id, errorCode, errorMsg);
+                sc.Post(state => t_errMsg(id, errorCode, errorMsg), null);
         }
 
 
@@ -1303,7 +1308,7 @@ namespace TWSLib
         {
             var t_updatePortfolio = this.updatePortfolio;
             if (t_updatePortfolio != null)
-                InvokeIfRequired(t_updatePortfolio,
+                sc.Post(state => t_updatePortfolio(
                                 contract.Symbol,
                                 contract.SecType,
                                 contract.LastTradeDateOrContractMonth,
@@ -1317,11 +1322,11 @@ namespace TWSLib
                                 averageCost,
                                 unrealizedPNL,
                                 realizedPNL,
-                                accountName);
+                                accountName), null);
 
             var t_updatePortfolioEx = this.updatePortfolioEx;
             if (t_updatePortfolioEx != null)
-                InvokeIfRequired(t_updatePortfolioEx, (ComContract)contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName);
+                sc.Post(state => t_updatePortfolioEx((ComContract)contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName), null);
         }
 
         public delegate void orderStatusDelegate(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice);
@@ -1330,7 +1335,7 @@ namespace TWSLib
         {
             var t_orderStatus = this.orderStatus;
             if (t_orderStatus != null)
-                InvokeIfRequired(t_orderStatus, orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
+                sc.Post(state => t_orderStatus(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice), null);
         }
 
         public delegate void contractDetailsDelegate(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
@@ -1342,7 +1347,7 @@ namespace TWSLib
         {
             var t_contractDetails = this.contractDetails;
             if (t_contractDetails != null)
-                InvokeIfRequired(t_contractDetails,
+                sc.Post(state => t_contractDetails(
                                 contractDetails.Summary.Symbol,
                                 contractDetails.Summary.SecIdType,
                                 contractDetails.Summary.LastTradeDateOrContractMonth,
@@ -1358,11 +1363,11 @@ namespace TWSLib
                                 contractDetails.PriceMagnifier,
                                 contractDetails.Summary.Multiplier,
                                 contractDetails.OrderTypes,
-                                contractDetails.ValidExchanges);
+                                contractDetails.ValidExchanges), null);
 
             var t_contractDetailsEx = this.contractDetailsEx;
             if (t_contractDetailsEx != null)
-                InvokeIfRequired(t_contractDetailsEx, reqId, (ComContractDetails)contractDetails);
+                sc.Post(state => t_contractDetailsEx(reqId, (ComContractDetails)contractDetails), null);
         }
 
         public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation);
@@ -1374,7 +1379,7 @@ namespace TWSLib
         {
             var t_execDetails = this.execDetails;
             if (t_execDetails != null)
-                InvokeIfRequired(t_execDetails,
+                sc.Post(state => t_execDetails(
                                 reqId,
                                 contract.Symbol,
                                 contract.SecType,
@@ -1393,11 +1398,11 @@ namespace TWSLib
                                 execution.Price,
                                 execution.PermId,
                                 execution.ClientId,
-                                execution.Liquidation);
+                                execution.Liquidation), null);
 
             var t_execDetailsEx = this.execDetailsEx;
             if (t_execDetailsEx != null)
-                InvokeIfRequired(t_execDetailsEx, reqId, (ComContract)contract, (ComExecution)execution);
+                sc.Post(state => t_execDetailsEx(reqId, (ComContract)contract, (ComExecution)execution), null);
         }
 
         public delegate void updateMktDepthDelegate(int id, int position, int operation, int side, double price, int size);
@@ -1406,7 +1411,7 @@ namespace TWSLib
         {
             var t_updateMktDepth = this.updateMktDepth;
             if (t_updateMktDepth != null)
-                InvokeIfRequired(t_updateMktDepth, tickerId, position, operation, side, price, size);
+                sc.Post(state => t_updateMktDepth(tickerId, position, operation, side, price, size), null);
         }
 
         public delegate void updateMktDepthL2Delegate(int id, int position, string marketMaker, int operation, int side, double price, int size);
@@ -1415,7 +1420,7 @@ namespace TWSLib
         {
             var t_updateMktDepthL2 = this.updateMktDepthL2;
             if (t_updateMktDepthL2 != null)
-                InvokeIfRequired(t_updateMktDepthL2, tickerId, position, marketMaker, operation, side, price, size);
+                sc.Post(state => t_updateMktDepthL2(tickerId, position, marketMaker, operation, side, price, size), null);
         }
 
         public delegate void updateNewsBulletinDelegate(short msgId, short msgType, string message, string origExchange);
@@ -1424,7 +1429,7 @@ namespace TWSLib
         {
             var t_updateNewsBulletin = this.updateNewsBulletin;
             if (t_updateNewsBulletin != null)
-                InvokeIfRequired(t_updateNewsBulletin, (short)msgId, (short)msgType, message, origExchange);
+                sc.Post(state => t_updateNewsBulletin((short)msgId, (short)msgType, message, origExchange), null);
         }
 
         public delegate void managedAccountsDelegate(string accountsList);
@@ -1433,7 +1438,7 @@ namespace TWSLib
         {
             var t_managedAccounts = this.managedAccounts;
             if (t_managedAccounts != null)
-                InvokeIfRequired(t_managedAccounts, accountsList);
+                sc.Post(state => t_managedAccounts(accountsList), null);
         }
 
         public delegate void receiveFADelegate(int faDataType, string cxml);
@@ -1442,7 +1447,7 @@ namespace TWSLib
         {
             var t_receiveFA = this.receiveFA;
             if (t_receiveFA != null)
-                InvokeIfRequired(t_receiveFA, faDataType, faXmlData);
+                sc.Post(state => t_receiveFA(faDataType, faXmlData), null);
         }
 
         public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP);
@@ -1451,7 +1456,7 @@ namespace TWSLib
         {
             var t_historicalData = this.historicalData;
             if (t_historicalData != null)
-                InvokeIfRequired(t_historicalData, reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume, bar.Count, bar.WAP);
+                sc.Post(state => t_historicalData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP), null);
         }
 
         public delegate void historicalDataEndDelegate(int reqId, string startDate, string endDate);
@@ -1460,7 +1465,7 @@ namespace TWSLib
         {
             var t_historicalDataEnd = this.historicalDataEnd;
             if (t_historicalDataEnd != null)
-                InvokeIfRequired(t_historicalDataEnd, reqId, start, end);
+                sc.Post(state => t_historicalDataEnd(reqId, start, end), null);
         }
 
         public event historicalDataDelegate historicalDataUpdate;
@@ -1468,7 +1473,7 @@ namespace TWSLib
         {
             var t_historicalUpdateData = this.historicalDataUpdate;
             if (t_historicalUpdateData != null)
-                InvokeIfRequired(t_historicalUpdateData, reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume, bar.Count, bar.WAP);
+                sc.Post(state => t_historicalUpdateData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP), null);
         }
 
         public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, bool convertible, bool callable, bool putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, bool nextOptionPartial, string notes);
@@ -1480,12 +1485,12 @@ namespace TWSLib
         {
             var t_bondContractDetailsEx = this.bondContractDetailsEx;
             if (t_bondContractDetailsEx != null)
-                InvokeIfRequired(t_bondContractDetailsEx, reqId, (ComContractDetails)contractDetails);
+                sc.Post(state => t_bondContractDetailsEx(reqId, (ComContractDetails)contractDetails), null);
 
             var t_bondContractDetails = this.bondContractDetails;
 
             if (t_bondContractDetails != null)
-                InvokeIfRequired(t_bondContractDetails, contractDetails.Summary.Symbol,
+                sc.Post(state => t_bondContractDetails(contractDetails.Summary.Symbol,
                                       contractDetails.Summary.SecType,
                                       contractDetails.Cusip,
                                       contractDetails.Coupon,
@@ -1509,7 +1514,7 @@ namespace TWSLib
                                       contractDetails.NextOptionDate,
                                       contractDetails.NextOptionType,
                                       contractDetails.NextOptionPartial,
-                                      contractDetails.Notes);
+                                      contractDetails.Notes), null);
         }
 
 
@@ -1522,7 +1527,7 @@ namespace TWSLib
         {
             var t_tickGeneric = this.tickGeneric;
             if (t_tickGeneric != null)
-                InvokeIfRequired(t_tickGeneric, tickerId, field, value);
+                sc.Post(state => t_tickGeneric(tickerId, field, value), null);
         }
 
         public delegate void tickStringDelegate(int id, int tickType, string value);
@@ -1531,7 +1536,7 @@ namespace TWSLib
         {
             var t_tickString = this.tickString;
             if (t_tickString != null)
-                InvokeIfRequired(t_tickString, tickerId, field, value);
+                sc.Post(state => t_tickString(tickerId, field, value), null);
         }
 
         public delegate void tickEFPDelegate(int tickerId, int field, double basisPoints, string formattedBasisPoints,
@@ -1542,7 +1547,7 @@ namespace TWSLib
         {
             var t_tickEFP = this.tickEFP;
             if (t_tickEFP != null)
-                InvokeIfRequired(t_tickEFP, tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
+                sc.Post(state => t_tickEFP(tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuture, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate), null);
         }
 
         public delegate void currentTimeDelegate(int time);
@@ -1551,7 +1556,7 @@ namespace TWSLib
         {
             var t_currentTime = this.currentTime;
             if (t_currentTime != null)
-                InvokeIfRequired(t_currentTime, (int)time);
+                sc.Post(state => t_currentTime((int)time), null);
         }
 
         public delegate void scannerDataEndDelegate(int reqId);
@@ -1560,7 +1565,7 @@ namespace TWSLib
         {
             var t_scannerDataEnd = this.scannerDataEnd;
             if (t_scannerDataEnd != null)
-                InvokeIfRequired(t_scannerDataEnd, reqId);
+                sc.Post(state => t_scannerDataEnd(reqId), null);
         }
 
         public delegate void fundamentalDataDelegate(int reqId, string data);
@@ -1569,7 +1574,7 @@ namespace TWSLib
         {
             var t_fundamentalData = this.fundamentalData;
             if (t_fundamentalData != null)
-                InvokeIfRequired(t_fundamentalData, reqId, data);
+                sc.Post(state => t_fundamentalData(reqId, data), null);
         }
 
         public delegate void contractDetailsEndDelegate(int reqId);
@@ -1578,7 +1583,7 @@ namespace TWSLib
         {
             var t_contractDetailsEnd = this.contractDetailsEnd;
             if (t_contractDetailsEnd != null)
-                InvokeIfRequired(t_contractDetailsEnd, reqId);
+                sc.Post(state => t_contractDetailsEnd(reqId), null);
         }
 
         public delegate void openOrderEndDelegate();
@@ -1587,7 +1592,7 @@ namespace TWSLib
         {
             var t_openOrderEnd = this.openOrderEnd;
             if (t_openOrderEnd != null)
-                InvokeIfRequired(t_openOrderEnd);
+                sc.Post(state => t_openOrderEnd(), null);
         }
 
         public delegate void accountDownloadEndDelegate(string accountName);
@@ -1596,7 +1601,7 @@ namespace TWSLib
         {
             var t_accountDownloadEnd = this.accountDownloadEnd;
             if (t_accountDownloadEnd != null)
-                InvokeIfRequired(t_accountDownloadEnd, account);
+                sc.Post(state => t_accountDownloadEnd(account), null);
         }
 
         public delegate void execDetailsEndDelegate(int reqId);
@@ -1605,7 +1610,7 @@ namespace TWSLib
         {
             var t_execDetailsEnd = this.execDetailsEnd;
             if (t_execDetailsEnd != null)
-                InvokeIfRequired(t_execDetailsEnd, reqId);
+                sc.Post(state => t_execDetailsEnd(reqId), null);
         }
 
         public delegate void deltaNeutralValidationDelegate(int reqId, IUnderComp underComp);
@@ -1614,7 +1619,7 @@ namespace TWSLib
         {
             var t_deltaNeutralValidation = this.deltaNeutralValidation;
             if (t_deltaNeutralValidation != null)
-                InvokeIfRequired(t_deltaNeutralValidation, reqId, (ComUnderComp)underComp);
+                sc.Post(state => t_deltaNeutralValidation(reqId, (ComUnderComp)underComp), null);
         }
 
         public delegate void tickSnapshotEndDelegate(int reqId);
@@ -1623,7 +1628,7 @@ namespace TWSLib
         {
             var t_tickSnapshotEnd = this.tickSnapshotEnd;
             if (t_tickSnapshotEnd != null)
-                InvokeIfRequired(t_tickSnapshotEnd, tickerId);
+                sc.Post(state => t_tickSnapshotEnd(tickerId), null);
         }
 
         public delegate void marketDataTypeDelegate(int reqId, int marketDataType);
@@ -1632,7 +1637,7 @@ namespace TWSLib
         {
             var t_marketDataType = this.marketDataType;
             if (t_marketDataType != null)
-                InvokeIfRequired(t_marketDataType, reqId, marketDataType);
+                sc.Post(state => t_marketDataType(reqId, marketDataType), null);
         }
 
         public delegate void scannerDataExDelegate(int reqId, int rank, IContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr);
@@ -1641,7 +1646,7 @@ namespace TWSLib
         {
             var t_scannerData = this.scannerData;
             if (t_scannerData != null)
-                InvokeIfRequired(t_scannerData,
+                sc.Post(state => t_scannerData(
                                 reqId,
                                 rank,
                                 contractDetails.Summary.Symbol,
@@ -1657,11 +1662,11 @@ namespace TWSLib
                                 distance,
                                 benchmark,
                                 projection,
-                                legsStr);
+                                legsStr), null);
 
             var t_scannerDataEx = this.scannerDataEx;
             if (t_scannerDataEx != null)
-                InvokeIfRequired(t_scannerDataEx, reqId, rank, (ComContractDetails)contractDetails, distance, benchmark, projection, legsStr);
+                sc.Post(state => t_scannerDataEx(reqId, rank, (ComContractDetails)contractDetails, distance, benchmark, projection, legsStr), null);
         }
 
         public delegate void commissionReportDelegate(ICommissionReport commissionReport);
@@ -1670,7 +1675,7 @@ namespace TWSLib
         {
             var t_commissionReport = this.commissionReport;
             if (t_commissionReport != null)
-                InvokeIfRequired(t_commissionReport, (ComCommissionReport)commissionReport);
+                sc.Post(state => t_commissionReport((ComCommissionReport)commissionReport), null);
         }
 
         public delegate void positionDelegate(string account, IContract contract, double position, double avgCost);
@@ -1679,7 +1684,7 @@ namespace TWSLib
         {
             var t_position = this.position;
             if (t_position != null)
-                InvokeIfRequired(t_position, account, (ComContract)contract, pos, avgCost);
+                sc.Post(state => t_position(account, (ComContract)contract, pos, avgCost), null);
         }
 
         public delegate void positionEndDelegate();
@@ -1688,7 +1693,7 @@ namespace TWSLib
         {
             var t_positionEnd = this.positionEnd;
             if (t_positionEnd != null)
-                InvokeIfRequired(t_positionEnd);
+                sc.Post(state => t_positionEnd(), null);
         }
 
         public delegate void accountSummaryDelegate(int reqId, string account, string tag, string value, string curency);
@@ -1697,7 +1702,7 @@ namespace TWSLib
         {
             var t_accountSummary = this.accountSummary;
             if (t_accountSummary != null)
-                InvokeIfRequired(t_accountSummary, reqId, account, tag, value, currency);
+                sc.Post(state => t_accountSummary(reqId, account, tag, value, currency), null);
         }
 
         public delegate void accountSummaryEndDelegate(int reqId);
@@ -1706,7 +1711,7 @@ namespace TWSLib
         {
             var t_accountSummaryEnd = this.accountSummaryEnd;
             if (t_accountSummaryEnd != null)
-                InvokeIfRequired(t_accountSummaryEnd, reqId);
+                sc.Post(state => t_accountSummaryEnd(reqId), null);
         }
 
         public delegate void verifyMessageAPIDelegate(string apiData);
@@ -1715,7 +1720,7 @@ namespace TWSLib
         {
             var t_verifyMessageAPI = this.verifyMessageAPI;
             if (t_verifyMessageAPI != null)
-                InvokeIfRequired(t_verifyMessageAPI, apiData);
+                sc.Post(state => t_verifyMessageAPI(apiData), null);
         }
 
         public delegate void verifyCompletedDelegate(bool isSuccessful, string errorText);
@@ -1724,7 +1729,7 @@ namespace TWSLib
         {
             var t_verifyCompleted = this.verifyCompleted;
             if (t_verifyCompleted != null)
-                InvokeIfRequired(t_verifyCompleted, isSuccessful, errorText);
+                sc.Post(state => t_verifyCompleted(isSuccessful, errorText), null);
         }
 
         public delegate void verifyAndAuthMessageAPIDelegate(string apiData, string xyzChallenge);
@@ -1733,7 +1738,7 @@ namespace TWSLib
         {
             var t_verifyAndAuthMessageAPI = this.verifyAndAuthMessageAPI;
             if (t_verifyAndAuthMessageAPI != null)
-                InvokeIfRequired(t_verifyAndAuthMessageAPI, apiData, xyzChallenge);
+                sc.Post(state => t_verifyAndAuthMessageAPI(apiData, xyzChallenge), null);
         }
 
         public delegate void verifyAndAuthCompletedDelegate(bool isSuccessful, string errorText);
@@ -1742,7 +1747,7 @@ namespace TWSLib
         {
             var t_verifyAndAuthCompleted = this.verifyAndAuthCompleted;
             if (t_verifyAndAuthCompleted != null)
-                InvokeIfRequired(t_verifyAndAuthCompleted, isSuccessful, errorText);
+                sc.Post(state => t_verifyAndAuthCompleted(isSuccessful, errorText), null);
         }
 
         public delegate void displayGroupListDelegate(int reqId, string groups);
@@ -1751,7 +1756,7 @@ namespace TWSLib
         {
             var t_displayGroupList = this.displayGroupList;
             if (t_displayGroupList != null)
-                InvokeIfRequired(t_displayGroupList, reqId, groups);
+                sc.Post(state => t_displayGroupList(reqId, groups), null);
         }
 
         public delegate void displayGroupUpdatedDelegate(int reqId, string contractInfo);
@@ -1760,7 +1765,7 @@ namespace TWSLib
         {
             var t_displayGroupUpdated = this.displayGroupUpdated;
             if (t_displayGroupUpdated != null)
-                InvokeIfRequired(t_displayGroupUpdated, reqId, contractInfo);
+                sc.Post(state => t_displayGroupUpdated(reqId, contractInfo), null);
         }
 
         public delegate void connectAckDelegate();
@@ -1769,7 +1774,7 @@ namespace TWSLib
         {
             var t_connectAck = this.connectAck;
             if (t_connectAck != null)
-                InvokeIfRequired(t_connectAck);
+                sc.Post(state => t_connectAck(), null);
         }
 
         public delegate void positionMultiDelegate(int requestId, string account, string modelCode, IContract contract, double position, double avgCost);
@@ -1778,7 +1783,7 @@ namespace TWSLib
         {
             var t_positionMulti = this.positionMulti;
             if (t_positionMulti != null)
-                InvokeIfRequired(t_positionMulti, requestId, account, modelCode, (ComContract)contract, pos, avgCost);
+                sc.Post(state => t_positionMulti(requestId, account, modelCode, (ComContract)contract, pos, avgCost), null);
         }
 
         public delegate void positionMultiEndDelegate(int requestId);
@@ -1787,7 +1792,7 @@ namespace TWSLib
         {
             var t_positionMultiEnd = this.positionMultiEnd;
             if (t_positionMultiEnd != null)
-                InvokeIfRequired(t_positionMultiEnd, requestId);
+                sc.Post(state => t_positionMultiEnd(requestId), null);
         }
 
         public delegate void accountUpdateMultiDelegate(int requestId, string account, string modelCode, string key, string value, string currency);
@@ -1796,7 +1801,7 @@ namespace TWSLib
         {
             var t_accountUpdateMulti = this.accountUpdateMulti;
             if (t_accountUpdateMulti != null)
-                InvokeIfRequired(t_accountUpdateMulti, requestId, account, modelCode, key, value, currency);
+                sc.Post(state => t_accountUpdateMulti(requestId, account, modelCode, key, value, currency), null);
         }
 
         public delegate void accountUpdateMultiEndDelegate(int requestId);
@@ -1805,7 +1810,7 @@ namespace TWSLib
         {
             var t_accountUpdateMultiEnd = this.accountUpdateMultiEnd;
             if (t_accountUpdateMultiEnd != null)
-                InvokeIfRequired(t_accountUpdateMultiEnd, requestId);
+                sc.Post(state => t_accountUpdateMultiEnd(requestId), null);
         }
 
         public delegate void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, string[] expirations, double[] strikes);
@@ -1814,7 +1819,7 @@ namespace TWSLib
         {
             var t_securityDefinitionOptionParameter = this.securityDefinitionOptionParameter;
             if (t_securityDefinitionOptionParameter != null)
-                InvokeIfRequired(t_securityDefinitionOptionParameter, reqId, exchange, underlyingConId, tradingClass, multiplier, expirations.ToArray(), strikes.ToArray());
+                sc.Post(state => t_securityDefinitionOptionParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations.ToArray(), strikes.ToArray()), null);
         }
 
         public delegate void securityDefinitionOptionParameterEndDelegate(int reqId);
@@ -1823,7 +1828,7 @@ namespace TWSLib
         {
             var t_securityDefinitionOptionParameterEnd = this.securityDefinitionOptionParameterEnd;
             if (t_securityDefinitionOptionParameterEnd != null)
-                InvokeIfRequired(t_securityDefinitionOptionParameterEnd, reqId);
+                sc.Post(state => t_securityDefinitionOptionParameterEnd(reqId), null);
         }
 
         public delegate void softDollarTiersDelegate(int reqId, SoftDollarTier[] tiers);
@@ -1833,7 +1838,7 @@ namespace TWSLib
             var t_softdollarTiers = this.softDollarTiers;
 
             if (t_softdollarTiers != null)
-                InvokeIfRequired(t_softdollarTiers, reqId, tiers);
+                sc.Post(state => t_softdollarTiers(reqId, tiers), null);
         }
 
         public delegate void familyCodesDelegate(IFamilyCodeList familyCodes);
@@ -1843,7 +1848,7 @@ namespace TWSLib
             var t_familyCodes = this.familyCodes;
 
             if (t_familyCodes != null)
-                InvokeIfRequired(t_familyCodes, familyCodes.Length > 0 ? new ComFamilyCodeList(familyCodes) : null);
+                sc.Post(state => t_familyCodes(familyCodes.Length > 0 ? new ComFamilyCodeList(familyCodes) : null), null);
         }
 
         public delegate void symbolSamplesDelegate(int reqId, IContractDescriptionList contractDescriptions);
@@ -1853,7 +1858,7 @@ namespace TWSLib
             var t_symbolSamples = this.symbolSamples;
 
             if (t_symbolSamples != null)
-                InvokeIfRequired(t_symbolSamples, reqId, ContractDescriptionsArrayToIContractDescriptionList(contractDescriptions));
+                sc.Post(state => t_symbolSamples(reqId, ContractDescriptionsArrayToIContractDescriptionList(contractDescriptions)), null);
         }
 
         private static IContractDescriptionList ContractDescriptionsArrayToIContractDescriptionList(ContractDescription[] contractDescriptions)
@@ -1871,7 +1876,7 @@ namespace TWSLib
             var t_mktDepthExchanges = this.mktDepthExchanges;
 
             if (t_mktDepthExchanges != null)
-                InvokeIfRequired(t_mktDepthExchanges, depthMktDataDescriptions.Length > 0 ? new ComDepthMktDataDescriptionList(depthMktDataDescriptions) : null);
+                sc.Post(state => t_mktDepthExchanges(depthMktDataDescriptions.Length > 0 ? new ComDepthMktDataDescriptionList(depthMktDataDescriptions) : null), null);
         }
 
         public delegate void tickOptionComputationDelegate(int id, int tickType, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
@@ -1880,7 +1885,7 @@ namespace TWSLib
         {
             var t_tickOptionComputation = this.tickOptionComputation;
             if (t_tickOptionComputation != null)
-                InvokeIfRequired(t_tickOptionComputation, tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+                sc.Post(state => t_tickOptionComputation(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice), null);
         }
 
         public delegate void tickNewsDelegate(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
@@ -1890,7 +1895,7 @@ namespace TWSLib
             var t_tickNews = this.tickNews;
 
             if (t_tickNews != null)
-                InvokeIfRequired(t_tickNews, tickerId, timeStamp.ToString("G"), providerCode, articleId, headline, extraData);
+                sc.Post(state => t_tickNews(tickerId, timeStamp.ToString("G"), providerCode, articleId, headline, extraData), null);
         }
 
         public delegate void realtimeBarDelegate(int tickerId, int time, double open, double high, double low, double close,
@@ -1900,7 +1905,7 @@ namespace TWSLib
         {
             var t_realtimeBar = this.realtimeBar;
             if (t_realtimeBar != null)
-                InvokeIfRequired(t_realtimeBar, reqId, (int)time, open, high, low, close, (int)volume, WAP, count);
+                sc.Post(state => t_realtimeBar(reqId, (int)time, open, high, low, close, (int)volume, WAP, count), null);
         }
 
         public delegate void scannerParametersDelegate(string xml);
@@ -1909,7 +1914,7 @@ namespace TWSLib
         {
             var t_scannerParameters = this.scannerParameters;
             if (t_scannerParameters != null)
-                InvokeIfRequired(t_scannerParameters, xml);
+                sc.Post(state => t_scannerParameters(xml), null);
         }
 
         public delegate void smartComponentsDelegate(int reqId, ArrayList[] theMap);
@@ -1919,7 +1924,7 @@ namespace TWSLib
             var tmp = this.smartComponents;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, theMap.Select(x => new ArrayList(new object[] { x.Key, x.Value.Key, x.Value.Value })).ToArray());
+                sc.Post(state => tmp(reqId, theMap.Select(x => new ArrayList(new object[] { x.Key, x.Value.Key, x.Value.Value })).ToArray()), null);
         }
 
         public delegate void tickReqParamsDelegate(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
@@ -1929,7 +1934,7 @@ namespace TWSLib
             var tmp = this.tickReqParams;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, tickerId, minTick, bboExchange, snapshotPermissions);
+                sc.Post(state => tmp(tickerId, minTick, bboExchange, snapshotPermissions), null);
         }
 
         public delegate void newsProvidersDelegate(INewsProviderList newsProviders);
@@ -1939,7 +1944,7 @@ namespace TWSLib
             var t_newsProviders = this.newsProviders;
 
             if (t_newsProviders != null)
-                InvokeIfRequired(t_newsProviders, newsProviders.Length > 0 ? new ComNewsProviderList(newsProviders) : null);
+                sc.Post(state => t_newsProviders(newsProviders.Length > 0 ? new ComNewsProviderList(newsProviders) : null), null);
         }
 
         public delegate void newsArticleDelegate(int requestId, int articleType, string articleText);
@@ -1949,7 +1954,7 @@ namespace TWSLib
             var t_newsArticle = this.newsArticle;
 
             if (t_newsArticle != null)
-                InvokeIfRequired(t_newsArticle, requestId, articleType, articleText);
+                sc.Post(state => t_newsArticle(requestId, articleType, articleText), null);
         }
 
         public delegate void historicalNewsDelegate(int requestId, string time, string providerCode, string articleId, string headline);
@@ -1959,7 +1964,7 @@ namespace TWSLib
             var t_historicalNews = this.historicalNews;
 
             if (t_historicalNews != null)
-                InvokeIfRequired(t_historicalNews, requestId, time, providerCode, articleId, headline);
+                sc.Post(state => t_historicalNews(requestId, time, providerCode, articleId, headline), null);
         }
 
         public delegate void historicalNewsEndDelegate(int requestId, bool hasMore);
@@ -1969,7 +1974,7 @@ namespace TWSLib
             var t_historicalNewsEnd = this.historicalNewsEnd;
 
             if (t_historicalNewsEnd != null)
-                InvokeIfRequired(t_historicalNewsEnd, requestId, hasMore);
+                sc.Post(state => t_historicalNewsEnd(requestId, hasMore), null);
         }
 
         public delegate void headTimestampDelegate(int reqId, string timestamp);
@@ -1979,7 +1984,7 @@ namespace TWSLib
             var tmp = this.headTimestamp;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, headTimestamp);
+                sc.Post(state => tmp(reqId, headTimestamp), null);
         }
 
         public delegate void histogramDataDelegate(int reqId, ComHistogramEntry[] data);
@@ -1989,7 +1994,7 @@ namespace TWSLib
             var tmp = this.histogramData;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, data.Select(x => (ComHistogramEntry)x).ToArray());
+                sc.Post(state => tmp(reqId, data.Select(x => (ComHistogramEntry)x).ToArray()), null);
         }
 
         public delegate void rerouteMktDataReqDelegate(int reqId, int conId, string exchange);
@@ -1999,7 +2004,7 @@ namespace TWSLib
             var tmp = this.rerouteMktDataReq;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, conId, exchange);
+                sc.Post(state => tmp(reqId, conId, exchange), null);
         }
 
         public delegate void rerouteMktDepthReqDelegate(int reqId, int conId, string exchange);
@@ -2009,7 +2014,7 @@ namespace TWSLib
             var tmp = this.rerouteMktDepthReq;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, conId, exchange);
+                sc.Post(state => tmp(reqId, conId, exchange), null);
         }
 
         public delegate void marketRuleDelegate(int marketRuleId, IPriceIncrementList priceIncrements);
@@ -2019,7 +2024,7 @@ namespace TWSLib
             var t_marketRule = this.marketRule;
 
             if (t_marketRule != null)
-                InvokeIfRequired(t_marketRule, marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null);
+                sc.Post(state => t_marketRule(marketRuleId, priceIncrements.Length > 0 ? new ComPriceIncrementList(priceIncrements) : null), null);
         }
 
         public delegate void PnLDelegate(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
@@ -2029,7 +2034,7 @@ namespace TWSLib
             var tmp = this.pnl;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, dailyPnL, unrealizedPnL, realizedPnL);
+                sc.Post(state => tmp(reqId, dailyPnL, unrealizedPnL, realizedPnL), null);
         }
 
         public delegate void PnLSingleDelegate(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
@@ -2039,7 +2044,7 @@ namespace TWSLib
             var tmp = this.pnlSingle;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
+                sc.Post(state => tmp(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value), null);
         }
 
         public delegate void HistoricalTickDelegate(int reqId, HistoricalTick[] ticks, bool done);
@@ -2049,7 +2054,7 @@ namespace TWSLib
             var tmp = this.historicalTicks;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, ticks, done);
+                sc.Post(state => tmp(reqId, ticks, done), null);
         }
 
 
@@ -2060,7 +2065,7 @@ namespace TWSLib
             var tmp = this.historicalTicksBidAsk;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, ticks, done);
+                sc.Post(state => tmp(reqId, ticks, done), null);
         }
 
         public delegate void HistoricalTickLastDelegate(int reqId, HistoricalTickLast[] ticks, bool done);
@@ -2070,7 +2075,7 @@ namespace TWSLib
             var tmp = this.historicalTicksLast;
 
             if (tmp != null)
-                InvokeIfRequired(tmp, reqId, ticks, done);
+                sc.Post(state => tmp(reqId, ticks, done), null);
         }
 
         #endregion
@@ -2127,19 +2132,6 @@ namespace TWSLib
             order.ScaleInitLevelSize = iThis.scaleInitLevelSize;
             order.ScaleSubsLevelSize = iThis.scaleSubsLevelSize;
             order.ScalePriceIncrement = iThis.scalePriceIncrement;
-        }
-
-        void InvokeIfRequired(Delegate method, params object[] args)
-        {
-            if (InvokeRequired)
-                Invoke(method, args);
-            else
-                method.DynamicInvoke(args);
-        }
-
-        void InvokeIfRequired(Delegate method)
-        {
-            InvokeIfRequired(method, new object[0]);
         }
 
         void IDisposable.Dispose()
