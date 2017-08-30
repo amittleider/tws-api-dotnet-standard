@@ -42,11 +42,19 @@ namespace IBApi
         {
             new Thread(() =>
             {
-                while (eClientSocket.IsConnected())
-                    if (!putMessageToQueue())
-                        break;
+                try
+                {
+                    while (eClientSocket.IsConnected())
+                        if (!putMessageToQueue())
+                            break;
+                }
+                catch (Exception ex)
+                {
+                    eClientSocket.Wrapper.error(ex);
+                    eClientSocket.eDisconnect();
+                }
 
-                eClientSocket.eDisconnect();
+                eReaderSignal.issueSignal();
             }) { IsBackground = true }.Start();
         }
 
