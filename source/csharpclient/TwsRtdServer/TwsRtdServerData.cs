@@ -46,7 +46,10 @@ namespace TwsRtdServer{
         public const string LOW = "LOW";
         public const string VOLUME = "VOLUME";
         public const string CLOSE = "CLOSE";
-
+        public const string BID_OPTION_COMPUTATION = "BIDOPTIONCOMPUTATION";
+        public const string ASK_OPTION_COMPUTATION = "ASKOPTIONCOMPUTATION";
+        public const string LAST_OPTION_COMPUTATION = "LASTOPTIONCOMPUTATION";
+        public const string MODEL_OPTION_COMPUTATION = "MODEL_OPTION_COMPUTATION";
         public const string OPEN = "OPEN";
         public const string LASTEXCH = "LASTEXCH";
         public const string BIDEXCH = "BIDEXCH";
@@ -154,6 +157,42 @@ namespace TwsRtdServer{
         public const string DELAYED_CLOSE = "DELAYEDCLOSE";
         public const string DELAYED_OPEN = "DELAYEDOPEN";
 
+        // Option Topics
+        public const string BID_IMPLIED_VOL = "BIDIMPLIEDVOL";
+        public const string BID_DELTA = "BIDDELTA";
+        public const string BID_OPT_PRICE = "BIDOPTPRICE";
+        public const string BID_PV_DIVIDEND = "BIDPVDIVIDEND";
+        public const string BID_GAMMA = "BIDGAMMA";
+        public const string BID_VEGA = "BIDVEGA";
+        public const string BID_THETA = "BIDTHETA";
+        public const string BID_UND_PRICE = "BIDUNDPRICE";
+
+        public const string ASK_IMPLIED_VOL = "ASKIMPLIEDVOL";
+        public const string ASK_DELTA = "ASKDELTA";
+        public const string ASK_OPT_PRICE = "ASKOPTPRICE";
+        public const string ASK_PV_DIVIDEND = "ASKPVDIVIDEND";
+        public const string ASK_GAMMA = "ASKGAMMA";
+        public const string ASK_VEGA = "ASKVEGA";
+        public const string ASK_THETA = "ASKTHETA";
+        public const string ASK_UND_PRICE = "ASKUNDPRICE";
+
+        public const string LAST_IMPLIED_VOL = "LASTIMPLIEDVOL";
+        public const string LAST_DELTA = "LASTDELTA";
+        public const string LAST_OPT_PRICE = "LASTOPTPRICE";
+        public const string LAST_PV_DIVIDEND = "LASTPVDIVIDEND";
+        public const string LAST_GAMMA = "LASTGAMMA";
+        public const string LAST_VEGA = "LASTVEGA";
+        public const string LAST_THETA = "LASTTHETA";
+        public const string LAST_UND_PRICE = "LASTUNDPRICE";
+
+        public const string MODEL_IMPLIED_VOL = "MODELIMPLIEDVOL";
+        public const string MODEL_DELTA = "MODELDELTA";
+        public const string MODEL_OPT_PRICE = "MODELOPTPRICE";
+        public const string MODEL_PV_DIVIDEND = "MODELPVDIVIDEND";
+        public const string MODEL_GAMMA = "MODELGAMMA";
+        public const string MODEL_VEGA = "MODELVEGA";
+        public const string MODEL_THETA = "MODELTHETA";
+        public const string MODEL_UND_PRICE = "MODELUNDPRICE";
 
         // mktData request related
         public const string DEFAULT_SECTYPE = "STK";
@@ -187,12 +226,18 @@ namespace TwsRtdServer{
 
         // vars
         private static string[] m_allowedTopics = new string[]{ 
-            // market data ticks
+            // market data topics
             BIDSIZE, BID, ASK, ASKSIZE, LAST, LASTSIZE, HIGH,
             LOW, VOLUME, CLOSE, OPEN, LASTEXCH, BIDEXCH, ASKEXCH, 
             LASTTIME, HALTED,
 
-            // generic ticks
+            // option topics
+            BID_IMPLIED_VOL, BID_DELTA, BID_OPT_PRICE, BID_PV_DIVIDEND, BID_GAMMA, BID_VEGA, BID_THETA, BID_UND_PRICE,
+            ASK_IMPLIED_VOL, ASK_DELTA, ASK_OPT_PRICE, ASK_PV_DIVIDEND, ASK_GAMMA, ASK_VEGA, ASK_THETA, ASK_UND_PRICE,
+            LAST_IMPLIED_VOL, LAST_DELTA, LAST_OPT_PRICE, LAST_PV_DIVIDEND, LAST_GAMMA, LAST_VEGA, LAST_THETA, LAST_UND_PRICE,
+            MODEL_IMPLIED_VOL, MODEL_DELTA, MODEL_OPT_PRICE, MODEL_PV_DIVIDEND, MODEL_GAMMA, MODEL_VEGA, MODEL_THETA, MODEL_UND_PRICE,
+
+            // generic topics
             GEN_TICK_AUCTION_VOLUME, GEN_TICK_AUCTION_IMBALANCE, GEN_TICK_AUCTION_PRICE, GEN_TICK_REGULATORY_IMBALANCE, // AUCTION (225)
             GEN_TICK_PL_PRICE, // PL_PRICE (232)
             GEN_TICK_CREDITMAN_MARK_PRICE, // CREDITMAN_MARK_PRICE (221)
@@ -215,13 +260,13 @@ namespace TwsRtdServer{
             GEN_TICK_SHORT_TERM_VOLUME_3_MIN, GEN_TICK_SHORT_TERM_VOLUME_5_MIN, GEN_TICK_SHORT_TERM_VOLUME_10_MIN, // SHORT_TERM_VOLUME (595)
             FUTURES_OPEN_INTEREST, // FUTURES_OPEN_INTEREST (588)
 
-            // delayed ticks
+            // delayed topics
             DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
             DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN
         };
 
         private static string[] m_allowedDelayedTopics = new string[]{ 
-            // delayed ticks
+            // delayed topics
             DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
             DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN,
 
@@ -240,7 +285,7 @@ namespace TwsRtdServer{
             GEN_TICK_CALL_OPTION_OPEN_INTEREST, GEN_TICK_PUT_OPTION_OPEN_INTEREST
         };
 
-        private static Dictionary<int, string> m_tickToTopicMap = new Dictionary<int, string> { 
+        private static Dictionary<int, string> m_tickIdToTickTypeMap = new Dictionary<int, string> { 
             { 0, BIDSIZE },
             { 1, BID },
             { 2, ASK },
@@ -251,6 +296,10 @@ namespace TwsRtdServer{
             { 7, LOW },
             { 8, VOLUME },
             { 9, CLOSE },
+            { 10, BID_OPTION_COMPUTATION },
+            { 11, ASK_OPTION_COMPUTATION },
+            { 12, LAST_OPTION_COMPUTATION },
+            { 13, MODEL_OPTION_COMPUTATION },
             { 14, OPEN },
             { 15, GEN_TICK_WEEK_13_LO },
             { 16, GEN_TICK_WEEK_13_HI },
@@ -312,10 +361,78 @@ namespace TwsRtdServer{
 
         public static string[] DelayedTopics() { return m_allowedDelayedTopics; }
 
-        public static string GetTopicStrByTickType(int tickType)
+        public static string GetTickTypeStrByTickId(int tickId)
         {
             string res;
-            return m_tickToTopicMap.TryGetValue(tickType, out res) ? res : null;
+            return m_tickIdToTickTypeMap.TryGetValue(tickId, out res) ? res : null;
+        }
+
+        public class OptionComputationData
+        {
+            private double m_impliedVolatility = 0.0;
+            private double m_delta = 0.0;
+            private double m_optPrice = 0.0;
+            private double m_pvDividend = 0.0;
+            private double m_gamma = 0.0;
+            private double m_vega = 0.0;
+            private double m_theta = 0.0;
+            private double m_undPrice = 0.0;
+
+            public OptionComputationData() { }
+
+            public OptionComputationData(double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega,
+                double theta, double undPrice)
+            {
+                m_impliedVolatility = impliedVolatility;
+                m_delta = delta;
+                m_optPrice = optPrice;
+                m_pvDividend = pvDividend;
+                m_gamma = gamma;
+                m_vega = vega;
+                m_theta = theta;
+                m_undPrice = undPrice;
+            }
+
+            // gets
+            public double getImpliedVolatility()
+            {
+                return m_impliedVolatility;
+            }
+
+            public double getDelta()
+            {
+                return m_delta;
+            }
+
+            public double getOptPrice()
+            {
+                return m_optPrice;
+            }
+
+            public double getPvDividend()
+            {
+                return m_pvDividend;
+            }
+
+            public double getGamma()
+            {
+                return m_gamma;
+            }
+
+            public double getVega()
+            {
+                return m_vega;
+            }
+
+            public double getTheta()
+            {
+                return m_theta;
+            }
+
+            public double getUndPrice()
+            {
+                return m_undPrice;
+            }
         }
     }
 }

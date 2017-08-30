@@ -30,22 +30,11 @@ namespace TwsRtdServer
         void SetTopicValue(int tickerId, int field, object value)
         {
             TwsRtdServerMktDataRequest mktDataRequest = m_connection.GetMktDataRequest(tickerId);
-            string topicStr = TwsRtdServerData.GetTopicStrByTickType(field);
+            string tickTypeStr = TwsRtdServerData.GetTickTypeStrByTickId(field);
 
-            if (mktDataRequest != null && topicStr != null)
+            if (mktDataRequest != null && tickTypeStr != null)
             {
-	            TwsRtdServerTopic topic = mktDataRequest.GetTopic(topicStr);
-
-    	        if (topic != null)
-        	    {
-            	    // set topic's new value
-                	topic.TopicValue(value);
-
-	                m_server.AddUpdatedTopicId(topic.TopicId());  // add topic to updatedTopicIds array
-    	        }
-
-                // save latest value
-                mktDataRequest.SetMktDataTickValue(topicStr, value);
+                GetTopicAndAddUpdate(tickTypeStr, mktDataRequest, value);
             }
         }
 
@@ -65,6 +54,76 @@ namespace TwsRtdServer
             {
                 m_server.AddUpdatedTopicIds(mktDataRequest.SetAllLiveTopicsValues(value));
             }
+        }
+
+        void SetOptionComputationTopicsValues(int tickerId, int field, TwsRtdServerData.OptionComputationData value)
+        {
+            TwsRtdServerMktDataRequest mktDataRequest = m_connection.GetMktDataRequest(tickerId);
+            string tickTypeStr = TwsRtdServerData.GetTickTypeStrByTickId(field);
+
+            if (mktDataRequest != null && tickTypeStr != null)
+            {
+                switch (tickTypeStr)
+                {
+                        // assigning implied vol, delta, opt price, pv dividend, gamma, vega, theta and und price
+                    case TwsRtdServerData.BID_OPTION_COMPUTATION:
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_IMPLIED_VOL, mktDataRequest, value.getImpliedVolatility());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_DELTA, mktDataRequest, value.getDelta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_OPT_PRICE, mktDataRequest, value.getOptPrice());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_PV_DIVIDEND, mktDataRequest, value.getPvDividend());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_GAMMA, mktDataRequest, value.getGamma());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_VEGA, mktDataRequest, value.getVega());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_THETA, mktDataRequest, value.getTheta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.BID_UND_PRICE, mktDataRequest, value.getUndPrice());
+                        break;
+                    case TwsRtdServerData.ASK_OPTION_COMPUTATION:
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_IMPLIED_VOL, mktDataRequest, value.getImpliedVolatility());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_DELTA, mktDataRequest, value.getDelta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_OPT_PRICE, mktDataRequest, value.getOptPrice());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_PV_DIVIDEND, mktDataRequest, value.getPvDividend());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_GAMMA, mktDataRequest, value.getGamma());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_VEGA, mktDataRequest, value.getVega());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_THETA, mktDataRequest, value.getTheta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.ASK_UND_PRICE, mktDataRequest, value.getUndPrice());
+                        break;
+                    case TwsRtdServerData.LAST_OPTION_COMPUTATION:
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_IMPLIED_VOL, mktDataRequest, value.getImpliedVolatility());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_DELTA, mktDataRequest, value.getDelta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_OPT_PRICE, mktDataRequest, value.getOptPrice());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_PV_DIVIDEND, mktDataRequest, value.getPvDividend());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_GAMMA, mktDataRequest, value.getGamma());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_VEGA, mktDataRequest, value.getVega());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_THETA, mktDataRequest, value.getTheta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.LAST_UND_PRICE, mktDataRequest, value.getUndPrice());
+                        break;
+                    case TwsRtdServerData.MODEL_OPTION_COMPUTATION:
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_IMPLIED_VOL, mktDataRequest, value.getImpliedVolatility());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_DELTA, mktDataRequest, value.getDelta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_OPT_PRICE, mktDataRequest, value.getOptPrice());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_PV_DIVIDEND, mktDataRequest, value.getPvDividend());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_GAMMA, mktDataRequest, value.getGamma());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_VEGA, mktDataRequest, value.getVega());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_THETA, mktDataRequest, value.getTheta());
+                        GetTopicAndAddUpdate(TwsRtdServerData.MODEL_UND_PRICE, mktDataRequest, value.getUndPrice());
+                        break;
+                }
+            }
+        }
+
+        void GetTopicAndAddUpdate(string topicStr, TwsRtdServerMktDataRequest mktDataRequest, object value)
+        {
+            TwsRtdServerTopic topic = mktDataRequest.GetTopic(topicStr);
+
+            if (topic != null)
+            {
+                // set topic's new value
+                topic.TopicValue(value);
+
+                m_server.AddUpdatedTopicId(topic.TopicId());  // add topic to updatedTopicIds array
+            }
+
+            // save latest value
+            mktDataRequest.SetMktDataTickValue(topicStr, value);
         }
 
         public void error(Exception e) { }
@@ -129,7 +188,9 @@ namespace TwsRtdServer
         public void deltaNeutralValidation(int reqId, UnderComp underComp) { }
         public void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice) 
         { 
-            // TODO: add support for tickOptionComputation
+            TwsRtdServerData.OptionComputationData value = new TwsRtdServerData.OptionComputationData(impliedVolatility,
+                delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            SetOptionComputationTopicsValues(tickerId, field, value);
         }
 
         public void tickSnapshotEnd(int tickerId) { }
