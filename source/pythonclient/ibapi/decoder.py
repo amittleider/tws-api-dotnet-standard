@@ -1114,7 +1114,7 @@ class Decoder(Object):
         nPriceIncrements = decode(int, fields)
         priceIncrements = []
 
-        if(nPriceIncrements > 0):
+        if nPriceIncrements > 0:
             for idxPrcInc in range(nPriceIncrements):
                 prcInc = PriceIncrement()
                 prcInc.lowEdge = decode(float, fields)
@@ -1128,11 +1128,15 @@ class Decoder(Object):
         reqId = decode(int, fields)
         dailyPnL = decode(float, fields)
         unrealizedPnL = None
+        realizedPnL = None
 
         if self.serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL:
             unrealizedPnL = decode(float, fields)
 
-        self.wrapper.pnl(reqId, dailyPnL, unrealizedPnL)
+        if self.serverVersion >= MIN_SERVER_VER_REALIZED_PNL:
+            realizedPnL = decode(float, fields)
+
+        self.wrapper.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL)
 
     def processPnLSingleMsg(self, fields):
         sMsgId = next(fields)
@@ -1140,13 +1144,17 @@ class Decoder(Object):
         pos = decode(int, fields)
         dailyPnL = decode(float, fields)
         unrealizedPnL = None
+        realizedPnL = None
 
-        if(self.serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL):
+        if self.serverVersion >= MIN_SERVER_VER_UNREALIZED_PNL:
             unrealizedPnL = decode(float, fields)
+
+        if self.serverVersion >= MIN_SERVER_VER_REALIZED_PNL:
+            realizedPnL = decode(float, fields)
 
         value = decode(float, fields)
 
-        self.wrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value)
+        self.wrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)
 
     def processHistoricalTicks(self, fields):
         sMsgId = next(fields)

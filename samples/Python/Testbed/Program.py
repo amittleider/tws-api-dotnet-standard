@@ -269,7 +269,7 @@ class TestApp(TestWrapper, TestClient):
             #self.financialAdvisorOperations()
             #self.orderOperations_req()
             #self.marketRuleOperations()
-            #self.pnlOperations()
+            self.pnlOperations()
             #self.historicalTicksRequests_req()
             print("Executing requests ... finished")
 
@@ -432,7 +432,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [cancelpnl]
 
         # ! [reqpnlsingle]
-        self.reqPnLSingle(17001, "DU242650", "", 268084);
+        self.reqPnLSingle(17002, "DU242650", "", 265598);
         # ! [reqpnlsingle]
         time.sleep(1)
         # ! [cancelpnlsingle]
@@ -592,17 +592,18 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [pnl]
-    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float):
-        super().pnl(reqId, dailyPnL, unrealizedPnL)
-        print("Daily PnL. Req Id: ", reqId, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ", unrealizedPnL)
+    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float):
+        super().pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL)
+        print("Daily PnL. Req Id: ", reqId, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ", unrealizedPnL,
+              ", realizedPnL: ", realizedPnL)
     # ! [pnl]
 
     @iswrapper
     # ! [pnlsingle]
-    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, value: float):
-        super().pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, value)
+    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float, value: float):
+        super().pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)
         print("Daily PnL Single. Req Id: ", reqId, ", pos: ", pos, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ",
-              unrealizedPnL, ", value: ", value)
+              unrealizedPnL, ", realizedPnL: ", realizedPnL, ", value: ", value)
     # ! [pnlsingle]
 
     def marketDataType_req(self):

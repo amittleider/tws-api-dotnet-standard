@@ -654,11 +654,11 @@ class EWrapper:
         """returns minimum price increment structure for a particular market rule ID"""
         self.logAnswer(current_fn_name(), vars())
 
-    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float):
+    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float):
         """returns the daily PnL for the account"""
         self.logAnswer(current_fn_name(), vars())
 
-    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, value: float):
+    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float, value: float):
         """returns the daily PnL for a single position in the account"""
         self.logAnswer(current_fn_name(), vars())
 
