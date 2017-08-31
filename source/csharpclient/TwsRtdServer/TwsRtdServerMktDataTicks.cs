@@ -24,6 +24,12 @@ namespace TwsRtdServer
         private string m_lastTime = "";
         private double m_halted = 0.0;
 
+        // option ticks
+        private TwsRtdServerData.OptionComputationData m_bidOptionComputation = new TwsRtdServerData.OptionComputationData();
+        private TwsRtdServerData.OptionComputationData m_askOptionComputation = new TwsRtdServerData.OptionComputationData();
+        private TwsRtdServerData.OptionComputationData m_lastOptionComputation = new TwsRtdServerData.OptionComputationData();
+        private TwsRtdServerData.OptionComputationData m_modelOptionComputation = new TwsRtdServerData.OptionComputationData();
+
         // add generic ticks values
         private int m_genTickAuctionVolume = 0;
         private int m_genTickAuctionImbalance = 0;
@@ -76,10 +82,10 @@ namespace TwsRtdServer
         public TwsRtdServerMktDataTicks(){
         }
 
-        public void SetValue(string topic, object value)
+        public void SetValue(string tickType, object value)
         {
             // save latest values
-            switch (topic)
+            switch (tickType)
             {
                 case TwsRtdServerData.LAST:
                     m_lastPrice = (double)value;
@@ -128,6 +134,18 @@ namespace TwsRtdServer
                     break;
                 case TwsRtdServerData.LASTTIME:
                     m_lastTime = (string)value;
+                    break;
+                case TwsRtdServerData.BID_OPTION_COMPUTATION:
+                    m_bidOptionComputation = (TwsRtdServerData.OptionComputationData)value;
+                    break;
+                case TwsRtdServerData.ASK_OPTION_COMPUTATION:
+                    m_askOptionComputation = (TwsRtdServerData.OptionComputationData)value;
+                    break;
+                case TwsRtdServerData.LAST_OPTION_COMPUTATION:
+                    m_lastOptionComputation = (TwsRtdServerData.OptionComputationData)value;
+                    break;
+                case TwsRtdServerData.MODEL_OPTION_COMPUTATION:
+                    m_modelOptionComputation = (TwsRtdServerData.OptionComputationData)value;
                     break;
                 // generic ticks
                 case TwsRtdServerData.GEN_TICK_AUCTION_VOLUME:
@@ -320,7 +338,103 @@ namespace TwsRtdServer
                 case TwsRtdServerData.LASTTIME:
                     value = m_lastTime;
                     break;
-
+                case TwsRtdServerData.BID_IMPLIED_VOL:
+                    value = m_bidOptionComputation.getImpliedVolatility();
+                    break;
+                case TwsRtdServerData.BID_DELTA:
+                    value = m_bidOptionComputation.getDelta();
+                    break;
+                case TwsRtdServerData.BID_OPT_PRICE:
+                    value = m_bidOptionComputation.getOptPrice();
+                    break;
+                case TwsRtdServerData.BID_PV_DIVIDEND:
+                    value = m_bidOptionComputation.getPvDividend();
+                    break;
+                case TwsRtdServerData.BID_GAMMA:
+                    value = m_bidOptionComputation.getGamma();
+                    break;
+                case TwsRtdServerData.BID_VEGA:
+                    value = m_bidOptionComputation.getVega();
+                    break;
+                case TwsRtdServerData.BID_THETA:
+                    value = m_bidOptionComputation.getTheta();
+                    break;
+                case TwsRtdServerData.BID_UND_PRICE:
+                    value = m_bidOptionComputation.getUndPrice();
+                    break;
+                case TwsRtdServerData.ASK_IMPLIED_VOL:
+                    value = m_askOptionComputation.getImpliedVolatility();
+                    break;
+                case TwsRtdServerData.ASK_DELTA:
+                    value = m_askOptionComputation.getDelta();
+                    break;
+                case TwsRtdServerData.ASK_OPT_PRICE:
+                    value = m_askOptionComputation.getOptPrice();
+                    break;
+                case TwsRtdServerData.ASK_PV_DIVIDEND:
+                    value = m_askOptionComputation.getPvDividend();
+                    break;
+                case TwsRtdServerData.ASK_GAMMA:
+                    value = m_askOptionComputation.getGamma();
+                    break;
+                case TwsRtdServerData.ASK_VEGA:
+                    value = m_askOptionComputation.getVega();
+                    break;
+                case TwsRtdServerData.ASK_THETA:
+                    value = m_askOptionComputation.getTheta();
+                    break;
+                case TwsRtdServerData.ASK_UND_PRICE:
+                    value = m_askOptionComputation.getUndPrice();
+                    break;
+                case TwsRtdServerData.LAST_IMPLIED_VOL:
+                    value = m_lastOptionComputation.getImpliedVolatility();
+                    break;
+                case TwsRtdServerData.LAST_DELTA:
+                    value = m_lastOptionComputation.getDelta();
+                    break;
+                case TwsRtdServerData.LAST_OPT_PRICE:
+                    value = m_lastOptionComputation.getOptPrice();
+                    break;
+                case TwsRtdServerData.LAST_PV_DIVIDEND:
+                    value = m_lastOptionComputation.getPvDividend();
+                    break;
+                case TwsRtdServerData.LAST_GAMMA:
+                    value = m_lastOptionComputation.getGamma();
+                    break;
+                case TwsRtdServerData.LAST_VEGA:
+                    value = m_lastOptionComputation.getVega();
+                    break;
+                case TwsRtdServerData.LAST_THETA:
+                    value = m_lastOptionComputation.getTheta();
+                    break;
+                case TwsRtdServerData.LAST_UND_PRICE:
+                    value = m_lastOptionComputation.getUndPrice();
+                    break;
+                case TwsRtdServerData.MODEL_IMPLIED_VOL:
+                    value = m_modelOptionComputation.getImpliedVolatility();
+                    break;
+                case TwsRtdServerData.MODEL_DELTA:
+                    value = m_modelOptionComputation.getDelta();
+                    break;
+                case TwsRtdServerData.MODEL_OPT_PRICE:
+                    value = m_modelOptionComputation.getOptPrice();
+                    break;
+                case TwsRtdServerData.MODEL_PV_DIVIDEND:
+                    value = m_modelOptionComputation.getPvDividend();
+                    break;
+                case TwsRtdServerData.MODEL_GAMMA:
+                    value = m_modelOptionComputation.getGamma();
+                    break;
+                case TwsRtdServerData.MODEL_VEGA:
+                    value = m_modelOptionComputation.getVega();
+                    break;
+                case TwsRtdServerData.MODEL_THETA:
+                    value = m_modelOptionComputation.getTheta();
+                    break;
+                case TwsRtdServerData.MODEL_UND_PRICE:
+                    value = m_modelOptionComputation.getUndPrice();
+                    break;
+                    
                 // generic ticks
                 case TwsRtdServerData.GEN_TICK_AUCTION_VOLUME:
                     value = m_genTickAuctionVolume;
