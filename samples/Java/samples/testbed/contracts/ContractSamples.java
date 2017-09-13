@@ -157,11 +157,11 @@ public class ContractSamples {
 	public static Contract USStock() {
 		//! [stkcontract]
 		Contract contract = new Contract();
-		contract.symbol("IBKR");
+		contract.conid(46636665);
 		contract.secType("STK");
-		contract.currency("USD");
+		//contract.currency("USD");
 		//In the API side, NASDAQ is always defined as ISLAND
-		contract.exchange("ISLAND");
+		contract.exchange("SEHK");
 		//! [stkcontract]
 		return contract;
 	}

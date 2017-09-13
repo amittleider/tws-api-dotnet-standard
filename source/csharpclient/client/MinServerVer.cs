@@ -94,5 +94,6 @@ namespace IBApi
         public const int PRE_OPEN_BID_ASK = 132;
         public const int REAL_EXPIRATION_DATE = 134;
         public const int REALIZED_PNL = 135;
+        public const int LAST_LIQUIDITY = 136;
     }
 }

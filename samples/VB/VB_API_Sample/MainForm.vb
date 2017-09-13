@@ -2681,6 +2681,7 @@ Friend Class MainForm
             m_utils.addListItem(Utils.ListType.ServerResponses, "  orderRef = " & .OrderRef)
             m_utils.addListItem(Utils.ListType.ServerResponses, "  evRule = " & .EvRule)
             m_utils.addListItem(Utils.ListType.ServerResponses, "  evMultiplier = " & .EvMultiplier)
+            m_utils.addListItem(Utils.ListType.ServerResponses, "  lastLiquidity = " & .LastLiquidity.ToString())
 
         End With
 

@@ -48,7 +48,7 @@ public class Testbed {
 		Thread.sleep(1000);
 
 		//tickDataOperations(wrapper.getClient());
-		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
+		orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -65,10 +65,24 @@ public class Testbed {
 		//tickDataOperations(wrapper.getClient());
 		//pnlSingle(wrapper.getClient());
 		//continuousFuturesOperations(wrapper.getClient());
-		pnlSingle(wrapper.getClient());
+		//pnlSingle(wrapper.getClient());
+		//histogram(wrapper.getClient());
 
 		Thread.sleep(100000);
 		m_client.eDisconnect();
+	}
+	
+	private static void histogram(EClientSocket client) {
+	    client.reqHistogramData(4002, ContractSamples.USStock(), false, "3 days");
+        
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        client.cancelHistogramData(4002);
 	}
 	
 	private static void historicalTicks(EClientSocket client) {
@@ -273,11 +287,11 @@ public class Testbed {
 		/*** Requesting historical data ***/
 
 		//! [reqHeadTimeStamp]
-		client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
+		//client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
 		//! [reqHeadTimeStamp]
 
 		//! [cancelHeadTimestamp]
-		client.cancelHeadTimestamp(4003);
+		//client.cancelHeadTimestamp(4003);
 		//! [cancelHeadTimestamp]
 		
 		//! [reqhistoricaldata]
@@ -292,14 +306,14 @@ public class Testbed {
 		client.cancelHistoricalData(4001);
         client.cancelHistoricalData(4002);
 		//! [reqhistoricaldata]
-		
+		return;
 		//! [reqHistogramData]
-		client.reqHistogramData(4004, ContractSamples.USStock(), false, "3 days");
+		/*client.reqHistogramData(4004, ContractSamples.USStock(), false, "3 days");
         //! [reqHistogramData]
 		Thread.sleep(5);
 		
 		//! [cancelHistogramData]
-        client.cancelHistogramData(4004);
+        client.cancelHistogramData(4004);*/
 		//! [cancelHistogramData]
 	}
 	

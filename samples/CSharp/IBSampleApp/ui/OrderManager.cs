@@ -7,6 +7,7 @@ using System.Text;
 using IBSampleApp.messages;
 using IBApi;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace IBSampleApp.ui
 {
@@ -156,6 +157,7 @@ namespace IBSampleApp.ui
             tradeLogGrid[5, index].Value = message.Execution.Shares;
             tradeLogGrid[6, index].Value = message.Contract.Symbol + " " + message.Contract.SecType + " " + message.Contract.Exchange;
             tradeLogGrid[7, index].Value = message.Execution.Price;
+            tradeLogGrid["LastLiquidity", index].Value = message.Execution.LastLiquidity;
         }
 
         public void HandleOrderStatus(OrderStatusMessage statusMessage)

@@ -87,7 +87,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 		}
 
 		@Override public int getColumnCount() {
-			return 8;
+			return 9;
 		}
 		
 		@Override public String getColumnName(int col) {
@@ -100,6 +100,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 				case 5: return "Description";
 				case 6: return "Price";
 				case 7: return "Commission";
+				case 8: return "Last liquidity";
 				default: return null;
 			}
 		}
@@ -116,6 +117,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
 				case 5: return full.m_contract.description();
 				case 6: return full.m_trade.price();
 				case 7: return full.m_commissionReport != null ? full.m_commissionReport.m_commission : null;
+				case 8: return full.m_trade.lastLiquidity();
 				default: return null;
 			}
 		}

@@ -1040,7 +1040,11 @@ class EDecoder implements ObjectInput {
 	}
 
 	private void processExecutionDataMsg() throws IOException {
-		int version = readInt();
+		int version = m_serverVersion;
+		
+		if (m_serverVersion < EClient.MIN_SERVER_VER_LAST_LIQUIDITY) {
+		    version = readInt();
+		}
 
 		int reqId = -1;
 		if (version >= 7) {
@@ -1106,6 +1110,11 @@ class EDecoder implements ObjectInput {
 		if (m_serverVersion >= EClient.MIN_SERVER_VER_MODELS_SUPPORT) {
 			exec.modelCode(readStr());
 		}
+		
+        if (m_serverVersion >= EClient.MIN_SERVER_VER_LAST_LIQUIDITY) {
+            exec.lastLiquidity(readInt());
+        }
+
 
 		m_EWrapper.execDetails( reqId, contract, exec);
 	}

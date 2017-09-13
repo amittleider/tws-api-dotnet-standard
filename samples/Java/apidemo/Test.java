@@ -114,7 +114,7 @@ public class Test implements EWrapper {
 
 	@Override public void orderStatus(int orderId, String status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 		System.out.println(EWrapperMsgGenerator.orderStatus( orderId,  status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice));
-		}
+	}
 
 	@Override public void openOrder(int orderId, Contract contract, Order order, OrderState orderState) {
 		System.out.println(EWrapperMsgGenerator.openOrder( orderId, contract, order, orderState));

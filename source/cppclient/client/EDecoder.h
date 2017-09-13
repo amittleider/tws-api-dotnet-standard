@@ -89,12 +89,13 @@ const int MIN_SERVER_VER_MARKET_CAP_PRICE           = 131;
 const int MIN_SERVER_VER_PRE_OPEN_BID_ASK           = 132;
 const int MIN_SERVER_VER_REAL_EXPIRATION_DATE       = 134;
 const int MIN_SERVER_VER_REALIZED_PNL               = 135;
+const int MIN_SERVER_VER_LAST_LIQUIDITY             = 136;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_REALIZED_PNL;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_LAST_LIQUIDITY;
 
 
 // incoming msg id's
@@ -235,7 +236,7 @@ class TWSAPIDLLEXP EDecoder
     const char* processNextValidIdMsg(const char* ptr, const char* endPtr);
     const char* processContractDataMsg(const char* ptr, const char* endPtr);
     const char* processBondContractDataMsg(const char* ptr, const char* endPtr);
-    const char* processExecutionDataMsg(const char* ptr, const char* endPtr);
+    const char* processExecutionDetailsMsg(const char* ptr, const char* endPtr);
     const char* processMarketDepthMsg(const char* ptr, const char* endPtr);
     const char* processMarketDepthL2Msg(const char* ptr, const char* endPtr);
     const char* processNewsBulletinsMsg(const char* ptr, const char* endPtr);
@@ -250,7 +251,7 @@ class TWSAPIDLLEXP EDecoder
     const char* processContractDataEndMsg(const char* ptr, const char* endPtr);
     const char* processOpenOrderEndMsg(const char* ptr, const char* endPtr);
     const char* processAcctDownloadEndMsg(const char* ptr, const char* endPtr);
-    const char* processExecutionDataEndMsg(const char* ptr, const char* endPtr);
+    const char* processExecutionDetailsEndMsg(const char* ptr, const char* endPtr);
     const char* processDeltaNeutralValidationMsg(const char* ptr, const char* endPtr);
     const char* processTickSnapshotEndMsg(const char* ptr, const char* endPtr);
     const char* processMarketDataTypeMsg(const char* ptr, const char* endPtr);

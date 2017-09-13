@@ -397,6 +397,7 @@ public class EWrapperMsgGenerator {
         + "evRule = " + execution.evRule() + "\n"
         + "evMultiplier = " + execution.evMultiplier() + "\n"
         + "modelCode = " + execution.modelCode() + "\n"
+        + "lastLiquidity = " + execution.lastLiquidity() + "\n"
         + " ---- Execution Details end ----\n";
     }
     

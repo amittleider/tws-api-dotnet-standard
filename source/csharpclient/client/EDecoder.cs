@@ -1816,7 +1816,13 @@ namespace IBApi
 
         private void ExecutionDataEvent()
         {
-            int msgVersion = ReadInt();
+            int msgVersion = serverVersion;
+
+            if (serverVersion < MinServerVer.LAST_LIQUIDITY)
+            {
+                msgVersion = ReadInt();
+            }
+
             int requestId = -1;
             if (msgVersion >= 7)
                 requestId = ReadInt();
@@ -1881,6 +1887,11 @@ namespace IBApi
             if (serverVersion >= MinServerVer.MODELS_SUPPORT)
             {
                 exec.ModelCode = ReadString();
+            }
+
+            if (serverVersion >= MinServerVer.LAST_LIQUIDITY)
+            {
+                exec.LastLiquidity = new Liquidity(ReadInt());
             }
 
             eWrapper.execDetails(requestId, contract, exec);
