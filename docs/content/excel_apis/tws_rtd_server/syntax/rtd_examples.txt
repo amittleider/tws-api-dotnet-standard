@@ -93,13 +93,13 @@
 	\subsection rtd_sample_ind_simple - Simple Syntax
 	
 	<DFN class="rtd_formula">
-		=RTD("Tws.TwsRtdServerCtrl",,"SPX@CBOE/IND", "Last")
+		=RTD("Tws.TwsRtdServerCtrl",,"SPX@CBOE//IND", "Last")
 	</DFN>
 	
 	<i>Comment: Default <b>Currency</b> = "USD" is used.</i>
 	
 	<DFN class="rtd_formula">
-		=RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB/IND/////EUR", "Last")
+		=RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB//IND////EUR", "Last")
 	</DFN>
 	
 	\subsection rtd_sample_ind_complex - Complex Syntax
@@ -111,7 +111,7 @@
 	\subsection rtd_sample_ind_mixed - Mixed Syntax
 	
 	<DFN class="rtd_formula">
-		=RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB/IND", "cur=EUR", "qt=Last", "host=1.2.3.4")
+		=RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB//IND", "cur=EUR", "qt=Last", "host=1.2.3.4")
 	</DFN>	
 	
 	<br>
@@ -120,7 +120,7 @@
 	\subsection rtd_sample_cfd_simple - Simple Syntax
 	
 	<DFN class="rtd_formula">
-		=RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART/CFD/////EUR", "Bid")
+		=RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART//CFD////EUR", "Bid")
 	</DFN>
 	
 	\subsection rtd_sample_cfd_complex - Complex Syntax
@@ -132,7 +132,7 @@
 	\subsection rtd_sample_cfd_mixed - Mixed Syntax
 	
 	<DFN class="rtd_formula">
-		=RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART/CFD", "cur=EUR", "Bid", "gw")
+		=RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART//CFD", "cur=EUR", "Bid", "gw")
 	</DFN>
 	
 	<i>Comment: Use the pre-defined string <i>"gw"</i> to connect to the default port 4001 for live IB Gateway sessions.</i>
