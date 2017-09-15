@@ -180,28 +180,28 @@ Stocks</h1>
 Indexes</h1>
 <h2><a class="anchor" id="rtd_sample_ind_simple"></a>
 - Simple Syntax</h2>
-<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"SPX@CBOE/IND", "Last") </code></p>
+<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"SPX@CBOE//IND", "Last") </code></p>
 <p><em>Comment: Default <b>Currency</b> = "USD" is used.</em></p>
-<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB/IND/////EUR", "Last") </code></p>
+<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB//IND////EUR", "Last") </code></p>
 <h2><a class="anchor" id="rtd_sample_ind_complex"></a>
 - Complex Syntax</h2>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"sym=INDU","cur=USD", "exch=NYSE", "sec=IND", "qt=Close") </code></p>
 <h2><a class="anchor" id="rtd_sample_ind_mixed"></a>
 - Mixed Syntax</h2>
-<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB/IND", "cur=EUR", "qt=Last", "host=1.2.3.4") </code></p>
+<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"DAX@DTB//IND", "cur=EUR", "qt=Last", "host=1.2.3.4") </code></p>
 <p><br/>
  </p>
 <h1><a class="anchor" id="rtd_samples_cfd"></a>
 CFDs</h1>
 <h2><a class="anchor" id="rtd_sample_cfd_simple"></a>
 - Simple Syntax</h2>
-<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART/CFD/////EUR", "Bid") </code></p>
+<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART//CFD////EUR", "Bid") </code></p>
 <h2><a class="anchor" id="rtd_sample_cfd_complex"></a>
 - Complex Syntax</h2>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"sym=IBDE30","cur=EUR", "exch=SMART", "sec=CFD", "qt=ASK") </code></p>
 <h2><a class="anchor" id="rtd_sample_cfd_mixed"></a>
 - Mixed Syntax</h2>
-<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART/CFD", "cur=EUR", "Bid", "gw") </code></p>
+<p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBDE30@SMART//CFD", "cur=EUR", "Bid", "gw") </code></p>
 <p><em>Comment: Use the pre-defined string <em>"gw"</em> to connect to the default port 4001 for live IB Gateway sessions.</em></p>
 <p><em><b>Note: </b>Only Index CFD data can be directly queried via the API, but not equity CFD. Please directly request data for the underlying equity if you need data for an equity CFD contract.</em></p>
 <p><br/>

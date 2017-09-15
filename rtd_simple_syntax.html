@@ -207,8 +207,75 @@ Basic Tick Types</h2>
 <td>Last Timestamp</td><td>"LastTime"</td><td>Time of the last trade (in UNIX time). </td></tr>
 <tr>
 <td>Halted</td><td>"Halted"</td><td>Indicates if a contract is halted. See <a class="el" href="tick_types.html#halted">Halted</a> </td></tr>
+<tr>
+<td colspan="3" class="separator"></td></tr>
+<tr>
+<td>Bid Implied Volatility</td><td>"BidImpliedVol"</td><td>Implied volatility calculated from option bid prices. </td></tr>
+<tr>
+<td>Bid Delta</td><td>"BidDelta"</td><td>Delta calculated from the option bid prices. </td></tr>
+<tr>
+<td>Bid Option Price</td><td>"BidOptPrice"</td><td>Current bid price for the option contract. </td></tr>
+<tr>
+<td>Bid PV Dividend</td><td>"BidPvDividend"</td><td>The present value of dividends expected on the option's underlying. </td></tr>
+<tr>
+<td>Bid Gamma</td><td>"BidGamma"</td><td>The option gamma value calculated from the option bid prices. </td></tr>
+<tr>
+<td>Bid Vega</td><td>"BidVega"</td><td>The option vega value calculated from the option bid prices. </td></tr>
+<tr>
+<td>Bid Theta</td><td>"BidTheta"</td><td>The option theta value calculated from the option bid prices. </td></tr>
+<tr>
+<td>Bid Price of Underlying</td><td>"BidUndPrice"</td><td>The current bid price of the option underlying. </td></tr>
+<tr>
+<td>Ask Implied Volatility</td><td>"AskImpliedVol"</td><td>Implied volatility calculated from option ask prices. </td></tr>
+<tr>
+<td>Ask Delta</td><td>"AskDelta"</td><td>Delta calculated from the option ask prices. </td></tr>
+<tr>
+<td>Ask Option Price</td><td>"AskOptPrice"</td><td>Current ask price for the option contract. </td></tr>
+<tr>
+<td>Ask PV Dividend</td><td>"AskPvDividend"</td><td>The present value of dividends expected on the option's underlying. </td></tr>
+<tr>
+<td>Ask Gamma</td><td>"AskGamma"</td><td>The option gamma value calculated from the option ask prices. </td></tr>
+<tr>
+<td>Ask Vega</td><td>"AskVega"</td><td>The option vega value calculated from the option ask prices. </td></tr>
+<tr>
+<td>Ask Theta</td><td>"AskTheta"</td><td>The option theta value calculated from the option ask prices. </td></tr>
+<tr>
+<td>Ask Price of Underlying</td><td>"AskUndPrice"</td><td>The current ask price of the option underlying. </td></tr>
+<tr>
+<td>Last Implied Volatility</td><td>"LastImpliedVol"</td><td>Implied volatility calculated from option last prices. </td></tr>
+<tr>
+<td>Last Delta</td><td>"LastDelta"</td><td>Delta calculated from the option last prices. </td></tr>
+<tr>
+<td>Last Option Price</td><td>"LastOptPrice"</td><td>Current last price for the option contract. </td></tr>
+<tr>
+<td>Last PV Dividend</td><td>"LastPvDividend"</td><td>The present value of dividends expected on the option's underlying. </td></tr>
+<tr>
+<td>Last Gamma</td><td>"LastGamma"</td><td>The option gamma value calculated from the option last prices. </td></tr>
+<tr>
+<td>Last Vega</td><td>"LastVega"</td><td>The option vega value calculated from the option last prices. </td></tr>
+<tr>
+<td>Last Theta</td><td>"LastTheta"</td><td>The option theta value calculated from the option last prices. </td></tr>
+<tr>
+<td>Last Price of Underlying</td><td>"LastUndPrice"</td><td>The current last price of the option underlying. </td></tr>
+<tr>
+<td>Model Implied Volatility</td><td>"ModelImpliedVol"</td><td>Implied volatility calculated from option model prices. </td></tr>
+<tr>
+<td>Model Delta</td><td>"ModelDelta"</td><td>Delta calculated from the option model prices. </td></tr>
+<tr>
+<td>Model Option Price</td><td>"ModelOptPrice"</td><td>Current model price for the option contract. </td></tr>
+<tr>
+<td>Model PV Dividend</td><td>"ModelPvDividend"</td><td>The present value of dividends expected on the option's underlying. </td></tr>
+<tr>
+<td>Model Gamma</td><td>"ModelGamma"</td><td>The option gamma value calculated from the option model prices. </td></tr>
+<tr>
+<td>Model Vega</td><td>"ModelVega"</td><td>The option vega value calculated from the option model prices. </td></tr>
+<tr>
+<td>Model Theta</td><td>"ModelTheta"</td><td>The option theta value calculated from the option model prices. </td></tr>
+<tr>
+<td>Model Price of Underlying</td><td>"ModelUndPrice"</td><td>The current model price of the option underlying. </td></tr>
 </table>
-<p><em><b>Note: </b>If you do not have the corresponding <a class="el" href="market_data.html#market_subscriptions">Market Data Subscription</a>, '0' will be displayed if you request for live tick types above. Please refer to <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_delayed_ticks">Delayed Tick Types</a> if you are interested.</em></p>
+<p><em> <b>Note: </b>If you do not have the corresponding <a class="el" href="market_data.html#market_subscriptions">Market Data Subscription</a>, '0' will be displayed if you request for live tick types above. Please refer to <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_delayed_ticks">Delayed Tick Types</a> if you are interested.</em></p>
+<p><em> API version 9.73.05 or higher is required to request option greeks data. </em></p>
 <h2><a class="anchor" id="rtd_simple_syntax_gen_ticks"></a>
 Generic Tick Types</h2>
 <p>A selection of <b>Generic Tick Types</b> are also supported in TWS RTD Server API. To request for any <b>Generic Tick Type</b>, you just need to specify the name of the generic tick type as the <b>Topic</b> string in the RTD formula.</p>
@@ -293,7 +360,7 @@ Generic Tick Types</h2>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBM@SMART", "Week52Hi", "genticks=165") </code></p>
 <h2><a class="anchor" id="rtd_simple_syntax_delayed_ticks"></a>
 Delayed Tick Types</h2>
-<p>To request delayed data via RTD, you need to specify delayed tick types for the <b>Topic</b>. The table below shows a full list of available delayed tick types:</p>
+<p>When live streaming market data is not availale because of missing <a class="el" href="market_data.html#market_subscriptions">Market Data Subscription</a>, delayed data will be automatically relayed back. To request delayed data via RTD, you need to specify delayed tick types for the <b>Topic</b>. The table below shows a full list of available delayed tick types:</p>
 <table class="doxtable">
 <tr>
 <th>Tick Name</th><th>Topic String</th><th>Description </th></tr>
@@ -322,7 +389,7 @@ Delayed Tick Types</h2>
 </table>
 <p>For example, the below formula will request the delayed bid price for IBM from Island exchange:</p>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBM@ISLAND", "DelayedBid") </code></p>
-<p><em><b>Note: </b>Delayed tick types are 15-minute delayed.</em></p>
+<p><em><b>Note: </b>Delayed tick types are 15-minute delayed. Requesting for live tick types without market data subscription will result in error message "Requested market data is not subscribed. Displaying delayed market data..."</em></p>
 <p>See more <a class="el" href="rtd_examples.html">Syntax examples</a>.</p>
 <h1><a class="anchor" id="rtd_simple_syntax_conn"></a>
 Connection Parameters</h1>
