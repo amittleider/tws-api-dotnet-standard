@@ -5,6 +5,7 @@
 	 - \ref rtd_common_errors_cannot_connect
 	 - \ref rtd_common_errors_no_security
 	 - \ref rtd_common_errors_ambiguity
+	 - \ref rtd_common_errors_data_not_subscribed
 	 - \ref rtd_common_errors_invalid_gentick
 	 - \ref rtd_common_errors_maxmktdata
 	
@@ -23,6 +24,10 @@
 	
 	This error message indicates the contract definition provided by you does not uniquely define one single contract. It is mostly triggered for stock symbols, such as MSFT and CSCO, that are listed on multiple primary exchanges.
 	Specifying the <b>PrimaryExchange</b> will resolve the issue. Please refer to \ref rtd_samples_stk "Syntax Sample for MSFT" .
+	
+	\subsection rtd_common_errors_data_not_subscribed TwsRtdServer error: Requested market data is not subscribed. Displaying delayed market data...
+	
+	The error message is displayed when you are trying to request for a live tick type, while only delayed data is available due to missing \ref market_subscriptions "Market Data Subscription". You need to either subscribe to market data pacakegs via Account Management, or request for \ref rtd_simple_syntax_delayed_ticks instead.
 	
 	\subsection rtd_common_errors_invalid_gentick TwsRtdServer error: Error validating request:-'zd':cause - Incorrect generic tick list of <list>
 	
