@@ -106,6 +106,7 @@ var tws_rtd_server =
         [ "TwsRtdServer error: Cannot connect to TWS.", "rtd_fqa_errors.html#rtd_common_errors_cannot_connect", null ],
         [ "TwsRtdServer error: No security definition has been found for the request.", "rtd_fqa_errors.html#rtd_common_errors_no_security", null ],
         [ "TwsRtdServer error: The contract description specified for <SYMBOL> is ambiguous.", "rtd_fqa_errors.html#rtd_common_errors_ambiguity", null ],
+        [ "TwsRtdServer error: Requested market data is not subscribed. Displaying delayed market data...", "rtd_fqa_errors.html#rtd_common_errors_data_not_subscribed", null ],
         [ "TwsRtdServer error: Error validating request:-'zd':cause - Incorrect generic tick list of <list>", "rtd_fqa_errors.html#rtd_common_errors_invalid_gentick", null ],
         [ "Some data show '0' when requesting data for many securities", "rtd_fqa_errors.html#rtd_common_errors_maxmktdata", null ]
       ] ]

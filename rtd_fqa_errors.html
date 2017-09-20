@@ -135,6 +135,7 @@ Troubleshooting Common Errors</h1>
 <li><a class="el" href="rtd_fqa_errors.html#rtd_common_errors_cannot_connect">TwsRtdServer error: Cannot connect to TWS.</a></li>
 <li><a class="el" href="rtd_fqa_errors.html#rtd_common_errors_no_security">TwsRtdServer error: No security definition has been found for the request.</a></li>
 <li><a class="el" href="rtd_fqa_errors.html#rtd_common_errors_ambiguity">TwsRtdServer error: The contract description specified for &lt;SYMBOL&gt; is ambiguous.</a></li>
+<li><a class="el" href="rtd_fqa_errors.html#rtd_common_errors_data_not_subscribed">TwsRtdServer error: Requested market data is not subscribed. Displaying delayed market data...</a></li>
 <li><a class="el" href="rtd_fqa_errors.html#rtd_common_errors_invalid_gentick">TwsRtdServer error: Error validating request:-'zd':cause - Incorrect generic tick list of <ul>
 </ul>
 </a></li>
@@ -149,6 +150,9 @@ TwsRtdServer error: No security definition has been found for the request.</h2>
 <h2><a class="anchor" id="rtd_common_errors_ambiguity"></a>
 TwsRtdServer error: The contract description specified for &lt;SYMBOL&gt; is ambiguous.</h2>
 <p>This error message indicates the contract definition provided by you does not uniquely define one single contract. It is mostly triggered for stock symbols, such as MSFT and CSCO, that are listed on multiple primary exchanges. Specifying the <b>PrimaryExchange</b> will resolve the issue. Please refer to <a class="el" href="rtd_examples.html#rtd_samples_stk">Syntax Sample for MSFT</a> .</p>
+<h2><a class="anchor" id="rtd_common_errors_data_not_subscribed"></a>
+TwsRtdServer error: Requested market data is not subscribed. Displaying delayed market data...</h2>
+<p>The error message is displayed when you are trying to request for a live tick type, while only delayed data is available due to missing <a class="el" href="market_data.html#market_subscriptions">Market Data Subscription</a>. You need to either subscribe to market data pacakegs via Account Management, or request for <a class="el" href="rtd_simple_syntax.html#rtd_simple_syntax_delayed_ticks">Delayed Tick Types</a> instead.</p>
 <h2><a class="anchor" id="rtd_common_errors_invalid_gentick"></a>
 TwsRtdServer error: Error validating request:-'zd':cause - Incorrect generic tick list of &lt;list&gt;</h2>
 <p>As explained in <a class="el" href="tws_rtd_server.html#rtd_what_you_will_need">What You Will Need</a> , TWS Build 963+ is required because there are some generic tick types requested by RTD by default that are not supported in older TWS builds. <a href="https://www.interactivebrokers.com/en/index.php?f=14099#tws-software" target="_blank">Upgrade TWS</a> to any build above 963 will resolve the issue.</p>
