@@ -206,10 +206,10 @@ bool EClientSocketSSL::eConnectImpl(int clientId, bool extraAuth, ConnState* sta
 	setClientId( clientId);
 	setExtraAuth( extraAuth);
 	
-    int res = sendConnectRequest();
+	int res = sendConnectRequest();
 
-    if (res == 0 || ( res < 0 && !handleSocketError(res)) )
-        return false;
+	if (res == 0 || ( res < 0 && !handleSocketError(res)) )
+		return false;
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
@@ -300,11 +300,11 @@ void EClientSocketSSL::prepareBuffer(std::ostream& buf) const
 
 void EClientSocketSSL::eDisconnect()
 {
-    if (m_pSSL)
-        SSL_shutdown(m_pSSL);
+	if (m_pSSL)
+		SSL_shutdown(m_pSSL);
 
-    if (m_pCTX)
-        SSL_CTX_free(m_pCTX);
+	if (m_pCTX)
+		SSL_CTX_free(m_pCTX);
 
 	if ( m_fd >= 0 )
 		// close socket

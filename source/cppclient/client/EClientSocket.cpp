@@ -122,8 +122,8 @@ bool EClientSocket::eConnectImpl(int clientId, bool extraAuth, ConnState* stateO
 
     int res = sendConnectRequest();
 
-    if (res < 0 && !handleSocketError())
-        return false;
+	if (res < 0 && !handleSocketError())
+		return false;
 
 	if( !isConnected()) {
 		if( connState() != CS_DISCONNECTED) {
