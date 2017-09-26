@@ -1350,7 +1350,7 @@ void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPo
 void TestCppClient::orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
 		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice){
-	printf("OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);
+	printf("OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g, lastLiquidity: %d\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);
 }
 //! [orderstatus]
 
@@ -1511,7 +1511,7 @@ void TestCppClient::contractDetailsEnd( int reqId) {
 
 //! [execdetails]
 void TestCppClient::execDetails( int reqId, const Contract& contract, const Execution& execution) {
-	printf( "ExecDetails. ReqId: %d - %s, %s, %s - %s, %ld, %g\n", reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares);
+	printf( "ExecDetails. ReqId: %d - %s, %s, %s - %s, %ld, %g, %d\n", reqId, contract.symbol.c_str(), contract.secType.c_str(), contract.currency.c_str(), execution.execId.c_str(), execution.orderId, execution.shares, execution.lastLiquidity);
 }
 //! [execdetails]
 

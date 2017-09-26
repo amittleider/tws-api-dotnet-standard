@@ -172,7 +172,8 @@ public class EWrapperImpl implements EWrapper {
 	//! [execdetails]
 	@Override
 	public void execDetails(int reqId, Contract contract, Execution execution) {
-		System.out.println("ExecDetails. "+reqId+" - ["+contract.symbol()+"], ["+contract.secType()+"], ["+contract.currency()+"], ["+execution.execId()+"], ["+execution.orderId()+"], ["+execution.shares()+"]");
+		System.out.println("ExecDetails. "+reqId+" - ["+contract.symbol()+"], ["+contract.secType()+"], ["+contract.currency()+"], ["+execution.execId()+
+		        "], ["+execution.orderId()+"], ["+execution.shares()+"]"  + ", [" + execution.lastLiquidity() + "]");
 	}
 	//! [execdetails]
 	

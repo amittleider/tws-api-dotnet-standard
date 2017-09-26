@@ -1370,7 +1370,7 @@ namespace TWSLib
                 sc.Post(state => t_contractDetailsEx(reqId, (ComContractDetails)contractDetails), null);
         }
 
-        public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation);
+        public delegate void execDetailsDelegate(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation, string lastLiquidity);
         public event execDetailsDelegate execDetails;
 
         public delegate void execDetailsExDelegate(int reqId, IContract contract, IExecution execution);
@@ -1398,7 +1398,8 @@ namespace TWSLib
                                 execution.Price,
                                 execution.PermId,
                                 execution.ClientId,
-                                execution.Liquidation), null);
+                                execution.Liquidation,
+                                execution.LastLiquidity.ToString()), null);
 
             var t_execDetailsEx = this.execDetailsEx;
             if (t_execDetailsEx != null)

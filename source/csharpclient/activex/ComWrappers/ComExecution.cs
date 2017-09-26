@@ -176,6 +176,12 @@ namespace TWSLib
             set { if (data != null) data.ModelCode = value; }
         }
 
+        public string LastLiquidity 
+        {
+            get { return data != null ? data.LastLiquidity + "" : default(string); }            
+        }
+
+
         public override bool Equals(Object p_other)
         {
             bool l_bRetVal = false;
@@ -289,6 +295,11 @@ namespace TWSLib
         string TWSLib.IExecution.modelCode
         {
             get { return ModelCode; }
+        }
+
+        string IExecution.lastLiquidity
+        {
+            get { return LastLiquidity; }
         }
     }
 }

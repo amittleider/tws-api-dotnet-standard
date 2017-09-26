@@ -45,5 +45,7 @@ namespace TWSLib
         double evMultiplier { get; }
         [DispId(17)]
         string modelCode { get; }
+        [DispId(18)]
+        string lastLiquidity { get; }
     }
 }

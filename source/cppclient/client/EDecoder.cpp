@@ -962,9 +962,12 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 	return ptr;
 }
 
-const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPtr) {
-	int version;
-	DECODE_FIELD( version);
+const char* EDecoder::processExecutionDetailsMsg(const char* ptr, const char* endPtr) {
+    int version = m_serverVersion;
+
+    if (m_serverVersion < MIN_SERVER_VER_LAST_LIQUIDITY) {
+	    DECODE_FIELD(version);
+    }
 
 	int reqId = -1;
 	if( version >= 7) {
@@ -1033,6 +1036,10 @@ const char* EDecoder::processExecutionDataMsg(const char* ptr, const char* endPt
 	if( m_serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT) {
 		DECODE_FIELD( exec.modelCode);
 	}
+
+    if (m_serverVersion >= MIN_SERVER_VER_LAST_LIQUIDITY) {
+        DECODE_FIELD(exec.lastLiquidity);
+    }
 
 	m_pEWrapper->execDetails( reqId, contract, exec);
 
@@ -1376,7 +1383,7 @@ const char* EDecoder::processAcctDownloadEndMsg(const char* ptr, const char* end
 	return ptr;
 }
 
-const char* EDecoder::processExecutionDataEndMsg(const char* ptr, const char* endPtr) {
+const char* EDecoder::processExecutionDetailsEndMsg(const char* ptr, const char* endPtr) {
 	int version;
 	int reqId;
 
@@ -2348,7 +2355,7 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			break;
 
 		case EXECUTION_DATA:
-			ptr = processExecutionDataMsg(ptr, endPtr);
+			ptr = processExecutionDetailsMsg(ptr, endPtr);
 			break;
 
 		case MARKET_DEPTH:
@@ -2408,7 +2415,7 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 			break;
 
 		case EXECUTION_DATA_END:
-			ptr = processExecutionDataEndMsg(ptr, endPtr);
+			ptr = processExecutionDetailsEndMsg(ptr, endPtr);
 			break;
 
 		case DELTA_NEUTRAL_VALIDATION:

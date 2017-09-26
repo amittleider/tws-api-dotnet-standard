@@ -234,7 +234,7 @@ Namespace Samples
         '! [execdetails]
         Public Sub execDetails(reqId As Integer, contract As IBApi.Contract, execution As IBApi.Execution) Implements IBApi.EWrapper.execDetails
             Console.WriteLine("ExecDetails - ReqId [" & reqId & "] Contract [" & contract.Symbol & ", " & contract.SecType &
-                          "] Execution [Price: " & execution.Price & ", Exchange: " & execution.Exchange & "]")
+                          "] Execution [Price: " & execution.Price & ", Exchange: " & execution.Exchange & ", Last Liquidity: " & execution.LastLiquidity.ToString() & "]")
         End Sub
         '! [execdetails]
         '! [execdetailsend]

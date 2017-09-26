@@ -173,7 +173,7 @@ void TestCppClient::cancelOrder()
 // events
 void TestCppClient::orderStatus( OrderId orderId, const std::string& status, double filled,
 	                            double remaining, double avgFillPrice, int permId, int parentId,
-	                            double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice)
+	                            double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice, int lastLiquidity)
 {
 	if( orderId == m_orderId) {
 		if( m_state == ST_PLACEORDER_ACK && (status == "PreSubmitted" || status == "Submitted"))

@@ -36,13 +36,13 @@ namespace IBSampleApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -273,6 +273,23 @@ namespace IBSampleApp
             this.contractInfoTab = new System.Windows.Forms.TabControl();
             this.contractDetailsPage = new System.Windows.Forms.TabPage();
             this.contractDetailsGrid = new System.Windows.Forms.DataGridView();
+            this.conResSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLocalSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResUnderSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResUnderSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResMarketRuleIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResRealExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fundamentalsPage = new System.Windows.Forms.TabPage();
             this.fundamentalsOutput = new System.Windows.Forms.TextBox();
             this.optionChainPage = new System.Windows.Forms.TabPage();
@@ -423,16 +440,6 @@ namespace IBSampleApp
             this.newOrderLink = new System.Windows.Forms.LinkLabel();
             this.executionsGroup = new System.Windows.Forms.GroupBox();
             this.tradeLogGrid = new System.Windows.Forms.DataGridView();
-            this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.actionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commissionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.liveOrdersGroup = new System.Windows.Forms.GroupBox();
             this.liveOrdersGrid = new System.Windows.Forms.DataGridView();
             this.permIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -644,23 +651,17 @@ namespace IBSampleApp
             this.tbNumOfTicks = new System.Windows.Forms.TextBox();
             this.tbStartDate = new System.Windows.Forms.TextBox();
             this.TabControl = new System.Windows.Forms.TabControl();
-            this.conResSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResLocalSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResPrimaryExch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResLastTradeDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResStrike = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResUnderSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResUnderSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResMarketRuleIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conResRealExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commissionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastLiquidity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -3153,6 +3154,105 @@ namespace IBSampleApp
             this.contractDetailsGrid.Size = new System.Drawing.Size(1216, 231);
             this.contractDetailsGrid.TabIndex = 0;
             // 
+            // conResSymbol
+            // 
+            this.conResSymbol.HeaderText = "Symbol";
+            this.conResSymbol.Name = "conResSymbol";
+            this.conResSymbol.ReadOnly = true;
+            // 
+            // conResLocalSymbol
+            // 
+            this.conResLocalSymbol.HeaderText = "Local Symbol";
+            this.conResLocalSymbol.Name = "conResLocalSymbol";
+            this.conResLocalSymbol.ReadOnly = true;
+            // 
+            // conResSecType
+            // 
+            this.conResSecType.HeaderText = "Type";
+            this.conResSecType.Name = "conResSecType";
+            this.conResSecType.ReadOnly = true;
+            // 
+            // conResCurrency
+            // 
+            this.conResCurrency.HeaderText = "Currency";
+            this.conResCurrency.Name = "conResCurrency";
+            this.conResCurrency.ReadOnly = true;
+            // 
+            // conResExchange
+            // 
+            this.conResExchange.HeaderText = "Exchange";
+            this.conResExchange.Name = "conResExchange";
+            this.conResExchange.ReadOnly = true;
+            // 
+            // conResPrimaryExch
+            // 
+            this.conResPrimaryExch.HeaderText = "Primary Exch.";
+            this.conResPrimaryExch.Name = "conResPrimaryExch";
+            this.conResPrimaryExch.ReadOnly = true;
+            // 
+            // conResLastTradeDate
+            // 
+            this.conResLastTradeDate.HeaderText = "LastTradeDate";
+            this.conResLastTradeDate.Name = "conResLastTradeDate";
+            this.conResLastTradeDate.ReadOnly = true;
+            this.conResLastTradeDate.Width = 150;
+            // 
+            // conResMultiplier
+            // 
+            this.conResMultiplier.HeaderText = "Multiplier";
+            this.conResMultiplier.Name = "conResMultiplier";
+            this.conResMultiplier.ReadOnly = true;
+            // 
+            // conResStrike
+            // 
+            this.conResStrike.HeaderText = "Strike";
+            this.conResStrike.Name = "conResStrike";
+            this.conResStrike.ReadOnly = true;
+            // 
+            // conResRight
+            // 
+            this.conResRight.HeaderText = "P/C";
+            this.conResRight.Name = "conResRight";
+            this.conResRight.ReadOnly = true;
+            // 
+            // conResConId
+            // 
+            this.conResConId.HeaderText = "ConId";
+            this.conResConId.Name = "conResConId";
+            this.conResConId.ReadOnly = true;
+            // 
+            // conResMdSizeMultiplier
+            // 
+            this.conResMdSizeMultiplier.HeaderText = "MD Size Mult";
+            this.conResMdSizeMultiplier.Name = "conResMdSizeMultiplier";
+            // 
+            // conResAggGroup
+            // 
+            this.conResAggGroup.HeaderText = "Agg Group";
+            this.conResAggGroup.Name = "conResAggGroup";
+            // 
+            // conResUnderSymbol
+            // 
+            this.conResUnderSymbol.HeaderText = "Under Symb";
+            this.conResUnderSymbol.Name = "conResUnderSymbol";
+            // 
+            // conResUnderSecType
+            // 
+            this.conResUnderSecType.HeaderText = "Under SecType";
+            this.conResUnderSecType.Name = "conResUnderSecType";
+            this.conResUnderSecType.Width = 120;
+            // 
+            // conResMarketRuleIds
+            // 
+            this.conResMarketRuleIds.HeaderText = "Market Rule Ids";
+            this.conResMarketRuleIds.Name = "conResMarketRuleIds";
+            this.conResMarketRuleIds.Width = 300;
+            // 
+            // conResRealExpirationDate
+            // 
+            this.conResRealExpirationDate.HeaderText = "Real Exp Date";
+            this.conResRealExpirationDate.Name = "conResRealExpirationDate";
+            // 
             // fundamentalsPage
             // 
             this.fundamentalsPage.BackColor = System.Drawing.Color.LightGray;
@@ -4485,71 +4585,13 @@ namespace IBSampleApp
             this.descriptionExecColumn,
             this.priceExecColumn,
             this.commissionExecColumn,
-            this.RealizedPnL});
+            this.RealizedPnL,
+            this.LastLiquidity});
             this.tradeLogGrid.Location = new System.Drawing.Point(6, 19);
             this.tradeLogGrid.Name = "tradeLogGrid";
             this.tradeLogGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tradeLogGrid.Size = new System.Drawing.Size(946, 182);
             this.tradeLogGrid.TabIndex = 0;
-            // 
-            // ExecutionId
-            // 
-            this.ExecutionId.HeaderText = "Execution ID";
-            this.ExecutionId.Name = "ExecutionId";
-            this.ExecutionId.ReadOnly = true;
-            // 
-            // dateTimeExecColumn
-            // 
-            this.dateTimeExecColumn.HeaderText = "Date/Time";
-            this.dateTimeExecColumn.Name = "dateTimeExecColumn";
-            this.dateTimeExecColumn.ReadOnly = true;
-            // 
-            // accountExecColumn
-            // 
-            this.accountExecColumn.HeaderText = "Account";
-            this.accountExecColumn.Name = "accountExecColumn";
-            this.accountExecColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Model Code";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // actionExecColumn
-            // 
-            this.actionExecColumn.HeaderText = "Action";
-            this.actionExecColumn.Name = "actionExecColumn";
-            this.actionExecColumn.ReadOnly = true;
-            // 
-            // quantityExecColumn
-            // 
-            this.quantityExecColumn.HeaderText = "Quantity";
-            this.quantityExecColumn.Name = "quantityExecColumn";
-            this.quantityExecColumn.ReadOnly = true;
-            // 
-            // descriptionExecColumn
-            // 
-            this.descriptionExecColumn.HeaderText = "Description";
-            this.descriptionExecColumn.Name = "descriptionExecColumn";
-            this.descriptionExecColumn.ReadOnly = true;
-            // 
-            // priceExecColumn
-            // 
-            this.priceExecColumn.HeaderText = "Price";
-            this.priceExecColumn.Name = "priceExecColumn";
-            this.priceExecColumn.ReadOnly = true;
-            // 
-            // commissionExecColumn
-            // 
-            this.commissionExecColumn.HeaderText = "Commissions";
-            this.commissionExecColumn.Name = "commissionExecColumn";
-            this.commissionExecColumn.ReadOnly = true;
-            // 
-            // RealizedPnL
-            // 
-            this.RealizedPnL.HeaderText = "RealizedPnL";
-            this.RealizedPnL.Name = "RealizedPnL";
-            this.RealizedPnL.ReadOnly = true;
             // 
             // liveOrdersGroup
             // 
@@ -4876,14 +4918,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -5029,27 +5071,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea3.AxisX.MajorGrid.Enabled = false;
-            chartArea3.AxisX.MajorTickMark.Enabled = false;
-            chartArea3.AxisY.IsStartedFromZero = false;
-            chartArea3.Name = "ChartArea1";
-            chartArea3.Position.Auto = false;
-            chartArea3.Position.Height = 100F;
-            chartArea3.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend3);
+            chartArea7.AxisX.MajorGrid.Enabled = false;
+            chartArea7.AxisX.MajorTickMark.Enabled = false;
+            chartArea7.AxisY.IsStartedFromZero = false;
+            chartArea7.Name = "ChartArea1";
+            chartArea7.Position.Auto = false;
+            chartArea7.Position.Height = 100F;
+            chartArea7.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend7);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series3.IsVisibleInLegend = false;
-            series3.IsXValueIndexed = true;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series3.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series3);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series7.IsVisibleInLegend = false;
+            series7.IsXValueIndexed = true;
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series7.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series7);
             this.historicalChart.Size = new System.Drawing.Size(699, 199);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -5156,26 +5198,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea4.AxisX.MajorGrid.Enabled = false;
-            chartArea4.AxisX.MajorTickMark.Enabled = false;
-            chartArea4.AxisY.IsStartedFromZero = false;
-            chartArea4.Name = "ChartArea1";
-            chartArea4.Position.Auto = false;
-            chartArea4.Position.Height = 100F;
-            chartArea4.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend4);
+            chartArea8.AxisX.MajorGrid.Enabled = false;
+            chartArea8.AxisX.MajorTickMark.Enabled = false;
+            chartArea8.AxisY.IsStartedFromZero = false;
+            chartArea8.Name = "ChartArea1";
+            chartArea8.Position.Auto = false;
+            chartArea8.Position.Height = 100F;
+            chartArea8.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend8);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series4.IsVisibleInLegend = false;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series4.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series4);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series8.IsVisibleInLegend = false;
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series8.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series8);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 199);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -6753,104 +6795,70 @@ namespace IBSampleApp
             this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
-            // conResSymbol
+            // ExecutionId
             // 
-            this.conResSymbol.HeaderText = "Symbol";
-            this.conResSymbol.Name = "conResSymbol";
-            this.conResSymbol.ReadOnly = true;
+            this.ExecutionId.HeaderText = "Execution ID";
+            this.ExecutionId.Name = "ExecutionId";
+            this.ExecutionId.ReadOnly = true;
             // 
-            // conResLocalSymbol
+            // dateTimeExecColumn
             // 
-            this.conResLocalSymbol.HeaderText = "Local Symbol";
-            this.conResLocalSymbol.Name = "conResLocalSymbol";
-            this.conResLocalSymbol.ReadOnly = true;
+            this.dateTimeExecColumn.HeaderText = "Date/Time";
+            this.dateTimeExecColumn.Name = "dateTimeExecColumn";
+            this.dateTimeExecColumn.ReadOnly = true;
             // 
-            // conResSecType
+            // accountExecColumn
             // 
-            this.conResSecType.HeaderText = "Type";
-            this.conResSecType.Name = "conResSecType";
-            this.conResSecType.ReadOnly = true;
+            this.accountExecColumn.HeaderText = "Account";
+            this.accountExecColumn.Name = "accountExecColumn";
+            this.accountExecColumn.ReadOnly = true;
             // 
-            // conResCurrency
+            // dataGridViewTextBoxColumn8
             // 
-            this.conResCurrency.HeaderText = "Currency";
-            this.conResCurrency.Name = "conResCurrency";
-            this.conResCurrency.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Model Code";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
-            // conResExchange
+            // actionExecColumn
             // 
-            this.conResExchange.HeaderText = "Exchange";
-            this.conResExchange.Name = "conResExchange";
-            this.conResExchange.ReadOnly = true;
+            this.actionExecColumn.HeaderText = "Action";
+            this.actionExecColumn.Name = "actionExecColumn";
+            this.actionExecColumn.ReadOnly = true;
             // 
-            // conResPrimaryExch
+            // quantityExecColumn
             // 
-            this.conResPrimaryExch.HeaderText = "Primary Exch.";
-            this.conResPrimaryExch.Name = "conResPrimaryExch";
-            this.conResPrimaryExch.ReadOnly = true;
+            this.quantityExecColumn.HeaderText = "Quantity";
+            this.quantityExecColumn.Name = "quantityExecColumn";
+            this.quantityExecColumn.ReadOnly = true;
             // 
-            // conResLastTradeDate
+            // descriptionExecColumn
             // 
-            this.conResLastTradeDate.HeaderText = "LastTradeDate";
-            this.conResLastTradeDate.Name = "conResLastTradeDate";
-            this.conResLastTradeDate.ReadOnly = true;
-            this.conResLastTradeDate.Width = 150;
+            this.descriptionExecColumn.HeaderText = "Description";
+            this.descriptionExecColumn.Name = "descriptionExecColumn";
+            this.descriptionExecColumn.ReadOnly = true;
             // 
-            // conResMultiplier
+            // priceExecColumn
             // 
-            this.conResMultiplier.HeaderText = "Multiplier";
-            this.conResMultiplier.Name = "conResMultiplier";
-            this.conResMultiplier.ReadOnly = true;
+            this.priceExecColumn.HeaderText = "Price";
+            this.priceExecColumn.Name = "priceExecColumn";
+            this.priceExecColumn.ReadOnly = true;
             // 
-            // conResStrike
+            // commissionExecColumn
             // 
-            this.conResStrike.HeaderText = "Strike";
-            this.conResStrike.Name = "conResStrike";
-            this.conResStrike.ReadOnly = true;
+            this.commissionExecColumn.HeaderText = "Commissions";
+            this.commissionExecColumn.Name = "commissionExecColumn";
+            this.commissionExecColumn.ReadOnly = true;
             // 
-            // conResRight
+            // RealizedPnL
             // 
-            this.conResRight.HeaderText = "P/C";
-            this.conResRight.Name = "conResRight";
-            this.conResRight.ReadOnly = true;
+            this.RealizedPnL.HeaderText = "RealizedPnL";
+            this.RealizedPnL.Name = "RealizedPnL";
+            this.RealizedPnL.ReadOnly = true;
             // 
-            // conResConId
+            // LastLiquidity
             // 
-            this.conResConId.HeaderText = "ConId";
-            this.conResConId.Name = "conResConId";
-            this.conResConId.ReadOnly = true;
-            // 
-            // conResMdSizeMultiplier
-            // 
-            this.conResMdSizeMultiplier.HeaderText = "MD Size Mult";
-            this.conResMdSizeMultiplier.Name = "conResMdSizeMultiplier";
-            // 
-            // conResAggGroup
-            // 
-            this.conResAggGroup.HeaderText = "Agg Group";
-            this.conResAggGroup.Name = "conResAggGroup";
-            // 
-            // conResUnderSymbol
-            // 
-            this.conResUnderSymbol.HeaderText = "Under Symb";
-            this.conResUnderSymbol.Name = "conResUnderSymbol";
-            // 
-            // conResUnderSecType
-            // 
-            this.conResUnderSecType.HeaderText = "Under SecType";
-            this.conResUnderSecType.Name = "conResUnderSecType";
-            this.conResUnderSecType.Width = 120;
-            // 
-            // conResMarketRuleIds
-            // 
-            this.conResMarketRuleIds.HeaderText = "Market Rule Ids";
-            this.conResMarketRuleIds.Name = "conResMarketRuleIds";
-            this.conResMarketRuleIds.Width = 300;
-            // 
-            // conResRealExpirationDate
-            // 
-            this.conResRealExpirationDate.HeaderText = "Real Exp Date";
-            this.conResRealExpirationDate.Name = "conResRealExpirationDate";
+            this.LastLiquidity.HeaderText = "Last Liquidity";
+            this.LastLiquidity.Name = "LastLiquidity";
+            this.LastLiquidity.ReadOnly = true;
             // 
             // IBSampleAppDialog
             // 
@@ -7381,16 +7389,6 @@ namespace IBSampleApp
         private System.Windows.Forms.LinkLabel newOrderLink;
         private System.Windows.Forms.GroupBox executionsGroup;
         private System.Windows.Forms.DataGridView tradeLogGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExecutionId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantityExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RealizedPnL;
         private System.Windows.Forms.GroupBox liveOrdersGroup;
         private System.Windows.Forms.DataGridView liveOrdersGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn permIdColumn;
@@ -7666,6 +7664,17 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSecType;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResMarketRuleIds;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResRealExpirationDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExecutionId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn actionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RealizedPnL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastLiquidity;
     }
 }
 

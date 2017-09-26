@@ -196,7 +196,7 @@ public class Order {
 	
 	// native cash quantity
 	private double m_cashQty = Double.MAX_VALUE;
-
+	
 	// getters
     public Action action()              { return Action.get(m_action); }
     public String getAction()           { return m_action; }
@@ -323,6 +323,7 @@ public class Order {
     public String extOperator() { return m_extOperator; }
     public SoftDollarTier softDollarTier() { return m_softDollarTier; }
     public double cashQty() { return m_cashQty; }
+    
 	// setters
 	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
     public void account(String v)               { m_account = v; }
@@ -642,4 +643,5 @@ public class Order {
         // Use m_permId only due to the definition of equals.
         return (int) (m_permId ^ (m_permId >>> 32));
     }
+
 }
