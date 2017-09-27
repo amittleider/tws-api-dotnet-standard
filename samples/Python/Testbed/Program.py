@@ -269,8 +269,11 @@ class TestApp(TestWrapper, TestClient):
             #self.financialAdvisorOperations()
             #self.orderOperations_req()
             #self.marketRuleOperations()
-            self.pnlOperations()
+            #self.pnlOperations()
             #self.historicalTicksRequests_req()
+            # TOREMOVE
+            self.reqExecutions(1000, ExecutionFilter())
+            # TOREMOVE
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -1660,7 +1663,7 @@ class TestApp(TestWrapper, TestClient):
     def execDetails(self, reqId: int, contract: Contract, execution: Execution):
         super().execDetails(reqId, contract, execution)
         print("ExecDetails. ", reqId, contract.symbol, contract.secType, contract.currency,
-              execution.execId, execution.orderId, execution.shares)
+              execution.execId, execution.orderId, execution.shares, execution.lastLiquidity)
 
     # ! [execdetails]
 

@@ -26,6 +26,9 @@ FaDataTypeEnum = Enum("N/A", "GROUPS", "PROFILES", "ALIASES")
 MarketDataType = int
 MarketDataTypeEnum = Enum("N/A", "REALTIME", "FROZEN", "DELAYED", "DELAYED_FROZEN")
 
+Liquidities = int
+LiquiditiesEnum = Enum("None", "Added", "Remove", "RoudedOut")
+
 SetOfString = set
 SetOfFloat = set
 ListOfOrder = list

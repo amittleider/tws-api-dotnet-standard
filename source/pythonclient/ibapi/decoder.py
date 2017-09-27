@@ -31,7 +31,7 @@ from ibapi.tag_value import TagValue
 from ibapi.scanner import ScanData
 from ibapi.commission_report import CommissionReport
 from ibapi.errors import BAD_MESSAGE
-
+from ibapi.common import *
 
 class HandleInfo(Object):
     def __init__(self, wrap=None, proc=None):
@@ -632,7 +632,10 @@ class Decoder(Object):
 
     def processExecutionDataMsg(self, fields):
         sMsgId = next(fields)
-        version = decode(int, fields)
+        version = self.serverVersion
+
+        if(self.serverVersion < MIN_SERVER_VER_LAST_LIQUIDITY):
+            version = decode(int, fields)
 
         reqId = -1
         if version >= 7:
@@ -687,6 +690,8 @@ class Decoder(Object):
             exec.evMultiplier = decode(float, fields)
         if self.serverVersion >= MIN_SERVER_VER_MODELS_SUPPORT:
             exec.modelCode = decode(str, fields)
+        if self.serverVersion >= MIN_SERVER_VER_LAST_LIQUIDITY:
+            exec.lastLiquidity = decode(int, fields)
 
         self.wrapper.execDetails(reqId, contract, exec)
 
