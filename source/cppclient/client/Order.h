@@ -155,7 +155,7 @@ struct Order
 	// order identifier
 	long     orderId;
 	long     clientId;
-	long     permId;
+	int      permId;
 
 	// main order fields
 	std::string action;

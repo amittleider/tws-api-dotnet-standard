@@ -35,7 +35,7 @@ public class Order {
     // order id's
     private int  m_clientId;
     private int  m_orderId;
-    private long m_permId;
+    private int  m_permId;
     private int  m_parentId; // Parent order Id, to associate Auto STP or TRAIL orders with the original order.
 
     // primary attributes
@@ -250,7 +250,7 @@ public class Order {
     public int scalePriceAdjustInterval() { return m_scalePriceAdjustInterval; }
     public int scaleSubsLevelSize()     { return m_scaleSubsLevelSize; }
     public double totalQuantity()          { return m_totalQuantity; }
-    public long permId()                { return m_permId; }
+    public int permId()                 { return m_permId; }
     public Method faMethod()            { return Method.get(m_faMethod); }
     public String getFaMethod()         { return m_faMethod; }
     public OcaType ocaType()            { return OcaType.get(m_ocaType); }
@@ -385,7 +385,7 @@ public class Order {
     public void exemptCode(int v)               { m_exemptCode = v; }
     public void parentId(int v)                 { m_parentId = v; }
     public void percentOffset(double v)         { m_percentOffset = v; }
-    public void permId(long v)                  { m_permId = v; }
+    public void permId(int v)                   { m_permId = v; }
     public void referencePriceType(ReferencePriceType v) { m_referencePriceType = ( v == null ) ? 0 : v.ordinal(); }
     public void referencePriceType(int v)       { m_referencePriceType = v; }
     public void rule80A(Rule80A v)              { m_rule80A = ( v == null ) ? null : v.getApiString(); }

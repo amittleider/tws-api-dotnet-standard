@@ -171,7 +171,7 @@ public class OrdersPanel extends JPanel {
 	}
 	
 	static class OrdersModel extends AbstractTableModel implements ILiveOrderHandler {
-		private Map<Long,OrderRow> m_map = new HashMap<>();
+		private Map<Integer,OrderRow> m_map = new HashMap<>();
 		private List<OrderRow> m_orders = new ArrayList<>();
 
 		@Override public int getRowCount() {
@@ -214,7 +214,7 @@ public class OrdersPanel extends JPanel {
 		@Override public void openOrderEnd() {
 		}
 		
-		@Override public void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
+		@Override public void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 			OrderRow full = m_map.get( permId);
 			if (full != null) {
 				full.m_state.status( status);
