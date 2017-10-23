@@ -271,9 +271,6 @@ class TestApp(TestWrapper, TestClient):
             #self.marketRuleOperations()
             #self.pnlOperations()
             #self.historicalTicksRequests_req()
-            # TOREMOVE
-            self.reqExecutions(1000, ExecutionFilter())
-            # TOREMOVE
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -349,7 +346,8 @@ class TestApp(TestWrapper, TestClient):
         print("OrderStatus. Id: ", orderId, ", Status: ", status, ", Filled: ", filled,
               ", Remaining: ", remaining, ", AvgFillPrice: ", avgFillPrice,
               ", PermId: ", permId, ", ParentId: ", parentId, ", LastFillPrice: ",
-              lastFillPrice, ", ClientId: ", clientId, ", WhyHeld: ", whyHeld, ", MktCapPrice: ", mktCapPrice)
+              lastFillPrice, ", ClientId: ", clientId, ", WhyHeld: ",
+              whyHeld, ", MktCapPrice: ", mktCapPrice)
 
     # ! [orderstatus]
 
@@ -595,18 +593,21 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [pnl]
-    def pnl(self, reqId: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float):
+    def pnl(self, reqId: int, dailyPnL: float,
+            unrealizedPnL: float, realizedPnL: float):
         super().pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL)
-        print("Daily PnL. Req Id: ", reqId, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ", unrealizedPnL,
-              ", realizedPnL: ", realizedPnL)
+        print("Daily PnL. Req Id: ", reqId, ", daily PnL: ", dailyPnL,
+              ", unrealizedPnL: ", unrealizedPnL, ", realizedPnL: ", realizedPnL)
     # ! [pnl]
 
     @iswrapper
     # ! [pnlsingle]
-    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float, unrealizedPnL: float, realizedPnL: float, value: float):
+    def pnlSingle(self, reqId: int, pos: int, dailyPnL: float,
+                  unrealizedPnL: float, realizedPnL: float, value: float):
         super().pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)
-        print("Daily PnL Single. Req Id: ", reqId, ", pos: ", pos, ", daily PnL: ", dailyPnL, ", unrealizedPnL: ",
-              unrealizedPnL, ", realizedPnL: ", realizedPnL, ", value: ", value)
+        print("Daily PnL Single. Req Id: ", reqId, ", pos: ", pos,
+              ", daily PnL: ", dailyPnL, ", unrealizedPnL: ", unrealizedPnL,
+              ", realizedPnL: ", realizedPnL, ", value: ", value)
     # ! [pnlsingle]
 
     def marketDataType_req(self):
@@ -657,10 +658,14 @@ class TestApp(TestWrapper, TestClient):
 
 
         # ! [reqmktdata_broadtapenews]
-        self.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(), "mdoff,292", False, False, [])
-        self.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(), "mdoff,292", False, False, [])
-        self.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(), "mdoff,292", False, False, [])
-        self.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(), "mdoff,292", False, False, [])
+        self.reqMktData(1009, ContractSamples.BTbroadtapeNewsFeed(),
+                        "mdoff,292", False, False, [])
+        self.reqMktData(1010, ContractSamples.BZbroadtapeNewsFeed(),
+                        "mdoff,292", False, False, [])
+        self.reqMktData(1011, ContractSamples.FLYbroadtapeNewsFeed(),
+                        "mdoff,292", False, False, [])
+        self.reqMktData(1012, ContractSamples.MTbroadtapeNewsFeed(),
+                        "mdoff,292", False, False, [])
         # ! [reqmktdata_broadtapenews]
 
         # ! [reqoptiondatagenticks]
@@ -688,11 +693,13 @@ class TestApp(TestWrapper, TestClient):
     def tickPrice(self, reqId: TickerId, tickType: TickType, price: float,
                   attrib: TickAttrib):
         super().tickPrice(reqId, tickType, price, attrib)
-        printMsg = "Tick Price. Ticker Id: " + str(reqId) + ", tickType: " + str(tickType) + ", Price: " + \
-            str(price) + ", CanAutoExecute: " + str(attrib.canAutoExecute) + ", PastLimit: " + str(attrib.pastLimit)
+        print("Tick Price. Ticker Id:", reqId, "tickType:", tickType,
+              "Price:", price, "CanAutoExecute:", attrib.canAutoExecute,
+              "PastLimit:", attrib.pastLimit, end=' ')
         if tickType == TickTypeEnum.BID or tickType == TickTypeEnum.ASK:
-            printMsg += ", PreOpen: " + str(attrib.preOpen)
-        print(printMsg)
+            print("PreOpen:", attrib.preOpen)
+        else:
+            print()
 
     # ! [tickprice]
 
@@ -736,7 +743,8 @@ class TestApp(TestWrapper, TestClient):
     # ! [rerouteMktDataReq]
     def rerouteMktDataReq(self, reqId: int, conId: int, exchange: str):
         super().rerouteMktDataReq(reqId, conId, exchange)
-        print("Re-route market data request. Req Id: ", reqId, ", ConId: ", conId, " Exchange: ", exchange)
+        print("Re-route market data request. Req Id: ", reqId,
+              ", ConId: ", conId, " Exchange: ", exchange)
 
     # ! [rerouteMktDataReq]
 
@@ -746,7 +754,8 @@ class TestApp(TestWrapper, TestClient):
         super().marketRule(marketRuleId, priceIncrements)
         print("Market Rule ID: ", marketRuleId)
         for priceIncrement in priceIncrements:
-            print("Price Increment. Low Edge: ", priceIncrement.lowEdge, ", Increment: ", priceIncrement.increment)
+            print("Price Increment. Low Edge: ", priceIncrement.lowEdge,
+                  ", Increment: ", priceIncrement.increment)
     # ! [marketRule]
 
     @printWhenExecuting
@@ -789,7 +798,8 @@ class TestApp(TestWrapper, TestClient):
     # ! [rerouteMktDepthReq]
     def rerouteMktDepthReq(self, reqId: int, conId: int, exchange: str):
         super().rerouteMktDataReq(reqId, conId, exchange)
-        print("Re-route market data request. Req Id: ", reqId, ", ConId: ", conId, " Exchange: ", exchange)
+        print("Re-route market data request. Req Id: ", reqId,
+              ", ConId: ", conId, " Exchange: ", exchange)
     # ! [rerouteMktDepthReq]
 
     @printWhenExecuting
@@ -810,9 +820,12 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     # ! [realtimebar]
-    def realtimeBar(self, reqId:TickerId, time:int, open:float, high:float, low:float, close:float, volume:int, wap:float, count:int):
+    def realtimeBar(self, reqId:TickerId, time:int, open:float, high:float,
+                    low:float, close:float, volume:int, wap:float, count:int):
         super().realtimeBar(reqId, time, open, high, low, close, volume, wap, count)
-        print("RealTimeBars. ", reqId, ": time ", time, ", open: ",open, ", high: ", high, ", low: ", low, ", close: ", close, ", volume: ", volume, ", wap: ", wap, ", count: ", count)
+        print("RealTimeBars. ", reqId, ": time ", time, ", open: ",open,
+              ", high: ", high, ", low: ", low, ", close: ", close, ", volume: ", volume,
+              ", wap: ", wap, ", count: ", count)
     # ! [realtimebar]
 
     @printWhenExecuting
@@ -866,9 +879,12 @@ class TestApp(TestWrapper, TestClient):
     @printWhenExecuting
     def historicalTicksRequests_req(self):
         # ! [reqhistoricalticks]
-        self.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "TRADES", 1, True, [])
-        self.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "BID_ASK", 1, True, [])
-        self.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(), "20170712 21:39:33", "", 10, "MIDPOINT", 1, True, [])
+        self.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(),
+                                "20170712 21:39:33", "", 10, "TRADES", 1, True, [])
+        self.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(),
+                                "20170712 21:39:33", "", 10, "BID_ASK", 1, True, [])
+        self.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(),
+                                "20170712 21:39:33", "", 10, "MIDPOINT", 1, True, [])
         # ! [reqhistoricalticks]
 
     @iswrapper
@@ -910,24 +926,28 @@ class TestApp(TestWrapper, TestClient):
     # ! [historicalticks]
     def historicalTicks(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):
         for tick in ticks:
-            print("Historical Tick. Req Id: ", reqId, ", time: ", tick.time, ", price: ", tick.price,
-              ", size: ", tick.size)
+            print("Historical Tick. Req Id: ", reqId, ", time: ", tick.time,
+                  ", price: ", tick.price, ", size: ", tick.size)
     # ! [historicalticks]
 
     @iswrapper
     # ! [historicalticksbidask]
-    def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTickBidAsk, done: bool):
+    def historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTickBidAsk,
+                              done: bool):
         for tick in ticks:
-            print("Historical Tick Bid/Ask. Req Id: ", reqId, ", time: ", tick.time, ", bid price: ", tick.priceBid
-               , ", ask price: ", tick.priceAsk, ", bid size: ", tick.sizeBid, ", ask size: ", tick.sizeAsk)
+            print("Historical Tick Bid/Ask. Req Id: ", reqId, ", time: ", tick.time,
+                  ", bid price: ", tick.priceBid, ", ask price: ", tick.priceAsk,
+                  ", bid size: ", tick.sizeBid, ", ask size: ", tick.sizeAsk)
     # ! [historicalticksbidask]
 
     @iswrapper
     # ! [historicaltickslast]
-    def historicalTicksLast(self, reqId: int, ticks: ListOfHistoricalTickLast, done: bool):
+    def historicalTicksLast(self, reqId: int, ticks: ListOfHistoricalTickLast,
+                            done: bool):
         for tick in ticks:
-            print("Historical Tick Last. Req Id: ", reqId, ", time: ", tick.time, ", price: ", tick.price, ", size: "
-               , tick.size, ", exchange: ", tick.exchange, ", special conditions:", tick.specialConditions)
+            print("Historical Tick Last. Req Id: ", reqId, ", time: ", tick.time,
+                  ", price: ", tick.price, ", size: ", tick.size, ", exchange: ", tick.exchange,
+                  ", special conditions:", tick.specialConditions)
     # ! [historicaltickslast]
 
     @printWhenExecuting
@@ -1034,16 +1054,20 @@ class TestApp(TestWrapper, TestClient):
 
     @iswrapper
     #! [tickNews]
-    def tickNews(self, tickerId: int, timeStamp: int, providerCode: str, articleId: str, headline: str, extraData: str):
-        print("tickNews: ", tickerId, ", timeStamp: ", timeStamp, ", providerCode: ", providerCode, ", articleId: ",
-              articleId, ", headline: ", headline, "extraData: ", extraData)
+    def tickNews(self, tickerId: int, timeStamp: int, providerCode: str,
+                 articleId: str, headline: str, extraData: str):
+        print("tickNews: ", tickerId, ", timeStamp: ", timeStamp,
+              ", providerCode: ", providerCode, ", articleId: ", articleId,
+              ", headline: ", headline, "extraData: ", extraData)
     #! [tickNews]
 
     @iswrapper
     #! [historicalNews]
-    def historicalNews(self, reqId: int, time: str, providerCode: str, articleId: str, headline: str):
-        print("historicalNews: ", reqId, ", time: ", time, ", providerCode: ", providerCode, ", articleId: ",
-              articleId, ", headline: ", headline)
+    def historicalNews(self, reqId: int, time: str, providerCode: str,
+                       articleId: str, headline: str):
+        print("historicalNews: ", reqId, ", time: ", time,
+              ", providerCode: ", providerCode, ", articleId: ", articleId,
+              ", headline: ", headline)
     #! [historicalNews]
 
     @iswrapper
@@ -1063,7 +1087,8 @@ class TestApp(TestWrapper, TestClient):
     @iswrapper
     #! [newsArticle]
     def newsArticle(self, reqId: int, articleType: int, articleText: str):
-        print("newsArticle: ", reqId, ", articleType: ", articleType, ", articleText: ", articleText)
+        print("newsArticle: ", reqId, ", articleType: ", articleType,
+              ", articleText: ", articleText)
     #! [newsArticle]
 
     @iswrapper
@@ -1103,7 +1128,8 @@ class TestApp(TestWrapper, TestClient):
             for derivSecType in contractDescription.derivativeSecTypes:
                 derivSecTypes += derivSecType
                 derivSecTypes += " "
-            print("Contract: conId:%s, symbol:%s, secType:%s primExchange:%s, currency:%s, derivativeSecTypes:%s" % (
+            print("Contract: conId:%s, symbol:%s, secType:%s primExchange:%s, "
+                  "currency:%s, derivativeSecTypes:%s" % (
                 contractDescription.contract.conId,
                 contractDescription.contract.symbol,
                 contractDescription.contract.secType,
@@ -1149,7 +1175,8 @@ class TestApp(TestWrapper, TestClient):
         super().scannerData(reqId, rank, contractDetails, distance, benchmark,
                             projection, legsStr)
         print("ScannerData. ", reqId, "Rank:", rank, "Symbol:", contractDetails.summary.symbol,
-              "SecType:", contractDetails.summary.secType, "Currency:", contractDetails.summary.currency,
+              "SecType:", contractDetails.summary.secType,
+              "Currency:", contractDetails.summary.currency,
               "Distance:", distance, "Benchmark:", benchmark,
               "Projection:", projection, "Legs String:", legsStr)
 
@@ -1169,14 +1196,17 @@ class TestApp(TestWrapper, TestClient):
         super().smartComponents(reqId, map)
         print("smartComponents: ")
         for exch in map:
-            print(exch.bitNumber, ", Exchange Name: ", exch.exchange, ", Letter: ", exch.exchangeLetter)
+            print(exch.bitNumber, ", Exchange Name: ", exch.exchange,
+                  ", Letter: ", exch.exchangeLetter)
     # ! [smartcomponents]
 
     @iswrapper
     # ! [tickReqParams]
-    def tickReqParams(self, tickerId:int, minTick:float, bboExchange:str, snapshotPermissions:int):
+    def tickReqParams(self, tickerId:int, minTick:float,
+                      bboExchange:str, snapshotPermissions:int):
         super().tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions)
-        print("tickReqParams: ", tickerId, " minTick: ", minTick, " bboExchange: ", bboExchange, " snapshotPermissions: ", snapshotPermissions)
+        print("tickReqParams: ", tickerId, " minTick: ", minTick,
+              " bboExchange: ", bboExchange, " snapshotPermissions: ", snapshotPermissions)
     # ! [tickReqParams]
 
     @iswrapper
