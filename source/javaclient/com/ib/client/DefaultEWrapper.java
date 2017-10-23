@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-class DefaultEWrapper implements EWrapper {
+public class DefaultEWrapper implements EWrapper {
 
 	@Override
 	public void tickPrice(int tickerId, int field, double price,
