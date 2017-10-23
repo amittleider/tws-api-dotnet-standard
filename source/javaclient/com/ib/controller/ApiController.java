@@ -407,7 +407,7 @@ public class ApiController implements EWrapper {
 
 		@Override
 		public void orderStatus(OrderStatus status, double filled,
-				double remaining, double avgFillPrice, long permId,
+				double remaining, double avgFillPrice, int permId,
 				int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice) {
 			// TODO Auto-generated method stub
 			
@@ -815,7 +815,7 @@ public class ApiController implements EWrapper {
 	 *  Compare to ILiveOrderHandler. */
 	public interface IOrderHandler {
 		void orderState(OrderState orderState);
-		void orderStatus(OrderStatus status, double filled, double remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
+		void orderStatus(OrderStatus status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
 		void handle(int errorCode, String errorMsg);
 	}
 
@@ -870,7 +870,7 @@ public class ApiController implements EWrapper {
 	public interface ILiveOrderHandler {
 		void openOrder(Contract contract, Order order, OrderState orderState);
 		void openOrderEnd();
-		void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, long permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
+		void orderStatus(int orderId, OrderStatus status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld, double mktCapPrice);
 		void handle(int orderId, int errorCode, String errorMsg);  // add permId?
 	}
 
