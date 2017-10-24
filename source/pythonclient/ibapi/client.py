@@ -497,6 +497,23 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    def reqMarketRule(self, marketRuleId: int):
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_MARKET_RULES:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               " It does not support market rule requests.")
+            return
+
+        msg = make_field(OUT.REQ_MARKET_RULE) \
+            + make_field(marketRuleId)
+
+        self.sendMsg(msg)
+
     ##########################################################################
     ################## Options
     ##########################################################################
@@ -1636,6 +1653,87 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    #########################################################################
+    ################## Daily PnL
+    #########################################################################
+
+
+    def reqPnL(self, reqId: int, account: str, modelCode: str):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.REQ_PNL) \
+            + make_field(reqId) \
+            + make_field(account) \
+            + make_field(modelCode)
+
+        self.sendMsg(msg)
+
+    def cancelPnL(self, reqId: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                    "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.CANCEL_PNL) \
+            + make_field(reqId)
+
+        self.sendMsg(msg)
+
+    def reqPnLSingle(self, reqId: int, account: str, modelCode: str, conid: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.REQ_PNL_SINGLE) \
+            + make_field(reqId) \
+            + make_field(account) \
+            + make_field(modelCode) \
+            + make_field(conid)
+
+        self.sendMsg(msg)
+
+    def cancelPnLSingle(self, reqId: int):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_PNL:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support PnL request.")
+            return
+
+        msg = make_field(OUT.CANCEL_PNL_SINGLE) \
+            + make_field(reqId)
+
+        self.sendMsg(msg)
 
     #########################################################################
     ################## Executions
@@ -2269,6 +2367,53 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    def reqHistoricalTicks(self, reqId: int, contract: Contract, startDateTime: str,
+                           endDateTime: str, numberOfTicks: int, whatToShow: str, useRth: int,
+                           ignoreSize: bool, miscOptions: TagValueList):
+
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_HISTORICAL_TICKS:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               "  It does not support historical ticks requests..")
+            return
+
+        flds = []
+        flds += [make_field(OUT.REQ_HISTORICAL_TICKS),
+                 make_field(reqId),
+                 make_field(contract.conId),
+                 make_field(contract.symbol),
+                 make_field(contract.secType),
+                 make_field(contract.lastTradeDateOrContractMonth),
+                 make_field(contract.strike),
+                 make_field(contract.right),
+                 make_field(contract.multiplier),
+                 make_field(contract.exchange),
+                 make_field(contract.primaryExchange),
+                 make_field(contract.currency),
+                 make_field(contract.localSymbol),
+                 make_field(contract.tradingClass),
+                 make_field(contract.includeExpired),
+                 make_field(startDateTime),
+                 make_field(endDateTime),
+                 make_field(numberOfTicks),
+                 make_field(whatToShow),
+                 make_field(useRth),
+                 make_field(ignoreSize)]
+
+        miscOptionsString = ""
+        if miscOptions:
+            for tagValue in miscOptions:
+                miscOptionsString += str(tagValue)
+        flds += [make_field(miscOptionsString),]
+
+        msg = "".join(flds)
+        self.sendMsg(msg)
+
 
     #########################################################################
     ################## Market Scanners
@@ -2597,7 +2742,7 @@ class EClient(object):
         self.sendMsg(msg)
 
 
-    def reqNewsArticle(self, reqId: int, providerCode: str, articleId: str):
+    def reqNewsArticle(self, reqId: int, providerCode: str, articleId: str, newsArticleOptions: TagValueList):
 
         self.logRequest(current_fn_name(), vars())
 
@@ -2610,16 +2755,27 @@ class EClient(object):
                        "  It does not support news article request.")
             return
 
-        msg = make_field(OUT.REQ_NEWS_ARTICLE) \
-            + make_field(reqId) \
-            + make_field(providerCode) \
-            + make_field(articleId)
+        flds = []
 
+        flds += [make_field(OUT.REQ_NEWS_ARTICLE),
+                 make_field(reqId),
+                 make_field(providerCode),
+                 make_field(articleId)]
+
+        # send newsArticleOptions parameter
+        if self.serverVersion() >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS:
+            newsArticleOptionsStr = ""
+            if newsArticleOptions:
+                for tagValue in newsArticleOptions:
+                    newsArticleOptionsStr += str(tagValue)
+            flds += [make_field(newsArticleOptionsStr),]
+
+        msg = "".join(flds)
         self.sendMsg(msg)
 
 
     def reqHistoricalNews(self, reqId: int, conId: int, providerCodes: str,
-                      startDateTime: str, endDateTime: str, totalResults: int):
+                      startDateTime: str, endDateTime: str, totalResults: int, historicalNewsOptions: TagValueList):
 
         self.logRequest(current_fn_name(), vars())
 
@@ -2632,14 +2788,25 @@ class EClient(object):
                        "  It does not support historical news request.")
             return
 
-        msg = make_field(OUT.REQ_HISTORICAL_NEWS) \
-            + make_field(reqId) \
-            + make_field(conId) \
-            + make_field(providerCodes) \
-            + make_field(startDateTime) \
-            + make_field(endDateTime) \
-            + make_field(totalResults)
+        flds = []
 
+        flds += [make_field(OUT.REQ_HISTORICAL_NEWS),
+                 make_field(reqId),
+                 make_field(conId),
+                 make_field(providerCodes),
+                 make_field(startDateTime),
+                 make_field(endDateTime),
+                 make_field(totalResults)]
+
+        # send historicalNewsOptions parameter
+        if self.serverVersion() >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS:
+            historicalNewsOptionsStr = ""
+            if historicalNewsOptions:
+                for tagValue in historicalNewsOptionsStr:
+                    historicalNewsOptionsStr += str(tagValue)
+            flds += [make_field(historicalNewsOptionsStr),]
+
+        msg = "".join(flds)
         self.sendMsg(msg)
 
 
