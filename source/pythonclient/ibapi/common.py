@@ -55,7 +55,7 @@ class BarData(Object):
         self.average = 0.
 
     def __str__(self):
-        return "%s:%f,%f,%f,%f,%d,%f,%s,%d" % (self.date, self.open, self.high,
+        return "%s:%f,%f,%f,%f,%d,%f,%d" % (self.date, self.open, self.high,
             self.low, self.close, self.volume, self.average, self.barCount)
 
 class RealTimeBar(Object):
