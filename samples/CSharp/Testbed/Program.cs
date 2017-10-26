@@ -212,23 +212,23 @@ namespace Samples
 
         private static void rerouteCFDOperations(EClientSocket client)
         {
-            //! [reqmktdata]
+            //! [reqmktdatacfd]
             client.reqMktData(16001, ContractSamples.USStockCFD(), string.Empty, false, false, null);
             Thread.Sleep(1000);
             client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), string.Empty, false, false, null);
             Thread.Sleep(1000);
             client.reqMktData(16003, ContractSamples.CashCFD(), string.Empty, false, false, null);
             Thread.Sleep(1000);
-            //! [reqmktdata]
+            //! [reqmktdatacfd]
 
-            //! [reqmktdepth]
+            //! [reqmktdepthcfd]
             client.reqMarketDepth(16004, ContractSamples.USStockCFD(), 10, null);
             Thread.Sleep(1000);
             client.reqMarketDepth(16005, ContractSamples.EuropeanStockCFD(), 10, null);
             Thread.Sleep(1000);
             client.reqMarketDepth(16006, ContractSamples.CashCFD(), 10, null);
             Thread.Sleep(1000);
-            //! [reqmktdepth]
+            //! [reqmktdepthcfd]
         }
 
         private static void histogramData(EClientSocket client)
@@ -547,22 +547,22 @@ namespace Samples
             /*** Requesting the next valid id ***/
             //! [reqids]
             //The parameter is always ignored.
-            //client.reqIds(-1);
+            client.reqIds(-1);
             //! [reqids]
             //Thread.Sleep(1000);
             /*** Requesting all open orders ***/
             //! [reqallopenorders]
-            //client.reqAllOpenOrders();
+            client.reqAllOpenOrders();
             //! [reqallopenorders]
             //Thread.Sleep(1000);
             /*** Taking over orders to be submitted via TWS ***/
             //! [reqautoopenorders]
-            //client.reqAutoOpenOrders(true);
+            client.reqAutoOpenOrders(true);
             //! [reqautoopenorders]
             //Thread.Sleep(1000);
             /*** Requesting this API client's orders ***/
             //! [reqopenorders]
-            //client.reqOpenOrders();
+            client.reqOpenOrders();
             //! [reqopenorders]
             //Thread.Sleep(1000);
             //BracketSample(client, nextOrderId);
@@ -665,15 +665,15 @@ namespace Samples
             //TestAlgoSamples(client, nextOrderId);
             //Thread.Sleep(30000);
 		//! [cancelorder]
-		//client.cancelOrder(nextOrderId-1);
+		client.cancelOrder(nextOrderId-1);
 		//! [cancelorder]
             /*** Cancel all orders for all accounts ***/
 		//! [reqglobalcancel]
-            //client.reqGlobalCancel();
+        client.reqGlobalCancel();
 		//! [reqglobalcancel]
             /*** Request the day's executions ***/
             //! [reqexecutions]
-            //client.reqExecutions(10001, new ExecutionFilter());
+            client.reqExecutions(10001, new ExecutionFilter());
             //! [reqexecutions]
         }
 
@@ -940,10 +940,8 @@ namespace Samples
 
         private static void marketRuleOperations(EClientSocket client) 
         {
-            //! [reqcontractdetails]
             client.reqContractDetails(17001, ContractSamples.USStock());
             client.reqContractDetails(17002, ContractSamples.Bond());
-            //! [reqcontractdetails]
 
             Thread.Sleep(2000);
 
@@ -955,16 +953,14 @@ namespace Samples
 
         private static void continuousFuturesOperations(EClientSocket client) 
         {
-            //! [reqcontractdetails]
             client.reqContractDetails(18001, ContractSamples.ContFut());
-            //! [reqcontractdetails]
 
-            //! [reqhistoricaldata]
+            //! [reqhistoricaldatacontfut]
             String queryTime = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
             client.reqHistoricalData(18002, ContractSamples.ContFut(), queryTime, "1 Y", "1 month", "TRADES", 0, 1, false, null);
             Thread.Sleep(10000);
             client.cancelHistoricalData(18002);
-            //! [reqhistoricaldata]
+            //! [reqhistoricaldatacontfut]
         }
     }
 }

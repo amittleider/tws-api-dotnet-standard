@@ -550,6 +550,16 @@ public class ContractSamples {
 		//! [continuousfuturescontract]
 		return contract;
 	}
+        
+    public static Contract ContAndExpiringFut() {
+        //! [contandexpiringfut]
+        Contract contract = new Contract();
+        contract.symbol("ES");
+        contract.secType("FUT+CONTFUT");
+        contract.exchange("GLOBEX");
+        //! [contandexpiringfut]
+        return contract;
+    }
 	
 	public static Contract JefferiesContract() {
 		//! [jefferies_contract]

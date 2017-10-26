@@ -20,7 +20,7 @@
 	This error message is triggered to indicate the contract definition provided in your RTD formula cannot be found by TWS. 
 	Usually it is caused by incorrect contract attribute definitions or typo. You are suggested to refer to some \ref rtd_examples "Syntax Samples" and find out the issue in your RTD formula.
 	
-	\subsection rtd_common_errors_ambiguity TwsRtdServer error: The contract description specified for <SYMBOL> is ambiguous.
+	\subsection rtd_common_errors_ambiguity TwsRtdServer error: The contract description specified for \<SYMBOL\> is ambiguous.
 	
 	This error message indicates the contract definition provided by you does not uniquely define one single contract. It is mostly triggered for stock symbols, such as MSFT and CSCO, that are listed on multiple primary exchanges.
 	Specifying the <b>PrimaryExchange</b> will resolve the issue. Please refer to \ref rtd_samples_stk "Syntax Sample for MSFT" .

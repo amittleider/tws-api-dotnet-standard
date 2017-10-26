@@ -4,7 +4,7 @@
 
 	A number of methods and profiles are available with Financial Advisor and IBroker account structures to specify how trades should be distributed across multiple accounts. This functionality allows for trades to be placed across multiple accounts. The API has the same functionality available as TWS. 
 	
-	Group and Profile order allocation methods for Financial Advisor Accounts can be created directly in TWS: <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/financialadvisors/allocations_and_transfers.htm">Allocations and Transfers</a>, or utilize the \ref replace_fa_methods "replaceFA() method" via the API directly. 
+	Group and Profile order allocation methods for Financial Advisor Accounts can be created directly in TWS: <a target="_blank" class="linkexternal" href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/financialadvisors/allocations_and_transfers.htm">Allocations and Transfers</a>, or utilize the @ref IBApi::EClient::replaceFA() method via the API directly. 
 	
 	As suggested from the method names below, a Group will distribute the order based on inherent properties such as the account's liquidation value or equity whereas a Profile will offer the possibility to assign the allocated proportion based on explicit ratios or percentages.	
 	
@@ -227,7 +227,7 @@
 	
 	<b>Replace Account Profiles Configuration</b>
 	
-	You can find the corresponding type number for profile allocation in the \ref allocation_methods_profiles "Profile Methods Matching" table.
+	You can find the corresponding type number for profile allocation in the "Profile Methods Matching" table above.
 	
 	<ul id="tab">
 		<li class="active">

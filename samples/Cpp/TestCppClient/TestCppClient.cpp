@@ -1167,33 +1167,31 @@ void TestCppClient::reqHistogramData() {
 
 void TestCppClient::rerouteCFDOperations()
 {
-    //! [reqmktdata]
+    //! [reqmktdatacfd]
 	m_pClient->reqMktData(16001, ContractSamples::USStockCFD(), "", false, false, TagValueListSPtr());
     std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_pClient->reqMktData(16002, ContractSamples::EuropeanStockCFD(), "", false, false, TagValueListSPtr());
     std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_pClient->reqMktData(16003, ContractSamples::CashCFD(), "", false, false, TagValueListSPtr());
 	std::this_thread::sleep_for(std::chrono::seconds(1));
-	//! [reqmktdata]
+	//! [reqmktdatacfd]
 
-    //! [reqmktdepth]
+    //! [reqmktdepthcfd]
 	m_pClient->reqMktDepth(16004, ContractSamples::USStockCFD(), 10, TagValueListSPtr());
     std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_pClient->reqMktDepth(16005, ContractSamples::EuropeanStockCFD(), 10, TagValueListSPtr());
     std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_pClient->reqMktDepth(16006, ContractSamples::CashCFD(), 10, TagValueListSPtr());
 	std::this_thread::sleep_for(std::chrono::seconds(1));
-	//! [reqmktdepth]
+	//! [reqmktdepthcfd]
 
 	m_state = ST_REROUTECFD_ACK;
 }
 
 void TestCppClient::marketRuleOperations()
 {
-	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(17001, ContractSamples::IBMBond());
 	m_pClient->reqContractDetails(17002, ContractSamples::IBKRStk());
-	//! [reqcontractdetails]
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
@@ -1208,11 +1206,9 @@ void TestCppClient::marketRuleOperations()
 
 void TestCppClient::continuousFuturesOperations()
 {
-	//! [reqcontractdetails]
 	m_pClient->reqContractDetails(18001, ContractSamples::ContFut());
-	//! [reqcontractdetails]
 
-	//! [reqhistoricaldata]
+	//! [reqhistoricaldatacontfut]
 	std::time_t rawtime;
     std::tm* timeinfo;
     char queryTime [80];
@@ -1226,7 +1222,7 @@ void TestCppClient::continuousFuturesOperations()
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
 	m_pClient->cancelHistoricalData(18002);
-	//! [reqhistoricaldata]
+	//! [reqhistoricaldatacontfut]
 
 	m_state = ST_CONTFUT_ACK;
 }

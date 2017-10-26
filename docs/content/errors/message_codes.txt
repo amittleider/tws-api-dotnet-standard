@@ -29,7 +29,7 @@
 			<td>The TWS/IB Gateway has successfully reconnected to IB's servers. Your market data requests have been recovered and there is no need for you to re-submit them.</td>
 		</tr>
 		<tr>
-			<td>1300</td><td>TWS socket port has been reset and this connection is being dropped. Please reconnect on the new port - <port_num></td><td>The port number in the TWS/IBG settings has been changed during an active API connection.</td>
+			<td>1300</td><td>TWS socket port has been reset and this connection is being dropped. Please reconnect on the new port - \<port_num\></td><td>The port number in the TWS/IBG settings has been changed during an active API connection.</td>
 		</tr>
 	</table>
 	
@@ -412,7 +412,7 @@
 			<td>An active order on the IB server was cancelled</td>
 		</tr>
 		<tr>
-			<td>203</td><td>The security <security> is not available or allowed for this account.</td>
+			<td>203</td><td>The security \<security\> is not available or allowed for this account.</td>
 			<td>The specified security has a trading restriction with a specific account.</td>
 		</tr>
 		<tr>
@@ -468,7 +468,7 @@
 			<td>Combination contract specified has invalid parameters.</td>
 		</tr>
 		<tr>
-			<td>313</td><td>The combo details for leg '<leg number>' are invalid.</td>
+			<td>313</td><td>The combo details for leg '\<leg number\>' are invalid.</td>
 			<td>A combo leg was not defined correctly.</td>
 		</tr>
  	
@@ -489,7 +489,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td>319</td><td>Invalid log level <log level></td>
+			<td>319</td><td>Invalid log level \<log level\></td>
 			<td>Make sure that you are setting a log level to a value in range of 1 to 5.</td>
 		</tr>
 		<tr>

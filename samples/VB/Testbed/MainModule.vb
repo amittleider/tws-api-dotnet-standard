@@ -639,7 +639,7 @@ Module MainModule
         '! [cancelorder]
         '** Cancel all orders for all accounts ***
         '! [reqglobalcancel]
-        'client.reqGlobalCancel()
+        client.reqGlobalCancel()
         '! [reqglobalcancel]
         '** Request the day's executions ***
         '! [reqexecutions]
@@ -940,32 +940,30 @@ Module MainModule
     End Sub
 
     Private Sub rerouteCFDOperations(client As EClientSocket)
-        ' [reqmktdata]
+        ' [reqmktdatacfd]
         client.reqMktData(16001, ContractSamples.USStockCFD(), String.Empty, False, False, Nothing)
         Thread.Sleep(1000)
         client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), String.Empty, False, False, Nothing)
         Thread.Sleep(1000)
         client.reqMktData(16003, ContractSamples.CashCFD(), String.Empty, False, False, Nothing)
         Thread.Sleep(1000)
-        ' [reqmktdata]
+        ' [reqmktdatacfd]
 
-        ' [reqmktdepth]
+        ' [reqmktdepthcfd]
         client.reqMarketDepth(16004, ContractSamples.USStockCFD(), 10, Nothing)
         Thread.Sleep(1000)
         client.reqMarketDepth(16005, ContractSamples.EuropeanStockCFD(), 10, Nothing)
         Thread.Sleep(1000)
         client.reqMarketDepth(16006, ContractSamples.CashCFD(), 10, Nothing)
         Thread.Sleep(1000)
-        ' [reqmktdepth]
+        ' [reqmktdepthcfd]
 
     End Sub
 
     Private Sub marketRuleOperations(client As EClientSocket)
 
-        '! [reqcontractdetails]
         client.reqContractDetails(17001, ContractSamples.USStock())
         client.reqContractDetails(17002, ContractSamples.Bond())
-        '! [reqcontractdetails]
 
         Thread.Sleep(2000)
 
@@ -978,16 +976,14 @@ Module MainModule
 
     Private Sub continuousFuturesOperations(client As EClientSocket)
 
-        '! [reqcontractdetails]
         client.reqContractDetails(18001, ContractSamples.ContFut())
-        '! [reqcontractdetails]
 
-        '! [reqhistoricaldata]
+        '! [reqhistoricaldatacontfut]
         Dim queryTime As String = DateTime.Now.ToString("yyyyMMdd HH:mm:ss")
         client.reqHistoricalData(18002, ContractSamples.ContFut(), queryTime, "1 Y", "1 month", "TRADES", 0, 1, False, Nothing)
         Thread.Sleep(10000)
         client.cancelHistoricalData(18002)
-        '! [reqhistoricaldata]
+        '! [reqhistoricaldatacontfut]
 
     End Sub
 

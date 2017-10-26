@@ -249,11 +249,18 @@ Namespace Samples
         '! [fundamentaldata]
 
         '! [historicaldata]
-        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData, IBApi.EWrapper.historicalDataUpdate
+        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData
             Console.WriteLine("HistoricalData - ReqId [" & reqId & "] Date [" & bar.Time & "] Open [" & bar.Open & "] High [" &
                           bar.High & "] Low [" & bar.Low & "] Volume [" & bar.Volume & "] Count [" & bar.Count & "]")
         End Sub
         '! [historicaldata]
+
+        '! [historicalDataUpdate]
+        Public Sub historicalDataUpdate(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalDataUpdate
+            Console.WriteLine("HistoricalDataUpdate - ReqId [" & reqId & "] Date [" & bar.Time & "] Open [" & bar.Open & "] High [" &
+                          bar.High & "] Low [" & bar.Low & "] Volume [" & bar.Volume & "] Count [" & bar.Count & "]")
+        End Sub
+        '! [historicalDataUpdate]
 
         '! [historicaldataend]
         Public Sub historicalDataEnd(reqId As Integer, start As String, [end] As String) Implements IBApi.EWrapper.historicalDataEnd

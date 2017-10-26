@@ -302,7 +302,7 @@
 	
 	\subsection rtd_samples_spread_stk Stock Spread
 	
-	Buy 1 IBKR@SMART + Sell 1 MCD@SMART:
+	Buy 1 IBKR\@SMART + Sell 1 MCD\@SMART:
 	
 	\subsubsection rtd_samples_spread_stk_complex - Complex Syntax
 	
@@ -321,7 +321,7 @@
 	<br>
 	\subsection rtd_samples_spread_fut Futures Spread
 	
-	Buy 1 VXJ7@CFE + Sell 1 VXK7@CFE:
+	Buy 1 VXJ7\@CFE + Sell 1 VXK7\@CFE:
 	
 	\subsubsection rtd_samples_spread_fut_complex - Complex Syntax
 	
@@ -338,7 +338,7 @@
 	<br>
 	\subsection rtd_samples_spread_opt Options Spread
 	
-	Buy 1 DBK May19'17 15 CALL @DTB + Sell 1 DBK May19'17 16 CALL @DTB:
+	Buy 1 DBK May19'17 15 CALL \@DTB + Sell 1 DBK May19'17 16 CALL \@DTB:
 	
 	\subsubsection rtd_samples_spread_opt_complex - Complex Syntax
 	
@@ -357,7 +357,7 @@
 	
 	For Inter-Commodity futures, the 'Local Symbol' field in TWS is used for the 'Symbol' field in the TWS \ref contracts "Contract Description".
 	
-	Buy 1 CL May'17 @NYMEX + Sell 1 BZ Jun'17 @NYMEX:
+	Buy 1 CL May'17 \@NYMEX + Sell 1 BZ Jun'17 \@NYMEX:
 	
 	\subsubsection rtd_samples_spread_intercmdty_complex - Complex Syntax
 	

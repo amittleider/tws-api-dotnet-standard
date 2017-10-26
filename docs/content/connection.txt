@@ -54,7 +54,13 @@
 		\snippet TestCppClient.cpp ereader
 		</li>
 		<li> 
+		In Python IB API, the code below is included in Client::connect(), so the EReader thread is automatically started upon connection.
+		There is <b>no need</b> for user to start the reader.
 		\snippet Program.py ereader
+		<br>
+		Once the client is connected, a reader thread will be automatically created to handle incoming messages and put the messages into a message queue for further process. 
+		User <b>is required</b> to trigger Client::run() below, where the message queue is processed in an infinite loop and the EWrapper call-back functions are automatically triggered.
+		\snippet Program.py clientrun
 		</li>
 	</ul>
 	

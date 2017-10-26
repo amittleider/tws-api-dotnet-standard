@@ -560,6 +560,48 @@ class ContractSamples:
         #! [newscontractmt]
         return contract
 
+    @staticmethod
+    def ContFut():
+        #! [continuousfuturescontract]
+        contract = Contract()
+        contract.symbol = "ES"
+        contract.secType = "CONTFUT"
+        contract.exchange = "GLOBEX"
+        #! [continuousfuturescontract]
+        return contract
+
+    @staticmethod
+    def ContAndExpiringFut():
+        #! [contandexpiringfut]
+        contract = Contract()
+        contract.symbol = "ES"
+        contract.secType = "FUT+CONTFUT"
+        contract.exchange = "GLOBEX"
+        #! [contandexpiringfut]
+        return contract
+
+    @staticmethod
+    def JefferiesContract():
+        #! [jefferies_contract]
+        contract = Contract()
+        contract.symbol = "AAPL"
+        contract.secType = "STK"
+        contract.exchange = "JEFFALGO"
+        contract.currency = "USD"
+        #! [jefferies_contract]
+        return contract
+
+    @staticmethod
+    def CSFBContract():
+        #! [csfb_contract]
+        contract = Contract()
+        contract.symbol = "IBKR"
+        contract.secType = "STK"
+        contract.exchange = "CSFBALGO"
+        contract.currency = "USD"
+        #! [csfb_contract]
+        return contract
+
 
 def Test():
     from ibapi.utils import ExerciseStaticMethods

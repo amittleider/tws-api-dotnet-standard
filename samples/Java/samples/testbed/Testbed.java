@@ -287,11 +287,11 @@ public class Testbed {
 		/*** Requesting historical data ***/
 
 		//! [reqHeadTimeStamp]
-		//client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
+		client.reqHeadTimestamp(4003, ContractSamples.USStock(), "TRADES", 1, 1);
 		//! [reqHeadTimeStamp]
 
 		//! [cancelHeadTimestamp]
-		//client.cancelHeadTimestamp(4003);
+		client.cancelHeadTimestamp(4003);
 		//! [cancelHeadTimestamp]
 		
 		//! [reqhistoricaldata]
@@ -784,30 +784,28 @@ public class Testbed {
 
 	private static void rerouteCFDOperations(EClientSocket client) throws InterruptedException {
 
-		//! [reqmktdata]
+		//! [reqmktdatacfd]
 		client.reqMktData(16001, ContractSamples.USStockCFD(), "", false, false, null);
 		Thread.sleep(1000);
 		client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), "", false, false, null);
 		Thread.sleep(1000);
 		client.reqMktData(16003, ContractSamples.CashCFD(), "", false, false, null);
 		Thread.sleep(1000);
-		//! [reqmktdata]
+		//! [reqmktdatacfd]
 
-		//! [reqmktdepth]
+		//! [reqmktdepthcfd]
 		client.reqMktDepth(16004, ContractSamples.USStockCFD(), 10, null);
 		Thread.sleep(1000);
 		client.reqMktDepth(16005, ContractSamples.EuropeanStockCFD(), 10, null);
 		Thread.sleep(1000);
 		client.reqMktDepth(16006, ContractSamples.CashCFD(), 10, null);
 		Thread.sleep(1000);
-		//! [reqmktdepth]
+		//! [reqmktdepthcfd]
 	}
 
 	private static void marketRuleOperations(EClientSocket client) throws InterruptedException {
-		//! [reqcontractdetails]
 		client.reqContractDetails(17001, ContractSamples.USStock());
 		client.reqContractDetails(17002, ContractSamples.Bond());
-		//! [reqcontractdetails]
 
 		Thread.sleep(2000);
 		
@@ -820,12 +818,10 @@ public class Testbed {
 	private static void continuousFuturesOperations(EClientSocket client) throws InterruptedException {
 
 		/*** Requesting continuous futures contract details ***/
-		//! [reqcontractdetails]
 		client.reqContractDetails(18001, ContractSamples.ContFut());
-		//! [reqcontractdetails]
 
 		/*** Requesting historical data for continuous futures ***/
-		//! [reqhistoricaldata]
+		//! [reqhistoricaldatacontfut]
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat form = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 		String formatted = form.format(cal.getTime());
@@ -833,6 +829,6 @@ public class Testbed {
 		Thread.sleep(10000);
 		/*** Canceling historical data request for continuous futures ***/
 		client.cancelHistoricalData(18002);
-		//! [reqhistoricaldata]
+		//! [reqhistoricaldatacontfut]
 	}
 }

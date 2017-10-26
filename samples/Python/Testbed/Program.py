@@ -180,14 +180,11 @@ class TestWrapper(wrapper.EWrapper):
 # this is here for documentation generation
 """
 #! [ereader]
-        #this code is in Client::connect() so it's automatically done, no need
-        # for user to do it
+        # You don't need to run this in your code!
         self.reader = reader.EReader(self.conn, self.msg_queue)
         self.reader.start()   # start thread
-
 #! [ereader]
 """
-
 
 # ! [socket_init]
 class TestApp(TestWrapper, TestClient):
@@ -429,7 +426,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqpnl]
         time.sleep(1)
         # ! [cancelpnl]
-        #self.cancelPnL(17001)
+        self.cancelPnL(17001)
         # ! [cancelpnl]
 
         # ! [reqpnlsingle]
@@ -437,7 +434,7 @@ class TestApp(TestWrapper, TestClient):
         # ! [reqpnlsingle]
         time.sleep(1)
         # ! [cancelpnlsingle]
-        #self.cancelPnLSingle(17001);
+        self.cancelPnLSingle(17002);
         # ! [cancelpnlsingle]
 
     @iswrapper
@@ -640,7 +637,7 @@ class TestApp(TestWrapper, TestClient):
 
         # ! [regulatorysnapshot]
         # Each regulatory snapshot request incurs a 0.01 USD fee
-        # self.reqMktData(1014, ContractSamples.USStock(), "", False, True, [])
+        self.reqMktData(1014, ContractSamples.USStock(), "", False, True, [])
         # ! [regulatorysnapshot]
 
         # ! [reqmktdata_genticks]
@@ -1415,6 +1412,22 @@ class TestApp(TestWrapper, TestClient):
         self.placeOrder(self.nextOrderId(), ContractSamples.USStockAtSmart(), baseOrder)
         # ! [pctvoltm]
 
+        # ! [jeff_vwap_algo]
+        AvailableAlgoParams.FillJefferiesVWAPParams(baseOrder,
+                                                    "10:00:00 EST", "16:00:00 EST", 10, 10, "Exclude_Both",
+                                                    130, 135, 1, 10, "Patience", False, "Midpoint")
+
+        self.placeOrder(self.nextOrderId(), ContractSamples.JefferiesContract(), baseOrder)
+        # ! [jeff_vwap_algo]
+
+        # ! [csfb_inline_algo]
+        AvailableAlgoParams.FillCSFBInlineParams(baseOrder,
+                                                 "10:00:00 EST", "16:00:00 EST", "Patient",
+                                                 10, 20, 100, "Default", False, 40, 100, 100, 35)
+
+        self.placeOrder(self.nextOrderId(), ContractSamples.CSFBContract(), baseOrder)
+        # ! [csfb_inline_algo]
+
     @printWhenExecuting
     def financialAdvisorOperations(self):
         # Requesting FA information ***/
@@ -1578,6 +1591,13 @@ class TestApp(TestWrapper, TestClient):
         self.placeOrder(self.nextOrderId(), ContractSamples.EuropeanStock(), faOrderProfile)
         # ! [faorderprofile]
 
+        # ! [modelorder]
+        modelOrder = OrderSamples.LimitOrder("BUY", 200, 100)
+        modelOrder.account = "DF12345"
+        modelOrder.modelCode = "Technology" # model for tech stocks first created in TWS
+        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), modelOrder)
+        # ! [modelorder]
+
         self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
                         OrderSamples.Block("BUY", 50, 20))
         self.placeOrder(self.nextOrderId(), ContractSamples.OptionAtBOX(),
@@ -1662,7 +1682,7 @@ class TestApp(TestWrapper, TestClient):
 
         # Cancel all orders for all accounts ***/
         # ! [reqglobalcancel]
-        # self.reqGlobalCancel()
+        self.reqGlobalCancel()
         # ! [reqglobalcancel]
 
         # Request the day's executions ***/
@@ -1677,10 +1697,9 @@ class TestApp(TestWrapper, TestClient):
             # ! [cancelorder]
 
     def marketRuleOperations(self):
-        # ! [reqcontractdetails]
         self.reqContractDetails(17001, ContractSamples.USStock())
         self.reqContractDetails(17002, ContractSamples.Bond())
-        # ! [reqcontractdetails]
+		
         time.sleep(1)
 
         # ! [reqmarketrule]
@@ -1766,11 +1785,13 @@ def main():
             app.globalCancelOnly = True
         # ! [connect]
         app.connect("127.0.0.1", args.port, clientId=0)
+        # ! [connect]
         print("serverVersion:%s connectionTime:%s" % (app.serverVersion(),
                                                       app.twsConnectionTime()))
-        # ! [connect]
 
+        # ! [clientrun]
         app.run()
+        # ! [clientrun]
     except:
         raise
     finally:

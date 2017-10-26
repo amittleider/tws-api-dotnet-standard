@@ -1945,7 +1945,8 @@ namespace IBApi
         }
 
         /**
-         * @brief Requests an XML list of scanner parameters valid in TWS. \nNot all parameters are valid from API scanner.
+         * @brief Requests an XML list of scanner parameters valid in TWS. \n
+		 * Not all parameters are valid from API scanner.
          * @sa reqScannerSubscription
          */
         public void reqScannerParameters()

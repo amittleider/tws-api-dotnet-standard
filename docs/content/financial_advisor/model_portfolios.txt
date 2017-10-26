@@ -16,7 +16,7 @@
 	
 	To request model account updates, there is the function IBApi::EClient::reqAccountUpdatesMulti, see: @ref acct_updates_multi
 	
-	To place an order to a model, the @ref IBApi::Order::model field must be set accordingly, for example:
+	To place an order to a model, the @ref IBApi::Order::ModelCode field must be set accordingly, for example:
 	
 	<ul id="tab">
 		<li class="active">

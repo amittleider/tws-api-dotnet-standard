@@ -65,7 +65,7 @@
 		</li>
 	</ul>
 	
-	Since the @ref IBApi::EClient::reqScannerSubscription request keeps a subscription open you will keep receiving periodic updates until the request is cancelled via @ref::IBApi::EClient::cancelScannerSubscription:
+	Since the @ref IBApi::EClient::reqScannerSubscription request keeps a subscription open you will keep receiving periodic updates until the request is cancelled via @ref IBApi::EClient::cancelScannerSubscription :
 	
 	<ul id="tab">
 		<li class="active"> 

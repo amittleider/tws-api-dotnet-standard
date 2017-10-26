@@ -326,7 +326,7 @@ namespace IBApi
         }
 
         /**
-        * @brief Real expiration date
+        * @brief Real expiration date. Requires TWS 968+ and API v973.04+. Python API specifically requires API v973.06+.
         */
         public string RealExpirationDate
         {
