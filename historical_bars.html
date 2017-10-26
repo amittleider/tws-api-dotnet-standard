@@ -225,7 +225,7 @@ Receiving Historical Bar Data</h1>
 <li>
 <div class="fragment"><div class="line">    Public Class EWrapperImpl</div>
 <div class="line">        Implements EWrapper</div>
-</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData, IBApi.EWrapper.historicalDataUpdate</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;HistoricalData - ReqId [&quot;</span> &amp; reqId &amp; <span class="stringliteral">&quot;] Date [&quot;</span> &amp; bar.Time &amp; <span class="stringliteral">&quot;] Open [&quot;</span> &amp; bar.Open &amp; <span class="stringliteral">&quot;] High [&quot;</span> &amp;</div>
 <div class="line">                          bar.High &amp; <span class="stringliteral">&quot;] Low [&quot;</span> &amp; bar.Low &amp; <span class="stringliteral">&quot;] Volume [&quot;</span> &amp; bar.Volume &amp; <span class="stringliteral">&quot;] Count [&quot;</span> &amp; bar.Count &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
 <div class="line">        End Sub</div>
@@ -270,7 +270,11 @@ Receiving Historical Bar Data</h1>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line">        Public Sub historicalDataUpdate(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalDataUpdate</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;HistoricalDataUpdate - ReqId [&quot;</span> &amp; reqId &amp; <span class="stringliteral">&quot;] Date [&quot;</span> &amp; bar.Time &amp; <span class="stringliteral">&quot;] Open [&quot;</span> &amp; bar.Open &amp; <span class="stringliteral">&quot;] High [&quot;</span> &amp;</div>
+<div class="line">                          bar.High &amp; <span class="stringliteral">&quot;] Low [&quot;</span> &amp; bar.Low &amp; <span class="stringliteral">&quot;] Volume [&quot;</span> &amp; bar.Volume &amp; <span class="stringliteral">&quot;] Count [&quot;</span> &amp; bar.Count &amp; <span class="stringliteral">&quot;]&quot;</span>)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) { </div>
 <div class="line">    printf( <span class="stringliteral">&quot;HistoricalDataUpdate. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n&quot;</span>, reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);</div>

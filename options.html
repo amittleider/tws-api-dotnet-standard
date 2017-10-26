@@ -188,6 +188,7 @@ Option Chains</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqContractDetails(209, ContractSamples.EurGbpFx())</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqContractDetails(210, ContractSamples.OptionForQuery())</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqContractDetails(211, ContractSamples.Bond())</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.reqContractDetails(212, ContractSamples.FuturesOnOptions())</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>One limitation of this technique is that the return of option chains will be throttled and take a longer time the more ambiguous the contract definition. Starting in version 9.72 of the API, a new function <a class="el" href="classIBApi_1_1EClient.html#adb17b291044d2f8dcca5169b2c6fd690" title="Requests security definition option parameters for viewing a contract&#39;s option chain. ">IBApi::EClient::reqSecDefOptParams</a> is introduced that does not have the throttling limitation.</p>

@@ -301,7 +301,11 @@ Model Allocations</h1>
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStock(), modelOrder);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        modelOrder.account = <span class="stringliteral">&quot;DF12345&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        modelOrder.modelCode = <span class="stringliteral">&quot;Technology&quot;</span> <span class="comment"># model for tech stocks first created in TWS</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), modelOrder)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="soft_dollar_tiers"></a>
 Soft Dollar Tiers</h1>

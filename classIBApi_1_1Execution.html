@@ -139,9 +139,9 @@ $(document).ready(function(){initNavTree('classIBApi_1_1Execution.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a50ece3b963cd42067216a0cb6d750611"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a50ece3b963cd42067216a0cb6d750611"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Execution</b> (int orderId, int clientId, String execId, String time, String acctNumber, String exchange, String side, double shares, double price, int permId, int liquidation, double cumQty, double avgPrice, String orderRef, String evRule, double evMultiplier, String modelCode)</td></tr>
-<tr class="separator:a50ece3b963cd42067216a0cb6d750611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae115292ff419701e796bc185660e2886"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae115292ff419701e796bc185660e2886"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Execution</b> (int orderId, int clientId, String execId, String time, String acctNumber, String exchange, String side, double shares, double price, int permId, int liquidation, double cumQty, double avgPrice, String orderRef, String evRule, double evMultiplier, String modelCode, <a class="el" href="classIBApi_1_1Liquidity.html">Liquidity</a> lastLiquidity)</td></tr>
+<tr class="separator:ae115292ff419701e796bc185660e2886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac202d37f2d600cd44a69503af523086d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac202d37f2d600cd44a69503af523086d"></a>
 override bool&#160;</td><td class="memItemRight" valign="bottom"><b>Equals</b> (Object p_other)</td></tr>
 <tr class="separator:ac202d37f2d600cd44a69503af523086d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +216,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a031f8f6bc60928a3f0f94b7ba6f3b927">ModelCode</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a031f8f6bc60928a3f0f94b7ba6f3b927"><td class="mdescLeft">&#160;</td><td class="mdescRight">model code <br/></td></tr>
 <tr class="separator:a031f8f6bc60928a3f0f94b7ba6f3b927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5238bc5069cc02b64379aa2eb17b5243"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5238bc5069cc02b64379aa2eb17b5243"></a>
+<a class="el" href="classIBApi_1_1Liquidity.html">Liquidity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Execution.html#a5238bc5069cc02b64379aa2eb17b5243">LastLiquidity</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a5238bc5069cc02b64379aa2eb17b5243"><td class="mdescLeft">&#160;</td><td class="mdescRight">The liquidity type of the execution. Requires TWS 968+ and API v973.05+. Python API specifically requires API v973.06+. <br/></td></tr>
+<tr class="separator:a5238bc5069cc02b64379aa2eb17b5243"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class describing an order's execution. </p>

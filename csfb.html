@@ -322,7 +322,39 @@ Inline</h2>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;IBKR&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;STK&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.exchange = <span class="stringliteral">&quot;CSFBALGO&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillCSFBInlineParams(baseOrder,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                 <span class="stringliteral">&quot;10:00:00 EST&quot;</span>, <span class="stringliteral">&quot;16:00:00 EST&quot;</span>, <span class="stringliteral">&quot;Patient&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                 10, 20, 100, <span class="stringliteral">&quot;Default&quot;</span>, <span class="keyword">False</span>, 40, 100, 100, 35)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.CSFBContract(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillCSFBInlineParams(baseOrder: Order, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                             endTime: str, execStyle: str,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                             minPercent: int, maxPercent: int,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                             displaySize: int, auction: str,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                             blockFinder: bool, blockPrice: float,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                             minBlockSize: int, maxBlockSize: int, iWouldPrice: float):</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="comment"># must be direct-routed to &quot;CSFBALGO&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;INLINE&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.algoParams = []</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;StartTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;EndTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;ExecStyle&quot;</span>, execStyle))</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MinPercent&quot;</span>, minPercent))</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MaxPercent&quot;</span>, maxPercent))</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;DisplaySize&quot;</span>, displaySize))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;Auction&quot;</span>, auction))</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;BlockFinder&quot;</span>, int(blockFinder)))</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;BlockPrice&quot;</span>, blockPrice))</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MinBlockSize&quot;</span>, minBlockSize))</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MaxBlockSize&quot;</span>, maxBlockSize))</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;IWouldPrice&quot;</span>, iWouldPrice))</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h2><a class="anchor" id="Pathfinder"></a>
 Pathfinder</h2>

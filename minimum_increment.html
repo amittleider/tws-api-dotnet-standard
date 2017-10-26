@@ -151,7 +151,9 @@ $(document).ready(function(){initNavTree('minimum_increment.html','');});
 <div class="line">    m_pClient-&gt;reqMarketRule(1388);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMarketRule(26)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMarketRule(240)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p>The rule is returned to the function <a class="el" href="interfaceIBApi_1_1EWrapper.html#a0f6fb4db17b7e1cb5c4092f40d947827" title="returns minimum price increment structure for a particular market rule ID market rule IDs for an inst...">IBApi::EWrapper::marketRule</a></p>
 <ul id="tab">
@@ -194,7 +196,13 @@ $(document).ready(function(){initNavTree('minimum_increment.html','');});
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>marketRule(self, marketRuleId: int, priceIncrements: ListOfPriceIncrements):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().marketRule(marketRuleId, priceIncrements)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Market Rule ID: &quot;</span>, marketRuleId)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">for</span> priceIncrement <span class="keywordflow">in</span> priceIncrements:</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(<span class="stringliteral">&quot;Price Increment. Low Edge: &quot;</span>, priceIncrement.lowEdge,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                  <span class="stringliteral">&quot;, Increment: &quot;</span>, priceIncrement.increment)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <ul>
 <li>For forex, there is an option in TWS/IB Gateway configuration which allows trading in 1/10 pips instead of 1/5 pips (the default).</li>

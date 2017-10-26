@@ -131,7 +131,19 @@ $(document).ready(function(){initNavTree('historical_time_and_sales.html','');})
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="reqHistoricalTicks"></a>
 High Resolution Historical Data</h1>
-<p>Coming soon in API <b>v973.04</b> and future TWS versions, the highest granularity of historical data from IB's database can be retrieved using the API function <a class="el" href="classIBApi_1_1EClient.html#a99dbcf80c99b8f262a524de64b2f9c1e" title="Requests historical Time&amp;Sales data for an instrument. ">IBApi::EClient::reqHistoricalTicks</a>. This corresponds to the <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/timensales.htm" target="_blank" class="linkexternal">TWS Historical Time &amp; Sales</a> Window.</p>
+<p>The highest granularity of historical data from IB's database can be retrieved using the API function <a class="el" href="classIBApi_1_1EClient.html#a99dbcf80c99b8f262a524de64b2f9c1e" title="Requests historical Time&amp;Sales data for an instrument. ">IBApi::EClient::reqHistoricalTicks</a>. This corresponds to the <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/timensales.htm" target="_blank" class="linkexternal">TWS Historical Time &amp; Sales</a> Window. TWS build <b>968+</b> and API version <b>973.04+</b> is required.</p>
+<ul id="tab">
+<li class="active">
+</li>
+<li>
+</li>
+<li>
+</li>
+<li>
+</li>
+<li>
+<b>Note:</b> the historical Time&amp;Sales feature in Python API is available starting in API v973.06+.  </li>
+</ul>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            client.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;20170712 21:39:33&quot;</span>, null, 10, <span class="stringliteral">&quot;TRADES&quot;</span>, 1, <span class="keyword">true</span>, null);</div>
@@ -154,7 +166,13 @@ High Resolution Historical Data</h1>
 <div class="line">    m_pClient-&gt;reqHistoricalTicks(19003, ContractSamples::IBMUSStockAtSmart(), <span class="stringliteral">&quot;20170621 09:38:33&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, <span class="stringliteral">&quot;TRADES&quot;</span>, 1, <span class="keyword">true</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqHistoricalTicks(18001, ContractSamples.USStockAtSmart(),</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                <span class="stringliteral">&quot;20170712 21:39:33&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, <span class="stringliteral">&quot;TRADES&quot;</span>, 1, <span class="keyword">True</span>, [])</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        self.reqHistoricalTicks(18002, ContractSamples.USStockAtSmart(),</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                <span class="stringliteral">&quot;20170712 21:39:33&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, <span class="stringliteral">&quot;BID_ASK&quot;</span>, 1, <span class="keyword">True</span>, [])</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        self.reqHistoricalTicks(18003, ContractSamples.USStockAtSmart(),</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                <span class="stringliteral">&quot;20170712 21:39:33&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, 10, <span class="stringliteral">&quot;MIDPOINT&quot;</span>, 1, <span class="keyword">True</span>, [])</div>
+</div><!-- fragment -->  </li>
 </ul>
 <ul>
 <li><em><b>requestId</b></em>, id of the request</li>
@@ -177,35 +195,7 @@ High Resolution Historical Data</h1>
 <div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}&quot;</span>, reqId, tick.Time, tick.Price, tick.Size);</div>
 <div class="line">            }</div>
 <div class="line">        }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    @Override</div>
-<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicks(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTick&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
-<div class="line">        <span class="keywordflow">for</span> (HistoricalTick tick : ticks) {</div>
-<div class="line">            System.out.println(EWrapperMsgGenerator.historicalTick(reqId, tick.time(), tick.price(), tick.size()));</div>
-<div class="line">        }</div>
-<div class="line">    }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Public Sub historicalTick(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks</div>
-<div class="line">            For Each tick In ticks</div>
-<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}&quot;</span>, reqId, tick.Time, tick.Price, tick.Size)</div>
-<div class="line">            Next</div>
-<div class="line">        End Sub</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicks(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTick&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
-<div class="line">    <span class="keywordflow">for</span> (HistoricalTick tick : ticks) {</div>
-<div class="line">        printf(<span class="stringliteral">&quot;Historical tick. ReqId: %d, time: %d, price: %g, size: %d\n&quot;</span>, reqId, tick.time, tick.price, tick.size);</div>
-<div class="line">    }</div>
-<div class="line">}</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"></div><!-- fragment -->  </li>
-</ul>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, HistoricalTickBidAsk[] ticks, <span class="keywordtype">bool</span> done)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, HistoricalTickBidAsk[] ticks, <span class="keywordtype">bool</span> done)</div>
 <div class="line">        {</div>
 <div class="line">            <span class="keywordflow">foreach</span> (var tick <span class="keywordflow">in</span> ticks)</div>
 <div class="line">            {</div>
@@ -213,38 +203,7 @@ High Resolution Historical Data</h1>
 <div class="line">                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk);</div>
 <div class="line">            }</div>
 <div class="line">        }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    @Override</div>
-<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTickBidAsk&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
-<div class="line">        <span class="keywordflow">for</span> (HistoricalTickBidAsk tick : ticks) {</div>
-<div class="line">            System.out.println(EWrapperMsgGenerator.historicalTickBidAsk(reqId, tick.time(), tick.mask(), tick.priceBid(), tick.priceAsk(), tick.sizeBid(),</div>
-<div class="line">                    tick.sizeAsk()));</div>
-<div class="line">        }</div>
-<div class="line">    }   </div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Public Sub historicalTickBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk</div>
-<div class="line">            For Each tick In ticks</div>
-<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}&quot;</span>,</div>
-<div class="line">                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)</div>
-<div class="line">            Next</div>
-<div class="line">        End Sub</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTickBidAsk&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
-<div class="line">    <span class="keywordflow">for</span> (HistoricalTickBidAsk tick : ticks) {</div>
-<div class="line">        printf(<span class="stringliteral">&quot;Historical tick bid/ask. ReqId: %d, time: %d, mask: %d, price bid: %g, price ask: %g, size bid: %d, size ask: %d\n&quot;</span>, reqId, </div>
-<div class="line">            tick.time, tick.mask, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk);</div>
-<div class="line">    }</div>
-<div class="line">}</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"></div><!-- fragment -->  </li>
-</ul>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksLast(<span class="keywordtype">int</span> reqId, HistoricalTickLast[] ticks, <span class="keywordtype">bool</span> done)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksLast(<span class="keywordtype">int</span> reqId, HistoricalTickLast[] ticks, <span class="keywordtype">bool</span> done)</div>
 <div class="line">        {</div>
 <div class="line">            <span class="keywordflow">foreach</span> (var tick <span class="keywordflow">in</span> ticks)</div>
 <div class="line">            {</div>
@@ -254,7 +213,20 @@ High Resolution Historical Data</h1>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksLast(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTickLast&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
+<div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicks(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTick&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
+<div class="line">        <span class="keywordflow">for</span> (HistoricalTick tick : ticks) {</div>
+<div class="line">            System.out.println(EWrapperMsgGenerator.historicalTick(reqId, tick.time(), tick.price(), tick.size()));</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTickBidAsk&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
+<div class="line">        <span class="keywordflow">for</span> (HistoricalTickBidAsk tick : ticks) {</div>
+<div class="line">            System.out.println(EWrapperMsgGenerator.historicalTickBidAsk(reqId, tick.time(), tick.mask(), tick.priceBid(), tick.priceAsk(), tick.sizeBid(),</div>
+<div class="line">                    tick.sizeAsk()));</div>
+<div class="line">        }</div>
+<div class="line">    }   </div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> historicalTicksLast(<span class="keywordtype">int</span> reqId, List&lt;HistoricalTickLast&gt; ticks, <span class="keywordtype">boolean</span> done) {</div>
 <div class="line">        <span class="keywordflow">for</span> (HistoricalTickLast tick : ticks) {</div>
 <div class="line">            System.out.println(EWrapperMsgGenerator.historicalTickLast(reqId, tick.time(), tick.mask(), tick.price(), tick.size(), tick.exchange(), </div>
 <div class="line">                tick.specialConditions()));</div>
@@ -262,7 +234,18 @@ High Resolution Historical Data</h1>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        Public Sub historicalTickLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast</div>
+<div class="fragment"><div class="line">        Public Sub historicalTick(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks</div>
+<div class="line">            For Each tick In ticks</div>
+<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}&quot;</span>, reqId, tick.Time, tick.Price, tick.Size)</div>
+<div class="line">            Next</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub historicalTickBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk</div>
+<div class="line">            For Each tick In ticks</div>
+<div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}&quot;</span>,</div>
+<div class="line">                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)</div>
+<div class="line">            Next</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub historicalTickLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast</div>
 <div class="line">            For Each tick In ticks</div>
 <div class="line">                Console.WriteLine(<span class="stringliteral">&quot;Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}&quot;</span>,</div>
 <div class="line">                    reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)</div>
@@ -270,7 +253,18 @@ High Resolution Historical Data</h1>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicksLast(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTickLast&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicks(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTick&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
+<div class="line">    <span class="keywordflow">for</span> (HistoricalTick tick : ticks) {</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Historical tick. ReqId: %d, time: %d, price: %g, size: %d\n&quot;</span>, reqId, tick.time, tick.price, tick.size);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicksBidAsk(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTickBidAsk&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
+<div class="line">    <span class="keywordflow">for</span> (HistoricalTickBidAsk tick : ticks) {</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Historical tick bid/ask. ReqId: %d, time: %d, mask: %d, price bid: %g, price ask: %g, size bid: %d, size ask: %d\n&quot;</span>, reqId, </div>
+<div class="line">            tick.time, tick.mask, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::historicalTicksLast(<span class="keywordtype">int</span> reqId, <span class="keyword">const</span> std::vector&lt;HistoricalTickLast&gt;&amp; ticks, <span class="keywordtype">bool</span> done) {</div>
 <div class="line">    <span class="keywordflow">for</span> (HistoricalTickLast tick : ticks) {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Historical tick last. ReqId: &quot;</span> &lt;&lt; reqId &lt;&lt; <span class="stringliteral">&quot;, time: &quot;</span> &lt;&lt; tick.time &lt;&lt; <span class="stringliteral">&quot;, mask: &quot;</span> &lt;&lt; tick.mask &lt;&lt; <span class="stringliteral">&quot;, price: &quot;</span>&lt;&lt; tick.price &lt;&lt;</div>
 <div class="line">            <span class="stringliteral">&quot;, size: &quot;</span> &lt;&lt; tick.size &lt;&lt; <span class="stringliteral">&quot;, exchange: &quot;</span> &lt;&lt; tick.exchange &lt;&lt; <span class="stringliteral">&quot;, special conditions: &quot;</span> &lt;&lt; tick.specialConditions &lt;&lt; std::endl;</div>
@@ -278,7 +272,23 @@ High Resolution Historical Data</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalTicks(self, reqId: int, ticks: ListOfHistoricalTick, done: bool):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="keywordflow">for</span> tick <span class="keywordflow">in</span> ticks:</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;            print(<span class="stringliteral">&quot;Historical Tick. Req Id: &quot;</span>, reqId, <span class="stringliteral">&quot;, time: &quot;</span>, tick.time,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                  <span class="stringliteral">&quot;, price: &quot;</span>, tick.price, <span class="stringliteral">&quot;, size: &quot;</span>, tick.size)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalTicksBidAsk(self, reqId: int, ticks: ListOfHistoricalTickBidAsk,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                              done: bool):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="keywordflow">for</span> tick <span class="keywordflow">in</span> ticks:</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            print(<span class="stringliteral">&quot;Historical Tick Bid/Ask. Req Id: &quot;</span>, reqId, <span class="stringliteral">&quot;, time: &quot;</span>, tick.time,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                  <span class="stringliteral">&quot;, bid price: &quot;</span>, tick.priceBid, <span class="stringliteral">&quot;, ask price: &quot;</span>, tick.priceAsk,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                  <span class="stringliteral">&quot;, bid size: &quot;</span>, tick.sizeBid, <span class="stringliteral">&quot;, ask size: &quot;</span>, tick.sizeAsk)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>historicalTicksLast(self, reqId: int, ticks: ListOfHistoricalTickLast,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                            done: bool):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        <span class="keywordflow">for</span> tick <span class="keywordflow">in</span> ticks:</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            print(<span class="stringliteral">&quot;Historical Tick Last. Req Id: &quot;</span>, reqId, <span class="stringliteral">&quot;, time: &quot;</span>, tick.time,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                  <span class="stringliteral">&quot;, price: &quot;</span>, tick.price, <span class="stringliteral">&quot;, size: &quot;</span>, tick.size, <span class="stringliteral">&quot;, exchange: &quot;</span>, tick.exchange,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                  <span class="stringliteral">&quot;, special conditions:&quot;</span>, tick.specialConditions)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p><br/>
 <br/>

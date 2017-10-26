@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('financial_advisor.html','');});
 <div class="textblock"><h1><a class="anchor" id="Account"></a>
 Allocation Methods and Groups</h1>
 <p>A number of methods and profiles are available with Financial Advisor and IBroker account structures to specify how trades should be distributed across multiple accounts. This functionality allows for trades to be placed across multiple accounts. The API has the same functionality available as TWS.</p>
-<p>Group and Profile order allocation methods for Financial Advisor Accounts can be created directly in TWS: <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/financialadvisors/allocations_and_transfers.htm" target="_blank" class="linkexternal">Allocations and Transfers</a>, or utilize the replaceFA() method via the API directly.</p>
+<p>Group and Profile order allocation methods for Financial Advisor Accounts can be created directly in TWS: <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/financialadvisors/allocations_and_transfers.htm" target="_blank" class="linkexternal">Allocations and Transfers</a>, or utilize the <a class="el" href="classIBApi_1_1EClient.html#a7ff2dbde6ec82a3d6dc5036168ddd38a">IBApi.EClient.replaceFA()</a> method via the API directly.</p>
 <p>As suggested from the method names below, a Group will distribute the order based on inherent properties such as the account's liquidation value or equity whereas a Profile will offer the possibility to assign the allocated proportion based on explicit ratios or percentages.</p>
 <h1>Allocation by Group </h1>
 <p><b>EqualQuantity</b></p>
@@ -483,7 +483,7 @@ Groups and Profiles from the API</h1>
 </ul>
 <p><em><b>Note:</b> The above command will add another 'Group_Pct_Change' group allocation to the previous FA configuration.</em></p>
 <p><b>Replace Account Profiles Configuration</b></p>
-<p>You can find the corresponding type number for profile allocation in the Profile Methods Matching table.</p>
+<p>You can find the corresponding type number for profile allocation in the "Profile Methods Matching" table above.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">string</span> FaOneProfile = <span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&quot;</span></div>

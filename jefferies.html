@@ -326,7 +326,39 @@ VWAP (VWAP)</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment --> ... <div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        contract = Contract()</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        contract.symbol = <span class="stringliteral">&quot;AAPL&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        contract.secType = <span class="stringliteral">&quot;STK&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        contract.exchange = <span class="stringliteral">&quot;JEFFALGO&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        contract.currency = <span class="stringliteral">&quot;USD&quot;</span></div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        AvailableAlgoParams.FillJefferiesVWAPParams(baseOrder,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                                                    <span class="stringliteral">&quot;10:00:00 EST&quot;</span>, <span class="stringliteral">&quot;16:00:00 EST&quot;</span>, 10, 10, <span class="stringliteral">&quot;Exclude_Both&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                                    130, 135, 1, 10, <span class="stringliteral">&quot;Patience&quot;</span>, <span class="keyword">False</span>, <span class="stringliteral">&quot;Midpoint&quot;</span>)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.JefferiesContract(), baseOrder)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="keyword">def </span>FillJefferiesVWAPParams(baseOrder: Order, startTime: str,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                                endTime: str, relativeLimit: float,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                                maxVolumeRate: float, excludeAuctions: str,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                                triggerPrice: float, wowPrice: float,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                minFillSize: int, wowOrderPct: float,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                                wowMode: str, isBuyBack: bool, wowReference: str):</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="comment"># must be direct-routed to &quot;JEFFALGO&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        baseOrder.algoStrategy = <span class="stringliteral">&quot;VWAP&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        baseOrder.algoParams = []</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;StartTime&quot;</span>, startTime))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;EndTime&quot;</span>, endTime))</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;RelativeLimit&quot;</span>, relativeLimit))</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MaxVolumeRate&quot;</span>, maxVolumeRate))</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;ExcludeAuctions&quot;</span>, excludeAuctions))</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;TriggerPrice&quot;</span>, triggerPrice))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;WowPrice&quot;</span>, wowPrice))</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;MinFillSize&quot;</span>, minFillSize))</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;WowOrderPct&quot;</span>, wowOrderPct))</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;WowMode&quot;</span>, wowMode))</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;IsBuyBack&quot;</span>, int(isBuyBack)))</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        baseOrder.algoParams.append(TagValue(<span class="stringliteral">&quot;WowReference&quot;</span>, wowReference))</div>
+</div><!-- fragment -->  </li>
 </ul>
 <h1><a class="anchor" id="t_wap"></a>
 TWAP (TWAP)</h1>

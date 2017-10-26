@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqSmartComponents(1013, <span class="stringliteral">&quot;a6&quot;</span>)</div>
 </div><!-- fragment -->  </li>
 </ul>
-<p>For instance, a market data request for the IBKR US contract may return the exchange mapping identifier "a6" to tickReqParams. Invoking the function reqSmartComponents with the symbol "a9" will reveal the list of exchanges offering market data for the IBKR US contract, and their single letter codes. The code for "ARCA" may be "P". In that case if "P" is returned to the exchange tick types, that would indicate the quote was provided by ARCA.</p>
+<p>For instance, a market data request for the IBKR US contract may return the exchange mapping identifier "a6" to <a class="el" href="interfaceIBApi_1_1EWrapper.html#acdc6b7acebacd83078af3b5c24f23b33">IBApi.EWrapper.tickReqParams</a> . Invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2">IBApi.EClient.reqSmartComponents</a> with the symbol "a9" will reveal the list of exchanges offering market data for the IBKR US contract, and their single letter codes. The code for "ARCA" may be "P". In that case if "P" is returned to the exchange tick types, that would indicate the quote was provided by ARCA.</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> smartComponents(<span class="keywordtype">int</span> reqId, Dictionary&lt;<span class="keywordtype">int</span>, KeyValuePair&lt;string, char&gt;&gt; theMap)</div>
@@ -208,7 +208,8 @@ $(document).ready(function(){initNavTree('smart_components.html','');});
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().smartComponents(reqId, map)</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;smartComponents: &quot;</span>)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">for</span> exch <span class="keywordflow">in</span> map:</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(exch.bitNumber, <span class="stringliteral">&quot;, Exchange Name: &quot;</span>, exch.exchange, <span class="stringliteral">&quot;, Letter: &quot;</span>, exch.exchangeLetter)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            print(exch.bitNumber, <span class="stringliteral">&quot;, Exchange Name: &quot;</span>, exch.exchange,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                  <span class="stringliteral">&quot;, Letter: &quot;</span>, exch.exchangeLetter)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p><br/>

@@ -132,12 +132,7 @@ $(document).ready(function(){initNavTree('md_request.html','');});
 <div class="textblock"><p>In order to receive live quotes, you must first make the request call via <a class="el" href="classIBApi_1_1EClient.html#a7a19258a3a2087c07c1c57b93f659b63">IBApi.EClient.reqMktData</a> within your API program. Every request needs a unique identifier which will serve to identify the returned data:</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            client.reqMktData(16001, ContractSamples.USStockCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
-<div class="line">            Thread.Sleep(1000);</div>
-<div class="line">            client.reqMktData(16002, ContractSamples.EuropeanStockCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
-<div class="line">            Thread.Sleep(1000);</div>
-<div class="line">            client.reqMktData(16003, ContractSamples.CashCFD(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
-<div class="line">            Thread.Sleep(1000);</div>
+<div class="fragment"><div class="line">            client.reqMktData(1001, ContractSamples.StockComboContract(), <span class="keywordtype">string</span>.Empty, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqMktData(1001, ContractSamples.StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, null);</div>
@@ -266,7 +261,7 @@ Regulatory Snapshots</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Each regulatory snapshot request incurs a 0.01 USD fee</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        <span class="comment"># self.reqMktData(1014, ContractSamples.USStock(), &quot;&quot;, False, True, [])</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1014, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The following table lists the cost and maximum allocation for regulatory snapshot quotes:</p>

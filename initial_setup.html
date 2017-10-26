@@ -160,13 +160,13 @@ Installing the API source</h1>
 <p>The API itself can be downloaded and installed from:</p>
 <p><a href="http://interactivebrokers.github.io/">http://interactivebrokers.github.io/</a></p>
 <p>Many third party applications already have their own version of the API which is installed in the process of installing the third party application. If using a third party product, it should first be verified if the API must be separately installed and what version of the API is needed- many third party products are only compatible with a specific API version.</p>
-<p>The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><em>It is important that the API installs to the <b>C</b>: drive</em></b>, as otherwise API applications may not be able to find the associated files. The Windows installer also copies compiled dynamic linked libraries (DLL) of the 32 versions of the ActiveX control TWSLib.dll, C# API CSharpAPI.dll, and C++ API TwsSocketClient.dll. Starting in version 973.03, the Windows installer also installs a 32 bit version of the RTDServer control. To use a 64 bit application which loads the API as a dynamic library, it is necessary to compile and install a 64 bit version of the desired control.</p>
+<p>The Windows version of the API installer will create a directory "C:\\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><em>It is important that the API installs to the <b>C</b>: drive</em></b>, as otherwise API applications may not be able to find the associated files. The Windows installer also copies compiled dynamic linked libraries (DLL) of the 32 versions of the ActiveX control TWSLib.dll, C# API CSharpAPI.dll, and C++ API TwsSocketClient.dll. Starting in version 973.03, the Windows installer also installs a 32 bit version of the RTDServer control. To use a 64 bit application which loads the API as a dynamic library, it is necessary to compile and install a 64 bit version of the desired control.</p>
 <h1><a class="anchor" id="changing"></a>
 Changing the installed API version</h1>
 <p>(On Windows Only)</p>
 <p>If a different version of the ActiveX (v9.71 or lower) or C++ API is required than the one currently installed on the system, there are additional steps required to uninstall the previous API version to manually remove a file called "TwsSocketClient.dll":</p>
 <p>1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual</p>
-<p>2) Delete the C: API\ folder if any files are still remaining to prevent a version mismatch.</p>
+<p>2) Delete the C:\TWS API\ folder if any files are still remaining to prevent a version mismatch.</p>
 <p>3) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.</p>
 <p>4) Restart the computer before installing a different API version.</p>
 <p><br/>
