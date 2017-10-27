@@ -91,12 +91,13 @@ const int MIN_SERVER_VER_REAL_EXPIRATION_DATE       = 134;
 const int MIN_SERVER_VER_REALIZED_PNL               = 135;
 const int MIN_SERVER_VER_LAST_LIQUIDITY             = 136;
 const int MIN_SERVER_VER_TICK_BY_TICK               = 137;
+const int MIN_SERVER_VER_DECISION_MAKER             = 138;
 
 /* 100+ messaging */
 // 100 = enhanced handshake, msg length prefixes
 
 const int MIN_CLIENT_VER = 100;
-const int MAX_CLIENT_VER = MIN_SERVER_VER_TICK_BY_TICK;
+const int MAX_CLIENT_VER = MIN_SERVER_VER_DECISION_MAKER;
 
 
 // incoming msg id's

@@ -150,6 +150,9 @@ struct Order
 
 		// native cash quantity
 		cashQty = UNSET_DOUBLE;
+
+        mifidDecisionMaker = "";
+        mifidAlgoCode = "";
 	}
 
 	// order identifier
@@ -316,6 +319,9 @@ struct Order
 
 	// native cash quantity
 	double cashQty;
+
+    std::string mifidDecisionMaker;
+    std::string mifidAlgoCode;
 
 public:
 

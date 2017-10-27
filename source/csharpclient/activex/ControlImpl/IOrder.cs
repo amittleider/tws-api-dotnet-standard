@@ -294,5 +294,11 @@ namespace TWSLib
 
         [DispId(168)]
         double cashQty { get; set; }
+
+        [DispId(169)]
+        string mifidDecisionMaker { get; set; }
+
+        [DispId(170)]
+        string mifidAlgoCode { get; set; }
     }
 }
