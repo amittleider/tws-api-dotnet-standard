@@ -1067,8 +1067,40 @@ namespace IBApi
         }
 
         /**
-         * @brief Parameters for combo routing.
-         * For more information, refer to https://www.interactivebrokers.com/en/software/api/apiguide/tables/smart_combo_routing.htm   
+         * @brief Advanced parameters for Smart combo routing. \n
+         * These features are for both guaranteed and nonguaranteed combination orders routed to Smart, and are available based on combo type and order type. 
+		 * SmartComboRoutingParams is similar to AlgoParams in that it makes use of tag/value pairs to add parameters to combo orders. \n
+		 * Make sure that you fully understand how Advanced Combo Routing works in TWS itself first: https://www.interactivebrokers.com/en/software/tws/usersguidebook/specializedorderentry/advanced_combo_routing.htm \n
+		 * The parameters cover the following capabilities:
+		 *  - Non-Guaranteed - Determine if the combo order is Guaranteed or Non-Guaranteed. \n
+		 *    Tag = NonGuaranteed \n
+		 *    Value = 0: The order is guaranteed \n
+		 *    Value = 1: The order is non-guaranteed \n
+		 * \n
+		 *  - Select Leg to Fill First - User can specify which leg to be executed first. \n
+		 *    Tag = LeginPrio \n
+		 *    Value = -1: No priority is assigned to either combo leg \n
+		 *    Value = 0: Priority is assigned to the first leg being added to the comboLeg \n
+		 *    Value = 1: Priority is assigned to the second leg being added to the comboLeg \n
+		 *    Note: The LeginPrio parameter can only be applied to two-legged combo. \n
+		 * \n
+		 *  - Maximum Leg-In Combo Size - Specify the maximum allowed leg-in size per segment \n
+		 *    Tag = MaxSegSize \n
+		 *    Value = Unit of combo size \n
+		 * \n
+		 *  - Do Not Start Next Leg-In if Previous Leg-In Did Not Finish - Specify whether or not the system should attempt to fill the next segment before the current segment fills. \n
+		 *    Tag = DontLeginNext \n
+		 *    Value = 0: Start next leg-in even if previous leg-in did not finish \n
+		 *    Value = 1: Do not start next leg-in if previous leg-in did not finish \n
+		 * \n
+		 *  - Price Condition - Combo order will be rejected or cancelled if the leg market price is outside of the specified price range [CondPriceMin, CondPriceMax] \n
+		 *    Tag = PriceCondConid: The ContractID of the combo leg to specify price condition on \n
+		 *    Value = The ContractID \n
+		 *    Tag = CondPriceMin: The lower price range of the price condition \n
+		 *    Value = The lower price \n
+		 *    Tag = CondPriceMax: The upper price range of the price condition \n
+		 *    Value = The upper price \n
+		 * \n
          */
         public List<TagValue> SmartComboRoutingParams
         {
@@ -1077,7 +1109,7 @@ namespace IBApi
         }
 
         /**
-        * @brief The attributes for all legs within a combo order.
+        * @brief List of Per-leg price following the same sequence combo legs are added. The combo price must be left unspecified when using per-leg prices.
         */
         public List<OrderComboLeg> OrderComboLegs
         {

@@ -53,7 +53,7 @@
 		</li>
 	</ul>
 	
-	The @ref IBApi::EClient::reqFundamentalData request can be cancelled via @ref::IBApi::EClient::cancelFundamentalData:
+	The @ref IBApi::EClient::reqFundamentalData request can be cancelled via @ref IBApi::EClient::cancelFundamentalData :
 	
 	<ul id="tab">
 		<li class="active"> 

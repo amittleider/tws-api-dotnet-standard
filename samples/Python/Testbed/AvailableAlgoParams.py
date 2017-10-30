@@ -226,7 +226,57 @@ class AvailableAlgoParams(Object):
         baseOrder.AlgoParams.append(TagValue("endTime", endTime))
         baseOrder.AlgoParams.append(TagValue("noTakeLiq", int(noTakeLiq)))
         baseOrder.AlgoParams.append(TagValue("monetaryValue", monetaryValue))
-        # ! [pctvoltm_params]
+    # ! [pctvoltm_params]
+
+    # ! [jefferies_vwap_params]
+    @staticmethod
+    def FillJefferiesVWAPParams(baseOrder: Order, startTime: str,
+                                endTime: str, relativeLimit: float,
+                                maxVolumeRate: float, excludeAuctions: str,
+                                triggerPrice: float, wowPrice: float,
+                                minFillSize: int, wowOrderPct: float,
+                                wowMode: str, isBuyBack: bool, wowReference: str):
+        # must be direct-routed to "JEFFALGO"
+        baseOrder.algoStrategy = "VWAP"
+        baseOrder.algoParams = []
+        baseOrder.algoParams.append(TagValue("StartTime", startTime))
+        baseOrder.algoParams.append(TagValue("EndTime", endTime))
+        baseOrder.algoParams.append(TagValue("RelativeLimit", relativeLimit))
+        baseOrder.algoParams.append(TagValue("MaxVolumeRate", maxVolumeRate))
+        baseOrder.algoParams.append(TagValue("ExcludeAuctions", excludeAuctions))
+        baseOrder.algoParams.append(TagValue("TriggerPrice", triggerPrice))
+        baseOrder.algoParams.append(TagValue("WowPrice", wowPrice))
+        baseOrder.algoParams.append(TagValue("MinFillSize", minFillSize))
+        baseOrder.algoParams.append(TagValue("WowOrderPct", wowOrderPct))
+        baseOrder.algoParams.append(TagValue("WowMode", wowMode))
+        baseOrder.algoParams.append(TagValue("IsBuyBack", int(isBuyBack)))
+        baseOrder.algoParams.append(TagValue("WowReference", wowReference))
+    # ! [jefferies_vwap_params]
+
+    # ! [csfb_inline_params]
+    @staticmethod
+    def FillCSFBInlineParams(baseOrder: Order, startTime: str,
+                             endTime: str, execStyle: str,
+                             minPercent: int, maxPercent: int,
+                             displaySize: int, auction: str,
+                             blockFinder: bool, blockPrice: float,
+                             minBlockSize: int, maxBlockSize: int, iWouldPrice: float):
+        # must be direct-routed to "CSFBALGO"
+        baseOrder.algoStrategy = "INLINE"
+        baseOrder.algoParams = []
+        baseOrder.algoParams.append(TagValue("StartTime", startTime))
+        baseOrder.algoParams.append(TagValue("EndTime", endTime))
+        baseOrder.algoParams.append(TagValue("ExecStyle", execStyle))
+        baseOrder.algoParams.append(TagValue("MinPercent", minPercent))
+        baseOrder.algoParams.append(TagValue("MaxPercent", maxPercent))
+        baseOrder.algoParams.append(TagValue("DisplaySize", displaySize))
+        baseOrder.algoParams.append(TagValue("Auction", auction))
+        baseOrder.algoParams.append(TagValue("BlockFinder", int(blockFinder)))
+        baseOrder.algoParams.append(TagValue("BlockPrice", blockPrice))
+        baseOrder.algoParams.append(TagValue("MinBlockSize", minBlockSize))
+        baseOrder.algoParams.append(TagValue("MaxBlockSize", maxBlockSize))
+        baseOrder.algoParams.append(TagValue("IWouldPrice", iWouldPrice))
+    # ! [csfb_inline_params]
 
 
 def Test():

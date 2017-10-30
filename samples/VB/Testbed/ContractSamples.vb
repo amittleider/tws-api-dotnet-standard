@@ -626,6 +626,16 @@ Namespace Samples
             Return contract
         End Function
 
+        Public Shared Function ContAndExpiringFut() As Contract
+            '! [contandexpiringfut]
+            Dim contract As Contract = New Contract()
+            contract.Symbol = "ES"
+            contract.SecType = "FUT+CONTFUT"
+            contract.Exchange = "GLOBEX"
+            '! [contandexpiringfut]
+            Return contract
+        End Function
+
         Public Shared Function JefferiesContract() As Contract
             '! [jefferies_contract]
             Dim contract As Contract = New Contract()

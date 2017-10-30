@@ -45,7 +45,7 @@
 	
 	Many third party applications already have their own version of the API which is installed in the process of installing the third party application. If using a third party product, it should first be verified if the API must be separately installed and what version of the API is needed- many third party products are only compatible with a specific API version. 
 	
-	The Windows version of the API installer will create a directory "C:\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><i>It is important that the API installs to the <b>C</b>: drive</i></b>, as otherwise API applications may not be able to find the associated files. The Windows installer also copies compiled dynamic linked libraries (DLL) of the 32 versions of the ActiveX control TWSLib.dll, C# API CSharpAPI.dll, and C++ API TwsSocketClient.dll. Starting in version 973.03, the Windows installer also installs a 32 bit version of the RTDServer control. To use a 64 bit application which loads the API as a dynamic library, it is necessary to compile and install a 64 bit version of the desired control. 
+	The Windows version of the API installer will create a directory "C:\\TWS API\" for the API source code in addition to automatically copying two files into the Windows directory for the ActiveX/DDE and C++ APIs. <b><i>It is important that the API installs to the <b>C</b>: drive</i></b>, as otherwise API applications may not be able to find the associated files. The Windows installer also copies compiled dynamic linked libraries (DLL) of the 32 versions of the ActiveX control TWSLib.dll, C# API CSharpAPI.dll, and C++ API TwsSocketClient.dll. Starting in version 973.03, the Windows installer also installs a 32 bit version of the RTDServer control. To use a 64 bit application which loads the API as a dynamic library, it is necessary to compile and install a 64 bit version of the desired control. 
 	
 	\section changing Changing the installed API version
 	
@@ -55,7 +55,7 @@
 	
 	1) Uninstall the API from the "Add/Remove Tool" in the Windows Control Panel as usual
 	
-	2) Delete the C:\TWS API\ folder if any files are still remaining to prevent a version mismatch. 
+	2) Delete the C:\\TWS API\ folder if any files are still remaining to prevent a version mismatch. 
 	
 	3) Locate the file "C:\Windows\SysWOW64\TwsSocketClient.dll". Delete this file.
 	

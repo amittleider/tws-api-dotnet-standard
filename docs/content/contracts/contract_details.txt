@@ -87,6 +87,6 @@
 	a similar subsequent one will be kept on hold for one minute. This amount of time will increase if more such requests are performed. To prevent this narrow down the amount of eligible contracts
 	by providing an expiration date specifying at least the year (i.e. 2016) or the year and the month (i.e. 201603 for March 2016).
 	
-	<br></br>
+	<br><br>
 	
 */

@@ -4,7 +4,7 @@
 	
 	- These logs will only contain the exchanged messages' sequences between the client application and
 	the TWS/IB Gateway. Since this is the only information being recorded, the API message log files are far more compact and therefore easier to handle; however they do not contain as much diagnostic information as TWS/IBG logs. The API message log files will be created
-	within the <b>C:/Jts</b> (or IBJts on Mac/Linux) directory just as the TWS ones. These logs will be named <b>api.[clientId].[day].log</b> where [clientId] corresponds to the Id the client application used to
+	within the <b>C:\\Jts</b> (or IBJts on Mac/Linux) directory just as the TWS ones. These logs will be named <b>api.[clientId].[day].log</b> where [clientId] corresponds to the Id the client application used to
 	connect to the TWS and [day] to the week day (i.e. api.123.Thu.log). <br><br>
 	
 	- To enable the API message log files, simply check the "Create API message log file" option within the TWS/IB Gateway's API settings dialogue. There is also a setting "Include market data in API log file" which will cause real time API market data to be captured in the API log when troubleshooting market data issues. 
@@ -26,13 +26,13 @@
 	
 	\subsection tws_952	Build 956 or below 
 	
-	- The log files are located within the <b>C:/Jts</b> (or IBJts on Mac/Linux) directory and can be easily identified by their name: TWS logs will be <b>log.[day].txt</b>, and IBG logs will be <b>ibgateway.[day].log</b>, where [day] corresponds to the week day when the log file 
+	- The log files are located within the <b>C:\\Jts</b> (or IBJts on Mac/Linux) directory and can be easily identified by their name: TWS logs will be <b>log.[day].txt</b>, and IBG logs will be <b>ibgateway.[day].log</b>, where [day] corresponds to the week day when the log file 
 	was written (Mon, Tue, Wed, etc). There will be one log file per session of TWS or IBG, meaning that for TWS there will be one file per day. When the week is over, 
-	the TWS will start over again and overwrite the log file for that day. This means that a log file that is not explicitly backed up will stay within the C:\Jts directory for at least seven days.
+	the TWS will start over again and overwrite the log file for that day. This means that a log file that is not explicitly backed up will stay within the C:\\Jts directory for at least seven days.
 	
 	\subsection tws_956	Build 956 or higher
 	
-	- TWS and IB Gateway log files will be kept in a user-specific subdirectory within <b>C:/Jts</b> (or IBJts on Mac/Linux). The path of a user's subdirectory can be found when TWS/IB Gateway is running and logged-in with that user by pressing the "Ctrl-Alt-U" combination. 
+	- TWS and IB Gateway log files will be kept in a user-specific subdirectory within <b>C:\\Jts</b> (or IBJts on Mac/Linux). The path of a user's subdirectory can be found when TWS/IB Gateway is running and logged-in with that user by pressing the "Ctrl-Alt-U" combination. 
 	The filename for TWS logs from previous sessions will be <b>tws.[YYYYMMDD].log</b> where YYYYMMDD is the year, month, and day the log file was created. The filename for the current day will simply be <b>tws.log</b>. 
 	Similarly, IB Gateway log files from previous sessions will be named in format of <b>ibgateway.[YYYYMMDD].log</b>. The filename for the current day will simply be <b>ibgateway.log</b>.
 	

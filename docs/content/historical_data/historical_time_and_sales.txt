@@ -2,7 +2,21 @@
 
 	\section reqHistoricalTicks High Resolution Historical Data
 	
-	Coming soon in API <b>v973.04</b> and future TWS versions, the highest granularity of historical data from IB's database can be retrieved using the API function IBApi::EClient::reqHistoricalTicks. This corresponds to the <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/timensales.htm" target="_blank" class="linkexternal">TWS Historical Time & Sales</a> Window. 
+	The highest granularity of historical data from IB's database can be retrieved using the API function IBApi::EClient::reqHistoricalTicks. This corresponds to the <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/mosaic/timensales.htm" target="_blank" class="linkexternal">TWS Historical Time & Sales</a> Window. TWS build <b>968+</b> and API version <b>973.04+</b> is required.
+	
+	<ul id="tab">
+		<li class="active">
+		</li>
+		<li>
+		</li>
+		<li>
+		</li>
+		<li> 
+		</li>
+		<li> 
+			<b>Note:</b> the historical Time&Sales feature in Python API is available starting in API v973.06+.
+		</li>
+	</ul>
 	
 	<ul id="tab">
 		<li class="active"> 
@@ -37,53 +51,37 @@
 	<ul id="tab">
 		<li class="active">
 			\snippet EWrapperImpl.cs historicalticks
-		</li>
-		<li>
-			\snippet EWrapperImpl.java historicalticks
-		</li>
-		<li>
-			\snippet EWrapperImpl.vb historicalticks
-		</li>
-		<li>
-			\snippet TestCppClient.cpp historicalticks
-		</li>
-		<li>
-			\snippet Program.py historicalticks
-		</li>
-	</ul>
-	
-	<ul id="tab">
-		<li class="active">
+			...
 			\snippet EWrapperImpl.cs historicalticksbidask
-		</li>
-		<li>
-			\snippet EWrapperImpl.java historicalticksbidask
-		</li>
-		<li>
-			\snippet EWrapperImpl.vb historicalticksbidask
-		</li>
-		<li>
-			\snippet TestCppClient.cpp historicalticksbidask
-		</li>
-		<li>
-			\snippet Program.py historicalticksbidask
-		</li>
-	</ul>
-
-	<ul id="tab">
-		<li class="active">
+			...
 			\snippet EWrapperImpl.cs historicaltickslast
 		</li>
 		<li>
+			\snippet EWrapperImpl.java historicalticks
+			...
+			\snippet EWrapperImpl.java historicalticksbidask
+			...
 			\snippet EWrapperImpl.java historicaltickslast
 		</li>
 		<li>
+			\snippet EWrapperImpl.vb historicalticks
+			...
+			\snippet EWrapperImpl.vb historicalticksbidask
+			...
 			\snippet EWrapperImpl.vb historicaltickslast
 		</li>
 		<li>
+			\snippet TestCppClient.cpp historicalticks
+			...
+			\snippet TestCppClient.cpp historicalticksbidask
+			...
 			\snippet TestCppClient.cpp historicaltickslast
 		</li>
 		<li>
+			\snippet Program.py historicalticks
+			...
+			\snippet Program.py historicalticksbidask
+			...
 			\snippet Program.py historicaltickslast
 		</li>
 	</ul>

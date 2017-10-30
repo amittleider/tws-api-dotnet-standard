@@ -795,6 +795,11 @@ INPUT                  += ../source/csharpclient/client/TagValue.cs
 INPUT                  += ../source/csharpclient/client/TimeCondition.cs
 INPUT                  += ../source/csharpclient/client/UnderComp.cs
 INPUT                  += ../source/csharpclient/client/VolumeCondition.cs
+INPUT                  += ../source/csharpclient/client/TickAttrib.cs
+INPUT                  += ../source/csharpclient/client/Bar.cs
+INPUT                  += ../source/csharpclient/client/HistoricalTick.cs
+INPUT                  += ../source/csharpclient/client/HistoricalTickBidAsk.cs
+INPUT                  += ../source/csharpclient/client/HistoricalTickLast.cs
 
 
 EXAMPLE_PATH           += ../samples/CSharp/Testbed/

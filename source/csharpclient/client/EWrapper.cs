@@ -49,8 +49,7 @@ namespace IBApi
          * @param tickerId the request's unique identifier.
          * @param field the type of the price being received (i.e. ask price).
          * @param price the actual price.
-         * @param canAutoExecute Specifies whether the price tick is available for automatic execution (1) or not (0).
-		 * @param pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask
+         * @param attribs an TickAttrib object that contains price attributes such as TickAttrib::CanAutoExecute, TickAttrib::PastLimit and TickAttrib::PreOpen.
          * @sa TickType, tickSize, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickPrice(int tickerId, int field, double price, TickAttrib attribs);
@@ -381,7 +380,7 @@ namespace IBApi
          * @param lastFillPrice price at which the last positions were filled.
          * @param clientId API client which submitted the order.
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
-		 * @param mktCapPrice If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. 
+		 * @param mktCapPrice If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. Python API specifically requires API v973.06+.
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
         void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
@@ -452,15 +451,7 @@ namespace IBApi
         /**
          * @brief returns the requested historical data bars
          * @param reqId the request's identifier
-         * @param date the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login.
-         * @param open the bar's open point
-         * @param high the bar's high point
-         * @param low the bar's low point
-         * @param close the bar's closing point
-         * @param volume the bar's traded volume if available (only available for TRADES)
-         * @param count the number of trades during the bar's timespan (only available for TRADES)
-         * @param WAP the bar's Weighted Average Price (only available for TRADES)
-         * @param hasGaps (deprecated and no longer used)
+         * @param bar the OHLC historical data Bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
          * @sa EClientSocket::reqHistoricalData
          */
         void historicalData(int reqId, Bar bar);
@@ -468,7 +459,7 @@ namespace IBApi
 		/**
          * @brief Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.
 		 * @param reqId the requests identifier
-		 * @param bar the OHLC historical data bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
+		 * @param bar the OHLC historical data Bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
          */
         void historicalDataUpdate(int reqId, Bar bar);
 
@@ -854,24 +845,24 @@ namespace IBApi
 		/**
 		* @brief
 		* @param reqId
-		* @param ticks
-		* @param done
+		* @param ticks list of HistoricalTick data
+		* @param done flag to indicate if all historical tick data has been received
 		*/
         void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
 		
 		/**
 		* @brief
 		* @param reqId
-		* @param ticks
-		* @param done
+		* @param ticks list of HistoricalBidAsk data
+		* @param done flag to indicate if all historical tick data has been received
 		*/
         void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done);
 		
 		/**
 		* @brief
 		* @param reqId
-		* @param ticks
-		* @param done
+		* @param ticks list of HistoricalTickLast data
+		* @param done flag to indicate if all historical tick data has been received
 		*/
         void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
 		

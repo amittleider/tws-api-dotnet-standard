@@ -22,7 +22,7 @@
 		</li>
 	</ul>
 
-	For instance, a market data request for the IBKR US contract may return the exchange mapping identifier "a6" to @ref tickReqParams. Invoking the function reqSmartComponents with the symbol "a9" will reveal the list of exchanges offering market data for the IBKR US contract, and their single letter codes. The code for "ARCA" may be "P". In that case if "P" is returned to the exchange tick types, that would indicate the quote was provided by ARCA.
+	For instance, a market data request for the IBKR US contract may return the exchange mapping identifier "a6" to @ref IBApi::EWrapper::tickReqParams . Invoking the function @ref IBApi::EClient::reqSmartComponents with the symbol "a9" will reveal the list of exchanges offering market data for the IBKR US contract, and their single letter codes. The code for "ARCA" may be "P". In that case if "P" is returned to the exchange tick types, that would indicate the quote was provided by ARCA.
 
 	<ul id="tab">
 		<li class="active">

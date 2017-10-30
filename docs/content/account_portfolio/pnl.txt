@@ -10,9 +10,22 @@
 
 	Beginning with API v973.03, requests can be made to receive real time updates about the daily P&L and unrealized P&L for an account, or for individual positions. Financial Advisors can also request P&L figures for a FA group, or portfolio model. In API v973.05+/TWS v968+ this is further extended to include realized P&L information at the account or individual position level. 
 	
-	- Note in Python the P&L functions are available starting in v973.05.
 	
 	These newer P&L API functions demonstrated below return the data which is displayed in the TWS <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/profitloss.htm" target="_blank">Portfolio Window</a> in current versions of TWS (v963+). As such, the P&L values are calculated based on the reset schedule specifed in TWS Global Configuration (by default an instrument-specific reset schedule) and this setting affects values sent to the associated API functions as well. Also in TWS, P&L data from virtual forex positions will be included in the account P&L if and only if the Virtual Fx section of the Account Window is expanded. 
+	
+	<ul id="tab">
+		<li class="active">
+		</li>
+		<li>
+		</li>
+		<li>
+		</li>
+		<li> 
+		</li>
+		<li> 
+			<b>Note:</b> the P&L functions in Python API are available starting in API v973.06+.
+		</li>
+	</ul>
 	
 	<h2>P&L subscription requests for individual positions</h2>
 
