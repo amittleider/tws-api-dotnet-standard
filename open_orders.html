@@ -136,7 +136,7 @@ API client's orders</h1>
 <p>The <a class="el" href="classIBApi_1_1EClient.html#a11e9c0dce640a3b8ed7a221792412c05">IBApi.EClient.reqOpenOrders</a> method allows to obtain all active orders submitted by the client application connected with the exact same client Id with which the order was sent to the TWS. If client 0 invokes reqOpenOrders, it will cause <b>currently</b> open orders placed from TWS manually to be 'bound', i.e. assigned an order ID so that they can be modified or cancelled by the API client 0. In the API settings in Global Configuration, is a setting checked by default "Use negative numbers to bind automatic orders" which will specify how manual TWS orders are assigned an API order ID.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//client.reqOpenOrders();</span></div>
+<div class="fragment"><div class="line">            client.reqOpenOrders();</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqOpenOrders();</div>
@@ -156,7 +156,7 @@ All submitted orders</h1>
 <p>To obtain those orders created via the TWS API regardless of the submitting client application, make use of the <a class="el" href="classIBApi_1_1EClient.html#aa2c9a012884dd53311a7a7c6a326306c">IBApi.EClient.reqAllOpenOrders</a> function.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//client.reqAllOpenOrders();</span></div>
+<div class="fragment"><div class="line">            client.reqAllOpenOrders();</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqAllOpenOrders();</div>
@@ -176,7 +176,7 @@ Manually submitted orders</h1>
 <p>Finally, <a class="el" href="classIBApi_1_1EClient.html#abe8e30367fff33b9a1171a4580029016">IBApi.EClient.reqAutoOpenOrders</a> can only be invoked by client with ID 0. It will cause future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//client.reqAutoOpenOrders(true);</span></div>
+<div class="fragment"><div class="line">            client.reqAutoOpenOrders(<span class="keyword">true</span>);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        client.reqAutoOpenOrders(<span class="keyword">true</span>);</div>
@@ -210,7 +210,7 @@ Receiving Order Information</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> orderStatus(<span class="keywordtype">int</span> orderId, <span class="keywordtype">string</span> status, <span class="keywordtype">double</span> filled, <span class="keywordtype">double</span> remaining, <span class="keywordtype">double</span> avgFillPrice, <span class="keywordtype">int</span> permId, <span class="keywordtype">int</span> parentId, <span class="keywordtype">double</span> lastFillPrice, <span class="keywordtype">int</span> clientId, <span class="keywordtype">string</span> whyHeld, <span class="keywordtype">double</span> mktCapPrice)</div>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;OrderStatus. Id: &quot;</span>+orderId+<span class="stringliteral">&quot;, Status: &quot;</span>+status+<span class="stringliteral">&quot;, Filled&quot;</span>+filled+<span class="stringliteral">&quot;, Remaining: &quot;</span>+remaining</div>
-<div class="line">                +<span class="stringliteral">&quot;, AvgFillPrice: &quot;</span>+avgFillPrice+<span class="stringliteral">&quot;, PermId: &quot;</span>+permId+<span class="stringliteral">&quot;, ParentId: &quot;</span>+parentId+<span class="stringliteral">&quot;, LastFillPrice: &quot;</span>+lastFillPrice+<span class="stringliteral">&quot;, ClientId: &quot;</span>+clientId+<span class="stringliteral">&quot;, WhyHeld: &quot;</span>+whyHeld+<span class="stringliteral">&quot;, MktCapPrice: &quot;</span>+mktCapPrice);</div>
+<div class="line">                + <span class="stringliteral">&quot;, AvgFillPrice: &quot;</span> + avgFillPrice + <span class="stringliteral">&quot;, PermId: &quot;</span> + permId + <span class="stringliteral">&quot;, ParentId: &quot;</span> + parentId + <span class="stringliteral">&quot;, LastFillPrice: &quot;</span> + lastFillPrice + <span class="stringliteral">&quot;, ClientId: &quot;</span> + clientId + <span class="stringliteral">&quot;, WhyHeld: &quot;</span> + whyHeld + <span class="stringliteral">&quot;, MktCapPrice: &quot;</span> + mktCapPrice);</div>
 <div class="line">        }</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> openOrderEnd()</div>
 <div class="line">        {</div>
@@ -263,7 +263,7 @@ Receiving Order Information</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::orderStatus(OrderId orderId, <span class="keyword">const</span> std::string&amp; status, <span class="keywordtype">double</span> filled,</div>
 <div class="line">        <span class="keywordtype">double</span> remaining, <span class="keywordtype">double</span> avgFillPrice, <span class="keywordtype">int</span> permId, <span class="keywordtype">int</span> parentId,</div>
 <div class="line">        <span class="keywordtype">double</span> lastFillPrice, <span class="keywordtype">int</span> clientId, <span class="keyword">const</span> std::string&amp; whyHeld, <span class="keywordtype">double</span> mktCapPrice){</div>
-<div class="line">    printf(<span class="stringliteral">&quot;OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g\n&quot;</span>, orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g, lastLiquidity: %d\n&quot;</span>, orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);</div>
 <div class="line">}</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::openOrderEnd() {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;OpenOrderEnd\n&quot;</span>);</div>
@@ -280,14 +280,15 @@ Receiving Order Information</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>orderStatus(self, orderId: OrderId, status: str, filled: float,</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                    remaining: float, avgFillPrice: float, permId: int,</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                    parentId: int, lastFillPrice: float, clientId: int,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                    whyHeld: str):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                    whyHeld: str, mktCapPrice: float):</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        super().orderStatus(orderId, status, filled, remaining,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld)</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;OrderStatus. Id:&quot;</span>, orderId, <span class="stringliteral">&quot;Status:&quot;</span>, status, <span class="stringliteral">&quot;Filled:&quot;</span>, filled,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;              <span class="stringliteral">&quot;Remaining:&quot;</span>, remaining, <span class="stringliteral">&quot;AvgFillPrice:&quot;</span>, avgFillPrice,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;              <span class="stringliteral">&quot;PermId:&quot;</span>, permId, <span class="stringliteral">&quot;ParentId:&quot;</span>, parentId, <span class="stringliteral">&quot;LastFillPrice:&quot;</span>,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;              lastFillPrice, <span class="stringliteral">&quot;ClientId:&quot;</span>, clientId, <span class="stringliteral">&quot;WhyHeld:&quot;</span>, whyHeld)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                            avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        print(<span class="stringliteral">&quot;OrderStatus. Id: &quot;</span>, orderId, <span class="stringliteral">&quot;, Status: &quot;</span>, status, <span class="stringliteral">&quot;, Filled: &quot;</span>, filled,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;              <span class="stringliteral">&quot;, Remaining: &quot;</span>, remaining, <span class="stringliteral">&quot;, AvgFillPrice: &quot;</span>, avgFillPrice,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;              <span class="stringliteral">&quot;, PermId: &quot;</span>, permId, <span class="stringliteral">&quot;, ParentId: &quot;</span>, parentId, <span class="stringliteral">&quot;, LastFillPrice: &quot;</span>,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;              lastFillPrice, <span class="stringliteral">&quot;, ClientId: &quot;</span>, clientId, <span class="stringliteral">&quot;, WhyHeld: &quot;</span>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;              whyHeld, <span class="stringliteral">&quot;, MktCapPrice: &quot;</span>, mktCapPrice)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>openOrderEnd(self):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().openOrderEnd()</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;OpenOrderEnd&quot;</span>)</div>

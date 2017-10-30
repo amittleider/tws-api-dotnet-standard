@@ -302,7 +302,7 @@ Spreads</h1>
 <p>"cmb=&lt;conid1&gt;#&lt;ratio1&gt;#&lt;action1&gt;#&lt;exchange1&gt;;&lt;conid2&gt;#&lt;ratio2&gt;#&lt;action2&gt;#&lt;exchange2&gt;;"</p>
 <h2><a class="anchor" id="rtd_samples_spread_stk"></a>
 Stock Spread</h2>
-<p>Buy 1 IBKR + Sell 1 MCD:</p>
+<p>Buy 1 IBKR@SMART + Sell 1 MCD@SMART:</p>
 <h3><a class="anchor" id="rtd_samples_spread_stk_complex"></a>
 - Complex Syntax</h3>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"sym=IBKR,MCD", "exch=SMART", "cur=USD", "sec=BAG", "cmb=43645865#1#BUY#SMART;9408#1#SELL#SMART;", "Bid") </code></p>
@@ -314,7 +314,7 @@ Stock Spread</h2>
  </p>
 <h2><a class="anchor" id="rtd_samples_spread_fut"></a>
 Futures Spread</h2>
-<p>Buy 1 VXJ7 + Sell 1 VXK7:</p>
+<p>Buy 1 VXJ7@CFE + Sell 1 VXK7@CFE:</p>
 <h3><a class="anchor" id="rtd_samples_spread_fut_complex"></a>
 - Complex Syntax</h3>
 <p><code class="rtd_formula"> =RTD("tws.twsrtdserverctrl",,"sym=VIX", "exch=CFE", "cur=USD", "sec=BAG", "cmb=249139906#1#BUY#CFE;252623425#1#SELL#CFE;", "Bid") </code></p>
@@ -325,7 +325,7 @@ Futures Spread</h2>
  </p>
 <h2><a class="anchor" id="rtd_samples_spread_opt"></a>
 Options Spread</h2>
-<p>Buy 1 DBK May19'17 15 CALL  + Sell 1 DBK May19'17 16 CALL :</p>
+<p>Buy 1 DBK May19'17 15 CALL @DTB + Sell 1 DBK May19'17 16 CALL @DTB:</p>
 <h3><a class="anchor" id="rtd_samples_spread_opt_complex"></a>
 - Complex Syntax</h3>
 <p><code class="rtd_formula"> =RTD("tws.twsrtdserverctrl",,"sym=DBK", "exch=DTB", "cur=EUR", "sec=BAG", "cmb=270579950#1#BUY#DTB;270579957#1#SELL#DTB;", "Bid") </code></p>
@@ -337,7 +337,7 @@ Options Spread</h2>
 <h2><a class="anchor" id="rtd_samples_spread_intercmdty"></a>
 Inter-Commodity Futures Spread</h2>
 <p>For Inter-Commodity futures, the 'Local Symbol' field in TWS is used for the 'Symbol' field in the TWS <a class="el" href="contracts.html">Contract Description</a>.</p>
-<p>Buy 1 CL May'17  + Sell 1 BZ Jun'17 :</p>
+<p>Buy 1 CL May'17 @NYMEX + Sell 1 BZ Jun'17 @NYMEX:</p>
 <h3><a class="anchor" id="rtd_samples_spread_intercmdty_complex"></a>
 - Complex Syntax</h3>
 <p><code class="rtd_formula"> =RTD("tws.twsrtdserverctrl",,"sym=CL.BZ", "exch=NYMEX", "cur=USD", "sec=BAG", "cmb=55977404#1#BUY#NYMEX;55807026#1#SELL#NYMEX;", "Bid") </code></p>

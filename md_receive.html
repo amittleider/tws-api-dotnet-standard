@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('md_receive.html','');});
 <div class="textblock"><h1><a class="anchor" id="market_data_return"></a>
 Receiving Market Data</h1>
 <p>Real time data is accessed in the API using a subscribe-and-publish model that is also used with other functionality such as retrieving positon or account values. After a streaming market data subscription request for a particular contract in IB's database is made, a continuous stream of market data is returned by TWS and separated to different functions in EWrapper depending on the data type (integer vs decimal vs string). Since the subscribe-and-publish model is inherently asynchronous, the returned data is linked to the initial request using a numerical label specified in the request called the request ID (reqID).</p>
-<p>After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement these methods to manipulate the data relayed back to the client. Notice how market data callbacks such as <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a> methods contain the request id with which the response can be mapped to its originating request. By default, there are certain 'default tick types' that are always returned. These include fields such as the bid price, ask price, bid size, ask size, etc. There are additional types of data available with the real time data that are requested by specifying certain "generic tick types" in the market data request. For more information, .</p>
+<p>After subscribing to the ticker stream, your API client will receive the data supplied by the TWS API server via several methods. In your API client code, you will need to implement these methods to manipulate the data relayed back to the client. Notice how market data callbacks such as <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">IBApi.EWrapper.tickPrice</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">IBApi.EWrapper.tickSize</a> methods contain the request id with which the response can be mapped to its originating request. By default, there are certain 'default tick types' that are always returned. These include fields such as the bid price, ask price, bid size, ask size, etc. There are additional types of data available with the real time data that are requested by specifying certain "generic tick types" in the market data request. For more information, <a class="el" href="md_request.html#genticks">Generic Tick Types</a>.</p>
 <p>When <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. Every tickPrice callback is followe...">IBApi::EWrapper::tickPrice</a> and <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a> are reported as -1, this indicates that there is no data currently available. Most commonly this occurs when requesting data from markets that are closed. It can also occur for infrequently trading instruments which do not have open bids or offers at that time of the request. To receive frozen quotes (the last available bid/ask recorded by the system) invoke the function <a class="el" href="classIBApi_1_1EClient.html#ae03b31bb2702ba519ed63c46455872b6">IBApi.EClient.reqMarketDataType</a> with argument 2. Alternatively, to receive "delayed frozen" data from tickers without holding market data subscriptions, specify a market data type of 4. Frozen data is exclusive to default tick types- <a class="el" href="md_request.html#genticks">Generic Tick Types</a> are not available- and requires market data subscriptions.</p>
 <p>Following every <a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718" title="Market data tick price callback. Handles all price related ticks. Every tickPrice callback is followe...">IBApi::EWrapper::tickPrice</a> callback there will be a <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a>. This is important because with combo contracts, an actively trading contract can have a price of zero. In this case it will have a positive <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a> value. <a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba" title="Market data tick size callback. Handles all size-related ticks. ">IBApi::EWrapper::tickSize</a> is also invoked every time there is a change in the size of the last traded price. For that reason, there will be duplicate tickSize events when both the price and size of a trade changes.</p>
 <ul id="tab">
@@ -231,10 +231,14 @@ Receiving Market Data</h1>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickPrice(self, reqId: TickerId, tickType: TickType, price: float,</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                  attrib: TickAttrib):</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().tickPrice(reqId, tickType, price, attrib)</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Tick Price. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType, <span class="stringliteral">&quot;Price:&quot;</span>,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              price, <span class="stringliteral">&quot;CanAutoExecute:&quot;</span>, attrib.canAutoExecute,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              <span class="stringliteral">&quot;PastLimit&quot;</span>, attrib.pastLimit)</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;Tick Price. Ticker Id:&quot;</span>, reqId, <span class="stringliteral">&quot;tickType:&quot;</span>, tickType,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot;Price:&quot;</span>, price, <span class="stringliteral">&quot;CanAutoExecute:&quot;</span>, attrib.canAutoExecute,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;              <span class="stringliteral">&quot;PastLimit:&quot;</span>, attrib.pastLimit, end=<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="keywordflow">if</span> tickType == TickTypeEnum.BID <span class="keywordflow">or</span> tickType == TickTypeEnum.ASK:</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            print(<span class="stringliteral">&quot;PreOpen:&quot;</span>, attrib.preOpen)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            print()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 </div><!-- fragment --><p> The boolean value canAutoExecute in tickPrice is intended to indicate that a quote is available for immediate execution. The boolean value pastLimit indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask.</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickSize(self, reqId: TickerId, tickType: TickType, size: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickSize(reqId, tickType, size)</div>
@@ -285,9 +289,11 @@ Exchange Component Mapping</h1>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickReqParams(self, tickerId:int, minTick:float, bboExchange:str, snapshotPermissions:int):</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;tickReqParams: &quot;</span>, tickerId, <span class="stringliteral">&quot; minTick: &quot;</span>, minTick, <span class="stringliteral">&quot; bboExchange: &quot;</span>, bboExchange, <span class="stringliteral">&quot; snapshotPermissions: &quot;</span>, snapshotPermissions)</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>tickReqParams(self, tickerId:int, minTick:float,</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                      bboExchange:str, snapshotPermissions:int):</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        super().tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        print(<span class="stringliteral">&quot;tickReqParams: &quot;</span>, tickerId, <span class="stringliteral">&quot; minTick: &quot;</span>, minTick,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;              <span class="stringliteral">&quot; bboExchange: &quot;</span>, bboExchange, <span class="stringliteral">&quot; snapshotPermissions: &quot;</span>, snapshotPermissions)</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The exchange mapping identifier <em>bboExchange</em> will be a symbol such as "a6" which can be used to decode the single letter exchange abbreviations returned to the bidExch, askExch, and lastExch fields by invoking the function <a class="el" href="classIBApi_1_1EClient.html#a3c656183f9a8d46349167cf2ebe9dfa2" title="Returns the mapping of single letter codes to exchange names given the mapping identifier. ">IBApi::EClient::reqSmartComponents</a>. More information about <a class="el" href="smart_components.html">Component Exchanges</a>.</p>
@@ -302,51 +308,48 @@ Re-Routing CFDs</h1>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market data request. Req Id: {0}, ConId: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange);</div>
 <div class="line">        }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">    @Override</div>
-<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, String exchange) {</div>
-<div class="line">        System.out.println(EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange));</div>
-<div class="line">    }</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line">        Public Sub rerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDataReq</div>
-<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange)</div>
-<div class="line">        End Sub</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
-<div class="line">    printf( <span class="stringliteral">&quot;Re-route market data request. ReqId: %d, ConId: %d, Exchange: %s\n&quot;</span>, reqId, conid, exchange.c_str());</div>
-<div class="line">}</div>
-</div><!-- fragment -->  </li>
-<li>
-<div class="fragment"></div><!-- fragment -->  </li>
-</ul>
-<ul id="tab">
-<li class="active">
-<div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, <span class="keywordtype">string</span> exchange)</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, <span class="keywordtype">string</span> exchange)</div>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market depth request. Req Id: {0}, ConId: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange);</div>
 <div class="line">        }</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    @Override</div>
+<div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, String exchange) {</div>
+<div class="line">        System.out.println(EWrapperMsgGenerator.rerouteMktDataReq(reqId, conId, exchange));</div>
+<div class="line">    }</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">    @Override</div>
 <div class="line">    <span class="keyword">public</span> <span class="keywordtype">void</span> rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conId, String exchange) {</div>
 <div class="line">        System.out.println(EWrapperMsgGenerator.rerouteMktDepthReq(reqId, conId, exchange));</div>
 <div class="line">    }</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        Public Sub rerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDepthReq</div>
+<div class="fragment"><div class="line">        Public Sub rerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDataReq</div>
+<div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange)</div>
+<div class="line">        End Sub</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub rerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDepthReq</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}&quot;</span>, reqId, conId, exchange)</div>
 <div class="line">        End Sub</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDataReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
+<div class="line">    printf( <span class="stringliteral">&quot;Re-route market data request. ReqId: %d, ConId: %d, Exchange: %s\n&quot;</span>, reqId, conid, exchange.c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::rerouteMktDepthReq(<span class="keywordtype">int</span> reqId, <span class="keywordtype">int</span> conid, <span class="keyword">const</span> std::string&amp; exchange) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;Re-route market depth request. ReqId: %d, ConId: %d, Exchange: %s\n&quot;</span>, reqId, conid, exchange.c_str());</div>
 <div class="line">}</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>rerouteMktDataReq(self, reqId: int, conId: int, exchange: str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().rerouteMktDataReq(reqId, conId, exchange)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Re-route market data request. Req Id: &quot;</span>, reqId,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;              <span class="stringliteral">&quot;, ConId: &quot;</span>, conId, <span class="stringliteral">&quot; Exchange: &quot;</span>, exchange)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+</div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>rerouteMktDepthReq(self, reqId: int, conId: int, exchange: str):</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().rerouteMktDataReq(reqId, conId, exchange)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        print(<span class="stringliteral">&quot;Re-route market data request. Req Id: &quot;</span>, reqId,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;              <span class="stringliteral">&quot;, ConId: &quot;</span>, conId, <span class="stringliteral">&quot; Exchange: &quot;</span>, exchange)</div>
+</div><!-- fragment -->  </li>
 </ul>
 <p><br/>
 <br/>

@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('model_portfolios.html','');});
 </ul>
 <p>To request position updates from a specific model, the function <a class="el" href="classIBApi_1_1EClient.html#a4fa2744c3459f9f6cf695980267608c3" title="Requests position subscription for account and/or model Initially all positions are returned...">IBApi::EClient::reqPositionsMulti</a> can be used: <a class="el" href="positions.html#position_multi">Position Update Subscription by Model</a></p>
 <p>To request model account updates, there is the function <a class="el" href="classIBApi_1_1EClient.html#a7233f67c6c69f3057994b6b97a366dfb" title="Requests account updates for account and/or model. ">IBApi::EClient::reqAccountUpdatesMulti</a>, see: <a class="el" href="account_updates.html#acct_updates_multi">Account Value Update Subscriptions by Model</a></p>
-<p>To place an order to a model, the IBApi::Order::model field must be set accordingly, for example:</p>
+<p>To place an order to a model, the <a class="el" href="classIBApi_1_1Order.html#a031f8f6bc60928a3f0f94b7ba6f3b927">IBApi.Order.ModelCode</a> field must be set accordingly, for example:</p>
 <ul id="tab">
 <li class="active">
 <div class="fragment"><div class="line">            <span class="comment">//Order modelOrder = OrderSamples.LimitOrder(&quot;BUY&quot;, 200, 100);</span></div>
@@ -167,7 +167,11 @@ $(document).ready(function(){initNavTree('model_portfolios.html','');});
 <div class="line">    m_pClient-&gt;placeOrder(m_orderId++, ContractSamples::USStock(), modelOrder);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"></div><!-- fragment -->  </li>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        modelOrder.account = <span class="stringliteral">&quot;DF12345&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        modelOrder.modelCode = <span class="stringliteral">&quot;Technology&quot;</span> <span class="comment"># model for tech stocks first created in TWS</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        self.placeOrder(self.nextOrderId(), ContractSamples.USStock(), modelOrder)</div>
+</div><!-- fragment -->  </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

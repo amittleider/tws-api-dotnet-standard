@@ -279,7 +279,7 @@ Basic Tick Types</h2>
 <h2><a class="anchor" id="rtd_simple_syntax_gen_ticks"></a>
 Generic Tick Types</h2>
 <p>A selection of <b>Generic Tick Types</b> are also supported in TWS RTD Server API. To request for any <b>Generic Tick Type</b>, you just need to specify the name of the generic tick type as the <b>Topic</b> string in the RTD formula.</p>
-<p>For example, the below formula will request the 52-Week High price for IBM:</p>
+<p>For example, the below formula will request the 52-Week High price for IBM@SMART:</p>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBM@SMART", "Week52Hi") </code></p>
 <p>See table below for a full list of currently supported <b>Generic Tick Types</b>:</p>
 <table class="doxtable">
@@ -411,7 +411,7 @@ Connection Parameters</h1>
 <li><em>"gw"</em>: use port=4001 for connection instead (4001 is the default port for live IB Gateway sessions)</li>
 <li><em>"gwpaper"</em>: use port=4002 for connection instead (4002 is the default port for paper IB Gateway sessions)</li>
 </ul>
-<p>For example, to request High price for IBM while connecting to a TWS logged with a paper account via port 7497:</p>
+<p>For example, to request High price for IBM@SMART while connecting to a TWS logged with a paper account via port 7497:</p>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBM@ISLAND", "High", "paper") </code></p>
 <h1><a class="anchor" id="rtd_simple_additional"></a>
 Additional Info</h1>

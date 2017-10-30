@@ -149,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a7004c6c027c90ecdc1f5c68759e37fd2">currentTime</a> (long time)</td></tr>
 <tr class="memdesc:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">TWS's current time. TWS is synchronized with the server (not local computer) using NTP and this function will receive the current time in TWS.  <a href="#a7004c6c027c90ecdc1f5c68759e37fd2">More...</a><br/></td></tr>
 <tr class="separator:a7004c6c027c90ecdc1f5c68759e37fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">tickPrice</a> (int tickerId, int field, double price, TickAttrib attribs)</td></tr>
+<tr class="memitem:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ae851ec3a1e0fa2d0964c7779b0c89718">tickPrice</a> (int tickerId, int field, double price, <a class="el" href="classIBApi_1_1TickAttrib.html">TickAttrib</a> attribs)</td></tr>
 <tr class="memdesc:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Market data tick price callback. Handles all price related ticks. Every tickPrice callback is followed by a tickSize. A tickPrice value of -1 or 0 followed by a tickSize of 0 indicates there is no data for this field currently available, whereas a tickPrice with a positive tickSize indicates an active quote of 0 (typically for a combo contract).  <a href="#ae851ec3a1e0fa2d0964c7779b0c89718">More...</a><br/></td></tr>
 <tr class="separator:ae851ec3a1e0fa2d0964c7779b0c89718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1844eb442fb657c0f2cc0a63e4e74eba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a1844eb442fb657c0f2cc0a63e4e74eba">tickSize</a> (int tickerId, int field, int size)</td></tr>
@@ -234,10 +234,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:af209070fa9583fb4780be0f3ff1e61e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#af209070fa9583fb4780be0f3ff1e61e4">fundamentalData</a> (int reqId, string data)</td></tr>
 <tr class="memdesc:af209070fa9583fb4780be0f3ff1e61e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns Reuters' Fundamental data  <a href="#af209070fa9583fb4780be0f3ff1e61e4">More...</a><br/></td></tr>
 <tr class="separator:af209070fa9583fb4780be0f3ff1e61e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac943e5b81f6de111ddf71a1f05ab6282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ac943e5b81f6de111ddf71a1f05ab6282">historicalData</a> (int reqId, Bar bar)</td></tr>
+<tr class="memitem:ac943e5b81f6de111ddf71a1f05ab6282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#ac943e5b81f6de111ddf71a1f05ab6282">historicalData</a> (int reqId, <a class="el" href="classIBApi_1_1Bar.html">Bar</a> bar)</td></tr>
 <tr class="memdesc:ac943e5b81f6de111ddf71a1f05ab6282"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the requested historical data bars  <a href="#ac943e5b81f6de111ddf71a1f05ab6282">More...</a><br/></td></tr>
 <tr class="separator:ac943e5b81f6de111ddf71a1f05ab6282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c168da3a812b667421bec4e6e2a5b2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a8c168da3a812b667421bec4e6e2a5b2d">historicalDataUpdate</a> (int reqId, Bar bar)</td></tr>
+<tr class="memitem:a8c168da3a812b667421bec4e6e2a5b2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a8c168da3a812b667421bec4e6e2a5b2d">historicalDataUpdate</a> (int reqId, <a class="el" href="classIBApi_1_1Bar.html">Bar</a> bar)</td></tr>
 <tr class="memdesc:a8c168da3a812b667421bec4e6e2a5b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.  <a href="#a8c168da3a812b667421bec4e6e2a5b2d">More...</a><br/></td></tr>
 <tr class="separator:a8c168da3a812b667421bec4e6e2a5b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a715bb6750de66a0e072a910e697e20cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a715bb6750de66a0e072a910e697e20cf"></a>
@@ -381,11 +381,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <tr class="memitem:aebeb008f2b763d7bed2969b66bbd1b33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aebeb008f2b763d7bed2969b66bbd1b33">pnlSingle</a> (int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)</td></tr>
 <tr class="memdesc:aebeb008f2b763d7bed2969b66bbd1b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">receives real time updates for single position daily PnL values  <a href="#aebeb008f2b763d7bed2969b66bbd1b33">More...</a><br/></td></tr>
 <tr class="separator:aebeb008f2b763d7bed2969b66bbd1b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef348882e2a2c1c21ad8dd2167b2229"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aaef348882e2a2c1c21ad8dd2167b2229">historicalTicks</a> (int reqId, HistoricalTick[] ticks, bool done)</td></tr>
+<tr class="memitem:aaef348882e2a2c1c21ad8dd2167b2229"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aaef348882e2a2c1c21ad8dd2167b2229">historicalTicks</a> (int reqId, <a class="el" href="classIBApi_1_1HistoricalTick.html">HistoricalTick</a>[] ticks, bool done)</td></tr>
 <tr class="separator:aaef348882e2a2c1c21ad8dd2167b2229"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceda2894391ebddeb4409447fc453a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aceda2894391ebddeb4409447fc453a4b">historicalTicksBidAsk</a> (int reqId, HistoricalTickBidAsk[] ticks, bool done)</td></tr>
+<tr class="memitem:aceda2894391ebddeb4409447fc453a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#aceda2894391ebddeb4409447fc453a4b">historicalTicksBidAsk</a> (int reqId, <a class="el" href="classIBApi_1_1HistoricalTickBidAsk.html">HistoricalTickBidAsk</a>[] ticks, bool done)</td></tr>
 <tr class="separator:aceda2894391ebddeb4409447fc453a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d0c407b72a8ae93a7b65818eaf63381"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a0d0c407b72a8ae93a7b65818eaf63381">historicalTicksLast</a> (int reqId, HistoricalTickLast[] ticks, bool done)</td></tr>
+<tr class="memitem:a0d0c407b72a8ae93a7b65818eaf63381"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceIBApi_1_1EWrapper.html#a0d0c407b72a8ae93a7b65818eaf63381">historicalTicksLast</a> (int reqId, <a class="el" href="classIBApi_1_1HistoricalTickLast.html">HistoricalTickLast</a>[] ticks, bool done)</td></tr>
 <tr class="separator:a0d0c407b72a8ae93a7b65818eaf63381"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -1181,7 +1181,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Bar&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1Bar.html">Bar</a>&#160;</td>
           <td class="paramname"><em>bar</em>&#160;</td>
         </tr>
         <tr>
@@ -1196,15 +1196,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td>the request's identifier </td></tr>
-    <tr><td class="paramname">date</td><td>the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login. </td></tr>
-    <tr><td class="paramname">open</td><td>the bar's open point </td></tr>
-    <tr><td class="paramname">high</td><td>the bar's high point </td></tr>
-    <tr><td class="paramname">low</td><td>the bar's low point </td></tr>
-    <tr><td class="paramname">close</td><td>the bar's closing point </td></tr>
-    <tr><td class="paramname">volume</td><td>the bar's traded volume if available (only available for TRADES) </td></tr>
-    <tr><td class="paramname">count</td><td>the number of trades during the bar's timespan (only available for TRADES) </td></tr>
-    <tr><td class="paramname">WAP</td><td>the bar's Weighted Average Price (only available for TRADES) </td></tr>
-    <tr><td class="paramname">hasGaps</td><td>(deprecated and no longer used) </td></tr>
+    <tr><td class="paramname">bar</td><td>the OHLC historical data <a class="el" href="classIBApi_1_1Bar.html" title="The historical data bar&#39;s description. ">Bar</a>. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1225,7 +1217,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Bar&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1Bar.html">Bar</a>&#160;</td>
           <td class="paramname"><em>bar</em>&#160;</td>
         </tr>
         <tr>
@@ -1240,7 +1232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td>the requests identifier </td></tr>
-    <tr><td class="paramname">bar</td><td>the OHLC historical data bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. </td></tr>
+    <tr><td class="paramname">bar</td><td>the OHLC historical data <a class="el" href="classIBApi_1_1Bar.html" title="The historical data bar&#39;s description. ">Bar</a>. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1353,7 +1345,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">HistoricalTick[]&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1HistoricalTick.html">HistoricalTick</a>[]&#160;</td>
           <td class="paramname"><em>ticks</em>, </td>
         </tr>
         <tr>
@@ -1372,8 +1364,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td></td></tr>
-    <tr><td class="paramname">ticks</td><td></td></tr>
-    <tr><td class="paramname">done</td><td></td></tr>
+    <tr><td class="paramname">ticks</td><td>list of <a class="el" href="classIBApi_1_1HistoricalTick.html" title="The historical tick&#39;s description. Used when requesting historical tick data with whatToShow = MIDPOI...">HistoricalTick</a> data </td></tr>
+    <tr><td class="paramname">done</td><td>flag to indicate if all historical tick data has been received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1393,7 +1385,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">HistoricalTickBidAsk[]&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1HistoricalTickBidAsk.html">HistoricalTickBidAsk</a>[]&#160;</td>
           <td class="paramname"><em>ticks</em>, </td>
         </tr>
         <tr>
@@ -1412,8 +1404,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td></td></tr>
-    <tr><td class="paramname">ticks</td><td></td></tr>
-    <tr><td class="paramname">done</td><td></td></tr>
+    <tr><td class="paramname">ticks</td><td>list of HistoricalBidAsk data </td></tr>
+    <tr><td class="paramname">done</td><td>flag to indicate if all historical tick data has been received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1433,7 +1425,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">HistoricalTickLast[]&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1HistoricalTickLast.html">HistoricalTickLast</a>[]&#160;</td>
           <td class="paramname"><em>ticks</em>, </td>
         </tr>
         <tr>
@@ -1452,8 +1444,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reqId</td><td></td></tr>
-    <tr><td class="paramname">ticks</td><td></td></tr>
-    <tr><td class="paramname">done</td><td></td></tr>
+    <tr><td class="paramname">ticks</td><td>list of <a class="el" href="classIBApi_1_1HistoricalTickLast.html" title="The historical tick&#39;s description. Used when requesting historical tick data with whatToShow = TRADES...">HistoricalTickLast</a> data </td></tr>
+    <tr><td class="paramname">done</td><td>flag to indicate if all historical tick data has been received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1828,7 +1820,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
     <tr><td class="paramname">lastFillPrice</td><td>price at which the last positions were filled. </td></tr>
     <tr><td class="paramname">clientId</td><td>API client which submitted the order. </td></tr>
     <tr><td class="paramname">whyHeld</td><td>this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'. </td></tr>
-    <tr><td class="paramname">mktCapPrice</td><td>If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. </td></tr>
+    <tr><td class="paramname">mktCapPrice</td><td>If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. Python API specifically requires API v973.06+. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2428,7 +2420,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461" title="provides the data resulting from the market scanner request. ">scannerData</a>, <a class="el" href="classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970" title="Requests an XML list of scanner parameters valid in TWS.  all parameters are valid from API scanner...">EClientSocket::reqScannerParameters</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a973d71a29aa397fc21f51113b1a12461" title="provides the data resulting from the market scanner request. ">scannerData</a>, <a class="el" href="classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970" title="Requests an XML list of scanner parameters valid in TWS.   Not all parameters are valid from API scan...">EClientSocket::reqScannerParameters</a> </dd></dl>
 
 </div>
 </div>
@@ -2940,7 +2932,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TickAttrib&#160;</td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1TickAttrib.html">TickAttrib</a>&#160;</td>
           <td class="paramname"><em>attribs</em>&#160;</td>
         </tr>
         <tr>
@@ -2957,8 +2949,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
     <tr><td class="paramname">tickerId</td><td>the request's unique identifier. </td></tr>
     <tr><td class="paramname">field</td><td>the type of the price being received (i.e. ask price). </td></tr>
     <tr><td class="paramname">price</td><td>the actual price. </td></tr>
-    <tr><td class="paramname">canAutoExecute</td><td>Specifies whether the price tick is available for automatic execution (1) or not (0). </td></tr>
-    <tr><td class="paramname">pastLimit</td><td>indicates whether the bid price is lower than the day's lowest value or the ask price is higher than the highest ask </td></tr>
+    <tr><td class="paramname">attribs</td><td>an <a class="el" href="classIBApi_1_1TickAttrib.html" title="Tick attributes that describes additional information for price ticks. ">TickAttrib</a> object that contains price attributes such as <a class="el" href="classIBApi_1_1TickAttrib.html#a87a410c75776ce0d7b2bb13a180153e7" title="Specifies whether the price tick is available for automatic execution (1) or not (0) ...">TickAttrib::CanAutoExecute</a>, <a class="el" href="classIBApi_1_1TickAttrib.html#a60b2ae486164d13e938f3f96f78a17f3" title="Indicates whether the bid price is lower than the day&#39;s lowest value or the ask price is higher than ...">TickAttrib::PastLimit</a> and <a class="el" href="classIBApi_1_1TickAttrib.html#a54e549ff4a7e32183173752574cf72cf" title="Indicates whether the bid/ask price tick is from pre-open session. ">TickAttrib::PreOpen</a>. </td></tr>
   </table>
   </dd>
 </dl>

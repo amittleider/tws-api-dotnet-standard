@@ -647,13 +647,15 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>AlgoId</b><code> [g
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Order.html#a030448fae6b7a3874ad64d89f66c213b">NotHeld</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a030448fae6b7a3874ad64d89f66c213b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders routed to IBDARK are tagged as “post only” and are held in IB's order book, where incoming SmartRouted orders from other IB customers are eligible to trade against them. For IBDARK orders only. <br/></td></tr>
 <tr class="separator:a030448fae6b7a3874ad64d89f66c213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a839106698ec5bb1192a22e4e1debdf28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a839106698ec5bb1192a22e4e1debdf28"></a>
-List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Order.html#a839106698ec5bb1192a22e4e1debdf28">SmartComboRoutingParams</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a839106698ec5bb1192a22e4e1debdf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters for combo routing. For more information, refer to <a href="https://www.interactivebrokers.com/en/software/api/apiguide/tables/smart_combo_routing.htm">https://www.interactivebrokers.com/en/software/api/apiguide/tables/smart_combo_routing.htm</a>. <br/></td></tr>
+<tr class="memitem:a839106698ec5bb1192a22e4e1debdf28"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Order.html#a839106698ec5bb1192a22e4e1debdf28">SmartComboRoutingParams</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a839106698ec5bb1192a22e4e1debdf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advanced parameters for Smart combo routing. <br/>
+ These features are for both guaranteed and nonguaranteed combination orders routed to Smart, and are available based on combo type and order type. SmartComboRoutingParams is similar to AlgoParams in that it makes use of tag/value pairs to add parameters to combo orders. <br/>
+ Make sure that you fully understand how Advanced Combo Routing works in TWS itself first: <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/specializedorderentry/advanced_combo_routing.htm">https://www.interactivebrokers.com/en/software/tws/usersguidebook/specializedorderentry/advanced_combo_routing.htm</a> <br/>
+ The parameters cover the following capabilities:  <a href="#a839106698ec5bb1192a22e4e1debdf28">More...</a><br/></td></tr>
 <tr class="separator:a839106698ec5bb1192a22e4e1debdf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24ec268b8cda927b039dbd2ea4db4355"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24ec268b8cda927b039dbd2ea4db4355"></a>
 List&lt; <a class="el" href="classIBApi_1_1OrderComboLeg.html">OrderComboLeg</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Order.html#a24ec268b8cda927b039dbd2ea4db4355">OrderComboLegs</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:a24ec268b8cda927b039dbd2ea4db4355"><td class="mdescLeft">&#160;</td><td class="mdescRight">The attributes for all legs within a combo order. <br/></td></tr>
+<tr class="memdesc:a24ec268b8cda927b039dbd2ea4db4355"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of Per-leg price following the same sequence combo legs are added. The combo price must be left unspecified when using per-leg prices. <br/></td></tr>
 <tr class="separator:a24ec268b8cda927b039dbd2ea4db4355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83f6142af0b975ae26c85573d0daee2e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83f6142af0b975ae26c85573d0daee2e"></a>
 List&lt; <a class="el" href="classIBApi_1_1TagValue.html">TagValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1Order.html#a83f6142af0b975ae26c85573d0daee2e">OrderMiscOptions</a><code> [get, set]</code></td></tr>
@@ -775,6 +777,67 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock"><p>The order's description. </p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a>, <a class="el" href="classIBApi_1_1OrderComboLeg.html" title="Allows to specify a price on an order&#39;s leg. ">OrderComboLeg</a>, <a class="el" href="classIBApi_1_1OrderState.html" title="Provides an active order&#39;s current state. ">OrderState</a> </dd></dl>
 </div><h2 class="groupheader">Property Documentation</h2>
+<a class="anchor" id="a839106698ec5bb1192a22e4e1debdf28"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;<a class="el" href="classIBApi_1_1TagValue.html">TagValue</a>&gt; SmartComboRoutingParams</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Advanced parameters for Smart combo routing. <br/>
+ These features are for both guaranteed and nonguaranteed combination orders routed to Smart, and are available based on combo type and order type. SmartComboRoutingParams is similar to AlgoParams in that it makes use of tag/value pairs to add parameters to combo orders. <br/>
+ Make sure that you fully understand how Advanced Combo Routing works in TWS itself first: <a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/specializedorderentry/advanced_combo_routing.htm">https://www.interactivebrokers.com/en/software/tws/usersguidebook/specializedorderentry/advanced_combo_routing.htm</a> <br/>
+ The parameters cover the following capabilities: </p>
+<ul>
+<li>Non-Guaranteed - Determine if the combo order is Guaranteed or Non-Guaranteed. <br/>
+ Tag = NonGuaranteed <br/>
+ Value = 0: The order is guaranteed <br/>
+ Value = 1: The order is non-guaranteed <br/>
+ <br/>
+</li>
+<li>Select Leg to Fill First - User can specify which leg to be executed first. <br/>
+ Tag = LeginPrio <br/>
+ Value = -1: No priority is assigned to either combo leg <br/>
+ Value = 0: Priority is assigned to the first leg being added to the comboLeg <br/>
+ Value = 1: Priority is assigned to the second leg being added to the comboLeg <br/>
+ Note: The LeginPrio parameter can only be applied to two-legged combo. <br/>
+ <br/>
+</li>
+<li>Maximum Leg-In Combo Size - Specify the maximum allowed leg-in size per segment <br/>
+ Tag = MaxSegSize <br/>
+ Value = Unit of combo size <br/>
+ <br/>
+</li>
+<li>Do Not Start Next Leg-In if Previous Leg-In Did Not Finish - Specify whether or not the system should attempt to fill the next segment before the current segment fills. <br/>
+ Tag = DontLeginNext <br/>
+ Value = 0: Start next leg-in even if previous leg-in did not finish <br/>
+ Value = 1: Do not start next leg-in if previous leg-in did not finish <br/>
+ <br/>
+</li>
+<li>Price Condition - Combo order will be rejected or cancelled if the leg market price is outside of the specified price range [CondPriceMin, CondPriceMax] <br/>
+ Tag = PriceCondConid: The ContractID of the combo leg to specify price condition on <br/>
+ Value = The ContractID <br/>
+ Tag = CondPriceMin: The lower price range of the price condition <br/>
+ Value = The lower price <br/>
+ Tag = CondPriceMax: The upper price range of the price condition <br/>
+ Value = The upper price <br/>
+ <br/>
+ </li>
+</ul>
+
+</div>
+</div>
 <a class="anchor" id="ab6dd5e6425dcafecaf83c03d97688b92"></a>
 <div class="memitem">
 <div class="memproto">

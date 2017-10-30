@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "AccountSummaryTags", "classIBApi_1_1AccountSummaryTags.html", null ],
+    [ "Bar", "classIBApi_1_1Bar.html", null ],
     [ "CodeMsgPair", "classIBApi_1_1CodeMsgPair.html", null ],
     [ "ComboLeg", "classIBApi_1_1ComboLeg.html", null ],
     [ "CommissionReport", "classIBApi_1_1CommissionReport.html", null ],
@@ -25,6 +26,10 @@ var hierarchy =
     [ "EWrapper", "interfaceIBApi_1_1EWrapper.html", null ],
     [ "Execution", "classIBApi_1_1Execution.html", null ],
     [ "ExecutionFilter", "classIBApi_1_1ExecutionFilter.html", null ],
+    [ "HistoricalTick", "classIBApi_1_1HistoricalTick.html", null ],
+    [ "HistoricalTickBidAsk", "classIBApi_1_1HistoricalTickBidAsk.html", null ],
+    [ "HistoricalTickLast", "classIBApi_1_1HistoricalTickLast.html", null ],
+    [ "Liquidity", "classIBApi_1_1Liquidity.html", null ],
     [ "OperatorCondition", null, [
       [ "TimeCondition", "classIBApi_1_1TimeCondition.html", null ]
     ] ],
@@ -37,5 +42,6 @@ var hierarchy =
     [ "ScannerSubscription", "classIBApi_1_1ScannerSubscription.html", null ],
     [ "SoftDollarTier", "classIBApi_1_1SoftDollarTier.html", null ],
     [ "TagValue", "classIBApi_1_1TagValue.html", null ],
+    [ "TickAttrib", "classIBApi_1_1TickAttrib.html", null ],
     [ "UnderComp", "classIBApi_1_1UnderComp.html", null ]
 ];
