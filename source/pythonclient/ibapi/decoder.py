@@ -1268,7 +1268,10 @@ class Decoder(Object):
         for (pname, param) in handleInfo.wrapperParams.items():
             if pname != "self":
                 logging.debug("field %s ", fields[fieldIdx])
-                arg = fields[fieldIdx].decode()
+                try:
+                    arg = fields[fieldIdx].decode('UTF-8')
+                except UnicodeDecodeError:
+                    arg = fields[fieldIdx].decode('latin-1')
                 logging.debug("arg %s type %s", arg, param.annotation)
                 if param.annotation is int:
                     arg = int(arg)
