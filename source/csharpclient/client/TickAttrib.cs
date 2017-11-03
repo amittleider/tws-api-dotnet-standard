@@ -29,5 +29,11 @@ namespace IBApi
          * @brief Indicates whether the bid/ask price tick is from pre-open session
          */
         public bool PreOpen { get; set; }
+
+        public bool Unreported { get; set; }
+
+        public bool BidPastLow { get; set; }
+
+        public bool AskPastHigh { get; set; }
     }
 }

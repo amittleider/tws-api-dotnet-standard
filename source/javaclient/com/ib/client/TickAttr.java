@@ -7,6 +7,9 @@ public class TickAttr {
 	private boolean m_canAutoExecute = false;
 	private boolean m_pastLimit = false;
 	private boolean m_preOpen = false;
+	private boolean m_unreported = false;
+	private boolean m_bidPastLow = false;
+	private boolean m_askPastHigh = false;
 	
 	public boolean canAutoExecute() {
 		return m_canAutoExecute;
@@ -17,6 +20,15 @@ public class TickAttr {
 	public boolean preOpen() {
 		return m_preOpen;
 	}
+	public boolean unreported() {
+		return m_unreported;
+	}
+	public boolean bidPastLow() {
+		return m_bidPastLow;
+	}
+	public boolean askPastHigh() {
+		return m_askPastHigh;
+	}
 	public void canAutoExecute(boolean canAutoExecute) {
 		this.m_canAutoExecute = canAutoExecute;
 	}
@@ -25,5 +37,14 @@ public class TickAttr {
 	}
 	public void preOpen(boolean preOpen) {
 		this.m_preOpen = preOpen;
+	}
+	public void unreported(boolean unreported) {
+		this.m_unreported = unreported;
+	}
+	public void bidPastLow(boolean bidPastLow) {
+		this.m_bidPastLow = bidPastLow;
+	}
+	public void askPastHigh(boolean askPastHigh) {
+		this.m_askPastHigh = askPastHigh;
 	}
 }

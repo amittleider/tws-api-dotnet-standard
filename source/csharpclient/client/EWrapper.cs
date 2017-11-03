@@ -865,6 +865,33 @@ namespace IBApi
 		* @param done flag to indicate if all historical tick data has been received
 		*/
         void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
-		
+
+        /**
+        * @brief returns "Last" or "AllLast" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param tickType - tick-by-tick real-time tick type: "Last" or "AllLast"
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param price - tick-by-tick real-time tick last price
+        * @param size - tick-by-tick real-time tick last size
+        * @param attribs - tick-by-tick real-time tick attribs (bit 0 - past limit, bit 1 - unreported)
+        * @param exchange - tick-by-tick real-time tick exchange
+        * @param specialConditions - tick-by-tick real-time tick special conditions
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions);
+
+        /**
+        * @brief returns "BidAsk" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param bidPrice - tick-by-tick real-time tick bid price
+        * @param askPrice - tick-by-tick real-time tick ask price
+        * @param bidSize - tick-by-tick real-time tick bid size
+        * @param askSize - tick-by-tick real-time tick ask size
+        * @param attribs - tick-by-tick real-time tick attribs (bit 0 - bid past low, bit 1 - ask past high)
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs);
+	
     }
 }

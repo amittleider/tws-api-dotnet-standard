@@ -412,4 +412,15 @@ public class Test implements EWrapper {
         }
     }
 
+    @Override
+    public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs,
+            String exchange, String specialConditions) {
+        System.out.println(EWrapperMsgGenerator.tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions));
+    }
+
+    @Override
+    public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize,
+            TickAttr attribs) {
+        System.out.println(EWrapperMsgGenerator.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs));
+    }
 }

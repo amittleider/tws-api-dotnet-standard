@@ -72,6 +72,7 @@ public class ApiController implements EWrapper {
     private final Map<Integer, IPnLHandler> m_pnlMap = new HashMap<>();
     private final Map<Integer, IPnLSingleHandler> m_pnlSingleMap = new HashMap<>();
     private final Map<Integer, IHistoricalTickHandler> m_historicalTicksMap = new HashMap<>();
+    private final Map<Integer, ITickByTickDataHandler> m_tickByTickDataMap = new HashMap<>();
 	private boolean m_connected = false;
 
 	public ApiConnection client() { return m_client; }
@@ -1806,6 +1807,57 @@ public class ApiController implements EWrapper {
             handler.historicalTickLast(reqId, ticks);
         }
         
+
+        recEOM();
+    }
+
+    public interface ITickByTickDataHandler {
+        void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs, String exchange, String specialConditions);
+        void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttr attribs);
+    }
+
+    public void reqTickByTickData(Contract contract, String tickType, ITickByTickDataHandler handler) {
+        if (!checkConnection())
+            return;
+
+        int reqId = m_reqId++;
+        m_tickByTickDataMap.put( reqId, handler);
+        m_client.reqTickByTickData( reqId, contract, tickType);
+        sendEOM();
+    }
+
+    public void cancelTickByTickData( ITickByTickDataHandler handler) {
+        if (!checkConnection())
+            return;
+
+        Integer reqId = getAndRemoveKey( m_tickByTickDataMap, handler);
+        if (reqId != null) {
+            m_client.cancelTickByTickData( reqId);
+            sendEOM();
+        }
+    }
+
+    @Override
+    public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs,
+            String exchange, String specialConditions) {
+        ITickByTickDataHandler handler = m_tickByTickDataMap.get(reqId);
+
+        if (handler != null) {
+            handler.tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions);
+        }
+
+        recEOM();
+    }
+
+    @Override
+    public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize,
+            TickAttr attribs) {
+        ITickByTickDataHandler handler = m_tickByTickDataMap.get(reqId);
+
+        if (handler != null) {
+            handler.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+        }
+
         recEOM();
     }
 }

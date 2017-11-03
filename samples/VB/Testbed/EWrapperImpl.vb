@@ -676,7 +676,30 @@ Namespace Samples
                     reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)
             Next
         End Sub
-		'! [historicaltickslast]
+        '! [historicaltickslast]
+
+        '! [tickbytickalllast]
+        Public Sub tickByTickAllLast(reqId As Integer, tickType As Integer, time As Long, price As Double, size As Integer, attribs As TickAttrib, exchange As String, specialConditions As String) Implements EWrapper.tickByTickAllLast
+            Dim tickTypeStr As String
+            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
+            If tickType = 1 Then
+                tickTypeStr = "Last"
+            Else
+                tickTypeStr = "AllLast"
+            End If
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
+                reqId, tickTypeStr, timeStr, price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported)
+        End Sub
+        '! [tickbytickalllast]
+
+        '! [tickbytickbidask]
+        Public Sub tickByTickBidAsk(reqId As Integer, time As Long, bidPrice As Double, askPrice As Double, bidSize As Integer, askSize As Integer, attribs As TickAttrib) Implements EWrapper.tickByTickBidAsk
+            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
+                reqId, timeStr, bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh)
+        End Sub
+        '! [tickbytickbidask]
+
     End Class
 
 End Namespace

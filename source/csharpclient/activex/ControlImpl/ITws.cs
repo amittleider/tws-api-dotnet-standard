@@ -371,6 +371,10 @@ namespace TWSLib
         void reqPnLSingle(int reqId, string account, string modelCode, int conId);
         [DispId(230)]
         void cancelPnLSingle(int reqId);
+        [DispId(231)]
+        void reqTickByTickData(int reqId, IContract contract, string tickType);
+        [DispId(232)]
+        void cancelTickByTickData(int reqId);
 
         #endregion
     }

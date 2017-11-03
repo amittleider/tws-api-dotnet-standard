@@ -161,7 +161,7 @@ Module MainModule
         'marketRuleOperations(client)
 
         'pnl(client)
-        pnlSingle(client)
+        'pnlSingle(client)
 
         '**************************
         '*** Algo Orders ***
@@ -174,6 +174,11 @@ Module MainModule
         'continuousFuturesOperations(client)
 
         'historicalTicks(client)
+
+        '***********************
+        '*** Tick-By-Tick    ***
+        '***********************
+        tickByTickOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -984,6 +989,25 @@ Module MainModule
         Thread.Sleep(10000)
         client.cancelHistoricalData(18002)
         '! [reqhistoricaldatacontfut]
+
+    End Sub
+
+    Private Sub tickByTickOperations(client As EClientSocket)
+
+        ' Requesting tick-by-tick data (only refresh)
+        '! [reqtickbytick]
+        client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
+        client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
+        client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
+        '! [reqtickbytick]
+
+        Thread.Sleep(10000)
+
+        '! [canceltickbytick]
+        client.cancelTickByTickData(19001)
+        client.cancelTickByTickData(19002)
+        client.cancelTickByTickData(19003)
+        '! [canceltickbytick]
 
     End Sub
 

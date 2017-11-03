@@ -80,6 +80,9 @@ public class Util {
         return simpleDateFormat.format(calendar.getTime());
     }
     
+    public static String UnixSecondsToString(long seconds, String dateFormat){
+        return UnixMillisecondsToString(seconds * 1000, dateFormat);
+    }
     
 	public static List<ContractDetails> lookupContract(ApiController controller, Contract contract) {
 		if (controller == null) {

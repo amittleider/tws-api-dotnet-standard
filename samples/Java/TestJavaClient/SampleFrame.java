@@ -249,6 +249,10 @@ class SampleFrame extends JFrame implements EWrapper {
         butCancelPnLSingle.addActionListener(e -> onCancelPnLSingle());
         JButton butReqHistoricalTicks = new JButton("Req Historical Ticks");
         butReqHistoricalTicks.addActionListener(e -> onReqHistoricalTicks());
+        JButton butReqTickByTickData = new JButton("Req Tick-By-Tick");
+        butReqTickByTickData.addActionListener(e -> onReqTickByTickData());
+        JButton butCancelTickByTickData = new JButton("Cancel Tick-By-Tick");
+        butCancelTickByTickData.addActionListener(e -> onCancelTickByTickData());
 
         JButton butClear = new JButton( "Clear");
         butClear.addActionListener(e -> onClear());
@@ -311,6 +315,7 @@ class SampleFrame extends JFrame implements EWrapper {
         pairSlot.add(butReqPnL, butCancelPnL);
         pairSlot.add(butReqPnLSingle, butCancelPnLSingle);
         buttonPanel.add(butReqHistoricalTicks);
+        pairSlot.add(butReqTickByTickData, butCancelTickByTickData);
 
         buttonPanel.add( new JPanel() );
         pairSlot.add(butClear, butClose);
@@ -335,6 +340,24 @@ class SampleFrame extends JFrame implements EWrapper {
         }
         
     }
+    
+    private void onReqTickByTickData() {
+        m_orderDlg.init("Request Tick-By-Tick Data", true);
+        m_orderDlg.setVisible(true);
+
+        if (m_orderDlg.m_rc) {
+            m_client.reqTickByTickData(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.tickByTickType()); 
+        }
+    }
+
+    private void onCancelTickByTickData() {
+        m_orderDlg.init("Cancel Tick-By-Tick Data", true);
+        m_orderDlg.setVisible(true);
+
+        if (m_orderDlg.m_rc) {
+            m_client.cancelTickByTickData(m_orderDlg.id());
+        }
+  }
     
     private void onReqHistoricalTicks() {
         m_orderDlg.init("Misc Options", true);
@@ -1681,6 +1704,22 @@ class SampleFrame extends JFrame implements EWrapper {
         }
         
         m_TWS.add(msg.toString());
+    }
+
+    @Override
+    public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs,
+            String exchange, String specialConditions) {
+        String msg = EWrapperMsgGenerator.tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions);
+
+        m_tickers.add(msg);
+    }
+
+    @Override
+    public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize,
+            TickAttr attribs) {
+        String msg = EWrapperMsgGenerator.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+
+        m_tickers.add(msg);
     }
 
 }

@@ -36,13 +36,13 @@ namespace IBSampleApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -440,6 +440,17 @@ namespace IBSampleApp
             this.newOrderLink = new System.Windows.Forms.LinkLabel();
             this.executionsGroup = new System.Windows.Forms.GroupBox();
             this.tradeLogGrid = new System.Windows.Forms.DataGridView();
+            this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commissionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastLiquidity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.liveOrdersGroup = new System.Windows.Forms.GroupBox();
             this.liveOrdersGrid = new System.Windows.Forms.DataGridView();
             this.permIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -567,8 +578,16 @@ namespace IBSampleApp
             this.label15 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.dataGridViewHistoricalTicks = new System.Windows.Forms.DataGridView();
+            this.tabPageTickByTick = new System.Windows.Forms.TabPage();
+            this.linkLabelClearTickByTick = new System.Windows.Forms.LinkLabel();
+            this.labelTickByTick = new System.Windows.Forms.Label();
+            this.dataGridViewTickByTick = new System.Windows.Forms.DataGridView();
             this.dataResults_MDT = new System.Windows.Forms.TabControl();
             this.topMktData_MDT = new System.Windows.Forms.TabPage();
+            this.groupBoxTickByTickType = new System.Windows.Forms.GroupBox();
+            this.buttonCancelTickByTick = new System.Windows.Forms.Button();
+            this.buttonRequestTickByTick = new System.Windows.Forms.Button();
+            this.comboBoxTickByTickType = new System.Windows.Forms.ComboBox();
             this.requestMatchingSymbolsMD = new System.Windows.Forms.Button();
             this.cancelMarketDataRequests = new System.Windows.Forms.Button();
             this.marketData_Button = new System.Windows.Forms.Button();
@@ -651,17 +670,6 @@ namespace IBSampleApp
             this.tbNumOfTicks = new System.Windows.Forms.TextBox();
             this.tbStartDate = new System.Windows.Forms.TextBox();
             this.TabControl = new System.Windows.Forms.TabControl();
-            this.ExecutionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTimeExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.actionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commissionExecColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RealizedPnL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastLiquidity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -773,8 +781,11 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.histogramDataGridView)).BeginInit();
             this.historicalTicksTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistoricalTicks)).BeginInit();
+            this.tabPageTickByTick.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTickByTick)).BeginInit();
             this.dataResults_MDT.SuspendLayout();
             this.topMktData_MDT.SuspendLayout();
+            this.groupBoxTickByTickType.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBoxMarketDataType_MDT.SuspendLayout();
             this.deepBookGroupBox.SuspendLayout();
@@ -4593,6 +4604,71 @@ namespace IBSampleApp
             this.tradeLogGrid.Size = new System.Drawing.Size(946, 182);
             this.tradeLogGrid.TabIndex = 0;
             // 
+            // ExecutionId
+            // 
+            this.ExecutionId.HeaderText = "Execution ID";
+            this.ExecutionId.Name = "ExecutionId";
+            this.ExecutionId.ReadOnly = true;
+            // 
+            // dateTimeExecColumn
+            // 
+            this.dateTimeExecColumn.HeaderText = "Date/Time";
+            this.dateTimeExecColumn.Name = "dateTimeExecColumn";
+            this.dateTimeExecColumn.ReadOnly = true;
+            // 
+            // accountExecColumn
+            // 
+            this.accountExecColumn.HeaderText = "Account";
+            this.accountExecColumn.Name = "accountExecColumn";
+            this.accountExecColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Model Code";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // actionExecColumn
+            // 
+            this.actionExecColumn.HeaderText = "Action";
+            this.actionExecColumn.Name = "actionExecColumn";
+            this.actionExecColumn.ReadOnly = true;
+            // 
+            // quantityExecColumn
+            // 
+            this.quantityExecColumn.HeaderText = "Quantity";
+            this.quantityExecColumn.Name = "quantityExecColumn";
+            this.quantityExecColumn.ReadOnly = true;
+            // 
+            // descriptionExecColumn
+            // 
+            this.descriptionExecColumn.HeaderText = "Description";
+            this.descriptionExecColumn.Name = "descriptionExecColumn";
+            this.descriptionExecColumn.ReadOnly = true;
+            // 
+            // priceExecColumn
+            // 
+            this.priceExecColumn.HeaderText = "Price";
+            this.priceExecColumn.Name = "priceExecColumn";
+            this.priceExecColumn.ReadOnly = true;
+            // 
+            // commissionExecColumn
+            // 
+            this.commissionExecColumn.HeaderText = "Commissions";
+            this.commissionExecColumn.Name = "commissionExecColumn";
+            this.commissionExecColumn.ReadOnly = true;
+            // 
+            // RealizedPnL
+            // 
+            this.RealizedPnL.HeaderText = "RealizedPnL";
+            this.RealizedPnL.Name = "RealizedPnL";
+            this.RealizedPnL.ReadOnly = true;
+            // 
+            // LastLiquidity
+            // 
+            this.LastLiquidity.HeaderText = "Last Liquidity";
+            this.LastLiquidity.Name = "LastLiquidity";
+            this.LastLiquidity.ReadOnly = true;
+            // 
             // liveOrdersGroup
             // 
             this.liveOrdersGroup.Controls.Add(this.liveOrdersGrid);
@@ -4716,6 +4792,7 @@ namespace IBSampleApp
             this.marketData_MDT.Controls.Add(this.headTimestampTabPage);
             this.marketData_MDT.Controls.Add(this.histogramTabPage);
             this.marketData_MDT.Controls.Add(this.historicalTicksTabPage);
+            this.marketData_MDT.Controls.Add(this.tabPageTickByTick);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 210);
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
@@ -4918,14 +4995,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -5071,27 +5148,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea7.AxisX.MajorGrid.Enabled = false;
-            chartArea7.AxisX.MajorTickMark.Enabled = false;
-            chartArea7.AxisY.IsStartedFromZero = false;
-            chartArea7.Name = "ChartArea1";
-            chartArea7.Position.Auto = false;
-            chartArea7.Position.Height = 100F;
-            chartArea7.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend7);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series7.IsVisibleInLegend = false;
-            series7.IsXValueIndexed = true;
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series7.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series7);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
             this.historicalChart.Size = new System.Drawing.Size(699, 199);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -5198,26 +5275,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea8.AxisX.MajorGrid.Enabled = false;
-            chartArea8.AxisX.MajorTickMark.Enabled = false;
-            chartArea8.AxisY.IsStartedFromZero = false;
-            chartArea8.Name = "ChartArea1";
-            chartArea8.Position.Auto = false;
-            chartArea8.Position.Height = 100F;
-            chartArea8.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend8);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend2);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series8.IsVisibleInLegend = false;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series8.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series8);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series2);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 199);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -5805,6 +5882,53 @@ namespace IBSampleApp
             this.dataGridViewHistoricalTicks.Size = new System.Drawing.Size(1225, 184);
             this.dataGridViewHistoricalTicks.TabIndex = 2;
             // 
+            // tabPageTickByTick
+            // 
+            this.tabPageTickByTick.BackColor = System.Drawing.Color.LightGray;
+            this.tabPageTickByTick.Controls.Add(this.linkLabelClearTickByTick);
+            this.tabPageTickByTick.Controls.Add(this.labelTickByTick);
+            this.tabPageTickByTick.Controls.Add(this.dataGridViewTickByTick);
+            this.tabPageTickByTick.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTickByTick.Name = "tabPageTickByTick";
+            this.tabPageTickByTick.Size = new System.Drawing.Size(1234, 209);
+            this.tabPageTickByTick.TabIndex = 10;
+            this.tabPageTickByTick.Text = "Tick-By-Tick";
+            // 
+            // linkLabelClearTickByTick
+            // 
+            this.linkLabelClearTickByTick.AutoSize = true;
+            this.linkLabelClearTickByTick.Location = new System.Drawing.Point(11, 5);
+            this.linkLabelClearTickByTick.Name = "linkLabelClearTickByTick";
+            this.linkLabelClearTickByTick.Size = new System.Drawing.Size(31, 13);
+            this.linkLabelClearTickByTick.TabIndex = 8;
+            this.linkLabelClearTickByTick.TabStop = true;
+            this.linkLabelClearTickByTick.Text = "Clear";
+            this.linkLabelClearTickByTick.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClearTickByTick_LinkClicked);
+            // 
+            // labelTickByTick
+            // 
+            this.labelTickByTick.AutoSize = true;
+            this.labelTickByTick.Location = new System.Drawing.Point(55, 5);
+            this.labelTickByTick.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTickByTick.Name = "labelTickByTick";
+            this.labelTickByTick.Size = new System.Drawing.Size(70, 13);
+            this.labelTickByTick.TabIndex = 7;
+            this.labelTickByTick.Text = "Tick-By-Tick:";
+            // 
+            // dataGridViewTickByTick
+            // 
+            this.dataGridViewTickByTick.AllowUserToAddRows = false;
+            this.dataGridViewTickByTick.AllowUserToDeleteRows = false;
+            this.dataGridViewTickByTick.AllowUserToOrderColumns = true;
+            this.dataGridViewTickByTick.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.dataGridViewTickByTick.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTickByTick.Location = new System.Drawing.Point(5, 21);
+            this.dataGridViewTickByTick.Name = "dataGridViewTickByTick";
+            this.dataGridViewTickByTick.ReadOnly = true;
+            this.dataGridViewTickByTick.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTickByTick.Size = new System.Drawing.Size(1225, 184);
+            this.dataGridViewTickByTick.TabIndex = 3;
+            // 
             // dataResults_MDT
             // 
             this.dataResults_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -5822,6 +5946,7 @@ namespace IBSampleApp
             // topMktData_MDT
             // 
             this.topMktData_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.topMktData_MDT.Controls.Add(this.groupBoxTickByTickType);
             this.topMktData_MDT.Controls.Add(this.requestMatchingSymbolsMD);
             this.topMktData_MDT.Controls.Add(this.cancelMarketDataRequests);
             this.topMktData_MDT.Controls.Add(this.marketData_Button);
@@ -5838,6 +5963,51 @@ namespace IBSampleApp
             this.topMktData_MDT.Size = new System.Drawing.Size(1230, 200);
             this.topMktData_MDT.TabIndex = 0;
             this.topMktData_MDT.Text = "Market Data";
+            // 
+            // groupBoxTickByTickType
+            // 
+            this.groupBoxTickByTickType.Controls.Add(this.buttonCancelTickByTick);
+            this.groupBoxTickByTickType.Controls.Add(this.buttonRequestTickByTick);
+            this.groupBoxTickByTickType.Controls.Add(this.comboBoxTickByTickType);
+            this.groupBoxTickByTickType.Location = new System.Drawing.Point(1084, 111);
+            this.groupBoxTickByTickType.Name = "groupBoxTickByTickType";
+            this.groupBoxTickByTickType.Size = new System.Drawing.Size(136, 74);
+            this.groupBoxTickByTickType.TabIndex = 60;
+            this.groupBoxTickByTickType.TabStop = false;
+            this.groupBoxTickByTickType.Text = "Tick-By-Tick Type";
+            // 
+            // buttonCancelTickByTick
+            // 
+            this.buttonCancelTickByTick.Location = new System.Drawing.Point(75, 44);
+            this.buttonCancelTickByTick.Name = "buttonCancelTickByTick";
+            this.buttonCancelTickByTick.Size = new System.Drawing.Size(52, 23);
+            this.buttonCancelTickByTick.TabIndex = 67;
+            this.buttonCancelTickByTick.Text = "Cancel";
+            this.buttonCancelTickByTick.UseVisualStyleBackColor = true;
+            this.buttonCancelTickByTick.Click += new System.EventHandler(this.buttonCancelTickByTick_Click);
+            // 
+            // buttonRequestTickByTick
+            // 
+            this.buttonRequestTickByTick.Location = new System.Drawing.Point(14, 44);
+            this.buttonRequestTickByTick.Name = "buttonRequestTickByTick";
+            this.buttonRequestTickByTick.Size = new System.Drawing.Size(55, 23);
+            this.buttonRequestTickByTick.TabIndex = 66;
+            this.buttonRequestTickByTick.Text = "Request";
+            this.buttonRequestTickByTick.UseVisualStyleBackColor = true;
+            this.buttonRequestTickByTick.Click += new System.EventHandler(this.buttonRequestTickByTick_Click);
+            // 
+            // comboBoxTickByTickType
+            // 
+            this.comboBoxTickByTickType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTickByTickType.FormattingEnabled = true;
+            this.comboBoxTickByTickType.Items.AddRange(new object[] {
+            "Last",
+            "AllLast",
+            "BidAsk"});
+            this.comboBoxTickByTickType.Location = new System.Drawing.Point(13, 16);
+            this.comboBoxTickByTickType.Name = "comboBoxTickByTickType";
+            this.comboBoxTickByTickType.Size = new System.Drawing.Size(114, 21);
+            this.comboBoxTickByTickType.TabIndex = 34;
             // 
             // requestMatchingSymbolsMD
             // 
@@ -5894,7 +6064,7 @@ namespace IBSampleApp
             // 
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.bboExchange_comboBox);
-            this.groupBox6.Location = new System.Drawing.Point(1084, 12);
+            this.groupBox6.Location = new System.Drawing.Point(1084, 7);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(136, 98);
             this.groupBox6.TabIndex = 2;
@@ -6795,71 +6965,6 @@ namespace IBSampleApp
             this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
-            // ExecutionId
-            // 
-            this.ExecutionId.HeaderText = "Execution ID";
-            this.ExecutionId.Name = "ExecutionId";
-            this.ExecutionId.ReadOnly = true;
-            // 
-            // dateTimeExecColumn
-            // 
-            this.dateTimeExecColumn.HeaderText = "Date/Time";
-            this.dateTimeExecColumn.Name = "dateTimeExecColumn";
-            this.dateTimeExecColumn.ReadOnly = true;
-            // 
-            // accountExecColumn
-            // 
-            this.accountExecColumn.HeaderText = "Account";
-            this.accountExecColumn.Name = "accountExecColumn";
-            this.accountExecColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Model Code";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // actionExecColumn
-            // 
-            this.actionExecColumn.HeaderText = "Action";
-            this.actionExecColumn.Name = "actionExecColumn";
-            this.actionExecColumn.ReadOnly = true;
-            // 
-            // quantityExecColumn
-            // 
-            this.quantityExecColumn.HeaderText = "Quantity";
-            this.quantityExecColumn.Name = "quantityExecColumn";
-            this.quantityExecColumn.ReadOnly = true;
-            // 
-            // descriptionExecColumn
-            // 
-            this.descriptionExecColumn.HeaderText = "Description";
-            this.descriptionExecColumn.Name = "descriptionExecColumn";
-            this.descriptionExecColumn.ReadOnly = true;
-            // 
-            // priceExecColumn
-            // 
-            this.priceExecColumn.HeaderText = "Price";
-            this.priceExecColumn.Name = "priceExecColumn";
-            this.priceExecColumn.ReadOnly = true;
-            // 
-            // commissionExecColumn
-            // 
-            this.commissionExecColumn.HeaderText = "Commissions";
-            this.commissionExecColumn.Name = "commissionExecColumn";
-            this.commissionExecColumn.ReadOnly = true;
-            // 
-            // RealizedPnL
-            // 
-            this.RealizedPnL.HeaderText = "RealizedPnL";
-            this.RealizedPnL.Name = "RealizedPnL";
-            this.RealizedPnL.ReadOnly = true;
-            // 
-            // LastLiquidity
-            // 
-            this.LastLiquidity.HeaderText = "Last Liquidity";
-            this.LastLiquidity.Name = "LastLiquidity";
-            this.LastLiquidity.ReadOnly = true;
-            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7031,8 +7136,12 @@ namespace IBSampleApp
             this.historicalTicksTabPage.ResumeLayout(false);
             this.historicalTicksTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistoricalTicks)).EndInit();
+            this.tabPageTickByTick.ResumeLayout(false);
+            this.tabPageTickByTick.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTickByTick)).EndInit();
             this.dataResults_MDT.ResumeLayout(false);
             this.topMktData_MDT.ResumeLayout(false);
+            this.groupBoxTickByTickType.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBoxMarketDataType_MDT.ResumeLayout(false);
@@ -7675,6 +7784,14 @@ namespace IBSampleApp
         private System.Windows.Forms.DataGridViewTextBoxColumn commissionExecColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn RealizedPnL;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastLiquidity;
+        private System.Windows.Forms.TabPage tabPageTickByTick;
+        private System.Windows.Forms.LinkLabel linkLabelClearTickByTick;
+        private System.Windows.Forms.Label labelTickByTick;
+        private System.Windows.Forms.DataGridView dataGridViewTickByTick;
+        private System.Windows.Forms.GroupBox groupBoxTickByTickType;
+        private System.Windows.Forms.ComboBox comboBoxTickByTickType;
+        private System.Windows.Forms.Button buttonCancelTickByTick;
+        private System.Windows.Forms.Button buttonRequestTickByTick;
     }
 }
 

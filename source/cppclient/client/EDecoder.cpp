@@ -2277,6 +2277,59 @@ const char* EDecoder::processHistoricalTicksLast(const char* ptr, const char* en
     return processHistoricalTicks<HistoricalTickLast>(ptr, endPtr);
 }
 
+const char* EDecoder::processTickByTickDataMsg(const char* ptr, const char* endPtr) {
+    int reqId;
+    int tickType = 0;
+	time_t time;
+
+    DECODE_FIELD(reqId);
+    DECODE_FIELD(tickType);
+    DECODE_FIELD(time);
+
+    if (tickType == 1 || tickType == 2) { // Last/AllLast
+            double price;
+            int size;
+            int attrMask;
+            TickAttrib attribs;
+            std::string exchange;
+            std::string specialConditions;
+
+            DECODE_FIELD(price);
+            DECODE_FIELD(size);
+            DECODE_FIELD(attrMask);
+
+            std::bitset<32> mask(attrMask);
+            attribs.pastLimit = mask[0];
+            attribs.unreported = mask[1];
+
+            DECODE_FIELD(exchange);
+            DECODE_FIELD(specialConditions);
+
+            m_pEWrapper->tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions);
+
+    } else if (tickType == 3) { // BidAsk
+            double bidPrice;
+            double askPrice;
+            int bidSize;
+            int askSize;
+            int attrMask;
+            DECODE_FIELD(bidPrice);
+            DECODE_FIELD(askPrice);
+            DECODE_FIELD(bidSize);
+            DECODE_FIELD(askSize);
+            DECODE_FIELD(attrMask);
+
+            TickAttrib attribs;
+            std::bitset<32> mask(attrMask);
+            attribs.bidPastLow = mask[0];
+            attribs.askPastHigh = mask[1];
+
+            m_pEWrapper->tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+    }
+
+    return ptr;
+}
+
 int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 	// process a single message from the buffer;
 	// return number of bytes consumed
@@ -2584,6 +2637,10 @@ int EDecoder::parseAndProcessMsg(const char*& beginPtr, const char* endPtr) {
 
         case HISTORICAL_TICKS_LAST:
             ptr = processHistoricalTicksLast(ptr, endPtr);
+            break;
+
+        case TICK_BY_TICK:
+            ptr = processTickByTickDataMsg(ptr, endPtr);
             break;
 
 		default:

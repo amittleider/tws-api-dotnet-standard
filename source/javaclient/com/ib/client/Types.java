@@ -27,6 +27,10 @@ import static com.ib.client.Types.AlgoParam.useOddLots;
 import static com.ib.client.Types.AlgoParam.waitForFill;
 
 public class Types {
+	public enum TickByTickType {
+		None, Last, AllLast, BidAsk,
+	}
+	
 	public enum ComboParam {
 		NonGuaranteed, PriceCondConid, CondPriceMax, CondPriceMin, ChangeToMktTime1, ChangeToMktTime2, DiscretionaryPct, DontLeginNext, LeginPrio, MaxSegSize,
 	}

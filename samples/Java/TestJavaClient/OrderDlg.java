@@ -575,5 +575,9 @@ public class OrderDlg extends JDialog {
     public int id() {
         return m_id;
     }        
+
+    String tickByTickType() {
+        return m_historicalDataDlg.tickByTickType();
+    }
     
 }

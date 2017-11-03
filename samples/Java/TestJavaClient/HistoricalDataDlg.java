@@ -8,6 +8,7 @@ import java.util.TimeZone;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -24,6 +25,7 @@ public class HistoricalDataDlg extends JDialogBox {
     private JCheckBox   m_keepUpToDateCheckBox = new JCheckBox();
     private JCheckBox m_ignoreSize = new JCheckBox();
     private JTextField m_numberOfTicks = new JTextField("0");
+    private JComboBox m_tickByTickTypeComboBox = new JComboBox(new Object[]{"Last", "AllLast", "BidAsk"});
     
     public String startTime() { return m_StartTime.getText(); }
     public String backfillEndTime() { return m_BackfillEndTime.getText(); }
@@ -35,6 +37,7 @@ public class HistoricalDataDlg extends JDialogBox {
     public boolean keepUpToDate() { return m_keepUpToDateCheckBox.isSelected(); }
     public boolean ignoreSize() { return m_ignoreSize.isSelected(); }
     public int numberOfTicks() { return Integer.parseInt(m_numberOfTicks.getText()); }
+    public String tickByTickType() { return m_tickByTickTypeComboBox.getSelectedItem().toString(); }
     
     private static final int COL1_WIDTH = 30 ;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH ;
@@ -85,6 +88,8 @@ public class HistoricalDataDlg extends JDialogBox {
         m_panel.addGBComponent(m_keepUpToDateCheckBox, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         m_panel.addGBComponent(new JLabel( "Ignore size"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE) ;
         m_panel.addGBComponent(m_ignoreSize, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
+        m_panel.addGBComponent(new JLabel( "Tick-By-Tick Type"), gbc, COL1_WIDTH, GridBagConstraints.RELATIVE);
+        m_panel.addGBComponent(m_tickByTickTypeComboBox, gbc, COL2_WIDTH, GridBagConstraints.REMAINDER);
         
         getContentPane().add(m_panel);
         pack();

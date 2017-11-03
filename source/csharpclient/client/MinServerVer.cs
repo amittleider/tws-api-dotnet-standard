@@ -95,5 +95,6 @@ namespace IBApi
         public const int REAL_EXPIRATION_DATE = 134;
         public const int REALIZED_PNL = 135;
         public const int LAST_LIQUIDITY = 136;
+        public const int TICK_BY_TICK = 137;
     }
 }

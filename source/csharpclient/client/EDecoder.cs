@@ -373,12 +373,54 @@ namespace IBApi
                     HistoricalTickLastEvent();
                     break;
 
+                case IncomingMessage.TickByTick:
+                    TickByTickEvent();
+                    break;
+
                 default:
                     eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message);
                     return false;
             }
 
             return true;
+        }
+
+        private void TickByTickEvent()
+        {
+            int reqId = ReadInt();
+            int tickType = ReadInt();
+            long time = ReadLong();
+            BitMask mask;
+            TickAttrib attribs;
+
+            switch (tickType)
+            {
+                case 0: // None
+                    break;
+                case 1: // Last
+                case 2: // AllLast
+                    double price = ReadDouble();
+                    int size = ReadInt();
+                    mask = new BitMask(ReadInt());
+                    attribs = new TickAttrib();
+                    attribs.PastLimit = mask[0];
+                    attribs.Unreported = mask[1];
+                    String exchange = ReadString();
+                    String specialConditions = ReadString();
+                    eWrapper.tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions);
+                    break;
+                case 3: // BidAsk
+                    double bidPrice = ReadDouble();
+                    double askPrice = ReadDouble();
+                    int bidSize = ReadInt();
+                    int askSize = ReadInt();
+                    mask = new BitMask(ReadInt());
+                    attribs = new TickAttrib();
+                    attribs.BidPastLow = mask[0];
+                    attribs.AskPastHigh = mask[1];
+                    eWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+                    break;
+            }
         }
 
         private void HistoricalTickLastEvent()

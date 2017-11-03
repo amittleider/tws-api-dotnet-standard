@@ -289,6 +289,11 @@ void TestCppClient::processMessages() {
             break;
         case ST_REQHISTORICALTICKS_ACK:
             break;
+		case ST_REQTICKBYTICKDATA:
+			reqTickByTickData();
+			break;
+		case ST_REQTICKBYTICKDATA_ACK:
+			break;
 		case ST_PING:
 			reqCurrentTime();
 			break;
@@ -1237,6 +1242,24 @@ void TestCppClient::reqHistoricalTicks()
     m_state = ST_REQHISTORICALTICKS_ACK;
 }
 
+void TestCppClient::reqTickByTickData() 
+{
+    /*** Requesting tick-by-tick data (only refresh) ***/
+    //! [reqtickbytickdata]
+    m_pClient->reqTickByTickData(20001, ContractSamples::IBMUSStockAtSmart(), "Last");
+    m_pClient->reqTickByTickData(20002, ContractSamples::IBMUSStockAtSmart(), "AllLast");
+    m_pClient->reqTickByTickData(20003, ContractSamples::IBMUSStockAtSmart(), "BidAsk");
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    m_pClient->cancelTickByTickData(20001);
+    m_pClient->cancelTickByTickData(20002);
+    m_pClient->cancelTickByTickData(20003);
+    //! [reqtickbytickdata]
+
+    m_state = ST_REQTICKBYTICKDATA_ACK;
+}
+
 //! [nextvalidid]
 void TestCppClient::nextValidId( OrderId orderId)
 {
@@ -1244,9 +1267,10 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
+    m_state = ST_REQTICKBYTICKDATA; 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
-    m_state = ST_PNLSINGLE; 
+    //m_state = ST_PNLSINGLE; 
     //m_state = ST_PNL; 
 	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
@@ -1896,3 +1920,17 @@ void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalT
     }
 }
 //! [historicaltickslast]
+
+//! [tickbytickalllast]
+void TestCppClient::tickByTickAllLast(int reqId, int tickType, time_t time, double price, int size, const TickAttrib& attribs, const std::string& exchange, const std::string& specialConditions) {
+    printf("Tick-By-Tick. ReqId: %d, TickType: %s, Time: %s, Price: %g, Size: %d, PastLimit: %d, Unreported: %d, Exchange: %s, SpecialConditions:%s\n", 
+        reqId, (tickType == 1 ? "Last" : "AllLast"), ctime(&time), price, size, attribs.pastLimit, attribs.unreported, exchange.c_str(), specialConditions.c_str());
+}
+//! [tickbytickalllast]
+
+//! [tickbytickbidask]
+void TestCppClient::tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, int bidSize, int askSize, const TickAttrib& attribs) {
+    printf("Tick-By-Tick. ReqId: %d, TickType: BidAsk, Time: %s, BidPrice: %g, AskPrice: %g, BidSize: %d, AskSize: %d, BidPastLow: %d, AskPastHigh: %d\n", 
+        reqId, ctime(&time), bidPrice, askPrice, bidSize, askSize, attribs.bidPastLow, attribs.askPastHigh);
+}
+//! [tickbytickbidask]
