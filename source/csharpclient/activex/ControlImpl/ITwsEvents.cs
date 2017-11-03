@@ -192,8 +192,8 @@ namespace TWSLib
         [DispId(145)]
         void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
         [DispId(146)]
-        void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions);
+        void tickByTickAllLast(int reqId, int tickType, string time, double price, int size, ITickAttrib attribs, string exchange, string specialConditions);
         [DispId(147)]
-        void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs);
+        void tickByTickBidAsk(int reqId, string time, double bidPrice, double askPrice, int bidSize, int askSize, ITickAttrib attribs);
     }
 }
