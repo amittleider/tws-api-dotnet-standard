@@ -31,6 +31,7 @@ import com.ib.client.Types.BarSize;
 import com.ib.client.Types.DeepSide;
 import com.ib.client.Types.DeepType;
 import com.ib.client.Types.DurationUnit;
+import com.ib.client.Types.TickByTickType;
 import com.ib.client.Types.WhatToShow;
 import com.ib.controller.ApiController.IPnLHandler;
 import com.ib.controller.ApiController.IPnLSingleHandler;
@@ -77,6 +78,7 @@ class MarketDataPanel extends JPanel {
 		requestPanel.addTab("Market Depth Exchanges", new MktDepthExchangesPanel());
 		requestPanel.addTab("Smart Components", m_smartComponentsPanel);
 		requestPanel.addTab("PnL", new PnLPanel());
+		requestPanel.addTab("Tick-By-Tick", new TickByTickRequestPanel());
 		
 		setLayout( new BorderLayout() );
 		add( requestPanel, BorderLayout.NORTH);
@@ -1225,4 +1227,44 @@ class MarketDataPanel extends JPanel {
 		}
 
 	}
+
+    private class TickByTickRequestPanel extends JPanel {
+        final ContractPanel m_contractPanel = new ContractPanel(m_contract);
+        final TCombo<TickByTickType> m_tickType = new TCombo<>( TickByTickType.values() );
+
+        TickByTickRequestPanel() { 		
+            m_tickType.setSelectedItem(TickByTickType.Last);
+
+            HtmlButton bReqTickByTickData = new HtmlButton("Request Tick-By-Tick Data") {
+                @Override protected void actionPerformed() {
+                    onReqTickByTickData();
+                }
+            };
+
+            VerticalPanel paramPanel = new VerticalPanel();
+            paramPanel.add("Tick-By-Tick Type", m_tickType);
+
+            VerticalPanel butPanel = new VerticalPanel();
+            butPanel.add(bReqTickByTickData);
+
+            JPanel rightPanel = new StackPanel();
+            rightPanel.add(paramPanel);
+            rightPanel.add(Box.createVerticalStrut(20));
+            rightPanel.add(butPanel);
+
+            setLayout(new BoxLayout(this, BoxLayout.X_AXIS) );
+            add(m_contractPanel);
+            add(Box.createHorizontalStrut(20) );
+            add(rightPanel);
+        }
+
+        protected void onReqTickByTickData() {
+            m_contractPanel.onOK();
+
+            TickByTickResultsPanel panel = new TickByTickResultsPanel(TickByTickType.valueOf(m_tickType.getSelectedItem().name()));
+
+            ApiDemo.INSTANCE.controller().reqTickByTickData(m_contract, m_tickType.getSelectedItem().name(), panel);
+            m_resultsPanel.addTab("Tick-By-Tick " + m_tickType.getSelectedItem().name() + " " + m_contract.symbol(), panel, true, true);
+        }
+    }
 }

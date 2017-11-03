@@ -84,5 +84,6 @@ namespace IBApi
         public const int HistoricalTick = 96;
         public const int HistoricalTickBidAsk = 97;
         public const int HistoricalTickLast = 98;
+        public const int TickByTick = 99;
     }
 }

@@ -276,5 +276,7 @@ namespace TwsRtdServer
         public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done) { }
         public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done) { }
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done) { }
+        public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions) { }
+        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs) { }
     }
 }

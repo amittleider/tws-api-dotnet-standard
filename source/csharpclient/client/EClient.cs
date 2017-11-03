@@ -205,6 +205,69 @@ namespace IBApi
             wrapper.connectionClosed();
         }
 
+        /**
+         * @brief Cancels tick-by-tick data.\n
+         * @param reqId - unique identifier of the request.\n
+         */
+        public void cancelTickByTickData(int requestId)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.TICK_BY_TICK,
+                " It does not support tick-by-tick cancels."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.CancelTickByTickData);
+            paramsList.AddParameter(requestId);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_CANCELTICKBYTICKDATA);
+        }
+
+        /**
+         * @brief Requests tick-by-tick data.\n
+         * @param reqId - unique identifier of the request.\n
+         * @param contract - the contract for which tick-by-tick data is requested.\n
+         * @param tickType - tick-by-tick data type: "Last", "AllLast" or "BidAsk".\n
+         * @param startTime - start time of historical tick-by-tick data.\n
+         * @param endTime - end time of historical tick-by-tick data.\n
+         * @param numberOfTicks - number of ticks.\n
+         * @param refresh -  true for real-time tick-by-tick ticks, false for historical tick-by-tick data.\n
+         * @sa EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk, Contract
+         */
+        public void reqTickByTickData(int requestId, Contract contract, string tickType)
+        {
+            if (!CheckConnection())
+                return;
+
+            if (!CheckServerVersion(MinServerVer.TICK_BY_TICK,
+                " It does not support tick-by-tick requests."))
+                return;
+
+            var paramsList = new BinaryWriter(new MemoryStream());
+            var lengthPos = prepareBuffer(paramsList);
+
+            paramsList.AddParameter(OutgoingMessages.ReqTickByTickData);
+            paramsList.AddParameter(requestId);
+            paramsList.AddParameter(contract.ConId);
+            paramsList.AddParameter(contract.Symbol);
+            paramsList.AddParameter(contract.SecType);
+            paramsList.AddParameter(contract.LastTradeDateOrContractMonth);
+            paramsList.AddParameter(contract.Strike);
+            paramsList.AddParameter(contract.Right);
+            paramsList.AddParameter(contract.Multiplier);
+            paramsList.AddParameter(contract.Exchange);
+            paramsList.AddParameter(contract.PrimaryExch);
+            paramsList.AddParameter(contract.Currency);
+            paramsList.AddParameter(contract.LocalSymbol);
+            paramsList.AddParameter(contract.TradingClass);
+            paramsList.AddParameter(tickType);
+
+            CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQTICKBYTICKDATA);
+        }
 
         /**
         * @brief Cancels a historical data request.

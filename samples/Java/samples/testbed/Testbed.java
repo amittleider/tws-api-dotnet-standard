@@ -47,8 +47,9 @@ public class Testbed {
 		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
 		Thread.sleep(1000);
 
+		tickByTickOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
-		orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
+		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -835,4 +836,22 @@ public class Testbed {
 		client.cancelHistoricalData(18002);
 		//! [reqhistoricaldata]
 	}
+	
+	private static void tickByTickOperations(EClientSocket client) throws InterruptedException {
+		
+		/*** Requesting tick-by-tick data (only refresh) ***/
+		//! [reqtickbytick]
+		client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last");
+		client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast");
+		client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk");
+		//! [reqtickbytick]
+
+		Thread.sleep(10000);
+
+		//! [canceltickbytick]
+		client.cancelTickByTickData(19001);
+		client.cancelTickByTickData(19002);
+		client.cancelTickByTickData(19003);
+		//! [canceltickbytick]
+	}	
 }

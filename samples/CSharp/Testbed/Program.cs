@@ -159,7 +159,7 @@ namespace Samples
 
             //pnl(client);
 
-            pnlSingle(client);
+            //pnlSingle(client);
 		
 	        /**************************/
             /*** Algo Orders ***/
@@ -173,10 +173,35 @@ namespace Samples
 
             //historicalTicks(client);
 
+            /**************************/
+            /*** Tick-By-Tick       ***/
+            /**************************/
+            tickByTickOperations(client);
+
             Thread.Sleep(3000);
             Console.WriteLine("Done");
             Thread.Sleep(500000);
         }
+
+        private static void tickByTickOperations(EClientSocket client)
+        {
+
+            /*** Requesting tick-by-tick data (only refresh) ***/
+            //! [reqtickbytick]
+            client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last");
+            client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast");
+            client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk");
+            //! [reqtickbytick]
+
+            Thread.Sleep(10000);
+
+            //! [canceltickbytick]
+            client.cancelTickByTickData(19001);
+            client.cancelTickByTickData(19002);
+            client.cancelTickByTickData(19003);
+            //! [canceltickbytick]
+        }
+
 
         private static void historicalTicks(EClientSocket client)
         {

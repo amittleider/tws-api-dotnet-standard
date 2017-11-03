@@ -96,6 +96,8 @@ enum State {
 	ST_PING_ACK,
     ST_REQHISTORICALTICKS,
     ST_REQHISTORICALTICKS_ACK,
+    ST_REQTICKBYTICKDATA,
+    ST_REQTICKBYTICKDATA_ACK,
 	ST_IDLE
 };
 
@@ -156,6 +158,7 @@ private:
 	void marketRuleOperations();
 	void continuousFuturesOperations();
     void reqHistoricalTicks();
+    void reqTickByTickData();
 
 	void reqCurrentTime();
 
@@ -251,6 +254,8 @@ public:
     void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
     void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
     void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
+    void tickByTickAllLast(int reqId, int tickType, time_t time, double price, int size, const TickAttrib& attribs, const std::string& exchange, const std::string& specialConditions);
+    void tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, int bidSize, int askSize, const TickAttrib& attribs);
 
 private:
 	void printContractMsg(const Contract& contract);

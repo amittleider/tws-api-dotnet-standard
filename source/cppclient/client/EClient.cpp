@@ -3126,6 +3126,61 @@ void EClient::reqHistoricalTicks(int reqId, const Contract &contract, const std:
     closeAndSend(msg.str());    
 }
 
+void EClient::reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support tick-by-tick data request.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(REQ_TICK_BY_TICK_DATA);
+    ENCODE_FIELD(reqId);
+    ENCODE_FIELD( contract.conId);
+    ENCODE_FIELD( contract.symbol);
+    ENCODE_FIELD( contract.secType);
+    ENCODE_FIELD( contract.lastTradeDateOrContractMonth);
+    ENCODE_FIELD( contract.strike);
+    ENCODE_FIELD( contract.right);
+    ENCODE_FIELD( contract.multiplier);
+    ENCODE_FIELD( contract.exchange);
+    ENCODE_FIELD( contract.primaryExchange);
+    ENCODE_FIELD( contract.currency);
+    ENCODE_FIELD( contract.localSymbol);
+    ENCODE_FIELD( contract.tradingClass);
+    ENCODE_FIELD( tickType);
+
+    closeAndSend(msg.str());    
+}
+
+void EClient::cancelTickByTickData(int reqId) {
+    if( !isConnected()) {
+        m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
+        return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK) {
+        m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+            "  It does not support tick-by-tick data cancel.");
+        return;
+    }
+
+    std::stringstream msg;
+    prepareBuffer(msg);
+
+    ENCODE_FIELD(CANCEL_TICK_BY_TICK_DATA);
+    ENCODE_FIELD(reqId);
+
+    closeAndSend(msg.str());    
+}
+
 int EClient::processMsgImpl(const char*& beginPtr, const char* endPtr)
 {
 	EDecoder decoder(serverVersion(), m_pEWrapper);

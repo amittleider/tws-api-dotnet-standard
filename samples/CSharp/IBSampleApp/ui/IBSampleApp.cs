@@ -53,7 +53,10 @@ namespace IBSampleApp
             pnlSingledataTable = new DataTable(),
             historicalTickTable = new DataTable(),
             historicalTickBidAskTable = new DataTable(),
-            historicalTickLastTable = new DataTable();
+            historicalTickLastTable = new DataTable(),
+            tickByTickLastTable = new DataTable(),
+            tickByTickAllLastTable = new DataTable(),
+            tickByTickBidAskTable = new DataTable();
 
 
         public IBSampleAppDialog()
@@ -94,6 +97,10 @@ namespace IBSampleApp
                 new[] { "Time", "Mask", "Price bid", "Price ask", "Size bid", "Size ask" }.Select(toDataColumn).ToArray());
             historicalTickLastTable.Columns.AddRange(
                 new[] { "Time", "Mask", "Price", "Size", "Exchange", "Special Conditions" }.Select(toDataColumn).ToArray());
+
+            tickByTickLastTable.Columns.AddRange(new[] { "Time", "Price", "Size", "Exchange", "Special Conditions", "PastLimit" }.Select(toDataColumn).ToArray());
+            tickByTickAllLastTable.Columns.AddRange(new[] { "Time", "Price", "Size", "Exchange", "Special Conditions", "PastLimit", "Unreported" }.Select(toDataColumn).ToArray());
+            tickByTickBidAskTable.Columns.AddRange(new[] { "Time", "Bid Price", "Ask Price", "Bid Size", "Ask Size", "BidPastLow", "AskPastHigh" }.Select(toDataColumn).ToArray());
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -217,6 +224,30 @@ namespace IBSampleApp
             ibClient.historicalTick += UpdateUI;
             ibClient.historicalTickBidAsk += UpdateUI;
             ibClient.historicalTickLast += UpdateUI;
+            ibClient.tickByTickAllLast += UpdateUI;
+            ibClient.tickByTickBidAsk += UpdateUI;
+        }
+
+        private void UpdateUI(TickByTickBidAskMessage msg)
+        {
+            dataGridViewTickByTick.DataSource = tickByTickBidAskTable;
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+            tickByTickBidAskTable.Rows.Add(timeStr, msg.BidPrice, msg.AskPrice, msg.BidSize, msg.AskSize, msg.Attribs.BidPastLow, msg.Attribs.AskPastHigh);
+        }
+
+        private void UpdateUI(TickByTickAllLastMessage msg)
+        {
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+            if (msg.TickType == 1)
+            {
+                dataGridViewTickByTick.DataSource = tickByTickLastTable;
+                tickByTickLastTable.Rows.Add(timeStr, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit);
+            }
+            else if (msg.TickType == 2)
+            {
+                dataGridViewTickByTick.DataSource = tickByTickAllLastTable;
+                tickByTickAllLastTable.Rows.Add(timeStr, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit, msg.Attribs.Unreported);
+            }
         }
 
         private void UpdateUI(HistoricalTickLastMessage msg)
@@ -1299,6 +1330,32 @@ namespace IBSampleApp
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             clearHistoricalTicksDataSources();
+        }
+
+        private void buttonRequestTickByTick_Click(object sender, EventArgs e)
+        {
+            if (!IsConnected)
+                return;
+
+            Contract contract = GetMDContract();
+
+            ShowTab(marketData_MDT, tabPageTickByTick);
+
+            String tickType = comboBoxTickByTickType.GetItemText(comboBoxTickByTickType.SelectedItem);
+            labelTickByTick.Text = "Tick-By-Tick: " + tickType;
+            ibClient.ClientSocket.reqTickByTickData(0, contract, tickType);
+        }
+
+        private void buttonCancelTickByTick_Click(object sender, EventArgs e)
+        {
+            ibClient.ClientSocket.cancelTickByTickData(0);
+        }
+
+        private void linkLabelClearTickByTick_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ibClient.ClientSocket.cancelTickByTickData(0);
+            labelTickByTick.Text = "Tick-By-Tick: ";
+            new[] { tickByTickLastTable, tickByTickAllLastTable, tickByTickBidAskTable }.ToList().ForEach(i => i.Clear());
         }
     }
 }

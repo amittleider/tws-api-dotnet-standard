@@ -799,4 +799,20 @@ public class EWrapperMsgGenerator {
         return "Historical Tick Last. Req Id: " + reqId + ", time: " + time + ", price: " + price + ", size: " 
                 + size + ", exchange: " + exchange + ", special conditions:" + specialConditions;
     }
+    
+    public static String tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs, 
+            String exchange, String specialConditions){
+        return (tickType == 1 ? "Last." : "AllLast.") +
+                " Req Id: " + reqId + " Time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + " Price: " + price + " Size: " + size +
+                " Exch: " + exchange + " Spec Cond: " + specialConditions + (attribs.pastLimit() ? " pastLimit" : "") +
+                (tickType == 1 ? "" : (attribs.unreported() ? " unreported" : ""));
+    }
+    
+    public static String tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize,
+            TickAttr attribs){
+        return "BidAsk. Req Id: " + reqId + " Time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + " BidPrice: " + bidPrice + 
+                " AskPrice: " + askPrice + " BidSize: " + bidSize + " AskSize: " + askSize + 
+                (attribs.bidPastLow() ? " bidPastLow" : "") + (attribs.askPastHigh() ? " askPastHigh" : "");
+    }
+    
 }

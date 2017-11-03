@@ -506,4 +506,16 @@ class DefaultEWrapper implements EWrapper {
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs,
+             String exchange, String specialConditions) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize,
+            TickAttr attribs) {
+        // TODO Auto-generated method stub
+	}
 }

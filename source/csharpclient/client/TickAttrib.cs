@@ -15,5 +15,11 @@ namespace IBApi
         public bool PastLimit { get; set; }
 
         public bool PreOpen { get; set; }
+
+        public bool Unreported { get; set; }
+
+        public bool BidPastLow { get; set; }
+
+        public bool AskPastHigh { get; set; }
     }
 }

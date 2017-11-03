@@ -1046,6 +1046,16 @@ namespace TWSLib
             this.socket.cancelPnLSingle(reqId);
         }
 
+        void ITws.reqTickByTickData(int reqId, IContract contract, string tickType)
+        {
+            this.socket.reqTickByTickData(reqId, (Contract)(contract as ComContract), tickType);
+        }
+
+        void ITws.cancelTickByTickData(int reqId)
+        {
+            this.socket.cancelTickByTickData(reqId);
+        }
+
         #endregion
 
         #region events
@@ -2077,6 +2087,26 @@ namespace TWSLib
 
             if (tmp != null)
                 sc.Post(state => tmp(reqId, ticks, done), null);
+        }
+
+        public delegate void TickByTickAllLastDelegate(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions);
+        public event TickByTickAllLastDelegate tickByTickAllLast;
+        void EWrapper.tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions)
+        {
+            var tmp = this.tickByTickAllLast;
+
+            if (tmp != null)
+                sc.Post(state => tmp(reqId, tickType, time, price, size, attribs, exchange, specialConditions), null);
+        }
+
+        public delegate void TickByTickBidAskDelegate(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs);
+        public event TickByTickBidAskDelegate tickByTickBidAsk;
+        void EWrapper.tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs)
+        {
+            var tmp = this.tickByTickBidAsk;
+
+            if (tmp != null)
+                sc.Post(state => tmp(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs), null);
         }
 
         #endregion

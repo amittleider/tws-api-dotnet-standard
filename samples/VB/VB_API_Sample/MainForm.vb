@@ -113,6 +113,8 @@ Friend Class MainForm
     Public WithEvents cmdCancelPnl As System.Windows.Forms.Button
     Friend WithEvents cmdReqPnl As System.Windows.Forms.Button
     Friend WithEvents cmdReqHistoricalTicks As System.Windows.Forms.Button
+    Friend WithEvents cmdReqTickByTick As System.Windows.Forms.Button
+    Friend WithEvents cmdCancelTickByTick As System.Windows.Forms.Button
     Public WithEvents cmdScanner As System.Windows.Forms.Button
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.cmdReqHistoricalData = New System.Windows.Forms.Button()
@@ -184,6 +186,8 @@ Friend Class MainForm
         Me.cmdCancelPnl = New System.Windows.Forms.Button()
         Me.cmdReqPnl = New System.Windows.Forms.Button()
         Me.cmdReqHistoricalTicks = New System.Windows.Forms.Button()
+        Me.cmdReqTickByTick = New System.Windows.Forms.Button()
+        Me.cmdCancelTickByTick = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdReqHistoricalData
@@ -337,7 +341,7 @@ Friend Class MainForm
         Me.cmdClearForm.Name = "cmdClearForm"
         Me.cmdClearForm.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClearForm.Size = New System.Drawing.Size(89, 25)
-        Me.cmdClearForm.TabIndex = 62
+        Me.cmdClearForm.TabIndex = 69
         Me.cmdClearForm.Text = "Clear"
         Me.cmdClearForm.UseVisualStyleBackColor = True
         '
@@ -352,7 +356,7 @@ Friend Class MainForm
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdClose.Size = New System.Drawing.Size(90, 25)
-        Me.cmdClose.TabIndex = 63
+        Me.cmdClose.TabIndex = 70
         Me.cmdClose.Text = "Close"
         Me.cmdClose.UseVisualStyleBackColor = True
         '
@@ -509,7 +513,7 @@ Friend Class MainForm
         Me.lstErrors.Name = "lstErrors"
         Me.lstErrors.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstErrors.Size = New System.Drawing.Size(529, 140)
-        Me.lstErrors.TabIndex = 61
+        Me.lstErrors.TabIndex = 68
         '
         'lstServerResponses
         '
@@ -524,7 +528,7 @@ Friend Class MainForm
         Me.lstServerResponses.Name = "lstServerResponses"
         Me.lstServerResponses.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstServerResponses.Size = New System.Drawing.Size(529, 140)
-        Me.lstServerResponses.TabIndex = 59
+        Me.lstServerResponses.TabIndex = 66
         '
         'lstMktData
         '
@@ -539,7 +543,7 @@ Friend Class MainForm
         Me.lstMktData.Name = "lstMktData"
         Me.lstMktData.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lstMktData.Size = New System.Drawing.Size(529, 140)
-        Me.lstMktData.TabIndex = 57
+        Me.lstMktData.TabIndex = 64
         '
         'Label3
         '
@@ -551,7 +555,7 @@ Friend Class MainForm
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label3.Size = New System.Drawing.Size(120, 17)
-        Me.Label3.TabIndex = 60
+        Me.Label3.TabIndex = 67
         Me.Label3.Text = "Errors and Messages"
         '
         'Label2
@@ -564,7 +568,7 @@ Friend Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(136, 17)
-        Me.Label2.TabIndex = 58
+        Me.Label2.TabIndex = 65
         Me.Label2.Text = "TWS Server Responses"
         '
         'Label1
@@ -577,7 +581,7 @@ Friend Class MainForm
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label1.Size = New System.Drawing.Size(144, 17)
-        Me.Label1.TabIndex = 56
+        Me.Label1.TabIndex = 63
         Me.Label1.Text = "Market and Historical Data"
         '
         'cmdExerciseOptions
@@ -954,7 +958,7 @@ Friend Class MainForm
         Me.cmdCancelPnlSingle.Location = New System.Drawing.Point(1009, 408)
         Me.cmdCancelPnlSingle.Name = "cmdCancelPnlSingle"
         Me.cmdCancelPnlSingle.Size = New System.Drawing.Size(133, 22)
-        Me.cmdCancelPnlSingle.TabIndex = 67
+        Me.cmdCancelPnlSingle.TabIndex = 59
         Me.cmdCancelPnlSingle.Text = "Cancel PnL Single"
         Me.cmdCancelPnlSingle.UseVisualStyleBackColor = True
         '
@@ -963,7 +967,7 @@ Friend Class MainForm
         Me.cmdReqPnlSingle.Location = New System.Drawing.Point(870, 408)
         Me.cmdReqPnlSingle.Name = "cmdReqPnlSingle"
         Me.cmdReqPnlSingle.Size = New System.Drawing.Size(133, 22)
-        Me.cmdReqPnlSingle.TabIndex = 66
+        Me.cmdReqPnlSingle.TabIndex = 58
         Me.cmdReqPnlSingle.Text = "Req PnL Single..."
         Me.cmdReqPnlSingle.UseVisualStyleBackColor = True
         '
@@ -977,7 +981,7 @@ Friend Class MainForm
         Me.cmdCancelPnl.Name = "cmdCancelPnl"
         Me.cmdCancelPnl.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancelPnl.Size = New System.Drawing.Size(133, 22)
-        Me.cmdCancelPnl.TabIndex = 65
+        Me.cmdCancelPnl.TabIndex = 57
         Me.cmdCancelPnl.Text = "Cancel PnL"
         Me.cmdCancelPnl.UseVisualStyleBackColor = True
         '
@@ -986,7 +990,7 @@ Friend Class MainForm
         Me.cmdReqPnl.Location = New System.Drawing.Point(870, 380)
         Me.cmdReqPnl.Name = "cmdReqPnl"
         Me.cmdReqPnl.Size = New System.Drawing.Size(133, 22)
-        Me.cmdReqPnl.TabIndex = 64
+        Me.cmdReqPnl.TabIndex = 56
         Me.cmdReqPnl.Text = "Req PnL..."
         Me.cmdReqPnl.UseVisualStyleBackColor = True
         '
@@ -995,15 +999,35 @@ Friend Class MainForm
         Me.cmdReqHistoricalTicks.Location = New System.Drawing.Point(870, 439)
         Me.cmdReqHistoricalTicks.Name = "cmdReqHistoricalTicks"
         Me.cmdReqHistoricalTicks.Size = New System.Drawing.Size(133, 22)
-        Me.cmdReqHistoricalTicks.TabIndex = 68
+        Me.cmdReqHistoricalTicks.TabIndex = 60
         Me.cmdReqHistoricalTicks.Text = "Req Historical Ticks"
         Me.cmdReqHistoricalTicks.UseVisualStyleBackColor = True
+        '
+        'cmdReqTickByTick
+        '
+        Me.cmdReqTickByTick.Location = New System.Drawing.Point(870, 467)
+        Me.cmdReqTickByTick.Name = "cmdReqTickByTick"
+        Me.cmdReqTickByTick.Size = New System.Drawing.Size(133, 22)
+        Me.cmdReqTickByTick.TabIndex = 61
+        Me.cmdReqTickByTick.Text = "Req Tick-By-Tick"
+        Me.cmdReqTickByTick.UseVisualStyleBackColor = True
+        '
+        'cmdCancelTickByTick
+        '
+        Me.cmdCancelTickByTick.Location = New System.Drawing.Point(1009, 467)
+        Me.cmdCancelTickByTick.Name = "cmdCancelTickByTick"
+        Me.cmdCancelTickByTick.Size = New System.Drawing.Size(133, 22)
+        Me.cmdCancelTickByTick.TabIndex = 62
+        Me.cmdCancelTickByTick.Text = "Cancel Tick-By-Tick"
+        Me.cmdCancelTickByTick.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(1154, 638)
+        Me.Controls.Add(Me.cmdCancelTickByTick)
+        Me.Controls.Add(Me.cmdReqTickByTick)
         Me.Controls.Add(Me.cmdReqHistoricalTicks)
         Me.Controls.Add(Me.cmdCancelPnlSingle)
         Me.Controls.Add(Me.cmdReqPnlSingle)
@@ -1930,9 +1954,47 @@ Friend Class MainForm
 
     End Sub
 
+    Private Sub cmdReqTickByTick_Click(sender As Object, e As EventArgs) Handles cmdReqTickByTick.Click
+        m_dlgOrder.init(dlgOrder.DialogType.RequestTickByTick,
+            m_contractInfo, m_orderInfo, Nothing, Nothing, Me)
+
+        If m_dlgOrder.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.reqTickByTickData(m_dlgOrder.orderId, m_contractInfo, m_dlgOrder.tickByTickType)
+        End If
+
+    End Sub
+
+    Private Sub cmdCancelTickByTick_Click(sender As Object, e As EventArgs) Handles cmdCancelTickByTick.Click
+        m_dlgOrder.init(dlgOrder.DialogType.CancelTickByTick,
+            m_contractInfo, m_orderInfo, Nothing, Nothing, Me)
+
+        If m_dlgOrder.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            m_api.cancelTickByTickData(m_dlgOrder.orderId)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "API event handlers"
+
+    Private Sub m_apiEvents_TickByTickAllLast(sender As Object, e As TickByTickAllLastEventArgs) Handles m_apiEvents.TickByTickAllLast
+        Dim tickTypeStr As String
+        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
+        If e.tickType = 1 Then
+            tickTypeStr = "Last"
+        Else
+            tickTypeStr = "AllLast"
+        End If
+        m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
+                                                                          e.reqId, tickTypeStr, timeStr, e.price, e.size, e.exchange, e.specialConditions, e.attribs.PastLimit, e.attribs.Unreported))
+    End Sub
+
+    Private Sub m_apiEvents_TickByTickBidAsk(sender As Object, e As TickByTickBidAskEventArgs) Handles m_apiEvents.TickByTickBidAsk
+        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
+        m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
+                                                                          e.reqId, timeStr, e.bidPrice, e.askPrice, e.bidSize, e.askSize, e.attribs.BidPastLow, e.attribs.AskPastHigh))
+    End Sub
 
     Private Sub m_apiEvents_HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs) Handles m_apiEvents.HistoricalTicks
         For Each tick In e.ticks

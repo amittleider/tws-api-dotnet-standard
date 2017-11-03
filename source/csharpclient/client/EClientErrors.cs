@@ -88,11 +88,13 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_CANCELHISTOGRAMDATA = new CodeMsgPair(568, "Cancel Request Histogram Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELHEADTIMESTAMP = new CodeMsgPair(569, "Cancel Head Time Stamp Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(570, "Request Market Rule Sending Error - ");
-        public static readonly CodeMsgPair FAIL_SEND_REQPNL = new CodeMsgPair(567, "Request PnL Sending Error - ");
-        public static readonly CodeMsgPair FAIL_SEND_CANCELPNL = new CodeMsgPair(568, "Cancel PnL Sending Error - ");
-        public static readonly CodeMsgPair FAIL_SEND_REQPNLSINGLE = new CodeMsgPair(567, "Request PnL Single Error - ");
-        public static readonly CodeMsgPair FAIL_SEND_CANCELPNLSINGLE = new CodeMsgPair(568, "Cancel PnL Single Sending Error - ");
-        public static readonly CodeMsgPair FAIL_SEND_REQHISTORICALTICKS = new CodeMsgPair(567, "Request Historical Ticks Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQPNL = new CodeMsgPair(571, "Request PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELPNL = new CodeMsgPair(572, "Cancel PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQPNLSINGLE = new CodeMsgPair(573, "Request PnL Single Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELPNLSINGLE = new CodeMsgPair(574, "Cancel PnL Single Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHISTORICALTICKS = new CodeMsgPair(575, "Request Historical Ticks Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQTICKBYTICKDATA = new CodeMsgPair(576, "Request Tick-By-Tick Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELTICKBYTICKDATA = new CodeMsgPair(577, "Cancel Tick-By-Tick Data Sending Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     

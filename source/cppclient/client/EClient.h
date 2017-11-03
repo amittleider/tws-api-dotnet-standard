@@ -181,6 +181,8 @@ const int CANCEL_PNL                    = 93;
 const int REQ_PNL_SINGLE                = 94;
 const int CANCEL_PNL_SINGLE             = 95;
 const int REQ_HISTORICAL_TICKS          = 96;
+const int REQ_TICK_BY_TICK_DATA         = 97;
+const int CANCEL_TICK_BY_TICK_DATA      = 98;
 
 // TWS New Bulletins constants
 const int NEWS_MSG              = 1;    // standard IB news bulleting message
@@ -337,6 +339,9 @@ public:
 	void cancelPnLSingle(int reqId);
     void reqHistoricalTicks(int reqId, const Contract &contract, const std::string& startDateTime,
             const std::string& endDateTime, int numberOfTicks, const std::string& whatToShow, int useRth, bool ignoreSize, const TagValueListSPtr& miscOptions);
+    void reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType);
+    void cancelTickByTickData(int reqId);
+
 private:
 
 	virtual int receive(char* buf, size_t sz) = 0;

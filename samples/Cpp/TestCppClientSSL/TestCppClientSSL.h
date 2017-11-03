@@ -59,7 +59,7 @@ public:
 		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 	void orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
-		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice, int lastLiquidity);
+		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice);
 	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
 	void openOrderEnd();
 	void winError(const std::string& str, int lastError);
@@ -136,11 +136,13 @@ public:
     void marketRule(int marketRuleId, const std::vector<PriceIncrement> &priceIncrements);
     void dailyPnL(int reqId, double dailyPnL);
     void dailyPnLSingle(int reqId, int pos, double dailyPnL, double value);
-	void pnl(int reqId, double dailyPnL, double unrealizedPnL);
-	void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double value);
+    void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
+    void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
     void historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done);
     void historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done);
     void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
+    void tickByTickAllLast(int reqId, int tickType, time_t time, double price, int size, const TickAttrib& attribs, const std::string& exchange, const std::string& specialConditions);
+    void tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, int bidSize, int askSize, const TickAttrib& attribs);
 
 private:
     EReaderOSSignal m_osSignal;

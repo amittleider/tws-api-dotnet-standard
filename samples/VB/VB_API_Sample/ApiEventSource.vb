@@ -778,6 +778,36 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_TickByTickAllLast(reqId As Integer, tickType As Integer, time As Long, price As Double, size As Integer,
+                                          attribs As TickAttrib, exchange As String, specialConditions As String) Implements EWrapper.tickByTickAllLast
+        InvokeIfRequired(Sub()
+                             RaiseEvent TickByTickAllLast(Me, New TickByTickAllLastEventArgs With {
+                                                            .reqId = reqId,
+                                                            .tickType = tickType,
+                                                            .time = time,
+                                                            .price = price,
+                                                            .size = size,
+                                                            .attribs = attribs,
+                                                            .exchange = exchange,
+                                                            .specialConditions = specialConditions 
+                                                            })
+                         End Sub)
+    End Sub
+
+    Public Sub EWrapper_TickByTickBidAsk(reqId As Integer, time As Long, bidPrice As Double, askPrice As Double, bidSize As Integer, askSize As Integer, attribs As TickAttrib) Implements EWrapper.tickByTickBidAsk
+        InvokeIfRequired(Sub()
+                             RaiseEvent TickByTickBidAsk(Me, New TickByTickBidAskEventArgs With {
+                                                            .reqId = reqId,
+                                                            .time = time,
+                                                            .bidPrice = bidPrice,
+                                                            .askPrice = askPrice,
+                                                            .bidSize = bidSize,
+                                                            .askSize = askSize,
+                                                            .attribs = attribs
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -856,6 +886,8 @@ Friend Class ApiEventSource
     Event HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs)
     Event HistoricalTicksBidAsk(sender As Object, e As HistoricalTicksBidAskEventArgs)
     Event HistoricalTicksLast(sender As Object, e As HistoricalTicksLastEventArgs)
+    Event TickByTickAllLast(sender As Object, e As TickByTickAllLastEventArgs)
+    Event TickByTickBidAsk(sender As Object, e As TickByTickBidAskEventArgs)
 
 #End Region
 

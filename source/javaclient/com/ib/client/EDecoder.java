@@ -93,6 +93,7 @@ class EDecoder implements ObjectInput {
     private static final int HISTORICAL_TICKS = 96;
     private static final int HISTORICAL_TICKS_BID_ASK = 97;
     private static final int HISTORICAL_TICKS_LAST = 98;
+    private static final int TICK_BY_TICK = 99;
     
 
     static final int MAX_MSG_LENGTH = 0xffffff;
@@ -458,6 +459,10 @@ class EDecoder implements ObjectInput {
                 processHistoricalTicksLast();
                 break;
 
+            case TICK_BY_TICK:
+                processTickByTickMsg();
+                break;
+                
             default: {
                 m_EWrapper.error( EClientErrors.NO_VALID_ID, EClientErrors.UNKNOWN_ID.code(), EClientErrors.UNKNOWN_ID.msg());
                 return 0;
@@ -2069,6 +2074,42 @@ class EDecoder implements ObjectInput {
     	int snapshotPermissions = readInt();
     	
     	m_EWrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+    }
+    
+    private void processTickByTickMsg() throws IOException {
+        int reqId = readInt();
+        int tickType = readInt();
+        long time = readLong();
+
+        BitMask mask;
+        TickAttr attribs;
+        switch(tickType){
+            case 0: // None
+                break;
+            case 1: // Last
+            case 2: // AllLast
+                double price = readDouble();
+                int size = readInt();
+                mask = new BitMask(readInt());
+                attribs = new TickAttr();
+                attribs.pastLimit(mask.get(0));
+                attribs.unreported(mask.get(1));
+                String exchange = readStr();
+                String specialConditions = readStr();
+                m_EWrapper.tickByTickAllLast(reqId, tickType, time, price, size, attribs, exchange, specialConditions);
+                break;
+            case 3: // BidAsk
+                double bidPrice = readDouble();
+                double askPrice = readDouble();
+                int bidSize = readInt();
+                int askSize = readInt();
+                mask = new BitMask(readInt());
+                attribs = new TickAttr();
+                attribs.bidPastLow(mask.get(0));
+                attribs.askPastHigh(mask.get(1));
+                m_EWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+                break;
+        }
     }
     
     private String readStr() throws IOException {

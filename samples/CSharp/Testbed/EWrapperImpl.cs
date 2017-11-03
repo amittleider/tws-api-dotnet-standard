@@ -747,5 +747,25 @@ namespace Samples
             }
         }
 		//! [historicaltickslast]
+
+        //! [tickbytickalllast]
+        public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions)
+        {
+            string tickTypeStr = tickType == 1 ? "Last" : "AllLast";
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
+                reqId, tickTypeStr, timeStr, price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported);
+        }
+        //! [tickbytickalllast]
+
+        //! [tickbytickbidask]
+        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs)
+        {
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
+                reqId, timeStr, bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh);
+        }
+        //! [tickbytickbidask]
     }
 }

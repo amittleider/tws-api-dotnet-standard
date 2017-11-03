@@ -156,9 +156,13 @@ Friend Class dlgOrder
     Public WithEvents Label12 As System.Windows.Forms.Label
     Public WithEvents txtStartDateTime As System.Windows.Forms.TextBox
     Public WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents comboBoxTickByTickType As System.Windows.Forms.ComboBox
+    Public WithEvents labelTickByTickType As System.Windows.Forms.Label
     Public WithEvents txtIncludeExpired As System.Windows.Forms.TextBox
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
+        Me.comboBoxTickByTickType = New System.Windows.Forms.ComboBox()
+        Me.labelTickByTickType = New System.Windows.Forms.Label()
         Me.txtNumOfTicks = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtStartDateTime = New System.Windows.Forms.TextBox()
@@ -270,6 +274,8 @@ Friend Class dlgOrder
         'Frame1
         '
         Me.Frame1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Frame1.Controls.Add(Me.comboBoxTickByTickType)
+        Me.Frame1.Controls.Add(Me.labelTickByTickType)
         Me.Frame1.Controls.Add(Me.txtNumOfTicks)
         Me.Frame1.Controls.Add(Me.Label12)
         Me.Frame1.Controls.Add(Me.txtStartDateTime)
@@ -293,10 +299,33 @@ Friend Class dlgOrder
         Me.Frame1.Location = New System.Drawing.Point(234, 485)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Frame1.Size = New System.Drawing.Size(232, 227)
-        Me.Frame1.TabIndex = 6
+        Me.Frame1.Size = New System.Drawing.Size(232, 261)
+        Me.Frame1.TabIndex = 7
         Me.Frame1.TabStop = False
         Me.Frame1.Text = "Historical Data"
+        '
+        'comboBoxTickByTickType
+        '
+        Me.comboBoxTickByTickType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboBoxTickByTickType.FormattingEnabled = True
+        Me.comboBoxTickByTickType.Items.AddRange(New Object() {"Last", "AllLast", "BidAsk"})
+        Me.comboBoxTickByTickType.Location = New System.Drawing.Point(104, 233)
+        Me.comboBoxTickByTickType.Name = "comboBoxTickByTickType"
+        Me.comboBoxTickByTickType.Size = New System.Drawing.Size(104, 22)
+        Me.comboBoxTickByTickType.TabIndex = 19
+        '
+        'labelTickByTickType
+        '
+        Me.labelTickByTickType.BackColor = System.Drawing.Color.Gainsboro
+        Me.labelTickByTickType.Cursor = System.Windows.Forms.Cursors.Default
+        Me.labelTickByTickType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelTickByTickType.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.labelTickByTickType.Location = New System.Drawing.Point(11, 233)
+        Me.labelTickByTickType.Name = "labelTickByTickType"
+        Me.labelTickByTickType.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.labelTickByTickType.Size = New System.Drawing.Size(96, 17)
+        Me.labelTickByTickType.TabIndex = 18
+        Me.labelTickByTickType.Text = "Tick-by-tick type"
         '
         'txtNumOfTicks
         '
@@ -311,7 +340,7 @@ Friend Class dlgOrder
         Me.txtNumOfTicks.Name = "txtNumOfTicks"
         Me.txtNumOfTicks.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtNumOfTicks.Size = New System.Drawing.Size(120, 13)
-        Me.txtNumOfTicks.TabIndex = 16
+        Me.txtNumOfTicks.TabIndex = 5
         Me.txtNumOfTicks.Text = "1"
         Me.txtNumOfTicks.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -325,7 +354,7 @@ Friend Class dlgOrder
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label12.Size = New System.Drawing.Size(89, 17)
-        Me.Label12.TabIndex = 15
+        Me.Label12.TabIndex = 4
         Me.Label12.Text = "Number of ticks"
         '
         'txtStartDateTime
@@ -341,7 +370,7 @@ Friend Class dlgOrder
         Me.txtStartDateTime.Name = "txtStartDateTime"
         Me.txtStartDateTime.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtStartDateTime.Size = New System.Drawing.Size(120, 13)
-        Me.txtStartDateTime.TabIndex = 14
+        Me.txtStartDateTime.TabIndex = 1
         Me.txtStartDateTime.Text = "YYYYMMDD hh:mm:ss [TMZ]"
         '
         'Label9
@@ -354,7 +383,7 @@ Friend Class dlgOrder
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label9.Size = New System.Drawing.Size(87, 19)
-        Me.Label9.TabIndex = 13
+        Me.Label9.TabIndex = 0
         Me.Label9.Text = "Start Date/Time"
         '
         'chkIgnoreSize
@@ -363,7 +392,7 @@ Friend Class dlgOrder
         Me.chkIgnoreSize.Location = New System.Drawing.Point(145, 209)
         Me.chkIgnoreSize.Name = "chkIgnoreSize"
         Me.chkIgnoreSize.Size = New System.Drawing.Size(79, 18)
-        Me.chkIgnoreSize.TabIndex = 12
+        Me.chkIgnoreSize.TabIndex = 17
         Me.chkIgnoreSize.Text = "Ignore size"
         Me.chkIgnoreSize.UseVisualStyleBackColor = True
         '
@@ -373,7 +402,7 @@ Friend Class dlgOrder
         Me.chkKeepUpToDate.Location = New System.Drawing.Point(16, 209)
         Me.chkKeepUpToDate.Name = "chkKeepUpToDate"
         Me.chkKeepUpToDate.Size = New System.Drawing.Size(102, 18)
-        Me.chkKeepUpToDate.TabIndex = 10
+        Me.chkKeepUpToDate.TabIndex = 16
         Me.chkKeepUpToDate.Text = "Keep up to date"
         Me.chkKeepUpToDate.UseVisualStyleBackColor = True
         '
@@ -390,7 +419,7 @@ Friend Class dlgOrder
         Me.txtEndDateTime.Name = "txtEndDateTime"
         Me.txtEndDateTime.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtEndDateTime.Size = New System.Drawing.Size(120, 13)
-        Me.txtEndDateTime.TabIndex = 1
+        Me.txtEndDateTime.TabIndex = 3
         Me.txtEndDateTime.Text = "YYYYMMDD hh:mm:ss [TMZ]"
         '
         'Label24
@@ -403,7 +432,7 @@ Friend Class dlgOrder
         Me.Label24.Name = "Label24"
         Me.Label24.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label24.Size = New System.Drawing.Size(80, 17)
-        Me.Label24.TabIndex = 0
+        Me.Label24.TabIndex = 2
         Me.Label24.Text = "End Date/Time"
         '
         'txtBarSizeSetting
@@ -419,7 +448,7 @@ Friend Class dlgOrder
         Me.txtBarSizeSetting.Name = "txtBarSizeSetting"
         Me.txtBarSizeSetting.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtBarSizeSetting.Size = New System.Drawing.Size(120, 13)
-        Me.txtBarSizeSetting.TabIndex = 5
+        Me.txtBarSizeSetting.TabIndex = 9
         Me.txtBarSizeSetting.Text = "1 day"
         '
         'Label23
@@ -432,7 +461,7 @@ Friend Class dlgOrder
         Me.Label23.Name = "Label23"
         Me.Label23.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label23.Size = New System.Drawing.Size(80, 17)
-        Me.Label23.TabIndex = 4
+        Me.Label23.TabIndex = 8
         Me.Label23.Text = "Bar Size"
         '
         'txtFormatDate
@@ -448,7 +477,7 @@ Friend Class dlgOrder
         Me.txtFormatDate.Name = "txtFormatDate"
         Me.txtFormatDate.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtFormatDate.Size = New System.Drawing.Size(120, 13)
-        Me.txtFormatDate.TabIndex = 11
+        Me.txtFormatDate.TabIndex = 15
         Me.txtFormatDate.Text = "1"
         '
         'txtUseRTH
@@ -464,7 +493,7 @@ Friend Class dlgOrder
         Me.txtUseRTH.Name = "txtUseRTH"
         Me.txtUseRTH.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtUseRTH.Size = New System.Drawing.Size(120, 13)
-        Me.txtUseRTH.TabIndex = 9
+        Me.txtUseRTH.TabIndex = 13
         Me.txtUseRTH.Text = "1"
         '
         'txtWhatToShow
@@ -480,7 +509,7 @@ Friend Class dlgOrder
         Me.txtWhatToShow.Name = "txtWhatToShow"
         Me.txtWhatToShow.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtWhatToShow.Size = New System.Drawing.Size(120, 13)
-        Me.txtWhatToShow.TabIndex = 7
+        Me.txtWhatToShow.TabIndex = 11
         Me.txtWhatToShow.Text = "TRADES"
         '
         'txtDuration
@@ -496,7 +525,7 @@ Friend Class dlgOrder
         Me.txtDuration.Name = "txtDuration"
         Me.txtDuration.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtDuration.Size = New System.Drawing.Size(120, 13)
-        Me.txtDuration.TabIndex = 3
+        Me.txtDuration.TabIndex = 7
         Me.txtDuration.Text = "1 M"
         '
         'Label21
@@ -509,7 +538,7 @@ Friend Class dlgOrder
         Me.Label21.Name = "Label21"
         Me.Label21.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label21.Size = New System.Drawing.Size(80, 33)
-        Me.Label21.TabIndex = 10
+        Me.Label21.TabIndex = 14
         Me.Label21.Text = "Date Format Style (1 or 2)"
         '
         'Label20
@@ -522,7 +551,7 @@ Friend Class dlgOrder
         Me.Label20.Name = "Label20"
         Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label20.Size = New System.Drawing.Size(86, 37)
-        Me.Label20.TabIndex = 8
+        Me.Label20.TabIndex = 12
         Me.Label20.Text = "Regular Trading Hours (1 or 0)"
         '
         'Label19
@@ -535,7 +564,7 @@ Friend Class dlgOrder
         Me.Label19.Name = "Label19"
         Me.Label19.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label19.Size = New System.Drawing.Size(80, 17)
-        Me.Label19.TabIndex = 6
+        Me.Label19.TabIndex = 10
         Me.Label19.Text = "What To Show"
         '
         'Label25
@@ -548,7 +577,7 @@ Friend Class dlgOrder
         Me.Label25.Name = "Label25"
         Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label25.Size = New System.Drawing.Size(80, 17)
-        Me.Label25.TabIndex = 2
+        Me.Label25.TabIndex = 6
         Me.Label25.Text = "Duration"
         '
         'cmdCancel
@@ -557,7 +586,7 @@ Friend Class dlgOrder
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(232, 777)
+        Me.cmdCancel.Location = New System.Drawing.Point(232, 814)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -571,7 +600,7 @@ Friend Class dlgOrder
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(151, 777)
+        Me.cmdOk.Location = New System.Drawing.Point(151, 814)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -1582,7 +1611,7 @@ Friend Class dlgOrder
         Me.frameOrderDesc.Name = "frameOrderDesc"
         Me.frameOrderDesc.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.frameOrderDesc.Size = New System.Drawing.Size(232, 431)
-        Me.frameOrderDesc.TabIndex = 5
+        Me.frameOrderDesc.TabIndex = 6
         Me.frameOrderDesc.TabStop = False
         Me.frameOrderDesc.Text = "Order Description"
         '
@@ -1678,7 +1707,7 @@ Friend Class dlgOrder
         Me.labelMarketDataType.Location = New System.Drawing.Point(11, 21)
         Me.labelMarketDataType.Name = "labelMarketDataType"
         Me.labelMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.labelMarketDataType.Size = New System.Drawing.Size(96, 17)
+        Me.labelMarketDataType.Size = New System.Drawing.Size(93, 17)
         Me.labelMarketDataType.TabIndex = 0
         Me.labelMarketDataType.Text = "Market Data Type"
         '
@@ -1689,11 +1718,11 @@ Friend Class dlgOrder
         Me.frameMarketDataType.Controls.Add(Me.labelMarketDataType)
         Me.frameMarketDataType.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.frameMarketDataType.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.frameMarketDataType.Location = New System.Drawing.Point(234, 718)
+        Me.frameMarketDataType.Location = New System.Drawing.Point(8, 752)
         Me.frameMarketDataType.Name = "frameMarketDataType"
         Me.frameMarketDataType.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.frameMarketDataType.Size = New System.Drawing.Size(228, 52)
-        Me.frameMarketDataType.TabIndex = 7
+        Me.frameMarketDataType.Size = New System.Drawing.Size(216, 53)
+        Me.frameMarketDataType.TabIndex = 5
         Me.frameMarketDataType.TabStop = False
         Me.frameMarketDataType.Text = "Market Data Type"
         '
@@ -1703,14 +1732,14 @@ Friend Class dlgOrder
         Me.cmbMarketDataType.FormattingEnabled = True
         Me.cmbMarketDataType.Location = New System.Drawing.Point(104, 21)
         Me.cmbMarketDataType.Name = "cmbMarketDataType"
-        Me.cmbMarketDataType.Size = New System.Drawing.Size(120, 22)
+        Me.cmbMarketDataType.Size = New System.Drawing.Size(104, 22)
         Me.cmbMarketDataType.TabIndex = 1
         '
         'dlgOrder
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(474, 808)
+        Me.ClientSize = New System.Drawing.Size(474, 841)
         Me.Controls.Add(Me.frameMarketDataType)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox2)
@@ -1791,6 +1820,8 @@ Friend Class dlgOrder
         CancelFundamentalData
         RequestMatchingSymbols
         RequestHistoricalTicks
+        RequestTickByTick
+        CancelTickByTick
 
     End Enum
 
@@ -1837,6 +1868,7 @@ Friend Class dlgOrder
     Private m_marketDataType As Integer
     Private m_optionsDlgTitle As String
     Private m_options As List(Of IBApi.TagValue)
+    Private m_tickByTickType As String
 
     ' ========================================================
     ' Get/Set Methods
@@ -1973,6 +2005,13 @@ Friend Class dlgOrder
             marketDataType = m_marketDataType
         End Get
     End Property
+
+    Public ReadOnly Property tickByTickType() As String
+        Get
+            tickByTickType = m_tickByTickType
+        End Get
+    End Property
+
     Public ReadOnly Property ok() As Boolean
         Get
             ok = DialogResult = Windows.Forms.DialogResult.OK
@@ -2096,6 +2135,8 @@ Friend Class dlgOrder
         m_exerciseQuantity = CInt(txtExerciseQuantity.Text)
         m_exerciseOverride = CInt(txtExerciseOverride.Text)
 
+        m_tickByTickType = comboBoxTickByTickType.Text
+
         DialogResult = Windows.Forms.DialogResult.OK
         m_contractInfo = Nothing
         m_orderInfo = Nothing
@@ -2185,6 +2226,8 @@ Friend Class dlgOrder
 
         cmbMarketDataType.Enabled = (dlgType = DialogType.RequestMarketDataType)
 
+        comboBoxTickByTickType.Enabled = (dlgType = DialogType.RequestTickByTick)
+
         ' enable or disable contract fields
         If dlgType = DialogType.CancelMarketData Or
            dlgType = DialogType.CancelMarketDepth Or
@@ -2194,7 +2237,8 @@ Friend Class dlgOrder
            dlgType = DialogType.CancelCalculateImpliedVolatility Or
            dlgType = DialogType.CancelCalculateOptionPrice Or
            dlgType = DialogType.RequestMarketDataType Or
-           dlgType = DialogType.RequestMatchingSymbols Then
+           dlgType = DialogType.RequestMatchingSymbols Or
+           dlgType = DialogType.CancelTickByTick Then
             txtConId.Enabled = False
             txtSymbol.Enabled = False
             txtSecType.Enabled = False
@@ -2329,6 +2373,8 @@ Friend Class dlgOrder
         m_arrDlgTitles.Add("Cancel Fundamental Data")
         m_arrDlgTitles.Add("Request Matching Symbols")
         m_arrDlgTitles.Add("Request Historical Ticks")
+        m_arrDlgTitles.Add("Request Tick-By-Tick")
+        m_arrDlgTitles.Add("Cancel Tick-By-Tick")
 
         cmbMarketDataType.Items.Clear()
         Dim index = cmbMarketDataType.Items.Add("Real-Time")

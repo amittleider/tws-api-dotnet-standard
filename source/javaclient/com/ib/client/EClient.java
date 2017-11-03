@@ -192,6 +192,8 @@ public abstract class EClient {
     private static final int REQ_PNL_SINGLE = 94;
     private static final int CANCEL_PNL_SINGLE = 95;
     private static final int REQ_HISTORICAL_TICKS = 96;
+    private static final int REQ_TICK_BY_TICK_DATA = 97;
+    private static final int CANCEL_TICK_BY_TICK_DATA = 98;
 
 	private static final int MIN_SERVER_VER_REAL_TIME_BARS = 34;
 	private static final int MIN_SERVER_VER_SCALE_ORDERS = 35;
@@ -271,9 +273,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REAL_EXPIRATION_DATE = 134;
     protected static final int MIN_SERVER_VER_REALIZED_PNL = 135;
     protected static final int MIN_SERVER_VER_LAST_LIQUIDITY = 136;
+    protected static final int MIN_SERVER_VER_TICK_BY_TICK = 137;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_LAST_LIQUIDITY; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_TICK_BY_TICK; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -3590,6 +3593,75 @@ public abstract class EClient {
         }        
     }
   
+    public synchronized void reqTickByTickData(int reqId, Contract contract, String tickType) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK) {
+          error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+                "  It does not support tick-by-tick data requests.");
+          return;
+        }
+
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(REQ_TICK_BY_TICK_DATA);
+            b.send(reqId);
+            b.send(contract.conid());
+            b.send(contract.symbol());
+            b.send(contract.getSecType());
+            b.send(contract.lastTradeDateOrContractMonth());
+            b.send(contract.strike());
+            b.send(contract.getRight());
+            b.send(contract.multiplier());
+            b.send(contract.exchange());
+            b.send(contract.primaryExch());
+            b.send(contract.currency());
+            b.send(contract.localSymbol());
+            b.send(contract.tradingClass());
+            b.send(tickType);
+
+            closeAndSend(b);
+        }
+        catch( Exception e) {
+            error( EClientErrors.NO_VALID_ID,
+                   EClientErrors.FAIL_SEND_REQTICKBYTICK, e.toString());
+            close();
+        }
+    }
+
+    public synchronized void cancelTickByTickData(int reqId) {
+        // not connected?
+        if( !isConnected()) {
+            notConnected();
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK) {
+          error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+                "  It does not support tick-by-tick data cancels.");
+          return;
+        }
+
+        try {
+            Builder b = prepareBuffer(); 
+
+            b.send(CANCEL_TICK_BY_TICK_DATA);
+            b.send(reqId);
+
+            closeAndSend(b);
+        }
+        catch( Exception e) {
+            error( EClientErrors.NO_VALID_ID,
+                   EClientErrors.FAIL_SEND_CANTICKBYTICK, e.toString());
+            close();
+        }
+    }
+    
     /**
      * @deprecated This method is never called.
      */
