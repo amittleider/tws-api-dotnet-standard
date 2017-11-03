@@ -238,6 +238,8 @@
     <Compile Include="ComWrappers\ComWrapper.cs" />
     <Compile Include="ComWrappers\ComDepthMktDataDescription.cs" />
     <Compile Include="ComWrappers\ComPriceIncrement.cs" />
+    <Compile Include="ComWrappers\ComTickAttrib.cs" />
+    <Compile Include="ControlImpl\ITickAtrrib.cs" />
     <Compile Include="ControlImpl\IPriceIncrementList.cs" />
     <Compile Include="ControlImpl\IPriceIncrement.cs" />
     <Compile Include="ControlImpl\IDepthMktDataDescriptionList.cs" />
