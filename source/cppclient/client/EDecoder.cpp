@@ -291,12 +291,12 @@ const char* EDecoder::processOrderStatusMsg(const char* ptr, const char* endPtr)
 	DECODE_FIELD( clientId); // ver 5 field
 	DECODE_FIELD( whyHeld); // ver 6 field
 
-    double mktCapPrice;
+	double mktCapPrice = UNSET_DOUBLE;
 
-    if (m_serverVersion >= MIN_SERVER_VER_MARKET_CAP_PRICE)
-    {
-        DECODE_FIELD(mktCapPrice);
-    }
+	if (m_serverVersion >= MIN_SERVER_VER_MARKET_CAP_PRICE)
+	{
+		DECODE_FIELD(mktCapPrice);
+	}
 
 	m_pEWrapper->orderStatus( orderId, status, filled, remaining,
 		avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
