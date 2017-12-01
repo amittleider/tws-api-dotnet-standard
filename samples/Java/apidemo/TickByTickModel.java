@@ -36,6 +36,9 @@ class TickByTickModel extends AbstractTableModel {
             case BidAsk: 
                 columnCount = 6;
                 break;
+            case MidPoint: 
+                columnCount = 2;
+                break;
         }
         return columnCount;
     }
@@ -68,6 +71,12 @@ class TickByTickModel extends AbstractTableModel {
                 case 5: return row.attribsStr();
             }
             break;
+        case MidPoint:
+            switch (columnIndex) {
+                case 0: return Util.UnixSecondsToString(row.time(), "yyyyMMdd-HH:mm:ss zzz");
+                case 1: return row.midPoint();
+            }
+            break;
         }
 
         return null;
@@ -98,9 +107,13 @@ class TickByTickModel extends AbstractTableModel {
                     case 4: return "Ask Size";
                     case 5: return "Attribs";
                 }
-
                 break;
-
+            case MidPoint:
+                switch (column) {
+                    case 0: return "Time";
+                    case 1: return "Mid Point";
+                }
+                break;
         }
 
         return super.getColumnName(column);

@@ -767,5 +767,14 @@ namespace Samples
                 reqId, timeStr, bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh);
         }
         //! [tickbytickbidask]
+
+        //! [tickbytickmidpoint]
+        public void tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
+                reqId, timeStr, midPoint);
+        }
+        //! [tickbytickmidpoint]
     }
 }

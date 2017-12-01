@@ -308,7 +308,7 @@ Friend Class dlgOrder
         '
         Me.comboBoxTickByTickType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboBoxTickByTickType.FormattingEnabled = True
-        Me.comboBoxTickByTickType.Items.AddRange(New Object() {"Last", "AllLast", "BidAsk"})
+        Me.comboBoxTickByTickType.Items.AddRange(New Object() {"Last", "AllLast", "BidAsk", "MidPoint"})
         Me.comboBoxTickByTickType.Location = New System.Drawing.Point(104, 233)
         Me.comboBoxTickByTickType.Name = "comboBoxTickByTickType"
         Me.comboBoxTickByTickType.Size = New System.Drawing.Size(104, 22)

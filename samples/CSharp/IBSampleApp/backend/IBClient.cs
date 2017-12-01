@@ -938,5 +938,14 @@ namespace IBSampleApp
                 sc.Post((t) => tmp(new TickByTickBidAskMessage(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs)), null);
         }
 
+        public event Action<TickByTickMidPointMessage> tickByTickMidPoint;
+
+        void EWrapper.tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+            var tmp = tickByTickMidPoint;
+
+            if (tmp != null)
+                sc.Post((t) => tmp(new TickByTickMidPointMessage(reqId, time, midPoint)), null);
+        }
     }
 }

@@ -840,6 +840,7 @@ public class Testbed {
 		client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last");
 		client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast");
 		client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk");
+		client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint");
 		//! [reqtickbytick]
 
 		Thread.sleep(10000);
@@ -848,6 +849,7 @@ public class Testbed {
 		client.cancelTickByTickData(19001);
 		client.cancelTickByTickData(19002);
 		client.cancelTickByTickData(19003);
+		client.cancelTickByTickData(19004);
 		//! [canceltickbytick]
 	}	
 }

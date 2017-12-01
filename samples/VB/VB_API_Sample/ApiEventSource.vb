@@ -808,6 +808,16 @@ Friend Class ApiEventSource
                          End Sub)
     End Sub
 
+    Public Sub EWrapper_TickByTickMidPoint(reqId As Integer, time As Long, midPoint As Double) Implements EWrapper.tickByTickMidPoint
+        InvokeIfRequired(Sub()
+                             RaiseEvent TickByTickMidPoint(Me, New TickByTickMidPointEventArgs With {
+                                                            .reqId = reqId,
+                                                            .time = time,
+                                                            .midPoint = midPoint
+                                                            })
+                         End Sub)
+    End Sub
+
 #End Region
 
 #Region "Event declarations"
@@ -888,6 +898,7 @@ Friend Class ApiEventSource
     Event HistoricalTicksLast(sender As Object, e As HistoricalTicksLastEventArgs)
     Event TickByTickAllLast(sender As Object, e As TickByTickAllLastEventArgs)
     Event TickByTickBidAsk(sender As Object, e As TickByTickBidAskEventArgs)
+    Event TickByTickMidPoint(sender As Object, e As TickByTickMidPointEventArgs)
 
 #End Region
 

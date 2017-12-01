@@ -2109,6 +2109,10 @@ class EDecoder implements ObjectInput {
                 attribs.askPastHigh(mask.get(1));
                 m_EWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
                 break;
+            case 4: // MidPoint
+                double midPoint = readDouble();
+                m_EWrapper.tickByTickMidPoint(reqId, time, midPoint);
+                break;
         }
     }
     

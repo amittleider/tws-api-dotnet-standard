@@ -700,6 +700,14 @@ Namespace Samples
         End Sub
         '! [tickbytickbidask]
 
+        '! [tickbytickmidpoint]
+        Public Sub tickByTickMidPoint(reqId As Integer, time As Long, midPoint As Double) Implements EWrapper.tickByTickMidPoint
+            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
+                reqId, timeStr, midPoint)
+        End Sub
+        '! [tickbytickbidask]
+
     End Class
 
 End Namespace

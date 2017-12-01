@@ -126,6 +126,7 @@
     <Compile Include="dlgPnL.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EventArgs\TickByTickMidPointEventArgs.vb" />
     <Compile Include="EventArgs\TickByTickBidAskEventArgs.vb" />
     <Compile Include="EventArgs\TickByTickAllLastEventArgs.vb" />
     <Compile Include="EventArgs\PnLSingleEventArgs.vb" />

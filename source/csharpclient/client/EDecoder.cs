@@ -420,6 +420,10 @@ namespace IBApi
                     attribs.AskPastHigh = mask[1];
                     eWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
                     break;
+                case 4: // MidPoint
+                    double midPoint = ReadDouble();
+                    eWrapper.tickByTickMidPoint(reqId, time, midPoint);
+                    break;
             }
         }
 

@@ -348,5 +348,9 @@ namespace IBApi
         public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs)
         {
         }
+
+        public void tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+        }
     }
 }

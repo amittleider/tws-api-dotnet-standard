@@ -191,6 +191,7 @@ namespace Samples
             client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last");
             client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast");
             client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk");
+            client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint");
             //! [reqtickbytick]
 
             Thread.Sleep(10000);
@@ -199,6 +200,7 @@ namespace Samples
             client.cancelTickByTickData(19001);
             client.cancelTickByTickData(19002);
             client.cancelTickByTickData(19003);
+            client.cancelTickByTickData(19004);
             //! [canceltickbytick]
         }
 

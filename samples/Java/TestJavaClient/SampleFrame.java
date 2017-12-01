@@ -1722,4 +1722,10 @@ class SampleFrame extends JFrame implements EWrapper {
         m_tickers.add(msg);
     }
 
+    @Override
+    public void tickByTickMidPoint(int reqId, long time, double midPoint) {
+        String msg = EWrapperMsgGenerator.tickByTickMidPoint(reqId, time, midPoint);
+
+        m_tickers.add(msg);
+    }
 }

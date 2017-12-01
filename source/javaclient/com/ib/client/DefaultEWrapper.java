@@ -518,4 +518,9 @@ public class DefaultEWrapper implements EWrapper {
             TickAttr attribs) {
         // TODO Auto-generated method stub
 	}
+
+    @Override
+    public void tickByTickMidPoint(int reqId, long time, double midPoint) {
+        // TODO Auto-generated method stub
+    }
 }

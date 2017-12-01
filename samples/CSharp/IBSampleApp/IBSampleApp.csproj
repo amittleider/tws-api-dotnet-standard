@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="messages\TickByTickMidPointMessage.cs" />
     <Compile Include="messages\TickByTickBidAskMessage.cs" />
     <Compile Include="messages\TickByTickAllLastMessage.cs" />
     <Compile Include="messages\HistoricalTickLastMessage.cs" />
