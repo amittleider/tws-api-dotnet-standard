@@ -423,4 +423,9 @@ public class Test implements EWrapper {
             TickAttr attribs) {
         System.out.println(EWrapperMsgGenerator.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs));
     }
+
+    @Override
+    public void tickByTickMidPoint(int reqId, long time, double midPoint) {
+        System.out.println(EWrapperMsgGenerator.tickByTickMidPoint(reqId, time, midPoint));
+    }
 }

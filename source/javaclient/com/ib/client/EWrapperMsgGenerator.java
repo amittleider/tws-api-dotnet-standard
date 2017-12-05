@@ -814,5 +814,8 @@ public class EWrapperMsgGenerator {
                 " AskPrice: " + askPrice + " BidSize: " + bidSize + " AskSize: " + askSize + 
                 (attribs.bidPastLow() ? " bidPastLow" : "") + (attribs.askPastHigh() ? " askPastHigh" : "");
     }
-    
+
+    public static String tickByTickMidPoint(int reqId, long time, double midPoint){
+        return "MidPoint. Req Id: " + reqId + " Time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + " MidPoint: " + midPoint;
+    }
 }

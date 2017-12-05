@@ -1249,12 +1249,14 @@ void TestCppClient::reqTickByTickData()
     m_pClient->reqTickByTickData(20001, ContractSamples::IBMUSStockAtSmart(), "Last");
     m_pClient->reqTickByTickData(20002, ContractSamples::IBMUSStockAtSmart(), "AllLast");
     m_pClient->reqTickByTickData(20003, ContractSamples::IBMUSStockAtSmart(), "BidAsk");
+    m_pClient->reqTickByTickData(20004, ContractSamples::EurGbpFx(), "MidPoint");
 
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
     m_pClient->cancelTickByTickData(20001);
     m_pClient->cancelTickByTickData(20002);
     m_pClient->cancelTickByTickData(20003);
+    m_pClient->cancelTickByTickData(20004);
     //! [reqtickbytickdata]
 
     m_state = ST_REQTICKBYTICKDATA_ACK;
@@ -1934,3 +1936,9 @@ void TestCppClient::tickByTickBidAsk(int reqId, time_t time, double bidPrice, do
         reqId, ctime(&time), bidPrice, askPrice, bidSize, askSize, attribs.bidPastLow, attribs.askPastHigh);
 }
 //! [tickbytickbidask]
+
+//! [tickbytickmidpoint]
+void TestCppClient::tickByTickMidPoint(int reqId, time_t time, double midPoint) {
+    printf("Tick-By-Tick. ReqId: %d, TickType: MidPoint, Time: %s, MidPoint: %g\n", reqId, ctime(&time), midPoint);
+}
+//! [tickbytickmidpoint]

@@ -660,4 +660,11 @@ public class EWrapperImpl implements EWrapper {
         System.out.println(EWrapperMsgGenerator.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs));
     }
     //! [tickbytickbidask]
+    
+    //! [tickbytickmidpoint]
+    @Override
+    public void tickByTickMidPoint(int reqId, long time, double midPoint) {
+        System.out.println(EWrapperMsgGenerator.tickByTickMidPoint(reqId, time, midPoint));
+    }
+    //! [tickbytickmidpoint]
 }

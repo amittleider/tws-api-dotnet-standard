@@ -28,7 +28,7 @@ import static com.ib.client.Types.AlgoParam.waitForFill;
 
 public class Types {
 	public enum TickByTickType {
-		None, Last, AllLast, BidAsk,
+		None, Last, AllLast, BidAsk, MidPoint,
 	}
 	
 	public enum ComboParam {

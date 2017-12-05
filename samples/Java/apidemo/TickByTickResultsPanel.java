@@ -63,7 +63,16 @@ class TickByTickResultsPanel extends NewTabPanel implements ITickByTickDataHandl
 
         m_table.setModel(m_tickModel);
         m_tickModel.fireTableDataChanged();
-	}
+    }
+
+    @Override
+    public void tickByTickMidPoint(int reqId, long time, double midPoint) {
+        TickByTick tick = new TickByTick(time, midPoint);
+        m_tickByTickRows.add(tick);
+
+        m_table.setModel(m_tickModel);
+        m_tickModel.fireTableDataChanged();
+    }
 
     @Override
     public void activated() { }

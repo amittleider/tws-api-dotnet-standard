@@ -102,5 +102,6 @@ public interface EWrapper {
     void historicalTicksLast(int reqId, List<HistoricalTickLast> ticks, boolean done);
     void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs, String exchange, String specialConditions);
     void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttr attribs);
+    void tickByTickMidPoint(int reqId, long time, double midPoint);
 }
 

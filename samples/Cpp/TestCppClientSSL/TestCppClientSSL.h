@@ -143,6 +143,7 @@ public:
     void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
     void tickByTickAllLast(int reqId, int tickType, time_t time, double price, int size, const TickAttrib& attribs, const std::string& exchange, const std::string& specialConditions);
     void tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, int bidSize, int askSize, const TickAttrib& attribs);
+    void tickByTickMidPoint(int reqId, time_t time, double midPoint);
 
 private:
     EReaderOSSignal m_osSignal;

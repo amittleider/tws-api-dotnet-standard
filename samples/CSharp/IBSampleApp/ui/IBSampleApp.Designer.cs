@@ -6003,7 +6003,8 @@ namespace IBSampleApp
             this.comboBoxTickByTickType.Items.AddRange(new object[] {
             "Last",
             "AllLast",
-            "BidAsk"});
+            "BidAsk",
+            "MidPoint"});
             this.comboBoxTickByTickType.Location = new System.Drawing.Point(13, 16);
             this.comboBoxTickByTickType.Name = "comboBoxTickByTickType";
             this.comboBoxTickByTickType.Size = new System.Drawing.Size(114, 21);

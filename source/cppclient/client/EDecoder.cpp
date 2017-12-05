@@ -2325,6 +2325,11 @@ const char* EDecoder::processTickByTickDataMsg(const char* ptr, const char* endP
             attribs.askPastHigh = mask[1];
 
             m_pEWrapper->tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, attribs);
+    } else if (tickType == 4) { // MidPoint
+            double midPoint;
+            DECODE_FIELD(midPoint);
+
+            m_pEWrapper->tickByTickMidPoint(reqId, time, midPoint);
     }
 
     return ptr;

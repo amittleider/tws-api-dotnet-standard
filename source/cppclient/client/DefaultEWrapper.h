@@ -100,5 +100,6 @@ public:
    virtual void historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done);
    virtual void tickByTickAllLast(int reqId, int tickType, time_t time, double price, int size, const TickAttrib& attribs, const std::string& exchange, const std::string& specialConditions);
    virtual void tickByTickBidAsk(int reqId, time_t time, double bidPrice, double askPrice, int bidSize, int askSize, const TickAttrib& attribs);
+   virtual void tickByTickMidPoint(int reqId, time_t time, double midPoint);
 };
 

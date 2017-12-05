@@ -2109,6 +2109,16 @@ namespace TWSLib
                 sc.Post(state => tmp(reqId, time.ToString("G"), bidPrice, askPrice, bidSize, askSize, (ComTickAttrib)attribs), null);
         }
 
+        public delegate void TickByTickMidPointDelegate(int reqId, string time, double midPoint);
+        public event TickByTickMidPointDelegate tickByTickMidPoint;
+        void EWrapper.tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+            var tmp = this.tickByTickMidPoint;
+
+            if (tmp != null)
+                sc.Post(state => tmp(reqId, time.ToString("G"), midPoint), null);
+        }
+
         #endregion
 
         List<ComboLeg> comboLegs = new List<ComboLeg>();

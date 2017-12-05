@@ -1,7 +1,7 @@
 package com.ib.client;
 
 public class TickByTick {
-    private int m_tickType; // 0 - None, 1 - Last, 2 - AllLast, 3 -BidAsk
+    private int m_tickType; // 0 - None, 1 - Last, 2 - AllLast, 3 -BidAsk, 4 - MidPoint
     private long m_time;  // in seconds
     private double m_price;
     private long m_size;
@@ -12,6 +12,7 @@ public class TickByTick {
     private long m_bidSize;
     private double m_askPrice;
     private long m_askSize;
+    private double m_midPoint;
 
     public TickByTick(int tickType, long time, double price, long size, TickAttr attribs, String exchange, String specialConditions) {
     	m_tickType = tickType;
@@ -33,6 +34,12 @@ public class TickByTick {
         m_attribs = attribs;
     }
 
+    public TickByTick(long time, double midPoint) {
+    	m_tickType = 4;
+        m_time = time;
+        m_midPoint = midPoint;
+    }
+    
     public int tickType() {
         return m_tickType;
     }
@@ -85,5 +92,8 @@ public class TickByTick {
     public long askSize() {
         return m_askSize;
     }
-    
+
+    public double midPoint() {
+        return m_midPoint;
+    }
 }

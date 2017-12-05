@@ -231,12 +231,12 @@ namespace IBApi
          * @brief Requests tick-by-tick data.\n
          * @param reqId - unique identifier of the request.\n
          * @param contract - the contract for which tick-by-tick data is requested.\n
-         * @param tickType - tick-by-tick data type: "Last", "AllLast" or "BidAsk".\n
+         * @param tickType - tick-by-tick data type: "Last", "AllLast", "BidAsk" or "MidPoint".\n
          * @param startTime - start time of historical tick-by-tick data.\n
          * @param endTime - end time of historical tick-by-tick data.\n
          * @param numberOfTicks - number of ticks.\n
          * @param refresh -  true for real-time tick-by-tick ticks, false for historical tick-by-tick data.\n
-         * @sa EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk, Contract
+         * @sa EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk, EWrapper::tickByTickMidPoint, Contract
          */
         public void reqTickByTickData(int requestId, Contract contract, string tickType)
         {

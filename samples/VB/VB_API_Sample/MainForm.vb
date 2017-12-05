@@ -1996,6 +1996,12 @@ Friend Class MainForm
                                                                           e.reqId, timeStr, e.bidPrice, e.askPrice, e.bidSize, e.askSize, e.attribs.BidPastLow, e.attribs.AskPastHigh))
     End Sub
 
+    Private Sub m_apiEvents_TickByTickMidPoint(sender As Object, e As TickByTickMidPointEventArgs) Handles m_apiEvents.TickByTickMidPoint
+        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
+        m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
+                                                                          e.reqId, timeStr, e.midPoint))
+    End Sub
+
     Private Sub m_apiEvents_HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs) Handles m_apiEvents.HistoricalTicks
         For Each tick In e.ticks
             m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", e.reqId, tick.Time, tick.Price, tick.Size))

@@ -25,7 +25,7 @@ public class HistoricalDataDlg extends JDialogBox {
     private JCheckBox   m_keepUpToDateCheckBox = new JCheckBox();
     private JCheckBox m_ignoreSize = new JCheckBox();
     private JTextField m_numberOfTicks = new JTextField("0");
-    private JComboBox m_tickByTickTypeComboBox = new JComboBox(new Object[]{"Last", "AllLast", "BidAsk"});
+    private JComboBox m_tickByTickTypeComboBox = new JComboBox(new Object[]{"Last", "AllLast", "BidAsk", "MidPoint"});
     
     public String startTime() { return m_StartTime.getText(); }
     public String backfillEndTime() { return m_BackfillEndTime.getText(); }

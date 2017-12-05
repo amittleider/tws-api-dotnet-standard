@@ -892,6 +892,14 @@ namespace IBApi
         * @sa EClient::reqTickByTickData
         */
         void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs);
-	
+
+        /**
+        * @brief returns "MidPoint" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param midPoint - tick-by-tick real-time tick mid point
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickMidPoint(int reqId, long time, double midPoint);
     }
 }

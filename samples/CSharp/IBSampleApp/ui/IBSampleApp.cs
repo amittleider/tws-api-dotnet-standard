@@ -56,7 +56,8 @@ namespace IBSampleApp
             historicalTickLastTable = new DataTable(),
             tickByTickLastTable = new DataTable(),
             tickByTickAllLastTable = new DataTable(),
-            tickByTickBidAskTable = new DataTable();
+            tickByTickBidAskTable = new DataTable(),
+            tickByTickMidPointTable = new DataTable();
 
 
         public IBSampleAppDialog()
@@ -101,6 +102,7 @@ namespace IBSampleApp
             tickByTickLastTable.Columns.AddRange(new[] { "Time", "Price", "Size", "Exchange", "Special Conditions", "PastLimit" }.Select(toDataColumn).ToArray());
             tickByTickAllLastTable.Columns.AddRange(new[] { "Time", "Price", "Size", "Exchange", "Special Conditions", "PastLimit", "Unreported" }.Select(toDataColumn).ToArray());
             tickByTickBidAskTable.Columns.AddRange(new[] { "Time", "Bid Price", "Ask Price", "Bid Size", "Ask Size", "BidPastLow", "AskPastHigh" }.Select(toDataColumn).ToArray());
+            tickByTickMidPointTable.Columns.AddRange(new[] { "Time", "Mid Point" }.Select(toDataColumn).ToArray());
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -225,7 +227,14 @@ namespace IBSampleApp
             ibClient.historicalTickBidAsk += UpdateUI;
             ibClient.historicalTickLast += UpdateUI;
             ibClient.tickByTickAllLast += UpdateUI;
-            ibClient.tickByTickBidAsk += UpdateUI;
+            ibClient.tickByTickMidPoint += UpdateUI;
+        }
+
+        private void UpdateUI(TickByTickMidPointMessage msg)
+        {
+            dataGridViewTickByTick.DataSource = tickByTickMidPointTable;
+            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
+            tickByTickMidPointTable.Rows.Add(timeStr, msg.MidPoint);
         }
 
         private void UpdateUI(TickByTickBidAskMessage msg)
@@ -1355,7 +1364,7 @@ namespace IBSampleApp
         {
             ibClient.ClientSocket.cancelTickByTickData(0);
             labelTickByTick.Text = "Tick-By-Tick: ";
-            new[] { tickByTickLastTable, tickByTickAllLastTable, tickByTickBidAskTable }.ToList().ForEach(i => i.Clear());
+            new[] { tickByTickLastTable, tickByTickAllLastTable, tickByTickBidAskTable, tickByTickMidPointTable }.ToList().ForEach(i => i.Clear());
         }
     }
 }
