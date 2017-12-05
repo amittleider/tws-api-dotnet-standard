@@ -1222,6 +1222,41 @@ class Decoder(Object):
 
         self.wrapper.historicalTicksLast(reqId, ticks, done)
 
+    def processTickByTickMsg(self, fields):
+        sMsgId = next(fields)
+        reqId = decode(int, fields)
+        tickType = decode(int, fields)
+        time = decode(int, fields)
+        if tickType == 0:
+            # None
+            pass
+        elif tickType == 1 or tickType == 2:
+            logging.debug("In ticktype = 1||2")
+            # Last or AllLast
+            price = decode(float, fields)
+            size = decode(int, fields)
+            mask = decode(int, fields)
+            attribs = TickAttrib()
+            attribs.pastLimit = mask & 1 != 0
+            attribs.unreported = mask & 2 != 0
+            exchange = decode(str, fields)
+            specialConditions = decode(str, fields)
+
+            self.wrapper.tickByTickAllLast(reqId, tickType, time, price, size, attribs,
+                                           exchange, specialConditions)
+        elif tickType == 3:
+            # BidAsk
+            bidPrice = decode(float, fields)
+            askPrice = decode(float, fields)
+            bidSize = decode(int, fields)
+            askSize = decode(int, fields)
+            mask = decode(int, fields)
+            attribs = TickAttrib()
+            attribs.bidPastLow = mask & 1 != 0
+            attribs.askPastHigh = mask & 2 != 0
+
+            self.wrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize,
+                                          askSize, attribs)
 
     ######################################################################
 
@@ -1385,7 +1420,8 @@ class Decoder(Object):
         IN.PNL_SINGLE: HandleInfo(proc=processPnLSingleMsg),
         IN.HISTORICAL_TICKS: HandleInfo(proc=processHistoricalTicks),
         IN.HISTORICAL_TICKS_BID_ASK: HandleInfo(proc=processHistoricalTicksBidAsk),
-        IN.HISTORICAL_TICKS_LAST: HandleInfo(proc=processHistoricalTicksLast)
+        IN.HISTORICAL_TICKS_LAST: HandleInfo(proc=processHistoricalTicksLast),
+        IN.TICK_BY_TICK: HandleInfo(proc=processTickByTickMsg)
    }
 
 

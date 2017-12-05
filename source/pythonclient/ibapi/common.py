@@ -119,6 +119,9 @@ class TickAttrib(Object):
         self.canAutoExecute = False
         self.pastLimit = False
         self.preOpen = False
+        self.unreported = False
+        self.bidPastLow = False
+        self.askPastHigh = False
 
     def __str__(self):
         return "%d,%d,%d" % (self.canAutoExecute, self.pastLimit, self.preOpen)

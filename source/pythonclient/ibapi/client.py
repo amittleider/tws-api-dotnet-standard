@@ -514,6 +514,53 @@ class EClient(object):
 
         self.sendMsg(msg)
 
+    def reqTickByTickData(self, reqId: int, contract: Contract, tickType: str):
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_TICK_BY_TICK:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               " It does not support tick-by-tick data requests.")
+            return
+
+        msg = make_field(OUT.REQ_TICK_BY_TICK_DATA)\
+            + make_field(reqId) \
+            + make_field(contract.conId) \
+            + make_field(contract.symbol) \
+            + make_field(contract.secType) \
+            + make_field(contract.lastTradeDateOrContractMonth) \
+            + make_field(contract.strike) \
+            + make_field(contract.right) \
+            + make_field(contract.multiplier) \
+            + make_field(contract.exchange) \
+            + make_field(contract.primaryExchange) \
+            + make_field(contract.currency) \
+            + make_field(contract.localSymbol) \
+            + make_field(contract.tradingClass) \
+            + make_field(tickType)
+
+        self.sendMsg(msg)
+
+    def cancelTickByTickData(self, reqId: int):
+        self.logRequest(current_fn_name(), vars())
+
+        if not self.isConnected():
+            self.wrapper.error(NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg())
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_TICK_BY_TICK:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               " It does not support tick-by-tick data requests.")
+            return
+
+        msg = make_field(OUT.CANCEL_TICK_BY_TICK_DATA) \
+            + make_field(reqId)
+
+        self.sendMsg(msg)
+
     ##########################################################################
     ################## Options
     ##########################################################################
