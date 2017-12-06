@@ -1227,11 +1227,11 @@ class Decoder(Object):
         reqId = decode(int, fields)
         tickType = decode(int, fields)
         time = decode(int, fields)
+
         if tickType == 0:
             # None
             pass
         elif tickType == 1 or tickType == 2:
-            logging.debug("In ticktype = 1||2")
             # Last or AllLast
             price = decode(float, fields)
             size = decode(int, fields)
@@ -1257,6 +1257,11 @@ class Decoder(Object):
 
             self.wrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize,
                                           askSize, attribs)
+        elif tickType == 4:
+            # MidPoint
+            midPoint = decode(float, fields)
+
+            self.wrapper.tickByTickMidPoint(reqId, time, midPoint)
 
     ######################################################################
 

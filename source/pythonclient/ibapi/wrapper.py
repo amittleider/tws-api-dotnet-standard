@@ -684,3 +684,7 @@ class EWrapper:
                          bidSize: int, askSize: int, attribs: TickAttrib):
         """returns tick-by-tick data for tickType = "BidAsk" """
         self.logAnswer(current_fn_name(), vars())
+
+    def tickByTickMidPoint(self, reqId: int, time: int, midPoint: float):
+        """returns tick-by-tick data for tickType = "MidPoint" """
+        self.logAnswer(current_fn_name(), vars())

@@ -763,6 +763,7 @@ class TestApp(TestWrapper, TestClient):
         self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
         self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
         self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
+        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint")
         # ! [reqtickbytick]
 
         time.sleep(1)
@@ -771,6 +772,7 @@ class TestApp(TestWrapper, TestClient):
         self.cancelTickByTickData(19001)
         self.cancelTickByTickData(19002)
         self.cancelTickByTickData(19003)
+        self.cancelTickByTickData(19004)
         # ! [canceltickbytick]
 
     @iswrapper
@@ -807,6 +809,14 @@ class TestApp(TestWrapper, TestClient):
         if attribs.askPastHigh:
             print(" askPastHigh", end='')
         print()
+
+    @iswrapper
+    def tickByTickMidPoint(self, reqId: int, time: int, midPoint: float):
+        super().tickByTickMidPoint(reqId, time, midPoint)
+        print("Midpoint. Req Id: ", reqId,
+              " Time: ", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d %H:%M:%S"),
+              " MidPoint: ", midPoint)
+
 
     @printWhenExecuting
     def marketDepthOperations_req(self):
@@ -1791,7 +1801,7 @@ class TestApp(TestWrapper, TestClient):
 def main():
     SetupLogger()
     logging.debug("now is %s", datetime.datetime.now())
-    logging.getLogger().setLevel(logging.INFO)
+    logging.getLogger().setLevel(logging.ERROR)
 
     cmdLineParser = argparse.ArgumentParser("api tests")
     # cmdLineParser.add_option("-c", action="store_True", dest="use_cache", default = False, help = "use the cache")
