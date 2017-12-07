@@ -268,6 +268,7 @@ class TestApp(TestWrapper, TestClient):
             #self.marketRuleOperations()
             #self.pnlOperations()
             #self.historicalTicksRequests_req()
+            self.tickByTickOperations()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -754,6 +755,68 @@ class TestApp(TestWrapper, TestClient):
             print("Price Increment. Low Edge: ", priceIncrement.lowEdge,
                   ", Increment: ", priceIncrement.increment)
     # ! [marketRule]
+
+    @printWhenExecuting
+    def tickByTickOperations(self):
+        # Requesting tick-by-tick data (only refresh)
+        # ! [reqtickbytick]
+        self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
+        self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
+        self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
+        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint")
+        # ! [reqtickbytick]
+
+        time.sleep(1)
+
+        # ! [canceltickbytick]
+        self.cancelTickByTickData(19001)
+        self.cancelTickByTickData(19002)
+        self.cancelTickByTickData(19003)
+        self.cancelTickByTickData(19004)
+        # ! [canceltickbytick]
+
+    @iswrapper
+    def tickByTickAllLast(self, reqId: int, tickType: int, time: int, price: float,
+                          size: int, attribs: TickAttrib, exchange: str,
+                          specialConditions: str):
+        super().tickByTickAllLast(reqId, tickType, time, price, size, attribs,
+                                  exchange, specialConditions)
+        if tickType == 1:
+            print("Last.", end='')
+        else:
+            print("AllLast.", end='')
+        print(" ReqId: ", reqId,
+              " Time: ", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d %H:%M:%S"),
+              " Price: ", price, " Size: ", size, " Exch: " , exchange,
+              "Spec Cond: ", specialConditions, end='')
+        if attribs.pastLimit:
+            print(" pastLimit ", end='')
+        if attribs.unreported:
+            print(" unreported", end='')
+        print()
+
+    @iswrapper
+    def tickByTickBidAsk(self, reqId: int, time: int, bidPrice: float, askPrice: float,
+                         bidSize: int, askSize: int, attribs: TickAttrib):
+        super().tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize,
+                                 askSize, attribs)
+        print("BidAsk. Req Id: ", reqId,
+              " Time: ", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d %H:%M:%S"),
+              " BidPrice: ", bidPrice, " AskPrice: ", askPrice, " BidSize: ", bidSize,
+              " AskSize: ", askSize, end='')
+        if attribs.bidPastLow:
+            print(" bidPastLow", end='')
+        if attribs.askPastHigh:
+            print(" askPastHigh", end='')
+        print()
+
+    @iswrapper
+    def tickByTickMidPoint(self, reqId: int, time: int, midPoint: float):
+        super().tickByTickMidPoint(reqId, time, midPoint)
+        print("Midpoint. Req Id: ", reqId,
+              " Time: ", datetime.datetime.fromtimestamp(time).strftime("%Y%m%d %H:%M:%S"),
+              " MidPoint: ", midPoint)
+
 
     @printWhenExecuting
     def marketDepthOperations_req(self):

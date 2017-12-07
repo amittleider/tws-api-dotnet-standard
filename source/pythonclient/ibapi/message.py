@@ -91,6 +91,7 @@ class IN:
     HISTORICAL_TICKS          = 96
     HISTORICAL_TICKS_BID_ASK  = 97
     HISTORICAL_TICKS_LAST     = 98
+    TICK_BY_TICK              = 99
 
 # outgoing msg id's
 class OUT:
@@ -166,3 +167,5 @@ class OUT:
     REQ_PNL_SINGLE                = 94
     CANCEL_PNL_SINGLE             = 95
     REQ_HISTORICAL_TICKS          = 96
+    REQ_TICK_BY_TICK_DATA         = 97
+    CANCEL_TICK_BY_TICK_DATA      = 98
