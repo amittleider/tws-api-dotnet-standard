@@ -1182,6 +1182,9 @@ namespace IBApi
             set { cashQty = value; }
         }
 
+        public string MifidDecisionMaker { get; set; }
+        public string MifidAlgoCode { get; set; }
+
         public Order()
         {
             lmtPrice = Double.MaxValue;
@@ -1242,6 +1245,8 @@ namespace IBApi
             ExtOperator = EMPTY_STR;
             Tier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
             cashQty = Double.MaxValue;
+            MifidDecisionMaker = EMPTY_STR;
+            MifidAlgoCode = EMPTY_STR;
         }
 
         public override bool Equals(Object p_other)

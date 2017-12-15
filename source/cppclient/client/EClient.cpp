@@ -1369,6 +1369,14 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 		}
 	}
 
+    if (m_serverVersion < MIN_SERVER_VER_DECISION_MAKER
+        && (!order.mifidDecisionMaker.empty()
+            || !order.mifidAlgoCode.empty())) {
+            m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                " It does not support decision maker parameters");
+            return;
+    }
+
 
 	std::stringstream msg;
 	prepareBuffer( msg);
@@ -1767,6 +1775,11 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	if (m_serverVersion >= MIN_SERVER_VER_CASH_QTY) {
 		ENCODE_FIELD_MAX( order.cashQty);
 	}
+
+    if (m_serverVersion >= MIN_SERVER_VER_DECISION_MAKER) {
+        ENCODE_FIELD(order.mifidDecisionMaker);
+        ENCODE_FIELD(order.mifidAlgoCode);
+    }
 
 	closeAndSend( msg.str());
 }

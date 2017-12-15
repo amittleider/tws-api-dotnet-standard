@@ -96,5 +96,6 @@ namespace IBApi
         public const int REALIZED_PNL = 135;
         public const int LAST_LIQUIDITY = 136;
         public const int TICK_BY_TICK = 137;
+        public const int DECISION_MAKER = 138;
     }
 }

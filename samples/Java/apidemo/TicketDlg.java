@@ -258,6 +258,8 @@ class TicketDlg extends JDialog {
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
 		final UpperField m_lmtPriceOffset = new UpperField();
 		final UpperField m_triggerPrice = new UpperField();
+		final UpperField m_decisionMaker = new UpperField();
+		final UpperField m_algoCode = new UpperField();
 
 		OrderPanel() {
 			m_orderType.removeItemAt( 0); // remove None
@@ -275,20 +277,27 @@ class TicketDlg extends JDialog {
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
 			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
 			m_triggerPrice.setText(m_order.triggerPrice());
+			m_decisionMaker.setText(m_order.mifidDecisionMaker());
+			m_algoCode.setText(m_order.mifidAlgoCode());
 			
-			add( "Account", m_account);
+			add("Account", m_account);
+			
 			m_modelCode.setColumns(7);
-			add( "Model code", m_modelCode);
-			add( "Action", m_action);
-			add( "Quantity", m_quantity);
-			add( "Cash Qty", m_cashQty);
-			add( "Display size", m_displaySize);
-			add( "Order type", m_orderType);
-			add( "Limit price", m_lmtPrice);
+			
+			add("Model code", m_modelCode);
+			add("Action", m_action);
+			add("Quantity", m_quantity);
+			add("Cash Qty", m_cashQty);
+			add("Display size", m_displaySize);
+			add("Order type", m_orderType);
+			add("Limit price", m_lmtPrice);
 			add("Limit price offset", m_lmtPriceOffset);
 			add("Trigger price", m_triggerPrice);
-			add( "Aux price", m_auxPrice);
-			add( "Time-in-force", m_tif);
+			add("Aux price", m_auxPrice);
+			add("Time-in-force", m_tif);
+			add("MiFID Decision Maker", m_decisionMaker);
+			add("MiFID Algo Code", m_algoCode);
+			
 			if (m_contract.isCombo() ) {
 				add( "Non-guaranteed", m_nonGuaranteed);
 			}
@@ -307,6 +316,8 @@ class TicketDlg extends JDialog {
 			m_order.tif( m_tif.getSelectedItem() );
 			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
 			m_order.triggerPrice(m_triggerPrice.getDouble());
+			m_order.mifidDecisionMaker(m_decisionMaker.getText());
+			m_order.mifidAlgoCode(m_algoCode.getText());
 			
 			if (m_contract.isCombo() ) {
 				TagValue tv = new TagValue( ComboParam.NonGuaranteed.toString(), m_nonGuaranteed.isSelected() ? "1" : "0");

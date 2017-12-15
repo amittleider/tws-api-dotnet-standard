@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 
 import com.ib.client.Order;
 
+import apidemo.util.UpperField;
+
 public class ExtOrdDlg extends JDialog {
     public Order 		m_order = new Order();
     public boolean 		m_rc;
@@ -98,6 +100,8 @@ public class ExtOrdDlg extends JDialog {
 	private JCheckBox 	m_solicited = new JCheckBox("Solicited", false);
 	private JCheckBox 	m_randomizeSize = new JCheckBox("Randomize size", false);
 	private JCheckBox 	m_randomizePrice = new JCheckBox("Randomize price", false);
+	private UpperField  m_decisionMaker = new UpperField();
+	private UpperField  m_algoCode = new UpperField();
 
     ExtOrdDlg( OrderDlg owner) {
         super( owner, true);
@@ -255,6 +259,12 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_solicited);
         extOrderDetailsPanel.add(m_randomizeSize);
         extOrderDetailsPanel.add(m_randomizePrice);
+        
+        extOrderDetailsPanel.add(new JLabel("MiFID Decision Maker"));
+        extOrderDetailsPanel.add(m_decisionMaker);
+        extOrderDetailsPanel.add(new JLabel("MiFID Algo Code"));
+        extOrderDetailsPanel.add(m_algoCode);
+        
 
         // create button panel
         JPanel buttonPanel = new JPanel();
@@ -358,6 +368,9 @@ public class ExtOrdDlg extends JDialog {
             
             m_order.randomizePrice(m_randomizePrice.isSelected());
             m_order.randomizeSize(m_randomizeSize.isSelected());
+            
+            m_order.mifidDecisionMaker(m_decisionMaker.getText());
+            m_order.mifidAlgoCode(m_algoCode.getText());
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);

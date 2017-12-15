@@ -274,9 +274,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_REALIZED_PNL = 135;
     protected static final int MIN_SERVER_VER_LAST_LIQUIDITY = 136;
     protected static final int MIN_SERVER_VER_TICK_BY_TICK = 137;
+    protected static final int MIN_SERVER_VER_DECISION_MAKER = 138;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_TICK_BY_TICK; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_DECISION_MAKER; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -1489,6 +1490,15 @@ public abstract class EClient {
                 return;
             }
         }
+        
+        if (m_serverVersion < MIN_SERVER_VER_DECISION_MAKER
+            && (!IsEmpty(order.mifidDecisionMaker())
+                || !IsEmpty(order.mifidAlgoCode()))) {
+            error(id, EClientErrors.UPDATE_TWS,
+                    " It does not support decision maker parameters");
+            return;
+        }
+
 
         int VERSION = (m_serverVersion < MIN_SERVER_VER_NOT_HELD) ? 27 : 45;
 
@@ -1890,6 +1900,11 @@ public abstract class EClient {
 
            if (m_serverVersion >= MIN_SERVER_VER_CASH_QTY) {
                b.sendMax(order.cashQty());
+           }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_DECISION_MAKER) {
+               b.send(order.mifidDecisionMaker());
+               b.send(order.mifidAlgoCode());
            }
            
            closeAndSend(b);

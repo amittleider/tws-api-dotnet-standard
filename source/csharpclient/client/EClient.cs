@@ -1095,6 +1095,12 @@ namespace IBApi
                 paramsList.AddParameterMax(order.CashQty);
             }
 
+            if (serverVersion >= MinServerVer.DECISION_MAKER)
+            {
+                paramsList.AddParameter(order.MifidDecisionMaker);
+                paramsList.AddParameter(order.MifidAlgoCode);
+            }
+
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
         }
 
@@ -3269,6 +3275,13 @@ namespace IBApi
                 ReportError(id, EClientErrors.UPDATE_TWS, " It does not support cashQty parameter");
 
                 return false;
+            }
+
+            if (serverVersion < MinServerVer.DECISION_MAKER 
+                && (!IsEmpty(order.MifidDecisionMaker)
+                    || !IsEmpty(order.MifidAlgoCode)))
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support decision maker parameters");
             }
 
             return true;
