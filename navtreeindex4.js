@@ -1,5 +1,17 @@
 var NAVTREEINDEX4 =
 {
+"reuters_fundamentals.html":[14],
+"reuters_fundamentals.html#report_type":[14,0],
+"rtd_complex_syntax.html":[18,3,7],
+"rtd_complex_syntax.html#rtd_complex_additional":[18,3,7,1],
+"rtd_complex_syntax.html#rtd_complex_syntax_strings":[18,3,7,0],
+"rtd_examples.html":[18,3,9],
+"rtd_examples.html#rtd_sample_bond_complex":[18,3,9,7,1],
+"rtd_examples.html#rtd_sample_bond_mixed":[18,3,9,7,2],
+"rtd_examples.html#rtd_sample_bond_simple":[18,3,9,7,0],
+"rtd_examples.html#rtd_sample_cfd_complex":[18,3,9,3,1],
+"rtd_examples.html#rtd_sample_cfd_mixed":[18,3,9,3,2],
+"rtd_examples.html#rtd_sample_cfd_simple":[18,3,9,3,0],
 "rtd_examples.html#rtd_sample_cmdty_complex":[18,3,9,9,1],
 "rtd_examples.html#rtd_sample_cmdty_mixed":[18,3,9,9,2],
 "rtd_examples.html#rtd_sample_cmdty_simple":[18,3,9,9,0],

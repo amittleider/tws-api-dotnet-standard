@@ -176,6 +176,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#aeb253ccdaf724eac22e8f75a0f19f421">eDisconnect</a> ()</td></tr>
 <tr class="memdesc:aeb253ccdaf724eac22e8f75a0f19f421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the socket connection and terminates its thread. <br/></td></tr>
 <tr class="separator:aeb253ccdaf724eac22e8f75a0f19f421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac9e8993d986547848543fca7270b73e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#aac9e8993d986547848543fca7270b73e">cancelTickByTickData</a> (int requestId)</td></tr>
+<tr class="memdesc:aac9e8993d986547848543fca7270b73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels tick-by-tick data.<br/>
+.  <a href="#aac9e8993d986547848543fca7270b73e">More...</a><br/></td></tr>
+<tr class="separator:aac9e8993d986547848543fca7270b73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc088be8987fecc87406109160cd2b11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#afc088be8987fecc87406109160cd2b11">reqTickByTickData</a> (int requestId, <a class="el" href="classIBApi_1_1Contract.html">Contract</a> contract, string tickType)</td></tr>
+<tr class="memdesc:afc088be8987fecc87406109160cd2b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests tick-by-tick data.<br/>
+.  <a href="#afc088be8987fecc87406109160cd2b11">More...</a><br/></td></tr>
+<tr class="separator:afc088be8987fecc87406109160cd2b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab27324bd18e7022e26ac4520808b919f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIBApi_1_1EClient.html#ab27324bd18e7022e26ac4520808b919f">cancelHistoricalData</a> (int reqId)</td></tr>
 <tr class="memdesc:ab27324bd18e7022e26ac4520808b919f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels a historical data request.  <a href="#ab27324bd18e7022e26ac4520808b919f">More...</a><br/></td></tr>
 <tr class="separator:ab27324bd18e7022e26ac4520808b919f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1272,6 +1280,40 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
   </dd>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="classIBApi_1_1EClient.html#a13dd1287f67c6873b3e8b85d6c19f885" title="Starts a subscription to market scan results based on the provided parameters. ">reqScannerSubscription</a>, <a class="el" href="classIBApi_1_1ScannerSubscription.html" title="Defines a market scanner request. ">ScannerSubscription</a>, <a class="el" href="classIBApi_1_1EClient.html#a5839736a34d827f8db87f536a73ae970" title="Requests an XML list of scanner parameters valid in TWS.   Not all parameters are valid from API scan...">reqScannerParameters</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aac9e8993d986547848543fca7270b73e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cancelTickByTickData </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>requestId</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancels tick-by-tick data.<br/>
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reqId</td><td>- unique identifier of the request.<br/>
+ </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -3411,6 +3453,69 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEConnect</b><cod
 
 <p>Requests pre-defined Soft Dollar Tiers. This is only supported for registered professional advisors and hedge and mutual funds who have configured Soft Dollar Tiers in Account Management. Refer to: <a href="https://www.interactivebrokers.com/en/software/am/am/manageaccount/requestsoftdollars.htm?Highlight=soft%20dollar%20tier">https://www.interactivebrokers.com/en/software/am/am/manageaccount/requestsoftdollars.htm?Highlight=soft%20dollar%20tier</a>. </p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#a522a5d8dc187a2b7bb79c57621c6239a" title="called when receives Soft Dollar Tier configuration information ">EWrapper::softDollarTiers</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afc088be8987fecc87406109160cd2b11"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void reqTickByTickData </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>requestId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classIBApi_1_1Contract.html">Contract</a>&#160;</td>
+          <td class="paramname"><em>contract</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>tickType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Requests tick-by-tick data.<br/>
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reqId</td><td>- unique identifier of the request.<br/>
+ </td></tr>
+    <tr><td class="paramname">contract</td><td>- the contract for which tick-by-tick data is requested.<br/>
+ </td></tr>
+    <tr><td class="paramname">tickType</td><td>- tick-by-tick data type: "Last", "AllLast", "BidAsk" or "MidPoint".<br/>
+ </td></tr>
+    <tr><td class="paramname">startTime</td><td>- start time of historical tick-by-tick data.<br/>
+ </td></tr>
+    <tr><td class="paramname">endTime</td><td>- end time of historical tick-by-tick data.<br/>
+ </td></tr>
+    <tr><td class="paramname">numberOfTicks</td><td>- number of ticks.<br/>
+ </td></tr>
+    <tr><td class="paramname">refresh</td><td>- true for real-time tick-by-tick ticks, false for historical tick-by-tick data.<br/>
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="interfaceIBApi_1_1EWrapper.html#ab3a1c4487f9507fba7f6fb333a5c95cd" title="returns &quot;Last&quot; or &quot;AllLast&quot; tick-by-tick real-time tick ">EWrapper::tickByTickAllLast</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#af2dbd8140709c9439fc2731a5ee6f7ab" title="returns &quot;BidAsk&quot; tick-by-tick real-time tick ">EWrapper::tickByTickBidAsk</a>, <a class="el" href="interfaceIBApi_1_1EWrapper.html#a41674990126f443507366a01662ebb6d" title="returns &quot;MidPoint&quot; tick-by-tick real-time tick ">EWrapper::tickByTickMidPoint</a>, <a class="el" href="classIBApi_1_1Contract.html" title="class describing an instrument&#39;s definition ">Contract</a> </dd></dl>
 
 </div>
 </div>
