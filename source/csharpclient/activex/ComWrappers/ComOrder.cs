@@ -351,7 +351,9 @@ namespace TWSLib
         string TWSLib.IOrder.extOperator { get { return data.ExtOperator; } set { data.ExtOperator = value; } }
         TWSLib.ComSoftDollarTier IOrder.tier { get { return new TWSLib.ComSoftDollarTier(data); } }
         double TWSLib.IOrder.cashQty { get { return data.CashQty; } set { data.CashQty = value; } }
-        string TWSLib.IOrder.mifidDecisionMaker { get { return data.MifidDecisionMaker; } set { data.MifidDecisionMaker = value; } }
-        string TWSLib.IOrder.mifidAlgoCode { get { return data.MifidAlgoCode; } set { data.MifidAlgoCode = value; } }
+        string TWSLib.IOrder.mifid2DecisionMaker { get { return data.Mifid2DecisionMaker; } set { data.Mifid2DecisionMaker = value; } }
+        string TWSLib.IOrder.mifid2DecisionAlgo { get { return data.Mifid2DecisionAlgo; } set { data.Mifid2DecisionAlgo = value; } }
+        string TWSLib.IOrder.mifid2ExecutionTrader { get { return data.Mifid2ExecutionTrader; } set { data.Mifid2ExecutionTrader = value; } }
+        string TWSLib.IOrder.mifid2ExecutionAlgo { get { return data.Mifid2ExecutionAlgo; } set { data.Mifid2ExecutionAlgo = value; } }
     }
 }

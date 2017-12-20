@@ -1097,8 +1097,14 @@ namespace IBApi
 
             if (serverVersion >= MinServerVer.DECISION_MAKER)
             {
-                paramsList.AddParameter(order.MifidDecisionMaker);
-                paramsList.AddParameter(order.MifidAlgoCode);
+                paramsList.AddParameter(order.Mifid2DecisionMaker);
+                paramsList.AddParameter(order.Mifid2DecisionAlgo);
+            }
+
+            if (serverVersion >= MinServerVer.MIFID_EXECUTION)
+            {
+                paramsList.AddParameter(order.Mifid2ExecutionTrader);
+                paramsList.AddParameter(order.Mifid2ExecutionAlgo);
             }
 
             CloseAndSend(id, paramsList, lengthPos, EClientErrors.FAIL_SEND_ORDER);
@@ -3278,10 +3284,17 @@ namespace IBApi
             }
 
             if (serverVersion < MinServerVer.DECISION_MAKER 
-                && (!IsEmpty(order.MifidDecisionMaker)
-                    || !IsEmpty(order.MifidAlgoCode)))
+                && (!IsEmpty(order.Mifid2DecisionMaker)
+                    || !IsEmpty(order.Mifid2DecisionAlgo)))
             {
-                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support decision maker parameters");
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support MIFID II decision maker parameters");
+            }
+
+            if (serverVersion < MinServerVer.DECISION_MAKER
+                && (!IsEmpty(order.Mifid2ExecutionTrader)
+                    || !IsEmpty(order.Mifid2ExecutionAlgo)))
+            {
+                ReportError(id, EClientErrors.UPDATE_TWS, " It does not support MIFID II execution parameters");
             }
 
             return true;

@@ -1370,10 +1370,18 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	}
 
     if (m_serverVersion < MIN_SERVER_VER_DECISION_MAKER
-        && (!order.mifidDecisionMaker.empty()
-            || !order.mifidAlgoCode.empty())) {
+        && (!order.mifid2DecisionMaker.empty()
+            || !order.mifid2DecisionAlgo.empty())) {
             m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
-                " It does not support decision maker parameters");
+                " It does not support MIFID II decision maker parameters");
+            return;
+    }
+
+    if (m_serverVersion < MIN_SERVER_VER_MIFID_EXECUTION
+        && (!order.mifid2ExecutionTrader.empty()
+            || !order.mifid2ExecutionAlgo.empty())) {
+            m_pEWrapper->error(id, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                " It does not support MIFID II execution parameters");
             return;
     }
 
@@ -1777,8 +1785,13 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	}
 
     if (m_serverVersion >= MIN_SERVER_VER_DECISION_MAKER) {
-        ENCODE_FIELD(order.mifidDecisionMaker);
-        ENCODE_FIELD(order.mifidAlgoCode);
+        ENCODE_FIELD(order.mifid2DecisionMaker);
+        ENCODE_FIELD(order.mifid2DecisionAlgo);
+    }
+
+    if (m_serverVersion >= MIN_SERVER_VER_MIFID_EXECUTION) {
+        ENCODE_FIELD(order.mifid2ExecutionTrader);
+        ENCODE_FIELD(order.mifid2ExecutionAlgo);
     }
 
 	closeAndSend( msg.str());
