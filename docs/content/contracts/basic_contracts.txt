@@ -270,9 +270,9 @@
 		</li>
 	</ul>
 	
-	\section fop Futures on Options
+	\section fop Futures Options
 	
-	Futures on options follow the same rules as conventional option contracts:
+	Futures options follow the same rules as conventional option contracts:
 	
 	<ul id="tab">
 		<li class="active">
