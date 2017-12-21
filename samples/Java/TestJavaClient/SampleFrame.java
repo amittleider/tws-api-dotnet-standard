@@ -1473,8 +1473,10 @@ class SampleFrame extends JFrame implements EWrapper {
         destOrder.solicited(srcOrder.solicited());
         destOrder.randomizePrice(srcOrder.randomizePrice());
         destOrder.randomizeSize(srcOrder.randomizeSize());
-        destOrder.mifidDecisionMaker(srcOrder.mifidDecisionMaker());
-        destOrder.mifidAlgoCode(srcOrder.mifidAlgoCode());
+        destOrder.mifid2DecisionMaker(srcOrder.mifid2DecisionMaker());
+        destOrder.mifid2DecisionAlgo(srcOrder.mifid2DecisionAlgo());
+        destOrder.mifid2ExecutionTrader(srcOrder.mifid2ExecutionTrader());
+        destOrder.mifid2ExecutionAlgo(srcOrder.mifid2ExecutionAlgo());
     }
 
     public void position(String account, Contract contract, double pos, double avgCost) {

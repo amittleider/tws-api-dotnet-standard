@@ -258,8 +258,10 @@ class TicketDlg extends JDialog {
 		final JCheckBox m_nonGuaranteed = new JCheckBox();
 		final UpperField m_lmtPriceOffset = new UpperField();
 		final UpperField m_triggerPrice = new UpperField();
-		final UpperField m_decisionMaker = new UpperField();
-		final UpperField m_algoCode = new UpperField();
+		final UpperField m_mifid2DecisionMaker = new UpperField();
+        final UpperField m_mifid2DecisionAlgo = new UpperField();
+        final UpperField m_mifid2ExecutionTrader = new UpperField();
+        final UpperField m_mifid2ExecutionAlgo = new UpperField();
 
 		OrderPanel() {
 			m_orderType.removeItemAt( 0); // remove None
@@ -277,8 +279,10 @@ class TicketDlg extends JDialog {
 			m_nonGuaranteed.setSelected( getVal( ComboParam.NonGuaranteed).equals( "1") );
 			m_lmtPriceOffset.setText(m_order.lmtPriceOffset());
 			m_triggerPrice.setText(m_order.triggerPrice());
-			m_decisionMaker.setText(m_order.mifidDecisionMaker());
-			m_algoCode.setText(m_order.mifidAlgoCode());
+			m_mifid2DecisionMaker.setText(m_order.mifid2DecisionMaker());
+			m_mifid2DecisionAlgo.setText(m_order.mifid2DecisionAlgo());
+			m_mifid2ExecutionTrader.setText(m_order.mifid2ExecutionTrader());
+			m_mifid2ExecutionAlgo.setText(m_order.mifid2ExecutionAlgo());
 			
 			add("Account", m_account);
 			
@@ -295,8 +299,10 @@ class TicketDlg extends JDialog {
 			add("Trigger price", m_triggerPrice);
 			add("Aux price", m_auxPrice);
 			add("Time-in-force", m_tif);
-			add("MiFID Decision Maker", m_decisionMaker);
-			add("MiFID Algo Code", m_algoCode);
+            add("MiFID II Decision Maker", m_mifid2DecisionMaker);
+            add("MiFID II Decision Algo", m_mifid2DecisionAlgo);
+            add("MiFID II Execution Trader", m_mifid2ExecutionTrader);
+            add("MiFID II Execution Algo", m_mifid2ExecutionAlgo);
 			
 			if (m_contract.isCombo() ) {
 				add( "Non-guaranteed", m_nonGuaranteed);
@@ -316,8 +322,10 @@ class TicketDlg extends JDialog {
 			m_order.tif( m_tif.getSelectedItem() );
 			m_order.lmtPriceOffset(m_lmtPriceOffset.getDouble());
 			m_order.triggerPrice(m_triggerPrice.getDouble());
-			m_order.mifidDecisionMaker(m_decisionMaker.getText());
-			m_order.mifidAlgoCode(m_algoCode.getText());
+			m_order.mifid2DecisionMaker(m_mifid2DecisionMaker.getText());
+			m_order.mifid2DecisionAlgo(m_mifid2DecisionAlgo.getText());
+			m_order.mifid2ExecutionTrader(m_mifid2ExecutionTrader.getText());
+			m_order.mifid2ExecutionAlgo(m_mifid2ExecutionAlgo.getText());
 			
 			if (m_contract.isCombo() ) {
 				TagValue tv = new TagValue( ComboParam.NonGuaranteed.toString(), m_nonGuaranteed.isSelected() ? "1" : "0");

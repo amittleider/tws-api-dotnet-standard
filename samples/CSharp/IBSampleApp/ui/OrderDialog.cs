@@ -322,8 +322,10 @@ namespace IBSampleApp
             order.OptOutSmartRouting = optOutSmart.Checked;
             order.Transmit = transmit.Checked;
             order.Tier = softDollarTier.SelectedItem as SoftDollarTier ?? new SoftDollarTier("", "", "");
-            order.MifidDecisionMaker = decisionMaker.Text;
-            order.MifidAlgoCode = algoCode.Text;
+            order.Mifid2DecisionMaker = mifid2DecisionMaker.Text;
+            order.Mifid2DecisionAlgo = mifid2DecisionAlgo.Text;
+            order.Mifid2ExecutionTrader = mifid2ExecutionTrader.Text;
+            order.Mifid2ExecutionAlgo = mifid2ExecutionAlgo.Text;
         }
 
         private void FillVolatilityAttributes(Order order)

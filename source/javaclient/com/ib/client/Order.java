@@ -197,8 +197,10 @@ public class Order {
 	// native cash quantity
 	private double m_cashQty = Double.MAX_VALUE;
 	
-	private String m_mifidDecisionMaker = EMPTY_STR;
-	private String m_mifidAlgoCode = EMPTY_STR;
+	private String m_mifid2DecisionMaker = EMPTY_STR;
+	private String m_mifid2DecisionAlgo = EMPTY_STR;
+    private String m_mifid2ExecutionTrader = EMPTY_STR;
+    private String m_mifid2ExecutionAlgo = EMPTY_STR;	
 	
 	// getters
     public Action  action()                         { return Action.get(m_action); }
@@ -326,8 +328,10 @@ public class Order {
     public String extOperator()                     { return m_extOperator; }
     public SoftDollarTier softDollarTier()          { return m_softDollarTier; }
     public double cashQty()                         { return m_cashQty; }
-    public String mifidDecisionMaker()              { return m_mifidDecisionMaker; }
-    public String mifidAlgoCode()                   { return m_mifidAlgoCode; }
+    public String mifid2DecisionMaker()             { return m_mifid2DecisionMaker; }
+    public String mifid2DecisionAlgo()              { return m_mifid2DecisionAlgo; }
+    public String mifid2ExecutionTrader()           { return m_mifid2ExecutionTrader; }
+    public String mifid2ExecutionAlgo()             { return m_mifid2ExecutionAlgo; }
   
 	// setters
 	public void referenceContractId(int m_referenceContractId)          { this.m_referenceContractId = m_referenceContractId; }
@@ -456,8 +460,10 @@ public class Order {
 	public void extOperator(String v)                                   { m_extOperator = v; }
 	public void softDollarTier(SoftDollarTier v)                        { m_softDollarTier = v; }
 	public void cashQty(double v)                                       { m_cashQty = v; }
-    public void mifidDecisionMaker(String v)                            { m_mifidDecisionMaker = v; }
-    public void mifidAlgoCode(String v)                                 { m_mifidAlgoCode = v; }
+    public void mifid2DecisionMaker(String v)                           { m_mifid2DecisionMaker = v; }
+    public void mifid2DecisionAlgo(String v)                            { m_mifid2DecisionAlgo = v; }
+    public void mifid2ExecutionTrader(String v)                         { m_mifid2ExecutionTrader = v; }
+    public void mifid2ExecutionAlgo(String v)                           { m_mifid2ExecutionAlgo = v; }
 
 
     public Order() {
@@ -623,8 +629,10 @@ public class Order {
         	|| Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0
         	|| Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0 
         	|| Util.StringCompare(m_extOperator, l_theOther.m_extOperator) != 0
-        	|| Util.StringCompare(m_mifidDecisionMaker, l_theOther.m_mifidDecisionMaker) != 0
-        	|| Util.StringCompare(m_mifidAlgoCode, l_theOther.m_mifidAlgoCode) != 0) {
+        	|| Util.StringCompare(m_mifid2DecisionMaker, l_theOther.m_mifid2DecisionMaker) != 0
+            || Util.StringCompare(m_mifid2DecisionAlgo, l_theOther.m_mifid2DecisionAlgo) != 0
+            || Util.StringCompare(m_mifid2ExecutionTrader, l_theOther.m_mifid2ExecutionTrader) != 0
+            || Util.StringCompare(m_mifid2ExecutionAlgo, l_theOther.m_mifid2ExecutionAlgo) != 0) {
         	return false;
         }
 

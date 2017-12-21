@@ -177,10 +177,14 @@ Public Class dlgOrderAttribs
     Friend WithEvents cbRandomizePrice As System.Windows.Forms.CheckBox
     Public WithEvents txtModelCode As System.Windows.Forms.TextBox
     Public WithEvents Label63 As System.Windows.Forms.Label
-    Public WithEvents txtDecisionMaker As System.Windows.Forms.TextBox
+    Public WithEvents txtMifid2DecisionMaker As System.Windows.Forms.TextBox
     Public WithEvents Label64 As System.Windows.Forms.Label
-    Public WithEvents txtAlgoCode As System.Windows.Forms.TextBox
+    Public WithEvents txtMifid2DecisionAlgo As System.Windows.Forms.TextBox
     Public WithEvents Label65 As System.Windows.Forms.Label
+    Public WithEvents txtMifid2ExecutionTrader As System.Windows.Forms.TextBox
+    Public WithEvents Label66 As System.Windows.Forms.Label
+    Public WithEvents txtMifid2ExecutionAlgo As System.Windows.Forms.TextBox
+    Public WithEvents Label67 As System.Windows.Forms.Label
     Public WithEvents Label41 As System.Windows.Forms.Label
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -324,10 +328,14 @@ Public Class dlgOrderAttribs
         Me.cbRandomizePrice = New System.Windows.Forms.CheckBox()
         Me.txtModelCode = New System.Windows.Forms.TextBox()
         Me.Label63 = New System.Windows.Forms.Label()
-        Me.txtDecisionMaker = New System.Windows.Forms.TextBox()
+        Me.txtMifid2DecisionMaker = New System.Windows.Forms.TextBox()
         Me.Label64 = New System.Windows.Forms.Label()
-        Me.txtAlgoCode = New System.Windows.Forms.TextBox()
+        Me.txtMifid2DecisionAlgo = New System.Windows.Forms.TextBox()
         Me.Label65 = New System.Windows.Forms.Label()
+        Me.txtMifid2ExecutionTrader = New System.Windows.Forms.TextBox()
+        Me.Label66 = New System.Windows.Forms.Label()
+        Me.txtMifid2ExecutionAlgo = New System.Windows.Forms.TextBox()
+        Me.Label67 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtHedgeParam
@@ -629,7 +637,7 @@ Public Class dlgOrderAttribs
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(345, 614)
+        Me.cmdOk.Location = New System.Drawing.Point(345, 635)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -644,7 +652,7 @@ Public Class dlgOrderAttribs
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(456, 614)
+        Me.cmdCancel.Location = New System.Drawing.Point(456, 635)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -2258,20 +2266,20 @@ Public Class dlgOrderAttribs
         Me.Label63.TabIndex = 42
         Me.Label63.Text = "Model Code"
         '
-        'txtDecisionMaker
+        'txtMifid2DecisionMaker
         '
-        Me.txtDecisionMaker.AcceptsReturn = True
-        Me.txtDecisionMaker.BackColor = System.Drawing.SystemColors.Window
-        Me.txtDecisionMaker.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtDecisionMaker.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtDecisionMaker.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDecisionMaker.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtDecisionMaker.Location = New System.Drawing.Point(143, 589)
-        Me.txtDecisionMaker.MaxLength = 0
-        Me.txtDecisionMaker.Name = "txtDecisionMaker"
-        Me.txtDecisionMaker.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtDecisionMaker.Size = New System.Drawing.Size(85, 13)
-        Me.txtDecisionMaker.TabIndex = 140
+        Me.txtMifid2DecisionMaker.AcceptsReturn = True
+        Me.txtMifid2DecisionMaker.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMifid2DecisionMaker.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtMifid2DecisionMaker.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtMifid2DecisionMaker.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMifid2DecisionMaker.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtMifid2DecisionMaker.Location = New System.Drawing.Point(143, 589)
+        Me.txtMifid2DecisionMaker.MaxLength = 0
+        Me.txtMifid2DecisionMaker.Name = "txtMifid2DecisionMaker"
+        Me.txtMifid2DecisionMaker.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtMifid2DecisionMaker.Size = New System.Drawing.Size(85, 13)
+        Me.txtMifid2DecisionMaker.TabIndex = 140
         '
         'Label64
         '
@@ -2279,27 +2287,27 @@ Public Class dlgOrderAttribs
         Me.Label64.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label64.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label64.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label64.Location = New System.Drawing.Point(16, 589)
+        Me.Label64.Location = New System.Drawing.Point(17, 589)
         Me.Label64.Name = "Label64"
         Me.Label64.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label64.Size = New System.Drawing.Size(113, 17)
+        Me.Label64.Size = New System.Drawing.Size(121, 17)
         Me.Label64.TabIndex = 139
-        Me.Label64.Text = "MiFID Decision Maker"
+        Me.Label64.Text = "MiFID II Decision Maker"
         '
-        'txtAlgoCode
+        'txtMifid2DecisionAlgo
         '
-        Me.txtAlgoCode.AcceptsReturn = True
-        Me.txtAlgoCode.BackColor = System.Drawing.SystemColors.Window
-        Me.txtAlgoCode.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtAlgoCode.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtAlgoCode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAlgoCode.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.txtAlgoCode.Location = New System.Drawing.Point(432, 589)
-        Me.txtAlgoCode.MaxLength = 0
-        Me.txtAlgoCode.Name = "txtAlgoCode"
-        Me.txtAlgoCode.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtAlgoCode.Size = New System.Drawing.Size(85, 13)
-        Me.txtAlgoCode.TabIndex = 142
+        Me.txtMifid2DecisionAlgo.AcceptsReturn = True
+        Me.txtMifid2DecisionAlgo.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMifid2DecisionAlgo.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtMifid2DecisionAlgo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtMifid2DecisionAlgo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMifid2DecisionAlgo.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtMifid2DecisionAlgo.Location = New System.Drawing.Point(432, 589)
+        Me.txtMifid2DecisionAlgo.MaxLength = 0
+        Me.txtMifid2DecisionAlgo.Name = "txtMifid2DecisionAlgo"
+        Me.txtMifid2DecisionAlgo.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtMifid2DecisionAlgo.Size = New System.Drawing.Size(85, 13)
+        Me.txtMifid2DecisionAlgo.TabIndex = 142
         '
         'Label65
         '
@@ -2312,16 +2320,76 @@ Public Class dlgOrderAttribs
         Me.Label65.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label65.Size = New System.Drawing.Size(160, 17)
         Me.Label65.TabIndex = 141
-        Me.Label65.Text = "MiFID Algo Code"
+        Me.Label65.Text = "MiFID II Decision Algo"
+        '
+        'txtMifid2ExecutionTrader
+        '
+        Me.txtMifid2ExecutionTrader.AcceptsReturn = True
+        Me.txtMifid2ExecutionTrader.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMifid2ExecutionTrader.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtMifid2ExecutionTrader.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtMifid2ExecutionTrader.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMifid2ExecutionTrader.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtMifid2ExecutionTrader.Location = New System.Drawing.Point(144, 608)
+        Me.txtMifid2ExecutionTrader.MaxLength = 0
+        Me.txtMifid2ExecutionTrader.Name = "txtMifid2ExecutionTrader"
+        Me.txtMifid2ExecutionTrader.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtMifid2ExecutionTrader.Size = New System.Drawing.Size(85, 13)
+        Me.txtMifid2ExecutionTrader.TabIndex = 144
+        '
+        'Label66
+        '
+        Me.Label66.BackColor = System.Drawing.Color.Gainsboro
+        Me.Label66.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label66.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label66.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label66.Location = New System.Drawing.Point(12, 608)
+        Me.Label66.Name = "Label66"
+        Me.Label66.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label66.Size = New System.Drawing.Size(133, 17)
+        Me.Label66.TabIndex = 143
+        Me.Label66.Text = "MiFID II Execution Trader"
+        '
+        'txtMifid2ExecutionAlgo
+        '
+        Me.txtMifid2ExecutionAlgo.AcceptsReturn = True
+        Me.txtMifid2ExecutionAlgo.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMifid2ExecutionAlgo.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtMifid2ExecutionAlgo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtMifid2ExecutionAlgo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMifid2ExecutionAlgo.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtMifid2ExecutionAlgo.Location = New System.Drawing.Point(432, 608)
+        Me.txtMifid2ExecutionAlgo.MaxLength = 0
+        Me.txtMifid2ExecutionAlgo.Name = "txtMifid2ExecutionAlgo"
+        Me.txtMifid2ExecutionAlgo.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtMifid2ExecutionAlgo.Size = New System.Drawing.Size(85, 13)
+        Me.txtMifid2ExecutionAlgo.TabIndex = 146
+        '
+        'Label67
+        '
+        Me.Label67.BackColor = System.Drawing.Color.Gainsboro
+        Me.Label67.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label67.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label67.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label67.Location = New System.Drawing.Point(264, 608)
+        Me.Label67.Name = "Label67"
+        Me.Label67.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Label67.Size = New System.Drawing.Size(160, 17)
+        Me.Label67.TabIndex = 145
+        Me.Label67.Text = "MiFID II Execution Algo"
         '
         'dlgOrderAttribs
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(850, 653)
-        Me.Controls.Add(Me.txtDecisionMaker)
+        Me.ClientSize = New System.Drawing.Size(850, 674)
+        Me.Controls.Add(Me.txtMifid2ExecutionTrader)
+        Me.Controls.Add(Me.Label66)
+        Me.Controls.Add(Me.txtMifid2ExecutionAlgo)
+        Me.Controls.Add(Me.Label67)
+        Me.Controls.Add(Me.txtMifid2DecisionMaker)
         Me.Controls.Add(Me.Label64)
-        Me.Controls.Add(Me.txtAlgoCode)
+        Me.Controls.Add(Me.txtMifid2DecisionAlgo)
         Me.Controls.Add(Me.Label65)
         Me.Controls.Add(Me.txtModelCode)
         Me.Controls.Add(Me.Label63)
@@ -2603,8 +2671,10 @@ Public Class dlgOrderAttribs
 
         cbSolicited.Checked = m_orderInfo.Solicited
 
-        txtDecisionMaker.Text = m_orderInfo.MifidDecisionMaker
-        txtAlgoCode.Text = m_orderInfo.MifidAlgoCode
+        txtMifid2DecisionMaker.Text = m_orderInfo.Mifid2DecisionMaker
+        txtMifid2DecisionAlgo.Text = m_orderInfo.Mifid2DecisionAlgo
+        txtMifid2ExecutionTrader.Text = m_orderInfo.Mifid2ExecutionTrader
+        txtMifid2ExecutionAlgo.Text = m_orderInfo.Mifid2ExecutionAlgo
 
 
     End Sub
@@ -2757,8 +2827,10 @@ Public Class dlgOrderAttribs
         m_orderInfo.RandomizePrice = cbRandomizePrice.Checked
         m_orderInfo.RandomizeSize = cbRandomizeSize.Checked
         m_orderInfo.ModelCode = txtModelCode.Text
-        m_orderInfo.MifidDecisionMaker = txtDecisionMaker.Text
-        m_orderInfo.MifidAlgoCode = txtAlgoCode.Text
+        m_orderInfo.Mifid2DecisionMaker = txtMifid2DecisionMaker.Text
+        m_orderInfo.Mifid2DecisionAlgo = txtMifid2DecisionAlgo.Text
+        m_orderInfo.Mifid2ExecutionTrader = txtMifid2ExecutionTrader.Text
+        m_orderInfo.Mifid2ExecutionAlgo = txtMifid2ExecutionAlgo.Text
 
         m_ok = True
         Hide()

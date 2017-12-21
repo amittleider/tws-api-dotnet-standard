@@ -275,9 +275,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_LAST_LIQUIDITY = 136;
     protected static final int MIN_SERVER_VER_TICK_BY_TICK = 137;
     protected static final int MIN_SERVER_VER_DECISION_MAKER = 138;
+    protected static final int MIN_SERVER_VER_MIFID_EXECUTION = 139;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_DECISION_MAKER; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_MIFID_EXECUTION; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -1492,10 +1493,18 @@ public abstract class EClient {
         }
         
         if (m_serverVersion < MIN_SERVER_VER_DECISION_MAKER
-            && (!IsEmpty(order.mifidDecisionMaker())
-                || !IsEmpty(order.mifidAlgoCode()))) {
+            && (!IsEmpty(order.mifid2DecisionMaker())
+                || !IsEmpty(order.mifid2DecisionAlgo()))) {
             error(id, EClientErrors.UPDATE_TWS,
-                    " It does not support decision maker parameters");
+                    " It does not support MIFID II decision maker parameters");
+            return;
+        }
+
+        if (m_serverVersion < MIN_SERVER_VER_MIFID_EXECUTION
+                && (!IsEmpty(order.mifid2ExecutionTrader())
+                        || !IsEmpty(order.mifid2ExecutionAlgo()))) {
+            error(id, EClientErrors.UPDATE_TWS,
+                    " It does not support MIFID II execution parameters");
             return;
         }
 
@@ -1903,8 +1912,13 @@ public abstract class EClient {
            }
            
            if (m_serverVersion >= MIN_SERVER_VER_DECISION_MAKER) {
-               b.send(order.mifidDecisionMaker());
-               b.send(order.mifidAlgoCode());
+               b.send(order.mifid2DecisionMaker());
+               b.send(order.mifid2DecisionAlgo());
+           }
+           
+           if (m_serverVersion >= MIN_SERVER_VER_MIFID_EXECUTION) {
+               b.send(order.mifid2ExecutionTrader());
+               b.send(order.mifid2ExecutionAlgo());
            }
            
            closeAndSend(b);

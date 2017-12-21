@@ -79,9 +79,9 @@ namespace IBSampleApp
             this.contractExchange = new System.Windows.Forms.TextBox();
             this.extendedOrderTab = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
-            this.algoCode = new System.Windows.Forms.TextBox();
+            this.mifid2DecisionAlgo = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.decisionMaker = new System.Windows.Forms.TextBox();
+            this.mifid2DecisionMaker = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.softDollarTier = new System.Windows.Forms.ComboBox();
             this.nbboPriceCapLabel = new System.Windows.Forms.Label();
@@ -243,6 +243,10 @@ namespace IBSampleApp
             this.checkMarginButton = new System.Windows.Forms.Button();
             this.closeOrderDialogButton = new System.Windows.Forms.Button();
             this.contractSearchControl1 = new IBSampleApp.ui.ContractSearchControl();
+            this.label22 = new System.Windows.Forms.Label();
+            this.mifid2ExecutionAlgo = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.mifid2ExecutionTrader = new System.Windows.Forms.TextBox();
             this.conditionsTab.SuspendLayout();
             this.orderContractTab.SuspendLayout();
             this.baseGroup.SuspendLayout();
@@ -761,10 +765,14 @@ namespace IBSampleApp
             // extendedOrderTab
             // 
             this.extendedOrderTab.BackColor = System.Drawing.Color.LightGray;
+            this.extendedOrderTab.Controls.Add(this.label22);
+            this.extendedOrderTab.Controls.Add(this.mifid2ExecutionAlgo);
+            this.extendedOrderTab.Controls.Add(this.label23);
+            this.extendedOrderTab.Controls.Add(this.mifid2ExecutionTrader);
             this.extendedOrderTab.Controls.Add(this.label18);
-            this.extendedOrderTab.Controls.Add(this.algoCode);
+            this.extendedOrderTab.Controls.Add(this.mifid2DecisionAlgo);
             this.extendedOrderTab.Controls.Add(this.label19);
-            this.extendedOrderTab.Controls.Add(this.decisionMaker);
+            this.extendedOrderTab.Controls.Add(this.mifid2DecisionMaker);
             this.extendedOrderTab.Controls.Add(this.label17);
             this.extendedOrderTab.Controls.Add(this.softDollarTier);
             this.extendedOrderTab.Controls.Add(this.nbboPriceCapLabel);
@@ -816,34 +824,34 @@ namespace IBSampleApp
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(32, 302);
+            this.label18.Location = new System.Drawing.Point(7, 302);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(87, 13);
+            this.label18.Size = new System.Drawing.Size(112, 13);
             this.label18.TabIndex = 46;
-            this.label18.Text = "MiFID Algo Code";
+            this.label18.Text = "MiFID II Decision Algo";
             // 
-            // algoCode
+            // mifid2DecisionAlgo
             // 
-            this.algoCode.Location = new System.Drawing.Point(125, 299);
-            this.algoCode.Name = "algoCode";
-            this.algoCode.Size = new System.Drawing.Size(70, 20);
-            this.algoCode.TabIndex = 45;
+            this.mifid2DecisionAlgo.Location = new System.Drawing.Point(125, 299);
+            this.mifid2DecisionAlgo.Name = "mifid2DecisionAlgo";
+            this.mifid2DecisionAlgo.Size = new System.Drawing.Size(70, 20);
+            this.mifid2DecisionAlgo.TabIndex = 45;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 276);
+            this.label19.Location = new System.Drawing.Point(3, 276);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(112, 13);
+            this.label19.Size = new System.Drawing.Size(121, 13);
             this.label19.TabIndex = 44;
-            this.label19.Text = "MiFID Decision Maker";
+            this.label19.Text = "MiFID II Decision Maker";
             // 
-            // decisionMaker
+            // mifid2DecisionMaker
             // 
-            this.decisionMaker.Location = new System.Drawing.Point(125, 273);
-            this.decisionMaker.Name = "decisionMaker";
-            this.decisionMaker.Size = new System.Drawing.Size(70, 20);
-            this.decisionMaker.TabIndex = 43;
+            this.mifid2DecisionMaker.Location = new System.Drawing.Point(125, 273);
+            this.mifid2DecisionMaker.Name = "mifid2DecisionMaker";
+            this.mifid2DecisionMaker.Size = new System.Drawing.Size(70, 20);
+            this.mifid2DecisionMaker.TabIndex = 43;
             // 
             // label17
             // 
@@ -2413,6 +2421,38 @@ namespace IBSampleApp
             this.contractSearchControl1.Name = "contractSearchControl1";
             this.contractSearchControl1.Size = new System.Drawing.Size(206, 13);
             this.contractSearchControl1.TabIndex = 0;
+            //
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(205, 302);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(118, 13);
+            this.label22.TabIndex = 50;
+            this.label22.Text = "MiFID II Execution Algo";
+            // 
+            // mifid2ExecutionAlgo
+            // 
+            this.mifid2ExecutionAlgo.Location = new System.Drawing.Point(339, 299);
+            this.mifid2ExecutionAlgo.Name = "mifid2ExecutionAlgo";
+            this.mifid2ExecutionAlgo.Size = new System.Drawing.Size(70, 20);
+            this.mifid2ExecutionAlgo.TabIndex = 49;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(205, 276);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(128, 13);
+            this.label23.TabIndex = 48;
+            this.label23.Text = "MiFID II Execution Trader";
+            // 
+            // mifid2ExecutionTrader
+            // 
+            this.mifid2ExecutionTrader.Location = new System.Drawing.Point(339, 273);
+            this.mifid2ExecutionTrader.Name = "mifid2ExecutionTrader";
+            this.mifid2ExecutionTrader.Size = new System.Drawing.Size(70, 20);
+            this.mifid2ExecutionTrader.TabIndex = 47;
             // 
             // OrderDialog
             // 
@@ -2673,9 +2713,13 @@ namespace IBSampleApp
         private System.Windows.Forms.TextBox cashQty;
         private System.Windows.Forms.Label cashQtyLabel;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox algoCode;
+        private System.Windows.Forms.TextBox mifid2DecisionAlgo;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox decisionMaker;
+        private System.Windows.Forms.TextBox mifid2DecisionMaker;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox mifid2ExecutionAlgo;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox mifid2ExecutionTrader;
         
     }
 }

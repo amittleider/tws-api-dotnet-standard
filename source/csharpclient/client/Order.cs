@@ -1182,9 +1182,26 @@ namespace IBApi
             set { cashQty = value; }
         }
 
-        public string MifidDecisionMaker { get; set; }
-        public string MifidAlgoCode { get; set; }
-
+		/**
+         * @brief Identifies a person as the responsible party for investment decisions within the firm. Orders covered by MiFID 2 (Markets in Financial Instruments Directive 2) must include either Mifid2DecisionMaker or Mifid2DecisionAlgo field (but not both). Requires TWS 969+.
+         */
+		public string Mifid2DecisionMaker { get; set; }
+		
+		/**
+         * @brief Identifies the algorithm responsible for investment decisions within the firm. Orders covered under MiFID 2 must include either Mifid2DecisionMaker or Mifid2DecisionAlgo, but cannot have both. Requires TWS 969+.
+         */
+		public string Mifid2DecisionAlgo { get; set; }
+		
+		/**
+         * @brief For MiFID 2 reporting; identifies a person as the responsible party for the execution of a transaction within the firm. Requires TWS 969+.
+         */
+		public string Mifid2ExecutionTrader { get; set; }
+				 
+		/**
+         * @brief For MiFID 2 reporting; identifies the algorithm responsible for the execution of a transaction within the firm. Requires TWS 969+.
+         */
+		public string Mifid2ExecutionAlgo { get; set; }
+	
         public Order()
         {
             lmtPrice = Double.MaxValue;
@@ -1245,8 +1262,10 @@ namespace IBApi
             ExtOperator = EMPTY_STR;
             Tier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
             cashQty = Double.MaxValue;
-            MifidDecisionMaker = EMPTY_STR;
-            MifidAlgoCode = EMPTY_STR;
+            Mifid2DecisionMaker = EMPTY_STR;
+            Mifid2DecisionAlgo = EMPTY_STR;
+            Mifid2ExecutionTrader = EMPTY_STR;
+            Mifid2ExecutionAlgo = EMPTY_STR;
         }
 
         public override bool Equals(Object p_other)
