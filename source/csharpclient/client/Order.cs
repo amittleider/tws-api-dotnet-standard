@@ -1182,11 +1182,26 @@ namespace IBApi
             set { cashQty = value; }
         }
 
-        public string Mifid2DecisionMaker { get; set; }
-        public string Mifid2DecisionAlgo { get; set; }
-        public string Mifid2ExecutionTrader { get; set; }
-        public string Mifid2ExecutionAlgo { get; set; }
-
+		/**
+         * @brief Identifies a person as the responsible party for investment decisions within the firm. Orders covered by MiFID 2 (Markets in Financial Instruments Directive 2) must include either Mifid2DecisionMaker or Mifid2DecisionAlgo field (but not both). Requires TWS 969+.
+         */
+		public string Mifid2DecisionMaker { get; set; }
+		
+		/**
+         * @brief Identifies the algorithm responsible for investment decisions within the firm. Orders covered under MiFID 2 must include either Mifid2DecisionMaker or Mifid2DecisionAlgo, but cannot have both. Requires TWS 969+.
+         */
+		public string Mifid2DecisionAlgo { get; set; }
+		
+		/**
+         * @brief For MiFID 2 reporting; identifies a person as the responsible party for the execution of a transaction within the firm. Requires TWS 969+.
+         */
+		public string Mifid2ExecutionTrader { get; set; }
+				 
+		/**
+         * @brief For MiFID 2 reporting; identifies the algorithm responsible for the execution of a transaction within the firm. Requires TWS 969+.
+         */
+		public string Mifid2ExecutionAlgo { get; set; }
+	
         public Order()
         {
             lmtPrice = Double.MaxValue;

@@ -194,7 +194,7 @@
 	<i>Comment: For options that have multipler <b>Multipliers</b> or <b>TradingClasses</b>, Simple Syntax is not adequate to define the contract uniquely. Mixed Syntax can help to add addition specifications for <b>Multipler</b> and <b>TradingClass</b> properly.</i>
 	
 	<br>
-	\section rtd_samples_fop Futures on Options
+	\section rtd_samples_fop Futures Options
 	
 	\subsection rtd_sample_fop_simple - Simple Syntax
 	
@@ -202,7 +202,7 @@
 		=RTD("Tws.TwsRtdServerCtrl",,"ES@GLOBEX//FOP/20180316/C/1000/USD", "Close")
 	</DFN>
 	
-	<i>Comment: Futures on Options follow the same rule as conventional option contracts.</i>
+	<i>Comment: Futures Options follow the same rule as conventional option contracts.</i>
 
 	\subsection rtd_sample_fop_complex - Complex Syntax
 	
