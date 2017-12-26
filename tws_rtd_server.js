@@ -60,7 +60,7 @@ var tws_rtd_server =
         [ "- Complex Syntax", "rtd_examples.html#rtd_sample_opt_complex", null ],
         [ "- Mixed Syntax", "rtd_examples.html#rtd_sample_opt_mixed", null ]
       ] ],
-      [ "Futures on Options", "rtd_examples.html#rtd_samples_fop", [
+      [ "Futures Options", "rtd_examples.html#rtd_samples_fop", [
         [ "- Simple Syntax", "rtd_examples.html#rtd_sample_fop_simple", null ],
         [ "- Complex Syntax", "rtd_examples.html#rtd_sample_fop_complex", null ],
         [ "- Mixed Syntax", "rtd_examples.html#rtd_sample_fop_mixed", null ]
