@@ -196,11 +196,12 @@ var NAVTREEINDEX3 =
 "message_codes.html#error_codes":[17,0,3],
 "message_codes.html#system_codes":[17,0,0],
 "message_codes.html#warning_codes":[17,0,1],
+"mifir_reporting.html":[6,2,6],
 "minimum_increment.html":[6,3],
 "model_portfolios.html":[13,2],
 "modifying_orders.html":[6,2,1],
-"namespaceIBApi.html":[22,0,0],
 "namespaceIBApi.html":[21,0,0],
+"namespaceIBApi.html":[22,0,0],
 "namespaces.html":[21,0],
 "news.html":[9],
 "news.html#historical_news":[9,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "positions.html#position_request":[11,4,0],
 "realtime_bars.html":[7,5],
 "realtime_bars.html#rt_bars_cancel":[7,5,2],
-"realtime_bars.html#rt_bars_rec":[7,5,1],
-"realtime_bars.html#rt_bars_req":[7,5,0]
+"realtime_bars.html#rt_bars_rec":[7,5,1]
 };
