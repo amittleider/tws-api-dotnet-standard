@@ -988,6 +988,17 @@ class EClient(object):
                         " It does not support cash quantity parameter")
                 return
 
+        if self.serverVersion() < MIN_SERVER_VER_DECISION_MAKER and (order.mifid2DecisionMaker != "" or order.mifid2DecisionAlgo != ""):
+            self.wrapper.error(orderId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                        " It does not support MIFID II decision maker parameters")
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_MIFID_EXECUTION and (order.mifid2ExecutionTrader != "" or order.mifid2ExecutionAlgo != ""):
+            self.wrapper.error(orderId, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                        " It does not support MIFID II execution parameters")
+            return
+
+
         VERSION = 27 if (self.serverVersion() < MIN_SERVER_VER_NOT_HELD) else 45
 
         # send place order msg
@@ -1288,6 +1299,14 @@ class EClient(object):
 
         if self.serverVersion() >= MIN_SERVER_VER_CASH_QTY:
             flds.append(make_field( order.cashQty))
+
+        if self.serverVersion() >= MIN_SERVER_VER_DECISION_MAKER:
+            flds.append(make_field( order.mifid2DecisionMaker))
+            flds.append(make_field( order.mifid2DecisionAlgo))
+
+        if self.serverVersion() >= MIN_SERVER_VER_MIFID_EXECUTION:
+            flds.append(make_field( order.mifid2ExecutionTrader))
+            flds.append(make_field( order.mifid2ExecutionAlgo))
 
         msg = "".join(flds)
         self.sendMsg(msg)
