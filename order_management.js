@@ -18,5 +18,6 @@ var order_management =
     [ "Executions and Commissions", "executions_commissions.html", [
       [ "Requesting Executions", "executions_commissions.html#execution_request", null ]
     ] ],
-    [ "Order Limitations", "order_limitations.html", null ]
+    [ "Order Limitations", "order_limitations.html", null ],
+    [ "MiFIR Transaction Reporting Fields", "mifir_reporting.html", null ]
 ];

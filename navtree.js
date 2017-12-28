@@ -98,7 +98,7 @@ var NAVTREEINDEX =
 "classIBApi_1_1EClient.html#a876ac4a65e22d219d1055eb0282b07e9",
 "classIBApi_1_1Order.html#ad2926dec2ed4a0632cc5c833a102c6a0",
 "functions_prop_0x79.html",
-"reuters_fundamentals.html"
+"realtime_bars.html#rt_bars_req"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
