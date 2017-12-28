@@ -6,5 +6,6 @@
 	- \subpage open_orders
 	- \subpage executions_commissions
 	- \subpage order_limitations
+	- \subpage mifir_reporting
 
 */
