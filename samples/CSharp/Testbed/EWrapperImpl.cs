@@ -253,6 +253,7 @@ namespace Samples
             Console.WriteLine("\tUnderSecType: " + contractDetails.UnderSecType);
             Console.WriteLine("\tMarketRuleIds: " + contractDetails.MarketRuleIds);
             Console.WriteLine("\tRealExpirationDate: " + contractDetails.RealExpirationDate);
+            Console.WriteLine("\tLastTradeTime: " + contractDetails.LastTradeTime);
             printContractDetailsSecIdList(contractDetails.SecIdList);
         }
 
@@ -301,6 +302,8 @@ namespace Samples
             Console.WriteLine("\tEvMultiplier: " + contractDetails.EvMultiplier);
             Console.WriteLine("\tAggGroup: " + contractDetails.AggGroup);
             Console.WriteLine("\tMarketRuleIds: " + contractDetails.MarketRuleIds);
+            Console.WriteLine("\tLastTradeTime: " + contractDetails.LastTradeTime);
+            Console.WriteLine("\tTimeZoneId: " + contractDetails.TimeZoneId);
             printContractDetailsSecIdList(contractDetails.SecIdList);
         }
 

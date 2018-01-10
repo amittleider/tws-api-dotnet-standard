@@ -149,6 +149,7 @@ struct ContractDetails
 	std::string	underSecType;
 	std::string marketRuleIds;
 	std::string realExpirationDate;
+	std::string lastTradeTime;
 
 	TagValueListSPtr secIdList;
 

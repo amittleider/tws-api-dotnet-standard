@@ -37,7 +37,7 @@ public class ContractSamples {
 	public static Contract Bond() {
 		//! [bond]
 		Contract contract = new Contract();
-		contract.conid(267433416);
+		contract.conid(285191782);
 		contract.exchange("SMART");
 		//! [bond]
 		return contract;
@@ -245,11 +245,11 @@ public class ContractSamples {
 	public static Contract SimpleFuture() {
 		//! [futcontract]
 		Contract contract = new Contract();
-		contract.symbol("ZC");
+		contract.symbol("ES");
 		contract.secType("FUT");
 		contract.currency("USD");
-		contract.exchange("ECBOT");
-		contract.lastTradeDateOrContractMonth("20170914");
+		contract.exchange("GLOBEX");
+		contract.lastTradeDateOrContractMonth("201803");
 		//! [futcontract]
 		return contract;
 	}

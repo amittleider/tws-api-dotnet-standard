@@ -40,6 +40,7 @@ namespace IBApi
         private string underSecType;
         private string marketRuleIds;
         private string realExpirationDate;
+        private string lastTradeTime;
        
         // BOND values
         private string cusip;
@@ -333,6 +334,17 @@ namespace IBApi
             //! @cond
             get { return realExpirationDate; }
             set { realExpirationDate = value; }
+            //! @endcond
+        }
+
+        /**
+        * @brief Last trade time
+        */
+        public string LastTradeTime
+        {
+            //! @cond
+            get { return lastTradeTime; }
+            set { lastTradeTime = value; }
             //! @endcond
         }
 

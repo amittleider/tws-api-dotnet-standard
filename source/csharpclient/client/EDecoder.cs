@@ -9,6 +9,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace IBApi
 {
@@ -1150,7 +1151,7 @@ namespace IBApi
             contract.Summary.SecType = ReadString();
             contract.Cusip = ReadString();
             contract.Coupon = ReadDouble();
-            contract.Maturity = ReadString();
+            readLastTradeDate(contract, true);
             contract.IssueDate = ReadString();
             contract.Ratings = ReadString();
             contract.BondType = ReadString();
@@ -1771,7 +1772,7 @@ namespace IBApi
             ContractDetails contract = new ContractDetails();
             contract.Summary.Symbol = ReadString();
             contract.Summary.SecType = ReadString();
-            contract.Summary.LastTradeDateOrContractMonth = ReadString();
+            readLastTradeDate(contract, false);
             contract.Summary.Strike = ReadDouble();
             contract.Summary.Right = ReadString();
             contract.Summary.Exchange = ReadString();
@@ -2299,6 +2300,34 @@ namespace IBApi
                 nDecodedLen += strBuilder.Length;
 
                 return strBuilder.ToString();
+            }
+        }
+
+        private void readLastTradeDate(ContractDetails contract, bool isBond)
+        {
+            string lastTradeDateOrContractMonth = ReadString();
+            if (lastTradeDateOrContractMonth != null)
+            {
+                string[] splitted = Regex.Split(lastTradeDateOrContractMonth, "\\s+");
+                if (splitted.Length > 0)
+                {
+                    if (isBond)
+                    {
+                        contract.Maturity = splitted[0];
+                    }
+                    else
+                    {
+                        contract.Summary.LastTradeDateOrContractMonth = splitted[0];
+                    }
+                }
+                if (splitted.Length > 1)
+                {
+                    contract.LastTradeTime = splitted[1];
+                }
+                if (isBond && splitted.Length > 2)
+                {
+                    contract.TimeZoneId = splitted[2];
+                }
             }
         }
     }

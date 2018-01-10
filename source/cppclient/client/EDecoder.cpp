@@ -18,6 +18,7 @@
 #include "PriceIncrement.h"
 #include <string.h>
 #include <cstdlib>
+#include <sstream>
 
 EDecoder::EDecoder(int serverVersion, EWrapper *callback, EClientMsgSink *clientMsgSink) {
 	m_pEWrapper = callback;
@@ -819,7 +820,7 @@ const char* EDecoder::processContractDataMsg(const char* ptr, const char* endPtr
 	ContractDetails contract;
 	DECODE_FIELD( contract.summary.symbol);
 	DECODE_FIELD( contract.summary.secType);
-	DECODE_FIELD( contract.summary.lastTradeDateOrContractMonth);
+	ptr = decodeLastTradeDate(ptr, endPtr, contract, false);
 	DECODE_FIELD( contract.summary.strike);
 	DECODE_FIELD( contract.summary.right);
 	DECODE_FIELD( contract.summary.exchange);
@@ -904,7 +905,7 @@ const char* EDecoder::processBondContractDataMsg(const char* ptr, const char* en
 	DECODE_FIELD( contract.summary.secType);
 	DECODE_FIELD( contract.cusip);
 	DECODE_FIELD( contract.coupon);
-	DECODE_FIELD( contract.maturity);
+	ptr = decodeLastTradeDate(ptr, endPtr, contract, true);
 	DECODE_FIELD( contract.issueDate);
 	DECODE_FIELD( contract.ratings);
 	DECODE_FIELD( contract.bondType);
@@ -2804,4 +2805,30 @@ bool EDecoder::DecodeFieldMax(double& doubleValue, const char*& ptr, const char*
 		return false;
 	doubleValue = stringValue.empty() ? UNSET_DOUBLE : atof(stringValue.c_str());
 	return true;
+}
+
+const char* EDecoder::decodeLastTradeDate(const char* ptr, const char* endPtr, ContractDetails& contract, bool isBond) {
+	std::string lastTradeDateOrContractMonth;
+	DECODE_FIELD( lastTradeDateOrContractMonth);
+	if (!lastTradeDateOrContractMonth.empty()){
+		std::vector<std::string> splitted;
+		std::istringstream buf(lastTradeDateOrContractMonth);
+		for(std::string s; buf >> s; ) {
+			splitted.push_back(s);
+		}
+		if (splitted.size() > 0) {
+			if (isBond) {
+				contract.maturity = splitted[0];
+			} else {
+				contract.summary.lastTradeDateOrContractMonth = splitted[0];
+			}
+		}
+		if (splitted.size() > 1) {
+			contract.lastTradeTime = splitted[1];
+		}
+		if (isBond && splitted.size() > 2) {
+			contract.timeZoneId = splitted[2];
+		}
+	}
+	return ptr;
 }

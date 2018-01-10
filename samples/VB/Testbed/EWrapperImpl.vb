@@ -139,6 +139,7 @@ Namespace Samples
             Console.WriteLine(vbTab & "UnderSecType: " & contractDetails.UnderSecType)
             Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
             Console.WriteLine(vbTab & "RealExpirationDate: " & contractDetails.RealExpirationDate)
+            Console.WriteLine(vbTab & "LastTradeTime: " & contractDetails.LastTradeTime)
             printContractDetailsSecIdList(contractDetails.SecIdList)
         End Sub
 
@@ -184,6 +185,8 @@ Namespace Samples
             Console.WriteLine(vbTab & "EvMultiplier: " & contractDetails.EvMultiplier)
             Console.WriteLine(vbTab & "AggGroup: " & contractDetails.AggGroup)
             Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
+            Console.WriteLine(vbTab & "LastTradeTime: " & contractDetails.LastTradeTime)
+            Console.WriteLine(vbTab & "TimeZoneId: " & contractDetails.TimeZoneId)
             printContractDetailsSecIdList(contractDetails.SecIdList)
         End Sub
 

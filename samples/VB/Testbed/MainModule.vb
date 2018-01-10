@@ -91,7 +91,7 @@ Module MainModule
         '***************************
         '** Contract information ***
         '***************************
-        'contractOperations(client)
+        contractOperations(client)
 
         '**********************
         '** Market Scanners ***
@@ -178,7 +178,7 @@ Module MainModule
         '***********************
         '*** Tick-By-Tick    ***
         '***********************
-        tickByTickOperations(client)
+        'tickByTickOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -381,6 +381,7 @@ Module MainModule
         client.reqContractDetails(210, ContractSamples.OptionForQuery())
         client.reqContractDetails(211, ContractSamples.Bond())
         client.reqContractDetails(212, ContractSamples.FuturesOnOptions())
+        client.reqContractDetails(213, ContractSamples.SimpleFuture())
         '! [reqcontractdetails]
 
         '! [reqcontractdetailsnews]

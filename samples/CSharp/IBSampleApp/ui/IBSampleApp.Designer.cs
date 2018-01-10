@@ -36,13 +36,13 @@ namespace IBSampleApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleAppDialog));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.connectButton = new System.Windows.Forms.Button();
             this.clientid_CT = new System.Windows.Forms.TextBox();
             this.cliet_label_CT = new System.Windows.Forms.Label();
@@ -290,6 +290,9 @@ namespace IBSampleApp
             this.conResUnderSecType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResMarketRuleIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.conResRealExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResContractMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResLastTradeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conResTimeZoneId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fundamentalsPage = new System.Windows.Forms.TabPage();
             this.fundamentalsOutput = new System.Windows.Forms.TextBox();
             this.optionChainPage = new System.Windows.Forms.TabPage();
@@ -330,34 +333,6 @@ namespace IBSampleApp
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bondContractDetailsPage = new System.Windows.Forms.TabPage();
             this.bondContractDetailsGrid = new System.Windows.Forms.DataGridView();
-            this.bondContractDetailsConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsTradingClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMarketName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMinTick = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsOrderTypes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsValidExchanges = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsLongName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMarketRuleIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCusip = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsRatings = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsDescAppend = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsBondType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCouponType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCallable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsPutable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsCoupon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsConvertible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsMaturity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsIssueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNextOptionPartial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bondContractDetailsNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.marketRulePage = new System.Windows.Forms.TabPage();
             this.labelMarketRuleIdRes = new System.Windows.Forms.Label();
             this.dataGridViewMarketRule = new System.Windows.Forms.DataGridView();
@@ -670,6 +645,36 @@ namespace IBSampleApp
             this.tbNumOfTicks = new System.Windows.Forms.TextBox();
             this.tbStartDate = new System.Windows.Forms.TextBox();
             this.TabControl = new System.Windows.Forms.TabControl();
+            this.bondContractDetailsConId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCurrency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsTradingClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMarketName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMinTick = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsOrderTypes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsValidExchanges = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsLongName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMdSizeMultiplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsAggGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMarketRuleIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCusip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsRatings = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsDescAppend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsBondType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCouponType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCallable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsPutable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsCoupon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsConvertible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsMaturity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsIssueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNextOptionPartial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetailsLastTradeTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bondContractDetsilsTimeZoneId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboTab.SuspendLayout();
             this.comboDeltaNeutralBox.SuspendLayout();
             this.comboLegsBox.SuspendLayout();
@@ -3158,7 +3163,10 @@ namespace IBSampleApp
             this.conResUnderSymbol,
             this.conResUnderSecType,
             this.conResMarketRuleIds,
-            this.conResRealExpirationDate});
+            this.conResRealExpirationDate,
+            this.conResContractMonth,
+            this.conResLastTradeTime,
+            this.conResTimeZoneId});
             this.contractDetailsGrid.Location = new System.Drawing.Point(6, 6);
             this.contractDetailsGrid.Name = "contractDetailsGrid";
             this.contractDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -3263,6 +3271,21 @@ namespace IBSampleApp
             // 
             this.conResRealExpirationDate.HeaderText = "Real Exp Date";
             this.conResRealExpirationDate.Name = "conResRealExpirationDate";
+            // 
+            // conResContractMonth
+            // 
+            this.conResContractMonth.HeaderText = "Contract Month";
+            this.conResContractMonth.Name = "conResContractMonth";
+            // 
+            // conResLastTradeTime
+            // 
+            this.conResLastTradeTime.HeaderText = "Last Trade Time";
+            this.conResLastTradeTime.Name = "conResLastTradeTime";
+            // 
+            // conResTimeZoneId
+            // 
+            this.conResTimeZoneId.HeaderText = "Time Zone";
+            this.conResTimeZoneId.Name = "conResTimeZoneId";
             // 
             // fundamentalsPage
             // 
@@ -3645,153 +3668,14 @@ namespace IBSampleApp
             this.bondContractDetailsNextOptionDate,
             this.bondContractDetailsNextOptionType,
             this.bondContractDetailsNextOptionPartial,
-            this.bondContractDetailsNotes});
+            this.bondContractDetailsNotes,
+            this.bondContractDetailsLastTradeTime,
+            this.bondContractDetsilsTimeZoneId});
             this.bondContractDetailsGrid.Location = new System.Drawing.Point(6, 6);
             this.bondContractDetailsGrid.Name = "bondContractDetailsGrid";
             this.bondContractDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.bondContractDetailsGrid.Size = new System.Drawing.Size(1216, 231);
             this.bondContractDetailsGrid.TabIndex = 1;
-            // 
-            // bondContractDetailsConId
-            // 
-            this.bondContractDetailsConId.HeaderText = "ConId";
-            this.bondContractDetailsConId.Name = "bondContractDetailsConId";
-            this.bondContractDetailsConId.ReadOnly = true;
-            // 
-            // bondContractDetailsSymbol
-            // 
-            this.bondContractDetailsSymbol.HeaderText = "Symbol";
-            this.bondContractDetailsSymbol.Name = "bondContractDetailsSymbol";
-            // 
-            // bondContractDetailsExchange
-            // 
-            this.bondContractDetailsExchange.HeaderText = "Exchange";
-            this.bondContractDetailsExchange.Name = "bondContractDetailsExchange";
-            // 
-            // bondContractDetailsCurrency
-            // 
-            this.bondContractDetailsCurrency.HeaderText = "Currency";
-            this.bondContractDetailsCurrency.Name = "bondContractDetailsCurrency";
-            // 
-            // bondContractDetailsTradingClass
-            // 
-            this.bondContractDetailsTradingClass.HeaderText = "TradingClass";
-            this.bondContractDetailsTradingClass.Name = "bondContractDetailsTradingClass";
-            // 
-            // bondContractDetailsMarketName
-            // 
-            this.bondContractDetailsMarketName.HeaderText = "MarketName";
-            this.bondContractDetailsMarketName.Name = "bondContractDetailsMarketName";
-            // 
-            // bondContractDetailsMinTick
-            // 
-            this.bondContractDetailsMinTick.HeaderText = "MinTick";
-            this.bondContractDetailsMinTick.Name = "bondContractDetailsMinTick";
-            // 
-            // bondContractDetailsOrderTypes
-            // 
-            this.bondContractDetailsOrderTypes.HeaderText = "OrderTypes";
-            this.bondContractDetailsOrderTypes.Name = "bondContractDetailsOrderTypes";
-            // 
-            // bondContractDetailsValidExchanges
-            // 
-            this.bondContractDetailsValidExchanges.HeaderText = "ValidExchanges";
-            this.bondContractDetailsValidExchanges.Name = "bondContractDetailsValidExchanges";
-            // 
-            // bondContractDetailsLongName
-            // 
-            this.bondContractDetailsLongName.HeaderText = "LongName";
-            this.bondContractDetailsLongName.Name = "bondContractDetailsLongName";
-            // 
-            // bondContractDetailsMdSizeMultiplier
-            // 
-            this.bondContractDetailsMdSizeMultiplier.HeaderText = "MD Size Mult";
-            this.bondContractDetailsMdSizeMultiplier.Name = "bondContractDetailsMdSizeMultiplier";
-            // 
-            // bondContractDetailsAggGroup
-            // 
-            this.bondContractDetailsAggGroup.HeaderText = "Agg Group";
-            this.bondContractDetailsAggGroup.Name = "bondContractDetailsAggGroup";
-            // 
-            // bondContractDetailsMarketRuleIds
-            // 
-            this.bondContractDetailsMarketRuleIds.HeaderText = "Market Rule Ids";
-            this.bondContractDetailsMarketRuleIds.Name = "bondContractDetailsMarketRuleIds";
-            // 
-            // bondContractDetailsCusip
-            // 
-            this.bondContractDetailsCusip.HeaderText = "Cusip";
-            this.bondContractDetailsCusip.Name = "bondContractDetailsCusip";
-            // 
-            // bondContractDetailsRatings
-            // 
-            this.bondContractDetailsRatings.HeaderText = "Ratings";
-            this.bondContractDetailsRatings.Name = "bondContractDetailsRatings";
-            // 
-            // bondContractDetailsDescAppend
-            // 
-            this.bondContractDetailsDescAppend.HeaderText = "DescAppend";
-            this.bondContractDetailsDescAppend.Name = "bondContractDetailsDescAppend";
-            // 
-            // bondContractDetailsBondType
-            // 
-            this.bondContractDetailsBondType.HeaderText = "BondType";
-            this.bondContractDetailsBondType.Name = "bondContractDetailsBondType";
-            // 
-            // bondContractDetailsCouponType
-            // 
-            this.bondContractDetailsCouponType.HeaderText = "CouponType";
-            this.bondContractDetailsCouponType.Name = "bondContractDetailsCouponType";
-            // 
-            // bondContractDetailsCallable
-            // 
-            this.bondContractDetailsCallable.HeaderText = "Callable";
-            this.bondContractDetailsCallable.Name = "bondContractDetailsCallable";
-            // 
-            // bondContractDetailsPutable
-            // 
-            this.bondContractDetailsPutable.HeaderText = "Putable";
-            this.bondContractDetailsPutable.Name = "bondContractDetailsPutable";
-            // 
-            // bondContractDetailsCoupon
-            // 
-            this.bondContractDetailsCoupon.HeaderText = "Coupon";
-            this.bondContractDetailsCoupon.Name = "bondContractDetailsCoupon";
-            // 
-            // bondContractDetailsConvertible
-            // 
-            this.bondContractDetailsConvertible.HeaderText = "Convertible";
-            this.bondContractDetailsConvertible.Name = "bondContractDetailsConvertible";
-            // 
-            // bondContractDetailsMaturity
-            // 
-            this.bondContractDetailsMaturity.HeaderText = "Maturity";
-            this.bondContractDetailsMaturity.Name = "bondContractDetailsMaturity";
-            // 
-            // bondContractDetailsIssueDate
-            // 
-            this.bondContractDetailsIssueDate.HeaderText = "IsuueDate";
-            this.bondContractDetailsIssueDate.Name = "bondContractDetailsIssueDate";
-            // 
-            // bondContractDetailsNextOptionDate
-            // 
-            this.bondContractDetailsNextOptionDate.HeaderText = "NextOptionDate";
-            this.bondContractDetailsNextOptionDate.Name = "bondContractDetailsNextOptionDate";
-            // 
-            // bondContractDetailsNextOptionType
-            // 
-            this.bondContractDetailsNextOptionType.HeaderText = "NextOptionType";
-            this.bondContractDetailsNextOptionType.Name = "bondContractDetailsNextOptionType";
-            // 
-            // bondContractDetailsNextOptionPartial
-            // 
-            this.bondContractDetailsNextOptionPartial.HeaderText = "NextOptionPartial";
-            this.bondContractDetailsNextOptionPartial.Name = "bondContractDetailsNextOptionPartial";
-            // 
-            // bondContractDetailsNotes
-            // 
-            this.bondContractDetailsNotes.HeaderText = "Notes";
-            this.bondContractDetailsNotes.Name = "bondContractDetailsNotes";
             // 
             // marketRulePage
             // 
@@ -4995,14 +4879,14 @@ namespace IBSampleApp
             this.askBookPrice,
             this.askBookSize,
             this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.deepBookGrid.Location = new System.Drawing.Point(4, 19);
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
@@ -5148,27 +5032,27 @@ namespace IBSampleApp
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorTickMark.Enabled = false;
+            chartArea3.AxisY.IsStartedFromZero = false;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend3);
             this.historicalChart.Location = new System.Drawing.Point(529, 3);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series3.IsVisibleInLegend = false;
+            series3.IsXValueIndexed = true;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series3);
             this.historicalChart.Size = new System.Drawing.Size(699, 199);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
@@ -5275,26 +5159,26 @@ namespace IBSampleApp
             this.rtBarsChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rtBarsChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.rtBarsChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.rtBarsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.rtBarsChart.Legends.Add(legend2);
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.AxisY.IsStartedFromZero = false;
+            chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 100F;
+            chartArea4.Position.Width = 100F;
+            this.rtBarsChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.rtBarsChart.Legends.Add(legend4);
             this.rtBarsChart.Location = new System.Drawing.Point(531, 4);
             this.rtBarsChart.Name = "rtBarsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.rtBarsChart.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series4.IsVisibleInLegend = false;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series4.YValuesPerPoint = 4;
+            this.rtBarsChart.Series.Add(series4);
             this.rtBarsChart.Size = new System.Drawing.Size(699, 199);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
@@ -6966,6 +6850,157 @@ namespace IBSampleApp
             this.TabControl.Size = new System.Drawing.Size(1256, 474);
             this.TabControl.TabIndex = 7;
             // 
+            // bondContractDetailsConId
+            // 
+            this.bondContractDetailsConId.HeaderText = "ConId";
+            this.bondContractDetailsConId.Name = "bondContractDetailsConId";
+            this.bondContractDetailsConId.ReadOnly = true;
+            // 
+            // bondContractDetailsSymbol
+            // 
+            this.bondContractDetailsSymbol.HeaderText = "Symbol";
+            this.bondContractDetailsSymbol.Name = "bondContractDetailsSymbol";
+            // 
+            // bondContractDetailsExchange
+            // 
+            this.bondContractDetailsExchange.HeaderText = "Exchange";
+            this.bondContractDetailsExchange.Name = "bondContractDetailsExchange";
+            // 
+            // bondContractDetailsCurrency
+            // 
+            this.bondContractDetailsCurrency.HeaderText = "Currency";
+            this.bondContractDetailsCurrency.Name = "bondContractDetailsCurrency";
+            // 
+            // bondContractDetailsTradingClass
+            // 
+            this.bondContractDetailsTradingClass.HeaderText = "TradingClass";
+            this.bondContractDetailsTradingClass.Name = "bondContractDetailsTradingClass";
+            // 
+            // bondContractDetailsMarketName
+            // 
+            this.bondContractDetailsMarketName.HeaderText = "MarketName";
+            this.bondContractDetailsMarketName.Name = "bondContractDetailsMarketName";
+            // 
+            // bondContractDetailsMinTick
+            // 
+            this.bondContractDetailsMinTick.HeaderText = "MinTick";
+            this.bondContractDetailsMinTick.Name = "bondContractDetailsMinTick";
+            // 
+            // bondContractDetailsOrderTypes
+            // 
+            this.bondContractDetailsOrderTypes.HeaderText = "OrderTypes";
+            this.bondContractDetailsOrderTypes.Name = "bondContractDetailsOrderTypes";
+            // 
+            // bondContractDetailsValidExchanges
+            // 
+            this.bondContractDetailsValidExchanges.HeaderText = "ValidExchanges";
+            this.bondContractDetailsValidExchanges.Name = "bondContractDetailsValidExchanges";
+            // 
+            // bondContractDetailsLongName
+            // 
+            this.bondContractDetailsLongName.HeaderText = "LongName";
+            this.bondContractDetailsLongName.Name = "bondContractDetailsLongName";
+            // 
+            // bondContractDetailsMdSizeMultiplier
+            // 
+            this.bondContractDetailsMdSizeMultiplier.HeaderText = "MD Size Mult";
+            this.bondContractDetailsMdSizeMultiplier.Name = "bondContractDetailsMdSizeMultiplier";
+            // 
+            // bondContractDetailsAggGroup
+            // 
+            this.bondContractDetailsAggGroup.HeaderText = "Agg Group";
+            this.bondContractDetailsAggGroup.Name = "bondContractDetailsAggGroup";
+            // 
+            // bondContractDetailsMarketRuleIds
+            // 
+            this.bondContractDetailsMarketRuleIds.HeaderText = "Market Rule Ids";
+            this.bondContractDetailsMarketRuleIds.Name = "bondContractDetailsMarketRuleIds";
+            // 
+            // bondContractDetailsCusip
+            // 
+            this.bondContractDetailsCusip.HeaderText = "Cusip";
+            this.bondContractDetailsCusip.Name = "bondContractDetailsCusip";
+            // 
+            // bondContractDetailsRatings
+            // 
+            this.bondContractDetailsRatings.HeaderText = "Ratings";
+            this.bondContractDetailsRatings.Name = "bondContractDetailsRatings";
+            // 
+            // bondContractDetailsDescAppend
+            // 
+            this.bondContractDetailsDescAppend.HeaderText = "DescAppend";
+            this.bondContractDetailsDescAppend.Name = "bondContractDetailsDescAppend";
+            // 
+            // bondContractDetailsBondType
+            // 
+            this.bondContractDetailsBondType.HeaderText = "BondType";
+            this.bondContractDetailsBondType.Name = "bondContractDetailsBondType";
+            // 
+            // bondContractDetailsCouponType
+            // 
+            this.bondContractDetailsCouponType.HeaderText = "CouponType";
+            this.bondContractDetailsCouponType.Name = "bondContractDetailsCouponType";
+            // 
+            // bondContractDetailsCallable
+            // 
+            this.bondContractDetailsCallable.HeaderText = "Callable";
+            this.bondContractDetailsCallable.Name = "bondContractDetailsCallable";
+            // 
+            // bondContractDetailsPutable
+            // 
+            this.bondContractDetailsPutable.HeaderText = "Putable";
+            this.bondContractDetailsPutable.Name = "bondContractDetailsPutable";
+            // 
+            // bondContractDetailsCoupon
+            // 
+            this.bondContractDetailsCoupon.HeaderText = "Coupon";
+            this.bondContractDetailsCoupon.Name = "bondContractDetailsCoupon";
+            // 
+            // bondContractDetailsConvertible
+            // 
+            this.bondContractDetailsConvertible.HeaderText = "Convertible";
+            this.bondContractDetailsConvertible.Name = "bondContractDetailsConvertible";
+            // 
+            // bondContractDetailsMaturity
+            // 
+            this.bondContractDetailsMaturity.HeaderText = "Maturity";
+            this.bondContractDetailsMaturity.Name = "bondContractDetailsMaturity";
+            // 
+            // bondContractDetailsIssueDate
+            // 
+            this.bondContractDetailsIssueDate.HeaderText = "IsuueDate";
+            this.bondContractDetailsIssueDate.Name = "bondContractDetailsIssueDate";
+            // 
+            // bondContractDetailsNextOptionDate
+            // 
+            this.bondContractDetailsNextOptionDate.HeaderText = "NextOptionDate";
+            this.bondContractDetailsNextOptionDate.Name = "bondContractDetailsNextOptionDate";
+            // 
+            // bondContractDetailsNextOptionType
+            // 
+            this.bondContractDetailsNextOptionType.HeaderText = "NextOptionType";
+            this.bondContractDetailsNextOptionType.Name = "bondContractDetailsNextOptionType";
+            // 
+            // bondContractDetailsNextOptionPartial
+            // 
+            this.bondContractDetailsNextOptionPartial.HeaderText = "NextOptionPartial";
+            this.bondContractDetailsNextOptionPartial.Name = "bondContractDetailsNextOptionPartial";
+            // 
+            // bondContractDetailsNotes
+            // 
+            this.bondContractDetailsNotes.HeaderText = "Notes";
+            this.bondContractDetailsNotes.Name = "bondContractDetailsNotes";
+            // 
+            // bondContractDetailsLastTradeTime
+            // 
+            this.bondContractDetailsLastTradeTime.HeaderText = "Last Trade Time";
+            this.bondContractDetailsLastTradeTime.Name = "bondContractDetailsLastTradeTime";
+            // 
+            // bondContractDetsilsTimeZoneId
+            // 
+            this.bondContractDetsilsTimeZoneId.HeaderText = "Time Zone";
+            this.bondContractDetsilsTimeZoneId.Name = "bondContractDetsilsTimeZoneId";
+            // 
             // IBSampleAppDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7678,34 +7713,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label labelMarketRuleId;
         private System.Windows.Forms.Button buttonReqMarketRule;
         private System.Windows.Forms.ComboBox comboBoxMarketRuleId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsExchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCurrency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsTradingClass;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMinTick;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsOrderTypes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsValidExchanges;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsLongName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMdSizeMultiplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsAggGroup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketRuleIds;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCusip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsRatings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsDescAppend;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsBondType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCouponType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCallable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsPutable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCoupon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConvertible;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMaturity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsIssueDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionPartial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNotes;
         private System.Windows.Forms.TabPage marketRulePage;
         private System.Windows.Forms.DataGridView dataGridViewMarketRule;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewPriceIncrementLowEdge;
@@ -7757,23 +7764,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox cbWhatToShow;
         private System.Windows.Forms.Button btnRequestHistoricalTicks;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResLocalSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResSecType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResCurrency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResExchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResPrimaryExch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResMultiplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResStrike;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResRight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResConId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResMdSizeMultiplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResAggGroup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSymbol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSecType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResMarketRuleIds;
-        private System.Windows.Forms.DataGridViewTextBoxColumn conResRealExpirationDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExecutionId;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeExecColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn accountExecColumn;
@@ -7793,6 +7783,56 @@ namespace IBSampleApp
         private System.Windows.Forms.ComboBox comboBoxTickByTickType;
         private System.Windows.Forms.Button buttonCancelTickByTick;
         private System.Windows.Forms.Button buttonRequestTickByTick;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLocalSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResSecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResExchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResPrimaryExch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResStrike;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResRight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResConId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResMdSizeMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResAggGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResUnderSecType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResMarketRuleIds;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResRealExpirationDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResContractMonth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResLastTradeTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conResTimeZoneId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsSymbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsExchange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCurrency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsTradingClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMinTick;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsOrderTypes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsValidExchanges;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsLongName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMdSizeMultiplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsAggGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMarketRuleIds;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCusip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsRatings;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsDescAppend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsBondType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCouponType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCallable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsPutable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsCoupon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsConvertible;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsMaturity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsIssueDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNextOptionPartial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsNotes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetailsLastTradeTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bondContractDetsilsTimeZoneId;
     }
 }
 
