@@ -202,7 +202,7 @@ Contract ContractSamples::BondWithCusip() {
 Contract ContractSamples::Bond() {
 	//! [bond]
 	Contract contract;
-	contract.conId = 267433416;
+	contract.conId = 285191782;
 	contract.exchange = "SMART";
 	//! [bond]
 	return contract;
@@ -333,11 +333,11 @@ Contract ContractSamples::DutchWarrant(){
 Contract ContractSamples::SimpleFuture(){
 	//! [futcontract]
 	Contract contract;
-	contract.symbol = "ZC";
+	contract.symbol = "ES";
 	contract.secType = "FUT";
-	contract.exchange = "ECBOT";
+	contract.exchange = "GLOBEX";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "20170914";
+	contract.lastTradeDateOrContractMonth = "201803";
 	//! [futcontract]
 	return contract;
 }

@@ -311,6 +311,8 @@ class TWSAPIDLLEXP EDecoder
     void callEWrapperCallBack(int reqId, const std::vector<HistoricalTickLast> &ticks, bool done);
     template<typename T> const char* processHistoricalTicks(const char* ptr, const char* endPtr);
 
+	const char* decodeLastTradeDate(const char* ptr, const char* endPtr, ContractDetails& contract, bool isBond);
+
 public:
     static bool CheckOffset(const char* ptr, const char* endPtr);
     static const char* FindFieldEnd(const char* ptr, const char* endPtr);

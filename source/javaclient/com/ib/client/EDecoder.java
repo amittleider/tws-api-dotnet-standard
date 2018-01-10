@@ -1138,7 +1138,7 @@ class EDecoder implements ObjectInput {
 		contract.contract().secType(readStr());
 		contract.cusip(readStr());
 		contract.coupon(readDouble());
-		contract.maturity(readStr());
+		readLastTradeDate(contract, true);
 		contract.issueDate(readStr());
 		contract.ratings(readStr());
 		contract.bondType(readStr());
@@ -1204,7 +1204,7 @@ class EDecoder implements ObjectInput {
 		ContractDetails contract = new ContractDetails();
 		contract.contract().symbol(readStr());
 		contract.contract().secType(readStr());
-		contract.contract().lastTradeDateOrContractMonth(readStr());
+		readLastTradeDate(contract, false);
 		contract.contract().strike(readDouble());
 		contract.contract().right(readStr());
 		contract.contract().exchange(readStr());
@@ -2115,7 +2115,27 @@ class EDecoder implements ObjectInput {
                 break;
         }
     }
-    
+
+    private void readLastTradeDate(ContractDetails contract, boolean isBond) throws IOException {
+        String lastTradeDateOrContractMonth = readStr();
+        if (lastTradeDateOrContractMonth != null) {
+            String[] splitted = lastTradeDateOrContractMonth.split("\\s+");
+            if (splitted.length > 0) {
+                if (isBond) {
+                    contract.maturity(splitted[0]);
+                } else {
+                    contract.contract().lastTradeDateOrContractMonth(splitted[0]);
+                }
+            }
+            if (splitted.length > 1) {
+                contract.lastTradeTime(splitted[1]);
+            }
+            if (isBond && splitted.length > 2) {
+                contract.timeZoneId(splitted[2]);
+            }
+        }
+    }
+
     private String readStr() throws IOException {
     	return m_messageReader.readStr();
     }

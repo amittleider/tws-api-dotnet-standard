@@ -138,7 +138,7 @@ namespace Samples
         {
             //! [bond]
             Contract contract = new Contract();
-            contract.ConId = 267433416;
+            contract.ConId = 285191782;
             contract.Exchange = "SMART";
             //! [bond]
             return contract;
@@ -300,11 +300,11 @@ namespace Samples
         {
             //! [futcontract]
             Contract contract = new Contract();
-            contract.Symbol = "ZC";
+            contract.Symbol = "ES";
             contract.SecType = "FUT";
-            contract.Exchange = "ECBOT";
+            contract.Exchange = "GLOBEX";
             contract.Currency = "USD";
-            contract.LastTradeDateOrContractMonth = "20170914";
+            contract.LastTradeDateOrContractMonth = "201803";
             //! [futcontract]
             return contract;
         }

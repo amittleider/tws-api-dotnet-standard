@@ -156,7 +156,7 @@ Namespace Samples
         Public Shared Function Bond() As Contract
             '! [bond]
             Dim Contract As Contract = New Contract
-            Contract.ConId = 267433416
+            Contract.ConId = 285191782
             Contract.exchange = "SMART"
             '! [bond]
             Return Contract
@@ -286,11 +286,11 @@ Namespace Samples
         Public Shared Function SimpleFuture() As Contract
             '! [futcontract]
             Dim contract As Contract = New Contract
-            contract.Symbol = "ZC"
+            contract.Symbol = "ES"
             contract.SecType = "FUT"
-            contract.Exchange = "ECBOT"
+            contract.Exchange = "GLOBEX"
             contract.Currency = "USD"
-            contract.LastTradeDateOrContractMonth = "20170914"
+            contract.LastTradeDateOrContractMonth = "201803"
             '! [futcontract]
             Return contract
         End Function

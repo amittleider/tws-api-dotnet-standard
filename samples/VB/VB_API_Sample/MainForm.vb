@@ -2379,6 +2379,7 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  underSecType = " & contractDetails.UnderSecType)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  marketRuleIds = " & contractDetails.MarketRuleIds)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  realExpirationDate = " & contractDetails.RealExpirationDate)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  lastTradeTime = " & contractDetails.LastTradeTime)
 
         If (contract.SecType = "BOND") Then
 
@@ -3104,6 +3105,8 @@ Friend Class MainForm
         m_utils.addListItem(Utils.ListType.ServerResponses, "  mdSizeMultiplier = " & contractDetails.MdSizeMultiplier)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  aggGroup = " & contractDetails.AggGroup)
         m_utils.addListItem(Utils.ListType.ServerResponses, "  marketRuleIds = " & contractDetails.MarketRuleIds)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  timeZoneId = " & contractDetails.TimeZoneId)
+        m_utils.addListItem(Utils.ListType.ServerResponses, "  lastTradeTime = " & contractDetails.LastTradeTime)
 
         m_utils.addListItem(Utils.ListType.ServerResponses, "Bond Details:")
         m_utils.addListItem(Utils.ListType.ServerResponses, "  cusip = " & contractDetails.Cusip)

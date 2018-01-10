@@ -85,7 +85,7 @@ namespace Samples
             /****************************/
             /*** Contract information ***/
             /****************************/
-            //contractOperations(client);
+            contractOperations(client);
 
             /***********************/
             /*** Market Scanners ***/
@@ -176,7 +176,7 @@ namespace Samples
             /**************************/
             /*** Tick-By-Tick       ***/
             /**************************/
-            tickByTickOperations(client);
+            //tickByTickOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -444,6 +444,7 @@ namespace Samples
             client.reqContractDetails(210, ContractSamples.EurGbpFx());
             client.reqContractDetails(211, ContractSamples.Bond());
             client.reqContractDetails(212, ContractSamples.FuturesOnOptions());
+            client.reqContractDetails(213, ContractSamples.SimpleFuture());
             //! [reqcontractdetails]
 
             Thread.Sleep(2000);

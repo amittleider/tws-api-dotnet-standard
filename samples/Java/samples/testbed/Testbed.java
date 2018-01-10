@@ -47,10 +47,10 @@ public class Testbed {
 		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
 		Thread.sleep(1000);
 
-		tickByTickOperations(wrapper.getClient());
+		//tickByTickOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
-		//contractOperations(wrapper.getClient());
+		contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -487,6 +487,7 @@ public class Testbed {
 		client.reqContractDetails(211, ContractSamples.EurGbpFx());
 		client.reqContractDetails(212, ContractSamples.Bond());
 		client.reqContractDetails(213, ContractSamples.FuturesOnOptions());
+		client.reqContractDetails(214, ContractSamples.SimpleFuture());
 		//! [reqcontractdetails]
 
 		//! [reqmatchingsymbols]

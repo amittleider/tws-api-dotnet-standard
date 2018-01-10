@@ -565,6 +565,7 @@ void TestCppClient::contractOperations()
 	m_pClient->reqContractDetails(213, ContractSamples::IBKRStk());
 	m_pClient->reqContractDetails(214, ContractSamples::Bond());
 	m_pClient->reqContractDetails(215, ContractSamples::FuturesOnOptions());
+	m_pClient->reqContractDetails(216, ContractSamples::SimpleFuture());
 	//! [reqcontractdetails]
 
 	//! [reqcontractdetailsnews]
@@ -1269,7 +1270,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_REQTICKBYTICKDATA; 
+    //m_state = ST_REQTICKBYTICKDATA; 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 
@@ -1279,7 +1280,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	//m_state = ST_CONTRACTOPERATION;
+	m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1475,6 +1476,7 @@ void TestCppClient::printContractDetailsMsg(const ContractDetails& contractDetai
 	printf("\tUnderSecType: %s\n", contractDetails.underSecType.c_str());
 	printf("\tMarketRuleIds: %s\n", contractDetails.marketRuleIds.c_str());
 	printf("\tRealExpirationDate: %s\n", contractDetails.realExpirationDate.c_str());
+	printf("\tLastTradeTime: %s\n", contractDetails.lastTradeTime.c_str());
 	printContractDetailsSecIdList(contractDetails.secIdList);
 }
 
@@ -1522,6 +1524,8 @@ void TestCppClient::printBondContractDetailsMsg(const ContractDetails& contractD
 	printf("\tEvMultiplier: %g\n", contractDetails.evMultiplier);
 	printf("\tAggGroup: %d\n", contractDetails.aggGroup);
 	printf("\tMarketRuleIds: %s\n", contractDetails.marketRuleIds.c_str());
+	printf("\tTimeZoneId: %s\n", contractDetails.timeZoneId.c_str());
+	printf("\tLastTradeTime: %s\n", contractDetails.lastTradeTime.c_str());
 	printContractDetailsSecIdList(contractDetails.secIdList);
 }
 

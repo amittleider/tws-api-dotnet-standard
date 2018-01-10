@@ -94,5 +94,7 @@ namespace TWSLib
         string marketRuleIds { get; }
         [DispId(42)]
         string realExpirationDate { get; }
+        [DispId(43)]
+        string lastTradeTime { get; }
     }
 }

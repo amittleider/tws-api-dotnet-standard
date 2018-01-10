@@ -94,6 +94,8 @@ namespace IBSampleApp.ui
             BondContractDetailsGrid[25, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionType;
             BondContractDetailsGrid[26, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.NextOptionPartial;
             BondContractDetailsGrid[27, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.Notes;
+            BondContractDetailsGrid[28, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.LastTradeTime;
+            BondContractDetailsGrid[29, BondContractDetailsGrid.Rows.Count - 1].Value = bondContractDetailsMessage.ContractDetails.TimeZoneId;
 
             UpdateMakretRuleIdsComboBox(bondContractDetailsMessage.ContractDetails.MarketRuleIds);
         }
@@ -119,6 +121,9 @@ namespace IBSampleApp.ui
             ContractDetailsGrid[14, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.UnderSecType;
             ContractDetailsGrid[15, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.MarketRuleIds;
             ContractDetailsGrid[16, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.RealExpirationDate;
+            ContractDetailsGrid[17, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.ContractMonth;
+            ContractDetailsGrid[18, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.LastTradeTime;
+            ContractDetailsGrid[19, ContractDetailsGrid.Rows.Count - 1].Value = contractDetailsMessage.ContractDetails.TimeZoneId;
 
             UpdateMakretRuleIdsComboBox(contractDetailsMessage.ContractDetails.MarketRuleIds);
         }
