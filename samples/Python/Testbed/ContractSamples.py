@@ -91,7 +91,7 @@ class ContractSamples:
     def Bond():
             #! [bond]
             contract = Contract()
-            contract.conId = 267433416
+            contract.conId = 15960357
             contract.exchange = "SMART"
             #! [bond]
             return contract
@@ -253,7 +253,7 @@ class ContractSamples:
         contract.secType = "FUT"
         contract.exchange = "GLOBEX"
         contract.currency = "USD"
-        contract.lastTradeDateOrContractMonth = "201612"
+        contract.lastTradeDateOrContractMonth = "201803"
         #! [futcontract]
         return contract
 

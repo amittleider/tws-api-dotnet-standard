@@ -9,7 +9,7 @@ subject to the terms and conditions of the IB API Non-Commercial License or the
 VERSION = {
     'major': 9,
     'minor': 73,
-    'micro': 6}
+    'micro': 7}
 
 
 def get_version_string():

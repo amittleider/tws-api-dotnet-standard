@@ -1155,7 +1155,7 @@ class TestApp(TestWrapper, TestClient):
     # ! [contractdetails]
     def contractDetails(self, reqId: int, contractDetails: ContractDetails):
         super().contractDetails(reqId, contractDetails)
-        printinstance(contractDetails.summary)
+        printinstance(contractDetails.contract)
 
     # ! [contractdetails]
 
@@ -1234,9 +1234,9 @@ class TestApp(TestWrapper, TestClient):
                     distance: str, benchmark: str, projection: str, legsStr: str):
         super().scannerData(reqId, rank, contractDetails, distance, benchmark,
                             projection, legsStr)
-        print("ScannerData. ", reqId, "Rank:", rank, "Symbol:", contractDetails.summary.symbol,
-              "SecType:", contractDetails.summary.secType,
-              "Currency:", contractDetails.summary.currency,
+        print("ScannerData. ", reqId, "Rank:", rank, "Symbol:", contractDetails.contract.symbol,
+              "SecType:", contractDetails.contract.secType,
+              "Currency:", contractDetails.contract.currency,
               "Distance:", distance, "Benchmark:", benchmark,
               "Projection:", projection, "Legs String:", legsStr)
 

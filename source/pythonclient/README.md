@@ -57,6 +57,6 @@ python3 setup.py bdist_wheel
 
 * you can use this to install the wheel
 
-python3 -m pip install --user --upgrade dist/ibapi-9.73.6-py3-none-any.whl
+python3 -m pip install --user --upgrade dist/ibapi-9.73.7-py3-none-any.whl
 
 
