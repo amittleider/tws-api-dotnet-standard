@@ -53,9 +53,9 @@ Namespace Samples
         Public Overloads Sub contractDetails(reqId As Integer, contractDetails As ContractDetails)
 
             Console.WriteLine("/*******Incoming Contract Details - RequestId " & reqId & "************/")
-            Console.WriteLine(contractDetails.Summary.Symbol & " " & contractDetails.Summary.SecType & " @ " & contractDetails.Summary.Exchange)
-            Console.WriteLine("lastTradeDate: " & contractDetails.Summary.LastTradeDateOrContractMonth & ", Right: " & contractDetails.Summary.Right)
-            Console.WriteLine("Strike: " & contractDetails.Summary.Strike & ", Multiplier: " & contractDetails.Summary.Multiplier)
+            Console.WriteLine(contractDetails.Contract.Symbol & " " & contractDetails.Contract.SecType & " @ " & contractDetails.Contract.Exchange)
+            Console.WriteLine("lastTradeDate: " & contractDetails.Contract.LastTradeDateOrContractMonth & ", Right: " & contractDetails.Contract.Right)
+            Console.WriteLine("Strike: " & contractDetails.Contract.Strike & ", Multiplier: " & contractDetails.Contract.Multiplier)
             Console.WriteLine("/*******     End     *************/\n")
         End Sub
 

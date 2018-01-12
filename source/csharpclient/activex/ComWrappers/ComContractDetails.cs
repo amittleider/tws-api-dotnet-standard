@@ -21,10 +21,10 @@ namespace TWSLib
         /**
          * @brief A Contract object summarising this product.
          */
-        ComContract Summary
+        ComContract Contract
         {
-            get { return (ComContract)data.Summary; }
-            set { if (data != null) data.Summary = (Contract)value; }
+            get { return (ComContract)data.Contract; }
+            set { if (data != null) data.Contract = (Contract)value; }
         }
 
         /**
@@ -468,9 +468,9 @@ namespace TWSLib
             get { return LiquidHours; }
         }
 
-        object TWSLib.IContractDetails.summary
+        object TWSLib.IContractDetails.contract
         {
-            get { return Summary; }
+            get { return Contract; }
         }
 
         object TWSLib.IContractDetails.secIdList

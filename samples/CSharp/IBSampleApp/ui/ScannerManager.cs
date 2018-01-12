@@ -47,7 +47,7 @@ namespace IBSampleApp.ui
 
             grid.Rows.Add();
             grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
-            grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
+            grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Contract);
             grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
             grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
             grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;

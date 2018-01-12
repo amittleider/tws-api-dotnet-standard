@@ -207,7 +207,7 @@ namespace Samples
         public virtual void contractDetails(int reqId, ContractDetails contractDetails)
         {
             Console.WriteLine("ContractDetails begin. ReqId: " + reqId);
-            printContractMsg(contractDetails.Summary);
+            printContractMsg(contractDetails.Contract);
             printContractDetailsMsg(contractDetails);
             Console.WriteLine("ContractDetails end. ReqId: " + reqId);
         }
@@ -271,8 +271,8 @@ namespace Samples
 
         public void printBondContractDetailsMsg(ContractDetails contractDetails)
         {
-            Console.WriteLine("\tSymbol: " + contractDetails.Summary.Symbol);
-            Console.WriteLine("\tSecType: " + contractDetails.Summary.SecType);
+            Console.WriteLine("\tSymbol: " + contractDetails.Contract.Symbol);
+            Console.WriteLine("\tSecType: " + contractDetails.Contract.SecType);
             Console.WriteLine("\tCusip: " + contractDetails.Cusip);
             Console.WriteLine("\tCoupon: " + contractDetails.Coupon);
             Console.WriteLine("\tMaturity: " + contractDetails.Maturity);
@@ -284,11 +284,11 @@ namespace Samples
             Console.WriteLine("\tCallable: " + contractDetails.Callable);
             Console.WriteLine("\tPutable: " + contractDetails.Putable);
             Console.WriteLine("\tDescAppend: " + contractDetails.DescAppend);
-            Console.WriteLine("\tExchange: " + contractDetails.Summary.Exchange);
-            Console.WriteLine("\tCurrency: " + contractDetails.Summary.Currency);
+            Console.WriteLine("\tExchange: " + contractDetails.Contract.Exchange);
+            Console.WriteLine("\tCurrency: " + contractDetails.Contract.Currency);
             Console.WriteLine("\tMarketName: " + contractDetails.MarketName);
-            Console.WriteLine("\tTradingClass: " + contractDetails.Summary.TradingClass);
-            Console.WriteLine("\tConId: " + contractDetails.Summary.ConId);
+            Console.WriteLine("\tTradingClass: " + contractDetails.Contract.TradingClass);
+            Console.WriteLine("\tConId: " + contractDetails.Contract.ConId);
             Console.WriteLine("\tMinTick: " + contractDetails.MinTick);
             Console.WriteLine("\tMdSizeMultiplier: " + contractDetails.MdSizeMultiplier);
             Console.WriteLine("\tOrderTypes: " + contractDetails.OrderTypes);
@@ -409,7 +409,7 @@ namespace Samples
         //! [scannerdata]
         public virtual void scannerData(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)
         {
-            Console.WriteLine("ScannerData. "+reqId+" - Rank: "+rank+", Symbol: "+contractDetails.Summary.Symbol+", SecType: "+contractDetails.Summary.SecType+", Currency: "+contractDetails.Summary.Currency
+            Console.WriteLine("ScannerData. "+reqId+" - Rank: "+rank+", Symbol: "+contractDetails.Contract.Symbol+", SecType: "+contractDetails.Contract.SecType+", Currency: "+contractDetails.Contract.Currency
                 +", Distance: "+distance+", Benchmark: "+benchmark+", Projection: "+projection+", Legs String: "+legsStr);
         }
         //! [scannerdata]

@@ -126,7 +126,7 @@ struct ContractDetails
 	{
 	}
 
-	Contract	summary;
+	Contract	contract;
 	std::string	marketName;
 	double		minTick;
 	std::string	orderTypes;

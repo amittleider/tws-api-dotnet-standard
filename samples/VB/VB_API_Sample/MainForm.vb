@@ -2292,7 +2292,7 @@ Friend Class MainForm
     Private Sub Api_scannerData(sender As Object, e As ScannerDataEventArgs) Handles m_apiEvents.ScannerData
         Dim contractDetails = e.contractDetails
 
-        Dim contract = contractDetails.Summary
+        Dim contract = contractDetails.Contract
 
         Dim mktDataStr = "id=" & e.reqId & " rank=" & e.rank & " conId=" & contract.ConId &
                      " symbol=" & contract.Symbol & " secType=" & contract.SecType & " currency=" & contract.Currency &
@@ -2336,7 +2336,7 @@ Friend Class MainForm
         Dim offset = lstServerResponses.Items.Count
         m_utils.addListItem(Utils.ListType.ServerResponses, "reqId = " & e.reqId & " ===================================")
 
-        Dim contract = e.contractDetails.Summary
+        Dim contract = e.contractDetails.Contract
         m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Contract Details Begin ----")
         m_utils.addListItem(Utils.ListType.ServerResponses, "Contract:")
         m_utils.addListItem(Utils.ListType.ServerResponses, "  conId = " & contract.ConId)
@@ -3083,7 +3083,7 @@ Friend Class MainForm
 
         m_utils.addListItem(Utils.ListType.ServerResponses, "reqId = " & e.reqId & " ===================================")
 
-        Dim contract = e.contractDetails.Summary
+        Dim contract = e.contractDetails.Contract
         m_utils.addListItem(Utils.ListType.ServerResponses, " ---- Bond Contract Details Begin ----")
         m_utils.addListItem(Utils.ListType.ServerResponses, "Contract:")
         m_utils.addListItem(Utils.ListType.ServerResponses, "  conId = " & contract.ConId)

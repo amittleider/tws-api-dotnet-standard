@@ -95,7 +95,7 @@ Namespace Samples
         '! [contractdetails]
         Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
             Console.WriteLine("ContractDetails begin. ReqId: " & reqId)
-            printContractMsg(contractDetails.Summary)
+            printContractMsg(contractDetails.Contract)
             printContractDetailsMsg(contractDetails)
             Console.WriteLine("ContractDetails end. ReqId: " & reqId)
         End Sub
@@ -154,8 +154,8 @@ Namespace Samples
         End Sub
 
         Public Sub printBondContractDetailsMsg(contractDetails As IBApi.ContractDetails)
-            Console.WriteLine(vbTab & "Symbol: " & contractDetails.Summary.Symbol)
-            Console.WriteLine(vbTab & "SecType: " & contractDetails.Summary.SecType)
+            Console.WriteLine(vbTab & "Symbol: " & contractDetails.Contract.Symbol)
+            Console.WriteLine(vbTab & "SecType: " & contractDetails.Contract.SecType)
             Console.WriteLine(vbTab & "Cusip: " & contractDetails.Cusip)
             Console.WriteLine(vbTab & "Coupon: " & contractDetails.Coupon)
             Console.WriteLine(vbTab & "Maturity: " & contractDetails.Maturity)
@@ -167,11 +167,11 @@ Namespace Samples
             Console.WriteLine(vbTab & "Callable: " & contractDetails.Callable)
             Console.WriteLine(vbTab & "Putable: " & contractDetails.Putable)
             Console.WriteLine(vbTab & "DescAppend: " & contractDetails.DescAppend)
-            Console.WriteLine(vbTab & "Exchange: " & contractDetails.Summary.Exchange)
-            Console.WriteLine(vbTab & "Currency: " & contractDetails.Summary.Currency)
+            Console.WriteLine(vbTab & "Exchange: " & contractDetails.Contract.Exchange)
+            Console.WriteLine(vbTab & "Currency: " & contractDetails.Contract.Currency)
             Console.WriteLine(vbTab & "MarketName: " & contractDetails.MarketName)
-            Console.WriteLine(vbTab & "TradingClass: " & contractDetails.Summary.TradingClass)
-            Console.WriteLine(vbTab & "ConId: " & contractDetails.Summary.ConId)
+            Console.WriteLine(vbTab & "TradingClass: " & contractDetails.Contract.TradingClass)
+            Console.WriteLine(vbTab & "ConId: " & contractDetails.Contract.ConId)
             Console.WriteLine(vbTab & "MinTick: " & contractDetails.MinTick)
             Console.WriteLine(vbTab & "MdSizeMultiplier: " & contractDetails.MdSizeMultiplier)
             Console.WriteLine(vbTab & "OrderTypes: " & contractDetails.OrderTypes)
@@ -351,8 +351,8 @@ Namespace Samples
 
         '! [scannerdata]
         Public Sub scannerData(reqId As Integer, rank As Integer, contractDetails As IBApi.ContractDetails, distance As String, benchmark As String, projection As String, legsStr As String) Implements IBApi.EWrapper.scannerData
-            Console.WriteLine("ScannerData. " & reqId & " - Rank: " & rank & ", Symbol: " & contractDetails.Summary.Symbol & ", SecType: " &
-                          contractDetails.Summary.SecType & ", Currency: " & contractDetails.Summary.Currency & ", Distance: " & distance &
+            Console.WriteLine("ScannerData. " & reqId & " - Rank: " & rank & ", Symbol: " & contractDetails.Contract.Symbol & ", SecType: " &
+                          contractDetails.Contract.SecType & ", Currency: " & contractDetails.Contract.Currency & ", Distance: " & distance &
                           ", Benchmark: " & benchmark & ", Projection: " & projection & ", Legs String: " & legsStr)
         End Sub
         '! [scannerdata]

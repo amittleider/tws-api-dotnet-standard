@@ -1424,7 +1424,7 @@ void TestCppClient::accountDownloadEnd(const std::string& accountName) {
 //! [contractdetails]
 void TestCppClient::contractDetails( int reqId, const ContractDetails& contractDetails) {
 	printf( "ContractDetails begin. ReqId: %d\n", reqId);
-	printContractMsg(contractDetails.summary);
+	printContractMsg(contractDetails.contract);
 	printContractDetailsMsg(contractDetails);
 	printf( "ContractDetails end. ReqId: %d\n", reqId);
 }
@@ -1493,8 +1493,8 @@ void TestCppClient::printContractDetailsSecIdList(const TagValueListSPtr &secIdL
 }
 
 void TestCppClient::printBondContractDetailsMsg(const ContractDetails& contractDetails) {
-	printf("\tSymbol: %s\n", contractDetails.summary.symbol.c_str());
-	printf("\tSecType: %s\n", contractDetails.summary.secType.c_str());
+	printf("\tSymbol: %s\n", contractDetails.contract.symbol.c_str());
+	printf("\tSecType: %s\n", contractDetails.contract.secType.c_str());
 	printf("\tCusip: %s\n", contractDetails.cusip.c_str());
 	printf("\tCoupon: %g\n", contractDetails.coupon);
 	printf("\tMaturity: %s\n", contractDetails.maturity.c_str());
@@ -1506,11 +1506,11 @@ void TestCppClient::printBondContractDetailsMsg(const ContractDetails& contractD
 	printf("\tCallable: %s\n", contractDetails.callable ? "yes" : "no");
 	printf("\tPutable: %s\n", contractDetails.putable ? "yes" : "no");
 	printf("\tDescAppend: %s\n", contractDetails.descAppend.c_str());
-	printf("\tExchange: %s\n", contractDetails.summary.exchange.c_str());
-	printf("\tCurrency: %s\n", contractDetails.summary.currency.c_str());
+	printf("\tExchange: %s\n", contractDetails.contract.exchange.c_str());
+	printf("\tCurrency: %s\n", contractDetails.contract.currency.c_str());
 	printf("\tMarketName: %s\n", contractDetails.marketName.c_str());
-	printf("\tTradingClass: %s\n", contractDetails.summary.tradingClass.c_str());
-	printf("\tConId: %d\n", contractDetails.summary.conId);
+	printf("\tTradingClass: %s\n", contractDetails.contract.tradingClass.c_str());
+	printf("\tConId: %d\n", contractDetails.contract.conId);
 	printf("\tMinTick: %g\n", contractDetails.minTick);
 	printf("\tMdSizeMultiplier: %d\n", contractDetails.mdSizeMultiplier);
 	printf("\tOrderTypes: %s\n", contractDetails.orderTypes.c_str());
@@ -1601,7 +1601,7 @@ void TestCppClient::scannerParameters(const std::string& xml) {
 void TestCppClient::scannerData(int reqId, int rank, const ContractDetails& contractDetails,
                                 const std::string& distance, const std::string& benchmark, const std::string& projection,
                                 const std::string& legsStr) {
-	printf( "ScannerData. %d - Rank: %d, Symbol: %s, SecType: %s, Currency: %s, Distance: %s, Benchmark: %s, Projection: %s, Legs String: %s\n", reqId, rank, contractDetails.summary.symbol.c_str(), contractDetails.summary.secType.c_str(), contractDetails.summary.currency.c_str(), distance.c_str(), benchmark.c_str(), projection.c_str(), legsStr.c_str());
+	printf( "ScannerData. %d - Rank: %d, Symbol: %s, SecType: %s, Currency: %s, Distance: %s, Benchmark: %s, Projection: %s, Legs String: %s\n", reqId, rank, contractDetails.contract.symbol.c_str(), contractDetails.contract.secType.c_str(), contractDetails.contract.currency.c_str(), distance.c_str(), benchmark.c_str(), projection.c_str(), legsStr.c_str());
 }
 //! [scannerdata]
 
