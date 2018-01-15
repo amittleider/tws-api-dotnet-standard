@@ -477,21 +477,21 @@ class Decoder(Object):
             reqId = decode(int, fields)
 
         contract = ContractDetails()
-        contract.summary.symbol = decode(str, fields)
-        contract.summary.secType = decode(str, fields)
-        contract.summary.lastTradeDateOrContractMonth = decode(str, fields)
-        contract.summary.strike = decode(float, fields)
-        contract.summary.right = decode(str, fields)
-        contract.summary.exchange = decode(str, fields)
-        contract.summary.currency = decode(str, fields)
-        contract.summary.localSymbol = decode(str, fields)
+        contract.contract.symbol = decode(str, fields)
+        contract.contract.secType = decode(str, fields)
+        self.readLastTradeDate(fields, contract, False)
+        contract.contract.strike = decode(float, fields)
+        contract.contract.right = decode(str, fields)
+        contract.contract.exchange = decode(str, fields)
+        contract.contract.currency = decode(str, fields)
+        contract.contract.localSymbol = decode(str, fields)
         contract.marketName = decode(str, fields)
-        contract.summary.tradingClass = decode(str, fields)
-        contract.summary.conId = decode(int, fields)
+        contract.contract.tradingClass = decode(str, fields)
+        contract.contract.conId = decode(int, fields)
         contract.minTick = decode(float, fields)
         if self.serverVersion >= MIN_SERVER_VER_MD_SIZE_MULTIPLIER:
             contract.mdSizeMultiplier = decode(int, fields)
-        contract.summary.multiplier = decode(str, fields)
+        contract.contract.multiplier = decode(str, fields)
         contract.orderTypes = decode(str, fields)
         contract.validExchanges = decode(str, fields)
         contract.priceMagnifier = decode(int, fields) # ver 2 field
@@ -499,7 +499,7 @@ class Decoder(Object):
             contract.underConId = decode(int, fields)
         if version >= 5:
             contract.longName = decode(str, fields)
-            contract.summary.primaryExchange = decode(str, fields)
+            contract.contract.primaryExchange = decode(str, fields)
         if version >= 6:
             contract.contractMonth = decode(str, fields)
             contract.industry = decode(str, fields)
@@ -547,11 +547,11 @@ class Decoder(Object):
             reqId = decode(int, fields)
 
         contract = ContractDetails()
-        contract.summary.symbol = decode(str, fields)
-        contract.summary.secType = decode(str, fields)
+        contract.contract.symbol = decode(str, fields)
+        contract.contract.secType = decode(str, fields)
         contract.cusip = decode(str, fields)
         contract.coupon = decode(int, fields)
-        contract.maturity = decode(str, fields)
+        self.readLastTradeDate(fields, contract, True)
         contract.issueDate = decode(str, fields)
         contract.ratings = decode(str, fields)
         contract.bondType = decode(str, fields)
@@ -560,11 +560,11 @@ class Decoder(Object):
         contract.callable = decode(bool, fields)
         contract.putable = decode(bool, fields)
         contract.descAppend = decode(str, fields)
-        contract.summary.exchange = decode(str, fields)
-        contract.summary.currency = decode(str, fields)
+        contract.contract.exchange = decode(str, fields)
+        contract.contract.currency = decode(str, fields)
         contract.marketName = decode(str, fields)
-        contract.summary.tradingClass = decode(str, fields)
-        contract.summary.conId = decode(int, fields)
+        contract.contract.tradingClass = decode(str, fields)
+        contract.contract.conId = decode(int, fields)
         contract.minTick = decode(float, fields)
         if self.serverVersion >= MIN_SERVER_VER_MD_SIZE_MULTIPLIER:
             contract.mdSizeMultiplier = decode(int, fields)
@@ -609,17 +609,17 @@ class Decoder(Object):
             data.contract = ContractDetails()
 
             data.rank = decode(int, fields)
-            data.contract.summary.conId = decode(int, fields) # ver 3 field
-            data.contract.summary.symbol = decode(str, fields)
-            data.contract.summary.secType = decode(str, fields)
-            data.contract.summary.lastTradeDateOrContractMonth = decode(str, fields)
-            data.contract.summary.strike = decode(float, fields)
-            data.contract.summary.right = decode(str, fields)
-            data.contract.summary.exchange = decode(str, fields)
-            data.contract.summary.currency = decode(str, fields)
-            data.contract.summary.localSymbol = decode(str, fields)
+            data.contract.contract.conId = decode(int, fields) # ver 3 field
+            data.contract.contract.symbol = decode(str, fields)
+            data.contract.contract.secType = decode(str, fields)
+            data.contract.contract.lastTradeDateOrContractMonth = decode(str, fields)
+            data.contract.contract.strike = decode(float, fields)
+            data.contract.contract.right = decode(str, fields)
+            data.contract.contract.exchange = decode(str, fields)
+            data.contract.contract.currency = decode(str, fields)
+            data.contract.contract.localSymbol = decode(str, fields)
             data.contract.marketName = decode(str, fields)
-            data.contract.summary.tradingClass = decode(str, fields)
+            data.contract.contract.tradingClass = decode(str, fields)
             data.distance = decode(str, fields)
             data.benchmark = decode(str, fields)
             data.projection = decode(str, fields)
@@ -1262,6 +1262,24 @@ class Decoder(Object):
             midPoint = decode(float, fields)
 
             self.wrapper.tickByTickMidPoint(reqId, time, midPoint)
+
+    ######################################################################
+
+    def readLastTradeDate(self, fields, contract: ContractDetails, isBond: bool):
+        lastTradeDateOrContractMonth = decode(str, fields)
+        if lastTradeDateOrContractMonth is not None:
+            splitted = lastTradeDateOrContractMonth.split()
+            if len(splitted) > 0:
+                if isBond:
+                    contract.maturity = splitted[0]
+                else:
+                    contract.contract.lastTradeDateOrContractMonth = splitted[0]
+
+            if len(splitted) > 1:
+                contract.lastTradeTime = splitted[1]
+
+            if isBond and len(splitted) > 2:
+                contract.timeZoneId = splitted[2]
 
     ######################################################################
 

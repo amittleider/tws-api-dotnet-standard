@@ -112,7 +112,7 @@ class Contract(Object):
 
 class ContractDetails(Object):
     def __init__(self):
-        self.summary = Contract()
+        self.contract = Contract()
         self.marketName = ""
         self.minTick = 0.
         self.orderTypes = ""
@@ -136,6 +136,7 @@ class ContractDetails(Object):
         self.marketRuleIds = ""
         self.secIdList = None
         self.realExpirationDate = ""
+        self.lastTradeTime = ""
         # BOND values
         self.cusip = ""
         self.ratings = ""
@@ -155,7 +156,7 @@ class ContractDetails(Object):
 
     def __str__(self):
         s = ",".join((
-            str(self.summary),
+            str(self.contract),
             str(self.marketName),
             str(self.minTick),
             str(self.orderTypes),
