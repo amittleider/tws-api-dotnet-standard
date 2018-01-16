@@ -68,7 +68,7 @@ namespace IBSampleApp.ui
 
         public void UpdateUI(ContractDetailsMessage message)
         {
-            Contract contract = message.ContractDetails.Summary;
+            Contract contract = message.ContractDetails.Contract;
 
             if (contract.Right != null)
             {

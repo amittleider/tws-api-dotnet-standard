@@ -32,7 +32,7 @@ namespace IBSampleApp
             var resolveContract = new Action<ContractDetailsMessage>(msg =>
                 {
                     if (msg.RequestId == reqId)
-                        resolveResult.SetResult(msg.ContractDetails.Summary);
+                        resolveResult.SetResult(msg.ContractDetails.Contract);
                 });
             var contractDetailsEnd = new Action<int>(id =>
             {
@@ -77,7 +77,7 @@ namespace IBSampleApp
                     if (reqId != msg.RequestId)
                         return;
 
-                    contractList.Add(msg.ContractDetails.Summary);
+                    contractList.Add(msg.ContractDetails.Contract);
                 });
             var contractDetailsEnd = new Action<int>(id =>
                 {

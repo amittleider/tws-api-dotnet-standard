@@ -23,13 +23,13 @@ namespace IBSampleApp.ui
         public void UpdateUI(ContractDetailsMessage message)
         {
             contractResults.Rows.Add(1);
-            contractResults[0, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Symbol;
-            contractResults[1, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Currency;
-            contractResults[2, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Multiplier;
-            contractResults[3, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Strike;
-            contractResults[4, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.Right;
-            contractResults[5, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.LastTradeDateOrContractMonth;
-            contractResults[6, contractResults.Rows.Count - 1].Value = message.ContractDetails.Summary.ConId;
+            contractResults[0, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.Symbol;
+            contractResults[1, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.Currency;
+            contractResults[2, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.Multiplier;
+            contractResults[3, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.Strike;
+            contractResults[4, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.Right;
+            contractResults[5, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.LastTradeDateOrContractMonth;
+            contractResults[6, contractResults.Rows.Count - 1].Value = message.ContractDetails.Contract.ConId;
         }
 
         private void contractResultsClose_Click(object sender, EventArgs e)

@@ -1147,8 +1147,8 @@ namespace IBApi
 
             ContractDetails contract = new ContractDetails();
 
-            contract.Summary.Symbol = ReadString();
-            contract.Summary.SecType = ReadString();
+            contract.Contract.Symbol = ReadString();
+            contract.Contract.SecType = ReadString();
             contract.Cusip = ReadString();
             contract.Coupon = ReadDouble();
             readLastTradeDate(contract, true);
@@ -1160,11 +1160,11 @@ namespace IBApi
             contract.Callable = ReadBoolFromInt();
             contract.Putable = ReadBoolFromInt();
             contract.DescAppend = ReadString();
-            contract.Summary.Exchange = ReadString();
-            contract.Summary.Currency = ReadString();
+            contract.Contract.Exchange = ReadString();
+            contract.Contract.Currency = ReadString();
             contract.MarketName = ReadString();
-            contract.Summary.TradingClass = ReadString();
-            contract.Summary.ConId = ReadInt();
+            contract.Contract.TradingClass = ReadString();
+            contract.Contract.ConId = ReadInt();
             contract.MinTick = ReadDouble();
             if (serverVersion >= MinServerVer.MD_SIZE_MULTIPLIER)
             {
@@ -1770,23 +1770,23 @@ namespace IBApi
             if (msgVersion >= 3)
                 requestId = ReadInt();
             ContractDetails contract = new ContractDetails();
-            contract.Summary.Symbol = ReadString();
-            contract.Summary.SecType = ReadString();
+            contract.Contract.Symbol = ReadString();
+            contract.Contract.SecType = ReadString();
             readLastTradeDate(contract, false);
-            contract.Summary.Strike = ReadDouble();
-            contract.Summary.Right = ReadString();
-            contract.Summary.Exchange = ReadString();
-            contract.Summary.Currency = ReadString();
-            contract.Summary.LocalSymbol = ReadString();
+            contract.Contract.Strike = ReadDouble();
+            contract.Contract.Right = ReadString();
+            contract.Contract.Exchange = ReadString();
+            contract.Contract.Currency = ReadString();
+            contract.Contract.LocalSymbol = ReadString();
             contract.MarketName = ReadString();
-            contract.Summary.TradingClass = ReadString();
-            contract.Summary.ConId = ReadInt();
+            contract.Contract.TradingClass = ReadString();
+            contract.Contract.ConId = ReadInt();
             contract.MinTick = ReadDouble();
             if (serverVersion >= MinServerVer.MD_SIZE_MULTIPLIER)
             {
                 contract.MdSizeMultiplier = ReadInt();
             }
-            contract.Summary.Multiplier = ReadString();
+            contract.Contract.Multiplier = ReadString();
             contract.OrderTypes = ReadString();
             contract.ValidExchanges = ReadString();
             if (msgVersion >= 2)
@@ -1800,7 +1800,7 @@ namespace IBApi
             if (msgVersion >= 5)
             {
                 contract.LongName = ReadString();
-                contract.Summary.PrimaryExch = ReadString();
+                contract.Contract.PrimaryExch = ReadString();
             }
             if (msgVersion >= 6)
             {
@@ -2131,17 +2131,17 @@ namespace IBApi
                 int rank = ReadInt();
                 ContractDetails conDet = new ContractDetails();
                 if (msgVersion >= 3)
-                    conDet.Summary.ConId = ReadInt();
-                conDet.Summary.Symbol = ReadString();
-                conDet.Summary.SecType = ReadString();
-                conDet.Summary.LastTradeDateOrContractMonth = ReadString();
-                conDet.Summary.Strike = ReadDouble();
-                conDet.Summary.Right = ReadString();
-                conDet.Summary.Exchange = ReadString();
-                conDet.Summary.Currency = ReadString();
-                conDet.Summary.LocalSymbol = ReadString();
+                    conDet.Contract.ConId = ReadInt();
+                conDet.Contract.Symbol = ReadString();
+                conDet.Contract.SecType = ReadString();
+                conDet.Contract.LastTradeDateOrContractMonth = ReadString();
+                conDet.Contract.Strike = ReadDouble();
+                conDet.Contract.Right = ReadString();
+                conDet.Contract.Exchange = ReadString();
+                conDet.Contract.Currency = ReadString();
+                conDet.Contract.LocalSymbol = ReadString();
                 conDet.MarketName = ReadString();
-                conDet.Summary.TradingClass = ReadString();
+                conDet.Contract.TradingClass = ReadString();
                 string distance = ReadString();
                 string benchmark = ReadString();
                 string projection = ReadString();
@@ -2317,7 +2317,7 @@ namespace IBApi
                     }
                     else
                     {
-                        contract.Summary.LastTradeDateOrContractMonth = splitted[0];
+                        contract.Contract.LastTradeDateOrContractMonth = splitted[0];
                     }
                 }
                 if (splitted.Length > 1)

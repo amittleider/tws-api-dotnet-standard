@@ -41,7 +41,7 @@ namespace TWSLib
         string liquidHours { get; }
 
         [DispId(16)]
-        object summary { [return:MarshalAs(UnmanagedType.IDispatch)] get; }
+        object contract { [return:MarshalAs(UnmanagedType.IDispatch)] get; }
 
         // CUSIP/ISIN/etc.
         [DispId(17)]

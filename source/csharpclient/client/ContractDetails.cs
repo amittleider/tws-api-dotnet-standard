@@ -16,7 +16,7 @@ namespace IBApi
      */
     public class ContractDetails
     {
-        private Contract summary;
+        private Contract contract;
         private string marketName;
         private double minTick;
         private int priceMagnifier;
@@ -62,11 +62,11 @@ namespace IBApi
         /**
          * @brief A fully-defined Contract object.
          */
-        public Contract Summary
+        public Contract Contract
         { 
 			//! @cond
-            get { return summary; }
-            set { summary = value; }
+            get { return contract; }
+            set { contract = value; }
 			//! @endcond
         }
 
@@ -540,7 +540,7 @@ namespace IBApi
 
         public ContractDetails()
         {
-            summary = new Contract();
+            contract = new Contract();
             minTick = 0;
             underConId = 0;
             evMultiplier = 0;
@@ -552,7 +552,7 @@ namespace IBApi
                 String timeZoneId, String tradingHours, String liquidHours,
                 String evRule, double evMultiplier, int aggGroup)
         {
-            Summary = summary;
+            Contract = summary;
             MarketName = marketName;
             MinTick = minTick;
             OrderTypes = orderTypes;
