@@ -293,10 +293,16 @@ public:
 	void reqScannerParameters();
 	void reqScannerSubscription(int tickerId, const ScannerSubscription& subscription, const TagValueListSPtr& scannerSubscriptionOptions);
 	void reqCurrentTime();
-	void reqFundamentalData(TickerId reqId, const Contract&, const std::string& reportType);
+	void reqFundamentalData(TickerId reqId, const Contract&, const std::string& reportType,
+                                 //reserved for future use, must be blank
+                                 const TagValueListSPtr& fundamentalDataOptions);
 	void cancelFundamentalData(TickerId reqId);
-	void calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice);
-	void calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice);
+	void calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice, 
+        //reserved for future use, must be blank
+        const TagValueListSPtr& miscOptions);
+	void calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice, 
+        //reserved for future use, must be blank
+        const TagValueListSPtr& miscOptions);
 	void cancelCalculateImpliedVolatility(TickerId reqId);
 	void cancelCalculateOptionPrice(TickerId reqId);
 	void reqGlobalCancel();

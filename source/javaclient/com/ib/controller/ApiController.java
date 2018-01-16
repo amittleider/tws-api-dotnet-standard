@@ -672,7 +672,7 @@ public class ApiController implements EWrapper {
 
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		m_client.calculateImpliedVolatility( reqId, c, optPrice, underPrice);
+		m_client.calculateImpliedVolatility( reqId, c, optPrice, underPrice, null);
 		sendEOM();
 	}
 
@@ -682,7 +682,7 @@ public class ApiController implements EWrapper {
 
 		int reqId = m_reqId++;
 		m_optionCompMap.put( reqId, handler);
-		m_client.calculateOptionPrice(reqId, c, vol, underPrice);
+		m_client.calculateOptionPrice(reqId, c, vol, underPrice, null);
 		sendEOM();
 	}
 
@@ -1102,7 +1102,7 @@ public class ApiController implements EWrapper {
 
     	int reqId = m_reqId++;
     	m_fundMap.put( reqId, handler);
-    	m_client.reqFundamentalData( reqId, contract, reportType.getApiString());
+    	m_client.reqFundamentalData( reqId, contract, reportType.getApiString(), null);
 		sendEOM();
     }
 
