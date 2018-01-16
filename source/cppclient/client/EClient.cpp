@@ -758,7 +758,9 @@ void EClient::cancelScannerSubscription(int tickerId)
 }
 
 void EClient::reqFundamentalData(TickerId reqId, const Contract& contract, 
-								 const std::string& reportType)
+								 const std::string& reportType,
+                                 //reserved for future use, must be blank
+                                 const TagValueListSPtr& fundamentalDataOptions)
 {
 	// not connected?
 	if( !isConnected()) {
@@ -785,24 +787,29 @@ void EClient::reqFundamentalData(TickerId reqId, const Contract& contract,
 
 	const int VERSION = 2;
 
-	ENCODE_FIELD( REQ_FUNDAMENTAL_DATA);
-	ENCODE_FIELD( VERSION);
-	ENCODE_FIELD( reqId);
+	ENCODE_FIELD(REQ_FUNDAMENTAL_DATA);
+	ENCODE_FIELD(VERSION);
+	ENCODE_FIELD(reqId);
 
 	// send contract fields
-	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+	if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
 		ENCODE_FIELD( contract.conId);
 	}
-	ENCODE_FIELD( contract.symbol);
-	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.exchange);
-	ENCODE_FIELD( contract.primaryExchange);
-	ENCODE_FIELD( contract.currency);
-	ENCODE_FIELD( contract.localSymbol);
 
-	ENCODE_FIELD( reportType);
+	ENCODE_FIELD(contract.symbol);
+	ENCODE_FIELD(contract.secType);
+	ENCODE_FIELD(contract.exchange);
+	ENCODE_FIELD(contract.primaryExchange);
+	ENCODE_FIELD(contract.currency);
+	ENCODE_FIELD(contract.localSymbol);
 
-	closeAndSend( msg.str());
+	ENCODE_FIELD(reportType);
+
+    if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+        ENCODE_TAGVALUELIST(fundamentalDataOptions);
+    }
+
+	closeAndSend(msg.str());
 }
 
 void EClient::cancelFundamentalData( TickerId reqId)
@@ -831,10 +838,12 @@ void EClient::cancelFundamentalData( TickerId reqId)
 	closeAndSend( msg.str());
 }
 
-void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice) {
+void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contract, double optionPrice, double underPrice,
+                                         //reserved for future use, must be blank
+                                         const TagValueListSPtr& miscOptions) {
 
 	// not connected?
-	if( !isConnected()) {
+	if (!isConnected()) {
 		m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
 		return;
 	}
@@ -854,32 +863,38 @@ void EClient::calculateImpliedVolatility(TickerId reqId, const Contract& contrac
 	}
 
 	std::stringstream msg;
-	prepareBuffer( msg);
+
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
-	ENCODE_FIELD( REQ_CALC_IMPLIED_VOLAT);
-	ENCODE_FIELD( VERSION);
-	ENCODE_FIELD( reqId);
+	ENCODE_FIELD(REQ_CALC_IMPLIED_VOLAT);
+	ENCODE_FIELD(VERSION);
+	ENCODE_FIELD(reqId);
 
 	// send contract fields
-	ENCODE_FIELD( contract.conId);
-	ENCODE_FIELD( contract.symbol);
-	ENCODE_FIELD( contract.secType);
-	ENCODE_FIELD( contract.lastTradeDateOrContractMonth);
-	ENCODE_FIELD( contract.strike);
-	ENCODE_FIELD( contract.right);
-	ENCODE_FIELD( contract.multiplier);
-	ENCODE_FIELD( contract.exchange);
-	ENCODE_FIELD( contract.primaryExchange);
-	ENCODE_FIELD( contract.currency);
-	ENCODE_FIELD( contract.localSymbol);
-	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
-		ENCODE_FIELD( contract.tradingClass);
+	ENCODE_FIELD(contract.conId);
+	ENCODE_FIELD(contract.symbol);
+	ENCODE_FIELD(contract.secType);
+	ENCODE_FIELD(contract.lastTradeDateOrContractMonth);
+	ENCODE_FIELD(contract.strike);
+	ENCODE_FIELD(contract.right);
+	ENCODE_FIELD(contract.multiplier);
+	ENCODE_FIELD(contract.exchange);
+	ENCODE_FIELD(contract.primaryExchange);
+	ENCODE_FIELD(contract.currency);
+	ENCODE_FIELD(contract.localSymbol);
+
+	if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+		ENCODE_FIELD(contract.tradingClass);
 	}
 
-	ENCODE_FIELD( optionPrice);
-	ENCODE_FIELD( underPrice);
+	ENCODE_FIELD(optionPrice);
+	ENCODE_FIELD(underPrice);
+
+    if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+        ENCODE_TAGVALUELIST(miscOptions);
+    }
 
 	closeAndSend( msg.str());
 }
@@ -910,7 +925,9 @@ void EClient::cancelCalculateImpliedVolatility(TickerId reqId) {
 	closeAndSend( msg.str());
 }
 
-void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice) {
+void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, double volatility, double underPrice, 
+        //reserved for future use, must be blank
+        const TagValueListSPtr& miscOptions) {
 
 	// not connected?
 	if( !isConnected()) {
@@ -933,7 +950,8 @@ void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, dou
 	}
 
 	std::stringstream msg;
-	prepareBuffer( msg);
+
+	prepareBuffer(msg);
 
 	const int VERSION = 2;
 
@@ -953,12 +971,17 @@ void EClient::calculateOptionPrice(TickerId reqId, const Contract& contract, dou
 	ENCODE_FIELD( contract.primaryExchange);
 	ENCODE_FIELD( contract.currency);
 	ENCODE_FIELD( contract.localSymbol);
-	if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+
+	if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
 		ENCODE_FIELD( contract.tradingClass);
 	}
 
 	ENCODE_FIELD( volatility);
 	ENCODE_FIELD( underPrice);
+
+    if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+        ENCODE_TAGVALUELIST(miscOptions);
+    }
 
 	closeAndSend( msg.str());
 }
@@ -1716,20 +1739,8 @@ void EClient::placeOrder( OrderId id, const Contract& contract, const Order& ord
 	ENCODE_FIELD( order.whatIf); // srv v36 and above
 
 	// send miscOptions parameter
-	if( m_serverVersion >= MIN_SERVER_VER_LINKING) {
-		std::string miscOptionsStr("");
-		const TagValueList* const orderMiscOptions = order.orderMiscOptions.get();
-		const int orderMiscOptionsCount = orderMiscOptions ? orderMiscOptions->size() : 0;
-		if( orderMiscOptionsCount > 0) {
-			for( int i = 0; i < orderMiscOptionsCount; ++i) {
-				const TagValue* tagValue = ((*orderMiscOptions)[i]).get();
-				miscOptionsStr += tagValue->tag;
-				miscOptionsStr += "=";
-				miscOptionsStr += tagValue->value;
-				miscOptionsStr += ";";
-			}
-		}
-		ENCODE_FIELD( miscOptionsStr);
+	if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+        ENCODE_TAGVALUELIST(order.orderMiscOptions);
 	}
 
 	if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {

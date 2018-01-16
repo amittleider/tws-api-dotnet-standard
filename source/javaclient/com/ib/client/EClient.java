@@ -459,7 +459,7 @@ public abstract class EClient {
 
     public synchronized void reqScannerSubscription( int tickerId, ScannerSubscription subscription, List<TagValue> scannerSubscriptionOptions) {
         // not connected?
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -496,26 +496,21 @@ public abstract class EClient {
             b.sendMax(subscription.couponRateAbove());
             b.sendMax(subscription.couponRateBelow());
             b.send(subscription.excludeConvertible());
+            
             if (m_serverVersion >= 25) {
                 b.sendMax(subscription.averageOptionVolumeAbove());
                 b.send(subscription.scannerSettingPairs());
             }
+            
             if (m_serverVersion >= 27) {
                 b.send(subscription.stockTypeFilter());
             }
             
             // send scannerSubscriptionOptions parameter
-            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder scannerSubscriptionOptionsStr = new StringBuilder();
-                int scannerSubscriptionOptionsCount = scannerSubscriptionOptions == null ? 0 : scannerSubscriptionOptions.size();
-                if( scannerSubscriptionOptionsCount > 0) {
-                    for( int i = 0; i < scannerSubscriptionOptionsCount; ++i) {
-                        TagValue tagValue = scannerSubscriptionOptions.get(i);
-                        scannerSubscriptionOptionsStr.append( tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                    }
-                }
-                b.send( scannerSubscriptionOptionsStr.toString());
+            if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                b.send(scannerSubscriptionOptions);
             }
+            
             closeAndSend(b);
         }
         catch( Exception e) {
@@ -575,39 +570,49 @@ public abstract class EClient {
             if (m_serverVersion >= MIN_SERVER_VER_REQ_MKT_DATA_CONID) {
                 b.send(contract.conid());
             }
+            
             b.send(contract.symbol());
             b.send(contract.getSecType());
             b.send(contract.lastTradeDateOrContractMonth());
             b.send(contract.strike());
             b.send(contract.getRight());
+            
             if (m_serverVersion >= 15) {
                 b.send(contract.multiplier());
             }
+            
             b.send(contract.exchange());
+            
             if (m_serverVersion >= 14) {
                 b.send(contract.primaryExch());
             }
+            
             b.send(contract.currency());
-            if(m_serverVersion >= 2) {
-                b.send( contract.localSymbol());
+            
+            if (m_serverVersion >= 2) {
+                b.send(contract.localSymbol());
             }
-            if(m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
-                b.send( contract.tradingClass());
+            
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+                b.send(contract.tradingClass());
             }
-            if(m_serverVersion >= 8 && SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
-                if ( contract.comboLegs() == null ) {
-                    b.send( 0);
+            
+            if (m_serverVersion >= 8 && SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
+                if (contract.comboLegs() == null) {
+                    b.send(0);
                 }
                 else {
-                    b.send( contract.comboLegs().size());
+                    b.send(contract.comboLegs().size());
 
                     ComboLeg comboLeg;
-                    for (int i=0; i < contract.comboLegs().size(); i ++) {
+                    
+                    for (int i = 0; i < contract.comboLegs().size(); i++) {
                         comboLeg = contract.comboLegs().get(i);
-                        b.send( comboLeg.conid());
-                        b.send( comboLeg.ratio());
-                        b.send( comboLeg.getAction());
-                        b.send( comboLeg.exchange());
+                        
+                        b.send(comboLeg.conid());
+                        b.send(comboLeg.ratio());
+                        b.send(comboLeg.getAction());
+                        b.send(comboLeg.exchange());
                     }
                 }
             }
@@ -615,10 +620,11 @@ public abstract class EClient {
             if (m_serverVersion >= MIN_SERVER_VER_UNDER_COMP) {
          	   if (contract.underComp() != null) {
          		   DeltaNeutralContract underComp = contract.underComp();
-         		   b.send( true);
-         		   b.send( underComp.conid());
-         		   b.send( underComp.delta());
-         		   b.send( underComp.price());
+         		   
+         		   b.send(true);
+         		   b.send(underComp.conid());
+         		   b.send(underComp.delta());
+         		   b.send(underComp.price());
          	   }
          	   else {
          		   b.send( false);
@@ -633,10 +639,11 @@ public abstract class EClient {
             	 *
             	 *       Therefore we are relying on TWS doing validation.
             	 */
-            	b.send( genericTickList);
+            	b.send(genericTickList);
             }
+            
             if (m_serverVersion >= MIN_SERVER_VER_SNAPSHOT_MKT_DATA) {
-            	b.send (snapshot);
+            	b.send(snapshot);
             }
             
             if (m_serverVersion >= MIN_SERVER_VER_REQ_SMART_COMPONENTS) {
@@ -645,16 +652,9 @@ public abstract class EClient {
             
             // send mktDataOptions parameter
             if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder mktDataOptionsStr = new StringBuilder();
-                int mktDataOptionsCount = mktDataOptions == null ? 0 : mktDataOptions.size();
-                if( mktDataOptionsCount > 0) {
-                    for( int i = 0; i < mktDataOptionsCount; ++i) {
-                        TagValue tagValue = mktDataOptions.get(i);
-                        mktDataOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                    }
-                }
-                b.send( mktDataOptionsStr.toString());
+                b.send(mktDataOptions);
             }
+            
             closeAndSend(b);
         }
         catch( Exception e) {
@@ -767,6 +767,7 @@ public abstract class EClient {
           if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
               b.send(contract.conid());
           }
+          
           b.send(contract.symbol());
           b.send(contract.getSecType());
           b.send(contract.lastTradeDateOrContractMonth());
@@ -777,23 +778,29 @@ public abstract class EClient {
           b.send(contract.primaryExch());
           b.send(contract.currency());
           b.send(contract.localSymbol());
+          
           if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
               b.send(contract.tradingClass());
           }
+          
           if (m_serverVersion >= 31) {
         	  b.send(contract.includeExpired() ? 1 : 0);
           }
+          
           if (m_serverVersion >= 20) {
               b.send(endDateTime);
               b.send(barSizeSetting);
           }
+          
           b.send(durationStr);
           b.send(useRTH);
           b.send(whatToShow);
+          
           if (m_serverVersion > 16) {
               b.send(formatDate);
           }
-          if ( SecType.BAG.name().equalsIgnoreCase(contract.getSecType()) ) {
+          
+          if (SecType.BAG.name().equalsIgnoreCase(contract.getSecType())) {
               if (contract.comboLegs() == null) {
                   b.send(0);
               }
@@ -801,8 +808,10 @@ public abstract class EClient {
                   b.send(contract.comboLegs().size());
 
                   ComboLeg comboLeg;
+                  
                   for (int i = 0; i < contract.comboLegs().size(); i++) {
                       comboLeg = contract.comboLegs().get(i);
+                      
                       b.send(comboLeg.conid());
                       b.send(comboLeg.ratio());
                       b.send(comboLeg.getAction());
@@ -815,17 +824,9 @@ public abstract class EClient {
               b.send(keepUpToDate);
           }
           
-         // send chartOptions parameter
+          // send chartOptions parameter
           if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-              StringBuilder chartOptionsStr = new StringBuilder();
-              int chartOptionsCount = chartOptions == null ? 0 : chartOptions.size();
-              if( chartOptionsCount > 0) {
-                  for( int i = 0; i < chartOptionsCount; ++i) {
-                      TagValue tagValue = chartOptions.get(i);
-                      chartOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append( ";");
-                  }
-              }
-              b.send( chartOptionsStr.toString());
+              b.send(chartOptions);
           }
           
           closeAndSend(b);
@@ -908,6 +909,7 @@ public abstract class EClient {
                   "  It does not support real time bars.");
             return;
         }
+        
         if (m_serverVersion < MIN_SERVER_VER_TRADING_CLASS) {
             if (!IsEmpty(contract.tradingClass()) || (contract.conid() > 0)) {
                   error(tickerId, EClientErrors.UPDATE_TWS,
@@ -930,6 +932,7 @@ public abstract class EClient {
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.conid());
             }
+            
             b.send(contract.symbol());
             b.send(contract.getSecType());
             b.send(contract.lastTradeDateOrContractMonth());
@@ -940,25 +943,20 @@ public abstract class EClient {
             b.send(contract.primaryExch());
             b.send(contract.currency());
             b.send(contract.localSymbol());
+            
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.tradingClass());
             }
+            
             b.send(barSize);  // this parameter is not currently used
             b.send(whatToShow);
             b.send(useRTH);
 
             // send realTimeBarsOptions parameter
             if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder realTimeBarsOptionsStr = new StringBuilder();
-                int realTimeBarsOptionsCount = realTimeBarsOptions == null ? 0 : realTimeBarsOptions.size();
-                if( realTimeBarsOptionsCount > 0) {
-                    for( int i = 0; i < realTimeBarsOptionsCount; ++i) {
-                        TagValue tagValue = realTimeBarsOptions.get(i);
-                        realTimeBarsOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                    }
-                }
-                b.send( realTimeBarsOptionsStr.toString());
+                b.send(realTimeBarsOptions);
             }
+            
             closeAndSend(b);
         }
         catch( Exception e) {
@@ -1092,44 +1090,42 @@ public abstract class EClient {
             // send req mkt data msg
             Builder b = prepareBuffer(); 
 
-            b.send( REQ_MKT_DEPTH);
-            b.send( VERSION);
-            b.send( tickerId);
+            b.send(REQ_MKT_DEPTH);
+            b.send(VERSION);
+            b.send(tickerId);
 
             // send contract fields
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.conid());
             }
-            b.send( contract.symbol());
-            b.send( contract.getSecType());
-            b.send( contract.lastTradeDateOrContractMonth());
-            b.send( contract.strike());
-            b.send( contract.getRight());
+            
+            b.send(contract.symbol());
+            b.send(contract.getSecType());
+            b.send(contract.lastTradeDateOrContractMonth());
+            b.send(contract.strike());
+            b.send(contract.getRight());
+            
             if (m_serverVersion >= 15) {
               b.send(contract.multiplier());
             }
-            b.send( contract.exchange());
-            b.send( contract.currency());
-            b.send( contract.localSymbol());
+            
+            b.send(contract.exchange());
+            b.send(contract.currency());
+            b.send(contract.localSymbol());
+            
             if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.tradingClass());
             }
+            
             if (m_serverVersion >= 19) {
-                b.send( numRows);
+                b.send(numRows);
             }
             
             // send mktDepthOptions parameter
             if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-                StringBuilder mktDepthOptionsStr = new StringBuilder();
-                int mktDepthOptionsCount = mktDepthOptions == null ? 0 : mktDepthOptions.size();
-                if( mktDepthOptionsCount > 0) {
-                    for( int i = 0; i < mktDepthOptionsCount; ++i) {
-                        TagValue tagValue = mktDepthOptions.get(i);
-                        mktDepthOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                    }
-                }
-                b.send( mktDepthOptionsStr.toString());
+                b.send(mktDepthOptions);
             }
+            
             closeAndSend(b);
         }
         catch( Exception e) {
@@ -1846,15 +1842,7 @@ public abstract class EClient {
            
            // send orderMiscOptions parameter
            if(m_serverVersion >= MIN_SERVER_VER_LINKING) {
-               StringBuilder orderMiscOptionsStr = new StringBuilder();
-               List<TagValue> orderMiscOptions = order.orderMiscOptions();
-               int orderMiscOptionsCount = orderMiscOptions == null ? 0 : orderMiscOptions.size();
-               if( orderMiscOptionsCount > 0) {
-                   for( TagValue tagValue : orderMiscOptions ) {
-                       orderMiscOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                   }
-               }
-               b.send( orderMiscOptionsStr.toString());
+               b.send(order.orderMiscOptions());
            }
            
            if (m_serverVersion >= MIN_SERVER_VER_ORDER_SOLICITED) {
@@ -2310,7 +2298,9 @@ public abstract class EClient {
         }
     }
 
-    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType) {
+    public synchronized void reqFundamentalData(int reqId, Contract contract, String reportType,
+            //reserved for future use, must be blank
+            List<TagValue> fundamentalDataOptions) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -2337,22 +2327,27 @@ public abstract class EClient {
             // send req fund data msg
             Builder b = prepareBuffer(); 
 
-            b.send( REQ_FUNDAMENTAL_DATA);
-            b.send( VERSION);
-            b.send( reqId);
+            b.send(REQ_FUNDAMENTAL_DATA);
+            b.send(VERSION);
+            b.send(reqId);
 
             // send contract fields
-            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+            if(m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.conid());
             }
-            b.send( contract.symbol());
-            b.send( contract.getSecType());
-            b.send( contract.exchange());
-            b.send( contract.primaryExch());
-            b.send( contract.currency());
-            b.send( contract.localSymbol());
+            
+            b.send(contract.symbol());
+            b.send(contract.getSecType());
+            b.send(contract.exchange());
+            b.send(contract.primaryExch());
+            b.send(contract.currency());
+            b.send(contract.localSymbol());
 
-            b.send( reportType);
+            b.send(reportType);
+            
+            if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                b.send(fundamentalDataOptions);
+            }
 
             closeAndSend(b);
         }
@@ -2394,10 +2389,12 @@ public abstract class EClient {
     }
 
     public synchronized void calculateImpliedVolatility(int reqId, Contract contract,
-            double optionPrice, double underPrice) {
+            double optionPrice, double underPrice,
+            //reserved for future use, must be blank
+            List<TagValue> impliedVolatilityOptions) {
 
         // not connected?
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -2422,28 +2419,33 @@ public abstract class EClient {
             // send calculate implied volatility msg
             Builder b = prepareBuffer(); 
 
-            b.send( REQ_CALC_IMPLIED_VOLAT);
-            b.send( VERSION);
-            b.send( reqId);
+            b.send(REQ_CALC_IMPLIED_VOLAT);
+            b.send(VERSION);
+            b.send(reqId);
 
             // send contract fields
-            b.send( contract.conid());
-            b.send( contract.symbol());
-            b.send( contract.getSecType());
-            b.send( contract.lastTradeDateOrContractMonth());
-            b.send( contract.strike());
-            b.send( contract.getRight());
-            b.send( contract.multiplier());
-            b.send( contract.exchange());
-            b.send( contract.primaryExch());
-            b.send( contract.currency());
-            b.send( contract.localSymbol());
-            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+            b.send(contract.conid());
+            b.send(contract.symbol());
+            b.send(contract.getSecType());
+            b.send(contract.lastTradeDateOrContractMonth());
+            b.send(contract.strike());
+            b.send(contract.getRight());
+            b.send(contract.multiplier());
+            b.send(contract.exchange());
+            b.send(contract.primaryExch());
+            b.send(contract.currency());
+            b.send(contract.localSymbol());
+            
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.tradingClass());
             }
 
-            b.send( optionPrice);
-            b.send( underPrice);
+            b.send(optionPrice);
+            b.send(underPrice);
+            
+            if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                b.send(impliedVolatilityOptions);
+            }
 
             closeAndSend(b);
         }
@@ -2486,10 +2488,12 @@ public abstract class EClient {
     }
 
     public synchronized void calculateOptionPrice(int reqId, Contract contract,
-            double volatility, double underPrice) {
+            double volatility, double underPrice,
+            //reserved for future use, must be blank
+            List<TagValue> optionPriceOptions) {
 
         // not connected?
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -2514,28 +2518,33 @@ public abstract class EClient {
             // send calculate option price msg
             Builder b = prepareBuffer(); 
 
-            b.send( REQ_CALC_OPTION_PRICE);
-            b.send( VERSION);
-            b.send( reqId);
+            b.send(REQ_CALC_OPTION_PRICE);
+            b.send(VERSION);
+            b.send(reqId);
 
             // send contract fields
-            b.send( contract.conid());
-            b.send( contract.symbol());
-            b.send( contract.getSecType());
-            b.send( contract.lastTradeDateOrContractMonth());
-            b.send( contract.strike());
-            b.send( contract.getRight());
-            b.send( contract.multiplier());
-            b.send( contract.exchange());
-            b.send( contract.primaryExch());
-            b.send( contract.currency());
-            b.send( contract.localSymbol());
-            if( m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
+            b.send(contract.conid());
+            b.send(contract.symbol());
+            b.send(contract.getSecType());
+            b.send(contract.lastTradeDateOrContractMonth());
+            b.send(contract.strike());
+            b.send(contract.getRight());
+            b.send(contract.multiplier());
+            b.send(contract.exchange());
+            b.send(contract.primaryExch());
+            b.send(contract.currency());
+            b.send(contract.localSymbol());
+            
+            if (m_serverVersion >= MIN_SERVER_VER_TRADING_CLASS) {
                 b.send(contract.tradingClass());
             }
 
-            b.send( volatility);
-            b.send( underPrice);
+            b.send(volatility);
+            b.send(underPrice);
+            
+            if (m_serverVersion >= MIN_SERVER_VER_LINKING) {
+                b.send(optionPriceOptions);
+            }
 
             closeAndSend(b);
         }
@@ -3308,7 +3317,7 @@ public abstract class EClient {
 
     public synchronized void reqNewsArticle(int requestId, String providerCode, String articleId, List<TagValue> newsArticleOptions) {
         // not connected?
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -3321,29 +3330,21 @@ public abstract class EClient {
 
         Builder b = prepareBuffer();
 
-        b.send( REQ_NEWS_ARTICLE);
-        b.send( requestId);
-        b.send( providerCode);
-        b.send( articleId);
+        b.send(REQ_NEWS_ARTICLE);
+        b.send(requestId);
+        b.send(providerCode);
+        b.send(articleId);
 
         // send newsArticleOptions parameter
         if (m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-            StringBuilder newsArticleOptionsStr = new StringBuilder();
-            int newsArticleOptionsCount = newsArticleOptions == null ? 0 : newsArticleOptions.size();
-            if( newsArticleOptionsCount > 0) {
-                for( int i = 0; i < newsArticleOptionsCount; ++i) {
-                    TagValue tagValue = newsArticleOptions.get(i);
-                    newsArticleOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                }
-            }
-            b.send( newsArticleOptionsStr.toString());
+            b.send(newsArticleOptions);
         }
         
         try {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQNEWSARTICLE, e.toString());
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQNEWSARTICLE, e.toString());
         }
     }
 
@@ -3351,7 +3352,7 @@ public abstract class EClient {
             String startDateTime, String endDateTime, int totalResults, List<TagValue> historicalNewsOptions) {
 
         // not connected?
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -3364,32 +3365,24 @@ public abstract class EClient {
 
         Builder b = prepareBuffer();
 
-        b.send( REQ_HISTORICAL_NEWS);
-        b.send( requestId);
-        b.send( conId);
-        b.send( providerCodes);
-        b.send( startDateTime);
-        b.send( endDateTime);
-        b.send( totalResults);
+        b.send(REQ_HISTORICAL_NEWS);
+        b.send(requestId);
+        b.send(conId);
+        b.send(providerCodes);
+        b.send(startDateTime);
+        b.send(endDateTime);
+        b.send(totalResults);
 
         // send historicalNewsOptions parameter
         if (m_serverVersion >= MIN_SERVER_VER_NEWS_QUERY_ORIGINS) {
-            StringBuilder historicalNewsOptionsStr = new StringBuilder();
-            int historicalNewsOptionsCount = historicalNewsOptions == null ? 0 : historicalNewsOptions.size();
-            if( historicalNewsOptionsCount > 0) {
-                for( int i = 0; i < historicalNewsOptionsCount; ++i) {
-                    TagValue tagValue = historicalNewsOptions.get(i);
-                    historicalNewsOptionsStr.append(tagValue.m_tag).append("=").append(tagValue.m_value).append(";");
-                }
-            }
-            b.send( historicalNewsOptionsStr.toString());
+            b.send(historicalNewsOptions);
         }
 
         try {
             closeAndSend(b);
         }
         catch (IOException e) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQHISTORICALNEWS, e.toString());
+            error(EClientErrors.NO_VALID_ID, EClientErrors.FAIL_SEND_REQHISTORICALNEWS, e.toString());
         }
     }
 
@@ -3588,7 +3581,7 @@ public abstract class EClient {
     public synchronized void reqHistoricalTicks(int reqId, Contract contract, String startDateTime,
             String endDateTime, int numberOfTicks, String whatToShow, int useRth, boolean ignoreSize,
             List<TagValue> miscOptions) {
-        if( !isConnected()) {
+        if (!isConnected()) {
             notConnected();
             return;
         }
@@ -3601,8 +3594,6 @@ public abstract class EClient {
         
         try {
             Builder b = prepareBuffer(); 
-            String miscOptionsString = Optional.ofNullable(miscOptions).orElse(new ArrayList<TagValue>()).stream().
-                    map(option -> option.m_tag + "=" + option.m_value + ";").reduce("", (sum, option) -> sum + option);
 
             b.send(REQ_HISTORICAL_TICKS);
             b.send(reqId);
@@ -3613,7 +3604,7 @@ public abstract class EClient {
             b.send(whatToShow);
             b.send(useRth);
             b.send(ignoreSize);
-            b.send(miscOptionsString);
+            b.send(miscOptions);
 
             closeAndSend(b);
         } catch(Exception e) {

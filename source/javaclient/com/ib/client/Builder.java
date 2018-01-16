@@ -8,6 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /** This class is used to build messages so the entire message can be
  *  sent to the socket in a single write. */
@@ -58,6 +61,13 @@ public class Builder implements ObjectOutput {
             m_sb.write(  bytes, 0, bytes.length );
         }
     }
+	
+	public void send(List<TagValue> miscOptions) {
+        String miscOptionsString = Optional.ofNullable(miscOptions).orElse(new ArrayList<TagValue>()).stream().
+                map(option -> option.m_tag + "=" + option.m_value + ";").reduce("", (sum, option) -> sum + option);
+
+        send(miscOptionsString);
+	}
 	
 	public void send(Contract contract) {
         send(contract.conid());

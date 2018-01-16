@@ -625,7 +625,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
        	m_client.reqFundamentalData(m_orderDlg.id(), m_orderDlg.contract(),
-        			/* reportType */ m_orderDlg.whatToShow());
+        			/* reportType */ m_orderDlg.whatToShow(), null);
     }
 
     private void onCancelFundamentalData() {
@@ -874,7 +874,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         m_client.calculateImpliedVolatility( m_orderDlg.id(), m_orderDlg.contract(),
-                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
+                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice(), null);
     }
 
     private void onCancelCalculateImpliedVolatility() {
@@ -896,7 +896,7 @@ class SampleFrame extends JFrame implements EWrapper {
             return;
         }
         m_client.calculateOptionPrice( m_orderDlg.id(), m_orderDlg.contract(),
-                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice());
+                m_orderDlg.m_order.lmtPrice(), m_orderDlg.m_order.auxPrice(), null);
     }
 
     private void onCancelCalculateOptionPrice() {
