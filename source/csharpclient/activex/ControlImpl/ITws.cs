@@ -372,7 +372,7 @@ namespace TWSLib
         [DispId(230)]
         void cancelPnLSingle(int reqId);
         [DispId(231)]
-        void reqTickByTickData(int reqId, IContract contract, string tickType);
+        void reqTickByTickData(int reqId, IContract contract, string tickType, int numberOfTicks, bool ignoreSize);
         [DispId(232)]
         void cancelTickByTickData(int reqId);
 

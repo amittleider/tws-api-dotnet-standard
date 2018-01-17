@@ -1046,9 +1046,9 @@ namespace TWSLib
             this.socket.cancelPnLSingle(reqId);
         }
 
-        void ITws.reqTickByTickData(int reqId, IContract contract, string tickType)
+        void ITws.reqTickByTickData(int reqId, IContract contract, string tickType, int numberOfTicks, bool ignoreSize)
         {
-            this.socket.reqTickByTickData(reqId, (Contract)(contract as ComContract), tickType);
+            this.socket.reqTickByTickData(reqId, (Contract)(contract as ComContract), tickType, numberOfTicks, ignoreSize);
         }
 
         void ITws.cancelTickByTickData(int reqId)

@@ -100,10 +100,11 @@ namespace Samples
         public static Contract EuropeanStock()
         {
             Contract contract = new Contract();
-            contract.Symbol = "SIE";
+            contract.Symbol = "NOKIA";
             contract.SecType = "STK";
             contract.Currency = "EUR";
             contract.Exchange = "SMART";
+            contract.PrimaryExch = "HEX";
             return contract;
         }
 

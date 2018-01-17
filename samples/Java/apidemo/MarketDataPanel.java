@@ -1231,6 +1231,8 @@ class MarketDataPanel extends JPanel {
     private class TickByTickRequestPanel extends JPanel {
         final ContractPanel m_contractPanel = new ContractPanel(m_contract);
         final TCombo<TickByTickType> m_tickType = new TCombo<>( TickByTickType.values() );
+        final UpperField m_numberOfTicks = new UpperField();
+        final JCheckBox m_ignoreSize = new JCheckBox();
 
         TickByTickRequestPanel() { 		
             m_tickType.setSelectedItem(TickByTickType.Last);
@@ -1243,6 +1245,8 @@ class MarketDataPanel extends JPanel {
 
             VerticalPanel paramPanel = new VerticalPanel();
             paramPanel.add("Tick-By-Tick Type", m_tickType);
+            paramPanel.add("Number Of Ticks", m_numberOfTicks);
+            paramPanel.add("Ignore Size", m_ignoreSize);
 
             VerticalPanel butPanel = new VerticalPanel();
             butPanel.add(bReqTickByTickData);
@@ -1263,8 +1267,9 @@ class MarketDataPanel extends JPanel {
 
             TickByTickResultsPanel panel = new TickByTickResultsPanel(TickByTickType.valueOf(m_tickType.getSelectedItem().name()));
 
-            ApiDemo.INSTANCE.controller().reqTickByTickData(m_contract, m_tickType.getSelectedItem().name(), panel);
-            m_resultsPanel.addTab("Tick-By-Tick " + m_tickType.getSelectedItem().name() + " " + m_contract.symbol(), panel, true, true);
+            ApiDemo.INSTANCE.controller().reqTickByTickData(m_contract, m_tickType.getSelectedItem().name(), 
+                    m_numberOfTicks.getInt(), m_ignoreSize.isSelected(), panel);
+            m_resultsPanel.addTab("Tick-By-Tick " + (m_numberOfTicks.getInt() > 0 ? "Hist + " : "") + m_tickType.getSelectedItem().name() + " " + m_contract.symbol(), panel, true, true);
         }
     }
 }

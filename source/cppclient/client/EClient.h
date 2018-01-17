@@ -345,7 +345,7 @@ public:
 	void cancelPnLSingle(int reqId);
     void reqHistoricalTicks(int reqId, const Contract &contract, const std::string& startDateTime,
             const std::string& endDateTime, int numberOfTicks, const std::string& whatToShow, int useRth, bool ignoreSize, const TagValueListSPtr& miscOptions);
-    void reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType);
+    void reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType, int numberOfTicks, bool ignoreSize);
     void cancelTickByTickData(int reqId);
 
 private:

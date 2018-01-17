@@ -658,7 +658,7 @@ Namespace Samples
 		'! [historicalticks]
         Public Sub historicalTick(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks
             For Each tick In ticks
-                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, tick.Time, tick.Price, tick.Size)
+                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Price, tick.Size)
             Next
         End Sub
 		'! [historicalticks]
@@ -667,7 +667,7 @@ Namespace Samples
         Public Sub historicalTickBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk
             For Each tick In ticks
                 Console.WriteLine("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
-                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk)
             Next
         End Sub
 		'! [historicalticksbidask]
@@ -676,7 +676,7 @@ Namespace Samples
         Public Sub historicalTickLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast
             For Each tick In ticks
                 Console.WriteLine("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
-                    reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions)
             Next
         End Sub
         '! [historicaltickslast]
@@ -684,30 +684,27 @@ Namespace Samples
         '! [tickbytickalllast]
         Public Sub tickByTickAllLast(reqId As Integer, tickType As Integer, time As Long, price As Double, size As Integer, attribs As TickAttrib, exchange As String, specialConditions As String) Implements EWrapper.tickByTickAllLast
             Dim tickTypeStr As String
-            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
             If tickType = 1 Then
                 tickTypeStr = "Last"
             Else
                 tickTypeStr = "AllLast"
             End If
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
-                reqId, tickTypeStr, timeStr, price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported)
+                reqId, tickTypeStr, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported)
         End Sub
         '! [tickbytickalllast]
 
         '! [tickbytickbidask]
         Public Sub tickByTickBidAsk(reqId As Integer, time As Long, bidPrice As Double, askPrice As Double, bidSize As Integer, askSize As Integer, attribs As TickAttrib) Implements EWrapper.tickByTickBidAsk
-            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
-                reqId, timeStr, bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh)
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh)
         End Sub
         '! [tickbytickbidask]
 
         '! [tickbytickmidpoint]
         Public Sub tickByTickMidPoint(reqId As Integer, time As Long, midPoint As Double) Implements EWrapper.tickByTickMidPoint
-            Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(time).ToString("yyyyMMdd-HH:mm:ss zzz")
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
-                reqId, timeStr, midPoint)
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), midPoint)
         End Sub
         '! [tickbytickbidask]
 

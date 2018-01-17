@@ -98,5 +98,6 @@ namespace IBApi
         public const int TICK_BY_TICK = 137;
         public const int DECISION_MAKER = 138;
         public const int MIFID_EXECUTION = 139;
+        public const int TICK_BY_TICK_IGNORE_SIZE = 140;
     }
 }

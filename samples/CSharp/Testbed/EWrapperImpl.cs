@@ -724,7 +724,7 @@ namespace Samples
         {
             foreach (var tick in ticks)
             {
-                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, tick.Time, tick.Price, tick.Size);
+                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Price, tick.Size);
             }
         }
 		//! [historicalticks]
@@ -735,7 +735,7 @@ namespace Samples
             foreach (var tick in ticks)
             {
                 Console.WriteLine("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
-                    reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk);
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk);
             }
         }
 		//! [historicalticksbidask]
@@ -746,7 +746,7 @@ namespace Samples
             foreach (var tick in ticks)
             {
                 Console.WriteLine("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
-                    reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions);
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions);
             }
         }
 		//! [historicaltickslast]
@@ -754,29 +754,24 @@ namespace Samples
         //! [tickbytickalllast]
         public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttrib attribs, string exchange, string specialConditions)
         {
-            string tickTypeStr = tickType == 1 ? "Last" : "AllLast";
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
-
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
-                reqId, tickTypeStr, timeStr, price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported);
+                reqId, tickType == 1 ? "Last" : "AllLast", Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), price, size, exchange, specialConditions, attribs.PastLimit, attribs.Unreported);
         }
         //! [tickbytickalllast]
 
         //! [tickbytickbidask]
         public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttrib attribs)
         {
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
-                reqId, timeStr, bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh);
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), bidPrice, askPrice, bidSize, askSize, attribs.BidPastLow, attribs.AskPastHigh);
         }
         //! [tickbytickbidask]
 
         //! [tickbytickmidpoint]
         public void tickByTickMidPoint(int reqId, long time, double midPoint)
         {
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(time)).ToString("yyyyMMdd-HH:mm:ss zzz");
             Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
-                reqId, timeStr, midPoint);
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), midPoint);
         }
         //! [tickbytickmidpoint]
     }

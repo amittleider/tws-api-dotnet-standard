@@ -3163,7 +3163,7 @@ void EClient::reqHistoricalTicks(int reqId, const Contract &contract, const std:
     closeAndSend(msg.str());    
 }
 
-void EClient::reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType) {
+void EClient::reqTickByTickData(int reqId, const Contract &contract, const std::string& tickType, int numberOfTicks, bool ignoreSize) {
     if( !isConnected()) {
         m_pEWrapper->error( NO_VALID_ID, NOT_CONNECTED.code(), NOT_CONNECTED.msg());
         return;
@@ -3173,6 +3173,14 @@ void EClient::reqTickByTickData(int reqId, const Contract &contract, const std::
         m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
             "  It does not support tick-by-tick data request.");
         return;
+    }
+
+    if( m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE) {
+        if (numberOfTicks != 0 || ignoreSize) {
+            m_pEWrapper->error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                "  It does not support ignoreSize and numberOfTicks parameters in tick-by-tick data requests.");
+            return;
+        }
     }
 
     std::stringstream msg;
@@ -3193,6 +3201,10 @@ void EClient::reqTickByTickData(int reqId, const Contract &contract, const std::
     ENCODE_FIELD( contract.localSymbol);
     ENCODE_FIELD( contract.tradingClass);
     ENCODE_FIELD( tickType);
+    if( m_serverVersion >= MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE) {
+        ENCODE_FIELD( numberOfTicks);
+        ENCODE_FIELD( ignoreSize);
+    }
 
     closeAndSend(msg.str());    
 }

@@ -559,10 +559,6 @@ namespace IBSampleApp
             this.dataGridViewTickByTick = new System.Windows.Forms.DataGridView();
             this.dataResults_MDT = new System.Windows.Forms.TabControl();
             this.topMktData_MDT = new System.Windows.Forms.TabPage();
-            this.groupBoxTickByTickType = new System.Windows.Forms.GroupBox();
-            this.buttonCancelTickByTick = new System.Windows.Forms.Button();
-            this.buttonRequestTickByTick = new System.Windows.Forms.Button();
-            this.comboBoxTickByTickType = new System.Windows.Forms.ComboBox();
             this.requestMatchingSymbolsMD = new System.Windows.Forms.Button();
             this.cancelMarketDataRequests = new System.Windows.Forms.Button();
             this.marketData_Button = new System.Windows.Forms.Button();
@@ -632,6 +628,10 @@ namespace IBSampleApp
             this.scanLocation_label = new System.Windows.Forms.Label();
             this.scannerParamsRequest_button = new System.Windows.Forms.Button();
             this.historicalTicks_MDT = new System.Windows.Forms.TabPage();
+            this.groupBoxTickByTickType = new System.Windows.Forms.GroupBox();
+            this.buttonCancelTickByTick = new System.Windows.Forms.Button();
+            this.buttonRequestTickByTick = new System.Windows.Forms.Button();
+            this.comboBoxTickByTickType = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btnRequestHistoricalTicks = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
@@ -790,7 +790,6 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTickByTick)).BeginInit();
             this.dataResults_MDT.SuspendLayout();
             this.topMktData_MDT.SuspendLayout();
-            this.groupBoxTickByTickType.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBoxMarketDataType_MDT.SuspendLayout();
             this.deepBookGroupBox.SuspendLayout();
@@ -799,6 +798,7 @@ namespace IBSampleApp
             this.marketScanner_MDT.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.historicalTicks_MDT.SuspendLayout();
+            this.groupBoxTickByTickType.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.TabControl.SuspendLayout();
             this.SuspendLayout();
@@ -5830,7 +5830,6 @@ namespace IBSampleApp
             // topMktData_MDT
             // 
             this.topMktData_MDT.BackColor = System.Drawing.Color.LightGray;
-            this.topMktData_MDT.Controls.Add(this.groupBoxTickByTickType);
             this.topMktData_MDT.Controls.Add(this.requestMatchingSymbolsMD);
             this.topMktData_MDT.Controls.Add(this.cancelMarketDataRequests);
             this.topMktData_MDT.Controls.Add(this.marketData_Button);
@@ -5847,52 +5846,6 @@ namespace IBSampleApp
             this.topMktData_MDT.Size = new System.Drawing.Size(1230, 200);
             this.topMktData_MDT.TabIndex = 0;
             this.topMktData_MDT.Text = "Market Data";
-            // 
-            // groupBoxTickByTickType
-            // 
-            this.groupBoxTickByTickType.Controls.Add(this.buttonCancelTickByTick);
-            this.groupBoxTickByTickType.Controls.Add(this.buttonRequestTickByTick);
-            this.groupBoxTickByTickType.Controls.Add(this.comboBoxTickByTickType);
-            this.groupBoxTickByTickType.Location = new System.Drawing.Point(1084, 111);
-            this.groupBoxTickByTickType.Name = "groupBoxTickByTickType";
-            this.groupBoxTickByTickType.Size = new System.Drawing.Size(136, 74);
-            this.groupBoxTickByTickType.TabIndex = 60;
-            this.groupBoxTickByTickType.TabStop = false;
-            this.groupBoxTickByTickType.Text = "Tick-By-Tick Type";
-            // 
-            // buttonCancelTickByTick
-            // 
-            this.buttonCancelTickByTick.Location = new System.Drawing.Point(75, 44);
-            this.buttonCancelTickByTick.Name = "buttonCancelTickByTick";
-            this.buttonCancelTickByTick.Size = new System.Drawing.Size(52, 23);
-            this.buttonCancelTickByTick.TabIndex = 67;
-            this.buttonCancelTickByTick.Text = "Cancel";
-            this.buttonCancelTickByTick.UseVisualStyleBackColor = true;
-            this.buttonCancelTickByTick.Click += new System.EventHandler(this.buttonCancelTickByTick_Click);
-            // 
-            // buttonRequestTickByTick
-            // 
-            this.buttonRequestTickByTick.Location = new System.Drawing.Point(14, 44);
-            this.buttonRequestTickByTick.Name = "buttonRequestTickByTick";
-            this.buttonRequestTickByTick.Size = new System.Drawing.Size(55, 23);
-            this.buttonRequestTickByTick.TabIndex = 66;
-            this.buttonRequestTickByTick.Text = "Request";
-            this.buttonRequestTickByTick.UseVisualStyleBackColor = true;
-            this.buttonRequestTickByTick.Click += new System.EventHandler(this.buttonRequestTickByTick_Click);
-            // 
-            // comboBoxTickByTickType
-            // 
-            this.comboBoxTickByTickType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTickByTickType.FormattingEnabled = true;
-            this.comboBoxTickByTickType.Items.AddRange(new object[] {
-            "Last",
-            "AllLast",
-            "BidAsk",
-            "MidPoint"});
-            this.comboBoxTickByTickType.Location = new System.Drawing.Point(13, 16);
-            this.comboBoxTickByTickType.Name = "comboBoxTickByTickType";
-            this.comboBoxTickByTickType.Size = new System.Drawing.Size(114, 21);
-            this.comboBoxTickByTickType.TabIndex = 34;
             // 
             // requestMatchingSymbolsMD
             // 
@@ -6678,13 +6631,60 @@ namespace IBSampleApp
             // historicalTicks_MDT
             // 
             this.historicalTicks_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.historicalTicks_MDT.Controls.Add(this.groupBoxTickByTickType);
             this.historicalTicks_MDT.Controls.Add(this.groupBox7);
             this.historicalTicks_MDT.Location = new System.Drawing.Point(4, 22);
             this.historicalTicks_MDT.Margin = new System.Windows.Forms.Padding(2);
             this.historicalTicks_MDT.Name = "historicalTicks_MDT";
             this.historicalTicks_MDT.Size = new System.Drawing.Size(1230, 200);
             this.historicalTicks_MDT.TabIndex = 5;
-            this.historicalTicks_MDT.Text = "Historical ticks";
+            this.historicalTicks_MDT.Text = "Historical ticks + Tick-by-tick";
+            // 
+            // groupBoxTickByTickType
+            // 
+            this.groupBoxTickByTickType.Controls.Add(this.buttonCancelTickByTick);
+            this.groupBoxTickByTickType.Controls.Add(this.buttonRequestTickByTick);
+            this.groupBoxTickByTickType.Controls.Add(this.comboBoxTickByTickType);
+            this.groupBoxTickByTickType.Location = new System.Drawing.Point(832, 11);
+            this.groupBoxTickByTickType.Name = "groupBoxTickByTickType";
+            this.groupBoxTickByTickType.Size = new System.Drawing.Size(136, 74);
+            this.groupBoxTickByTickType.TabIndex = 61;
+            this.groupBoxTickByTickType.TabStop = false;
+            this.groupBoxTickByTickType.Text = "Tick-By-Tick Type";
+            // 
+            // buttonCancelTickByTick
+            // 
+            this.buttonCancelTickByTick.Location = new System.Drawing.Point(75, 44);
+            this.buttonCancelTickByTick.Name = "buttonCancelTickByTick";
+            this.buttonCancelTickByTick.Size = new System.Drawing.Size(52, 23);
+            this.buttonCancelTickByTick.TabIndex = 67;
+            this.buttonCancelTickByTick.Text = "Cancel";
+            this.buttonCancelTickByTick.UseVisualStyleBackColor = true;
+            this.buttonCancelTickByTick.Click += new System.EventHandler(this.buttonCancelTickByTick_Click);
+            // 
+            // buttonRequestTickByTick
+            // 
+            this.buttonRequestTickByTick.Location = new System.Drawing.Point(14, 44);
+            this.buttonRequestTickByTick.Name = "buttonRequestTickByTick";
+            this.buttonRequestTickByTick.Size = new System.Drawing.Size(55, 23);
+            this.buttonRequestTickByTick.TabIndex = 66;
+            this.buttonRequestTickByTick.Text = "Request";
+            this.buttonRequestTickByTick.UseVisualStyleBackColor = true;
+            this.buttonRequestTickByTick.Click += new System.EventHandler(this.buttonRequestTickByTick_Click);
+            // 
+            // comboBoxTickByTickType
+            // 
+            this.comboBoxTickByTickType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTickByTickType.FormattingEnabled = true;
+            this.comboBoxTickByTickType.Items.AddRange(new object[] {
+            "Last",
+            "AllLast",
+            "BidAsk",
+            "MidPoint"});
+            this.comboBoxTickByTickType.Location = new System.Drawing.Point(13, 16);
+            this.comboBoxTickByTickType.Name = "comboBoxTickByTickType";
+            this.comboBoxTickByTickType.Size = new System.Drawing.Size(114, 21);
+            this.comboBoxTickByTickType.TabIndex = 34;
             // 
             // groupBox7
             // 
@@ -7177,7 +7177,6 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTickByTick)).EndInit();
             this.dataResults_MDT.ResumeLayout(false);
             this.topMktData_MDT.ResumeLayout(false);
-            this.groupBoxTickByTickType.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBoxMarketDataType_MDT.ResumeLayout(false);
@@ -7191,6 +7190,7 @@ namespace IBSampleApp
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.historicalTicks_MDT.ResumeLayout(false);
+            this.groupBoxTickByTickType.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.TabControl.ResumeLayout(false);
@@ -7780,9 +7780,9 @@ namespace IBSampleApp
         private System.Windows.Forms.Label labelTickByTick;
         private System.Windows.Forms.DataGridView dataGridViewTickByTick;
         private System.Windows.Forms.GroupBox groupBoxTickByTickType;
-        private System.Windows.Forms.ComboBox comboBoxTickByTickType;
         private System.Windows.Forms.Button buttonCancelTickByTick;
         private System.Windows.Forms.Button buttonRequestTickByTick;
+        private System.Windows.Forms.ComboBox comboBoxTickByTickType;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResLocalSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn conResSecType;

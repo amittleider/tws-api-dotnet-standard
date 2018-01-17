@@ -134,10 +134,11 @@ public class ContractSamples {
 	
 	public static Contract EuropeanStock() {
 		Contract contract = new Contract();
-		contract.symbol("SMTPC");
+		contract.symbol("NOKIA");
 		contract.secType("STK");
 		contract.currency("EUR");
-		contract.exchange("BATEEN");
+		contract.exchange("SMART");
+		contract.primaryExch("HEX");
 		return contract;
 	}
 	

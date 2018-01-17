@@ -534,14 +534,14 @@ void TestCppClient::optionsOperations()
 	//! [reqsecdefoptparams]
 
 	//! [calculateimpliedvolatility]
-	m_pClient->calculateImpliedVolatility(5001, ContractSamples::NormalOption(), 5, 85);
+	m_pClient->calculateImpliedVolatility(5001, ContractSamples::NormalOption(), 5, 85, TagValueListSPtr());
 	//! [calculateimpliedvolatility]
 
 	//** Canceling implied volatility ***
 	m_pClient->cancelCalculateImpliedVolatility(5001);
 
 	//! [calculateoptionprice]
-	m_pClient->calculateOptionPrice(5002, ContractSamples::NormalOption(), 0.22, 85);
+	m_pClient->calculateOptionPrice(5002, ContractSamples::NormalOption(), 0.22, 85, TagValueListSPtr());
 	//! [calculateoptionprice]
 
 	//** Canceling option's price calculation ***
@@ -601,7 +601,7 @@ void TestCppClient::reutersFundamentals()
 {
 	/*** Requesting Fundamentals ***/
 	//! [reqfundamentaldata]
-	m_pClient->reqFundamentalData(8001, ContractSamples::USStock(), "ReportsFinSummary");
+	m_pClient->reqFundamentalData(8001, ContractSamples::USStock(), "ReportsFinSummary", TagValueListSPtr());
 	//! [reqfundamentaldata]
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 
@@ -1247,10 +1247,10 @@ void TestCppClient::reqTickByTickData()
 {
     /*** Requesting tick-by-tick data (only refresh) ***/
     //! [reqtickbytickdata]
-    m_pClient->reqTickByTickData(20001, ContractSamples::IBMUSStockAtSmart(), "Last");
-    m_pClient->reqTickByTickData(20002, ContractSamples::IBMUSStockAtSmart(), "AllLast");
-    m_pClient->reqTickByTickData(20003, ContractSamples::IBMUSStockAtSmart(), "BidAsk");
-    m_pClient->reqTickByTickData(20004, ContractSamples::EurGbpFx(), "MidPoint");
+    m_pClient->reqTickByTickData(20001, ContractSamples::EuropeanStock(), "Last", 0, false);
+    m_pClient->reqTickByTickData(20002, ContractSamples::EuropeanStock(), "AllLast", 0, false);
+    m_pClient->reqTickByTickData(20003, ContractSamples::EuropeanStock(), "BidAsk", 0, true);
+    m_pClient->reqTickByTickData(20004, ContractSamples::EurGbpFx(), "MidPoint", 0, false);
 
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
@@ -1258,6 +1258,20 @@ void TestCppClient::reqTickByTickData()
     m_pClient->cancelTickByTickData(20002);
     m_pClient->cancelTickByTickData(20003);
     m_pClient->cancelTickByTickData(20004);
+    
+    /*** Requesting tick-by-tick data (historical + refresh) ***/
+    //! [reqtickbytickdata]
+    m_pClient->reqTickByTickData(20005, ContractSamples::EuropeanStock(), "Last", 10, false);
+    m_pClient->reqTickByTickData(20006, ContractSamples::EuropeanStock(), "AllLast", 10, false);
+    m_pClient->reqTickByTickData(20007, ContractSamples::EuropeanStock(), "BidAsk", 10, false);
+    m_pClient->reqTickByTickData(20008, ContractSamples::EurGbpFx(), "MidPoint", 10, true);
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    m_pClient->cancelTickByTickData(20005);
+    m_pClient->cancelTickByTickData(20006);
+    m_pClient->cancelTickByTickData(20007);
+    m_pClient->cancelTickByTickData(20008);
     //! [reqtickbytickdata]
 
     m_state = ST_REQTICKBYTICKDATA_ACK;
@@ -1270,7 +1284,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    //m_state = ST_REQTICKBYTICKDATA; 
+    m_state = ST_REQTICKBYTICKDATA; 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 
@@ -1280,7 +1294,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
 	//m_state = ST_HISTORICALDATAREQUESTS;
-	m_state = ST_CONTRACTOPERATION;
+	//m_state = ST_CONTRACTOPERATION;
 	//m_state = ST_MARKETSCANNERS;
 	//m_state = ST_REUTERSFUNDAMENTALS;
 	//m_state = ST_BULLETINS;
@@ -1904,7 +1918,7 @@ void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unreal
 //! [historicalticks]
 void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) {
     for (HistoricalTick tick : ticks) {
-	    printf("Historical tick. ReqId: %d, time: %d, price: %g, size: %d\n", reqId, tick.time, tick.price, tick.size);
+        std::cout << "Historical tick. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", price: "<< tick.price << ", size: " << tick.size << std::endl;
     }
 }
 //! [historicalticks]
@@ -1912,8 +1926,8 @@ void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>
 //! [historicalticksbidask]
 void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) {
     for (HistoricalTickBidAsk tick : ticks) {
-        printf("Historical tick bid/ask. ReqId: %d, time: %d, mask: %d, price bid: %g, price ask: %g, size bid: %d, size ask: %d\n", reqId, 
-            tick.time, tick.mask, tick.priceBid, tick.priceAsk, tick.sizeBid, tick.sizeAsk);
+        std::cout << "Historical tick bid/ask. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", mask: " << tick.mask << ", price bid: "<< tick.priceBid <<
+            ", price ask: "<< tick.priceAsk << ", size bid: " << tick.sizeBid << ", size ask: " << tick.sizeAsk << std::endl;
     }
 }
 //! [historicalticksbidask]
@@ -1921,7 +1935,7 @@ void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<Historica
 //! [historicaltickslast]
 void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) {
     for (HistoricalTickLast tick : ticks) {
-        std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << tick.time << ", mask: " << tick.mask << ", price: "<< tick.price <<
+        std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", mask: " << tick.mask << ", price: "<< tick.price <<
             ", size: " << tick.size << ", exchange: " << tick.exchange << ", special conditions: " << tick.specialConditions << std::endl;
     }
 }

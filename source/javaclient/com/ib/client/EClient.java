@@ -276,9 +276,10 @@ public abstract class EClient {
     protected static final int MIN_SERVER_VER_TICK_BY_TICK = 137;
     protected static final int MIN_SERVER_VER_DECISION_MAKER = 138;
     protected static final int MIN_SERVER_VER_MIFID_EXECUTION = 139;
+    protected static final int MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE = 140;
     
     public static final int MIN_VERSION = 100; // envelope encoding, applicable to useV100Plus mode only
-    public static final int MAX_VERSION = MIN_SERVER_VER_MIFID_EXECUTION; // ditto
+    public static final int MAX_VERSION = MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE; // ditto
 
     protected EReaderSignal m_signal;
     protected EWrapper m_eWrapper;    // msg handler
@@ -3613,7 +3614,7 @@ public abstract class EClient {
         }        
     }
   
-    public synchronized void reqTickByTickData(int reqId, Contract contract, String tickType) {
+    public synchronized void reqTickByTickData(int reqId, Contract contract, String tickType, int numberOfTicks, boolean ignoreSize) {
         // not connected?
         if( !isConnected()) {
             notConnected();
@@ -3626,6 +3627,14 @@ public abstract class EClient {
           return;
         }
 
+        if (m_serverVersion < MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE) {
+            if (numberOfTicks != 0 || ignoreSize) {
+                error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS,
+                    "  It does not support ignoreSize and numberOfTicks parameters in tick-by-tick data requests.");
+                return;
+            }
+        }
+        
         try {
             Builder b = prepareBuffer(); 
 
@@ -3644,6 +3653,10 @@ public abstract class EClient {
             b.send(contract.localSymbol());
             b.send(contract.tradingClass());
             b.send(tickType);
+            if (m_serverVersion >= MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE) {
+                b.send(numberOfTicks);
+                b.send(ignoreSize);
+            }
 
             closeAndSend(b);
         }

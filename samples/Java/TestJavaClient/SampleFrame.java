@@ -346,7 +346,8 @@ class SampleFrame extends JFrame implements EWrapper {
         m_orderDlg.setVisible(true);
 
         if (m_orderDlg.m_rc) {
-            m_client.reqTickByTickData(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.tickByTickType()); 
+            m_client.reqTickByTickData(m_orderDlg.id(), m_orderDlg.contract(), m_orderDlg.tickByTickType(), m_orderDlg.numberOfTicks(),
+                    m_orderDlg.ignoreSize()); 
         }
     }
 

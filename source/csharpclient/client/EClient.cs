@@ -232,19 +232,21 @@ namespace IBApi
          * @param reqId - unique identifier of the request.\n
          * @param contract - the contract for which tick-by-tick data is requested.\n
          * @param tickType - tick-by-tick data type: "Last", "AllLast", "BidAsk" or "MidPoint".\n
-         * @param startTime - start time of historical tick-by-tick data.\n
-         * @param endTime - end time of historical tick-by-tick data.\n
          * @param numberOfTicks - number of ticks.\n
-         * @param refresh -  true for real-time tick-by-tick ticks, false for historical tick-by-tick data.\n
+         * @param ignoreSize - ignore size flag.\n
          * @sa EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk, EWrapper::tickByTickMidPoint, Contract
          */
-        public void reqTickByTickData(int requestId, Contract contract, string tickType)
+        public void reqTickByTickData(int requestId, Contract contract, string tickType, int numberOfTicks, bool ignoreSize)
         {
             if (!CheckConnection())
                 return;
 
             if (!CheckServerVersion(MinServerVer.TICK_BY_TICK,
                 " It does not support tick-by-tick requests."))
+                return;
+
+            if ((numberOfTicks != 0 || ignoreSize) &&
+                !CheckServerVersion(MinServerVer.TICK_BY_TICK_IGNORE_SIZE, " It does not support ignoreSize and numberOfTicks parameters in tick-by-tick requests."))
                 return;
 
             var paramsList = new BinaryWriter(new MemoryStream());
@@ -265,6 +267,11 @@ namespace IBApi
             paramsList.AddParameter(contract.LocalSymbol);
             paramsList.AddParameter(contract.TradingClass);
             paramsList.AddParameter(tickType);
+
+            if (serverVersion >= MinServerVer.TICK_BY_TICK_IGNORE_SIZE) {
+                paramsList.AddParameter(numberOfTicks);
+                paramsList.AddParameter(ignoreSize);
+            }
 
             CloseAndSend(paramsList, lengthPos, EClientErrors.FAIL_SEND_REQTICKBYTICKDATA);
         }
