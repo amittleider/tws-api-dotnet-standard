@@ -1784,6 +1784,13 @@ public class ApiController implements EWrapper {
         if (handler != null) {
             handler.historicalTick(reqId, ticks);
         }
+
+        ITickByTickDataHandler handlerTickByTick = m_tickByTickDataMap.get(reqId);
+        
+        if (handlerTickByTick != null) {
+           handlerTickByTick.tickByTickHistoricalTick(reqId, ticks);
+        }
+        
         
         recEOM();
     }
@@ -1794,6 +1801,12 @@ public class ApiController implements EWrapper {
         
         if (handler != null) {
             handler.historicalTickBidAsk(reqId, ticks);
+        }
+        
+        ITickByTickDataHandler handlerTickByTick = m_tickByTickDataMap.get(reqId);
+        
+        if (handlerTickByTick != null) {
+           handlerTickByTick.tickByTickHistoricalTickBidAsk(reqId, ticks);
         }
         
         recEOM();
@@ -1807,6 +1820,11 @@ public class ApiController implements EWrapper {
             handler.historicalTickLast(reqId, ticks);
         }
         
+        ITickByTickDataHandler handlerTickByTick = m_tickByTickDataMap.get(reqId);
+        
+        if (handlerTickByTick != null) {
+            handlerTickByTick.tickByTickHistoricalTickAllLast(reqId, ticks);
+        }
 
         recEOM();
     }
@@ -1815,15 +1833,19 @@ public class ApiController implements EWrapper {
         void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttr attribs, String exchange, String specialConditions);
         void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttr attribs);
         void tickByTickMidPoint(int reqId, long time, double midPoint);
+        void tickByTickHistoricalTickAllLast(int reqId, List<HistoricalTickLast> ticks);
+        void tickByTickHistoricalTickBidAsk(int reqId, List<HistoricalTickBidAsk> ticks);        
+        void tickByTickHistoricalTick(int reqId, List<HistoricalTick> ticks);        
     }
 
-    public void reqTickByTickData(Contract contract, String tickType, ITickByTickDataHandler handler) {
+    public void reqTickByTickData(Contract contract, String tickType, int numberOfTicks, boolean ignoreSize, 
+            ITickByTickDataHandler handler) {
         if (!checkConnection())
             return;
 
         int reqId = m_reqId++;
         m_tickByTickDataMap.put( reqId, handler);
-        m_client.reqTickByTickData( reqId, contract, tickType);
+        m_client.reqTickByTickData( reqId, contract, tickType, numberOfTicks, ignoreSize);
         sendEOM();
     }
 

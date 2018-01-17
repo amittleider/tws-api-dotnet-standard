@@ -85,10 +85,11 @@ Namespace Samples
 
         Public Shared Function EuropeanStock() As Contract
             Dim contract As Contract = New Contract
-            contract.Symbol = "SIE"
+            contract.Symbol = "NOKIA"
             contract.SecType = "STK"
             contract.Currency = "EUR"
             contract.Exchange = "SMART"
+            contract.PrimaryExch = "HEX"
             Return contract
         End Function
 

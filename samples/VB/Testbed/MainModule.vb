@@ -91,7 +91,7 @@ Module MainModule
         '***************************
         '** Contract information ***
         '***************************
-        contractOperations(client)
+        'contractOperations(client)
 
         '**********************
         '** Market Scanners ***
@@ -178,7 +178,7 @@ Module MainModule
         '***********************
         '*** Tick-By-Tick    ***
         '***********************
-        'tickByTickOperations(client)
+        tickByTickOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -997,10 +997,10 @@ Module MainModule
 
         ' Requesting tick-by-tick data (only refresh)
         '! [reqtickbytick]
-        client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
-        client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
-        client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
-        client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint")
+        client.reqTickByTickData(19001, ContractSamples.EuropeanStock(), "Last", 0, False)
+        client.reqTickByTickData(19002, ContractSamples.EuropeanStock(), "AllLast", 0, False)
+        client.reqTickByTickData(19003, ContractSamples.EuropeanStock(), "BidAsk", 0, True)
+        client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint", 0, False)
         '! [reqtickbytick]
 
         Thread.Sleep(10000)
@@ -1010,6 +1010,25 @@ Module MainModule
         client.cancelTickByTickData(19002)
         client.cancelTickByTickData(19003)
         client.cancelTickByTickData(19004)
+        '! [canceltickbytick]
+
+        Thread.Sleep(5000)
+
+        ' Requesting tick-by-tick data (historical + refresh)
+        '! [reqtickbytick]
+        client.reqTickByTickData(19005, ContractSamples.EuropeanStock(), "Last", 10, False)
+        client.reqTickByTickData(19006, ContractSamples.EuropeanStock(), "AllLast", 10, False)
+        client.reqTickByTickData(19007, ContractSamples.EuropeanStock(), "BidAsk", 10, False)
+        client.reqTickByTickData(19008, ContractSamples.EurGbpFx(), "MidPoint", 10, True)
+        '! [reqtickbytick]
+
+        Thread.Sleep(10000)
+
+        '! [canceltickbytick]
+        client.cancelTickByTickData(19005)
+        client.cancelTickByTickData(19006)
+        client.cancelTickByTickData(19007)
+        client.cancelTickByTickData(19008)
         '! [canceltickbytick]
 
     End Sub

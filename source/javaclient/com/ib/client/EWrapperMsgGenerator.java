@@ -787,19 +787,19 @@ public class EWrapperMsgGenerator {
     }
 
     public static String historicalTick(int reqId, long time, double price, long size) {
-        return "Historical Tick. Req Id: " + reqId + ", time: " + time + ", price: " + price + ", size: " 
+        return "Historical Tick. Req Id: " + reqId + ", time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + ", price: " + price + ", size: " 
                 + size;
     }
 
     public static String historicalTickBidAsk(int reqId, long time, int mask, double priceBid, double priceAsk,
             long sizeBid, long sizeAsk) {
-        return "Historical Tick Bid/Ask. Req Id: " + reqId + ", time: " + time + ", bid price: " + priceBid 
+        return "Historical Tick Bid/Ask. Req Id: " + reqId + ", time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + ", bid price: " + priceBid 
                 + ", ask price: " + priceAsk + ", bid size: " + sizeBid + ", ask size: " + sizeAsk;
     }
 
     public static String historicalTickLast(int reqId, long time, int mask, double price, long size, String exchange,
             String specialConditions) {        
-        return "Historical Tick Last. Req Id: " + reqId + ", time: " + time + ", price: " + price + ", size: " 
+        return "Historical Tick Last. Req Id: " + reqId + ", time: " + Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz") + ", price: " + price + ", size: " 
                 + size + ", exchange: " + exchange + ", special conditions:" + specialConditions;
     }
     

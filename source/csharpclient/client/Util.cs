@@ -86,5 +86,9 @@ namespace IBApi
             return (value == Double.MaxValue) ? "" : "" + value;
         }
 
+        public static string UnixSecondsToString(long seconds, string format)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(seconds)).ToString(format);
+        }
     }
 }

@@ -123,10 +123,11 @@ Contract ContractSamples::CashCFD(){
 
 Contract ContractSamples::EuropeanStock(){
 	Contract contract;
-    contract.symbol = "SMTPC";
+    contract.symbol = "NOKIA";
     contract.secType = "STK";
     contract.currency = "EUR";
-    contract.exchange = "BATEEN";
+    contract.exchange = "SMART";
+	contract.primaryExchange = "HEX";
     return contract;
 }
 

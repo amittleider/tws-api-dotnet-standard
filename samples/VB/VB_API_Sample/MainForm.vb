@@ -1959,7 +1959,7 @@ Friend Class MainForm
             m_contractInfo, m_orderInfo, Nothing, Nothing, Me)
 
         If m_dlgOrder.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            m_api.reqTickByTickData(m_dlgOrder.orderId, m_contractInfo, m_dlgOrder.tickByTickType)
+            m_api.reqTickByTickData(m_dlgOrder.orderId, m_contractInfo, m_dlgOrder.tickByTickType, m_dlgOrder.numberOfTicks, m_dlgOrder.ignoreSize)
         End If
 
     End Sub
@@ -1980,45 +1980,43 @@ Friend Class MainForm
 
     Private Sub m_apiEvents_TickByTickAllLast(sender As Object, e As TickByTickAllLastEventArgs) Handles m_apiEvents.TickByTickAllLast
         Dim tickTypeStr As String
-        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
+
         If e.tickType = 1 Then
             tickTypeStr = "Last"
         Else
             tickTypeStr = "AllLast"
         End If
         m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
-                                                                          e.reqId, tickTypeStr, timeStr, e.price, e.size, e.exchange, e.specialConditions, e.attribs.PastLimit, e.attribs.Unreported))
+                                                                          e.reqId, tickTypeStr, Util.UnixSecondsToString(e.time, "yyyyMMdd-HH:mm:ss zzz"), e.price, e.size, e.exchange, e.specialConditions, e.attribs.PastLimit, e.attribs.Unreported))
     End Sub
 
     Private Sub m_apiEvents_TickByTickBidAsk(sender As Object, e As TickByTickBidAskEventArgs) Handles m_apiEvents.TickByTickBidAsk
-        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
         m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
-                                                                          e.reqId, timeStr, e.bidPrice, e.askPrice, e.bidSize, e.askSize, e.attribs.BidPastLow, e.attribs.AskPastHigh))
+                                                                          e.reqId, Util.UnixSecondsToString(e.time, "yyyyMMdd-HH:mm:ss zzz"), e.bidPrice, e.askPrice, e.bidSize, e.askSize, e.attribs.BidPastLow, e.attribs.AskPastHigh))
     End Sub
 
     Private Sub m_apiEvents_TickByTickMidPoint(sender As Object, e As TickByTickMidPointEventArgs) Handles m_apiEvents.TickByTickMidPoint
-        Dim timeStr As String = New DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(e.time).ToString("yyyyMMdd-hh:mm:ss zzz")
         m_utils.addListItem(Utils.ListType.MarketData, String.Format("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
-                                                                          e.reqId, timeStr, e.midPoint))
+                                                                          e.reqId, Util.UnixSecondsToString(e.time, "yyyyMMdd-HH:mm:ss zzz"), e.midPoint))
     End Sub
 
     Private Sub m_apiEvents_HistoricalTicks(sender As Object, e As HistoricalTicksEventArgs) Handles m_apiEvents.HistoricalTicks
         For Each tick In e.ticks
-            m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", e.reqId, tick.Time, tick.Price, tick.Size))
+            m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", e.reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Price, tick.Size))
         Next
     End Sub
 
     Private Sub m_apiEvents_HistoricalTicksBidAsk(sender As Object, e As HistoricalTicksBidAskEventArgs) Handles m_apiEvents.HistoricalTicksBidAsk
         For Each tick In e.ticks
             m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Mask: {2} Price Bid: {3}, Price Ask {4}, Size Bid: {5}, Size Ask {6}",
-                    e.reqId, tick.Time, tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk))
+                    e.reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk))
         Next
     End Sub
 
     Private Sub m_apiEvents_HistoricalTicksLast(sender As Object, e As HistoricalTicksLastEventArgs) Handles m_apiEvents.HistoricalTicksLast
         For Each tick In e.ticks
             m_utils.addListItem(Utils.ListType.ServerResponses, String.Format("Historical Tick Last. Request Id: {0}, Time: {1}, Mask: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}",
-                    e.reqId, tick.Time, tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions))
+                    e.reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Mask, tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions))
         Next
     End Sub
 

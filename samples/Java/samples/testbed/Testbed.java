@@ -47,10 +47,10 @@ public class Testbed {
 		// In a production application, it would be best to wait for callbacks to confirm the connection is complete
 		Thread.sleep(1000);
 
-		//tickByTickOperations(wrapper.getClient());
+		tickByTickOperations(wrapper.getClient());
 		//tickDataOperations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
-		contractOperations(wrapper.getClient());
+		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//testAlgoSamples(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//bracketSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -646,17 +646,17 @@ public class Testbed {
 	private static void reutersFundamentals(EClientSocket client) throws InterruptedException {
 		
 		//! [reqfundamentaldata]
-		client.reqFundamentalData(8001, ContractSamples.USStock(), "ReportsFinSummary");
+		client.reqFundamentalData(8001, ContractSamples.USStock(), "ReportsFinSummary", null);
 		//! [reqfundamentaldata]
 		
 		Thread.sleep(2000);
 		
 		//! [fundamentalexamples]
-		client.reqFundamentalData(8002, ContractSamples.USStock(), "ReportSnapshot"); //for company overview
-		client.reqFundamentalData(8003, ContractSamples.USStock(), "ReportRatios"); //for financial ratios
-		client.reqFundamentalData(8004, ContractSamples.USStock(), "ReportsFinStatements"); //for financial statements
-		client.reqFundamentalData(8005, ContractSamples.USStock(), "RESC"); //for analyst estimates
-		client.reqFundamentalData(8006, ContractSamples.USStock(), "CalendarReport"); //for company calendar
+		client.reqFundamentalData(8002, ContractSamples.USStock(), "ReportSnapshot", null); //for company overview
+		client.reqFundamentalData(8003, ContractSamples.USStock(), "ReportRatios", null); //for financial ratios
+		client.reqFundamentalData(8004, ContractSamples.USStock(), "ReportsFinStatements", null); //for financial statements
+		client.reqFundamentalData(8005, ContractSamples.USStock(), "RESC", null); //for analyst estimates
+		client.reqFundamentalData(8006, ContractSamples.USStock(), "CalendarReport", null); //for company calendar
 		//! [fundamentalexamples]
 		
 		//! [cancelfundamentaldata]
@@ -765,14 +765,14 @@ public class Testbed {
 		//! [reqsecdefoptparams]
 		
 		//! [calculateimpliedvolatility]
-		client.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85);
+		client.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85, null);
 		//! [calculateimpliedvolatility]
 		
 		//** Canceling implied volatility ***
 		client.cancelCalculateImpliedVolatility(5001);
 		
 		//! [calculateoptionprice]
-		client.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85);
+		client.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85, null);
 		//! [calculateoptionprice]
 		
 		//** Canceling option's price calculation ***
@@ -838,10 +838,10 @@ public class Testbed {
 		
 		/*** Requesting tick-by-tick data (only refresh) ***/
 		//! [reqtickbytick]
-		client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last");
-		client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast");
-		client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk");
-		client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint");
+		client.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last", 0, false);
+		client.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast", 0, false);
+		client.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk", 0, true);
+		client.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint", 0, false);
 		//! [reqtickbytick]
 
 		Thread.sleep(10000);
@@ -851,6 +851,23 @@ public class Testbed {
 		client.cancelTickByTickData(19002);
 		client.cancelTickByTickData(19003);
 		client.cancelTickByTickData(19004);
+		//! [canceltickbytick]
+		
+		/*** Requesting tick-by-tick data (refresh + historical ticks) ***/
+		//! [reqtickbytick]
+		client.reqTickByTickData(19005, ContractSamples.EuropeanStock(), "Last", 10, false);
+		client.reqTickByTickData(19006, ContractSamples.EuropeanStock(), "AllLast", 10, false);
+		client.reqTickByTickData(19007, ContractSamples.EuropeanStock(), "BidAsk", 10, false);
+		client.reqTickByTickData(19008, ContractSamples.EurGbpFx(), "MidPoint", 10, true);
+		//! [reqtickbytick]
+
+		Thread.sleep(10000);
+
+		//! [canceltickbytick]
+		client.cancelTickByTickData(19005);
+		client.cancelTickByTickData(19006);
+		client.cancelTickByTickData(19007);
+		client.cancelTickByTickData(19008);
 		//! [canceltickbytick]
 	}	
 }

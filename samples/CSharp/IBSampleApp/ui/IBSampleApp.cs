@@ -227,57 +227,55 @@ namespace IBSampleApp
             ibClient.historicalTickBidAsk += UpdateUI;
             ibClient.historicalTickLast += UpdateUI;
             ibClient.tickByTickAllLast += UpdateUI;
+            ibClient.tickByTickBidAsk += UpdateUI;
             ibClient.tickByTickMidPoint += UpdateUI;
         }
 
         private void UpdateUI(TickByTickMidPointMessage msg)
         {
             dataGridViewTickByTick.DataSource = tickByTickMidPointTable;
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
-            tickByTickMidPointTable.Rows.Add(timeStr, msg.MidPoint);
+            tickByTickMidPointTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.MidPoint);
         }
 
         private void UpdateUI(TickByTickBidAskMessage msg)
         {
             dataGridViewTickByTick.DataSource = tickByTickBidAskTable;
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
-            tickByTickBidAskTable.Rows.Add(timeStr, msg.BidPrice, msg.AskPrice, msg.BidSize, msg.AskSize, msg.Attribs.BidPastLow, msg.Attribs.AskPastHigh);
+            tickByTickBidAskTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.BidPrice, msg.AskPrice, msg.BidSize, msg.AskSize, msg.Attribs.BidPastLow, msg.Attribs.AskPastHigh);
         }
 
         private void UpdateUI(TickByTickAllLastMessage msg)
         {
-            string timeStr = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(msg.Time)).ToString("yyyyMMdd-HH:mm:ss zzz");
             if (msg.TickType == 1)
             {
                 dataGridViewTickByTick.DataSource = tickByTickLastTable;
-                tickByTickLastTable.Rows.Add(timeStr, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit);
+                tickByTickLastTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit);
             }
             else if (msg.TickType == 2)
             {
                 dataGridViewTickByTick.DataSource = tickByTickAllLastTable;
-                tickByTickAllLastTable.Rows.Add(timeStr, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit, msg.Attribs.Unreported);
+                tickByTickAllLastTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions, msg.Attribs.PastLimit, msg.Attribs.Unreported);
             }
         }
 
         private void UpdateUI(HistoricalTickLastMessage msg)
         {
             dataGridViewHistoricalTicks.DataSource = historicalTickLastTable;
-            
-            historicalTickLastTable.Rows.Add(msg.Time, msg.Mask, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions);
+
+            historicalTickLastTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.Mask, msg.Price, msg.Size, msg.Exchange, msg.SpecialConditions);
         }
 
         private void UpdateUI(HistoricalTickBidAskMessage msg)
         {
             dataGridViewHistoricalTicks.DataSource = historicalTickBidAskTable;
 
-            historicalTickBidAskTable.Rows.Add(msg.Time, msg.Mask, msg.PriceBid, msg.PriceAsk, msg.SizeBid, msg.SizeAsk);
+            historicalTickBidAskTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.Mask, msg.PriceBid, msg.PriceAsk, msg.SizeBid, msg.SizeAsk);
         }
 
         private void UpdateUI(HistoricalTickMessage msg)
         {
             dataGridViewHistoricalTicks.DataSource = historicalTickTable;
-            
-            historicalTickTable.Rows.Add(msg.Time, msg.Price, msg.Size);
+
+            historicalTickTable.Rows.Add(Util.UnixSecondsToString(msg.Time, "yyyyMMdd-HH:mm:ss zzz"), msg.Price, msg.Size);
         }
 
         private void UpdateUI(HistogramDataMessage obj)
@@ -1351,8 +1349,12 @@ namespace IBSampleApp
             ShowTab(marketData_MDT, tabPageTickByTick);
 
             String tickType = comboBoxTickByTickType.GetItemText(comboBoxTickByTickType.SelectedItem);
+            int numberOfTicks;
+            if (!int.TryParse(tbNumOfTicks.Text, out numberOfTicks))
+                return;
+
             labelTickByTick.Text = "Tick-By-Tick: " + tickType;
-            ibClient.ClientSocket.reqTickByTickData(0, contract, tickType);
+            ibClient.ClientSocket.reqTickByTickData(0, contract, tickType, numberOfTicks, cbIgnoreSize.Checked);
         }
 
         private void buttonCancelTickByTick_Click(object sender, EventArgs e)
