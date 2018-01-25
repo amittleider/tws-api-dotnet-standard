@@ -22,16 +22,21 @@ import com.ib.controller.Formats;
 class TopModel extends AbstractTableModel {
 	private List<TopRow> m_rows = new ArrayList<>();
 	private MarketDataPanel m_parentPanel;
-	private static final int CANCEL_CHBX_COL_INDEX = 24;
+	private static final int CANCEL_CHBX_COL_INDEX = 25;
+	String m_genericTicks = "";
 
 	TopModel(MarketDataPanel parentPanel) {
 		m_parentPanel = parentPanel;
 	}
 
+	void setGenericTicks(String genericTicks) {
+		m_genericTicks = genericTicks;
+	}
+
 	void addRow( Contract contract) {
 		TopRow row = new TopRow( this, contract.description(), m_parentPanel );
 		m_rows.add( row);
-		ApiDemo.INSTANCE.controller().reqTopMktData(contract, "588", false, false, row);
+		ApiDemo.INSTANCE.controller().reqTopMktData(contract, m_genericTicks, false, false, row);
 		fireTableRowsInserted( m_rows.size() - 1, m_rows.size() - 1);
 	}
 
@@ -74,7 +79,7 @@ class TopModel extends AbstractTableModel {
 	}
 	
 	@Override public int getColumnCount() {
-		return 22;
+		return 26;
 	}
 	
 	@Override public String getColumnName(int col) {
@@ -103,6 +108,7 @@ class TopModel extends AbstractTableModel {
 			case 21: return "Open";
 			case 22: return "Market Data Type";
 			case 23: return "Futures Open Interest";
+			case 24: return "Avg Opt Volume";
 			case CANCEL_CHBX_COL_INDEX: return "Cancel";
 
 			default: return null;
@@ -136,6 +142,7 @@ class TopModel extends AbstractTableModel {
 			case 21: return fmt( row.m_open);
 			case 22: return row.m_marketDataType;
 			case 23: return row.m_futuresOpenInterest;
+			case 24: return row.m_avgOptVolume;
 			case CANCEL_CHBX_COL_INDEX: return row.m_cancel;
 			default: return null;
 		}
@@ -180,6 +187,7 @@ class TopModel extends AbstractTableModel {
 		int m_snapshotPermissions;
 		int m_bidMask, m_askMask;
 		int m_futuresOpenInterest;
+		int m_avgOptVolume;
 		
 		TopRow( AbstractTableModel model, String description, MarketDataPanel parentPanel) {
 			m_model = model;
@@ -256,6 +264,9 @@ class TopModel extends AbstractTableModel {
 					break;
 				case FUTURES_OPEN_INTEREST:
 					m_futuresOpenInterest = size;
+					break;
+				case AVG_OPT_VOLUME:
+					m_avgOptVolume = size;
 					break;
                 default: break; 
 			}

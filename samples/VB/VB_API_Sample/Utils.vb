@@ -93,6 +93,7 @@ Friend Class Utils
         LastExchange
         LastRegTime
         FuturesOpenInterest
+        AvgOptVolume
         Unknown
     End Enum
 

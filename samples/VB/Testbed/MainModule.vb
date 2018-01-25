@@ -61,7 +61,7 @@ Module MainModule
         '**************************************************
         '** Real time market data operations  - Tickers ***
         '**************************************************
-        'tickDataOperations(client)
+        tickDataOperations(client)
 
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
@@ -178,7 +178,7 @@ Module MainModule
         '***********************
         '*** Tick-By-Tick    ***
         '***********************
-        tickByTickOperations(client)
+        'tickByTickOperations(client)
 
         Thread.Sleep(15000)
         Console.WriteLine("Done")
@@ -278,6 +278,11 @@ Module MainModule
         client.reqMktData(1015, ContractSamples.SimpleFuture(), "", False, False, Nothing)
         '! [reqmktData_preopenbidask]
 
+        '! [reqavgoptvolume]
+        'Requesting data for a stock will return the average option volume
+        client.reqMktData(1016, ContractSamples.USStockAtSmart(), "mdoff,105", False, False, Nothing)
+        '! [reqavgoptvolume]
+
         Thread.Sleep(10000)
         ' Canceling the market data subscription 
         ' [cancelmktdata]
@@ -288,6 +293,7 @@ Module MainModule
         client.cancelMktData(1005)
         client.cancelMktData(1014)
         client.cancelMktData(1015)
+        client.cancelMktData(1016)
         ' [cancelmktdata]
     End Sub
 
