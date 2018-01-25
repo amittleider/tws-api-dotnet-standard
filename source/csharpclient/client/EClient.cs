@@ -1713,6 +1713,7 @@ namespace IBApi
          *      - 100 	Option Volume (currently for stocks)
          *      - 101 	Option Open Interest (currently for stocks) 
          *      - 104 	Historical Volatility (currently for stocks)
+         *      - 105 	Average Option Volume (currently for stocks)
          *      - 106 	Option Implied Volatility (currently for stocks)
          *      - 162 	Index Future Premium 
          *      - 165 	Miscellaneous Stats 

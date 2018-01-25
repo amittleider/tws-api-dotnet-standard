@@ -413,7 +413,7 @@ void TestCppClient::tickDataOperation()
 
 	//! [reqoptiondatagenticks]
 	//Requesting data for an option contract will return the greek values
-	m_pClient->reqMktData(1005, ContractSamples::USOptionContract(), "", false, false, TagValueListSPtr());
+	m_pClient->reqMktData(1013, ContractSamples::USOptionContract(), "", false, false, TagValueListSPtr());
 	//! [reqoptiondatagenticks]
 	
 	//! [reqfuturesopeninterest]
@@ -426,6 +426,11 @@ void TestCppClient::tickDataOperation()
 	m_pClient->reqMktData(1015, ContractSamples::SimpleFuture(), "", false, false, TagValueListSPtr());
 	//! [reqpreopenbidask]
 
+	//! [reqavgoptvolume]
+	//Requesting data for a stock will return the average option volume
+	m_pClient->reqMktData(1016, ContractSamples::USStockAtSmart(), "mdoff,105", false, false, TagValueListSPtr());
+	//! [reqavgoptvolume]
+
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	/*** Canceling the market data subscription ***/
 	//! [cancelmktdata]
@@ -434,6 +439,7 @@ void TestCppClient::tickDataOperation()
 	m_pClient->cancelMktData(1003);
 	m_pClient->cancelMktData(1014);
 	m_pClient->cancelMktData(1015);
+	m_pClient->cancelMktData(1016);
 	//! [cancelmktdata]
 
 	m_state = ST_TICKDATAOPERATION_ACK;
@@ -1284,7 +1290,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_REQTICKBYTICKDATA; 
+    m_state = ST_TICKDATAOPERATION; 
+    //m_state = ST_REQTICKBYTICKDATA; 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 

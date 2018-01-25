@@ -100,6 +100,7 @@ namespace IBApi
         public const int LAST_EXCH = 84;
         public const int LAST_REG_TIME = 85;
         public const int FUTURES_OPEN_INTEREST = 86;
+        public const int AVG_OPT_VOLUME = 87;
 
         public static String getField( int tickType) {
             switch( tickType) {
@@ -190,6 +191,7 @@ namespace IBApi
                 case LAST_EXCH:                   return "lastExchange";
                 case LAST_REG_TIME:               return "lastRegTime";
                 case FUTURES_OPEN_INTEREST:       return "futuresOpenInterest";
+                case AVG_OPT_VOLUME:              return "avgOptVolume";
 
                 default:                          return "unknown";
             }

@@ -55,7 +55,7 @@ namespace Samples
             /***************************************************/
             /*** Real time market data operations  - Tickers ***/
             /***************************************************/
-            //tickDataOperations(client);
+            tickDataOperations(client);
 
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
@@ -176,7 +176,7 @@ namespace Samples
             /**************************/
             /*** Tick-By-Tick       ***/
             /**************************/
-            tickByTickOperations(client);
+            //tickByTickOperations(client);
 
             Thread.Sleep(3000);
             Console.WriteLine("Done");
@@ -367,6 +367,11 @@ namespace Samples
             client.reqMktData(1015, ContractSamples.SimpleFuture(), "", false, false, null);
             //! [reqmktDatapreopenbidask]
 
+            //! [reqavgoptvolume]
+            //Requesting data for a stock will return the average option volume
+            client.reqMktData(1016, ContractSamples.USStockAtSmart(), "mdoff,105", false, false, null);
+            //! [reqavgoptvolume]
+
             Thread.Sleep(10000);
             /*** Canceling the market data subscription ***/
             //! [cancelmktdata]
@@ -375,6 +380,7 @@ namespace Samples
             client.cancelMktData(1003);
             client.cancelMktData(1014);
             client.cancelMktData(1015);
+            client.cancelMktData(1016);
             //! [cancelmktdata]
         }
 

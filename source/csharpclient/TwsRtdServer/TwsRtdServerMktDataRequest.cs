@@ -380,8 +380,10 @@ namespace TwsRtdServer
                     switch (secTypeStr)
                     {
                         case "STK":
-                        case "OPT":
                             genericTicksStr = TwsRtdServerData.GENERIC_TICKS_STK;
+                            break;
+                        case "OPT":
+                            genericTicksStr = TwsRtdServerData.GENERIC_TICKS_OPT;
                             break;
                         case "FUT":
                         case "FOP":

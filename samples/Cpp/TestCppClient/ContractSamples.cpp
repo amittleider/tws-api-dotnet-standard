@@ -158,7 +158,7 @@ Contract ContractSamples::USStock(){
 
 Contract ContractSamples::USStockAtSmart(){
 	Contract contract;
-	contract.symbol = "IBKR";
+	contract.symbol = "IBM";
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";

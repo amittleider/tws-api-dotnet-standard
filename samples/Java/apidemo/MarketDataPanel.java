@@ -23,6 +23,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
@@ -343,6 +344,7 @@ class MarketDataPanel extends JPanel {
 	private class TopRequestPanel extends JPanel {
 		final ContractPanel m_contractPanel = new ContractPanel(m_contract);
 		TCombo<String> m_marketDataType = new TCombo<>( MarketDataType.getFields() );
+		JTextField  m_genericTicksTextField = new JTextField();
 		MarketDataPanel m_parentPanel;
 		
 		TopRequestPanel(MarketDataPanel parentPanel) {
@@ -365,6 +367,7 @@ class MarketDataPanel extends JPanel {
 
 			VerticalPanel paramPanel = new VerticalPanel();
 			paramPanel.add( "Market data type", m_marketDataType);
+			paramPanel.add( "Generic ticks", m_genericTicksTextField);
 
 			VerticalPanel butPanel = new VerticalPanel();
 			butPanel.add( Box.createVerticalStrut( 40));
@@ -388,6 +391,7 @@ class MarketDataPanel extends JPanel {
 				m_topResultPanel = new TopResultsPanel(m_parentPanel);
 				m_resultsPanel.addTab( "Top Data", m_topResultPanel, true, true);
 			}
+			m_topResultPanel.m_model.setGenericTicks(m_genericTicksTextField.getText());
 			
 			m_topResultPanel.m_model.addRow( m_contract);
 		}

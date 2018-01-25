@@ -28,6 +28,7 @@ namespace IBSampleApp.ui
         private const int HIGH_PRICE_INDEX = 13;
         private const int LOW_PRICE_INDEX = 14;
         private const int FUTURES_OPEN_INTEREST_INDEX = 15;
+        private const int AVG_OPT_VOLUME_INDEX = 16;
 
         private const int BID_SIZE_INDEX = 2;
         private const int ASK_SIZE_INDEX = 7;
@@ -237,6 +238,12 @@ namespace IBSampleApp.ui
                     {
                         //FUTURES_OPEN_INTEREST
                         grid[FUTURES_OPEN_INTEREST_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Size;
+                        break;
+                    }
+                case 87:
+                    {
+                        //AVG_OPT_VOLUME
+                        grid[AVG_OPT_VOLUME_INDEX, GetIndex(dataMessage.RequestId)].Value = dataMessage.Size;
                         break;
                     }
 
