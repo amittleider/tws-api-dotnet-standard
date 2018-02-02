@@ -1461,13 +1461,13 @@ namespace TWSLib
                 sc.Post(state => t_receiveFA(faDataType, faXmlData), null);
         }
 
-        public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP);
+        public delegate void historicalDataDelegate(int reqId, string date, double open, double high, double low, double close, int volume, int barCount, double WAP, int hasGaps);
         public event historicalDataDelegate historicalData;
         void EWrapper.historicalData(int reqId, Bar bar)
         {
             var t_historicalData = this.historicalData;
             if (t_historicalData != null)
-                sc.Post(state => t_historicalData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP), null);
+                sc.Post(state => t_historicalData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP, 0), null);
         }
 
         public delegate void historicalDataEndDelegate(int reqId, string startDate, string endDate);
@@ -1484,10 +1484,10 @@ namespace TWSLib
         {
             var t_historicalUpdateData = this.historicalDataUpdate;
             if (t_historicalUpdateData != null)
-                sc.Post(state => t_historicalUpdateData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP), null);
+                sc.Post(state => t_historicalUpdateData(reqId, bar.Time, bar.Open, bar.High, bar.Low, bar.Close, (int)bar.Volume, bar.Count, bar.WAP, 0), null);
         }
 
-        public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, bool convertible, bool callable, bool putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, bool nextOptionPartial, string notes);
+        public delegate void bondContractDetailsDelegate(string symbol, string secType, string cusip, double coupon, string maturity, string issueDate, string ratings, string bondType, string couponType, int convertible, int callable, int putable, string descAppend, string exchange, string curency, string marketName, string tradingClass, int conId, double minTick, string orderTypes, string validExchanges, string nextOptionDate, string nextOptionType, int nextOptionPartial, string notes);
         public event bondContractDetailsDelegate bondContractDetails;
 
         public delegate void bondContractDetailsExDelegate(int reqId, IContractDetails contractDetails);
@@ -1510,9 +1510,9 @@ namespace TWSLib
                                       contractDetails.Ratings,
                                       contractDetails.BondType,
                                       contractDetails.CouponType,
-                                      contractDetails.Convertible,
-                                      contractDetails.Callable,
-                                      contractDetails.Putable,
+                                      contractDetails.Convertible ? 1 : 0,
+                                      contractDetails.Callable ? 1 : 0,
+                                      contractDetails.Putable ? 1 : 0,
                                       contractDetails.DescAppend,
                                       contractDetails.Contract.Exchange,
                                       contractDetails.Contract.Currency,
@@ -1524,7 +1524,7 @@ namespace TWSLib
                                       contractDetails.ValidExchanges,
                                       contractDetails.NextOptionDate,
                                       contractDetails.NextOptionType,
-                                      contractDetails.NextOptionPartial,
+                                      contractDetails.NextOptionPartial ? 1 : 0,
                                       contractDetails.Notes), null);
         }
 
@@ -2058,8 +2058,8 @@ namespace TWSLib
                 sc.Post(state => tmp(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value), null);
         }
 
-        public delegate void HistoricalTickDelegate(int reqId, HistoricalTick[] ticks, bool done);
-        public event HistoricalTickDelegate historicalTicks;
+        public delegate void HistoricalTicksDelegate(int reqId, HistoricalTick[] ticks, bool done);
+        public event HistoricalTicksDelegate historicalTicks;
         void EWrapper.historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {
             var tmp = this.historicalTicks;
@@ -2069,8 +2069,8 @@ namespace TWSLib
         }
 
 
-        public delegate void HistoricalTickBidAskDelegate(int reqId, HistoricalTickBidAsk[] ticks, bool done);
-        public event HistoricalTickBidAskDelegate historicalTicksBidAsk;
+        public delegate void HistoricalTicksBidAskDelegate(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+        public event HistoricalTicksBidAskDelegate historicalTicksBidAsk;
         void EWrapper.historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
         {
             var tmp = this.historicalTicksBidAsk;
@@ -2079,8 +2079,8 @@ namespace TWSLib
                 sc.Post(state => tmp(reqId, ticks, done), null);
         }
 
-        public delegate void HistoricalTickLastDelegate(int reqId, HistoricalTickLast[] ticks, bool done);
-        public event HistoricalTickLastDelegate historicalTicksLast;
+        public delegate void HistoricalTicksLastDelegate(int reqId, HistoricalTickLast[] ticks, bool done);
+        public event HistoricalTicksLastDelegate historicalTicksLast;
         void EWrapper.historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
             var tmp = this.historicalTicksLast;
