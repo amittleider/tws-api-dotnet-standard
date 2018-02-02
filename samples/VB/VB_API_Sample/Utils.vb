@@ -195,4 +195,12 @@ Friend Class Utils
         UnixMillisecondsToString = DateAdd(DateInterval.Second, unixTime / 1000, DateSerial(1970, 1, 1)).ToString(dateFormat)
     End Function
 
+    Public Shared Function DoubleMaxToString(value As Double) As String
+        If value = Double.MaxValue Then
+            Return "N/A"
+        Else
+            Return value
+        End If
+    End Function
+
 End Class

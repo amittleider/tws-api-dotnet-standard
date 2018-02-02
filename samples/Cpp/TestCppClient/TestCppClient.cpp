@@ -124,6 +124,11 @@ void TestCppClient::processMessages() {
 			break;
 		case ST_TICKDATAOPERATION_ACK:
 			break;
+		case ST_TICKOPTIONCOMPUTATIONOPERATION:
+			tickOptionComputationOperation();
+			break;
+		case ST_TICKOPTIONCOMPUTATIONOPERATION_ACK:
+			break;
 		case ST_DELAYEDTICKDATAOPERATION:
 			delayedTickDataOperation();
 			break;
@@ -443,6 +448,23 @@ void TestCppClient::tickDataOperation()
 	//! [cancelmktdata]
 
 	m_state = ST_TICKDATAOPERATION_ACK;
+}
+
+void TestCppClient::tickOptionComputationOperation()
+{
+	/*** Requesting real time market data ***/
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	//! [reqmktdata]
+	m_pClient->reqMktData(2001, ContractSamples::FuturesOnOptions(), "", false, false, TagValueListSPtr());
+	//! [reqmktdata]
+
+	std::this_thread::sleep_for(std::chrono::seconds(10));
+	/*** Canceling the market data subscription ***/
+	//! [cancelmktdata]
+	m_pClient->cancelMktData(2001);
+	//! [cancelmktdata]
+
+	m_state = ST_TICKOPTIONCOMPUTATIONOPERATION_ACK;
 }
 
 void TestCppClient::delayedTickDataOperation()
@@ -1290,7 +1312,8 @@ void TestCppClient::nextValidId( OrderId orderId)
 	m_orderId = orderId;
 	//! [nextvalidid]
 
-    m_state = ST_TICKDATAOPERATION; 
+    m_state = ST_TICKOPTIONCOMPUTATIONOPERATION; 
+    //m_state = ST_TICKDATAOPERATION; 
     //m_state = ST_REQTICKBYTICKDATA; 
     //m_state = ST_REQHISTORICALTICKS; 
     //m_state = ST_CONTFUT; 

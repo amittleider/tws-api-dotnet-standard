@@ -2143,52 +2143,15 @@ Friend Class MainForm
     ' Market data option computation tick event - triggered by the reqMktData() method
     '--------------------------------------------------------------------------------
     Private Sub Api_tickOptionComputation(sender As Object, e As TickOptionComputationEventArgs) Handles m_apiEvents.TickOptionComputation
-        Dim volStr As String, deltaStr As String, gammaStr As String, vegaStr As String,
-            thetaStr As String, optPriceStr As String, pvDividendStr As String, undPriceStr As String
-
-        If e.impliedVolatility = Double.MaxValue Or e.impliedVolatility < 0 Then
-            volStr = "N/A"
-        Else
-            volStr = e.impliedVolatility
-        End If
-        If e.delta = Double.MaxValue Or Math.Abs(e.delta) > 1 Then
-            deltaStr = "N/A"
-        Else
-            deltaStr = e.delta
-        End If
-        If e.gamma = Double.MaxValue Or Math.Abs(e.gamma) > 1 Then
-            gammaStr = "N/A"
-        Else
-            gammaStr = e.gamma
-        End If
-        If e.vega = Double.MaxValue Or Math.Abs(e.vega) > 1 Then
-            vegaStr = "N/A"
-        Else
-            vegaStr = e.vega
-        End If
-        If e.theta = Double.MaxValue Or Math.Abs(e.theta) > 1 Then
-            thetaStr = "N/A"
-        Else
-            thetaStr = e.theta
-        End If
-        If e.optPrice = Double.MaxValue Then
-            optPriceStr = "N/A"
-        Else
-            optPriceStr = e.optPrice
-        End If
-        If e.pvDividend = Double.MaxValue Then
-            pvDividendStr = "N/A"
-        Else
-            pvDividendStr = e.pvDividend
-        End If
-        If e.undPrice = Double.MaxValue Then
-            undPriceStr = "N/A"
-        Else
-            undPriceStr = e.undPrice
-        End If
-        Dim mktDataStr = "id = " & e.tickerId & " " & m_utils.getField(e.tickType) & " vol = " & volStr & " delta = " & deltaStr &
-            " gamma = " & gammaStr & " vega = " & vegaStr & " theta = " & thetaStr &
-            " optPrice = " & optPriceStr & " pvDividend = " & pvDividendStr & " undPrice = " & undPriceStr
+        Dim mktDataStr = "id = " & e.tickerId & " " & m_utils.getField(e.tickType) &
+            " impliedVolatility = " & Utils.DoubleMaxToString(e.impliedVolatility) &
+            " delta = " & Utils.DoubleMaxToString(e.delta) &
+            " gamma = " & Utils.DoubleMaxToString(e.gamma) &
+            " vega = " & Utils.DoubleMaxToString(e.vega) &
+            " theta = " & Utils.DoubleMaxToString(e.theta) &
+            " optPrice = " & Utils.DoubleMaxToString(e.optPrice) &
+            " pvDividend = " & Utils.DoubleMaxToString(e.pvDividend) &
+            " undPrice = " & Utils.DoubleMaxToString(e.undPrice)
         m_utils.addListItem(Utils.ListType.MarketData, mktDataStr)
     End Sub
 

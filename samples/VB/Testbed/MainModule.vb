@@ -61,7 +61,12 @@ Module MainModule
         '**************************************************
         '** Real time market data operations  - Tickers ***
         '**************************************************
-        tickDataOperations(client)
+        'tickDataOperations(client)
+
+        '***************************************************
+        '** Tick option computation operations - Tickers ***
+        '***************************************************
+        tickOptionComputationOperations(client)
 
         '*******************************************************
         '** Real time market data operations  - Market Depth ***
@@ -294,6 +299,21 @@ Module MainModule
         client.cancelMktData(1014)
         client.cancelMktData(1015)
         client.cancelMktData(1016)
+        ' [cancelmktdata]
+    End Sub
+
+    Private Sub tickOptionComputationOperations(client As EClientSocket)
+
+        ' Requesting real time market data 
+        ' [reqmktdata]
+        client.reqMktData(2001, ContractSamples.FuturesOnOptions(), String.Empty, False, False, Nothing)
+        ' [reqmktdata]
+
+        Thread.Sleep(10000)
+
+        ' Canceling the market data subscription 
+        ' [cancelmktdata]
+        client.cancelMktData(2001)
         ' [cancelmktdata]
     End Sub
 

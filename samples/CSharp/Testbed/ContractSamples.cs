@@ -358,14 +358,14 @@ namespace Samples
         {
             //! [fopcontract]
             Contract contract = new Contract();
-            contract.Symbol = "SPX";
+            contract.Symbol = "ES";
             contract.SecType = "FOP";
             contract.Exchange = "GLOBEX";
             contract.Currency = "USD";
-            contract.LastTradeDateOrContractMonth = "20180315";
-            contract.Strike = 1025;
+            contract.LastTradeDateOrContractMonth = "20180316";
+            contract.Strike = 2800;
             contract.Right = "C";
-            contract.Multiplier = "250";
+            contract.Multiplier = "50";
             //! [fopcontract]
             return contract;
         }

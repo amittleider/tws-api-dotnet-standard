@@ -1055,11 +1055,15 @@ namespace IBApi
             int requestId = ReadInt();
             int tickType = ReadInt();
             double impliedVolatility = ReadDouble();
-            if (impliedVolatility < 0)
+            if (impliedVolatility.Equals(-1))
+            { // -1 is the "not yet computed" indicator
                 impliedVolatility = Double.MaxValue;
+            }
             double delta = ReadDouble();
-            if (Math.Abs(delta) > 1)
+            if (delta.Equals(-2))
+            { // -2 is the "not yet computed" indicator
                 delta = Double.MaxValue;
+            }
             double optPrice = Double.MaxValue;
             double pvDividend = Double.MaxValue;
             double gamma = Double.MaxValue;
@@ -1069,12 +1073,12 @@ namespace IBApi
             if (msgVersion >= 6 || tickType == TickType.MODEL_OPTION || tickType == TickType.DELAYED_MODEL_OPTION)
             {
                 optPrice = ReadDouble();
-                if (optPrice < 0)
+                if (optPrice.Equals(-1))
                 { // -1 is the "not yet computed" indicator
                     optPrice = Double.MaxValue;
                 }
                 pvDividend = ReadDouble();
-                if (pvDividend < 0)
+                if (pvDividend.Equals(-1))
                 { // -1 is the "not yet computed" indicator
                     pvDividend = Double.MaxValue;
                 }
@@ -1082,22 +1086,22 @@ namespace IBApi
             if (msgVersion >= 6)
             {
                 gamma = ReadDouble();
-                if (Math.Abs(gamma) > 1)
+                if (gamma.Equals(-2))
                 { // -2 is the "not yet computed" indicator
                     gamma = Double.MaxValue;
                 }
                 vega = ReadDouble();
-                if (Math.Abs(vega) > 1)
+                if (vega.Equals(-2))
                 { // -2 is the "not yet computed" indicator
                     vega = Double.MaxValue;
                 }
                 theta = ReadDouble();
-                if (Math.Abs(theta) > 1)
+                if (theta.Equals(-2))
                 { // -2 is the "not yet computed" indicator
                     theta = Double.MaxValue;
                 }
                 undPrice = ReadDouble();
-                if (undPrice < 0)
+                if (undPrice.Equals(-1))
                 { // -1 is the "not yet computed" indicator
                     undPrice = Double.MaxValue;
                 }
