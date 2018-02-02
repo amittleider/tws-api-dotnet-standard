@@ -760,10 +760,10 @@ class TestApp(TestWrapper, TestClient):
     def tickByTickOperations(self):
         # Requesting tick-by-tick data (only refresh)
         # ! [reqtickbytick]
-        self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
-        self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
-        self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
-        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint")
+        self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last", 0, True)
+        self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast", 0, False)
+        self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk", 0, True)
+        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint", 0, False)
         # ! [reqtickbytick]
 
         time.sleep(1)
@@ -774,6 +774,23 @@ class TestApp(TestWrapper, TestClient):
         self.cancelTickByTickData(19003)
         self.cancelTickByTickData(19004)
         # ! [canceltickbytick]
+
+        # Requesting tick-by-tick data (refresh + historicalticks)
+        # ! [reqtickbytickwithhist]
+        self.reqTickByTickData(19001, ContractSamples.EuropeanStock(), "Last", 10, False)
+        self.reqTickByTickData(19002, ContractSamples.EuropeanStock(), "AllLast", 10, False)
+        self.reqTickByTickData(19003, ContractSamples.EuropeanStock(), "BidAsk", 10, False)
+        self.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint", 10, True)
+        # ! [reqtickbytickwithhist]
+
+        time.sleep(1)
+
+        # ! [canceltickbytickwithhist]
+        self.cancelTickByTickData(19005)
+        self.cancelTickByTickData(19006)
+        self.cancelTickByTickData(19007)
+        self.cancelTickByTickData(19008)
+        # ! [canceltickbytickwithhist]
 
     @iswrapper
     def tickByTickAllLast(self, reqId: int, tickType: int, time: int, price: float,
