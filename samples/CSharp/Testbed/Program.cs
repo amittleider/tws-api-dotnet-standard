@@ -55,7 +55,12 @@ namespace Samples
             /***************************************************/
             /*** Real time market data operations  - Tickers ***/
             /***************************************************/
-            tickDataOperations(client);
+            //tickDataOperations(client);
+
+            /***************************************************/
+            /*** Option computation operations  - Tickers    ***/
+            /***************************************************/
+            tickOptionComputationOperations(client);
 
             /********************************************************/
             /*** Real time market data operations  - Market Depth ***/
@@ -381,6 +386,21 @@ namespace Samples
             client.cancelMktData(1014);
             client.cancelMktData(1015);
             client.cancelMktData(1016);
+            //! [cancelmktdata]
+        }
+
+        private static void tickOptionComputationOperations(EClientSocket client)
+        {
+            /*** Requesting real time market data ***/
+            //! [reqmktdata]
+            client.reqMktData(2001, ContractSamples.FuturesOnOptions(), string.Empty, false, false, null);
+            //! [reqmktdata]
+
+            Thread.Sleep(10000);
+
+            /*** Canceling the market data subscription ***/
+            //! [cancelmktdata]
+            client.cancelMktData(2001);
             //! [cancelmktdata]
         }
 

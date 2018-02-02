@@ -111,4 +111,8 @@ public class Util {
 			return new ArrayList<>();
 		}
 	}
+	
+	public static String maxDoubleToString(Double value){
+		return value != Double.MAX_VALUE ? Double.toString(value) : "N/A";
+	}
 }

@@ -1836,11 +1836,12 @@ class EDecoder implements ObjectInput {
 		int tickerId = readInt();
 		int tickType = readInt();
 		double impliedVol = readDouble();
-		if (impliedVol < 0) { // -1 is the "not yet computed" indicator
+		if (Double.compare(impliedVol, -1) == 0) { // -1 is the "not yet computed" indicator
 			impliedVol = Double.MAX_VALUE;
 		}
+		
 		double delta = readDouble();
-		if (Math.abs(delta) > 1) { // -2 is the "not yet computed" indicator
+		if (Double.compare(delta, -2) == 0) { // -2 is the "not yet computed" indicator
 			delta = Double.MAX_VALUE;
 		}
 		double optPrice = Double.MAX_VALUE;
@@ -1852,29 +1853,29 @@ class EDecoder implements ObjectInput {
 		if (version >= 6 || tickType == TickType.MODEL_OPTION.index()
 				|| tickType == TickType.DELAYED_MODEL_OPTION.index()) { // introduced in version == 5
 			optPrice = readDouble();
-			if (optPrice < 0) { // -1 is the "not yet computed" indicator
+			if (Double.compare(optPrice, -1) == 0) { // -1 is the "not yet computed" indicator
 				optPrice = Double.MAX_VALUE;
 			}
 			pvDividend = readDouble();
-			if (pvDividend < 0) { // -1 is the "not yet computed" indicator
+			if (Double.compare(pvDividend, -1) == 0) { // -1 is the "not yet computed" indicator
 				pvDividend = Double.MAX_VALUE;
 			}
 		}
 		if (version >= 6) {
 			gamma = readDouble();
-			if (Math.abs(gamma) > 1) { // -2 is the "not yet computed" indicator
+			if (Double.compare(gamma, -2) == 0) { // -2 is the "not yet computed" indicator
 				gamma = Double.MAX_VALUE;
 			}
 			vega = readDouble();
-			if (Math.abs(vega) > 1) { // -2 is the "not yet computed" indicator
+			if (Double.compare(vega,  -2) == 0) { // -2 is the "not yet computed" indicator
 				vega = Double.MAX_VALUE;
 			}
 			theta = readDouble();
-			if (Math.abs(theta) > 1) { // -2 is the "not yet computed" indicator
+			if (Double.compare(theta, -2) == 0) { // -2 is the "not yet computed" indicator
 				theta = Double.MAX_VALUE;
 			}
 			undPrice = readDouble();
-			if (undPrice < 0) { // -1 is the "not yet computed" indicator
+			if (Double.compare(undPrice, -1) == 0) { // -1 is the "not yet computed" indicator
 				undPrice = Double.MAX_VALUE;
 			}
 		}

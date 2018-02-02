@@ -387,14 +387,14 @@ Contract ContractSamples::WrongContract(){
 Contract ContractSamples::FuturesOnOptions(){
 	//! [fopcontract]
 	Contract contract;
-	contract.symbol = "SPX";
+	contract.symbol = "ES";
 	contract.secType = "FOP";
 	contract.exchange = "GLOBEX";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "20180315";
-	contract.strike = 1025;
+	contract.lastTradeDateOrContractMonth = "20180316";
+	contract.strike = 2800;
 	contract.right = "C";
-	contract.multiplier = "250";
+	contract.multiplier = "50";
 	//! [fopcontract]
 	return contract;
 }

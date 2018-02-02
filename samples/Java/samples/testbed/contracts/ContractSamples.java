@@ -292,14 +292,14 @@ public class ContractSamples {
 	public static Contract FuturesOnOptions() {
 		//! [fopcontract]
 		Contract contract = new Contract();
-		contract.symbol("SPX");
+		contract.symbol("ES");
 		contract.secType("FOP");
 		contract.currency("USD");
 		contract.exchange("GLOBEX");
-		contract.lastTradeDateOrContractMonth("20180315");
+		contract.lastTradeDateOrContractMonth("20180316");
 		contract.right("C");
-		contract.strike(1025);
-		contract.multiplier("250");
+		contract.strike(2800);
+		contract.multiplier("50");
 		//! [fopcontract]
 		return contract;
 	}

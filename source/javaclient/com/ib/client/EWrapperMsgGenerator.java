@@ -29,14 +29,14 @@ public class EWrapperMsgGenerator {
     		double delta, double optPrice, double pvDividend,
     		double gamma, double vega, double theta, double undPrice) {
 		return "id=" + tickerId + "  " + TickType.getField( field) +
-            ": vol = " + ((impliedVol >= 0 && impliedVol != Double.MAX_VALUE) ? Double.toString(impliedVol) : "N/A") +
-            " delta = " + ((Math.abs(delta) <= 1) ? Double.toString(delta) : "N/A") +
-            " gamma = " + ((Math.abs(gamma) <= 1) ? Double.toString(gamma) : "N/A") +
-            " vega = " + ((Math.abs(vega) <= 1) ? Double.toString(vega) : "N/A") +
-            " theta = " + ((Math.abs(theta) <= 1) ? Double.toString(theta) : "N/A") +
-            " optPrice = " + ((optPrice >= 0 && optPrice != Double.MAX_VALUE) ? Double.toString(optPrice) : "N/A") +
-            " pvDividend = " + ((pvDividend >= 0 && pvDividend != Double.MAX_VALUE) ? Double.toString(pvDividend) : "N/A") +
-            " undPrice = " + ((undPrice >= 0 && undPrice != Double.MAX_VALUE) ? Double.toString(undPrice) : "N/A");
+            ": impliedVol = " + Util.maxDoubleToString(impliedVol) +
+            " delta = " + Util.maxDoubleToString(delta) +
+            " gamma = " + Util.maxDoubleToString(gamma) +
+            " vega = " + Util.maxDoubleToString(vega) +
+            " theta = " + Util.maxDoubleToString(theta) +
+            " optPrice = " + Util.maxDoubleToString(optPrice) +
+            " pvDividend = " + Util.maxDoubleToString(pvDividend) +
+            " undPrice = " + Util.maxDoubleToString(undPrice);
     }
     
     public static String tickGeneric(int tickerId, int tickType, double value) {

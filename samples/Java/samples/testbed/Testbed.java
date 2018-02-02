@@ -48,7 +48,8 @@ public class Testbed {
 		Thread.sleep(1000);
 
 		//tickByTickOperations(wrapper.getClient());
-		tickDataOperations(wrapper.getClient());
+		//tickDataOperations(wrapper.getClient());
+		tickOptionComputations(wrapper.getClient());
 		//orderOperations(wrapper.getClient(), wrapper.getCurrentOrderId());
 		//contractOperations(wrapper.getClient());
 		//hedgeSample(wrapper.getClient(), wrapper.getCurrentOrderId());
@@ -287,6 +288,20 @@ public class Testbed {
 		client.cancelMktData(1016);
 		//! [cancelmktdata]
 		
+	}
+	
+	private static void tickOptionComputations(EClientSocket client) throws InterruptedException {
+		
+		/*** Requesting real time market data ***/
+		//! [reqmktdata]
+		client.reqMktData(2001, ContractSamples.FuturesOnOptions(), "", false, false, null);
+		//! [reqmktdata]
+		
+		Thread.sleep(10000);
+		
+		//! [cancelmktdata]
+		client.cancelMktData(2001);
+		//! [cancelmktdata]
 	}
 	
 	private static void historicalDataRequests(EClientSocket client) throws InterruptedException {
