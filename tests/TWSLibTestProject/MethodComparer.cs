@@ -13,11 +13,19 @@ namespace OrderConditionsParsingTestProject
     {
         public bool Equals(MethodInfo x, MethodInfo y)
         {
-            return x + "" == MapSignature(y + "") ||
-                x.Name == MapName(y.Name) &&
-                x.ReturnParameter.ParameterType == y.ReturnParameter.ParameterType &&
-                x.GetParameters().Select(p => p.ParameterType).Except(y.GetParameters().Select(p => MapType(p.ParameterType))).Count() == 0;
+            return IsException(y)
+                || x + "" == MapSignature(y + "") 
+                || x.Name == MapName(y.Name) 
+                && x.ReturnParameter.ParameterType == y.ReturnParameter.ParameterType 
+                && !x.GetParameters().Select(p => MapType(p.ParameterType)).SequenceEqual(y.GetParameters().Select(p => p.ParameterType));
         }
+
+        private bool IsException(MethodInfo y)
+        {
+            return exceptionMethodNames.Contains(y.Name);
+        }
+
+        static string[] exceptionMethodNames = { "error", "historicalDataUpdate" };
 
         private static string MapName(string p)
         {
@@ -31,11 +39,18 @@ namespace OrderConditionsParsingTestProject
 
         static Dictionary<string, string> signatureMap = new Dictionary<string, string>()
         {
-            { "Void error(System.Exception)", "Void errMsg(Int32, Int32, System.String)" },
-            { "Void error(System.String)", "Void errMsg(Int32, Int32, System.String)" },
-            { "Void historicalData(Int32, IBApi.Bar)", "Void historicalData(Int32, System.String, Double, Double, Double, Double, Int32, Int32, Double, Int32)" },
-            { "Void historicalDataUpdate(Int32, IBApi.Bar)", "Void historicalData(Int32, System.String, Double, Double, Double, Double, Int32, Int32, Double, Int32)" },
-            { "Void updateNewsBulletin(Int32, Int32, System.String, System.String)", "Void updateNewsBulletin(Int16, Int16, System.String, System.String)" }
+            { "Void historicalData(Int32, IBApi.Bar)", 
+              "Void historicalData(Int32, System.String, Double, Double, Double, Double, Int32, Int32, Double, Int32)" },
+            { "Void historicalDataUpdate(Int32, IBApi.Bar)", 
+              "Void historicalData(Int32, System.String, Double, Double, Double, Double, Int32, Int32, Double, Int32)" },
+            { "Void updateNewsBulletin(Int32, Int32, System.String, System.String)", 
+              "Void updateNewsBulletin(Int16, Int16, System.String, System.String)" },
+            { "Void tickByTickAllLast(Int32, Int32, Int64, Double, Int32, IBApi.TickAttrib, System.String, System.String)",
+              "Void tickByTickAllLast(Int32, Int32, System.String, Double, Int32, TWSLib.ITickAttrib, System.String, System.String)" },
+            { "Void tickByTickBidAsk(Int32, Int64, Double, Double, Int32, Int32, IBApi.TickAttrib)",
+              "Void tickByTickBidAsk(Int32, System.String, Double, Double, Int32, Int32, TWSLib.ITickAttrib)" },
+            { "Void tickByTickMidPoint(Int32, Int64, Double)",
+              "Void tickByTickMidPoint(Int32, System.String, Double)"}
         };
 
         private static string MapSignature(string signature)
@@ -72,7 +87,6 @@ namespace OrderConditionsParsingTestProject
 
         static Dictionary<string, string> eventsInterfaceMethodNameMap = new Dictionary<string, string>()
         {
-            { "error", "errMsg" },
             { "openOrder", "openOrderEx" },
             { "bondContractDetails", "bondContractDetailsEx" },
             { "contractDetails", "contractDetailsEx" },
