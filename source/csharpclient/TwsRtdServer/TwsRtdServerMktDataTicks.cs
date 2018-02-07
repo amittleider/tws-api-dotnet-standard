@@ -78,6 +78,7 @@ namespace TwsRtdServer
         private int m_delayed_volume = 0;
         private double m_delayed_close = 0.0;
         private double m_delayed_open = 0.0;
+        private string m_delayed_lastTimestamp = "";
 
         // constructor
         public TwsRtdServerMktDataTicks(){
@@ -285,6 +286,9 @@ namespace TwsRtdServer
                     break;
                 case TwsRtdServerData.DELAYED_OPEN:
                     m_delayed_open = (double)value;
+                    break;
+                case TwsRtdServerData.DELAYED_LAST_TIMESTAMP:
+                    m_delayed_lastTimestamp = (string)value;
                     break;
             }
         }
@@ -577,6 +581,10 @@ namespace TwsRtdServer
                 case TwsRtdServerData.DELAYED_OPEN:
                     value = m_delayed_open;
                     break;
+                case TwsRtdServerData.DELAYED_LAST_TIMESTAMP:
+                    value = m_delayed_lastTimestamp;
+                    break;
+
             }
             return value;
         }

@@ -94,6 +94,7 @@ Friend Class Utils
         LastRegTime
         FuturesOpenInterest
         AvgOptVolume
+        DelayedLastTimestamp
         Unknown
     End Enum
 

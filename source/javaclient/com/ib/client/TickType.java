@@ -93,6 +93,7 @@ public enum TickType {
     LAST_REG_TIME(85, "lastRegTime"),
     FUTURES_OPEN_INTEREST(86, "futuresOpenInterest"),
     AVG_OPT_VOLUME(87, "avgOptVolume"),
+    DELAYED_LAST_TIMESTAMP(88, "delayedLastTimestamp"),
 
     UNKNOWN( Integer.MAX_VALUE , "unknown" );
 
