@@ -159,6 +159,7 @@ namespace TwsRtdServer{
         public const string DELAYED_VOLUME = "DELAYEDVOLUME";
         public const string DELAYED_CLOSE = "DELAYEDCLOSE";
         public const string DELAYED_OPEN = "DELAYEDOPEN";
+        public const string DELAYED_LAST_TIMESTAMP = "DELAYEDLASTTIMESTAMP";
 
         // Option Topics
         public const string BID_IMPLIED_VOL = "BIDIMPLIEDVOL";
@@ -266,7 +267,7 @@ namespace TwsRtdServer{
 
             // delayed topics
             DELAYED_BID, DELAYED_ASK, DELAYED_LAST, DELAYED_BID_SIZE, DELAYED_ASK_SIZE, DELAYED_LAST_SIZE, 
-            DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN
+            DELAYED_HIGH, DELAYED_LOW, DELAYED_VOLUME, DELAYED_CLOSE, DELAYED_OPEN, DELAYED_LAST_TIMESTAMP
         };
 
         private static string[] m_allowedDelayedTopics = new string[]{ 
@@ -352,6 +353,7 @@ namespace TwsRtdServer{
             { 74, DELAYED_VOLUME },
             { 75, DELAYED_CLOSE },
             { 76, DELAYED_OPEN },
+            { 88, DELAYED_LAST_TIMESTAMP },
        
             { 78, GEN_TICK_CREDITMAN_MARK_PRICE },
             { 79, GEN_TICK_CREDITMAN_SLOW_MARK_PRICE },

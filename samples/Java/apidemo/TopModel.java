@@ -276,6 +276,7 @@ class TopModel extends AbstractTableModel {
 		@Override public void tickString(TickType tickType, String value) {
 			switch( tickType) {
 				case LAST_TIMESTAMP:
+				case DELAYED_LAST_TIMESTAMP:
 					m_lastTime = Long.parseLong( value) * 1000;
 					break;
                 default: break; 
