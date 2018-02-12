@@ -100,6 +100,8 @@ TickTypeEnum = Enum("BID_SIZE",
                 "DELAYED_MODEL_OPTION",
                 "LAST_EXCH",
                 "LAST_REG_TIME",
+                "FUTURES_OPEN_INTEREST",
+                "AVG_OPT_VOLUME",
                 "NOT_SET")
 
 

@@ -251,7 +251,7 @@ class TestApp(TestWrapper, TestClient):
             #self.reqGlobalCancel()
             #self.marketDataType_req()
             #self.accountOperations_req()
-            #self.tickDataOperations_req()
+            self.tickDataOperations_req()
             #self.marketDepthOperations_req()
             #self.realTimeBars_req()
             #self.historicalDataRequests_req()
@@ -268,7 +268,7 @@ class TestApp(TestWrapper, TestClient):
             #self.marketRuleOperations()
             #self.pnlOperations()
             #self.historicalTicksRequests_req()
-            self.tickByTickOperations()
+            #self.tickByTickOperations()
             print("Executing requests ... finished")
 
     def keyboardInterrupt(self):
@@ -628,17 +628,17 @@ class TestApp(TestWrapper, TestClient):
         # Requesting real time market data
 
         # ! [reqmktdata]
-        self.reqMktData(1101, ContractSamples.USStockAtSmart(), "", False, False, [])
+        self.reqMktData(1000, ContractSamples.USStockAtSmart(), "", False, False, [])
         self.reqMktData(1001, ContractSamples.StockComboContract(), "", True, False, [])
         # ! [reqmktdata]
 
         # ! [reqmktdata_snapshot]
-        self.reqMktData(1003, ContractSamples.FutureComboContract(), "", False, False, [])
+        self.reqMktData(1002, ContractSamples.FutureComboContract(), "", False, False, [])
         # ! [reqmktdata_snapshot]
 
         # ! [regulatorysnapshot]
         # Each regulatory snapshot request incurs a 0.01 USD fee
-        self.reqMktData(1014, ContractSamples.USStock(), "", False, True, [])
+        self.reqMktData(1003, ContractSamples.USStock(), "", False, True, [])
         # ! [regulatorysnapshot]
 
         # ! [reqmktdata_genticks]
@@ -668,7 +668,7 @@ class TestApp(TestWrapper, TestClient):
 
         # ! [reqoptiondatagenticks]
         # Requesting data for an option contract will return the greek values
-        self.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), "", False, False, [])
+        self.reqMktData(1013, ContractSamples.OptionWithLocalSymbol(), "", False, False, [])
         # ! [reqoptiondatagenticks]
 
         # ! [reqsmartcomponents]
@@ -676,15 +676,41 @@ class TestApp(TestWrapper, TestClient):
         self.reqSmartComponents(1013, "a6")
         # ! [reqsmartcomponents]
 
+        # ! [reqfuturesopeninterest]
+        self.reqMktData(1014, ContractSamples.SimpleFuture(), "mdoff,588", False, False, [])
+        # ! [reqfuturesopeninterest]
+
+        # ! [reqmktdatapreopenbidask]
+        self.reqMktData(1015, ContractSamples.SimpleFuture(), "", False, False, [])
+        # ! [reqmktdatapreopenbidask]
+
+        # ! [reqavgoptvolume]
+        self.reqMktData(1016, ContractSamples.USStockAtSmart(), "mdoff,105", False, False, [])
+        # ! [reqavgoptvolume]
+
     @printWhenExecuting
     def tickDataOperations_cancel(self):
         # Canceling the market data subscription
         # ! [cancelmktdata]
-        self.cancelMktData(1101)
+        self.cancelMktData(1000)
         self.cancelMktData(1001)
         self.cancelMktData(1002)
         self.cancelMktData(1003)
         # ! [cancelmktdata]
+
+        self.cancelMktData(1004)
+        self.cancelMktData(1005)
+        self.cancelMktData(1006)
+        self.cancelMktData(1007)
+        self.cancelMktData(1008)
+        self.cancelMktData(1009)
+        self.cancelMktData(1010)
+        self.cancelMktData(1011)
+        self.cancelMktData(1012)
+        self.cancelMktData(1013)
+        self.cancelMktData(1014)
+        self.cancelMktData(1015)
+        self.cancelMktData(1016)
 
     @iswrapper
     # ! [tickprice]
@@ -760,10 +786,10 @@ class TestApp(TestWrapper, TestClient):
     def tickByTickOperations(self):
         # Requesting tick-by-tick data (only refresh)
         # ! [reqtickbytick]
-        self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last")
-        self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast")
-        self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk")
-        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint")
+        self.reqTickByTickData(19001, ContractSamples.USStockAtSmart(), "Last", 0, True)
+        self.reqTickByTickData(19002, ContractSamples.USStockAtSmart(), "AllLast", 0, False)
+        self.reqTickByTickData(19003, ContractSamples.USStockAtSmart(), "BidAsk", 0, True)
+        self.reqTickByTickData(19004, ContractSamples.USStockAtSmart(), "MidPoint", 0, False)
         # ! [reqtickbytick]
 
         time.sleep(1)
@@ -774,6 +800,23 @@ class TestApp(TestWrapper, TestClient):
         self.cancelTickByTickData(19003)
         self.cancelTickByTickData(19004)
         # ! [canceltickbytick]
+
+        # Requesting tick-by-tick data (refresh + historicalticks)
+        # ! [reqtickbytickwithhist]
+        self.reqTickByTickData(19001, ContractSamples.EuropeanStock(), "Last", 10, False)
+        self.reqTickByTickData(19002, ContractSamples.EuropeanStock(), "AllLast", 10, False)
+        self.reqTickByTickData(19003, ContractSamples.EuropeanStock(), "BidAsk", 10, False)
+        self.reqTickByTickData(19004, ContractSamples.EurGbpFx(), "MidPoint", 10, True)
+        # ! [reqtickbytickwithhist]
+
+        time.sleep(1)
+
+        # ! [canceltickbytickwithhist]
+        self.cancelTickByTickData(19005)
+        self.cancelTickByTickData(19006)
+        self.cancelTickByTickData(19007)
+        self.cancelTickByTickData(19008)
+        # ! [canceltickbytickwithhist]
 
     @iswrapper
     def tickByTickAllLast(self, reqId: int, tickType: int, time: int, price: float,

@@ -514,7 +514,8 @@ class EClient(object):
 
         self.sendMsg(msg)
 
-    def reqTickByTickData(self, reqId: int, contract: Contract, tickType: str):
+    def reqTickByTickData(self, reqId: int, contract: Contract, tickType: str,
+                          numberOfTicks: int, ignoreSize: bool):
         self.logRequest(current_fn_name(), vars())
 
         if not self.isConnected():
@@ -524,6 +525,12 @@ class EClient(object):
         if self.serverVersion() < MIN_SERVER_VER_TICK_BY_TICK:
             self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
                                " It does not support tick-by-tick data requests.")
+            return
+
+        if self.serverVersion() < MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE:
+            self.wrapper.error(NO_VALID_ID, UPDATE_TWS.code(), UPDATE_TWS.msg() +
+                               " It does not support ignoreSize and numberOfTicks parameters "
+                               "in tick-by-tick data requests.")
             return
 
         msg = make_field(OUT.REQ_TICK_BY_TICK_DATA)\
@@ -541,6 +548,10 @@ class EClient(object):
             + make_field(contract.localSymbol) \
             + make_field(contract.tradingClass) \
             + make_field(tickType)
+
+        if self.serverVersion() >= MIN_SERVER_VER_TICK_BY_TICK_IGNORE_SIZE:
+            msg += make_field(numberOfTicks) \
+                + make_field(ignoreSize)
 
         self.sendMsg(msg)
 
