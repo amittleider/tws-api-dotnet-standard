@@ -186,23 +186,31 @@ namespace IBApi
         /**
          * @brief Closes the socket connection and terminates its thread.
          */
-        public void eDisconnect()
+        public virtual void eDisconnect(bool resetState = true)
         {
             if (socketTransport == null)
             {
                 return;
             }
 
-            isConnected = false;
-            serverVersion = 0;
-            this.clientId = -1;
-            this.extraAuth = false;
-            this.optionalCapabilities = "";
+
+            if (resetState)
+            {
+                isConnected = false;
+                this.extraAuth = false;
+                this.clientId = -1;
+                serverVersion = 0;
+                this.optionalCapabilities = "";
+            }
+
 
             if (tcpStream != null)
                 tcpStream.Close();
 
-            wrapper.connectionClosed();
+            if (resetState)
+            {
+                wrapper.connectionClosed();
+            }
         }
 
         /**

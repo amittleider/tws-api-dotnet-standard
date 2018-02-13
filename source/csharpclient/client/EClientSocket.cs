@@ -128,6 +128,7 @@ namespace IBApi
         }
 
         private EReaderSignal eReaderSignal;
+        private int redirectCount;
 
         protected override uint prepareBuffer(BinaryWriter paramsList)
         {
@@ -172,10 +173,30 @@ namespace IBApi
                 if (!int.TryParse(srv[1], out port))
                     throw new EClientException(EClientErrors.BAD_MESSAGE);
 
-            eDisconnect();
+
+            ++redirectCount;
+
+            if (redirectCount > Constants.REDIRECT_COUNT_MAX)
+            {
+                eDisconnect();
+                wrapper.error(clientId, EClientErrors.CONNECT_FAIL.Code, "Redirect count exceeded");
+                return;
+            }
+
+            eDisconnect(false);
             eConnect(srv[0], port, clientId, extraAuth);
 
             return;
+        }
+
+        public override void eDisconnect(bool resetState = true)
+        {
+            if (resetState)
+            {
+                redirectCount = 0;
+            }
+
+            base.eDisconnect(resetState);
         }
     }
 }
