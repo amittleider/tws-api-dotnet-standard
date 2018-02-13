@@ -13,6 +13,7 @@ namespace IBApi
         public const int ClientVersion = 66;//API v. 9.71
         public const byte EOL = 0;
         public const string BagSecType = "BAG";
+        public const int REDIRECT_COUNT_MAX = 2;
 
         public const int FaGroups = 1;
         public const int FaProfiles = 2;
