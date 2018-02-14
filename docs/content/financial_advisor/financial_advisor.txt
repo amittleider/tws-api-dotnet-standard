@@ -30,7 +30,7 @@
 	
 	<b>PctChange</b>
 	
-	<em>Do not specify an order size.</em> Since the quantity is calculated by the system, the order size is displayed in the Quantity field after the order is acknowledged. This method increases or decreases an already existing position. Positive percents will increase a position, negative percents will decrease a position.
+	<em>Do not specify an order size.</em> Since the quantity is calculated by the system, the order size is displayed in the Quantity field after the order is acknowledged. This method increases or decreases an already existing position. Positive percents will increase a position, negative percents will decrease a position. For exmaple, to fully close out a position, you just need to specify percentage to be -100.
 	
 	<table>
 		<tr><th><b>BUY ORDER</b></th><td><em>Positive Percent</em></td><td><em>Negative Percent</em></td></tr>
