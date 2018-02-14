@@ -150,11 +150,11 @@ Market data related to options</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">    <span class="comment">//Requesting data for an option contract will return the greek values</span></div>
-<div class="line">    m_pClient-&gt;reqMktData(1005, ContractSamples::USOptionContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
+<div class="line">    m_pClient-&gt;reqMktData(1013, ContractSamples::USOptionContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Requesting data for an option contract will return the greek values</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1002, ContractSamples.OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1013, ContractSamples.OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The Implied Volatility of an underlying based on its current option prices is returned in tick 24. See <a class="el" href="tick_types.html">Available Tick Types</a></p>
@@ -167,7 +167,7 @@ Calculating option prices and historical volatility</h1>
 <div class="fragment"><div class="line">            client.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85);</div>
+<div class="fragment"><div class="line">        client.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="stringliteral">&#39;** Calculating implied volatility ***</span></div>
@@ -176,7 +176,7 @@ Calculating option prices and historical volatility</h1>
 <div class="line">        client.cancelCalculateImpliedVolatility(5001)</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    m_pClient-&gt;calculateImpliedVolatility(5001, ContractSamples::NormalOption(), 5, 85);</div>
+<div class="fragment"><div class="line">    m_pClient-&gt;calculateImpliedVolatility(5001, ContractSamples::NormalOption(), 5, 85, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.calculateImpliedVolatility(5001, ContractSamples.OptionAtBOX(), 5, 85, [])</div>
@@ -188,7 +188,7 @@ Calculating option prices and historical volatility</h1>
 <div class="fragment"><div class="line">            client.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85, null);</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">        client.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85);</div>
+<div class="fragment"><div class="line">        client.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85, null);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        <span class="stringliteral">&#39;** Calculating option&#39;</span>s price ***</div>
@@ -197,7 +197,7 @@ Calculating option prices and historical volatility</h1>
 <div class="line">        client.cancelCalculateOptionPrice(5002)</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line">    m_pClient-&gt;calculateOptionPrice(5002, ContractSamples::NormalOption(), 0.22, 85);</div>
+<div class="fragment"><div class="line">    m_pClient-&gt;calculateOptionPrice(5002, ContractSamples::NormalOption(), 0.22, 85, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.calculateOptionPrice(5002, ContractSamples.OptionAtBOX(), 0.22, 85, [])</div>

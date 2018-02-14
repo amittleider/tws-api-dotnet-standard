@@ -176,7 +176,7 @@ BroadTape News List</h1>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keywordtype">void</span> contractDetails(<span class="keywordtype">int</span> reqId, ContractDetails contractDetails)</div>
 <div class="line">        {</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ContractDetails begin. ReqId: &quot;</span> + reqId);</div>
-<div class="line">            printContractMsg(contractDetails.Summary);</div>
+<div class="line">            printContractMsg(contractDetails.Contract);</div>
 <div class="line">            printContractDetailsMsg(contractDetails);</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ContractDetails end. ReqId: &quot;</span> + reqId);</div>
 <div class="line">        }</div>
@@ -201,7 +201,7 @@ BroadTape News List</h1>
 <div class="line">        Implements EWrapper</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line">        Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails</div>
 <div class="line">            Console.WriteLine(<span class="stringliteral">&quot;ContractDetails begin. ReqId: &quot;</span> &amp; reqId)</div>
-<div class="line">            printContractMsg(contractDetails.Summary)</div>
+<div class="line">            printContractMsg(contractDetails.Contract)</div>
 <div class="line">            printContractDetailsMsg(contractDetails)</div>
 <div class="line">            Console.WriteLine(&quot;ContractDetails end. ReqId: &quot; &amp; reqId)</div>
 <div class="line">        End Sub</div>
@@ -214,7 +214,7 @@ BroadTape News List</h1>
 <div class="line">{</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><span class="keywordtype">void</span> TestCppClient::contractDetails( <span class="keywordtype">int</span> reqId, <span class="keyword">const</span> ContractDetails&amp; contractDetails) {</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ContractDetails begin. ReqId: %d\n&quot;</span>, reqId);</div>
-<div class="line">    printContractMsg(contractDetails.summary);</div>
+<div class="line">    printContractMsg(contractDetails.contract);</div>
 <div class="line">    printContractDetailsMsg(contractDetails);</div>
 <div class="line">    printf( <span class="stringliteral">&quot;ContractDetails end. ReqId: %d\n&quot;</span>, reqId);</div>
 <div class="line">}</div>
@@ -226,7 +226,7 @@ BroadTape News List</h1>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">class </span>TestWrapper(wrapper.EWrapper):</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetails(self, reqId: int, contractDetails: ContractDetails):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetails(reqId, contractDetails)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        printinstance(contractDetails.summary)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        printinstance(contractDetails.contract)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 </div><!-- fragment --> ... <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;    <span class="keyword">def </span>contractDetailsEnd(self, reqId: int):</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        super().contractDetailsEnd(reqId)</div>

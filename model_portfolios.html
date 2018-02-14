@@ -143,10 +143,10 @@ $(document).ready(function(){initNavTree('model_portfolios.html','');});
 <p>To place an order to a model, the <a class="el" href="classIBApi_1_1Order.html#a031f8f6bc60928a3f0f94b7ba6f3b927">IBApi.Order.ModelCode</a> field must be set accordingly, for example:</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order modelOrder = OrderSamples.LimitOrder(&quot;BUY&quot;, 200, 100);</span></div>
-<div class="line">            <span class="comment">//modelOrder.Account = &quot;DF12345&quot;;  // master FA account number</span></div>
-<div class="line">            <span class="comment">//modelOrder.ModelCode = &quot;Technology&quot;; // model for tech stocks first created in TWS</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);</span></div>
+<div class="fragment"><div class="line">            Order modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
+<div class="line">            modelOrder.Account = <span class="stringliteral">&quot;DF12345&quot;</span>;  <span class="comment">// master FA account number</span></div>
+<div class="line">            modelOrder.ModelCode = <span class="stringliteral">&quot;Technology&quot;</span>; <span class="comment">// model for tech stocks first created in TWS</span></div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
